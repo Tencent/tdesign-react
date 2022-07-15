@@ -26,6 +26,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     firstDayOfWeek,
     presets,
     timePickerProps,
+    presetsPlacement,
     onPick,
   } = props;
 
@@ -59,15 +60,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   });
 
   useEffect(() => {
-    if (!enableTimePicker) return;
-
     // 面板展开重置数据
     if (popupVisible) {
+      setYear(dayjs(value || new Date()).year());
+      setMonth(dayjs(value || new Date()).month());
       setCacheValue(formatDate(value || new Date()));
       setTime(formatTime(value || new Date()));
     }
     // eslint-disable-next-line
-  }, [value, popupVisible, enableTimePicker]);
+  }, [value, popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -100,18 +101,18 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   }
 
   // 头部快速切换
-  function onJumperClick(flag: number) {
+  function onJumperClick({ trigger }) {
     const monthCountMap = { date: 1, month: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
     const current = new Date(year, month);
 
     let next = null;
-    if (flag === -1) {
+    if (trigger === 'prev') {
       next = subtractMonth(current, monthCount);
-    } else if (flag === 0) {
+    } else if (trigger === 'current') {
       next = new Date();
-    } else if (flag === 1) {
+    } else if (trigger === 'next') {
       next = addMonth(current, monthCount);
     }
 
@@ -186,6 +187,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     firstDayOfWeek,
     timePickerProps,
     enableTimePicker,
+    presetsPlacement,
+    popupVisible,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,

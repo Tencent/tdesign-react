@@ -1,27 +1,28 @@
 import React, { useState, useRef } from 'react';
-import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox } from 'tdesign-react';
-import {
-  MoveIcon,
-  ChevronRightIcon,
-  ChevronDownIcon,
-} from 'tdesign-icons-react';
+import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading } from 'tdesign-react';
+import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
+import { useMemo } from 'react';
+
+function getObject(i, currentPage) {
+  return {
+    id: i,
+    key: `我是 ${i}_${currentPage} 号`,
+    platform: i % 2 === 0 ? '共有' : '私有',
+    type: ['String', 'Number', 'Array', 'Object'][i % 4],
+    default: ['-', '0', '[]', '{}'][i % 4],
+    detail: {
+      position: `读取 ${i} 个数据的嵌套信息值`,
+    },
+    needed: i % 4 === 0 ? '是' : '否',
+    description: '数据源',
+  };
+}
 
 function getData(currentPage = 1) {
   const data = [];
   const pageInfo = `第 ${currentPage} 页`;
   for (let i = 0; i < 5; i++) {
-    const obj = {
-      id: i,
-      key: `我是 ${i}_${currentPage} 号（${pageInfo}）`,
-      platform: i % 2 === 0 ? '共有' : '私有',
-      type: ['String', 'Number', 'Array', 'Object'][i % 4],
-      default: ['-', '0', '[]', '{}'][i % 4],
-      detail: {
-        position: `读取 ${i} 个数据的嵌套信息值`,
-      },
-      needed: i % 4 === 0 ? '是' : '否',
-      description: '数据源',
-    };
+    const obj = getObject(i, currentPage);
     // 第一行不设置子节点
     obj.list = new Array(2).fill(null).map((t, j) => {
       const secondIndex = 100 * j + (i + 1) * 10;
@@ -46,13 +47,27 @@ function getData(currentPage = 1) {
     }
     data.push(obj);
   }
+  // 懒加载1
+  data.push({
+    ...getObject(66666, currentPage),
+    /** 如果子节点为懒加载，则初始值设置为 true */
+    list: true,
+    key: '我是懒加载节点 66666，点我体验',
+  });
+  // 懒加载2
+  data.push({
+    ...getObject(88888, currentPage),
+    /** 如果子节点为懒加载，则初始值设置为 true */
+    list: true,
+    key: '我是懒加载节点 88888，点我体验 ',
+  });
   return data;
 }
 
 export default function TableTree() {
-
   const table = useRef(null);
   const [data, setData] = useState(getData());
+  const [lazyLoadingData, setLazyLoadingData] = useState(null);
   const [expandAll, setExpandAll] = useState(false);
   const [customTreeExpandAndFoldIcon, setCustomTreeExpandAndFoldIcon] = useState(false);
   const [pagination, setPagination] = useState({
@@ -60,12 +75,12 @@ export default function TableTree() {
     pageSize: 10,
     total: 100,
   });
-  
+
   const setData1 = () => {
     // 需要更新数据地址空间
     setData(getData());
   };
-  
+
   const onEditClick = (row) => {
     const newData = {
       ...row,
@@ -81,25 +96,48 @@ export default function TableTree() {
     table.current.remove(row.key);
     MessagePlugin.success('删除成功');
   };
-  
+
   const onLookUp = (row) => {
     const allRowData = table.current.getData(row.key);
     const message = '当前行全部数据，包含节点路径、父节点、子节点、是否展开、是否禁用等';
     MessagePlugin.success(`打开控制台查看${message}`);
     console.log(`${message}：`, allRowData);
   };
-  
+
   const appendTo = (row) => {
-    console.log(table.current);
-    const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
+    const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
     table.current.appendTo(row.key, {
-      id: randomKey,
-      key: `我是 ${randomKey} 号`,
+      id: randomKey1,
+      key: `我是 ${randomKey1} 号`,
       platform: '私有',
       type: 'Number',
     });
-    MessagePlugin.success(`已插入子节点我是 ${randomKey} 号，请展开查看`);
+    MessagePlugin.success(`已插入子节点我是 ${randomKey1} 号，请展开查看`);
+
+    // 一次性添加多个子节点。示例代码有效，勿删！!!
+    // appendMultipleDataTo(row);
   };
+
+  function appendMultipleDataTo(row) {
+    const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
+    const randomKey2 = Math.round(Math.random() * Math.random() * 1000) + 10000;
+    const newData = [
+      {
+        id: randomKey1,
+        key: `我是 ${randomKey1} 号`,
+        platform: '私有',
+        type: 'Number',
+      },
+      {
+        id: randomKey2,
+        key: `我是 ${randomKey2} 号`,
+        platform: '私有',
+        type: 'Number',
+      },
+    ];
+    table.current.appendTo(row.key, newData);
+    MessagePlugin.success(`已插入子节点我是 ${randomKey1} 和 ${randomKey2} 号，请展开查看`);
+  }
 
   // 当前节点之前，新增兄弟节前
   const insertBefore = (row) => {
@@ -124,7 +162,7 @@ export default function TableTree() {
     });
     MessagePlugin.success(`已插入子节点我是 ${randomKey} 号，请展开查看`);
   };
-  
+
   const columns = [
     // 实验中
     {
@@ -177,13 +215,15 @@ export default function TableTree() {
             查看
           </Button>
           <Popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
-            <Button variant="text" style={{ padding: '0 8px' }}>删除</Button>
+            <Button variant="text" style={{ padding: '0 8px' }}>
+              删除
+            </Button>
           </Popconfirm>
         </div>
       ),
     },
   ];
-  
+
   const onRowToggle = () => {
     const rowIds = [
       '我是 1_1 号（第 1 页）',
@@ -196,7 +236,7 @@ export default function TableTree() {
       const rowData = table.current.getData(id);
       table.current.toggleExpandData(rowData);
       // 或者
-      // this.$refs.table.toggleExpandData({ rowIndex: rowData.rowIndex, row: rowData.row });
+      // table.current.toggleExpandData({ rowIndex: rowData.rowIndex, row: rowData.row });
     });
   };
 
@@ -227,33 +267,73 @@ export default function TableTree() {
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');
   };
 
-  const renderTreeExpandAndFoldIcon = ({ type }) => (
-    type === 'expand' ? <ChevronDownIcon /> : <ChevronRightIcon />
-  );
+  const renderTreeExpandAndFoldIcon = ({ type }) => (type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />);
 
   const onPageChange = (pageInfo) => {
     setPagination({ ...pagination, ...pageInfo });
     setData(getData(pageInfo.current));
   };
 
+  // 懒加载图标渲染
+  function lazyLoadingTreeIconRender(params) {
+    const { type, row } = params;
+    if (lazyLoadingData?.id === row?.id) {
+      return <Loading size="14px" />;
+    }
+    return type === 'expand' ? <AddRectangleIcon /> : <MinusRectangleIcon />;
+  }
+
+  const treeExpandIconRender = useMemo(() => {
+    // 懒加载图标渲染
+    if (lazyLoadingData) return lazyLoadingTreeIconRender;
+    // 自定义展开图标
+    if (customTreeExpandAndFoldIcon) return renderTreeExpandAndFoldIcon;
+    return undefined;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lazyLoadingData, customTreeExpandAndFoldIcon]);
+
+  function onTreeExpandChange(context) {
+    console.log(context.rowState.expanded ? '展开' : '收起', context);
+    /**
+     * 如果是懒加载，请确认自己完成了以下几个步骤
+     * 1. 提前设置 children 值为 true；
+     * 2. 在 onTreeExpandChange 事件中处理异步数据；
+     * 3. 自定义展开图标渲染 lazyLoadingTreeIconRender
+     */
+    if (context.row.list === true) {
+      setLazyLoadingData(context.row);
+      const timer = setTimeout(() => {
+        appendMultipleDataTo(context.row);
+        setLazyLoadingData(null);
+        clearTimeout(timer);
+      }, 200);
+    }
+  }
+
   return (
-    <div>
-      <div>
+    <Space direction="vertical">
+      <Space>
         <Button onClick={appendToRoot}>添加根节点</Button>
-        <Button theme="default" style={{ marginLeft: '16px' }} onClick={setData1}>重置数据</Button>
-        <Button theme="default" style={{ marginLeft: '16px' }} onClick={onRowToggle}>展开/收起可见行</Button>
+        <Button theme="default" style={{ marginLeft: '16px' }} onClick={setData1}>
+          重置数据
+        </Button>
+        <Button theme="default" style={{ marginLeft: '16px' }} onClick={onRowToggle}>
+          展开/收起可见行
+        </Button>
         <Button theme="default" style={{ marginLeft: '16px' }} onClick={onExpandAllToggle}>
           {expandAll ? '收起全部' : '展开全部'}
         </Button>
-        <Button theme="default" style={{ marginLeft: '16px' }} onClick={getTreeNode}>获取全部树形结构</Button>
-      </div>
-      <br />
-      <div>
-        <Checkbox checked={customTreeExpandAndFoldIcon} onChange={setCustomTreeExpandAndFoldIcon} style={{ verticalAlign: 'middle' }}>
-          自定义折叠/展开图标
-        </Checkbox>
-      </div>
-      <br />
+        <Button theme="default" style={{ marginLeft: '16px' }} onClick={getTreeNode}>
+          获取全部树形结构
+        </Button>
+      </Space>
+      <Checkbox
+        checked={customTreeExpandAndFoldIcon}
+        onChange={setCustomTreeExpandAndFoldIcon}
+        style={{ verticalAlign: 'middle' }}
+      >
+        自定义折叠/展开图标
+      </Checkbox>
       {/* <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! --> */}
       {/* treeNodeColumnIndex 定义第几列作为树结点展开列，默认为第一列 --> */}
       {/* defaultExpandAll 默认展开全部，也可通过实例方法 table.current.expandAll() 自由控制展开或收起 */}
@@ -263,10 +343,11 @@ export default function TableTree() {
         data={data}
         columns={columns}
         tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 /** , defaultExpandAll: true */ }}
-        dragSort='row-handler'
-        treeExpandAndFoldIcon={customTreeExpandAndFoldIcon ? renderTreeExpandAndFoldIcon : undefined}
+        dragSort="row-handler"
+        treeExpandAndFoldIcon={treeExpandIconRender}
         pagination={pagination}
         onPageChange={onPageChange}
+        onTreeExpandChange={onTreeExpandChange}
       ></EnhancedTable>
 
       {/* <!-- 第二列展开树结点，缩进为 12px，示例代码有效，勿删 -->
@@ -279,6 +360,6 @@ export default function TableTree() {
         columns={columns}
         tree={{ indent: 12, treeNodeColumnIndex: 1, childrenKey: 'list', defaultExpandAll: true }}
       ></EnhancedTable> */}
-    </div>
-  )
+    </Space>
+  );
 }

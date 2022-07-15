@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { InputAdornment, Button, Input, Tree, Form, Switch } from 'tdesign-react';
+import { InputAdornment, Button, Input, Tree, Form, Switch, Space } from 'tdesign-react';
 
 const items = [
   {
@@ -260,7 +260,7 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
+    <Space direction="vertical">
       <h3 className="title">render:</h3>
       <Tree hover expandAll data={items} label={getLabel} operations={renderOperations} />
       <h3 className="title">api:</h3>
@@ -299,44 +299,44 @@ export default () => {
         onActive={handleActive}
       />
       <h3 className="title">api:</h3>
-      <div className="operations">
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getItem}>
-          {'获取 value 为 \'node1\' 的单个节点'}
+      <Space breakLine>
+        <Button theme="primary" onClick={getItem}>
+          {"获取 value 为 'node1' 的单个节点"}
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getAllItems}>
+        <Button theme="primary" onClick={getAllItems}>
           获取所有节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getActiveChildren}>
+        <Button theme="primary" onClick={getActiveChildren}>
           获取高亮节点的所有子节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getAllActived}>
+        <Button theme="primary" onClick={getAllActived}>
           获取所有高亮节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getActiveChecked}>
+        <Button theme="primary" onClick={getActiveChecked}>
           获取高亮节点下的选中节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={() => append()}>
+        <Button theme="primary" onClick={() => append()}>
           插入一个根节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getActiveParent}>
+        <Button theme="primary" onClick={getActiveParent}>
           获取高亮节点的父节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getActiveParents}>
+        <Button theme="primary" onClick={getActiveParents}>
           获取高亮节点的所有父节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getActiveIndex}>
+        <Button theme="primary" onClick={getActiveIndex}>
           获取高亮节点在子节点中的位置
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={setActiveChecked}>
+        <Button theme="primary" onClick={setActiveChecked}>
           选中高亮节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={setActiveExpanded}>
+        <Button theme="primary" onClick={setActiveExpanded}>
           展开高亮节点
         </Button>
-        <Button style={{ margin: '0 10px 10px 0' }} theme="primary" onClick={getActivePlainData}>
+        <Button theme="primary" onClick={getActivePlainData}>
           获取高亮节点与其子节点的数据
         </Button>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 };

@@ -252,99 +252,176 @@ Object {
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-vertical"
+    style="gap: 24px;"
   >
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <a
-        href="https://www.tencent.com/zh-cn"
-        rel="noreferrer"
-        target="_blank"
-      >
-        <span
-          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+        <div
+          class="t-space-item"
         >
-          超链接
-        </span>
-      </a>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <a
+            href="https://www.tencent.com/zh-cn"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              超链接
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
-      >
-        标签二
-      </span>
-      <span
-        class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
-      >
-        标签三
-      </span>
-      <span
-        class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
-      >
-        标签四
-      </span>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签二
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签三
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签四
+          </span>
+        </div>
+      </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--primary t-tag--light t-tag--medium t-tag--square"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--warning t-tag--light t-tag--medium t-tag--square"
-      >
-        标签二
-      </span>
-      <span
-        class="t-tag t-tag--danger t-tag--light t-tag--medium t-tag--square"
-      >
-        标签三
-      </span>
-      <span
-        class="t-tag t-tag--success t-tag--light t-tag--medium t-tag--square"
-      >
-        标签四
-      </span>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--light t-tag--medium t-tag--square"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--warning t-tag--light t-tag--medium t-tag--square"
+          >
+            标签二
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--danger t-tag--light t-tag--medium t-tag--square"
+          >
+            标签三
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--success t-tag--light t-tag--medium t-tag--square"
+          >
+            标签四
+          </span>
+        </div>
+      </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--primary t-tag--outline t-tag--medium t-tag--square"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--warning t-tag--outline t-tag--medium t-tag--square"
-      >
-        标签二
-      </span>
-      <span
-        class="t-tag t-tag--danger t-tag--outline t-tag--medium t-tag--square"
-      >
-        标签三
-      </span>
-      <span
-        class="t-tag t-tag--success t-tag--outline t-tag--medium t-tag--square"
-      >
-        标签四
-      </span>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--outline t-tag--medium t-tag--square"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--warning t-tag--outline t-tag--medium t-tag--square"
+          >
+            标签二
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--danger t-tag--outline t-tag--medium t-tag--square"
+          >
+            标签三
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--success t-tag--outline t-tag--medium t-tag--square"
+          >
+            标签四
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -353,110 +430,132 @@ exports[`base.jsx 1`] = `
 exports[`delete.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-        style="margin-right: 30px;"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        可删除标签0
-        <svg
-          class="t-icon t-icon-close t-tag__icon-close"
-          fill="none"
-          height="1em"
-          viewBox="0 0 16 16"
-          width="1em"
+        <div
+          class="t-space-item"
         >
-          <path
-            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </span>
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-        style="margin-right: 30px;"
-      >
-        <svg
-          class="t-icon t-icon-discount"
-          fill="none"
-          height="1em"
-          viewBox="0 0 16 16"
-          width="1em"
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            style="margin-right: 30px;"
+          >
+            可删除标签0
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <path
-            d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            clip-rule="evenodd"
-            d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
-            fill="currentColor"
-            fill-opacity="0.9"
-            fill-rule="evenodd"
-          />
-        </svg>
-        可删除标签1
-        <svg
-          class="t-icon t-icon-close t-tag__icon-close"
-          fill="none"
-          height="1em"
-          viewBox="0 0 16 16"
-          width="1em"
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            style="margin-right: 30px;"
+          >
+            <svg
+              class="t-icon t-icon-discount"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                clip-rule="evenodd"
+                d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
+                fill="currentColor"
+                fill-opacity="0.9"
+                fill-rule="evenodd"
+              />
+            </svg>
+            可删除标签1
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <path
-            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </span>
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
-        style="margin-right: 30px;"
-      >
-        可删除标签2
-        <svg
-          class="t-icon t-icon-close t-tag__icon-close"
-          fill="none"
-          height="1em"
-          viewBox="0 0 16 16"
-          width="1em"
-        >
-          <path
-            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
+            style="margin-right: 30px;"
+          >
+            可删除标签2
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
     </div>
     <div
-      style="display: flex; cursor: pointer;"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      <div
+        style="display: flex; cursor: pointer;"
       >
-        <svg
-          class="t-icon t-icon-add"
-          fill="none"
-          height="1em"
-          viewBox="0 0 16 16"
-          width="1em"
+        <span
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
         >
-          <path
-            d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-        可添加标签
-      </span>
+          <svg
+            class="t-icon t-icon-add"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+          可添加标签
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -510,23 +609,36 @@ exports[`long-text.jsx 1`] = `
 exports[`selectable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
-    <span
-      class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--checked"
+    <div
+      class="t-space-item"
     >
-      选中
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--check t-tag--medium"
+      <span
+        class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--checked"
+      >
+        选中
+      </span>
+    </div>
+    <div
+      class="t-space-item"
     >
-      未选
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--disabled"
+      <span
+        class="t-tag t-tag--default t-tag--check t-tag--medium"
+      >
+        未选
+      </span>
+    </div>
+    <div
+      class="t-space-item"
     >
-      禁用
-    </span>
+      <span
+        class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--disabled"
+      >
+        禁用
+      </span>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -534,50 +646,90 @@ exports[`selectable.jsx 1`] = `
 exports[`shape.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
-      >
-        标签一
-      </span>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
+          >
+            标签一
+          </span>
+        </div>
+      </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--round"
-        style="margin-right: 5px;"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--round"
-      >
-        标签一
-      </span>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--round"
+            style="margin-right: 5px;"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--round"
+          >
+            标签一
+          </span>
+        </div>
+      </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--mark"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--mark"
-      >
-        标签一
-      </span>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--mark"
+          >
+            标签一
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--mark"
+          >
+            标签一
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -586,49 +738,81 @@ exports[`shape.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
-    <span
-      class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
-      style="margin-right: 10px;"
+    <div
+      class="t-space-item"
     >
-      小型标签
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-      style="margin-right: 10px;"
+      <div
+        class="t-space t-space-align-center t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+          >
+            小型标签
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            默认标签
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+          >
+            大型标签
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
     >
-      默认标签
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
-      style="margin-right: 10px;"
-    >
-      大型标签
-    </span>
-  </div>
-  <div
-    class="tdesign-demo-block-row"
-    style="margin-top: 10px;"
-  >
-    <span
-      class="t-tag t-size-s t-tag--default t-tag--check t-tag--small"
-      style="margin-right: 10px;"
-    >
-      小型标签
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--check t-tag--medium"
-      style="margin-right: 10px;"
-    >
-      默认标签
-    </span>
-    <span
-      class="t-tag t-size-l t-tag--default t-tag--check t-tag--large"
-      style="margin-right: 10px;"
-    >
-      大型标签
-    </span>
+      <div
+        class="t-space t-space-align-center t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-size-s t-tag--default t-tag--check t-tag--small"
+          >
+            小型标签
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--check t-tag--medium"
+          >
+            默认标签
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-size-l t-tag--default t-tag--check t-tag--large"
+          >
+            大型标签
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;

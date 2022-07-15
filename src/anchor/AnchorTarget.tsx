@@ -4,10 +4,10 @@ import { FileCopyIcon } from 'tdesign-icons-react';
 import Popup from '../popup';
 import { MessagePlugin } from '../message';
 import useConfig from '../_util/useConfig';
+import copyText from '../_util/copyText';
 
 import { TdAnchorTargetProps } from './type';
 import { StyledProps } from '../common';
-import { copyText } from './_util/clipboard';
 import { anchorTargetDefaultProps } from './defaultProps';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {}

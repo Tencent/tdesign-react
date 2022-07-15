@@ -1,11 +1,10 @@
 import React from 'react';
-import { Select } from 'tdesign-react';
+import { Select, Space } from 'tdesign-react';
 
 function Status() {
   return (
-    <div style={{ display: 'flex' }}>
+    <Space>
       <Select
-        style={{ width: '200px', marginRight: '20px' }}
         options={[
           { label: '选项1', value: '1' },
           { label: '选项2', value: '2' },
@@ -13,7 +12,6 @@ function Status() {
         ]}
       ></Select>
       <Select
-        style={{ width: '200px', marginRight: '20px' }}
         options={[
           { label: '选项1', value: '1' },
           { label: '选项2', value: '2' },
@@ -22,7 +20,6 @@ function Status() {
         disabled
       ></Select>
       <Select
-        style={{ width: '200px' }}
         options={[
           { label: '选项1', value: '1' },
           { label: '选项2', value: '2' },
@@ -30,7 +27,7 @@ function Status() {
         ]}
         loading
       ></Select>
-    </div>
+    </Space>
   );
 }
 

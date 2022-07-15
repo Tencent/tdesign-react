@@ -1,8 +1,8 @@
 /**
  ** 加法函数，用来得到精确的加法结果
- ** 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+ ** 说明：javascript 的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
  ** 调用：accAdd(num1,num2)
- ** 返回值：num1加上num2的精确结果
+ ** 返回值：num1 加上num2 的精确结果
  * */
 export function accAdd(num1: number, num2: number) {
   const isFloat = (n: number) => typeof n === 'number' && !Number.isInteger(n);

@@ -18,118 +18,126 @@ export default function EditableCellTable() {
   }));
 
   const [data, setData] = useState([...initData]);
+  const [relationSelect, setRelationSelect] = useState({});
 
-  const columns = useMemo(() => [
-    {
-      title: 'FirstName',
-      colKey: 'firstName',
-      align: 'left',
-      // 编辑状态相关配置，全部集中在 edit
-      edit: {
-        // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
-        // 2. 如果希望支持校验，组件还需包含 `status` 和 `tips` 属性。具体 API 含义参考 Input 组件
-        component: Input,
-        // props, 透传全部属性到 Input 组件
-        props: {
-          clearable: true,
-          autofocus: true,
-        },
-        // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
-        abortEditOnEvent: ['onEnter'],
-        // 编辑完成，退出编辑态后触发
-        onEdited: (context) => {
-          data.splice(context.rowIndex, 1, context.newRowData)
-          setData([...data]);
-          console.log('Edit firstName:', context);
-          MessagePlugin.success('Success');
-        },
-        // 校验规则，此处同 Form 表单
-        rules: [
-          { required: true, message: '不能为空' },
-          { max: 10, message: '字符数量不能超过 10', type: 'warning' },
-        ],
-      },
-    },
-    {
-      title: 'Framework',
-      colKey: 'framework',
-      edit: {
-        component: Select,
-        // props, 透传全部属性到 Select 组件
-        props: {
-          clearable: true,
-          options: [
-            { label: 'Vue', value: 'Vue' },
-            { label: 'React', value: 'React' },
-            { label: 'Miniprogram', value: 'Miniprogram' },
-            { label: 'Flutter', value: 'Flutter' },
+  const columns = useMemo(
+    () => [
+      {
+        title: 'FirstName',
+        colKey: 'firstName',
+        align: 'left',
+        // 编辑状态相关配置，全部集中在 edit
+        edit: {
+          // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
+          // 2. 如果希望支持校验，组件还需包含 `status` 和 `tips` 属性。具体 API 含义参考 Input 组件
+          component: Input,
+          // props, 透传全部属性到 Input 组件
+          props: {
+            clearable: true,
+            autofocus: true,
+          },
+          // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
+          abortEditOnEvent: ['onEnter'],
+          // 编辑完成，退出编辑态后触发
+          onEdited: (context) => {
+            data.splice(context.rowIndex, 1, context.newRowData);
+            setData([...data]);
+            console.log('Edit firstName:', context);
+            MessagePlugin.success('Success');
+          },
+          // 校验规则，此处同 Form 表单
+          rules: [
+            { required: true, message: '不能为空' },
+            { max: 10, message: '字符数量不能超过 10', type: 'warning' },
           ],
         },
-        // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
-        abortEditOnEvent: ['onChange'],
-        // 编辑完成，退出编辑态后触发
-        onEdited: (context) => {
-          data.splice(context.rowIndex, 1, context.newRowData)
-          setData([...data]);
-          console.log('Edit Framework:', context);
-          MessagePlugin.success('Success');
+      },
+      {
+        title: 'Framework',
+        colKey: 'framework',
+        edit: {
+          component: Select,
+          // props, 透传全部属性到 Select 组件
+          props: {
+            clearable: true,
+            options: [
+              { label: 'Vue', value: 'Vue' },
+              { label: 'React', value: 'React' },
+              { label: 'Miniprogram', value: 'Miniprogram' },
+              { label: 'Flutter', value: 'Flutter' },
+            ],
+          },
+          // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
+          abortEditOnEvent: ['onChange'],
+          // 编辑完成，退出编辑态后触发
+          onEdited: (context) => {
+            data.splice(context.rowIndex, 1, context.newRowData);
+            setData([...data]);
+            console.log('Edit Framework:', context);
+            MessagePlugin.success('Success');
+            // 记录编辑结果
+            const { newRowData } = context;
+            setRelationSelect({
+              ...relationSelect,
+              [newRowData.key]: newRowData.framework,
+            });
+          },
         },
       },
-    },
-    {
-      title: 'Letters',
-      colKey: 'letters',
-      cell: ({ row }) => row?.letters?.join('、'),
-      edit: {
-        component: Select,
-        // props, 透传全部属性到 Select 组件
-        props: {
-          multiple: true,
-          minCollapsedNum: 1,
-          options: [
-            { label: 'A', value: 'A' },
-            { label: 'B', value: 'B' },
-            { label: 'C', value: 'C' },
-            { label: 'D', value: 'D' },
-            { label: 'E', value: 'E' },
-            { label: 'G', value: 'G' },
-            { label: 'H', value: 'H' },
-          ],
-        },
-        // abortEditOnEvent: ['onChange'],
-        onEdited: (context) => {
-          data.splice(context.rowIndex, 1, context.newRowData)
-          setData([...data]);
-          console.log('Edit Letters:', context);
-          MessagePlugin.success('Success');
-        },
-      },
-    },
-    {
-      title: 'Date',
-      colKey: 'createTime',
-      // props, 透传全部属性到 DatePicker 组件
-      edit: {
-        component: DatePicker,
-        props: {
-          mode: 'date',
-        },
-        // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
-        abortEditOnEvent: ['onChange'],
-        onEdited: (context) => {
-          data.splice(context.rowIndex, 1, context.newRowData)
-          setData([...data]);
-          console.log('Edit Date:', context);
-          MessagePlugin.success('Success');
+      {
+        title: 'Letters',
+        colKey: 'letters',
+        cell: ({ row }) => row?.letters?.join('、'),
+        edit: {
+          component: Select,
+          // props, 透传全部属性到 Select 组件
+          // props 为函数时，参数有：col, row, rowIndex, colIndex, editedRow。一般用于实现编辑组件之间的联动
+          props: ({ editedRow }) => ({
+            multiple: true,
+            minCollapsedNum: 1,
+            options: [
+              { label: 'A', value: 'A' },
+              { label: 'B', value: 'B' },
+              { label: 'C', value: 'C' },
+              { label: 'D', value: 'D' },
+              { label: 'E', value: 'E' },
+              // 如果框架选择了 React，则 Letters 隐藏 G 和 H
+              { label: 'G', value: 'G', show: () => editedRow.framework !== 'React' },
+              { label: 'H', value: 'H', show: () => editedRow.framework !== 'React' },
+            ].filter(t => (t.show === undefined ? true : t.show())),
+          }),
+          // abortEditOnEvent: ['onChange'],
+          onEdited: (context) => {
+            data.splice(context.rowIndex, 1, context.newRowData);
+            setData([...data]);
+            console.log('Edit Letters:', context);
+            MessagePlugin.success('Success');
+          },
         },
       },
-    },
-  ], [data]);
-
-  return (
-    <div>
-      {/* <!-- 当前示例包含：输入框、单选、多选、日期 等场景 --> */}
-      <Table row-key="key" columns={columns} data={data} bordered />
-    </div>
+      {
+        title: 'Date',
+        colKey: 'createTime',
+        // props, 透传全部属性到 DatePicker 组件
+        edit: {
+          component: DatePicker,
+          props: {
+            mode: 'date',
+          },
+          // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
+          abortEditOnEvent: ['onChange'],
+          onEdited: (context) => {
+            data.splice(context.rowIndex, 1, context.newRowData);
+            setData([...data]);
+            console.log('Edit Date:', context);
+            MessagePlugin.success('Success');
+          },
+        },
+      },
+    ],
+    [data, relationSelect],
   );
+
+  // 当前示例包含：输入框、单选、多选、日期 等场景
+  return <Table rowKey="key" columns={columns} data={data} bordered />;
 }

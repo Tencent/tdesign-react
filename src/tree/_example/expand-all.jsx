@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Switch, Tree } from 'tdesign-react';
+import { Form, Switch, Tree, Space } from 'tdesign-react';
 
 const data1 = [
   {
@@ -72,21 +72,19 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
-      <div className="operations">
-        <Form labelWidth={150}>
-          <Form.FormItem label="切换数据">
-            <Switch onChange={handleItemsChange} />
-          </Form.FormItem>
-          <Form.FormItem label="提供 hover 状态" initialData={hover}>
-            <Switch onChange={setHover} />
-          </Form.FormItem>
-          <Form.FormItem label="展开动画" initialData={transition}>
-            <Switch onChange={setTransition} />
-          </Form.FormItem>
-        </Form>
-      </div>
+    <Space direction="vertical">
+      <Form labelWidth={150}>
+        <Form.FormItem label="切换数据">
+          <Switch onChange={handleItemsChange} />
+        </Form.FormItem>
+        <Form.FormItem label="提供 hover 状态" initialData={hover}>
+          <Switch onChange={setHover} />
+        </Form.FormItem>
+        <Form.FormItem label="展开动画" initialData={transition}>
+          <Switch onChange={setTransition} />
+        </Form.FormItem>
+      </Form>
       <Tree data={items} expandAll hover={hover} transition={transition} />
-    </div>
+    </Space>
   );
 };

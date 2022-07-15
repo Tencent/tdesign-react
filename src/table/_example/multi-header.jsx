@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Checkbox } from 'tdesign-react';
+import { Table, Checkbox, Space } from 'tdesign-react';
 
 const initialData = [];
 for (let i = 0; i < 20; i++) {
@@ -104,7 +104,7 @@ export default function TableExample() {
       title: '字段2',
       width: 100,
     },
-  
+
     {
       colKey: 'field3',
       title: '字段3',
@@ -177,14 +177,24 @@ export default function TableExample() {
     },
   ];
   return (
-    <div className='tdesign-demo-block-column-large' style={{ width: '100%' }}>
+    <Space direction="vertical" size="large" style={{ width: '100%' }}>
       {/* <!-- 按钮操作区域 --> */}
       <div>
-        <Checkbox checked={bordered} onChange={setBordered}>显示表格边框</Checkbox>
-        <Checkbox checked={fixedHeader} onChange={setFixedHeader}>显示固定表头</Checkbox>
-        <Checkbox checked={fixedLeftCol} onChange={setFixedLeftCol}>固定左侧列</Checkbox>
-        <Checkbox checked={fixedRightCol} onChange={setFixedRightCol}>固定右侧列</Checkbox>
-        <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>表头吸顶</Checkbox>
+        <Checkbox checked={bordered} onChange={setBordered}>
+          显示表格边框
+        </Checkbox>
+        <Checkbox checked={fixedHeader} onChange={setFixedHeader}>
+          显示固定表头
+        </Checkbox>
+        <Checkbox checked={fixedLeftCol} onChange={setFixedLeftCol}>
+          固定左侧列
+        </Checkbox>
+        <Checkbox checked={fixedRightCol} onChange={setFixedRightCol}>
+          固定右侧列
+        </Checkbox>
+        <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
+          表头吸顶
+        </Checkbox>
       </div>
 
       <Table
@@ -199,6 +209,6 @@ export default function TableExample() {
         sort={sort}
         onSortChange={onSortChange}
       />
-    </div>
+    </Space>
   );
 }

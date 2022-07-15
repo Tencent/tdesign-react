@@ -8,5 +8,18 @@ export default function PaginationExample() {
     console.log(pageInfo);
   };
 
-  return <Pagination total={100} pageSize={pageSize} onChange={onChange} onPageSizeChange={(v) => changePageSize(v)} />;
+  return (
+    <div>
+      <span>展示首尾页码省略</span>
+      <Pagination total={100} pageSize={pageSize} onChange={onChange} onPageSizeChange={(v) => changePageSize(v)} />
+      <span>不展示首尾页码省略</span>
+      <Pagination
+        total={100}
+        pageSize={pageSize}
+        onChange={onChange}
+        pageEllipsisMode="both-ends"
+        onPageSizeChange={(v) => changePageSize(v)}
+      />
+    </div>
+  );
 }

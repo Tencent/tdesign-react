@@ -56,3 +56,4 @@ export * from './range-input';
 export * from './watermark';
 export * from './image-viewer';
 export * from './space';
+export * from './jumper';

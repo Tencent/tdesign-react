@@ -34,6 +34,7 @@ upload | Object | - | 上传组件全局配置。TS 类型：`UploadConfig` | N
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+autocomplete | String | - | 是否开启自动填充功能 | N
 placeholder | String | - | 语言配置，“请输入”占位符描述文本 | N
 
 ### PaginationConfig
@@ -129,6 +130,8 @@ yearAriaLabel | String | - | 语言配置，“年” 描述文本 | N
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 cancel | Object | - | 取消按钮风格。TS 类型：`string | ButtonProps`，[Button API Documents](./button?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+closeOnEscKeydown | Boolean | - | 按下 ESC 时是否触发对话框关闭事件 | N
+closeOnOverlayClick | Boolean | - | 点击蒙层时是否触发关闭事件 | N
 confirm | Object | - | 确认按钮风格。TS 类型：`string | ButtonProps` | N
 confirmBtnTheme | Object | - | 确认按钮主题色，即 Dialog 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }。TS 类型：`{ default: string; info: string; warning: string; danger: string; success: string; }` | N
 
@@ -137,7 +140,10 @@ confirmBtnTheme | Object | - | 确认按钮主题色，即 Dialog 的 `theme` �
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 cancel | String | - | 语言配置，“取消”描述文本。TS 类型：`string | ButtonProps` | N
+closeOnEscKeydown | Boolean | - | 按下 ESC 时是否触发抽屉关闭事件 | N
+closeOnOverlayClick | Boolean | - | 点击蒙层时是否触发关闭事件 | N
 confirm | String | - | 语言配置，“确认”描述文本。TS 类型：`string | ButtonProps` | N
+size | String | - | 尺寸配置，配置Drawer尺寸 | N
 
 ### PopconfirmConfig
 
@@ -178,6 +184,7 @@ treeExpandAndFoldIcon | Function | undefined | 树形结构，展开和折叠图
 -- | -- | -- | -- | --
 clearIcon | Function | - | 清除图标，【注意】使用渲染函数输出图标组件。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 empty | String | - | 语言配置，“暂无数据”描述文本 | N
+filterable | Boolean | - | 全局配置是否可筛选 | N
 loadingText | String | - | 语言配置，“加载中”描述文本 | N
 placeholder | String | - | 语言配置，“请选择”占位符描述文本 | N
 

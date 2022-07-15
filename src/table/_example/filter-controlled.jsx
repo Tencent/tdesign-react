@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, DatePicker } from 'tdesign-react';
+import { Table, Button, DateRangePickerPanel, Space } from 'tdesign-react';
 
 const columns = [
   {
@@ -61,10 +61,14 @@ const columns = [
     // 自定义过滤组件
     filter: {
       // 直接传入组件，请确保自定义过滤组件包含 value 和 onChange 等两个参数，组件内部会自动处理
-      component: DatePicker,
+      component: DateRangePickerPanel,
       props: {
-        clearable: true,
+        firstDayOfWeek: 7,
       },
+      // 是否显示重置取消按钮，一般情况不需要显示
+      showConfirmAndReset: true,
+      // 日期范围是一个组件，重置时需赋值为 []
+      resetValue: [],
     },
   },
 ];
@@ -127,8 +131,8 @@ export default function TableSingleSort() {
   //   }, 100);
   // }
   return (
-    <div className="demo-container">
-      <div className="table-operations" style={{ marginBottom: '16px' }}>
+    <Space direction="vertical">
+      <div>
         <Button
           onClick={() => {
             setFilterValue({});
@@ -156,6 +160,6 @@ export default function TableSingleSort() {
           pageSizeOptions: [1, 3, 5, 10],
         }}
       />
-    </div>
+    </Space>
   );
 }

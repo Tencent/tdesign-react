@@ -1,86 +1,86 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
-
-// common logic
-import { getPanels, expendClickEffect, valueChangeEffect } from '../utils/panel';
-
-// components
 import Item from './Item';
 
-// type
-import { CascaderPanelProps, TreeNode, ContextType } from '../interface';
+import useConfig from '../../_util/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { getPanels } from '../core/helper';
+import { expendClickEffect, valueChangeEffect } from '../core/effect';
+
+import { TreeNode, CascaderContextType } from '../interface';
+import { TdCascaderProps } from '../type';
+import { StyledProps } from '../../common';
+
+export interface CascaderPanelProps extends StyledProps, Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
+  cascaderContext: CascaderContextType;
+}
 
 const Panel = (props: CascaderPanelProps) => {
-  const {
-    cascaderContext: { filterActive, treeNodes, inputWidth },
-    cascaderContext,
-    empty,
-  } = props;
+  const { cascaderContext } = props;
 
-  const panels = useMemo(() => getPanels(treeNodes), [treeNodes]);
+  const panels = useMemo(() => getPanels(cascaderContext.treeNodes), [cascaderContext.treeNodes]);
 
-  const handleExpand = (ctx: ContextType, trigger: 'hover' | 'click') => {
-    const { node } = ctx;
+  const handleExpand = (node: TreeNode, trigger: 'hover' | 'click') => {
     const { trigger: propsTrigger, cascaderContext } = props;
-
     expendClickEffect(propsTrigger, trigger, node, cascaderContext);
   };
 
-  const handleChange = (ctx: ContextType) => {
-    const { node } = ctx;
-
-    valueChangeEffect(node, cascaderContext);
-  };
-
   const { classPrefix } = useConfig();
-  const name = `${classPrefix}-cascader`;
-
-  // innerComponents
-  const renderEmpty = <div className={`${name}__panel--empty`}>{empty}</div>;
+  const [global] = useLocaleReceiver('cascader');
+  const COMPONENT_NAME = `${classPrefix}-cascader`;
 
   const renderItem = (node: TreeNode, index) => (
     <Item
       key={index}
       node={node}
       cascaderContext={cascaderContext}
-      onClick={(ctx: ContextType) => {
-        handleExpand(ctx, 'click');
+      onClick={() => {
+        handleExpand(node, 'click');
       }}
-      onMouseEnter={(ctx: ContextType) => {
-        handleExpand(ctx, 'hover');
+      onMouseEnter={() => {
+        handleExpand(node, 'hover');
       }}
-      onChange={handleChange}
+      onChange={() => {
+        valueChangeEffect(node, cascaderContext);
+      }}
     />
   );
 
-  const panelsContainer = panels.map((panel, index) => (
+  const renderList = (treeNodes: TreeNode[], isFilter = false, segment = true, key = '1') => (
     <ul
-      className={classNames(`${name}__menu`, 'narrow-scrollbar', {
-        [`${name}__menu--segment`]: index !== panels.length - 1,
+      className={classNames(`${COMPONENT_NAME}__menu`, 'narrow-scrollbar', {
+        [`${COMPONENT_NAME}__menu--segment`]: segment,
+        [`${COMPONENT_NAME}__menu--filter`]: isFilter,
       })}
-      key={index}
+      key={key}
     >
-      {panel.map((node: TreeNode, index) => renderItem(node, index))}
-    </ul>
-  ));
-
-  const filterPanelsContainer = (
-    <ul className={classNames(`${name}__menu`, 'narrow-scrollbar', `${name}__menu--segment`, `${name}__menu--filter`)}>
       {treeNodes.map((node: TreeNode, index: number) => renderItem(node, index))}
     </ul>
   );
 
-  const renderPanels = filterActive ? filterPanelsContainer : panelsContainer;
+  const renderPanels = () => {
+    const { inputVal, treeNodes } = props.cascaderContext;
+    return inputVal
+      ? renderList(treeNodes, true)
+      : panels.map((treeNodes, index: number) =>
+          renderList(treeNodes, false, index !== panels.length - 1, `${COMPONENT_NAME}__menu${index}`),
+        );
+  };
 
   return (
     <div
-      className={classNames(`${name}__panel`, { [`${name}--normal`]: panels.length })}
-      style={{
-        width: panels.length === 0 ? `${inputWidth}px` : null,
-      }}
+      className={classNames(
+        `${COMPONENT_NAME}__panel`,
+        { [`${COMPONENT_NAME}--normal`]: panels.length },
+        props.className,
+      )}
+      style={props.style}
     >
-      {panels && panels.length ? renderPanels : renderEmpty}
+      {panels?.length ? (
+        renderPanels()
+      ) : (
+        <div className={`${COMPONENT_NAME}__panel--empty`}>{props.empty ?? global.empty}</div>
+      )}
     </div>
   );
 };

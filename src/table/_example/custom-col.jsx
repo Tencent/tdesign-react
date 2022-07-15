@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button } from 'tdesign-react';
+import { Table, Button, Space } from 'tdesign-react';
 
 export default function TableCustomCol() {
   const initialData = [];
@@ -59,10 +59,8 @@ export default function TableCustomCol() {
   };
 
   return (
-    <div className="tdesign-demo-block-column-large">
-      <div>
-        <Button onClick={() => setColumnControllerVisible(true)}>显示列配置弹窗</Button>
-      </div>
+    <Space direction="vertical" size="large">
+      <Button onClick={() => setColumnControllerVisible(true)}>显示列配置弹窗</Button>
       <Table
         displayColumns={displayColumns}
         onDisplayColumnsChange={setDisplayColumns}
@@ -71,18 +69,16 @@ export default function TableCustomCol() {
         rowKey="index"
         data={data}
         columns={columns}
-        columnController={
-          {
-            fields: ['platform', 'type', 'default'],
-            dialogProps: { preventScrollThrough: true },
-            hideTriggerButton: true,
-          }
-        }
+        columnController={{
+          fields: ['platform', 'type', 'default'],
+          dialogProps: { preventScrollThrough: true },
+          hideTriggerButton: true,
+        }}
         pagination={{ defaultPageSize: 5, defaultCurrent: 1, total: 100 }}
         tableLayout="auto"
         stripe
         onColumnChange={onColumnChange}
       ></Table>
-    </div>
-  )
+    </Space>
+  );
 }

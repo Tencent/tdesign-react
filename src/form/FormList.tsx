@@ -10,7 +10,14 @@ const FormList = (props: TdFormListProps) => {
   const { name, initialData = [], rules, children } = props;
 
   const [initialValue, setInitialValue] = useState(initialData);
-  const [fields, setFields] = useState<Array<FormListField>>([]);
+  const [fields, setFields] = useState<Array<FormListField>>(
+    initialData.map((data, index) => ({
+      key: (key += 1),
+      name: index,
+      isListField: true,
+      ...data,
+    })),
+  );
   const formListMapRef = useRef(new Map()); // 收集 formItem 实例
   const formListRef = useRef<FormItemInstance>(); // 当前 formList 实例
 
@@ -40,6 +47,7 @@ const FormList = (props: TdFormListProps) => {
         })
         .map((field, index) => Object.assign(field, { name: index }));
 
+      setInitialValue(initialValue.filter((_, idx) => idx !== index));
       setFields(nextFields);
     },
     move(from: number, to: number) {
@@ -109,20 +117,19 @@ const FormList = (props: TdFormListProps) => {
     formListRef,
     (): FormItemInstance => ({
       name,
-      // 动态计算所有子 item 的值
-      get value() {
+      getValue() {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
-          const { name, value } = formItemRef.current;
+          const { name, getValue } = formItemRef.current;
           if (Array.isArray(name)) {
             const [index, itemKey] = name;
             if (!formListValue[index]) {
-              formListValue[index] = { [itemKey]: value };
+              formListValue[index] = { [itemKey]: getValue() };
             } else {
-              formListValue[index][itemKey] = value;
+              formListValue[index][itemKey] = getValue();
             }
           } else {
-            formListValue[name] = value;
+            formListValue[name] = getValue();
           }
         });
         return formListValue;

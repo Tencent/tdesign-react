@@ -3,10 +3,11 @@
 exports[`activable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="operations"
+      class="t-space-item"
     >
       <form
         class="t-form"
@@ -113,9 +114,13 @@ exports[`activable.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -124,13 +129,9 @@ exports[`activable.jsx 1`] = `
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-tree t-tree--hoverable t-tree--transition"
   >
-    <div
-      class="t-tree t-tree--hoverable t-tree--transition"
-    >
-      暂无数据
-    </div>
+    暂无数据
   </div>
 </DocumentFragment>
 `;
@@ -138,10 +139,11 @@ exports[`base.jsx 1`] = `
 exports[`checkable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="operations"
+      class="t-space-item"
     >
       <form
         class="t-form"
@@ -292,9 +294,13 @@ exports[`checkable.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -303,84 +309,101 @@ exports[`checkable.jsx 1`] = `
 exports[`controlled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        checked:
-      </span>
       <div
-        class="t-input__wrap"
-        value="1.1.1.1, 1.1.1.2"
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value="1.1.1.1, 1.1.1.2"
-          />
+          checked:
+        </span>
+        <div
+          class="t-input__wrap"
+          value="1.1.1.1, 1.1.1.2"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="1.1.1.1, 1.1.1.2"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        expanded:
-      </span>
       <div
-        class="t-input__wrap"
-        value="1, 1.1, 1.1.1, 2"
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value="1, 1.1, 1.1.1, 2"
-          />
+          expanded:
+        </span>
+        <div
+          class="t-input__wrap"
+          value="1, 1.1, 1.1.1, 2"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="1, 1.1, 1.1.1, 2"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        actived:
-      </span>
       <div
-        class="t-input__wrap"
-        value="2"
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value="2"
-          />
+          actived:
+        </span>
+        <div
+          class="t-input__wrap"
+          value="2"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="2"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-tree t-tree--checkable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--checkable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -389,10 +412,11 @@ exports[`controlled.jsx 1`] = `
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="operations"
+      class="t-space-item"
     >
       <form
         class="t-form"
@@ -433,9 +457,13 @@ exports[`disabled.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-is-disabled t-tree--hoverable t-tree--checkable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-is-disabled t-tree--hoverable t-tree--checkable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -444,28 +472,38 @@ exports[`disabled.jsx 1`] = `
 exports[`empty.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="t-tree t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
-    </div>
-    <br />
-    <div
-      class="t-tree t-tree--transition"
-    >
-      😊 空数据（string）
-    </div>
-    <br />
-    <div
-      class="t-tree t-tree--transition"
-    >
-      <div>
-        😊 空数据（ empty props ）
+      <div
+        class="t-tree t-tree--transition"
+      >
+        暂无数据
       </div>
     </div>
-    <br />
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-tree t-tree--transition"
+      >
+        😊 空数据（string）
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-tree t-tree--transition"
+      >
+        <div>
+          😊 空数据（ empty props ）
+        </div>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -473,10 +511,11 @@ exports[`empty.jsx 1`] = `
 exports[`expand-all.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="operations"
+      class="t-space-item"
     >
       <form
         class="t-form"
@@ -583,9 +622,13 @@ exports[`expand-all.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -594,13 +637,9 @@ exports[`expand-all.jsx 1`] = `
 exports[`expand-level.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-tree t-tree--hoverable t-tree--transition"
   >
-    <div
-      class="t-tree t-tree--hoverable t-tree--transition"
-    >
-      暂无数据
-    </div>
+    暂无数据
   </div>
 </DocumentFragment>
 `;
@@ -608,10 +647,11 @@ exports[`expand-level.jsx 1`] = `
 exports[`expand-mutex.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="operations"
+      class="t-space-item"
     >
       <form
         class="t-form"
@@ -685,9 +725,13 @@ exports[`expand-mutex.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition t-tree--block-node"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition t-tree--block-node"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -696,36 +740,45 @@ exports[`expand-mutex.jsx 1`] = `
 exports[`filter.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 100%;"
   >
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        filter:
-      </span>
       <div
-        class="t-input__wrap"
-        value=""
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value=""
-          />
+          filter:
+        </span>
+        <div
+          class="t-input__wrap"
+          value=""
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value=""
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition t-tree--block-node"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition t-tree--block-node"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -734,23 +787,40 @@ exports[`filter.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
-    <h3>
-      render 1:
-    </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <h3>
+        render 1:
+      </h3>
     </div>
-    <h3>
-      render 2:
-    </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition"
+      >
+        暂无数据
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <h3>
+        render 2:
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -759,13 +829,9 @@ exports[`icon.jsx 1`] = `
 exports[`label.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-tree t-tree--transition"
   >
-    <div
-      class="t-tree t-tree--transition"
-    >
-      暂无数据
-    </div>
+    暂无数据
   </div>
 </DocumentFragment>
 `;
@@ -773,13 +839,9 @@ exports[`label.jsx 1`] = `
 exports[`lazy.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-tree t-tree--hoverable t-tree--transition"
   >
-    <div
-      class="t-tree t-tree--hoverable t-tree--transition"
-    >
-      暂无数据
-    </div>
+    暂无数据
   </div>
 </DocumentFragment>
 `;
@@ -787,10 +849,11 @@ exports[`lazy.jsx 1`] = `
 exports[`line.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-line"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="operations"
+      class="t-space-item"
     >
       <form
         class="t-form"
@@ -864,17 +927,29 @@ exports[`line.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
-    <h3>
-      render
-    </h3>
     <div
-      class="t-tree t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <h3>
+        render
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-tree t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -883,13 +958,9 @@ exports[`line.jsx 1`] = `
 exports[`load.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-tree t-tree--hoverable t-tree--transition"
   >
-    <div
-      class="t-tree t-tree--hoverable t-tree--transition"
-    >
-      暂无数据
-    </div>
+    暂无数据
   </div>
 </DocumentFragment>
 `;
@@ -897,270 +968,340 @@ exports[`load.jsx 1`] = `
 exports[`operations.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
-    <h3
-      class="title"
-    >
-      render:
-    </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
-    </div>
-    <h3
-      class="title"
-    >
-      api:
-    </h3>
-    <div
-      class="operations"
-    >
-      <form
-        class="t-form"
+      <h3
+        class="title"
       >
-        <div
-          class="t-form__item"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 200px;"
-          >
-            <label>
-              插入节点使用高亮节点
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 200px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <button
-                class="t-switch t-size-m"
-                role="switch"
-                type="button"
-              >
-                <span
-                  class="t-switch__handle"
-                />
-                <div
-                  class="t-switch__content"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-form__item"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 200px;"
-          >
-            <label>
-              子节点展开触发父节点展开
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 200px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <button
-                class="t-switch t-size-m"
-                role="switch"
-                type="button"
-              >
-                <span
-                  class="t-switch__handle"
-                />
-                <div
-                  class="t-switch__content"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
+        render:
+      </h3>
     </div>
     <div
-      class="operations"
+      class="t-space-item"
     >
       <div
-        class="t-input-adornment t-input-adornment--prepend"
+        class="t-tree t-tree--hoverable t-tree--transition"
       >
-        <span
-          class="t-input-adornment__prepend"
-        >
-          filter:
-        </span>
-        <div
-          class="t-input__wrap"
-          value=""
+        暂无数据
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <h3
+        class="title"
+      >
+        api:
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="operations"
+      >
+        <form
+          class="t-form"
         >
           <div
-            class="t-input t-size-m t-align-left t-is-default"
+            class="t-form__item"
           >
-            <input
-              class="t-input__inner"
-              placeholder="请输入"
-              type="text"
-              value=""
-            />
+            <div
+              class="t-form__label t-form__label--right"
+              style="width: 200px;"
+            >
+              <label>
+                插入节点使用高亮节点
+              </label>
+            </div>
+            <div
+              class="t-form__controls"
+              style="margin-left: 200px;"
+            >
+              <div
+                class="t-form__controls-content"
+              >
+                <button
+                  class="t-switch t-size-m"
+                  role="switch"
+                  type="button"
+                >
+                  <span
+                    class="t-switch__handle"
+                  />
+                  <div
+                    class="t-switch__content"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-form__item"
+          >
+            <div
+              class="t-form__label t-form__label--right"
+              style="width: 200px;"
+            >
+              <label>
+                子节点展开触发父节点展开
+              </label>
+            </div>
+            <div
+              class="t-form__controls"
+              style="margin-left: 200px;"
+            >
+              <div
+                class="t-form__controls-content"
+              >
+                <button
+                  class="t-switch t-size-m"
+                  role="switch"
+                  type="button"
+                >
+                  <span
+                    class="t-switch__handle"
+                  />
+                  <div
+                    class="t-switch__content"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="operations"
+      >
+        <div
+          class="t-input-adornment t-input-adornment--prepend"
+        >
+          <span
+            class="t-input-adornment__prepend"
+          >
+            filter:
+          </span>
+          <div
+            class="t-input__wrap"
+            value=""
+          >
+            <div
+              class="t-input t-size-m t-align-left t-is-default"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入"
+                type="text"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
-    <h3
-      class="title"
-    >
-      api:
-    </h3>
     <div
-      class="operations"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
+      <h3
+        class="title"
       >
-        <span
-          class="t-button__text"
-        >
-          获取 value 为 'node1' 的单个节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
+        api:
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px; flex-wrap: wrap;"
       >
-        <span
-          class="t-button__text"
+        <div
+          class="t-space-item"
         >
-          获取所有节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取 value 为 'node1' 的单个节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取高亮节点的所有子节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取所有节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取所有高亮节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取高亮节点的所有子节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取高亮节点下的选中节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取所有高亮节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          插入一个根节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取高亮节点下的选中节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取高亮节点的父节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              插入一个根节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取高亮节点的所有父节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取高亮节点的父节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取高亮节点在子节点中的位置
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取高亮节点的所有父节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          选中高亮节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取高亮节点在子节点中的位置
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          展开高亮节点
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              选中高亮节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          获取高亮节点与其子节点的数据
-        </span>
-      </button>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              展开高亮节点
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              获取高亮节点与其子节点的数据
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -1169,36 +1310,53 @@ exports[`operations.jsx 1`] = `
 exports[`state.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-state"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
-    <h3
-      class="title"
-    >
-      state:
-    </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
-    </div>
-    <h3
-      class="title"
-    >
-      api:
-    </h3>
-    <div
-      class="operations"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
+      <h3
+        class="title"
       >
-        <span
-          class="t-button__text"
+        state:
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+      >
+        暂无数据
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <h3
+        class="title"
+      >
+        api:
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="operations"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
         >
-          插入一个根节点
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            插入一个根节点
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -1207,84 +1365,101 @@ exports[`state.jsx 1`] = `
 exports[`sync.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tree-base"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 100%;"
   >
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        checked:
-      </span>
       <div
-        class="t-input__wrap"
-        value="{1.1.1.1}, {1.1.1.2}"
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value="{1.1.1.1}, {1.1.1.2}"
-          />
+          checked:
+        </span>
+        <div
+          class="t-input__wrap"
+          value="{1.1.1.1}, {1.1.1.2}"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="{1.1.1.1}, {1.1.1.2}"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        expanded:
-      </span>
       <div
-        class="t-input__wrap"
-        value="{1}, {1.1}, {1.1.1}, {2}"
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value="{1}, {1.1}, {1.1.1}, {2}"
-          />
+          expanded:
+        </span>
+        <div
+          class="t-input__wrap"
+          value="{1}, {1.1}, {1.1.1}, {2}"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="{1}, {1.1}, {1.1.1}, {2}"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-input-adornment t-input-adornment--prepend"
+      class="t-space-item"
     >
-      <span
-        class="t-input-adornment__prepend"
-      >
-        actived:
-      </span>
       <div
-        class="t-input__wrap"
-        value="{2}"
+        class="t-input-adornment t-input-adornment--prepend"
       >
-        <div
-          class="t-input t-size-m t-align-left t-is-default"
+        <span
+          class="t-input-adornment__prepend"
         >
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            type="text"
-            value="{2}"
-          />
+          actived:
+        </span>
+        <div
+          class="t-input__wrap"
+          value="{2}"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="{2}"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-tree t-tree--checkable t-tree--transition"
+      class="t-space-item"
     >
-      暂无数据
+      <div
+        class="t-tree t-tree--checkable t-tree--transition"
+      >
+        暂无数据
+      </div>
     </div>
   </div>
 </DocumentFragment>

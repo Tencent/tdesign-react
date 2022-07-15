@@ -67,7 +67,7 @@ export function getPropsApiByEvent(eventName: string) {
  * 计算字符串字符的长度并可以截取字符串。
  * @param str 传入字符串
  * @param maxCharacter 规定最大字符串长度
- * @returns 当没有传入maxCharacter时返回字符串字符长度，当传入maxCharacter时返回截取之后的字符串和长度。
+ * @returns 当没有传入 maxCharacter 时返回字符串字符长度，当传入 maxCharacter 时返回截取之后的字符串和长度。
  */
 export function getCharacterLength(str: string, maxCharacter?: number) {
   const hasMaxCharacter = typeof maxCharacter === 'number';
@@ -106,8 +106,8 @@ export function getCharacterLength(str: string, maxCharacter?: number) {
 }
 
 /**
- * 兼容样式中支持number/string类型的传值 得出最后的结果。
- * @param param number或string类型的可用于样式上的值
+ * 兼容样式中支持 number/string 类型的传值 得出最后的结果。
+ * @param param number 或 string 类型的可用于样式上的值
  * @returns 可使用的样式值。
  */
 export function pxCompat(param: string | number) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table } from 'tdesign-react';
+import { Table, Space } from 'tdesign-react';
 
 const columns = [
   { colKey: 'instance', title: '集群名称', width: 150 },
@@ -56,9 +56,9 @@ export default function TableSingleSort() {
   }
 
   return (
-    <div className="demo-container">
-      <div style={{ marginBottom: '16px' }}>排序方式：{JSON.stringify(sort)}</div>
+    <Space direction="vertical">
+      <div>排序方式：{JSON.stringify(sort)}</div>
       <Table rowKey="id" data={initData} columns={columns} sort={sort} multipleSort onSortChange={onSortChange} />
-    </div>
+    </Space>
   );
 }

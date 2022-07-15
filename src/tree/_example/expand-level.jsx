@@ -42,8 +42,4 @@ const items = [
   },
 ];
 
-export default () => (
-  <div className="tdesign-tree-base">
-    <Tree hover data={items} expandLevel={1} />
-  </div>
-);
+export default () => <Tree hover data={items} expandLevel={1} />;

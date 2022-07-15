@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Radio, Checkbox } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space } from 'tdesign-react';
 import { ChevronRightCircleIcon, ChevronRightIcon } from 'tdesign-icons-react';
 
 export default function TableExpandable() {
@@ -8,7 +8,7 @@ export default function TableExpandable() {
     {
       colKey: 'status',
       title: '状态',
-      cell: ({ row }) => row.status === 0 ? '异常' : '健康',
+      cell: ({ row }) => (row.status === 0 ? '异常' : '健康'),
     },
     { colKey: 'owner', title: '管理员' },
     { colKey: 'description', title: '描述' },
@@ -84,24 +84,21 @@ export default function TableExpandable() {
     return <ChevronRightCircleIcon />;
   };
 
-  useEffect(
-    () => {
-      const val = expandControl;
-      if (val === 'true') {
-        // expandIcon 默认为 true，表示显示默认展开图标
-        setExpandIcon(true);
-      } else if (val === 'false') {
-        // expandIcon 值为 false，则表示隐藏全部展开图标
-        setExpandIcon(false);
-      } else if (val === 'custom') {
-        setExpandIcon(val);
-      }
-    },
-    [expandControl],
-  );
-  
+  useEffect(() => {
+    const val = expandControl;
+    if (val === 'true') {
+      // expandIcon 默认为 true，表示显示默认展开图标
+      setExpandIcon(true);
+    } else if (val === 'false') {
+      // expandIcon 值为 false，则表示隐藏全部展开图标
+      setExpandIcon(false);
+    } else if (val === 'custom') {
+      setExpandIcon(val);
+    }
+  }, [expandControl]);
+
   return (
-    <div className="tdesign-demo-block-column tdesign-table-expandable-demo" style={{ width: '100%' }}>
+    <Space direction="vertical" style={{ width: '100%' }}>
       {/* <!-- expanded-row-keys 为受控属性 --> */}
       {/* <!-- default-expanded-row-keys 为非受控属性 --> */}
       <div>
@@ -113,9 +110,15 @@ export default function TableExpandable() {
       </div>
 
       <div>
-        <Checkbox checked={expandOnRowClick} onChange={setExpandOnRowClick}>允许点击行之后展开/收起</Checkbox>
-        <Checkbox checked={fixedColumns} onChange={setFixedColumns} style={{ marginLeft: '32px' }}>固定列</Checkbox>
-        <Checkbox checked={emptyData} onChange={setEmptyData} style={{ marginLeft: '32px' }}>空数据</Checkbox>
+        <Checkbox checked={expandOnRowClick} onChange={setExpandOnRowClick}>
+          允许点击行之后展开/收起
+        </Checkbox>
+        <Checkbox checked={fixedColumns} onChange={setFixedColumns} style={{ marginLeft: '32px' }}>
+          固定列
+        </Checkbox>
+        <Checkbox checked={emptyData} onChange={setEmptyData} style={{ marginLeft: '32px' }}>
+          空数据
+        </Checkbox>
       </div>
 
       {/* <!-- :defaultExpandedRowKeys="defaultExpandedRowKeys" --> */}
@@ -131,6 +134,6 @@ export default function TableExpandable() {
         tableContentWidth="1200"
         onExpandChange={rehandleExpandChange}
       ></Table>
-    </div>
+    </Space>
   );
 }

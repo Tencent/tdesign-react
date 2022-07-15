@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
 import get from 'lodash/get';
 import set from 'lodash/set';
+import isFunction from 'lodash/isFunction';
 import { Edit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { TableRowData, PrimaryTableCol } from './type';
@@ -18,18 +19,21 @@ export interface EditableCellProps {
 }
 
 const EditableCell = (props: EditableCellProps) => {
-  const { row, col } = props;
+  const { row, col, rowIndex, colIndex } = props;
   const { tableBaseClass } = useClassName();
   const tableEditableCellRef = useRef(null);
   const [isEdit, setIsEdit] = useState(false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState([]);
 
-  const currentRow = useMemo(() => {
+  const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
     const newRow = { ...row };
-    set(newRow, col.colKey, editValue);
+    set(newRow, colKey, value);
     return newRow;
-  }, [col.colKey, editValue, row]);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
   const cellNode = useMemo(() => {
     const node = renderCell({
@@ -44,7 +48,9 @@ const EditableCell = (props: EditableCellProps) => {
   const componentProps = useMemo(() => {
     const { edit } = col;
     if (!edit) return {};
-    const editProps = { ...edit.props };
+    const editProps = isFunction(edit.props)
+      ? edit.props({ col, row, rowIndex, colIndex, editedRow: currentRow })
+      : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
     delete editProps.value;
@@ -52,7 +58,7 @@ const EditableCell = (props: EditableCellProps) => {
       delete editProps[item];
     });
     return editProps;
-  }, [col]);
+  }, [col, colIndex, currentRow, row, rowIndex]);
 
   const isAbortEditOnChange = useMemo(() => {
     const { edit } = col;
@@ -88,10 +94,10 @@ const EditableCell = (props: EditableCellProps) => {
     validateEdit().then((result) => {
       if (result !== true) return;
       // 相同的值无需触发变化
-      if (!isSame(editValue, get(row, col.colKey))) {
+      if (!isSame(args[0].value, get(row, col.colKey))) {
         outsideAbortEvent?.(...args);
       }
-      // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清楚不及时引起的其他问题
+      // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
         setIsEdit(false);
         clearTimeout(timer);
@@ -112,6 +118,7 @@ const EditableCell = (props: EditableCellProps) => {
         updateAndSaveAbort(
           outsideAbortEvent,
           {
+            value: editValue,
             trigger: itemEvent,
             newRowData: currentRow,
             rowIndex: props.rowIndex,
@@ -128,11 +135,13 @@ const EditableCell = (props: EditableCellProps) => {
     setEditValue(val);
     if (isAbortEditOnChange) {
       const outsideAbortEvent = col.edit?.onEdited;
+      // editValue 和 currentRow 更新完成后再执行这个函数
       updateAndSaveAbort(
         outsideAbortEvent,
         {
+          value: val,
           trigger: 'onChange',
-          newRowData: currentRow,
+          newRowData: getCurrentRow(currentRow, col.colKey, val),
           rowIndex: props.rowIndex,
         },
         ...args,
@@ -144,9 +153,10 @@ const EditableCell = (props: EditableCellProps) => {
     if (!col.edit || !col.edit.component) return;
     if (!isEdit || !tableEditableCellRef?.current) return;
     // @ts-ignore
-    if (e.path?.includes(tableEditableCellRef?.current)) return;
+    if (e.path?.includes(tableEditableCellRef?.current?.currentElement)) return;
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, {
+      value: editValue,
       trigger: 'document',
       newRowData: currentRow,
       rowIndex: props.rowIndex,
@@ -155,7 +165,7 @@ const EditableCell = (props: EditableCellProps) => {
 
   useEffect(() => {
     let val = get(row, col.colKey);
-    if (typeof val === 'object') {
+    if (typeof val === 'object' && val !== null) {
       val = val instanceof Array ? [...val] : { ...val };
     }
     setEditValue(val);
@@ -208,7 +218,6 @@ const EditableCell = (props: EditableCellProps) => {
         tips={errorMessage}
         {...componentProps}
         {...listeners}
-        // @ts-ignore
         value={editValue}
         onChange={onEditChange}
       />

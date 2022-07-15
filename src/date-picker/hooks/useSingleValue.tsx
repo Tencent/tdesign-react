@@ -23,7 +23,6 @@ export default function useSingleValue(props: TdDatePickerProps) {
   useEffect(() => {
     if (!value) {
       setCacheValue('');
-      setTime(formatTime(new Date()));
       return;
     }
     if (!isValidDate(value, 'valueType')) return;

@@ -1,16 +1,37 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+import { isFragment } from 'react-is';
 import useConfig from '../_util/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';
 
 export interface SpaceProps extends TdSpaceProps, StyledProps {
-  children?: React.ReactElement;
+  children?: React.ReactNode;
 }
 
+const toArray = (children: React.ReactNode): React.ReactElement[] => {
+  let ret: React.ReactElement[] = [];
+
+  React.Children.forEach(children, (child: any) => {
+    if (child === undefined || child === null) {
+      return;
+    }
+
+    if (Array.isArray(child)) {
+      ret = ret.concat(toArray(child));
+    } else if (isFragment(child) && child.props) {
+      ret = ret.concat(toArray(child.props.children));
+    } else {
+      ret.push(child);
+    }
+  });
+
+  return ret;
+};
+
 const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => {
-  const { className, style, align, direction, size, breakLine, separator, children } = props;
+  const { className, style, align, direction, size, breakLine, separator } = props;
   const { classPrefix } = useConfig();
 
   const renderStyle = useMemo(() => {
@@ -39,6 +60,7 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
   }, [style, size, breakLine]) as React.CSSProperties;
 
   function renderChildren() {
+    const children = toArray(props.children);
     const childCount = React.Children.count(children);
     return React.Children.map(children, (child, index) => {
       // filter last child

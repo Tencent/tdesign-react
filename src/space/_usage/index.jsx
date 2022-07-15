@@ -25,10 +25,9 @@ export default function Usage() {
 
   const [renderComp, setRenderComp] = useState();
 
-  const defaultProps = { content: "这是一个弹出框" };
   useEffect(() => {
     setRenderComp(
-      <Space {...defaultProps} {...changedProps}>
+      <Space {...changedProps}>
         <Button>按钮</Button>
         <Button>按钮</Button>
         <Button>按钮</Button>

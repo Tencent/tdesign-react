@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useCallback } from 'react';
 import classnames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
 
@@ -12,6 +12,7 @@ import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
 import useConfig from '../_util/useConfig';
 import { drawerDefaultProps } from './defaultProps';
+import useDrag from './hooks/useDrag';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -22,17 +23,6 @@ export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
 
 export interface DrawerProps extends TdDrawerProps, StyledProps {}
 
-const getSizeValue = (size: string): string => {
-  const defaultSize = isNaN(Number(size)) ? size : `${size}px`;
-  return (
-    {
-      small: '300px',
-      medium: '500px',
-      large: '760px',
-    }[size] || defaultSize
-  );
-};
-
 const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     className,
@@ -40,7 +30,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     visible,
     attach = '',
     showOverlay,
-    size,
+    size: propsSize,
     placement,
     onCancel,
     onConfirm,
@@ -62,10 +52,12 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     destroyOnClose,
     mode,
     preventScrollThrough = true,
+    sizeDraggable,
   } = props;
 
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
+  const size = propsSize ?? local.size;
   const confirmText = t(local.confirm);
   const cancelText = t(local.cancel);
 
@@ -78,7 +70,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   const transform = visible ? 'translate(0px)' : '';
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
-
+  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
   const [isDestroyOnClose, setIsDestroyOnClose] = useState(false);
 
   useImperativeHandle(ref, () => containerRef.current);
@@ -98,6 +90,22 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     if (!destroyOnClose || !visible) return;
     setIsDestroyOnClose(false);
   }, [visible, destroyOnClose]);
+
+  const getSizeValue = useCallback(
+    (size: string): string => {
+      if (dragSizeValue) return dragSizeValue;
+
+      const defaultSize = isNaN(Number(size)) ? size : `${size}px`;
+      return (
+        {
+          small: '300px',
+          medium: '500px',
+          large: '760px',
+        }[size] || defaultSize
+      );
+    },
+    [dragSizeValue],
+  );
 
   useEffect(() => {
     let documentBodyCssText = '';
@@ -138,11 +146,11 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
       contentWrapperRef.current.style.transform = transform;
     }
-  }, [attach, mode, transform, visible, placement, size]);
+  }, [attach, mode, transform, visible, placement, size, getSizeValue]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
-    closeOnOverlayClick && onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY });
+    (closeOnOverlayClick ?? local.closeOnOverlayClick) && onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY });
   }
   function onClickCloseBtn(e: React.MouseEvent<HTMLDivElement>) {
     onCloseBtnClick?.({ e });
@@ -152,7 +160,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     if (e.key !== 'Escape') return;
 
     onEscKeydown?.({ e });
-    closeOnEscKeydown && onClose?.({ e, trigger: CloseTriggerType.KEYDOWN_ESC });
+    (closeOnEscKeydown ?? local.closeOnEscKeydown) && onClose?.({ e, trigger: CloseTriggerType.KEYDOWN_ESC });
   }
   function onCancelClick(e: React.MouseEvent<HTMLButtonElement>) {
     onCancel?.({ e });
@@ -185,6 +193,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     `${prefixCls}__content-wrapper`,
     `${prefixCls}__content-wrapper--${placement}`,
   );
+
   const contentWrapperStyle = {
     transform: visible ? 'translateX(0)' : undefined,
     width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
@@ -251,6 +260,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
           {renderHeader}
           {renderBody}
           {renderFooter}
+          {sizeDraggable && <div style={draggableLineStyles} onMouseDown={enableDrag}></div>}
         </div>
       </div>
     </DrawerWrapper>

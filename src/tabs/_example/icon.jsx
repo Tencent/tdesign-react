@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Radio } from 'tdesign-react';
+import { Tabs, Radio, Space } from 'tdesign-react';
 import { DiscountIcon, ToolsIcon, TipsIcon } from 'tdesign-icons-react';
 
 const { TabPanel } = Tabs;
@@ -11,13 +11,11 @@ export default function IconTabs() {
     setTheme(value);
   };
   return (
-    <div className="tdesign-demo-block-column-large">
-      <div>
-        <Radio.Group variant="default-filled" defaultValue="normal" onChange={handleChange}>
-          <Radio.Button value="normal">常规</Radio.Button>
-          <Radio.Button value="card">卡片</Radio.Button>
-        </Radio.Group>
-      </div>
+    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+      <Radio.Group variant="default-filled" defaultValue="normal" onChange={handleChange}>
+        <Radio.Button value="normal">常规</Radio.Button>
+        <Radio.Button value="card">卡片</Radio.Button>
+      </Radio.Group>
       <Tabs placement={'top'} defaultValue={'a'} theme={theme}>
         <TabPanel
           value="a"
@@ -59,6 +57,6 @@ export default function IconTabs() {
           </div>
         </TabPanel>
       </Tabs>
-    </div>
+    </Space>
   );
 }

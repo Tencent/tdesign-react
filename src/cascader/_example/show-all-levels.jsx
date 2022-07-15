@@ -3,6 +3,7 @@ import { Cascader } from 'tdesign-react';
 
 export default function Example() {
   const [value1, setValue1] = useState('');
+  const [value2, setValue2] = useState([]);
   const options = [
     {
       label: '选项一',
@@ -38,24 +39,17 @@ export default function Example() {
     },
   ];
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   const onChange1 = (value) => {
     setValue1(value);
   };
+  const onChange2 = (value) => {
+    setValue2(value);
+  };
 
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader
-        style={itemStyle}
-        options={options}
-        value={value1}
-        showAllLevels={false}
-        onChange={onChange1}
-        placeholder="请选择"
-      />
+    <div className="tdesign-demo-block-row">
+      <Cascader options={options} value={value1} showAllLevels={false} onChange={onChange1} />
+      <Cascader options={options} value={value2} showAllLevels={false} multiple onChange={onChange2} />
     </div>
   );
 }

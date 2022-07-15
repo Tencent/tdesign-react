@@ -24,6 +24,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     firstDayOfWeek,
     presets,
     timePickerProps,
+    presetsPlacement,
+    panelPreselection,
     onPanelClick,
   } = props;
 
@@ -107,7 +109,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   }
 
   // 头部快速切换
-  function onJumperClick(flag: number, { partial }) {
+  function onJumperClick({ trigger, partial }) {
     const partialIndex = partial === 'start' ? 0 : 1;
 
     const triggerMap = { '-1': 'arrow-previous', 1: 'arrow-next' };
@@ -116,11 +118,11 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     const current = new Date(year[partialIndex], month[partialIndex]);
 
     let next = null;
-    if (flag === -1) {
+    if (trigger === 'prev') {
       next = subtractMonth(current, monthCount);
-    } else if (flag === 0) {
+    } else if (trigger === 'current') {
       next = new Date();
-    } else if (flag === 1) {
+    } else if (trigger === 'next') {
       next = addMonth(current, monthCount);
     }
 
@@ -152,7 +154,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
         partial,
         year: nextYear[partialIndex],
         date: value.map((v) => dayjs(v).toDate()),
-        trigger: flag ? (`year-${triggerMap[flag]}` as DatePickerYearChangeTrigger) : 'today',
+        trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
       });
     }
 
@@ -161,7 +163,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
         partial,
         month: nextMonth[partialIndex],
         date: value.map((v) => dayjs(v).toDate()),
-        trigger: flag ? (`month-${triggerMap[flag]}` as DatePickerMonthChangeTrigger) : 'today',
+        trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
       });
     }
 
@@ -292,7 +294,9 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     firstDayOfWeek,
     timePickerProps,
     enableTimePicker,
+    presetsPlacement,
     activeIndex,
+    panelPreselection,
     onCellMouseEnter,
     onCellMouseLeave,
     onCellClick,
@@ -312,6 +316,7 @@ DateRangePickerPanel.displayName = 'DateRangePickerPanel';
 DateRangePickerPanel.defaultProps = {
   mode: 'date',
   defaultValue: [],
+  panelPreselection: true,
 };
 
 export default DateRangePickerPanel;

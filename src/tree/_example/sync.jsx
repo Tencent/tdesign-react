@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { InputAdornment, Input, Tree } from 'tdesign-react';
+import { InputAdornment, Input, Tree, Space } from 'tdesign-react';
 
 const items = [
   {
@@ -199,7 +199,7 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <InputAdornment prepend="checked:">
         <Input
           value={allCheckedInput}
@@ -239,6 +239,6 @@ export default () => {
         onActive={handleActive}
         onChange={handleChange}
       />
-    </div>
+    </Space>
   );
 };

@@ -293,7 +293,7 @@ exports[`enable-alpha.jsx 1`] = `
               class="t-popup__reference t-select t-select-input"
             >
               <div
-                class="t-input__wrap"
+                class="t-input__wrap t-input--auto-width"
                 value="RGB"
               >
                 <div
@@ -306,9 +306,15 @@ exports[`enable-alpha.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    style="width: 0px;"
                     type="text"
                     value="RGB"
                   />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    RGB
+                  </span>
                   <span
                     class="t-input__suffix t-input__suffix-icon"
                   >
@@ -1078,7 +1084,7 @@ exports[`panel.jsx 1`] = `
               class="t-popup__reference t-select t-select-input"
             >
               <div
-                class="t-input__wrap"
+                class="t-input__wrap t-input--auto-width"
                 value="RGB"
               >
                 <div
@@ -1091,9 +1097,15 @@ exports[`panel.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    style="width: 0px;"
                     type="text"
                     value="RGB"
                   />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    RGB
+                  </span>
                   <span
                     class="t-input__suffix t-input__suffix-icon"
                   >
@@ -1851,7 +1863,7 @@ exports[`recent-color.jsx 1`] = `
                     class="t-popup__reference t-select t-select-input"
                   >
                     <div
-                      class="t-input__wrap"
+                      class="t-input__wrap t-input--auto-width"
                       value="RGB"
                     >
                       <div
@@ -1864,9 +1876,15 @@ exports[`recent-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
+                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
+                        <span
+                          class="t-input__input-pre"
+                        >
+                          RGB
+                        </span>
                         <span
                           class="t-input__suffix t-input__suffix-icon"
                         >
@@ -2734,7 +2752,7 @@ exports[`recent-color.jsx 1`] = `
                     class="t-popup__reference t-select t-select-input"
                   >
                     <div
-                      class="t-input__wrap"
+                      class="t-input__wrap t-input--auto-width"
                       value="RGB"
                     >
                       <div
@@ -2747,9 +2765,15 @@ exports[`recent-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
+                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
+                        <span
+                          class="t-input__input-pre"
+                        >
+                          RGB
+                        </span>
                         <span
                           class="t-input__suffix t-input__suffix-icon"
                         >
@@ -3512,7 +3536,7 @@ exports[`status-readonly.jsx 1`] = `
               class="t-popup__reference t-select t-select-input"
             >
               <div
-                class="t-input__wrap"
+                class="t-input__wrap t-input--auto-width"
                 value="RGB"
               >
                 <div
@@ -3525,9 +3549,15 @@ exports[`status-readonly.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    style="width: 0px;"
                     type="text"
                     value="RGB"
                   />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    RGB
+                  </span>
                   <span
                     class="t-input__suffix t-input__suffix-icon"
                   >
@@ -4288,7 +4318,7 @@ exports[`swatch-color.jsx 1`] = `
                     class="t-popup__reference t-select t-select-input"
                   >
                     <div
-                      class="t-input__wrap"
+                      class="t-input__wrap t-input--auto-width"
                       value="RGB"
                     >
                       <div
@@ -4301,9 +4331,15 @@ exports[`swatch-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
+                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
+                        <span
+                          class="t-input__input-pre"
+                        >
+                          RGB
+                        </span>
                         <span
                           class="t-input__suffix t-input__suffix-icon"
                         >
@@ -4634,7 +4670,7 @@ exports[`swatch-color.jsx 1`] = `
                     class="t-popup__reference t-select t-select-input"
                   >
                     <div
-                      class="t-input__wrap"
+                      class="t-input__wrap t-input--auto-width"
                       value="RGB"
                     >
                       <div
@@ -4647,9 +4683,15 @@ exports[`swatch-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
+                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
+                        <span
+                          class="t-input__input-pre"
+                        >
+                          RGB
+                        </span>
                         <span
                           class="t-input__suffix t-input__suffix-icon"
                         >

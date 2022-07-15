@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space } from 'tdesign-react';
 
 export default function TableCustomColButton() {
   const [placement, setPlacement] = useState('top-right');
@@ -83,20 +83,23 @@ export default function TableCustomColButton() {
   );
 
   return (
-    <div className="tdesign-demo-block-column-large">
+    <Space direction="vertical" size="large">
+      <Radio.Group value={placement} onChange={setPlacement} variant="default-filled">
+        <Radio.Button value="top-left">左上角</Radio.Button>
+        <Radio.Button value="top-right">右上角</Radio.Button>
+        <Radio.Button value="bottom-left">左下角</Radio.Button>
+        <Radio.Button value="bottom-right">右下角</Radio.Button>
+      </Radio.Group>
       <div>
-        <Radio.Group value={placement} onChange={setPlacement} variant="default-filled">
-          <Radio.Button value="top-left">左上角</Radio.Button>
-          <Radio.Button value="top-right">右上角</Radio.Button>
-          <Radio.Button value="bottom-left">左下角</Radio.Button>
-          <Radio.Button value="bottom-right">右下角</Radio.Button>
-        </Radio.Group>
-        <br /><br />
-        <Checkbox checked={bordered} onChange={setBordered}>是否显示边框</Checkbox>
-        <Checkbox checked={customText} onChange={setCustomText}>自定义列配置按钮</Checkbox>
-
-        {tableNode}
+        <Checkbox checked={bordered} onChange={setBordered}>
+          是否显示边框
+        </Checkbox>
+        <Checkbox checked={customText} onChange={setCustomText}>
+          自定义列配置按钮
+        </Checkbox>
       </div>
-    </div>
+
+      {tableNode}
+    </Space>
   );
 }

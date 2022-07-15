@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space } from 'tdesign-react';
 
 const data = [];
 for (let i = 0; i < 5; i++) {
@@ -87,28 +87,28 @@ export default function TableFixedColumn() {
   );
 
   return (
-    <div className='tdesign-demo-block-column'>
-      <div>
-        <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={setLeftFixedColumn}>
-          <Radio.Button value={1}>左侧固定一列</Radio.Button>
-          <Radio.Button value={2}>左侧固定两列</Radio.Button>
-        </Radio.Group>
-      </div>
-      <div>
-        <Radio.Group value={rightFixedColumn} variant="default-filled" onChange={setReftFixedColumn}>
-          <Radio.Button value={1}>右侧固定一列</Radio.Button>
-          <Radio.Button value={2}>右侧固定两列</Radio.Button>
-        </Radio.Group>
-      </div>
+    <Space direction="vertical" style={{ width: '100%' }}>
+      <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={setLeftFixedColumn}>
+        <Radio.Button value={1}>左侧固定一列</Radio.Button>
+        <Radio.Button value={2}>左侧固定两列</Radio.Button>
+      </Radio.Group>
+
+      <Radio.Group value={rightFixedColumn} variant="default-filled" onChange={setReftFixedColumn}>
+        <Radio.Button value={1}>右侧固定一列</Radio.Button>
+        <Radio.Button value={2}>右侧固定两列</Radio.Button>
+      </Radio.Group>
+
       <div>
         <Radio.Group value={tableLayout} variant="default-filled" onChange={setTableLayout}>
-          <Radio.Button value='fixed'>table-layout: fixed</Radio.Button>
-          <Radio.Button value='auto'>table-layout: auto</Radio.Button>
+          <Radio.Button value="fixed">table-layout: fixed</Radio.Button>
+          <Radio.Button value="auto">table-layout: auto</Radio.Button>
         </Radio.Group>
-        <Checkbox value={emptyData} onChange={setEmptyData}  style={{ marginLeft: '16px', verticalAlign: 'middle' }}>空数据</Checkbox>
+        <Checkbox value={emptyData} onChange={setEmptyData} style={{ marginLeft: '16px', verticalAlign: 'middle' }}>
+          空数据
+        </Checkbox>
       </div>
 
       {table}
-    </div>
+    </Space>
   );
 }

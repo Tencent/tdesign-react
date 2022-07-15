@@ -38,10 +38,6 @@ export default function TableDragSort() {
     }
   }
 
-  return (
-    <div className="demo-container">
-      {/* 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法 */}
-      <Table rowKey="id" data={data} columns={columns} dragSort='col' onDragSort={onDragSort} />
-    </div>
-  );
+  // 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法
+  return <Table rowKey="id" data={data} columns={columns} dragSort="col" onDragSort={onDragSort} />;
 }

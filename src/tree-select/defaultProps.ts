@@ -21,4 +21,7 @@ export const treeSelectDefaultProps: TdTreeSelectProps = {
   valueType: 'value',
   defaultValue: '',
   defaultInputValue: '',
+  treeProps: {
+    lazy: true,
+  },
 };

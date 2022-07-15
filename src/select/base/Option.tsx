@@ -40,6 +40,7 @@ const Option = (props: SelectOptionProps) => {
     value,
     onSelect,
     children,
+    content,
     restData,
     style,
     className,
@@ -66,7 +67,7 @@ const Option = (props: SelectOptionProps) => {
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (isNumber(item) || isString(item)) {
-        // 如果非object类型
+        // 如果非 object 类型
         return item === value;
       }
       return get(item, keys?.value || 'value') === value;
@@ -100,7 +101,7 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <span>{children || label}</span>;
+    return <span>{children || content || label}</span>;
   };
 
   return (

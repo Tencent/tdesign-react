@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio } from 'tdesign-react';
+import { Radio, Space } from 'tdesign-react';
 
 export default function RadioExample() {
   const [city, setCity] = useState('bj');
@@ -26,21 +26,17 @@ export default function RadioExample() {
   ];
   const itemOptions = ['北京', '上海', '广州', '深圳'];
   return (
-    <>
-      <div>
-        <Radio.Group value={city} onChange={setCity}>
-          <Radio value="bj">北京</Radio>
-          <Radio value="sh">上海</Radio>
-          <Radio value="gz">广州</Radio>
-          <Radio value="sz">深圳</Radio>
-        </Radio.Group>
-      </div>
-      <div>
-        <Radio.Group value={city2} options={objOptions} onChange={setCity2} />
-      </div>
-      <div>
-        <Radio.Group value={city3} options={itemOptions} onChange={setCity3} />
-      </div>
-    </>
+    <Space direction="vertical">
+      <Radio.Group value={city} onChange={setCity}>
+        <Radio value="bj">北京</Radio>
+        <Radio value="sh">上海</Radio>
+        <Radio value="gz">广州</Radio>
+        <Radio value="sz">深圳</Radio>
+      </Radio.Group>
+
+      <Radio.Group value={city2} options={objOptions} onChange={setCity2} />
+
+      <Radio.Group value={city3} options={itemOptions} onChange={setCity3} />
+    </Space>
   );
 }

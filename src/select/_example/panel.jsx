@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Textarea, Button, Input, Divider } from 'tdesign-react';
+import { Select, Textarea, Button, Input, Space } from 'tdesign-react';
 
 const OPTIONS = [
   { label: '架构云', value: '1' },
@@ -29,7 +29,7 @@ export default function PanelExample() {
     toggleEditOrCreate('edit');
   };
   return (
-    <div style={{ display: 'flex' }}>
+    <Space>
       <Select
         clearable
         placeholder="请选择云解决方案"
@@ -79,6 +79,6 @@ export default function PanelExample() {
           </div>
         }
       ></Select>
-    </div>
+    </Space>
   );
 }

@@ -290,7 +290,7 @@ exports[`date-presets-alt.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"
@@ -369,7 +369,7 @@ exports[`date-presets-alt.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"
@@ -456,7 +456,7 @@ exports[`date-range.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"
@@ -531,7 +531,7 @@ exports[`date-range.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"
@@ -961,7 +961,7 @@ exports[`disable-date.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"
@@ -1284,7 +1284,7 @@ exports[`month.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"
@@ -1451,7 +1451,7 @@ exports[`panel.jsx 1`] = `
                   class="t-jumper"
                 >
                   <button
-                    class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                    class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                     title="上个月"
                     type="button"
                   >
@@ -1470,7 +1470,7 @@ exports[`panel.jsx 1`] = `
                     </svg>
                   </button>
                   <button
-                    class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                    class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                     title="当前"
                     type="button"
                   >
@@ -1489,7 +1489,7 @@ exports[`panel.jsx 1`] = `
                     </svg>
                   </button>
                   <button
-                    class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                    class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                     title="下个月"
                     type="button"
                   >
@@ -2055,7 +2055,7 @@ exports[`panel.jsx 1`] = `
                   class="t-jumper"
                 >
                   <button
-                    class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                    class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                     title="上个月"
                     type="button"
                   >
@@ -2074,7 +2074,7 @@ exports[`panel.jsx 1`] = `
                     </svg>
                   </button>
                   <button
-                    class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                    class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                     title="当前"
                     type="button"
                   >
@@ -2093,7 +2093,7 @@ exports[`panel.jsx 1`] = `
                     </svg>
                   </button>
                   <button
-                    class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                    class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                     title="下个月"
                     type="button"
                   >
@@ -3440,7 +3440,7 @@ exports[`panel.jsx 1`] = `
                     class="t-jumper"
                   >
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="上个月"
                       type="button"
                     >
@@ -3459,7 +3459,7 @@ exports[`panel.jsx 1`] = `
                       </svg>
                     </button>
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="当前"
                       type="button"
                     >
@@ -3478,7 +3478,7 @@ exports[`panel.jsx 1`] = `
                       </svg>
                     </button>
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="下个月"
                       type="button"
                     >
@@ -4032,7 +4032,7 @@ exports[`panel.jsx 1`] = `
                     class="t-jumper"
                   >
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="上个月"
                       type="button"
                     >
@@ -4051,7 +4051,7 @@ exports[`panel.jsx 1`] = `
                       </svg>
                     </button>
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="当前"
                       type="button"
                     >
@@ -4070,7 +4070,7 @@ exports[`panel.jsx 1`] = `
                       </svg>
                     </button>
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="下个月"
                       type="button"
                     >
@@ -4640,7 +4640,7 @@ exports[`panel.jsx 1`] = `
                     class="t-jumper"
                   >
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="上个月"
                       type="button"
                     >
@@ -4659,7 +4659,7 @@ exports[`panel.jsx 1`] = `
                       </svg>
                     </button>
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="当前"
                       type="button"
                     >
@@ -4678,7 +4678,7 @@ exports[`panel.jsx 1`] = `
                       </svg>
                     </button>
                     <button
-                      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+                      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
                       title="下个月"
                       type="button"
                     >
@@ -5128,7 +5128,7 @@ exports[`panel.jsx 1`] = `
                 <div
                   class="t-date-picker__panel--time-viewer"
                 >
-                  08:00:00
+                  00:00:00
                 </div>
                 <div
                   class="t-time-picker__panel"
@@ -5150,7 +5150,7 @@ exports[`panel.jsx 1`] = `
                         class="t-time-picker__panel-body-scroll"
                       >
                         <li
-                          class="t-time-picker__panel-body-scroll-item"
+                          class="t-time-picker__panel-body-scroll-item t-is-current"
                         >
                           00
                         </li>
@@ -5190,7 +5190,7 @@ exports[`panel.jsx 1`] = `
                           07
                         </li>
                         <li
-                          class="t-time-picker__panel-body-scroll-item t-is-current"
+                          class="t-time-picker__panel-body-scroll-item"
                         >
                           08
                         </li>
@@ -5998,7 +5998,7 @@ exports[`year.jsx 1`] = `
                 <div
                   class="t-range-input__inner-separator"
                 >
-                  -
+                   - 
                 </div>
                 <div
                   class="t-input__wrap t-range-input__inner-right"

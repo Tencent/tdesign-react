@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Textarea } from 'tdesign-react';
+import { Textarea, Space } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <Textarea
         placeholder="normal"
         value={value}
@@ -44,6 +44,6 @@ export default function InputExample() {
           onChange(value);
         }}
       />
-    </div>
+    </Space>
   );
 }

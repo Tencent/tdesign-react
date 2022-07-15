@@ -44,7 +44,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   }, [value, format, steps]);
 
   useEffect(() => {
-    toggleTriggerScroll(true);
+    if (isShowPanel) toggleTriggerScroll(true);
   }, [isShowPanel]);
 
   return (

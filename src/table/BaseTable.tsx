@@ -68,6 +68,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     showAffixPagination,
     onHorizontalScroll,
     setTableContentRef,
+    updateAffixHeaderOrFooter,
   } = useAffix(props);
 
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
@@ -133,6 +134,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const onFixedChange = () => {
     const timer = setTimeout(() => {
       onHorizontalScroll();
+      updateAffixHeaderOrFooter();
       clearTimeout(timer);
     }, 0);
   };
@@ -412,7 +414,13 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
       )}
 
       {/* 吸底的分页器 */}
-      {props.paginationAffixedBottom ? <Affix offsetBottom={0}>{pagination}</Affix> : pagination}
+      {props.paginationAffixedBottom ? (
+        <Affix offsetBottom={0} {...getAffixProps(props.paginationAffixedBottom)}>
+          {pagination}
+        </Affix>
+      ) : (
+        pagination
+      )}
 
       {/* 调整列宽时的指示线。由于层级需要比较高，因而放在根节点，避免被吸顶表头覆盖。非必要情况，请勿调整辅助线位置 */}
       <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Button, Tree } from 'tdesign-react';
+import { Button, Tree, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 import cloneDeepWith from 'lodash/cloneDeepWith';
 
@@ -102,7 +102,7 @@ export default () => {
   );
 
   return (
-    <div className="tdesign-tree-state">
+    <Space direction="vertical">
       <h3 className="title">state:</h3>
       <Tree
         ref={treeRef}
@@ -122,6 +122,6 @@ export default () => {
           插入一个根节点
         </Button>
       </div>
-    </div>
+    </Space>
   );
 };

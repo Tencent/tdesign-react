@@ -50,6 +50,7 @@ export default function BaseForm() {
         name="account"
         initialData={'张三'}
         rules={[
+          { whitespace: true, message: '姓名不能为空' },
           { required: true, message: '姓名必填', type: 'error' },
           { min: 2, message: '至少需要两个字', type: 'error' },
         ]}

@@ -20,7 +20,9 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
   const [locale] = useLocaleReceiver('table');
   const { tableExpandClasses, positiveRotate90, tableFullRowClasses } = useClassName();
   // controlled and uncontrolled
-  const [tExpandedRowKeys, setTExpandedRowKeys] = useControlled(props, 'expandedRowKeys', props.onExpandChange);
+  const [tExpandedRowKeys, setTExpandedRowKeys] = useControlled(props, 'expandedRowKeys', props.onExpandChange, {
+    defaultExpandedRowKeys: props.defaultExpandedRowKeys || [],
+  });
 
   const showExpandedRow = Boolean(props.expandedRow);
 

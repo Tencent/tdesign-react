@@ -6,9 +6,5 @@ export default function TwelveHourTimePicker() {
   const handleValueChange = (v) => {
     setValue(v);
   };
-  return (
-    <>
-      <TimePicker format="hh:mm:ss A" value={value} onChange={handleValueChange} />
-    </>
-  );
+  return <TimePicker format="hh:mm:ss A" value={value} onChange={handleValueChange} />;
 }

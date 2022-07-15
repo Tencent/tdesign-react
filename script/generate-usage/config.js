@@ -982,7 +982,6 @@ module.exports = {
   table: {
     importStr: `
       import baseTableConfigProps from './base-table-props.json';\n
-      import primaryTableConfigProps from './primary-table-props.json';\n
       import { Table } from 'tdesign-react';\n`,
     configStr: `
       const [configList, setConfigList] = useState(baseTableConfigProps);
@@ -990,18 +989,14 @@ module.exports = {
     panelStr: `
       const panelList = [
         { label: 'baseTable', value: 'baseTable', config: baseTableConfigProps },
-        { label: 'primaryTable', value: 'primaryTable', config: primaryTableConfigProps },
       ];
 
-      const data = [];
-      const total = 30;
-      for (let i = 0; i < total; i++) {
-        data.push({
-          index: i,
-          platform: '公有',
-          description: '数据源',
-        });
-      }
+      const data = Array(30).fill(0).map((_, i) => ({
+        index: i,
+        platform: '公有',
+        description: '数据源',
+      }));
+
       const columns = [
         {colKey: 'index', title: 'index'},
         {colKey: 'platform', title: '平台'},
@@ -1012,22 +1007,14 @@ module.exports = {
         data,
         columns,
         maxHeight: 140,
-        pagination: { total, defaultPageSize: 10 },
+        pagination: { total: 30, defaultPageSize: 10 },
       };
 
       const panelMap = {
         baseTable: <Table {...defaultProps} {...changedProps} />,
-        primaryTable: (
-          <Table {...defaultProps} {...changedProps}/>
-        ),
       };
     `,
     usageStr: `
-      useEffect(() => {
-        const config = panelList.find(item => item.value === panel).config;
-        setConfigList(config);
-      }, [panel]);
-
       useEffect(() => {
         setRenderComp(panelMap[panel]);
       }, [changedProps, panel]);
@@ -1044,16 +1031,33 @@ module.exports = {
       const panelList = [{ label: 'space', value: 'space' }];
     `,
     usageStr: `
-      const defaultProps = { content: '这是一个弹出框' };
       useEffect(() => {
         setRenderComp((
-          <Space {...defaultProps} {...changedProps}>
+          <Space {...changedProps}>
             <Button>按钮</Button>
             <Button>按钮</Button>
             <Button>按钮</Button>
             <Button>按钮</Button>
             <Button>按钮</Button>
           </Space>
+        ));
+      }, [changedProps]);
+    `,
+  },
+  Jumper: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Jumper } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'jumper', value: 'jumper' }];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp((
+          <Jumper {...changedProps}></Jumper>
         ));
       }, [changedProps]);
     `,

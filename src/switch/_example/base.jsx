@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch } from 'tdesign-react';
+import { Switch, Space } from 'tdesign-react';
 
 export default function SwitchBasic() {
   const [checked, setChecked] = useState(true);
@@ -10,9 +10,9 @@ export default function SwitchBasic() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Switch size="large" />
       <Switch size="large" value={checked} onChange={onChange} />
-    </div>
+    </Space>
   );
 }

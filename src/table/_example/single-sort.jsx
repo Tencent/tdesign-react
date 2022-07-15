@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Checkbox } from 'tdesign-react';
+import { Table, Checkbox, Space } from 'tdesign-react';
 
 const columns = [
   { colKey: 'instance', title: '集群名称', width: 150 },
@@ -67,10 +67,11 @@ export default function TableSingleSort() {
   }
 
   return (
-    <div className="demo-container">
-
-      <div style={{ marginBottom: '16px' }}>
-        <Checkbox checked={hideSortTips} onChange={setHideSortTips}>隐藏排序文本提示</Checkbox>
+    <Space direction="vertical">
+      <div>
+        <Checkbox checked={hideSortTips} onChange={setHideSortTips}>
+          隐藏排序文本提示
+        </Checkbox>
         <span style={{ paddingLeft: '16px', verticalAlign: 'top' }}>排序方式：{JSON.stringify(sort)}</span>
       </div>
 
@@ -82,6 +83,6 @@ export default function TableSingleSort() {
         hideSortTips={hideSortTips}
         onSortChange={onSortChange}
       />
-    </div>
+    </Space>
   );
 }
