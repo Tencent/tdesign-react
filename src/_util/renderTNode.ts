@@ -1,11 +1,11 @@
-import React from 'react';
 import { TNode } from '../common';
 
 /**
- * 渲染 TNode 类型节点
+ * 渲染 任意 T | () => T 类型节点
+ * 默认类型为TNode
  * @param tnode
  */
-export default function renderTNode(tnode: TNode, defaultNode?: React.ReactNode): React.ReactNode {
+export default function renderTNode<T = TNode>(tnode: T, defaultNode?: T): T {
   if (typeof tnode === 'function') {
     return tnode();
   }

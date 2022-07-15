@@ -323,7 +323,7 @@ export default {
           title: 'Card 卡片',
           name: 'card',
           path: '/react/components/card',
-          component: () => import('tdesign-react/card/card.md')
+          component: () => import('tdesign-react/card/card.md'),
         },
         {
           title: 'Collapse 折叠面板',
@@ -378,6 +378,12 @@ export default {
           name: 'tag',
           path: '/react/components/tag',
           component: () => import('tdesign-react/tag/tag.md'),
+        },
+        {
+          title: 'Timeline 时间轴',
+          name: 'timeline',
+          path: '/react/components/timeline',
+          component: () => import('tdesign-react/timeline/timeline.md'),
         },
         {
           title: 'Tooltip 文字提示',
