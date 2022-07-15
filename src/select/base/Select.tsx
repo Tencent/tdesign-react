@@ -304,7 +304,7 @@ const Select = forwardRefWithStatics(
         multiple,
         showPopup,
         setShowPopup,
-        options: currentOptions,
+        options: currentOptions?.length > 0 ? currentOptions : options,
         empty,
         max,
         loadingText,
