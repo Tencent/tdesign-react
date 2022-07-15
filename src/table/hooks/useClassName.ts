@@ -13,6 +13,7 @@ export default function useClassName() {
       tdLastRow: `${classPrefix}-table__td-last-row`,
       tdFirstCol: `${classPrefix}-table__td-first-col`,
       thCellInner: `${classPrefix}-table__th-cell-inner`,
+      tableRowEdit: `${classPrefix}-table--row-edit`,
       cellEditable: `${classPrefix}-table__cell--editable`,
       cellEditWrap: `${classPrefix}-table__cell-wrap`,
       bordered: `${classPrefix}-table--bordered`,
@@ -177,3 +178,5 @@ export default function useClassName() {
 
   return classNames;
 }
+
+export type TableClassName = ReturnType<typeof useClassName>;

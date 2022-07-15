@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -6,7 +6,13 @@ import useColumnController from './hooks/useColumnController';
 import useRowExpand from './hooks/useRowExpand';
 import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 import useRowSelect from './hooks/useRowSelect';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from './type';
+import {
+  TdPrimaryTableProps,
+  PrimaryTableCol,
+  TableRowData,
+  PrimaryTableCellParams,
+  PrimaryTableRowEditContext,
+} from './type';
 import useSorter from './hooks/useSorter';
 import useFilter from './hooks/useFilter';
 import useDragSort from './hooks/useDragSort';
@@ -14,15 +20,24 @@ import useAsyncLoading from './hooks/useAsyncLoading';
 import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
 import { BaseTableProps, PrimaryTableProps } from './interface';
-import EditableCell from './EditableCell';
-
+import EditableCell, { EditableCellProps } from './EditableCell';
+import { getEditableKeysMap } from './utils';
+import { validate } from '../form/formModel';
+import { AllValidateResult } from '../form/type';
 import { StyledProps } from '../common';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
+const cellRuleMap = new Map<any, PrimaryTableRowEditContext<TableRowData>[]>();
+
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
-export default function PrimaryTable(props: TPrimaryTableProps) {
-  const { columns, columnController, style, className } = props;
+
+export type ErrorListType = { [key: string]: AllValidateResult[] };
+
+const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
+  const { columns, columnController, editableRowKeys, style, className } = props;
+  const [errorListMap, setErrorListMap] = useState<ErrorListType>({});
+  const [tColumns, setTColumns] = useState<PrimaryTableCol[]>([]);
   const primaryTableRef = useRef(null);
   const { tableDraggableClasses, tableBaseClass } = useClassName();
   // 自定义列配置功能
@@ -52,6 +67,7 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     [tableDraggableClasses.rowHandlerDraggable]: isRowHandlerDraggable,
     [tableDraggableClasses.rowDraggable]: isRowDraggable,
     [tableBaseClass.overflowVisible]: isTableOverflowHidden === false,
+    [tableBaseClass.tableRowEdit]: editableRowKeys,
   };
 
   // 如果想给 TR 添加类名，请在这里补充，不要透传更多额外 Props 到 BaseTable
@@ -68,8 +84,71 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     }
     return tAttributes.filter((v) => v);
   })();
+
+  const editableKeysMap = useMemo(
+    () => editableRowKeys && getEditableKeysMap(editableRowKeys, props.data, props.rowKey || 'id'),
+    [editableRowKeys, props.data, props.rowKey],
+  );
+
+  const validateRowData = (rowValue: any) => {
+    const rowRules = cellRuleMap.get(rowValue);
+    const list = rowRules.map(
+      (item) =>
+        new Promise<PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] }>((resolve) => {
+          const { value, col } = item;
+          if (!col.edit || !col.edit.rules || !col.edit.rules.length) {
+            resolve({ ...item, errorList: [] });
+            return;
+          }
+          validate(value, col.edit.rules).then((r) => {
+            resolve({ ...item, errorList: r.filter((t) => !t.result) });
+          });
+        }),
+    );
+    Promise.all(list).then((results) => {
+      const errors = results.filter((t) => t.errorList.length);
+      const errorMap: ErrorListType = {};
+      errors.forEach(({ row, col, errorList }) => {
+        const rowValue = get(row, props.rowKey || 'id');
+        const key = [rowValue, col.colKey].join();
+        errorMap[key] = errorList;
+      });
+      setErrorListMap(errorMap);
+      // 缺少校验文本显示
+      props.onRowValidate?.({ trigger: 'parent', result: errors });
+    });
+  };
+
+  const clearValidateData = () => {
+    setErrorListMap({});
+  };
+
+  useImperativeHandle(ref, () => ({
+    validateRowData,
+    clearValidateData,
+  }));
+
+  const onRuleChange = (context: PrimaryTableRowEditContext<TableRowData>) => {
+    // 编辑行，预存校验信息，方便最终校验
+    if (props.editableRowKeys) {
+      const rowValue = get(context.row, props.rowKey || 'id');
+      const rules = cellRuleMap.get(rowValue);
+      if (rules) {
+        const index = rules.findIndex((t) => t.col.colKey === context.col.colKey);
+        if (index === -1) {
+          rules.concat(context);
+        } else {
+          rules[index].value = context.value;
+        }
+        cellRuleMap.set(rowValue, rules);
+      } else {
+        cellRuleMap.set(rowValue, [context]);
+      }
+    }
+  };
+
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
-  const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
+  const getColumns = (columns: PrimaryTableCol<TableRowData>[], errorListMap: ErrorListType) => {
     const arr: PrimaryTableCol<TableRowData>[] = [];
     for (let i = 0, len = columns.length; i < len; i++) {
       let item = { ...columns[i] };
@@ -92,10 +171,27 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       // 如果是单元格可编辑状态
       if (item.edit?.component) {
         const oldCell = item.cell;
-        item.cell = (p: PrimaryTableCellParams<TableRowData>) => <EditableCell {...p} oldCell={oldCell} />;
+        item.cell = (p: PrimaryTableCellParams<TableRowData>) => {
+          const cellProps: EditableCellProps = {
+            ...p,
+            oldCell,
+            tableBaseClass,
+            onChange: props.onRowEdit,
+            onValidate: props.onRowValidate,
+            onRuleChange,
+          };
+          if (props.editableRowKeys) {
+            const rowValue = get(p.row, props.rowKey || 'id');
+            cellProps.editable = editableKeysMap[rowValue] || false;
+            const key = [rowValue, p.col.colKey].join();
+            const errorList = errorListMap[key];
+            errorList && (cellProps.errors = errorList);
+          }
+          return <EditableCell {...cellProps} />;
+        };
       }
       if (item.children?.length) {
-        item.children = getColumns(item.children);
+        item.children = getColumns(item.children, errorListMap);
       }
       // 多级表头和自定义列配置特殊逻辑：要么子节点不存在，要么子节点长度大于 1，方便做自定义列配置
       if (!item.children || item.children?.length) {
@@ -105,13 +201,23 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     return arr;
   };
 
-  const tColumns = (() => {
-    const cols = getColumns(columns);
+  useEffect(() => {
+    const cols = getColumns(columns, errorListMap);
     if (showExpandIconColumn) {
       cols.unshift(getExpandColumn());
     }
-    return cols;
-  })();
+    setTColumns(cols);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns, errorListMap, showExpandIconColumn]);
+
+  // const tColumns = (() => {
+  //   console.log('errorListMap:', errorListMap);
+  //   const cols = getColumns(columns);
+  //   if (showExpandIconColumn) {
+  //     cols.unshift(getExpandColumn());
+  //   }
+  //   return cols;
+  // })();
 
   const onInnerPageChange = (pageInfo: PageInfo, newData: Array<TableRowData>) => {
     props.onPageChange?.(pageInfo, newData);
@@ -180,6 +286,8 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       onLeafColumnsChange={setDragSortColumns}
     />
   );
-}
+});
 
 PrimaryTable.displayName = 'PrimaryTable';
+
+export default PrimaryTable;
