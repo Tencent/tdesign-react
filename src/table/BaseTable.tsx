@@ -116,7 +116,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   const [lastLeafColumns, setLastLeafColumns] = useState(props.columns || []);
   useEffect(() => {
-    if (JSON.stringify(lastLeafColumns) !== JSON.stringify(spansAndLeafNodes.leafColumns)) {
+    if (lastLeafColumns.map((t) => t.colKey).join() !== spansAndLeafNodes.leafColumns.map((t) => t.colKey).join()) {
       props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setLastLeafColumns(spansAndLeafNodes.leafColumns);
