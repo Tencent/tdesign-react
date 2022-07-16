@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -6,13 +6,7 @@ import useColumnController from './hooks/useColumnController';
 import useRowExpand from './hooks/useRowExpand';
 import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 import useRowSelect from './hooks/useRowSelect';
-import {
-  TdPrimaryTableProps,
-  PrimaryTableCol,
-  TableRowData,
-  PrimaryTableCellParams,
-  PrimaryTableRowEditContext,
-} from './type';
+import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from './type';
 import useSorter from './hooks/useSorter';
 import useFilter from './hooks/useFilter';
 import useDragSort from './hooks/useDragSort';
@@ -21,14 +15,11 @@ import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
 import { BaseTableProps, PrimaryTableProps } from './interface';
 import EditableCell, { EditableCellProps } from './EditableCell';
-import { getEditableKeysMap } from './utils';
-import { validate } from '../form/formModel';
 import { AllValidateResult } from '../form/type';
 import { StyledProps } from '../common';
+import { useEditableRow } from './hooks/useEditableRow';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
-
-const cellRuleMap = new Map<any, PrimaryTableRowEditContext<TableRowData>[]>();
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
@@ -36,7 +27,6 @@ export type ErrorListType = { [key: string]: AllValidateResult[] };
 
 const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
-  const [errorListMap, setErrorListMap] = useState<ErrorListType>({});
   const [tColumns, setTColumns] = useState<PrimaryTableCol[]>([]);
   const primaryTableRef = useRef(null);
   const { tableDraggableClasses, tableBaseClass } = useClassName();
@@ -62,6 +52,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
+
   const primaryTableClasses = {
     [tableDraggableClasses.colDraggable]: isColDraggable,
     [tableDraggableClasses.rowHandlerDraggable]: isRowHandlerDraggable,
@@ -69,6 +60,8 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
     [tableBaseClass.overflowVisible]: isTableOverflowHidden === false,
     [tableBaseClass.tableRowEdit]: editableRowKeys,
   };
+
+  const { errorListMap, editableKeysMap, validateRowData, onRuleChange, clearValidateData } = useEditableRow(props);
 
   // 如果想给 TR 添加类名，请在这里补充，不要透传更多额外 Props 到 BaseTable
   const tRowClassNames = (() => {
@@ -85,67 +78,10 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
     return tAttributes.filter((v) => v);
   })();
 
-  const editableKeysMap = useMemo(
-    () => editableRowKeys && getEditableKeysMap(editableRowKeys, props.data, props.rowKey || 'id'),
-    [editableRowKeys, props.data, props.rowKey],
-  );
-
-  const validateRowData = (rowValue: any) => {
-    const rowRules = cellRuleMap.get(rowValue);
-    const list = rowRules.map(
-      (item) =>
-        new Promise<PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] }>((resolve) => {
-          const { value, col } = item;
-          if (!col.edit || !col.edit.rules || !col.edit.rules.length) {
-            resolve({ ...item, errorList: [] });
-            return;
-          }
-          validate(value, col.edit.rules).then((r) => {
-            resolve({ ...item, errorList: r.filter((t) => !t.result) });
-          });
-        }),
-    );
-    Promise.all(list).then((results) => {
-      const errors = results.filter((t) => t.errorList.length);
-      const errorMap: ErrorListType = {};
-      errors.forEach(({ row, col, errorList }) => {
-        const rowValue = get(row, props.rowKey || 'id');
-        const key = [rowValue, col.colKey].join();
-        errorMap[key] = errorList;
-      });
-      setErrorListMap(errorMap);
-      // 缺少校验文本显示
-      props.onRowValidate?.({ trigger: 'parent', result: errors });
-    });
-  };
-
-  const clearValidateData = () => {
-    setErrorListMap({});
-  };
-
   useImperativeHandle(ref, () => ({
     validateRowData,
     clearValidateData,
   }));
-
-  const onRuleChange = (context: PrimaryTableRowEditContext<TableRowData>) => {
-    // 编辑行，预存校验信息，方便最终校验
-    if (props.editableRowKeys) {
-      const rowValue = get(context.row, props.rowKey || 'id');
-      const rules = cellRuleMap.get(rowValue);
-      if (rules) {
-        const index = rules.findIndex((t) => t.col.colKey === context.col.colKey);
-        if (index === -1) {
-          rules.concat(context);
-        } else {
-          rules[index].value = context.value;
-        }
-        cellRuleMap.set(rowValue, rules);
-      } else {
-        cellRuleMap.set(rowValue, [context]);
-      }
-    }
-  };
 
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
   const getColumns = (columns: PrimaryTableCol<TableRowData>[], errorListMap: ErrorListType) => {

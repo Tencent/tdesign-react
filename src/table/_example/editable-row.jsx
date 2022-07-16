@@ -144,8 +144,8 @@ const onRowEdit = (params) => {
               { label: 'G', value: 'G', show: () => editedRow.framework !== 'React' },
               { label: 'H', value: 'H', show: () => editedRow.framework !== 'React' },
             ].filter(t => (t.show === undefined ? true : t.show())),
-            showEditIcon: false,
           }),
+          showEditIcon: false,
         },
       },
       {
