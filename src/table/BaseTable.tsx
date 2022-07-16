@@ -86,6 +86,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
       [tableBaseClass.multipleHeader]: isMultipleHeader,
       [tableColFixedClasses.leftShadow]: showColumnShadow.left,
       [tableColFixedClasses.rightShadow]: showColumnShadow.right,
+      [tableBaseClass.columnResizableTable]: props.resizable,
     }),
   );
 

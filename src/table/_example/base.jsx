@@ -29,6 +29,7 @@ export default function TableBasic() {
   const table = (
     <Table
       data={data}
+      resizable
       columns={[
         {
           width: '100',
