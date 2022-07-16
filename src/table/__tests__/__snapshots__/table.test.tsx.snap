@@ -127,7 +127,7 @@ exports[`affix.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-table t-table--bordered t-table--affixed-header t-table--col-draggable t-table--column-fixed"
+        class="t-table t-table--bordered t-table--affixed-header t-table--col-draggable t-table--column-fixed t-table--column-resizable"
         style="position: relative;"
       >
         <div>
@@ -1291,7 +1291,7 @@ exports[`base.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-table t-vertical-align-top"
+        class="t-table t-vertical-align-top t-table--column-resizable"
         style="position: relative;"
       >
         <div
@@ -7343,7 +7343,7 @@ exports[`fixed-column.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-table t-table--bordered t-table--column-fixed"
+        class="t-table t-table--bordered t-table--column-fixed t-table--column-resizable"
         style="position: relative;"
       >
         <div
