@@ -28,7 +28,7 @@ export type ErrorListType = { [key: string]: AllValidateResult[] };
 const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
-  const { tableDraggableClasses, tableBaseClass } = useClassName();
+  const { tableDraggableClasses, tableBaseClass, tableSelectedClasses } = useClassName();
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props);
   // 展开/收起行功能
@@ -37,7 +37,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
-  const { formatToRowSelectColumn, selectedRowClassNames } = useRowSelect(props);
+  const { formatToRowSelectColumn, selectedRowClassNames } = useRowSelect(props, tableSelectedClasses);
   // 过滤功能
   const { hasEmptyCondition, isTableOverflowHidden, renderFilterIcon, renderFirstFilterRow } = useFilter(
     props,

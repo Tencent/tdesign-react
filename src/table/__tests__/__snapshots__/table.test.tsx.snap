@@ -20951,7 +20951,7 @@ exports[`select-multiple.jsx 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-row-select"
+              class="t-table__cell-check t-table__th-row-select"
               data-colkey="row-select"
             >
               <div
@@ -21033,7 +21033,7 @@ exports[`select-multiple.jsx 1`] = `
             class="t-table__row--selected"
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-checkbox t-is-checked"
@@ -21105,7 +21105,7 @@ exports[`select-multiple.jsx 1`] = `
             class=""
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-checkbox t-is-disabled"
@@ -21177,7 +21177,7 @@ exports[`select-multiple.jsx 1`] = `
             class=""
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-checkbox"
@@ -21248,7 +21248,7 @@ exports[`select-multiple.jsx 1`] = `
             class=""
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-checkbox t-is-disabled"
@@ -21363,7 +21363,7 @@ exports[`select-single.jsx 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-row-select"
+              class="t-table__cell-check t-table__th-row-select"
               data-colkey="row-select"
             >
               <div
@@ -21429,7 +21429,7 @@ exports[`select-single.jsx 1`] = `
             class=""
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-radio"
@@ -21490,7 +21490,7 @@ exports[`select-single.jsx 1`] = `
             class="t-table__row--disabled"
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-radio t-is-disabled"
@@ -21552,7 +21552,7 @@ exports[`select-single.jsx 1`] = `
             class=""
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-radio"
@@ -21613,7 +21613,7 @@ exports[`select-single.jsx 1`] = `
             class="t-table__row--disabled"
           >
             <td
-              class=""
+              class="t-table__cell-check"
             >
               <label
                 class="t-radio t-is-disabled"
@@ -23548,7 +23548,7 @@ exports[`tree-select.jsx 1`] = `
                   />
                 </th>
                 <th
-                  class="t-table__th-row-select"
+                  class="t-table__cell-check t-table__th-row-select"
                   data-colkey="row-select"
                 >
                   <div
@@ -23646,7 +23646,7 @@ exports[`tree-select.jsx 1`] = `
                   </span>
                 </td>
                 <td
-                  class=""
+                  class="t-table__cell-check"
                 >
                   <label
                     class="t-checkbox"
@@ -23746,7 +23746,7 @@ exports[`tree-select.jsx 1`] = `
                   </span>
                 </td>
                 <td
-                  class=""
+                  class="t-table__cell-check"
                 >
                   <label
                     class="t-checkbox"
@@ -23846,7 +23846,7 @@ exports[`tree-select.jsx 1`] = `
                   </span>
                 </td>
                 <td
-                  class=""
+                  class="t-table__cell-check"
                 >
                   <label
                     class="t-checkbox"
@@ -23946,7 +23946,7 @@ exports[`tree-select.jsx 1`] = `
                   </span>
                 </td>
                 <td
-                  class=""
+                  class="t-table__cell-check"
                 >
                   <label
                     class="t-checkbox"
@@ -24046,7 +24046,7 @@ exports[`tree-select.jsx 1`] = `
                   </span>
                 </td>
                 <td
-                  class=""
+                  class="t-table__cell-check"
                 >
                   <label
                     class="t-checkbox"
