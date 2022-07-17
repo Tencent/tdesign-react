@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Table, Input, Select, DatePicker, MessagePlugin, Button } from 'tdesign-react';
 
 const classStyles = `
+<style>
 .t-table-demo__editable-row .table-operations > button {
   padding: 0 8px;
   line-height: 22px;
@@ -10,6 +11,7 @@ const classStyles = `
 .t-table-demo__editable-row .t-demo-col__datepicker .t-date-picker {
   width: 120px;
 }
+</style>
 `;
 
 export default function EditableRowTable() {
