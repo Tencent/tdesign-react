@@ -21,8 +21,6 @@ export default function FooterContentActionsCard() {
   return (
     <div className="tdesign-demo-block">
       <Card
-        title="标题"
-        subtitle="副标题"
         actions={
           <Dropdown options={options} onClick={clickHandler} minColumnWidth="112">
             <Button variant="text" shape="square">

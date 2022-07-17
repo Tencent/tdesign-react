@@ -16,7 +16,6 @@ export default function HeaderBorderedCard() {
           </a>
         }
         bordered
-        header
         headerBordered
         style={{ width: '400px' }}
       >

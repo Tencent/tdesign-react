@@ -8,7 +8,6 @@ export default function FooterCard() {
       <Card
         actions={<Tag theme="success">默认标签</Tag>}
         bordered
-        header
         cover="https://tdesign.gtimg.com/site/source/card-demo.png"
         style={{ width: '400px' }}
         avatar={
