@@ -1,7 +1,18 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Table, Input, Select, DatePicker, MessagePlugin, Button } from 'tdesign-react';
 
-export default function EditableCellTable() {
+const classStyles = `
+.t-table-demo__editable-row .table-operations > button {
+  padding: 0 8px;
+  line-height: 22px;
+  height: 22px;
+}
+.t-table-demo__editable-row .t-demo-col__datepicker .t-date-picker {
+  width: 120px;
+}
+`;
+
+export default function EditableRowTable() {
   const initData = new Array(5).fill(null).map((_, i) => ({
     key: String(i + 1),
     firstName: ['Eric', 'Gilberta', 'Heriberto', 'Lazarus', 'Zandra'][i % 4],
@@ -20,64 +31,69 @@ export default function EditableCellTable() {
   const tableRef = useRef();
   const [data, setData] = useState([...initData]);
   const [editableRowKeys, setEditableRowKeys] = useState(['1']);
-  const [currentSaveId, setCurrentSaveId] = useState();
-// 保存变化过的行信息
-const editMap = {};
+  let currentSaveId = '';
+  // 保存变化过的行信息
+  const editMap = {};
 
-const onEdit = (e) => {
-  const { id } = e.currentTarget.dataset;
-  if (!editableRowKeys.includes(id)) {
-    setEditableRowKeys(editableRowKeys.concat(id));
-  }
-};
-
-// 更新 editableRowKeys
-const updateEditState = (id) => {
-  const index = editableRowKeys.findIndex((t) => t === id);
-  editableRowKeys.splice(index, 1);
-  setEditableRowKeys([...editableRowKeys]);
-};
-
-const onCancel = (e) => {
-  const { id } = e.currentTarget.dataset;
-  updateEditState(id);
-  tableRef.current.clearValidateData();
-};
-
-const onSave = (e) => {
-  const { id } = e.currentTarget.dataset;
-  setCurrentSaveId(id);
-  // 触发内部校验，而后在 onRowValidate 中接收异步校验结果
-  tableRef.current.validateRowData(id);
-};
-
-const onRowValidate = (params) => {
-  console.log('validate:', params);
-  if (params.result.length) {
-    const r = params.result[0];
-    MessagePlugin.error(`${r.col.title} ${r.errorList[0].message}`);
-    return;
-  }
-  // 如果是 table 的父组件主动触发校验
-  if (params.trigger === 'parent' && !params.result.length) {
-    const current = editMap[currentSaveId];
-    if (current) {
-      data.splice(current.rowIndex, 1, current.editedRow);
-      setData([...data]);
-      MessagePlugin.success('保存成功');
+  const onEdit = (e) => {
+    const { id } = e.currentTarget.dataset;
+    if (!editableRowKeys.includes(id)) {
+      setEditableRowKeys(editableRowKeys.concat(id));
     }
-    updateEditState(currentSaveId);
-  }
-};
-
-const onRowEdit = (params) => {
-  const { row, col, value } = params;
-  const oldRowData = editMap[row.key]?.editedRow || row;
-  editMap[row.key] = {
-    ...params,
-    editedRow: { ...oldRowData, [col.colKey]: value },
   };
-};
+
+  // 更新 editableRowKeys
+  const updateEditState = (id) => {
+    const index = editableRowKeys.findIndex((t) => t === id);
+    editableRowKeys.splice(index, 1);
+    setEditableRowKeys([...editableRowKeys]);
+  };
+
+  const onCancel = (e) => {
+    const { id } = e.currentTarget.dataset;
+    updateEditState(id);
+    tableRef.current.clearValidateData();
+  };
+
+  const onSave = (e) => {
+    const { id } = e.currentTarget.dataset;
+    currentSaveId = id;
+    // 触发内部校验，而后在 onRowValidate 中接收异步校验结果
+    tableRef.current.validateRowData(id);
+  };
+
+  const onRowValidate = (params) => {
+    console.log('validate:', params);
+    if (params.result.length) {
+      const r = params.result[0];
+      MessagePlugin.error(`${r.col.title} ${r.errorList[0].message}`);
+      return;
+    }
+    // 如果是 table 的父组件主动触发校验
+    if (params.trigger === 'parent' && !params.result.length) {
+      const current = editMap[currentSaveId];
+      if (current) {
+        data.splice(current.rowIndex, 1, current.editedRow);
+        setData([...data]);
+        MessagePlugin.success('保存成功');
+      }
+      updateEditState(currentSaveId);
+    }
+  };
+
+  const onRowEdit = (params) => {
+    const { row, col, value } = params;
+    const oldRowData = editMap[row.key]?.editedRow || row;
+    editMap[row.key] = {
+      ...params,
+      editedRow: { ...oldRowData, [col.colKey]: value },
+    };
+  };
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -192,15 +208,19 @@ const onRowEdit = (params) => {
 
   // 当前示例包含：输入框、单选、多选、日期 等场景
   return (
-    <Table
-      ref={tableRef}
-      rowKey="key"
-      columns={columns}
-      data={data}
-      editableRowKeys={editableRowKeys}
-      onRowEdit={onRowEdit}
-      onRowValidate={onRowValidate}
-      bordered
-    />
+    <div className="t-table-demo__editable-row">
+      <Table
+        ref={tableRef}
+        rowKey="key"
+        columns={columns}
+        data={data}
+        editableRowKeys={editableRowKeys}
+        onRowEdit={onRowEdit}
+        onRowValidate={onRowValidate}
+        bordered
+      />
+    </div>
   );
 }
+
+EditableRowTable.displayName = 'EditableRowTable';

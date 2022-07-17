@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -27,7 +27,6 @@ export type ErrorListType = { [key: string]: AllValidateResult[] };
 
 const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
-  const [tColumns, setTColumns] = useState<PrimaryTableCol[]>([]);
   const primaryTableRef = useRef(null);
   const { tableDraggableClasses, tableBaseClass } = useClassName();
   // 自定义列配置功能
@@ -84,7 +83,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
   }));
 
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
-  const getColumns = (columns: PrimaryTableCol<TableRowData>[], errorListMap: ErrorListType) => {
+  const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
     const arr: PrimaryTableCol<TableRowData>[] = [];
     for (let i = 0, len = columns.length; i < len; i++) {
       let item = { ...columns[i] };
@@ -127,7 +126,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
         };
       }
       if (item.children?.length) {
-        item.children = getColumns(item.children, errorListMap);
+        item.children = getColumns(item.children);
       }
       // 多级表头和自定义列配置特殊逻辑：要么子节点不存在，要么子节点长度大于 1，方便做自定义列配置
       if (!item.children || item.children?.length) {
@@ -137,23 +136,13 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
     return arr;
   };
 
-  useEffect(() => {
-    const cols = getColumns(columns, errorListMap);
+  const tColumns = (() => {
+    const cols = getColumns(columns);
     if (showExpandIconColumn) {
       cols.unshift(getExpandColumn());
     }
-    setTColumns(cols);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columns, errorListMap, showExpandIconColumn]);
-
-  // const tColumns = (() => {
-  //   console.log('errorListMap:', errorListMap);
-  //   const cols = getColumns(columns);
-  //   if (showExpandIconColumn) {
-  //     cols.unshift(getExpandColumn());
-  //   }
-  //   return cols;
-  // })();
+    return cols;
+  })();
 
   const onInnerPageChange = (pageInfo: PageInfo, newData: Array<TableRowData>) => {
     props.onPageChange?.(pageInfo, newData);
