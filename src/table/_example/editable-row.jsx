@@ -130,6 +130,7 @@ export default function EditableRowTable() {
           // props, 透传全部属性到 Select 组件
           props: {
             clearable: true,
+            autoWidth: true,
             options: [
               { label: 'Vue', value: 'Vue' },
               { label: 'React', value: 'React' },
