@@ -14,15 +14,17 @@ import {
   TdPrimaryTableProps,
 } from '../type';
 import { filterDataByIds, isRowSelectedDisabled } from '../utils';
-import useClassName from './useClassName';
+import { TableClassName } from './useClassName';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
 import { ClassName } from '../../common';
 import log from '../../_common/js/log';
 
-export default function useRowSelect(props: TdPrimaryTableProps) {
+export default function useRowSelect(
+  props: TdPrimaryTableProps,
+  tableSelectedClasses: TableClassName['tableSelectedClasses'],
+) {
   const { selectedRowKeys, columns, data, rowKey, indeterminateSelectedRowKeys } = props;
-  const { tableSelectedClasses } = useClassName();
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
     defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
@@ -141,6 +143,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
     return {
       ...col,
       width: col.width || 64,
+      className: tableSelectedClasses.checkCell,
       cell: (p: PrimaryTableCellParams<TableRowData>) => renderSelectCell(p),
       title: col.type === 'multiple' ? getSelectedHeader() : '',
     };
