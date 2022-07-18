@@ -13,9 +13,6 @@ exports[`Button 组件测试 icon 1`] = `
         xlink:href="#t-icon-loading"
       />
     </svg>
-    <span
-      class="t-button__text"
-    />
   </button>
 </DocumentFragment>
 `;
@@ -509,9 +506,6 @@ exports[`icon.jsx 1`] = `
             fill-rule="evenodd"
           />
         </svg>
-        <span
-          class="t-button__text"
-        />
       </button>
     </div>
     <div
@@ -539,9 +533,6 @@ exports[`icon.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
-        <span
-          class="t-button__text"
-        />
       </button>
     </div>
     <div
