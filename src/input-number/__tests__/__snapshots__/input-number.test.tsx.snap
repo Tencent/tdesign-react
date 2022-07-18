@@ -25,6 +25,9 @@ exports[`align.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
+        <span
+          class="t-button__text"
+        />
       </button>
       <div
         class="t-input__wrap"
@@ -58,6 +61,9 @@ exports[`align.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
+        <span
+          class="t-button__text"
+        />
       </button>
     </div>
     <div
@@ -80,6 +86,9 @@ exports[`align.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
+        <span
+          class="t-button__text"
+        />
       </button>
       <div
         class="t-input__wrap"
@@ -113,6 +122,9 @@ exports[`align.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
+        <span
+          class="t-button__text"
+        />
       </button>
     </div>
     <div
@@ -135,6 +147,9 @@ exports[`align.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
+        <span
+          class="t-button__text"
+        />
       </button>
       <div
         class="t-input__wrap"
@@ -168,6 +183,9 @@ exports[`align.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
+        <span
+          class="t-button__text"
+        />
       </button>
     </div>
     <div
@@ -253,6 +271,9 @@ exports[`auto-width.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <div
       class="t-input__wrap t-input--auto-width"
@@ -292,6 +313,9 @@ exports[`auto-width.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
@@ -319,6 +343,9 @@ exports[`center.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <div
       class="t-input__wrap"
@@ -352,6 +379,9 @@ exports[`center.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
@@ -379,6 +409,9 @@ exports[`default.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <div
       class="t-input__wrap"
@@ -412,6 +445,9 @@ exports[`default.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
@@ -440,6 +476,9 @@ exports[`format.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <div
       class="t-input__wrap"
@@ -473,6 +512,9 @@ exports[`format.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
@@ -500,6 +542,9 @@ exports[`left.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <div
       class="t-input__wrap"
@@ -533,6 +578,9 @@ exports[`left.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
@@ -590,6 +638,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <div
           class="t-input__wrap"
@@ -623,6 +674,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
       <div
@@ -645,6 +699,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <div
           class="t-input__wrap"
@@ -678,6 +735,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
       <div
@@ -700,6 +760,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <div
           class="t-input__wrap"
@@ -733,6 +796,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
     </div>
@@ -759,6 +825,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <div
           class="t-input__wrap"
@@ -792,6 +861,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
       <div
@@ -814,6 +886,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <div
           class="t-input__wrap"
@@ -847,6 +922,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
       <div
@@ -869,6 +947,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <div
           class="t-input__wrap"
@@ -902,6 +983,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
     </div>
@@ -1016,6 +1100,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1050,6 +1137,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1095,6 +1185,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1129,6 +1222,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1174,6 +1270,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1207,6 +1306,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1252,6 +1354,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1285,6 +1390,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1330,6 +1438,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1363,6 +1474,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1408,6 +1522,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1441,6 +1558,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1486,6 +1606,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1524,6 +1647,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1569,6 +1695,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1607,6 +1736,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1652,6 +1784,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1690,6 +1825,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1735,6 +1873,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1773,6 +1914,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1818,6 +1962,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
               <div
                 class="t-input__wrap"
@@ -1856,6 +2003,9 @@ exports[`status.jsx 1`] = `
                     fill-opacity="0.9"
                   />
                 </svg>
+                <span
+                  class="t-button__text"
+                />
               </button>
             </div>
           </div>
@@ -1888,6 +2038,9 @@ exports[`step.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <div
       class="t-input__wrap"
@@ -1921,6 +2074,9 @@ exports[`step.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>

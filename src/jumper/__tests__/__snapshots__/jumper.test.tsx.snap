@@ -22,6 +22,9 @@ exports[`layout.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <button
       class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
@@ -40,6 +43,9 @@ exports[`layout.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <button
       class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
@@ -58,6 +64,9 @@ exports[`layout.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
@@ -92,6 +101,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <button
           class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
@@ -110,6 +122,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <button
           class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
@@ -128,6 +143,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
     </div>
@@ -154,6 +172,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <button
           class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
@@ -172,6 +193,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <button
           class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
@@ -190,6 +214,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
     </div>
@@ -216,6 +243,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <button
           class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
@@ -234,6 +264,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
         <button
           class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
@@ -252,6 +285,9 @@ exports[`size.jsx 1`] = `
               fill-opacity="0.9"
             />
           </svg>
+          <span
+            class="t-button__text"
+          />
         </button>
       </div>
     </div>
@@ -282,6 +318,9 @@ exports[`tips.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <button
       class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
@@ -301,6 +340,9 @@ exports[`tips.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
     <button
       class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
@@ -320,6 +362,9 @@ exports[`tips.jsx 1`] = `
           fill-opacity="0.9"
         />
       </svg>
+      <span
+        class="t-button__text"
+      />
     </button>
   </div>
 </DocumentFragment>
