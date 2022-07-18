@@ -811,9 +811,6 @@ exports[`max.jsx 1`] = `
                 fill-opacity="0.9"
               />
             </svg>
-            <span
-              class="t-button__text"
-            />
           </button>
           <div
             class="t-input__wrap"
@@ -847,9 +844,6 @@ exports[`max.jsx 1`] = `
                 fill-opacity="0.9"
               />
             </svg>
-            <span
-              class="t-button__text"
-            />
           </button>
         </div>
       </div>

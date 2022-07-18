@@ -90,7 +90,7 @@ const Button = forwardRef(
       },
       <>
         {iconNode}
-        {<span className={`${classPrefix}-button__text`}>{renderChildren}</span>}
+        {renderChildren && <span className={`${classPrefix}-button__text`}>{renderChildren}</span>}
         {suffix && <span className={`${classPrefix}-button__suffix`}>{suffix}</span>}
       </>,
     );
