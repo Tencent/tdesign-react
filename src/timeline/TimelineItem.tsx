@@ -44,10 +44,12 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
   return (
     <li className={itemClassName} style={style}>
       {time && <div className={`${classPrefix}-timeline-item__time`}>{time}</div>}
-      <div className={tailClassName} />
-      <div className={dotClassName} style={{ borderColor: color }}>
-        {!dotElement && status === 'process' && <Loading size="13px" />}
-        {dotElement}
+      <div className={`${classPrefix}-timeline-item__wrapper`}>
+        <div className={dotClassName} style={{ borderColor: color }}>
+          {!dotElement && status === 'process' && <Loading size="12px" />}
+          {dotElement}
+        </div>
+        <div className={tailClassName} />
       </div>
       <div className={`${classPrefix}-timeline-item__content`}>{children}</div>
     </li>

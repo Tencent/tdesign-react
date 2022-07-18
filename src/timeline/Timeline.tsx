@@ -13,29 +13,40 @@ export interface TimelineProps extends TdTimeLineProps, StyledProps {
 
 const Timeline = forwardRefWithStatics(
   (props: TimelineProps, ref: React.Ref<HTMLUListElement>) => {
-    const { theme = 'default', align, children, className, style, reverse = false, layout = 'vertical' } = props;
-    const { classPrefix } = useConfig();
-
-    const timelineClassName = classNames(
-      `${classPrefix}-timeline`,
-      {
-        [`${classPrefix}-timeline-reverse`]: reverse,
-        [`${classPrefix}-timeline-${layout}`]: true,
-      },
+    const {
+      theme = 'default',
+      align = 'left',
+      children,
       className,
-    );
+      style,
+      reverse = false,
+      layout = 'vertical',
+    } = props;
+    const { classPrefix } = useConfig();
 
     const timelineItems = React.Children.toArray(children).filter(
       (child: JSX.Element) => child.type.displayName === TimelineItem.displayName,
     );
     // 获取所有子节点类型
     const itemsStatus = React.Children.map(timelineItems, (child: JSX.Element) => child.props.status || 'default');
+    const hasTimeItem = timelineItems.some((item: React.ReactElement<any>) => !!item?.props?.time);
 
     if (reverse) {
       timelineItems.reverse();
     }
 
     const itemsCounts = React.Children.count(timelineItems);
+
+    const timelineClassName = classNames(
+      `${classPrefix}-timeline`,
+      {
+        [`${classPrefix}-timeline-${align}`]: true,
+        [`${classPrefix}-timeline-reverse`]: reverse,
+        [`${classPrefix}-timeline-${layout}`]: true,
+        [`${classPrefix}-timeline-time`]: hasTimeItem,
+      },
+      className,
+    );
 
     // 计算节点模式 CSS 类名
     const getPositionClassName = (index: number) => {
