@@ -33,7 +33,7 @@ spline: explain
 - `table`: 可编辑单元格，修复 `onEnter` 无法触发 `onEdited` 问题，[issue#1084](https://github.com/Tencent/tdesign-react/issues/1084) @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
 - `table`: 可编辑单元格，一旦校验不通过，后续编辑无法退出编辑态问题，[issue#1106](https://github.com/Tencent/tdesign-react/issues/1106) @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
 - `card`: card component header render issues @weikee94 ([#1125](https://github.com/Tencent/tdesign-react/pull/1125))
-- `Select`:  修复手动控制 popupVisble 展示空白内容 @samhou1988 ([#1105](https://github.com/Tencent/tdesign-react/pull/1105))
+- `Select`:  修复手动控制 popupVisible 展示空白内容 @samhou1988 ([#1105](https://github.com/Tencent/tdesign-react/pull/1105))
 -  `ColorPicker`: 修复切换渐变节点 hue 饱和度未更新的问题 @insekkei ([#1121](https://github.com/Tencent/tdesign-react/pull/1121))
 - `Form`: 修复 React 18 useEffect 触发两次导致表单自动校验问题 @HQ-Lin ([#1076](https://github.com/Tencent/tdesign-react/pull/1076))
 - `Form`: 修复 rule min max 不支持数组校验 @HQ-Lin ([#1127](https://github.com/Tencent/tdesign-react/pull/1127))
