@@ -139,7 +139,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       placeholder={tagInputPlaceholder}
       suffix={suffix}
       suffixIcon={suffixIconNode}
-      showInput={!inputProps.readonly || !tagValue || !tagValue?.length}
+      showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={true}
       onPaste={onPaste}
       onClick={onInnerClick}
