@@ -83,11 +83,11 @@ export interface TdPopconfirmProps {
   /**
    * 点击取消按钮时触发
    */
-  onCancel?: (options: { e: MouseEvent<HTMLDivElement | HTMLButtonElement> }) => void;
+  onCancel?: (options: { e: MouseEvent<HTMLElement> }) => void;
   /**
    * 点击确认按钮时触发
    */
-  onConfirm?: (options: { e: MouseEvent<HTMLDivElement | HTMLButtonElement> }) => void;
+  onConfirm?: (options: { e: MouseEvent<HTMLElement> }) => void;
   /**
    * 确认框显示或隐藏时触发
    */
@@ -96,7 +96,7 @@ export interface TdPopconfirmProps {
 
 export interface PopconfirmVisibleChangeContext {
   trigger?: TriggerSource;
-  e?: MouseEvent<HTMLDivElement | HTMLButtonElement>;
+  e?: MouseEvent<HTMLElement>;
 }
 
 export type TriggerSource = 'cancel' | 'confirm' | 'document' | 'trigger-element-click';

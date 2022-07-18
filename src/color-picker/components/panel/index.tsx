@@ -220,6 +220,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
         break;
       case 'selectedId':
         colorInstanceRef.current.gradientSelectedId = payload as string;
+        setUpdateId((prevId) => prevId + 1);
         break;
       case 'colors':
         colorInstanceRef.current.gradientColors = payload as GradientColorPoint[];

@@ -4,11 +4,12 @@ import set from 'lodash/set';
 import isFunction from 'lodash/isFunction';
 import { Edit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import { TableRowData, PrimaryTableCol } from './type';
-import useClassName from './hooks/useClassName';
+import { TableRowData, PrimaryTableCol, PrimaryTableRowEditContext, PrimaryTableRowValidateContext } from './type';
+import { TableClassName } from './hooks/useClassName';
 import { renderCell } from './TR';
 import { validate } from '../form/formModel';
 import log from '../_common/js/log';
+import { AllValidateResult } from '../form/type';
 
 export interface EditableCellProps {
   row: TableRowData;
@@ -16,15 +17,21 @@ export interface EditableCellProps {
   col: PrimaryTableCol<TableRowData>;
   colIndex: number;
   oldCell: PrimaryTableCol<TableRowData>['cell'];
+  tableBaseClass?: TableClassName['tableBaseClass'];
+  /** 行编辑需要使用 editable。单元格编辑则无需使用，设置为 undefined */
+  editable?: boolean;
+  errors?: AllValidateResult[];
+  onChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
+  onValidate?: (context: PrimaryTableRowValidateContext<TableRowData>) => void;
+  onRuleChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
 }
 
 const EditableCell = (props: EditableCellProps) => {
-  const { row, col, rowIndex, colIndex } = props;
-  const { tableBaseClass } = useClassName();
+  const { row, col, rowIndex, colIndex, errors, editable, tableBaseClass } = props;
   const tableEditableCellRef = useRef(null);
   const [isEdit, setIsEdit] = useState(false);
   const [editValue, setEditValue] = useState();
-  const [errorList, setErrorList] = useState([]);
+  const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
 
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
     const newRow = { ...row };
@@ -66,19 +73,35 @@ const EditableCell = (props: EditableCellProps) => {
     return Boolean(edit.abortEditOnEvent?.includes('onChange'));
   }, [col]);
 
-  const validateEdit = () =>
+  const validateEdit = (trigger: 'self' | 'parent') =>
     new Promise((resolve) => {
+      const params: PrimaryTableRowValidateContext<TableRowData> = {
+        result: [
+          {
+            col: props.col,
+            row: props.row,
+            colIndex: props.colIndex,
+            rowIndex: props.rowIndex,
+            errorList: [],
+            value: editValue,
+          },
+        ],
+        trigger,
+      };
       if (!col.edit?.rules) {
+        props.onValidate?.(params);
         resolve(true);
         return;
       }
       validate(editValue, col.edit?.rules).then((result) => {
-        const tErrorList = result?.filter((t) => !t.result);
-        setErrorList(tErrorList);
-        if (!tErrorList || !tErrorList.length) {
+        const list = result?.filter((t) => !t.result);
+        params.result[0].errorList = list;
+        props.onValidate?.(params);
+        if (!list || !list.length) {
           resolve(true);
         } else {
-          resolve(tErrorList);
+          setErrorList(list);
+          resolve(list);
         }
       });
     });
@@ -91,15 +114,19 @@ const EditableCell = (props: EditableCellProps) => {
   };
 
   const updateAndSaveAbort = (outsideAbortEvent: Function, ...args: any) => {
-    validateEdit().then((result) => {
+    validateEdit('self').then((result) => {
       if (result !== true) return;
+      const oldValue = get(row, col.colKey);
       // 相同的值无需触发变化
-      if (!isSame(args[0].value, get(row, col.colKey))) {
+      if (!isSame(args[0].value, oldValue)) {
+        // 恢复数据，保持受控
+        setEditValue(oldValue);
         outsideAbortEvent?.(...args);
       }
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
         setIsEdit(false);
+        setErrorList([]);
         clearTimeout(timer);
       }, 0);
     });
@@ -107,13 +134,14 @@ const EditableCell = (props: EditableCellProps) => {
 
   const listeners = useMemo<{ [key: string]: Function }>(() => {
     const { edit } = col;
-    if (!isEdit) return;
+    const isCellEditable = props.editable === undefined;
+    if (!isEdit || !isCellEditable) return;
     if (!edit?.abortEditOnEvent?.length) return {};
     // 自定义退出编辑态的事件
     const tListeners = {};
+    const outsideAbortEvent = edit?.onEdited;
     edit.abortEditOnEvent.forEach((itemEvent) => {
       if (itemEvent === 'onChange') return;
-      const outsideAbortEvent = edit.props[itemEvent];
       tListeners[itemEvent] = (...args: any) => {
         updateAndSaveAbort(
           outsideAbortEvent,
@@ -133,7 +161,17 @@ const EditableCell = (props: EditableCellProps) => {
 
   const onEditChange = (val: any, ...args: any) => {
     setEditValue(val);
-    if (isAbortEditOnChange) {
+    const params = {
+      row: props.row,
+      rowIndex: props.rowIndex,
+      value: val,
+      col: props.col,
+      colIndex: props.colIndex,
+    };
+    props.onChange?.(params);
+    props.onRuleChange?.(params);
+    const isCellEditable = props.editable === undefined;
+    if (isCellEditable && isAbortEditOnChange) {
       const outsideAbortEvent = col.edit?.onEdited;
       // editValue 和 currentRow 更新完成后再执行这个函数
       updateAndSaveAbort(
@@ -151,7 +189,7 @@ const EditableCell = (props: EditableCellProps) => {
 
   const documentClickHandler = (e: PointerEvent) => {
     if (!col.edit || !col.edit.component) return;
-    if (!isEdit || !tableEditableCellRef?.current) return;
+    if (!isEdit) return;
     // @ts-ignore
     if (e.path?.includes(tableEditableCellRef?.current?.currentElement)) return;
     const outsideAbortEvent = col.edit.onEdited;
@@ -163,16 +201,19 @@ const EditableCell = (props: EditableCellProps) => {
     });
   };
 
+  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
+
   useEffect(() => {
-    let val = get(row, col.colKey);
+    let val = cellValue;
     if (typeof val === 'object' && val !== null) {
       val = val instanceof Array ? [...val] : { ...val };
     }
     setEditValue(val);
-  }, [col.colKey, row]);
+  }, [cellValue]);
 
   useEffect(() => {
-    if (!col.edit || !col.edit.component) return;
+    const isCellEditable = props.editable === undefined;
+    if (!col.edit || !col.edit.component || !isCellEditable) return;
     if (isEdit) {
       document.addEventListener('click', documentClickHandler);
     } else {
@@ -184,8 +225,33 @@ const EditableCell = (props: EditableCellProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [col.edit, isEdit, editValue]);
 
+  useEffect(() => {
+    // 退出编辑态时，恢复原始值，等待父组件传入新的 data 值
+    if (props.editable === false) {
+      setEditValue(cellValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cellValue, editable]);
+
+  useEffect(() => {
+    if (props.editable === true) {
+      props.onRuleChange?.({
+        col,
+        row,
+        rowIndex,
+        colIndex,
+        value: cellValue,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cellValue, col, colIndex, row, rowIndex]);
+
+  useEffect(() => {
+    setErrorList(errors);
+  }, [errors]);
+
   // 这是非编辑态
-  if (!isEdit) {
+  if ((props.editable === undefined && !isEdit) || editable === false) {
     return (
       <div
         className={classNames(tableBaseClass.cellEditable)}
@@ -195,7 +261,7 @@ const EditableCell = (props: EditableCellProps) => {
         }}
       >
         {cellNode}
-        <Edit1Icon size="12px" />
+        {col.edit?.showEditIcon !== false && <Edit1Icon size="12px" />}
       </div>
     );
   }

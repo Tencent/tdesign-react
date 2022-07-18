@@ -58,9 +58,9 @@ export default function useColumnResize(tableContentRef: MutableRefObject<HTMLDi
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
     const resizeLinePos = targetBoundRect.right - tableBoundRect.left;
     const colLeft = targetBoundRect.left - tableBoundRect.left;
-    const minColLen = col.resize?.minWidth || DEFAULT_MIN_WIDTH;
+    const minColWidth = col.resize?.minWidth || DEFAULT_MIN_WIDTH;
     const maxColWidth = col.resize?.maxWidth || DEFAULT_MAX_WIDTH;
-    const minResizeLineLeft = colLeft + minColLen;
+    const minResizeLineLeft = colLeft + minColWidth;
     const maxResizeLineLeft = colLeft + maxColWidth;
 
     // 开始拖拽，记录下鼠标起始位置
@@ -99,10 +99,15 @@ export default function useColumnResize(tableContentRef: MutableRefObject<HTMLDi
     const onDragEnd = () => {
       if (resizeLineParams.isDragging) {
         // 结束拖拽，更新列宽
-        const width = parseInt(resizeLineLeft, 10) - colLeft;
-
+        let width = Math.ceil(parseInt(resizeLineLeft, 10) - colLeft) || 0;
+        // 为了避免精度问题，导致 width 宽度超出 [minColWidth, maxColWidth] 的范围，需要对比目标宽度和最小/最大宽度
+        if (width <= minColWidth) {
+          width = minColWidth;
+        } else if (width >= maxColWidth) {
+          width = maxColWidth;
+        }
         // eslint-disable-next-line
-        col.width = `${Math.floor(width)}px`;
+        col.width = `${width}px`;
 
         // 恢复设置
         resizeLineParams.isDragging = false;

@@ -146,7 +146,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
           presetsPlacement={presetsPlacement}
         />
       ) : null}
-      <div className={`${panelName}--content-wrapper`}>
+      <div className={`${panelName}-content-wrapper`}>
         {!enableTimePicker ? (
           [
             <PanelContent

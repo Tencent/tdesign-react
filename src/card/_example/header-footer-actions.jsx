@@ -30,7 +30,6 @@ export default function HeaderFooterActionsCard() {
         </Dropdown>
       }
       bordered
-      header
       cover="https://tdesign.gtimg.com/site/source/card-demo.png"
       style={{ width: '400px' }}
       avatar={<Avatar size="40px" image="https://tdesign.gtimg.com/site/avatar-boy.jpg"></Avatar>}

@@ -14,7 +14,10 @@ export default function usePrevNextJumper(props) {
       className={classNames(`${name}__btn`, `${name}__btn-prev`, {
         [`${classPrefix}-is-disabled`]: disabled || current === 1,
       })}
-      onClick={() => changeCurrent(current - 1)}
+      onClick={() => {
+        if (disabled || current === 1) return;
+        changeCurrent(current - 1);
+      }}
     >
       <ChevronLeftIcon />
     </div>
@@ -25,7 +28,10 @@ export default function usePrevNextJumper(props) {
       className={classNames(`${name}__btn`, `${name}__btn-next`, {
         [`${classPrefix}-is-disabled`]: disabled || current === pageCount,
       })}
-      onClick={() => changeCurrent(current + 1)}
+      onClick={() => {
+        if (disabled || current === pageCount) return;
+        changeCurrent(current + 1);
+      }}
     >
       <ChevronRightIcon />
     </div>

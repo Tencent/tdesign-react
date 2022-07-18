@@ -539,24 +539,7 @@ exports[`vertical.jsx 1`] = `
       >
         <div
           class="t-card__header"
-        >
-          <div
-            class="t-card__header-wrapper"
-          >
-            <div>
-              <span
-                class="t-card__title"
-              >
-                标题
-              </span>
-            </div>
-          </div>
-          <div
-            class="t-card__actions"
-          >
-            操作
-          </div>
-        </div>
+        />
         <div
           class="t-card__body"
         >
@@ -572,24 +555,7 @@ exports[`vertical.jsx 1`] = `
       >
         <div
           class="t-card__header"
-        >
-          <div
-            class="t-card__header-wrapper"
-          >
-            <div>
-              <span
-                class="t-card__title"
-              >
-                标题
-              </span>
-            </div>
-          </div>
-          <div
-            class="t-card__actions"
-          >
-            操作
-          </div>
-        </div>
+        />
         <div
           class="t-card__body"
         >
@@ -605,24 +571,7 @@ exports[`vertical.jsx 1`] = `
       >
         <div
           class="t-card__header"
-        >
-          <div
-            class="t-card__header-wrapper"
-          >
-            <div>
-              <span
-                class="t-card__title"
-              >
-                标题
-              </span>
-            </div>
-          </div>
-          <div
-            class="t-card__actions"
-          >
-            操作
-          </div>
-        </div>
+        />
         <div
           class="t-card__body"
         >

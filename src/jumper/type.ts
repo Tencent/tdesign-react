@@ -39,7 +39,7 @@ export interface TdJumperProps {
   /**
    * 按钮点击事件回调
    */
-  onChange?: (context: { e: MouseEvent<HTMLButtonElement>; trigger: JumperTrigger }) => void;
+  onChange?: (context: { e: MouseEvent<HTMLElement>; trigger: JumperTrigger }) => void;
 }
 
 export type JumperDisabledConfig = { prev?: boolean; current?: boolean; next?: boolean };
