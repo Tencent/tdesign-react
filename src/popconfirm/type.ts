@@ -96,7 +96,7 @@ export interface TdPopconfirmProps {
 
 export interface PopconfirmVisibleChangeContext {
   trigger?: TriggerSource;
-  e?: MouseEvent<HTMLDivElement | HTMLButtonElement>;
+  e?: MouseEvent<HTMLElement>;
 }
 
 export type TriggerSource = 'cancel' | 'confirm' | 'document' | 'trigger-element-click';
