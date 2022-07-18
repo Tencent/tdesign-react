@@ -194,11 +194,20 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     `${prefixCls}__content-wrapper--${placement}`,
   );
 
-  const contentWrapperStyle = {
-    transform: visible ? 'translateX(0)' : undefined,
-    width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
-    height: ['top', 'bottom'].includes(placement) ? getSizeValue(size) : '',
-  };
+  const getContentWrapperStyle = useCallback(
+    () => ({
+      transform: visible ? 'translateX(0)' : undefined,
+      width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
+      height: ['top', 'bottom'].includes(placement) ? getSizeValue(size) : '',
+    }),
+    [visible, placement, size, getSizeValue],
+  );
+
+  const [contentWrapperStyle, setContentWrapperStyle] = useState(getContentWrapperStyle());
+
+  useEffect(() => {
+    setContentWrapperStyle(getContentWrapperStyle());
+  }, [getContentWrapperStyle]);
 
   function getFooter(): React.ReactNode {
     if (footer !== true) return footer;
