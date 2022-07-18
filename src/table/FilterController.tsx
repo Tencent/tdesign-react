@@ -70,7 +70,15 @@ export default function TableFilterController(props: TableFilterControllerProps)
         props.onInnerFilterChange?.(val, column);
       },
     };
-
+    // 允许自定义触发确认搜索的事件
+    if (column.filter?.confirmEvents) {
+      column.filter.confirmEvents.forEach((event) => {
+        filterComponentProps[event] = () => {
+          setFilterPopupVisible(false);
+          props.onConfirm?.(column);
+        };
+      });
+    }
     const FilterComponent = column?.filter?.component || Component;
     return (
       <div className={tableFilterClasses.contentInner}>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Select } from 'tdesign-react';
+import { Select, Space } from 'tdesign-react';
 
 const { Option } = Select;
 
@@ -24,8 +23,8 @@ const LabelInValueSelect = () => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Select value={value} onChange={onChange} style={{ width: '40%' }} valueType="object">
+    <Space breakLine style={{ width: '100%' }}>
+      <Select value={value} onChange={onChange} valueType="object">
         <Option key="apple" label="Apple" value="apple" />
         <Option key="orange" label="Orange" value="orange" />
         <Option key="banana" label="Banana" value="banana" />
@@ -34,7 +33,6 @@ const LabelInValueSelect = () => {
         value={value3}
         onChange={onChange3}
         valueType="object"
-        style={{ width: '40%', marginLeft: '10%' }}
         keys={{ label: 'text', value: 'data' }}
         options={[
           { text: 'Apple', data: 'apple', type: 'fruit' },
@@ -47,7 +45,6 @@ const LabelInValueSelect = () => {
         onChange={onChange2}
         multiple
         valueType="object"
-        style={{ width: '40%', marginLeft: '10%' }}
         keys={{ label: 'text', value: 'data' }}
         options={[
           { text: 'Apple', data: 'apple', type: 'fruit' },
@@ -55,7 +52,7 @@ const LabelInValueSelect = () => {
           { text: 'Banana', data: 'banana', type: 'fruit' },
         ]}
       />
-    </div>
+    </Space>
   );
 };
 

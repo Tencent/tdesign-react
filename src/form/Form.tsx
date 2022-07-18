@@ -44,7 +44,7 @@ const Form = forwardRefWithStatics(
       onValuesChange = noop,
     } = props;
 
-    const formClass = classNames(className, `${classPrefix}-form`, {
+    const formClass = classNames(`${classPrefix}-form`, className, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
@@ -59,6 +59,7 @@ const Form = forwardRefWithStatics(
       setFieldsValue,
       setFields,
       validate,
+      validateOnly,
       clearValidate,
       setValidateMessage,
     } = useInstance(props, formRef, formMapRef);
@@ -72,6 +73,7 @@ const Form = forwardRefWithStatics(
       setFieldsValue,
       setFields,
       validate,
+      validateOnly,
       clearValidate,
       setValidateMessage,
     }));

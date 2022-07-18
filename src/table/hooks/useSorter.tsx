@@ -129,6 +129,7 @@ export default function useSorter(props: TdPrimaryTableProps) {
       sortType: col.sortType,
       sortOrder: getSortOrder(sortMap[col.colKey]?.descending),
       sortIcon: props.sortIcon,
+      hideSortTips: props.hideSortTips,
     };
     return (
       <SorterButton

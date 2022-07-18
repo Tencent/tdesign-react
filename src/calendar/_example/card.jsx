@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Calendar, Select, Switch } from 'tdesign-react';
+import { Button, Calendar, Select, Switch, Space } from 'tdesign-react';
 
 export default function CalendarExample() {
   const ref = React.useRef(null);
@@ -10,7 +10,7 @@ export default function CalendarExample() {
   }, [ref]);
 
   return (
-    <div className="tdesign-demo-block-column-large">
+    <Space direction="vertical" size="large">
       <div>
         <label>请选择风格：</label>
         <Select
@@ -35,6 +35,6 @@ export default function CalendarExample() {
         <Switch size="large" value={fillWithZero} onChange={(val) => setFillWithZero(val)}></Switch>
       </div>
       <Calendar ref={ref} theme={theme} isShowWeekendDefault={true} fillWithZero={fillWithZero} />
-    </div>
+    </Space>
   );
 }

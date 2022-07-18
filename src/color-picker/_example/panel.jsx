@@ -3,7 +3,7 @@ import { ColorPickerPanel } from 'tdesign-react';
 
 export default function PanelExample() {
   const handleChange = (value, context) => {
-    // console.log('handleChange', value, context);
+    console.log('handleChange', value, context);
   };
 
   const handlePaletteChange = (context) => {

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, Popconfirm } from 'tdesign-react';
+import { Button, Popconfirm, Space } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
 
 export default function IconUsageExample() {
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Popconfirm content={'普通事件通知类型偏向于确认'}>
           <Button theme="primary">默认</Button>
         </Popconfirm>
@@ -15,12 +15,18 @@ export default function IconUsageExample() {
         <Popconfirm content={'事件通知类型偏向于高危提醒'} theme={'danger'}>
           <Button theme="danger">危险</Button>
         </Popconfirm>
-      </div>
-      <div className="tdesign-demo-block-row">
-        <Popconfirm content={'基础气泡确认框文案示意文字按钮'} icon={<BrowseIcon />} popupProps={{ placement: 'bottom' }}>
-          <Button theme="default" variant="outline">自定义图标（属性）</Button>
+      </Space>
+      <Space>
+        <Popconfirm
+          content={'基础气泡确认框文案示意文字按钮'}
+          icon={<BrowseIcon />}
+          popupProps={{ placement: 'bottom' }}
+        >
+          <Button theme="default" variant="outline">
+            自定义图标（属性）
+          </Button>
         </Popconfirm>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

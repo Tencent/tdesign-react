@@ -4,11 +4,10 @@
 
 import { TdTabPanelProps, TdTabsProps } from './type';
 
-export const tabPanelDefaultProps: TdTabPanelProps = { destroyOnHide: true, disabled: false, removable: false };
+export const tabPanelDefaultProps: TdTabPanelProps = { destroyOnHide: true, removable: false };
 
 export const tabsDefaultProps: TdTabsProps = {
   addable: false,
-  disabled: false,
   dragSort: false,
   placement: 'top',
   size: 'medium',

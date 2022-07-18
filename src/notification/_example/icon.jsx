@@ -1,9 +1,9 @@
 import React from 'react';
-import { Notification } from 'tdesign-react';
+import { Notification, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <Notification
         theme="info"
         title="普通通知"
@@ -24,6 +24,6 @@ export default function NotificationExample() {
         title="成功通知"
         content="这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知"
       />
-    </div>
+    </Space>
   );
 }

@@ -40,7 +40,10 @@ const Option = (props: SelectOptionProps) => {
     value,
     onSelect,
     children,
+    content,
     restData,
+    style,
+    className,
   } = props;
 
   let selected: boolean;
@@ -64,7 +67,7 @@ const Option = (props: SelectOptionProps) => {
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (isNumber(item) || isString(item)) {
-        // 如果非object类型
+        // 如果非 object 类型
         return item === value;
       }
       return get(item, keys?.value || 'value') === value;
@@ -98,12 +101,12 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <span>{children || label}</span>;
+    return <span>{children || content || label}</span>;
   };
 
   return (
     <li
-      className={classNames(props.className, `${classPrefix}-${componentType}-option`, {
+      className={classNames(className, `${classPrefix}-${componentType}-option`, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-selected`]: selected,
         [`${classPrefix}-size-s`]: size === 'small',
@@ -112,6 +115,7 @@ const Option = (props: SelectOptionProps) => {
       key={value}
       onClick={handleSelect}
       ref={optionRef}
+      style={style}
     >
       {renderItem(children)}
     </li>

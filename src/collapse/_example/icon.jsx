@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, TagInput, Radio, Checkbox } from 'tdesign-react';
+import { Collapse, TagInput, Radio, Checkbox, Space } from 'tdesign-react';
 
 const { Panel } = Collapse;
 
@@ -12,7 +12,7 @@ export default function CollapseExample() {
     { value: 3, label: '不展示' },
   ];
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
       <Collapse
         expandIcon={[1, 2].includes(radio)}
         expandIconPlacement={radio === 1 ? 'left' : 'right'}
@@ -30,7 +30,7 @@ export default function CollapseExample() {
           </div>
         </Panel>
       </Collapse>
-      <div>
+      <Space direction="vertical">
         <Radio.Group value={radio} options={options} onChange={setRadio} />
         <div>
           <Checkbox
@@ -42,7 +42,7 @@ export default function CollapseExample() {
             仅图标响应点击
           </Checkbox>
         </div>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

@@ -152,6 +152,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
       ref={wrapperRef}
       style={style}
       className={classNames(name, className, {
+        [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-focused`]: isFocused,
         [`${classPrefix}-is-${status}`]: status,
         [`${classPrefix}-size-l`]: size === 'large',

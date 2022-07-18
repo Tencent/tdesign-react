@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React, { CSSProperties, useRef } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import get from 'lodash/get';
 import { BaseTableCellParams, TableRowData, TdBaseTableProps } from './type';
 import { formatRowAttributes, formatRowClassNames } from './utils';
-import { getColumnFixedStyles, RowAndColFixedPosition } from './hooks/useFixed';
+import { RowAndColFixedPosition } from './interface';
+import { getColumnFixedStyles } from './hooks/useFixed';
 import useClassName from './hooks/useClassName';
 
 export interface TFootProps {
@@ -17,6 +18,8 @@ export interface TFootProps {
   columns: TdBaseTableProps['columns'];
   rowAttributes: TdBaseTableProps['rowAttributes'];
   rowClassName: TdBaseTableProps['rowClassName'];
+  // 表尾吸底内容宽度
+  thWidthList?: { [colKey: string]: number };
 }
 
 export default function TFoot(props: TFootProps) {
@@ -55,8 +58,12 @@ export default function TFoot(props: TFootProps) {
                 props.rowAndColFixedPosition,
                 classnames.tableColFixedClasses,
               );
+              const style: CSSProperties = { ...tdStyles.style };
+              if (props.thWidthList?.[col.colKey]) {
+                style.width = `${props.thWidthList[col.colKey] || 0}px`;
+              }
               return (
-                <td key={col.colKey} className={classNames(tdStyles.classes)} style={tdStyles.style}>
+                <td key={col.colKey} className={classNames(tdStyles.classes)} style={style}>
                   {renderTFootCell({
                     row,
                     rowIndex,

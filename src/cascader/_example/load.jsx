@@ -16,10 +16,6 @@ export default function Example() {
     },
   ];
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   const onChange1 = (value) => {
     setValue1(value);
   };
@@ -45,8 +41,8 @@ export default function Example() {
     });
 
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} value={value1} onChange={onChange1} load={load} />
+    <div className="tdesign-demo-block-row">
+      <Cascader options={options} value={value1} onChange={onChange1} load={load} />
     </div>
   );
 }

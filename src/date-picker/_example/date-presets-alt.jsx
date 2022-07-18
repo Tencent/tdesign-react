@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { DateRangePicker } from 'tdesign-react';
+import { DateRangePicker, Space } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [presets] = useState({
@@ -13,10 +13,10 @@ export default function YearDatePicker() {
   const [range2, setRange2] = useState(['2022-01-01 11:11:11', '2022-08-08 12:12:12']);
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <DateRangePicker value={range1} presets={presets} onChange={(val) => setRange1(val)} />
 
       <DateRangePicker value={range2} presets={presets} onChange={(val) => setRange2(val)} enableTimePicker />
-    </div>
+    </Space>
   );
 }

@@ -3,14 +3,14 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import Select from '../../select';
 import { TdDatePickerProps } from '../type';
-import Jumper from '../../common/Jumper';
+import Jumper, { TdJumperProps } from '../../jumper';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;
   month?: number;
   onMonthChange?: Function;
   onYearChange?: Function;
-  onJumperClick?: Function;
+  onJumperClick?: TdJumperProps['onChange'];
 }
 
 const useDatePickerLocalConfig = () => {
@@ -96,19 +96,19 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   // hover title
   const labelMap = {
     year: {
-      prevTitle: preDecade,
-      currentTitle: now,
-      nextTitle: nextDecade,
+      prev: preDecade,
+      current: now,
+      next: nextDecade,
     },
     month: {
-      prevTitle: preYear,
-      currentTitle: now,
-      nextTitle: nextYear,
+      prev: preYear,
+      current: now,
+      next: nextYear,
     },
     date: {
-      prevTitle: preMonth,
-      currentTitle: now,
-      nextTitle: nextMonth,
+      prev: preMonth,
+      current: now,
+      next: nextMonth,
     },
   };
 
@@ -138,7 +138,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       <div className={`${headerClassName}-controller`}>
         {showMonthPicker && (
           <Select
-            className={`${headerClassName}-controller--month`}
+            className={`${headerClassName}-controller-month`}
             value={month}
             options={monthOptions}
             onChange={(val) => onMonthChange(val)}
@@ -146,25 +146,25 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           />
         )}
         <Select
-          className={`${headerClassName}-controller--year`}
+          className={`${headerClassName}-controller-year`}
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
           popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
           panelTopContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
-              更多...
+              ...
             </div>
           }
           panelBottomContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelBottomClick}>
-              更多...
+              ...
             </div>
           }
         />
       </div>
 
-      <Jumper {...labelMap[mode]} onJumperClick={onJumperClick} />
+      <Jumper tips={labelMap[mode]} size="small" onChange={onJumperClick} />
     </div>
   );
 };

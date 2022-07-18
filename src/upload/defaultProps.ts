@@ -7,7 +7,6 @@ import { TdUploadProps } from './type';
 export const uploadDefaultProps: TdUploadProps = {
   allowUploadDuplicateFile: false,
   autoUpload: true,
-  disabled: false,
   draggable: false,
   isBatchUpload: false,
   max: 0,

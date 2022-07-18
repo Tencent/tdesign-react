@@ -40,13 +40,7 @@ const Button = forwardRef(
     const btnRef = useRef();
     useRipple(ref || btnRef);
 
-    const hasChildren = typeof children !== 'undefined';
-    const hasContent = typeof content !== 'undefined';
-    let childrenNode = children;
-
-    if (!hasChildren && hasContent) {
-      childrenNode = content;
-    }
+    const renderChildren = content ?? children;
 
     let iconNode = icon;
     if (loading) iconNode = <Loading loading={loading} inheritColor={true} />;
@@ -89,10 +83,10 @@ const Button = forwardRef(
         {iconNode ? (
           <>
             {iconNode}
-            {(hasChildren || hasContent) && <span className={`${classPrefix}-button__text`}>{childrenNode}</span>}
+            {renderChildren && <span className={`${classPrefix}-button__text`}>{renderChildren}</span>}
           </>
         ) : (
-          <span className={`${classPrefix}-button__text`}>{childrenNode}</span>
+          <span className={`${classPrefix}-button__text`}>{renderChildren}</span>
         )}
       </button>
     );

@@ -3,7 +3,7 @@ import isString from 'lodash/isString';
 import { easeInOutCubic, EasingFunction } from './easing';
 import { ScrollContainer, ScrollContainerElement } from '../common';
 
-// 用于判断是否可使用dom
+// 用于判断是否可使用 dom
 export const canUseDocument = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
@@ -38,7 +38,7 @@ export const off = ((): any => {
   };
 })();
 
-function hasClass(el: Element, cls: string) {
+export function hasClass(el: Element, cls: string) {
   if (!el || !cls) return false;
   if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
   if (el.classList) {
@@ -91,7 +91,7 @@ export const removeClass = function (el: Element, cls: string) {
 
 /**
  * 获取滚动容器
- * 因为document不存在scroll等属性, 因此排除document
+ * 因为 document 不存在 scroll 等属性, 因此排除 document
  * window | HTMLElement
  * @param {ScrollContainerElement} [container='body']
  * @returns {ScrollContainer}
@@ -107,7 +107,7 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
 };
 
 /**
- * 返回是否window对象
+ * 返回是否 window 对象
  *
  * @export
  * @param {any} obj
@@ -124,11 +124,11 @@ type ScrollTarget = HTMLElement | Window | Document;
  *
  * @export
  * @param {ScrollTarget} target
- * @param {boolean} isLeft true为获取scrollLeft, false为获取scrollTop
+ * @param {boolean} isLeft true 为获取 scrollLeft, false 为获取 scrollTop
  * @returns {number}
  */
 export function getScroll(target: ScrollTarget, isLeft?: boolean): number {
-  // node环境或者target为空
+  // node 环境或者 target 为空
   if (typeof window === 'undefined' || !target) {
     return 0;
   }
@@ -168,8 +168,8 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
       if (time < duration) {
         raf(fnc);
       } else {
-        // 由于上面步骤设置了scrollTop, 滚动事件可能未触发完毕
-        // 此时应该在下一帧再执行res
+        // 由于上面步骤设置了 scrollTop, 滚动事件可能未触发完毕
+        // 此时应该在下一帧再执行 res
         raf(res);
       }
     };

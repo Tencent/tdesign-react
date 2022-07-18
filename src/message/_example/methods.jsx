@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, MessagePlugin } from 'tdesign-react';
+import { Button, MessagePlugin, Space } from 'tdesign-react';
 
 export default function () {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Button
         onClick={() => {
           MessagePlugin.info({
@@ -69,6 +69,6 @@ export default function () {
       >
         loading
       </Button>
-    </div>
+    </Space>
   );
 }

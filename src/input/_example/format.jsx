@@ -13,15 +13,13 @@ export default function InputExample() {
   const tips = inputStatus ? '请输入数字' : '';
 
   return (
-    <div className="tdesign-demo-item--input__input-box">
-      <Input
-        value={value}
-        onChange={(v) => setValue(v)}
-        status={inputStatus}
-        format={format}
-        tips={tips}
-        placeholder="请输入数字"
-      />
-    </div>
+    <Input
+      value={value}
+      onChange={(v) => setValue(v)}
+      status={inputStatus}
+      format={format}
+      tips={tips}
+      placeholder="请输入数字"
+    />
   );
 }

@@ -32,6 +32,7 @@ export default function StepHandler(props: StepHandlerProps) {
     const { type, e } = params;
     if (type === 'reduce') {
       disabledDecrease || onStep({ type, e });
+      return;
     }
     disabledIncrease || onStep({ type, e });
   };

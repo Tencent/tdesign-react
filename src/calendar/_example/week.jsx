@@ -7,9 +7,5 @@ export default function CalendarExample() {
     return output;
   }, []);
 
-  return (
-    <div className="tdesign-demo-block-column-large">
-      <Calendar week={(calendarWeek) => <div>{getWeekText(calendarWeek)}</div>} />;
-    </div>
-  );
+  return <Calendar week={(calendarWeek) => <div>{getWeekText(calendarWeek)}</div>} />;
 }

@@ -11,7 +11,9 @@ import checkSubMenuActive from './_util/checkSubMenuActive';
 
 const { TabPanel } = Tabs;
 
-export interface HeadMenuProps extends TdHeadMenuProps, StyledProps {}
+export interface HeadMenuProps extends TdHeadMenuProps, StyledProps {
+  children?: React.ReactNode;
+}
 
 const HeadMenu: FC<HeadMenuProps> = (props) => {
   const { children, className, theme = 'light', style, logo, operations } = props;
@@ -33,7 +35,7 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
   return (
     <MenuContext.Provider value={value}>
       <div
-        className={classNames(className, `${classPrefix}-head-menu`, `${classPrefix}-menu--${theme}`)}
+        className={classNames(`${classPrefix}-head-menu`, `${classPrefix}-menu--${theme}`, className)}
         style={{ ...style }}
       >
         <div className={`${classPrefix}-head-menu__inner`}>

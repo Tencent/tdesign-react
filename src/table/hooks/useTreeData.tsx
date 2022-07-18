@@ -3,17 +3,23 @@ import { AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import classNames from 'classnames';
-import TableTreeStore from './tree-store';
+import TableTreeStore, { SwapParams } from './tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
 import { renderCell } from '../TR';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
+export interface UseSwapParams<T> extends SwapParams<T> {
+  data: T[];
+}
 
 export default function useTreeData(props: TdEnhancedTableProps) {
-  const { data, columns, tree, rowKey } = props;
+  const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
   const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
   const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>();
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
+  const [locale, t] = useLocaleReceiver('table');
 
   const rowDataKeys = useMemo(
     () => ({
@@ -23,7 +29,22 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     [rowKey, tree?.childrenKey],
   );
 
-  // TODO：行选中会触发 tree 的变化。按理说，不应该
+  const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
+
+  const uniqueKeys = useMemo(
+    () => store?.getAllUniqueKeys(data, rowDataKeys)?.join() || '',
+    [data, rowDataKeys, store],
+  );
+
+  useEffect(() => {
+    if (!store || !checkedColumn) return;
+    // 第一次，不需要执行 updateDisabledState
+    const rowValue = get(dataSource[0], rowDataKeys.rowKey);
+    if (!store.treeDataMap.get(rowValue)) return;
+    store.updateDisabledState(dataSource, checkedColumn, rowDataKeys);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkedColumn]);
+
   useEffect(
     () => {
       if (!data || !store) return;
@@ -32,20 +53,16 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         setDataSource(data);
         return;
       }
-      const newVal = cloneDeep(data);
-      setDataSource(newVal);
+      let newVal = cloneDeep(data);
       store.initialTreeStore(newVal, columns, rowDataKeys);
+      if (props.tree?.defaultExpandAll) {
+        newVal = [...store.expandAll(newVal, rowDataKeys)];
+      }
+      setDataSource(newVal);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data],
+    [uniqueKeys],
   );
-
-  useEffect(() => {
-    // 如果没有树形解构，则不需要相关逻辑
-    if (!tree || !Object.keys(tree).length) return;
-    store.initialTreeStore(data, columns, rowDataKeys);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columns, rowDataKeys]);
 
   useEffect(
     () => {
@@ -58,11 +75,9 @@ export default function useTreeData(props: TdEnhancedTableProps) {
 
   function getTreeNodeStyle(level: number) {
     if (level === undefined) return;
-    const indent = props.tree?.indent || 24;
+    const indent = props.tree?.indent === undefined ? 24 : props.tree?.indent;
     // 默认 1px 是为了临界省略
-    return {
-      paddingLeft: `${level * indent || 1}px`,
-    };
+    return indent ? { paddingLeft: `${level * indent || 1}px` } : {};
   }
 
   /**
@@ -105,17 +120,18 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       const colStyle = getTreeNodeStyle(currentState?.level);
       const classes = { [tableTreeClasses.inlineCol]: !!col.ellipsis };
       const childrenNodes = get(p.row, rowDataKeys.childrenKey);
-      if (childrenNodes && childrenNodes instanceof Array) {
-        const IconNode = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded
-          ? MinusRectangleIcon
-          : AddRectangleIcon;
+      if ((childrenNodes && childrenNodes instanceof Array) || childrenNodes === true) {
+        const expanded = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded;
+        const type = expanded ? 'fold' : 'expand';
+        const defaultIconNode =
+          t(locale.treeExpandAndFoldIcon, { type }) || (expanded ? <MinusRectangleIcon /> : <AddRectangleIcon />);
+        const iconNode = treeExpandAndFoldIcon ? treeExpandAndFoldIcon({ type, ...p }) : defaultIconNode;
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
-            {!!childrenNodes.length && (
-              <IconNode
-                className={tableTreeClasses.icon}
-                onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}
-              />
+            {!!(childrenNodes.length || childrenNodes === true) && (
+              <span className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}>
+                {iconNode}
+              </span>
             )}
             {cellInfo}
           </div>
@@ -170,21 +186,82 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * @param key 当前节点唯一标识
    * @param newData 待添加的新节点
    */
-  function appendTo<T>(key: TableRowValue, newData: T) {
+  function appendTo<T>(key: TableRowValue, newData: T | T[]) {
+    if (!key) {
+      setDataSource([...store.appendToRoot(newData, dataSource, rowDataKeys)]);
+      return;
+    }
     // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
-    const dataTmp = store.appendTo(key, newData, dataSource, rowDataKeys);
-    setDataSource([...dataTmp]);
+    setDataSource([...store.appendTo(key, newData, dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 当前节点之后，插入节点
+   */
+  function insertAfter<T>(rowValue: TableRowValue, newData: T) {
+    setDataSource([...store.insertAfter(rowValue, newData, dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 当前节点之后，插入节点
+   */
+  function insertBefore<T>(rowValue: TableRowValue, newData: T) {
+    setDataSource([...store.insertBefore(rowValue, newData, dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 展开所有节点
+   */
+  function expandAll() {
+    setDataSource([...store.expandAll(dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 收起所有节点
+   */
+  function foldAll() {
+    setDataSource([...store.foldAll(dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 交换行数据，React 在回掉函数函数中无法获取最新的 state 信息，因此需要参数 params.data
+   */
+  function swapData(params: UseSwapParams<TableRowData>) {
+    const r = store.swapData(params.data, params, rowDataKeys);
+    if (r.result) {
+      setDataSource([...r.dataSource]);
+    } else {
+      const params = {
+        code: r.code,
+        reason: r.reason,
+      };
+      props.onAbnormalDragSort?.(params);
+    }
+  }
+
+  /**
+   * 获取全部数据的树形结构
+   * @param key 节点唯一标识
+   */
+  function getTreeNode() {
+    return store.getTreeNode(dataSource, rowDataKeys);
   }
 
   return {
     store,
     rowDataKeys,
     dataSource,
+    swapData,
     setData,
     getData,
     remove,
     appendTo,
+    insertAfter,
+    insertBefore,
     formatTreeColumn,
     toggleExpandData,
+    expandAll,
+    foldAll,
+    getTreeNode,
   };
 }

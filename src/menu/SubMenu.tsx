@@ -70,7 +70,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   return (
     <li
-      className={classNames(className, `${classPrefix}-submenu`, {
+      className={classNames(`${classPrefix}-submenu`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-opened`]: isOpen,
       })}
@@ -149,7 +149,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   return (
     <li
-      className={classNames(className, `${classPrefix}-submenu`, {
+      className={classNames(`${classPrefix}-submenu`, className, {
         [`${classPrefix}-is-opened`]: open,
       })}
       onMouseEnter={() => handleMouseEvent('enter')}

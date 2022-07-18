@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-
-import { Select } from "tdesign-react";
+import React, { useState } from 'react';
+import { Select } from 'tdesign-react';
 
 const options = [];
 for (let i = 0; i < 100; i++) {
@@ -14,15 +13,7 @@ const SingleSelect = () => {
     setValue(value);
   };
 
-  return (
-    <Select
-      options={options}
-      defaultValue={value}
-      onChange={onChange}
-      style={{ width: 200 }}
-      // multiple
-    ></Select>
-  );
+  return <Select options={options} defaultValue={value} onChange={onChange} style={{ width: 200 }}></Select>;
 };
 
 export default SingleSelect;

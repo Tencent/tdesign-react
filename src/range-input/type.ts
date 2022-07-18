@@ -167,7 +167,7 @@ export interface TdRangeInputPopupProps {
    * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
    * @default false
    */
-  disabled?: boolean | Array<boolean>;
+  disabled?: boolean;
   /**
    * 输入框的值
    */

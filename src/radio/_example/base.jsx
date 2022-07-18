@@ -1,9 +1,9 @@
 import React from 'react';
-import { Radio } from 'tdesign-react';
+import { Radio, Space } from 'tdesign-react';
 
 export default function RadioControlledExample() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Radio checked={false}>未选中</Radio>
       <Radio allowUncheck={true}>取消选中</Radio>
       <Radio checked>已选中</Radio>
@@ -13,6 +13,6 @@ export default function RadioControlledExample() {
       <Radio checked={true} disabled>
         禁用已选中
       </Radio>
-    </div>
+    </Space>
   );
 }

@@ -25,11 +25,18 @@ export default ({ mode }) =>
         '@docs': resolvePath('./docs'),
         '@components': resolvePath('./src/components'),
         '@common': resolvePath('../src/_common'),
+        'tdesign-react/es': resolvePath('../src'),
         'tdesign-react': resolvePath('../src'),
       },
     },
     build: {
       outDir: '../_site',
+      rollupOptions: {
+        input: {
+          index: 'index.html',
+          playground: 'playground.html',
+        },
+      },
     },
     jsx: 'react',
     server: {

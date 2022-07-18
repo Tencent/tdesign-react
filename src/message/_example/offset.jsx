@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, MessagePlugin, Input } from "tdesign-react";
+import React, { useState } from 'react';
+import { Button, MessagePlugin, Input, Space } from 'tdesign-react';
 
 const placementStyle = {
   position: 'relative',
@@ -58,8 +58,8 @@ export default function () {
   const [offsetY, setOffsetY] = useState(0);
 
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Input
           theme="column"
           style={{ width: 200 }}
@@ -78,13 +78,13 @@ export default function () {
             setOffsetY(value);
           }}
         />
-      </div>
-      <div className="tdesign-demo-block-row" style={placementStyle}>
+      </Space>
+      <Space style={placementStyle}>
         <Button
           style={placementCenterStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
+              content: '用户表示普通操作信息提示',
               placement: 'center',
               offset: [Number(offsetX), Number(offsetY)],
             });
@@ -96,8 +96,8 @@ export default function () {
           style={placementTopStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "top",
+              content: '用户表示普通操作信息提示',
+              placement: 'top',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -108,8 +108,8 @@ export default function () {
           style={placementLeftStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "left",
+              content: '用户表示普通操作信息提示',
+              placement: 'left',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -120,8 +120,8 @@ export default function () {
           style={placementRightStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "right",
+              content: '用户表示普通操作信息提示',
+              placement: 'right',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -132,8 +132,8 @@ export default function () {
           style={placementBottomStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "bottom",
+              content: '用户表示普通操作信息提示',
+              placement: 'bottom',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -144,8 +144,8 @@ export default function () {
           style={placementTopLeftStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "top-left",
+              content: '用户表示普通操作信息提示',
+              placement: 'top-left',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -156,8 +156,8 @@ export default function () {
           style={placementTopRightStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "top-right",
+              content: '用户表示普通操作信息提示',
+              placement: 'top-right',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -168,8 +168,8 @@ export default function () {
           style={placementBottomLeftStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "bottom-left",
+              content: '用户表示普通操作信息提示',
+              placement: 'bottom-left',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -180,15 +180,15 @@ export default function () {
           style={placementBottomRightStyle}
           onClick={() => {
             MessagePlugin.info({
-              content: "用户表示普通操作信息提示",
-              placement: "bottom-right",
+              content: '用户表示普通操作信息提示',
+              placement: 'bottom-right',
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
         >
           bottom-right
         </Button>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

@@ -1,32 +1,32 @@
-import React, { useMemo } from 'react';
-import dayjs from 'dayjs';
+import React from 'react';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
-import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
-import type { DatePickerPanelProps } from './DatePickerPanel';
-import type { DateRangePickerPanelProps } from './DateRangePickerPanel';
+import { TimePickerPanel } from '../../time-picker';
+import type { SinglePanelProps } from './SinglePanel';
+import type { RangePanelProps } from './RangePanel';
 import useConfig from '../../_util/useConfig';
 import { getDefaultFormat } from '../hooks/useFormat';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
-  year: DatePickerPanelProps['year'];
-  month: DatePickerPanelProps['month'];
-  mode: DatePickerPanelProps['mode'];
-  format: DatePickerPanelProps['format'];
-  enableTimePicker: DatePickerPanelProps['enableTimePicker'];
-  timePickerProps: DatePickerPanelProps['timePickerProps'];
-  firstDayOfWeek: DatePickerPanelProps['firstDayOfWeek'];
-  timeValue: DatePickerPanelProps['timeValue'];
+  year: SinglePanelProps['year'];
+  month: SinglePanelProps['month'];
+  mode: SinglePanelProps['mode'];
+  format: SinglePanelProps['format'];
+  enableTimePicker: SinglePanelProps['enableTimePicker'];
+  timePickerProps: SinglePanelProps['timePickerProps'];
+  firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
+  time: SinglePanelProps['time'];
 
+  popupVisible?: boolean;
   tableData: any[];
-  onMonthChange: DatePickerPanelProps['onMonthChange'] | DateRangePickerPanelProps['onMonthChange'];
-  onYearChange: DatePickerPanelProps['onYearChange'] | DateRangePickerPanelProps['onYearChange'];
-  onJumperClick: DatePickerPanelProps['onJumperClick'] | DateRangePickerPanelProps['onJumperClick'];
-  onCellClick: DatePickerPanelProps['onCellClick'] | DateRangePickerPanelProps['onCellClick'];
-  onCellMouseEnter: DatePickerPanelProps['onCellMouseEnter'] | DateRangePickerPanelProps['onCellMouseEnter'];
-  onCellMouseLeave: DatePickerPanelProps['onCellMouseLeave'] | DateRangePickerPanelProps['onCellMouseLeave'];
-  onTimePickerChange: DatePickerPanelProps['onTimePickerChange'] | DateRangePickerPanelProps['onTimePickerChange'];
+  onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
+  onYearChange: SinglePanelProps['onYearChange'] | RangePanelProps['onYearChange'];
+  onJumperClick: SinglePanelProps['onJumperClick'] | RangePanelProps['onJumperClick'];
+  onCellClick: SinglePanelProps['onCellClick'] | RangePanelProps['onCellClick'];
+  onCellMouseEnter: SinglePanelProps['onCellMouseEnter'] | RangePanelProps['onCellMouseEnter'];
+  onCellMouseLeave: SinglePanelProps['onCellMouseLeave'] | RangePanelProps['onCellMouseLeave'];
+  onTimePickerChange: SinglePanelProps['onTimePickerChange'] | RangePanelProps['onTimePickerChange'];
 }
 
 export default function PanelContent(props: PanelContentProps) {
@@ -43,7 +43,7 @@ export default function PanelContent(props: PanelContentProps) {
     firstDayOfWeek,
 
     partial = 'start',
-    timeValue,
+    time,
     tableData,
     onMonthChange,
     onYearChange,
@@ -56,25 +56,24 @@ export default function PanelContent(props: PanelContentProps) {
 
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
-  // eslint-disable-next-line
-  const defaultTimeValue = useMemo(() => dayjs().format(timeFormat), [timeValue]);
+  const defaultTime = '00:00:00';
 
   return (
-    <div className={`${panelName}--content`}>
-      <div className={`${panelName}--${mode}`}>
+    <div className={`${panelName}-content`}>
+      <div className={`${panelName}-${mode}`}>
         <DateHeader
           mode={mode}
           year={year}
           month={month}
           onMonthChange={(val: number) => onMonthChange?.(val, { partial })}
           onYearChange={(val: number) => onYearChange?.(val, { partial })}
-          onJumperClick={(val: number) => onJumperClick?.(val, { partial })}
+          onJumperClick={({ trigger }) => onJumperClick?.({ trigger, partial })}
         />
 
         <DateTable
           mode={mode}
           data={tableData}
-          timeValue={timeValue}
+          time={time}
           firstDayOfWeek={firstDayOfWeek}
           onCellClick={(date: Date, { e }) => onCellClick?.(date, { e, partial })}
           onCellMouseEnter={(date: Date) => onCellMouseEnter?.(date, { partial })}
@@ -83,9 +82,16 @@ export default function PanelContent(props: PanelContentProps) {
       </div>
 
       {enableTimePicker && (
-        <div className={`${panelName}--time`}>
-          <div className={`${panelName}--time-viewer`}>{timeValue || defaultTimeValue}</div>
-          <TimePickerPanel format={timeFormat} value={timeValue} onChange={onTimePickerChange} {...timePickerProps} />
+        <div className={`${panelName}-time`}>
+          <div className={`${panelName}-time-viewer`}>{time || defaultTime}</div>
+          <TimePickerPanel
+            key={partial}
+            format={timeFormat}
+            value={time || defaultTime}
+            onChange={onTimePickerChange}
+            isShowPanel={props.popupVisible}
+            {...timePickerProps}
+          />
         </div>
       )}
     </div>

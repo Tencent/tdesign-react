@@ -79,9 +79,6 @@ const initData = [
     description: 'test',
   },
 ];
-function rehandleClickOp(record) {
-  console.log(record);
-}
 
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
@@ -93,14 +90,12 @@ export default function TableSingleSort() {
   }
 
   return (
-    <div className="demo-table-select">
-      <Table
-        rowKey="id"
-        data={data}
-        columns={columns}
-        selectedRowKeys={selectedRowKeys}
-        onSelectChange={onSelectChange}
-      />
-    </div>
+    <Table
+      rowKey="id"
+      data={data}
+      columns={columns}
+      selectedRowKeys={selectedRowKeys}
+      onSelectChange={onSelectChange}
+    />
   );
 }

@@ -2,6 +2,7 @@ import React, { ChangeEvent, forwardRef, MouseEvent, useCallback, useMemo, useRe
 import isEmpty from 'lodash/isEmpty';
 import lodashUpdate from 'lodash/update';
 import findIndex from 'lodash/findIndex';
+import classNames from 'classnames';
 import Dialog from '../dialog';
 import Dragger from './dragger';
 import UploadTrigger from './upload-trigger';
@@ -53,6 +54,8 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     onCancelUpload,
     requestMethod,
     customDraggerRender,
+    className,
+    style,
     children,
   } = props;
 
@@ -465,7 +468,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
   }));
 
   return (
-    <div className={`${classPrefix}-upload`}>
+    <div className={classNames(`${classPrefix}-upload`, className)} style={style}>
       <input
         ref={uploadRef}
         type="file"
@@ -491,6 +494,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       </BooleanRender>
       <BooleanRender boolExpression={!draggable && theme === 'image'}>
         <ImageCard
+          disabled={disabled}
           multiple={multiple}
           max={max}
           onRemove={handleMultipleRemove}

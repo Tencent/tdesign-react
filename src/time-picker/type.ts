@@ -116,7 +116,7 @@ export interface TdTimeRangePickerProps {
    * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
    * @default false
    */
-  disabled?: boolean | Array<boolean>;
+  disabled?: boolean;
   /**
    * 禁用时间项
    */

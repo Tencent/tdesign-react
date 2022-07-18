@@ -1,9 +1,9 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
+import { testExamples, render } from '@test/utils';
 import Anchor from '../Anchor';
 import { getScroll, scrollTo } from '../_util/dom';
 
-const { AnchorTarget, AnchorItem } = Anchor;
+const { AnchorItem } = Anchor;
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
@@ -11,19 +11,6 @@ testExamples(__dirname);
 jest.resetModules();
 
 describe('Anchor', () => {
-  it('util/clipboard', () => {
-    jest.mock('../_util/clipboard', () => (args) => args);
-    const wrapper = render(
-      <AnchorTarget id="/components/anchor/#default" tag="h1">
-        基础锚点
-      </AnchorTarget>,
-    );
-    const a = wrapper.container.querySelector('.t-icon-file-copy');
-    fireEvent.click(a);
-
-    expect(true).toEqual(true);
-  });
-
   it('util/dom', () => {
     const distance = 0;
     const childTestID = 'childTestID';

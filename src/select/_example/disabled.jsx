@@ -1,15 +1,12 @@
 import React from 'react';
-
 import { Select } from 'tdesign-react';
 
 const { Option } = Select;
 
 const DisabledSelect = () => (
-  <div style={{ display: 'flex' }}>
-    <Select value="apple" style={{ width: '40%' }} disabled>
-      <Option key="apple" label="Apple" value="apple" />
-    </Select>
-  </div>
+  <Select value="apple" style={{ width: '40%' }} disabled>
+    <Option key="apple" label="Apple" value="apple" />
+  </Select>
 );
 
 export default DisabledSelect;

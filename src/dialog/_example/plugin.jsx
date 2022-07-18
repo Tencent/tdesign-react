@@ -1,5 +1,5 @@
 import React from 'react';
-import { DialogPlugin, Button } from 'tdesign-react';
+import { DialogPlugin, Button, Space } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 
@@ -97,11 +97,11 @@ export default function PluginModalExample() {
     });
   };
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <p>函数调用方式一：DialogPlugin(options)</p>
       <p>函数调用方式二：DialogPlugin.confirm(options)</p>
       <p>函数调用方式三：DialogPlugin.alert(options)</p>
-      <div className="tdesign-demo-block-row">
+      <div>
         <Button theme="primary" onClick={showDialog} style={buttonStyle}>
           dialog
         </Button>
@@ -118,6 +118,6 @@ export default function PluginModalExample() {
           DialogPlugin.confirm
         </Button>
       </div>
-    </div>
+    </Space>
   );
 }

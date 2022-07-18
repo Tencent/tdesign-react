@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NotificationPlugin, Button, Input } from 'tdesign-react';
+import { NotificationPlugin, Button, Input, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
   const [offsetY, setOffsetY] = useState('');
@@ -16,8 +16,8 @@ export default function NotificationExample() {
   };
 
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Input
           placeholder="请输入横向偏移量"
           value={offsetX}
@@ -30,15 +30,15 @@ export default function NotificationExample() {
           onChange={(v) => setOffsetY(v)}
           style={{ width: '130px', display: 'inline-block', margin: '0 20px 36px 0' }}
         />
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button onClick={() => openNotification('top-left')}>左上角</Button>
         <Button onClick={() => openNotification('top-right')}>右上角</Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button onClick={() => openNotification('bottom-left')}>左下角</Button>
         <Button onClick={() => openNotification('bottom-right')}>右下角</Button>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

@@ -3,12 +3,12 @@ import isNumber from 'lodash/isNumber';
 import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 
-import { StyledProps, Styles, TNode } from '../common';
+import { StyledProps, Styles } from '../common';
 import useConfig from '../_util/useConfig';
 import { pxCompat } from '../_util/helper';
 import { skeletonDefaultProps } from './defaultProps';
 
-export type SkeletonProps = TdSkeletonProps & StyledProps & { children: TNode };
+export type SkeletonProps = TdSkeletonProps & StyledProps & { children: React.ReactNode };
 
 const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   text: [1],
@@ -100,7 +100,7 @@ const Skeleton = (props: SkeletonProps) => {
   }, [delay, loading]);
 
   if (!ctrlLoading) {
-    return children;
+    return <>{children}</>;
   }
 
   const childrenContent = [];

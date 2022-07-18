@@ -1,0 +1,433 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`select.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 100%;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input-adornment t-input-adornment--prepend"
+      >
+        <span
+          class="t-input-adornment__prepend"
+        >
+          <div
+            class="t-select__wrap"
+          >
+            <div
+              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+            >
+              <div
+                class="t-input__wrap t-input--auto-width"
+                value="http://"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                >
+                  <div
+                    class="t-input__prefix"
+                  />
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    style="width: 0px;"
+                    type="text"
+                    value="http://"
+                  />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    http://
+                  </span>
+                  <span
+                    class="t-input__suffix t-input__suffix-icon"
+                  >
+                    <svg
+                      class="t-fake-arrow t-select__right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input-adornment t-input-adornment--append"
+      >
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <span
+          class="t-input-adornment__append"
+        >
+          <div
+            class="t-select__wrap"
+          >
+            <div
+              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+            >
+              <div
+                class="t-input__wrap t-input--auto-width"
+                value=".cn"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                >
+                  <div
+                    class="t-input__prefix"
+                  />
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    style="width: 0px;"
+                    type="text"
+                    value=".cn"
+                  />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    .cn
+                  </span>
+                  <span
+                    class="t-input__suffix t-input__suffix-icon"
+                  >
+                    <svg
+                      class="t-fake-arrow t-select__right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input-adornment t-input-adornment--prepend t-input-adornment--append"
+      >
+        <span
+          class="t-input-adornment__prepend"
+        >
+          <div
+            class="t-select__wrap"
+          >
+            <div
+              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+            >
+              <div
+                class="t-input__wrap t-input--auto-width"
+                value="http://"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                >
+                  <div
+                    class="t-input__prefix"
+                  />
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    style="width: 0px;"
+                    type="text"
+                    value="http://"
+                  />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    http://
+                  </span>
+                  <span
+                    class="t-input__suffix t-input__suffix-icon"
+                  >
+                    <svg
+                      class="t-fake-arrow t-select__right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+        <div
+          class="t-select__wrap"
+        >
+          <div
+            class="t-popup__reference t-select t-select-input"
+          >
+            <div
+              class="t-input__wrap"
+              value="tencent"
+            >
+              <div
+                class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+              >
+                <div
+                  class="t-input__prefix"
+                />
+                <input
+                  class="t-input__inner"
+                  placeholder="请选择"
+                  readonly=""
+                  type="text"
+                  value="tencent"
+                />
+                <span
+                  class="t-input__suffix t-input__suffix-icon"
+                >
+                  <svg
+                    class="t-fake-arrow t-select__right-icon"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span
+          class="t-input-adornment__append"
+        >
+          <div
+            class="t-select__wrap"
+          >
+            <div
+              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+            >
+              <div
+                class="t-input__wrap t-input--auto-width"
+                value=".cn"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                >
+                  <div
+                    class="t-input__prefix"
+                  />
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    style="width: 0px;"
+                    type="text"
+                    value=".cn"
+                  />
+                  <span
+                    class="t-input__input-pre"
+                  >
+                    .cn
+                  </span>
+                  <span
+                    class="t-input__suffix t-input__suffix-icon"
+                  >
+                    <svg
+                      class="t-fake-arrow t-select__right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`text.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 100%;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input-adornment t-input-adornment--prepend"
+      >
+        <span
+          class="t-input-adornment__prepend"
+        >
+          http://
+        </span>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input-adornment t-input-adornment--append"
+      >
+        <div
+          class="t-input__wrap t-tag-input t-tag-input--break-line"
+          value=""
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <span
+          class="t-input-adornment__append"
+        >
+          .com
+        </span>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input-adornment t-input-adornment--prepend t-input-adornment--append"
+      >
+        <span
+          class="t-input-adornment__prepend"
+        >
+          http://
+        </span>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <span
+          class="t-input-adornment__append"
+        >
+          .com
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

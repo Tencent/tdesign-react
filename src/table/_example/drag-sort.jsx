@@ -37,16 +37,13 @@ const initData = [
 export default function TableDragSort() {
   const [data, setData] = useState(initData);
 
-  function onDragSort({ currentIndex, targetIndex, current, target, currentData, e }) {
-    console.log('交换行', currentIndex, targetIndex, current, target, currentData, e);
+  // currentData is going to be deprecated.
+  function onDragSort({ currentIndex, targetIndex, current, target, data, newData, e }) {
+    console.log('交换行', currentIndex, targetIndex, current, target, data, newData, e);
     // 数据受控实现
-    setData(currentData);
+    setData(newData);
   }
 
-  return (
-    <div className="demo-container">
-      {/* 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法 */}
-      <Table rowKey="id" data={data} columns={columns} dragSort="row" onDragSort={onDragSort} />
-    </div>
-  );
+  // 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法
+  return <Table rowKey="id" data={data} columns={columns} dragSort="row" onDragSort={onDragSort} />;
 }

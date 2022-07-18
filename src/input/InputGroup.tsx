@@ -16,7 +16,7 @@ const InputGroup = forwardRef((props: InputGroupProps, ref: React.Ref<HTMLDivEle
   return (
     <div
       ref={ref}
-      className={classNames(className, `${classPrefix}-input-group`, {
+      className={classNames(`${classPrefix}-input-group`, className, {
         [`${classPrefix}-input-group--separate`]: separate,
       })}
       {...wrapperProps}

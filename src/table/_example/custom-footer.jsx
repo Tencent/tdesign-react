@@ -54,14 +54,8 @@ for (let i = 0; i < 3; i++) {
   });
 }
 
-const footData = [
-  { required: 'N', type: '全部类型' },
-];
+const footData = [{ required: 'N', type: '全部类型' }];
 
 export default function TableFixHeader() {
-  return (
-    <div>
-      <Table bordered data={data} columns={columns} rowKey="type" footData={footData} />
-    </div>
-  );
+  return <Table bordered data={data} columns={columns} rowKey="type" footData={footData} />;
 }

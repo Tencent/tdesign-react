@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space } from 'tdesign-react';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -74,21 +74,16 @@ export default function TableFixHeader() {
   );
 
   return (
-    <div className="tdesign-demo-block-column-large">
-      <div>
-        <div>
-          <RadioGroup value={tableLayout} variant="default-filled" onChange={setTableLayout}>
-            <RadioButton value="fixed">table-layout: fixed</RadioButton>
-            <RadioButton value="auto">table-layout: auto</RadioButton>
-          </RadioGroup>
-        </div>
-        <br />
-        <Checkbox value={fixedTopAndBottomRows} onChange={setFixedTopAndBottomRows}>
-          是否冻结首尾两行
-        </Checkbox>
-      </div>
+    <Space direction="vertical" size="large">
+      <RadioGroup value={tableLayout} variant="default-filled" onChange={setTableLayout}>
+        <RadioButton value="fixed">table-layout: fixed</RadioButton>
+        <RadioButton value="auto">table-layout: auto</RadioButton>
+      </RadioGroup>
+      <Checkbox value={fixedTopAndBottomRows} onChange={setFixedTopAndBottomRows}>
+        是否冻结首尾两行
+      </Checkbox>
 
       {table}
-    </div>
+    </Space>
   );
 }

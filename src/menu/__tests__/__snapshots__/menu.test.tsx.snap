@@ -92,7 +92,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -156,7 +156,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -167,7 +167,7 @@ exports[`closable-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -231,7 +231,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -242,7 +242,7 @@ exports[`closable-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -328,7 +328,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -339,7 +339,7 @@ exports[`closable-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -831,7 +831,6 @@ exports[`double.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__bar t-is-top"
-                    style="transform: translateX(0px);"
                   />
                   <div
                     class="t-tabs__bar t-is-top"
@@ -972,7 +971,6 @@ exports[`double.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__bar t-is-top"
-                    style="transform: translateX(0px);"
                   />
                   <div
                     class="t-tabs__bar t-is-top"
@@ -1233,7 +1231,7 @@ exports[`group-side.jsx 1`] = `
                       </li>
                     </div>
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -1242,7 +1240,7 @@ exports[`group-side.jsx 1`] = `
                       </span>
                     </li>
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -1382,7 +1380,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 50px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1442,7 +1440,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 250px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-submenu"
+              class="t-submenu t-menu__item--plain t-submenu__item t-submenu__item--icon"
             >
               <div
                 class="t-menu__item"
@@ -1474,7 +1472,7 @@ exports[`multi-side.jsx 1`] = `
                 style="max-height: 0; --padding-left: 60px;"
               >
                 <li
-                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                  class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                 >
                   <span
                     class="t-menu__content"
@@ -1483,7 +1481,7 @@ exports[`multi-side.jsx 1`] = `
                   </span>
                 </li>
                 <li
-                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                  class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                 >
                   <span
                     class="t-menu__content"
@@ -1492,7 +1490,7 @@ exports[`multi-side.jsx 1`] = `
                   </span>
                 </li>
                 <li
-                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                  class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                 >
                   <span
                     class="t-menu__content"
@@ -1503,7 +1501,7 @@ exports[`multi-side.jsx 1`] = `
               </ul>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1563,7 +1561,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1574,7 +1572,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1656,7 +1654,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1667,7 +1665,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1779,7 +1777,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 50px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1839,7 +1837,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 100px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1850,7 +1848,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1910,7 +1908,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1921,7 +1919,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -2003,7 +2001,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -2014,7 +2012,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -2495,7 +2493,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2559,7 +2557,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-submenu"
+                class="t-submenu t-menu__item--plain t-submenu__item t-submenu__item--icon"
               >
                 <div
                   class="t-menu__item"
@@ -2595,7 +2593,7 @@ exports[`popup-side.jsx 1`] = `
                     style="max-height: 0;"
                   >
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -2604,7 +2602,7 @@ exports[`popup-side.jsx 1`] = `
                       </span>
                     </li>
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -2613,7 +2611,7 @@ exports[`popup-side.jsx 1`] = `
                       </span>
                     </li>
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -2625,7 +2623,7 @@ exports[`popup-side.jsx 1`] = `
                 </div>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2689,7 +2687,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2700,7 +2698,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2786,7 +2784,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2797,7 +2795,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2913,7 +2911,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2977,7 +2975,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2988,7 +2986,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3052,7 +3050,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3063,7 +3061,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3149,7 +3147,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3160,7 +3158,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"

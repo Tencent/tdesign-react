@@ -118,6 +118,7 @@ const TimePicker = forwardRefWithStatics(
               format={format}
               value={currentValue}
               isFooterDisplay={true}
+              isShowPanel={isPanelShowed}
               disableTime={disableTime}
               onChange={setCurrentValue}
               hideDisabledTime={hideDisabledTime}

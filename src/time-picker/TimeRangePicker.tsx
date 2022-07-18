@@ -150,6 +150,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
             steps={steps}
             format={format}
             disableTime={disableTime}
+            isShowPanel={isPanelShowed}
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
             value={currentValue[currentPanelIdx || 0]}

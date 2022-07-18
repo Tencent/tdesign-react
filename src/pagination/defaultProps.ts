@@ -6,9 +6,9 @@ import { TdPaginationProps } from './type';
 
 export const paginationDefaultProps: TdPaginationProps = {
   defaultCurrent: 1,
-  disabled: false,
   foldedMaxPageBtn: 5,
   maxPageBtn: 10,
+  pageEllipsisMode: 'mid',
   defaultPageSize: 10,
   pageSizeOptions: [5, 10, 20, 50],
   showFirstAndLastPageBtn: false,

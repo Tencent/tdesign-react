@@ -7,10 +7,7 @@ const clickHandler = () => {
 
 export default function BorderedNoneCard() {
   return (
-    <div
-      className="tdesign-demo-block"
-      style={{ padding: '16px', backgroundColor: 'var(--td-bg-color-container-hover)' }}
-    >
+    <div style={{ padding: '16px', backgroundColor: 'var(--td-bg-color-container-hover)' }}>
       <Card
         title="标题"
         actions={

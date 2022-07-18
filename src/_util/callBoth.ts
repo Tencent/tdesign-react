@@ -9,7 +9,6 @@ export default function callBoth<T extends (...args: any[]) => any>(...fns: T[])
         lastResult = fn(...args);
       }
     }
-
     return lastResult;
   }) as T;
 }

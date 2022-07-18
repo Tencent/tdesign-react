@@ -2,10 +2,9 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdBaseTableProps, TdEnhancedTableProps, TdPrimaryTableProps } from './type';
+import { TdBaseTableProps, TdPrimaryTableProps } from './type';
 
 export const baseTableDefaultProps: TdBaseTableProps = {
-  allowResizeColumnWidth: false,
   bordered: false,
   columns: [],
   data: [],
@@ -15,6 +14,7 @@ export const baseTableDefaultProps: TdBaseTableProps = {
   headerAffixedTop: false,
   hover: false,
   loading: undefined,
+  resizable: false,
   rowKey: 'id',
   size: 'medium',
   stripe: false,
@@ -22,12 +22,12 @@ export const baseTableDefaultProps: TdBaseTableProps = {
   verticalAlign: 'middle',
 };
 
-export const enhancedTableDefaultProps: Omit<TdEnhancedTableProps, 'rowKey'> = {};
-
-export const primaryTableDefaultProps: Omit<TdPrimaryTableProps, 'rowKey'> = {
+export const primaryTableDefaultProps: Pick<
+  TdPrimaryTableProps,
+  'columnControllerVisible' | 'columns' | 'expandIcon' | 'multipleSort' | 'sortOnRowDraggable'
+> = {
   columnControllerVisible: undefined,
   columns: [],
-  expandedRowKeys: [],
   expandIcon: true,
   multipleSort: false,
   sortOnRowDraggable: false,

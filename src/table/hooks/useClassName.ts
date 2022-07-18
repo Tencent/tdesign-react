@@ -13,6 +13,8 @@ export default function useClassName() {
       tdLastRow: `${classPrefix}-table__td-last-row`,
       tdFirstCol: `${classPrefix}-table__td-first-col`,
       thCellInner: `${classPrefix}-table__th-cell-inner`,
+      cellEditable: `${classPrefix}-table__cell--editable`,
+      cellEditWrap: `${classPrefix}-table__cell-wrap`,
       bordered: `${classPrefix}-table--bordered`,
       striped: `${classPrefix}-table--striped`,
       hover: `${classPrefix}-table--hoverable`,
@@ -24,12 +26,20 @@ export default function useClassName() {
       columnFixed: `${classPrefix}-table--column-fixed`,
       widthOverflow: `${classPrefix}-table--width-overflow`,
       multipleHeader: `${classPrefix}-table--multiple-header`,
+      footerAffixed: `${classPrefix}-table--footer-affixed`,
+      horizontalBarAffixed: `${classPrefix}-table--horizontal-bar-affixed`,
       affixedHeader: `${classPrefix}-table--affixed-header`,
       affixedHeaderElm: `${classPrefix}-table__affixed-header-elm`,
+      affixedFooterElm: `${classPrefix}-table__affixed-footer-elm`,
+      affixedFooterWrap: `${classPrefix}-table__affixed-footer-wrap`,
       // 边框模式，固定表头，横向滚动时，右侧添加边线，分隔滚动条
       scrollbarDivider: `${classPrefix}-table__scroll-bar-divider`,
       // 当用户设置 height 为固定高度，为保证行元素铺满 table，则需设置 table 元素高度为 100%
       fullHeight: `${classPrefix}-table--full-height`,
+      // 拖拽列时的标记线
+      resizeLine: `${classPrefix}-table__resize-line`,
+      obviousScrollbar: `${classPrefix}-table__scrollbar--obvious`,
+      affixedHeaderWrap: `${classPrefix}-table__affixed-header-elm-wrap`,
     },
 
     tdAlignClasses: {

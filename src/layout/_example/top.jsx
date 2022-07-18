@@ -15,7 +15,6 @@ export default function BasicDivider() {
       <Header>
         <HeadMenu
           value="item1"
-          height="120px"
           logo={<img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />}
           operations={
             <div className="t-menu__operations">

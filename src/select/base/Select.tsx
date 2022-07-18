@@ -2,7 +2,6 @@ import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'r
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import Tag from '../../tag';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
@@ -13,11 +12,12 @@ import noop from '../../_util/noop';
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
 import SelectInput from '../../select-input';
-import Option, { SelectOptionProps } from './Option';
+import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
+import Tag from '../../tag';
 
-import { TdSelectProps, TdOptionProps, SelectOption } from '../type';
+import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } from '../type';
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 
@@ -97,17 +97,10 @@ const Select = forwardRefWithStatics(
     const [valueToOption, setValueToOption] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const selectedLabel = useMemo(() => {
-      if (multiple) {
-        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
-      }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
-    }, [selectedOptions, keys, multiple]);
-
-    // 处理设置option的逻辑
+    // 处理设置 option 的逻辑
     useEffect(() => {
       if (keys) {
-        // 如果有定制keys 先做转换
+        // 如果有定制 keys 先做转换
         const transformedOptions = options?.map((option) => ({
           ...option,
           value: get(option, keys?.value || 'value'),
@@ -122,8 +115,7 @@ const Select = forwardRefWithStatics(
       setValueToOption(getValueToOption(children, options, keys) || {});
     }, [options, keys, children]);
 
-    // 同步value对应的options
-    // 没太看明白effect的必要，感觉是一个useMemo而已
+    // 同步 value 对应的 options
     useEffect(() => {
       setSelectedOptions((oldSelectedOptions) => {
         const valueKey = keys?.value || 'value';
@@ -161,19 +153,25 @@ const Select = forwardRefWithStatics(
       });
     }, [value, keys, valueType, valueToOption]);
 
+    const selectedLabel = useMemo(() => {
+      if (multiple) {
+        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
+      }
+      return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
+    }, [selectedOptions, keys, multiple]);
+
     const handleShowPopup = (visible: boolean) => {
       if (disabled) return;
       setShowPopup(visible);
       onVisibleChange?.(visible);
       visible && onInputChange('');
     };
-
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
     const onTagChange = (currentTags, context) => {
-      const { trigger, index, item, e: event } = context;
+      const { trigger, index, item, e } = context;
       // backspace
       if (trigger === 'backspace') {
-        event.stopPropagation();
+        e.stopPropagation();
 
         let closest = -1;
         let len = index;
@@ -188,20 +186,20 @@ const Select = forwardRefWithStatics(
           return;
         }
         const values = getSelectValueArr(value, value[closest], true, valueType, keys);
-        onChange(values, context);
+        onChange(values, { e, trigger });
         return;
       }
 
       if (trigger === 'clear') {
-        event.stopPropagation();
-        onChange([], context);
+        e.stopPropagation();
+        onChange([], { e, trigger });
         return;
       }
 
       if (trigger === 'tag-remove') {
-        event.stopPropagation();
+        e.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
-        onChange(values, context);
+        onChange(values, { e, trigger });
         if (isFunction(onRemove)) {
           onRemove({
             value: value[index],
@@ -209,14 +207,18 @@ const Select = forwardRefWithStatics(
               label: item,
               value: value[index],
             },
-            e: event as React.MouseEvent<HTMLDivElement, MouseEvent>,
+            e,
           });
         }
       }
     };
 
     // 选中 Popup 某项
-    const handleChange: SelectOptionProps['onSelect'] = (value) => {
+    const handleChange = (
+      value: string | number,
+      context: { e: React.MouseEvent; trigger: SelectValueChangeTrigger },
+    ) => {
+      const { e, trigger } = context;
       if (multiple) {
         !reserveKeyword && onInputChange('', { trigger: 'clear' });
       }
@@ -225,7 +227,7 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
-      onChange?.(value, null);
+      onChange?.(value, { e, trigger });
     };
 
     // 处理filter逻辑
@@ -242,8 +244,8 @@ const Select = forwardRefWithStatics(
           filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
         }
       } else if (Array.isArray(tmpPropOptions)) {
-        const filterRegExp = new RegExp(value, 'i');
-        filteredOptions = tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
+        const upperValue = value.toUpperCase();
+        filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
       }
 
       if (creatable) {
@@ -322,10 +324,13 @@ const Select = forwardRefWithStatics(
     const renderValueDisplay = () => {
       if (!valueDisplay) {
         if (!multiple) {
+          if (typeof selectedLabel !== 'string') {
+            return selectedLabel;
+          }
           return '';
         }
         return ({ value: val }) =>
-          val.map((v, key) => {
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v, key) => {
             const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
             return (
               <Tag
@@ -365,7 +370,7 @@ const Select = forwardRefWithStatics(
       [selectedLabel, collapsedItems, minCollapsedNum],
     );
 
-    // 将第一个选中的option置于列表可见范围的最后一位
+    // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = useCallback(
       (content: HTMLDivElement) => {
         if (!selectPopupRef?.current) {
@@ -398,7 +403,7 @@ const Select = forwardRefWithStatics(
           className={name}
           ref={ref}
           readonly={readonly}
-          allowInput={filterable}
+          allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
           value={selectedLabel}
           valueDisplay={renderValueDisplay()}
@@ -411,6 +416,7 @@ const Select = forwardRefWithStatics(
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
           inputValue={showPopup ? inputValue : ''}
           tagInputProps={{
+            autoWidth: true,
             ...tagInputProps,
           }}
           tagProps={tagProps}

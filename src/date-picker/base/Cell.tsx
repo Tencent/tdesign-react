@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
-import { extractTimeObj } from '../../_common/js/date-picker/utils-new';
+import { extractTimeObj } from '../../_common/js/date-picker/utils';
 
 export interface DatePickerCellProps {
-  timeValue?: string;
+  time?: string;
   text: [string, number];
   value: Date;
   active: boolean;
@@ -29,7 +29,7 @@ const DatePickerCell = (props: DatePickerCellProps) => {
   const {
     text,
     value,
-    timeValue,
+    time,
     active,
     highlight,
     disabled,
@@ -63,8 +63,8 @@ const DatePickerCell = (props: DatePickerCellProps) => {
 
   function handleClick(e: React.MouseEvent) {
     if (disabled) return;
-    if (timeValue) {
-      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(timeValue);
+    if (time) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(time);
       // am pm 12小时制转化 24小时制
       let nextHours = hours;
       if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
@@ -79,8 +79,8 @@ const DatePickerCell = (props: DatePickerCellProps) => {
 
   function handleMouseEnter() {
     if (disabled) return;
-    if (timeValue) {
-      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(timeValue);
+    if (time) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(time);
       // am pm 12小时制转化 24小时制
       let nextHours = hours;
       if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;

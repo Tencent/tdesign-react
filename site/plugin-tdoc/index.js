@@ -4,7 +4,7 @@ import transforms from './transforms';
 import renderDemo from './demo';
 
 export default () => vitePluginTdoc({
-  transforms, // 解析markdown 数据
+  transforms, // 解析 markdown 数据
   markdown: {
     anchor: {
       tabIndex: false,

@@ -8,7 +8,6 @@ export const transferDefaultProps: TdTransferProps = {
   defaultChecked: [],
   data: [],
   direction: 'both',
-  disabled: false,
   search: false,
   showCheckAll: true,
   targetSort: 'original',

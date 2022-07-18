@@ -31,6 +31,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     onRemove = noop,
     onChange = noop,
     activeValue,
+    children,
   } = props;
 
   // 逻辑层较多处需要判断是否为 card 类型，进行逻辑抽象
@@ -106,7 +107,9 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
     setToLeftBtnVisible(canToleft);
     setToRightBtnVisible(canToRight);
-  }, [scrollLeft, placement]);
+    // children 发生变化也要触发一次切换箭头判断
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollLeft, placement, children]);
 
   // 滚动条处理逻辑
   const handleScroll = (position: 'left' | 'right') => {

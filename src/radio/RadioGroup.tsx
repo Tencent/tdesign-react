@@ -4,6 +4,7 @@ import useConfig from '../_util/useConfig';
 import { TdRadioGroupProps } from './type';
 import useControlled from '../hooks/useControlled';
 import useCommonClassName from '../_util/useCommonClassName';
+import { StyledProps } from '../common';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import Radio from './Radio';
 import useMutationObservable from '../_util/useMutationObserver';
@@ -12,7 +13,7 @@ import { radioGroupDefaultProps } from './defaultProps';
 /**
  * RadioGroup 组件所接收的属性
  */
-export interface RadioGroupProps extends TdRadioGroupProps {
+export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {
   children?: ReactNode;
 }
 
@@ -21,7 +22,7 @@ export interface RadioGroupProps extends TdRadioGroupProps {
  */
 const RadioGroup = (props: RadioGroupProps) => {
   const { classPrefix } = useConfig();
-  const { disabled, children, onChange, size, variant, options = [] } = props;
+  const { disabled, children, onChange, size, variant, options = [], className, style } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState({});
@@ -93,7 +94,8 @@ const RadioGroup = (props: RadioGroupProps) => {
     <CheckContext.Provider value={context}>
       <div
         ref={groupRef}
-        className={classNames(`${classPrefix}-radio-group`, sizeMap[size], {
+        style={style}
+        className={classNames(`${classPrefix}-radio-group`, sizeMap[size], className, {
           [`${classPrefix}-radio-group__outline`]: variant === 'outline',
           [`${classPrefix}-radio-group--filled`]: variant.includes('filled'),
           [`${classPrefix}-radio-group--primary-filled`]: variant === 'primary-filled',

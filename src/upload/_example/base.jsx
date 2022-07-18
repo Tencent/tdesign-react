@@ -9,15 +9,11 @@ export default function UploadExample() {
   const formatResponse = (res) => ({ ...res, error: '上传失败，请重试', url: res.url });
 
   return (
-    <>
-      <div>
-        <Upload
-          onFail={handleFail}
-          format-response={formatResponse}
-          tips="上传文件大小在 5M 以内"
-          action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-        />
-      </div>
-    </>
+    <Upload
+      onFail={handleFail}
+      format-response={formatResponse}
+      tips="上传文件大小在 5M 以内"
+      action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+    />
   );
 }

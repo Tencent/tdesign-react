@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from 'tdesign-react';
+import { Button, Space } from 'tdesign-react';
 import { SearchIcon, AddIcon, CloudUploadIcon, DiscountIcon, CloudDownloadIcon } from 'tdesign-icons-react';
 
 export default function ButtonExample() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Button icon={<AddIcon />}>新建</Button>
       <Button variant="outline" icon={<CloudUploadIcon />}>
         上传文件
@@ -14,6 +14,6 @@ export default function ButtonExample() {
       <Button theme="default" variant="outline" icon={<SearchIcon />}>
         Function Icon
       </Button>
-    </div>
+    </Space>
   );
 }

@@ -110,11 +110,11 @@ describe('Select 组件测试', () => {
       };
       const { getByDisplayValue, getByText } = render(<SingleSelect />);
 
-      // 未点击input前，popup不出现
+      // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
-      // 鼠标点击input，popup出现，且展示options
+      // 鼠标点击 input，popup 出现，且展示 options
       fireEvent.click(getByDisplayValue('Apple'));
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
@@ -125,7 +125,7 @@ describe('Select 组件测试', () => {
       expect(popupElement2).toHaveTextContent('Orange');
       expect(popupElement2).toHaveTextContent('Banana');
 
-      // 点击Banana选项，input展示该选项，且popup消失
+      // 点击 Banana 选项，input 展示该选项，且 popup 消失
       fireEvent.click(getByText('Banana'));
       const selectElement = await waitFor(() => document.querySelector('.t-input__inner'));
       expect(selectElement).toHaveValue('Banana');
@@ -156,11 +156,11 @@ describe('Select 组件测试', () => {
       };
 
       const { getByText } = render(<MultipleSelect />);
-      // 未点击input前，popup不出现
+      // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
-      // 鼠标点击input，popup出现，且展示options
+      // 鼠标点击 input，popup 出现，且展示 options
       fireEvent.click(getByText('Apple'));
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
@@ -171,7 +171,7 @@ describe('Select 组件测试', () => {
       expect(popupElement2).toHaveTextContent('Orange');
       expect(popupElement2).toHaveTextContent('Banana');
 
-      // 点击Banana和Orange选项，input展示Apple、Banana、Orange选项，popup依然展示
+      // 点击 Banana 和 Orange 选项，input 展示 Apple、Banana、Orange 选项，popup 依然展示
       fireEvent.click(getByText('Banana'));
       // @fix: This could be because the text is broken up by multiple elements.
       fireEvent.click(getByText('Orange'));
@@ -207,11 +207,11 @@ describe('Select 组件测试', () => {
 
     await act(async () => {
       const { getByText, getByDisplayValue } = render(<OptionGroupSelect />);
-      // 未点击input前，popup不出现
+      // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
-      // 鼠标点击input，popup出现，且展示options
+      // 鼠标点击 input，popup 出现，且展示 options
       const selectElement = await waitFor(() => document.querySelector(selectSelector));
       fireEvent.click(getByDisplayValue('Apple'));
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
@@ -224,7 +224,7 @@ describe('Select 组件测试', () => {
       expect(popupElement2).toHaveTextContent('Orange');
       expect(popupElement2).toHaveTextContent('Banana');
 
-      // 点击Banana选项，input展示该选项，且popup消失
+      // 点击 Banana 选项，input 展示该选项，且 popup 消失
       fireEvent.click(getByText('Banana'));
       expect(document.querySelector('.t-input__inner')).toHaveValue('Banana');
       setTimeout(async () => {
@@ -256,11 +256,11 @@ describe('Select 组件测试', () => {
       };
       render(<FilterableSelect />);
 
-      // 未点击input前，popup不出现
+      // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
-      // 输入“an”, input展示“an”，popup展示Banana和Orange选项
+      // 输入“an”, input 展示“an”，popup 展示 Banana 和 Orange 选项
       const input = await waitFor(() => document.querySelector('input'));
       fireEvent.change(input, { target: { value: 'an' } });
       setTimeout(async () => {
@@ -293,11 +293,11 @@ describe('Select 组件测试', () => {
     await act(async () => {
       render(<RemoteSearchSelect />);
 
-      // 未点击input前，popup不出现
+      // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
-      // 输入“123”, input展示“123”，popup展示123_test1、123_test2、123_test3
+      // 输入“123”, input 展示“123”，popup 展示123_test1、123_test2、123_test3
       const input = await waitFor(() => document.querySelector('input'));
       fireEvent.change(input, { target: { value: '123' } });
       setTimeout(async () => {
@@ -312,7 +312,7 @@ describe('Select 组件测试', () => {
         expect(popupElement2).toHaveTextContent('123_test3');
       }, 0);
 
-      // 清空input，popup展示Apple、Orange、Banana
+      // 清空 input，popup 展示 Apple、Orange、Banana
       fireEvent.change(input, { target: { value: '' } });
       setTimeout(async () => {
         expect(input).toHaveTextContent('');
@@ -332,11 +332,11 @@ describe('Select 组件测试', () => {
     await act(async () => {
       const { getByText } = render(<RemoteSearchSelect multiple />);
 
-      // 未点击input前，popup不出现
+      // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
-      // 输入“123”, input展示“123”，popup展示123_test1、123_test2、123_test3
+      // 输入“123”, input 展示“123”，popup 展示123_test1、123_test2、123_test3
       const input = await waitFor(() => document.querySelector('input'));
       fireEvent.change(input, { target: { value: '123' } });
       setTimeout(async () => {
@@ -346,13 +346,13 @@ describe('Select 组件测试', () => {
         expect(popupElement2).toHaveTextContent('123_test2');
         expect(popupElement2).toHaveTextContent('123_test3');
 
-        // 选择123_test1，展示对应tag
+        // 选择123_test1，展示对应 tag
         fireEvent.click(getByText('123_test1'));
         const selectElement = await waitFor(() => document.querySelector(selectSelector));
         expect(selectElement).toHaveTextContent('123_test1');
       }, 0);
 
-      // 清空input，popup展示Apple、Orange、Banana
+      // 清空 input，popup 展示 Apple、Orange、Banana
       fireEvent.change(input, { target: { value: '' } });
       setTimeout(async () => {
         const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
@@ -361,7 +361,7 @@ describe('Select 组件测试', () => {
         expect(popupElement2).toHaveTextContent('Banana');
 
         fireEvent.click(getByText('Apple'));
-        // 已选的123_test1仍然保留
+        // 已选的 123_test1 仍然保留
         const selectElement = await waitFor(() => document.querySelector(selectSelector));
         expect(selectElement).toHaveTextContent('123_test1');
         expect(selectElement).toHaveTextContent('Apple');

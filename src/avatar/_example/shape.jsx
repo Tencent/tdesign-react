@@ -1,13 +1,13 @@
 import React from 'react';
-import { Avatar } from 'tdesign-react';
+import { Avatar, Space } from 'tdesign-react';
 
 export default function ShapeAvatar() {
   return (
-    <div className="demo-avatar">
+    <Space>
       <Avatar style={{ marginRight: '40px' }}>W</Avatar>
       <Avatar shape="round" style={{ marginRight: '40px' }}>
         W
       </Avatar>
-    </div>
+    </Space>
   );
 }

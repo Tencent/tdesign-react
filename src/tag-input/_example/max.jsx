@@ -10,12 +10,7 @@ export default function TagInputMaxExample() {
   };
   return (
     <div style={{ width: '100%' }}>
-      <TagInput
-        defaultValue={tags}
-        placeholder="最多只能输入 3 个标签"
-        max={3}
-        onEnter={onEnter}
-      />
+      <TagInput defaultValue={tags} placeholder="最多只能输入 3 个标签" max={3} onEnter={onEnter} />
     </div>
   );
 }

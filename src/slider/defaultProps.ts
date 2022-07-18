@@ -5,7 +5,6 @@
 import { TdSliderProps } from './type';
 
 export const sliderDefaultProps: TdSliderProps = {
-  disabled: false,
   inputNumberProps: false,
   label: true,
   layout: 'horizontal',

@@ -39,7 +39,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   // 是否为海报风格2
   const isPoster2 = theme === 'poster2';
 
-  const cardClass = classNames(className, `${classPrefix}-card`, {
+  const cardClass = classNames(`${classPrefix}-card`, className, {
     [commonClassNames.SIZE.small]: size === 'small',
     [`${classPrefix}-card--bordered`]: bordered,
     [`${classPrefix}--shadow`]: shadow,

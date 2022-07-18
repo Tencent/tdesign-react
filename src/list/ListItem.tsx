@@ -22,7 +22,7 @@ const ListItem = forwardRef((props: ListItemProps, ref: React.Ref<HTMLLIElement>
   const actionElement = action && <ul className={`${classPrefix}-list-item__action`}>{action}</ul>;
 
   return (
-    <li ref={ref} className={classNames(className, `${classPrefix}-list-item`)}>
+    <li ref={ref} className={classNames(`${classPrefix}-list-item`, className)}>
       <div className={`${classPrefix}-list-item-main`}>
         {children ? children : content}
         {actionElement}

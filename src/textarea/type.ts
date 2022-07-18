@@ -9,6 +9,11 @@ import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTextareaProps {
   /**
+   * 超出maxlength或maxcharacter之后是否还允许输入
+   * @default false
+   */
+  allowInputOverMax?: boolean;
+  /**
    * 自动聚焦，拉起键盘
    * @default false
    */

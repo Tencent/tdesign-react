@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Radio } from 'tdesign-react';
+import { Table, Checkbox, Radio, Space } from 'tdesign-react';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -114,16 +114,13 @@ export default function TableBasic() {
   );
 
   return (
-    <div className="tdesign-demo-block-column-large">
+    <Space direction="vertical">
+      <RadioGroup value={size} variant="default-filled" onChange={setSize}>
+        <RadioButton value="small">小尺寸</RadioButton>
+        <RadioButton value="medium">中尺寸</RadioButton>
+        <RadioButton value="large">大尺寸</RadioButton>
+      </RadioGroup>
       <div>
-        <div>
-          <RadioGroup value={size} variant="default-filled" onChange={setSize}>
-            <RadioButton value="small">小尺寸</RadioButton>
-            <RadioButton value="medium">中尺寸</RadioButton>
-            <RadioButton value="large">大尺寸</RadioButton>
-          </RadioGroup>
-        </div>
-        <br />
         <Checkbox value={stripe} onChange={setStripe}>
           显示斑马纹
         </Checkbox>
@@ -139,6 +136,6 @@ export default function TableBasic() {
       </div>
 
       {table}
-    </div>
+    </Space>
   );
 }

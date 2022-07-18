@@ -70,6 +70,9 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 
   const renderIcon = (direction: string) => (
     <FakeArrow
+      style={{
+        transform: isActive ? 'rotate(180deg)' : 'rotate(-90deg)',
+      }}
       isActive={isActive}
       overlayClassName={classnames(`${componentName}__icon`, `${componentName}__icon--${direction}`)}
     />

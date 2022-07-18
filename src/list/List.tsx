@@ -81,7 +81,7 @@ const List = forwardRefWithStatics(
         ref={ref}
         style={style}
         onScroll={handleScroll}
-        className={classNames(className, 't-list', {
+        className={classNames(`${classPrefix}-list`, className, {
           [`${classPrefix}-list--split`]: split,
           [`${classPrefix}-list--stripe`]: stripe,
           [`${classPrefix}-list--vertical-action`]: layout === 'vertical',

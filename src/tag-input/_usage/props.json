@@ -26,7 +26,7 @@
   {
     "name": "excessTagsDisplayType",
     "type": "enum",
-    "defaultValue": "scroll",
+    "defaultValue": "break-line",
     "options": [
       {
         "label": "scroll",

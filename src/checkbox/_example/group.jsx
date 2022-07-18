@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox } from 'tdesign-react';
+import { Checkbox, Space } from 'tdesign-react';
 
 const options = [
   {
@@ -25,13 +25,10 @@ export default function CheckboxExample() {
   const [city, setCity] = useState(['北京']);
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <div>选中值: {city.join('、')}</div>
       <div>
-        <Checkbox
-          checked={disabled}
-          onChange={(value) => setDisabled(value)}
-        >
+        <Checkbox checked={disabled} onChange={(value) => setDisabled(value)}>
           禁用全部
         </Checkbox>
       </div>
@@ -44,6 +41,6 @@ export default function CheckboxExample() {
         }}
         options={options}
       />
-    </div>
+    </Space>
   );
 }

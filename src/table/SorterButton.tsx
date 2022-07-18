@@ -14,6 +14,7 @@ export interface SorterButtonProps {
   sortOrder: string;
   sortIcon: TNode;
   tooltipProps?: TooltipProps;
+  hideSortTips?: boolean;
   onSortIconClick: (e: MouseEvent<HTMLSpanElement>, p: { descending: boolean }) => void;
 }
 
@@ -39,6 +40,7 @@ export default function SorterButton(props: SorterButtonProps) {
     ];
     return (
       <span
+        key={direction}
         className={classNames(sortClassName)}
         onClick={(e: MouseEvent<HTMLSpanElement>) => onSortIconClick(e, direction)}
       >
@@ -56,6 +58,7 @@ export default function SorterButton(props: SorterButtonProps) {
     const activeClass = direction === props.sortOrder ? tableSortClasses.iconActive : tableSortClasses.iconDefault;
     const cancelTips = locale.sortCancelOperationText;
     const tips = direction === props.sortOrder ? cancelTips : tooltips[direction];
+    if (props.hideSortTips ?? locale.hideSortTips) return getSortIcon(direction, activeClass);
     return (
       <Tooltip
         key={direction}

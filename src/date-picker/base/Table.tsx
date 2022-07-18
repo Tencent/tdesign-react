@@ -3,17 +3,17 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DatePickerCell from './Cell';
 import { TdDatePickerProps } from '../type';
-import { DatePickerPanelProps } from '../panel/DatePickerPanel';
+import { SinglePanelProps } from '../panel/SinglePanel';
 
-export interface DatePickerTableProps extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek'>, DatePickerPanelProps {
+export interface DatePickerTableProps extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek'>, SinglePanelProps {
   data?: Array<any>;
-  timeValue?: string;
+  time?: string;
 }
 
 const DatePickerTable = (props: DatePickerTableProps) => {
   const { classPrefix } = useConfig();
 
-  const { mode, data, timeValue, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
+  const { mode, data, time, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
 
   const [local, t] = useLocaleReceiver('datePicker');
   const weekdays = t(local.weekdays);
@@ -44,13 +44,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
           {data.map((row, i: number) => (
             <tr key={i}>
               {row.map((col: any, j: number) => (
-                <DatePickerCell
-                  {...col}
-                  key={j}
-                  timeValue={timeValue}
-                  onClick={onCellClick}
-                  onMouseEnter={onCellMouseEnter}
-                />
+                <DatePickerCell {...col} key={j} time={time} onClick={onCellClick} onMouseEnter={onCellMouseEnter} />
               ))}
             </tr>
           ))}

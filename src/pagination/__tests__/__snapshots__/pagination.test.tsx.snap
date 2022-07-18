@@ -311,7 +311,7 @@ exports[`jump.jsx 1`] = `
     >
       跳至
       <div
-        class="t-pagination__input t-input-number t-size-m t-input-number--normal"
+        class="t-input-number t-size-m t-pagination__input t-input-number--normal"
       >
         <div
           class="t-input__wrap"
@@ -492,154 +492,290 @@ exports[`mini.jsx 1`] = `
 
 exports[`more.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-pagination"
-  >
+  <div>
+    <span>
+      展示首尾页码省略
+    </span>
     <div
-      class="t-pagination__total"
-    >
-      共 100 项数据
-    </div>
-    <div
-      class="t-pagination__select"
+      class="t-pagination"
     >
       <div
-        class="t-select__wrap"
+        class="t-pagination__total"
+      >
+        共 100 项数据
+      </div>
+      <div
+        class="t-pagination__select"
       >
         <div
-          class="t-popup__reference t-select t-select-input"
+          class="t-select__wrap"
         >
           <div
-            class="t-input__wrap t-input--auto-width"
-            value="5 条/页"
+            class="t-popup__reference t-select t-select-input"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+              class="t-input__wrap t-input--auto-width"
+              value="5 条/页"
             >
               <div
-                class="t-input__prefix"
-              />
-              <input
-                class="t-input__inner"
-                placeholder="请选择"
-                readonly=""
-                style="width: 0px;"
-                type="text"
-                value="5 条/页"
-              />
-              <span
-                class="t-input__input-pre"
+                class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
               >
-                5 条/页
-              </span>
-              <span
-                class="t-input__suffix t-input__suffix-icon"
-              >
-                <svg
-                  class="t-fake-arrow t-select__right-icon"
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  class="t-input__prefix"
+                />
+                <input
+                  class="t-input__inner"
+                  placeholder="请选择"
+                  readonly=""
+                  style="width: 0px;"
+                  type="text"
+                  value="5 条/页"
+                />
+                <span
+                  class="t-input__input-pre"
                 >
-                  <path
-                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                    stroke="black"
-                    stroke-opacity="0.9"
-                    stroke-width="1.3"
-                  />
-                </svg>
-              </span>
+                  5 条/页
+                </span>
+                <span
+                  class="t-input__suffix t-input__suffix-icon"
+                >
+                  <svg
+                    class="t-fake-arrow t-select__right-icon"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="t-pagination__btn t-pagination__btn-prev t-is-disabled"
-    >
-      <svg
-        class="t-icon t-icon-chevron-left"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
-      >
-        <path
-          d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
+      <div
+        class="t-pagination__btn t-pagination__btn-prev t-is-disabled"
       >
         <svg
-          class="t-icon t-icon-ellipsis"
+          class="t-icon t-icon-chevron-left"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
           width="1em"
         >
           <path
-            d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
+            d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
             fill="currentColor"
             fill-opacity="0.9"
           />
         </svg>
-      </li>
-      <li
-        class="t-pagination__number"
+      </div>
+      <ul
+        class="t-pagination__pager"
       >
-        20
-      </li>
-    </ul>
+        <li
+          class="t-pagination__number t-is-current"
+        >
+          1
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          2
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          3
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          4
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          5
+        </li>
+        <li
+          class="t-pagination__number t-pagination__number--more"
+        >
+          <svg
+            class="t-icon t-icon-ellipsis"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          20
+        </li>
+      </ul>
+      <div
+        class="t-pagination__btn t-pagination__btn-next"
+      >
+        <svg
+          class="t-icon t-icon-chevron-right"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
+    </div>
+    <span>
+      不展示首尾页码省略
+    </span>
     <div
-      class="t-pagination__btn t-pagination__btn-next"
+      class="t-pagination"
     >
-      <svg
-        class="t-icon t-icon-chevron-right"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-pagination__total"
       >
-        <path
-          d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        共 100 项数据
+      </div>
+      <div
+        class="t-pagination__select"
+      >
+        <div
+          class="t-select__wrap"
+        >
+          <div
+            class="t-popup__reference t-select t-select-input"
+          >
+            <div
+              class="t-input__wrap t-input--auto-width"
+              value="5 条/页"
+            >
+              <div
+                class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+              >
+                <div
+                  class="t-input__prefix"
+                />
+                <input
+                  class="t-input__inner"
+                  placeholder="请选择"
+                  readonly=""
+                  style="width: 0px;"
+                  type="text"
+                  value="5 条/页"
+                />
+                <span
+                  class="t-input__input-pre"
+                >
+                  5 条/页
+                </span>
+                <span
+                  class="t-input__suffix t-input__suffix-icon"
+                >
+                  <svg
+                    class="t-fake-arrow t-select__right-icon"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-pagination__btn t-pagination__btn-prev t-is-disabled"
+      >
+        <svg
+          class="t-icon t-icon-chevron-left"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
+      <ul
+        class="t-pagination__pager"
+      >
+        <li
+          class="t-pagination__number t-is-current"
+        >
+          1
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          2
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          3
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          4
+        </li>
+        <li
+          class="t-pagination__number"
+        >
+          5
+        </li>
+      </ul>
+      <div
+        class="t-pagination__btn t-pagination__btn-next"
+      >
+        <svg
+          class="t-icon t-icon-chevron-right"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>

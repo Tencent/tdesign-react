@@ -37,6 +37,12 @@ export default {
       type: 'doc', // 组件文档
       children: [
         {
+          title: '全局特性配置',
+          name: 'config',
+          path: '/react/config',
+          component: () => import('tdesign-react/config-provider/config-provider.md'),
+        },
+        {
           title: '自定义主题',
           name: 'custom-theme',
           path: '/react/custom-theme',
@@ -62,12 +68,6 @@ export default {
           component: () => import('tdesign-react/button/button.md'),
         },
         {
-          title: 'Divider 分割线',
-          name: 'divider',
-          path: '/react/components/divider',
-          component: () => import('tdesign-react/divider/divider.md'),
-        },
-        {
           title: 'Icon 图标',
           name: 'icon',
           path: '/react/components/icon',
@@ -81,6 +81,12 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'Divider 分割线',
+          name: 'divider',
+          path: '/react/components/divider',
+          component: () => import('tdesign-react/divider/divider.md'),
+        },
+        {
           title: 'Grid 栅格',
           name: 'grid',
           path: '/react/components/grid',
@@ -91,6 +97,12 @@ export default {
           name: 'layout',
           path: '/react/components/layout',
           component: () => import('tdesign-react/layout/layout.md'),
+        },
+        {
+          title: 'Space 间距',
+          name: 'space',
+          path: '/react/components/space',
+          component: () => import('tdesign-react/space/space.md'),
         },
       ],
     },
@@ -122,6 +134,12 @@ export default {
           name: 'dropdown',
           path: '/react/components/dropdown',
           component: () => import('tdesign-react/dropdown/dropdown.md'),
+        },
+        {
+          title: 'Jumper 跳转',
+          name: 'jumper',
+          path: '/react/components/jumper',
+          component: () => import('tdesign-react/jumper/jumper.md'),
         },
         {
           title: 'Menu 导航',
@@ -190,6 +208,12 @@ export default {
           name: 'input',
           path: '/react/components/input',
           component: () => import('tdesign-react/input/input.md'),
+        },
+        {
+          title: 'InputAdornment 输入装饰器',
+          name: 'input-adornment',
+          path: '/react/components/input-adornment',
+          component: () => import('tdesign-react/input-adornment/input-adornment.md'),
         },
         {
           title: 'InputNumber 数字输入框',

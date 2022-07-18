@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Checkbox } from 'tdesign-react';
+import { Checkbox, Space } from 'tdesign-react';
 
 export default function CheckboxExample() {
   const [value, setValue] = useState(true);
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Checkbox>未选中项</Checkbox>
       <Checkbox indeterminate>半选状态</Checkbox>
       <Checkbox checked={value} onChange={setValue}>
@@ -15,6 +15,6 @@ export default function CheckboxExample() {
       <Checkbox disabled defaultChecked>
         选中禁用项
       </Checkbox>
-    </div>
+    </Space>
   );
 }

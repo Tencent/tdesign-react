@@ -6,90 +6,919 @@ exports[`attach-parent.jsx 1`] = `
     style="position: relative; height: 400px; padding: 48px; overflow: hidden; background: rgb(250, 250, 250); border: 1px solid #ebedf0; border-radius: 2px;"
   >
     <div
-      class="tdesign-demo-block-column"
-      style="transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s;"
+      class="t-space t-space-vertical"
+      style="gap: 16px;"
     >
-      <p>
-        渲染在当前元素中。
-      </p>
-      <div>
-        <span>
-          抽屉弹出方向：
-        </span>
-        <div
-          class="t-radio-group t-size-m t-radio-group__outline"
-        >
-          <label
-            class="t-radio-button"
+      <div
+        class="t-space-item"
+      >
+        <p>
+          渲染在当前元素中。
+        </p>
+      </div>
+      <div
+        class="t-space-item"
+      >
+        <div>
+          <span>
+            抽屉弹出方向：
+          </span>
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
           >
-            <input
-              class="t-radio-button__former"
-              type="radio"
-              value="left"
-            />
-            <span
-              class="t-radio-button__input"
-            />
-            <span
-              class="t-radio-button__label"
+            <label
+              class="t-radio-button"
             >
-              左侧
-            </span>
-          </label>
-          <label
-            class="t-radio-button t-is-checked"
-          >
-            <input
-              checked=""
-              class="t-radio-button__former"
-              type="radio"
-              value="right"
-            />
-            <span
-              class="t-radio-button__input"
-            />
-            <span
-              class="t-radio-button__label"
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="left"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                左侧
+              </span>
+            </label>
+            <label
+              class="t-radio-button t-is-checked"
             >
-              右侧
-            </span>
-          </label>
-          <label
-            class="t-radio-button"
-          >
-            <input
-              class="t-radio-button__former"
-              type="radio"
-              value="top"
-            />
-            <span
-              class="t-radio-button__input"
-            />
-            <span
-              class="t-radio-button__label"
+              <input
+                checked=""
+                class="t-radio-button__former"
+                type="radio"
+                value="right"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                右侧
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
             >
-              上方
-            </span>
-          </label>
-          <label
-            class="t-radio-button"
-          >
-            <input
-              class="t-radio-button__former"
-              type="radio"
-              value="bottom"
-            />
-            <span
-              class="t-radio-button__input"
-            />
-            <span
-              class="t-radio-button__label"
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="top"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                上方
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
             >
-              下方
-            </span>
-          </label>
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="bottom"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                下方
+              </span>
+            </label>
+          </div>
         </div>
       </div>
+      <div
+        class="t-space-item"
+      >
+        <div>
+          <span>
+            抽屉弹出模式：
+          </span>
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio-button t-is-checked"
+            >
+              <input
+                checked=""
+                class="t-radio-button__former"
+                type="radio"
+                value="push"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                push
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="overlay"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                overlay
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-space-item"
+      >
+        <div>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              Open
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="t-space-item"
+        style="transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s;"
+      >
+        <div>
+          <div
+            class="t-drawer t-drawer--right t-drawer--attach"
+            tabindex="-1"
+          >
+            <div
+              class="t-drawer__mask"
+            />
+            <div
+              class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+              style="width: 300px;"
+            >
+              <div
+                class="t-drawer__close-btn"
+              >
+                <svg
+                  class="t-icon t-icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-drawer__header"
+              >
+                Drawer
+              </div>
+              <div
+                class="t-drawer__body"
+              >
+                <p>
+                  This is a drawer
+                </p>
+              </div>
+              <div
+                class="t-drawer__footer"
+              >
+                <div
+                  style="display: flex; justify-content: flex-start;"
+                >
+                  <button
+                    class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+                    type="button"
+                  >
+                    <span
+                      class="t-button__text"
+                    >
+                      确认
+                    </span>
+                  </button>
+                  <button
+                    class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+                    type="button"
+                  >
+                    <span
+                      class="t-button__text"
+                    >
+                      取消
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      打开抽屉
+    </span>
+  </button>
+  <div>
+    <div
+      class="t-drawer t-drawer--right"
+      tabindex="-1"
+    >
+      <div
+        class="t-drawer__mask"
+      />
+      <div
+        class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+        style="width: 300px;"
+      >
+        <div
+          class="t-drawer__close-btn"
+        >
+          <svg
+            class="t-icon t-icon-close"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-drawer__header"
+        >
+          抽屉标题
+        </div>
+        <div
+          class="t-drawer__body"
+        >
+          <p>
+            抽屉的内容
+          </p>
+        </div>
+        <div
+          class="t-drawer__footer"
+        >
+          <div
+            style="display: flex; justify-content: flex-start;"
+          >
+            <button
+              class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                确认
+              </span>
+            </button>
+            <button
+              class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                取消
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      打开抽屉
+    </span>
+  </button>
+  <div>
+    <div
+      class="t-drawer t-drawer--right"
+      tabindex="-1"
+    >
+      <div
+        class="t-drawer__mask"
+      />
+      <div
+        class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+        style="width: 300px;"
+      >
+        <div
+          class="t-drawer__close-btn"
+        >
+          <svg
+            class="t-icon t-icon-close"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-drawer__header"
+        >
+          <div>
+            自定义头部
+          </div>
+        </div>
+        <div
+          class="t-drawer__body"
+        >
+          <div>
+            自定义内容
+          </div>
+        </div>
+        <div
+          class="t-drawer__footer"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              自定义底部按钮
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`destroy.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      打开抽屉
+    </span>
+  </button>
+  <div>
+    <div
+      class="t-drawer t-drawer--right"
+      tabindex="-1"
+    >
+      <div
+        class="t-drawer__mask"
+      />
+      <div
+        class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+        style="width: 300px;"
+      >
+        <div
+          class="t-drawer__close-btn"
+        >
+          <svg
+            class="t-icon t-icon-close"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-drawer__header"
+        />
+        <div
+          class="t-drawer__body"
+        >
+          <p>
+            抽屉的内容
+          </p>
+        </div>
+        <div
+          class="t-drawer__footer"
+        >
+          <div
+            style="display: flex; justify-content: flex-start;"
+          >
+            <button
+              class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                确认
+              </span>
+            </button>
+            <button
+              class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                取消
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`no-mask.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      打开抽屉
+    </span>
+  </button>
+  <div>
+    <div
+      class="t-drawer t-drawer--right t-drawer--without-mask"
+      tabindex="-1"
+    >
+      <div
+        class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+        style="width: 300px;"
+      >
+        <div
+          class="t-drawer__close-btn"
+        >
+          <svg
+            class="t-icon t-icon-close"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-drawer__header"
+        >
+          抽屉标题
+        </div>
+        <div
+          class="t-drawer__body"
+        >
+          <p>
+            抽屉的内容
+          </p>
+        </div>
+        <div
+          class="t-drawer__footer"
+        >
+          <div
+            style="display: flex; justify-content: flex-start;"
+          >
+            <button
+              class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                确认
+              </span>
+            </button>
+            <button
+              class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                取消
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`operation.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      打开抽屉
+    </span>
+  </button>
+  <div>
+    <div
+      class="t-drawer t-drawer--right"
+      tabindex="-1"
+    >
+      <div
+        class="t-drawer__mask"
+      />
+      <div
+        class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+        style="width: 300px;"
+      >
+        <div
+          class="t-drawer__close-btn"
+        >
+          <svg
+            class="t-icon t-icon-close"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-drawer__header"
+        >
+          抽屉标题
+        </div>
+        <div
+          class="t-drawer__body"
+        >
+          <form
+            class="t-form"
+          >
+            <div
+              class="t-form__item"
+            >
+              <div
+                class="t-form__label t-form__label--right"
+                style="width: 60px;"
+              >
+                <label>
+                  Label A
+                </label>
+              </div>
+              <div
+                class="t-form__controls"
+                style="margin-left: 60px;"
+              >
+                <div
+                  class="t-form__controls-content"
+                >
+                  <div
+                    class="t-input__wrap"
+                  >
+                    <div
+                      class="t-input t-size-m t-align-left t-is-default"
+                    >
+                      <input
+                        class="t-input__inner"
+                        placeholder="请输入"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="t-form__item"
+            >
+              <div
+                class="t-form__label t-form__label--right"
+                style="width: 60px;"
+              >
+                <label>
+                  Label B
+                </label>
+              </div>
+              <div
+                class="t-form__controls"
+                style="margin-left: 60px;"
+              >
+                <div
+                  class="t-form__controls-content"
+                >
+                  <div
+                    class="t-input__wrap"
+                  >
+                    <div
+                      class="t-input t-size-m t-align-left t-is-default"
+                    >
+                      <input
+                        class="t-input__inner"
+                        placeholder="请输入"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div
+          class="t-drawer__footer"
+        >
+          <div
+            style="display: flex; justify-content: flex-start;"
+          >
+            <button
+              class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                确认
+              </span>
+            </button>
+            <button
+              class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                取消
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-radio-group t-size-m t-radio-group__outline"
+      >
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="left"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            左侧
+          </span>
+        </label>
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            type="radio"
+            value="right"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            右侧
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="top"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            上方
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="bottom"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            下方
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            打开抽屉
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <div
+          class="t-drawer t-drawer--right"
+          tabindex="-1"
+        >
+          <div
+            class="t-drawer__mask"
+          />
+          <div
+            class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+            style="width: 300px;"
+          >
+            <div
+              class="t-drawer__close-btn"
+            >
+              <svg
+                class="t-icon t-icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-drawer__header"
+            />
+            <div
+              class="t-drawer__body"
+            >
+              <p>
+                抽屉的内容
+              </p>
+            </div>
+            <div
+              class="t-drawer__footer"
+            >
+              <div
+                style="display: flex; justify-content: flex-start;"
+              >
+                <button
+                  class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+                  type="button"
+                >
+                  <span
+                    class="t-button__text"
+                  >
+                    确认
+                  </span>
+                </button>
+                <button
+                  class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+                  type="button"
+                >
+                  <span
+                    class="t-button__text"
+                  >
+                    取消
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`popup.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
       <div>
         <span>
           抽屉弹出模式：
@@ -134,6 +963,10 @@ exports[`attach-parent.jsx 1`] = `
           </label>
         </div>
       </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
       <div>
         <button
           class="t-button t-button--theme-primary t-button--variant-base"
@@ -142,13 +975,157 @@ exports[`attach-parent.jsx 1`] = `
           <span
             class="t-button__text"
           >
-            Open
+            打开抽屉
           </span>
         </button>
       </div>
+    </div>
+    <div
+      class="t-space-item"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-radio-group t-size-m t-radio-group__outline"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            type="radio"
+            value="small"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            small(300px)
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="medium"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            medium(500px)
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="large"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            large(760px)
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="200"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            200
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="400px"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            400px
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="50%"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            50%
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            打开抽屉
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
       <div>
         <div
-          class="t-drawer t-drawer--right t-drawer--attach"
+          class="t-drawer t-drawer--right"
           tabindex="-1"
         >
           <div
@@ -177,14 +1154,12 @@ exports[`attach-parent.jsx 1`] = `
             </div>
             <div
               class="t-drawer__header"
-            >
-              Drawer
-            </div>
+            />
             <div
               class="t-drawer__body"
             >
               <p>
-                This is a drawer
+                抽屉的内容
               </p>
             </div>
             <div
@@ -223,688 +1198,25 @@ exports[`attach-parent.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`base.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        打开抽屉
-      </span>
-    </button>
-    <div>
-      <div
-        class="t-drawer t-drawer--right"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__mask"
-        />
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
-          >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <div
-            class="t-drawer__header"
-          >
-            抽屉标题
-          </div>
-          <div
-            class="t-drawer__body"
-          >
-            <p>
-              抽屉的内容
-            </p>
-          </div>
-          <div
-            class="t-drawer__footer"
-          >
-            <div
-              style="display: flex; justify-content: flex-start;"
-            >
-              <button
-                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  确认
-                </span>
-              </button>
-              <button
-                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  取消
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`custom.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        打开抽屉
-      </span>
-    </button>
-    <div>
-      <div
-        class="t-drawer t-drawer--right"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__mask"
-        />
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
-          >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <div
-            class="t-drawer__header"
-          >
-            <div>
-              自定义头部
-            </div>
-          </div>
-          <div
-            class="t-drawer__body"
-          >
-            <div>
-              自定义内容
-            </div>
-          </div>
-          <div
-            class="t-drawer__footer"
-          >
-            <button
-              class="t-button t-button--theme-primary t-button--variant-base"
-              type="button"
-            >
-              <span
-                class="t-button__text"
-              >
-                自定义底部按钮
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`destroy.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        打开抽屉
-      </span>
-    </button>
-    <div>
-      <div
-        class="t-drawer t-drawer--right"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__mask"
-        />
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
-          >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <div
-            class="t-drawer__header"
-          />
-          <div
-            class="t-drawer__body"
-          >
-            <p>
-              抽屉的内容
-            </p>
-          </div>
-          <div
-            class="t-drawer__footer"
-          >
-            <div
-              style="display: flex; justify-content: flex-start;"
-            >
-              <button
-                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  确认
-                </span>
-              </button>
-              <button
-                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  取消
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`no-mask.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        打开抽屉
-      </span>
-    </button>
-    <div>
-      <div
-        class="t-drawer t-drawer--right t-drawer--without-mask"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
-          >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <div
-            class="t-drawer__header"
-          >
-            抽屉标题
-          </div>
-          <div
-            class="t-drawer__body"
-          >
-            <p>
-              抽屉的内容
-            </p>
-          </div>
-          <div
-            class="t-drawer__footer"
-          >
-            <div
-              style="display: flex; justify-content: flex-start;"
-            >
-              <button
-                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  确认
-                </span>
-              </button>
-              <button
-                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  取消
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`operation.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        打开抽屉
-      </span>
-    </button>
-    <div>
-      <div
-        class="t-drawer t-drawer--right"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__mask"
-        />
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
-          >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <div
-            class="t-drawer__header"
-          >
-            抽屉标题
-          </div>
-          <div
-            class="t-drawer__body"
-          >
-            <form
-              class="t-form"
-            >
-              <div
-                class="t-form__item"
-              >
-                <div
-                  class="t-form__label t-form__label--right"
-                  style="width: 60px;"
-                >
-                  <label>
-                    Label A
-                  </label>
-                </div>
-                <div
-                  class="t-form__controls"
-                  style="margin-left: 60px;"
-                >
-                  <div
-                    class="t-form__controls-content"
-                  >
-                    <div
-                      class="t-input__wrap"
-                    >
-                      <div
-                        class="t-input t-size-m t-align-left t-is-default"
-                      >
-                        <input
-                          class="t-input__inner"
-                          placeholder="请输入"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="t-form__item"
-              >
-                <div
-                  class="t-form__label t-form__label--right"
-                  style="width: 60px;"
-                >
-                  <label>
-                    Label B
-                  </label>
-                </div>
-                <div
-                  class="t-form__controls"
-                  style="margin-left: 60px;"
-                >
-                  <div
-                    class="t-form__controls-content"
-                  >
-                    <div
-                      class="t-input__wrap"
-                    >
-                      <div
-                        class="t-input t-size-m t-align-left t-is-default"
-                      >
-                        <input
-                          class="t-input__inner"
-                          placeholder="请输入"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div
-            class="t-drawer__footer"
-          >
-            <div
-              style="display: flex; justify-content: flex-start;"
-            >
-              <button
-                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  确认
-                </span>
-              </button>
-              <button
-                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  取消
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`placement.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <div
-      class="t-radio-group t-size-m t-radio-group__outline"
-    >
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="left"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          左侧
-        </span>
-      </label>
-      <label
-        class="t-radio-button t-is-checked"
-      >
-        <input
-          checked=""
-          class="t-radio-button__former"
-          type="radio"
-          value="right"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          右侧
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="top"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          上方
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="bottom"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          下方
-        </span>
-      </label>
-    </div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-top: 20px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          打开抽屉
-        </span>
-      </button>
-    </div>
-    <div>
-      <div
-        class="t-drawer t-drawer--right"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__mask"
-        />
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
-          >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <div
-            class="t-drawer__header"
-          />
-          <div
-            class="t-drawer__body"
-          >
-            <p>
-              抽屉的内容
-            </p>
-          </div>
-          <div
-            class="t-drawer__footer"
-          >
-            <div
-              style="display: flex; justify-content: flex-start;"
-            >
-              <button
-                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  确认
-                </span>
-              </button>
-              <button
-                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  取消
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`popup.jsx 1`] = `
+exports[`size-draggable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
-    <div>
-      <span>
-        抽屉弹出模式：
-      </span>
+    <div
+      class="t-space-item"
+    >
       <div
         class="t-radio-group t-size-m t-radio-group__outline"
       >
         <label
-          class="t-radio-button t-is-checked"
+          class="t-radio-button"
         >
           <input
-            checked=""
             class="t-radio-button__former"
             type="radio"
-            value="push"
+            value="left"
           />
           <span
             class="t-radio-button__input"
@@ -912,7 +1224,25 @@ exports[`popup.jsx 1`] = `
           <span
             class="t-radio-button__label"
           >
-            push
+            从左侧拖拽抽屉
+          </span>
+        </label>
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            type="radio"
+            value="right"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            从右侧拖拽抽屉
           </span>
         </label>
         <label
@@ -921,7 +1251,7 @@ exports[`popup.jsx 1`] = `
           <input
             class="t-radio-button__former"
             type="radio"
-            value="overlay"
+            value="top"
           />
           <span
             class="t-radio-button__input"
@@ -929,217 +1259,117 @@ exports[`popup.jsx 1`] = `
           <span
             class="t-radio-button__label"
           >
-            overlay
+            从上方拖拽抽屉
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="bottom"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            从下方拖拽抽屉
           </span>
         </label>
       </div>
     </div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          打开抽屉
-        </span>
-      </button>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`size.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
     <div
-      class="t-radio-group t-size-m t-radio-group__outline"
+      class="t-space-item"
     >
-      <label
-        class="t-radio-button t-is-checked"
-      >
-        <input
-          checked=""
-          class="t-radio-button__former"
-          type="radio"
-          value="small"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
+      <div>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
         >
-          small(300px)
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="medium"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          medium(500px)
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="large"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          large(760px)
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="200"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          200
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="400px"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          400px
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          type="radio"
-          value="50%"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          50%
-        </span>
-      </label>
-    </div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          打开抽屉
-        </span>
-      </button>
-    </div>
-    <div>
-      <div
-        class="t-drawer t-drawer--right"
-        tabindex="-1"
-      >
-        <div
-          class="t-drawer__mask"
-        />
-        <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
-          style="width: 300px;"
-        >
-          <div
-            class="t-drawer__close-btn"
+          <span
+            class="t-button__text"
           >
-            <svg
-              class="t-icon t-icon-close"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
+            打开抽屉
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <div
+          class="t-drawer t-drawer--right"
+          tabindex="-1"
+        >
           <div
-            class="t-drawer__header"
+            class="t-drawer__mask"
           />
           <div
-            class="t-drawer__body"
-          >
-            <p>
-              抽屉的内容
-            </p>
-          </div>
-          <div
-            class="t-drawer__footer"
+            class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
+            style="width: 300px;"
           >
             <div
-              style="display: flex; justify-content: flex-start;"
+              class="t-drawer__close-btn"
             >
-              <button
-                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                type="button"
+              <svg
+                class="t-icon t-icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
               >
-                <span
-                  class="t-button__text"
-                >
-                  确认
-                </span>
-              </button>
-              <button
-                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  取消
-                </span>
-              </button>
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </div>
+            <div
+              class="t-drawer__header"
+            />
+            <div
+              class="t-drawer__body"
+            >
+              <p>
+                抽屉的内容
+              </p>
+            </div>
+            <div
+              class="t-drawer__footer"
+            >
+              <div
+                style="display: flex; justify-content: flex-start;"
+              >
+                <button
+                  class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
+                  type="button"
+                >
+                  <span
+                    class="t-button__text"
+                  >
+                    确认
+                  </span>
+                </button>
+                <button
+                  class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
+                  type="button"
+                >
+                  <span
+                    class="t-button__text"
+                  >
+                    取消
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              style="z-index: 1; position: absolute; background: transparent; left: 0px; width: 16px; height: 100%; cursor: col-resize;"
+            />
           </div>
         </div>
       </div>

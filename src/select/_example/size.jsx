@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Select } from 'tdesign-react';
+import { Select, Space } from 'tdesign-react';
 
 const { Option } = Select;
 
@@ -18,39 +17,25 @@ const SelectSizes = () => {
     setValue3(value);
   };
   return (
-    <>
-      <Select
-        value={value1}
-        onChange={onChangeValue1}
-        size="small"
-        style={{ width: '30%', marginRight: '20px', display: 'inline-block' }}
-      >
-        <Option key="apple" label="Apple" value="apple" />
-        <Option key="orange" label="Orange" value="orange" />
-        <Option key="banana" label="Banana" value="banana" />
+    <Space breakLine>
+      <Select value={value1} onChange={onChangeValue1} size="small">
+        <Option key="1" label="选项一" value="1" />
+        <Option key="2" label="选项二" value="2" />
+        <Option key="3" label="选项三" value="3" />
       </Select>
 
-      <Select
-        value={value2}
-        onChange={onChangeValue2}
-        style={{ width: '30%', marginRight: '20px', display: 'inline-block' }}
-      >
-        <Option key="apple" label="Apple" value="apple" />
-        <Option key="orange" label="Orange" value="orange" />
-        <Option key="banana" label="Banana" value="banana" />
+      <Select value={value2} onChange={onChangeValue2}>
+        <Option key="1" label="选项一" value="1" />
+        <Option key="2" label="选项二" value="2" />
+        <Option key="3" label="选项三" value="3" />
       </Select>
 
-      <Select
-        value={value3}
-        onChange={onChangeValue3}
-        size="large"
-        style={{ width: '30%', marginRight: '20px', display: 'inline-block' }}
-      >
-        <Option key="apple" label="Apple" value="apple" />
-        <Option key="orange" label="Orange" value="orange" />
-        <Option key="banana" label="Banana" value="banana" />
+      <Select value={value3} onChange={onChangeValue3} size="large">
+        <Option key="1" label="选项一" value="1" />
+        <Option key="2" label="选项二" value="2" />
+        <Option key="3" label="选项三" value="3" />
       </Select>
-    </>
+    </Space>
   );
 };
 

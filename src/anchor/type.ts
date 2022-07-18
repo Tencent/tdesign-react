@@ -12,7 +12,7 @@ export interface TdAnchorProps {
   /**
    * 透传 Affix 组件属性，即让 Anchor 组件支持所有 Affix 组件特性
    */
-  affixProps?: AffixProps;
+  affixProps?: Omit<AffixProps, 'children'>;
   /**
    * 锚点区域边界
    * @default 5

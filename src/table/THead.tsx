@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, MutableRefObject, CSSProperties } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
-import { RowAndColFixedPosition, getColumnFixedStyles } from './hooks/useFixed';
+import { getColumnFixedStyles } from './hooks/useFixed';
+import { RowAndColFixedPosition } from './interface';
 import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
 import useClassName from './hooks/useClassName';
 import useConfig from '../_util/useConfig';
@@ -23,9 +24,17 @@ export interface TheadProps {
     leafColumns: BaseTableCol<TableRowData>[];
   };
   thList: BaseTableCol<TableRowData>[][];
+  resizable?: boolean;
+  columnResizeParams?: {
+    resizeLineRef: MutableRefObject<HTMLDivElement>;
+    resizeLineStyle: CSSProperties;
+    onColumnMouseover: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
+    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
+  };
 }
 
 export default function THead(props: TheadProps) {
+  const { columnResizeParams } = props;
   const theadRef = useRef<HTMLTableSectionElement>(null);
   const classnames = useClassName();
   const { tableHeaderClasses, tableBaseClass } = classnames;
@@ -74,6 +83,12 @@ export default function THead(props: TheadProps) {
         const styles = { ...(thStyles.style || {}), width };
         const innerTh = renderTitle(col, index);
         if (!col.colKey) return null;
+        const resizeColumnListener = props.resizable
+          ? {
+              onMouseDown: (e) => columnResizeParams?.onColumnMousedown?.(e, col),
+              onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
+            }
+          : {};
         const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle({ col, colIndex: index }) : undefined;
         return (
           <th
@@ -82,6 +97,7 @@ export default function THead(props: TheadProps) {
             className={classNames(thClasses)}
             style={styles}
             {...{ rowSpan: rowspanAndColspan.rowspan, colSpan: rowspanAndColspan.colspan }}
+            {...resizeColumnListener}
           >
             <div className={tableBaseClass.thCellInner}>
               {col.ellipsis && col.ellipsisTitle !== false && col.ellipsisTitle !== null ? (

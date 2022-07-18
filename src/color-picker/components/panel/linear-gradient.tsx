@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef } from 'react';
+import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 import useClassname from '../../hooks/useClassname';
@@ -27,12 +27,14 @@ const LinearGradient = (props) => {
   const isDragging = useRef<Boolean>(false);
   const isMoved = useRef<Boolean>(false);
   const degree = useRef(props.color.gradientDegree);
-  const selectedId = useRef(props.color.gradientSelectedId);
+  const [selectedId, setSelectedId] = useState(props.color.gradientSelectedId);
+  const selectedRef = useRef(props.color.gradientSelectedId);
   const colors = useRef<GradientColorPoint[]>(cloneDeep(color.gradientColors));
 
   useEffect(() => {
     degree.current = color?.gradientDegree;
-    selectedId.current = color.gradientSelectedId;
+    setSelectedId(color.gradientSelectedId);
+    selectedRef.current = color.gradientSelectedId;
     colors.current = cloneDeep(color.gradientColors);
   }, [color]);
 
@@ -70,7 +72,8 @@ const LinearGradient = (props) => {
     if (props.disabled) {
       return;
     }
-    selectedId.current = value;
+    setSelectedId(value);
+    selectedRef.current = value;
     handleChange('selectedId', value);
   };
 
@@ -92,7 +95,7 @@ const LinearGradient = (props) => {
    */
   const updateActiveThumbLeft = useCallback(
     (left: number) => {
-      const index = colors.current.findIndex((c) => c.id === selectedId.current);
+      const index = colors.current.findIndex((c) => c.id === selectedRef.current);
       if (index === -1) {
         return;
       }
@@ -121,12 +124,14 @@ const LinearGradient = (props) => {
     if (isDragging.current || props.disabled) {
       return;
     }
+    selectedRef.current = id;
+    setSelectedId(id);
     isMoved.current = false;
     isDragging.current = true;
     e.preventDefault();
     e.stopPropagation();
     // handleSelectedIdChange(id);
-    // 让slider获取焦点，以便键盘事件生效。
+    // 让 slider 获取焦点，以便键盘事件生效。
     refSlider.current.focus();
   };
 
@@ -164,7 +169,7 @@ const LinearGradient = (props) => {
       return;
     }
     const points = [...colors.current];
-    let pos = points.findIndex((c) => c.id === selectedId.current);
+    let pos = points.findIndex((c) => c.id === selectedRef.current);
     const { length } = points;
     // 必须保证有两个点
     if (DELETE_KEYS.includes(e.key.toLocaleLowerCase()) && length > 2 && pos >= 0 && pos <= length - 1) {
@@ -218,7 +223,10 @@ const LinearGradient = (props) => {
     degree: 90,
   });
 
-  const handleClickThumb = (e: ReactMouseEvent) => e.stopPropagation();
+  const handleClickThumb = (e: ReactMouseEvent, t) => {
+    handleSelectedIdChange(t.id);
+    e.stopPropagation();
+  };
 
   return (
     <div className={`${baseClassName}__gradient`}>
@@ -243,7 +251,7 @@ const LinearGradient = (props) => {
                   className={classNames([
                     `${baseClassName}__thumb`,
                     'gradient-thumbs__item',
-                    selectedId.current === t.id ? statusClassNames.active : '',
+                    selectedId === t.id ? statusClassNames.active : '',
                   ])}
                   key={t.id}
                   title={`${t.color} ${left}`}
@@ -251,7 +259,7 @@ const LinearGradient = (props) => {
                     color: t.color,
                     left,
                   }}
-                  onClick={handleClickThumb}
+                  onClick={(e) => handleClickThumb(e, t)}
                   onMouseDown={(e: ReactMouseEvent) => handleStart(t.id, e)}
                 >
                   <span className={classNames(['gradient-thumbs__item-inner', `${baseClassName}--bg-alpha`])}></span>
