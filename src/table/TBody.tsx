@@ -63,7 +63,6 @@ export default function TBody(props: TableBodyProps) {
   const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
 
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
-  const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
 
   const renderEmpty = (columns: TableBodyProps['columns']) => (
     <tr className={classNames([tableBaseClass.emptyRow, { [tableFullRowClasses.base]: props.isWidthOverflow }])}>
@@ -152,14 +151,7 @@ export default function TBody(props: TableBodyProps) {
     }
   });
 
-  const list = (
-    <>
-      {getFullRow(columnLength, 'first-full-row')}
-      {trNodeList}
-      {getFullRow(columnLength, 'last-full-row')}
-    </>
-  );
-  const isEmpty = !data?.length && !props.loading && !hasFullRowConfig;
+  const isEmpty = !data?.length && !props.loading;
 
   const translate = `translate(0, ${props.translateY}px)`;
   const posStyle = {
@@ -171,7 +163,9 @@ export default function TBody(props: TableBodyProps) {
 
   return (
     <tbody className={classNames(tbodyClasses)} style={props.isVirtual && { ...posStyle }}>
-      {isEmpty ? renderEmpty(columns) : list}
+      {getFullRow(columnLength, 'first-full-row')}
+      {isEmpty ? renderEmpty(columns) : trNodeList}
+      {getFullRow(columnLength, 'last-full-row')}
     </tbody>
   );
 }
