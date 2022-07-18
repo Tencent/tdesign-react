@@ -5314,14 +5314,6 @@ exports[`editable-row.jsx 1`] = `
                               </svg>
                             </span>
                           </div>
-                          <input
-                            class="t-input__inner"
-                            placeholder=""
-                            readonly=""
-                            style="width: 0px;"
-                            type="text"
-                            value=""
-                          />
                           <span
                             class="t-input__input-pre"
                           />
