@@ -11,6 +11,7 @@ const HUESlider = (props: TdColorBaseProps) => {
       className={`${baseClassName}__hue`}
       color={color}
       value={color.hue}
+      type="hue"
       onChange={onChange}
     />
   );

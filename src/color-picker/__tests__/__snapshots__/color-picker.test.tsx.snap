@@ -250,35 +250,62 @@ exports[`enable-alpha.jsx 1`] = `
         <span
           class="t-color-picker__thumb"
           role="slider"
-          style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+          style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
           tabindex="0"
         />
       </div>
       <div
-        class="t-color-picker__slider t-color-picker__hue"
+        class="t-color-picker__sliders-wrapper"
       >
         <div
-          class="t-color-picker__rail"
-        />
-        <span
-          class="t-color-picker__thumb"
-          role="slider"
-          style="left: 150px; color: rgb(0, 82, 217);"
-          tabindex="0"
-        />
-      </div>
-      <div
-        class="t-color-picker__slider t-color-picker__alpha t-color-picker--bg-alpha"
-      >
+          class="t-color-picker__sliders"
+        >
+          <div
+            class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+          >
+            <div
+              class="t-color-picker__slider t-color-picker__hue"
+            >
+              <div
+                class="t-color-picker__rail"
+              />
+              <span
+                class="t-color-picker__thumb"
+                role="slider"
+                style="left: 101px; color: rgb(0, 82, 217);"
+                tabindex="0"
+              />
+            </div>
+          </div>
+          <div
+            class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--alpha-type"
+          >
+            <div
+              class="t-color-picker__slider-padding"
+            />
+            <div
+              class="t-color-picker__slider t-color-picker__alpha t-color-picker--bg-alpha"
+            >
+              <div
+                class="t-color-picker__rail"
+              />
+              <span
+                class="t-color-picker__thumb"
+                role="slider"
+                style="left: 168px; color: rgb(0, 82, 217);"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
         <div
-          class="t-color-picker__rail"
-        />
-        <span
-          class="t-color-picker__thumb"
-          role="slider"
-          style="left: 248px; color: rgb(0, 82, 217);"
-          tabindex="0"
-        />
+          class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+        >
+          <span
+            class="t-color-picker__sliders-preview-inner"
+            style="background: rgb(0, 82, 217);"
+          />
+        </div>
       </div>
       <div
         class="t-color-picker__format"
@@ -297,7 +324,7 @@ exports[`enable-alpha.jsx 1`] = `
                 value="RGB"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -350,7 +377,7 @@ exports[`enable-alpha.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -375,7 +402,7 @@ exports[`enable-alpha.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -400,7 +427,7 @@ exports[`enable-alpha.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -425,7 +452,7 @@ exports[`enable-alpha.jsx 1`] = `
               style="flex: 1.15;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -1054,22 +1081,42 @@ exports[`panel.jsx 1`] = `
         <span
           class="t-color-picker__thumb"
           role="slider"
-          style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+          style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
           tabindex="0"
         />
       </div>
       <div
-        class="t-color-picker__slider t-color-picker__hue"
+        class="t-color-picker__sliders-wrapper"
       >
         <div
-          class="t-color-picker__rail"
-        />
-        <span
-          class="t-color-picker__thumb"
-          role="slider"
-          style="left: 150px; color: rgb(0, 82, 217);"
-          tabindex="0"
-        />
+          class="t-color-picker__sliders"
+        >
+          <div
+            class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+          >
+            <div
+              class="t-color-picker__slider t-color-picker__hue"
+            >
+              <div
+                class="t-color-picker__rail"
+              />
+              <span
+                class="t-color-picker__thumb"
+                role="slider"
+                style="left: 101px; color: rgb(0, 82, 217);"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+        >
+          <span
+            class="t-color-picker__sliders-preview-inner"
+            style="background: rgb(0, 82, 217);"
+          />
+        </div>
       </div>
       <div
         class="t-color-picker__format"
@@ -1088,7 +1135,7 @@ exports[`panel.jsx 1`] = `
                 value="RGB"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -1141,7 +1188,7 @@ exports[`panel.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -1166,7 +1213,7 @@ exports[`panel.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -1191,7 +1238,7 @@ exports[`panel.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-input-number--normal"
+                class="t-input-number t-size-s t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -1833,22 +1880,42 @@ exports[`recent-color.jsx 1`] = `
               <span
                 class="t-color-picker__thumb"
                 role="slider"
-                style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+                style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
                 tabindex="0"
               />
             </div>
             <div
-              class="t-color-picker__slider t-color-picker__hue"
+              class="t-color-picker__sliders-wrapper"
             >
               <div
-                class="t-color-picker__rail"
-              />
-              <span
-                class="t-color-picker__thumb"
-                role="slider"
-                style="left: 150px; color: rgb(0, 82, 217);"
-                tabindex="0"
-              />
+                class="t-color-picker__sliders"
+              >
+                <div
+                  class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+                >
+                  <div
+                    class="t-color-picker__slider t-color-picker__hue"
+                  >
+                    <div
+                      class="t-color-picker__rail"
+                    />
+                    <span
+                      class="t-color-picker__thumb"
+                      role="slider"
+                      style="left: 101px; color: rgb(0, 82, 217);"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+              >
+                <span
+                  class="t-color-picker__sliders-preview-inner"
+                  style="background: rgb(0, 82, 217);"
+                />
+              </div>
             </div>
             <div
               class="t-color-picker__format"
@@ -1867,7 +1934,7 @@ exports[`recent-color.jsx 1`] = `
                       value="RGB"
                     >
                       <div
-                        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                        class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                       >
                         <div
                           class="t-input__prefix"
@@ -1920,7 +1987,7 @@ exports[`recent-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -1945,7 +2012,7 @@ exports[`recent-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -1970,7 +2037,7 @@ exports[`recent-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -2722,22 +2789,42 @@ exports[`recent-color.jsx 1`] = `
               <span
                 class="t-color-picker__thumb"
                 role="slider"
-                style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+                style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
                 tabindex="0"
               />
             </div>
             <div
-              class="t-color-picker__slider t-color-picker__hue"
+              class="t-color-picker__sliders-wrapper"
             >
               <div
-                class="t-color-picker__rail"
-              />
-              <span
-                class="t-color-picker__thumb"
-                role="slider"
-                style="left: 150px; color: rgb(0, 82, 217);"
-                tabindex="0"
-              />
+                class="t-color-picker__sliders"
+              >
+                <div
+                  class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+                >
+                  <div
+                    class="t-color-picker__slider t-color-picker__hue"
+                  >
+                    <div
+                      class="t-color-picker__rail"
+                    />
+                    <span
+                      class="t-color-picker__thumb"
+                      role="slider"
+                      style="left: 101px; color: rgb(0, 82, 217);"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+              >
+                <span
+                  class="t-color-picker__sliders-preview-inner"
+                  style="background: rgb(0, 82, 217);"
+                />
+              </div>
             </div>
             <div
               class="t-color-picker__format"
@@ -2756,7 +2843,7 @@ exports[`recent-color.jsx 1`] = `
                       value="RGB"
                     >
                       <div
-                        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                        class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                       >
                         <div
                           class="t-input__prefix"
@@ -2809,7 +2896,7 @@ exports[`recent-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -2834,7 +2921,7 @@ exports[`recent-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -2859,7 +2946,7 @@ exports[`recent-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -3506,22 +3593,42 @@ exports[`status-readonly.jsx 1`] = `
         <span
           class="t-color-picker__thumb"
           role="slider"
-          style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+          style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
           tabindex="0"
         />
       </div>
       <div
-        class="t-color-picker__slider t-color-picker__hue"
+        class="t-color-picker__sliders-wrapper"
       >
         <div
-          class="t-color-picker__rail"
-        />
-        <span
-          class="t-color-picker__thumb"
-          role="slider"
-          style="left: 150px; color: rgb(0, 82, 217);"
-          tabindex="0"
-        />
+          class="t-color-picker__sliders"
+        >
+          <div
+            class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+          >
+            <div
+              class="t-color-picker__slider t-color-picker__hue"
+            >
+              <div
+                class="t-color-picker__rail"
+              />
+              <span
+                class="t-color-picker__thumb"
+                role="slider"
+                style="left: 101px; color: rgb(0, 82, 217);"
+                tabindex="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+        >
+          <span
+            class="t-color-picker__sliders-preview-inner"
+            style="background: rgb(0, 82, 217);"
+          />
+        </div>
       </div>
       <div
         class="t-color-picker__format"
@@ -3540,7 +3647,7 @@ exports[`status-readonly.jsx 1`] = `
                 value="RGB"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -3593,7 +3700,7 @@ exports[`status-readonly.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-is-disabled t-input-number--normal"
+                class="t-input-number t-size-s t-is-disabled t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -3619,7 +3726,7 @@ exports[`status-readonly.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-is-disabled t-input-number--normal"
+                class="t-input-number t-size-s t-is-disabled t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -3645,7 +3752,7 @@ exports[`status-readonly.jsx 1`] = `
               style="flex: 1;"
             >
               <div
-                class="t-input-number t-size-m t-is-disabled t-input-number--normal"
+                class="t-input-number t-size-s t-is-disabled t-input-number--normal"
               >
                 <div
                   class="t-input__wrap"
@@ -4288,22 +4395,42 @@ exports[`swatch-color.jsx 1`] = `
               <span
                 class="t-color-picker__thumb"
                 role="slider"
-                style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+                style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
                 tabindex="0"
               />
             </div>
             <div
-              class="t-color-picker__slider t-color-picker__hue"
+              class="t-color-picker__sliders-wrapper"
             >
               <div
-                class="t-color-picker__rail"
-              />
-              <span
-                class="t-color-picker__thumb"
-                role="slider"
-                style="left: 150px; color: rgb(0, 82, 217);"
-                tabindex="0"
-              />
+                class="t-color-picker__sliders"
+              >
+                <div
+                  class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+                >
+                  <div
+                    class="t-color-picker__slider t-color-picker__hue"
+                  >
+                    <div
+                      class="t-color-picker__rail"
+                    />
+                    <span
+                      class="t-color-picker__thumb"
+                      role="slider"
+                      style="left: 101px; color: rgb(0, 82, 217);"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+              >
+                <span
+                  class="t-color-picker__sliders-preview-inner"
+                  style="background: rgb(0, 82, 217);"
+                />
+              </div>
             </div>
             <div
               class="t-color-picker__format"
@@ -4322,7 +4449,7 @@ exports[`swatch-color.jsx 1`] = `
                       value="RGB"
                     >
                       <div
-                        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                        class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                       >
                         <div
                           class="t-input__prefix"
@@ -4375,7 +4502,7 @@ exports[`swatch-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -4400,7 +4527,7 @@ exports[`swatch-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -4425,7 +4552,7 @@ exports[`swatch-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -4640,22 +4767,42 @@ exports[`swatch-color.jsx 1`] = `
               <span
                 class="t-color-picker__thumb"
                 role="slider"
-                style="color: rgb(0, 82, 217); left: 248px; top: 21px;"
+                style="color: rgb(0, 82, 217); left: 230px; top: 25px;"
                 tabindex="0"
               />
             </div>
             <div
-              class="t-color-picker__slider t-color-picker__hue"
+              class="t-color-picker__sliders-wrapper"
             >
               <div
-                class="t-color-picker__rail"
-              />
-              <span
-                class="t-color-picker__thumb"
-                role="slider"
-                style="left: 150px; color: rgb(0, 82, 217);"
-                tabindex="0"
-              />
+                class="t-color-picker__sliders"
+              >
+                <div
+                  class="t-color-picker__slider-wrapper t-color-picker__slider-wrapper--hue-type"
+                >
+                  <div
+                    class="t-color-picker__slider t-color-picker__hue"
+                  >
+                    <div
+                      class="t-color-picker__rail"
+                    />
+                    <span
+                      class="t-color-picker__thumb"
+                      role="slider"
+                      style="left: 101px; color: rgb(0, 82, 217);"
+                      tabindex="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="t-color-picker__sliders-preview t-color-picker--bg-alpha"
+              >
+                <span
+                  class="t-color-picker__sliders-preview-inner"
+                  style="background: rgb(0, 82, 217);"
+                />
+              </div>
             </div>
             <div
               class="t-color-picker__format"
@@ -4674,7 +4821,7 @@ exports[`swatch-color.jsx 1`] = `
                       value="RGB"
                     >
                       <div
-                        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                        class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                       >
                         <div
                           class="t-input__prefix"
@@ -4727,7 +4874,7 @@ exports[`swatch-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -4752,7 +4899,7 @@ exports[`swatch-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
@@ -4777,7 +4924,7 @@ exports[`swatch-color.jsx 1`] = `
                     style="flex: 1;"
                   >
                     <div
-                      class="t-input-number t-size-m t-input-number--normal"
+                      class="t-input-number t-size-s t-input-number--normal"
                     >
                       <div
                         class="t-input__wrap"
