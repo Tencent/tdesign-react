@@ -20966,9 +20966,6 @@ exports[`select-multiple.jsx 1`] = `
                   <span
                     class="t-checkbox__input"
                   />
-                  <span
-                    class="t-checkbox__label"
-                  />
                 </label>
               </div>
             </th>
@@ -21045,9 +21042,6 @@ exports[`select-multiple.jsx 1`] = `
                 <span
                   class="t-checkbox__input"
                 />
-                <span
-                  class="t-checkbox__label"
-                />
               </label>
             </td>
             <td
@@ -21117,9 +21111,6 @@ exports[`select-multiple.jsx 1`] = `
                 <span
                   class="t-checkbox__input"
                 />
-                <span
-                  class="t-checkbox__label"
-                />
               </label>
             </td>
             <td
@@ -21187,9 +21178,6 @@ exports[`select-multiple.jsx 1`] = `
                 />
                 <span
                   class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
                 />
               </label>
             </td>
@@ -21259,9 +21247,6 @@ exports[`select-multiple.jsx 1`] = `
                 />
                 <span
                   class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
                 />
               </label>
             </td>
@@ -21440,9 +21425,6 @@ exports[`select-single.jsx 1`] = `
                 <span
                   class="t-radio__input"
                 />
-                <span
-                  class="t-radio__label"
-                />
               </label>
             </td>
             <td
@@ -21502,9 +21484,6 @@ exports[`select-single.jsx 1`] = `
                 <span
                   class="t-radio__input"
                 />
-                <span
-                  class="t-radio__label"
-                />
               </label>
             </td>
             <td
@@ -21562,9 +21541,6 @@ exports[`select-single.jsx 1`] = `
                 />
                 <span
                   class="t-radio__input"
-                />
-                <span
-                  class="t-radio__label"
                 />
               </label>
             </td>
@@ -21624,9 +21600,6 @@ exports[`select-single.jsx 1`] = `
                 />
                 <span
                   class="t-radio__input"
-                />
-                <span
-                  class="t-radio__label"
                 />
               </label>
             </td>
@@ -23563,9 +23536,6 @@ exports[`tree-select.jsx 1`] = `
                       <span
                         class="t-checkbox__input"
                       />
-                      <span
-                        class="t-checkbox__label"
-                      />
                     </label>
                   </div>
                 </th>
@@ -23656,9 +23626,6 @@ exports[`tree-select.jsx 1`] = `
                     />
                     <span
                       class="t-checkbox__input"
-                    />
-                    <span
-                      class="t-checkbox__label"
                     />
                   </label>
                 </td>
@@ -23757,9 +23724,6 @@ exports[`tree-select.jsx 1`] = `
                     <span
                       class="t-checkbox__input"
                     />
-                    <span
-                      class="t-checkbox__label"
-                    />
                   </label>
                 </td>
                 <td
@@ -23856,9 +23820,6 @@ exports[`tree-select.jsx 1`] = `
                     />
                     <span
                       class="t-checkbox__input"
-                    />
-                    <span
-                      class="t-checkbox__label"
                     />
                   </label>
                 </td>
@@ -23957,9 +23918,6 @@ exports[`tree-select.jsx 1`] = `
                     <span
                       class="t-checkbox__input"
                     />
-                    <span
-                      class="t-checkbox__label"
-                    />
                   </label>
                 </td>
                 <td
@@ -24056,9 +24014,6 @@ exports[`tree-select.jsx 1`] = `
                     />
                     <span
                       class="t-checkbox__input"
-                    />
-                    <span
-                      class="t-checkbox__label"
                     />
                   </label>
                 </td>
