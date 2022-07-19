@@ -75,13 +75,20 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       setCacheValue(formatDate(value || []));
       setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)]));
 
-      // 确保右侧面板月份比左侧大 避免两侧面板月份一致
-      if (value.length === 2) {
-        const nextMonth = value.map((v) => dayjs(v).month());
+      // 空数据重置为当前年月
+      if (!value.length) {
+        setYear([dayjs().year(), dayjs().year()]);
+        setMonth([dayjs().month(), dayjs().month() + 1]);
+      } else if (value.length === 2 && !enableTimePicker) {
+        // 确保右侧面板月份比左侧大 避免两侧面板月份一致
+        const nextMonth = value.map((v: string) => dayjs(v || new Date()).month());
         if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
           nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
         }
         setMonth(nextMonth);
+      } else {
+        setYear(value.map((v: string) => dayjs(v || new Date()).year()));
+        setMonth(value.map((v: string) => dayjs(v || new Date()).month()));
       }
     }
     // eslint-disable-next-line
