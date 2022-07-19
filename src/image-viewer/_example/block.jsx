@@ -1,12 +1,15 @@
 import React from 'react';
 import { ImageViewer } from 'tdesign-react';
+import imgH from '../img/imgH.png';
+import img from '../img/img.png';
+import imgV from '../img/imgV.png';
 
 export default function BasicImageViewer() {
   const trigger = ({ onOpen }) => (
     <div className={`t-image-viewer-ui-image`}>
       <img
         alt={'test'}
-        src={'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png'}
+        src={img}
         onClick={onOpen}
         className={`t-image-viewer-ui-image-img`}
       />
@@ -14,16 +17,18 @@ export default function BasicImageViewer() {
   )
 
   const images = [{
-    mainImage: 'https://tdesign.gtimg.com/starter/starter11.png',
-    thumbnail: 'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png'
+    mainImage: imgV,
+    thumbnail: img
   }]
+
+  const UIImageStyle = {width: '160px', height: '160px', marginRight: '50px'}
 
   return (
     <>
-      <div style={{width: '100px', height: '100px', marginRight: '50px'}} className="t-image-viewer-ui-image">
+      <div style={UIImageStyle} className="t-image-viewer-ui-image">
         <ImageViewer trigger={trigger} images={images}/>
       </div>
-      <div style={{width: '100px', height: '100px'}} className="t-image-viewer-ui-image">
+      <div style={UIImageStyle} className="t-image-viewer-ui-image">
         <ImageViewer trigger={trigger} images={[images[0].mainImage]}/>
       </div>
     </>

@@ -1,25 +1,23 @@
 import React from 'react';
 import { ImageViewer } from 'tdesign-react';
+import imgH from '../img/imgH.png';
+import img from '../img/img.png';
+import imgV from '../img/imgV.png';
 
 export default function BasicImageViewer() {
   const images = [
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/button-1@2x.png',
+    img,
     {
-      mainImage: 'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Grid_1.png',
+      mainImage: imgH,
       download: true,
-      thumbnail: 'https://tdesign.gtimg.com/starter/starter.png',
+      thumbnail: imgH,
     },
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/20211221143256.png',
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png',
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png',
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png',
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png',
-    'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3.png',
+    imgV,
   ]
 
   const style = {
-    height: '100px',
-    width: '100px',
+    height: '160px',
+    width: '160px',
     margin: '10px'
   }
 

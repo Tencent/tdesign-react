@@ -18,7 +18,7 @@ export default function BasicImageViewer() {
 
   return (
     <div style={style}>
-      <ImageViewer trigger={trigger} images={[img]}/>
+      <ImageViewer draggable mode="modeless" trigger={trigger} images={[img]}/>
     </div>
   );
 }
