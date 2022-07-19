@@ -10,5 +10,5 @@ export const colorPickerDefaultProps: TdColorPickerProps = {
   enableAlpha: false,
   format: 'RGB',
   multiple: false,
-  recentColors: [],
+  defaultRecentColors: [],
 };
