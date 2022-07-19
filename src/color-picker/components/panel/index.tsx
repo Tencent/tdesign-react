@@ -141,9 +141,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
 
   // 添加最近使用颜色
   const addRecentlyUsedColor = () => {
-    if (recentlyUsedColors === null || !recentlyUsedColors) {
-      return;
-    }
     const colors = [...((recentlyUsedColors as string[]) || [])];
     const { isGradient, linearGradient, rgba } = colorInstanceRef.current;
     const currentColor = isGradient ? linearGradient : rgba;
