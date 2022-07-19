@@ -86,7 +86,6 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   );
   // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
   const showLabel = !!(children || label);
-  console.log('showLabel', showLabel);
   return (
     <label ref={ref} className={labelClassName} title={props.title} style={style} {...omit(htmlProps, ['checkAll'])}>
       {input}
