@@ -6,7 +6,9 @@ import { ImageModal } from './ImageViewerModel';
 import useConfig from '../_util/useConfig';
 import { StyledProps, TNode } from '../common';
 import { imageViewerDefaultProps } from './defaultProps';
-import { useImageScale, useList, useViewerScale } from './useHooks';
+import useImageScale from './hooks/useImageScale';
+import useList from './hooks/useList';
+import useViewerScale from './hooks/useViewerScale';
 import useControlled from '../hooks/useControlled';
 import noop from '../_util/noop';
 

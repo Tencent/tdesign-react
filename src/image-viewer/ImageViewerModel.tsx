@@ -2,13 +2,18 @@ import React, { useState, useEffect, useCallback, WheelEventHandler } from 'reac
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import { Tooltip } from 'tdesign-react';
-import { IconFont } from 'tdesign-icons-react';
+import { IconFont, Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TNode } from '../common';
-import { downloadFile, useIndex, useMirror, usePosition, useRotate, useScale } from './useHooks';
+import { downloadFile } from './useHooks';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelMini } from './ImageViewerMini';
+import useMirror from './hooks/useMirror';
+import usePosition from './hooks/usePosition';
+import useIndex from './hooks/useIndex';
+import useRotate from './hooks/useRotate';
+import useScale from './hooks/useScale';
 
 interface ImageModelItemProps {
   rotateZ: number;
@@ -133,7 +138,7 @@ export const ImageViewerUtils = ({
         />
         <ImageModelIcon size="1.5em" name="zoom-in" onClick={onZoom} />
         <Tooltip content="原始大小" destroyOnClose placement="top" showArrow theme="default">
-          <IconFont
+          <Icon
             size="1.5em"
             name="image"
             className={`${classPrefix}-image-viewer-modal__icon`}
