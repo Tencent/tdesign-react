@@ -1,9 +1,10 @@
 import React from 'react';
 import { ImageViewer, Popup } from 'tdesign-react';
-import {IconFont} from "tdesign-icons-react";
+import {IconFont} from 'tdesign-icons-react';
 import imgH from '../img/imgH.png';
 import img from '../img/img.png';
 import imgV from '../img/imgV.png';
+import './style.less'
 
 const ImageViewerIconList = ({ list, onClick }) => (
   <ul className={`t-select__list`}>
@@ -30,15 +31,15 @@ export default function BasicImageViewer() {
     );
 
     return (
-      <div className={`t-image-viewer-ui-image`}>
+      <div className={`t-image-viewer__ui-image`}>
         <img
           alt={'test'}
           src={img}
-          className={`t-image-viewer-ui-image-img`}
+          className={`t-image-viewer__ui-image--img`}
         />
-        <div className={`t-image-viewer-ui-image-footer`}>
-          <span className={`t-image-viewer-ui-image-title`}>相册封面标题</span>
-          <span className={`t-image-viewer-ui-image-icons`}>
+        <div className={`t-image-viewer__ui-image--footer`}>
+          <span className={`t-image-viewer__ui-image--title`}>相册封面标题</span>
+          <span className={`t-image-viewer__ui-image--icons`}>
           <IconFont name="browse" onClick={onOpen} />
           <Popup
             trigger="click"
@@ -47,7 +48,7 @@ export default function BasicImageViewer() {
             overlayStyle={{ width: '140px' }}
             destroyOnClose
           >
-            <IconFont name="ellipsis" />
+            <IconFont name="ellipsis" classname="t-image-viewer__ui-image--ellipsis" />
           </Popup>
           </span>
         </div>
@@ -55,7 +56,7 @@ export default function BasicImageViewer() {
     )
   }
 
-  const style = {width: '160px', height: '160px'}
+  const style = {width: '240px', height: '240px' }
 
   return (
     <div style={style}>

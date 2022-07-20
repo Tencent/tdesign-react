@@ -15,6 +15,19 @@ import useIndex from './hooks/useIndex';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
 
+const ImageError = () => {
+  const { classPrefix } = useConfig();
+  return (
+    <div className={`${classPrefix}-image-viewer__img-error`}>
+      {/* 脱离文档流 */}
+      <div className={`${classPrefix}-image-viewer__img-error--content`}>
+        <IconFont name="image" size="4em" />
+        <div className={`${classPrefix}-image-viewer__img-error--text`}>图片加载失败，可尝试重新加载</div>
+      </div>
+    </div>
+  );
+};
+
 interface ImageModelItemProps {
   rotateZ: number;
   scale: number;
@@ -29,6 +42,7 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
 
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   const imgStyle = {
     transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -40,10 +54,10 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
   return (
     <div className={`${classPrefix}-image-viewer__modal--pic`}>
       <div className={`${classPrefix}-image-viewer__modal--box`} style={boxStyle}>
-        {!!preSrc && (
+        {error && <ImageError />}
+        {!error && !!preSrc && (
           <img
             className={`${classPrefix}-image-viewer__modal--image`}
-            key={preSrc}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
@@ -55,22 +69,22 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
             draggable="false"
           />
         )}
-        {
+        {!error && (
           <img
             className={`${classPrefix}-image-viewer__modal--image`}
-            key={src}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
             }}
             src={src}
             onLoad={() => setLoaded(true)}
+            onError={() => setError(true)}
             style={imgStyle}
             data-testid="img-drag"
             alt="image"
             draggable="false"
           />
-        }
+        )}
       </div>
     </div>
   );
@@ -138,14 +152,15 @@ export const ImageViewerUtils = ({
         />
         <ImageModelIcon size="1.5em" name="zoom-in" onClick={onZoom} />
         <Tooltip content="原始大小" destroyOnClose placement="top" showArrow theme="default">
-          <Icon
-            size="1.5em"
-            name="image"
-            className={`${classPrefix}-image-viewer-modal__icon`}
-            onClick={() => {
-              onReset();
-            }}
-          />
+          <div className={`${classPrefix}-image-viewer-modal__icon`}>
+            <Icon
+              size="1.5em"
+              name="image"
+              onClick={() => {
+                onReset();
+              }}
+            />
+          </div>
         </Tooltip>
         {currentImage.download && (
           <ImageModelIcon
@@ -178,7 +193,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer-modal-header`, {
+      className={classNames(`${classPrefix}-image-viewer__modal-header`, {
         [`${classPrefix}-is-show`]: isExpand,
       })}
     >
@@ -194,7 +209,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
         <div className={`${classPrefix}-image-viewer__header--trans`} style={transStyle}>
           {images.map((image, index) => (
             <div
-              key={image.thumbnail || image.mainImage}
+              key={index}
               className={classNames(`${classPrefix}-image-viewer__header--box`, {
                 [`${classPrefix}-is-active`]: index === currentIndex,
               })}
