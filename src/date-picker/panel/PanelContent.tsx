@@ -9,6 +9,7 @@ import { getDefaultFormat } from '../hooks/useFormat';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
+  value: SinglePanelProps['value'] | RangePanelProps['value'];
   year: SinglePanelProps['year'];
   month: SinglePanelProps['month'];
   mode: SinglePanelProps['mode'];
@@ -34,6 +35,7 @@ export default function PanelContent(props: PanelContentProps) {
   const panelName = `${classPrefix}-date-picker__panel`;
 
   const {
+    value,
     year,
     month,
     mode,
@@ -73,7 +75,9 @@ export default function PanelContent(props: PanelContentProps) {
         <DateTable
           mode={mode}
           data={tableData}
+          value={value}
           time={time}
+          format={format}
           firstDayOfWeek={firstDayOfWeek}
           onCellClick={(date: Date, { e }) => onCellClick?.(date, { e, partial })}
           onCellMouseEnter={(date: Date) => onCellMouseEnter?.(date, { partial })}
