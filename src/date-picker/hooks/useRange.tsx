@@ -125,10 +125,7 @@ export default function useRange(props: TdDateRangePickerProps) {
         inputRef.current.focus({ position: indexMap[activeIndex] });
         return setPopupVisible(true);
       }
-      if (visible) {
-        // 展开后重置点击次数
-        setIsFirstValueSelected(false);
-      } else {
+      if (!visible) {
         setIsHoverCell(false);
         setInputValue(formatDate(value));
       }

@@ -30,7 +30,6 @@ export default function HeaderSubtitleFooterActionsCard() {
         </Dropdown>
       }
       bordered
-      header
       cover="https://tdesign.gtimg.com/site/source/card-demo.png"
       style={{ width: '400px' }}
       footer={

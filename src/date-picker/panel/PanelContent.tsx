@@ -59,8 +59,8 @@ export default function PanelContent(props: PanelContentProps) {
   const defaultTime = '00:00:00';
 
   return (
-    <div className={`${panelName}--content`}>
-      <div className={`${panelName}--${mode}`}>
+    <div className={`${panelName}-content`}>
+      <div className={`${panelName}-${mode}`}>
         <DateHeader
           mode={mode}
           year={year}
@@ -82,8 +82,8 @@ export default function PanelContent(props: PanelContentProps) {
       </div>
 
       {enableTimePicker && (
-        <div className={`${panelName}--time`}>
-          <div className={`${panelName}--time-viewer`}>{time || defaultTime}</div>
+        <div className={`${panelName}-time`}>
+          <div className={`${panelName}-time-viewer`}>{time || defaultTime}</div>
           <TimePickerPanel
             key={partial}
             format={timeFormat}

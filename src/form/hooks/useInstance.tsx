@@ -130,9 +130,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     const { fields, trigger = 'all' } = param || {};
     const list = [...formMapRef.current.values()]
       .filter(
-        (formItemRef) => isFunction(formItemRef.current?.validate) && needValidate(formItemRef.current?.name, fields),
+        (formItemRef) =>
+          isFunction(formItemRef.current?.validateOnly) && needValidate(formItemRef.current?.name, fields),
       )
-      .map((formItemRef) => formItemRef.current.validateOnly(trigger));
+      .map((formItemRef) => formItemRef.current.validateOnly?.(trigger));
 
     const validateList = await Promise.all(list);
     return formatValidateResult(validateList);

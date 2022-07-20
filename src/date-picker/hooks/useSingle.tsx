@@ -85,12 +85,15 @@ export default function useSingleInput(props: TdDatePickerProps) {
     ...props.popupProps,
     overlayStyle: props.popupProps?.overlayStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
-    onVisibleChange: (visible: boolean) => {
-      setPopupVisible(visible);
+    onVisibleChange: (visible: boolean, context: any) => {
+      if (context.trigger === 'trigger-element-click') {
+        return setPopupVisible(true);
+      }
       if (!visible) {
         setIsHoverCell(false);
         setInputValue(formatDate(value));
       }
+      setPopupVisible(visible);
     },
   };
 

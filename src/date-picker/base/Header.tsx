@@ -138,7 +138,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       <div className={`${headerClassName}-controller`}>
         {showMonthPicker && (
           <Select
-            className={`${headerClassName}-controller--month`}
+            className={`${headerClassName}-controller-month`}
             value={month}
             options={monthOptions}
             onChange={(val) => onMonthChange(val)}
@@ -146,7 +146,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           />
         )}
         <Select
-          className={`${headerClassName}-controller--year`}
+          className={`${headerClassName}-controller-year`}
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
