@@ -7,7 +7,7 @@
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { SelectInputProps } from '../select-input';
-import { TextareaProps } from '../input';
+import { TextareaProps } from '../textarea';
 import { TNode, TElement } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
