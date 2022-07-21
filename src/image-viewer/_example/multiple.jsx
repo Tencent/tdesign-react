@@ -46,8 +46,7 @@ export default function BasicImageViewer() {
             key={imgSrc}
             trigger={trigger}
             images={images}
-            index={index}
-            onIndexChange={console.log}
+            defaultIndex={index}
           />
         )
       })}

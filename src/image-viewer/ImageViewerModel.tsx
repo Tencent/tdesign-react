@@ -51,6 +51,10 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
   const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
   const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
 
+  useEffect(() => {
+    setError(false);
+  }, [src]);
+
   return (
     <div className={`${classPrefix}-image-viewer__modal--pic`}>
       <div className={`${classPrefix}-image-viewer__modal--box`} style={boxStyle}>
