@@ -14,22 +14,18 @@ import {
   MessageSuccessMethod,
   MessageWarningMethod,
   MessageThemeList,
+  MessagePlacementList,
 } from './type';
-import { AttachNodeReturnValue } from '../common';
+import { AttachNode, AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
 import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 
+import { globalConfig, setGlobalConfig } from './config';
+
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
 let keyIndex = 1;
-
-// 全局默认配置，zIndex 为 5000，默认关闭事件 3000
-const globalConfig = {
-  zIndex: 5000,
-  duration: 3000,
-  top: 32,
-};
 
 export interface MessagePlugin {
   (theme: MessageThemeList, message: string | MessageOptions, duration?: number): Promise<MessageInstance>;
@@ -41,11 +37,10 @@ export interface MessagePlugin {
   loading: MessageLoadingMethod;
   closeAll: MessageCloseAllMethod;
   close: (message: Promise<MessageInstance>) => void;
+  config: (placement: MessagePlacementList, attach: AttachNode, offset: Array<string | number>, zIndex: number) => void;
 }
 
 /**
- * @author kenzyyang
- * @date 2021-05-11 20:36:52
  * @desc 创建容器，所有的 message 会填充到容器中
  */
 function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
@@ -151,6 +146,7 @@ function isConfig(content: MessageOptions | React.ReactNode): content is Message
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageOptions).content;
 }
 
+// messageMethod 方法调用 message
 const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration: number = globalConfig.duration) => {
   let config = {} as MessageOptions;
   if (isConfig(content)) {
@@ -166,11 +162,16 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
   }
   config = {
     ...config,
+    // 参数未从外部设置时，使用全局默认配置，默认配置支持通过 setConfig 进行修改
     zIndex: config.zIndex || globalConfig.zIndex,
+    offset: config.offset || globalConfig.offset,
+    placement: config.placement || globalConfig.placement,
+    attach: config.attach || globalConfig.attach,
   };
   return renderElement(theme, config);
 };
 
+// 创建
 export const MessagePlugin: MessagePlugin = (theme, message, duration) => messageMethod(theme, message, duration);
 MessagePlugin.info = (content, duration) => messageMethod('info', content, duration);
 MessagePlugin.error = (content, duration) => messageMethod('error', content, duration);
@@ -178,6 +179,12 @@ MessagePlugin.warning = (content, duration) => messageMethod('warning', content,
 MessagePlugin.success = (content, duration) => messageMethod('success', content, duration);
 MessagePlugin.question = (content, duration) => messageMethod('question', content, duration);
 MessagePlugin.loading = (content, duration) => messageMethod('loading', content, duration);
+MessagePlugin.config = (
+  placement: MessagePlacementList,
+  attach: AttachNode,
+  offset: Array<string | number>,
+  zIndex: number,
+) => setGlobalConfig(placement, attach, offset, zIndex);
 
 /**
  * @date 2021-05-16 13:11:24
