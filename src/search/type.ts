@@ -7,6 +7,7 @@
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { SelectInputProps } from '../select-input';
+import { TextareaProps } from '../input';
 import { TNode, TElement } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
@@ -77,7 +78,7 @@ export interface TdSearchProps {
    */
   readonly?: boolean;
   /**
-   * 基于 SelectInput 组件开发，透传组件全部特性
+   * 基于 SelectInput 组件开发，透传组件全部属性
    */
   selectInputProps?: SelectInputProps;
   /**
@@ -89,6 +90,10 @@ export interface TdSearchProps {
    * 后置图标，默认为搜索图标。值为 `null` 时则不显示
    */
   suffixIcon?: TElement;
+  /**
+   * 透传 Textarea 组件全部属性
+   */
+  textareaProps?: TextareaProps;
   /**
    * 值，搜索关键词
    * @default ''
