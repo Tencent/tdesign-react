@@ -1,4 +1,4 @@
-import React, { Ref, forwardRef, useContext, MouseEventHandler } from 'react';
+import React, { Ref, forwardRef, useContext, MouseEventHandler, useMemo } from 'react';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
@@ -85,13 +85,25 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     />
   );
 
+  const currentLabel = useMemo(() => {
+    if (children !== undefined) {
+      return children;
+    }
+    if (label !== undefined) {
+      return label;
+    }
+    return null;
+  }, [children, label]);
+
   return (
     <label ref={ref} className={labelClassName} title={props.title} style={style} {...omit(htmlProps, ['checkAll'])}>
       {input}
       <span className={`${classPrefix}-${type}__input`} />
-      <span key="label" className={`${classPrefix}-${type}__label`}>
-        {children || label}
-      </span>
+      {currentLabel !== null && (
+        <span key="label" className={`${classPrefix}-${type}__label`}>
+          {currentLabel}
+        </span>
+      )}
     </label>
   );
 });
