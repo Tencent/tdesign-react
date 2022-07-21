@@ -107,13 +107,13 @@ const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, si
   const { classPrefix } = useConfig();
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer-modal__icon`, className, {
+      className={classNames(`${classPrefix}-image-viewer__modal--icon`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
       })}
       onClick={onClick}
     >
       {name && <IconFont size={size} name={name} className={isRange ? 'is-range' : null} />}
-      {label && <span className={`${classPrefix}-image-viewer-modal__icon-label`}>{label}</span>}
+      {label && <span className={`${classPrefix}-image-viewer__modal--icon-label`}>{label}</span>}
     </div>
   );
 };
@@ -140,8 +140,8 @@ export const ImageViewerUtils = ({
   const { classPrefix } = useConfig();
 
   return (
-    <div className={`${classPrefix}-image-viewer-utils`}>
-      <div className={`${classPrefix}-image-viewer-utils__content`}>
+    <div className={`${classPrefix}-image-viewer__utils`}>
+      <div className={`${classPrefix}-image-viewer__utils--content`}>
         <ImageModelIcon size="1.5em" name="rotation" onClick={() => onRotate(-ROTATE_COUNT)} />
         <ImageModelIcon size="1.5em" name="mirror" onClick={onMirror} />
         <ImageModelIcon size="1.5em" name="zoom-out" onClick={onZoomOut} />
@@ -152,7 +152,7 @@ export const ImageViewerUtils = ({
         />
         <ImageModelIcon size="1.5em" name="zoom-in" onClick={onZoom} />
         <Tooltip content="原始大小" destroyOnClose placement="top" showArrow theme="default">
-          <div className={`${classPrefix}-image-viewer-modal__icon`}>
+          <div className={`${classPrefix}-image-viewer__modal--icon`}>
             <Icon
               size="1.5em"
               name="image"
@@ -241,6 +241,7 @@ interface ImageModalProps {
   isMini: boolean;
   draggable: boolean;
   closeBtn: boolean | TNode;
+  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
 }
 
 // 弹窗基础组件
@@ -343,7 +344,7 @@ export const ImageModal = (props: ImageModalProps) => {
       <ImageModelIcon
         name="close"
         size="1.5em"
-        className={`${classPrefix}-image-viewer-modal-close-bt`}
+        className={`${classPrefix}-image-viewer__modal--close-bt `}
         onClick={() => onClose && onClose()}
       />
     );
@@ -359,14 +360,14 @@ export const ImageModal = (props: ImageModalProps) => {
           <ImageModelIcon
             size="1.5em"
             name="chevron-left"
-            className={`${classPrefix}-image-viewer-modal-prev-bt`}
+            className={`${classPrefix}-image-viewer__modal--prev-bt`}
             onClick={prev}
             disabled={index <= 0}
           />
           <ImageModelIcon
             size="1.5em"
             name="chevron-right"
-            className={`${classPrefix}-image-viewer-modal-next-bt`}
+            className={`${classPrefix}-image-viewer__modal--next-bt`}
             onClick={next}
             disabled={index >= images.length - 1}
           />

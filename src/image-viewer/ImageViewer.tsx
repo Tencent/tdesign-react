@@ -51,13 +51,14 @@ const ImageViewer = (props: ImageViewerProps) => {
               zIndex={props.zIndex}
               defaultIndex={props.defaultIndex}
               index={props.index}
+              onIndexChange={props.onIndexChange}
               draggable={props.draggable}
               closeOnOverlay={props.closeOnOverlay}
               closeBtn={props.closeBtn}
               onClose={onClose}
               onOpen={onOpen}
             />
-            {showOverlay && <div className={`${classPrefix}-image-viewer-mask`} />}
+            {showOverlay && <div className={`${classPrefix}-image-viewer__mask`} />}
           </>,
           document.body,
         )}

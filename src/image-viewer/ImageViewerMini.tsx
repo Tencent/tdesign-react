@@ -53,9 +53,9 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
   const { classPrefix } = useConfig();
 
   const header = (
-    <div className={`${classPrefix}-image-viewer-mini__header`}>
+    <div className={`${classPrefix}-image-viewer__mini--header`}>
       {`${index + 1}/${images.length}`}
-      <span className={`${classPrefix}-image-viewer-mini__close`}>
+      <span className={`${classPrefix}-image-viewer__mini--close`}>
         <IconFont size="1.5rem" name="close" onClick={onClose} />
       </span>
     </div>

@@ -1,65 +1,55 @@
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import isFunction from 'lodash/isFunction';
 
-export type positionType = [number, number];
+export type PositionType = [number, number];
 
-interface usePositionArg {
-  initPosition?: positionType;
+interface UsePositionArg {
+  initPosition?: PositionType;
   move?: boolean;
-  computed?: (XY: positionType, screenXY: positionType, oldXY: positionType) => positionType;
+  computed?: (XY: PositionType, screenXY: PositionType, oldXY: PositionType) => PositionType;
   onMouseUp?: (event?: MouseEvent) => void;
   onMouseMove?: (event?: MouseEvent) => void;
   onMouseDown?: (event?: MouseEventHandler<HTMLDivElement>) => void;
 }
 
 const usePosition = (
-  {
-    initPosition,
-    move = true,
-    computed,
-    onMouseUp: onEnd,
-    onMouseMove: onUpdate,
-    onMouseDown: onStart,
-  }: usePositionArg,
+  { initPosition, move = true, onMouseUp: onEnd, onMouseMove: onUpdate, onMouseDown: onStart }: UsePositionArg,
   $dom?: HTMLElement | Document,
-): [positionType, MouseEventHandler<HTMLDivElement>] => {
-  const [position, setPosition] = useState<positionType>(initPosition);
-  const ref = useRef(null);
+): [PositionType, MouseEventHandler<HTMLDivElement>] => {
+  const [position, setPosition] = useState<PositionType>(initPosition);
+  const cacheMoveDataRef = useRef(null);
 
   const onMouseUp = useCallback(() => {
-    if (!ref.current) return;
-    ref.current = null;
+    if (!cacheMoveDataRef.current) return;
+    cacheMoveDataRef.current = null;
     if (!move) return;
     isFunction(onEnd) && onEnd();
   }, [move, onEnd]);
 
   const onMouseMove = useCallback(
     (event: MouseEvent | any) => {
-      if (!event.buttons) ref.current = null;
-      if (!ref.current || ref.current.updating || !move) return;
-      ref.current.updating = true;
-      const { screenX: oldX, screenY: oldY } = ref.current;
+      if (!event.buttons) cacheMoveDataRef.current = null;
+      if (!cacheMoveDataRef.current || cacheMoveDataRef.current.updating || !move) return;
+      cacheMoveDataRef.current.updating = true;
+      const { screenX: oldX, screenY: oldY } = cacheMoveDataRef.current;
       const { screenX, screenY } = event;
 
       requestAnimationFrame(() => {
-        if (!ref.current) return;
-        setPosition(([X, Y]) =>
-          computed ? computed([X, Y], [screenX, screenY], [oldX, oldY]) : [X + screenX - oldX, Y + screenY - oldY],
-        );
-        ref.current.screenX = screenX;
-        ref.current.screenY = screenY;
-        ref.current.updating = false;
+        if (!cacheMoveDataRef.current) return;
+        setPosition(([X, Y]) => [X + screenX - oldX, Y + screenY - oldY]);
+        cacheMoveDataRef.current.screenX = screenX;
+        cacheMoveDataRef.current.screenY = screenY;
+        cacheMoveDataRef.current.updating = false;
         isFunction(onUpdate) && onUpdate();
       });
     },
-    [computed, move, onUpdate],
+    [move, onUpdate],
   );
 
   const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      // @ts-ignore
       const { screenX, screenY } = event;
-      ref.current = {
+      cacheMoveDataRef.current = {
         screenX,
         screenY,
       };
