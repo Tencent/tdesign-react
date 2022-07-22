@@ -4,30 +4,29 @@ import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import { TdDatePickerProps } from '../type';
-import useFormat from './useFormat';
+import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
 import useSingleValue from './useSingleValue';
 
 export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const name = `${classPrefix}-date-picker`;
 
-  const inputRef = useRef<HTMLInputElement>();
-
-  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
-    useSingleValue(props);
-
-  const { isValidDate, formatDate, formatTime } = useFormat({
-    value,
+  const { format, valueType, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
     valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
+  const inputRef = useRef<HTMLInputElement>();
+
+  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
+    useSingleValue(props);
+
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value));
+  const [inputValue, setInputValue] = useState(formatDate(value, { format, targetFormat: format }));
 
   // input 设置
   const inputProps = {
@@ -57,22 +56,22 @@ export default function useSingleInput(props: TdDatePickerProps) {
       setInputValue(val);
 
       // 跳过不符合格式化的输入框内容
-      if (!isValidDate(val)) return;
+      if (!isValidDate(val, format)) return;
       const newMonth = dayjs(val).month();
       const newYear = dayjs(val).year();
-      const newTime = formatTime(val);
+      const newTime = formatTime(val, timeFormat);
       !Number.isNaN(newYear) && setYear(newYear);
       !Number.isNaN(newMonth) && setMonth(newMonth);
       !Number.isNaN(newTime) && setTime(newTime);
     },
     onEnter: (val: string) => {
-      if (!isValidDate(val) && !isValidDate(value)) return;
+      if (!isValidDate(val, format) && !isValidDate(value, format)) return;
 
       setPopupVisible(false);
-      if (isValidDate(val)) {
-        onChange(formatDate(val, { formatType: 'valueType' }), { dayjsValue: dayjs(val), trigger: 'enter' });
-      } else if (isValidDate(value)) {
-        setInputValue(formatDate(value));
+      if (isValidDate(val, format)) {
+        onChange(formatDate(val, { format, targetFormat: valueType }), { dayjsValue: dayjs(val), trigger: 'enter' });
+      } else if (isValidDate(value, format)) {
+        setInputValue(formatDate(value, { format, targetFormat: format }));
       } else {
         setInputValue('');
       }
@@ -91,7 +90,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
       }
       if (!visible) {
         setIsHoverCell(false);
-        setInputValue(formatDate(value));
+        setInputValue(formatDate(value, { format, targetFormat: format }));
       }
       setPopupVisible(visible);
     },
@@ -103,9 +102,9 @@ export default function useSingleInput(props: TdDatePickerProps) {
       setInputValue('');
       return;
     }
-    if (!isValidDate(value, 'valueType')) return;
+    if (!isValidDate(value, valueType)) return;
 
-    setInputValue(formatDate(value));
+    setInputValue(formatDate(value, { format, targetFormat: format }));
     // eslint-disable-next-line
   }, [value]);
 

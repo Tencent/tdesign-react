@@ -1,13 +1,12 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import useConfig from '../../_util/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
-import { getDefaultFormat } from '../hooks/useFormat';
+import { getDefaultFormat, parseToDayjs } from '../hooks/useFormat';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 
@@ -67,16 +66,18 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     enableTimePicker: props.enableTimePicker,
   });
 
-  // 兼容数据格式不标准场景 YYYY-MM-D
-  const formatDate = (newDate, format) =>
-    dayjs(newDate).isValid() ? dayjs(newDate).toDate() : dayjs(newDate, format).toDate();
-
   const disableDateOptions = useDisableDate({
     disableDate: disableDateFromProps,
     mode,
     format,
-    start: isFirstValueSelected && activeIndex === 1 ? dayjs(value[0]).toDate() : undefined,
-    end: isFirstValueSelected && activeIndex === 0 ? dayjs(value[1]).toDate() : undefined,
+    start:
+      isFirstValueSelected && activeIndex === 1
+        ? new Date(parseToDayjs(value[0], format).toDate().setHours(0, 0, 0))
+        : undefined,
+    end:
+      isFirstValueSelected && activeIndex === 0
+        ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59))
+        : undefined,
   });
 
   const [startYear, endYear] = year;
@@ -87,10 +88,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
 
   const startTableData = useTableData({
     isRange: true,
-    start: value[0] ? formatDate(value[0], format) : undefined,
-    end: value[1] ? formatDate(value[1], format) : undefined,
-    hoverStart: !hidePreselection && hoverValue[0] ? formatDate(hoverValue[0], format) : undefined,
-    hoverEnd: !hidePreselection && hoverValue[1] ? formatDate(hoverValue[1], format) : undefined,
+    start: value[0] ? parseToDayjs(value[0], format).toDate() : undefined,
+    end: value[1] ? parseToDayjs(value[1], format).toDate() : undefined,
+    hoverStart: !hidePreselection && hoverValue[0] ? parseToDayjs(hoverValue[0], format).toDate() : undefined,
+    hoverEnd: !hidePreselection && hoverValue[1] ? parseToDayjs(hoverValue[1], format).toDate() : undefined,
     year: startYear,
     month: startMonth,
     mode,
@@ -99,10 +100,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
   });
   const endTableData = useTableData({
     isRange: true,
-    start: value[0] ? formatDate(value[0], format) : undefined,
-    end: value[1] ? formatDate(value[1], format) : undefined,
-    hoverStart: !hidePreselection && hoverValue[0] ? formatDate(hoverValue[0], format) : undefined,
-    hoverEnd: !hidePreselection && hoverValue[1] ? formatDate(hoverValue[1], format) : undefined,
+    start: value[0] ? parseToDayjs(value[0], format).toDate() : undefined,
+    end: value[1] ? parseToDayjs(value[1], format).toDate() : undefined,
+    hoverStart: !hidePreselection && hoverValue[0] ? parseToDayjs(hoverValue[0], format).toDate() : undefined,
+    hoverEnd: !hidePreselection && hoverValue[1] ? parseToDayjs(hoverValue[1], format).toDate() : undefined,
     year: endYear,
     month: endMonth,
     mode,
@@ -156,6 +157,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
               month={startMonth}
               time={time[0]}
               tableData={startTableData}
+              value={value}
               {...panelContentProps}
             />,
             <PanelContent
@@ -164,6 +166,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
               year={endYear}
               month={endMonth}
               time={time[1]}
+              value={value}
               tableData={endTableData}
               {...panelContentProps}
             />,
@@ -175,6 +178,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
             year={activeIndex ? endYear : startYear}
             month={activeIndex ? endMonth : startMonth}
             time={activeIndex ? time[1] : time[0]}
+            value={value}
             tableData={activeIndex ? endTableData : startTableData}
             {...panelContentProps}
           />
