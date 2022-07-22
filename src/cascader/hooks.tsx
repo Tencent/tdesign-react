@@ -58,7 +58,6 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       valueType,
       treeStore,
       setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => {
-        console.log(val, scopeVal);
         if (isEqual(val, scopeVal)) return;
         setInnerValue(val, { source, node });
       },
