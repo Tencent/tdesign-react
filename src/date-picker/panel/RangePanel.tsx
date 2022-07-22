@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import useConfig from '../../_util/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
@@ -71,8 +70,14 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     disableDate: disableDateFromProps,
     mode,
     format,
-    start: isFirstValueSelected && activeIndex === 1 ? dayjs(value[0]).toDate() : undefined,
-    end: isFirstValueSelected && activeIndex === 0 ? dayjs(value[1]).toDate() : undefined,
+    start:
+      isFirstValueSelected && activeIndex === 1
+        ? new Date(parseToDayjs(value[0], format).toDate().setHours(0, 0, 0, 0))
+        : undefined,
+    end:
+      isFirstValueSelected && activeIndex === 0
+        ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59, 59))
+        : undefined,
   });
 
   const [startYear, endYear] = year;
