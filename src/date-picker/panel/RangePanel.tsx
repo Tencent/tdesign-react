@@ -72,11 +72,11 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     format,
     start:
       isFirstValueSelected && activeIndex === 1
-        ? new Date(parseToDayjs(value[0], format).toDate().setHours(0, 0, 0, 0))
+        ? new Date(parseToDayjs(value[0], format).toDate().setHours(0, 0, 0))
         : undefined,
     end:
       isFirstValueSelected && activeIndex === 0
-        ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59, 59))
+        ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59))
         : undefined,
   });
 
