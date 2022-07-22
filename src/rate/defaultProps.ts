@@ -8,9 +8,10 @@ export const rateDefaultProps: TdRateProps = {
   defaultValue: 0,
   allowHalf: false,
   color: '#ED7B2F',
+  disabled: false,
+  size: '20',
   count: 5,
   gap: 6,
   showText: false,
-  texts: [],
-  value: 0,
+  texts: ['极差', '失望', '一般', '满意', '惊喜'],
 };
