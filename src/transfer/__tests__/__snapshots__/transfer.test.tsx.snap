@@ -23,9 +23,6 @@ exports[`base.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 19 项
@@ -480,9 +477,6 @@ exports[`base.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 1 项
@@ -548,9 +542,6 @@ exports[`checked.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
@@ -1027,9 +1018,6 @@ exports[`checked.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 0 项
@@ -1079,9 +1067,6 @@ exports[`custom.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
@@ -1543,9 +1528,6 @@ exports[`custom.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 0 项
@@ -1608,9 +1590,6 @@ exports[`custom-render.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
@@ -2160,9 +2139,6 @@ exports[`custom-render.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 0 项
@@ -2218,9 +2194,6 @@ exports[`empty.jsx 1`] = `
               />
               <span
                 class="t-checkbox__input"
-              />
-              <span
-                class="t-checkbox__label"
               />
             </label>
             <span>
@@ -2313,9 +2286,6 @@ exports[`empty.jsx 1`] = `
               <span
                 class="t-checkbox__input"
               />
-              <span
-                class="t-checkbox__label"
-              />
             </label>
             <span>
               0 / 0 项
@@ -2363,9 +2333,6 @@ exports[`empty.jsx 1`] = `
               />
               <span
                 class="t-checkbox__input"
-              />
-              <span
-                class="t-checkbox__label"
               />
             </label>
             <span>
@@ -2458,9 +2425,6 @@ exports[`empty.jsx 1`] = `
               <span
                 class="t-checkbox__input"
               />
-              <span
-                class="t-checkbox__label"
-              />
             </label>
             <span>
               0 / 0 项
@@ -2509,9 +2473,6 @@ exports[`pagination.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
@@ -2889,9 +2850,6 @@ exports[`pagination.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 0 项
@@ -3039,9 +2997,6 @@ exports[`search.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
@@ -3551,9 +3506,6 @@ exports[`search.jsx 1`] = `
             <span
               class="t-checkbox__input"
             />
-            <span
-              class="t-checkbox__label"
-            />
           </label>
           <span>
             0 / 0 项
@@ -3638,9 +3590,6 @@ exports[`tree.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
@@ -3730,9 +3679,6 @@ exports[`tree.jsx 1`] = `
             />
             <span
               class="t-checkbox__input"
-            />
-            <span
-              class="t-checkbox__label"
             />
           </label>
           <span>
