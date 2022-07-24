@@ -1,12 +1,24 @@
-import React, { useState, useEffect, useCallback, WheelEventHandler } from 'react';
+import React, { useState, useEffect, useCallback, WheelEventHandler, MouseEvent, KeyboardEvent } from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import { Tooltip } from 'tdesign-react';
-import { IconFont, Icon } from 'tdesign-icons-react';
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  DownloadIcon,
+  ImageErrorIcon,
+  ImageIcon,
+  MirrorIcon,
+  RotationIcon,
+  ZoomInIcon,
+  ZoomOutIcon,
+} from 'tdesign-icons-react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TNode } from '../common';
-import { downloadFile } from './useHooks';
+import { downloadFile } from './utils';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelMini } from './ImageViewerMini';
 import useMirror from './hooks/useMirror';
@@ -21,7 +33,7 @@ const ImageError = () => {
     <div className={`${classPrefix}-image-viewer__img-error`}>
       {/* 脱离文档流 */}
       <div className={`${classPrefix}-image-viewer__img-error--content`}>
-        <IconFont name="image" size="4em" />
+        <ImageErrorIcon size="4em" />
         <div className={`${classPrefix}-image-viewer__img-error--text`}>图片加载失败，可尝试重新加载</div>
       </div>
     </div>
@@ -97,6 +109,18 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
 // 旋转角度单位
 const ROTATE_COUNT = 90;
 
+const ICON_MAP = {
+  rotation: RotationIcon,
+  'zoom-in': ZoomInIcon,
+  mirror: MirrorIcon,
+  'zoom-out': ZoomOutIcon,
+  download: DownloadIcon,
+  'chevron-left': ChevronLeftIcon,
+  'chevron-right': ChevronRightIcon,
+  'chevron-down': ChevronDownIcon,
+  close: CloseIcon,
+};
+
 interface ImageModelIconProps {
   name?: string;
   size?: string;
@@ -104,11 +128,12 @@ interface ImageModelIconProps {
   className?: string;
   disabled?: boolean;
   isRange?: boolean;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, size = '3em' }: ImageModelIconProps) => {
   const { classPrefix } = useConfig();
+  const Icon = ICON_MAP[name];
   return (
     <div
       className={classNames(`${classPrefix}-image-viewer__modal--icon`, className, {
@@ -116,7 +141,7 @@ const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, si
       })}
       onClick={onClick}
     >
-      {name && <IconFont size={size} name={name} className={isRange ? 'is-range' : null} />}
+      {name && <Icon size={size} className={isRange ? 'is-range' : null} />}
       {label && <span className={`${classPrefix}-image-viewer__modal--icon-label`}>{label}</span>}
     </div>
   );
@@ -146,19 +171,48 @@ export const ImageViewerUtils = ({
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils--content`}>
-        <ImageModelIcon size="1.5em" name="rotation" onClick={() => onRotate(-ROTATE_COUNT)} />
-        <ImageModelIcon size="1.5em" name="mirror" onClick={onMirror} />
-        <ImageModelIcon size="1.5em" name="zoom-out" onClick={onZoomOut} />
+        <Tooltip
+          overlayStyle={{ boxShadow: 'none' }}
+          content="镜像"
+          destroyOnClose
+          placement="top"
+          showArrow
+          theme="default"
+        >
+          <div className={`${classPrefix}-image-viewer__modal--icon`}>
+            <MirrorIcon size="medium" onClick={onMirror} />
+          </div>
+        </Tooltip>
+        <Tooltip
+          overlayStyle={{ boxShadow: 'none' }}
+          content="旋转"
+          destroyOnClose
+          placement="top"
+          showArrow
+          theme="default"
+        >
+          <div className={`${classPrefix}-image-viewer__modal--icon`}>
+            <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
+          </div>
+        </Tooltip>
+        <ImageModelIcon size="medium" name="zoom-out" onClick={onZoomOut} />
         <ImageModelIcon
           className={`${classPrefix}-image-viewer__utils--scale`}
-          size="1.5em"
+          size="medium"
           label={`${scale * 100}%`}
         />
-        <ImageModelIcon size="1.5em" name="zoom-in" onClick={onZoom} />
-        <Tooltip content="原始大小" destroyOnClose placement="top" showArrow theme="default">
+        <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
+        <Tooltip
+          overlayStyle={{ boxShadow: 'none' }}
+          content="原始大小"
+          destroyOnClose
+          placement="top"
+          showArrow
+          theme="default"
+        >
           <div className={`${classPrefix}-image-viewer__modal--icon`}>
-            <Icon
-              size="1.5em"
+            <ImageIcon
+              size="medium"
               name="image"
               onClick={() => {
                 onReset();
@@ -168,7 +222,7 @@ export const ImageViewerUtils = ({
         </Tooltip>
         {currentImage.download && (
           <ImageModelIcon
-            size="1.5em"
+            size="medium"
             name="download"
             onClick={() => {
               downloadFile(currentImage.mainImage);
@@ -234,10 +288,11 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 
 interface ImageModalProps {
   closeOnOverlay: boolean;
+  showOverlay: boolean;
   index: number;
   defaultIndex?: number;
   images: ImageInfo[];
-  onClose: () => void;
+  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
   onOpen: () => void;
   imageScale: ImageScale;
   viewerScale: ImageViewerScale;
@@ -252,6 +307,7 @@ interface ImageModalProps {
 export const ImageModal = (props: ImageModalProps) => {
   const {
     closeOnOverlay,
+    showOverlay = true,
     zIndex,
     images,
     isMini,
@@ -296,7 +352,7 @@ export const ImageModal = (props: ImageModalProps) => {
         case 'ArrowDown':
           return onZoomOut();
         case 'Escape':
-          return onClose?.();
+          return onClose?.({ trigger: 'esc', e: event });
       }
     },
     [next, onClose, prev, onZoom, onZoomOut],
@@ -347,29 +403,34 @@ export const ImageModal = (props: ImageModalProps) => {
     closeNode = (
       <ImageModelIcon
         name="close"
-        size="1.5em"
+        size="24px"
         className={`${classPrefix}-image-viewer__modal--close-bt `}
-        onClick={() => onClose && onClose()}
+        onClick={(e: MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
   } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
 
   return (
     <div className={`${classPrefix}-image-viewer-preview-image`} onWheel={onScroll} style={{ zIndex }}>
-      <div className={`${classPrefix}-image-viewer__modal--mask`} onClick={() => closeOnOverlay && onClose?.()} />
+      {!!showOverlay && (
+        <div
+          className={`${classPrefix}-image-viewer__modal--mask`}
+          onClick={(e: MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
+        />
+      )}
       {images.length > 1 && (
         <>
           <ImageViewerHeader images={images} currentIndex={index} onImgClick={setIndex} />
           <div className={`${classPrefix}-image-viewer__modal--index`}>{`${index + 1}/${images.length}`}</div>
           <ImageModelIcon
-            size="1.5em"
+            size="24px"
             name="chevron-left"
             className={`${classPrefix}-image-viewer__modal--prev-bt`}
             onClick={prev}
             disabled={index <= 0}
           />
           <ImageModelIcon
-            size="1.5em"
+            size="24px"
             name="chevron-right"
             className={`${classPrefix}-image-viewer__modal--next-bt`}
             onClick={next}

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { ImageViewer } from 'tdesign-react';
-import {Icon, IconFont} from "tdesign-icons-react";
+import {BrowseIcon, ImageErrorIcon} from "tdesign-icons-react";
 import img from '../img/img.png';
 import './style.less';
 
@@ -8,7 +8,7 @@ const LoadingError = ({ style, classPrefix = 't' }) => (
   <div style={style} className={`${classPrefix}-image-viewer__error ${classPrefix}-image-viewer__ui-image`}>
     {/* 脱离文档流 */}
     <div className={`${classPrefix}-image-viewer__error--content`}>
-      <IconFont name="image" size="2em" />
+      <ImageErrorIcon name="image-error" size="2em" />
       <div>图片无法显示</div>
     </div>
   </div>
@@ -54,7 +54,7 @@ export default function BasicImageViewer() {
                 className={`t-image-viewer__ui-image--img`}
               />
               <div className={`t-image-viewer__ui-image--hover`} onClick={onOpen}>
-                <span><Icon size="1.4em" name={'browse'}/> 预览</span>
+                <span><BrowseIcon size="1.4em"/> 预览</span>
               </div>
             </div>
           )

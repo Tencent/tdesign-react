@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageViewer } from 'tdesign-react';
-import {Icon} from 'tdesign-icons-react';
+import {BrowseIcon} from 'tdesign-icons-react';
 import imgH from '../img/imgH.png';
 import img from '../img/img.png';
 import imgV from '../img/imgV.png';
@@ -36,7 +36,7 @@ export default function BasicImageViewer() {
               className={`t-image-viewer__ui-image--img`}
             />
             <div className={`t-image-viewer__ui-image--hover`} onClick={onOpen}>
-              <span><Icon size="1.4em" name={'browse'}/> 预览</span>
+              <span><BrowseIcon size="1.4em"/> 预览</span>
             </div>
           </div>
         )

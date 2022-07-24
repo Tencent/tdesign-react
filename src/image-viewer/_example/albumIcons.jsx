@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageViewer, Popup } from 'tdesign-react';
-import {IconFont} from 'tdesign-icons-react';
+import {BrowseIcon, EllipsisIcon} from 'tdesign-icons-react';
 import imgH from '../img/imgH.png';
 import img from '../img/img.png';
 import imgV from '../img/imgV.png';
@@ -40,7 +40,7 @@ export default function BasicImageViewer() {
         <div className={`t-image-viewer__ui-image--footer`}>
           <span className={`t-image-viewer__ui-image--title`}>相册封面标题</span>
           <span className={`t-image-viewer__ui-image--icons`}>
-          <IconFont name="browse" onClick={onOpen} />
+          <BrowseIcon onClick={onOpen} />
           <Popup
             trigger="click"
             content={listCommon}
@@ -48,7 +48,7 @@ export default function BasicImageViewer() {
             overlayStyle={{ width: '140px' }}
             destroyOnClose
           >
-            <IconFont name="ellipsis" classname="t-image-viewer__ui-image--ellipsis" />
+            <EllipsisIcon classname="t-image-viewer__ui-image--ellipsis" />
           </Popup>
           </span>
         </div>

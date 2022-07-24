@@ -1,3 +1,5 @@
+
+
 // demo样式
 .t-image-viewer__ui-image {
   width: 100%;
@@ -8,24 +10,27 @@
   position: relative;
   justify-content: center;
   align-items: center;
-  position: relative;
+  border-radius: var(--td-radius-small);
+  overflow: hidden;
 
   & .t-image-viewer__ui-image--hover {
     width: 100%;
     height: 100%;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     left: 0;
     top: 0;
+    opacity: 0;
     background-color: rgba(0, 0, 0, .6);
-    color: #fff;
+    color: var(--td-text-color-anti);
     line-height: 22px;
+    transition: .2s;
   }
 
   &:hover .t-image-viewer__ui-image--hover {
-    display: flex;
+    opacity: 1;
     cursor: pointer;
   }
 
@@ -37,7 +42,6 @@
     cursor: pointer;
     position: absolute;
   }
-
   .t-image-viewer__ui-image--footer {
     padding: 0 16px;
     height: 56px;
@@ -46,7 +50,7 @@
     font-size: 16px;
     position: absolute;
     bottom: 0;
-    color: rgba(255, 255, 255, 90%);
+    color: var(--td-text-color-anti);
     background-image: linear-gradient(0deg, rgba(0, 0, 0, .4) 0%, rgba(0, 0, 0, 0) 100%);
     display: flex;
     box-sizing: border-box;
@@ -66,9 +70,9 @@
 }
 
 .t-image-viewer__error {
-  background-color: #E7E7E7;
+  background-color: var(--td-bg-color-component-disabled);
   border-radius: 4px;
-  color: #000000;
+  color: var(--td-text-color-disabled);
   cursor: inherit;
 
   .t-image-viewer__error--content {
@@ -83,4 +87,12 @@
     align-content: center;
     font-size: 14px;
   }
+}
+
+
+.t-image-viewer__base {
+  width: 160px;
+  height: 160px;
+  border: 4px solid var(--td-bg-color-secondarycontainer);
+  border-radius: var(--td-radius-medium);
 }

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { KeyboardEvent, MouseEvent } from 'react';
 import { Dialog } from 'tdesign-react';
-import { IconFont } from 'tdesign-icons-react';
+import { CloseIcon } from 'tdesign-icons-react';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
 import useConfig from '../_util/useConfig';
@@ -11,7 +11,7 @@ export interface ImageModelMiniProps {
   scale: number;
   mirror: number;
   images: ImageInfo[];
-  onClose: () => void;
+  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
   onScroll: (e: any) => void;
   imageScale: ImageScale;
   viewerScale: ImageViewerScale;
@@ -56,7 +56,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
     <div className={`${classPrefix}-image-viewer__mini--header`}>
       {`${index + 1}/${images.length}`}
       <span className={`${classPrefix}-image-viewer__mini--close`}>
-        <IconFont size="1.5rem" name="close" onClick={onClose} />
+        <CloseIcon size="1.5rem" onClick={(e: MouseEvent<any>) => onClose({ trigger: 'close-btn', e })} />
       </span>
     </div>
   );
