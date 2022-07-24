@@ -8,10 +8,10 @@ import { TNode, TElement } from '../common';
 
 export interface TdTimeLineProps {
   /**
-   * 时间信息放在时间轴的位置：左侧、右侧或两侧，默认信息在时间轴右侧
+   * 时间信息放在时间轴的位置。纵向时间轴信息位置：左侧、右侧或两侧，默认信息在时间轴右侧。横向时间轴信息位置：上方、下方、两侧
    * @default right
    */
-  align?: 'left' | 'right' | 'alternate';
+  align?: 'left' | 'right' | 'alternate' | 'top' | 'bottom';
   /**
    * 时间轴方向：水平方向、垂直方向
    * @default vertical
@@ -33,7 +33,7 @@ export interface TdTimeLineItemProps {
   /**
    * 时间信息相对于时间轴的位置，优先级高于 `TimeLine.align`
    */
-  align?: 'left' | 'right';
+  align?: 'left' | 'right' | 'top' | 'bottom';
   /**
    * 描述内容，同 content
    */

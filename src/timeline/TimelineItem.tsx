@@ -17,7 +17,15 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
   const { theme, reverse, itemsStatus } = useContext(TimelineContext);
   const { classPrefix } = useConfig();
 
-  const dotElement = useMemo(() => renderTNode(dot), [dot]);
+  const dotElement = useMemo(() => {
+    const ele = renderTNode(dot);
+    return (
+      ele &&
+      React.cloneElement(ele, {
+        className: classNames(ele?.props?.className, `${classPrefix}-timeline-item__dot-content`),
+      })
+    );
+  }, [dot, classPrefix]);
 
   // 节点类名
   const itemClassName = classNames(
@@ -37,7 +45,7 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
   // 圆圈类名
   const dotClassName = classNames({
     [`${classPrefix}-timeline-item__dot`]: true,
-    [`${classPrefix}-timeline-item__dot--custom`]: !!dotElement,
+    [`${classPrefix}-timeline-item__dot--custom`]: !!dotElement || (!dotElement && status === 'process'),
     [`${classPrefix}-timeline-item__dot--${status}`]: true,
   });
 
@@ -46,7 +54,9 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
       {time && <div className={`${classPrefix}-timeline-item__time`}>{time}</div>}
       <div className={`${classPrefix}-timeline-item__wrapper`}>
         <div className={dotClassName} style={{ borderColor: color }}>
-          {!dotElement && status === 'process' && <Loading size="12px" />}
+          {!dotElement && status === 'process' && (
+            <Loading size="12px" className={`${classPrefix}-timeline-item__dot-content`} />
+          )}
           {dotElement}
         </div>
         <div className={tailClassName} />
