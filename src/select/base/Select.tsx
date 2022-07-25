@@ -20,6 +20,7 @@ import Tag from '../../tag';
 import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } from '../type';
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
+import { PopupVisibleChangeContext } from '../../popup';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -44,8 +45,6 @@ const Select = forwardRefWithStatics(
       loadingText = emptyText,
       max,
       popupProps,
-      popupVisible,
-      onPopupVisibleChange,
       reserveKeyword,
       className,
       style,
@@ -90,7 +89,7 @@ const Select = forwardRefWithStatics(
 
     const name = `${classPrefix}-select`; // t-select
 
-    const [showPopup, setShowPopup] = useState(popupVisible || false);
+    const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
@@ -160,9 +159,9 @@ const Select = forwardRefWithStatics(
       return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
     }, [selectedOptions, keys, multiple]);
 
-    const handleShowPopup = (visible: boolean) => {
+    const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
-      setShowPopup(visible);
+      setShowPopup(visible, ctx);
       onVisibleChange?.(visible);
       visible && onInputChange('');
     };
@@ -279,7 +278,7 @@ const Select = forwardRefWithStatics(
     };
 
     useEffect(() => {
-      if (inputValue) {
+      if (typeof inputValue !== 'undefined') {
         handleFilter(String(inputValue));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -307,7 +306,8 @@ const Select = forwardRefWithStatics(
         size,
         multiple,
         showPopup,
-        setShowPopup,
+        // popup弹出层内容只会在点击事件之后触发 并且无任何透传参数
+        setShowPopup: (show) => handleShowPopup(show, {}),
         options: currentOptions,
         empty,
         max,
@@ -418,7 +418,7 @@ const Select = forwardRefWithStatics(
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
-          inputValue={showPopup ? inputValue : ''}
+          inputValue={inputValue}
           tagInputProps={{
             autoWidth: true,
             ...tagInputProps,
@@ -435,7 +435,7 @@ const Select = forwardRefWithStatics(
             ...restPopupProps,
           }}
           popupVisible={showPopup}
-          onPopupVisibleChange={onPopupVisibleChange || handleShowPopup}
+          onPopupVisibleChange={handleShowPopup}
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}
