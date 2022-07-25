@@ -4,6 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { UploadConfig } from '../config-provider/type';
 import { TNode, TElement } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
@@ -79,6 +80,10 @@ export interface TdUploadProps {
    * @default false
    */
   isBatchUpload?: boolean;
+  /**
+   * 上传组件文本语言配置，支持自定义配置组件中的全部文本
+   */
+  locale?: UploadConfig;
   /**
    * 用于控制文件上传数量，值为 0 则不限制
    * @default 0
