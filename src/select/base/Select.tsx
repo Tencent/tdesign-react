@@ -258,7 +258,6 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string) => {
-      console.log(value);
       onInputChange(value);
       if (selectedLabel === value) return;
 
