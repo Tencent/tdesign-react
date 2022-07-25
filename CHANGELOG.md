@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.37.1 `2022-07-25` 
+### 🚀 Features
+- `Upload`: 支持单组件的文案配置 @uyarn ([#1158](https://github.com/Tencent/tdesign-react/pull/1158))
+- `DatePicker`: 支持周选择器 @HQ-Lin ([#1138](https://github.com/Tencent/tdesign-react/pull/1138))
+- `Chekbox`: 优化 label 为空字符串不渲染节点 @Blackn-L ([#1131](https://github.com/Tencent/tdesign-react/pull/1131))
+- 支持通过CSS Token配置组件圆角 @mingrutough1 ([common#648](https://github.com/Tencent/tdesign-common/pull/648))
+
+### 🐞 Bug Fixes
+- `Form`: 修复 form 数字字符串长度校验错误问题 @HQ-Lin ([#1129](https://github.com/Tencent/tdesign-react/pull/1129))
+- `List`: 修复 ListItem 透传 style 问题 @HQ-Lin ([#1161](https://github.com/Tencent/tdesign-react/pull/1161))
+- `DatePicker`: 修复重置日期后面板月份未重置问题 @HQ-Lin ([#1133](https://github.com/Tencent/tdesign-react/pull/1133))
+- `ColorPicker`:  修复添加颜色受控/非受控不能点击的问题 @insekkei ([#1134](https://github.com/Tencent/tdesign-react/pull/1134))
+
+
 ## 🌈 0.37.0 `2022-07-18` 
 
 ### ❗ Breaking Changes
