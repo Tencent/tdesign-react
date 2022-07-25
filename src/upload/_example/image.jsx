@@ -9,6 +9,11 @@ export default function UploadExample() {
         theme="image"
         tips="请选择单张图片文件上传"
         accept="image/*"
+        locale={{
+          triggerUploadText: {
+            image: '请选择图片',
+          },
+        }}
       />
       <Upload
         action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
