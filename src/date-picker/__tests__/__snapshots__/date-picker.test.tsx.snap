@@ -1343,10 +1343,10 @@ exports[`panel.jsx 1`] = `
           class="t-date-picker__panel"
         >
           <div
-            class="t-date-picker__panel--content"
+            class="t-date-picker__panel-content"
           >
             <div
-              class="t-date-picker__panel--date"
+              class="t-date-picker__panel-date"
             >
               <div
                 class="t-date-picker__header"
@@ -1355,7 +1355,7 @@ exports[`panel.jsx 1`] = `
                   class="t-date-picker__header-controller"
                 >
                   <div
-                    class="t-select__wrap t-date-picker__header-controller--month"
+                    class="t-select__wrap t-date-picker__header-controller-month"
                   >
                     <div
                       class="t-popup__reference t-select t-select-input"
@@ -1401,7 +1401,7 @@ exports[`panel.jsx 1`] = `
                     </div>
                   </div>
                   <div
-                    class="t-select__wrap t-date-picker__header-controller--year"
+                    class="t-select__wrap t-date-picker__header-controller-year"
                   >
                     <div
                       class="t-popup__reference t-select t-select-input"
@@ -1539,7 +1539,9 @@ exports[`panel.jsx 1`] = `
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell t-date-picker__cell--first-day-of-month"
                       >
@@ -1604,7 +1606,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -1669,7 +1673,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -1734,7 +1740,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -1799,7 +1807,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -1864,7 +1874,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell t-date-picker__cell--additional"
                       >
@@ -1947,10 +1959,10 @@ exports[`panel.jsx 1`] = `
           class="t-date-picker__panel"
         >
           <div
-            class="t-date-picker__panel--content"
+            class="t-date-picker__panel-content"
           >
             <div
-              class="t-date-picker__panel--date"
+              class="t-date-picker__panel-date"
             >
               <div
                 class="t-date-picker__header"
@@ -1959,7 +1971,7 @@ exports[`panel.jsx 1`] = `
                   class="t-date-picker__header-controller"
                 >
                   <div
-                    class="t-select__wrap t-date-picker__header-controller--month"
+                    class="t-select__wrap t-date-picker__header-controller-month"
                   >
                     <div
                       class="t-popup__reference t-select t-select-input"
@@ -2005,7 +2017,7 @@ exports[`panel.jsx 1`] = `
                     </div>
                   </div>
                   <div
-                    class="t-select__wrap t-date-picker__header-controller--year"
+                    class="t-select__wrap t-date-picker__header-controller-year"
                   >
                     <div
                       class="t-popup__reference t-select t-select-input"
@@ -2143,7 +2155,9 @@ exports[`panel.jsx 1`] = `
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell t-date-picker__cell--first-day-of-month"
                       >
@@ -2208,7 +2222,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -2273,7 +2289,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -2338,7 +2356,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -2403,7 +2423,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell"
                       >
@@ -2468,7 +2490,9 @@ exports[`panel.jsx 1`] = `
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr
+                      class="t-date-picker__table-date-row"
+                    >
                       <td
                         class="t-date-picker__cell t-date-picker__cell--additional"
                       >
@@ -2538,10 +2562,10 @@ exports[`panel.jsx 1`] = `
               </div>
             </div>
             <div
-              class="t-date-picker__panel--time"
+              class="t-date-picker__panel-time"
             >
               <div
-                class="t-date-picker__panel--time-viewer"
+                class="t-date-picker__panel-time-viewer"
               >
                 08:00:00
               </div>
@@ -3329,13 +3353,13 @@ exports[`panel.jsx 1`] = `
           class="t-date-range-picker__panel"
         >
           <div
-            class="t-date-range-picker__panel--content-wrapper"
+            class="t-date-range-picker__panel-content-wrapper"
           >
             <div
-              class="t-date-picker__panel--content"
+              class="t-date-picker__panel-content"
             >
               <div
-                class="t-date-picker__panel--date"
+                class="t-date-picker__panel-date"
               >
                 <div
                   class="t-date-picker__header"
@@ -3344,7 +3368,7 @@ exports[`panel.jsx 1`] = `
                     class="t-date-picker__header-controller"
                   >
                     <div
-                      class="t-select__wrap t-date-picker__header-controller--month"
+                      class="t-select__wrap t-date-picker__header-controller-month"
                     >
                       <div
                         class="t-popup__reference t-select t-select-input"
@@ -3390,7 +3414,7 @@ exports[`panel.jsx 1`] = `
                       </div>
                     </div>
                     <div
-                      class="t-select__wrap t-date-picker__header-controller--year"
+                      class="t-select__wrap t-date-picker__header-controller-year"
                     >
                       <div
                         class="t-popup__reference t-select t-select-input"
@@ -3528,7 +3552,9 @@ exports[`panel.jsx 1`] = `
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell t-date-picker__cell--first-day-of-month"
                         >
@@ -3593,7 +3619,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -3658,7 +3686,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -3723,7 +3753,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -3788,7 +3820,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -3853,7 +3887,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell t-date-picker__cell--additional"
                         >
@@ -3924,10 +3960,10 @@ exports[`panel.jsx 1`] = `
               </div>
             </div>
             <div
-              class="t-date-picker__panel--content"
+              class="t-date-picker__panel-content"
             >
               <div
-                class="t-date-picker__panel--date"
+                class="t-date-picker__panel-date"
               >
                 <div
                   class="t-date-picker__header"
@@ -3936,7 +3972,7 @@ exports[`panel.jsx 1`] = `
                     class="t-date-picker__header-controller"
                   >
                     <div
-                      class="t-select__wrap t-date-picker__header-controller--month"
+                      class="t-select__wrap t-date-picker__header-controller-month"
                     >
                       <div
                         class="t-popup__reference t-select t-select-input"
@@ -3982,7 +4018,7 @@ exports[`panel.jsx 1`] = `
                       </div>
                     </div>
                     <div
-                      class="t-select__wrap t-date-picker__header-controller--year"
+                      class="t-select__wrap t-date-picker__header-controller-year"
                     >
                       <div
                         class="t-popup__reference t-select t-select-input"
@@ -4120,7 +4156,9 @@ exports[`panel.jsx 1`] = `
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell t-date-picker__cell--additional"
                         >
@@ -4185,7 +4223,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4250,7 +4290,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4315,7 +4357,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4380,7 +4424,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4445,7 +4491,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell t-date-picker__cell--additional"
                         >
@@ -4529,13 +4577,13 @@ exports[`panel.jsx 1`] = `
           class="t-date-range-picker__panel"
         >
           <div
-            class="t-date-range-picker__panel--content-wrapper"
+            class="t-date-range-picker__panel-content-wrapper"
           >
             <div
-              class="t-date-picker__panel--content"
+              class="t-date-picker__panel-content"
             >
               <div
-                class="t-date-picker__panel--date"
+                class="t-date-picker__panel-date"
               >
                 <div
                   class="t-date-picker__header"
@@ -4544,7 +4592,7 @@ exports[`panel.jsx 1`] = `
                     class="t-date-picker__header-controller"
                   >
                     <div
-                      class="t-select__wrap t-date-picker__header-controller--month"
+                      class="t-select__wrap t-date-picker__header-controller-month"
                     >
                       <div
                         class="t-popup__reference t-select t-select-input"
@@ -4590,7 +4638,7 @@ exports[`panel.jsx 1`] = `
                       </div>
                     </div>
                     <div
-                      class="t-select__wrap t-date-picker__header-controller--year"
+                      class="t-select__wrap t-date-picker__header-controller-year"
                     >
                       <div
                         class="t-popup__reference t-select t-select-input"
@@ -4728,7 +4776,9 @@ exports[`panel.jsx 1`] = `
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell t-date-picker__cell--first-day-of-month"
                         >
@@ -4793,7 +4843,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4858,7 +4910,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4923,7 +4977,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -4988,7 +5044,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell"
                         >
@@ -5053,7 +5111,9 @@ exports[`panel.jsx 1`] = `
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr
+                        class="t-date-picker__table-date-row"
+                      >
                         <td
                           class="t-date-picker__cell t-date-picker__cell--additional"
                         >
@@ -5123,10 +5183,10 @@ exports[`panel.jsx 1`] = `
                 </div>
               </div>
               <div
-                class="t-date-picker__panel--time"
+                class="t-date-picker__panel-time"
               >
                 <div
-                  class="t-date-picker__panel--time-viewer"
+                  class="t-date-picker__panel-time-viewer"
                 >
                   00:00:00
                 </div>
@@ -5901,6 +5961,138 @@ exports[`panel.jsx 1`] = `
                 确定
               </span>
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`week.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-date-picker"
+      >
+        <div
+          class="t-popup__reference t-select-input t-select-input--empty"
+        >
+          <div
+            class="t-input__wrap"
+            value=""
+          >
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                placeholder="请输入"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-date-range-picker"
+      >
+        <div
+          class="t-range-input-popup"
+        >
+          <div
+            class="t-popup__reference t-range-input-popup"
+          >
+            <div
+              class="t-range-input"
+              value=""
+            >
+              <div
+                class="t-range-input__inner"
+              >
+                <div
+                  class="t-input__wrap t-range-input__inner-left"
+                >
+                  <div
+                    class="t-input t-size-m t-align-left t-is-default"
+                  >
+                    <input
+                      class="t-input__inner"
+                      placeholder="请输入内容"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="t-range-input__inner-separator"
+                >
+                   - 
+                </div>
+                <div
+                  class="t-input__wrap t-range-input__inner-right"
+                >
+                  <div
+                    class="t-input t-size-m t-align-left t-is-default"
+                  >
+                    <input
+                      class="t-input__inner"
+                      placeholder="请输入内容"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <span
+                  class="t-range-input__suffix t-range-input__suffix-icon"
+                >
+                  <svg
+                    class="t-icon t-icon-calendar"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

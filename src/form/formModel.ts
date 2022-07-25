@@ -4,6 +4,7 @@ import isDate from 'validator/lib/isDate';
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'lodash/isEmpty';
 import isURL from 'validator/lib/isURL';
+import isNumber from 'lodash/isNumber';
 import { getCharacterLength } from '../_util/helper';
 import {
   CustomValidator,
@@ -13,8 +14,6 @@ import {
   ValidateResultType,
   CustomValidateResolveType,
 } from './type';
-
-const isNumber = (val: ValueType) => /^[+-]{0,1}(([0-9]+([0-9]*|\.[0-9]+))|(\.[0-9]+))$/.test(val);
 
 // `{} / [] / '' / undefined / null` 等内容被认为是空； 0 和 false 被认为是正常数据，部分数据的值就是 0 或者 false
 export function isValueEmpty(val: ValueType): boolean {
@@ -28,6 +27,14 @@ export function isValueEmpty(val: ValueType): boolean {
   return typeof val === 'object' ? isEmpty(val) : ['', undefined, null].includes(val);
 }
 
+// 比较值大小
+const compareValue: (val: ValueType, num: number, isMax: boolean) => boolean = (val, num, isMax) => {
+  const compare: (a: number | any, b: number) => boolean = (a, b) => (isMax ? a <= b : a >= b);
+  if (isNumber(val)) return compare(val, num);
+  if (Array.isArray(val)) return compare(val.length, num);
+  return compare(getCharacterLength(val), num);
+};
+
 const VALIDATE_MAP = {
   date: isDate,
   url: isURL,
@@ -35,8 +42,8 @@ const VALIDATE_MAP = {
   required: (val: ValueType): boolean => !isValueEmpty(val),
   whitespace: (val: ValueType): boolean => !(/^\s+$/.test(val) || val === ''),
   boolean: (val: ValueType): boolean => typeof val === 'boolean',
-  max: (val: ValueType, num: number): boolean => (isNumber(val) ? val <= num : getCharacterLength(val) <= num),
-  min: (val: ValueType, num: number): boolean => (isNumber(val) ? val >= num : getCharacterLength(val) >= num),
+  max: (val: ValueType, num: number): boolean => compareValue(val, num, true),
+  min: (val: ValueType, num: number): boolean => compareValue(val, num, false),
   len: (val: ValueType, num: number): boolean => getCharacterLength(val) === num,
   number: (val: ValueType): boolean => isNumber(val),
   enum: (val: ValueType, strs: Array<string>): boolean => strs.includes(val),

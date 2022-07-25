@@ -279,7 +279,9 @@ const Select = forwardRefWithStatics(
     };
 
     useEffect(() => {
-      handleFilter(String(inputValue));
+      if (inputValue) {
+        handleFilter(String(inputValue));
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputValue]);
 

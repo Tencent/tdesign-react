@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import useControlled from '../../hooks/useControlled';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import useFormat from './useFormat';
+import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
+import { extractTimeFormat } from '../../_common/js/date-picker/utils';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
@@ -34,26 +35,32 @@ function initYearMonthTime(value: DateValue[], mode = 'date', format: string, ti
 
 export default function useRange(props: TdDateRangePickerProps) {
   const [value, onChange] = useControlled(props, 'value', props.onChange);
-  const { format, isValidDate, timeFormat, formatDate, formatTime } = useFormat({
-    value,
+
+  const { format, valueType, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
     valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
+  if (props.enableTimePicker) {
+    if (!extractTimeFormat(format)) console.error(`format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+    if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
+      console.error(`valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+  }
+
   // warning invalid value
   if (!Array.isArray(value)) {
     console.error(`typeof value: ${value} must be Array!`);
-  } else if (!isValidDate(value, 'valueType')) {
-    console.error(`value: ${value} is invalid datetime! Check whether the value is consistent with format: ${format}`);
+  } else if (!isValidDate(value, valueType)) {
+    console.error(`value: ${value} is invalid dateTime! Check whether the value is consistent with format: ${format}`);
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
   const [time, setTime] = useState(initYearMonthTime(value, props.mode, format, timeFormat).time);
   const [month, setMonth] = useState<Array<number>>(initYearMonthTime(value, props.mode, format).month);
   const [year, setYear] = useState<Array<number>>(initYearMonthTime(value, props.mode, format).year);
-  const [cacheValue, setCacheValue] = useState(formatDate(value)); // 缓存选中值，panel 点击时更改
+  const [cacheValue, setCacheValue] = useState(formatDate(value, { format, targetFormat: format })); // 缓存选中值，panel 点击时更改
 
   // 输入框响应 value 变化
   useEffect(() => {
@@ -61,10 +68,10 @@ export default function useRange(props: TdDateRangePickerProps) {
       setCacheValue([]);
       return;
     }
-    if (!isValidDate(value, 'valueType')) return;
+    if (!isValidDate(value, valueType)) return;
 
-    setCacheValue(formatDate(value));
-    setTime(formatTime(value));
+    setCacheValue(formatDate(value, { format, targetFormat: format }));
+    setTime(formatTime(value, timeFormat));
     // eslint-disable-next-line
   }, [value]);
 

@@ -5,6 +5,54 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.37.1 `2022-07-25` 
+### 🚀 Features
+- `Upload`: 支持单组件的文案配置 @uyarn ([#1158](https://github.com/Tencent/tdesign-react/pull/1158))
+- `DatePicker`: 支持周选择器 @HQ-Lin ([#1138](https://github.com/Tencent/tdesign-react/pull/1138))
+- `Chekbox`: 优化 label 为空字符串不渲染节点 @Blackn-L ([#1131](https://github.com/Tencent/tdesign-react/pull/1131))
+- 支持通过CSS Token配置组件圆角 @mingrutough1 ([common#648](https://github.com/Tencent/tdesign-common/pull/648))
+
+### 🐞 Bug Fixes
+- `Form`: 修复 form 数字字符串长度校验错误问题 @HQ-Lin ([#1129](https://github.com/Tencent/tdesign-react/pull/1129))
+- `List`: 修复 ListItem 透传 style 问题 @HQ-Lin ([#1161](https://github.com/Tencent/tdesign-react/pull/1161))
+- `DatePicker`: 修复重置日期后面板月份未重置问题 @HQ-Lin ([#1133](https://github.com/Tencent/tdesign-react/pull/1133))
+- `ColorPicker`:  修复添加颜色受控/非受控不能点击的问题 @insekkei ([#1134](https://github.com/Tencent/tdesign-react/pull/1134))
+
+
+## 🌈 0.37.0 `2022-07-18` 
+
+### ❗ Breaking Changes
+- `DatePicker`: 调整组件dom 节点 class 命名 @HQ-Lin ([#1101](https://github.com/Tencent/tdesign-react/pull/1101))
+
+### 🚀 Features
+- `Icon`: 新增`mirror`和`rotation`图标 @uyarn ([#1075](https://github.com/Tencent/tdesign-react/pull/1075))
+- `DatePicker`: 支持面板年月动态响应 value 变化 @HQ-Lin ([#1077](https://github.com/Tencent/tdesign-react/pull/1077))
+- `Form`: form 支持同步获取最新数据 @HQ-Lin ([#1081](https://github.com/Tencent/tdesign-react/pull/1081))
+- `table`: 树形结构，支持同时添加多个根节点 @chaishi ([#1099](https://github.com/Tencent/tdesign-react/pull/1099))
+- `table`: 可编辑单元格/可编辑行，新增 `showEditIcon`，用于控制是否显示编辑图标 @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
+- `table`: 新增可编辑行的表格 @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
+- `table`: 可调整列宽，无边框表格，悬浮到表头时显示边框，方便用户寻找调整列宽的位置 @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
+- `Button`: 支持 href、tag、suffix API @HQ-Lin ([#1120](https://github.com/Tencent/tdesign-react/pull/1120))
+
+### 🐞 Bug Fixes
+- `Icon`: 修复iconfont高级用法由于t-icon的干扰导致渲染异常的情况 @uyarn ([#1075](https://github.com/Tencent/tdesign-react/pull/1075))
+- `table`: 修复可选中行table组件，data为空数据时，默认全选按钮会选中的问题 @qdzhaoxiaodao ([#1061](https://github.com/Tencent/tdesign-react/pull/1061))
+- `table`: 列宽拖拽调整到边界时无法重新调整 @chaishi ([#1086](https://github.com/Tencent/tdesign-react/pull/1086))
+- `table`: 多级表头场景下的列配置，无法全选 @chaishi ([#1086](https://github.com/Tencent/tdesign-react/pull/1086))
+- `Pagination`: 修复左右切换禁用失效问题 @HQ-Lin ([#1089](https://github.com/Tencent/tdesign-react/pull/1089))
+- `table`: 修复树形结构，懒加载顺序问题 @chaishi ([#1097](https://github.com/Tencent/tdesign-react/pull/1097))
+- `TagInput`: 修复hover时组件换行的样式异常 @uyarn ([#1118](https://github.com/Tencent/tdesign-react/pull/1118))
+- `drawer`: 修复开启 destroyOnClose 时多次打开关闭时动效丢失问题 @LittlehorseXie ([#1119](https://github.com/Tencent/tdesign-react/pull/1119))
+- `table`: 可编辑单元格，修复无法透传 ReactNode 属性到组件 @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
+- `table`: 可编辑单元格，修复 `onEnter` 无法触发 `onEdited` 问题，[issue#1084](https://github.com/Tencent/tdesign-react/issues/1084) @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
+- `table`: 可编辑单元格，一旦校验不通过，后续编辑无法退出编辑态问题，[issue#1106](https://github.com/Tencent/tdesign-react/issues/1106) @chaishi ([#1108](https://github.com/Tencent/tdesign-react/pull/1108))
+- `card`: card component header render issues @weikee94 ([#1125](https://github.com/Tencent/tdesign-react/pull/1125))
+- `Select`:  修复手动控制 popupVisible 展示空白内容 @samhou1988 ([#1105](https://github.com/Tencent/tdesign-react/pull/1105))
+-  `ColorPicker`: 修复切换渐变节点 hue 饱和度未更新的问题 @insekkei ([#1121](https://github.com/Tencent/tdesign-react/pull/1121))
+- `Form`: 修复 React 18 useEffect 触发两次导致表单自动校验问题 @HQ-Lin ([#1076](https://github.com/Tencent/tdesign-react/pull/1076))
+- `Form`: 修复 rule min max 不支持数组校验 @HQ-Lin ([#1127](https://github.com/Tencent/tdesign-react/pull/1127))
+
+
 ## 🌈 0.36.4 `2022-07-11` 
 ### 🚀 Features
 - `Table`: 树形结构，支持懒加载 @chaishi ([#1046](https://github.com/Tencent/tdesign-react/pull/1046))

@@ -9,6 +9,7 @@ import { getDefaultFormat } from '../hooks/useFormat';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
+  value: SinglePanelProps['value'] | RangePanelProps['value'];
   year: SinglePanelProps['year'];
   month: SinglePanelProps['month'];
   mode: SinglePanelProps['mode'];
@@ -34,6 +35,7 @@ export default function PanelContent(props: PanelContentProps) {
   const panelName = `${classPrefix}-date-picker__panel`;
 
   const {
+    value,
     year,
     month,
     mode,
@@ -59,8 +61,8 @@ export default function PanelContent(props: PanelContentProps) {
   const defaultTime = '00:00:00';
 
   return (
-    <div className={`${panelName}--content`}>
-      <div className={`${panelName}--${mode}`}>
+    <div className={`${panelName}-content`}>
+      <div className={`${panelName}-${mode}`}>
         <DateHeader
           mode={mode}
           year={year}
@@ -73,7 +75,9 @@ export default function PanelContent(props: PanelContentProps) {
         <DateTable
           mode={mode}
           data={tableData}
+          value={value}
           time={time}
+          format={format}
           firstDayOfWeek={firstDayOfWeek}
           onCellClick={(date: Date, { e }) => onCellClick?.(date, { e, partial })}
           onCellMouseEnter={(date: Date) => onCellMouseEnter?.(date, { partial })}
@@ -82,8 +86,8 @@ export default function PanelContent(props: PanelContentProps) {
       </div>
 
       {enableTimePicker && (
-        <div className={`${panelName}--time`}>
-          <div className={`${panelName}--time-viewer`}>{time || defaultTime}</div>
+        <div className={`${panelName}-time`}>
+          <div className={`${panelName}-time-viewer`}>{time || defaultTime}</div>
           <TimePickerPanel
             key={partial}
             format={timeFormat}

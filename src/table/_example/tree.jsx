@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading } from 'tdesign-react';
 import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
-import { useMemo } from 'react';
 
 function getObject(i, currentPage) {
   return {
@@ -37,6 +36,8 @@ function getData(currentPage = 1) {
           ...obj,
           id: thirdIndex,
           key: `我是 ${thirdIndex}_${currentPage} 号（${pageInfo}）`,
+          // 子节点懒加载
+          list: true,
         };
       });
       return secondObj;
@@ -135,7 +136,7 @@ export default function TableTree() {
         type: 'Number',
       },
     ];
-    table.current.appendTo(row.key, newData);
+    table.current.appendTo(row?.key, newData);
     MessagePlugin.success(`已插入子节点我是 ${randomKey1} 和 ${randomKey2} 号，请展开查看`);
   }
 
@@ -254,6 +255,9 @@ export default function TableTree() {
       needed: key % 4 === 0 ? '是' : '否',
       description: '数据源',
     });
+
+    // 同时添加多个元素，示例代码有效勿删
+    // appendMultipleDataTo();
   };
 
   const onExpandAllToggle = () => {
@@ -267,7 +271,7 @@ export default function TableTree() {
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');
   };
 
-  const renderTreeExpandAndFoldIcon = ({ type }) => (type === 'expand' ? <ChevronDownIcon /> : <ChevronRightIcon />);
+  const renderTreeExpandAndFoldIcon = ({ type }) => (type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />);
 
   const onPageChange = (pageInfo) => {
     setPagination({ ...pagination, ...pageInfo });
