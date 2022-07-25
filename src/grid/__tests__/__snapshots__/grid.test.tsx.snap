@@ -8,7 +8,6 @@ exports[`base.jsx 1`] = `
   >
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -17,7 +16,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -26,7 +24,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -35,7 +32,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -44,7 +40,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -53,7 +48,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -62,7 +56,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -71,7 +64,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -80,7 +72,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -89,7 +80,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -98,7 +88,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -107,7 +96,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -121,7 +109,6 @@ exports[`base.jsx 1`] = `
   >
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -130,7 +117,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -139,7 +125,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -148,7 +133,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -157,7 +141,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -166,7 +149,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -180,7 +162,6 @@ exports[`base.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -189,7 +170,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -198,7 +178,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -207,7 +186,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -221,7 +199,6 @@ exports[`base.jsx 1`] = `
   >
     <div
       class="t-col t-col-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -230,7 +207,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -239,7 +215,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -253,7 +228,6 @@ exports[`base.jsx 1`] = `
   >
     <div
       class="t-col t-col-6"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -262,7 +236,6 @@ exports[`base.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-6"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -276,7 +249,6 @@ exports[`base.jsx 1`] = `
   >
     <div
       class="t-col t-col-12"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -295,7 +267,6 @@ exports[`flex.jsx 1`] = `
   >
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex: 2 2 auto;"
     >
       <div>
@@ -304,7 +275,6 @@ exports[`flex.jsx 1`] = `
     </div>
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex: 3 3 auto;"
     >
       <div>
@@ -318,7 +288,6 @@ exports[`flex.jsx 1`] = `
   >
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex: 0 0 100px;"
     >
       <div>
@@ -327,7 +296,6 @@ exports[`flex.jsx 1`] = `
     </div>
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
     >
       <div>
@@ -341,7 +309,6 @@ exports[`flex.jsx 1`] = `
   >
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex: 1 1 200px;"
     >
       <div>
@@ -350,7 +317,6 @@ exports[`flex.jsx 1`] = `
     </div>
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex: 0 1 300px;"
     >
       <div>
@@ -364,7 +330,6 @@ exports[`flex.jsx 1`] = `
   >
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex: 0 0 auto;"
     >
       <div
@@ -375,7 +340,6 @@ exports[`flex.jsx 1`] = `
     </div>
     <div
       class="t-col"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
     >
       <div>
@@ -394,7 +358,6 @@ exports[`gutter.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="16"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -403,7 +366,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -412,7 +374,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -421,7 +382,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -435,7 +395,6 @@ exports[`gutter.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="[object Object]"
       style="padding-left: 12px; padding-right: 12px;"
     >
       <div>
@@ -444,7 +403,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="[object Object]"
       style="padding-left: 12px; padding-right: 12px;"
     >
       <div>
@@ -453,7 +411,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="[object Object]"
       style="padding-left: 12px; padding-right: 12px;"
     >
       <div>
@@ -462,7 +419,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="[object Object]"
       style="padding-left: 12px; padding-right: 12px;"
     >
       <div>
@@ -476,7 +432,6 @@ exports[`gutter.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -485,7 +440,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -494,7 +448,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -503,7 +456,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -512,7 +464,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -521,7 +472,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -530,7 +480,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -539,7 +488,6 @@ exports[`gutter.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="16,24"
       style="padding-left: 8px; padding-right: 8px;"
     >
       <div>
@@ -561,7 +509,6 @@ exports[`halign.jsx 1`] = `
   >
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -570,7 +517,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -579,7 +525,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -588,7 +533,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -605,7 +549,6 @@ exports[`halign.jsx 1`] = `
   >
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -614,7 +557,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -623,7 +565,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -632,7 +573,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -649,7 +589,6 @@ exports[`halign.jsx 1`] = `
   >
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -658,7 +597,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -667,7 +605,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -676,7 +613,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -693,7 +629,6 @@ exports[`halign.jsx 1`] = `
   >
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -702,7 +637,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -711,7 +645,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -720,7 +653,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -737,7 +669,6 @@ exports[`halign.jsx 1`] = `
   >
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -746,7 +677,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -755,7 +685,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -764,7 +693,6 @@ exports[`halign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -783,7 +711,6 @@ exports[`offset.jsx 1`] = `
   >
     <div
       class="t-col t-col-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -792,7 +719,6 @@ exports[`offset.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-4 t-col-offset-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -806,7 +732,6 @@ exports[`offset.jsx 1`] = `
   >
     <div
       class="t-col t-col-3 t-col-offset-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -815,7 +740,6 @@ exports[`offset.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-offset-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -829,7 +753,6 @@ exports[`offset.jsx 1`] = `
   >
     <div
       class="t-col t-col-6 t-col-offset-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -854,7 +777,6 @@ exports[`order.jsx 1`] = `
   >
     <div
       class="t-col t-col-3 t-col-order-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -863,7 +785,6 @@ exports[`order.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-order-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -872,7 +793,6 @@ exports[`order.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-order-2"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -881,7 +801,6 @@ exports[`order.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-order-1"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -895,7 +814,6 @@ exports[`order.jsx 1`] = `
   >
     <div
       class="t-col t-col-3 t-col-xs-order-1 t-col-sm-order-2 t-col-md-order-3 t-col-lg-order-4"
-      gutter="0"
       lg="[object Object]"
       md="[object Object]"
       sm="[object Object]"
@@ -908,7 +826,6 @@ exports[`order.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-xs-order-2 t-col-sm-order-1 t-col-md-order-4 t-col-lg-order-3"
-      gutter="0"
       lg="[object Object]"
       md="[object Object]"
       sm="[object Object]"
@@ -921,7 +838,6 @@ exports[`order.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-xs-order-3 t-col-sm-order-4 t-col-md-order-2 t-col-lg-order-1"
-      gutter="0"
       lg="[object Object]"
       md="[object Object]"
       sm="[object Object]"
@@ -934,7 +850,6 @@ exports[`order.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-xs-order-4 t-col-sm-order-3 t-col-md-order-1 t-col-lg-order-2"
-      gutter="0"
       lg="[object Object]"
       md="[object Object]"
       sm="[object Object]"
@@ -957,7 +872,6 @@ exports[`responsive.jsx 1`] = `
   >
     <div
       class="t-col t-col-xs-2 t-col-sm-4 t-col-md-6 t-col-lg-8 t-col-xl-10"
-      gutter="0"
       lg="8"
       md="6"
       sm="4"
@@ -971,7 +885,6 @@ exports[`responsive.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-xs-10 t-col-sm-8 t-col-md-6 t-col-lg-4 t-col-xl-2"
-      gutter="0"
       lg="4"
       md="6"
       sm="8"
@@ -1001,7 +914,6 @@ exports[`sort.jsx 1`] = `
   >
     <div
       class="t-col t-col-9 t-col-push-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -1010,7 +922,6 @@ exports[`sort.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3 t-col-pull-9"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -1024,7 +935,6 @@ exports[`sort.jsx 1`] = `
   >
     <div
       class="t-col t-col-8 t-col-push-4"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -1033,7 +943,6 @@ exports[`sort.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-4 t-col-pull-8"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div>
@@ -1055,7 +964,6 @@ exports[`valign.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1066,7 +974,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1077,7 +984,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1088,7 +994,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1107,7 +1012,6 @@ exports[`valign.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1118,7 +1022,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1129,7 +1032,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1140,7 +1042,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1159,7 +1060,6 @@ exports[`valign.jsx 1`] = `
   >
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1170,7 +1070,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1181,7 +1080,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
@@ -1192,7 +1090,6 @@ exports[`valign.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="0"
       style="padding-left: 0px; padding-right: 0px;"
     >
       <div
