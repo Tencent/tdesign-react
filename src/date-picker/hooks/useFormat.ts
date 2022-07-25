@@ -94,7 +94,7 @@ export function formatTime(value: DateValue | DateValue[], timeFormat: string) {
 }
 
 // 统一解析日期格式字符串成 Dayjs 对象
-export function parseToDayjs(value: string | Date | number, format: string) {
+export function parseToDayjs(value: string | Date | number, format: string, timeOfDay?: string) {
   let dateText = value;
   // format week
   if (/[w|W]/g.test(format)) {
@@ -107,7 +107,9 @@ export function parseToDayjs(value: string | Date | number, format: string) {
     const weekFormatStr = format.split(/[-/.]/)[1];
     const firstWeek = dayjs(yearStr, 'YYYY').startOf('year');
     for (let i = 0; i <= 52; i += 1) {
-      const nextWeek = firstWeek.add(i, 'week');
+      let nextWeek = firstWeek.add(i, 'week');
+      // 重置为周的第一天
+      if (timeOfDay === 'start') nextWeek = nextWeek.subtract(5, 'day');
       if (nextWeek.format(weekFormatStr) === weekStr) {
         return nextWeek;
       }
