@@ -42,11 +42,11 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
     if (Array.isArray(value)) {
       if (!value.length) return {};
-      const [startObj, endObj] = value.map((v) => parseToDayjs(v, format));
-      const startYear = startObj.year();
-      const startWeek = startObj.week();
-      const endYear = endObj && endObj.year();
-      const endWeek = endObj && endObj.week();
+      const [startObj, endObj] = value.map((v) => v && parseToDayjs(v, format));
+      const startYear = startObj?.year?.();
+      const startWeek = startObj?.week?.();
+      const endYear = endObj?.year?.();
+      const endWeek = endObj?.week?.();
 
       const targetObj = parseToDayjs(targetValue, format);
       const targetYear = targetObj.year();
