@@ -380,8 +380,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
 
-            let onChangeFromProps = () => ({});
-            let onBlurFromProps = () => ({});
             let ctrlKey = 'value';
             if (React.isValidElement(child)) {
               if (child.type === FormItem) {
@@ -392,12 +390,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                   },
                 });
               }
-              if (typeof child.props.onChange === 'function') {
-                onChangeFromProps = child.props.onChange;
-              }
-              if (typeof child.props.onBlur === 'function') {
-                onBlurFromProps = child.props.onBlur;
-              }
               if (typeof child.type === 'object') {
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
@@ -406,12 +398,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
-                  onChangeFromProps.call(null, value, ...args);
                   updateFormValue(value);
+                  child.props.onChange?.call?.(null, value, ...args);
                 },
                 onBlur: (value: any, ...args: any[]) => {
-                  onBlurFromProps.call(null, value, ...args);
                   handleItemBlur();
+                  child.props.onBlur?.call?.(null, value, ...args);
                 },
               });
             }

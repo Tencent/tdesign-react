@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "0.37.0",
+  "version": "0.37.1",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -209,7 +209,7 @@
     "@babel/runtime": "~7.17.2",
     "@popperjs/core": "~2.11.2",
     "classnames": "~2.3.1",
-    "dayjs": "~1.10.8",
+    "dayjs": "~1.11.4",
     "hoist-non-react-statics": "~3.3.2",
     "lodash": "~4.17.15",
     "raf": "~3.4.1",
