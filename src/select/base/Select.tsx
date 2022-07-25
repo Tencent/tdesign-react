@@ -234,7 +234,9 @@ const Select = forwardRefWithStatics(
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType = [];
       if (!value) {
-        setCurrentOptions(tmpPropOptions);
+        // if filter value is empty, options should be default value
+        setTmpPropOptions(options);
+        setCurrentOptions(options);
         return;
       }
 
@@ -256,6 +258,7 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string) => {
+      console.log(value);
       onInputChange(value);
       if (selectedLabel === value) return;
 
