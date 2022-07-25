@@ -59,7 +59,7 @@ export default function BasicImageViewer() {
   const style = {width: '240px', height: '240px' }
 
   return (
-    <div style={style}>
+    <div style={style} className={`t-image-viewer__base`}>
       <ImageViewer trigger={trigger} images={images} />
     </div>
   );

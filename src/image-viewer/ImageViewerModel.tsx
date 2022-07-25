@@ -287,6 +287,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 };
 
 interface ImageModalProps {
+  visible: boolean;
   closeOnOverlay: boolean;
   showOverlay: boolean;
   index: number;
@@ -317,6 +318,7 @@ export const ImageModal = (props: ImageModalProps) => {
     draggable,
     onOpen,
     onClose,
+    visible,
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
@@ -374,6 +376,7 @@ export const ImageModal = (props: ImageModalProps) => {
   if (isMini) {
     return (
       <ImageModelMini
+        visible={visible}
         draggable={draggable}
         index={index}
         images={images}
@@ -411,7 +414,13 @@ export const ImageModal = (props: ImageModalProps) => {
   } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
 
   return (
-    <div className={`${classPrefix}-image-viewer-preview-image`} onWheel={onScroll} style={{ zIndex }}>
+    <div
+      className={classNames(`${classPrefix}-image-viewer-preview-image`, {
+        [`${classPrefix}-is-hide`]: !visible,
+      })}
+      onWheel={onScroll}
+      style={{ zIndex }}
+    >
       {!!showOverlay && (
         <div
           className={`${classPrefix}-image-viewer__modal--mask`}

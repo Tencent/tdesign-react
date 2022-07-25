@@ -6,6 +6,7 @@ import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
 import useConfig from '../_util/useConfig';
 
 export interface ImageModelMiniProps {
+  visible: boolean;
   draggable: boolean;
   index: number;
   scale: number;
@@ -48,7 +49,8 @@ const DIALOG_CSS_PADDING = {
 };
 
 export const ImageModelMini = (props: ImageModelMiniProps) => {
-  const { index, images, onZoom, onClose, scale, onZoomOut, currentImage, onRotate, onMirror, onReset } = props;
+  const { visible, index, images, scale, currentImage, onZoomOut, onZoom, onClose, onRotate, onMirror, onReset } =
+    props;
 
   const { classPrefix } = useConfig();
 
@@ -79,7 +81,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
     <Dialog
       className={`${classPrefix}-image-viewer__dialog`}
       draggable
-      visible
+      visible={visible}
       width="1000px"
       placement="center"
       mode="modeless"

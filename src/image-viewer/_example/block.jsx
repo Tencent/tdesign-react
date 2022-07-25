@@ -24,14 +24,12 @@ export default function BasicImageViewer() {
     thumbnail: img
   }]
 
-  const UIImageStyle = {width: '160px', height: '160px', marginRight: '50px', border: '4px solid #EEEEEE', borderRadius: '5px'}
-
   return (
     <>
-      <div style={UIImageStyle} className="t-image-viewer__ui-image">
+      <div className="t-image-viewer__ui-image t-image-viewer__base">
         <ImageViewer trigger={trigger} images={images}/>
       </div>
-      <div style={UIImageStyle} className="t-image-viewer__ui-image">
+      <div className="t-image-viewer__ui-image t-image-viewer__base">
         <ImageViewer trigger={trigger} images={[images[0].mainImage]}/>
       </div>
     </>

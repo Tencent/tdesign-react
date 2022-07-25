@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import isFunction from 'lodash/isFunction';
 import { TdImageViewerProps } from './type';
@@ -18,6 +18,8 @@ const ImageViewer = (props: ImageViewerProps) => {
   const [visible, setVisible] = useControlled<boolean, any>(props, 'visible', (visible, context) => {
     isFunction(props.onClose) && props.onClose(context);
   });
+
+  const [visibled, setVisibled] = useState(false);
   const list = useList(images);
   const imageScale = useImageScale(imageScaleD);
   const viewerScale = useViewerScale(viewerScaleD);
@@ -26,11 +28,13 @@ const ImageViewer = (props: ImageViewerProps) => {
 
   const onClose = (context) => {
     setVisible(false, context);
+    setTimeout(() => setVisibled(false), 196);
   };
 
   const onOpen = () => {
     if (!images) return;
     setVisible(true);
+    setVisibled(true);
   };
 
   const uiImage: TNode = isFunction(trigger) ? trigger({ onOpen, onClose }) : trigger;
@@ -38,9 +42,10 @@ const ImageViewer = (props: ImageViewerProps) => {
   return (
     <>
       {uiImage}
-      {visible &&
+      {visibled &&
         createPortal(
           <ImageModal
+            visible={visible}
             images={list}
             isMini={isMini}
             imageScale={imageScale}

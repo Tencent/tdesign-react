@@ -4,8 +4,8 @@ import {BrowseIcon, ImageErrorIcon} from "tdesign-icons-react";
 import img from '../img/img.png';
 import './style.less';
 
-const LoadingError = ({ style, classPrefix = 't' }) => (
-  <div style={style} className={`${classPrefix}-image-viewer__error ${classPrefix}-image-viewer__ui-image`}>
+const LoadingError = ({ classPrefix = 't' }) => (
+  <div className={`${classPrefix}-image-viewer__error ${classPrefix}-image-viewer__ui-image ${classPrefix}-image-viewer__base`}>
     {/* 脱离文档流 */}
     <div className={`${classPrefix}-image-viewer__error--content`}>
       <ImageErrorIcon name="image-error" size="2em" />
@@ -22,14 +22,6 @@ export default function BasicImageViewer() {
     'https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/design/Avatar_3w24.png'
   ]
 
-  const style = {
-    height: '160px',
-    width: '160px',
-    margin: '10px',
-    border: '4px solid #EEEEEE',
-    borderRadius: '5px'
-  }
-
   return (
     <>
       {images.map((imgSrc, index) => {
@@ -43,10 +35,10 @@ export default function BasicImageViewer() {
             setError(false);
           }, []);
 
-          if (error) return <LoadingError style={style} />;
+          if (error) return <LoadingError />;
 
           return (
-            <div style={style} className={`t-image-viewer__ui-image`}>
+            <div className={`t-image-viewer__ui-image t-image-viewer__base`}>
               <img
                 alt={'test'}
                 src={imgSrc}

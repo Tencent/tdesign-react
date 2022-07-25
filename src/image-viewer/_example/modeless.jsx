@@ -18,10 +18,9 @@ export default function BasicImageViewer() {
     </div>
   )
 
-  const style = {width: '160px', height: '160px', border: '4px solid #EEEEEE', borderRadius: '5px'}
 
   return (
-    <div style={style}>
+    <div className={`t-image-viewer__base`}>
       <ImageViewer draggable mode="modeless" trigger={trigger} images={[img]}/>
     </div>
   );

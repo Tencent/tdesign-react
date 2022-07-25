@@ -17,19 +17,11 @@ export default function BasicImageViewer() {
     imgV,
   ]
 
-  const style = {
-    height: '160px',
-    width: '160px',
-    margin: '10px',
-    border: '4px solid #EEEEEE',
-    borderRadius: '5px'
-  }
-
   return (
     <>
       {images.map((imgSrc, index) => {
         const trigger = ({onOpen}) => (
-          <div  style={style} className={`t-image-viewer__ui-image`}>
+          <div className={`t-image-viewer__ui-image t-image-viewer__base`}>
             <img
               alt={'test'}
               src={ imgSrc?.mainImage || imgSrc }
