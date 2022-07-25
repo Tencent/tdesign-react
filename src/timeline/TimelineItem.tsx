@@ -6,6 +6,7 @@ import useConfig from '../_util/useConfig';
 import TimelineContext from './TimelineContext';
 import renderTNode from '../_util/renderTNode';
 import Loading from '../loading';
+import { useAlign } from './useAlign';
 
 export interface TimeLineItemProps extends TdTimeLineItemProps, StyledProps {
   children?: React.ReactNode;
@@ -13,9 +14,30 @@ export interface TimeLineItemProps extends TdTimeLineItemProps, StyledProps {
 }
 
 const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
-  const { className, style = {}, color, dot, children, index, status = 'default', time } = props;
-  const { theme, reverse, itemsStatus } = useContext(TimelineContext);
+  const { className, style = {}, color, dot, children, index, status = 'default', time, content, align } = props;
+  const { theme, reverse, itemsStatus, layout, globalAlign } = useContext(TimelineContext);
   const { classPrefix } = useConfig();
+  const renderAlign = useAlign(globalAlign, layout);
+
+  // 计算节点模式 CSS 类名
+  const getPositionClassName = (index: number) => {
+    // 横向布局 以及 纵向布局对应为不同的样式名
+    const left = layout === 'horizontal' ? 'top' : 'left';
+    const right = layout === 'horizontal' ? 'bottom' : 'right';
+    // 单独设置则单独生效
+    if (renderAlign === 'alternate') {
+      return align || index % 2 === 0
+        ? `${classPrefix}-timeline-item-${left}`
+        : `${classPrefix}-timeline-item-${right}`;
+    }
+    if (renderAlign === 'left' || renderAlign === 'top') {
+      return `${classPrefix}-timeline-item-${left}`;
+    }
+    if (renderAlign === 'right' || renderAlign === 'bottom') {
+      return `${classPrefix}-timeline-item-${right}`;
+    }
+    return '';
+  };
 
   const dotElement = useMemo(() => {
     const ele = renderTNode(dot);
@@ -31,6 +53,7 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
   const itemClassName = classNames(
     {
       [`${classPrefix}-timeline-item`]: true,
+      [`${getPositionClassName(index)}`]: true,
     },
     className,
   );
@@ -61,7 +84,7 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
         </div>
         <div className={tailClassName} />
       </div>
-      <div className={`${classPrefix}-timeline-item__content`}>{children}</div>
+      <div className={`${classPrefix}-timeline-item__content`}>{content || children}</div>
     </li>
   );
 };

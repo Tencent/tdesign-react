@@ -42,30 +42,13 @@ const Timeline = forwardRefWithStatics(
       className,
     );
 
-    // 计算节点模式 CSS 类名
-    const getPositionClassName = (index: number) => {
-      // 横向布局 以及 纵向布局对应为不同的样式名
-      const left = layout === 'horizontal' ? 'top' : 'left';
-      const right = layout === 'horizontal' ? 'bottom' : 'right';
-      if (renderAlign === 'alternate') {
-        return index % 2 === 0 ? `${classPrefix}-timeline-item-${left}` : `${classPrefix}-timeline-item-${right}`;
-      }
-      if (renderAlign === 'left' || renderAlign === 'top') {
-        return `${classPrefix}-timeline-item-${left}`;
-      }
-      if (renderAlign === 'right' || renderAlign === 'bottom') {
-        return `${classPrefix}-timeline-item-${right}`;
-      }
-      return '';
-    };
-
     return (
-      <TimelineContext.Provider value={{ theme, reverse, itemsStatus }}>
+      <TimelineContext.Provider value={{ theme, reverse, itemsStatus, layout, globalAlign: align }}>
         <ul className={timelineClassName} style={style} ref={ref}>
           {React.Children.map(timelineItems, (ele: JSX.Element, index) =>
             React.cloneElement(ele, {
               index,
-              className: classNames([ele?.props?.className, getPositionClassName(index)], {
+              className: classNames([ele?.props?.className], {
                 [`${classPrefix}-timeline-item--last`]: index === itemsCounts - 1,
               }),
             }),

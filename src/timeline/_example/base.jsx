@@ -25,7 +25,9 @@ export default function BasicTimeLine() {
       </Space>
       <Timeline reverse={reverse} theme={theme} align={align}>
         <Timeline.Item time="2022-07-16">2022-07-16开始</Timeline.Item>
-        <Timeline.Item time="2022-07-17">2022-07-17 进度30%</Timeline.Item>
+        <Timeline.Item time="2022-07-17" align="left">
+          2022-07-17 进度30%
+        </Timeline.Item>
         <Timeline.Item time="2022-07-18">2022-07-18 进度40%</Timeline.Item>
         <Timeline.Item status="process">2022-07-18完成</Timeline.Item>
       </Timeline>
