@@ -300,7 +300,6 @@ exports[`auto-width.jsx 1`] = `
         <input
           class="t-input__inner"
           placeholder="请输入"
-          style="width: 0px;"
           type="text"
           value="宽度自适应"
         />
