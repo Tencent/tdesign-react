@@ -14,14 +14,14 @@ import {
  * @param cascaderContext
  * @returns
  */
-export function getSingleContent(cascaderContext: CascaderContextType) {
+export function getSingleContent(cascaderContext: CascaderContextType): string {
   const { value, multiple, treeStore, showAllLevels } = cascaderContext;
   if (multiple || !value) return '';
 
   if (Array.isArray(value)) return '';
   const node = treeStore && treeStore.getNodes(value as TreeNodeValue | TreeNode);
   if (!(node && node.length)) {
-    return value;
+    return value as string;
   }
   const path = node && node[0].getPath();
   if (path && path.length) {
