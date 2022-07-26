@@ -100,6 +100,7 @@ const Input = forwardRefWithStatics(
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
+    const [inputSize, setInputSize] = useState<number>();
 
     const [composingValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
@@ -125,8 +126,9 @@ const Input = forwardRefWithStatics(
 
     useEffect(() => {
       if (!autoWidth) return;
+      setInputSize(inputPreRef.current.offsetWidth);
       if (inputRef.current) inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
-    }, [autoWidth, value, placeholder, inputRef]);
+    }, [autoWidth, value, placeholder, inputRef, inputSize]);
 
     useEffect(() => {
       setRenderType(type);
