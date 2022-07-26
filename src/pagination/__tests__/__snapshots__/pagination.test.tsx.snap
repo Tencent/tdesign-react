@@ -33,7 +33,6 @@ exports[`base.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="5 条/页"
               />
@@ -188,7 +187,6 @@ exports[`jump.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="20 条/页"
               />
@@ -368,7 +366,6 @@ exports[`mini.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="5 条/页"
               />
@@ -527,7 +524,6 @@ exports[`more.jsx 1`] = `
                   class="t-input__inner"
                   placeholder="请选择"
                   readonly=""
-                  style="width: 0px;"
                   type="text"
                   value="5 条/页"
                 />
@@ -680,7 +676,6 @@ exports[`more.jsx 1`] = `
                   class="t-input__inner"
                   placeholder="请选择"
                   readonly=""
-                  style="width: 0px;"
                   type="text"
                   value="5 条/页"
                 />
@@ -814,7 +809,6 @@ exports[`page-num.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="20 条/页"
               />
@@ -969,7 +963,6 @@ exports[`simple.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="5 条/页"
               />
@@ -1042,7 +1035,6 @@ exports[`simple.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="1/20"
               />
@@ -1129,7 +1121,6 @@ exports[`simple-mini.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="5 条/页"
               />
@@ -1202,7 +1193,6 @@ exports[`simple-mini.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="1/20"
               />
@@ -1289,7 +1279,6 @@ exports[`total.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 type="text"
                 value="10 条/页"
               />

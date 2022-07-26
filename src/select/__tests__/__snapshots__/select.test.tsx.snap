@@ -525,7 +525,6 @@ exports[`filterable.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
-                style="width: 0px;"
                 type="text"
                 value=""
               />
@@ -1033,7 +1032,6 @@ exports[`multiple.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
-                style="width: 0px;"
                 type="text"
                 value=""
               />
