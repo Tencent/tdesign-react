@@ -70,7 +70,7 @@ const Cascader = (props: CascaderProps) => {
       collapsedItems={props.collapsedItems as any}
       readonly={props.readonly}
       clearable={props.clearable}
-      placeholder={inputPlaceholder}
+      placeholder={`${inputPlaceholder}`}
       multiple={props.multiple}
       loading={props.loading}
       disabled={props.disabled}
