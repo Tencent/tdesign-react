@@ -115,6 +115,25 @@ export function parseToDayjs(value: string | Date | number, format: string, time
       }
     }
   }
+
+  // format quarter
+  if (/Q/g.test(format)) {
+    if (typeof dateText !== 'string') {
+      dateText = dayjs(dateText).format(format);
+    }
+
+    const yearStr = dateText.split(/[-/.]/)[0];
+    const quarterStr = dateText.split(/[-/.]/)[1];
+    const quarterFormatStr = format.split(/[-/.]/)[1];
+    const firstWeek = dayjs(yearStr, 'YYYY').startOf('year');
+    for (let i = 0; i <= 52; i += 1) {
+      const nextQuarter = firstWeek.add(i, 'quarter');
+      if (nextQuarter.format(quarterFormatStr) === quarterStr) {
+        return nextQuarter;
+      }
+    }
+  }
+
   // 兼容数据格式不标准场景 YYYY-MM-D
   return dayjs(dateText, format).isValid() ? dayjs(dateText, format) : dayjs(dateText);
 }
@@ -142,6 +161,13 @@ export function getDefaultFormat({
     return {
       format: format || 'YYYY-MM',
       valueType: valueType || 'YYYY-MM',
+      timeFormat: TIME_FORMAT,
+    };
+  }
+  if (mode === 'quarter') {
+    return {
+      format: format || 'YYYY-[Q]Q',
+      valueType: valueType || 'YYYY-[Q]Q',
       timeFormat: TIME_FORMAT,
     };
   }

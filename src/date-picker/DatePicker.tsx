@@ -103,7 +103,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
 
   // 头部快速切换
   function onJumperClick({ trigger }) {
-    const monthCountMap = { date: 1, week: 1, month: 12, year: 120 };
+    const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
     const current = new Date(year, month);

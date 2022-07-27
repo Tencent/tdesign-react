@@ -7,6 +7,7 @@ import { TdDateRangePickerProps } from './type';
 import { RangeInputPopup } from '../range-input';
 import RangePanel from './panel/RangePanel';
 import useRange from './hooks/useRange';
+import { initYearMonthTime } from './hooks/useRangeValue';
 import { parseToDayjs, formatTime, formatDate, isValidDate, getDefaultFormat } from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import { dateRangePickerDefaultProps } from './defaultProps';
@@ -76,7 +77,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
       // 空数据重置为当前年月
       if (!value.length) {
-        setYear([dayjs().year(), dayjs().year()]);
+        setYear(initYearMonthTime(value, mode, format).year);
         setMonth([dayjs().month(), dayjs().month() + 1]);
       } else if (value.length === 2 && !enableTimePicker) {
         // 确保右侧面板月份比左侧大 避免两侧面板月份一致
@@ -158,7 +159,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   function onJumperClick({ trigger, partial }) {
     const partialIndex = partial === 'start' ? 0 : 1;
 
-    const monthCountMap = { date: 1, week: 1, month: 12, year: 120 };
+    const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
     const current = new Date(year[partialIndex], month[partialIndex]);
 
