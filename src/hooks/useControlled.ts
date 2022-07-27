@@ -13,7 +13,7 @@ export default function useControlled<T, P extends any[]>(
   defaultOptions: object = {},
 ): [T, ChangeHandler<T, P>] {
   // 外部设置 props，说明希望受控
-  const controlled = typeof props?.[valueKey] !== undefined;
+  const controlled = Reflect.has(props, valueKey);
   // 受控属性
   const value = props[valueKey];
   // 约定受控属性的非受控 key 为 defaultXxx，某些条件下要在运行时确定 defaultXxx 则通过 defaultOptions 来覆盖
