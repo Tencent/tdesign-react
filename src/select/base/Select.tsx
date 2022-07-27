@@ -8,7 +8,6 @@ import useConfig from '../../_util/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getSelectValueArr, getValueToOption } from '../util/helper';
 import noop from '../../_util/noop';
-
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
 import SelectInput from '../../select-input';
@@ -16,7 +15,6 @@ import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 import Tag from '../../tag';
-
 import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } from '../type';
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
