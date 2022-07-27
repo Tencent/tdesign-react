@@ -231,9 +231,7 @@ const Select = forwardRefWithStatics(
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType = [];
       if (!value) {
-        // if filter value is empty, options should be default value
-        setTmpPropOptions(options);
-        setCurrentOptions(options);
+        setCurrentOptions(tmpPropOptions);
         return;
       }
 
