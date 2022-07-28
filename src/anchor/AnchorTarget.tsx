@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { FileCopyIcon } from 'tdesign-icons-react';
 import Popup from '../popup';
 import { MessagePlugin } from '../message';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import copyText from '../_util/copyText';
 
 import { TdAnchorTargetProps } from './type';

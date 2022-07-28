@@ -9,7 +9,7 @@ import Checkbox, { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeCon
 import { DialogPlugin } from '../../dialog/plugin';
 import { renderTitle } from './useTableHeader';
 import { PrimaryTableCol, TdPrimaryTableProps } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import { getCurrentRowByKey } from '../utils';
 import { DialogInstance } from '../../dialog';

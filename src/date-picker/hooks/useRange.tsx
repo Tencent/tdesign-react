@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import { isValidDate, formatDate, getDefaultFormat } from './useFormat';

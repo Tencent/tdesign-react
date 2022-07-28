@@ -2,7 +2,7 @@ import React, { CompositionEvent, KeyboardEvent, useRef, useImperativeHandle, fo
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useDragSorter from '../_util/useDragSorter';
 import TInput, { InputValue } from '../input';
 import { TdTagInputProps } from './type';

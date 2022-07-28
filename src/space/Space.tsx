@@ -1,7 +1,7 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { isFragment } from 'react-is';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';

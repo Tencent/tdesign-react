@@ -10,7 +10,7 @@ import { TdDrawerProps, DrawerEventSource } from './type';
 import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
 

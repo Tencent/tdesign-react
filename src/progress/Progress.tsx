@@ -8,7 +8,7 @@ import {
   CloseCircleFilledIcon,
   ErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../common';
 import { TdProgressProps } from './type';

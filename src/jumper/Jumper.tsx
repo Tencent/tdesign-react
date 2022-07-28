@@ -2,7 +2,7 @@ import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import { ChevronLeftIcon, RoundIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import Button from '../button';
 import { StyledProps } from '../common';
 import type { TdJumperProps } from './type';

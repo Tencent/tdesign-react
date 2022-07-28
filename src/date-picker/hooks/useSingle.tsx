@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { TdDatePickerProps } from '../type';
 import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
 import useSingleValue from './useSingleValue';

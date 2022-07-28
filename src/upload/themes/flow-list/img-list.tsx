@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { BrowseIcon, DeleteIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import React, { MouseEvent } from 'react';
 import type { CommonListProps, FlowListProps } from './index';
-import useConfig from '../../../_util/useConfig';
+import useConfig from '../../../hooks/useConfig';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { abridgeName } from '../../util';
 import Loading from '../../../loading';

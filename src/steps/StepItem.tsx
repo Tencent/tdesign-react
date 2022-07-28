@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { CloseIcon, CheckIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdStepItemProps } from './type';
 import { StyledProps } from '../common';
 import StepsContext from './StepsContext';

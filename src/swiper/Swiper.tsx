@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, isValidElement } from 'react';
 import classnames from 'classnames';
 import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
 import { StyledProps } from '../common';

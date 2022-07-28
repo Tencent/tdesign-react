@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
 import { UploadFile, UploadRemoveContext } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 export interface SingleFileProps {
   file?: UploadFile;

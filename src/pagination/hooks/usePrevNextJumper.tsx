@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 export default function usePrevNextJumper(props) {
   const { classPrefix } = useConfig();

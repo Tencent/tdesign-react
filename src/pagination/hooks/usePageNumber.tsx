@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
 import { EllipsisIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from 'tdesign-icons-react';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 export default function usePageNumber(props) {
   const { classPrefix } = useConfig();

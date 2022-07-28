@@ -5,7 +5,7 @@ import { ChevronRightIcon } from 'tdesign-icons-react';
 import TLoading from '../../loading';
 import Checkbox from '../../checkbox/Checkbox';
 
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import useCommonClassName from '../../_util/useCommonClassName';
 import useRipple from '../../_util/useRipple';
 

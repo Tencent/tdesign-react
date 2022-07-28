@@ -3,7 +3,7 @@ import { isFunction } from 'lodash';
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
 import Tag from '../tag';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { DragSortInnerProps } from '../_util/useDragSorter';
 

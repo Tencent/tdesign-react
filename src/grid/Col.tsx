@@ -1,7 +1,7 @@
 import React, { useContext, forwardRef } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdColProps, TdRowProps } from './type';
 import { colDefaultProps } from './defaultProps';

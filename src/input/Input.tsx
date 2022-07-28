@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { CloseCircleFilledIcon, BrowseOffIcon, BrowseIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { getCharacterLength } from '../_util/helper';
 import { TdInputProps } from './type';
 import { StyledProps, TNode } from '../common';

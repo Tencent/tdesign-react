@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../input';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import type { StyledProps, TNode } from '../common';
 import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';

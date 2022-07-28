@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import BreadcrumbItem from './BreadcrumbItem';
 import { BreadcrumbProps } from './BreadcrumbProps';

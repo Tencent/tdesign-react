@@ -2,7 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import SinglePanel, { SinglePanelProps } from './SinglePanel';
 
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import Button from '../../button';
 
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';

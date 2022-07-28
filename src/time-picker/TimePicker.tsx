@@ -6,7 +6,7 @@ import { TimeIcon } from 'tdesign-icons-react';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useControlled from '../hooks/useControlled';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 
 import SelectInput from '../select-input';

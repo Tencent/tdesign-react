@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import { SearchIcon } from 'tdesign-icons-react';
 import { getLeafNodes } from './utils';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdTransferProps, TransferValue } from './type';
 import { TNode, StyledProps } from '../common';
 import Checkbox from '../checkbox';

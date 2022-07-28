@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { ChevronRightIcon, ChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import Button from '../button';
 import TransferList from './TransferList';
 import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLeafNodes } from './utils';

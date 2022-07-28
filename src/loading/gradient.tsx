@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, FC } from 'react';
 import classnames from 'classnames';
 
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import circleAdapter from '../_common/js/loading/circle-adapter';
 
 /**

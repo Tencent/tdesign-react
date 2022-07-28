@@ -11,6 +11,10 @@ import { TNode, TElement } from '../common';
 
 export interface GlobalConfigProvider {
   /**
+   * icon 全局配置，用来覆盖内置 tdesign-icons
+   */
+  icon?: IconConfig;
+  /**
    * 警告全局配置
    */
   alert?: AlertConfig;
@@ -799,4 +803,8 @@ export interface UploadTriggerUploadText {
   reupload?: string;
   continueUpload: string;
   delete?: string;
+}
+
+export interface IconConfig {
+  [name: string]: any;
 }

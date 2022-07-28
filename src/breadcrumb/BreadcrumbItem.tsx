@@ -2,7 +2,7 @@ import React, { forwardRef, useContext, useMemo } from 'react';
 import classNames from 'classnames';
 
 import { ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';

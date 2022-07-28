@@ -10,7 +10,7 @@ import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
 import useSetState from '../_util/useSetState';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { dialogDefaultProps } from './defaultProps';
 
 export interface DialogProps extends TdDialogProps, StyledProps {

@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getSelectValueArr, getValueToOption } from '../util/helper';
 import noop from '../../_util/noop';

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
 import { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { TdCheckboxProps } from '../checkbox/type';
 

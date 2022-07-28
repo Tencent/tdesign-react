@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
 import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';

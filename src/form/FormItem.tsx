@@ -3,7 +3,7 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type';
 import { StyledProps } from '../common';
 import { validate as validateModal } from './formModel';

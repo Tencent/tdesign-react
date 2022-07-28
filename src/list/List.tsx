@@ -2,7 +2,7 @@ import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
 
 import isString from 'lodash/isString';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';

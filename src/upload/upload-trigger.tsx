@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { UploadIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { UploadConfig } from '../config-provider/type';
 
