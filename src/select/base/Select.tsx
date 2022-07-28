@@ -157,7 +157,7 @@ const Select = forwardRefWithStatics(
       if (multiple) {
         return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
       }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
+      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
     }, [selectedOptions, keys, multiple]);
 
     const handleShowPopup = (visible: boolean) => {
@@ -166,8 +166,9 @@ const Select = forwardRefWithStatics(
       onVisibleChange?.(visible);
       visible && onInputChange('');
     };
+
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
-    const onTagChange = (currentTags, context) => {
+    const onTagChange = (_currentTags, context) => {
       const { trigger, index, item, e } = context;
       // backspace
       if (trigger === 'backspace') {
@@ -257,7 +258,7 @@ const Select = forwardRefWithStatics(
     // 处理输入框逻辑
     const handleInputChange = (value: string) => {
       onInputChange(value);
-      if (selectedLabel === value) return;
+      if (value === undefined) return;
 
       if (isFunction(onSearch)) {
         onSearch(value);
@@ -332,7 +333,7 @@ const Select = forwardRefWithStatics(
           return '';
         }
         return ({ value: val }) =>
-          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v, key) => {
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {
             const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
             return (
               <Tag
