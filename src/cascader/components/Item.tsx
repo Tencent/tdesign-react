@@ -1,11 +1,12 @@
 import React, { useRef, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import { ChevronRightIcon } from 'tdesign-icons-react';
+import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
 import TLoading from '../../loading';
 import Checkbox from '../../checkbox/Checkbox';
 
 import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useCommonClassName from '../../_util/useCommonClassName';
 import useRipple from '../../_util/useRipple';
 
@@ -33,6 +34,7 @@ const Item = forwardRef(
       cascaderContext,
     } = props;
     const { classPrefix: prefix } = useConfig();
+    const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
     const COMPONENT_NAME = `${prefix}-cascader__item`;
     const itemRef = useRef();
     useRipple(ref || itemRef);

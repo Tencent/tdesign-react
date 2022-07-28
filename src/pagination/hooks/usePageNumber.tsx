@@ -1,10 +1,20 @@
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
-import { EllipsisIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from 'tdesign-icons-react';
+import {
+  EllipsisIcon as TdEllipsisIcon,
+  ChevronLeftDoubleIcon as TdChevronLeftDoubleIcon,
+  ChevronRightDoubleIcon as TdChevronRightDoubleIcon,
+} from 'tdesign-icons-react';
 import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 
 export default function usePageNumber(props) {
   const { classPrefix } = useConfig();
+  const { EllipsisIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon } = useGlobalIcon({
+    EllipsisIcon: TdEllipsisIcon,
+    ChevronLeftDoubleIcon: TdChevronLeftDoubleIcon,
+    ChevronRightDoubleIcon: TdChevronRightDoubleIcon,
+  });
   const name = `${classPrefix}-pagination`;
 
   const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理 left ellipsis 展示逻辑

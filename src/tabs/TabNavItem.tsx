@@ -1,10 +1,11 @@
 import React, { MouseEvent, useRef } from 'react';
 import classNames from 'classnames';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import useRipple from '../_util/useRipple';
 import { TdTabPanelProps, TdTabsProps } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 export interface TabNavItemProps extends TdTabPanelProps {
   // 当前 item 是否处于激活态
@@ -35,6 +36,10 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     onTabRemove = noop,
     innerRef,
   } = props;
+
+  const { CloseIcon } = useGlobalIcon({
+    CloseIcon: TdCloseIcon,
+  });
 
   const isCard = theme === 'card';
 

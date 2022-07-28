@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
 import classNames from 'classnames';
 
-import { ChevronUpIcon, ChevronDownIcon, RemoveIcon, AddIcon } from 'tdesign-icons-react';
+import {
+  AddIcon as TdAddIcon,
+  RemoveIcon as TdRemoveIcon,
+  ChevronUpIcon as TdChevronUpIcon,
+  ChevronDownIcon as TdChevronDownIcon,
+} from 'tdesign-icons-react';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useCommonClassName from '../_util/useCommonClassName';
 import Button from '../button';
 
@@ -22,6 +28,12 @@ const stepDelay = 200;
 export default function StepHandler(props: StepHandlerProps) {
   const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease, children } = props;
   const commonClassNames = useCommonClassName();
+  const { AddIcon, RemoveIcon, ChevronUpIcon, ChevronDownIcon } = useGlobalIcon({
+    AddIcon: TdAddIcon,
+    RemoveIcon: TdRemoveIcon,
+    ChevronUpIcon: TdChevronUpIcon,
+    ChevronDownIcon: TdChevronDownIcon,
+  });
 
   const isNormalTheme = theme === 'normal';
   const decreaseIcon = theme === 'column' ? <ChevronDownIcon /> : <RemoveIcon />;

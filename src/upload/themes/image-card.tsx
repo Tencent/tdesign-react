@@ -1,8 +1,9 @@
 import React, { FC, Fragment, useState } from 'react';
-import { BrowseIcon, DeleteIcon, AddIcon } from 'tdesign-icons-react';
+import { BrowseIcon as TdBrowseIcon, DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
 import Dialog from '../../dialog';
 import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { UploadRemoveContext } from '../type';
 import { finishUpload } from '../util';
@@ -24,6 +25,11 @@ export interface ImageCardProps {
 const ImageCard: FC<ImageCardProps> = (props) => {
   const { files, multiple = false, max = 0, onRemove, showUploadProgress, disabled, localeFromProps } = props;
   const { classPrefix } = useConfig();
+  const { BrowseIcon, DeleteIcon, AddIcon } = useGlobalIcon({
+    AddIcon: TdAddIcon,
+    BrowseIcon: TdBrowseIcon,
+    DeleteIcon: TdDeleteIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
   const [showImg, setShowImg] = useState(false);
   const [imgURL, setImgURL] = useState();

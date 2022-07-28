@@ -1,9 +1,10 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../input';
 import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
 import type { StyledProps, TNode } from '../common';
 import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
@@ -40,6 +41,9 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObject<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
+  const { CloseCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+  });
 
   const {
     className,

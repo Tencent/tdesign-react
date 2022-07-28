@@ -1,14 +1,15 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import {
-  CheckCircleIcon,
-  CloseCircleIcon,
-  ErrorCircleIcon,
-  CheckCircleFilledIcon,
-  CloseCircleFilledIcon,
-  ErrorCircleFilledIcon,
+  CheckCircleIcon as TdCheckCircleIcon,
+  CloseCircleIcon as TdCloseCircleIcon,
+  ErrorCircleIcon as TdErrorCircleIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../common';
 import { TdProgressProps } from './type';
@@ -19,6 +20,23 @@ export interface ProgressProps extends TdProgressProps, StyledProps {}
  * 按钮组件
  */
 const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement>) => {
+  const { classPrefix } = useConfig();
+  const {
+    CheckCircleIcon,
+    CloseCircleIcon,
+    ErrorCircleIcon,
+    CheckCircleFilledIcon,
+    CloseCircleFilledIcon,
+    ErrorCircleFilledIcon,
+  } = useGlobalIcon({
+    CheckCircleIcon: TdCheckCircleIcon,
+    CloseCircleIcon: TdCloseCircleIcon,
+    ErrorCircleIcon: TdErrorCircleIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
+
   const { theme, percentage, label, color = '', trackColor, strokeWidth, size, className } = props;
   let { status } = props;
   if (!status && percentage >= 100) {
@@ -29,7 +47,6 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     error: CloseCircleFilledIcon,
     warning: ErrorCircleFilledIcon,
   };
-  const { classPrefix } = useConfig();
   // 进度条展示内容
   const getInfoContent = () => {
     if (!label) {

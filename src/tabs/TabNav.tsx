@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import {
+  AddIcon as TdAddIcon,
+  ChevronLeftIcon as TdChevronLeftIcon,
+  ChevronRightIcon as TdChevronRightIcon,
+} from 'tdesign-icons-react';
 import debounce from 'lodash/debounce';
 import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import noop from '../_util/noop';
@@ -8,6 +12,7 @@ import { useTabClass } from './useTabClass';
 import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
 import tabBase from '../_common/js/tabs/base';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =
   tabBase;
@@ -33,6 +38,12 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     activeValue,
     children,
   } = props;
+
+  const { AddIcon, ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
+    AddIcon: TdAddIcon,
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
 
   // 逻辑层较多处需要判断是否为 card 类型，进行逻辑抽象
   const isCard = theme === 'card';

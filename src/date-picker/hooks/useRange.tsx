@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CalendarIcon } from 'tdesign-icons-react';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import { isValidDate, formatDate, getDefaultFormat } from './useFormat';
@@ -12,6 +13,7 @@ export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
 export default function useRange(props: TdDateRangePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+  const { CalendarIcon } = useGlobalIcon({ CalendarIcon: TdCalendarIcon });
   const name = `${classPrefix}-date-range-picker`;
 
   const isMountedRef = useRef(false);
