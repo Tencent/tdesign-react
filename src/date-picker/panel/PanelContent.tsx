@@ -58,6 +58,8 @@ export default function PanelContent(props: PanelContentProps) {
 
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
+  const showTimePicker = enableTimePicker && mode === 'date';
+
   const defaultTime = '00:00:00';
 
   return (
@@ -85,7 +87,7 @@ export default function PanelContent(props: PanelContentProps) {
         />
       </div>
 
-      {enableTimePicker && (
+      {showTimePicker && (
         <div className={`${panelName}-time`}>
           <div className={`${panelName}-time-viewer`}>{time || defaultTime}</div>
           <TimePickerPanel
