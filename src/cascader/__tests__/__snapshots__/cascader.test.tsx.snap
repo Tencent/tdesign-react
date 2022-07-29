@@ -146,14 +146,6 @@ exports[`check-strictly.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -225,14 +217,6 @@ exports[`collapsed.jsx 1`] = `
               +2
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -295,14 +279,6 @@ exports[`collapsed.jsx 1`] = `
               +2
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -399,15 +375,6 @@ exports[`disabled.jsx 1`] = `
               选项一/子选项一
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            disabled=""
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -568,7 +535,6 @@ exports[`filterable.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -665,7 +631,6 @@ exports[`keys.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -773,7 +738,6 @@ exports[`max.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -845,14 +809,6 @@ exports[`multiple.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -1099,7 +1055,6 @@ exports[`show-all-levels.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -1387,7 +1342,6 @@ exports[`value-mode.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -1435,7 +1389,6 @@ exports[`value-mode.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -1483,7 +1436,6 @@ exports[`value-mode.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
-            style="width: 0px;"
             type="text"
             value=""
           />
@@ -1617,14 +1569,6 @@ exports[`value-type.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />

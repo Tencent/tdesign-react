@@ -105,7 +105,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取单个字段值
    */
-  getFieldValue?: (field: keyof FormData) => unknown;
+  getFieldValue?: <K extends keyof FormData>(field: K) => FormData[K];
   /**
    * 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
    */
@@ -196,7 +196,7 @@ export interface TdFormListProps {
    */
   children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
   /**
-   * 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准
+   * 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准
    * @default []
    */
   initialData?: Array<any>;
@@ -282,6 +282,10 @@ export interface FormRule {
    * 自定义校验规则，示例：`{ validator: (val) => val.length > 0, message: '请输入内容'}`
    */
   validator?: CustomValidator;
+  /**
+   * 内置校验方法，校验值是否为空格。示例：`{ whitespace: true, message: '值不能为空' }`
+   */
+  whitespace?: boolean;
 }
 
 export interface FormErrorMessage {

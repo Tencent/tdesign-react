@@ -16,7 +16,6 @@ export default function HeaderCard() {
       }
       bordered
       hoverShadow
-      header
       style={{ width: '400px' }}
     >
       卡片内容，以描述性为主，可以是文字、图片或图文组合的形式。按业务需求进行自定义组合。

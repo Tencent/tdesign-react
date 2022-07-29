@@ -7,10 +7,10 @@ import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { abridgeName } from '../../util';
 import Loading from '../../../loading';
 
-type ImgListProps = CommonListProps & Pick<FlowListProps, 'onImgPreview' | 'remove'>;
+type ImgListProps = CommonListProps & Pick<FlowListProps, 'onImgPreview' | 'remove' | 'localeFromProps'>;
 
 const ImgList = (props: ImgListProps) => {
-  const { showInitial, listFiles, renderDragger, onImgPreview, remove } = props;
+  const { showInitial, listFiles, renderDragger, onImgPreview, remove, localeFromProps } = props;
   const { classPrefix: prefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
@@ -32,14 +32,15 @@ const ImgList = (props: ImgListProps) => {
                 {file.status === 'fail' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <ErrorCircleFilledIcon />
-                    <p>{t(locale.progress.failText)}</p>
+                    <p>{localeFromProps?.progress?.failText || t(locale.progress.failText)}</p>
                   </div>
                 )}
                 {file.status === 'progress' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <Loading />
                     <p>
-                      {t(locale.progress.uploadingText)} {Math.min(file.percent, 99)}
+                      {localeFromProps?.progress?.uploadingText || t(locale.progress.uploadingText)}{' '}
+                      {Math.min(file.percent, 99)}
                     </p>
                   </div>
                 )}

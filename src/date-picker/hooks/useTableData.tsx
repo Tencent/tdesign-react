@@ -41,9 +41,12 @@ export default function useTableData(props: TableDataProps) {
     disableDate,
     firstDayOfWeek,
     monthLocal,
+    showWeekOfYear: mode === 'week',
   };
 
   if (mode === 'date') {
+    data = getWeeks({ year, month }, options);
+  } else if (mode === 'week') {
     data = getWeeks({ year, month }, options);
   } else if (mode === 'month') {
     data = getMonths(year, options);

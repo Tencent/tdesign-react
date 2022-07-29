@@ -40,7 +40,6 @@ export default function usePageNumber(props) {
         const foldedEnd = isMidEllipsis ? pageCount - 1 : pageCount;
         start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : foldedStart;
         end = isPrevMoreShow ? foldedEnd : foldedMaxPageBtn;
-        console.log(end);
       }
     } else {
       start = 1;

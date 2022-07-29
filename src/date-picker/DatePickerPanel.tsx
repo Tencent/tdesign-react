@@ -4,7 +4,7 @@ import { StyledProps } from '../common';
 import { TdDatePickerPanelProps, DateValue, DatePickerYearChangeTrigger, DatePickerMonthChangeTrigger } from './type';
 import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
-import useFormat from './hooks/useFormat';
+import { formatDate, getDefaultFormat } from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
@@ -26,8 +26,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     onPanelClick,
   } = props;
 
-  const { formatDate, format } = useFormat({
-    value,
+  const { format, valueType } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
     valueType: props.valueType,
@@ -45,16 +44,16 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     }
 
     if (enableTimePicker) {
-      setCacheValue(formatDate(date));
+      setCacheValue(formatDate(date, { format, targetFormat: format }));
     } else {
-      onChange(formatDate(date, { formatType: 'valueType' }), { dayjsValue: dayjs(date), trigger: 'pick' });
+      onChange(formatDate(date, { format, targetFormat: valueType }), { dayjsValue: dayjs(date), trigger: 'pick' });
     }
   }
 
   // 头部快速切换
   function onJumperClick({ trigger }) {
     const triggerMap = { prev: 'arrow-previous', next: 'arrow-next' };
-    const monthCountMap = { date: 1, month: 12, year: 120 };
+    const monthCountMap = { date: 1, week: 1, month: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
     const current = new Date(year, month);
@@ -102,7 +101,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
     const currentDate = !dayjs(cacheValue, format).isValid() ? dayjs() : dayjs(cacheValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    setCacheValue(formatDate(nextDate));
+    setCacheValue(formatDate(nextDate, { format, targetFormat: format }));
 
     props.onTimeChange?.({
       time: val,
@@ -113,7 +112,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 
   // 确定
   function onConfirmClick({ e }) {
-    onChange(formatDate(cacheValue, { formatType: 'valueType' }), {
+    onChange(formatDate(cacheValue, { format, targetFormat: valueType }), {
       dayjsValue: dayjs(cacheValue),
       trigger: 'confirm',
     });
@@ -124,7 +123,10 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   // 预设
   function onPresetClick(presetValue: DateValue | (() => DateValue), { e, preset }) {
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
-    onChange(formatDate(presetVal, { formatType: 'valueType' }), { dayjsValue: dayjs(presetVal), trigger: 'preset' });
+    onChange(formatDate(presetVal, { format, targetFormat: valueType }), {
+      dayjsValue: dayjs(presetVal),
+      trigger: 'preset',
+    });
 
     props.onPresetClick?.({ e, preset });
   }

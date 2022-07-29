@@ -8,6 +8,7 @@ import { UploadRemoveContext } from '../type';
 import { finishUpload } from '../util';
 import { TdUploadFile } from '../types';
 import BooleanRender from '../boolean-render';
+import { UploadConfig } from '../../config-provider/type';
 
 export interface ImageCardProps {
   files?: TdUploadFile[];
@@ -17,10 +18,11 @@ export interface ImageCardProps {
   onRemove?: (options: UploadRemoveContext) => void;
   showUploadProgress: boolean;
   disabled: boolean;
+  localeFromProps?: UploadConfig;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-  const { files, multiple = false, max = 0, onRemove, showUploadProgress, disabled } = props;
+  const { files, multiple = false, max = 0, onRemove, showUploadProgress, disabled, localeFromProps } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const [showImg, setShowImg] = useState(false);
@@ -89,7 +91,8 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
                   <p>
-                    {t(locale.progress.uploadingText)} {Math.min(files[index].percent, 99)}%
+                    {localeFromProps?.progress?.uploadingText || t(locale.progress.uploadingText)}{' '}
+                    {Math.min(files[index].percent, 99)}%
                   </p>
                 </div>
               </BooleanRender>
@@ -100,7 +103,9 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} onClick={props.onTrigger}>
             <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>{t(locale.triggerUploadText.image)}</p>
+              <p className={`${classPrefix}-size-s`}>
+                {localeFromProps?.triggerUploadText?.image || t(locale.triggerUploadText.image)}
+              </p>
             </div>
           </li>
         </BooleanRender>

@@ -125,6 +125,7 @@ const Input = forwardRefWithStatics(
 
     useEffect(() => {
       if (!autoWidth) return;
+      if (inputPreRef.current?.offsetWidth === 0) return;
       if (inputRef.current) inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
     }, [autoWidth, value, placeholder, inputRef]);
 

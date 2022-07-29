@@ -884,7 +884,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
-                value=""
               >
                 <div
                   class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1341,7 +1340,6 @@ exports[`disabled.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
-                    value=""
                   >
                     <div
                       class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -2376,7 +2374,6 @@ exports[`error-message.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
-                    value=""
                   >
                     <div
                       class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
