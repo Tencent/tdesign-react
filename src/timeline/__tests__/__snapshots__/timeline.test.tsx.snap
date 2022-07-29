@@ -1,0 +1,724 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      Reverse 
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <button
+        class="t-switch t-size-m"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <h4>
+            自定义轴线样式
+          </h4>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio-button t-is-checked"
+            >
+              <input
+                checked=""
+                class="t-radio-button__former"
+                type="radio"
+                value="default"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                默认
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="dot"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                dot
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <h4>
+            对齐方式
+          </h4>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio-button t-is-checked"
+            >
+              <input
+                checked=""
+                class="t-radio-button__former"
+                type="radio"
+                value="left"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                left
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="alternate"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                alternate
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="right"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                right
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <ul
+        class="t-timeline t-timeline-left t-timeline-vertical t-timeline-time"
+      >
+        <li
+          class="t-timeline-item t-timeline-item-left"
+        >
+          <div
+            class="t-timeline-item__time"
+          >
+            2022-07-16
+          </div>
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--default"
+            />
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-16开始
+          </div>
+        </li>
+        <li
+          class="t-timeline-item t-timeline-item-left"
+        >
+          <div
+            class="t-timeline-item__time"
+          >
+            2022-07-17
+          </div>
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--default"
+            />
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-17 进度30%
+          </div>
+        </li>
+        <li
+          class="t-timeline-item t-timeline-item-left"
+        >
+          <div
+            class="t-timeline-item__time"
+          >
+            2022-07-18
+          </div>
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--default"
+            />
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-18 进度40%
+          </div>
+        </li>
+        <li
+          class="t-timeline-item t-timeline-item-left t-timeline-item--last"
+        >
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--process"
+            >
+              <div
+                class="t-loading t-loading--center t-timeline-item__dot-content"
+                style="font-size: 12px;"
+              >
+                <svg
+                  class="t-loading__gradient t-icon-loading"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 14 14"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <foreignobject
+                    height="12"
+                    width="12"
+                    x="1"
+                    y="1"
+                  >
+                    <div
+                      class="t-loading__gradient-conic"
+                    />
+                  </foreignobject>
+                </svg>
+              </div>
+            </div>
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-process"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-18完成
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`customDot.jsx 1`] = `
+<DocumentFragment>
+  <ul
+    class="t-timeline t-timeline-left t-timeline-vertical"
+  >
+    <li
+      class="t-timeline-item t-timeline-item-left"
+    >
+      <div
+        class="t-timeline-item__wrapper"
+      >
+        <div
+          class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--default"
+        >
+          <svg
+            class="t-icon t-icon-check-circle-filled t-timeline-item__dot-content t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+        />
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        自定义节点
+      </div>
+    </li>
+    <li
+      class="t-timeline-item t-timeline-item-left"
+    >
+      <div
+        class="t-timeline-item__wrapper"
+      >
+        <div
+          class="t-timeline-item__dot t-timeline-item__dot--default"
+        />
+        <div
+          class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+        />
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        2022-07-16开始
+      </div>
+    </li>
+    <li
+      class="t-timeline-item t-timeline-item-left"
+    >
+      <div
+        class="t-timeline-item__wrapper"
+      >
+        <div
+          class="t-timeline-item__dot t-timeline-item__dot--default"
+        />
+        <div
+          class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+        />
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        2022-07-17 进度30%
+      </div>
+    </li>
+    <li
+      class="t-timeline-item t-timeline-item-left"
+    >
+      <div
+        class="t-timeline-item__wrapper"
+      >
+        <div
+          class="t-timeline-item__dot t-timeline-item__dot--default"
+        />
+        <div
+          class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+        />
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        2022-07-18 进度40%
+      </div>
+    </li>
+    <li
+      class="t-timeline-item t-timeline-item-left t-timeline-item--last"
+    >
+      <div
+        class="t-timeline-item__wrapper"
+      >
+        <div
+          class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--process"
+        >
+          <div
+            class="t-loading t-loading--center t-timeline-item__dot-content"
+            style="font-size: 12px;"
+          >
+            <svg
+              class="t-loading__gradient t-icon-loading"
+              height="1em"
+              version="1.1"
+              viewBox="0 0 14 14"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <foreignobject
+                height="12"
+                width="12"
+                x="1"
+                y="1"
+              >
+                <div
+                  class="t-loading__gradient-conic"
+                />
+              </foreignobject>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-process"
+        />
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        2022-07-18完成
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`horizontal.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      Reverse 
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <button
+        class="t-switch t-size-m"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <h4>
+            自定义轴线样式
+          </h4>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio-button t-is-checked"
+            >
+              <input
+                checked=""
+                class="t-radio-button__former"
+                type="radio"
+                value="default"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                默认
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="dot"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                dot
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <h4>
+            对齐方式
+          </h4>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio-button t-is-checked"
+            >
+              <input
+                checked=""
+                class="t-radio-button__former"
+                type="radio"
+                value="top"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                top
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="alternate"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                alternate
+              </span>
+            </label>
+            <label
+              class="t-radio-button"
+            >
+              <input
+                class="t-radio-button__former"
+                type="radio"
+                value="bottom"
+              />
+              <span
+                class="t-radio-button__input"
+              />
+              <span
+                class="t-radio-button__label"
+              >
+                bottom
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <ul
+        class="t-timeline t-timeline-top t-timeline-horizontal t-timeline-time"
+      >
+        <li
+          class="t-timeline-item t-timeline-item-top"
+        >
+          <div
+            class="t-timeline-item__time"
+          >
+            2022-07-16
+          </div>
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--default"
+            />
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-16开始
+          </div>
+        </li>
+        <li
+          class="t-timeline-item t-timeline-item-top"
+        >
+          <div
+            class="t-timeline-item__time"
+          >
+            2022-07-17
+          </div>
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--default"
+            />
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-17 进度30%
+          </div>
+        </li>
+        <li
+          class="t-timeline-item t-timeline-item-top"
+        >
+          <div
+            class="t-timeline-item__time"
+          >
+            2022-07-18
+          </div>
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--default"
+            />
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-default"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-18 进度40%
+          </div>
+        </li>
+        <li
+          class="t-timeline-item t-timeline-item-top t-timeline-item--last"
+        >
+          <div
+            class="t-timeline-item__wrapper"
+          >
+            <div
+              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--process"
+            >
+              <div
+                class="t-loading t-loading--center t-timeline-item__dot-content"
+                style="font-size: 12px;"
+              >
+                <svg
+                  class="t-loading__gradient t-icon-loading"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 14 14"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <foreignobject
+                    height="12"
+                    width="12"
+                    x="1"
+                    y="1"
+                  >
+                    <div
+                      class="t-loading__gradient-conic"
+                    />
+                  </foreignobject>
+                </svg>
+              </div>
+            </div>
+            <div
+              class="t-timeline-item__tail t-timeline-item__tail--theme-default t-timeline-item__tail--status-process"
+            />
+          </div>
+          <div
+            class="t-timeline-item__content"
+          >
+            2022-07-18完成
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
