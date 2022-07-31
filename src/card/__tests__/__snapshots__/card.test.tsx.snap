@@ -164,7 +164,6 @@ exports[`footer.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -197,7 +196,6 @@ exports[`footer.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -230,7 +228,6 @@ exports[`footer.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -298,7 +295,6 @@ exports[`footer-actions.jsx 1`] = `
               <div
                 align="middle"
                 class="t-col"
-                gutter="0"
                 style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
               >
                 <button
@@ -331,7 +327,6 @@ exports[`footer-actions.jsx 1`] = `
               <div
                 align="middle"
                 class="t-col"
-                gutter="0"
                 style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
               >
                 <button
@@ -364,7 +359,6 @@ exports[`footer-actions.jsx 1`] = `
               <div
                 align="middle"
                 class="t-col"
-                gutter="0"
                 style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
               >
                 <button
@@ -423,7 +417,6 @@ exports[`footer-actions.jsx 1`] = `
             >
               <div
                 class="t-col"
-                gutter="0"
                 style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
               >
                 <button
@@ -1007,7 +1000,6 @@ exports[`header-footer-actions.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -1040,7 +1032,6 @@ exports[`header-footer-actions.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -1073,7 +1064,6 @@ exports[`header-footer-actions.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -1218,7 +1208,6 @@ exports[`header-subtitle-footer-actions.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -1251,7 +1240,6 @@ exports[`header-subtitle-footer-actions.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button
@@ -1284,7 +1272,6 @@ exports[`header-subtitle-footer-actions.jsx 1`] = `
           <div
             align="middle"
             class="t-col"
-            gutter="0"
             style="padding-left: 0px; padding-right: 0px; flex-basis: auto;"
           >
             <button

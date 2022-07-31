@@ -113,7 +113,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   };
 
   const headerClassName = `${classPrefix}-date-picker__header`;
-  const showMonthPicker = mode === 'date';
+  const showMonthPicker = mode === 'date' || mode === 'week';
 
   function handlePanelTopClick(e: React.MouseEvent) {
     e.stopPropagation();
