@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, isValidElement } from 'react';
 import classnames from 'classnames';
-import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import { ChevronLeftIcon as TdChevronLeftIcon, ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
 import { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
 import { StyledProps } from '../common';
@@ -56,6 +57,10 @@ const Swiper = (props: SwiperProps) => {
     type,
   } = props;
   const { classPrefix } = useConfig();
+  const { ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
 
   let navigationConfig = defaultNavigation;
   let navigationNode = null;

@@ -1,7 +1,12 @@
 import React, { MouseEvent } from 'react';
-import { CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } from 'tdesign-icons-react';
+import {
+  TimeFilledIcon as TdTimeFilledIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
 import { abridgeName, returnFileSize } from '../../util';
-import useConfig from '../../../_util/useConfig';
+import useConfig from '../../../hooks/useConfig';
+import useGlobalIcon from '../../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Loading from '../../../loading';
 import type { CommonListProps, FlowListProps } from './index';
@@ -12,6 +17,11 @@ type FileListProps = CommonListProps & Pick<FlowListProps, 'showUploadProgress' 
 const FileList = (props: FileListProps) => {
   const { listFiles, showInitial, renderDragger, showUploadProgress, remove } = props;
   const { classPrefix: prefix } = useConfig();
+  const { TimeFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    TimeFilledIcon: TdTimeFilledIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
   const { progress: progressText, file: infoText, triggerUploadText } = locale;

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import DatePickerCell from './Cell';
 import { TdDatePickerProps } from '../type';
 import { SinglePanelProps } from '../panel/SinglePanel';

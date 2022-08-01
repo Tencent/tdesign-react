@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Loading from '../loading';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import useCommonClassName from '../_util/useCommonClassName';
 import { TdSwitchProps } from './type';

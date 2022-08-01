@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { TdDatePickerProps, TdDateRangePickerProps, DateValue } from '../type';
 
 interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presetsPlacement'> {

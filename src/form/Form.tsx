@@ -1,6 +1,6 @@
 import React, { useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import type { TdFormProps, FormInstanceFunctions } from './type';

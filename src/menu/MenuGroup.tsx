@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { StyledProps, TNode } from '../common';
 import { TdMenuGroupProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 
 export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {

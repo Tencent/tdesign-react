@@ -1,9 +1,14 @@
 import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
-import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  CloseIcon as TdCloseIcon,
+  InfoCircleFilledIcon as TdInfoCircleFilledIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+} from 'tdesign-icons-react';
 import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';
@@ -30,6 +35,11 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   } = props;
 
   const { classPrefix } = useConfig();
+  const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
+    CloseIcon: TdCloseIcon,
+    InfoCircleFilledIcon: TdInfoCircleFilledIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+  });
 
   const remove = useContext(NotificationRemoveContext);
   React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));

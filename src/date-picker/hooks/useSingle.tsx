@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CalendarIcon } from 'tdesign-icons-react';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { TdDatePickerProps } from '../type';
 import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
 import useSingleValue from './useSingleValue';
 
 export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+  const { CalendarIcon } = useGlobalIcon({ CalendarIcon: TdCalendarIcon });
   const name = `${classPrefix}-date-picker`;
 
   const { format, valueType, timeFormat } = getDefaultFormat({

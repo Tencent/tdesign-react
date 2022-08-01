@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
 import FakeArrow from '../common/FakeArrow';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdCollapsePanelProps } from './type';
 import { StyledProps } from '../common';
 import { collapsePanelDefaultProps } from './defaultProps';

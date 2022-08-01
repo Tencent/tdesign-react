@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC, useMemo, CSSProperties } from 'react';
 import classnames from 'classnames';
 
 import { addClass, canUseDocument, removeClass } from '../_util/dom';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdLoadingProps } from './type';
 import Portal from '../common/Portal';

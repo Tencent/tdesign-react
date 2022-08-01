@@ -4,7 +4,7 @@ import DateTable from '../base/Table';
 import { TimePickerPanel } from '../../time-picker';
 import type { SinglePanelProps } from './SinglePanel';
 import type { RangePanelProps } from './RangePanel';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { getDefaultFormat } from '../hooks/useFormat';
 
 export interface PanelContentProps {

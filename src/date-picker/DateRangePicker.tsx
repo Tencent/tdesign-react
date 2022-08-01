@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDateRangePickerProps } from './type';
 import { RangeInputPopup } from '../range-input';

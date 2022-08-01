@@ -1,8 +1,8 @@
 import React, { forwardRef, useContext, useMemo } from 'react';
 import classNames from 'classnames';
-
-import { ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
@@ -10,6 +10,10 @@ import { BreadcrumbContext } from './BreadcrumbContext';
 import { breadcrumbItemDefaultProps } from './defaultProps';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
+  const { classPrefix } = useConfig();
+  const commonClassNames = useCommonClassName();
+  const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
+
   const {
     children,
     separator,
@@ -26,9 +30,6 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
   } = props;
 
   const { maxItemWidthInContext, separator: separatorInContext } = useContext(BreadcrumbContext);
-
-  const { classPrefix } = useConfig();
-  const commonClassNames = useCommonClassName();
 
   const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`);
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;

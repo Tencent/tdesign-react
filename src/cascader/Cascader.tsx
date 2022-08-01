@@ -5,7 +5,7 @@ import Panel from './components/Panel';
 import SelectInput from '../select-input';
 import FakeArrow from '../common/FakeArrow';
 
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
