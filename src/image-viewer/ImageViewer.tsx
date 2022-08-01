@@ -15,7 +15,7 @@ export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 const ImageViewer = (props: ImageViewerProps) => {
   const { mode, trigger, images, imageScale: imageScaleD, viewerScale: viewerScaleD } = props;
 
-  const [visible, setVisible] = useControlled<boolean, any>(props, 'visible', (visible, context) => {
+  const [visible, setVisible] = useControlled(props, 'visible', (visible, context) => {
     isFunction(props.onClose) && props.onClose(context);
   });
 
@@ -33,7 +33,7 @@ const ImageViewer = (props: ImageViewerProps) => {
 
   const onOpen = () => {
     if (!images) return;
-    setVisible(true);
+    setVisible(true, null);
     setVisibled(true);
   };
 

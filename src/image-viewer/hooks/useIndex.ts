@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 /** ImageViewerModel hooks * */
 // 选中下标控制
 const useIndex = (resProps, images) => {
-  const [index, setIndex] = useControlled<number, any>(resProps, 'index', resProps.onIndexChange);
+  const [index, setIndex] = useControlled(resProps, 'index', resProps.onIndexChange);
 
   const next = useCallback(() => {
     const newIndex = index + 1;
