@@ -10,14 +10,14 @@ describe('Rate 组件测试', () => {
   test('create', async () => {
     const { container } = render(<Rate />);
     expect(container.firstChild.classList.contains('t-rate')).toBeTruthy();
-    expect(document.querySelectorAll('.t-rate__wrapper')).toHaveLength(5);
+    expect(document.querySelectorAll('.t-rate__item')).toHaveLength(5);
     expect(container).toMatchSnapshot();
   });
   // 点击测试
   test('onChange', async () => {
     const clickFn = jest.fn();
     render(<Rate onChange={clickFn} />);
-    fireEvent.click(document.querySelector('.t-rate__wrapper'));
+    fireEvent.click(document.querySelector('.t-rate__item'));
     expect(clickFn).toBeCalledTimes(1);
     expect(clickFn).toBeCalledWith(1);
   });
@@ -25,13 +25,13 @@ describe('Rate 组件测试', () => {
   test('disable', async () => {
     const clickFn = jest.fn();
     render(<Rate disabled onChange={clickFn} />);
-    fireEvent.click(document.querySelector('.t-rate__wrapper'));
+    fireEvent.click(document.querySelector('.t-rate__item'));
     expect(clickFn).toBeCalledTimes(0);
   });
   // 数量测试
   test('count', async () => {
     const { container } = render(<Rate count={10} />);
-    expect(document.querySelectorAll('.t-rate__wrapper')).toHaveLength(10);
+    expect(document.querySelectorAll('.t-rate__item')).toHaveLength(10);
     expect(container).toMatchSnapshot();
   });
 });
