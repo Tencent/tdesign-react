@@ -1,6 +1,6 @@
 // 全局默认配置，zIndex 为 5000，默认关闭时间 3000ms
-import { AttachNode } from 'tdesign-react/common';
-import { MessagePlacementList } from 'tdesign-react';
+import { MessagePlacementList } from './type';
+import { AttachNode } from '../common';
 
 /**
  * @name: globalConfig
