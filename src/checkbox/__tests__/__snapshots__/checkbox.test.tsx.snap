@@ -14,9 +14,6 @@ exports[`Checkbox name 1`] = `
     <span
       class="t-checkbox__input"
     />
-    <span
-      class="t-checkbox__label"
-    />
   </label>
 </DocumentFragment>
 `;

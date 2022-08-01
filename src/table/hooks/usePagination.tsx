@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import Pagination, { PageInfo } from '../../pagination';
 import { TdBaseTableProps, TableRowData } from '../type';
 

@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
 import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 function getMapValue(
   name: string | number | Array<string | number>,
@@ -130,9 +130,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     const { fields, trigger = 'all' } = param || {};
     const list = [...formMapRef.current.values()]
       .filter(
-        (formItemRef) => isFunction(formItemRef.current?.validate) && needValidate(formItemRef.current?.name, fields),
+        (formItemRef) =>
+          isFunction(formItemRef.current?.validateOnly) && needValidate(formItemRef.current?.name, fields),
       )
-      .map((formItemRef) => formItemRef.current.validateOnly(trigger));
+      .map((formItemRef) => formItemRef.current.validateOnly?.(trigger));
 
     const validateList = await Promise.all(list);
     return formatValidateResult(validateList);

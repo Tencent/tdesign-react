@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { extractTimeObj } from '../../_common/js/date-picker/utils';
 
 export interface DatePickerCellProps {
@@ -16,6 +16,7 @@ export interface DatePickerCellProps {
   hoverStartOfRange: boolean;
   hoverEndOfRange: boolean;
   additional: boolean;
+  weekOfYear: boolean;
   now: boolean;
   firstDayOfMonth: boolean;
   lastDayOfMonth: boolean;
@@ -26,76 +27,57 @@ export interface DatePickerCellProps {
 const DatePickerCell = (props: DatePickerCellProps) => {
   const { classPrefix } = useConfig();
 
-  const {
-    text,
-    value,
-    time,
-    active,
-    highlight,
-    disabled,
-    startOfRange,
-    endOfRange,
-    hoverHighlight,
-    hoverStartOfRange,
-    hoverEndOfRange,
-    additional,
-    now,
-    firstDayOfMonth,
-    lastDayOfMonth,
-    onClick,
-    onMouseEnter,
-  } = props;
-
   const cellClass = classNames(`${classPrefix}-date-picker__cell`, {
-    [`${classPrefix}-date-picker__cell--now`]: now,
-    [`${classPrefix}-date-picker__cell--active`]: active,
-    [`${classPrefix}-date-picker__cell--disabled`]: disabled,
-    [`${classPrefix}-date-picker__cell--highlight`]: highlight,
-    [`${classPrefix}-date-picker__cell--hover-highlight`]: hoverHighlight,
-    [`${classPrefix}-date-picker__cell--active-start`]: startOfRange,
-    [`${classPrefix}-date-picker__cell--active-end`]: endOfRange,
-    [`${classPrefix}-date-picker__cell--hover-start`]: hoverStartOfRange,
-    [`${classPrefix}-date-picker__cell--hover-end`]: hoverEndOfRange,
-    [`${classPrefix}-date-picker__cell--additional`]: additional,
-    [`${classPrefix}-date-picker__cell--first-day-of-month`]: firstDayOfMonth,
-    [`${classPrefix}-date-picker__cell--last-day-of-month`]: lastDayOfMonth,
+    [`${classPrefix}-date-picker__cell--now`]: props.now,
+    [`${classPrefix}-date-picker__cell--active`]: props.active,
+    [`${classPrefix}-date-picker__cell--disabled`]: props.disabled,
+    [`${classPrefix}-date-picker__cell--highlight`]: props.highlight,
+    [`${classPrefix}-date-picker__cell--hover-highlight`]: props.hoverHighlight,
+    [`${classPrefix}-date-picker__cell--active-start`]: props.startOfRange,
+    [`${classPrefix}-date-picker__cell--active-end`]: props.endOfRange,
+    [`${classPrefix}-date-picker__cell--hover-start`]: props.hoverStartOfRange,
+    [`${classPrefix}-date-picker__cell--hover-end`]: props.hoverEndOfRange,
+    [`${classPrefix}-date-picker__cell--additional`]: props.additional,
+    [`${classPrefix}-date-picker__cell--first-day-of-month`]: props.firstDayOfMonth,
+    [`${classPrefix}-date-picker__cell--last-day-of-month`]: props.lastDayOfMonth,
+    [`${classPrefix}-date-picker__cell--week-of-year`]: props.weekOfYear,
   });
 
   function handleClick(e: React.MouseEvent) {
-    if (disabled) return;
-    if (time) {
-      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(time);
+    if (props.disabled) return;
+    if (props.time) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(props.time);
       // am pm 12小时制转化 24小时制
       let nextHours = hours;
       if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
       if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
-      value.setHours(nextHours);
-      value.setMinutes(minutes);
-      value.setSeconds(seconds);
-      value.setMilliseconds(milliseconds);
+      props.value.setHours(nextHours);
+      props.value.setMinutes(minutes);
+      props.value.setSeconds(seconds);
+      props.value.setMilliseconds(milliseconds);
     }
-    onClick?.(value, { e });
+    props.onClick?.(props.value, { e });
   }
 
   function handleMouseEnter() {
-    if (disabled) return;
-    if (time) {
-      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(time);
+    if (props.disabled) return;
+    if (props.time) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(props.time);
       // am pm 12小时制转化 24小时制
       let nextHours = hours;
       if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
       if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
-      value.setHours(nextHours);
-      value.setMinutes(minutes);
-      value.setSeconds(seconds);
-      value.setMilliseconds(milliseconds);
+      props.value.setHours(nextHours);
+      props.value.setMinutes(minutes);
+      props.value.setSeconds(seconds);
+      props.value.setMilliseconds(milliseconds);
     }
-    onMouseEnter?.(value);
+    props.onMouseEnter?.(props.value);
   }
 
   return (
     <td className={cellClass} onClick={handleClick} onMouseEnter={handleMouseEnter}>
-      <div className={`${classPrefix}-date-picker__cell-inner`}>{text}</div>
+      <div className={`${classPrefix}-date-picker__cell-inner`}>{props.text}</div>
     </td>
   );
 };

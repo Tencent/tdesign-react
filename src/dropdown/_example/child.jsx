@@ -9,11 +9,8 @@ export default function BasicDropdown() {
   };
   return (
     <Dropdown minColumnWidth={'100px'} onClick={clickHandler}>
-      <Button variant="text">
-        <span style={{ display: 'inline-flex' }}>
-          更多
-          <Icon name="chevron-down" size="16" />
-        </span>
+      <Button variant="text" suffix={<Icon name="chevron-down" size="16" />}>
+        更多
       </Button>
       <DropdownMenu>
         <DropdownItem value={1}>

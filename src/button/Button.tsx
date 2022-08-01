@@ -1,6 +1,6 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useMemo } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useRipple from '../_util/useRipple';
 import Loading from '../loading';
 import { TdButtonProps } from './type';
@@ -9,7 +9,7 @@ import { buttonDefaultProps } from './defaultProps';
 /**
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
  */
-export interface ButtonProps extends TdButtonProps, React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface ButtonProps extends TdButtonProps, React.HTMLAttributes<HTMLElement> {}
 
 /**
  * 按钮组件
@@ -30,6 +30,9 @@ const Button = forwardRef(
       children,
       content,
       className,
+      suffix,
+      href,
+      tag,
       onClick,
       ...buttonProps
     }: ButtonProps,
@@ -45,22 +48,28 @@ const Button = forwardRef(
     let iconNode = icon;
     if (loading) iconNode = <Loading loading={loading} inheritColor={true} />;
 
-    let renderTheme = theme;
-
-    if (!theme) {
-      if (variant === 'base') {
-        renderTheme = 'primary';
-      } else {
-        renderTheme = 'default';
+    const renderTheme = useMemo(() => {
+      if (!theme) {
+        if (variant === 'base') return 'primary';
+        return 'default';
       }
-    }
+      return theme;
+    }, [theme, variant]);
 
-    return (
-      <button
-        {...buttonProps}
-        ref={ref || btnRef}
-        type={type}
-        className={classNames(
+    const renderTag = useMemo(() => {
+      if (!tag && href) return 'a';
+      return tag || 'button';
+    }, [tag, href]);
+
+    return React.createElement(
+      renderTag,
+      {
+        ...buttonProps,
+        href,
+        type,
+        ref: ref || btnRef,
+        disabled: disabled || loading,
+        className: classNames(
           className,
           [
             `${classPrefix}-button`,
@@ -76,19 +85,14 @@ const Button = forwardRef(
             [`${classPrefix}-size-l`]: size === 'large',
             [`${classPrefix}-size-full-width`]: block,
           },
-        )}
-        onClick={!disabled && !loading ? onClick : undefined}
-        disabled={disabled || loading}
-      >
-        {iconNode ? (
-          <>
-            {iconNode}
-            {renderChildren && <span className={`${classPrefix}-button__text`}>{renderChildren}</span>}
-          </>
-        ) : (
-          <span className={`${classPrefix}-button__text`}>{renderChildren}</span>
-        )}
-      </button>
+        ),
+        onClick: !disabled && !loading ? onClick : undefined,
+      },
+      <>
+        {iconNode}
+        {renderChildren && <span className={`${classPrefix}-button__text`}>{renderChildren}</span>}
+        {suffix && <span className={`${classPrefix}-button__suffix`}>{suffix}</span>}
+      </>,
     );
   },
 );

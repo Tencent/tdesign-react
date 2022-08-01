@@ -1,13 +1,12 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
 import { TdDatePickerProps, DateValue } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
-import { getDefaultFormat } from '../hooks/useFormat';
+import { getDefaultFormat, parseToDayjs } from '../hooks/useFormat';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 
@@ -53,23 +52,20 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((props, ref) =>
     enableTimePicker: props.enableTimePicker,
   });
 
-  // 兼容数据格式不标准场景 YYYY-MM-D
-  const formatDate = (newDate, format) =>
-    dayjs(newDate).isValid() ? dayjs(newDate).toDate() : dayjs(newDate, format).toDate();
-
   const disableDateOptions = useDisableDate({ disableDate: props.disableDate, mode: props.mode, format });
 
   const tableData = useTableData({
     year,
     month,
     mode,
-    start: value ? formatDate(value, format) : undefined,
+    start: value ? parseToDayjs(value, format).toDate() : undefined,
     firstDayOfWeek,
     ...disableDateOptions,
   });
 
   const panelContentProps = {
     mode,
+    value,
     year,
     month,
     format,

@@ -110,14 +110,9 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : 'RGB');
 
   const { onRecentColorsChange } = props;
-  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled<TdColorPickerProps['recentColors'], any>(
-    props,
-    'recentColors',
-    onRecentColorsChange,
-    {
-      defaultRecentColors: colorPickerDefaultProps.recentColors,
-    },
-  );
+  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
+    defaultRecentColors: colorPickerDefaultProps.recentColors,
+  });
 
   const baseProps = {
     color: colorInstanceRef.current,
@@ -141,9 +136,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
 
   // 添加最近使用颜色
   const addRecentlyUsedColor = () => {
-    if (recentlyUsedColors === null || !recentlyUsedColors) {
-      return;
-    }
     const colors = [...((recentlyUsedColors as string[]) || [])];
     const { isGradient, linearGradient, rgba } = colorInstanceRef.current;
     const currentColor = isGradient ? linearGradient : rgba;
@@ -220,6 +212,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
         break;
       case 'selectedId':
         colorInstanceRef.current.gradientSelectedId = payload as string;
+        setUpdateId((prevId) => prevId + 1);
         break;
       case 'colors':
         colorInstanceRef.current.gradientColors = payload as GradientColorPoint[];

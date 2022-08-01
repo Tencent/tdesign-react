@@ -1,5 +1,5 @@
 /* eslint-disable implicit-arrow-linebreak */
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 /**
  * @author kenzyyang

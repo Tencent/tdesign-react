@@ -4,11 +4,10 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getSelectValueArr, getValueToOption } from '../util/helper';
 import noop from '../../_util/noop';
-
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
 import SelectInput from '../../select-input';
@@ -16,10 +15,10 @@ import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 import Tag from '../../tag';
-
 import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } from '../type';
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
+import { PopupVisibleChangeContext } from '../../popup';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -44,8 +43,6 @@ const Select = forwardRefWithStatics(
       loadingText = emptyText,
       max,
       popupProps,
-      popupVisible,
-      onPopupVisibleChange,
       reserveKeyword,
       className,
       style,
@@ -90,7 +87,7 @@ const Select = forwardRefWithStatics(
 
     const name = `${classPrefix}-select`; // t-select
 
-    const [showPopup, setShowPopup] = useState(popupVisible || false);
+    const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
@@ -157,17 +154,18 @@ const Select = forwardRefWithStatics(
       if (multiple) {
         return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
       }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
+      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
     }, [selectedOptions, keys, multiple]);
 
-    const handleShowPopup = (visible: boolean) => {
+    const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
-      setShowPopup(visible);
+      setShowPopup(visible, ctx);
       onVisibleChange?.(visible);
       visible && onInputChange('');
     };
+
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
-    const onTagChange = (currentTags, context) => {
+    const onTagChange = (_currentTags, context) => {
       const { trigger, index, item, e } = context;
       // backspace
       if (trigger === 'backspace') {
@@ -257,7 +255,7 @@ const Select = forwardRefWithStatics(
     // 处理输入框逻辑
     const handleInputChange = (value: string) => {
       onInputChange(value);
-      if (selectedLabel === value) return;
+      if (value === undefined) return;
 
       if (isFunction(onSearch)) {
         onSearch(value);
@@ -277,7 +275,9 @@ const Select = forwardRefWithStatics(
     };
 
     useEffect(() => {
-      handleFilter(String(inputValue));
+      if (typeof inputValue !== 'undefined') {
+        handleFilter(String(inputValue));
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputValue]);
 
@@ -303,7 +303,8 @@ const Select = forwardRefWithStatics(
         size,
         multiple,
         showPopup,
-        setShowPopup,
+        // popup弹出层内容只会在点击事件之后触发 并且无任何透传参数
+        setShowPopup: (show) => handleShowPopup(show, {}),
         options: currentOptions,
         empty,
         max,
@@ -330,7 +331,7 @@ const Select = forwardRefWithStatics(
           return '';
         }
         return ({ value: val }) =>
-          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v, key) => {
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {
             const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
             return (
               <Tag
@@ -414,7 +415,7 @@ const Select = forwardRefWithStatics(
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
-          inputValue={showPopup ? inputValue : ''}
+          inputValue={inputValue}
           tagInputProps={{
             autoWidth: true,
             ...tagInputProps,
@@ -431,7 +432,7 @@ const Select = forwardRefWithStatics(
             ...restPopupProps,
           }}
           popupVisible={showPopup}
-          onPopupVisibleChange={onPopupVisibleChange || handleShowPopup}
+          onPopupVisibleChange={handleShowPopup}
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}

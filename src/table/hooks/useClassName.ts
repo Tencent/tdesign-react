@@ -1,10 +1,11 @@
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 export default function useClassName() {
   const { classPrefix } = useConfig();
   const classNames = {
     tableBaseClass: {
       table: `${classPrefix}-table`,
+      columnResizableTable: `${classPrefix}-table--column-resizable`,
       body: `${classPrefix}-table__body`,
       overflowVisible: `${classPrefix}-table--overflow-visible`,
       content: `${classPrefix}-table__content`,
@@ -13,6 +14,7 @@ export default function useClassName() {
       tdLastRow: `${classPrefix}-table__td-last-row`,
       tdFirstCol: `${classPrefix}-table__td-first-col`,
       thCellInner: `${classPrefix}-table__th-cell-inner`,
+      tableRowEdit: `${classPrefix}-table--row-edit`,
       cellEditable: `${classPrefix}-table__cell--editable`,
       cellEditWrap: `${classPrefix}-table__cell-wrap`,
       bordered: `${classPrefix}-table--bordered`,
@@ -127,6 +129,7 @@ export default function useClassName() {
     tableSelectedClasses: {
       selected: `${classPrefix}-table__row--selected`,
       disabled: `${classPrefix}-table__row--disabled`,
+      checkCell: `${classPrefix}-table__cell-check`,
     },
 
     // 过滤功能，全部类名
@@ -177,3 +180,5 @@ export default function useClassName() {
 
   return classNames;
 }
+
+export type TableClassName = ReturnType<typeof useClassName>;

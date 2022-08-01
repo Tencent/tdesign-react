@@ -1,6 +1,6 @@
 import React, { FC, useContext, useRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useRipple from '../_util/useRipple';
 import { TdMenuItemProps } from './type';
 import { StyledProps } from '../common';

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
 import { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { TdCheckboxProps } from '../checkbox/type';
 
@@ -84,14 +84,17 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       onChange={(e) => setInternalChecked(e.currentTarget.checked, { e })}
     />
   );
-
+  // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
+  const showLabel = !!(children || label);
   return (
     <label ref={ref} className={labelClassName} title={props.title} style={style} {...omit(htmlProps, ['checkAll'])}>
       {input}
       <span className={`${classPrefix}-${type}__input`} />
-      <span key="label" className={`${classPrefix}-${type}__label`}>
-        {children || label}
-      </span>
+      {showLabel && (
+        <span key="label" className={`${classPrefix}-${type}__label`}>
+          {children || label}
+        </span>
+      )}
     </label>
   );
 });

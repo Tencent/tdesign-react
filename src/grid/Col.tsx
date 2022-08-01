@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useContext, forwardRef } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdColProps, TdRowProps } from './type';
 import { colDefaultProps } from './defaultProps';
+import { RowContext } from './Row';
 
 type FlexType = number | 'none' | 'auto' | string;
 
-/**
- * Divider 组件支持的属性。
- */
 export interface ColProps extends TdColProps, StyledProps {
   /**
    * 文本内容
@@ -60,12 +58,9 @@ const parseFlex = (flex: FlexType) => {
   return flex;
 };
 
-/**
- * Col组件
- */
-const Col = (props: ColProps | any) => {
+const Col = forwardRef((props: ColProps | any, ref) => {
   const { flex, offset, order, pull, push, span, tag, className, children, style: propStyle, ...otherColProps } = props;
-  const { gutter: rowGutter, size: rowSize } = otherColProps;
+  const { gutter: rowGutter, size: rowSize } = useContext(RowContext);
 
   const { classPrefix } = useConfig();
   const allSizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
@@ -110,13 +105,14 @@ const Col = (props: ColProps | any) => {
   return React.createElement(
     tag,
     {
+      ref,
       className: colClassNames,
       style: colStyle,
       ...otherColProps,
     },
     children,
   );
-};
+});
 
 Col.displayName = 'Col';
 Col.defaultProps = colDefaultProps;

@@ -1,11 +1,16 @@
 import React, { FC, useCallback } from 'react';
-import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
 import Button from '../../button';
 import Loading from '../../loading';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { UploadFile, UploadRemoveContext } from '../type';
 import { returnFileSize, abridgeName, getCurrentDate } from '../util';
+import { UploadConfig } from '../../config-provider/type';
 
 export interface DraggerProgressProps {
   display?: string;
@@ -14,11 +19,16 @@ export interface DraggerProgressProps {
   onRemove?: (context: UploadRemoveContext) => void;
   onUpload?: () => void;
   onCancel?: () => void;
+  localeFromProps?: UploadConfig;
 }
 
 const DraggerProgress: FC<DraggerProgressProps> = (props) => {
-  const { file, onUpload, onRemove, display, onTrigger, onCancel } = props;
+  const { file, onUpload, onRemove, display, onTrigger, onCancel, localeFromProps } = props;
   const { classPrefix } = useConfig();
+  const { CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
   const { triggerUploadText, file: infoText, cancelUploadText } = locale;
   const reUpload = (e) => {
@@ -44,6 +54,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
         </div>
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
   return (
@@ -74,17 +85,17 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
               {t(cancelUploadText)}
             </Button>
             <Button theme="primary" variant="text" onClick={onUpload}>
-              {t(triggerUploadText.normal)}
+              {localeFromProps?.triggerUploadText?.normal || t(triggerUploadText.normal)}
             </Button>
           </div>
         )}
         {showResultOperate && (
           <div className="t-upload__dragger-btns">
             <Button theme="primary" variant="text" className="t-upload__dragger-progress-cancel" onClick={reUpload}>
-              {t(triggerUploadText.reupload)}
+              {localeFromProps?.triggerUploadText?.reupload || t(triggerUploadText.reupload)}
             </Button>
             <Button theme="primary" variant="text" onClick={handleRemove}>
-              {t(triggerUploadText.delete)}
+              {localeFromProps?.triggerUploadText?.delete || t(triggerUploadText.delete)}
             </Button>
           </div>
         )}

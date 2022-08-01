@@ -10,18 +10,24 @@ import BaseUsage, {
 } from "@site/src/components/BaseUsage";
 import jsxToString from "react-element-to-jsx-string";
 
-import configProps from "./props.json";
+import DatePickerConfigProps from "./date-picker-props.json";
+
+import DateRangePickerConfigProps from "./date-range-picker-props.json";
 
 import { DatePicker, DateRangePicker } from "tdesign-react";
 
 export default function Usage() {
-  const [configList, setConfigList] = useState(configProps);
+  const [configList, setConfigList] = useState(DatePickerConfigProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
   const panelList = [
-    { label: "datePicker", value: "datePicker" },
-    { label: "dateRangePicker", value: "dateRangePicker" },
+    { label: "datePicker", value: "datePicker", config: DatePickerConfigProps },
+    {
+      label: "dateRangePicker",
+      value: "dateRangePicker",
+      config: DateRangePickerConfigProps,
+    },
   ];
 
   const panelMap = {

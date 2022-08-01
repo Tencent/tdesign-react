@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -14,17 +14,21 @@ import useAsyncLoading from './hooks/useAsyncLoading';
 import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
 import { BaseTableProps, PrimaryTableProps } from './interface';
-import EditableCell from './EditableCell';
-
+import EditableCell, { EditableCellProps } from './EditableCell';
+import { AllValidateResult } from '../form/type';
 import { StyledProps } from '../common';
+import { useEditableRow } from './hooks/useEditableRow';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
-export default function PrimaryTable(props: TPrimaryTableProps) {
-  const { columns, columnController, style, className } = props;
+
+export type ErrorListType = { [key: string]: AllValidateResult[] };
+
+const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
+  const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
-  const { tableDraggableClasses, tableBaseClass } = useClassName();
+  const { tableDraggableClasses, tableBaseClass, tableSelectedClasses } = useClassName();
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props);
   // 展开/收起行功能
@@ -33,7 +37,7 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
-  const { formatToRowSelectColumn, selectedRowClassNames } = useRowSelect(props);
+  const { formatToRowSelectColumn, selectedRowClassNames } = useRowSelect(props, tableSelectedClasses);
   // 过滤功能
   const { hasEmptyCondition, isTableOverflowHidden, renderFilterIcon, renderFirstFilterRow } = useFilter(
     props,
@@ -47,12 +51,16 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
+
   const primaryTableClasses = {
     [tableDraggableClasses.colDraggable]: isColDraggable,
     [tableDraggableClasses.rowHandlerDraggable]: isRowHandlerDraggable,
     [tableDraggableClasses.rowDraggable]: isRowDraggable,
     [tableBaseClass.overflowVisible]: isTableOverflowHidden === false,
+    [tableBaseClass.tableRowEdit]: editableRowKeys,
   };
+
+  const { errorListMap, editableKeysMap, validateRowData, onRuleChange, clearValidateData } = useEditableRow(props);
 
   // 如果想给 TR 添加类名，请在这里补充，不要透传更多额外 Props 到 BaseTable
   const tRowClassNames = (() => {
@@ -68,6 +76,12 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     }
     return tAttributes.filter((v) => v);
   })();
+
+  useImperativeHandle(ref, () => ({
+    validateRowData,
+    clearValidateData,
+  }));
+
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
     const arr: PrimaryTableCol<TableRowData>[] = [];
@@ -92,7 +106,24 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       // 如果是单元格可编辑状态
       if (item.edit?.component) {
         const oldCell = item.cell;
-        item.cell = (p: PrimaryTableCellParams<TableRowData>) => <EditableCell {...p} oldCell={oldCell} />;
+        item.cell = (p: PrimaryTableCellParams<TableRowData>) => {
+          const cellProps: EditableCellProps = {
+            ...p,
+            oldCell,
+            tableBaseClass,
+            onChange: props.onRowEdit,
+            onValidate: props.onRowValidate,
+            onRuleChange,
+          };
+          if (props.editableRowKeys) {
+            const rowValue = get(p.row, props.rowKey || 'id');
+            cellProps.editable = editableKeysMap[rowValue] || false;
+            const key = [rowValue, p.col.colKey].join();
+            const errorList = errorListMap[key];
+            errorList && (cellProps.errors = errorList);
+          }
+          return <EditableCell {...cellProps} />;
+        };
       }
       if (item.children?.length) {
         item.children = getColumns(item.children);
@@ -180,6 +211,8 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       onLeafColumnsChange={setDragSortColumns}
     />
   );
-}
+});
 
 PrimaryTable.displayName = 'PrimaryTable';
+
+export default PrimaryTable;

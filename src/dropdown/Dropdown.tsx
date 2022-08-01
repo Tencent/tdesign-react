@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import omit from 'lodash/omit';
 import { DropdownOption, TdDropdownProps } from './type';
 import { ClassName } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
@@ -51,9 +51,9 @@ const Dropdown = (props: DropdownProps) => {
     placement,
     trigger,
     showArrow: false,
-    overlayClassName: classNames(dropdownClass, className),
     content: content || DropdownContent(),
     ...omit(popupProps, 'onVisibleChange'),
+    overlayClassName: classNames(dropdownClass, className, popupProps?.overlayClassName),
   };
 
   return (

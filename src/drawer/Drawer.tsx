@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useCallback } from 'react';
 import classnames from 'classnames';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
 import { addClass, removeClass } from '../_util/dom';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -10,7 +10,8 @@ import { TdDrawerProps, DrawerEventSource } from './type';
 import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
 
@@ -57,6 +58,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
+  const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
   const size = propsSize ?? local.size;
   const confirmText = t(local.confirm);
   const cancelText = t(local.cancel);
@@ -194,11 +196,20 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     `${prefixCls}__content-wrapper--${placement}`,
   );
 
-  const contentWrapperStyle = {
-    transform: visible ? 'translateX(0)' : undefined,
-    width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
-    height: ['top', 'bottom'].includes(placement) ? getSizeValue(size) : '',
-  };
+  const getContentWrapperStyle = useCallback(
+    () => ({
+      transform: visible ? 'translateX(0)' : undefined,
+      width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
+      height: ['top', 'bottom'].includes(placement) ? getSizeValue(size) : '',
+    }),
+    [visible, placement, size, getSizeValue],
+  );
+
+  const [contentWrapperStyle, setContentWrapperStyle] = useState(getContentWrapperStyle());
+
+  useEffect(() => {
+    setContentWrapperStyle(getContentWrapperStyle());
+  }, [getContentWrapperStyle]);
 
   function getFooter(): React.ReactNode {
     if (footer !== true) return footer;

@@ -1,13 +1,15 @@
 import React, { FC, Fragment, useState } from 'react';
-import { BrowseIcon, DeleteIcon, AddIcon } from 'tdesign-icons-react';
+import { BrowseIcon as TdBrowseIcon, DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
 import Dialog from '../../dialog';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { UploadRemoveContext } from '../type';
 import { finishUpload } from '../util';
 import { TdUploadFile } from '../types';
 import BooleanRender from '../boolean-render';
+import { UploadConfig } from '../../config-provider/type';
 
 export interface ImageCardProps {
   files?: TdUploadFile[];
@@ -17,11 +19,17 @@ export interface ImageCardProps {
   onRemove?: (options: UploadRemoveContext) => void;
   showUploadProgress: boolean;
   disabled: boolean;
+  localeFromProps?: UploadConfig;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-  const { files, multiple = false, max = 0, onRemove, showUploadProgress, disabled } = props;
+  const { files, multiple = false, max = 0, onRemove, showUploadProgress, disabled, localeFromProps } = props;
   const { classPrefix } = useConfig();
+  const { BrowseIcon, DeleteIcon, AddIcon } = useGlobalIcon({
+    AddIcon: TdAddIcon,
+    BrowseIcon: TdBrowseIcon,
+    DeleteIcon: TdDeleteIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
   const [showImg, setShowImg] = useState(false);
   const [imgURL, setImgURL] = useState();
@@ -89,7 +97,8 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
                   <p>
-                    {t(locale.progress.uploadingText)} {Math.min(files[index].percent, 99)}%
+                    {localeFromProps?.progress?.uploadingText || t(locale.progress.uploadingText)}{' '}
+                    {Math.min(files[index].percent, 99)}%
                   </p>
                 </div>
               </BooleanRender>
@@ -100,7 +109,9 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} onClick={props.onTrigger}>
             <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>{t(locale.triggerUploadText.image)}</p>
+              <p className={`${classPrefix}-size-s`}>
+                {localeFromProps?.triggerUploadText?.image || t(locale.triggerUploadText.image)}
+              </p>
             </div>
           </li>
         </BooleanRender>

@@ -1,13 +1,13 @@
 import React, { forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps } from './type';
 import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
-import useFormat from './hooks/useFormat';
+import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 
@@ -51,9 +51,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     setCacheValue,
   } = useSingle(props);
 
-  const { formatTime, formatDate, format } = useFormat({
-    mode,
-    value,
+  const { format, valueType, timeFormat } = getDefaultFormat({
+    mode: props.mode,
     format: props.format,
     valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
@@ -62,10 +61,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   useEffect(() => {
     // 面板展开重置数据
     if (popupVisible) {
-      setYear(dayjs(value || new Date()).year());
-      setMonth(dayjs(value || new Date()).month());
-      setCacheValue(formatDate(value || new Date()));
-      setTime(formatTime(value || new Date()));
+      setYear(parseToDayjs(value || new Date(), format).year());
+      setMonth(parseToDayjs(value || new Date(), format).month());
+      setTime(formatTime(value || new Date(), timeFormat));
+      value && setCacheValue(formatDate(value, { format, targetFormat: format }));
     }
     // eslint-disable-next-line
   }, [value, popupVisible]);
@@ -73,17 +72,18 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   // 日期 hover
   function onCellMouseEnter(date: Date) {
     setIsHoverCell(true);
-    setInputValue(formatDate(date));
+    setInputValue(formatDate(date, { format, targetFormat: format }));
   }
 
   // 日期 leave
   function onCellMouseLeave() {
     setIsHoverCell(false);
-    setInputValue(formatDate(cacheValue));
+    setInputValue(formatDate(cacheValue, { format, targetFormat: format }));
   }
 
   // 日期点击
   function onCellClick(date: Date) {
+    onPick?.(date);
     setIsHoverCell(false);
     // date 模式自动切换年月
     if (mode === 'date') {
@@ -91,18 +91,19 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
       setMonth(date.getMonth());
     }
     if (enableTimePicker) {
-      setCacheValue(formatDate(date));
+      setCacheValue(formatDate(date, { format, targetFormat: format }));
     } else {
-      onChange(formatDate(date, { formatType: 'valueType' }), { dayjsValue: dayjs(date), trigger: 'pick' });
+      onChange(formatDate(date, { format, targetFormat: valueType }), {
+        dayjsValue: dayjs(date, format),
+        trigger: 'pick',
+      });
       setPopupVisible(false);
     }
-
-    onPick?.(date);
   }
 
   // 头部快速切换
   function onJumperClick({ trigger }) {
-    const monthCountMap = { date: 1, month: 12, year: 120 };
+    const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
     const current = new Date(year, month);
@@ -123,7 +124,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     setMonth(nextMonth);
   }
 
-  // timepicker 点击
+  // timePicker 点击
   function onTimePickerChange(val: string) {
     setTime(val);
 
@@ -135,21 +136,21 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    setInputValue(formatDate(nextDate));
+    setInputValue(formatDate(nextDate, { format, targetFormat: format }));
 
     onPick?.(nextDate);
   }
 
   // 确定
   function onConfirmClick() {
-    const nextValue = formatDate(inputValue);
+    const nextValue = formatDate(inputValue, { format, targetFormat: format });
     if (nextValue) {
-      onChange(formatDate(inputValue, { formatType: 'valueType' }), {
+      onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
         dayjsValue: dayjs(inputValue),
         trigger: 'confirm',
       });
     } else {
-      setInputValue(formatDate(value));
+      setInputValue(formatDate(value, { format, targetFormat: format }));
     }
     setPopupVisible(false);
   }
@@ -160,7 +161,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    onChange(formatDate(presetValue, { formatType: 'valueType' }), {
+    onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
       dayjsValue: dayjs(presetValue),
       trigger: 'preset',
     });

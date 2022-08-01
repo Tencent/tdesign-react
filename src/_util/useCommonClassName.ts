@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import useConfig from './useConfig';
+import useConfig from '../hooks/useConfig';
 
 export default function useCommonClassName() {
   const { classPrefix } = useConfig();

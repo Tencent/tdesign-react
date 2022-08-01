@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import Select from '../../select';
 import { TdDatePickerProps } from '../type';
 import Jumper, { TdJumperProps } from '../../jumper';
@@ -113,7 +113,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   };
 
   const headerClassName = `${classPrefix}-date-picker__header`;
-  const showMonthPicker = mode === 'date';
+  const showMonthPicker = mode === 'date' || mode === 'week';
 
   function handlePanelTopClick(e: React.MouseEvent) {
     e.stopPropagation();
@@ -138,7 +138,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       <div className={`${headerClassName}-controller`}>
         {showMonthPicker && (
           <Select
-            className={`${headerClassName}-controller--month`}
+            className={`${headerClassName}-controller-month`}
             value={month}
             options={monthOptions}
             onChange={(val) => onMonthChange(val)}
@@ -146,7 +146,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           />
         )}
         <Select
-          className={`${headerClassName}-controller--year`}
+          className={`${headerClassName}-controller-year`}
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}

@@ -11,7 +11,6 @@ exports[`base.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -102,14 +101,6 @@ exports[`collapsed.jsx 1`] = `
                   +1
                 </span>
               </div>
-              <input
-                class="t-input__inner"
-                placeholder=""
-                readonly=""
-                style="width: 0px;"
-                type="text"
-                value=""
-              />
               <span
                 class="t-input__input-pre"
               />
@@ -181,14 +172,6 @@ exports[`collapsed.jsx 1`] = `
                   +1
                 </span>
               </div>
-              <input
-                class="t-input__inner"
-                placeholder=""
-                readonly=""
-                style="width: 0px;"
-                type="text"
-                value=""
-              />
               <span
                 class="t-input__input-pre"
               />
@@ -231,7 +214,6 @@ exports[`creatable.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -361,14 +343,6 @@ exports[`custom-selected.jsx 1`] = `
               选项三选项
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -469,7 +443,6 @@ exports[`filterable.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -549,7 +522,6 @@ exports[`filterable.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
-                style="width: 0px;"
                 type="text"
                 value=""
               />
@@ -595,7 +567,6 @@ exports[`group.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -721,14 +692,6 @@ exports[`keys.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -902,14 +865,6 @@ exports[`label-in-value.jsx 1`] = `
                   </svg>
                 </span>
               </div>
-              <input
-                class="t-input__inner"
-                placeholder=""
-                readonly=""
-                style="width: 0px;"
-                type="text"
-                value=""
-              />
               <span
                 class="t-input__input-pre"
               />
@@ -979,14 +934,6 @@ exports[`max.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            style="width: 0px;"
-            type="text"
-            value=""
-          />
           <span
             class="t-input__input-pre"
           />
@@ -1081,7 +1028,6 @@ exports[`multiple.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
-                style="width: 0px;"
                 type="text"
                 value=""
               />
@@ -1245,14 +1191,6 @@ exports[`multiple.jsx 1`] = `
                   </svg>
                 </span>
               </div>
-              <input
-                class="t-input__inner"
-                placeholder=""
-                readonly=""
-                style="width: 0px;"
-                type="text"
-                value=""
-              />
               <span
                 class="t-input__input-pre"
               />
@@ -1405,7 +1343,6 @@ exports[`panel.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1456,7 +1393,6 @@ exports[`panel.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1562,7 +1498,6 @@ exports[`prefix.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1634,7 +1569,6 @@ exports[`remote-search.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1743,7 +1677,6 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1793,7 +1726,6 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1843,7 +1775,6 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-l t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1903,7 +1834,6 @@ exports[`status.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1953,7 +1883,6 @@ exports[`status.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -2004,7 +1933,6 @@ exports[`status.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"

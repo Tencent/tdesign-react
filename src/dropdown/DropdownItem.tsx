@@ -1,8 +1,9 @@
 import React, { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
-import { ChevronRightIcon as TIconChevronRight } from 'tdesign-icons-react';
+import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
 import { DropdownOption, TdDropdownProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useRipple from '../_util/useRipple';
 import { pxCompat } from '../_util/helper';
 import TDivider from '../divider';
@@ -18,7 +19,7 @@ type DropdownItemProps = Pick<DropdownOption, 'content' | 'value' | 'divider' | 
     children?: React.ReactChild;
   };
 
-const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLButtonElement>) => {
+const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLDivElement>) => {
   const {
     path = '',
     hasChildren = false,
@@ -32,13 +33,14 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     children,
   } = props;
   const { classPrefix } = useConfig();
+  const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdIconChevronRight });
   const dropdownItemRef = useRef(null);
 
   useRipple(ref || dropdownItemRef);
 
   const dropdownItemClass = `${classPrefix}-dropdown__item`;
   const renderSuffix = () =>
-    hasChildren ? <TIconChevronRight className={`${classPrefix}-dropdown__item-icon`} /> : null;
+    hasChildren ? <ChevronRightIcon className={`${classPrefix}-dropdown__item-icon`} /> : null;
   const handleItemClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
     if (!hasChildren && !disabled) {
       const data = {
