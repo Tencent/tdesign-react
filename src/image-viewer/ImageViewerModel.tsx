@@ -16,7 +16,7 @@ import {
   ZoomOutIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TNode } from '../common';
 import { downloadFile } from './utils';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';

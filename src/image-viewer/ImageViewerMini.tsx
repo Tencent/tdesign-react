@@ -3,7 +3,7 @@ import { Dialog } from 'tdesign-react';
 import { CloseIcon } from 'tdesign-icons-react';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface ImageModelMiniProps {
   visible: boolean;
