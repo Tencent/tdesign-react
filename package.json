@@ -159,7 +159,7 @@
     "jest-canvas-mock": "^2.4.0",
     "jest-html-reporter": "^3.4.2",
     "jest-transform-stub": "^2.0.0",
-    "jest-watch-typeahead": "^1.0.0",
+    "jest-watch-typeahead": "^2.0.0",
     "less": "^4.1.2",
     "lint-staged": "^12.1.6",
     "markdown-it-fence": "^0.1.3",
