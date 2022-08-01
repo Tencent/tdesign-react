@@ -1,5 +1,5 @@
 import React, { MouseEvent, ReactNode } from 'react';
-import { ChevronRightCircleIcon } from 'tdesign-icons-react';
+import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
@@ -13,10 +13,14 @@ import {
 } from '../type';
 import useClassName from './useClassName';
 import useControlled from '../../hooks/useControlled';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
   const { expandIcon } = props;
+  const { ChevronRightCircleIcon } = useGlobalIcon({
+    ChevronRightCircleIcon: TdChevronRightCircleIcon,
+  });
   const [locale] = useLocaleReceiver('table');
   const { tableExpandClasses, positiveRotate90, tableFullRowClasses } = useClassName();
   // controlled and uncontrolled

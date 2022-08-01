@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import { StyledProps } from '../common';
 import { TdAnchorProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { canUseDocument, getScrollContainer } from '../_util/dom';
 import Affix from '../affix';

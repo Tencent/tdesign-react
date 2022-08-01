@@ -1,5 +1,5 @@
 import React from 'react';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export default function useTotal(props) {

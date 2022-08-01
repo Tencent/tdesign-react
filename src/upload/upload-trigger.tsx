@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { UploadIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import { UploadIcon as TdUploadIcon } from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { UploadConfig } from '../config-provider/type';
 
@@ -13,6 +14,9 @@ export interface UploadTriggerProps {
 
 const UploadTrigger: FC<UploadTriggerProps> = (props) => {
   const { classPrefix } = useConfig();
+  const { UploadIcon } = useGlobalIcon({
+    UploadIcon: TdUploadIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
 
   return (

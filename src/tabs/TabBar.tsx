@@ -1,6 +1,6 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 interface TabBarProps {
   tabPosition: string;

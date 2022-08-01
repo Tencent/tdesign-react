@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { ClassName } from '../common';
 
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 // 翻转箭头统一组件
 function FakeArrow(props: {

@@ -2,7 +2,11 @@ import React, { forwardRef, useEffect, useMemo, useRef, isValidElement } from 'r
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
-import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  CloseIcon as TdCloseIcon,
+  InfoCircleFilledIcon as TdInfoCircleFilledIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+} from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button, { ButtonProps } from '../button';
 import { TdDialogProps, DialogInstance } from './type';
@@ -10,7 +14,8 @@ import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
 import useSetState from '../_util/useSetState';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { dialogDefaultProps } from './defaultProps';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
@@ -38,6 +43,11 @@ const renderDialogButton = (btn: TdDialogProps['cancelBtn'], defaultProps: Butto
 
 const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) => {
   const { classPrefix } = useConfig();
+  const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
+    CloseIcon: TdCloseIcon,
+    InfoCircleFilledIcon: TdInfoCircleFilledIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+  });
   const dialogDom = useRef<HTMLDivElement>();
   const [state, setState] = useSetState<DialogProps>({
     width: 520,
@@ -121,6 +131,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
         {state.header}
       </div>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.header, state.theme, prefixCls, classPrefix]);
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {

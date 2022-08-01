@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import useConfig from './useConfig';
+import useConfig from '../hooks/useConfig';
 import { EAnimationType } from '../config-provider/ConfigContext';
 
 export default function useAnimation() {

@@ -1,10 +1,11 @@
 import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
-import { InfoCircleFilledIcon } from 'tdesign-icons-react';
+import { InfoCircleFilledIcon as TdInfoCircleFilledIcon } from 'tdesign-icons-react';
 import Button from '../button';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { PopconfirmProps } from './Popconfirm';
 import type { PopconfirmVisibleChangeContext } from './type';
 
@@ -12,6 +13,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
   const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
 
   const { classPrefix } = useConfig();
+  const { InfoCircleFilledIcon } = useGlobalIcon({ InfoCircleFilledIcon: TdInfoCircleFilledIcon });
 
   const hideCancel = cancelBtn === null || cancelBtn === undefined;
   const hideConfirm = confirmBtn === null || confirmBtn === undefined;

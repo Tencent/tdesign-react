@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdListItemMetaProps } from './type';
 
 export type ListItemMetaProps = TdListItemMetaProps;
