@@ -163,8 +163,8 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
   config = {
     ...config,
     // 参数未从外部设置时，使用全局默认配置，默认配置支持通过 setConfig 进行修改
-    zIndex: config.zIndex || globalConfig.zIndex,
-    offset: config.offset || globalConfig.offset,
+    zIndex: typeof config.zIndex !== 'undefined' ? config.zIndex : globalConfig.zIndex,
+    offset: typeof config.offset !== 'undefined' ? config.offset : globalConfig.offset,
     placement: config.placement || globalConfig.placement,
     attach: config.attach || globalConfig.attach,
   };
