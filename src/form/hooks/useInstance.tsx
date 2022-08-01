@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
 import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 function getMapValue(
   name: string | number | Array<string | number>,

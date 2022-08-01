@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import useControlled from '../../hooks/useControlled';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
+import { isValidDate, formatDate, formatTime, getDefaultFormat, parseToDayjs } from './useFormat';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
 // 初始化面板年份月份
-function initYearMonthTime(value: DateValue[], mode = 'date', format: string, timeFormat = 'HH:mm:ss') {
+export function initYearMonthTime(value: DateValue[], mode = 'date', format: string, timeFormat = 'HH:mm:ss') {
   const defaultYearMonthTime = {
     year: [dayjs().year(), dayjs().year()],
     month: [dayjs().month(), dayjs().month()],
@@ -16,9 +16,9 @@ function initYearMonthTime(value: DateValue[], mode = 'date', format: string, ti
   };
   if (mode === 'year') {
     defaultYearMonthTime.year[1] += 10;
-  } else if (mode === 'month') {
+  } else if (mode === 'month' || mode === 'quarter') {
     defaultYearMonthTime.year[1] += 1;
-  } else if (mode === 'date') {
+  } else if (mode === 'date' || mode === 'week') {
     defaultYearMonthTime.month[1] += 1;
   }
 
@@ -27,9 +27,9 @@ function initYearMonthTime(value: DateValue[], mode = 'date', format: string, ti
   }
 
   return {
-    year: value.map((v) => dayjs(v, format).year() || dayjs(v).year()),
-    month: value.map((v) => dayjs(v, format).month() || dayjs(v).month()),
-    time: value.map((v) => dayjs(v, format).format(timeFormat) || dayjs(v).format(timeFormat)),
+    year: value.map((v) => parseToDayjs(v, format).year()),
+    month: value.map((v) => parseToDayjs(v, format).month()),
+    time: value.map((v) => parseToDayjs(v, format).format(timeFormat)),
   };
 }
 

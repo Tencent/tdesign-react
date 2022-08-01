@@ -6,7 +6,7 @@ import debounce from 'lodash/debounce';
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import noop from '../../_util/noop';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 import {

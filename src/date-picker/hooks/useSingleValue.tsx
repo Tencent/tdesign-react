@@ -6,7 +6,7 @@ import { TdDatePickerProps } from '../type';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
 
 export default function useSingleValue(props: TdDatePickerProps) {
-  const [value, onChange] = useControlled<string, any>(props, 'value', props.onChange);
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
 
   const { format, valueType, timeFormat } = getDefaultFormat({
     mode: props.mode,

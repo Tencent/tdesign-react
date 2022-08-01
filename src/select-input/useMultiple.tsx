@@ -5,7 +5,7 @@ import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys } from '.
 import TagInput, { TagInputValue } from '../tag-input';
 import { SelectInputCommonProperties } from './interface';
 import useControlled from '../hooks/useControlled';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;

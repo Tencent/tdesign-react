@@ -8,7 +8,7 @@ import Dragger from './dragger';
 import UploadTrigger from './upload-trigger';
 import Tips from './tips';
 import request from '../_common/js/upload/xhr';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';

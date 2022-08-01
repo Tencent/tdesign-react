@@ -6,7 +6,7 @@ import { SelectInputCommonProperties } from './interface';
 import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
 export interface RenderSelectSingleInputParams {

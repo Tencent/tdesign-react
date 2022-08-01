@@ -3,9 +3,10 @@ import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
-import { SearchIcon } from 'tdesign-icons-react';
+import { SearchIcon as TdSearchIcon } from 'tdesign-icons-react';
 import { getLeafNodes } from './utils';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TdTransferProps, TransferValue } from './type';
 import { TNode, StyledProps } from '../common';
 import Checkbox from '../checkbox';
@@ -56,6 +57,9 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   }, [checked, notDisabledData]);
 
   const { classPrefix } = useConfig();
+  const { SearchIcon } = useGlobalIcon({
+    SearchIcon: TdSearchIcon,
+  });
   const CLASSPREFIX = `${classPrefix}-transfer__list`;
   const [local, t] = useLocaleReceiver('transfer');
 

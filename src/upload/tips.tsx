@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface TipsProps {
   type?: 'error' | 'default';

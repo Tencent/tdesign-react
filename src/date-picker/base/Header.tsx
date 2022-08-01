@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import Select from '../../select';
 import { TdDatePickerProps } from '../type';
 import Jumper, { TdJumperProps } from '../../jumper';

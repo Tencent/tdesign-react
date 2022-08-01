@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdRadioGroupProps } from './type';
 import useControlled from '../hooks/useControlled';
 import useCommonClassName from '../_util/useCommonClassName';

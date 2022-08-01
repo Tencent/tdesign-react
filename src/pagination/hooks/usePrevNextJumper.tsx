@@ -1,10 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../../_util/useConfig';
+import { ChevronLeftIcon as TdChevronLeftIcon, ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 
 export default function usePrevNextJumper(props) {
   const { classPrefix } = useConfig();
+  const { ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
   const name = `${classPrefix}-pagination`;
 
   const { showPreviousAndNextBtn, disabled, current, pageCount, changeCurrent } = props;

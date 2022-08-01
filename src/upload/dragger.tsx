@@ -4,7 +4,7 @@ import { TNode } from '../common';
 import { TriggerContext, UploadFile, UploadRemoveContext } from './type';
 import { CustomDraggerRenderProps } from './types';
 import { UploadConfig } from '../config-provider/type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import DraggerProgress from './themes/dragger-progress';
 

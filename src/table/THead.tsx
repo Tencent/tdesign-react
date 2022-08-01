@@ -5,7 +5,7 @@ import { getColumnFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
 import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
 import useClassName from './hooks/useClassName';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { BaseTableCol, TableRowData } from './type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './Ellipsis';

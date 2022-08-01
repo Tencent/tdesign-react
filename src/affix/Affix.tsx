@@ -3,7 +3,7 @@ import isFunction from 'lodash/isFunction';
 import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { affixDefaultProps } from './defaultProps';
 
 export interface AffixProps extends TdAffixProps, StyledProps {

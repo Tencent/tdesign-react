@@ -4,7 +4,7 @@ import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
 
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../common';
 import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';

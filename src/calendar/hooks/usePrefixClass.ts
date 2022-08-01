@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 export default function usePrefixClass() {
   const { classPrefix } = useConfig();

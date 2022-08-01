@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import Popup, { PopupVisibleChangeContext } from '../popup';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdTooltipProps } from './type';
 import { tooltipDefaultProps } from './defaultProps';
 

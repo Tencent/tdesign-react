@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { SwiperProps } from './Swiper';
 
 export interface SwiperItemProps extends SwiperProps {

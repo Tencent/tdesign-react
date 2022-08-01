@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps, TdCheckboxProps } from './type';
 import { StyledProps } from '../common';
@@ -151,9 +151,9 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
                   const vs = v as CheckboxOptionObj;
                   // CheckAll 的 checkBox 不存在 value,故用 checkAll_index 来保证尽量不和用户的 value 冲突.
                   return vs.checkAll ? (
-                    <Checkbox {...v} key={`checkAll_${index}`} indeterminate={indeterminate} />
+                    <Checkbox {...vs} key={`checkAll_${index}`} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox {...v} key={index} disabled={vs.disabled || disabled} />
+                    <Checkbox {...vs} key={index} disabled={vs.disabled || disabled} />
                   );
                 }
                 default:

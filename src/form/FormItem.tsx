@@ -2,8 +2,13 @@ import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect,
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import lodashTemplate from 'lodash/template';
-import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type';
 import { StyledProps } from '../common';
 import { validate as validateModal } from './formModel';
@@ -33,6 +38,11 @@ export interface FormItemInstance {
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const { classPrefix, form: globalFormConfig } = useConfig();
+  const { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
   const {
     colon,
     layout,

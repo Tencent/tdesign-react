@@ -112,7 +112,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     const partialIndex = partial === 'start' ? 0 : 1;
 
     const triggerMap = { '-1': 'arrow-previous', 1: 'arrow-next' };
-    const monthCountMap = { date: 1, week: 1, month: 12, year: 120 };
+    const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
     const current = new Date(year[partialIndex], month[partialIndex]);
 

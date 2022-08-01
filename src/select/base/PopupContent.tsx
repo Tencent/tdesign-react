@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
 import { TdSelectProps, SelectValue, TdOptionProps, SelectValueChangeTrigger } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import Option, { SelectOptionProps } from './Option';
 
 type OptionsType = TdOptionProps[];
