@@ -1,7 +1,7 @@
 import React, { MouseEvent, useState, useCallback } from 'react';
 import Tooltip from '../tooltip';
 import { TdRateProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { rateDefaultProps } from './defaultProps';
 
