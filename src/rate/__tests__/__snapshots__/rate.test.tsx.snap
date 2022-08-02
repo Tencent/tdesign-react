@@ -1096,107 +1096,127 @@ exports[`texts.jsx 1`] = `
     <div
       class="t-popup__reference t-rate__wrapper"
     >
-      <div
-        class="t-rate__wrapper"
-        style="margin-right: 6px; color: rgb(237, 123, 47);"
+      <span
+        class="t-tooltip-trigger"
       >
-        <svg
-          fill="none"
-          height="20"
-          viewBox="0 0 16 16"
-          width="20"
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; color: rgb(237, 123, 47);"
         >
-          <path
-            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </div>
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </span>
     </div>
     <div
       class="t-popup__reference t-rate__wrapper"
     >
-      <div
-        class="t-rate__wrapper"
-        style="margin-right: 6px; color: rgb(237, 123, 47);"
+      <span
+        class="t-tooltip-trigger"
       >
-        <svg
-          fill="none"
-          height="20"
-          viewBox="0 0 16 16"
-          width="20"
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; color: rgb(237, 123, 47);"
         >
-          <path
-            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </div>
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </span>
     </div>
     <div
       class="t-popup__reference t-rate__wrapper"
     >
-      <div
-        class="t-rate__wrapper"
-        style="margin-right: 6px; color: rgb(237, 123, 47);"
+      <span
+        class="t-tooltip-trigger"
       >
-        <svg
-          fill="none"
-          height="20"
-          viewBox="0 0 16 16"
-          width="20"
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; color: rgb(237, 123, 47);"
         >
-          <path
-            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </div>
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </span>
     </div>
     <div
       class="t-popup__reference t-rate__wrapper"
     >
-      <div
-        class="t-rate__wrapper"
-        style="margin-right: 6px; color: rgb(237, 123, 47);"
+      <span
+        class="t-tooltip-trigger"
       >
-        <svg
-          fill="none"
-          height="20"
-          viewBox="0 0 16 16"
-          width="20"
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; color: rgb(237, 123, 47);"
         >
-          <path
-            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </div>
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </span>
     </div>
     <div
       class="t-popup__reference t-rate__wrapper"
     >
-      <div
-        class="t-rate__wrapper"
-        style="color: rgb(231, 231, 231);"
+      <span
+        class="t-tooltip-trigger"
       >
-        <svg
-          fill="none"
-          height="20"
-          viewBox="0 0 16 16"
-          width="20"
+        <div
+          class="t-rate__wrapper"
+          style="color: rgb(231, 231, 231);"
         >
-          <path
-            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </div>
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </span>
     </div>
     <div
       class="t-rate__text"

@@ -5,16 +5,20 @@ exports[`arrow.jsx 1`] = `
   <div
     class="t-popup__reference"
   >
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      type="button"
+    <span
+      class="t-tooltip-trigger"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
       >
-        默认文字提示
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          默认文字提示
+        </span>
+      </button>
+    </span>
   </div>
 </DocumentFragment>
 `;
@@ -27,182 +31,230 @@ exports[`base.jsx 1`] = `
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; top: 0px; left: 42%;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; top: 0px; left: 42%;"
+          type="button"
         >
-          top
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            top
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; top: 0px; left: 70px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; top: 0px; left: 70px;"
+          type="button"
         >
-          top-left
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            top-left
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; top: 0px; right: 70px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; top: 0px; right: 70px;"
+          type="button"
         >
-          top-right
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            top-right
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; bottom: 0px; left: 42%;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; bottom: 0px; left: 42%;"
+          type="button"
         >
-          bottom
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            bottom
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
+          type="button"
         >
-          bottom-left
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            bottom-left
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; bottom: 0px; right: 70px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; bottom: 0px; right: 70px;"
+          type="button"
         >
-          bottom-right
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            bottom-right
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; left: 0px; top: 42%;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; left: 0px; top: 42%;"
+          type="button"
         >
-          left
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            left
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; left: 0px; top: 50px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; left: 0px; top: 50px;"
+          type="button"
         >
-          left-top
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            left-top
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; left: 0px; bottom: 50px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; left: 0px; bottom: 50px;"
+          type="button"
         >
-          left-bottom
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            left-bottom
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; right: 0px; top: 42%;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; right: 0px; top: 42%;"
+          type="button"
         >
-          right
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            right
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; right: 0px; top: 50px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; right: 0px; top: 50px;"
+          type="button"
         >
-          right-top
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            right-top
+          </span>
+        </button>
+      </span>
     </div>
     <div
       class="t-popup__reference"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: absolute; right: 0px; bottom: 50px;"
-        type="button"
+      <span
+        class="t-tooltip-trigger"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          style="position: absolute; right: 0px; bottom: 50px;"
+          type="button"
         >
-          right-bottom
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            right-bottom
+          </span>
+        </button>
+      </span>
     </div>
   </div>
 </DocumentFragment>
@@ -213,16 +265,20 @@ exports[`duration.jsx 1`] = `
   <div
     class="t-popup__reference"
   >
-    <button
-      class="t-button t-button--theme-default t-button--variant-text"
-      type="button"
+    <span
+      class="t-tooltip-trigger"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-text"
+        type="button"
       >
-        定时消失
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          定时消失
+        </span>
+      </button>
+    </span>
   </div>
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
@@ -242,12 +298,16 @@ exports[`mouse.jsx 1`] = `
   <div
     class="t-popup__reference"
   >
-    <a
-      href="#"
-      id="testa"
+    <span
+      class="t-tooltip-trigger"
     >
-      文案比较长...
-    </a>
+      <a
+        href="#"
+        id="testa"
+      >
+        文案比较长...
+      </a>
+    </span>
   </div>
 </DocumentFragment>
 `;
@@ -257,16 +317,20 @@ exports[`no-arrow.jsx 1`] = `
   <div
     class="t-popup__reference"
   >
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      type="button"
+    <span
+      class="t-tooltip-trigger"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
       >
-        不带箭头等文字提示
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          不带箭头等文字提示
+        </span>
+      </button>
+    </span>
   </div>
 </DocumentFragment>
 `;
@@ -283,16 +347,20 @@ exports[`theme.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-default t-button--variant-base"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
           >
-            default
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              default
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -301,16 +369,20 @@ exports[`theme.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-primary t-button--variant-base"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
           >
-            primary
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              primary
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -319,16 +391,20 @@ exports[`theme.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-success t-button--variant-base"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-success t-button--variant-base"
+            type="button"
           >
-            success
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              success
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -337,16 +413,20 @@ exports[`theme.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-danger t-button--variant-base"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-danger t-button--variant-base"
+            type="button"
           >
-            danger
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              danger
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -355,16 +435,20 @@ exports[`theme.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-warning t-button--variant-base"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-warning t-button--variant-base"
+            type="button"
           >
-            warning
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              warning
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -373,16 +457,20 @@ exports[`theme.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-default t-button--variant-outline"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-default t-button--variant-outline"
+            type="button"
           >
-            light
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              light
+            </span>
+          </button>
+        </span>
       </div>
     </div>
   </div>
@@ -401,16 +489,20 @@ exports[`trigger.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-default t-button--variant-outline"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-default t-button--variant-outline"
+            type="button"
           >
-            悬浮时触发（默认）
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              悬浮时触发（默认）
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -419,20 +511,24 @@ exports[`trigger.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <div
-          class="t-input__wrap"
+        <span
+          class="t-tooltip-trigger"
         >
           <div
-            class="t-input t-size-m t-align-left t-is-default"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              placeholder="获得焦点时触发"
-              type="text"
-              value=""
-            />
+            <div
+              class="t-input t-size-m t-align-left t-is-default"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="获得焦点时触发"
+                type="text"
+                value=""
+              />
+            </div>
           </div>
-        </div>
+        </span>
       </div>
     </div>
     <div
@@ -441,16 +537,20 @@ exports[`trigger.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-default t-button--variant-outline"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-default t-button--variant-outline"
+            type="button"
           >
-            点击时触发
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              点击时触发
+            </span>
+          </button>
+        </span>
       </div>
     </div>
     <div
@@ -459,16 +559,20 @@ exports[`trigger.jsx 1`] = `
       <div
         class="t-popup__reference"
       >
-        <button
-          class="t-button t-button--theme-default t-button--variant-outline"
-          type="button"
+        <span
+          class="t-tooltip-trigger"
         >
-          <span
-            class="t-button__text"
+          <button
+            class="t-button t-button--theme-default t-button--variant-outline"
+            type="button"
           >
-            右击时触发
-          </span>
-        </button>
+            <span
+              class="t-button__text"
+            >
+              右击时触发
+            </span>
+          </button>
+        </span>
       </div>
     </div>
   </div>

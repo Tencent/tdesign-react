@@ -161,9 +161,13 @@ exports[`collapsed.jsx 1`] = `
                 class="t-popup__reference"
               >
                 <span
-                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                  class="t-tooltip-trigger"
                 >
-                  更多...
+                  <span
+                    class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                  >
+                    更多...
+                  </span>
                 </span>
               </div>
             </div>

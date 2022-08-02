@@ -444,14 +444,18 @@ exports[`size.jsx 1`] = `
         <div
           class="t-popup__reference"
         >
-          <div
-            class="t-slider__button-wrapper"
-            style="left: 8%;"
+          <span
+            class="t-tooltip-trigger"
           >
             <div
-              class="t-slider__button"
-            />
-          </div>
+              class="t-slider__button-wrapper"
+              style="left: 8%;"
+            >
+              <div
+                class="t-slider__button"
+              />
+            </div>
+          </span>
         </div>
         <div />
         <div
