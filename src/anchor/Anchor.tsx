@@ -103,7 +103,7 @@ const Anchor = forwardRefWithStatics(
 
     useEffect(() => {
       // update point style
-      const pointEl = anchorEl.current.querySelector(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
+      const pointEl = anchorEl.current.querySelector?.(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
       if (!pointEl) {
         setCursorStyle(null);
       } else {

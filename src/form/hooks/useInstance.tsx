@@ -95,7 +95,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 校验不通过时，滚动到第一个错误表单
   function scrollTo(selector: string) {
-    const dom = formRef.current.querySelector(selector);
+    const dom = formRef.current.querySelector?.(selector);
     const behavior = scrollToFirstError as ScrollBehavior;
     dom && dom.scrollIntoView({ behavior });
   }
