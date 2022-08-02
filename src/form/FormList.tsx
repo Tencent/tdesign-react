@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
 import { TdFormListProps, FormListFieldOperation, FormListField } from './type';
+import log from '../_common/js/log';
 
 let key = 0;
 
@@ -200,7 +201,7 @@ const FormList = (props: TdFormListProps) => {
   );
 
   if (typeof children !== 'function') {
-    console.error(`FormList's children must be a function!`);
+    log.error('Form', `FormList's children must be a function!`);
     return null;
   }
 

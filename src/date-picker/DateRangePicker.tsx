@@ -11,6 +11,7 @@ import { initYearMonthTime } from './hooks/useRangeValue';
 import { parseToDayjs, formatTime, formatDate, isValidDate, getDefaultFormat } from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import { dateRangePickerDefaultProps } from './defaultProps';
+import log from '../_common/js/log';
 
 export interface DateRangePickerProps extends TdDateRangePickerProps, StyledProps {}
 
@@ -257,7 +258,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       presetValue = preset();
     }
     if (!Array.isArray(presetValue)) {
-      console.error(`preset: ${preset} 预设值必须是数组!`);
+      log.error('DateRangePicker', `preset: ${preset} 预设值必须是数组!`);
     } else {
       onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
         dayjsValue: presetValue.map((p) => dayjs(p)),

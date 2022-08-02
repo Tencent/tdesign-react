@@ -11,6 +11,7 @@ import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
 import { formatDate, getDefaultFormat } from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
+import log from '../_common/js/log';
 
 export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
@@ -227,7 +228,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
 
     if (!Array.isArray(presetVal)) {
-      console.error(`preset: ${presetValue} 预设值必须是数组!`);
+      log.error('DateRangePickerPanel', `preset: ${presetValue} 预设值必须是数组!`);
     } else {
       onChange(formatDate(presetVal, { format, targetFormat: valueType }), {
         dayjsValue: presetVal.map((p) => dayjs(p)),

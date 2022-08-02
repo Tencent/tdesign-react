@@ -20,6 +20,7 @@ import type { ProgressContext, RequestMethodResponse, SuccessContext, UploadFile
 import useControlled from '../hooks/useControlled';
 import useSizeLimit from './hooks/useSizeLimit';
 import { uploadDefaultProps } from './defaultProps';
+import log from '../_common/js/log';
 
 const Upload = forwardRef((props: UploadProps, ref) => {
   const {
@@ -222,7 +223,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
         return;
       }
       if (!action && !requestMethod) {
-        console.error('TDesign Upload Error: action or requestMethod is required.');
+        log.error('Upload', 'TDesign Upload Error: action or requestMethod is required.');
         return;
       }
       setErrorMsg('');
@@ -262,17 +263,18 @@ const Upload = forwardRef((props: UploadProps, ref) => {
 
   function handleRequestMethodResponse(res: RequestMethodResponse) {
     if (!res) {
-      console.error('TDesign Upload Error: `requestMethodResponse` is required.');
+      log.error('Upload', 'TDesign Upload Error: `requestMethodResponse` is required.');
       return false;
     }
     if (!res.status) {
-      console.error(
+      log.error(
+        'Upload',
         'TDesign Upload Error: `requestMethodResponse.status` is missing, which value is `success` or `fail`',
       );
       return false;
     }
     if (!['success', 'fail'].includes(res.status)) {
-      console.error('TDesign Upload Error: `requestMethodResponse.status` must be `success` or `fail`');
+      log.error('Upload', 'TDesign Upload Error: `requestMethodResponse.status` must be `success` or `fail`');
       return false;
     }
     if (res.status === 'success' && (!res.response || !res.response.url)) {

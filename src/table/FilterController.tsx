@@ -12,6 +12,7 @@ import TButton from '../button';
 import { PrimaryTableCol, FilterValue, TableRowData } from './type';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import log from '../_common/js/log';
 
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
@@ -57,7 +58,7 @@ export default function TableFilterController(props: TableFilterControllerProps)
   const getFilterContent = (column: PrimaryTableCol) => {
     const types = ['single', 'multiple', 'input'];
     if (column.type && !types.includes(column.filter.type)) {
-      console.error(`TDesign Table Error: column.filter.type must be the following: ${JSON.stringify(types)}`);
+      log.error('Table', `TDesign Table Error: column.filter.type must be the following: ${JSON.stringify(types)}`);
       return;
     }
     const Component = {
