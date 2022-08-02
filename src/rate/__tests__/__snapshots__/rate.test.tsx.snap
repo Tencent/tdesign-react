@@ -5,176 +5,431 @@ exports[`Rate 组件测试 count 1`] = `
   <div
     class="t-rate"
   >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
+    <ul
+      class="t-rate__list"
+      style="gap: 4px;"
     >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
 `;
@@ -184,91 +439,221 @@ exports[`Rate 组件测试 create 1`] = `
   <div
     class="t-rate"
   >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
+    <ul
+      class="t-rate__list"
+      style="gap: 4px;"
     >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
 `;
@@ -278,219 +663,529 @@ exports[`base.jsx 1`] = `
   <div
     class="t-rate"
   >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
+    <ul
+      class="t-rate__list"
+      style="gap: 4px;"
     >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+    </ul>
   </div>
 </DocumentFragment>
 `;
 
-exports[`mulit.jsx 1`] = `
+exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-rate"
   >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
+    <ul
+      class="t-rate__list"
+      style="gap: 4px;"
     >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="t-rate__item"
       >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
+        <div
+          class="t-rate__star-top"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="#ED7B2F"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__star-bottom"
+        >
+          <svg
+            class="t-icon t-icon-star-filled"
+            color="var(--td-bg-color-component)"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </li>
+    </ul>
   </div>
 </DocumentFragment>
 `;
@@ -499,100 +1194,14 @@ exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-space t-space-vertical"
-    style="gap: 16px; text-align: center;"
+    style="gap: 16px;"
   >
     <div
       class="t-space-item"
     >
-      <div
-        class="t-rate"
-      >
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="width: 16px; height: 16px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-      </div>
+      <h3>
+        16px
+      </h3>
     </div>
     <div
       class="t-space-item"
@@ -600,92 +1209,229 @@ exports[`size.jsx 1`] = `
       <div
         class="t-rate"
       >
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
+        <ul
+          class="t-rate__list"
+          style="gap: 4px;"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 16px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+        </ul>
       </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <h3>
+        24px
+      </h3>
     </div>
     <div
       class="t-space-item"
@@ -693,91 +1439,221 @@ exports[`size.jsx 1`] = `
       <div
         class="t-rate"
       >
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
+        <ul
+          class="t-rate__list"
+          style="gap: 4px;"
         >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 16 16"
-            width="24"
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 16 16"
-            width="24"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 16 16"
-            width="24"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 16 16"
-            width="24"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="width: 24px; height: 24px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 16 16"
-            width="24"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -793,95 +1669,9 @@ exports[`status.jsx 1`] = `
     <div
       class="t-space-item"
     >
-      <div
-        class="t-rate"
-      >
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(231, 231, 231);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(231, 231, 231);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(231, 231, 231);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(231, 231, 231);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="color: rgb(231, 231, 231);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-      </div>
+      <h3>
+        未评分状态
+      </h3>
     </div>
     <div
       class="t-space-item"
@@ -889,199 +1679,681 @@ exports[`status.jsx 1`] = `
       <div
         class="t-rate"
       >
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
+        <ul
+          class="t-rate__list"
+          style="gap: 4px;"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <li
+            class="t-rate__item"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-space-item"
-    >
-      <div
-        class="t-rate"
-      >
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-rate__wrapper"
-          style="color: rgb(237, 123, 47);"
-        >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
-          >
-            <defs>
-              <lineargradient
-                id="half_grad"
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
               >
-                <stop
-                  offset="50%"
-                  stop-color="currentColor"
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
                 />
-                <stop
-                  offset="50%"
-                  stop-color="white"
-                  stop-opacity="1"
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
                 />
-              </lineargradient>
-            </defs>
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="url(#half_grad)"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </div>
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <h3>
+        满分状态
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <ul
+          class="t-rate__list"
+          style="gap: 4px;"
+        >
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <h3>
+        半星状态
+      </h3>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <ul
+          class="t-rate__list"
+          style="gap: 4px;"
+        >
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--full"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+          <li
+            class="t-rate__item t-rate__item--half"
+          >
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -1093,131 +2365,261 @@ exports[`texts.jsx 1`] = `
   <div
     class="t-rate"
   >
-    <div
-      class="t-popup__reference t-rate__wrapper"
+    <ul
+      class="t-rate__list"
+      style="gap: 4px;"
     >
-      <span
-        class="t-tooltip-trigger"
+      <li
+        class="t-rate__item t-rate__item--full"
       >
         <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
+          class="t-popup__reference"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <span
+            class="t-trigger"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </span>
         </div>
-      </span>
-    </div>
-    <div
-      class="t-popup__reference t-rate__wrapper"
-    >
-      <span
-        class="t-tooltip-trigger"
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
         <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
+          class="t-popup__reference"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <span
+            class="t-trigger"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </span>
         </div>
-      </span>
-    </div>
-    <div
-      class="t-popup__reference t-rate__wrapper"
-    >
-      <span
-        class="t-tooltip-trigger"
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
         <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
+          class="t-popup__reference"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <span
+            class="t-trigger"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </span>
         </div>
-      </span>
-    </div>
-    <div
-      class="t-popup__reference t-rate__wrapper"
-    >
-      <span
-        class="t-tooltip-trigger"
+      </li>
+      <li
+        class="t-rate__item t-rate__item--full"
       >
         <div
-          class="t-rate__wrapper"
-          style="margin-right: 6px; color: rgb(237, 123, 47);"
+          class="t-popup__reference"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <span
+            class="t-trigger"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </span>
         </div>
-      </span>
-    </div>
-    <div
-      class="t-popup__reference t-rate__wrapper"
-    >
-      <span
-        class="t-tooltip-trigger"
+      </li>
+      <li
+        class="t-rate__item"
       >
         <div
-          class="t-rate__wrapper"
-          style="color: rgb(231, 231, 231);"
+          class="t-popup__reference"
         >
-          <svg
-            fill="none"
-            height="20"
-            viewBox="0 0 16 16"
-            width="20"
+          <span
+            class="t-trigger"
           >
-            <path
-              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
+            <div
+              class="t-rate__star-top"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="#ED7B2F"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-rate__star-bottom"
+            >
+              <svg
+                class="t-icon t-icon-star-filled"
+                color="var(--td-bg-color-component)"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M7.6 1.82a.45.45 0 01.8 0l1.8 3.65 4.03.58c.37.05.52.5.25.77l-2.91 2.84.69 4a.45.45 0 01-.66.48L8 12.25l-3.6 1.9a.45.45 0 01-.65-.48l.68-4.01-2.9-2.84a.45.45 0 01.24-.77l4.03-.58 1.8-3.65z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </span>
         </div>
-      </span>
-    </div>
+      </li>
+    </ul>
     <div
       class="t-rate__text"
     >
