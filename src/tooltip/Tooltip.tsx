@@ -5,7 +5,6 @@ import React, {
   useRef,
   useImperativeHandle,
   cloneElement,
-  useMemo,
   isValidElement,
 } from 'react';
 import classNames from 'classnames';
@@ -61,24 +60,21 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     };
   };
 
-  const triggerChildren = useMemo(() => {
-    if (React.Children.count(children) === 1 && isValidElement(children)) {
-      const displayName = (children as JSX.Element).type?.displayName;
-      // disable情况下button不响应mouse事件，但需要展示tooltip，所以要包裹一层
-      if ((children.type === 'button' || displayName === 'Button') && children?.props?.disabled) {
-        const displayStyle = children.props?.style?.display ? children.props.style.display : 'inline-block';
-        const child = cloneElement(children, {
-          style: {
-            ...children.props.style,
-            pointerEvents: 'none',
-          },
-        });
-        return <span style={{ display: displayStyle, cursor: 'not-allowed' }}>{child}</span>;
-      }
-      return <span className={`${classPrefix}-tooltip-trigger`}>{children}</span>;
+  const getTriggerChildren = (children) => {
+    const displayName = children.type?.displayName;
+    // disable情况下button不响应mouse事件，但需要展示tooltip，所以要包裹一层
+    if ((children.type === 'button' || displayName === 'Button') && children?.props?.disabled) {
+      const displayStyle = children.props?.style?.display ? children.props.style.display : 'inline-block';
+      const child = cloneElement(children, {
+        style: {
+          ...children.props.style,
+          pointerEvents: 'none',
+        },
+      });
+      return <span style={{ display: displayStyle, cursor: 'not-allowed' }}>{child}</span>;
     }
     return children;
-  }, [children, classPrefix]);
+  };
 
   const handleShowTip = (visible: boolean, { e, trigger }: PopupVisibleChangeContext) => {
     if (duration === 0 || (duration !== 0 && timeup)) {
@@ -125,7 +121,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
       placement={isPlacedByMouse ? 'bottom-left' : placement}
       {...restProps}
     >
-      {triggerChildren}
+      {isValidElement(children) ? getTriggerChildren(children) : children}
     </Popup>
   );
 });

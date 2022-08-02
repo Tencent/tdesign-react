@@ -23,6 +23,8 @@ import { PopupVisibleChangeContext } from '../../popup';
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
   children?: React.ReactNode;
+  onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 type OptionsType = TdOptionProps[];
@@ -397,12 +399,19 @@ const Select = forwardRefWithStatics(
       [classPrefix],
     );
 
+    const { onMouseEnter, onMouseLeave } = props;
+
     return (
-      <div className={classNames(`${name}__wrap`, className)} style={style}>
+      <div
+        className={classNames(`${name}__wrap`, className)}
+        style={style}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <SelectInput
           autoWidth={!style?.width && autoWidth}
-          className={name}
           ref={ref}
+          className={name}
           readonly={readonly}
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
