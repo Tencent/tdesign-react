@@ -18,10 +18,6 @@ describe('Switch 组件测试', () => {
     const { queryByText } = render(<Switch value={false} label={({ value }) => (value ? '开' : '关')} />);
     expect(queryByText('关')).toBeInTheDocument();
   });
-  test('customValue', async () => {
-    const thrown = () => render(<Switch value={true} customValue={[1, 2]} />);
-    expect(thrown).toThrow();
-  });
   test('loading', async () => {
     const { container } = render(<Switch loading />);
     expect(container.firstChild.classList.contains('t-is-loading')).toBeTruthy();
