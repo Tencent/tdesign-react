@@ -25,7 +25,7 @@ export default function useMutationObservable(
   }, [cb, options]);
 
   useEffect(() => {
-    if (!targetEl) return;
+    if (!targetEl || !targetEl?.nodeType) return;
 
     const { config } = options;
     try {
