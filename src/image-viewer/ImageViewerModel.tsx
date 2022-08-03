@@ -172,7 +172,7 @@ export const ImageViewerUtils = ({
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils--content`}>
         <Tooltip
-          overlayStyle={{ boxShadow: 'none' }}
+          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
           content="镜像"
           destroyOnClose
           placement="top"
@@ -184,7 +184,8 @@ export const ImageViewerUtils = ({
           </div>
         </Tooltip>
         <Tooltip
-          overlayStyle={{ boxShadow: 'none' }}
+          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
+          trigger="click"
           content="旋转"
           destroyOnClose
           placement="top"
@@ -203,7 +204,7 @@ export const ImageViewerUtils = ({
         />
         <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
         <Tooltip
-          overlayStyle={{ boxShadow: 'none' }}
+          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
           content="原始大小"
           destroyOnClose
           placement="top"
@@ -247,7 +248,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 
   const [isExpand, setIsExpand] = useState(true);
 
-  const transStyle = { transform: `translateX(-${currentIndex * 80}px)` };
+  const transStyle = { transform: `translateX(-${currentIndex * 75}px)` };
 
   return (
     <div
