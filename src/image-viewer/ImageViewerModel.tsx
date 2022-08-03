@@ -185,7 +185,6 @@ export const ImageViewerUtils = ({
         </Tooltip>
         <Tooltip
           overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          trigger="click"
           content="旋转"
           destroyOnClose
           placement="top"
@@ -248,7 +247,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 
   const [isExpand, setIsExpand] = useState(true);
 
-  const transStyle = { transform: `translateX(-${currentIndex * 75}px)` };
+  const transStyle = { transform: `translateX(-${currentIndex * 84}px)` };
 
   return (
     <div
@@ -257,7 +256,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
       })}
     >
       <ImageModelIcon
-        size="1.5em"
+        size="20px"
         name="chevron-down"
         className={`${classPrefix}-image-viewer__header--pre__bt`}
         onClick={() => setIsExpand(!isExpand)}

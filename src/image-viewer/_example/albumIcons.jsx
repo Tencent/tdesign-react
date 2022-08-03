@@ -45,7 +45,7 @@ export default function BasicImageViewer() {
             trigger="click"
             content={listCommon}
             placement="right-bottom"
-            overlayStyle={{ width: '140px' }}
+            overlayStyle={{ width: '140px', padding: '6px' }}
             destroyOnClose
           >
             <EllipsisIcon classname="t-image-viewer__ui-image--ellipsis" />
