@@ -112,6 +112,7 @@ const Image = (props: TdImageProps) => {
       {...rest}
     >
       {renderPlaceholder()}
+
       {renderGalleryShadow()}
 
       {hasError || !shouldLoad ? (
