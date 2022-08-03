@@ -12,7 +12,7 @@ import classNames from 'classnames';
 import { StyledProps } from '../common';
 import { TdInputNumberProps, ChangeContext as TdChangeContext } from './type';
 
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 import useUpdateEffect from '../_util/useUpdateEffect';
 

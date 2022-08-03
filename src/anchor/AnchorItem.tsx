@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import { TdAnchorItemProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { AnchorContext } from './AnchorContext';
 import { anchorItemDefaultProps } from './defaultProps';

@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useMemo, useImperativeHandle } from 'reac
 import { createPortal } from 'react-dom';
 import { AttachNode, AttachNodeReturnValue } from '../common';
 import { canUseDocument } from '../_util/dom';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface PortalProps {
   /**

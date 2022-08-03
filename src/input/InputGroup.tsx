@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   /**

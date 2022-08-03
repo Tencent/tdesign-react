@@ -11,7 +11,6 @@ exports[`base.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -215,7 +214,6 @@ exports[`creatable.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -445,7 +443,6 @@ exports[`filterable.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -525,7 +522,6 @@ exports[`filterable.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
-                style="width: 0px;"
                 type="text"
                 value=""
               />
@@ -571,7 +567,6 @@ exports[`group.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1033,7 +1028,6 @@ exports[`multiple.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
-                style="width: 0px;"
                 type="text"
                 value=""
               />
@@ -1349,7 +1343,6 @@ exports[`panel.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1400,7 +1393,6 @@ exports[`panel.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1506,7 +1498,6 @@ exports[`prefix.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1578,7 +1569,6 @@ exports[`remote-search.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1687,7 +1677,6 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1737,7 +1726,6 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1787,7 +1775,6 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-l t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1847,7 +1834,6 @@ exports[`status.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1897,7 +1883,6 @@ exports[`status.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1948,7 +1933,6 @@ exports[`status.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
-            value=""
           >
             <div
               class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"

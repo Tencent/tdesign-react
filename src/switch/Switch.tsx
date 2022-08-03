@@ -1,11 +1,12 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Loading from '../loading';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import useCommonClassName from '../_util/useCommonClassName';
 import { TdSwitchProps } from './type';
 import { switchDefaultProps } from './defaultProps';
+import log from '../_common/js/log';
 
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
@@ -49,7 +50,7 @@ const Switch = forwardRef((props: SwitchProps, ref: React.Ref<HTMLButtonElement>
 
   useEffect(() => {
     if (Array.isArray(customValue) && !customValue.includes(value)) {
-      throw `value is not in customValue: ${JSON.stringify(customValue)}`;
+      log.error('Switch', `value is not in customValue: ${JSON.stringify(customValue)}`);
     }
     isControlled && setInnerChecked(value === activeValue);
   }, [value, customValue, activeValue, isControlled]);

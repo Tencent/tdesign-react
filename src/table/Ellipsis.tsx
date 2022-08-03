@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import { TNode } from '../common';
 import { isNodeOverflow } from '../_util/dom';
 import TPopup, { PopupProps } from '../popup';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface EllipsisProps {
   content?: string | TNode;

@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+import useGlobalIcon from '../../../hooks/useGlobalIcon';
 import { COLOR_MODES } from '../../const';
 import Radio, { RadioValue } from '../../../radio';
 import { TdColorModes } from '../../interface';
@@ -14,6 +15,7 @@ export interface ColorPanelHeaderProps extends TdColorPickerProps {
 }
 
 const Header = (props: ColorPanelHeaderProps) => {
+  const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
   const { baseClassName, mode = 'monochrome', colorModes, togglePopup, closeBtn = true, onModeChange } = props;
 
   const handleClosePopup = () => {

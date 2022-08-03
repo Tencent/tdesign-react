@@ -2,9 +2,10 @@ import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import isFunction from 'lodash/isFunction';
-import { Edit1Icon } from 'tdesign-icons-react';
+import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { TableRowData, PrimaryTableCol, PrimaryTableRowEditContext, PrimaryTableRowValidateContext } from './type';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TableClassName } from './hooks/useClassName';
 import { renderCell } from './TR';
 import { validate } from '../form/formModel';
@@ -28,6 +29,7 @@ export interface EditableCellProps {
 
 const EditableCell = (props: EditableCellProps) => {
   const { row, col, rowIndex, colIndex, errors, editable, tableBaseClass } = props;
+  const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
   const [isEdit, setIsEdit] = useState(false);
   const [editValue, setEditValue] = useState();

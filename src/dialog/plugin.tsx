@@ -4,6 +4,7 @@ import DialogComponent, { DialogProps } from './Dialog';
 
 import { getAttach } from '../_util/dom';
 import { DialogOptions, DialogMethod, DialogConfirmMethod, DialogAlertMethod, DialogInstance } from './type';
+import log from '../_common/js/log';
 
 export interface DialogPluginType extends DialogMethod {
   alert?: DialogAlertMethod;
@@ -26,7 +27,7 @@ const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance =>
   if (container) {
     container.appendChild(fragment);
   } else {
-    console.error('attach is not exist');
+    log.error('Dialog', 'attach is not exist');
   }
 
   const dialogNode: DialogInstance = {

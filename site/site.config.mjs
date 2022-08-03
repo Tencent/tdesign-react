@@ -323,7 +323,7 @@ export default {
           title: 'Card 卡片',
           name: 'card',
           path: '/react/components/card',
-          component: () => import('tdesign-react/card/card.md')
+          component: () => import('tdesign-react/card/card.md'),
         },
         {
           title: 'Collapse 折叠面板',
@@ -402,6 +402,12 @@ export default {
           name: 'watermark',
           path: '/react/components/watermark',
           component: () => import('tdesign-react/watermark/watermark.md'),
+        },
+        {
+          title: 'Rate 评分',
+          name: 'rate',
+          path: '/react/components/rate',
+          component: () => import('tdesign-react/rate/rate.md'),
         },
       ],
     },

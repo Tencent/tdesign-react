@@ -36,10 +36,8 @@ export default function useOverlayStyle(props: overlayStyleProps) {
 
   const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
     if (readonly) return;
-    // 如果点击触发元素（输入框），则永久显示下拉框
-    const newVisible = context.trigger === 'trigger-element-click' ? true : visible;
-    setInnerPopupVisible(newVisible);
-    onPopupVisibleChange?.(newVisible, context);
+    setInnerPopupVisible(visible);
+    onPopupVisibleChange?.(visible, context);
   };
 
   const tOverlayStyle = useMemo(() => {

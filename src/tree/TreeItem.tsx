@@ -1,8 +1,9 @@
 import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
-import { CaretRightSmallIcon } from 'tdesign-icons-react';
+import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
 import useRipple from '../_util/useRipple';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import TreeNode from '../_common/js/tree/tree-node';
 import Checkbox from '../checkbox';
 import { useTreeConfig } from './useTreeConfig';
@@ -25,6 +26,10 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     onClick,
     onChange,
   } = props;
+
+  const { CaretRightSmallIcon } = useGlobalIcon({
+    CaretRightSmallIcon: TdCaretRightSmallIcon,
+  });
   const { level } = node;
 
   const { treeClassNames, locale } = useTreeConfig();

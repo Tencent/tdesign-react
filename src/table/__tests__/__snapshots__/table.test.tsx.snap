@@ -669,7 +669,6 @@ exports[`affix.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -1622,7 +1621,6 @@ exports[`base.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -2278,7 +2276,6 @@ exports[`custom-col.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -2897,7 +2894,6 @@ exports[`custom-col-button.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -5200,7 +5196,6 @@ exports[`editable-row.jsx 1`] = `
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
-                        style="width: 0px;"
                         type="text"
                         value="Eric"
                       />
@@ -5239,7 +5234,6 @@ exports[`editable-row.jsx 1`] = `
                             class="t-input__inner"
                             placeholder="请选择"
                             readonly=""
-                            style="width: 0px;"
                             type="text"
                             value="Vue"
                           />
@@ -7060,7 +7054,6 @@ exports[`filter-controlled.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -20504,7 +20497,6 @@ exports[`pagination.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
-                      style="width: 0px;"
                       type="text"
                       value="5 条/页"
                     />
@@ -20774,7 +20766,6 @@ exports[`pagination-ajax.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
-                      style="width: 0px;"
                       type="text"
                       value="5 条/页"
                     />
@@ -23290,7 +23281,6 @@ exports[`tree.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="10 条/页"
                         />

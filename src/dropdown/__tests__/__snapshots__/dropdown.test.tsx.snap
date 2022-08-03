@@ -12,18 +12,18 @@ exports[`base.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        <span
-          style="display: inline-flex;"
+        更多
+      </span>
+      <span
+        class="t-button__suffix"
+      >
+        <svg
+          class="t-icon t-icon-chevron-down"
         >
-          更多
-          <svg
-            class="t-icon t-icon-chevron-down"
-          >
-            <use
-              xlink:href="#t-icon-chevron-down"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
       </span>
     </button>
   </div>
@@ -67,18 +67,18 @@ exports[`child.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        <span
-          style="display: inline-flex;"
+        更多
+      </span>
+      <span
+        class="t-button__suffix"
+      >
+        <svg
+          class="t-icon t-icon-chevron-down"
         >
-          更多
-          <svg
-            class="t-icon t-icon-chevron-down"
-          >
-            <use
-              xlink:href="#t-icon-chevron-down"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
       </span>
     </button>
   </div>
@@ -135,18 +135,18 @@ exports[`disabled.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        <span
-          style="display: inline-flex;"
+        更多
+      </span>
+      <span
+        class="t-button__suffix"
+      >
+        <svg
+          class="t-icon t-icon-chevron-down"
         >
-          更多
-          <svg
-            class="t-icon t-icon-chevron-down"
-          >
-            <use
-              xlink:href="#t-icon-chevron-down"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
       </span>
     </button>
   </div>
@@ -209,18 +209,18 @@ exports[`split.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        <span
-          style="display: inline-flex;"
+        更多
+      </span>
+      <span
+        class="t-button__suffix"
+      >
+        <svg
+          class="t-icon t-icon-chevron-down"
         >
-          更多
-          <svg
-            class="t-icon t-icon-chevron-down"
-          >
-            <use
-              xlink:href="#t-icon-chevron-down"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
       </span>
     </button>
   </div>

@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import useControlled from '../../hooks/useControlled';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
+import { isValidDate, formatDate, formatTime, getDefaultFormat, parseToDayjs } from './useFormat';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
+import log from '../../_common/js/log';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
 // 初始化面板年份月份
-function initYearMonthTime(value: DateValue[], mode = 'date', format: string, timeFormat = 'HH:mm:ss') {
+export function initYearMonthTime(value: DateValue[], mode = 'date', format: string, timeFormat = 'HH:mm:ss') {
   const defaultYearMonthTime = {
     year: [dayjs().year(), dayjs().year()],
     month: [dayjs().month(), dayjs().month()],
@@ -16,9 +17,9 @@ function initYearMonthTime(value: DateValue[], mode = 'date', format: string, ti
   };
   if (mode === 'year') {
     defaultYearMonthTime.year[1] += 10;
-  } else if (mode === 'month') {
+  } else if (mode === 'month' || mode === 'quarter') {
     defaultYearMonthTime.year[1] += 1;
-  } else if (mode === 'date') {
+  } else if (mode === 'date' || mode === 'week') {
     defaultYearMonthTime.month[1] += 1;
   }
 
@@ -27,9 +28,9 @@ function initYearMonthTime(value: DateValue[], mode = 'date', format: string, ti
   }
 
   return {
-    year: value.map((v) => dayjs(v, format).year() || dayjs(v).year()),
-    month: value.map((v) => dayjs(v, format).month() || dayjs(v).month()),
-    time: value.map((v) => dayjs(v, format).format(timeFormat) || dayjs(v).format(timeFormat)),
+    year: value.map((v) => parseToDayjs(v, format).year()),
+    month: value.map((v) => parseToDayjs(v, format).month()),
+    time: value.map((v) => parseToDayjs(v, format).format(timeFormat)),
   };
 }
 
@@ -44,16 +45,20 @@ export default function useRange(props: TdDateRangePickerProps) {
   });
 
   if (props.enableTimePicker) {
-    if (!extractTimeFormat(format)) console.error(`format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+    if (!extractTimeFormat(format))
+      log.error('DatePicker', `format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
     if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
-      console.error(`valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+      log.error('DatePicker', `valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
 
   // warning invalid value
   if (!Array.isArray(value)) {
-    console.error(`typeof value: ${value} must be Array!`);
+    log.error('DatePicker', `typeof value: ${value} must be Array!`);
   } else if (!isValidDate(value, valueType)) {
-    console.error(`value: ${value} is invalid dateTime! Check whether the value is consistent with format: ${format}`);
+    log.error(
+      'DatePicker',
+      `value: ${value} is invalid dateTime! Check whether the value is consistent with format: ${format}`,
+    );
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭

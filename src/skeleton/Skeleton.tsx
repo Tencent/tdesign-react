@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 
 import { StyledProps, Styles } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { pxCompat } from '../_util/helper';
 import { skeletonDefaultProps } from './defaultProps';
 

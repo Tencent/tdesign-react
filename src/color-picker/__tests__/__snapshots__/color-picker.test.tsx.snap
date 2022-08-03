@@ -46,7 +46,6 @@ exports[`color-mode.jsx 1`] = `
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
-                    style="width: 0px;"
                     type="text"
                     value="#0052d9"
                   />
@@ -102,7 +101,6 @@ exports[`color-mode.jsx 1`] = `
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
-                    style="width: 0px;"
                     type="text"
                     value="#0052d9"
                   />
@@ -164,7 +162,6 @@ exports[`color-mode.jsx 1`] = `
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
-                    style="width: 0px;"
                     type="text"
                     value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
                   />
@@ -306,7 +303,6 @@ exports[`enable-alpha.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
-                    style="width: 0px;"
                     type="text"
                     value="RGB"
                   />
@@ -1097,7 +1093,6 @@ exports[`panel.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
-                    style="width: 0px;"
                     type="text"
                     value="RGB"
                   />
@@ -1876,7 +1871,6 @@ exports[`recent-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
@@ -2765,7 +2759,6 @@ exports[`recent-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
@@ -3423,7 +3416,6 @@ exports[`status-disabled.jsx 1`] = `
               class="t-input__inner"
               disabled=""
               placeholder="请输入"
-              style="width: 0px;"
               type="text"
               value="#0052d9"
             />
@@ -3549,7 +3541,6 @@ exports[`status-readonly.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
-                    style="width: 0px;"
                     type="text"
                     value="RGB"
                   />
@@ -4331,7 +4322,6 @@ exports[`swatch-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
@@ -4683,7 +4673,6 @@ exports[`swatch-color.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="RGB"
                         />
@@ -4881,7 +4870,6 @@ exports[`trigger.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="请输入"
-              style="width: 0px;"
               type="text"
               value="#0052d9"
             />

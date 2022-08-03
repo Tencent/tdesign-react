@@ -2,9 +2,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import difference from 'lodash/difference';
 import classnames from 'classnames';
 
-import { ChevronRightIcon, ChevronLeftIcon } from 'tdesign-icons-react';
+import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import Button from '../button';
 import TransferList from './TransferList';
 import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLeafNodes } from './utils';
@@ -64,6 +65,10 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const isCheckedControlled = 'checked' in props;
 
   const { classPrefix } = useConfig();
+  const { ChevronRightIcon, ChevronLeftIcon } = useGlobalIcon({
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
   const transferClassName = `${classPrefix}-transfer`;
 
   const [local, t] = useLocaleReceiver('transfer');
