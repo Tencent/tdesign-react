@@ -71,8 +71,8 @@ const Image = (props: TdImageProps) => {
     return (
       <div
         className={classNames(
-          `${classPrefix}-image-overlay-content`,
-          !shouldShowOverlay && `${classPrefix}-image-overlay-content--hidden`,
+          `${classPrefix}-image__overlay-content`,
+          !shouldShowOverlay && `${classPrefix}-image__overlay-content--hidden`,
         )}
       >
         {overlayContent}
@@ -84,22 +84,22 @@ const Image = (props: TdImageProps) => {
     if (!placeholder) {
       return null;
     }
-    return <div className={`${classPrefix}-image-placeholder`}>{placeholder}</div>;
+    return <div className={`${classPrefix}-image__placeholder`}>{placeholder}</div>;
   };
 
   const renderGalleryShadow = () => {
     if (!gallery) return null;
-    return <div className={`${classPrefix}-image-gallery-shadow`} />;
+    return <div className={`${classPrefix}-image__gallery-shadow`} />;
   };
 
   return (
     <div
       ref={imageRef}
       className={classNames(
-        `${classPrefix}-image-wrapper`,
-        `${classPrefix}-image-wrapper_shape--${shape}`,
-        gallery && `${classPrefix}-image-wrapper_gallery`,
-        hasMouseEvent && `${classPrefix}-image-wrapper--need-hover`,
+        `${classPrefix}-image__wrapper`,
+        `${classPrefix}-image__wrapper--shape-${shape}`,
+        gallery && `${classPrefix}-image__wrapper--gallery`,
+        hasMouseEvent && `${classPrefix}-image__wrapper--need-hover`,
         className,
       )}
       style={style}
@@ -124,16 +124,16 @@ const Image = (props: TdImageProps) => {
             onLoad={handleLoad}
             className={classNames(
               `${classPrefix}-image`,
-              `${classPrefix}-image_fit--${fit}`,
-              `${classPrefix}-image_position--${position}`,
+              `${classPrefix}-image--fit-${fit}`,
+              `${classPrefix}-image--position-${position}`,
             )}
             alt={alt}
           />
-          {!isLoaded && loading && <div className={`${classPrefix}-image-loading`}>{loading}</div>}
+          {!isLoaded && loading && <div className={`${classPrefix}-image__loading`}>{loading}</div>}
         </Fragment>
       )}
 
-      {hasError && <div className={`${classPrefix}-image-error`}>{error}</div>}
+      {hasError && <div className={`${classPrefix}-image__error`}>{error}</div>}
 
       {renderOverlay()}
     </div>
