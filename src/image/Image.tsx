@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import observe from '../_common/js/utils/observe';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdImageProps } from './type';
 import { imageDefaultProps } from './defaultProps';
 
