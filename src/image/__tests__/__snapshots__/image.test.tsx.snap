@@ -1,0 +1,1303 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-image-wrapper t-image-wrapper_shape--square"
+    style="width: 240px; height: 160px;"
+  >
+    <img
+      class="t-image t-image_fit--fill t-image_position--center"
+      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`extra-always.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 100px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          有遮罩
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 240px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+            <div
+              class="t-image-overlay-content"
+            >
+              <div
+                style="background: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+              >
+                已添加
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          无遮罩
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 240px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+            <div
+              class="t-image-overlay-content"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
+                style="margin-left: 190px; margin-top: 15px;"
+                type="button"
+              >
+                <svg
+                  class="t-icon t-icon-discount"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`extra-hover.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-image-wrapper t-image-wrapper_shape--square t-image-wrapper--need-hover"
+    style="width: 240px; height: 160px;"
+  >
+    <img
+      class="t-image t-image_fit--fill t-image_position--center"
+      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+    />
+    <div
+      class="t-image-overlay-content t-image-overlay-content--hidden"
+    >
+      <div
+        style="background: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+      >
+        预览
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`fill-mode.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 140px; height: 86px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          fill
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 140px; height: 86px;"
+          >
+            <img
+              class="t-image t-image_fit--contain t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          contain
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 140px; height: 86px;"
+          >
+            <img
+              class="t-image t-image_fit--cover t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          cover
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 140px; height: 86px;"
+          >
+            <img
+              class="t-image t-image_fit--none t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          none
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 140px; height: 86px;"
+          >
+            <img
+              class="t-image t-image_fit--scale-down t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          scale-down
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`fill-position.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 100%;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 174px; height: 125px;"
+              >
+                <img
+                  class="t-image t-image_fit--cover t-image_position--center"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover center
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 174px; height: 125px;"
+              >
+                <img
+                  class="t-image t-image_fit--cover t-image_position--top"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover top
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 174px; height: 125px;"
+              >
+                <img
+                  class="t-image t-image_fit--cover t-image_position--bottom"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover bottom
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 100px; height: 125px;"
+              >
+                <img
+                  class="t-image t-image_fit--cover t-image_position--left"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover left
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 100px; height: 125px;"
+              >
+                <img
+                  class="t-image t-image_fit--cover t-image_position--right"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover right
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px; margin-top: 20px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 170px; height: 230px;"
+              >
+                <img
+                  class="t-image t-image_fit--contain t-image_position--top"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              contain top
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 170px; height: 230px;"
+              >
+                <img
+                  class="t-image t-image_fit--contain t-image_position--bottom"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              contain bottom
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image-wrapper t-image-wrapper_shape--square"
+                style="width: 414px; height: 230px;"
+              >
+                <img
+                  class="t-image t-image_fit--contain t-image_position--left"
+                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                />
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              contain left
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`gallery-cover.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-image-wrapper t-image-wrapper_shape--square t-image-wrapper_gallery"
+    style="width: 240px; height: 160px;"
+  >
+    <div
+      class="t-image-gallery-shaddow"
+    />
+    <img
+      class="t-image t-image_fit--fill t-image_position--center"
+      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+    />
+    <div
+      class="t-image-overlay-content"
+    >
+      <span
+        class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
+        style="margin-top: 15px;"
+      >
+        标签一
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`lazy-list.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px; flex-wrap: wrap; height: 240px; overflow-y: scroll;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 183px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
+      >
+        <svg
+          class="t-icon t-icon-refresh"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 2.71c2.9 0 5.25 2.36 5.25 5.29h.96a6.2 6.2 0 00-11.5-3.28V2.64h-.96v3.1c0 .29.22.5.5.5h3.09v-.96H3.49A5.25 5.25 0 018 2.71zM1.79 8h.96a5.25 5.25 0 009.76 2.71h-1.85v-.96h3.09c.28 0 .5.22.5.5v3.1h-.96v-2.07A6.2 6.2 0 011.8 8z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+        <span
+          class="t-button__text"
+        >
+          重演 lazy load
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`lazy-single.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-image-wrapper t-image-wrapper_shape--square"
+        style="width: 240px; height: 160px;"
+      >
+        <img
+          class="t-image t-image_fit--fill t-image_position--center"
+          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+        />
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
+      >
+        <svg
+          class="t-icon t-icon-refresh"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 2.71c2.9 0 5.25 2.36 5.25 5.29h.96a6.2 6.2 0 00-11.5-3.28V2.64h-.96v3.1c0 .29.22.5.5.5h3.09v-.96H3.49A5.25 5.25 0 018 2.71zM1.79 8h.96a5.25 5.25 0 009.76 2.71h-1.85v-.96h3.09c.28 0 .5.22.5.5v3.1h-.96v-2.07A6.2 6.2 0 011.8 8z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+        <span
+          class="t-button__text"
+        >
+          重演 lazy load
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`placeholder.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 220px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <h3
+          style="margin-bottom: 15px;"
+        >
+          加载中的图片
+        </h3>
+        <div
+          class="t-space t-space-horizontal"
+          style="gap: 16px;"
+        >
+          <div
+            class="t-space-item"
+          >
+            <div
+              class="t-space t-space-vertical"
+              style="gap: 16px;"
+            >
+              <div
+                class="t-space-item"
+              >
+                默认占位
+              </div>
+              <div
+                class="t-space-item"
+              >
+                <div
+                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  style="width: 100px; height: 100px;"
+                >
+                  <img
+                    class="t-image t-image_fit--fill t-image_position--center"
+                    src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  />
+                </div>
+              </div>
+              <div
+                class="t-space-item"
+              >
+                <button
+                  class="t-button t-button--theme-default t-button--variant-outline"
+                  type="button"
+                >
+                  <svg
+                    class="t-icon t-icon-refresh"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 2.71c2.9 0 5.25 2.36 5.25 5.29h.96a6.2 6.2 0 00-11.5-3.28V2.64h-.96v3.1c0 .29.22.5.5.5h3.09v-.96H3.49A5.25 5.25 0 018 2.71zM1.79 8h.96a5.25 5.25 0 009.76 2.71h-1.85v-.96h3.09c.28 0 .5.22.5.5v3.1h-.96v-2.07A6.2 6.2 0 011.8 8z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                  <span
+                    class="t-button__text"
+                  >
+                    重演 loading
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-space-item"
+          >
+            <div
+              class="t-space t-space-vertical"
+              style="gap: 16px;"
+            >
+              <div
+                class="t-space-item"
+              >
+                自定义占位
+              </div>
+              <div
+                class="t-space-item"
+              >
+                <div
+                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  style="width: 100px; height: 100px;"
+                >
+                  <img
+                    class="t-image t-image_fit--fill t-image_position--center"
+                    src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  />
+                  <div
+                    class="t-image-loading"
+                  >
+                    <svg
+                      class="t-icon t-icon-loading"
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M8 1.5a6.5 6.5 0 000 13v-1.63A4.87 4.87 0 1112.88 8h1.62A6.5 6.5 0 008 1.5z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <h3
+          style="margin-bottom: 15px;"
+        >
+          加载失败的图片
+        </h3>
+        <div
+          class="t-space t-space-horizontal"
+          style="gap: 16px;"
+        >
+          <div
+            class="t-space-item"
+          >
+            <div
+              class="t-space t-space-vertical"
+              style="gap: 16px;"
+            >
+              <div
+                class="t-space-item"
+              >
+                默认错误
+              </div>
+              <div
+                class="t-space-item"
+              >
+                <div
+                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  style="width: 100px; height: 100px;"
+                >
+                  <img
+                    class="t-image t-image_fit--fill t-image_position--center"
+                    src=""
+                  />
+                </div>
+              </div>
+              <div
+                class="t-space-item"
+              >
+                <button
+                  class="t-button t-button--theme-default t-button--variant-outline"
+                  type="button"
+                >
+                  <svg
+                    class="t-icon t-icon-refresh"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 2.71c2.9 0 5.25 2.36 5.25 5.29h.96a6.2 6.2 0 00-11.5-3.28V2.64h-.96v3.1c0 .29.22.5.5.5h3.09v-.96H3.49A5.25 5.25 0 018 2.71zM1.79 8h.96a5.25 5.25 0 009.76 2.71h-1.85v-.96h3.09c.28 0 .5.22.5.5v3.1h-.96v-2.07A6.2 6.2 0 011.8 8z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                  <span
+                    class="t-button__text"
+                  >
+                    重演 error
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-space-item"
+          >
+            <div
+              class="t-space t-space-vertical"
+              style="gap: 16px;"
+            >
+              <div
+                class="t-space-item"
+              >
+                自定义错误
+              </div>
+              <div
+                class="t-space-item"
+              >
+                <div
+                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  style="width: 100px; height: 100px;"
+                >
+                  <div
+                    class="t-image-placeholder"
+                  >
+                    <div
+                      class="t-avatar t-avatar--circle t-avatar-icon"
+                    >
+                      <svg
+                        class="t-icon t-icon-photo"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M11 8a3 3 0 11-6 0 3 3 0 016 0zm-1 0a2 2 0 10-4 0 2 2 0 004 0z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                        <path
+                          d="M6.05 2a.6.6 0 00-.5.27L4.73 3.5H2.01a.51.51 0 00-.51.51v8.48c0 .28.23.51.51.51h11.98c.28 0 .51-.23.51-.51V4.01a.51.51 0 00-.51-.51h-2.72l-.82-1.23a.6.6 0 00-.5-.27h-3.9zm.22 1h3.46l1 1.5h2.77V12h-11V4.5h2.77l1-1.5z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <img
+                    class="t-image t-image_fit--fill t-image_position--center"
+                    src=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`shape.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--square"
+            style="width: 240px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          square
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--round"
+            style="width: 240px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          round
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-image-wrapper t-image-wrapper_shape--circle"
+            style="width: 160px; height: 160px;"
+          >
+            <img
+              class="t-image t-image_fit--fill t-image_position--center"
+              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+            />
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          circle
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -52,7 +52,7 @@ const Image = (props: TdImageProps) => {
     observerRefValue = imageRef.current;
 
     return () => {
-      observerRefValue && io.unobserve(observerRefValue);
+      observerRefValue && io && io.unobserve(observerRefValue);
     };
   }, [lazy, imageRef]);
 
