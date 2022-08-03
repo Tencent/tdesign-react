@@ -3,11 +3,11 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-image-wrapper t-image-wrapper_shape--square"
+    class="t-image__wrapper t-image__wrapper--shape-square"
     style="width: 240px; height: 160px;"
   >
     <img
-      class="t-image t-image_fit--fill t-image_position--center"
+      class="t-image t-image--fit-fill t-image--position-center"
       src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
     />
   </div>
@@ -36,15 +36,15 @@ exports[`extra-always.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 240px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
             <div
-              class="t-image-overlay-content"
+              class="t-image__overlay-content"
             >
               <div
                 style="background: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
@@ -72,15 +72,15 @@ exports[`extra-always.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 240px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
             <div
-              class="t-image-overlay-content"
+              class="t-image__overlay-content"
             >
               <button
                 class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
@@ -120,15 +120,15 @@ exports[`extra-always.jsx 1`] = `
 exports[`extra-hover.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-image-wrapper t-image-wrapper_shape--square t-image-wrapper--need-hover"
+    class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
     style="width: 240px; height: 160px;"
   >
     <img
-      class="t-image t-image_fit--fill t-image_position--center"
+      class="t-image t-image--fit-fill t-image--position-center"
       src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
     />
     <div
-      class="t-image-overlay-content t-image-overlay-content--hidden"
+      class="t-image__overlay-content t-image__overlay-content--hidden"
     >
       <div
         style="background: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
@@ -157,11 +157,11 @@ exports[`fill-mode.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 140px; height: 86px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -184,11 +184,11 @@ exports[`fill-mode.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 140px; height: 86px;"
           >
             <img
-              class="t-image t-image_fit--contain t-image_position--center"
+              class="t-image t-image--fit-contain t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -211,11 +211,11 @@ exports[`fill-mode.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 140px; height: 86px;"
           >
             <img
-              class="t-image t-image_fit--cover t-image_position--center"
+              class="t-image t-image--fit-cover t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -238,11 +238,11 @@ exports[`fill-mode.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 140px; height: 86px;"
           >
             <img
-              class="t-image t-image_fit--none t-image_position--center"
+              class="t-image t-image--fit-none t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -265,11 +265,11 @@ exports[`fill-mode.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 140px; height: 86px;"
           >
             <img
-              class="t-image t-image_fit--scale-down t-image_position--center"
+              class="t-image t-image--fit-scale-down t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -309,11 +309,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 174px; height: 125px;"
               >
                 <img
-                  class="t-image t-image_fit--cover t-image_position--center"
+                  class="t-image t-image--fit-cover t-image--position-center"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -336,11 +336,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 174px; height: 125px;"
               >
                 <img
-                  class="t-image t-image_fit--cover t-image_position--top"
+                  class="t-image t-image--fit-cover t-image--position-top"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -363,11 +363,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 174px; height: 125px;"
               >
                 <img
-                  class="t-image t-image_fit--cover t-image_position--bottom"
+                  class="t-image t-image--fit-cover t-image--position-bottom"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -390,11 +390,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 100px; height: 125px;"
               >
                 <img
-                  class="t-image t-image_fit--cover t-image_position--left"
+                  class="t-image t-image--fit-cover t-image--position-left"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -417,11 +417,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 100px; height: 125px;"
               >
                 <img
-                  class="t-image t-image_fit--cover t-image_position--right"
+                  class="t-image t-image--fit-cover t-image--position-right"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -453,11 +453,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 170px; height: 230px;"
               >
                 <img
-                  class="t-image t-image_fit--contain t-image_position--top"
+                  class="t-image t-image--fit-contain t-image--position-top"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -480,11 +480,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 170px; height: 230px;"
               >
                 <img
-                  class="t-image t-image_fit--contain t-image_position--bottom"
+                  class="t-image t-image--fit-contain t-image--position-bottom"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -507,11 +507,11 @@ exports[`fill-position.jsx 1`] = `
               class="t-space-item"
             >
               <div
-                class="t-image-wrapper t-image-wrapper_shape--square"
+                class="t-image__wrapper t-image__wrapper--shape-square"
                 style="width: 414px; height: 230px;"
               >
                 <img
-                  class="t-image t-image_fit--contain t-image_position--left"
+                  class="t-image t-image--fit-contain t-image--position-left"
                   src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                 />
               </div>
@@ -532,18 +532,18 @@ exports[`fill-position.jsx 1`] = `
 exports[`gallery-cover.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-image-wrapper t-image-wrapper_shape--square t-image-wrapper_gallery"
+    class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--gallery"
     style="width: 240px; height: 160px;"
   >
     <div
-      class="t-image-gallery-shadow"
+      class="t-image__gallery-shadow"
     />
     <img
-      class="t-image t-image_fit--fill t-image_position--center"
+      class="t-image t-image--fit-fill t-image--position-center"
       src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
     />
     <div
-      class="t-image-overlay-content"
+      class="t-image__overlay-content"
     >
       <span
         class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
@@ -573,11 +573,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -586,11 +586,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -599,11 +599,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -612,11 +612,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -625,11 +625,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -638,11 +638,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -651,11 +651,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -664,11 +664,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -677,11 +677,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -690,11 +690,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -703,11 +703,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -716,11 +716,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -729,11 +729,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -742,11 +742,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -755,11 +755,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -768,11 +768,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -781,11 +781,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -794,11 +794,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -807,11 +807,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -820,11 +820,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -833,11 +833,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -846,11 +846,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -859,11 +859,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -872,11 +872,11 @@ exports[`lazy-list.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 183px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -924,11 +924,11 @@ exports[`lazy-single.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-image-wrapper t-image-wrapper_shape--square"
+        class="t-image__wrapper t-image__wrapper--shape-square"
         style="width: 240px; height: 160px;"
       >
         <img
-          class="t-image t-image_fit--fill t-image_position--center"
+          class="t-image t-image--fit-fill t-image--position-center"
           src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
         />
       </div>
@@ -999,11 +999,11 @@ exports[`placeholder.jsx 1`] = `
                 class="t-space-item"
               >
                 <div
-                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  class="t-image__wrapper t-image__wrapper--shape-square"
                   style="width: 100px; height: 100px;"
                 >
                   <img
-                    class="t-image t-image_fit--fill t-image_position--center"
+                    class="t-image t-image--fit-fill t-image--position-center"
                     src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                   />
                 </div>
@@ -1053,15 +1053,15 @@ exports[`placeholder.jsx 1`] = `
                 class="t-space-item"
               >
                 <div
-                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  class="t-image__wrapper t-image__wrapper--shape-square"
                   style="width: 100px; height: 100px;"
                 >
                   <img
-                    class="t-image t-image_fit--fill t-image_position--center"
+                    class="t-image t-image--fit-fill t-image--position-center"
                     src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
                   />
                   <div
-                    class="t-image-loading"
+                    class="t-image__loading"
                   >
                     <svg
                       class="t-icon t-icon-loading"
@@ -1113,11 +1113,11 @@ exports[`placeholder.jsx 1`] = `
                 class="t-space-item"
               >
                 <div
-                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  class="t-image__wrapper t-image__wrapper--shape-square"
                   style="width: 100px; height: 100px;"
                 >
                   <img
-                    class="t-image t-image_fit--fill t-image_position--center"
+                    class="t-image t-image--fit-fill t-image--position-center"
                     src=""
                   />
                 </div>
@@ -1167,11 +1167,11 @@ exports[`placeholder.jsx 1`] = `
                 class="t-space-item"
               >
                 <div
-                  class="t-image-wrapper t-image-wrapper_shape--square"
+                  class="t-image__wrapper t-image__wrapper--shape-square"
                   style="width: 100px; height: 100px;"
                 >
                   <div
-                    class="t-image-placeholder"
+                    class="t-image__placeholder"
                   >
                     <div
                       class="t-avatar t-avatar--circle t-avatar-icon"
@@ -1197,7 +1197,7 @@ exports[`placeholder.jsx 1`] = `
                     </div>
                   </div>
                   <img
-                    class="t-image t-image_fit--fill t-image_position--center"
+                    class="t-image t-image--fit-fill t-image--position-center"
                     src=""
                   />
                 </div>
@@ -1228,11 +1228,11 @@ exports[`shape.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--square"
+            class="t-image__wrapper t-image__wrapper--shape-square"
             style="width: 240px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -1255,11 +1255,11 @@ exports[`shape.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--round"
+            class="t-image__wrapper t-image__wrapper--shape-round"
             style="width: 240px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
@@ -1282,11 +1282,11 @@ exports[`shape.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-image-wrapper t-image-wrapper_shape--circle"
+            class="t-image__wrapper t-image__wrapper--shape-circle"
             style="width: 160px; height: 160px;"
           >
             <img
-              class="t-image t-image_fit--fill t-image_position--center"
+              class="t-image t-image--fit-fill t-image--position-center"
               src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
             />
           </div>
