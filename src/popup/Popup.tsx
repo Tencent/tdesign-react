@@ -148,6 +148,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => 
     setVisible,
     disabled,
     triggerNodeTemp,
+    content,
   );
 
   // 代理 trigger 的 ref
