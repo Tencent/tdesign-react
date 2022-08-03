@@ -4,6 +4,7 @@ import useControlled from '../../hooks/useControlled';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import { isValidDate, formatDate, formatTime, getDefaultFormat, parseToDayjs } from './useFormat';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
+import log from '../../_common/js/log';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
@@ -44,16 +45,20 @@ export default function useRange(props: TdDateRangePickerProps) {
   });
 
   if (props.enableTimePicker) {
-    if (!extractTimeFormat(format)) console.error(`format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+    if (!extractTimeFormat(format))
+      log.error('DatePicker', `format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
     if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
-      console.error(`valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+      log.error('DatePicker', `valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
 
   // warning invalid value
   if (!Array.isArray(value)) {
-    console.error(`typeof value: ${value} must be Array!`);
+    log.error('DatePicker', `typeof value: ${value} must be Array!`);
   } else if (!isValidDate(value, valueType)) {
-    console.error(`value: ${value} is invalid dateTime! Check whether the value is consistent with format: ${format}`);
+    log.error(
+      'DatePicker',
+      `value: ${value} is invalid dateTime! Check whether the value is consistent with format: ${format}`,
+    );
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
