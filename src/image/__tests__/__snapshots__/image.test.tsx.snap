@@ -536,7 +536,7 @@ exports[`gallery-cover.jsx 1`] = `
     style="width: 240px; height: 160px;"
   >
     <div
-      class="t-image-gallery-shaddow"
+      class="t-image-gallery-shadow"
     />
     <img
       class="t-image t-image_fit--fill t-image_position--center"

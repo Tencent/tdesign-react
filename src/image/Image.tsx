@@ -89,7 +89,7 @@ const Image = (props: TdImageProps) => {
 
   const renderGalleryShadow = () => {
     if (!gallery) return null;
-    return <div className={`${classPrefix}-image-gallery-shaddow`} />;
+    return <div className={`${classPrefix}-image-gallery-shadow`} />;
   };
 
   return (
