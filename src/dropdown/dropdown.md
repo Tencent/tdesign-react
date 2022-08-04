@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### 通过传入Children方式使用下拉菜单
+
+下拉菜单操作项支持通过传入Children的方式传递操作项。
+
+{{ child }}
+
 ## API
 
 ### Dropdown Props
