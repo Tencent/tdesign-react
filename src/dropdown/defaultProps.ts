@@ -6,12 +6,15 @@ import { TdDropdownProps, TdDropdownItemProps } from './type';
 
 export const dropdownDefaultProps: TdDropdownProps = {
   direction: 'right',
+  disabled: false,
   hideAfterItemClick: true,
   maxColumnWidth: 100,
   maxHeight: 300,
   minColumnWidth: 10,
+  options: [],
   placement: 'bottom-left',
+  theme: 'default',
   trigger: 'hover',
 };
 
-export const dropdownItemDefaultProps: TdDropdownItemProps = { active: false, divider: false };
+export const dropdownItemDefaultProps: TdDropdownItemProps = { active: false, disabled: false, divider: false };
