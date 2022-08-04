@@ -61,12 +61,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         setDataSource(data);
         return;
       }
-      let newVal = cloneDeep(data);
-      store.initialTreeStore(newVal, columns, rowDataKeys);
-      if (props.tree?.defaultExpandAll) {
-        newVal = [...store.expandAll(newVal, rowDataKeys)];
-      }
-      setDataSource(newVal);
+      resetData(data);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [uniqueKeys],
@@ -80,6 +75,15 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [columns],
   );
+
+  function resetData(data: TableRowData[]) {
+    let newVal = cloneDeep(data);
+    store.initialTreeStore(newVal, props.columns, rowDataKeys);
+    if (props.tree?.defaultExpandAll) {
+      newVal = store.expandAll(newVal, rowDataKeys);
+    }
+    setDataSource(newVal);
+  }
 
   function getTreeNodeStyle(level: number) {
     if (level === undefined) return;
@@ -271,5 +275,6 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     expandAll,
     foldAll,
     getTreeNode,
+    resetData,
   };
 }
