@@ -1,10 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
-import { PageFirstIcon, PageLastIcon } from 'tdesign-icons-react';
-import useConfig from '../../_util/useConfig';
+import { PageFirstIcon as TdPageFirstIcon, PageLastIcon as TdPageLastIcon } from 'tdesign-icons-react';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 
 export default function useBoundaryJumper(props) {
   const { classPrefix } = useConfig();
+  const { PageFirstIcon, PageLastIcon } = useGlobalIcon({
+    PageLastIcon: TdPageLastIcon,
+    PageFirstIcon: TdPageFirstIcon,
+  });
+
   const name = `${classPrefix}-pagination`;
 
   const { showFirstAndLastPageBtn, disabled, current, pageCount, changeCurrent } = props;

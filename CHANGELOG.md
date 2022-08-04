@@ -5,6 +5,40 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.38.0 `2022-08-01` 
+
+### ❗ Breaking Changes
+- 调整全局 `border-radius` token，`@border-radius` 改名为 `@border-radius-default`，支持更多圆角 token。 使用 esm 包修改 less token 的业务需要注意。 @mingrutough1 (https://github.com/Tencent/tdesign-common/pull/666) (https://github.com/Tencent/tdesign-common/pull/648)
+
+### 🚀 Features
+- 支持全局替换 `tdesign` 内置 `Icon` @HQ-Lin ([#1181](https://github.com/Tencent/tdesign-react/pull/1181))
+- `DatePicker`: 支持季度选择器 @HQ-Lin ([#1178](https://github.com/Tencent/tdesign-react/pull/1178))
+- `Rate`: 新增 rate组件 @RedDevi1s ([#1014](https://github.com/Tencent/tdesign-react/pull/1014)) @HQ-Lin ([#1195](https://github.com/Tencent/tdesign-react/pull/1195))
+- `Select`:  展开面板后二次点击输入框调整为关闭面板 @HQ-Lin ([#1174](https://github.com/Tencent/tdesign-react/pull/1174))
+- `Grid`:  `col` 组件支持跨层级响应 `gutter` 配置 @HQ-Lin ([#1171](https://github.com/Tencent/tdesign-react/pull/1171))
+
+### 🐞 Bug Fixes
+- `Cascader`: 修复在异步获取 `option` 的情况下，参数校验导致用户行为异常 @pengYYYYY ([#1170](https://github.com/Tencent/tdesign-react/pull/1170))
+- `Select`: 修复回删空字符串不触发`onSearch`的缺陷 @uyarn ([#1176](https://github.com/Tencent/tdesign-react/pull/1176))
+- `Select`: 修复过滤时输入值为空未显示全部选项的问题 @southorange1228 ([#1157](https://github.com/Tencent/tdesign-react/pull/1157))
+- `Dropdown`:  修复 className 继承问题 @CodingOnStar ([#1187](https://github.com/Tencent/tdesign-react/pull/1187))
+- `Tree`:  修复更改 data 数据后展开状态丢失问题 @CodingOnStar ([#1168](https://github.com/Tencent/tdesign-react/pull/1168))
+
+
+## 🌈 0.37.1 `2022-07-25` 
+### 🚀 Features
+- `Upload`: 支持单组件的文案配置 @uyarn ([#1158](https://github.com/Tencent/tdesign-react/pull/1158))
+- `DatePicker`: 支持周选择器 @HQ-Lin ([#1138](https://github.com/Tencent/tdesign-react/pull/1138))
+- `Chekbox`: 优化 label 为空字符串不渲染节点 @Blackn-L ([#1131](https://github.com/Tencent/tdesign-react/pull/1131))
+- 支持通过CSS Token配置组件圆角 @mingrutough1 ([common#648](https://github.com/Tencent/tdesign-common/pull/648))
+
+### 🐞 Bug Fixes
+- `Form`: 修复 form 数字字符串长度校验错误问题 @HQ-Lin ([#1129](https://github.com/Tencent/tdesign-react/pull/1129))
+- `List`: 修复 ListItem 透传 style 问题 @HQ-Lin ([#1161](https://github.com/Tencent/tdesign-react/pull/1161))
+- `DatePicker`: 修复重置日期后面板月份未重置问题 @HQ-Lin ([#1133](https://github.com/Tencent/tdesign-react/pull/1133))
+- `ColorPicker`:  修复添加颜色受控/非受控不能点击的问题 @insekkei ([#1134](https://github.com/Tencent/tdesign-react/pull/1134))
+
+
 ## 🌈 0.37.0 `2022-07-18` 
 
 ### ❗ Breaking Changes

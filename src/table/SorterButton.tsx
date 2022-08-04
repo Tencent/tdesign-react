@@ -1,6 +1,7 @@
 import React, { MouseEvent } from 'react';
-import { ChevronDownIcon } from 'tdesign-icons-react';
+import { ChevronDownIcon as TdChevronDownIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useClassName from './hooks/useClassName';
 import { SortType } from './type';
 import Tooltip, { TooltipProps } from '../tooltip';
@@ -20,6 +21,9 @@ export interface SorterButtonProps {
 
 export default function SorterButton(props: SorterButtonProps) {
   const { sortType = 'all' } = props;
+  const { ChevronDownIcon } = useGlobalIcon({
+    ChevronDownIcon: TdChevronDownIcon,
+  });
   const { tableSortClasses, negativeRotate180 } = useClassName();
   const [locale, t] = useLocaleReceiver('table');
 

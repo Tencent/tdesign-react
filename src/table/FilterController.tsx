@@ -1,5 +1,5 @@
 import React, { useState, useRef, ReactNode } from 'react';
-import { FilterIcon } from 'tdesign-icons-react';
+import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
 
 import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames';
@@ -11,6 +11,8 @@ import Input from '../input';
 import TButton from '../button';
 import { PrimaryTableCol, FilterValue, TableRowData } from './type';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import log from '../_common/js/log';
 
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
@@ -41,6 +43,9 @@ export interface TableFilterControllerProps {
 export default function TableFilterController(props: TableFilterControllerProps) {
   const { tFilterValue, innerFilterValue, tableFilterClasses, isFocusClass, column } = props;
 
+  const { FilterIcon } = useGlobalIcon({
+    FilterIcon: TdFilterIcon,
+  });
   const triggerElementRef = useRef<HTMLDivElement>(null);
   const [locale, t] = useLocaleReceiver('table');
   const [filterPopupVisible, setFilterPopupVisible] = useState(false);
@@ -53,7 +58,7 @@ export default function TableFilterController(props: TableFilterControllerProps)
   const getFilterContent = (column: PrimaryTableCol) => {
     const types = ['single', 'multiple', 'input'];
     if (column.type && !types.includes(column.filter.type)) {
-      console.error(`TDesign Table Error: column.filter.type must be the following: ${JSON.stringify(types)}`);
+      log.error('Table', `TDesign Table Error: column.filter.type must be the following: ${JSON.stringify(types)}`);
       return;
     }
     const Component = {

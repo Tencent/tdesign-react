@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { CalendarCell, TdCalendarProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import usePrefixClass from './hooks/usePrefixClass';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { blockName } from './_util';

@@ -1,9 +1,13 @@
 import React, { FC, useCallback } from 'react';
 import classNames from 'classnames';
-import { CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
 import Loading from '../../loading';
 import { UploadFile, UploadRemoveContext } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 
 export interface SingleFileProps {
   file?: UploadFile;
@@ -16,6 +20,10 @@ export interface SingleFileProps {
 const SingleFile: FC<SingleFileProps> = (props) => {
   const { display = 'file', onRemove, file, showUploadProgress } = props;
   const { classPrefix } = useConfig();
+  const { CloseCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
 
   const fileClass = classNames(`${classPrefix}-upload__single`, `${classPrefix}-upload__single-${display}`);
 
@@ -45,6 +53,7 @@ const SingleFile: FC<SingleFileProps> = (props) => {
         <span className={`${classPrefix}-upload__single-percent`}>{Math.min(file?.percent || 0, 99)}%</span>
       </div>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classPrefix, file]);
 
   // 文本型预览
@@ -60,6 +69,7 @@ const SingleFile: FC<SingleFileProps> = (props) => {
         )}
       </div>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classPrefix, inputName, renderProgress, showProgress, handleRemove]);
 
   return (

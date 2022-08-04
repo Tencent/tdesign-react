@@ -1,6 +1,6 @@
 import React, { DragEvent, MouseEvent, ReactNode, useCallback, useState } from 'react';
 import classNames from 'classnames';
-import useConfig from '../../../_util/useConfig';
+import useConfig from '../../../hooks/useConfig';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Button from '../../../button';
 import { UploadFile } from '../../type';
@@ -8,6 +8,7 @@ import { FlowRemoveContext } from '../../types';
 import ImgList from './img-list';
 import FileList from './file-list';
 import BooleanRender from '../../boolean-render';
+import { UploadConfig } from '../../../config-provider/type';
 
 export interface CommonListProps {
   renderDragger: () => React.ReactElement;
@@ -29,6 +30,7 @@ export interface FlowListProps {
   onChange: (files: FileList) => void;
   onDragenter: (e: React.DragEvent) => void;
   onDragleave: (e: React.DragEvent) => void;
+  localeFromProps?: UploadConfig;
 }
 
 const Index: React.FC<FlowListProps> = (props) => {
@@ -46,6 +48,7 @@ const Index: React.FC<FlowListProps> = (props) => {
     onDragenter,
     onDragleave,
     children = null,
+    localeFromProps,
   } = props;
   const target = React.useRef();
   const { classPrefix: prefix } = useConfig();
@@ -98,7 +101,9 @@ const Index: React.FC<FlowListProps> = (props) => {
       onDragOver={handleDragover}
       onDragLeave={handleDragleave}
     >
-      {dragActive ? t(locale.dragger.dragDropText) : t(locale.dragger.clickAndDragText)}
+      {dragActive
+        ? localeFromProps?.dragger?.dragDropText || t(locale.dragger.dragDropText)
+        : localeFromProps?.dragger?.clickAndDragText || t(locale.dragger.clickAndDragText)}
     </div>
   );
   const wrapperClassNames = classNames({

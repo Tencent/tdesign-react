@@ -18,7 +18,7 @@ export default function InputExample() {
         }}
       />
       <Textarea
-        placeholder="请输入内容, 高度可自适应，autosize=true"
+        placeholder="请输入内容，高度可自适应，autosize=true"
         value={value2}
         autosize={true}
         onChange={(value) => {

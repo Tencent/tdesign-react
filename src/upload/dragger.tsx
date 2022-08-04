@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import { TNode } from '../common';
 import { TriggerContext, UploadFile, UploadRemoveContext } from './type';
 import { CustomDraggerRenderProps } from './types';
-import useConfig from '../_util/useConfig';
+import { UploadConfig } from '../config-provider/type';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import DraggerProgress from './themes/dragger-progress';
 
@@ -11,6 +12,7 @@ export interface DraggerProps {
   file?: UploadFile;
   display?: string;
   trigger?: string | TNode<TriggerContext>;
+  localeFromProps?: UploadConfig;
   customDraggerRender?: (props: CustomDraggerRenderProps) => TNode;
   onCancel?: () => void;
   onTrigger?: () => void;
@@ -23,13 +25,13 @@ export interface DraggerProps {
 }
 
 const Dragger: FC<DraggerProps> = (props) => {
-  const { file, display, onUpload, onRemove, customDraggerRender, onCancel } = props;
+  const { file, display, onUpload, onRemove, customDraggerRender, onCancel, localeFromProps } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
   const { draggingText, dragDropText } = locale.dragger;
-  const dragTriggerText = t(locale.triggerUploadText.normal);
+  const dragTriggerText = localeFromProps?.triggerUploadText?.normal || t(locale.triggerUploadText.normal);
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
     !file ? `${classPrefix}-upload__dragger-center` : '',
@@ -60,6 +62,7 @@ const Dragger: FC<DraggerProps> = (props) => {
             onUpload?.(file);
           }}
           onCancel={onCancel}
+          localeFromProps={localeFromProps}
         />
       );
     } else {
@@ -82,6 +85,7 @@ const Dragger: FC<DraggerProps> = (props) => {
     customDraggerRender,
     dragActive,
     defaultDragElement,
+    localeFromProps,
   ]);
 
   const handleDrop = (event: DragEvent) => {

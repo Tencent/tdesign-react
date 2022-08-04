@@ -37,10 +37,24 @@
         "value": "month"
       },
       {
+        "label": "quarter",
+        "value": "quarter"
+      },
+      {
+        "label": "week",
+        "value": "week"
+      },
+      {
         "label": "date",
         "value": "date"
       }
     ]
+  },
+  {
+    "name": "panelPreselection",
+    "type": "Boolean",
+    "defaultValue": true,
+    "options": []
   },
   {
     "name": "presetsPlacement",

@@ -2,8 +2,13 @@ import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect,
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import lodashTemplate from 'lodash/template';
-import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type';
 import { StyledProps } from '../common';
 import { validate as validateModal } from './formModel';
@@ -33,6 +38,11 @@ export interface FormItemInstance {
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const { classPrefix, form: globalFormConfig } = useConfig();
+  const { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
   const {
     colon,
     layout,
@@ -380,8 +390,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
 
-            let onChangeFromProps = () => ({});
-            let onBlurFromProps = () => ({});
             let ctrlKey = 'value';
             if (React.isValidElement(child)) {
               if (child.type === FormItem) {
@@ -392,12 +400,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                   },
                 });
               }
-              if (typeof child.props.onChange === 'function') {
-                onChangeFromProps = child.props.onChange;
-              }
-              if (typeof child.props.onBlur === 'function') {
-                onBlurFromProps = child.props.onBlur;
-              }
               if (typeof child.type === 'object') {
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
@@ -406,12 +408,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
-                  onChangeFromProps.call(null, value, ...args);
                   updateFormValue(value);
+                  child.props.onChange?.call?.(null, value, ...args);
                 },
                 onBlur: (value: any, ...args: any[]) => {
-                  onBlurFromProps.call(null, value, ...args);
                   handleItemBlur();
+                  child.props.onBlur?.call?.(null, value, ...args);
                 },
               });
             }

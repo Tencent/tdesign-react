@@ -6,7 +6,7 @@ import debounce from 'lodash/debounce';
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import noop from '../../_util/noop';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 import {
@@ -120,9 +120,10 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         const colIdx = timeArr.indexOf(col);
         const colStep = steps[colIdx] || 1;
 
-        if (col === EPickerCols.hour)
-          count = TWELVE_HOUR_FORMAT.test(format) ? 11 : 23; // 小时最大为23 12小时制最大为11
-        else if (col === EPickerCols.milliSecond) count = 999; // 毫秒最大为999
+        if (col === EPickerCols.hour) count = TWELVE_HOUR_FORMAT.test(format) ? 11 : 23;
+        // 小时最大为23 12小时制最大为11
+        else if (col === EPickerCols.milliSecond) count = 999;
+        // 毫秒最大为999
         else count = 59;
 
         const colList = range(0, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
@@ -167,7 +168,8 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     if (timeArr.includes(col)) {
       // hour、minute and second columns
       let max = 59;
-      if (col === EPickerCols.hour) max = /[h]{1}/.test(format) ? 11 : 23; // 小时最大为23 12小时制最大为11
+      if (col === EPickerCols.hour) max = /[h]{1}/.test(format) ? 11 : 23;
+      // 小时最大为23 12小时制最大为11
       else if (col === EPickerCols.milliSecond) max = 999; // 毫秒最大为999
 
       const colIdx = timeArr.indexOf(col);

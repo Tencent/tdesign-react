@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdRadioGroupProps } from './type';
 import useControlled from '../hooks/useControlled';
 import useCommonClassName from '../_util/useCommonClassName';
@@ -56,7 +56,7 @@ const RadioGroup = (props: RadioGroupProps) => {
 
   const calcBarStyle = () => {
     if (!variant.includes('filled')) return;
-    const checkedRadio = groupRef.current.querySelector(checkedRadioCls);
+    const checkedRadio = groupRef.current.querySelector?.(checkedRadioCls);
     if (!checkedRadio) return setBarStyle({ width: 0 });
 
     const { offsetWidth, offsetLeft } = checkedRadio;

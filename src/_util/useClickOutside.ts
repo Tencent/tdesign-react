@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect } from 'react';
-import useConfig from './useConfig';
+import useConfig from '../hooks/useConfig';
 
 export default function useClickOutside<T extends HTMLElement>(
   refs: MutableRefObject<T>[],

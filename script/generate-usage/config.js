@@ -98,13 +98,17 @@ module.exports = {
   },
   'date-picker': {
     importStr: `
-      import configProps from './props.json';\n
+      import DatePickerConfigProps from './date-picker-props.json';\n
+      import DateRangePickerConfigProps from './date-range-picker-props.json';\n
       import { DatePicker, DateRangePicker } from 'tdesign-react';\n`,
     configStr: `
-      const [configList, setConfigList] = useState(configProps);
+      const [configList, setConfigList] = useState(DatePickerConfigProps);
     `,
     panelStr: `
-      const panelList = [{ label: 'datePicker', value: 'datePicker' }, { label: 'dateRangePicker', value: 'dateRangePicker' }];
+      const panelList = [
+        { label: 'datePicker', value: 'datePicker', config: DatePickerConfigProps },
+        { label: 'dateRangePicker', value: 'dateRangePicker', config: DateRangePickerConfigProps }
+      ];
 
       const panelMap = {
         datePicker: <DatePicker {...changedProps} />,

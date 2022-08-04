@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 import { TdSliderProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { numberToPercent } from './utils/handleNumber';
 import { StyledProps, TNode } from '../common';

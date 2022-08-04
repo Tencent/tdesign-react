@@ -54,7 +54,7 @@ export interface TdDatePickerProps {
    * 选择器模式
    * @default date
    */
-  mode?: 'year' | 'month' | 'date';
+  mode?: 'year' | 'month' | 'quarter' | 'week' | 'date';
   /**
    * 占位符
    */
@@ -155,7 +155,7 @@ export interface TdDateRangePickerProps {
    * 选择器模式
    * @default date
    */
-  mode?: 'year' | 'month' | 'date';
+  mode?: 'year' | 'month' | 'quarter' | 'week' | 'date';
   /**
    * 在开始日期选中之前，面板是否显示预选状态，即是否高亮预选日期
    * @default true

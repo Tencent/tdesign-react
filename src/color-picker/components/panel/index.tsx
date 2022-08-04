@@ -110,14 +110,9 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : 'RGB');
 
   const { onRecentColorsChange } = props;
-  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled<TdColorPickerProps['recentColors'], any>(
-    props,
-    'recentColors',
-    onRecentColorsChange,
-    {
-      defaultRecentColors: colorPickerDefaultProps.recentColors,
-    },
-  );
+  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
+    defaultRecentColors: colorPickerDefaultProps.recentColors,
+  });
 
   const baseProps = {
     color: colorInstanceRef.current,

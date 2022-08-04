@@ -2,7 +2,7 @@ import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from '
 import classNames from 'classnames';
 import { StyledProps } from '../common';
 import { TdSubmenuProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { MenuContext } from './MenuContext';
 import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';

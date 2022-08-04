@@ -2,11 +2,12 @@ import React, { useState, Ref, useEffect } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { TimeIcon } from 'tdesign-icons-react';
+import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useControlled from '../hooks/useControlled';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
 
 import SelectInput from '../select-input';
@@ -52,6 +53,9 @@ const TimePicker = forwardRefWithStatics(
     const [currentValue, setCurrentValue] = useState('');
 
     const { classPrefix } = useConfig();
+    const { TimeIcon } = useGlobalIcon({
+      TimeIcon: TdTimeIcon,
+    });
     const name = `${classPrefix}-time-picker`;
     const inputClasses = classNames(`${name}__group`, {
       [`${classPrefix}-is-focused`]: isPanelShowed,

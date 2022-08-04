@@ -1,5 +1,5 @@
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { getWeeks, getYears, getMonths, flagActive } from '../../_common/js/date-picker/utils';
+import { getWeeks, getQuarters, getYears, getMonths, flagActive } from '../../_common/js/date-picker/utils';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
 export interface TableDataProps extends SinglePanelProps {
@@ -41,10 +41,15 @@ export default function useTableData(props: TableDataProps) {
     disableDate,
     firstDayOfWeek,
     monthLocal,
+    showWeekOfYear: mode === 'week',
   };
 
   if (mode === 'date') {
     data = getWeeks({ year, month }, options);
+  } else if (mode === 'week') {
+    data = getWeeks({ year, month }, options);
+  } else if (mode === 'quarter') {
+    data = getQuarters(year, options);
   } else if (mode === 'month') {
     data = getMonths(year, options);
   } else if (mode === 'year') {

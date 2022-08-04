@@ -669,7 +669,6 @@ exports[`affix.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -1622,7 +1621,6 @@ exports[`base.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -2278,7 +2276,6 @@ exports[`custom-col.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -2897,7 +2894,6 @@ exports[`custom-col-button.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -5200,7 +5196,6 @@ exports[`editable-row.jsx 1`] = `
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
-                        style="width: 0px;"
                         type="text"
                         value="Eric"
                       />
@@ -5239,7 +5234,6 @@ exports[`editable-row.jsx 1`] = `
                             class="t-input__inner"
                             placeholder="请选择"
                             readonly=""
-                            style="width: 0px;"
                             type="text"
                             value="Vue"
                           />
@@ -7060,7 +7054,6 @@ exports[`filter-controlled.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="5 条/页"
                         />
@@ -20504,7 +20497,6 @@ exports[`pagination.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
-                      style="width: 0px;"
                       type="text"
                       value="5 条/页"
                     />
@@ -20774,7 +20766,6 @@ exports[`pagination-ajax.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
-                      style="width: 0px;"
                       type="text"
                       value="5 条/页"
                     />
@@ -20966,9 +20957,6 @@ exports[`select-multiple.jsx 1`] = `
                   <span
                     class="t-checkbox__input"
                   />
-                  <span
-                    class="t-checkbox__label"
-                  />
                 </label>
               </div>
             </th>
@@ -21045,9 +21033,6 @@ exports[`select-multiple.jsx 1`] = `
                 <span
                   class="t-checkbox__input"
                 />
-                <span
-                  class="t-checkbox__label"
-                />
               </label>
             </td>
             <td
@@ -21117,9 +21102,6 @@ exports[`select-multiple.jsx 1`] = `
                 <span
                   class="t-checkbox__input"
                 />
-                <span
-                  class="t-checkbox__label"
-                />
               </label>
             </td>
             <td
@@ -21187,9 +21169,6 @@ exports[`select-multiple.jsx 1`] = `
                 />
                 <span
                   class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
                 />
               </label>
             </td>
@@ -21259,9 +21238,6 @@ exports[`select-multiple.jsx 1`] = `
                 />
                 <span
                   class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
                 />
               </label>
             </td>
@@ -21440,9 +21416,6 @@ exports[`select-single.jsx 1`] = `
                 <span
                   class="t-radio__input"
                 />
-                <span
-                  class="t-radio__label"
-                />
               </label>
             </td>
             <td
@@ -21502,9 +21475,6 @@ exports[`select-single.jsx 1`] = `
                 <span
                   class="t-radio__input"
                 />
-                <span
-                  class="t-radio__label"
-                />
               </label>
             </td>
             <td
@@ -21562,9 +21532,6 @@ exports[`select-single.jsx 1`] = `
                 />
                 <span
                   class="t-radio__input"
-                />
-                <span
-                  class="t-radio__label"
                 />
               </label>
             </td>
@@ -21624,9 +21591,6 @@ exports[`select-single.jsx 1`] = `
                 />
                 <span
                   class="t-radio__input"
-                />
-                <span
-                  class="t-radio__label"
                 />
               </label>
             </td>
@@ -22079,7 +22043,7 @@ exports[`tree.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              重置数据
+              重置/更新数据
             </span>
           </button>
         </div>
@@ -23317,7 +23281,6 @@ exports[`tree.jsx 1`] = `
                           class="t-input__inner"
                           placeholder="请选择"
                           readonly=""
-                          style="width: 0px;"
                           type="text"
                           value="10 条/页"
                         />
@@ -23563,9 +23526,6 @@ exports[`tree-select.jsx 1`] = `
                       <span
                         class="t-checkbox__input"
                       />
-                      <span
-                        class="t-checkbox__label"
-                      />
                     </label>
                   </div>
                 </th>
@@ -23656,9 +23616,6 @@ exports[`tree-select.jsx 1`] = `
                     />
                     <span
                       class="t-checkbox__input"
-                    />
-                    <span
-                      class="t-checkbox__label"
                     />
                   </label>
                 </td>
@@ -23757,9 +23714,6 @@ exports[`tree-select.jsx 1`] = `
                     <span
                       class="t-checkbox__input"
                     />
-                    <span
-                      class="t-checkbox__label"
-                    />
                   </label>
                 </td>
                 <td
@@ -23856,9 +23810,6 @@ exports[`tree-select.jsx 1`] = `
                     />
                     <span
                       class="t-checkbox__input"
-                    />
-                    <span
-                      class="t-checkbox__label"
                     />
                   </label>
                 </td>
@@ -23957,9 +23908,6 @@ exports[`tree-select.jsx 1`] = `
                     <span
                       class="t-checkbox__input"
                     />
-                    <span
-                      class="t-checkbox__label"
-                    />
                   </label>
                 </td>
                 <td
@@ -24056,9 +24004,6 @@ exports[`tree-select.jsx 1`] = `
                     />
                     <span
                       class="t-checkbox__input"
-                    />
-                    <span
-                      class="t-checkbox__label"
                     />
                   </label>
                 </td>

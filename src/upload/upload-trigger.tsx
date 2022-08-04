@@ -1,15 +1,22 @@
 import React, { FC } from 'react';
-import { UploadIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import { UploadIcon as TdUploadIcon } from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { UploadConfig } from '../config-provider/type';
+
 import Button from '../button';
 
 export interface UploadTriggerProps {
   onClick?: () => void;
+  localeFromProps?: UploadConfig;
 }
 
 const UploadTrigger: FC<UploadTriggerProps> = (props) => {
   const { classPrefix } = useConfig();
+  const { UploadIcon } = useGlobalIcon({
+    UploadIcon: TdUploadIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
 
   return (
@@ -18,7 +25,7 @@ const UploadTrigger: FC<UploadTriggerProps> = (props) => {
         props.children
       ) : (
         <Button icon={<UploadIcon />} variant="outline">
-          {t(locale.triggerUploadText.fileInput)}
+          {props?.localeFromProps?.triggerUploadText?.fileInput || t(locale.triggerUploadText.fileInput)}
         </Button>
       )}
     </div>

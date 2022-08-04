@@ -9,7 +9,10 @@ const OptionGroupSelect = () => {
     setValue(value);
   };
 
-  const options1 = [];
+  const options1 = [
+    { label: '选项一', value: 1 },
+    { label: '选项二', value: 2 },
+  ];
 
   const options2 = [
     { label: '选项三', value: 4 },

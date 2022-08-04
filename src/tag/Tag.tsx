@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { StyledProps } from '../common';
 import { TdTagProps } from './type';
 import CheckTag from './CheckTag';
@@ -43,6 +44,9 @@ const Tag = forwardRefWithStatics(
     } = props;
 
     const { classPrefix } = useConfig();
+    const { CloseIcon } = useGlobalIcon({
+      CloseIcon: TdCloseIcon,
+    });
     const tagClassPrefix = `${classPrefix}-tag`;
 
     const sizeMap = {

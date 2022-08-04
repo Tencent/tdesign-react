@@ -28,7 +28,7 @@ exports[`base.jsx 1`] = `
       >
         <textarea
           class="t-textarea__inner"
-          placeholder="请输入内容, 高度可自适应，autosize=true"
+          placeholder="请输入内容，高度可自适应，autosize=true"
           style="min-height: -4px; height: 0px;"
         />
       </div>

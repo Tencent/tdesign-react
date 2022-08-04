@@ -1,6 +1,6 @@
 import React, { Children, isValidElement, cloneElement } from 'react';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 import { TdOptionGroupProps, SelectValue } from '../type';
 import { optionGroupDefaultProps } from '../defaultProps';

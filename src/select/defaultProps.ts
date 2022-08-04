@@ -18,8 +18,6 @@ export const selectDefaultProps: TdSelectProps = {
   max: 0,
   minCollapsedNum: 0,
   multiple: false,
-  placeholder: undefined,
-  popupVisible: undefined,
   readonly: false,
   reserveKeyword: false,
   showArrow: true,

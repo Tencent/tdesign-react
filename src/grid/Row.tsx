@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef, createContext } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';
-import Col from './Col';
 import { canUseDocument, getCssVarsValue } from '../_util/dom';
 import { rowDefaultProps } from './defaultProps';
 
@@ -87,10 +86,9 @@ const calcRowStyle = (gutter: TdRowProps['gutter'], currentSize: string): object
   return rowStyle;
 };
 
-/**
- * Row组件
- */
-const Row = (props: RowProps) => {
+export const RowContext = createContext({ gutter: undefined, size: undefined });
+
+const Row = forwardRef((props: RowProps, ref) => {
   const { align, gutter, justify, tag, style: propStyle, className, children, ...otherRowProps } = props;
 
   const [size, setSize] = useState(canUseDocument ? calcSize(window.innerWidth) : 'md');
@@ -122,18 +120,14 @@ const Row = (props: RowProps) => {
   return React.createElement(
     tag,
     {
+      ref,
       className: rowClassNames,
       style: rowStyle,
       ...otherRowProps,
     },
-    React.Children.map(children, (child: React.ReactElement) => {
-      if (child && child.type === Col) {
-        return React.cloneElement(child, { gutter, size });
-      }
-      return child;
-    }),
+    <RowContext.Provider value={{ gutter, size }}>{children}</RowContext.Provider>,
   );
-};
+});
 
 Row.displayName = 'Row';
 Row.defaultProps = rowDefaultProps;

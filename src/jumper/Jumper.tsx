@@ -1,19 +1,34 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
-import { ChevronLeftIcon, RoundIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import {
+  RoundIcon as TdRoundIcon,
+  ChevronUpIcon as TdChevronUpIcon,
+  ChevronDownIcon as TdChevronDownIcon,
+  ChevronLeftIcon as TdChevronLeftIcon,
+  ChevronRightIcon as TdChevronRightIcon,
+} from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import Button from '../button';
 import { StyledProps } from '../common';
 import type { TdJumperProps } from './type';
 import { jumperDefaultProps } from './defaultProps';
+import noop from '../_util/noop';
 
 export interface JumperProps extends TdJumperProps, StyledProps {}
 
 const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
+  const { RoundIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
+    RoundIcon: TdRoundIcon,
+    ChevronUpIcon: TdChevronUpIcon,
+    ChevronDownIcon: TdChevronDownIcon,
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
 
-  const { variant, tips, showCurrent, disabled, layout, size, onChange, className, style } = props;
+  const { variant, tips, showCurrent, disabled, layout, size, onChange = noop, className, style } = props;
 
   const titleConfig = useMemo(() => {
     if (isObject(tips)) return tips;

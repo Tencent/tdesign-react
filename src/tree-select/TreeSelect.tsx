@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect 
 import classNames from 'classnames';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
 import type { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
 import Tree, { TreeProps } from '../tree';

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdListItemProps } from './type';
 import { StyledProps } from '../common';
 
@@ -16,13 +16,13 @@ export interface ListItemProps extends TdListItemProps, StyledProps {
  * 列表组件
  */
 const ListItem = forwardRef((props: ListItemProps, ref: React.Ref<HTMLLIElement>) => {
-  const { children, className, action, content } = props;
+  const { children, className, style, action, content } = props;
   const { classPrefix } = useConfig();
 
   const actionElement = action && <ul className={`${classPrefix}-list-item__action`}>{action}</ul>;
 
   return (
-    <li ref={ref} className={classNames(`${classPrefix}-list-item`, className)}>
+    <li ref={ref} className={classNames(`${classPrefix}-list-item`, className)} style={style}>
       <div className={`${classPrefix}-list-item-main`}>
         {children ? children : content}
         {actionElement}
