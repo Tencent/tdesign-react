@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import TimelineItem from './TimelineItem';
 import { TdTimeLineProps } from './type';
 import TimelineContext from './TimelineContext';

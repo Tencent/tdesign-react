@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import { TdTimeLineItemProps } from './type';
 import { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import TimelineContext from './TimelineContext';
 import renderTNode from '../_util/renderTNode';
 import Loading from '../loading';
