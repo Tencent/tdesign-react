@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import useControlled from '../../hooks/useControlled';
-import { TdDateRangePickerProps, DateValue } from '../type';
+import { TdDateRangePickerProps, DateRangeValue } from '../type';
 import { isValidDate, formatDate, formatTime, getDefaultFormat, parseToDayjs } from './useFormat';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
 import log from '../../_common/js/log';
@@ -9,7 +9,19 @@ import log from '../../_common/js/log';
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
 // 初始化面板年份月份
-export function initYearMonthTime(value: DateValue[], mode = 'date', format: string, timeFormat = 'HH:mm:ss') {
+export function initYearMonthTime({
+  value,
+  mode = 'date',
+  format,
+  timeFormat = 'HH:mm:ss',
+  enableTimePicker,
+}: {
+  value: DateRangeValue;
+  mode: string;
+  format: string;
+  timeFormat?: string;
+  enableTimePicker?: boolean;
+}) {
   const defaultYearMonthTime = {
     year: [dayjs().year(), dayjs().year()],
     month: [dayjs().month(), dayjs().month()],
@@ -19,7 +31,7 @@ export function initYearMonthTime(value: DateValue[], mode = 'date', format: str
     defaultYearMonthTime.year[1] += 10;
   } else if (mode === 'month' || mode === 'quarter') {
     defaultYearMonthTime.year[1] += 1;
-  } else if (mode === 'date' || mode === 'week') {
+  } else if ((mode === 'date' || mode === 'week') && !enableTimePicker) {
     defaultYearMonthTime.month[1] += 1;
   }
 
@@ -62,9 +74,11 @@ export default function useRange(props: TdDateRangePickerProps) {
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
-  const [time, setTime] = useState(initYearMonthTime(value, props.mode, format, timeFormat).time);
-  const [month, setMonth] = useState<Array<number>>(initYearMonthTime(value, props.mode, format).month);
-  const [year, setYear] = useState<Array<number>>(initYearMonthTime(value, props.mode, format).year);
+  const [time, setTime] = useState(initYearMonthTime({ value, mode: props.mode, format, timeFormat }).time);
+  const [month, setMonth] = useState<Array<number>>(
+    initYearMonthTime({ value, mode: props.mode, format, enableTimePicker: props.enableTimePicker }).month,
+  );
+  const [year, setYear] = useState<Array<number>>(initYearMonthTime({ value, mode: props.mode, format }).year);
   const [cacheValue, setCacheValue] = useState(formatDate(value, { format, targetFormat: format })); // 缓存选中值，panel 点击时更改
 
   // 输入框响应 value 变化
