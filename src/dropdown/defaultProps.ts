@@ -11,6 +11,7 @@ export const dropdownDefaultProps: TdDropdownProps = {
   maxHeight: 300,
   minColumnWidth: 10,
   placement: 'bottom-left',
+  theme: 'default',
   trigger: 'hover',
 };
 

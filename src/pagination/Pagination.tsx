@@ -2,7 +2,7 @@ import React, { useState, useMemo, forwardRef } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import Select from '../select';
 import InputNumber from '../input-number';

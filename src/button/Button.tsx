@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef, useMemo } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useRipple from '../_util/useRipple';
 import Loading from '../loading';
 import { TdButtonProps } from './type';

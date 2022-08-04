@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import FakeArrow from '../common/FakeArrow';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 interface SelectArrowProps {
   isActive: boolean;

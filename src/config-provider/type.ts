@@ -8,8 +8,13 @@ import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
 import { TNode, TElement } from '../common';
+import { GlobalIconConfig } from 'tdesign-icons-react';
 
 export interface GlobalConfigProvider {
+  /**
+   * icon 全局配置，用来覆盖内置 tdesign-icons
+   */
+  icon?: IconConfig;
   /**
    * 警告全局配置
    */
@@ -800,3 +805,5 @@ export interface UploadTriggerUploadText {
   continueUpload: string;
   delete?: string;
 }
+
+export type IconConfig = GlobalIconConfig;

@@ -1,9 +1,14 @@
 import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
-import { CloseCircleFilledIcon, BrowseOffIcon, BrowseIcon } from 'tdesign-icons-react';
+import {
+  BrowseIcon as TdBrowseIcon,
+  BrowseOffIcon as TdBrowseOffIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+} from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { getCharacterLength } from '../_util/helper';
 import { TdInputProps } from './type';
 import { StyledProps, TNode } from '../common';
@@ -45,6 +50,11 @@ const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
     // 国际化文本初始化
     const [local, t] = useLocaleReceiver('input');
+    const { BrowseIcon, BrowseOffIcon, CloseCircleFilledIcon } = useGlobalIcon({
+      BrowseIcon: TdBrowseIcon,
+      BrowseOffIcon: TdBrowseOffIcon,
+      CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    });
     const {
       type,
       autoWidth,

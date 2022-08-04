@@ -1,6 +1,6 @@
 import React, { DragEvent, MouseEvent, ReactNode, useCallback, useState } from 'react';
 import classNames from 'classnames';
-import useConfig from '../../../_util/useConfig';
+import useConfig from '../../../hooks/useConfig';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Button from '../../../button';
 import { UploadFile } from '../../type';

@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { TdCollapseProps, CollapsePanelValue, CollapseValue } from './type';
 import { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useControlled from '../hooks/useControlled';
 import CollapsePanel from './CollapsePanel';

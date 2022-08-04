@@ -1,7 +1,13 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { InfoCircleFilledIcon, CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import {
+  CloseIcon as TdCloseIcon,
+  InfoCircleFilledIcon as TdInfoCircleFilledIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
@@ -10,12 +16,19 @@ import { alertDefaultProps } from './defaultProps';
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
 const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => {
+  const { classPrefix } = useConfig();
+  const [local, t] = useLocaleReceiver('alert');
+  const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    CloseIcon: TdCloseIcon,
+    InfoCircleFilledIcon: TdInfoCircleFilledIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
+
   const { message, title, operation, theme, icon, close, maxLine, onClose, className, ...alertProps } = props;
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
-  const { classPrefix } = useConfig();
-  const [local, t] = useLocaleReceiver('alert');
 
   const iconMap = {
     success: CheckCircleFilledIcon,

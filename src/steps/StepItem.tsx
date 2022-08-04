@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { CloseIcon, CheckIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import { CloseIcon as TdCloseIcon, CheckIcon as TdCheckIcon } from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TdStepItemProps } from './type';
 import { StyledProps } from '../common';
 import StepsContext from './StepsContext';
@@ -17,6 +18,10 @@ const StepItem = (props: StepItemProps) => {
 
   const { current, theme, onChange, readonly } = useContext(StepsContext);
   const { classPrefix, steps: globalStepsConfig } = useConfig();
+  const { CloseIcon, CheckIcon } = useGlobalIcon({
+    CloseIcon: TdCloseIcon,
+    CheckIcon: TdCheckIcon,
+  });
 
   const canClick = status !== 'process' && !readonly;
 

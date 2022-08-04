@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext, Ref } from 'react';
 import useResizeObserver from 'use-resize-observer';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useCommonClassName from '../_util/useCommonClassName';
 import composeRefs from '../_util/composeRefs';

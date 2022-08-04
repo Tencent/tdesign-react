@@ -4,6 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { TElement } from '../common';
+
 export interface TdRateProps {
   /**
    * 是否允许半选
@@ -27,9 +29,13 @@ export interface TdRateProps {
   disabled?: boolean;
   /**
    * 评分图标的间距
-   * @default 6
+   * @default 4
    */
   gap?: number;
+  /**
+   * 自定义评分图标
+   */
+  icon?: TElement;
   /**
    * 是否显示对应的辅助文字
    * @default false

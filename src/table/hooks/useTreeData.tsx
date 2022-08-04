@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
+import {
+  AddRectangleIcon as TdAddRectangleIcon,
+  MinusRectangleIcon as TdMinusRectangleIcon,
+} from 'tdesign-icons-react';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import classNames from 'classnames';
@@ -8,6 +11,7 @@ import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, Tab
 import useClassName from './useClassName';
 import { renderCell } from '../TR';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];
@@ -20,6 +24,10 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
   const [locale, t] = useLocaleReceiver('table');
+  const { AddRectangleIcon, MinusRectangleIcon } = useGlobalIcon({
+    AddRectangleIcon: TdAddRectangleIcon,
+    MinusRectangleIcon: TdMinusRectangleIcon,
+  });
 
   const rowDataKeys = useMemo(
     () => ({
@@ -53,12 +61,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         setDataSource(data);
         return;
       }
-      let newVal = cloneDeep(data);
-      store.initialTreeStore(newVal, columns, rowDataKeys);
-      if (props.tree?.defaultExpandAll) {
-        newVal = [...store.expandAll(newVal, rowDataKeys)];
-      }
-      setDataSource(newVal);
+      resetData(data);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [uniqueKeys],
@@ -72,6 +75,15 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [columns],
   );
+
+  function resetData(data: TableRowData[]) {
+    let newVal = cloneDeep(data);
+    store.initialTreeStore(newVal, props.columns, rowDataKeys);
+    if (props.tree?.defaultExpandAll) {
+      newVal = store.expandAll(newVal, rowDataKeys);
+    }
+    setDataSource(newVal);
+  }
 
   function getTreeNodeStyle(level: number) {
     if (level === undefined) return;
@@ -263,5 +275,6 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     expandAll,
     foldAll,
     getTreeNode,
+    resetData,
   };
 }

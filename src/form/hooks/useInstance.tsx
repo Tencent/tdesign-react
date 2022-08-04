@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
 import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 function getMapValue(
   name: string | number | Array<string | number>,
@@ -95,7 +95,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 校验不通过时，滚动到第一个错误表单
   function scrollTo(selector: string) {
-    const dom = formRef.current.querySelector(selector);
+    const dom = formRef.current.querySelector?.(selector);
     const behavior = scrollToFirstError as ScrollBehavior;
     dom && dom.scrollIntoView({ behavior });
   }

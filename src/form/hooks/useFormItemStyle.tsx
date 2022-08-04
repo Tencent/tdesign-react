@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import renderTNode from '../../_util/renderTNode';
 import { ValidateStatus } from '../const';
 

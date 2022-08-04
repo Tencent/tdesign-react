@@ -1,8 +1,13 @@
 import classNames from 'classnames';
-import { BrowseIcon, DeleteIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  BrowseIcon as TdBrowseIcon,
+  DeleteIcon as TdDeleteIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
 import React, { MouseEvent } from 'react';
 import type { CommonListProps, FlowListProps } from './index';
-import useConfig from '../../../_util/useConfig';
+import useConfig from '../../../hooks/useConfig';
+import useGlobalIcon from '../../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { abridgeName } from '../../util';
 import Loading from '../../../loading';
@@ -12,6 +17,11 @@ type ImgListProps = CommonListProps & Pick<FlowListProps, 'onImgPreview' | 'remo
 const ImgList = (props: ImgListProps) => {
   const { showInitial, listFiles, renderDragger, onImgPreview, remove, localeFromProps } = props;
   const { classPrefix: prefix } = useConfig();
+  const { BrowseIcon, DeleteIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    BrowseIcon: TdBrowseIcon,
+    DeleteIcon: TdDeleteIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
   const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
   const UPLOAD_NAME_CARD = `${UPLOAD_NAME}__card`;

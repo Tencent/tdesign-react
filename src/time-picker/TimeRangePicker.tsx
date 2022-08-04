@@ -1,10 +1,11 @@
 import React, { FC, useState, useEffect } from 'react';
 import classNames from 'classnames';
 
-import { TimeIcon } from 'tdesign-icons-react';
+import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { RangeInputPopup, RangeInputPosition } from '../range-input';
 import TimePickerPanel from './panel/TimePickerPanel';
 
@@ -43,6 +44,9 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
   const [value, onChange] = useControlled(props, 'value', props.onChange);
 
   const { classPrefix } = useConfig();
+  const { TimeIcon } = useGlobalIcon({
+    TimeIcon: TdTimeIcon,
+  });
   const [isPanelShowed, setPanelShow] = useState(false);
   const [currentPanelIdx, setCurrentPanelIdx] = useState(undefined);
   const [currentValue, setCurrentValue] = useState(['', '']);

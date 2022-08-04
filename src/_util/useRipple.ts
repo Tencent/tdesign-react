@@ -1,5 +1,5 @@
 import { useEffect, useCallback, RefObject, useMemo } from 'react';
-import useConfig from './useConfig';
+import useConfig from '../hooks/useConfig';
 import useAnimation from './useAnimation';
 import setStyle from './setStyle';
 import { canUseDocument } from './dom';

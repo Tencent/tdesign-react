@@ -37,6 +37,10 @@
         "value": "month"
       },
       {
+        "label": "quarter",
+        "value": "quarter"
+      },
+      {
         "label": "week",
         "value": "week"
       },

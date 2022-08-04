@@ -3,7 +3,7 @@ import { Button, Space } from 'tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <Space>
+    <Space direction="vertical" style={{ width: '100%' }}>
       <Button block variant="base">
         填充按钮
       </Button>

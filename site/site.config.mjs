@@ -403,6 +403,12 @@ export default {
           path: '/react/components/watermark',
           component: () => import('tdesign-react/watermark/watermark.md'),
         },
+        {
+          title: 'Rate 评分',
+          name: 'rate',
+          path: '/react/components/rate',
+          component: () => import('tdesign-react/rate/rate.md'),
+        },
       ],
     },
     {

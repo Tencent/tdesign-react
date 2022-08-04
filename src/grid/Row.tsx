@@ -1,7 +1,7 @@
 import React, { useEffect, useState, forwardRef, createContext } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';
 import { canUseDocument, getCssVarsValue } from '../_util/dom';

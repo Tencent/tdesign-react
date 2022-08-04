@@ -6,12 +6,14 @@
 import React from 'react';
 
 import classNames from 'classnames';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TdMessageProps } from './type';
 import { useMessageClass } from './useMessageClass';
 
 export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessageProps) {
   const { tdMessageClassGenerator } = useMessageClass();
+  const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
 
   let relCloseBtn = closeBtn;
   // 函数类型先执行并解出具体的内容，然后进行判断
@@ -27,9 +29,7 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   // 数字 字符串类型封装 span 标签
   if (typeof relCloseBtn === 'string' || typeof relCloseBtn === 'number') {
     return (
-      <span
-        className={tdMessageClassGenerator('close')}
-        onClick={(e) => onCloseBtnClick?.({ e })}>
+      <span className={tdMessageClassGenerator('close')} onClick={(e) => onCloseBtnClick?.({ e })}>
         {closeBtn}
       </span>
     );
@@ -48,8 +48,5 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   }
 
   // 否则使用默认的关闭按钮样式
-  return <CloseIcon
-    className={tdMessageClassGenerator('close')}
-    onClick={(e) => onCloseBtnClick?.({ e })}
-  />;
+  return <CloseIcon className={tdMessageClassGenerator('close')} onClick={(e) => onCloseBtnClick?.({ e })} />;
 }

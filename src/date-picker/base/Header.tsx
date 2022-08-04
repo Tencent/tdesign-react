@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import Select from '../../select';
 import { TdDatePickerProps } from '../type';
 import Jumper, { TdJumperProps } from '../../jumper';
@@ -37,6 +37,30 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
 
   const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
 
+  const initOptions = useCallback(
+    (year: number) => {
+      const options = [];
+      if (mode === 'year') {
+        const extraYear = year % 10;
+        const minYear = year - extraYear - 100;
+        const maxYear = year - extraYear + 100;
+
+        for (let i = minYear; i <= maxYear; i += 10) {
+          options.push({ label: `${i} - ${i + 9}`, value: i + extraYear });
+        }
+      } else {
+        options.push({ label: `${year}`, value: year });
+
+        for (let i = 1; i <= 10; i++) {
+          options.push({ label: `${year + i}`, value: year + i });
+          options.unshift({ label: `${year - i}`, value: year - i });
+        }
+      }
+
+      return options;
+    },
+    [mode],
+  );
   const [yearOptions, setYearOptions] = useState(initOptions(year));
 
   // 年份选择展示区间
@@ -45,27 +69,10 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     [yearOptions, year],
   );
 
-  function initOptions(year: number) {
-    const options = [];
-    if (mode === 'year') {
-      const extraYear = year % 10;
-      const minYear = year - extraYear - 100;
-      const maxYear = year - extraYear + 100;
-
-      for (let i = minYear; i <= maxYear; i += 10) {
-        options.push({ label: `${i} - ${i + 9}`, value: i + extraYear });
-      }
-    } else {
-      options.push({ label: `${year}`, value: year });
-
-      for (let i = 1; i <= 10; i++) {
-        options.push({ label: `${year + i}`, value: year + i });
-        options.unshift({ label: `${year - i}`, value: year - i });
-      }
-    }
-
-    return options;
-  }
+  useEffect(() => {
+    const yearRange = initOptions(year);
+    setYearOptions(yearRange);
+  }, [initOptions, year]);
 
   function loadMoreYear(year: number, type?: 'add' | 'reduce') {
     const options = [];

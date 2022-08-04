@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import ReactDOM from 'react-dom';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import {
   NotificationInfoOptions,
   NotificationInstance,
