@@ -1,20 +1,25 @@
-export const downloadFile = (path: string) => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('get', path);
-  xhr.responseType = 'blob';
-  xhr.send();
-  xhr.onerror = () => {
-    window.open(path, '_blank');
-  };
-  xhr.onload = () => {
-    if (xhr.status === 200 || xhr.status === 304) {
-      const name = path.split('/').pop() || Math.random().toString(32).slice(2);
-      const url = URL.createObjectURL(xhr.response);
+export const downloadFile = function (imgSrc) {
+  const image = new Image();
+  const name = imgSrc?.split?.('/').pop() || Math.random().toString(32).slice(2);
+
+  image.setAttribute('crossOrigin', 'anonymous');
+
+  image.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    const context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0, image.width, image.height);
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
       a.download = name;
+      a.href = url;
       a.click();
+      a.remove();
       URL.revokeObjectURL(url);
-    }
+    });
   };
+  image.src = imgSrc;
 };

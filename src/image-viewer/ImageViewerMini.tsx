@@ -1,9 +1,10 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import Dialog from '../dialog';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
 import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 export interface ImageModelMiniProps {
   visible: boolean;
@@ -53,6 +54,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
     props;
 
   const { classPrefix } = useConfig();
+  const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
 
   const header = (
     <div className={`${classPrefix}-image-viewer__mini--header`}>

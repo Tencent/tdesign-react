@@ -2,17 +2,10 @@ import React, { useState, useEffect, useCallback, WheelEventHandler, MouseEvent,
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  DownloadIcon,
-  ImageErrorIcon,
-  ImageIcon,
-  MirrorIcon,
-  RotationIcon,
-  ZoomInIcon,
-  ZoomOutIcon,
+  ImageErrorIcon as TdImageErrorIcon,
+  ImageIcon as TdImageIcon,
+  MirrorIcon as TdMirrorIcon,
+  RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import Tooltip from '../tooltip';
@@ -26,9 +19,12 @@ import usePosition from './hooks/usePosition';
 import useIndex from './hooks/useIndex';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import useIconMap from './hooks/useIconMap';
 
 const ImageError = () => {
   const { classPrefix } = useConfig();
+  const { ImageErrorIcon } = useGlobalIcon({ ImageErrorIcon: TdImageErrorIcon });
   return (
     <div className={`${classPrefix}-image-viewer__img-error`}>
       {/* 脱离文档流 */}
@@ -109,18 +105,6 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
 // 旋转角度单位
 const ROTATE_COUNT = 90;
 
-const ICON_MAP = {
-  rotation: RotationIcon,
-  'zoom-in': ZoomInIcon,
-  mirror: MirrorIcon,
-  'zoom-out': ZoomOutIcon,
-  download: DownloadIcon,
-  'chevron-left': ChevronLeftIcon,
-  'chevron-right': ChevronRightIcon,
-  'chevron-down': ChevronDownIcon,
-  close: CloseIcon,
-};
-
 interface ImageModelIconProps {
   name?: string;
   size?: string;
@@ -133,7 +117,10 @@ interface ImageModelIconProps {
 
 const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, size = '3em' }: ImageModelIconProps) => {
   const { classPrefix } = useConfig();
-  const Icon = ICON_MAP[name];
+
+  const Icons = useIconMap();
+
+  const Icon = Icons[name];
   return (
     <div
       className={classNames(`${classPrefix}-image-viewer__modal--icon`, className, {
@@ -167,6 +154,11 @@ export const ImageViewerUtils = ({
   onReset,
 }: ImageViewerUtilsProps) => {
   const { classPrefix } = useConfig();
+  const { MirrorIcon, RotationIcon, ImageIcon } = useGlobalIcon({
+    MirrorIcon: TdMirrorIcon,
+    RotationIcon: TdRotationIcon,
+    ImageIcon: TdImageIcon,
+  });
 
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
