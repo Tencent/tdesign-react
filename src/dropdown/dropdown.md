@@ -7,6 +7,7 @@
 {{ child }}
 
 ## API
+
 ### Dropdown Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -22,6 +23,7 @@ minColumnWidth | String / Number | 10 | 选项最小宽度。值为字符串时�
 options | Array | [] | 下拉操作项。TS 类型：`Array<DropdownOption>` `type DropdownOption = { children?: Array<TdDropdownItemProps> } & TdDropdownItemProps & Record<string, any>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/dropdown/type.ts) | N
 placement | String | bottom-left | 弹窗定位方式，可选值同 Popup 组件。可选项：top/left/right/bottom/top-left/top-right/bottom-left/bottom-right/left-top/left-bottom/right-top/right-bottom | N
 popupProps | Object | - | 透传  Popup 组件属性，方便更加自由地控制。比如使用 popupProps.overlayStyle 设置浮层样式。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/dropdown/type.ts) | N
+theme | String | default | 下拉菜单风格。可选项：default/success/warning/error。TS 类型：`DropdownThemeList` `type DropdownThemeList = 'default' | 'success' | 'warning' | 'error'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/dropdown/type.ts) | N
 trigger | String | hover | 触发下拉显示的方式。可选项：hover/click/focus/context-menu | N
 onClick | Function |  | TS 类型：`(dropdownItem: DropdownOption, context: { e: MouseEvent }) => void`<br/>下拉操作项点击时触发 | N
 

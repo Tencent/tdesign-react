@@ -156,9 +156,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           className={`${headerClassName}-controller-year`}
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
-          onChange={(val) => {
-            onYearChange(val);
-          }}
+          onChange={(val) => onYearChange(val)}
           popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
           panelTopContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
