@@ -66,11 +66,6 @@ export interface TdDropdownProps {
    */
   popupProps?: PopupProps;
   /**
-   * 下拉菜单风格
-   * @default default
-   */
-  theme?: DropdownThemeList;
-  /**
    * 触发下拉显示的方式
    * @default hover
    */
@@ -103,6 +98,11 @@ export interface TdDropdownItemProps {
    */
   divider?: boolean;
   /**
+   * 下拉菜单选项主题
+   * @default default
+   */
+  theme?: DropdownItemTheme;
+  /**
    * 下拉操作项唯一标识
    */
   value?: string | number | { [key: string]: any };
@@ -114,4 +114,4 @@ export interface TdDropdownItemProps {
 
 export type DropdownOption = { children?: Array<TdDropdownItemProps> } & TdDropdownItemProps & Record<string, any>;
 
-export type DropdownThemeList = 'default' | 'success' | 'warning' | 'error';
+export type DropdownItemTheme = 'default' | 'success' | 'warning' | 'error';

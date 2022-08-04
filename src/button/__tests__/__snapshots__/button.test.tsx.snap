@@ -17,7 +17,7 @@ exports[`Button 组件测试 icon 1`] = `
 </DocumentFragment>
 `;
 
-exports[`base.jsx 1`] = `
+exports[`base.tsx 1`] = `
 <DocumentFragment>
   <div
     class="t-space t-space-horizontal"

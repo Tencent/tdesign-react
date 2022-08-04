@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker, Tooltip } from 'tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker, Tooltip, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -16,6 +16,13 @@ export default function BaseForm() {
   const onReset = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
+  };
+
+  const setMessage = () => {
+    formRef.current.setFields([
+      { name: 'name', status: 'fail', validateMessage: { type: 'error', message: '输入有误' } },
+      { name: 'birthday', status: 'waning', validateMessage: { type: 'warning', message: '时间有误' } },
+    ]);
   };
 
   return (
@@ -53,12 +60,15 @@ export default function BaseForm() {
         </div>
       </FormItem>
       <FormItem style={{ marginLeft: 100 }}>
-        <Button type="submit" theme="primary">
-          提交
-        </Button>
-        <Button type="reset" style={{ marginLeft: 12 }}>
-          重置
-        </Button>
+        <Space>
+          <Button type="submit" theme="primary">
+            提交
+          </Button>
+          <Button onClick={setMessage}>设置信息</Button>
+          <Button type="reset" theme="default">
+            重置
+          </Button>
+        </Space>
       </FormItem>
     </Form>
   );

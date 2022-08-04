@@ -19,7 +19,7 @@ export function testExamples(dirname: string, overrides: TestExampleOverrides = 
 
   // eslint-disable-next-line no-restricted-syntax
   for (const exampleFilename of fs.readdirSync(exampleDir)) {
-    if (!/\.jsx$/.test(exampleFilename)) {
+    if (!/\.(j|t)sx$/.test(exampleFilename)) {
       // eslint-disable-next-line no-continue
       continue;
     }

@@ -5,7 +5,7 @@ import { Select } from 'tdesign-react';
 const { Option } = Select;
 
 const options = [
-  { label: <div>用户一</div>, value: '1', description: '这是一段用户描述信息，可自定义内容' },
+  { label: '用户一', value: '1', description: '这是一段用户描述信息，可自定义内容' },
   { label: '用户二', value: '2', description: '这是一段用户描述信息，可自定义内容' },
   { label: '用户三', value: '3', description: '这是一段用户描述信息，可自定义内容' },
   { label: '用户四', value: '4', description: '这是一段用户描述信息，可自定义内容' },
