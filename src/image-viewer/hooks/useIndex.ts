@@ -1,5 +1,5 @@
-import useControlled from 'tdesign-react/hooks/useControlled';
 import { useCallback } from 'react';
+import useControlled from '../../hooks/useControlled';
 
 /** ImageViewerModel hooks * */
 // 选中下标控制

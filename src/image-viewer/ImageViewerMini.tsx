@@ -1,6 +1,6 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
-import { Dialog } from 'tdesign-react';
 import { CloseIcon } from 'tdesign-icons-react';
+import Dialog from '../dialog';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
 import useConfig from '../hooks/useConfig';

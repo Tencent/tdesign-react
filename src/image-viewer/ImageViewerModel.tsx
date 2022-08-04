@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, WheelEventHandler, MouseEvent, KeyboardEvent } from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
-import { Tooltip } from 'tdesign-react';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -16,6 +15,7 @@ import {
   ZoomOutIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import Tooltip from '../tooltip';
 import useConfig from '../hooks/useConfig';
 import { TNode } from '../common';
 import { downloadFile } from './utils';

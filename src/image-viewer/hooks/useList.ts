@@ -1,5 +1,5 @@
-import { ImageInfo } from 'tdesign-react/image-viewer/type';
 import { useEffect, useState } from 'react';
+import { ImageInfo } from '../type';
 
 const checkImages = (images) =>
   images.map((image) => {

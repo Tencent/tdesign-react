@@ -1,4 +1,4 @@
-import { ImageViewerScale } from 'tdesign-react/image-viewer/type';
+import { ImageViewerScale } from '../type';
 
 const useViewerScale = (viewerScale) => {
   const result: ImageViewerScale = {
