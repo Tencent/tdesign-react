@@ -44,7 +44,7 @@
     "postsite:preview": "cp _site/index.html _site/404.html",
     "lint": "npm run lint:tsc && eslint --ext .ts,.tsx ./ --max-warnings 0",
     "lint:fix": "eslint --ext .ts,.tsx ./ --max-warnings 0 --fix",
-    "lint:tsc": "tsc --emitDeclarationOnly",
+    "lint:tsc": "tsc --emitDeclarationOnly -p ./tsconfig.build.json",
     "generate:usage": "node script/generate-usage/index.js",
     "test": "npm run test:unit && npm run test:node",
     "test:update": "npm run test:unit-update && npm run test:node-update",
