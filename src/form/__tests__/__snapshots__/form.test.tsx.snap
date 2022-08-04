@@ -500,27 +500,53 @@ exports[`base.jsx 1`] = `
         <div
           class="t-form__controls-content"
         >
-          <button
-            class="t-button t-button--theme-primary t-button--variant-base"
-            type="submit"
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
           >
-            <span
-              class="t-button__text"
+            <div
+              class="t-space-item"
             >
-              提交
-            </span>
-          </button>
-          <button
-            class="t-button t-button--theme-primary t-button--variant-base"
-            style="margin-left: 12px;"
-            type="reset"
-          >
-            <span
-              class="t-button__text"
+              <button
+                class="t-button t-button--theme-primary t-button--variant-base"
+                type="submit"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  提交
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
             >
-              重置
-            </span>
-          </button>
+              <button
+                class="t-button t-button--theme-primary t-button--variant-base"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  设置信息
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-base"
+                type="reset"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  重置
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -4534,7 +4560,7 @@ exports[`validate-message.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__account t-form__item-with-help"
+      class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -4545,7 +4571,7 @@ exports[`validate-message.jsx 1`] = `
         </label>
       </div>
       <div
-        class="t-form__controls"
+        class="t-form__controls t-is-error"
         style="margin-left: 100px;"
       >
         <div
@@ -4572,10 +4598,16 @@ exports[`validate-message.jsx 1`] = `
         >
           这是用户名字段帮助说明
         </div>
+        <div
+          class="t-input__extra"
+          title="自定义用户名校验信息提示"
+        >
+          自定义用户名校验信息提示
+        </div>
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__description t-form__item-with-help"
+      class="t-form__item t-form-item__description t-form__item-with-help t-form__item-with-extra"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -4586,7 +4618,7 @@ exports[`validate-message.jsx 1`] = `
         </label>
       </div>
       <div
-        class="t-form__controls"
+        class="t-form__controls t-is-warning"
         style="margin-left: 100px;"
       >
         <div
@@ -4612,6 +4644,12 @@ exports[`validate-message.jsx 1`] = `
           class="t-input__help"
         >
           一句话介绍自己
+        </div>
+        <div
+          class="t-input__extra"
+          title="自定义个人简介校验信息提示"
+        >
+          自定义个人简介校验信息提示
         </div>
       </div>
     </div>

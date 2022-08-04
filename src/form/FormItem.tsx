@@ -77,7 +77,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     requiredMark = requiredMarkFromContext,
   } = props;
 
-  const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(false);
+  const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
   const [verifyStatus, setVerifyStatus] = useState(ValidateStatus.TO_BE_VALIDATED);
@@ -287,11 +287,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
   }
 
-  function setField(field: { value?: string; status?: ValidateStatus }) {
-    const { value, status } = field;
+  function setField(field: { value?: string; status?: ValidateStatus; validateMessage?: FormItemValidateMessage }) {
+    const { value, status, validateMessage } = field;
     if (typeof status !== 'undefined') {
-      setErrorList([]);
-      setSuccessList([]);
+      setErrorList(validateMessage ? [validateMessage] : []);
+      setSuccessList(validateMessage ? [validateMessage] : []);
       setNeedResetField(false);
       setVerifyStatus(status);
     }
