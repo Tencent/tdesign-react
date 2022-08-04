@@ -24,7 +24,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./globals.d.ts"],
+  "include": ["./src", "./globals.d.ts","./test/config/index.d.ts"],
   "exclude": ["**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
   "types": [
     "node",
