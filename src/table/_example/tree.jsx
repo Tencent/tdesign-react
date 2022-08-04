@@ -77,9 +77,12 @@ export default function TableTree() {
     total: 100,
   });
 
-  const setData1 = () => {
-    // 需要更新数据地址空间
-    setData(getData());
+  const resetData = () => {
+    const data = getData();
+    // 当 keys 发生变化时才会触发更新
+    // setData(data);
+    // 如果希望无论何时都触发更新请使用 tableRef.current.resetData
+    table.current.resetData(data);
   };
 
   const onEditClick = (row) => {
@@ -318,8 +321,8 @@ export default function TableTree() {
     <Space direction="vertical">
       <Space>
         <Button onClick={appendToRoot}>添加根节点</Button>
-        <Button theme="default" style={{ marginLeft: '16px' }} onClick={setData1}>
-          重置数据
+        <Button theme="default" style={{ marginLeft: '16px' }} onClick={resetData}>
+          重置/更新数据
         </Button>
         <Button theme="default" style={{ marginLeft: '16px' }} onClick={onRowToggle}>
           展开/收起可见行

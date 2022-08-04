@@ -22043,7 +22043,7 @@ exports[`tree.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              重置数据
+              重置/更新数据
             </span>
           </button>
         </div>

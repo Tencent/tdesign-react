@@ -204,7 +204,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const affixedHeader = Boolean(props.headerAffixedTop && tableWidth) && (
     <div
       ref={affixHeaderRef}
-      style={{ width: `${tableWidth}px`, opacity: headerOpacity }}
+      style={{ width: `${tableWidth - 1}px`, opacity: headerOpacity }}
       className={classNames(['scrollbar', { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual }])}
     >
       <table className={classNames(tableElmClasses)} style={{ ...tableElementStyles, width: `${tableElmWidth}px` }}>
@@ -263,7 +263,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
             isFixedHeader={isFixedHeader}
             rowAndColFixedPosition={rowAndColFixedPosition}
             footData={props.footData}
-            columns={props.columns}
+            columns={spansAndLeafNodes?.leafColumns || columns}
             rowAttributes={props.rowAttributes}
             rowClassName={props.rowClassName}
             thWidthList={thWidthList}
@@ -285,7 +285,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     showColumnShadow,
     // data: isVirtual ? visibleData : data,
     data: newData,
-    columns: spansAndLeafNodes.leafColumns,
+    columns: spansAndLeafNodes?.leafColumns || columns,
     tableElm: tableRef.current,
     tableContentElm: tableContentRef.current,
     tableWidth,
@@ -329,7 +329,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           isFixedHeader={isFixedHeader}
           rowAndColFixedPosition={rowAndColFixedPosition}
           footData={props.footData}
-          columns={columns}
+          columns={spansAndLeafNodes?.leafColumns || columns}
           rowAttributes={props.rowAttributes}
           rowClassName={props.rowClassName}
         ></TFoot>
