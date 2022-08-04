@@ -86,8 +86,8 @@ exports[`base.jsx 1`] = `
 exports[`block.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
-    style="gap: 16px;"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 100%;"
   >
     <div
       class="t-space-item"
