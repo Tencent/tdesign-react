@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig",
+  "include": ["./src", "./globals.d.ts"],
+  "exclude": [
+    "**/**/__tests__/*",
+    "**/**/_example/*",
+    "**/**/_usage/*",
+    "node_modules",
+    "src/_common",
+    "dist",
+    "lib",
+    "esm",
+    "cjs",
+    "es"
+  ]
+}

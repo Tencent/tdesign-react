@@ -300,7 +300,7 @@ exports[`enable-alpha.jsx 1`] = `
         >
           <span
             class="t-color-picker__sliders-preview-inner"
-            style="background-color: rgb(0, 82, 217);"
+            style="background: rgb(0, 82, 217);"
           />
         </div>
       </div>
@@ -1110,7 +1110,7 @@ exports[`panel.jsx 1`] = `
         >
           <span
             class="t-color-picker__sliders-preview-inner"
-            style="background-color: rgb(0, 82, 217);"
+            style="background: rgb(0, 82, 217);"
           />
         </div>
       </div>
@@ -1908,7 +1908,7 @@ exports[`recent-color.jsx 1`] = `
               >
                 <span
                   class="t-color-picker__sliders-preview-inner"
-                  style="background-color: rgb(0, 82, 217);"
+                  style="background: rgb(0, 82, 217);"
                 />
               </div>
             </div>
@@ -2816,7 +2816,7 @@ exports[`recent-color.jsx 1`] = `
               >
                 <span
                   class="t-color-picker__sliders-preview-inner"
-                  style="background-color: rgb(0, 82, 217);"
+                  style="background: rgb(0, 82, 217);"
                 />
               </div>
             </div>
@@ -3618,7 +3618,7 @@ exports[`status-readonly.jsx 1`] = `
         >
           <span
             class="t-color-picker__sliders-preview-inner"
-            style="background-color: rgb(0, 82, 217);"
+            style="background: rgb(0, 82, 217);"
           />
         </div>
       </div>
@@ -4419,7 +4419,7 @@ exports[`swatch-color.jsx 1`] = `
               >
                 <span
                   class="t-color-picker__sliders-preview-inner"
-                  style="background-color: rgb(0, 82, 217);"
+                  style="background: rgb(0, 82, 217);"
                 />
               </div>
             </div>
@@ -4790,7 +4790,7 @@ exports[`swatch-color.jsx 1`] = `
               >
                 <span
                   class="t-color-picker__sliders-preview-inner"
-                  style="background-color: rgb(0, 82, 217);"
+                  style="background: rgb(0, 82, 217);"
                 />
               </div>
             </div>
