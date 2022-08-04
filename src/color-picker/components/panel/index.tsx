@@ -323,7 +323,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
             <span
               className={`${baseClassName}__sliders-preview-inner`}
               style={{
-                backgroundColor: isGradient ? colorInstanceRef.current.linearGradient : colorInstanceRef.current.rgba,
+                background: isGradient ? colorInstanceRef.current.linearGradient : colorInstanceRef.current.rgba,
               }}
             />
           </div>
