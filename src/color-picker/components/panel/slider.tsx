@@ -82,7 +82,6 @@ const ColorSlider = (props: TdColorSliderProps) => {
     panelRectRef.current.width = panelRef.current.offsetWidth || SLIDER_DEFAULT_WIDTH;
   }, []);
 
-  console.log(props.color.rgb);
   const paddingStyle = {
     background: `linear-gradient(90deg, rgba(0,0,0,.0) 0%, rgba(0,0,0,.0) 93%, ${props.color.rgb} 93%, ${props.color.rgb} 100%)`,
   };
