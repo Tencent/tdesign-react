@@ -4,6 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { TElement } from '../common';
+
 export interface TdRateProps {
   /**
    * 是否允许半选
@@ -11,7 +13,7 @@ export interface TdRateProps {
    */
   allowHalf?: boolean;
   /**
-   * 评分图标的颜色，样式中默认为 #ED7B2F。一个值表示设置选中高亮的五角星颜色，两个值表示分别设置 选中高亮的五角星颜色 和 未选中暗灰的五角星颜色。示例：['#ED7B2F', '#999999']
+   * 评分图标的颜色，样式中默认为 #ED7B2F。一个值表示设置选中高亮的五角星颜色，示例：[选中颜色]。数组则表示分别设置 选中高亮的五角星颜色 和 未选中暗灰的五角星颜色，[选中颜色，未选中颜色]。示例：['#ED7B2F', '#E3E6EB']
    * @default '#ED7B2F'
    */
   color?: string | Array<string>;
@@ -27,9 +29,13 @@ export interface TdRateProps {
   disabled?: boolean;
   /**
    * 评分图标的间距
-   * @default 6
+   * @default 4
    */
   gap?: number;
+  /**
+   * 自定义评分图标
+   */
+  icon?: TElement;
   /**
    * 是否显示对应的辅助文字
    * @default false
