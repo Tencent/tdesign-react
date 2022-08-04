@@ -7,7 +7,6 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-closeBtn | TNode | true | 关闭按钮，值为 `true` 显示默认关闭按钮；值为 `false` 或 `undefined` 则不显示关闭按钮；值类型为函数，则表示自定义关闭按钮。TS 类型：`string | boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 colorModes | Array | ()=> ['monochrome', 'linear-gradient'] | 颜色模式选择。同时支持单色和渐变两种模式，可仅使用单色或者渐变其中一种模式，也可以同时使用。`monochrome` 表示单色，`linear-gradient` 表示渐变色。TS 类型：`Array<'monochrome' | 'linear-gradient'>` | N
 disabled | Boolean | false | 是否禁用组件 | N
 enableAlpha | Boolean | false | 是否开启透明通道 | N
