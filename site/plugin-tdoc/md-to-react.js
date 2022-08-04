@@ -83,15 +83,20 @@ export default function mdToReact(options) {
       return (
         <>
           ${
-            mdSegment.tdDocHeader ?
-              `<td-doc-header
+            mdSegment.tdDocHeader
+              ? `<td-doc-header
                 slot="doc-header"
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
                 platform="web"
               >
-                ${mdSegment.isComponent ? `<td-doc-badge slot="badge" label="coverage" message="${unitCoverage}" />` : ''}
-              </td-doc-header>` : ''
+                ${
+                  mdSegment.isComponent
+                    ? `<td-doc-badge slot="badge" label="coverage" message="${unitCoverage}" />`
+                    : ''
+                }
+              </td-doc-header>`
+              : ''
           }
           {
             isComponent ? (
@@ -99,12 +104,21 @@ export default function mdToReact(options) {
                 <td-doc-tabs ref={tdDocTabs} tab={tab}></td-doc-tabs>
                 <div style={isShow('demo')} name="DEMO">
                   ${mdSegment.demoMd.replace(/class=/g, 'className=')}
-                  <td-contributors platform="web" framework="react" component-name="${mdSegment.componentName}" ></td-contributors>
+                  <td-contributors platform="web" framework="react" component-name="${
+                    mdSegment.componentName
+                  }" ></td-contributors>
                 </div>
-                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.apiMd)} }}></div>
-                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.designMd)} }}></div>
+                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(
+                  mdSegment.apiMd,
+                )} }}></div>
+                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(
+                  mdSegment.designMd,
+                )} }}></div>
               </>
-            ) : <div name="DOC" className="${mdSegment.docClass}">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
+            ) : <div name="DOC" className="${mdSegment.docClass}">${mdSegment.docMd.replace(
+    /class=/g,
+    'className=',
+  )}</div>
           }
           <div style={{ marginTop: 48 }}>
             <td-doc-history time="${mdSegment.lastUpdated}"></td-doc-history>
@@ -122,6 +136,7 @@ export default function mdToReact(options) {
       decoratorsBeforeExport: true,
     },
     presets: [require('@babel/preset-react')],
+    plugins: [[require('@babel/plugin-transform-typescript'), { isTSX: true }]],
   });
 
   return { code: result.code, map: result.map };
@@ -162,7 +177,7 @@ function customRender({ source, file, md }) {
 
   // fix table | render error
   demoMd = demoMd.replace(/`([^`\r\n]+)`/g, (str, codeStr) => {
-    codeStr = codeStr.replace(/"/g, '\'');
+    codeStr = codeStr.replace(/"/g, "'");
     return `<td-code text="${codeStr}"></td-code>`;
   });
 
@@ -195,10 +210,19 @@ function customRender({ source, file, md }) {
   }
 
   if (pageData.isComponent) {
-    mdSegment.demoMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${demoMd.replace(/<!--[\s\S]+?-->/g, '')}`).html;
-    mdSegment.apiMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${apiMd.replace(/<!--[\s\S]+?-->/g, '')}`).html;
+    mdSegment.demoMd = md.render.call(
+      md,
+      `${pageData.toc ? '[toc]\n' : ''}${demoMd.replace(/<!--[\s\S]+?-->/g, '')}`,
+    ).html;
+    mdSegment.apiMd = md.render.call(
+      md,
+      `${pageData.toc ? '[toc]\n' : ''}${apiMd.replace(/<!--[\s\S]+?-->/g, '')}`,
+    ).html;
   } else {
-    mdSegment.docMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${content.replace(/<!--[\s\S]+?-->/g, '')}`).html;
+    mdSegment.docMd = md.render.call(
+      md,
+      `${pageData.toc ? '[toc]\n' : ''}${content.replace(/<!--[\s\S]+?-->/g, '')}`,
+    ).html;
   }
 
   // 设计指南内容 不展示 design Tab 则不解析
