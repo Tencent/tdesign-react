@@ -18,7 +18,7 @@ const Badge: React.FC<BadgeProps> = forwardRef<HTMLSpanElement, BadgeProps>(
 
     const badgeClassName = classNames(
       !childNode && `${classPrefix}-badge--static`,
-      dot ? `${classPrefix}-badge--dot` : shape && `${classPrefix}-badge--${shape}`,
+      dot ? `${classPrefix}-badge--dot` : `${classPrefix}-badge--${shape}`,
       size === 'small' && `${classPrefix}-size-s`,
       !childNode && className,
     );
