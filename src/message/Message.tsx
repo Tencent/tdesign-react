@@ -14,14 +14,13 @@ import {
   MessageSuccessMethod,
   MessageWarningMethod,
   MessageThemeList,
-  MessagePlacementList,
 } from './type';
-import { AttachNode, AttachNodeReturnValue } from '../common';
+import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
 import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 
-import { globalConfig, setGlobalConfig } from './config';
+import { getMessageConfig, getMessageDefaultConfig, globalConfig, setGlobalConfig } from './config';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
@@ -37,15 +36,17 @@ export interface MessagePlugin {
   loading: MessageLoadingMethod;
   closeAll: MessageCloseAllMethod;
   close: (message: Promise<MessageInstance>) => void;
-  config: (placement: MessagePlacementList, attach: AttachNode, offset: Array<string | number>, zIndex: number) => void;
+  config: (options: MessageOptions) => void;
 }
 
 /**
  * @desc 创建容器，所有的 message 会填充到容器中
  */
 function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
-  // 默认注入到 body 中，如果用户有制定，以用户指定的为准
+  // 默认注入到 body 中，如果用户有指定，以用户指定的为准
   let mountedDom: AttachNodeReturnValue = document.body;
+
+  const messageDefaultConfig = getMessageDefaultConfig();
 
   // attach 为字符串时认为是选择器
   if (typeof attach === 'string') {
@@ -68,7 +69,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
   if (container.length < 1) {
     const div = document.createElement('div');
     div.className = classNames(tdMessageListClass, tdMessagePlacementClass);
-    div.style.zIndex = String(zIndex || globalConfig.zIndex);
+    div.style.zIndex = String(zIndex || messageDefaultConfig.zIndex);
 
     Object.keys(PlacementOffset[placement]).forEach((key) => {
       div.style[key] = PlacementOffset[placement][key];
@@ -88,8 +89,8 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
  */
 function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
   const container = createContainer(config) as HTMLElement;
-  let { duration = globalConfig.duration } = config;
-  const { content, offset, onDurationEnd = noop } = config;
+
+  const { content, offset, onDurationEnd = noop, onCloseBtnClick = noop } = config;
   const div = document.createElement('div');
 
   keyIndex += 1;
@@ -98,25 +99,27 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
     close: () => {
       ReactDOM.unmountComponentAtNode(div);
       div.remove();
+      message.closed = true;
     },
     key: keyIndex,
+    closed: false,
   };
 
-  // 校验duration 合法性
-  if (duration < 0) {
-    duration = 3000;
-  }
-  if (duration !== 0) {
+  if (config.duration !== 0) {
     setTimeout(() => {
-      message.close();
-      onDurationEnd();
-    }, duration);
+      if (!message.closed) {
+        message.close();
+        onDurationEnd();
+      }
+    }, config.duration);
   }
 
   let style: React.CSSProperties = {};
   if (Array.isArray(offset) && offset.length === 2) {
     const [left, top] = offset;
     style = {
+      // @ts-ignore :todo 临时添加，api 合并后取消注释
+      ...config.style,
       left,
       top,
       position: 'relative',
@@ -126,7 +129,16 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   return new Promise((resolve) => {
     // 渲染组件
     ReactDOM.render(
-      <MessageComponent theme={theme} style={style} key={keyIndex} {...config}>
+      <MessageComponent
+        theme={theme}
+        key={keyIndex}
+        {...config}
+        style={style}
+        onCloseBtnClick={(ctx) => {
+          onCloseBtnClick(ctx);
+          message.close();
+        }}
+      >
         {content}
       </MessageComponent>,
       div,
@@ -147,7 +159,7 @@ function isConfig(content: MessageOptions | React.ReactNode): content is Message
 }
 
 // messageMethod 方法调用 message
-const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration: number = globalConfig.duration) => {
+const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration?: number) => {
   let config = {} as MessageOptions;
   if (isConfig(content)) {
     config = {
@@ -160,15 +172,7 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
       duration,
     };
   }
-  config = {
-    ...config,
-    // 参数未从外部设置时，使用全局默认配置，默认配置支持通过 setConfig 进行修改
-    zIndex: typeof config.zIndex !== 'undefined' ? config.zIndex : globalConfig.zIndex,
-    offset: typeof config.offset !== 'undefined' ? config.offset : globalConfig.offset,
-    placement: config.placement || globalConfig.placement,
-    attach: config.attach || globalConfig.attach,
-  };
-  return renderElement(theme, config);
+  return renderElement(theme, getMessageConfig(config));
 };
 
 // 创建
@@ -179,12 +183,7 @@ MessagePlugin.warning = (content, duration) => messageMethod('warning', content,
 MessagePlugin.success = (content, duration) => messageMethod('success', content, duration);
 MessagePlugin.question = (content, duration) => messageMethod('question', content, duration);
 MessagePlugin.loading = (content, duration) => messageMethod('loading', content, duration);
-MessagePlugin.config = (
-  placement: MessagePlacementList,
-  attach: AttachNode,
-  offset: Array<string | number>,
-  zIndex: number,
-) => setGlobalConfig(placement, attach, offset, zIndex);
+MessagePlugin.config = (options: MessageOptions) => setGlobalConfig(options);
 
 /**
  * @date 2021-05-16 13:11:24
