@@ -149,7 +149,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
       <div className={`${transferClassName}__operations`}>
         <Button
           key={isSourceDisabled ? 'right-outline' : 'right-base'}
-          variant={isSourceDisabled ? 'outline' : 'base'}
+          variant="outline"
           disabled={isSourceDisabled}
           onClick={transformSource}
         >
@@ -157,7 +157,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         </Button>
         <Button
           key={isSourceDisabled ? 'left-outline' : 'left-base'}
-          variant={isTargetDisabled ? 'outline' : 'base'}
+          variant="outline"
           disabled={isTargetDisabled}
           onClick={transformTarget}
         >
