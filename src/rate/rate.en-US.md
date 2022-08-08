@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Rate Props
 
 name | type | default | description | required

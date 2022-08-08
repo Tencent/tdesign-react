@@ -6,6 +6,7 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import Select from '../select';
 import InputNumber from '../input-number';
+import InputAdornment from '../input-adornment';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import useBoundaryJumper from './hooks/useBoundaryJumper';
@@ -109,17 +110,6 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     }
   };
 
-  // 处理极简版的当前页 ga 的逻辑
-  const onSimpleCurrentChange = (nextCurrent: number) => {
-    if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
-    setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize });
-    onChange({
-      current: nextCurrent,
-      previous: current,
-      pageSize,
-    });
-  };
-
   const { totalContrl } = useTotal({ totalContent, pageSize, current, total });
 
   const { firstPageJumper, lastPageJumper } = useBoundaryJumper({
@@ -164,38 +154,24 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
       </div>
     ) : null;
 
-  const simplePageNumberContrl = theme === 'simple' && showPageNumber && (
-    <div className={`${name}__select`}>
-      <Select autoWidth={true} size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
-        {Array(pageCount)
-          .fill(0)
-          .map((_, i) => i + 1)
-          .map((item) => (
-            <Option key={item} label={`${item}/${pageCount}`} value={item}>
-              {item}/{pageCount}
-            </Option>
-          ))}
-      </Select>
-    </div>
-  );
-
-  const Jumper = showJumper && (
+  const Jumper = (
     <div className={`${name}__jump`}>
       {t(locale.jumpTo)}
-      <InputNumber
-        className={`${classPrefix}-pagination__input`}
-        min={min}
-        size={size}
-        theme="normal"
-        max={pageCount}
-        disabled={disabled}
-        value={jumpValue}
-        onChange={(val) => setJumpValue(val)}
-        onBlur={(val) => changeCurrent(val)}
-        onEnter={(val) => changeCurrent(val)}
-        placeholder=""
-      />
-      {t(locale.page)}
+      <InputAdornment append={`/ ${pageCount} ${t(locale.page)}`}>
+        <InputNumber
+          className={`${classPrefix}-pagination__input`}
+          min={min}
+          size={size}
+          theme="normal"
+          max={pageCount}
+          disabled={disabled}
+          value={jumpValue}
+          onChange={(val) => setJumpValue(val)}
+          onBlur={(val) => changeCurrent(val)}
+          onEnter={(val) => changeCurrent(val)}
+          placeholder=""
+        />
+      </InputAdornment>
     </div>
   );
 
@@ -220,13 +196,13 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
       {/* 常规版 */}
       {theme === 'default' && pageNumberContrl}
       {/* 极简版 */}
-      {theme === 'simple' && simplePageNumberContrl}
+      {theme === 'simple' && Jumper}
       {/* 下一页跳转 */}
       {nextJumper}
       {/* 尾页跳转 */}
       {lastPageJumper}
       {/* 快速跳转 */}
-      {Jumper}
+      {theme === 'default' && showJumper && Jumper}
     </div>
   );
 });

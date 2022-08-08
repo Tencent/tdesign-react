@@ -955,7 +955,7 @@ exports[`checked.jsx 1`] = `
       class="t-transfer__operations"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base"
+        class="t-button t-button--theme-default t-button--variant-outline"
         type="button"
       >
         <span
@@ -2707,58 +2707,36 @@ exports[`pagination.jsx 1`] = `
             </svg>
           </div>
           <div
-            class="t-pagination__select"
+            class="t-pagination__jump"
           >
+            跳至
             <div
-              class="t-select__wrap"
+              class="t-input-adornment t-input-adornment--append"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-input-number t-size-s t-pagination__input t-input-number--normal"
               >
                 <div
-                  class="t-input__wrap t-input--auto-width"
-                  value="1/2"
+                  class="t-input__wrap"
+                  value="1"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
+                    class="t-input t-size-m t-align-left t-is-default"
                   >
-                    <div
-                      class="t-input__prefix"
-                    />
                     <input
                       class="t-input__inner"
-                      placeholder="请选择"
-                      readonly=""
+                      placeholder=""
                       type="text"
-                      value="1/2"
+                      value="1"
                     />
-                    <span
-                      class="t-input__input-pre"
-                    >
-                      1/2
-                    </span>
-                    <span
-                      class="t-input__suffix t-input__suffix-icon"
-                    >
-                      <svg
-                        class="t-fake-arrow t-select__right-icon"
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                          stroke="black"
-                          stroke-opacity="0.9"
-                          stroke-width="1.3"
-                        />
-                      </svg>
-                    </span>
                   </div>
                 </div>
               </div>
+              <span
+                class="t-input-adornment__append"
+              >
+                / 2 页
+              </span>
             </div>
           </div>
           <div
@@ -2895,58 +2873,36 @@ exports[`pagination.jsx 1`] = `
             </svg>
           </div>
           <div
-            class="t-pagination__select"
+            class="t-pagination__jump"
           >
+            跳至
             <div
-              class="t-select__wrap"
+              class="t-input-adornment t-input-adornment--append"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-input-number t-size-s t-pagination__input t-input-number--normal"
               >
                 <div
-                  class="t-input__wrap t-input--auto-width"
-                  value="1/1"
+                  class="t-input__wrap"
+                  value="1"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
+                    class="t-input t-size-m t-align-left t-is-default"
                   >
-                    <div
-                      class="t-input__prefix"
-                    />
                     <input
                       class="t-input__inner"
-                      placeholder="请选择"
-                      readonly=""
+                      placeholder=""
                       type="text"
-                      value="1/1"
+                      value="1"
                     />
-                    <span
-                      class="t-input__input-pre"
-                    >
-                      1/1
-                    </span>
-                    <span
-                      class="t-input__suffix t-input__suffix-icon"
-                    >
-                      <svg
-                        class="t-fake-arrow t-select__right-icon"
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                          stroke="black"
-                          stroke-opacity="0.9"
-                          stroke-width="1.3"
-                        />
-                      </svg>
-                    </span>
                   </div>
                 </div>
               </div>
+              <span
+                class="t-input-adornment__append"
+              >
+                / 1 页
+              </span>
             </div>
           </div>
           <div
