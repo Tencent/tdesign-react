@@ -80,19 +80,11 @@ describe('Pagination test', () => {
   });
   test('theme', () => {
     const changeFn = jest.fn();
-    const { getByText, getByDisplayValue } = render(
-      <Pagination total={100} defaultPageSize={5} theme="simple" onChange={changeFn} />,
-    );
+    render(<Pagination total={100} defaultPageSize={5} theme="simple" onChange={changeFn} />);
 
-    const select = getByDisplayValue('1/20');
-    fireEvent.click(select);
-    fireEvent.click(getByText('2/20'));
-
-    expect(changeFn.mock.calls[0][0]).toEqual({
-      current: 2,
-      previous: 1,
-      pageSize: 5,
-    });
+    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5' } });
+    fireEvent.keyDown(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
+    expect(document.querySelector('.t-pagination__jump .t-input__inner').value).toEqual('5');
   });
   test('totalContent', () => {
     const changeFn = jest.fn();
