@@ -16,6 +16,7 @@ export default function () {
                 style: {
                     backgroundColor: 'red'
                 },
+                className: 'test-hello'
                 // onDurationEnd: () => {alert('duration')},
                 // onCloseBtnClick: () => {alert('close')}
             });

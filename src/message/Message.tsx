@@ -14,6 +14,7 @@ import {
   MessageSuccessMethod,
   MessageWarningMethod,
   MessageThemeList,
+  MessageConfigMethod,
 } from './type';
 import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
@@ -36,7 +37,7 @@ export interface MessagePlugin {
   loading: MessageLoadingMethod;
   closeAll: MessageCloseAllMethod;
   close: (message: Promise<MessageInstance>) => void;
-  config: (options: MessageOptions) => void;
+  config: MessageConfigMethod;
 }
 
 /**
@@ -118,7 +119,6 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   if (Array.isArray(offset) && offset.length === 2) {
     const [left, top] = offset;
     style = {
-      // @ts-ignore :todo 临时添加，api 合并后取消注释
       ...config.style,
       left,
       top,
@@ -194,10 +194,7 @@ MessagePlugin.close = (messageInstance) => {
 };
 
 /**
- * @date 2021-05-16 13:11:24
  * @desc 关闭所有的 message
- * :todo 需明确关闭范围，目前 message 中暂无 namespace 类似概念，暂时做全 message 关闭
- * 可预见到的扩展: 根据不同的 attach 做关闭,根据不同的类型做关闭，根据不同的 namespace 做关闭等等
  */
 MessagePlugin.closeAll = (): MessageCloseAllMethod => {
   MessageList.forEach((message) => {
