@@ -287,11 +287,9 @@ describe('Popup 组件测试', () => {
       jest.runAllTimers();
     });
 
-    // 鼠标进入后，有元素，而且内容为空
+    // 鼠标进入后，没有元素，而且内容为空
     const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
-    expect(popupContainer).not.toBeNull();
-    expect(popupContainer).toHaveTextContent('');
-    expect(popupContainer).toHaveStyle(testStyle);
+    expect(popupContainer).toBeNull();
   });
 
   test('测试浮层嵌套', async () => {

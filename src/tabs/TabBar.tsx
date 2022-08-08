@@ -23,7 +23,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     let offset = 0;
 
     if (containerRef.current) {
-      const itemsRef = containerRef.current.querySelectorAll('.t-tabs__nav-item');
+      const itemsRef = containerRef.current.querySelectorAll?.('.t-tabs__nav-item');
 
       if (itemsRef.length - 1 >= activeId) {
         itemsRef.forEach((item, itemIndex) => {

@@ -95,7 +95,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 校验不通过时，滚动到第一个错误表单
   function scrollTo(selector: string) {
-    const dom = formRef.current.querySelector(selector);
+    const dom = formRef.current.querySelector?.(selector);
     const behavior = scrollToFirstError as ScrollBehavior;
     dom && dom.scrollIntoView({ behavior });
   }
@@ -190,10 +190,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (!Array.isArray(fields)) throw new Error('setFields 参数需要 Array 类型');
 
     fields.forEach((field) => {
-      const { name, value, status } = field;
+      const { name, ...restFields } = field;
       const formItemRef = getMapValue(name, formMapRef);
 
-      formItemRef?.current?.setField({ value, status });
+      formItemRef?.current?.setField({ ...restFields });
     });
   }
 

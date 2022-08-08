@@ -8,6 +8,7 @@ import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
 import { TNode, TElement } from '../common';
+import { GlobalIconConfig } from 'tdesign-icons-react';
 
 export interface GlobalConfigProvider {
   /**
@@ -805,6 +806,4 @@ export interface UploadTriggerUploadText {
   delete?: string;
 }
 
-export interface IconConfig {
-  [name: string]: any;
-}
+export type IconConfig = GlobalIconConfig;

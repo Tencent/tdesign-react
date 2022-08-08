@@ -56,7 +56,7 @@ const RadioGroup = (props: RadioGroupProps) => {
 
   const calcBarStyle = () => {
     if (!variant.includes('filled')) return;
-    const checkedRadio = groupRef.current.querySelector(checkedRadioCls);
+    const checkedRadio = groupRef.current.querySelector?.(checkedRadioCls);
     if (!checkedRadio) return setBarStyle({ width: 0 });
 
     const { offsetWidth, offsetLeft } = checkedRadio;

@@ -39,15 +39,17 @@ describe('Affix 组件测试', () => {
 
     expect(onFixedChangeMock).toBeCalledTimes(0);
     expect(getByText('固钉').parentNode).not.toHaveClass('t-affix');
-    expect(getByText('固钉').parentNode.style.zIndex).toBe('');
+    expect(getByText('固钉').parentElement.style.zIndex).toBe('');
 
     await mockScrollTo(-10);
 
     setTimeout(() => {
       expect(onFixedChangeMock).toHaveBeenCalledTimes(1);
       expect(getByText('固钉').parentNode).toHaveClass('t-affix');
-      expect(getByText('固钉').parentNode.style.zIndex).toBe('2');
+      expect(getByText('固钉').parentElement.style.zIndex).toBe('2');
     }, 20);
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
   });
 });

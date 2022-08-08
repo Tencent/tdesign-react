@@ -4,6 +4,7 @@ import { formatDate, formatTime, isValidDate, getDefaultFormat } from './useForm
 import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps } from '../type';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
+import log from '../../_common/js/log';
 
 export default function useSingleValue(props: TdDatePickerProps) {
   const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -16,9 +17,10 @@ export default function useSingleValue(props: TdDatePickerProps) {
   });
 
   if (props.enableTimePicker) {
-    if (!extractTimeFormat(format)) console.error(`format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+    if (!extractTimeFormat(format))
+      log.error('DatePicker', `format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
     if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
-      console.error(`valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+      log.error('DatePicker', `valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
 
   const [time, setTime] = useState(formatTime(value, timeFormat));
