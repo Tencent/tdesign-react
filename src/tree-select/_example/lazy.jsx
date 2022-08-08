@@ -41,17 +41,18 @@ export default function Example() {
   }
 
   return (
-    <TreeSelect
-      data={options}
-      clearable
-      placeholder="请选择"
-      value={value}
-      treeProps={{ load: loadFunc }}
-      onChange={(val) => {
-        setValue(val);
-        console.log(val);
-      }}
-      style={{ width: 300 }}
-    />
+    <div style={{ width: 300 }}>
+      <TreeSelect
+        data={options}
+        clearable
+        placeholder="请选择"
+        value={value}
+        treeProps={{ load: loadFunc, lazy: true }}
+        onChange={(val) => {
+          setValue(val);
+          console.log(val)
+        }}
+      />
+    </div>
   );
 }

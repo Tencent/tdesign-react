@@ -20,6 +20,7 @@ const Alpha = (props: TdColorBaseProps) => {
       value={color.alpha * 100}
       onChange={handleChange}
       railStyle={railStyle}
+      type="alpha"
       maxValue={100}
       {...rest}
     />

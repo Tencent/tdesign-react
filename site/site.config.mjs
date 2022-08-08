@@ -344,6 +344,12 @@ export default {
           component: () => import('tdesign-react/image/image.md'),
         },
         {
+          title: 'ImageViewer 图片',
+          name: 'image-viewer',
+          path: '/react/components/image-viewer',
+          component: () => import('tdesign-react/image-viewer/image-viewer.md'),
+        },
+        {
           title: 'List 列表',
           name: 'list',
           path: '/react/components/list',

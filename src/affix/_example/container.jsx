@@ -20,15 +20,6 @@ export default function ContainerExample() {
     }
   }, []);
 
-  const containerStyle = {
-    border: '1px solid var(--component-stroke)',
-    borderRadius: '3px',
-    height: '400px',
-    overflowX: 'hidden',
-    overflowY: 'auto',
-    overscrollBehavior: 'none',
-  };
-
   const backgroundStyle = {
     height: '1500px',
     paddingTop: '700px',
@@ -40,7 +31,17 @@ export default function ContainerExample() {
   };
 
   return (
-    <div style={containerStyle} ref={setContainer}>
+    <div
+      style={{
+        border: '1px solid var(--component-stroke)',
+        borderRadius: '3px',
+        height: '400px',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        overscrollBehavior: 'none',
+      }}
+      ref={setContainer}
+    >
       <div style={backgroundStyle}>
         <Affix
           offsetTop={50}

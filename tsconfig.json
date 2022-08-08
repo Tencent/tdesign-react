@@ -17,26 +17,15 @@
       "tdesign-react": ["src"],
       "tdesign-react/*": ["src/*"],
       "@test/utils": ["test/utils"],
-      "@common/*": ["src/_common/*"],
+      "@common/*": ["src/_common/*"]
     },
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./globals.d.ts"],
-  "exclude": [
-    "**/**/__tests__/*",
-    "**/**/_example/*",
-    "**/**/_usage/*",
-    "node_modules",
-    "src/_common",
-    "dist",
-    "lib",
-    "esm",
-    "cjs",
-    "es"
-  ],
+  "include": ["./src", "./globals.d.ts","./test/config/index.d.ts"],
+  "exclude": ["**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
   "types": [
     "node",
     "jest",
@@ -44,7 +33,7 @@
     "@testing-library/react-hooks",
     "@testing-library/react",
     "@testing-library/cypress",
-    "cypress",
+    "cypress"
   ],
   "compileOnSave": false
 }

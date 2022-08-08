@@ -149,54 +149,159 @@ exports[`color.jsx 1`] = `
 
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
-  <span
-    class="t-badge"
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
-    />
-    <span
-      class="t-badge--dot"
-    />
-  </span>
-  <span
-    class="t-badge"
-  >
-    <div
-      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
-    />
-    <span
-      class="t-badge--circle"
+      class="t-space-item"
     >
-      hot
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 24px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--dot"
+            />
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--circle"
+            >
+              hot
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--circle"
+            >
+              new
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--round"
+            >
+              100
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
     <div
-      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
-    />
-    <span
-      class="t-badge--circle"
-      style="background-color: rgb(0, 168, 112);"
+      class="t-space-item"
     >
-      new
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <div
-      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
-    />
-    <span
-      class="t-badge--round"
-      style="background-color: rgb(0, 82, 217);"
-    >
-      100
-    </span>
-  </span>
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 24px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--dot"
+            />
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--circle"
+            >
+              <span>
+                hot
+              </span>
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--circle"
+            >
+              <span>
+                new
+              </span>
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-badge"
+          >
+            <div
+              style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; border-radius: 3px;"
+            />
+            <span
+              class="t-badge--circle"
+            >
+              <span>
+                new
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 

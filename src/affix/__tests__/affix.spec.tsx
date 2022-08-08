@@ -14,7 +14,7 @@ describe('test affix component', () => {
   });
   it('offsetTop affix scrolled', () => {
     cy.scrollTo(0, 500);
-    cy.get('.tdesign-demo-item__body').eq(1).children(0).children(0).scrollTo(0, 300);
+    cy.get('.tdesign-demo-item__body').eq(1).children().first().children().first().scrollTo(0, 300);
     cy.get('.tdesign-demo-item__body').eq(1).get('.t-affix').should('have.css', 'top');
   });
 });

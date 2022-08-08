@@ -14,4 +14,9 @@ export const dropdownDefaultProps: TdDropdownProps = {
   trigger: 'hover',
 };
 
-export const dropdownItemDefaultProps: TdDropdownItemProps = { active: false, divider: false };
+export const dropdownItemDefaultProps: TdDropdownItemProps = {
+  active: false,
+  disabled: false,
+  divider: false,
+  theme: 'default',
+};

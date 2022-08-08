@@ -45,7 +45,7 @@ export default function AttachModalExample() {
         展示在挂载元素区域
       </Button>
       <Dialog
-        mattach="body"
+        attach="body"
         header="挂载在body"
         visible={visibleBody}
         onClose={() => handleClose('visibleBody')}

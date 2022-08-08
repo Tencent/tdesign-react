@@ -14,6 +14,7 @@ import Button from '../button';
 import { StyledProps } from '../common';
 import type { TdJumperProps } from './type';
 import { jumperDefaultProps } from './defaultProps';
+import noop from '../_util/noop';
 
 export interface JumperProps extends TdJumperProps, StyledProps {}
 
@@ -27,7 +28,7 @@ const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) =
     ChevronRightIcon: TdChevronRightIcon,
   });
 
-  const { variant, tips, showCurrent, disabled, layout, size, onChange, className, style } = props;
+  const { variant, tips, showCurrent, disabled, layout, size, onChange = noop, className, style } = props;
 
   const titleConfig = useMemo(() => {
     if (isObject(tips)) return tips;
