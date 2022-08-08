@@ -5,12 +5,13 @@
 import { TdRateProps } from './type';
 
 export const rateDefaultProps: TdRateProps = {
-  defaultValue: 0,
   allowHalf: false,
   color: '#ED7B2F',
-  size: '24px',
   count: 5,
+  disabled: false,
   gap: 4,
   showText: false,
-  texts: ['极差', '失望', '一般', '满意', '惊喜'],
+  size: '24px',
+  texts: [],
+  defaultValue: 0,
 };

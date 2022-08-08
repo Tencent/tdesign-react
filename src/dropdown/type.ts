@@ -5,7 +5,7 @@
  * */
 
 import { PopupProps } from '../popup';
-import { TNode } from '../common';
+import { TNode, TElement } from '../common';
 import { MouseEvent } from 'react';
 
 export interface TdDropdownProps {
@@ -97,6 +97,10 @@ export interface TdDropdownItemProps {
    * @default false
    */
   divider?: boolean;
+  /**
+   * 组件前置图标
+   */
+  prefixIcon?: TElement;
   /**
    * 下拉菜单选项主题
    * @default default
