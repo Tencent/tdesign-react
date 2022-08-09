@@ -4,7 +4,7 @@ exports[`extra-always.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-space t-space-horizontal"
-    style="gap: 100px;"
+    style="gap: 32px;"
   >
     <div
       class="t-space-item"
@@ -27,7 +27,7 @@ exports[`extra-always.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 240px; height: 160px;"
+            style="width: 284px; height: 160px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
@@ -125,7 +125,7 @@ exports[`extra-always.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 240px; height: 160px;"
+            style="width: 284px; height: 160px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
@@ -206,7 +206,7 @@ exports[`extra-hover.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
-    style="width: 240px; height: 160px;"
+    style="width: 284px; height: 160px;"
   >
     <img
       class="t-image t-image--fit-fill t-image--position-center"

@@ -47,12 +47,12 @@ export default function ExtraAlwaysImage() {
   )
 
   return (
-    <Space size={100}>
+    <Space size={32}>
       <Space direction="vertical">
         <strong style={{fontSize: 20}}>有遮罩</strong>
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style={{width: 240, height: 160}}
+          style={{width: 284, height: 160}}
           overlayContent={mask}
         />
       </Space>
@@ -60,7 +60,7 @@ export default function ExtraAlwaysImage() {
         <strong style={{fontSize: 20}}>无遮罩</strong>
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style={{width: 240, height: 160}}
+          style={{width: 284, height: 160}}
           overlayContent={button}
         />
       </Space>
