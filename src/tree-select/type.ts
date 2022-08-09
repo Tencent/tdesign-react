@@ -127,9 +127,17 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   size?: 'small' | 'medium' | 'large';
   /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
    * 【开发中】透传 Tag 标签组件全部属性
    */
   tagProps?: TagProps;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 透传 Tree 组件的全部属性
    */

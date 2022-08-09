@@ -39,7 +39,14 @@ const RangeInputPopup = React.forwardRef((props: RangeInputPopupProps, ref: Reac
         overlayStyle={tOverlayStyle}
         className={popupClasses}
       >
-        <RangeInput disabled={disabled} value={inputValue} onChange={onInputChange} {...rangeInputProps} />
+        <RangeInput
+          disabled={disabled}
+          status={props.status}
+          tips={props.tips}
+          value={inputValue}
+          onChange={onInputChange}
+          {...rangeInputProps}
+        />
       </Popup>
     </div>
   );

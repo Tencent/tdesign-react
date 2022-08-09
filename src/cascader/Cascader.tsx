@@ -74,6 +74,8 @@ const Cascader = (props: CascaderProps) => {
       multiple={props.multiple}
       loading={props.loading}
       disabled={props.disabled}
+      status={props.status}
+      tips={props.tips}
       suffixIcon={() => renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,

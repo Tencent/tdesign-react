@@ -10,7 +10,7 @@ for (let i = 0; i < total; i++) {
     index: i,
     platform: i % 2 === 0 ? '共有' : '私有',
     type: ['String', 'Number', 'Array', 'Object'][i % 4],
-    default: ['-', '0', '[]', '{}'][i % 4],
+    default: ['0', '[]'][i % 5],
     detail: {
       position: `读取 ${i} 个数据的嵌套信息值`,
     },
@@ -26,6 +26,7 @@ export default function TableBasic() {
   const [tableLayout, setTableLayout] = useState(false);
   const [size, setSize] = useState('medium');
 
+  // <!-- 当数据为空需要占位时，会显示 cellEmptyContent -->
   const table = (
     <Table
       data={data}
@@ -89,6 +90,7 @@ export default function TableBasic() {
       stripe={stripe}
       tableLayout={tableLayout ? 'auto' : 'fixed'}
       rowClassName={({ rowIndex }) => `${rowIndex}-class`}
+      cellEmptyContent={'-'}
       // 与pagination对齐
       pagination={{
         defaultCurrent: 2,

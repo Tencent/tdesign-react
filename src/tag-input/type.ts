@@ -37,7 +37,7 @@ export interface TdTagInputProps {
   dragSort?: boolean;
   /**
    * 标签超出时的呈现方式，有两种：横向滚动显示 和 换行显示
-   * @default scroll
+   * @default break-line
    */
   excessTagsDisplayType?: 'scroll' | 'break-line';
   /**
@@ -85,7 +85,7 @@ export interface TdTagInputProps {
    * 输入框状态
    * @default default
    */
-  status?: 'success' | 'warning' | 'error' | 'default';
+  status?: 'default' | 'success' | 'warning' | 'error';
   /**
    * 后置图标前的后置内容
    */
@@ -108,10 +108,12 @@ export interface TdTagInputProps {
   tips?: TNode;
   /**
    * 值
+   * @default []
    */
   value?: TagInputValue;
   /**
    * 值，非受控属性
+   * @default []
    */
   defaultValue?: TagInputValue;
   /**

@@ -4,7 +4,13 @@ import set from 'lodash/set';
 import isFunction from 'lodash/isFunction';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import { TableRowData, PrimaryTableCol, PrimaryTableRowEditContext, PrimaryTableRowValidateContext } from './type';
+import {
+  TableRowData,
+  PrimaryTableCol,
+  PrimaryTableRowEditContext,
+  PrimaryTableRowValidateContext,
+  TdBaseTableProps,
+} from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TableClassName } from './hooks/useClassName';
 import { renderCell } from './TR';
@@ -22,6 +28,7 @@ export interface EditableCellProps {
   /** 行编辑需要使用 editable。单元格编辑则无需使用，设置为 undefined */
   editable?: boolean;
   errors?: AllValidateResult[];
+  cellEmptyContent?: TdBaseTableProps['cellEmptyContent'];
   onChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
   onValidate?: (context: PrimaryTableRowValidateContext<TableRowData>) => void;
   onRuleChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
@@ -45,14 +52,17 @@ const EditableCell = (props: EditableCellProps) => {
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
   const cellNode = useMemo(() => {
-    const node = renderCell({
-      row: currentRow,
-      col: { ...col, cell: props.oldCell },
-      rowIndex: props.rowIndex,
-      colIndex: props.colIndex,
-    });
+    const node = renderCell(
+      {
+        row: currentRow,
+        col: { ...col, cell: props.oldCell },
+        rowIndex: props.rowIndex,
+        colIndex: props.colIndex,
+      },
+      { cellEmptyContent: props.cellEmptyContent },
+    );
     return node;
-  }, [col, currentRow, props.colIndex, props.oldCell, props.rowIndex]);
+  }, [col, currentRow, props.cellEmptyContent, props.colIndex, props.oldCell, props.rowIndex]);
 
   const componentProps = useMemo(() => {
     const { edit } = col;

@@ -14,7 +14,6 @@ import { MouseEvent, FocusEvent, FormEvent } from 'react';
 export interface TdRangeInputProps {
   /**
    * 输入框高亮状态序号
-   * @default 0
    */
   activeIndex?: number;
   /**
@@ -26,7 +25,7 @@ export interface TdRangeInputProps {
    * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
    * @default false
    */
-  disabled?: boolean | Array<boolean>;
+  disabled?: boolean;
   /**
    * 指定输入框展示值的格式
    */
@@ -70,7 +69,7 @@ export interface TdRangeInputProps {
   /**
    * 输入框状态
    */
-  status?: 'success' | 'warning' | 'error';
+  status?: 'default' | 'success' | 'warning' | 'error';
   /**
    * 后置图标前的后置内容
    */
@@ -85,10 +84,12 @@ export interface TdRangeInputProps {
   tips?: TNode;
   /**
    * 范围输入框的值
+   * @default []
    */
   value?: RangeInputValue;
   /**
    * 范围输入框的值，非受控属性
+   * @default []
    */
   defaultValue?: RangeInputValue;
   /**
@@ -197,6 +198,14 @@ export interface TdRangeInputPopupProps {
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发等
    */

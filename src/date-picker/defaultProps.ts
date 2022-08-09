@@ -7,8 +7,11 @@ import { TdDatePickerProps, TdDateRangePickerProps } from './type';
 export const datePickerDefaultProps: TdDatePickerProps = {
   allowInput: false,
   clearable: false,
+  disabled: false,
   enableTimePicker: false,
+  format: undefined,
   mode: 'date',
+  placeholder: undefined,
   presetsPlacement: 'bottom',
   defaultValue: '',
 };
@@ -16,9 +19,11 @@ export const datePickerDefaultProps: TdDatePickerProps = {
 export const dateRangePickerDefaultProps: TdDateRangePickerProps = {
   allowInput: false,
   clearable: false,
+  disabled: false,
   enableTimePicker: false,
   mode: 'date',
   panelPreselection: true,
   presetsPlacement: 'bottom',
+  separator: '-',
   defaultValue: [],
 };

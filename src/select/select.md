@@ -35,18 +35,20 @@ popupVisible | Boolean | undefined | 是否显示下拉框 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 reserveKeyword | Boolean | false | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词 | N
-scroll | Object | - | 【开发中】懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`。TS 类型：`TScroll`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+scroll | Object | - | 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`。TS 类型：`TScroll`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 selectInputProps | Object | - | 透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
 showArrow | Boolean | true | 是否显示右侧箭头，默认显示 | N
 size | String | medium | 组件尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+status | String | - | 输入框状态。可选项：default/success/warning/error | N
 tagInputProps | Object | - | 透传 TagInput 标签输入框组件的全部属性。TS 类型：`TagInputProps`，[TagInput API Documents](./tag-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
 tagProps | Object | - | 透传 Tag 标签组件全部属性。TS 类型：`TagProps`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
+tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 value | String / Number / Object / Array | - | 选中值。TS 类型：`SelectValue` `type SelectValue<T extends SelectOption = SelectOption> = string | number | T | Array<SelectValue<T>>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
 defaultValue | String / Number / Object / Array | - | 选中值。非受控属性。TS 类型：`SelectValue` `type SelectValue<T extends SelectOption = SelectOption> = string | number | T | Array<SelectValue<T>>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
 valueDisplay | TNode | - | 自定义选中项呈现方式。TS 类型：`string | TNode<{ value: SelectValue; onClose: (index: number, item?: any) => void }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 valueType | String | value | 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。。可选项：value/object | N
 onBlur | Function |  | TS 类型：`(context: { value: SelectValue; e: FocusEvent | KeyboardEvent }) => void`<br/>输入框失去焦点时触发 | N
-onChange | Function |  | TS 类型：`(value: SelectValue, context: { trigger: SelectValueChangeTrigger; e?: MouseEvent | KeyboardEvent }) => void`<br/>选中值变化时触发，`context. trigger` 表示触发变化的来源。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts)。<br/>`type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck'`<br/> | N
+onChange | Function |  | TS 类型：`(value: SelectValue, context: { selectedOptions: T[], trigger: SelectValueChangeTrigger; e?: MouseEvent | KeyboardEvent }) => void`<br/>选中值变化时触发，`context.trigger` 表示触发变化的来源，`context.selectedOptions` 表示选中值的完整对象。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts)。<br/>`type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck'`<br/> | N
 onClear | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击清除按钮时触发 | N
 onCreate | Function |  | TS 类型：`(value: string | number) => void`<br/>当选择新创建的条目时触发 | N
 onEnter | Function |  | TS 类型：`(context: { inputValue: string; e: KeyboardEvent; value: SelectValue }) => void`<br/>回车键按下时触发。`inputValue` 表示输入框的值，`value` 表示选中值 | N

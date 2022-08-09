@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Table, Input, Select, DatePicker, MessagePlugin, Button } from 'tdesign-react';
+import dayjs from 'dayjs';
 
 const classStyles = `
 <style>
@@ -65,7 +66,7 @@ export default function EditableRowTable() {
   };
 
   const onRowValidate = (params) => {
-    console.log('validate:', params);
+    console.log('row-validate:', params);
     if (params.result.length) {
       const r = params.result[0];
       MessagePlugin.error(`${r.col.title} ${r.errorList[0].message}`);
@@ -91,6 +92,21 @@ export default function EditableRowTable() {
       editedRow: { ...oldRowData, [col.colKey]: value },
     };
   };
+
+  function onValidateTableData() {
+    // 执行结束后触发事件 validate
+    tableRef.current.validateTableData();
+  }
+
+  // 表格全量数据校验反馈事件，tableRef.current.validateTableData() 执行结束后触发
+  function onValidate(params) {
+    console.log('validate:', params);
+    const cellKeys = Object.keys(params.result);
+    const firstError = params.result[cellKeys[0]];
+    if (firstError) {
+      MessagePlugin.warning(firstError[0].message);
+    }
+  }
 
   useEffect(() => {
     // 添加示例代码所需样式
@@ -139,6 +155,8 @@ export default function EditableRowTable() {
             ],
           },
           showEditIcon: false,
+          // 校验规则，此处同 Form 表单
+          rules: [{ required: true, message: '不能为空' }],
         },
       },
       {
@@ -165,6 +183,8 @@ export default function EditableRowTable() {
             ].filter(t => (t.show === undefined ? true : t.show())),
           }),
           showEditIcon: false,
+          // 校验规则，此处同 Form 表单
+          rules: [{ validator: (val) => val && val.length < 3, message: '数量不能超过 2 个' }],
         },
       },
       {
@@ -175,6 +195,13 @@ export default function EditableRowTable() {
         edit: {
           component: DatePicker,
           showEditIcon: false,
+          // 校验规则，此处同 Form 表单
+          rules: [
+            {
+              validator: (val) => dayjs(val).isAfter(dayjs()),
+              message: '只能选择今天以后日期',
+            },
+          ],
         },
       },
       {
@@ -212,6 +239,10 @@ export default function EditableRowTable() {
   // 当前示例包含：输入框、单选、多选、日期 等场景
   return (
     <div className="t-table-demo__editable-row">
+      <div>
+        <Button onClick={onValidateTableData}>校验全部</Button>
+      </div>
+      <br />
       <Table
         ref={tableRef}
         rowKey="key"
@@ -220,6 +251,7 @@ export default function EditableRowTable() {
         editableRowKeys={editableRowKeys}
         onRowEdit={onRowEdit}
         onRowValidate={onRowValidate}
+        onValidate={onValidate}
         bordered
       />
     </div>

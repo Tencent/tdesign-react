@@ -9,7 +9,7 @@ import { PopupProps } from '../popup';
 import { TimePickerProps } from '../time-picker';
 import { Dayjs } from 'dayjs';
 import { RangeInputProps } from '../range-input';
-import { TElement } from '../common';
+import { TNode, TElement } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdDatePickerProps {
@@ -24,14 +24,14 @@ export interface TdDatePickerProps {
    */
   clearable?: boolean;
   /**
+   * 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。`{ from: 'A', to: 'B' }` 表示在 A 到 B 之间的日期会被禁用。`{ before: 'A', after: 'B' }` 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用
+   */
+  disableDate?: DisableDate;
+  /**
    * 是否禁用组件
    * @default false
    */
   disabled?: boolean;
-  /**
-   * 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。`{ from: 'A', to: 'B' }` 表示在 A 到 B 之间的日期会被禁用。`{ before: 'A', after: 'B' }` 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用
-   */
-  disableDate?: DisableDate;
   /**
    * 是否显示时间选择
    * @default false
@@ -43,7 +43,6 @@ export interface TdDatePickerProps {
   firstDayOfWeek?: number;
   /**
    * 用于格式化日期，全局配置默认为：'YYYY-MM-DD'，[详细文档](https://day.js.org/docs/en/display/format)
-   * @default ''
    */
   format?: string;
   /**
@@ -54,7 +53,7 @@ export interface TdDatePickerProps {
    * 选择器模式
    * @default date
    */
-  mode?: 'year' | 'month' | 'quarter' | 'week' | 'date';
+  mode?: 'year' | 'quarter' | 'month' | 'week' | 'date';
   /**
    * 占位符
    */
@@ -77,6 +76,10 @@ export interface TdDatePickerProps {
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
   /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
    * 用于自定义组件后置图标
    */
   suffixIcon?: TElement;
@@ -84,6 +87,10 @@ export interface TdDatePickerProps {
    * 透传 TimePicker 组件属性
    */
   timePickerProps?: TimePickerProps;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 选中值
    * @default ''
@@ -129,14 +136,14 @@ export interface TdDateRangePickerProps {
    */
   clearable?: boolean;
   /**
+   * 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用
+   */
+  disableDate?: DisableRangeDate;
+  /**
    * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
    * @default false
    */
   disabled?: boolean;
-  /**
-   * 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用
-   */
-  disableDate?: DisableRangeDate;
   /**
    * 是否显示时间选择
    * @default false
@@ -155,7 +162,7 @@ export interface TdDateRangePickerProps {
    * 选择器模式
    * @default date
    */
-  mode?: 'year' | 'month' | 'quarter' | 'week' | 'date';
+  mode?: 'year' | 'quarter' | 'month' | 'week' | 'date';
   /**
    * 在开始日期选中之前，面板是否显示预选状态，即是否高亮预选日期
    * @default true
@@ -192,6 +199,10 @@ export interface TdDateRangePickerProps {
    */
   separator?: string;
   /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
    * 组件后置图标
    */
   suffixIcon?: TElement;
@@ -199,6 +210,10 @@ export interface TdDateRangePickerProps {
    * 透传 TimePicker 组件属性
    */
   timePickerProps?: TimePickerProps;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 选中值
    * @default []

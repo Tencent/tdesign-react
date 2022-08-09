@@ -105,7 +105,7 @@ function getColumns({ fixedLeftColumn, fixedRightColumn }) {
 const TableAffixDemo = () => {
   const data = getData(TOTAL);
   // 表尾有一行数据
-  const footData = [{ type: '全部类型', description: '-' }];
+  const footData = [{ index: 'footer-row-1', type: '全部类型', description: '-' }];
   const [columns, setColumns] = useState([]);
 
   // 重要：如果在预渲染场景下，初次渲染的表格宽度和最终呈现宽度不一样，请异步设置表头吸顶

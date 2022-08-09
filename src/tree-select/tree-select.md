@@ -31,7 +31,9 @@ prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用�
 readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 selectInputProps | Object | - | 【开发中】透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
+status | String | - | 输入框状态。可选项：default/success/warning/error | N
 tagProps | Object | - | 【开发中】透传 Tag 标签组件全部属性。TS 类型：`TagProps`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
+tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 treeProps | Object | - | 透传 Tree 组件的全部属性。TS 类型：`TreeProps`，[Tree API Documents](./tree?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 value | String / Number / Object / Array | - | 选中值。TS 类型：`TreeSelectValue` `type TreeSelectValue = string | number | object | Array<TreeSelectValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 defaultValue | String / Number / Object / Array | - | 选中值。非受控属性。TS 类型：`TreeSelectValue` `type TreeSelectValue = string | number | object | Array<TreeSelectValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
