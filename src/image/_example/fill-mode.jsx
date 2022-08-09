@@ -10,7 +10,7 @@ export default function FillModeImage() {
             <Image
               src="https://tdesign.gtimg.com/demo/demo-image-1.png"
               fit={item}
-              style={{width: 130, height: 130}}
+              style={{width: 120, height: 120}}
             />
             {item}
           </Space>

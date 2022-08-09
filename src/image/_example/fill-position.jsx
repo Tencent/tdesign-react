@@ -9,7 +9,7 @@ export default function FillPositionImage() {
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="cover"
           position="center"
-          style={{width: 130, height: 130}}
+          style={{width: 120, height: 120}}
         />
         cover center
       </Space>
@@ -17,7 +17,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="cover"
-          style={{width: 130, height: 130}}
+          style={{width: 120, height: 120}}
           position="left"
         />
         cover left
@@ -26,7 +26,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="cover"
-          style={{width: 130, height: 130}}
+          style={{width: 120, height: 120}}
           position="right"
         />
         cover right
@@ -37,7 +37,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="cover"
-          style={{width: 280, height: 130}}
+          style={{width: 280, height: 120}}
           position="top"
         />
         cover top
@@ -46,7 +46,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="cover"
-          style={{width: 280, height: 130}}
+          style={{width: 280, height: 120}}
           position="bottom"
         />
         cover bottom
@@ -57,7 +57,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="contain"
-          style={{width: 130, height: 200}}
+          style={{width: 120, height: 200}}
           position="top"
         />
         contain top
@@ -66,7 +66,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="contain"
-          style={{width: 130, height: 200}}
+          style={{width: 120, height: 200}}
           position="bottom"
         />
         contain bottom
@@ -75,7 +75,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="contain"
-          style={{width: 130, height: 200}}
+          style={{width: 120, height: 200}}
           position="center"
         />
         contain center
@@ -85,7 +85,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="contain"
-          style={{width: 280, height: 130}}
+          style={{width: 280, height: 120}}
           position="left"
         />
         contain left
@@ -94,7 +94,7 @@ export default function FillPositionImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           fit="contain"
-          style={{width: 280, height: 130}}
+          style={{width: 280, height: 120}}
           position="right"
         />
         contain right

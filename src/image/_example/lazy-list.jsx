@@ -16,7 +16,7 @@ export default function LazyListImage() {
             <Image
               key={index}
               src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-              style={{width: 230, height: 130}}
+              style={{width: 230, height: 120}}
               lazy
             />
           ))
