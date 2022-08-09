@@ -654,7 +654,7 @@ exports[`affix.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -1608,7 +1608,7 @@ exports[`base.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -2273,7 +2273,7 @@ exports[`custom-col.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -2892,7 +2892,7 @@ exports[`custom-col-button.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -3589,7 +3589,7 @@ exports[`data-sort.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -3610,7 +3610,7 @@ exports[`data-sort.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
@@ -3659,7 +3659,7 @@ exports[`data-sort.jsx 1`] = `
                             class="t-table__cell--sort-trigger"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-table__sort-icon--active t-table__sort-icon t-table-sort-desc"
@@ -5350,7 +5350,7 @@ exports[`editable-row.jsx 1`] = `
                     class="t-select__wrap"
                   >
                     <div
-                      class="t-popup__reference t-select t-select-input"
+                      class="t-select t-select-input"
                     >
                       <div
                         class="t-input__wrap t-input--auto-width"
@@ -5409,7 +5409,7 @@ exports[`editable-row.jsx 1`] = `
                     class="t-select__wrap"
                   >
                     <div
-                      class="t-popup__reference t-select t-select-input t-select-input--multiple"
+                      class="t-select t-select-input t-select-input--multiple"
                     >
                       <div
                         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -5478,7 +5478,7 @@ exports[`editable-row.jsx 1`] = `
                     class="t-date-picker"
                   >
                     <div
-                      class="t-popup__reference t-select-input"
+                      class="t-select-input"
                     >
                       <div
                         class="t-input__wrap"
@@ -6805,7 +6805,7 @@ exports[`filter-controlled.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -6826,7 +6826,7 @@ exports[`filter-controlled.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
@@ -6848,7 +6848,7 @@ exports[`filter-controlled.jsx 1`] = `
                             </div>
                           </div>
                           <div
-                            class="t-popup__reference t-table__filter-icon"
+                            class="t-table__filter-icon"
                           >
                             <div>
                               <svg
@@ -6891,7 +6891,7 @@ exports[`filter-controlled.jsx 1`] = `
                           class="t-table__filter-icon-wrap"
                         >
                           <div
-                            class="t-popup__reference t-table__filter-icon"
+                            class="t-table__filter-icon"
                           >
                             <div>
                               <svg
@@ -6934,7 +6934,7 @@ exports[`filter-controlled.jsx 1`] = `
                           class="t-table__filter-icon-wrap"
                         >
                           <div
-                            class="t-popup__reference t-table__filter-icon"
+                            class="t-table__filter-icon"
                           >
                             <div>
                               <svg
@@ -6977,7 +6977,7 @@ exports[`filter-controlled.jsx 1`] = `
                           class="t-table__filter-icon-wrap"
                         >
                           <div
-                            class="t-popup__reference t-table__filter-icon"
+                            class="t-table__filter-icon"
                           >
                             <div>
                               <svg
@@ -7175,7 +7175,7 @@ exports[`filter-controlled.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -18159,7 +18159,7 @@ exports[`multi-header.jsx 1`] = `
                           class="t-table__filter-icon-wrap"
                         >
                           <div
-                            class="t-popup__reference t-table__filter-icon"
+                            class="t-table__filter-icon"
                           >
                             <div>
                               <svg
@@ -18232,7 +18232,7 @@ exports[`multi-header.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-table__sort-icon--active t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -18253,7 +18253,7 @@ exports[`multi-header.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
@@ -20062,7 +20062,7 @@ exports[`multiple-sort.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -20083,7 +20083,7 @@ exports[`multiple-sort.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-table__sort-icon--active t-table__sort-icon t-table-sort-desc"
@@ -20132,7 +20132,7 @@ exports[`multiple-sort.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-table__sort-icon--active t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -20153,7 +20153,7 @@ exports[`multiple-sort.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
@@ -20637,7 +20637,7 @@ exports[`pagination.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -20915,7 +20915,7 @@ exports[`pagination-ajax.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -21920,7 +21920,7 @@ exports[`single-sort.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -21941,7 +21941,7 @@ exports[`single-sort.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-table__sort-icon--active t-table__sort-icon t-table-sort-desc"
@@ -21990,7 +21990,7 @@ exports[`single-sort.jsx 1`] = `
                             class="t-table__cell--sort-trigger t-table__double-icons"
                           >
                             <div
-                              class="t-popup__reference t-table-sort-asc"
+                              class="t-table-sort-asc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
@@ -22011,7 +22011,7 @@ exports[`single-sort.jsx 1`] = `
                               </span>
                             </div>
                             <div
-                              class="t-popup__reference t-table-sort-desc"
+                              class="t-table-sort-desc"
                             >
                               <span
                                 class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
@@ -22499,21 +22499,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -22649,21 +22645,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -22799,21 +22791,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -22949,21 +22937,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -23099,21 +23083,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -23249,21 +23229,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -23399,21 +23375,17 @@ exports[`tree.jsx 1`] = `
                         查看
                       </span>
                     </button>
-                    <div
-                      class="t-popup__reference"
+                    <button
+                      class="t-button t-button--theme-default t-button--variant-text"
+                      style="padding: 0px 8px;"
+                      type="button"
                     >
-                      <button
-                        class="t-button t-button--theme-default t-button--variant-text"
-                        style="padding: 0px 8px;"
-                        type="button"
+                      <span
+                        class="t-button__text"
                       >
-                        <span
-                          class="t-button__text"
-                        >
-                          删除
-                        </span>
-                      </button>
-                    </div>
+                        删除
+                      </span>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -23442,7 +23414,7 @@ exports[`tree.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"

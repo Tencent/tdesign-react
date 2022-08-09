@@ -26,7 +26,7 @@ const RangeInputPopup = React.forwardRef((props: RangeInputPopupProps, ref: Reac
   ]);
 
   return (
-    <div ref={ref} style={style} className={classNames(name, className)}>
+    <div ref={ref} style={style} className={classNames(name, className, popupClasses)}>
       <Popup
         hideEmptyPopup
         content={panel}
@@ -37,7 +37,6 @@ const RangeInputPopup = React.forwardRef((props: RangeInputPopupProps, ref: Reac
         disabled={disabled}
         {...popupProps}
         overlayStyle={tOverlayStyle}
-        className={popupClasses}
       >
         <RangeInput
           disabled={disabled}

@@ -123,24 +123,25 @@ export default function TableFilterController(props: TableFilterControllerProps)
   if (!column.filter || (column.filter && !Object.keys(column.filter).length)) return null;
   const defaultFilterIcon = t(locale.filterIcon) || <FilterIcon />;
   return (
-    <Popup
-      // attach={primaryTableElement ? () => primaryTableElement : undefined}
-      visible={filterPopupVisible}
-      destroyOnClose
-      trigger="click"
-      placement="bottom-right"
-      showArrow
-      overlayClassName={tableFilterClasses.popup}
-      onVisibleChange={(val: boolean) => onFilterPopupVisibleChange(val)}
-      className={classNames([tableFilterClasses.icon, { [isFocusClass]: !isEmpty(tFilterValue?.[column.colKey]) }])}
-      content={
-        <div className={tableFilterClasses.popupContent}>
-          {getFilterContent(column)}
-          {getBottomButtons(column)}
-        </div>
-      }
-    >
-      <div ref={triggerElementRef}>{props.filterIcon || defaultFilterIcon}</div>
-    </Popup>
+    <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: !isEmpty(tFilterValue?.[column.colKey]) }])}>
+      <Popup
+        // attach={primaryTableElement ? () => primaryTableElement : undefined}
+        visible={filterPopupVisible}
+        destroyOnClose
+        trigger="click"
+        placement="bottom-right"
+        showArrow
+        overlayClassName={tableFilterClasses.popup}
+        onVisibleChange={(val: boolean) => onFilterPopupVisibleChange(val)}
+        content={
+          <div className={tableFilterClasses.popupContent}>
+            {getFilterContent(column)}
+            {getBottomButtons(column)}
+          </div>
+        }
+      >
+        <div ref={triggerElementRef}>{props.filterIcon || defaultFilterIcon}</div>
+      </Popup>
+    </div>
   );
 }

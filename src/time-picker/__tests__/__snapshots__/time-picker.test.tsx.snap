@@ -20,7 +20,7 @@ exports[`disabled.jsx 1`] = `
         class="t-time-picker"
       >
         <div
-          class="t-popup__reference t-time-picker__group t-select-input t-select-input--empty"
+          class="t-time-picker__group t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -81,7 +81,7 @@ exports[`disabled.jsx 1`] = `
         class="t-time-picker"
       >
         <div
-          class="t-popup__reference t-time-picker__group t-select-input t-select-input--empty"
+          class="t-time-picker__group t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -151,7 +151,7 @@ exports[`hide-clear-button.jsx 1`] = `
         class="t-time-picker"
       >
         <div
-          class="t-popup__reference t-time-picker__group t-select-input"
+          class="t-time-picker__group t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -211,7 +211,7 @@ exports[`hide-clear-button.jsx 1`] = `
         class="t-time-picker"
       >
         <div
-          class="t-popup__reference t-time-picker__group t-select-input"
+          class="t-time-picker__group t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -281,7 +281,7 @@ exports[`hm.jsx 1`] = `
         class="t-time-picker"
       >
         <div
-          class="t-popup__reference t-time-picker__group t-select-input"
+          class="t-time-picker__group t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -341,7 +341,7 @@ exports[`hm.jsx 1`] = `
         class="t-time-picker"
       >
         <div
-          class="t-popup__reference t-time-picker__group t-select-input"
+          class="t-time-picker__group t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -397,7 +397,7 @@ exports[`hms.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-popup__reference t-time-picker__group t-select-input"
+      class="t-time-picker__group t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -451,7 +451,7 @@ exports[`keyboard.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-popup__reference t-time-picker__group t-select-input"
+      class="t-time-picker__group t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -1260,74 +1260,70 @@ exports[`range.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-range-input-popup"
+      class="t-range-input-popup t-range-input-popup"
     >
       <div
-        class="t-popup__reference t-range-input-popup"
+        class="t-range-input t-time-picker__group"
+        value=""
       >
         <div
-          class="t-range-input t-time-picker__group"
-          value=""
+          class="t-range-input__inner"
         >
           <div
-            class="t-range-input__inner"
+            class="t-input__wrap t-range-input__inner-left"
           >
             <div
-              class="t-input__wrap t-range-input__inner-left"
+              class="t-input t-size-m t-align-left t-is-default"
             >
-              <div
-                class="t-input t-size-m t-align-left t-is-default"
-              >
-                <input
-                  class="t-input__inner"
-                  placeholder="开始时间"
-                  type="text"
-                  value=""
-                />
-              </div>
+              <input
+                class="t-input__inner"
+                placeholder="开始时间"
+                type="text"
+                value=""
+              />
             </div>
-            <div
-              class="t-range-input__inner-separator"
-            >
-              -
-            </div>
-            <div
-              class="t-input__wrap t-range-input__inner-right"
-            >
-              <div
-                class="t-input t-size-m t-align-left t-is-default"
-              >
-                <input
-                  class="t-input__inner"
-                  placeholder="结束时间"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-            <span
-              class="t-range-input__suffix t-range-input__suffix-icon"
-            >
-              <svg
-                class="t-icon t-icon-time"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-                <path
-                  d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
           </div>
+          <div
+            class="t-range-input__inner-separator"
+          >
+            -
+          </div>
+          <div
+            class="t-input__wrap t-range-input__inner-right"
+          >
+            <div
+              class="t-input t-size-m t-align-left t-is-default"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="结束时间"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <span
+            class="t-range-input__suffix t-range-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -1341,7 +1337,7 @@ exports[`show-steps.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-popup__reference t-time-picker__group t-select-input t-select-input--empty"
+      class="t-time-picker__group t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -1395,7 +1391,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-popup__reference t-time-picker__group t-select-input t-select-input--empty"
+      class="t-time-picker__group t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"

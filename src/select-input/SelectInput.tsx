@@ -43,29 +43,29 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
 
   const mainContent = (
-    <Popup
-      ref={selectInputRef}
-      style={props.style}
-      className={popupClasses}
-      trigger={popupProps?.trigger || 'click'}
-      placement="bottom-left"
-      content={props.panel}
-      hideEmptyPopup={true}
-      onVisibleChange={onInnerPopupVisibleChange}
-      {...visibleProps}
-      {...popupProps}
-      disabled={disabled}
-      overlayStyle={tOverlayStyle}
-      updateScrollTop={props.updateScrollTop}
-    >
-      {multiple
-        ? renderSelectMultiple({
-            commonInputProps,
-            onInnerClear,
-            popupVisible: visibleProps.visible,
-          })
-        : renderSelectSingle(visibleProps.visible)}
-    </Popup>
+    <div className={popupClasses} style={props.style}>
+      <Popup
+        ref={selectInputRef}
+        trigger={popupProps?.trigger || 'click'}
+        placement="bottom-left"
+        content={props.panel}
+        hideEmptyPopup={true}
+        onVisibleChange={onInnerPopupVisibleChange}
+        {...visibleProps}
+        {...popupProps}
+        disabled={disabled}
+        overlayStyle={tOverlayStyle}
+        updateScrollTop={props.updateScrollTop}
+      >
+        {multiple
+          ? renderSelectMultiple({
+              commonInputProps,
+              onInnerClear,
+              popupVisible: visibleProps.visible,
+            })
+          : renderSelectSingle(visibleProps.visible)}
+      </Popup>
+    </div>
   );
 
   if (!props.tips) return mainContent;
