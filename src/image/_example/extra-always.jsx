@@ -1,41 +1,65 @@
 import React from 'react';
-import { Image, Space, Button } from 'tdesign-react';
-import { DiscountIcon } from 'tdesign-icons-react';
+import { Image, Space, Tag } from 'tdesign-react';
+import { PrintIcon } from 'tdesign-icons-react';
 
 export default function ExtraAlwaysImage() {
   const mask = (
     <div
       style={{
         background: 'rgba(0,0,0,.4)',
-        color: '#fff',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        fontSize: 14,
+        lineHeight: 22
       }}
     >
-      已添加
+      <Tag
+        shape="mark"
+        theme="warning"
+        style={{
+          borderRadius: 3,
+          background: 'transparent',
+          color: '#fff'
+        }}
+      >
+        <PrintIcon size={16} /> 高清
+      </Tag>
     </div>
   );
 
   const button = (
-    <Button shape="circle" icon={<DiscountIcon />} style={{marginLeft: 190, marginTop: 15}} />
+    <Tag
+      shape="mark"
+      theme="warning"
+      style={{
+        position: 'absolute',
+        right: 8,
+        bottom: 8,
+        borderRadius: 3,
+        background: 'rgba(236,242,254,1)',
+        color: 'rgba(0,82,217,1)'
+      }}
+    >
+      <PrintIcon size={16} /> 高清
+    </Tag>
   )
 
   return (
     <Space size={100}>
       <Space direction="vertical">
-        有遮罩
+        <strong style={{fontSize: 20}}>有遮罩</strong>
         <Image
-          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           style={{width: 240, height: 160}}
           overlayContent={mask}
         />
       </Space>
       <Space direction="vertical">
-        无遮罩
+        <strong style={{fontSize: 20}}>无遮罩</strong>
         <Image
-          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           style={{width: 240, height: 160}}
           overlayContent={button}
         />

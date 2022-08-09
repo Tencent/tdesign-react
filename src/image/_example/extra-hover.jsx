@@ -19,7 +19,7 @@ export default function ExtraHoverImage() {
 
   return (
     <Image
-      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
       style={{width: 240, height: 160}}
       overlayContent={mask}
       overlayTrigger="hover"

@@ -15,9 +15,9 @@ export default function LazyListImage() {
           Array.from({length: 24}).map((_, index) => (
             <Image
               key={index}
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
-              style={{width: 183, height: 160}}
-              lazy={index > 5}
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+              style={{width: 230, height: 130}}
+              lazy
             />
           ))
         }

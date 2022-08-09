@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
+import { ImageErrorIcon, ImageIcon } from 'tdesign-icons-react';
 import observe from '../_common/js/utils/observe';
 import useConfig from '../hooks/useConfig';
 import { TdImageProps } from './type';
 import { imageDefaultProps } from './defaultProps';
+import Space from '../space';
 
 export type ImageProps = TdImageProps;
 
@@ -130,11 +132,29 @@ const Image = (props: TdImageProps) => {
             )}
             alt={alt}
           />
-          {!isLoaded && loading && <div className={`${classPrefix}-image__loading`}>{loading}</div>}
+          {!isLoaded && (
+            <div className={`${classPrefix}-image__loading`}>
+              {loading || (
+                <Space direction="vertical" size={8} align="center">
+                  <ImageIcon size={24} />
+                  图片加载中
+                </Space>
+              )}
+            </div>
+          )}
         </Fragment>
       )}
 
-      {hasError && <div className={`${classPrefix}-image__error`}>{error}</div>}
+      {hasError && (
+        <div className={`${classPrefix}-image__error`}>
+          {error || (
+            <Space direction="vertical" size={8} align="center">
+              <ImageErrorIcon size={24} />
+              图片无法显示
+            </Space>
+          )}
+        </div>
+      )}
 
       {renderOverlay()}
     </div>

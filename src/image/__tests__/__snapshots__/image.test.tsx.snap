@@ -1,19 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`base.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-image__wrapper t-image__wrapper--shape-square"
-    style="width: 240px; height: 160px;"
-  >
-    <img
-      class="t-image t-image--fit-fill t-image--position-center"
-      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
-    />
-  </div>
-</DocumentFragment>
-`;
-
 exports[`extra-always.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -30,7 +16,11 @@ exports[`extra-always.jsx 1`] = `
         <div
           class="t-space-item"
         >
-          有遮罩
+          <strong
+            style="font-size: 20px;"
+          >
+            有遮罩
+          </strong>
         </div>
         <div
           class="t-space-item"
@@ -41,15 +31,73 @@ exports[`extra-always.jsx 1`] = `
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
             <div
               class="t-image__overlay-content"
             >
               <div
-                style="background: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+                style="background: rgba(0, 0, 0, 0.4); height: 100%; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 22;"
               >
-                已添加
+                <span
+                  class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
+                  style="border-radius: 3px; background: transparent; color: rgb(255, 255, 255);"
+                >
+                  <svg
+                    class="t-icon t-icon-print"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 16px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M4 2v2H3a1 1 0 00-1 1v5a1 1 0 001 1h1v3h8v-3h1a1 1 0 001-1V5a1 1 0 00-1-1h-1V2H4zm7 2H5V3h6v1zM3 5h10v5h-1V8H4v2H3V5zm2 8V9h6v4H5z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                   高清
+                </span>
               </div>
             </div>
           </div>
@@ -66,7 +114,11 @@ exports[`extra-always.jsx 1`] = `
         <div
           class="t-space-item"
         >
-          无遮罩
+          <strong
+            style="font-size: 20px;"
+          >
+            无遮罩
+          </strong>
         </div>
         <div
           class="t-space-item"
@@ -77,37 +129,70 @@ exports[`extra-always.jsx 1`] = `
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
             <div
               class="t-image__overlay-content"
             >
-              <button
-                class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
-                style="margin-left: 190px; margin-top: 15px;"
-                type="button"
+              <span
+                class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
+                style="position: absolute; right: 8px; bottom: 8px; border-radius: 3px; background: rgb(236, 242, 254); color: rgb(0, 82, 217);"
               >
                 <svg
-                  class="t-icon t-icon-discount"
+                  class="t-icon t-icon-print"
                   fill="none"
                   height="1em"
+                  style="font-size: 16px;"
                   viewBox="0 0 16 16"
                   width="1em"
                 >
                   <path
-                    d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
+                    d="M4 2v2H3a1 1 0 00-1 1v5a1 1 0 001 1h1v3h8v-3h1a1 1 0 001-1V5a1 1 0 00-1-1h-1V2H4zm7 2H5V3h6v1zM3 5h10v5h-1V8H4v2H3V5zm2 8V9h6v4H5z"
                     fill="currentColor"
                     fill-opacity="0.9"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                    fill-rule="evenodd"
                   />
                 </svg>
-              </button>
+                 高清
+              </span>
             </div>
           </div>
         </div>
@@ -125,8 +210,47 @@ exports[`extra-hover.jsx 1`] = `
   >
     <img
       class="t-image t-image--fit-fill t-image--position-center"
-      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
     />
+    <div
+      class="t-image__loading"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 8px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <svg
+            class="t-icon t-icon-image"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+              fill="currentColor"
+              fill-opacity="0.9"
+              fill-rule="evenodd"
+            />
+            <path
+              d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          图片加载中
+        </div>
+      </div>
+    </div>
     <div
       class="t-image__overlay-content t-image__overlay-content--hidden"
     >
@@ -144,13 +268,13 @@ exports[`fill-mode.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-space t-space-horizontal"
-    style="gap: 16px;"
+    style="gap: 16px; flex-wrap: wrap;"
   >
     <div
       class="t-space-item"
     >
       <div
-        class="t-space t-space-align-center t-space-vertical"
+        class="t-space t-space-align-left t-space-vertical"
         style="gap: 16px;"
       >
         <div
@@ -158,12 +282,51 @@ exports[`fill-mode.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 140px; height: 86px;"
+            style="width: 130px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -177,7 +340,7 @@ exports[`fill-mode.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-space t-space-align-center t-space-vertical"
+        class="t-space t-space-align-left t-space-vertical"
         style="gap: 16px;"
       >
         <div
@@ -185,12 +348,51 @@ exports[`fill-mode.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 140px; height: 86px;"
+            style="width: 130px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-contain t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -204,7 +406,7 @@ exports[`fill-mode.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-space t-space-align-center t-space-vertical"
+        class="t-space t-space-align-left t-space-vertical"
         style="gap: 16px;"
       >
         <div
@@ -212,12 +414,51 @@ exports[`fill-mode.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 140px; height: 86px;"
+            style="width: 130px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-cover t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -231,7 +472,7 @@ exports[`fill-mode.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-space t-space-align-center t-space-vertical"
+        class="t-space t-space-align-left t-space-vertical"
         style="gap: 16px;"
       >
         <div
@@ -239,12 +480,51 @@ exports[`fill-mode.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 140px; height: 86px;"
+            style="width: 130px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-none t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -258,7 +538,7 @@ exports[`fill-mode.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-space t-space-align-center t-space-vertical"
+        class="t-space t-space-align-left t-space-vertical"
         style="gap: 16px;"
       >
         <div
@@ -266,12 +546,51 @@ exports[`fill-mode.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 140px; height: 86px;"
+            style="width: 130px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-scale-down t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -296,13 +615,13 @@ exports[`fill-position.jsx 1`] = `
     >
       <div
         class="t-space t-space-horizontal"
-        style="gap: 16px;"
+        style="gap: 16px; flex-wrap: wrap;"
       >
         <div
           class="t-space-item"
         >
           <div
-            class="t-space t-space-align-center t-space-vertical"
+            class="t-space t-space-align-left t-space-vertical"
             style="gap: 16px;"
           >
             <div
@@ -310,12 +629,51 @@ exports[`fill-position.jsx 1`] = `
             >
               <div
                 class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 174px; height: 125px;"
+                style="width: 130px; height: 130px;"
               >
                 <img
                   class="t-image t-image--fit-cover t-image--position-center"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                 />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -329,7 +687,7 @@ exports[`fill-position.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-space t-space-align-center t-space-vertical"
+            class="t-space t-space-align-left t-space-vertical"
             style="gap: 16px;"
           >
             <div
@@ -337,66 +695,51 @@ exports[`fill-position.jsx 1`] = `
             >
               <div
                 class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 174px; height: 125px;"
-              >
-                <img
-                  class="t-image t-image--fit-cover t-image--position-top"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
-                />
-              </div>
-            </div>
-            <div
-              class="t-space-item"
-            >
-              cover top
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-space-item"
-        >
-          <div
-            class="t-space t-space-align-center t-space-vertical"
-            style="gap: 16px;"
-          >
-            <div
-              class="t-space-item"
-            >
-              <div
-                class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 174px; height: 125px;"
-              >
-                <img
-                  class="t-image t-image--fit-cover t-image--position-bottom"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
-                />
-              </div>
-            </div>
-            <div
-              class="t-space-item"
-            >
-              cover bottom
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-space-item"
-        >
-          <div
-            class="t-space t-space-align-center t-space-vertical"
-            style="gap: 16px;"
-          >
-            <div
-              class="t-space-item"
-            >
-              <div
-                class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 100px; height: 125px;"
+                style="width: 130px; height: 130px;"
               >
                 <img
                   class="t-image t-image--fit-cover t-image--position-left"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                 />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -410,7 +753,7 @@ exports[`fill-position.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-space t-space-align-center t-space-vertical"
+            class="t-space t-space-align-left t-space-vertical"
             style="gap: 16px;"
           >
             <div
@@ -418,12 +761,51 @@ exports[`fill-position.jsx 1`] = `
             >
               <div
                 class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 100px; height: 125px;"
+                style="width: 130px; height: 130px;"
               >
                 <img
                   class="t-image t-image--fit-cover t-image--position-right"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                 />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -440,13 +822,13 @@ exports[`fill-position.jsx 1`] = `
     >
       <div
         class="t-space t-space-horizontal"
-        style="gap: 16px; margin-top: 20px;"
+        style="gap: 16px; flex-wrap: wrap; margin-top: 20px;"
       >
         <div
           class="t-space-item"
         >
           <div
-            class="t-space t-space-align-center t-space-vertical"
+            class="t-space t-space-align-left t-space-vertical"
             style="gap: 16px;"
           >
             <div
@@ -454,12 +836,192 @@ exports[`fill-position.jsx 1`] = `
             >
               <div
                 class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 170px; height: 230px;"
+                style="width: 280px; height: 130px;"
+              >
+                <img
+                  class="t-image t-image--fit-cover t-image--position-top"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+                />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover top
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-left t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image__wrapper t-image__wrapper--shape-square"
+                style="width: 280px; height: 130px;"
+              >
+                <img
+                  class="t-image t-image--fit-cover t-image--position-bottom"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+                />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              cover bottom
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px; flex-wrap: wrap; margin-top: 20px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-align-left t-space-vertical"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-image__wrapper t-image__wrapper--shape-square"
+                style="width: 130px; height: 200px;"
               >
                 <img
                   class="t-image t-image--fit-contain t-image--position-top"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                 />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -473,7 +1035,7 @@ exports[`fill-position.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-space t-space-align-center t-space-vertical"
+            class="t-space t-space-align-left t-space-vertical"
             style="gap: 16px;"
           >
             <div
@@ -481,12 +1043,51 @@ exports[`fill-position.jsx 1`] = `
             >
               <div
                 class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 170px; height: 230px;"
+                style="width: 130px; height: 200px;"
               >
                 <img
                   class="t-image t-image--fit-contain t-image--position-bottom"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                 />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -500,7 +1101,7 @@ exports[`fill-position.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-space t-space-align-center t-space-vertical"
+            class="t-space t-space-align-left t-space-vertical"
             style="gap: 16px;"
           >
             <div
@@ -508,18 +1109,198 @@ exports[`fill-position.jsx 1`] = `
             >
               <div
                 class="t-image__wrapper t-image__wrapper--shape-square"
-                style="width: 414px; height: 230px;"
+                style="width: 130px; height: 200px;"
               >
                 <img
-                  class="t-image t-image--fit-contain t-image--position-left"
-                  src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                  class="t-image t-image--fit-contain t-image--position-center"
+                  src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                 />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    >
+                      图片加载中
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
               class="t-space-item"
             >
-              contain left
+              contain center
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px; flex-wrap: wrap; margin-top: 20px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-space t-space-align-left t-space-vertical"
+                style="gap: 16px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <div
+                    class="t-image__wrapper t-image__wrapper--shape-square"
+                    style="width: 280px; height: 130px;"
+                  >
+                    <img
+                      class="t-image t-image--fit-contain t-image--position-left"
+                      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+                    />
+                    <div
+                      class="t-image__loading"
+                    >
+                      <div
+                        class="t-space t-space-align-center t-space-vertical"
+                        style="gap: 8px;"
+                      >
+                        <div
+                          class="t-space-item"
+                        >
+                          <svg
+                            class="t-icon t-icon-image"
+                            fill="none"
+                            height="1em"
+                            style="font-size: 24px;"
+                            viewBox="0 0 16 16"
+                            width="1em"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                              fill-rule="evenodd"
+                            />
+                            <path
+                              d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          class="t-space-item"
+                        >
+                          图片加载中
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  contain left
+                </div>
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-space t-space-align-left t-space-vertical"
+                style="gap: 16px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <div
+                    class="t-image__wrapper t-image__wrapper--shape-square"
+                    style="width: 280px; height: 130px;"
+                  >
+                    <img
+                      class="t-image t-image--fit-contain t-image--position-right"
+                      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+                    />
+                    <div
+                      class="t-image__loading"
+                    >
+                      <div
+                        class="t-space t-space-align-center t-space-vertical"
+                        style="gap: 8px;"
+                      >
+                        <div
+                          class="t-space-item"
+                        >
+                          <svg
+                            class="t-icon t-icon-image"
+                            fill="none"
+                            height="1em"
+                            style="font-size: 24px;"
+                            viewBox="0 0 16 16"
+                            width="1em"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                              fill-rule="evenodd"
+                            />
+                            <path
+                              d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          class="t-space-item"
+                        >
+                          图片加载中
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  contain right
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -533,21 +1314,60 @@ exports[`gallery-cover.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--gallery"
-    style="width: 240px; height: 160px;"
+    style="width: 284px; height: 160px;"
   >
     <div
       class="t-image__gallery-shadow"
     />
     <img
       class="t-image t-image--fit-fill t-image--position-center"
-      src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
     />
+    <div
+      class="t-image__loading"
+    >
+      <div
+        class="t-space t-space-align-center t-space-vertical"
+        style="gap: 8px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <svg
+            class="t-icon t-icon-image"
+            fill="none"
+            height="1em"
+            style="font-size: 24px;"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+              fill="currentColor"
+              fill-opacity="0.9"
+              fill-rule="evenodd"
+            />
+            <path
+              d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          图片加载中
+        </div>
+      </div>
+    </div>
     <div
       class="t-image__overlay-content"
     >
       <span
         class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
-        style="margin-top: 15px;"
+        style="margin: 8px; border-radius: 3px; background: rgb(236, 242, 254); color: rgb(0, 82, 217);"
       >
         标签一
       </span>
@@ -574,12 +1394,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -587,12 +1446,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -600,12 +1498,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -613,12 +1550,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -626,12 +1602,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -639,12 +1654,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -652,12 +1706,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -665,12 +1758,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -678,12 +1810,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -691,12 +1862,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -704,12 +1914,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -717,12 +1966,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -730,12 +2018,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -743,12 +2070,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -756,12 +2122,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -769,12 +2174,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -782,12 +2226,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -795,12 +2278,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -808,12 +2330,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -821,12 +2382,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -834,12 +2434,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -847,12 +2486,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -860,12 +2538,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -873,12 +2590,51 @@ exports[`lazy-list.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 183px; height: 160px;"
+            style="width: 230px; height: 130px;"
           >
             <img
               class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -925,12 +2681,52 @@ exports[`lazy-single.jsx 1`] = `
     >
       <div
         class="t-image__wrapper t-image__wrapper--shape-square"
-        style="width: 240px; height: 160px;"
+        style="width: 284px; height: 160px;"
       >
+        <div
+          class="t-image__placeholder"
+        >
+          <img
+            height="100%"
+            src="https://tdesign.gtimg.com/demo/demo-image-5.png"
+            width="100%"
+          />
+        </div>
         <img
           class="t-image t-image--fit-fill t-image--position-center"
-          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
         />
+        <div
+          class="t-image__loading"
+        >
+          <div
+            style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.4);"
+          >
+            <div
+              class="t-loading t-loading--center t-size-s"
+            >
+              <svg
+                class="t-loading__gradient t-icon-loading"
+                height="1em"
+                version="1.1"
+                viewBox="0 0 14 14"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <foreignobject
+                  height="12"
+                  width="12"
+                  x="1"
+                  y="1"
+                >
+                  <div
+                    class="t-loading__gradient-conic"
+                  />
+                </foreignobject>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -967,8 +2763,8 @@ exports[`lazy-single.jsx 1`] = `
 exports[`placeholder.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
-    style="gap: 220px;"
+    class="t-space t-space-vertical"
+    style="gap: 24px;"
   >
     <div
       class="t-space-item"
@@ -1000,12 +2796,51 @@ exports[`placeholder.jsx 1`] = `
               >
                 <div
                   class="t-image__wrapper t-image__wrapper--shape-square"
-                  style="width: 100px; height: 100px;"
+                  style="width: 284px; height: 160px;"
                 >
                   <img
                     class="t-image t-image--fit-fill t-image--position-center"
-                    src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                    src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                   />
+                  <div
+                    class="t-image__loading"
+                  >
+                    <div
+                      class="t-space t-space-align-center t-space-vertical"
+                      style="gap: 8px;"
+                    >
+                      <div
+                        class="t-space-item"
+                      >
+                        <svg
+                          class="t-icon t-icon-image"
+                          fill="none"
+                          height="1em"
+                          style="font-size: 24px;"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                            fill-rule="evenodd"
+                          />
+                          <path
+                            d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="t-space-item"
+                      >
+                        图片加载中
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
@@ -1054,24 +2889,30 @@ exports[`placeholder.jsx 1`] = `
               >
                 <div
                   class="t-image__wrapper t-image__wrapper--shape-square"
-                  style="width: 100px; height: 100px;"
+                  style="width: 284px; height: 160px;"
                 >
                   <img
                     class="t-image t-image--fit-fill t-image--position-center"
-                    src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+                    src="https://tdesign.gtimg.com/demo/demo-image-1.png"
                   />
                   <div
                     class="t-image__loading"
                   >
                     <svg
-                      class="t-icon t-icon-loading"
+                      class="t-icon t-icon-qrcode"
                       fill="none"
                       height="1em"
+                      style="font-size: 24px;"
                       viewBox="0 0 16 16"
                       width="1em"
                     >
                       <path
-                        d="M8 1.5a6.5 6.5 0 000 13v-1.63A4.87 4.87 0 1112.88 8h1.62A6.5 6.5 0 008 1.5z"
+                        d="M6 4H4v2h2V4z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M2.5 2a.5.5 0 00-.5.5v5c0 .28.22.5.5.5h5a.5.5 0 00.5-.5v-5a.5.5 0 00-.5-.5h-5zM3 3h4v4H3V3zM10.5 2a.5.5 0 00-.5.5v3c0 .28.22.5.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zm.5 3V3h2v2h-2zM10 10.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3zm1 2.5h2v-2h-2v2zM2.5 10a.5.5 0 00-.5.5v3c0 .28.22.5.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zm.5 1h2v2H3v-2zM14 7.5h-4v1h4v-1zM8.5 11v3h-1v-3h1zM8.5 10V9h-1v1h1z"
                         fill="currentColor"
                         fill-opacity="0.9"
                       />
@@ -1114,12 +2955,51 @@ exports[`placeholder.jsx 1`] = `
               >
                 <div
                   class="t-image__wrapper t-image__wrapper--shape-square"
-                  style="width: 100px; height: 100px;"
+                  style="width: 284px; height: 160px;"
                 >
                   <img
                     class="t-image t-image--fit-fill t-image--position-center"
                     src=""
                   />
+                  <div
+                    class="t-image__loading"
+                  >
+                    <div
+                      class="t-space t-space-align-center t-space-vertical"
+                      style="gap: 8px;"
+                    >
+                      <div
+                        class="t-space-item"
+                      >
+                        <svg
+                          class="t-icon t-icon-image"
+                          fill="none"
+                          height="1em"
+                          style="font-size: 24px;"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                            fill-rule="evenodd"
+                          />
+                          <path
+                            d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="t-space-item"
+                      >
+                        图片加载中
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
@@ -1168,38 +3048,51 @@ exports[`placeholder.jsx 1`] = `
               >
                 <div
                   class="t-image__wrapper t-image__wrapper--shape-square"
-                  style="width: 100px; height: 100px;"
+                  style="width: 284px; height: 160px;"
                 >
-                  <div
-                    class="t-image__placeholder"
-                  >
-                    <div
-                      class="t-avatar t-avatar--circle t-avatar-icon"
-                    >
-                      <svg
-                        class="t-icon t-icon-photo"
-                        fill="none"
-                        height="1em"
-                        viewBox="0 0 16 16"
-                        width="1em"
-                      >
-                        <path
-                          d="M11 8a3 3 0 11-6 0 3 3 0 016 0zm-1 0a2 2 0 10-4 0 2 2 0 004 0z"
-                          fill="currentColor"
-                          fill-opacity="0.9"
-                        />
-                        <path
-                          d="M6.05 2a.6.6 0 00-.5.27L4.73 3.5H2.01a.51.51 0 00-.51.51v8.48c0 .28.23.51.51.51h11.98c.28 0 .51-.23.51-.51V4.01a.51.51 0 00-.51-.51h-2.72l-.82-1.23a.6.6 0 00-.5-.27h-3.9zm.22 1h3.46l1 1.5h2.77V12h-11V4.5h2.77l1-1.5z"
-                          fill="currentColor"
-                          fill-opacity="0.9"
-                        />
-                      </svg>
-                    </div>
-                  </div>
                   <img
                     class="t-image t-image--fit-fill t-image--position-center"
                     src=""
                   />
+                  <div
+                    class="t-image__loading"
+                  >
+                    <div
+                      class="t-space t-space-align-center t-space-vertical"
+                      style="gap: 8px;"
+                    >
+                      <div
+                        class="t-space-item"
+                      >
+                        <svg
+                          class="t-icon t-icon-image"
+                          fill="none"
+                          height="1em"
+                          style="font-size: 24px;"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                            fill-rule="evenodd"
+                          />
+                          <path
+                            d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="t-space-item"
+                      >
+                        图片加载中
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1229,12 +3122,51 @@ exports[`shape.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-square"
-            style="width: 240px; height: 160px;"
+            style="width: 160px; height: 160px;"
           >
             <img
-              class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              class="t-image t-image--fit-cover t-image--position-center"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -1256,12 +3188,51 @@ exports[`shape.jsx 1`] = `
         >
           <div
             class="t-image__wrapper t-image__wrapper--shape-round"
-            style="width: 240px; height: 160px;"
+            style="width: 160px; height: 160px;"
           >
             <img
-              class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              class="t-image t-image--fit-cover t-image--position-center"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -1286,9 +3257,48 @@ exports[`shape.jsx 1`] = `
             style="width: 160px; height: 160px;"
           >
             <img
-              class="t-image t-image--fit-fill t-image--position-center"
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              class="t-image t-image--fit-cover t-image--position-center"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
             />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div

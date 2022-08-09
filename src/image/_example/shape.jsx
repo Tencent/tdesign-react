@@ -6,25 +6,28 @@ export default function ShapeImage() {
     <Space>
       <Space direction="vertical" align="center">
         <Image
-          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           shape="square"
-          style={{width: 240, height: 160}}
+          style={{width: 160, height: 160}}
+          fit="cover"
         />
         square
       </Space>
       <Space direction="vertical" align="center">
         <Image
-          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
-          style={{width: 240, height: 160}}
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style={{width: 160, height: 160}}
+          fit="cover"
           shape="round"
         />
         round
       </Space>
       <Space direction="vertical" align="center">
         <Image
-          src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           style={{width: 160, height: 160}}
           shape="circle"
+          fit="cover"
         />
         circle
       </Space>

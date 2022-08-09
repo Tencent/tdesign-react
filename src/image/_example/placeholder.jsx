@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image, Avatar, Space, Button } from 'tdesign-react';
-import { PhotoIcon, LinkUnlinkIcon, RefreshIcon, LoadingIcon } from 'tdesign-icons-react';
+import { Image, Space, Button } from 'tdesign-react';
+import { RefreshIcon, QrcodeIcon } from 'tdesign-icons-react';
 
 export default function PlaceholderImage() {
   const [loadingCount, setLoadingCount] = useState(0);
@@ -14,16 +14,16 @@ export default function PlaceholderImage() {
   }
 
   return (
-    <Space size={220}>
+    <Space size={24} direction="vertical">
       <div>
         <h3 style={{marginBottom: 15}}>加载中的图片</h3>
         <Space>
           <Space direction="vertical">
             默认占位
             <Image
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
               key={loadingCount}
-              style={{width: 100, height: 100}}
+              style={{width: 284, height: 160}}
             />
             <Button variant="outline" icon={<RefreshIcon />} onClick={handleReload}>
               重演 loading
@@ -33,9 +33,9 @@ export default function PlaceholderImage() {
             自定义占位
             <Image
               key={loadingCount}
-              src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
-              style={{width: 100, height: 100}}
-              loading={<LoadingIcon />}
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+              style={{width: 284, height: 160}}
+              loading={<QrcodeIcon size={24} />}
             />
           </Space>
         </Space>
@@ -48,7 +48,7 @@ export default function PlaceholderImage() {
             <Image
               src=""
               key={errorCount}
-              style={{width: 100, height: 100}}
+              style={{width: 284, height: 160}}
             />
             <Button variant="outline" icon={<RefreshIcon />} onClick={handleReplayError}>
               重演 error
@@ -59,9 +59,8 @@ export default function PlaceholderImage() {
             <Image
               src=""
               key={errorCount}
-              style={{width: 100, height: 100}}
-              placeholder={<Avatar icon={<PhotoIcon />} />}
-              error={<Avatar icon={<LinkUnlinkIcon />} />}
+              style={{width: 284, height: 160}}
+              error={<QrcodeIcon size={24} />}
             />
           </Space>
         </Space>
