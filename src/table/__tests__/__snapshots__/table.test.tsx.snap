@@ -1726,25 +1726,33 @@ exports[`base.jsx 1`] = `
               >
                 跳至
                 <div
-                  class="t-input-number t-size-m t-pagination__input t-input-number--normal"
+                  class="t-input-adornment t-input-adornment--append"
                 >
                   <div
-                    class="t-input__wrap"
-                    value="2"
+                    class="t-input-number t-size-m t-pagination__input t-input-number--normal"
                   >
                     <div
-                      class="t-input t-size-m t-align-left t-is-default"
+                      class="t-input__wrap"
+                      value="2"
                     >
-                      <input
-                        class="t-input__inner"
-                        placeholder=""
-                        type="text"
-                        value="2"
-                      />
+                      <div
+                        class="t-input t-size-m t-align-left t-is-default"
+                      >
+                        <input
+                          class="t-input__inner"
+                          placeholder=""
+                          type="text"
+                          value="2"
+                        />
+                      </div>
                     </div>
                   </div>
+                  <span
+                    class="t-input-adornment__append"
+                  >
+                    / 6 页
+                  </span>
                 </div>
-                页
               </div>
             </div>
           </div>
@@ -7134,25 +7142,33 @@ exports[`filter-controlled.jsx 1`] = `
               >
                 跳至
                 <div
-                  class="t-input-number t-size-m t-pagination__input t-input-number--normal"
+                  class="t-input-adornment t-input-adornment--append"
                 >
                   <div
-                    class="t-input__wrap"
-                    value="1"
+                    class="t-input-number t-size-m t-pagination__input t-input-number--normal"
                   >
                     <div
-                      class="t-input t-size-m t-align-left t-is-default"
+                      class="t-input__wrap"
+                      value="1"
                     >
-                      <input
-                        class="t-input__inner"
-                        placeholder=""
-                        type="text"
-                        value="1"
-                      />
+                      <div
+                        class="t-input t-size-m t-align-left t-is-default"
+                      >
+                        <input
+                          class="t-input__inner"
+                          placeholder=""
+                          type="text"
+                          value="1"
+                        />
+                      </div>
                     </div>
                   </div>
+                  <span
+                    class="t-input-adornment__append"
+                  >
+                    / 1 页
+                  </span>
                 </div>
-                页
               </div>
             </div>
           </div>
@@ -20619,25 +20635,33 @@ exports[`pagination.jsx 1`] = `
           >
             跳至
             <div
-              class="t-input-number t-size-m t-pagination__input t-input-number--normal"
+              class="t-input-adornment t-input-adornment--append"
             >
               <div
-                class="t-input__wrap"
-                value="2"
+                class="t-input-number t-size-m t-pagination__input t-input-number--normal"
               >
                 <div
-                  class="t-input t-size-m t-align-left t-is-default"
+                  class="t-input__wrap"
+                  value="2"
                 >
-                  <input
-                    class="t-input__inner"
-                    placeholder=""
-                    type="text"
-                    value="2"
-                  />
+                  <div
+                    class="t-input t-size-m t-align-left t-is-default"
+                  >
+                    <input
+                      class="t-input__inner"
+                      placeholder=""
+                      type="text"
+                      value="2"
+                    />
+                  </div>
                 </div>
               </div>
+              <span
+                class="t-input-adornment__append"
+              >
+                / 12 页
+              </span>
             </div>
-            页
           </div>
         </div>
       </div>
@@ -20846,25 +20870,33 @@ exports[`pagination-ajax.jsx 1`] = `
           >
             跳至
             <div
-              class="t-input-number t-size-m t-pagination__input t-input-number--normal"
+              class="t-input-adornment t-input-adornment--append"
             >
               <div
-                class="t-input__wrap"
-                value="1"
+                class="t-input-number t-size-m t-pagination__input t-input-number--normal"
               >
                 <div
-                  class="t-input t-size-m t-align-left t-is-default"
+                  class="t-input__wrap"
+                  value="1"
                 >
-                  <input
-                    class="t-input__inner"
-                    placeholder=""
-                    type="text"
-                    value="1"
-                  />
+                  <div
+                    class="t-input t-size-m t-align-left t-is-default"
+                  >
+                    <input
+                      class="t-input__inner"
+                      placeholder=""
+                      type="text"
+                      value="1"
+                    />
+                  </div>
                 </div>
               </div>
+              <span
+                class="t-input-adornment__append"
+              >
+                / 1 页
+              </span>
             </div>
-            页
           </div>
         </div>
       </div>
