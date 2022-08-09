@@ -60,19 +60,21 @@ export default function useRowSelect(
   }
 
   function getSelectedHeader() {
-    const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
-    const isChecked =
-      intersectionKeys.length !== 0 &&
-      canSelectedRows.length !== 0 &&
-      intersectionKeys.length === canSelectedRows.length;
-    return () => (
-      <Checkbox
-        checked={isChecked}
-        indeterminate={isIndeterminate}
-        disabled={!canSelectedRows.length}
-        onChange={handleSelectAll}
-      />
-    );
+    return () => {
+      const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
+      const isChecked =
+        intersectionKeys.length !== 0 &&
+        canSelectedRows.length !== 0 &&
+        intersectionKeys.length === canSelectedRows.length;
+      return (
+        <Checkbox
+          checked={isChecked}
+          indeterminate={isIndeterminate}
+          disabled={!canSelectedRows.length}
+          onChange={handleSelectAll}
+        />
+      );
+    };
   }
 
   function renderSelectCell(p: PrimaryTableCellParams<TableRowData>) {
