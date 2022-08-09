@@ -27,6 +27,7 @@ const Image = (props: TdImageProps) => {
     lazy,
     gallery,
     onLoad,
+    onError,
     ...rest
   } = props;
 
@@ -61,6 +62,7 @@ const Image = (props: TdImageProps) => {
   const [hasError, setHasError] = useState(false);
   const handleError = () => {
     setHasError(true);
+    onError?.();
   };
 
   const hasMouseEvent = overlayTrigger === 'hover';
