@@ -5,6 +5,37 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.39.0 `2022-08-08` 
+### ❗ Breaking Changes
+- `Pagination`: 调整快速跳转样式，`simple` 主题下合并分页控制器与快速跳转控制器 @HQ-Lin ([#1242](https://github.com/Tencent/tdesign-react/pull/1242))
+- `Tooltip`: 调整 `theme` 主题文字颜色和背景色  @HQ-Lin([#703](https://github.com/Tencent/tdesign-common/pull/703))
+
+### 🚀 Features
+- 新增字体相关CSS Token，支持通过CSS Token修改字体相关配置 具体请参考 [font tokens](https://github.com/Tencent/tdesign-common/blob/develop/style/web/theme/_font.less)
+- 主题生成器: 支持字体相关配置
+- `Icon`: 优化全局 `Icon` 属性类型 @uyarn ([#1219](https://github.com/Tencent/tdesign-react/pull/1219))
+- `form`: `setFields` 支持 `validateMessage` 参数 @HQ-Lin ([#1226](https://github.com/Tencent/tdesign-react/pull/1226))
+- `ImageViewer`: 新增ImageViewer组件 @Ylushen ([#954](https://github.com/Tencent/tdesign-react/pull/954))
+- `Rate`: 支持 `icon` 属性 @HQ-Lin ([#1211](https://github.com/Tencent/tdesign-react/pull/1211))
+- `Popup`: 优化内容为空时不展示气泡 @southorange1228 ([#1222](https://github.com/Tencent/tdesign-react/pull/1222))
+- `ColorPicker`: 面板 ui 优化 @insekkei ([#1048](https://github.com/Tencent/tdesign-react/pull/1048))
+
+### 🐞 Bug Fixes
+- `Table`: 
+    - 多级表头场景下，修复表尾信息不对齐问题 @chaishi ([#1207](https://github.com/Tencent/tdesign-react/pull/1207))
+    - 树形结构，修复某些场景下无法完全重置数据的问题 @chaishi ([#1207](https://github.com/Tencent/tdesign-react/pull/1207))
+    - 树形结构，修复懒加载节点重置时（即调用 setData）没有清空子节点信息问题 @chaishi ([#1207](https://github.com/Tencent/tdesign-react/pull/1207))
+    - 树形结构，展开全部功能，不应该展开懒加载节点 @chaishi ([#1207](https://github.com/Tencent/tdesign-react/pull/1207))
+    - 修复吸顶的多级表头，缺少左侧边线问题 @chaishi ([#1207](https://github.com/Tencent/tdesign-react/pull/1207))
+    - 行内有多条规则时，只生效第一条规则 @yatessss ([#1244](https://github.com/Tencent/tdesign-react/pull/1244))
+- `DatePicker`:
+    - 修复年份范围和面板年份不一致问题 @CodingOnStar ([#1218](https://github.com/Tencent/tdesign-react/pull/1218))
+    - 修复面板初始化月份问题 @HQ-Lin ([#1225](https://github.com/Tencent/tdesign-react/pull/1225))
+- `Jumper`: 修复 `onChange` 报错问题 @southorange1228 ([#1224](https://github.com/Tencent/tdesign-react/pull/1224))
+- `Upload`: 修复 `onRemove` 失效问题 @HQ-Lin ([#1245](https://github.com/Tencent/tdesign-react/pull/1245))
+- `tooltip`: disable状态及popup为trigger时不响应问题 @carolin913 ([#1203](https://github.com/Tencent/tdesign-react/pull/1203))
+
+
 ## 🌈 0.38.0 `2022-08-01` 
 
 ### ❗ Breaking Changes
