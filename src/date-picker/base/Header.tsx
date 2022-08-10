@@ -122,22 +122,31 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const headerClassName = `${classPrefix}-date-picker__header`;
   const showMonthPicker = mode === 'date' || mode === 'week';
 
-  function handlePanelTopClick(e: React.MouseEvent) {
-    e.stopPropagation();
-    e?.nativeEvent?.stopImmediatePropagation();
+  function handlePanelTopClick(e?: React.MouseEvent) {
+    e?.stopPropagation?.();
+    e?.nativeEvent?.stopImmediatePropagation?.();
 
     const firstYear = yearOptions[0].value;
     const options = loadMoreYear(firstYear, 'reduce');
     setYearOptions([...options, ...yearOptions]);
   }
 
-  function handlePanelBottomClick(e: React.MouseEvent) {
-    e.stopPropagation();
+  function handlePanelBottomClick(e?: React.MouseEvent) {
+    e?.stopPropagation?.();
     e?.nativeEvent?.stopImmediatePropagation();
 
     const lastYear = yearOptions.slice(-1)[0].value;
     const options = loadMoreYear(lastYear, 'add');
     setYearOptions([...yearOptions, ...options]);
+  }
+
+  // 滚动顶部底部自动加载
+  function handleScroll({ e }) {
+    if (e.target.scrollTop === 0) {
+      handlePanelTopClick();
+    } else if (e.target.scrollTop === e.target.scrollHeight - e.target.clientHeight) {
+      handlePanelBottomClick();
+    }
   }
 
   return (
@@ -157,7 +166,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
-          popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
+          popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement, onScroll: handleScroll }}
           panelTopContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
               ...
