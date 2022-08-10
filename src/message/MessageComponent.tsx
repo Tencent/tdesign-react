@@ -26,7 +26,7 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
   const { theme = 'info', className, children, closeBtn, onCloseBtnClick = noop, style, icon = true, content } = props;
 
   let iconNode = icon;
-  if (typeof icon === 'boolean' && icon) {
+  if (icon === true) {
     iconNode = <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />;
   }
 
