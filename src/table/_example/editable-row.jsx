@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Table, Input, Select, DatePicker, MessagePlugin, Button } from 'tdesign-react';
+import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Checkbox } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 const classStyles = `
@@ -15,28 +15,30 @@ const classStyles = `
 </style>
 `;
 
-export default function EditableRowTable() {
-  const initData = new Array(5).fill(null).map((_, i) => ({
-    key: String(i + 1),
-    firstName: ['Eric', 'Gilberta', 'Heriberto', 'Lazarus', 'Zandra'][i % 4],
-    framework: ['Vue', 'React', 'Miniprogram', 'Flutter'][i % 4],
-    email: [
-      'espinke0@apache.org',
-      'gpurves1@issuu.com',
-      'hkment2@nsw.gov.au',
-      'lskures3@apache.org',
-      'zcroson5@virginia.edu',
-    ][i % 4],
-    letters: [['A'], ['B', 'E'], ['C'], ['D', 'G', 'H']][i % 4],
-    createTime: ['2021-11-01', '2021-12-01', '2022-01-01', '2022-02-01', '2022-03-01'][i % 4],
-  }));
+const initData = new Array(5).fill(null).map((_, i) => ({
+  key: String(i + 1),
+  firstName: ['Eric', 'Gilberta', 'Heriberto', 'Lazarus', 'Zandra'][i % 4],
+  framework: ['Vue', 'React', 'Miniprogram', 'Flutter'][i % 4],
+  email: [
+    'espinke0@apache.org',
+    'gpurves1@issuu.com',
+    'hkment2@nsw.gov.au',
+    'lskures3@apache.org',
+    'zcroson5@virginia.edu',
+  ][i % 4],
+  letters: [['A'], ['B', 'E'], ['C'], ['D', 'G', 'H']][i % 4],
+  createTime: ['2021-11-01', '2021-12-01', '2022-01-01', '2022-02-01', '2022-03-01'][i % 4],
+}));
 
+export default function EditableRowTable() {
   const tableRef = useRef();
   const [data, setData] = useState([...initData]);
   const [editableRowKeys, setEditableRowKeys] = useState(['1']);
   let currentSaveId = '';
   // 保存变化过的行信息
   const editMap = {};
+
+  const [openCheckAll, setOpenCheckAll] = useState(false);
 
   const onEdit = (e) => {
     const { id } = e.currentTarget.dataset;
@@ -61,51 +63,63 @@ export default function EditableRowTable() {
   const onSave = (e) => {
     const { id } = e.currentTarget.dataset;
     currentSaveId = id;
-    // 触发内部校验，而后在 onRowValidate 中接收异步校验结果
-    tableRef.current.validateRowData(id);
+    // 触发内部校验，可异步接收校验结果，也可在 onRowValidate 中接收异步校验结果
+    tableRef.current.validateRowData(id).then((params) => {
+      console.log('Promise Row Validate:', params);
+      if (params.result.length) {
+        const r = params.result[0];
+        MessagePlugin.error(`${r.col.title} ${r.errorList[0].message}`);
+        return;
+      }
+      // 如果是 table 的父组件主动触发校验
+      if (params.trigger === 'parent' && !params.result.length) {
+        const current = editMap[currentSaveId];
+        // 单行数据校验：校验通过再保存数据
+        if (current) {
+          data.splice(current.rowIndex, 1, current.editedRow);
+          setData([...data]);
+          MessagePlugin.success('保存成功');
+        }
+        updateEditState(currentSaveId);
+      }
+    });
   };
 
   const onRowValidate = (params) => {
-    console.log('row-validate:', params);
-    if (params.result.length) {
-      const r = params.result[0];
-      MessagePlugin.error(`${r.col.title} ${r.errorList[0].message}`);
-      return;
-    }
-    // 如果是 table 的父组件主动触发校验
-    if (params.trigger === 'parent' && !params.result.length) {
-      const current = editMap[currentSaveId];
-      if (current) {
-        data.splice(current.rowIndex, 1, current.editedRow);
-        setData([...data]);
-        MessagePlugin.success('保存成功');
-      }
-      updateEditState(currentSaveId);
-    }
+    console.log('Event Row Validate:', params);
   };
 
   const onRowEdit = (params) => {
-    const { row, col, value } = params;
+    const { row, rowIndex, col, value } = params;
     const oldRowData = editMap[row.key]?.editedRow || row;
+    const editedRow = { ...oldRowData, [col.colKey]: value };
     editMap[row.key] = {
       ...params,
-      editedRow: { ...oldRowData, [col.colKey]: value },
+      editedRow,
     };
+
+    // 以下内容应用于全量数据校验（单独的行校验不需要）
+    if (openCheckAll) {
+      data[rowIndex] = editedRow;
+      setData(data);
+    }
   };
 
   function onValidateTableData() {
     // 执行结束后触发事件 validate
-    tableRef.current.validateTableData();
+    tableRef.current.validateTableData().then((params) => {
+      console.log('Promise Table Date Validate:', params);
+      const cellKeys = Object.keys(params.result);
+      const firstError = params.result[cellKeys[0]];
+      if (firstError) {
+        MessagePlugin.warning(firstError[0].message);
+      }
+    });
   }
 
   // 表格全量数据校验反馈事件，tableRef.current.validateTableData() 执行结束后触发
   function onValidate(params) {
-    console.log('validate:', params);
-    const cellKeys = Object.keys(params.result);
-    const firstError = params.result[cellKeys[0]];
-    if (firstError) {
-      MessagePlugin.warning(firstError[0].message);
-    }
+    console.log('Event Table Data Validate:', params);
   }
 
   useEffect(() => {
@@ -240,8 +254,18 @@ export default function EditableRowTable() {
   return (
     <div className="t-table-demo__editable-row">
       <div>
-        <Button onClick={onValidateTableData}>校验全部</Button>
+        <Radio.Group value={openCheckAll} onChange={setOpenCheckAll}>
+          <Radio.Button value={true}>全量校验</Radio.Button>
+          <Radio.Button value={false}>单行校验</Radio.Button>
+        </Radio.Group>
       </div>
+      <br />
+      {openCheckAll && (<div>
+        <Button onClick={onValidateTableData}>
+          校验全部
+        </Button>
+      </div>)}
+      
       <br />
       <Table
         ref={tableRef}

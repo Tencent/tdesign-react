@@ -19,6 +19,20 @@ export function useEditableRow(props: PrimaryTableProps) {
     [editableRowKeys, props.data, props.rowKey],
   );
 
+  const getErrorListMapByErrors = (errors: ErrorListObjectType[]): TableErrorListMap => {
+    const errorMap: TableErrorListMap = {};
+    errors.forEach(({ row, col, errorList }) => {
+      const rowValue = get(row, props.rowKey || 'id');
+      const key = [rowValue, col.colKey].join('__');
+      if (errorList?.length) {
+        errorMap[key] = errorList;
+      } else {
+        delete errorMap[key];
+      }
+    });
+    return errorMap;
+  };
+
   // 校验一行的数据
   const validateOneRowData = (rowValue: any) => {
     const rowRules = cellRuleMap.get(rowValue);
@@ -41,20 +55,9 @@ export function useEditableRow(props: PrimaryTableProps) {
       errorMap: TableErrorListMap;
     }>((resolve, reject) => {
       Promise.all(list).then((errors) => {
-        const errorMap: TableErrorListMap = { ...errorListMap };
-        errors.forEach(({ row, col, errorList }) => {
-          const rowValue = get(row, props.rowKey || 'id');
-          const key = [rowValue, col.colKey].join('__');
-          if (errorList?.length) {
-            errorMap[key] = errorList;
-          } else {
-            delete errorMap[key];
-          }
-        });
-        setErrorListMap(errorMap);
         resolve({
           errors: errors.filter((t) => t.errorList?.length),
-          errorMap,
+          errorMap: getErrorListMapByErrors(errors),
         });
       }, reject);
     });
@@ -64,13 +67,16 @@ export function useEditableRow(props: PrimaryTableProps) {
    * 校验表格单行数据（对外开放方法，修改时需慎重）
    * @param rowValue 行唯一标识
    */
-  const validateRowData = (rowValue: any) => {
-    validateOneRowData(rowValue).then(({ errors }) => {
-      // 缺少校验文本显示
-      const tTrigger = 'parent';
-      props.onRowValidate?.({ trigger: tTrigger, result: errors });
+  const validateRowData = (rowValue: any) =>
+    new Promise((resolve, reject) => {
+      validateOneRowData(rowValue).then(({ errors, errorMap }) => {
+        setErrorListMap(errorMap);
+        // 缺少校验文本显示
+        const tTrigger = 'parent';
+        props.onRowValidate?.({ trigger: tTrigger, result: errors });
+        resolve({ trigger: tTrigger, result: errors });
+      }, reject);
     });
-  };
 
   /**
    * 校验整个表格数据（对外开放方法，修改时需慎重）
@@ -82,8 +88,16 @@ export function useEditableRow(props: PrimaryTableProps) {
       const rowValue = get(data[i], props.rowKey || 'id');
       promiseList.push(validateOneRowData(rowValue));
     }
-    Promise.all(promiseList).then(() => {
-      props.onValidate?.({ result: errorListMap });
+    return new Promise((resolve, reject) => {
+      Promise.all(promiseList).then((rList) => {
+        const allErrorListMap: TableErrorListMap = {};
+        rList.forEach(({ errorMap } = {}) => {
+          errorMap && Object.assign(allErrorListMap, errorMap);
+        });
+        setErrorListMap(allErrorListMap);
+        props.onValidate?.({ result: allErrorListMap });
+        resolve({ result: allErrorListMap });
+      }, reject);
     });
   };
 
