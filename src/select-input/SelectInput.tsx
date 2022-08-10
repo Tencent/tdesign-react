@@ -4,7 +4,7 @@ import useConfig from '../hooks/useConfig';
 import Popup from '../popup';
 import useSingle from './useSingle';
 import useMultiple from './useMultiple';
-import useOverlayStyle from './useOverlayStyle';
+import useOverlayInnerStyle from './useOverlayInnerStyle';
 import { TdSelectInputProps } from './type';
 import { StyledProps } from '../common';
 import { selectInputDefaultProps } from './defaultProps';
@@ -18,7 +18,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const selectInputWrapRef = useRef();
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
-  const { tOverlayStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayStyle(props);
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props);
   const { commonInputProps, inputRef, onInnerClear, renderSelectSingle } = useSingle(props);
   const { tagInputRef, renderSelectMultiple } = useMultiple(props);
 
@@ -54,7 +54,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
         {...visibleProps}
         {...popupProps}
         disabled={disabled}
-        overlayStyle={tOverlayStyle}
+        overlayInnerStyle={tOverlayInnerStyle}
         updateScrollTop={props.updateScrollTop}
       >
         {multiple

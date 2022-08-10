@@ -79,7 +79,7 @@ const Cascader = (props: CascaderProps) => {
       suffixIcon={() => renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
-        overlayStyle: panels.length ? { width: 'auto' } : {},
+        overlayInnerStyle: panels.length ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
       inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}

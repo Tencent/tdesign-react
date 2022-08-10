@@ -5,7 +5,7 @@ import useConfig from '../hooks/useConfig';
 import RangeInput from './RangeInput';
 import type { StyledProps } from '../common';
 import type { TdRangeInputPopupProps } from './type';
-import useOverlayStyle from '../select-input/useOverlayStyle';
+import useOverlayInnerStyle from '../select-input/useOverlayInnerStyle';
 
 export interface RangeInputPopupProps extends TdRangeInputPopupProps, StyledProps {}
 
@@ -16,7 +16,7 @@ const RangeInputPopup = React.forwardRef((props: RangeInputPopupProps, ref: Reac
   const { className, style, inputValue, panel, popupProps, rangeInputProps, popupVisible, onInputChange, disabled } =
     props;
 
-  const { tOverlayStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayStyle(props);
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props);
 
   const popupClasses = classNames([
     name,
@@ -36,7 +36,7 @@ const RangeInputPopup = React.forwardRef((props: RangeInputPopupProps, ref: Reac
         onVisibleChange={onInnerPopupVisibleChange}
         disabled={disabled}
         {...popupProps}
-        overlayStyle={tOverlayStyle}
+        overlayInnerStyle={tOverlayInnerStyle}
       >
         <RangeInput
           disabled={disabled}

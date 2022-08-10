@@ -37,6 +37,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     destroyOnClose,
     overlayClassName,
     overlayStyle,
+    overlayInnerStyle,
     triggerElement,
     children = triggerElement,
     disabled,
@@ -101,7 +102,8 @@ const Popup = forwardRef((props: PopupProps, ref) => {
   popperRef.current = usePopper(triggerRef.current, popupElement, popperOptions);
   const { styles, attributes } = popperRef.current;
 
-  function getOverlayStyle() {
+  // 整理浮层样式
+  function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
     if (triggerRef.current && popupRef.current && typeof overlayStyle === 'function') {
       return { ...overlayStyle(triggerRef.current, popupRef.current) };
     }
@@ -137,21 +139,17 @@ const Popup = forwardRef((props: PopupProps, ref) => {
                 setPopupElement(node);
               }
             }}
-            style={{ ...styles.popper, zIndex }}
-            className={`${classPrefix}-popup`}
+            style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
+            className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             {...getPopupProps()}
           >
             <div
-              className={classNames(
-                `${classPrefix}-popup__content`,
-                {
-                  [`${classPrefix}-popup__content--arrow`]: showArrow,
-                },
-                overlayClassName,
-              )}
-              style={getOverlayStyle()}
               ref={contentRef}
+              className={classNames(`${classPrefix}-popup__content`, {
+                [`${classPrefix}-popup__content--arrow`]: showArrow,
+              })}
+              style={getOverlayStyle(overlayInnerStyle)}
               onScroll={(e) => onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> })}
             >
               {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}

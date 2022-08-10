@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Input } from '../../input';
 import ColorLib from '../../_common/js/color-picker/color';
 import { TdColorPickerProps } from '..';
-import useClassname from '../hooks/useClassname';
+import useClassName from '../hooks/useClassNames';
 import { TdColorContext } from '../interface';
 
 export interface ColorTriggerProps extends TdColorPickerProps {
@@ -12,7 +12,7 @@ export interface ColorTriggerProps extends TdColorPickerProps {
 }
 
 const ColorPickerTrigger = (props: ColorTriggerProps) => {
-  const baseClassName = useClassname();
+  const baseClassName = useClassName();
   const {
     color = '',
     disabled = false,
