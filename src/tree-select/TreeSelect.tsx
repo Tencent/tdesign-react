@@ -250,6 +250,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
 
   return (
     <SelectInput
+      status={props.status}
+      tips={props.tips}
       {...props.selectInputProps}
       {...selectInputProps}
       ref={ref}

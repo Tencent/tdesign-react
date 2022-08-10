@@ -15,15 +15,12 @@ import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
 import { BaseTableProps, PrimaryTableProps } from './interface';
 import EditableCell, { EditableCellProps } from './EditableCell';
-import { AllValidateResult } from '../form/type';
 import { StyledProps } from '../common';
 import { useEditableRow } from './hooks/useEditableRow';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
-
-export type ErrorListType = { [key: string]: AllValidateResult[] };
 
 const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
@@ -60,7 +57,8 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
     [tableBaseClass.tableRowEdit]: editableRowKeys,
   };
 
-  const { errorListMap, editableKeysMap, validateRowData, onRuleChange, clearValidateData } = useEditableRow(props);
+  const { errorListMap, editableKeysMap, validateRowData, validateTableData, onRuleChange, clearValidateData } =
+    useEditableRow(props);
 
   // 如果想给 TR 添加类名，请在这里补充，不要透传更多额外 Props 到 BaseTable
   const tRowClassNames = (() => {
@@ -79,6 +77,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
 
   useImperativeHandle(ref, () => ({
     validateRowData,
+    validateTableData,
     clearValidateData,
   }));
 
@@ -111,6 +110,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
             ...p,
             oldCell,
             tableBaseClass,
+            cellEmptyContent: props.cellEmptyContent,
             onChange: props.onRowEdit,
             onValidate: props.onRowValidate,
             onRuleChange,
@@ -118,7 +118,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
           if (props.editableRowKeys) {
             const rowValue = get(p.row, props.rowKey || 'id');
             cellProps.editable = editableKeysMap[rowValue] || false;
-            const key = [rowValue, p.col.colKey].join();
+            const key = [rowValue, p.col.colKey].join('__');
             const errorList = errorListMap[key];
             errorList && (cellProps.errors = errorList);
           }

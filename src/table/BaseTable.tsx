@@ -17,7 +17,7 @@ import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
 import { getAffixProps } from './utils';
 
-import { StyledProps } from '../common';
+import { StyledProps, Styles } from '../common';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -178,9 +178,13 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const defaultColWidth = props.tableLayout === 'fixed' && isWidthOverflow ? '100px' : undefined;
   const colgroup = (
     <colgroup>
-      {(spansAndLeafNodes?.leafColumns || columns).map((col, index) => (
-        <col key={col.colKey || index} style={{ width: formatCSSUnit(col.width) || defaultColWidth }}></col>
-      ))}
+      {(spansAndLeafNodes?.leafColumns || columns).map((col) => {
+        const style: Styles = { width: formatCSSUnit(col.width) || defaultColWidth };
+        if (col.minWidth) {
+          style.minWidth = formatCSSUnit(col.minWidth);
+        }
+        return <col key={col.colKey} style={style} />;
+      })}
     </colgroup>
   );
 
@@ -201,10 +205,12 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     opacity: headerOpacity,
     marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
   };
+  // 多级表头左边线缺失
+  const affixedMultipleHeaderLeftBorder = props.bordered && isMultipleHeader ? 1 : 0;
   const affixedHeader = Boolean(props.headerAffixedTop && tableWidth) && (
     <div
       ref={affixHeaderRef}
-      style={{ width: `${tableWidth - 1}px`, opacity: headerOpacity }}
+      style={{ width: `${tableWidth - affixedMultipleHeaderLeftBorder}px`, opacity: headerOpacity }}
       className={classNames(['scrollbar', { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual }])}
     >
       <table className={classNames(tableElmClasses)} style={{ ...tableElementStyles, width: `${tableElmWidth}px` }}>
@@ -267,6 +273,8 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
             rowAttributes={props.rowAttributes}
             rowClassName={props.rowClassName}
             thWidthList={thWidthList}
+            footerSummary={props.footerSummary}
+            rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
           ></TFoot>
         </table>
       </div>
@@ -300,6 +308,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     // bufferSize: bufferSize,
     scroll: props.scroll,
     // handleRowMounted: handleRowMounted,
+    cellEmptyContent: props.cellEmptyContent,
     renderExpandedRow: props.renderExpandedRow,
     ...pick(props, extendTableProps),
   };
@@ -332,6 +341,9 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           columns={spansAndLeafNodes?.leafColumns || columns}
           rowAttributes={props.rowAttributes}
           rowClassName={props.rowClassName}
+          thWidthList={thWidthList}
+          footerSummary={props.footerSummary}
+          rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
         ></TFoot>
       </table>
     </div>
@@ -352,7 +364,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   const { topContent, bottomContent } = props;
   const pagination = (
-    <div ref={paginationRef} style={{ opacity: Number(showAffixPagination) }}>
+    <div ref={paginationRef} className={tableBaseClass.paginationWrap} style={{ opacity: Number(showAffixPagination) }}>
       {renderPagination()}
     </div>
   );
