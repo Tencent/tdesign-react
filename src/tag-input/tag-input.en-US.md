@@ -10,7 +10,7 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 autoWidth | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 collapsedItems | TElement | - | Typescript：`TNode<{ value: TagInputValue; collapsedTags: TagInputValue; count: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 dragSort | Boolean | false | \- | N
 excessTagsDisplayType | String | break-line | options：scroll/break-line | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
@@ -22,7 +22,7 @@ minCollapsedNum | Number | 0 | \- | N
 placeholder | String | undefined | placeholder description | N
 readonly | Boolean | false | \- | N
 size | String | medium | options：small/medium/large | N
-status | String | default | options：default/success/warning/error | N
+status | String | - | options：default/success/warning/error | N
 suffix | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 tag | TNode | - | Typescript：`string | TNode<{ value: string | number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

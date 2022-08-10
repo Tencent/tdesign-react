@@ -27,7 +27,6 @@ export interface TdTagInputProps {
   collapsedItems?: TNode<{ value: TagInputValue; collapsedTags: TagInputValue; count: number }>;
   /**
    * 是否禁用标签输入框
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -83,7 +82,6 @@ export interface TdTagInputProps {
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
-   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**

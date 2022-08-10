@@ -192,8 +192,8 @@ export interface TdDateRangePickerProps {
    */
   rangeInputProps?: RangeInputProps;
   /**
-   * 日期分隔符
-   * @default -
+   * 日期分隔符，支持全局配置，默认为 '-'
+   * @default ''
    */
   separator?: string;
   /**
