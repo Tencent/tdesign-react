@@ -78,7 +78,6 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   loading?: boolean;
   /**
    * 远程加载时显示的文字，支持自定义。如加上超链接
-   * @default ''
    */
   loadingText?: TNode;
   /**

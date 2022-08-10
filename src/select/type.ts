@@ -47,12 +47,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   creatable?: boolean;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
    * 当下拉列表为空时显示的内容
-   * @default ''
    */
   empty?: TNode;
   /**
@@ -61,7 +59,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   filter?: (filterWords: string, option: T) => boolean | Promise<boolean>;
   /**
    * 是否可搜索
-   * @default false
    */
   filterable?: boolean;
   /**
@@ -87,7 +84,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   loading?: boolean;
   /**
    * 远程加载时显示的文字，支持自定义。如加上超链接
-   * @default ''
    */
   loadingText?: TNode;
   /**
@@ -107,7 +103,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   multiple?: boolean;
   /**
    * 数据化配置选项内容
-   * @default []
    */
   options?: Array<T>;
   /**

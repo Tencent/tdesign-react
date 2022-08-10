@@ -10,7 +10,7 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 disableDate | Object / Array / Function | - | Typescript：`DisableDate` `type DisableDate = Array<DateValue> | DisableDateObj | ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-disabled | Boolean | false | make DatePicker to be disabled | N
+disabled | Boolean | - | make DatePicker to be disabled | N
 enableTimePicker | Boolean | false | \- | N
 firstDayOfWeek | Number | - | options：1/2/3/4/5/6/7 | N
 format | String | undefined | \- | N
@@ -42,7 +42,7 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 disableDate | Object / Array / Function | - | Typescript：`DisableRangeDate` `type DisableRangeDate = Array<DateValue> | DisableDateObj | ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' | 'end'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 enableTimePicker | Boolean | false | \- | N
 firstDayOfWeek | Number | - | options：1/2/3/4/5/6/7 | N
 format | String | - | \- | N

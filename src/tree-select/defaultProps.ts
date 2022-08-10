@@ -13,7 +13,6 @@ export const treeSelectDefaultProps: TdTreeSelectProps = {
   empty: '',
   filterable: false,
   loading: false,
-  loadingText: '',
   max: 0,
   minCollapsedNum: 0,
   multiple: false,

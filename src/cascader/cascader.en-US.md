@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Cascader Props
 
 name | type | default | description | required
@@ -12,7 +11,7 @@ checkProps | Object | - | Typescript：`CheckboxProps`，[Checkbox API Documents
 checkStrictly | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 collapsedItems | TElement | - | Typescript：`TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 empty | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filter | Function | - | Typescript：`(filterWords: string, node: TreeNodeModel) => boolean | Promise<boolean>` | N
 filterable | Boolean | false | \- | N
@@ -21,7 +20,7 @@ keys | Object | - | Typescript：`CascaderKeysType` `interface CascaderKeysType 
 lazy | Boolean | true | \- | N
 load | Function | - | Typescript：`(node: TreeNodeModel<CascaderOption>) => Promise<Array<CascaderOption>>` | N
 loading | Boolean | false | \- | N
-loadingText | TNode | '' | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+loadingText | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | 0 | \- | N
 minCollapsedNum | Number | 0 | \- | N
 multiple | Boolean | false | \- | N

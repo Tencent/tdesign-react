@@ -36,7 +36,6 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   collapsedItems?: TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number }>;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -76,7 +75,6 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   loading?: boolean;
   /**
    * 远程加载时显示的文字，支持自定义。如加上超链接
-   * @default ''
    */
   loadingText?: TNode;
   /**

@@ -10,7 +10,7 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许输入日期 | N
 clearable | Boolean | false | 是否显示清除按钮 | N
 disableDate | Object / Array / Function | - | 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。`{ from: 'A', to: 'B' }` 表示在 A 到 B 之间的日期会被禁用。`{ before: 'A', after: 'B' }` 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用。TS 类型：`DisableDate` `type DisableDate = Array<DateValue> | DisableDateObj | ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-disabled | Boolean | false | 是否禁用组件 | N
+disabled | Boolean | - | 是否禁用组件 | N
 enableTimePicker | Boolean | false | 是否显示时间选择 | N
 firstDayOfWeek | Number | - | 第一天从星期几开始。可选项：1/2/3/4/5/6/7 | N
 format | String | undefined | 用于格式化日期，全局配置默认为：'YYYY-MM-DD'，[详细文档](https://day.js.org/docs/en/display/format) | N
@@ -42,7 +42,7 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许输入日期 | N
 clearable | Boolean | false | 是否显示清楚按钮 | N
 disableDate | Object / Array / Function | - | 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用。TS 类型：`DisableRangeDate` `type DisableRangeDate = Array<DateValue> | DisableDateObj | ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' | 'end'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-disabled | Boolean | false | 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用 | N
+disabled | Boolean | - | 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用 | N
 enableTimePicker | Boolean | false | 是否显示时间选择 | N
 firstDayOfWeek | Number | - | 第一天从星期几开始。可选项：1/2/3/4/5/6/7 | N
 format | String | - | 用于格式化日期，[详细文档](https://day.js.org/docs/en/display/format) | N

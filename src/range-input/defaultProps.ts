@@ -6,7 +6,6 @@ import { TdRangeInputProps, TdRangeInputPopupProps } from './type';
 
 export const rangeInputDefaultProps: TdRangeInputProps = {
   clearable: false,
-  disabled: false,
   readonly: false,
   separator: '-',
   showClearIconOnEmpty: false,
@@ -14,8 +13,4 @@ export const rangeInputDefaultProps: TdRangeInputProps = {
   defaultValue: [],
 };
 
-export const rangeInputPopupDefaultProps: TdRangeInputPopupProps = {
-  autoWidth: false,
-  disabled: false,
-  readonly: false,
-};
+export const rangeInputPopupDefaultProps: TdRangeInputPopupProps = { autoWidth: false, readonly: false };

@@ -23,7 +23,6 @@ export interface TdRangeInputProps {
   clearable?: boolean;
   /**
    * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -166,7 +165,6 @@ export interface TdRangeInputPopupProps {
   autoWidth?: boolean;
   /**
    * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**

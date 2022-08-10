@@ -29,7 +29,6 @@ export interface TdDatePickerProps {
   disableDate?: DisableDate;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -141,7 +140,6 @@ export interface TdDateRangePickerProps {
   disableDate?: DisableRangeDate;
   /**
    * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**

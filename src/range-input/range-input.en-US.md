@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### RangeInput Props
 
 name | type | default | description | required
@@ -10,7 +9,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 activeIndex | Number | - | \- | N
 clearable | Boolean | false | \- | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 format | Array / Function | - | Typescript：`InputFormatType | Array<InputFormatType>` | N
 inputProps | Object / Array | - | Typescript：`InputProps | Array<InputProps>`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/range-input/type.ts) | N
 label | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -52,7 +51,7 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 autoWidth | Boolean | false | \- | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 inputValue | Array | - | Typescript：`RangeInputValue` | N
 defaultInputValue | Array | - | uncontrolled property。Typescript：`RangeInputValue` | N
 panel | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
