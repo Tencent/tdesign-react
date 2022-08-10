@@ -12,7 +12,7 @@ borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 collapsedItems | TElement | - | Typescript：`TNode<{ value: DataOption[]; collapsedSelectedItems: DataOption[]; count: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Array | [] | Typescript：`Array<DataOption>` | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 empty | TNode | '' | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filter | Function | - | Typescript：`(filterWords: string, option: DataOption) => boolean` | N
 filterable | Boolean | false | \- | N

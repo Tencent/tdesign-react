@@ -12,7 +12,7 @@ borderless | Boolean | false | 【开发中】无边框模式 | N
 clearable | Boolean | false | 是否允许清空 | N
 collapsedItems | TElement | - | 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。TS 类型：`TNode<{ value: DataOption[]; collapsedSelectedItems: DataOption[]; count: number }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Array | [] | 数据。TS 类型：`Array<DataOption>` | N
-disabled | Boolean | false | 是否禁用组件 | N
+disabled | Boolean | - | 是否禁用组件 | N
 empty | TNode | '' | 当下拉列表为空时显示的内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filter | Function | - | 过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据。TS 类型：`(filterWords: string, option: DataOption) => boolean` | N
 filterable | Boolean | false | 是否可搜索 | N

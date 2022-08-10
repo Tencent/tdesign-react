@@ -42,7 +42,6 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   data?: Array<DataOption>;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**

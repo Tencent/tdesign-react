@@ -633,6 +633,7 @@ exports[`affix.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         >
           <div
@@ -1131,6 +1132,7 @@ exports[`async-loading.jsx 1`] = `
         </table>
       </div>
       <div
+        class="t-table__pagination-wrap"
         style="opacity: 1;"
       />
       <div
@@ -1486,7 +1488,7 @@ exports[`base.jsx 1`] = `
                 <td
                   class=""
                 >
-                  {}
+                  -
                 </td>
                 <td
                   class=""
@@ -1564,7 +1566,7 @@ exports[`base.jsx 1`] = `
                 <td
                   class=""
                 >
-                  0
+                  -
                 </td>
                 <td
                   class=""
@@ -1585,6 +1587,7 @@ exports[`base.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         >
           <div
@@ -1930,6 +1933,7 @@ exports[`custom-cell.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -2248,6 +2252,7 @@ exports[`custom-col.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         >
           <div
@@ -2866,6 +2871,7 @@ exports[`custom-col-button.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         >
           <div
@@ -3035,276 +3041,345 @@ exports[`custom-col-button.jsx 1`] = `
 exports[`custom-footer.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-table t-table--bordered"
-    style="position: relative;"
+    class="tdesign-demo-block-column-large tdesign-demo__table"
   >
-    <div
-      class="t-table__content"
-    >
-      <table
-        class="t-table--layout-fixed"
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
       >
-        <colgroup>
-          <col
-            style="width: 100px;"
-          />
-          <col
-            style="width: 100px;"
-          />
-          <col />
-          <col />
-          <col
-            style="width: 150px;"
-          />
-          <col
-            style="width: 200px;"
-          />
-        </colgroup>
-        <thead
-          class="t-table__header"
+        <label
+          class="t-radio-button t-is-checked"
         >
-          <tr>
-            <th
-              class="row t-table__th-index t-align-center"
-              data-colkey="index"
-            >
-              <div
-                class="t-table__th-cell-inner"
+          <input
+            checked=""
+            class="t-radio-button__former"
+            type="radio"
+            value="normal"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            普通表尾
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="full"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            通栏表尾
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="custom"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            自定义表尾合并列
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      class="t-table t-table--bordered"
+      style="position: relative;"
+    >
+      <div
+        class="t-table__content"
+      >
+        <table
+          class="t-table--layout-fixed"
+        >
+          <colgroup>
+            <col
+              style="width: 100px;"
+            />
+            <col
+              style="width: 100px;"
+            />
+            <col />
+            <col />
+            <col
+              style="width: 150px;"
+            />
+            <col
+              style="width: 200px;"
+            />
+          </colgroup>
+          <thead
+            class="t-table__header"
+          >
+            <tr>
+              <th
+                class="row t-table__th-index t-align-center"
+                data-colkey="index"
               >
-                序号
-              </div>
-            </th>
-            <th
-              class="t-table__th-platform"
-              data-colkey="platform"
-            >
-              <div
-                class="t-table__th-cell-inner"
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  序号
+                </div>
+              </th>
+              <th
+                class="t-table__th-platform"
+                data-colkey="platform"
               >
-                平台
-              </div>
-            </th>
-            <th
-              class="t-table__th-type"
-              data-colkey="type"
-            >
-              <div
-                class="t-table__th-cell-inner"
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  平台
+                </div>
+              </th>
+              <th
+                class="t-table__th-type"
+                data-colkey="type"
               >
-                类型
-              </div>
-            </th>
-            <th
-              class="t-table__th-default"
-              data-colkey="default"
-            >
-              <div
-                class="t-table__th-cell-inner"
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  类型
+                </div>
+              </th>
+              <th
+                class="t-table__th-default"
+                data-colkey="default"
               >
-                默认值
-              </div>
-            </th>
-            <th
-              class="t-table__th-required"
-              data-colkey="required"
-            >
-              <div
-                class="t-table__th-cell-inner"
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  默认值
+                </div>
+              </th>
+              <th
+                class="t-table__th-required"
+                data-colkey="required"
               >
-                是否必传
-              </div>
-            </th>
-            <th
-              class="t-table__th-detail.position"
-              data-colkey="detail.position"
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  是否必传
+                </div>
+              </th>
+              <th
+                class="t-table__th-detail.position"
+                data-colkey="detail.position"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    详情信息
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
+          >
+            <tr
+              class=""
             >
-              <div
-                class="t-table__th-cell-inner"
+              <td
+                class="row t-align-center"
+              >
+                0
+              </td>
+              <td
+                class=""
+              >
+                共有
+              </td>
+              <td
+                class=""
+              >
+                String
+              </td>
+              <td
+                class=""
+              >
+                -
+              </td>
+              <td
+                class=""
+              >
+                是
+              </td>
+              <td
+                class="t-table-td--ellipsis"
               >
                 <div
                   class="t-table__ellipsis t-text-ellipsis"
                 >
-                  详情信息
+                  读取 0 个数据的嵌套信息值
                 </div>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          class="t-table__body"
-        >
-          <tr
-            class=""
-          >
-            <td
-              class="row t-align-center"
-            >
-              0
-            </td>
-            <td
+              </td>
+            </tr>
+            <tr
               class=""
             >
-              共有
-            </td>
-            <td
-              class=""
-            >
-              String
-            </td>
-            <td
-              class=""
-            >
-              -
-            </td>
-            <td
-              class=""
-            >
-              是
-            </td>
-            <td
-              class="t-table-td--ellipsis"
-            >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
+              <td
+                class="row t-align-center"
               >
-                读取 0 个数据的嵌套信息值
-              </div>
-            </td>
-          </tr>
-          <tr
-            class=""
-          >
-            <td
-              class="row t-align-center"
-            >
-              1
-            </td>
-            <td
-              class=""
-            >
-              私有
-            </td>
-            <td
-              class=""
-            >
-              Number
-            </td>
-            <td
-              class=""
-            >
-              0
-            </td>
-            <td
-              class=""
-            >
-              否
-            </td>
-            <td
-              class="t-table-td--ellipsis"
-            >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
+                1
+              </td>
+              <td
+                class=""
               >
-                读取 1 个数据的嵌套信息值
-              </div>
-            </td>
-          </tr>
-          <tr
-            class=""
-          >
-            <td
-              class="row t-align-center"
-            >
-              2
-            </td>
-            <td
-              class=""
-            >
-              共有
-            </td>
-            <td
-              class=""
-            >
-              Array
-            </td>
-            <td
-              class=""
-            >
-              []
-            </td>
-            <td
-              class=""
-            >
-              否
-            </td>
-            <td
-              class="t-table-td--ellipsis"
-            >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
+                私有
+              </td>
+              <td
+                class=""
               >
-                读取 2 个数据的嵌套信息值
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot
-          class="t-table__footer"
-        >
-          <tr
-            class=""
-          >
-            <td
-              class=""
-            >
-              <b
-                style="color: rgb(0, 82, 217);"
+                Number
+              </td>
+              <td
+                class=""
               >
-                表尾
-              </b>
-            </td>
-            <td
+                0
+              </td>
+              <td
+                class=""
+              >
+                否
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  读取 1 个数据的嵌套信息值
+                </div>
+              </td>
+            </tr>
+            <tr
               class=""
             >
-              <span>
-                第 1 行
-              </span>
-            </td>
-            <td
+              <td
+                class="row t-align-center"
+              >
+                2
+              </td>
+              <td
+                class=""
+              >
+                共有
+              </td>
+              <td
+                class=""
+              >
+                Array
+              </td>
+              <td
+                class=""
+              >
+                []
+              </td>
+              <td
+                class=""
+              >
+                否
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  读取 2 个数据的嵌套信息值
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot
+            class="t-table__footer"
+          >
+            <tr
               class=""
             >
-              全部类型
-            </td>
-            <td
-              class=""
-            >
-              <span>
-                空
-              </span>
-            </td>
-            <td
-              class=""
-            >
-              N
-            </td>
-            <td
-              class=""
-            >
-              <div>
-                渲染函数输出表尾信息
-              </div>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+              <td
+                class=""
+              >
+                <b
+                  style="color: rgb(0, 82, 217);"
+                >
+                  表尾
+                </b>
+              </td>
+              <td
+                class=""
+              >
+                <div
+                  style="width: 100%; text-align: center;"
+                >
+                  第 1 行
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                全部类型
+              </td>
+              <td
+                class=""
+              >
+                <span>
+                  空
+                </span>
+              </td>
+              <td
+                class=""
+              >
+                未知
+              </td>
+              <td
+                class=""
+              >
+                <div>
+                  渲染函数输出表尾信息
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div
+        class="t-table__pagination-wrap"
+        style="opacity: 1;"
+      />
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
-    <div
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -3411,6 +3486,7 @@ exports[`custom-header.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -3740,6 +3816,7 @@ exports[`data-sort.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -3927,6 +4004,7 @@ exports[`drag-col-sort.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -4132,6 +4210,7 @@ exports[`drag-sort.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -4446,6 +4525,7 @@ exports[`drag-sort-handler.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -5092,6 +5172,7 @@ exports[`editable-cell.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -5107,6 +5188,49 @@ exports[`editable-row.jsx 1`] = `
   <div
     class="t-table-demo__editable-row"
   >
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group__outline"
+      >
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            type="radio"
+            value="1"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            全量校验
+          </span>
+        </label>
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            type="radio"
+            value="0"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            单行校验
+          </span>
+        </label>
+      </div>
+    </div>
+    <br />
+    <br />
     <div
       class="t-table t-table--bordered t-table--row-edit"
       style="position: relative;"
@@ -5667,6 +5791,7 @@ exports[`editable-row.jsx 1`] = `
         </table>
       </div>
       <div
+        class="t-table__pagination-wrap"
         style="opacity: 1;"
       />
       <div
@@ -5757,6 +5882,7 @@ exports[`empty.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -5845,6 +5971,7 @@ exports[`empty.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -6583,6 +6710,7 @@ exports[`expandable.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -7026,6 +7154,7 @@ exports[`filter-controlled.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         >
           <div
@@ -7736,6 +7865,7 @@ exports[`fixed-column.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -8725,6 +8855,7 @@ exports[`fixed-header.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -9870,6 +10001,7 @@ exports[`fixed-header-col.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -16993,6 +17125,7 @@ exports[`lazy.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -17076,6 +17209,7 @@ exports[`loading.jsx 1`] = `
         </table>
       </div>
       <div
+        class="t-table__pagination-wrap"
         style="opacity: 1;"
       />
       <div
@@ -17181,6 +17315,7 @@ exports[`loading.jsx 1`] = `
         </table>
       </div>
       <div
+        class="t-table__pagination-wrap"
         style="opacity: 1;"
       />
       <div
@@ -17288,6 +17423,7 @@ exports[`loading.jsx 1`] = `
         </table>
       </div>
       <div
+        class="t-table__pagination-wrap"
         style="opacity: 1;"
       />
       <div
@@ -17346,19 +17482,19 @@ exports[`merge-cells.jsx 1`] = `
       >
         <colgroup>
           <col
-            style="width: 100px;"
+            style="width: 100px; min-width: 100px;"
           />
           <col
-            style="width: 100px;"
+            style="width: 100px; min-width: 100px;"
           />
           <col
-            style="width: 100px;"
+            style="width: 100px; min-width: 100px;"
           />
           <col
-            style="width: 100px;"
+            style="width: 100px; min-width: 100px;"
           />
           <col
-            style="width: 100px;"
+            style="width: 100px; min-width: 100px;"
           />
         </colgroup>
         <thead
@@ -17680,6 +17816,7 @@ exports[`merge-cells.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -19835,6 +19972,7 @@ exports[`multi-header.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -20172,6 +20310,7 @@ exports[`multiple-sort.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -20477,6 +20616,7 @@ exports[`pagination.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     >
       <div
@@ -20754,6 +20894,7 @@ exports[`pagination-ajax.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     >
       <div
@@ -21326,6 +21467,7 @@ exports[`select-multiple.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -21669,6 +21811,7 @@ exports[`select-single.jsx 1`] = `
       </table>
     </div>
     <div
+      class="t-table__pagination-wrap"
       style="opacity: 1;"
     />
     <div
@@ -22025,6 +22168,7 @@ exports[`single-sort.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
@@ -23277,6 +23421,7 @@ exports[`tree.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         >
           <div
@@ -24095,6 +24240,7 @@ exports[`tree-select.jsx 1`] = `
           </table>
         </div>
         <div
+          class="t-table__pagination-wrap"
           style="opacity: 1;"
         />
         <div
