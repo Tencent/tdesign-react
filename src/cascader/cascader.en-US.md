@@ -27,7 +27,7 @@ multiple | Boolean | false | \- | N
 options | Array | [] | Typescript：`Array<CascaderOption>` | N
 placeholder | String | undefined | \- | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
-popupVisible | Boolean | undefined | \- | N
+popupVisible | Boolean | - | \- | N
 readonly | Boolean | false | \- | N
 selectInputProps | Object | - | Typescript：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
 showAllLevels | Boolean | true | \- | N
