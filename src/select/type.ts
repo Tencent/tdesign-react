@@ -202,7 +202,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
     context: {
       selectedOptions: T[];
       trigger: SelectValueChangeTrigger;
-      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent<SVGElement | HTMLDivElement | HTMLLIElement> | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**

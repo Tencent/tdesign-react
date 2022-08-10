@@ -29,7 +29,7 @@ interface SelectPopupProps
     context?: {
       label?: string | number;
       restData?: Record<string, any>;
-      e: React.MouseEvent;
+      e: React.MouseEvent<HTMLLIElement>;
       trigger: SelectValueChangeTrigger;
     },
   ) => void;

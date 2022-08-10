@@ -186,20 +186,21 @@ const Select = forwardRefWithStatics(
           return;
         }
         const values = getSelectValueArr(value, value[closest], true, valueType, keys);
-        onChange(values, { e, trigger });
+        onChange(values, { e, trigger, selectedOptions: [] });
         return;
       }
 
       if (trigger === 'clear') {
         e.stopPropagation();
-        onChange([], { e, trigger });
+        // TODO: selectedOptions
+        onChange([], { e, trigger, selectedOptions: [] });
         return;
       }
 
       if (trigger === 'tag-remove') {
         e.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
-        onChange(values, { e, trigger });
+        onChange(values, { e, trigger, selectedOptions: [] });
         if (isFunction(onRemove)) {
           onRemove({
             value: value[index],
@@ -216,9 +217,8 @@ const Select = forwardRefWithStatics(
     // 选中 Popup 某项
     const handleChange = (
       value: string | number,
-      context: { e: React.MouseEvent; trigger: SelectValueChangeTrigger },
+      context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger },
     ) => {
-      const { e, trigger } = context;
       if (multiple) {
         !reserveKeyword && onInputChange('', { trigger: 'clear' });
       }
@@ -227,7 +227,7 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
-      onChange?.(value, { e, trigger });
+      onChange?.(value, { ...context, selectedOptions: [] });
     };
 
     // 处理filter逻辑

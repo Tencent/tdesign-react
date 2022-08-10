@@ -26,7 +26,7 @@ minCollapsedNum | Number | 0 | 最小折叠数量，用于多选情况下折叠�
 multiple | Boolean | false | 是否允许多选 | N
 placeholder | String | undefined | 占位符 | N
 popupProps | Object | - | 透传给 popup 组件的全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
-popupVisible | Boolean | undefined | 是否显示下拉框 | N
+popupVisible | Boolean | - | 是否显示下拉框 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 selectInputProps | Object | - | 【开发中】透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
