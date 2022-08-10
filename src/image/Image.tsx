@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
-import { ImageErrorIcon, ImageIcon } from 'tdesign-icons-react';
+import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
 import observe from '../_common/js/utils/observe';
 import useConfig from '../hooks/useConfig';
 import { TdImageProps } from './type';
 import { imageDefaultProps } from './defaultProps';
 import Space from '../space';
+
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 export type ImageProps = TdImageProps;
 
@@ -33,6 +35,11 @@ const Image = (props: TdImageProps) => {
 
   const { classPrefix } = useConfig();
   const imageRef = useRef<HTMLDivElement>(null);
+
+  const { ImageErrorIcon, ImageIcon } = useGlobalIcon({
+    ImageErrorIcon: TdImageErrorIcon,
+    ImageIcon: TdImageIcon,
+  });
 
   const [shouldLoad, setShouldLoad] = useState(!lazy);
   const handleLoadImage = () => {
