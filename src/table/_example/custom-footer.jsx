@@ -63,7 +63,7 @@ const footData = [
     type: '全部类型',
     default: '',
     description: '-',
-    requied: '未知',
+    required: '未知',
   },
 ];
 
