@@ -1,5 +1,25 @@
 :: BASE_DOC ::
 
+### 带关闭按钮的全局提示
+
+{{ close }}
+
+### 使用关闭函数控制全局提示
+
+{{ close-function }}
+
+### 关闭多条全局提示
+
+{{ close-all }}
+
+### 控制全局提示显示位置
+
+{{ offset }}
+
+### 函数式调用
+
+{{ duration }}
+
 ## API
 
 ### Message Props
