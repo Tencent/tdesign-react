@@ -16,6 +16,7 @@ export default function useTableData(props: TableDataProps) {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('datePicker');
   const monthLocal: string[] = t(local.months);
+  const quarterLocal: string[] = t(local.quarters);
 
   const {
     start,
@@ -41,6 +42,7 @@ export default function useTableData(props: TableDataProps) {
     disableDate,
     firstDayOfWeek,
     monthLocal,
+    quarterLocal,
     showWeekOfYear: mode === 'week',
   };
 
