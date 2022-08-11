@@ -312,7 +312,7 @@ exports[`jump.jsx 1`] = `
         class="t-input-adornment t-input-adornment--append"
       >
         <div
-          class="t-input-number t-size-m t-pagination__input t-input-number--normal"
+          class="t-input-number t-size-m t-input-number--normal t-pagination__input"
         >
           <div
             class="t-input__wrap"
@@ -322,6 +322,7 @@ exports[`jump.jsx 1`] = `
               class="t-input t-size-m t-align-left t-is-default"
             >
               <input
+                autocomplete="off"
                 class="t-input__inner"
                 placeholder=""
                 type="text"
@@ -1028,7 +1029,7 @@ exports[`simple.jsx 1`] = `
         class="t-input-adornment t-input-adornment--append"
       >
         <div
-          class="t-input-number t-size-m t-pagination__input t-input-number--normal"
+          class="t-input-number t-size-m t-input-number--normal t-pagination__input"
         >
           <div
             class="t-input__wrap"
@@ -1038,6 +1039,7 @@ exports[`simple.jsx 1`] = `
               class="t-input t-size-m t-align-left t-is-default"
             >
               <input
+                autocomplete="off"
                 class="t-input__inner"
                 placeholder=""
                 type="text"
@@ -1164,16 +1166,17 @@ exports[`simple-mini.jsx 1`] = `
         class="t-input-adornment t-input-adornment--append"
       >
         <div
-          class="t-input-number t-size-s t-pagination__input t-input-number--normal"
+          class="t-input-number t-size-s t-input-number--normal t-pagination__input"
         >
           <div
             class="t-input__wrap"
             value="1"
           >
             <div
-              class="t-input t-size-m t-align-left t-is-default"
+              class="t-input t-size-s t-align-left t-is-default"
             >
               <input
+                autocomplete="off"
                 class="t-input__inner"
                 placeholder=""
                 type="text"

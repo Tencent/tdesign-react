@@ -269,7 +269,7 @@ exports[`style.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          根据 trigger 元素定制 overlayStyle
+          根据 trigger 元素定制 overlayInnerStyle
         </span>
       </button>
     </div>

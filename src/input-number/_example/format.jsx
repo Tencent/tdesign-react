@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-import { InputNumber } from 'tdesign-react';
+import { InputNumber, Space } from 'tdesign-react';
 
 export default function InputNumberExample() {
   const [value, setValue] = useState(0);
 
   return (
-    <InputNumber
-      max={15}
-      min={-12}
-      step={1.2}
-      style={{ width: 150 }}
-      format={(value) => value + '%'}
-      value={value}
-      onChange={(value) => {
-        console.log(value);
-        setValue(value);
-      }}
-    ></InputNumber>
+    <Space>
+      <InputNumber
+        max={15}
+        min={-12}
+        step={1.2}
+        autoWidth
+        format={(value) => value + '%'}
+        value={value}
+        onChange={setValue}
+      />
+      <InputNumber
+        autoWidth
+        decimalPlaces={2}
+        format={(value, { fixedNumber }) => `${fixedNumber} %`}
+        onChange={setValue}
+      />
+    </Space>
   );
 }

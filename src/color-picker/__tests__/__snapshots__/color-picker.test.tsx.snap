@@ -365,13 +365,13 @@ exports[`enable-alpha.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="0"
                   value="0"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -390,13 +390,13 @@ exports[`enable-alpha.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="82"
                   value="82"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -415,13 +415,13 @@ exports[`enable-alpha.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="217"
                   value="217"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -440,13 +440,13 @@ exports[`enable-alpha.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="100"
                   value="100%"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -1175,13 +1175,13 @@ exports[`panel.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="0"
                   value="0"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -1200,13 +1200,13 @@ exports[`panel.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="82"
                   value="82"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -1225,13 +1225,13 @@ exports[`panel.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="217"
                   value="217"
                 >
                   <div
-                    class="t-input t-size-m t-align-center t-is-default"
+                    class="t-input t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       placeholder="请输入"
                       type="text"
@@ -1973,13 +1973,13 @@ exports[`recent-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="0"
                         value="0"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -1998,13 +1998,13 @@ exports[`recent-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="82"
                         value="82"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -2023,13 +2023,13 @@ exports[`recent-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="217"
                         value="217"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -2881,13 +2881,13 @@ exports[`recent-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="0"
                         value="0"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -2906,13 +2906,13 @@ exports[`recent-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="82"
                         value="82"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -2931,13 +2931,13 @@ exports[`recent-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="217"
                         value="217"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -3679,13 +3679,13 @@ exports[`status-readonly.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="0"
                   value="0"
                 >
                   <div
-                    class="t-input t-is-disabled t-size-m t-align-center t-is-default"
+                    class="t-input t-is-disabled t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       disabled=""
                       placeholder="请输入"
@@ -3705,13 +3705,13 @@ exports[`status-readonly.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="82"
                   value="82"
                 >
                   <div
-                    class="t-input t-is-disabled t-size-m t-align-center t-is-default"
+                    class="t-input t-is-disabled t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       disabled=""
                       placeholder="请输入"
@@ -3731,13 +3731,13 @@ exports[`status-readonly.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
-                  title="217"
                   value="217"
                 >
                   <div
-                    class="t-input t-is-disabled t-size-m t-align-center t-is-default"
+                    class="t-input t-is-disabled t-size-s t-align-center t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       disabled=""
                       placeholder="请输入"
@@ -4480,13 +4480,13 @@ exports[`swatch-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="0"
                         value="0"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -4505,13 +4505,13 @@ exports[`swatch-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="82"
                         value="82"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -4530,13 +4530,13 @@ exports[`swatch-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="217"
                         value="217"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -4851,13 +4851,13 @@ exports[`swatch-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="0"
                         value="0"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -4876,13 +4876,13 @@ exports[`swatch-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="82"
                         value="82"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
@@ -4901,13 +4901,13 @@ exports[`swatch-color.jsx 1`] = `
                     >
                       <div
                         class="t-input__wrap"
-                        title="217"
                         value="217"
                       >
                         <div
-                          class="t-input t-size-m t-align-center t-is-default"
+                          class="t-input t-size-s t-align-center t-is-default"
                         >
                           <input
+                            autocomplete="off"
                             class="t-input__inner"
                             placeholder="请输入"
                             type="text"
