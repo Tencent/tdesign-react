@@ -1833,6 +1833,7 @@ exports[`disabled.jsx 1`] = `
                     class="t-input t-is-disabled t-size-m t-align-left t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       disabled=""
                       placeholder="数字"
