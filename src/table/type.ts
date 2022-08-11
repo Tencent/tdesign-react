@@ -784,7 +784,7 @@ export interface TableEditableCellConfig<T extends TableRowData = TableRowData> 
   /**
    * 透传给组件 `edit.component` 的属性
    */
-  props?: { [key: string]: any };
+  props?: TableEditableCellProps<T>;
   /**
    * 校验规则
    */
@@ -1028,3 +1028,15 @@ export interface SwapParams<T> {
 export type FilterProps = RadioProps | CheckboxProps | InputProps | { [key: string]: any };
 
 export type FilterType = 'input' | 'single' | 'multiple';
+
+export type TableEditableCellProps<T> =
+  | TablePlainObject
+  | ((params: TableEditableCellPropsParams<T>) => TablePlainObject);
+
+export interface TableEditableCellPropsParams<T> extends PrimaryTableCellParams<T> {
+  editedRow: T;
+}
+
+export interface TablePlainObject {
+  [key: string]: any;
+}
