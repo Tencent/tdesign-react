@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup__reference t-tree-select t-select-input"
+    class="t-tree-select t-select-input"
     style="width: 300px;"
   >
     <div
@@ -58,7 +58,7 @@ exports[`collapsed.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+        class="t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
       >
         <div
           class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -127,7 +127,7 @@ exports[`collapsed.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+        class="t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
       >
         <div
           class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -157,15 +157,11 @@ exports[`collapsed.jsx 1`] = `
                   />
                 </svg>
               </span>
-              <div
-                class="t-popup__reference"
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                <span
-                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-                >
-                  更多...
-                </span>
-              </div>
+                更多...
+              </span>
             </div>
             <input
               class="t-input__inner"
@@ -257,7 +253,7 @@ exports[`filterable.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
+        class="t-tree-select t-select-input t-select-input--empty"
       >
         <div
           class="t-input__wrap"
@@ -302,7 +298,7 @@ exports[`filterable.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
+        class="t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
       >
         <div
           class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -353,7 +349,7 @@ exports[`lazy.jsx 1`] = `
     style="width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
+      class="t-tree-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -401,7 +397,7 @@ exports[`lazy.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+    class="t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     style="width: 300px;"
   >
     <div
@@ -485,7 +481,7 @@ exports[`multiple.jsx 1`] = `
 exports[`prefix.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
+    class="t-tree-select t-select-input t-select-input--empty"
     style="width: 300px;"
   >
     <div
@@ -547,7 +543,7 @@ exports[`prefix.jsx 1`] = `
 exports[`props.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup__reference t-tree-select t-select-input"
+    class="t-tree-select t-select-input"
     style="width: 300px;"
   >
     <div
@@ -602,7 +598,7 @@ exports[`valuedisplay.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-select-input"
+        class="t-tree-select t-select-input"
       >
         <div
           class="t-input__wrap"
@@ -649,7 +645,7 @@ exports[`valuedisplay.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+        class="t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
       >
         <div
           class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -741,7 +737,7 @@ exports[`valuetype.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-select-input"
+        class="t-tree-select t-select-input"
       >
         <div
           class="t-input__wrap"
@@ -787,7 +783,7 @@ exports[`valuetype.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+        class="t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
       >
         <div
           class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"

@@ -16,45 +16,41 @@ exports[`color-mode.jsx 1`] = `
           默认（单色 + 线性渐变）
         </h5>
         <div
-          class="t-popup__reference"
+          class="t-color-picker__trigger"
         >
           <div
-            class="t-color-picker__trigger"
+            class="t-color-picker__trigger--default"
           >
             <div
-              class="t-color-picker__trigger--default"
+              class="t-input__wrap t-input--auto-width"
+              value="#0052d9"
             >
               <div
-                class="t-input__wrap t-input--auto-width"
-                value="#0052d9"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <div
-                  class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                  class="t-input__prefix"
                 >
                   <div
-                    class="t-input__prefix"
+                    class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
                   >
-                    <div
-                      class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
-                    >
-                      <span
-                        class="color-inner"
-                        style="background: rgb(0, 82, 217);"
-                      />
-                    </div>
+                    <span
+                      class="color-inner"
+                      style="background: rgb(0, 82, 217);"
+                    />
                   </div>
-                  <input
-                    class="t-input__inner"
-                    placeholder="请输入"
-                    type="text"
-                    value="#0052d9"
-                  />
-                  <span
-                    class="t-input__input-pre"
-                  >
-                    #0052d9
-                  </span>
                 </div>
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入"
+                  type="text"
+                  value="#0052d9"
+                />
+                <span
+                  class="t-input__input-pre"
+                >
+                  #0052d9
+                </span>
               </div>
             </div>
           </div>
@@ -71,45 +67,41 @@ exports[`color-mode.jsx 1`] = `
           仅单色模式
         </h5>
         <div
-          class="t-popup__reference"
+          class="t-color-picker__trigger"
         >
           <div
-            class="t-color-picker__trigger"
+            class="t-color-picker__trigger--default"
           >
             <div
-              class="t-color-picker__trigger--default"
+              class="t-input__wrap t-input--auto-width"
+              value="#0052d9"
             >
               <div
-                class="t-input__wrap t-input--auto-width"
-                value="#0052d9"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <div
-                  class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                  class="t-input__prefix"
                 >
                   <div
-                    class="t-input__prefix"
+                    class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
                   >
-                    <div
-                      class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
-                    >
-                      <span
-                        class="color-inner"
-                        style="background: rgb(0, 82, 217);"
-                      />
-                    </div>
+                    <span
+                      class="color-inner"
+                      style="background: rgb(0, 82, 217);"
+                    />
                   </div>
-                  <input
-                    class="t-input__inner"
-                    placeholder="请输入"
-                    type="text"
-                    value="#0052d9"
-                  />
-                  <span
-                    class="t-input__input-pre"
-                  >
-                    #0052d9
-                  </span>
                 </div>
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入"
+                  type="text"
+                  value="#0052d9"
+                />
+                <span
+                  class="t-input__input-pre"
+                >
+                  #0052d9
+                </span>
               </div>
             </div>
           </div>
@@ -133,44 +125,40 @@ exports[`color-mode.jsx 1`] = `
           仅线性渐变模式
         </h5>
         <div
-          class="t-popup__reference"
+          class="t-color-picker__trigger"
         >
           <div
-            class="t-color-picker__trigger"
+            class="t-color-picker__trigger--default"
           >
             <div
-              class="t-color-picker__trigger--default"
+              class="t-input__wrap t-input--auto-width"
+              value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
             >
               <div
-                class="t-input__wrap t-input--auto-width"
-                value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <div
-                  class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                  class="t-input__prefix"
                 >
                   <div
-                    class="t-input__prefix"
+                    class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
                   >
-                    <div
-                      class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
-                    >
-                      <span
-                        class="color-inner"
-                      />
-                    </div>
+                    <span
+                      class="color-inner"
+                    />
                   </div>
-                  <input
-                    class="t-input__inner"
-                    placeholder="请输入"
-                    type="text"
-                    value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
-                  />
-                  <span
-                    class="t-input__input-pre"
-                  >
-                    linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)
-                  </span>
                 </div>
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入"
+                  type="text"
+                  value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
+                />
+                <span
+                  class="t-input__input-pre"
+                >
+                  linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)
+                </span>
               </div>
             </div>
           </div>
@@ -314,7 +302,7 @@ exports[`enable-alpha.jsx 1`] = `
             class="t-select__wrap t-color-picker__format-mode-select"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -1124,7 +1112,7 @@ exports[`panel.jsx 1`] = `
             class="t-select__wrap t-color-picker__format-mode-select"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -1922,7 +1910,7 @@ exports[`recent-color.jsx 1`] = `
                   class="t-select__wrap t-color-picker__format-mode-select"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -2830,7 +2818,7 @@ exports[`recent-color.jsx 1`] = `
                   class="t-select__wrap t-color-picker__format-mode-select"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -3472,46 +3460,42 @@ exports[`recent-color.jsx 1`] = `
 exports[`status-disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup__reference"
+    class="t-color-picker__trigger"
   >
     <div
-      class="t-color-picker__trigger"
+      class="t-color-picker__trigger--default"
     >
       <div
-        class="t-color-picker__trigger--default"
+        class="t-input__wrap t-input--auto-width"
+        value="#0052d9"
       >
         <div
-          class="t-input__wrap t-input--auto-width"
-          value="#0052d9"
+          class="t-input t-is-disabled t-size-m t-align-left t-is-default t-input--prefix"
         >
           <div
-            class="t-input t-is-disabled t-size-m t-align-left t-is-default t-input--prefix"
+            class="t-input__prefix"
           >
             <div
-              class="t-input__prefix"
+              class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
             >
-              <div
-                class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
-              >
-                <span
-                  class="color-inner"
-                  style="background: rgb(0, 82, 217);"
-                />
-              </div>
+              <span
+                class="color-inner"
+                style="background: rgb(0, 82, 217);"
+              />
             </div>
-            <input
-              class="t-input__inner"
-              disabled=""
-              placeholder="请输入"
-              type="text"
-              value="#0052d9"
-            />
-            <span
-              class="t-input__input-pre"
-            >
-              #0052d9
-            </span>
           </div>
+          <input
+            class="t-input__inner"
+            disabled=""
+            placeholder="请输入"
+            type="text"
+            value="#0052d9"
+          />
+          <span
+            class="t-input__input-pre"
+          >
+            #0052d9
+          </span>
         </div>
       </div>
     </div>
@@ -3632,7 +3616,7 @@ exports[`status-readonly.jsx 1`] = `
             class="t-select__wrap t-color-picker__format-mode-select"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -4433,7 +4417,7 @@ exports[`swatch-color.jsx 1`] = `
                   class="t-select__wrap t-color-picker__format-mode-select"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -4804,7 +4788,7 @@ exports[`swatch-color.jsx 1`] = `
                   class="t-select__wrap t-color-picker__format-mode-select"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -4987,45 +4971,41 @@ exports[`swatch-color.jsx 1`] = `
 exports[`trigger.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup__reference"
+    class="t-color-picker__trigger"
   >
     <div
-      class="t-color-picker__trigger"
+      class="t-color-picker__trigger--default"
     >
       <div
-        class="t-color-picker__trigger--default"
+        class="t-input__wrap t-input--auto-width"
+        value="#0052d9"
       >
         <div
-          class="t-input__wrap t-input--auto-width"
-          value="#0052d9"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix"
         >
           <div
-            class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+            class="t-input__prefix"
           >
             <div
-              class="t-input__prefix"
+              class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
             >
-              <div
-                class="t-color-picker__trigger--default__color t-color-picker--bg-alpha"
-              >
-                <span
-                  class="color-inner"
-                  style="background: rgb(0, 82, 217);"
-                />
-              </div>
+              <span
+                class="color-inner"
+                style="background: rgb(0, 82, 217);"
+              />
             </div>
-            <input
-              class="t-input__inner"
-              placeholder="请输入"
-              type="text"
-              value="#0052d9"
-            />
-            <span
-              class="t-input__input-pre"
-            >
-              #0052d9
-            </span>
           </div>
+          <input
+            class="t-input__inner"
+            placeholder="请输入"
+            type="text"
+            value="#0052d9"
+          />
+          <span
+            class="t-input__input-pre"
+          >
+            #0052d9
+          </span>
         </div>
       </div>
     </div>

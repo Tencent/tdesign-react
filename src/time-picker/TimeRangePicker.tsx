@@ -127,7 +127,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
         popupVisible={isPanelShowed}
         onPopupVisibleChange={handleShowPopup}
         popupProps={{
-          overlayStyle: {
+          overlayInnerStyle: {
             width: 'auto',
           },
           ...props.popupProps,

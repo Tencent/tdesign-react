@@ -7,7 +7,7 @@ exports[`base.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--empty"
+      class="t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -65,7 +65,7 @@ exports[`collapsed.jsx 1`] = `
         style="width: 40%;"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+          class="t-select t-select-input t-select-input--multiple"
         >
           <div
             class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -136,7 +136,7 @@ exports[`collapsed.jsx 1`] = `
         style="width: 40%;"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+          class="t-select t-select-input t-select-input--multiple"
         >
           <div
             class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -210,7 +210,7 @@ exports[`creatable.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--empty"
+      class="t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -260,7 +260,7 @@ exports[`custom-options.jsx 1`] = `
     style="width: 80%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-select t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -312,7 +312,7 @@ exports[`custom-selected.jsx 1`] = `
     style="width: 400px;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--multiple"
+      class="t-select t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -376,7 +376,7 @@ exports[`disabled.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-select t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -436,7 +436,7 @@ exports[`filterable.jsx 1`] = `
         style="width: 400px; display: inline-block;"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -485,7 +485,7 @@ exports[`filterable.jsx 1`] = `
         style="width: 400px; display: inline-block;"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+          class="t-select t-select-input t-select-input--multiple"
         >
           <div
             class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -560,7 +560,7 @@ exports[`group.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--empty"
+      class="t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -611,7 +611,7 @@ exports[`keys.jsx 1`] = `
     style="width: 200px; display: inline-block; margin-right: 20px;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-select t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -658,7 +658,7 @@ exports[`keys.jsx 1`] = `
     style="width: 200px; display: inline-block;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--multiple"
+      class="t-select t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -731,7 +731,7 @@ exports[`label-in-value.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input"
+          class="t-select t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -781,7 +781,7 @@ exports[`label-in-value.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input"
+          class="t-select t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -831,7 +831,7 @@ exports[`label-in-value.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+          class="t-select t-select-input t-select-input--multiple"
         >
           <div
             class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -900,7 +900,7 @@ exports[`max.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--multiple"
+      class="t-select t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -973,7 +973,7 @@ exports[`multiple.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+          class="t-select t-select-input t-select-input--multiple"
         >
           <div
             class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -1067,7 +1067,7 @@ exports[`multiple.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+          class="t-select t-select-input t-select-input--multiple"
         >
           <div
             class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -1226,7 +1226,7 @@ exports[`noborder.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--borderless"
+      class="t-select t-select-input t-select-input--borderless"
     >
       <div
         class="t-input__wrap"
@@ -1278,7 +1278,7 @@ exports[`options.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-select t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -1336,7 +1336,7 @@ exports[`panel.jsx 1`] = `
         style="width: 300px; margin-right: 20px;"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1386,7 +1386,7 @@ exports[`panel.jsx 1`] = `
         style="width: 300px;"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1439,7 +1439,7 @@ exports[`popup-props.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-select t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -1491,7 +1491,7 @@ exports[`prefix.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--empty"
+      class="t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -1562,7 +1562,7 @@ exports[`remote-search.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--empty"
+      class="t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -1612,7 +1612,7 @@ exports[`scroll-top.jsx 1`] = `
     style="width: 200px;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-select t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -1670,7 +1670,7 @@ exports[`size.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1719,7 +1719,7 @@ exports[`size.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1768,7 +1768,7 @@ exports[`size.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1827,7 +1827,7 @@ exports[`status.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1876,7 +1876,7 @@ exports[`status.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1926,7 +1926,7 @@ exports[`status.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select t-select-input t-select-input--empty"
+          class="t-select t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
