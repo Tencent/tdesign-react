@@ -1,10 +1,6 @@
 import React from 'react';
-import Link from '../Link';
+import { Link } from 'tdesign-react';
 
 export default function LinkExample() {
-  return (
-    <Link hover="color" theme="default">
-      查看链接
-    </Link>
-  );
+  return <Link theme="default">查看链接</Link>;
 }

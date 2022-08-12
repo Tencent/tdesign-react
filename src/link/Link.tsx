@@ -9,6 +9,7 @@ const Link = React.forwardRef(
   (
     {
       children,
+      content,
       className,
       underline,
       prefixIcon,
@@ -16,32 +17,39 @@ const Link = React.forwardRef(
       theme = 'default',
       disabled,
       hover = 'underline',
+      onClick,
+      href,
+      size,
       ...props
     }: LinkProps,
     ref: React.RefObject<HTMLAnchorElement>,
   ) => {
     const { classPrefix } = useConfig();
 
-    const handleClick = () => {
-      console.log('a');
+    const childNode = content || children;
+
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      if (disabled) return;
+      onClick?.(e);
     };
+
     return (
       <a
         {...props}
+        href={disabled || !href ? undefined : href}
         ref={ref}
-        className={classNames(
-          className,
-          [`${classPrefix}-link`, `${classPrefix}-link--theme-${theme}`, `${classPrefix}-link--hover-${hover}`],
-          {
-            [`${classPrefix}-is-underline`]: !!underline,
-            [`${classPrefix}-is-disabled`]: !!disabled,
-          },
-        )}
+        className={classNames(className, [`${classPrefix}-link`, `${classPrefix}-link--theme-${theme}`], {
+          [`${classPrefix}-size-s`]: size === 'small',
+          [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-is-disabled`]: !!disabled,
+          [`${classPrefix}-is-underline`]: !!underline,
+          [`${classPrefix}-link--hover-${hover}`]: !disabled,
+        })}
         onClick={handleClick}
       >
-        <span className={classNames([`${classPrefix}-link__prefix-icon`])}>{prefixIcon}</span>
-        {children}
-        <span className={classNames([`${classPrefix}-link__suffix-icon`])}>{suffixIcon}</span>
+        {prefixIcon && <span className={classNames([`${classPrefix}-link__prefix-icon`])}>{prefixIcon}</span>}
+        {childNode}
+        {suffixIcon && <span className={classNames([`${classPrefix}-link__suffix-icon`])}>{suffixIcon}</span>}
       </a>
     );
   },
