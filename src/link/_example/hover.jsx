@@ -3,7 +3,7 @@ import { Space, Link } from 'tdesign-react';
 
 export default function LinkExample() {
   return (
-    <>
+    <Space direction="vertical">
       <Space>
         <Link theme="default" hover="underline">
           跳转链接
@@ -55,6 +55,6 @@ export default function LinkExample() {
           跳转链接
         </Link>
       </Space>
-    </>
+    </Space>
   );
 }
