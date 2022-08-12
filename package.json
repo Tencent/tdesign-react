@@ -212,6 +212,7 @@
     "dayjs": "~1.11.4",
     "hoist-non-react-statics": "~3.3.2",
     "lodash": "~4.17.15",
+    "prismjs": "^1.28.0",
     "raf": "~3.4.1",
     "react-is": "^18.2.0",
     "react-popper": "~2.2.5",
