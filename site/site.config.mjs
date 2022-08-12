@@ -68,6 +68,12 @@ export default {
           component: () => import('tdesign-react/button/button.md'),
         },
         {
+          title: 'Link 文字',
+          name: 'link',
+          path: '/react/components/link',
+          component: () => import('tdesign-react/link/link.md'),
+        },
+        {
           title: 'Icon 图标',
           name: 'icon',
           path: '/react/components/icon',
