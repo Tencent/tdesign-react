@@ -130,7 +130,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       onChange={(val, context) => {
         setTInputValue(val, { ...context, trigger: 'input' });
       }}
-      autoWidth={autoWidth}
+      autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
       onWheel={onWheel}
       size={size}
       readonly={readonly}
@@ -144,7 +144,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       suffix={suffix}
       suffixIcon={suffixIconNode}
       showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
-      keepWrapperWidth={true}
+      keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}

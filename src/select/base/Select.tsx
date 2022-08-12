@@ -428,7 +428,6 @@ const Select = forwardRefWithStatics(
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
           inputValue={inputValue}
           tagInputProps={{
-            autoWidth: true,
             ...tagInputProps,
           }}
           tagProps={tagProps}

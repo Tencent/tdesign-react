@@ -5463,7 +5463,7 @@ exports[`editable-row.jsx 1`] = `
                       class="t-select t-select-input t-select-input--multiple"
                     >
                       <div
-                        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+                        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input--auto-width"
                         value=""
                       >
                         <div
