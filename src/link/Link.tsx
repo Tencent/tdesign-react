@@ -3,7 +3,7 @@ import React from 'react';
 import useConfig from '../hooks/useConfig';
 import { TdLinkProps } from './type';
 
-export interface LinkProps extends TdLinkProps, React.HTMLAttributes<HTMLAnchorElement> {}
+export interface LinkProps extends TdLinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'children'> {}
 
 const Link = React.forwardRef(
   (
@@ -13,7 +13,7 @@ const Link = React.forwardRef(
       underline,
       prefixIcon,
       suffixIcon,
-      theme,
+      theme = 'default',
       disabled,
       hover = 'underline',
       ...props
@@ -22,28 +22,26 @@ const Link = React.forwardRef(
   ) => {
     const { classPrefix } = useConfig();
 
+    const handleClick = () => {
+      console.log('a');
+    };
     return (
       <a
-        ref={ref}
-        className={classNames(className, [`${classPrefix}-link`, `${classPrefix}-link--hover-${hover}`], {
-          [`${classPrefix}-is-underline`]: underline,
-          [`${classPrefix}-link--theme-success`]: theme === 'success',
-          [`${classPrefix}-link--theme-danger`]: theme === 'danger',
-          [`${classPrefix}-link--theme-warning`]: theme === 'warning',
-          [`${classPrefix}-is-disabled`]: disabled,
-        })}
         {...props}
+        ref={ref}
+        className={classNames(
+          className,
+          [`${classPrefix}-link`, `${classPrefix}-link--theme-${theme}`, `${classPrefix}-link--hover-${hover}`],
+          {
+            [`${classPrefix}-is-underline`]: !!underline,
+            [`${classPrefix}-is-disabled`]: !!disabled,
+          },
+        )}
+        onClick={handleClick}
       >
-        {prefixIcon}
-        <span
-          className={classNames({
-            [`${classPrefix}-link__text-prefix`]: !!prefixIcon,
-            [`${classPrefix}-link__text-suffix`]: !!suffixIcon,
-          })}
-        >
-          {children}
-        </span>
-        {suffixIcon}
+        <span className={classNames([`${classPrefix}-link__prefix-icon`])}>{prefixIcon}</span>
+        {children}
+        <span className={classNames([`${classPrefix}-link__suffix-icon`])}>{suffixIcon}</span>
       </a>
     );
   },

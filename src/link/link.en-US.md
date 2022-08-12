@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Link Props
 
 name | type | default | description | required
@@ -14,6 +13,7 @@ disabled | Boolean | - | make link to be disabled | N
 hover | String | underline | hover link style。options：color/underline | N
 href | String | - | \- | N
 prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+size | String | medium | options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 target | String | - | target is an attribute of `<a>` | N
 theme | String | default | options：default/primary/danger/warning/success | N

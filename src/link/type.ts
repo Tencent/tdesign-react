@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, TElement } from '../common';
+import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent } from 'react';
 
 export interface TdLinkProps {
@@ -34,6 +34,11 @@ export interface TdLinkProps {
    * 前置图标
    */
   prefixIcon?: TElement;
+  /**
+   * 尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
   /**
    * 后置图标
    */
