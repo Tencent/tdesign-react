@@ -23,7 +23,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       if (triggerRef.current.contains(e.target) || hasPopupMouseDown.current) {
         return;
       }
-      onVisibleChange(false, { e, trigger: 'trigger-element-blur' });
+      onVisibleChange(false, { e, trigger: 'document' });
     };
     document.addEventListener('mousedown', handleDocumentClick);
     document.addEventListener('touchend', handleDocumentClick);

@@ -152,7 +152,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
           [
             <PanelContent
               key="startPanel"
-              partial="start"
+              partial={activeIndex ? 'end' : 'start'}
               year={startYear}
               month={startMonth}
               time={time[0]}
@@ -162,7 +162,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
             />,
             <PanelContent
               key="endPanel"
-              partial="end"
+              partial={activeIndex ? 'end' : 'start'}
               year={endYear}
               month={endMonth}
               time={time[1]}
