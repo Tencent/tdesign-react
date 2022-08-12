@@ -47,7 +47,6 @@ const DropdownSub = (props: DropdownProps) => {
     let obj: ReactElement | null = null;
     data.forEach((menu, id) => {
       const tmp = { ...(menu as Record<string, any>) };
-      // const { value } = tmp;
       const optionItem = tmp as DropdownOption;
       arrMap.set(optionItem.value, optionItem);
 
