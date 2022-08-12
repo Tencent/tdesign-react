@@ -95,6 +95,11 @@ const Cascader = (props: CascaderProps) => {
         setInputVal(`${value}`);
       }}
       onTagChange={(val: CascaderValue, ctx) => {
+        if (!(val as []).length && ctx.trigger === 'clear') {
+          ctx.e?.stopPropagation();
+          closeIconClickEffect(cascaderContext);
+          return;
+        }
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
       }}
       onPopupVisibleChange={(val: boolean, context) => {
@@ -112,9 +117,6 @@ const Cascader = (props: CascaderProps) => {
           value: cascaderContext.value,
           e: context.e,
         });
-      }}
-      onClear={() => {
-        closeIconClickEffect(cascaderContext);
       }}
       panel={<Panel cascaderContext={cascaderContext} {...pick(props, ['trigger', 'onChange', 'empty'])}></Panel>}
     />
