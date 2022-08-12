@@ -5,7 +5,8 @@ import { DropdownOption, TdDropdownProps } from './type';
 import { ClassName } from '../common';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupVisibleChangeContext } from '../popup';
-import DropdownMenu from './DropdownMenu';
+import DropdownSub from './DropdownSub';
+import DropdownSubmenu from './DropdownSubmenu';
 import DropdownItem from './DropdownItem';
 import { dropdownDefaultProps } from './defaultProps';
 
@@ -15,19 +16,8 @@ export interface DropdownProps extends TdDropdownProps {
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const {
-    popupProps = {},
-    disabled,
-    placement,
-    trigger,
-    className,
-    children,
-    hideAfterItemClick,
-    maxHeight,
-    maxColumnWidth,
-    minColumnWidth,
-  } = props;
-  let content = null;
+  const { popupProps = {}, disabled, placement, trigger, className, children, hideAfterItemClick } = props;
+  const content = null;
   const arrayChildren = React.Children.toArray(children);
 
   const { classPrefix } = useConfig();
@@ -41,21 +31,12 @@ const Dropdown = (props: DropdownProps) => {
     props?.onClick?.(data, context);
   };
 
-  const DropdownContent = () => <DropdownMenu {...props} onClick={handleMenuClick}></DropdownMenu>;
+  const DropdownContent = () => <DropdownSub {...props} onClick={handleMenuClick}></DropdownSub>;
 
   const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
     togglePopupVisible(visible);
     popupProps?.onVisibleChange?.(visible, context);
   };
-
-  React.Children.forEach(arrayChildren, (child: React.ReactChild, idx) => {
-    if (typeof child !== 'object') return;
-
-    if (child.type === DropdownMenu) {
-      content = React.cloneElement(child, { onClick: handleMenuClick, maxHeight, maxColumnWidth, minColumnWidth });
-      arrayChildren.splice(idx, 1);
-    }
-  });
 
   const popupParams = {
     disabled,
@@ -80,8 +61,9 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-Dropdown.DropdownMenu = DropdownMenu;
 Dropdown.DropdownItem = DropdownItem;
+Dropdown.DropdownSub = DropdownSub;
+Dropdown.DropdownSubmenu = DropdownSubmenu;
 
 Dropdown.displayName = 'Dropdown';
 Dropdown.defaultProps = dropdownDefaultProps;
