@@ -42,7 +42,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
         const itemPropValue = getComputedStyle(computedItem)[itemProp];
         setBarStyle({
           transform: `${transformPosition}(${offset}px)`,
-          [barBorderProp]: itemPropValue,
+          [barBorderProp]: itemPropValue || 0,
         });
       }
     }
