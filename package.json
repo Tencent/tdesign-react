@@ -200,7 +200,8 @@
     "vite-plugin-istanbul": "^2.3.0",
     "vite-plugin-pwa": "^0.11.11",
     "vite-plugin-tdoc": "^2.0.1",
-    "workbox-precaching": "^6.3.0"
+    "workbox-precaching": "^6.3.0",
+    "prismjs": "^1.28.0"
   },
   "dependencies": {
     "@babel/runtime": "~7.17.2",
