@@ -200,7 +200,8 @@
     "vite-plugin-istanbul": "^2.3.0",
     "vite-plugin-pwa": "^0.11.11",
     "vite-plugin-tdoc": "^2.0.1",
-    "workbox-precaching": "^6.3.0"
+    "workbox-precaching": "^6.3.0",
+    "prismjs": "^1.28.0"
   },
   "dependencies": {
     "@babel/runtime": "~7.17.2",
@@ -212,7 +213,6 @@
     "dayjs": "~1.11.4",
     "hoist-non-react-statics": "~3.3.2",
     "lodash": "~4.17.15",
-    "prismjs": "^1.28.0",
     "raf": "~3.4.1",
     "react-is": "^18.2.0",
     "react-popper": "~2.2.5",
