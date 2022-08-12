@@ -439,7 +439,7 @@ const Select = forwardRefWithStatics(
           minCollapsedNum={minCollapsedNum}
           collapsedItems={renderCollapsedItems}
           popupProps={{
-            overlayClassName: [`${name}__dropdown`, ['narrow-scrollbar'], overlayClassName],
+            overlayClassName: [`${name}__dropdown`, overlayClassName],
             ...restPopupProps,
           }}
           popupVisible={showPopup}
@@ -454,7 +454,7 @@ const Select = forwardRefWithStatics(
           }}
           updateScrollTop={updateScrollTop}
           {...selectInputProps}
-        ></SelectInput>
+        />
       </div>
     );
   },
