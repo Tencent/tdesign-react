@@ -81,6 +81,86 @@ exports[`child.jsx 1`] = `
         </svg>
       </span>
     </button>
+    <div>
+      <ul>
+        <li
+          class="t-dropdown__item--theme-default"
+          style="max-width: NaNpx; min-width: NaNpx;"
+        >
+          操作一
+          <div>
+            <ul>
+              <li
+                class="t-dropdown__item--theme-default"
+                style="max-width: NaNpx; min-width: NaNpx;"
+              >
+                操作1-1
+                <div>
+                  <ul>
+                    <li
+                      class="t-dropdown__item--theme-default"
+                      style="max-width: NaNpx; min-width: NaNpx;"
+                    >
+                      操作1-1-1
+                    </li>
+                    <li
+                      class="t-dropdown__item--theme-default"
+                      style="max-width: NaNpx; min-width: NaNpx;"
+                    >
+                      操作1-1-2
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="t-dropdown__item--theme-default"
+                style="max-width: NaNpx; min-width: NaNpx;"
+              >
+                操作1-2
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-dropdown__item--theme-default"
+          style="max-width: NaNpx; min-width: NaNpx;"
+        >
+          操作二
+          <div>
+            <ul>
+              <li
+                class="t-dropdown__item--theme-default"
+                style="max-width: NaNpx; min-width: NaNpx;"
+              >
+                操作2-1
+                <div>
+                  <ul>
+                    <li
+                      class="t-dropdown__item--theme-default"
+                      style="max-width: NaNpx; min-width: NaNpx;"
+                    >
+                      操作2-1-1
+                    </li>
+                    <li
+                      class="t-dropdown__item--theme-default"
+                      style="max-width: NaNpx; min-width: NaNpx;"
+                    >
+                      操作2-1-2
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="t-dropdown__item--theme-default"
+                style="max-width: NaNpx; min-width: NaNpx;"
+              >
+                操作2-2
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
   </span>
 </DocumentFragment>
 `;
