@@ -8,6 +8,11 @@ import { PrimaryTableRowEditContext, TableRowData, TableErrorListMap } from '../
 
 export type ErrorListObjectType = PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] };
 
+export interface TablePromiseErrorData {
+  errors: ErrorListObjectType[];
+  errorMap: TableErrorListMap;
+}
+
 const cellRuleMap = new Map<any, PrimaryTableRowEditContext<TableRowData>[]>();
 
 export function useEditableRow(props: PrimaryTableProps) {
@@ -50,10 +55,7 @@ export function useEditableRow(props: PrimaryTableProps) {
           });
         }),
     );
-    return new Promise<{
-      errors: ErrorListObjectType[];
-      errorMap: TableErrorListMap;
-    }>((resolve, reject) => {
+    return new Promise<TablePromiseErrorData>((resolve, reject) => {
       Promise.all(list).then((errors) => {
         resolve({
           errors: errors.filter((t) => t.errorList?.length),
@@ -82,7 +84,7 @@ export function useEditableRow(props: PrimaryTableProps) {
    * 校验整个表格数据（对外开放方法，修改时需慎重）
    */
   const validateTableData = () => {
-    const promiseList = [];
+    const promiseList: Promise<TablePromiseErrorData>[] = [];
     const data = props.data || [];
     for (let i = 0, len = data.length; i < len; i++) {
       const rowValue = get(data[i], props.rowKey || 'id');
@@ -91,7 +93,7 @@ export function useEditableRow(props: PrimaryTableProps) {
     return new Promise((resolve, reject) => {
       Promise.all(promiseList).then((rList) => {
         const allErrorListMap: TableErrorListMap = {};
-        rList.forEach(({ errorMap } = {}) => {
+        rList.forEach(({ errorMap } = { errors: [], errorMap: {} }) => {
           errorMap && Object.assign(allErrorListMap, errorMap);
         });
         setErrorListMap(allErrorListMap);
