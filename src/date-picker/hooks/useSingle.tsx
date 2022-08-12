@@ -84,7 +84,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const popupProps = {
     expandAnimation: true,
     ...props.popupProps,
-    overlayStyle: props.popupProps?.overlayStyle ?? { width: 'auto' },
+    overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean, context: any) => {
       if (context.trigger === 'trigger-element-click') {

@@ -21,7 +21,7 @@ exports[`base.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -76,7 +76,7 @@ exports[`base.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -566,7 +566,7 @@ exports[`card.jsx 1`] = `
           style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
         >
           <div
-            class="t-popup__reference t-select t-select-input"
+            class="t-select t-select-input"
           >
             <div
               class="t-input__wrap"
@@ -664,7 +664,7 @@ exports[`card.jsx 1`] = `
                 class="t-select__wrap"
               >
                 <div
-                  class="t-popup__reference t-select t-select-input"
+                  class="t-select t-select-input"
                 >
                   <div
                     class="t-input__wrap t-input--auto-width"
@@ -719,7 +719,7 @@ exports[`card.jsx 1`] = `
                 class="t-select__wrap"
               >
                 <div
-                  class="t-popup__reference t-select t-select-input"
+                  class="t-select t-select-input"
                 >
                   <div
                     class="t-input__wrap t-input--auto-width"
@@ -1191,7 +1191,7 @@ exports[`cell.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -1246,7 +1246,7 @@ exports[`cell.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -1910,7 +1910,7 @@ exports[`cell-append.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -1965,7 +1965,7 @@ exports[`cell-append.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -2819,7 +2819,7 @@ exports[`controller-config.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -2874,7 +2874,7 @@ exports[`controller-config.jsx 1`] = `
                   class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select t-select-input"
+                    class="t-select t-select-input"
                   >
                     <div
                       class="t-input__wrap t-input--auto-width"
@@ -3390,7 +3390,7 @@ exports[`event-props-api.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -3445,7 +3445,7 @@ exports[`event-props-api.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -3977,7 +3977,7 @@ exports[`events.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -4032,7 +4032,7 @@ exports[`events.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -4546,7 +4546,7 @@ exports[`filter.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -4601,7 +4601,7 @@ exports[`filter.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -5088,7 +5088,7 @@ exports[`first-day-of-week.jsx 1`] = `
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup__reference t-select t-select-input"
+          class="t-select t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -5150,7 +5150,7 @@ exports[`first-day-of-week.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -5205,7 +5205,7 @@ exports[`first-day-of-week.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -5746,7 +5746,7 @@ exports[`head.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -5801,7 +5801,7 @@ exports[`head.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -6287,7 +6287,7 @@ exports[`mode.jsx 1`] = `
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup__reference t-select t-select-input"
+          class="t-select t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -6349,7 +6349,7 @@ exports[`mode.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select t-select-input"
+                class="t-select t-select-input"
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
@@ -6622,7 +6622,7 @@ exports[`range.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -6677,7 +6677,7 @@ exports[`range.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -7174,7 +7174,7 @@ exports[`slot-props-api.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -7229,7 +7229,7 @@ exports[`slot-props-api.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -7893,7 +7893,7 @@ exports[`value.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -7948,7 +7948,7 @@ exports[`value.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -8441,7 +8441,7 @@ exports[`week.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -8496,7 +8496,7 @@ exports[`week.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input"
+              class="t-select t-select-input"
             >
               <div
                 class="t-input__wrap t-input--auto-width"

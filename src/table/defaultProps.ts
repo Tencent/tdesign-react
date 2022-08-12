@@ -9,6 +9,7 @@ export const baseTableDefaultProps: TdBaseTableProps = {
   columns: [],
   data: [],
   disableDataPage: false,
+  empty: '',
   footData: [],
   footerAffixedBottom: false,
   headerAffixedTop: false,
@@ -26,16 +27,16 @@ export const primaryTableDefaultProps: Pick<
   TdPrimaryTableProps,
   | 'columnControllerVisible'
   | 'columns'
-  | 'defaultExpandedRowKeys'
   | 'expandIcon'
+  | 'defaultExpandedRowKeys'
   | 'multipleSort'
   | 'defaultSelectedRowKeys'
   | 'sortOnRowDraggable'
 > = {
   columnControllerVisible: undefined,
   columns: [],
-  defaultExpandedRowKeys: [],
   expandIcon: true,
+  defaultExpandedRowKeys: [],
   multipleSort: false,
   defaultSelectedRowKeys: [],
   sortOnRowDraggable: false,

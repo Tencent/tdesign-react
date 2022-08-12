@@ -4,7 +4,7 @@ exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -55,7 +55,7 @@ exports[`check-strictly.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input"
+      class="t-cascader t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -97,7 +97,7 @@ exports[`check-strictly.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -181,7 +181,7 @@ exports[`collapsed.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -243,7 +243,7 @@ exports[`collapsed.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -314,7 +314,7 @@ exports[`disabled.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input"
+      class="t-cascader t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -357,7 +357,7 @@ exports[`disabled.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -410,7 +410,7 @@ exports[`ellipsis.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -460,7 +460,7 @@ exports[`filterable.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -501,7 +501,7 @@ exports[`filterable.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -573,7 +573,7 @@ exports[`keys.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -615,7 +615,7 @@ exports[`keys.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -671,7 +671,7 @@ exports[`load.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -722,7 +722,7 @@ exports[`max.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -778,7 +778,7 @@ exports[`multiple.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -997,7 +997,7 @@ exports[`show-all-levels.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -1039,7 +1039,7 @@ exports[`show-all-levels.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -1095,7 +1095,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
       style="margin-top: 16px;"
     >
       <div
@@ -1138,7 +1138,7 @@ exports[`size.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
       style="margin-top: 16px;"
     >
       <div
@@ -1181,7 +1181,7 @@ exports[`size.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
       style="margin-top: 16px;"
     >
       <div
@@ -1233,7 +1233,7 @@ exports[`trigger.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -1275,7 +1275,7 @@ exports[`trigger.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
@@ -1326,7 +1326,7 @@ exports[`value-mode.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -1373,7 +1373,7 @@ exports[`value-mode.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -1420,7 +1420,7 @@ exports[`value-mode.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+      class="t-cascader t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -1477,7 +1477,7 @@ exports[`value-type.jsx 1`] = `
   >
     ["1","1.1"]
     <div
-      class="t-popup__reference t-cascader t-select-input"
+      class="t-cascader t-select-input"
     >
       <div
         class="t-input__wrap"
@@ -1520,7 +1520,7 @@ exports[`value-type.jsx 1`] = `
     </div>
     [["1","1.1"],["1","1.2"]]
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+      class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"

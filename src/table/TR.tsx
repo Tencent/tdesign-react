@@ -16,6 +16,7 @@ export interface RenderTdExtra {
   columnLength: number;
   dataLength: number;
   cellSpans: RowspanColspan;
+  cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
 }
 
 export interface RenderEllipsisCellParams {
@@ -33,6 +34,7 @@ export const TABLE_PROPS = [
   'rowAttributes',
   'rowspanAndColspan',
   'scroll',
+  'cellEmptyContent',
   'onCellClick',
   'onRowClick',
   'onRowDblclick',
@@ -65,7 +67,12 @@ export interface TrProps extends TrCommonProps {
 
 export const ROW_LISTENERS = ['click', 'dblclick', 'mouseover', 'mousedown', 'mouseenter', 'mouseleave', 'mouseup'];
 
-export function renderCell(params: BaseTableCellParams<TableRowData>) {
+export function renderCell(
+  params: BaseTableCellParams<TableRowData>,
+  extra?: {
+    cellEmptyContent?: TdBaseTableProps['cellEmptyContent'];
+  },
+) {
   const { col, row } = params;
   if (isFunction(col.cell)) {
     return col.cell(params);
@@ -73,7 +80,11 @@ export function renderCell(params: BaseTableCellParams<TableRowData>) {
   if (isFunction(col.render)) {
     return col.render({ ...params, type: 'cell' });
   }
-  return col.cell || col.render || get(row, col.colKey);
+  const r = col.cell || col.render || get(row, col.colKey);
+  // 0 和 false 属于正常可用之，不能使用兜底逻辑 cellEmptyContent
+  if (![undefined, '', null].includes(r)) return r;
+  if (extra?.cellEmptyContent) return extra.cellEmptyContent;
+  return r;
 }
 
 // 表格行组件
@@ -146,7 +157,7 @@ export default function TR(props: TrProps) {
   function renderTd(params: BaseTableCellParams<TableRowData>, extra: RenderTdExtra) {
     const { col, colIndex, rowIndex } = params;
     const { cellSpans, dataLength, rowAndColFixedPosition } = extra;
-    const cellNode = renderCell(params);
+    const cellNode = renderCell(params, { cellEmptyContent: props.cellEmptyContent });
     const tdStyles = getColumnFixedStyles(col, colIndex, rowAndColFixedPosition, tableColFixedClasses);
     const customClasses = isFunction(col.className) ? col.className({ ...params, type: 'td' }) : col.className;
     const classes = [
@@ -198,6 +209,7 @@ export default function TR(props: TrProps) {
       rowAndColFixedPosition,
       columnLength: props.columns.length,
       cellSpans,
+      cellEmptyContent: props.cellEmptyContent,
     });
   });
 

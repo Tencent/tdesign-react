@@ -442,16 +442,12 @@ exports[`size.jsx 1`] = `
           style="left: 0%; width: 8%;"
         />
         <div
-          class="t-popup__reference"
+          class="t-slider__button-wrapper"
+          style="left: 8%;"
         >
           <div
-            class="t-slider__button-wrapper"
-            style="left: 8%;"
-          >
-            <div
-              class="t-slider__button"
-            />
-          </div>
+            class="t-slider__button"
+          />
         </div>
         <div />
         <div

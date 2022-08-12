@@ -276,7 +276,7 @@ describe('Popup 组件测试', () => {
     const testClassName = 'test-class-name';
     const testStyle = { color: '#ff0000' };
     const { getByText } = render(
-      <Popup destroyOnClose placement="top" overlayStyle={testStyle} overlayClassName={testClassName}>
+      <Popup destroyOnClose placement="top" overlayInnerStyle={testStyle} overlayClassName={testClassName}>
         {triggerElement}
       </Popup>,
     );
@@ -384,6 +384,6 @@ describe('Popup 组件测试', () => {
 
     // 有元素，并且是渲染在 body 上
     const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
-    expect(popupContainer.parentElement.parentElement.parentElement).toBe(document.body);
+    expect(popupContainer.parentElement.parentElement).toBe(document.body);
   });
 });

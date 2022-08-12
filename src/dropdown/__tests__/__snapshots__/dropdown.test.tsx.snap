@@ -2,8 +2,8 @@
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
@@ -26,14 +26,14 @@ exports[`base.jsx 1`] = `
         </svg>
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`button.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
@@ -51,14 +51,14 @@ exports[`button.jsx 1`] = `
         </svg>
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`child.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
@@ -81,14 +81,14 @@ exports[`child.jsx 1`] = `
         </svg>
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`click.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -100,14 +100,14 @@ exports[`click.jsx 1`] = `
         hover我试试
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -119,14 +119,14 @@ exports[`custom.jsx 1`] = `
         点击我试试
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
@@ -149,14 +149,14 @@ exports[`disabled.jsx 1`] = `
         </svg>
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`long.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -168,14 +168,14 @@ exports[`long.jsx 1`] = `
         hover我试试
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
@@ -193,14 +193,14 @@ exports[`multiple.jsx 1`] = `
         </svg>
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
 exports[`split.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-popup__reference"
+  <span
+    class="t-trigger"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
@@ -223,6 +223,6 @@ exports[`split.jsx 1`] = `
         </svg>
       </span>
     </button>
-  </div>
+  </span>
 </DocumentFragment>
 `;

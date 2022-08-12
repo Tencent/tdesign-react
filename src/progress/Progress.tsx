@@ -232,7 +232,11 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
       </div>
     );
   }
-  return <div className={className}>{progressDom}</div>;
+  return (
+    <div className={className} style={props.style}>
+      {progressDom}
+    </div>
+  );
 });
 
 Progress.displayName = 'Progress';

@@ -20,7 +20,12 @@ export interface SelectOptionProps
   children?: React.ReactNode;
   onSelect?: (
     value: string | number,
-    context: { label?: string; selected?: boolean; event: React.MouseEvent; restData?: Record<string, any> },
+    context: {
+      label?: string;
+      selected?: boolean;
+      event: React.MouseEvent<HTMLLIElement>;
+      restData?: Record<string, any>;
+    },
   ) => void;
   restData?: Record<string, any>;
   keys?: SelectKeysType;
@@ -74,7 +79,7 @@ const Option = (props: SelectOptionProps) => {
     });
   }
 
-  const handleSelect = (event: React.MouseEvent) => {
+  const handleSelect = (event: React.MouseEvent<HTMLLIElement>) => {
     if (!disabled) {
       onSelect(value, { label: String(label), selected, event, restData });
     }

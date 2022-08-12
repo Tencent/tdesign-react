@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {ImageViewer, Popup} from 'tdesign-react';
-import {BrowseIcon, EllipsisIcon} from 'tdesign-icons-react';
+import React, { useEffect } from 'react';
+import { ImageViewer, Popup } from 'tdesign-react';
+import { BrowseIcon, EllipsisIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
@@ -79,14 +79,13 @@ const classStyles = `
     border-radius: var(--td-radius-medium);
 }
 </style>
-`
-
+`;
 
 const imgH = 'https://tdesign.gtimg.com/demo/demo-image-3.png';
 const imgV = 'https://tdesign.gtimg.com/demo/demo-image-2.png';
 const img = 'https://tdesign.gtimg.com/demo/demo-image-1.png';
 
-const ImageViewerIconList = ({list, onClick}) => (
+const ImageViewerIconList = ({ list, onClick }) => (
   <ul className={`tdesign-demo-select__list`}>
     {list.map((it, index) => (
       <li key={index} className={`tdesign-demo-selectdesign-demo-option`} onClick={() => onClick(it, index)}>
@@ -96,50 +95,41 @@ const ImageViewerIconList = ({list, onClick}) => (
   </ul>
 );
 export default function BasicImageViewer() {
-  const images = [
-    img,
-    imgH,
-    imgV
-  ]
+  const images = [img, imgH, imgV];
 
-  const trigger = ({onOpen}) => {
+  const trigger = ({ onOpen }) => {
     const listCommon = (
-      <ImageViewerIconList
-        onClick={onOpen}
-        list={images.map((i, index) => ({label: `图片${index}`}))}
-      />
+      <ImageViewerIconList onClick={onOpen} list={images.map((i, index) => ({ label: `图片${index}` }))} />
     );
 
     return (
       <div className={`tdesign-demo-image-viewer__ui-image`}>
-        <img
-          alt={'test'}
-          src={img}
-          className={`tdesign-demo-image-viewer__ui-image--img`}
-        />
+        <img alt={'test'} src={img} className={`tdesign-demo-image-viewer__ui-image--img`} />
         <div className={`tdesign-demo-image-viewer__ui-image--hover`} onClick={onOpen}>
-          <span><BrowseIcon size="1.4em" name={'browse'}/> 预览</span>
+          <span>
+            <BrowseIcon size="1.4em" name={'browse'} /> 预览
+          </span>
         </div>
         <div className={`tdesign-demo-image-viewer__ui-image--footer`}>
           <span className={`tdesign-demo-image-viewer__ui-image--title`}>相册封面标题</span>
           <span className={`tdesign-demo-image-viewer__ui-image--icons`}>
-          <BrowseIcon onClick={onOpen}/>
-          <Popup
-            trigger="click"
-            content={listCommon}
-            placement="rightdesign-demo-bottom"
-            overlayStyle={{width: '140px', padding: '6px'}}
-            destroyOnClose
-          >
-            <EllipsisIcon classname="tdesign-demo-image-viewer__ui-image--ellipsis"/>
-          </Popup>
+            <BrowseIcon onClick={onOpen} />
+            <Popup
+              trigger="click"
+              content={listCommon}
+              placement="right-bottom"
+              overlayStyle={{ width: '140px', padding: '6px' }}
+              destroyOnClose
+            >
+              <EllipsisIcon className="tdesign-demo-image-viewer__ui-image--ellipsis" />
+            </Popup>
           </span>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
-  const style = {width: '240px', height: '240px'}
+  const style = { width: '240px', height: '240px' };
 
   useEffect(() => {
     // 添加示例代码所需样式
@@ -148,7 +138,7 @@ export default function BasicImageViewer() {
 
   return (
     <div style={style} className={`tdesign-demo-image-viewer__base`}>
-      <ImageViewer trigger={trigger} images={images}/>
+      <ImageViewer trigger={trigger} images={images} />
     </div>
   );
 }

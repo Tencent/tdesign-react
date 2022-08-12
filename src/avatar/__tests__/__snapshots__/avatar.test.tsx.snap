@@ -349,17 +349,13 @@ exports[`group-max.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-popup__reference"
+          class="t-avatar t-size-l t-avatar--circle"
         >
-          <div
-            class="t-avatar t-size-l t-avatar--circle"
+          <span
+            style="transform: scale(1);"
           >
-            <span
-              style="transform: scale(1);"
-            >
-              +1
-            </span>
-          </div>
+            +1
+          </span>
         </div>
       </div>
     </div>
@@ -386,29 +382,25 @@ exports[`group-max.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-popup__reference"
+          class="t-avatar t-size-l t-avatar--circle"
         >
-          <div
-            class="t-avatar t-size-l t-avatar--circle"
+          <span
+            style="transform: scale(1);"
           >
-            <span
-              style="transform: scale(1);"
+            <svg
+              class="t-icon t-icon-ellipsis"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
             >
-              <svg
-                class="t-icon t-icon-ellipsis"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-          </div>
+              <path
+                d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -435,17 +427,13 @@ exports[`group-max.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-popup__reference"
+          class="t-avatar t-size-l t-avatar--circle"
         >
-          <div
-            class="t-avatar t-size-l t-avatar--circle"
+          <span
+            style="transform: scale(1);"
           >
-            <span
-              style="transform: scale(1);"
-            >
-              more
-            </span>
-          </div>
+            more
+          </span>
         </div>
       </div>
     </div>
