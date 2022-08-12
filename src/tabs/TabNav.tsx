@@ -53,18 +53,12 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const navsContainerRef = useRef<HTMLDivElement>(null);
   // :todo 兼容老版本 TabBar 的实现
   const navsWrapRef = useRef<HTMLDivElement>(null);
-  const values = itemList.map((item) => item.value);
   const getIndex = useCallback(
     (value) => {
-      const index = values.indexOf(value);
-      // activeValue 有值，但是 itemList 为空
-      // 说明用户可能还没有添加 tab panel
-      // 这个时候 index 的值应该设置为 -1
-      // 如此 tab bar 才能够检测到 activeId 变动从而更新
-      const rollbackVal = activeValue === undefined ? -1 : 0;
-      return index > -1 ? index : rollbackVal;
+      const index = itemList.findIndex((item) => item.value === value);
+      return index > -1 ? index : -1;
     },
-    [activeValue, values],
+    [itemList],
   );
 
   const activeIndex = getIndex(activeValue);
