@@ -11,7 +11,7 @@ align | String | - | options：left/center/right | N
 autoWidth | Boolean | false | \- | N
 decimalPlaces | Number | undefined | \- | N
 disabled | Boolean | - | \- | N
-format | Function | - | Typescript：`(value: T, context?: { fixedNumber?: T }) => T` | N
+format | Function | - | Typescript：`(value: InputNumberValue, context?: { fixedNumber?: InputNumberValue }) => InputNumberValue` | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/input-number/type.ts) | N
 label | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 largeNumber | Boolean | false | \- | N

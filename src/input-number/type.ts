@@ -29,7 +29,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * 格式化输入框展示值。第二个事件参数 `context.fixedNumber` 表示处理过小数位数 `decimalPlaces` 的数字
    */
-  format?: (value: T, context?: { fixedNumber?: T }) => T;
+  format?: (value: InputNumberValue, context?: { fixedNumber?: InputNumberValue }) => InputNumberValue;
   /**
    * 透传 Input 输入框组件全部属性
    */
