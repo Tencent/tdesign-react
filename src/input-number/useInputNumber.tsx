@@ -175,6 +175,7 @@ export default function useInputNumber(props: TdInputNumberProps) {
     onKeyup: handleKeyup,
     onKeypress: handleKeypress,
     onEnter: handleEnter,
+    onClick: focus,
   };
 
   return {

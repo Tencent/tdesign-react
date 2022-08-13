@@ -6,18 +6,12 @@ import {
   AddIcon as TdAddIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-
 import Input from '../input';
 import Button from '../button';
-
 import useInputNumber from './useInputNumber';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { inputNumberDefaultProps } from './defaultProps';
-
-import { StyledProps } from '../common';
-import { TdInputNumberProps } from './type';
-
-export interface InputNumberProps<T> extends TdInputNumberProps<T>, StyledProps {}
+import { InputNumberProps } from './interface';
 
 function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
   const { ChevronDownIcon, RemoveIcon, ChevronUpIcon, AddIcon } = useGlobalIcon({
@@ -35,7 +29,6 @@ function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
     isError,
     inputRef,
     userInput,
-    focus,
     handleAdd,
     handleReduce,
     onInnerInputChange,
@@ -54,7 +47,7 @@ function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
   }));
 
   return (
-    <div className={classNames(wrapClasses, props.className)} style={props.style} ref={wrapRef} onClick={focus}>
+    <div className={classNames(wrapClasses, props.className)} style={props.style} ref={wrapRef}>
       {props.theme !== 'normal' && (
         <Button
           className={reduceClasses}
