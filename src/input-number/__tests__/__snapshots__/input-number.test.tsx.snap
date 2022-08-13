@@ -378,7 +378,7 @@ exports[`center.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap t-input--auto-width"
-          value="3.41"
+          value="3"
         >
           <div
             class="t-input t-size-m t-align-center t-is-default"
@@ -388,12 +388,12 @@ exports[`center.jsx 1`] = `
               class="t-input__inner"
               placeholder="请输入"
               type="text"
-              value="3.41"
+              value="3"
             />
             <span
               class="t-input__input-pre"
             >
-              3.41
+              3
             </span>
           </div>
         </div>
@@ -422,6 +422,7 @@ exports[`center.jsx 1`] = `
     >
       <div
         class="t-input-number t-size-m t-input-number--row t-input-number--auto-width"
+        style="width: 250px;"
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
@@ -619,14 +620,14 @@ exports[`default.jsx 1`] = `
 exports[`format.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
+    class="t-space t-space-vertical"
     style="gap: 16px;"
   >
     <div
       class="t-space-item"
     >
       <div
-        class="t-input-number t-size-m t-input-number--row t-input-number--auto-width"
+        class="t-input-number t-size-m t-input-number--row"
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
@@ -647,8 +648,8 @@ exports[`format.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input__wrap t-input--auto-width"
-          value="0%"
+          class="t-input__wrap"
+          value="0 %"
         >
           <div
             class="t-input t-size-m t-align-center t-is-default"
@@ -658,13 +659,8 @@ exports[`format.jsx 1`] = `
               class="t-input__inner"
               placeholder="请输入"
               type="text"
-              value="0%"
+              value="0 %"
             />
-            <span
-              class="t-input__input-pre"
-            >
-              0%
-            </span>
           </div>
         </div>
         <button
@@ -691,7 +687,7 @@ exports[`format.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-input-number t-size-m t-input-number--row t-input-number--auto-width"
+        class="t-input-number t-size-m t-input-number--row"
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
@@ -712,8 +708,8 @@ exports[`format.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input__wrap t-input--auto-width"
-          value=""
+          class="t-input__wrap"
+          value="0.00 %"
         >
           <div
             class="t-input t-size-m t-align-center t-is-default"
@@ -723,10 +719,7 @@ exports[`format.jsx 1`] = `
               class="t-input__inner"
               placeholder="请输入"
               type="text"
-              value=""
-            />
-            <span
-              class="t-input__input-pre"
+              value="0.00 %"
             />
           </div>
         </div>
@@ -764,7 +757,8 @@ exports[`large-number.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-input-number t-size-m t-input-number--row t-input-number--auto-width"
+        class="t-input-number t-size-m t-input-number--row"
+        style="width: 350px;"
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
@@ -785,7 +779,7 @@ exports[`large-number.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input__wrap t-input--auto-width"
+          class="t-input__wrap"
           value="19999999999999999.00"
         >
           <div
@@ -798,11 +792,6 @@ exports[`large-number.jsx 1`] = `
               type="text"
               value="19999999999999999.00"
             />
-            <span
-              class="t-input__input-pre"
-            >
-              19999999999999999.00
-            </span>
           </div>
         </div>
         <button
@@ -829,7 +818,8 @@ exports[`large-number.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-input-number t-size-m t-input-number--row t-input-number--auto-width"
+        class="t-input-number t-size-m t-input-number--row"
+        style="width: 350px;"
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
@@ -850,7 +840,7 @@ exports[`large-number.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input__wrap t-input--auto-width"
+          class="t-input__wrap"
           value="0.8975527383412673418"
         >
           <div
@@ -863,11 +853,6 @@ exports[`large-number.jsx 1`] = `
               type="text"
               value="0.8975527383412673418"
             />
-            <span
-              class="t-input__input-pre"
-            >
-              0.8975527383412673418
-            </span>
           </div>
         </div>
         <button
