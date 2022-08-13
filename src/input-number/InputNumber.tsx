@@ -22,7 +22,10 @@ export interface InputNumberRef {
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/
-function TdInputNumber<T = InputNumberValue>(props: InputNumberProps<T>, ref: ForwardedRef<InputNumberRef>) {
+function TdInputNumber<T extends InputNumberValue = InputNumberValue>(
+  props: InputNumberProps<T>,
+  ref: ForwardedRef<InputNumberRef>,
+) {
   const { ChevronDownIcon, RemoveIcon, ChevronUpIcon, AddIcon } = useGlobalIcon({
     ChevronDownIcon: TdChevronDownIcon,
     RemoveIcon: TdRemoveIcon,

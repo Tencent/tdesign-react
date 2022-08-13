@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, MouseEvent, KeyboardEvent } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -17,7 +17,7 @@ import {
 /**
  * 独立一个组件 Hook 方便用户直接使用相关逻辑 自定义任何样式的数字输入框
  */
-export default function useInputNumber<T = InputNumberValue>(props: TdInputNumberProps<T>) {
+export default function useInputNumber<T extends InputNumberValue = InputNumberValue>(props: TdInputNumberProps<T>) {
   const { SIZE, STATUS } = useCommonClassName();
   const { classPrefix } = useConfig();
   const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -88,7 +88,7 @@ export default function useInputNumber<T = InputNumberValue>(props: TdInputNumbe
       largeNumber: props.largeNumber,
     }) as T;
 
-  const handleReduce = (e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>) => {
+  const handleReduce = (e: any) => {
     if (disabledReduce || props.readonly) return;
     const newValue = handleStepValue('reduce');
     onChange(newValue, { type: 'reduce', e });
