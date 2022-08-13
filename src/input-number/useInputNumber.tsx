@@ -160,6 +160,14 @@ export default function useInputNumber(props: TdInputNumberProps) {
     props.onEnter?.(newValue, ctx);
   };
 
+  const focus = () => {
+    inputRef.current.focus();
+  };
+
+  const blur = () => {
+    inputRef.current.blur();
+  };
+
   const listeners = {
     onBlur: handleBlur,
     onFocus: handleFocus,
@@ -183,6 +191,8 @@ export default function useInputNumber(props: TdInputNumberProps) {
     userInput,
     setUserInput,
     value,
+    focus,
+    blur,
     onChange,
     handleReduce,
     handleAdd,

@@ -35,6 +35,7 @@ function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
     isError,
     inputRef,
     userInput,
+    focus,
     handleAdd,
     handleReduce,
     onInnerInputChange,
@@ -53,7 +54,7 @@ function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
   }));
 
   return (
-    <div className={classNames(wrapClasses, props.className)} style={props.style} ref={wrapRef}>
+    <div className={classNames(wrapClasses, props.className)} style={props.style} ref={wrapRef} onClick={focus}>
       {props.theme !== 'normal' && (
         <Button
           className={reduceClasses}
