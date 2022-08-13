@@ -15,13 +15,13 @@ format | Function | - | Typescript：`(value: T, context?: { fixedNumber?: T }) 
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/input-number/type.ts) | N
 label | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 largeNumber | Boolean | false | \- | N
-max | String / Number | Infinity | Typescript：`T` | N
-min | String / Number | -Infinity | Typescript：`T` | N
+max | String / Number | Infinity | Typescript：`InputNumberValue` | N
+min | String / Number | -Infinity | Typescript：`InputNumberValue` | N
 placeholder | String | undefined | \- | N
 readonly | Boolean | false | \- | N
 size | String | medium | options：small/medium/large | N
 status | String | - | options：default/success/warning/error | N
-step | String / Number | 1 | Typescript：`T` | N
+step | String / Number | 1 | Typescript：`InputNumberValue` | N
 suffix | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | row | options：column/row/normal | N
 tips | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

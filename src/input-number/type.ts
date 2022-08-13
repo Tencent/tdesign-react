@@ -47,12 +47,12 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    * 最大值。如果是大数，请传入字符串
    * @default Infinity
    */
-  max?: T;
+  max?: InputNumberValue;
   /**
    * 最小值。如果是大数，请传入字符串
    * @default -Infinity
    */
-  min?: T;
+  min?: InputNumberValue;
   /**
    * 占位符
    */
@@ -75,7 +75,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    * 数值改变步数，可以是小数。如果是大数，请保证数据类型为字符串
    * @default 1
    */
-  step?: T;
+  step?: InputNumberValue;
   /**
    * 后置内容
    */
