@@ -195,7 +195,7 @@ const TableAffixDemo = () => {
           horizontalScrollAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 61 : 0, zIndex: 1000 } : false
         }
         paginationAffixedBottom={paginationAffixedBottom}
-        tableLayout="auto"
+        tableLayout="fixed"
         dragSort="col"
         bordered
         resizable

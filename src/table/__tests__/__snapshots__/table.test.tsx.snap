@@ -142,18 +142,36 @@ exports[`affix.jsx 1`] = `
           class="t-table__content"
         >
           <table
-            class="t-table--layout-auto"
+            class="t-table--layout-fixed"
           >
             <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
               <col
                 style="width: 80px;"
               />
@@ -165,6 +183,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="row t-table__th-index t-align-center"
                   data-colkey="index"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -175,6 +194,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-platform"
                   data-colkey="platform"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -185,6 +205,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-type"
                   data-colkey="type"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -195,6 +216,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-expo"
                   data-colkey="expo"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -205,6 +227,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-click"
                   data-colkey="click"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -215,6 +238,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-ctr"
                   data-colkey="ctr"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -225,6 +249,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-default"
                   data-colkey="default"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -235,6 +260,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-required"
                   data-colkey="required"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -245,6 +271,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-detail.position"
                   data-colkey="detail.position"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -259,6 +286,7 @@ exports[`affix.jsx 1`] = `
                 <th
                   class="t-table__th-operation"
                   data-colkey="operation"
+                  style="width: 80px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -570,6 +598,7 @@ exports[`affix.jsx 1`] = `
               >
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   <b
                     style="color: rgb(0, 82, 217);"
@@ -579,6 +608,7 @@ exports[`affix.jsx 1`] = `
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   <span>
                     第 1 行
@@ -586,26 +616,31 @@ exports[`affix.jsx 1`] = `
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   全部类型
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   -
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   -
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   -
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   <span>
                     空
@@ -613,11 +648,13 @@ exports[`affix.jsx 1`] = `
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   t-foot-required
                 </td>
                 <td
                   class=""
+                  style="width: 100px;"
                 >
                   <div>
                     渲染函数输出表尾信息
@@ -625,6 +662,7 @@ exports[`affix.jsx 1`] = `
                 </td>
                 <td
                   class=""
+                  style="width: 80px;"
                 >
                   -
                 </td>
@@ -1308,9 +1346,15 @@ exports[`base.jsx 1`] = `
               <col
                 style="width: 100px;"
               />
-              <col />
-              <col />
-              <col />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 100px;"
+              />
               <col
                 style="width: 200px;"
               />
@@ -1322,6 +1366,7 @@ exports[`base.jsx 1`] = `
                 <th
                   class="custom-column-class-name t-table__th-index t-align-center"
                   data-colkey="index"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -1332,6 +1377,7 @@ exports[`base.jsx 1`] = `
                 <th
                   class="t-table__th-platform"
                   data-colkey="platform"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -1342,6 +1388,7 @@ exports[`base.jsx 1`] = `
                 <th
                   class="t-table__th-type"
                   data-colkey="type"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -1352,6 +1399,7 @@ exports[`base.jsx 1`] = `
                 <th
                   class="t-table__th-default"
                   data-colkey="default"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -1362,6 +1410,7 @@ exports[`base.jsx 1`] = `
                 <th
                   class="t-table__th-needed"
                   data-colkey="needed"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -1372,6 +1421,7 @@ exports[`base.jsx 1`] = `
                 <th
                   class="t-table__th-detail.position"
                   data-colkey="detail.position"
+                  style="width: 200px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7527,6 +7577,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-index t-align-center"
                   data-colkey="index"
+                  style="width: 80px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7537,6 +7588,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-platform"
                   data-colkey="platform"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7547,6 +7599,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-type"
                   data-colkey="type"
+                  style="width: 150px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7557,6 +7610,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-default"
                   data-colkey="default"
+                  style="width: 150px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7567,6 +7621,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-description"
                   data-colkey="description"
+                  style="width: 100px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7577,6 +7632,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-needed"
                   data-colkey="needed"
+                  style="width: 150px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7587,6 +7643,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-operation t-align-center"
                   data-colkey="operation"
+                  style="width: 120px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -7597,6 +7654,7 @@ exports[`fixed-column.jsx 1`] = `
                 <th
                   class="t-table__th-detail.position"
                   data-colkey="detail.position"
+                  style="width: 120px;"
                 >
                   <div
                     class="t-table__th-cell-inner"
