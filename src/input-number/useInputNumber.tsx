@@ -103,8 +103,9 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   const onInnerInputChange = (val: string, ctx: { e: any }) => {
     if (!canInputNumber(val, props.largeNumber)) return;
     setUserInput(val);
-    // 大数-字符串；普通数-数字
-    const newVal = props.largeNumber || !val ? val : Number(val);
+    const isDelete = ctx.e.inputType === 'deleteContentBackward';
+    // 大数-字符串；普通数-数字。此处是了将 2e3，2.1e3 等内容转换为数字
+    const newVal = isDelete || props.largeNumber || !val ? val : Number(val);
     if (newVal !== value && !['-', '.', 'e', 'E'].includes(val.slice(-1))) {
       onChange(newVal as T, { type: 'input', e: ctx.e });
     }
