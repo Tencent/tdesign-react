@@ -20,10 +20,19 @@ export interface FooterProps extends TdFooterProps, StyledProps, React.HTMLAttri
 
 const Header = (props: HeaderProps) => {
   const { classPrefix } = useConfig();
-  const { className, style, children, ...others } = props;
+  const { className, style = {}, children, height, ...others } = props;
+  const renderHeight = isNaN(Number(height)) ? height : `${height}px`;
+
   const headerClassNames = classNames(`${classPrefix}-layout__header`, className);
   return (
-    <header className={headerClassNames} style={style} {...others}>
+    <header
+      className={headerClassNames}
+      style={{
+        height: renderHeight,
+        ...style,
+      }}
+      {...others}
+    >
       {children}
     </header>
   );
@@ -31,10 +40,18 @@ const Header = (props: HeaderProps) => {
 
 const Footer = (props: FooterProps) => {
   const { classPrefix } = useConfig();
-  const { className, style, children, ...others } = props;
+  const { className, style = {}, children, height, ...others } = props;
+  const renderHeight = isNaN(Number(height)) ? height : `${height}px`;
   const footerClassNames = classNames(`${classPrefix}-layout__footer`, className);
   return (
-    <footer className={footerClassNames} style={style} {...others}>
+    <footer
+      className={footerClassNames}
+      style={{
+        height: renderHeight,
+        ...style,
+      }}
+      {...others}
+    >
       {children}
     </footer>
   );
