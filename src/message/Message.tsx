@@ -14,22 +14,18 @@ import {
   MessageSuccessMethod,
   MessageWarningMethod,
   MessageThemeList,
+  MessageConfigMethod,
 } from './type';
 import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
 import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 
+import { getMessageConfig, getMessageDefaultConfig, globalConfig, setGlobalConfig } from './config';
+
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
 let keyIndex = 1;
-
-// 全局默认配置，zIndex 为 5000，默认关闭事件 3000
-const globalConfig = {
-  zIndex: 5000,
-  duration: 3000,
-  top: 32,
-};
 
 export interface MessagePlugin {
   (theme: MessageThemeList, message: string | MessageOptions, duration?: number): Promise<MessageInstance>;
@@ -41,16 +37,17 @@ export interface MessagePlugin {
   loading: MessageLoadingMethod;
   closeAll: MessageCloseAllMethod;
   close: (message: Promise<MessageInstance>) => void;
+  config: MessageConfigMethod;
 }
 
 /**
- * @author kenzyyang
- * @date 2021-05-11 20:36:52
  * @desc 创建容器，所有的 message 会填充到容器中
  */
 function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
-  // 默认注入到 body 中，如果用户有制定，以用户指定的为准
+  // 默认注入到 body 中，如果用户有指定，以用户指定的为准
   let mountedDom: AttachNodeReturnValue = document.body;
+
+  const messageDefaultConfig = getMessageDefaultConfig();
 
   // attach 为字符串时认为是选择器
   if (typeof attach === 'string') {
@@ -73,7 +70,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
   if (container.length < 1) {
     const div = document.createElement('div');
     div.className = classNames(tdMessageListClass, tdMessagePlacementClass);
-    div.style.zIndex = String(zIndex || globalConfig.zIndex);
+    div.style.zIndex = String(zIndex || messageDefaultConfig.zIndex);
 
     Object.keys(PlacementOffset[placement]).forEach((key) => {
       div.style[key] = PlacementOffset[placement][key];
@@ -93,8 +90,8 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
  */
 function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
   const container = createContainer(config) as HTMLElement;
-  let { duration = globalConfig.duration } = config;
-  const { content, offset, onDurationEnd = noop } = config;
+
+  const { content, offset, onDurationEnd = noop, onCloseBtnClick = noop } = config;
   const div = document.createElement('div');
 
   keyIndex += 1;
@@ -103,25 +100,26 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
     close: () => {
       ReactDOM.unmountComponentAtNode(div);
       div.remove();
+      message.closed = true;
     },
     key: keyIndex,
+    closed: false,
   };
 
-  // 校验duration 合法性
-  if (duration < 0) {
-    duration = 3000;
-  }
-  if (duration !== 0) {
+  if (config.duration !== 0) {
     setTimeout(() => {
-      message.close();
-      onDurationEnd();
-    }, duration);
+      if (!message.closed) {
+        message.close();
+        onDurationEnd();
+      }
+    }, config.duration);
   }
 
   let style: React.CSSProperties = {};
   if (Array.isArray(offset) && offset.length === 2) {
     const [left, top] = offset;
     style = {
+      ...config.style,
       left,
       top,
       position: 'relative',
@@ -131,7 +129,16 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   return new Promise((resolve) => {
     // 渲染组件
     ReactDOM.render(
-      <MessageComponent theme={theme} style={style} key={keyIndex} {...config}>
+      <MessageComponent
+        theme={theme}
+        key={keyIndex}
+        {...config}
+        style={style}
+        onCloseBtnClick={(ctx) => {
+          onCloseBtnClick(ctx);
+          message.close();
+        }}
+      >
         {content}
       </MessageComponent>,
       div,
@@ -151,7 +158,8 @@ function isConfig(content: MessageOptions | React.ReactNode): content is Message
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageOptions).content;
 }
 
-const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration: number = globalConfig.duration) => {
+// messageMethod 方法调用 message
+const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration?: number) => {
   let config = {} as MessageOptions;
   if (isConfig(content)) {
     config = {
@@ -164,13 +172,10 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
       duration,
     };
   }
-  config = {
-    ...config,
-    zIndex: config.zIndex || globalConfig.zIndex,
-  };
-  return renderElement(theme, config);
+  return renderElement(theme, getMessageConfig(config));
 };
 
+// 创建
 export const MessagePlugin: MessagePlugin = (theme, message, duration) => messageMethod(theme, message, duration);
 MessagePlugin.info = (content, duration) => messageMethod('info', content, duration);
 MessagePlugin.error = (content, duration) => messageMethod('error', content, duration);
@@ -178,6 +183,7 @@ MessagePlugin.warning = (content, duration) => messageMethod('warning', content,
 MessagePlugin.success = (content, duration) => messageMethod('success', content, duration);
 MessagePlugin.question = (content, duration) => messageMethod('question', content, duration);
 MessagePlugin.loading = (content, duration) => messageMethod('loading', content, duration);
+MessagePlugin.config = (options: MessageOptions) => setGlobalConfig(options);
 
 /**
  * @date 2021-05-16 13:11:24
@@ -188,10 +194,7 @@ MessagePlugin.close = (messageInstance) => {
 };
 
 /**
- * @date 2021-05-16 13:11:24
  * @desc 关闭所有的 message
- * :todo 需明确关闭范围，目前 message 中暂无 namespace 类似概念，暂时做全 message 关闭
- * 可预见到的扩展: 根据不同的 attach 做关闭,根据不同的类型做关闭，根据不同的 namespace 做关闭等等
  */
 MessagePlugin.closeAll = (): MessageCloseAllMethod => {
   MessageList.forEach((message) => {

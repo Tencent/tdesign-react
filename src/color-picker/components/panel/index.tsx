@@ -5,7 +5,7 @@ import tinyColor from 'tinycolor2';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
-import useClassname from '../../hooks/useClassname';
+import useClassName from '../../hooks/useClassNames';
 import PanelHeader from './header';
 import Color, { getColorObject } from '../../../_common/js/color-picker/color';
 import { GradientColorPoint } from '../../../_common/js/color-picker/gradient';
@@ -28,7 +28,7 @@ import SwatchesPanel from './swatches';
 const mathRound = Math.round;
 
 const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDivElement>) => {
-  const baseClassName = useClassname();
+  const baseClassName = useClassName();
   const { STATUS } = useCommonClassName();
   const [local, t] = useLocaleReceiver('colorPicker');
   const {

@@ -338,6 +338,12 @@ export default {
           component: () => import('tdesign-react/comment/comment.md'),
         },
         {
+          title: 'Image 图片',
+          name: 'image',
+          path: '/react/components/image',
+          component: () => import('tdesign-react/image/image.md'),
+        },
+        {
           title: 'ImageViewer 图片',
           name: 'image-viewer',
           path: '/react/components/image-viewer',

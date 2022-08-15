@@ -18,12 +18,6 @@
     "options": []
   },
   {
-    "name": "overlayStyle",
-    "type": "Boolean",
-    "defaultValue": false,
-    "options": []
-  },
-  {
     "name": "showArrow",
     "type": "Boolean",
     "defaultValue": false,

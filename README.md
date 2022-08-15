@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/npm/v/tdesign-react.svg?sanitize=true" alt="Version">
   </a>
   <a href="https://www.npmjs.com/package/tdesign-react">
-    <img src="https://img.shields.io/npm/dt/tdesign-react.svg?sanitize=true" alt="Downloads" />
+    <img src="https://img.shields.io/npm/dm/tdesign-react.svg?sanitize=true" alt="Downloads" />
   </a>
 </p>
 

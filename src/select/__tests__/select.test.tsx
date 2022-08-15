@@ -108,14 +108,15 @@ describe('Select 组件测试', () => {
           </Select>
         );
       };
-      const { getByDisplayValue, getByText } = render(<SingleSelect />);
+      const { getByText } = render(<SingleSelect />);
 
       // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
       // 鼠标点击 input，popup 出现，且展示 options
-      fireEvent.click(getByDisplayValue('Apple'));
+      const input = await waitFor(() => document.querySelector('input'));
+      fireEvent.click(input);
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
       expect(popupElement2).toHaveStyle({
@@ -161,7 +162,8 @@ describe('Select 组件测试', () => {
       expect(popupElement1).toBeNull();
 
       // 鼠标点击 input，popup 出现，且展示 options
-      fireEvent.click(getByText('Apple'));
+      const input = await waitFor(() => document.querySelector('input'));
+      fireEvent.click(input);
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
       expect(popupElement2).toHaveStyle({
@@ -206,14 +208,14 @@ describe('Select 组件测试', () => {
     };
 
     await act(async () => {
-      const { getByText, getByDisplayValue } = render(<OptionGroupSelect />);
+      const { getByText } = render(<OptionGroupSelect />);
       // 未点击 input 前，popup 不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
       // 鼠标点击 input，popup 出现，且展示 options
-      const selectElement = await waitFor(() => document.querySelector(selectSelector));
-      fireEvent.click(getByDisplayValue('Apple'));
+      const input = await waitFor(() => document.querySelector('input'));
+      fireEvent.click(input);
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
       expect(popupElement2).toHaveStyle({

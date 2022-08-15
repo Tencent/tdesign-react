@@ -39,12 +39,12 @@ const getDefaultControllerConfigData = (visible = true): InternalCalendarControl
   // 年份选择框组件相关设置
   year: {
     visible: true, // 是否显示
-    selectProps: { popupProps: { overlayStyle: { width: '110px' } } }, // 用于透传props给该select组件
+    selectProps: { popupProps: { overlayInnerStyle: { width: '110px' } } }, // 用于透传props给该select组件
   },
   // 年份选择框组件相关设置
   month: {
     visible: true, // 是否显示（“year”模式下本身是不显示该组件的）
-    selectProps: { popupProps: { overlayStyle: { width: '90px' } } }, // 用于透传props给该select组件
+    selectProps: { popupProps: { overlayInnerStyle: { width: '90px' } } }, // 用于透传props给该select组件
   },
   // 隐藏\显示周末按钮组件相关设置
   weekend: {

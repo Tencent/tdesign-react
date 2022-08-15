@@ -16,8 +16,9 @@ import { BaseTableProps } from './interface';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
 import { getAffixProps } from './utils';
+import log from '../_common/js/log';
 
-import { StyledProps } from '../common';
+import { StyledProps, Styles } from '../common';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -29,7 +30,7 @@ export interface TableListeners {
 export interface TBaseTableProps extends BaseTableProps, StyledProps {}
 
 const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
-  const { tableLayout, height, data, columns, style, headerAffixedTop, bordered } = props;
+  const { tableLayout, height, data, columns, style, headerAffixedTop, bordered, resizable } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
   const [tableFootHeight, setTableFootHeight] = useState(0);
@@ -37,6 +38,11 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   // 表格基础样式类
   const { tableClasses, tableContentStyles, tableElementStyles } = useStyle(props);
   // const [global] = useLocaleReceiver('table');
+  const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
+  const finalColumns = useMemo(
+    () => spansAndLeafNodes?.leafColumns || columns,
+    [spansAndLeafNodes?.leafColumns, columns],
+  );
 
   // 固定表头和固定列逻辑
   const {
@@ -55,7 +61,10 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     emitScrollEvent,
     setUseFixedTableElmRef,
     updateColumnFixedShadow,
-  } = useFixed(props);
+    getThWidthList,
+    updateThWidthList,
+    setRecalculateColWidthFuncRef,
+  } = useFixed(props, finalColumns);
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
@@ -71,12 +80,12 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     updateAffixHeaderOrFooter,
   } = useAffix(props);
 
-  const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const { dataSource, isPaginateData, renderPagination } = usePagination(props);
 
   // 列宽拖拽逻辑
-  const columnResizeParams = useColumnResize(tableContentRef, refreshTable);
-  const { resizeLineRef, resizeLineStyle } = columnResizeParams;
+  const columnResizeParams = useColumnResize(tableContentRef, refreshTable, getThWidthList, updateThWidthList);
+  const { resizeLineRef, resizeLineStyle, recalculateColWidth } = columnResizeParams;
+  setRecalculateColWidthFuncRef(recalculateColWidth);
 
   const dynamicBaseTableClasses = classNames(
     tableClasses.concat({
@@ -175,12 +184,20 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   const newData = isPaginateData ? dataSource : data;
 
+  if (resizable && tableLayout === 'auto') {
+    log.warn('Table', 'table-layout can not be `auto` for resizable column table, set `table-layout: fixed` please.');
+  }
+
   const defaultColWidth = props.tableLayout === 'fixed' && isWidthOverflow ? '100px' : undefined;
   const colgroup = (
     <colgroup>
-      {(spansAndLeafNodes?.leafColumns || columns).map((col, index) => (
-        <col key={col.colKey || index} style={{ width: formatCSSUnit(col.width) || defaultColWidth }}></col>
-      ))}
+      {finalColumns.map((col) => {
+        const style: Styles = { width: formatCSSUnit(thWidthList[col.colKey] || col.width) || defaultColWidth };
+        if (col.minWidth) {
+          style.minWidth = formatCSSUnit(col.minWidth);
+        }
+        return <col key={col.colKey} style={style} />;
+      })}
     </colgroup>
   );
 
@@ -201,10 +218,12 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     opacity: headerOpacity,
     marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
   };
+  // 多级表头左边线缺失
+  const affixedMultipleHeaderLeftBorder = props.bordered && isMultipleHeader ? 1 : 0;
   const affixedHeader = Boolean(props.headerAffixedTop && tableWidth) && (
     <div
       ref={affixHeaderRef}
-      style={{ width: `${tableWidth - 1}px`, opacity: headerOpacity }}
+      style={{ width: `${tableWidth - affixedMultipleHeaderLeftBorder}px`, opacity: headerOpacity }}
       className={classNames(['scrollbar', { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual }])}
     >
       <table className={classNames(tableElmClasses)} style={{ ...tableElementStyles, width: `${tableElmWidth}px` }}>
@@ -267,6 +286,8 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
             rowAttributes={props.rowAttributes}
             rowClassName={props.rowClassName}
             thWidthList={thWidthList}
+            footerSummary={props.footerSummary}
+            rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
           ></TFoot>
         </table>
       </div>
@@ -300,6 +321,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     // bufferSize: bufferSize,
     scroll: props.scroll,
     // handleRowMounted: handleRowMounted,
+    cellEmptyContent: props.cellEmptyContent,
     renderExpandedRow: props.renderExpandedRow,
     ...pick(props, extendTableProps),
   };
@@ -320,6 +342,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           bordered={props.bordered}
           spansAndLeafNodes={spansAndLeafNodes}
           thList={thList}
+          thWidthList={thWidthList}
           resizable={props.resizable}
           columnResizeParams={columnResizeParams}
         />
@@ -332,6 +355,9 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           columns={spansAndLeafNodes?.leafColumns || columns}
           rowAttributes={props.rowAttributes}
           rowClassName={props.rowClassName}
+          thWidthList={thWidthList}
+          footerSummary={props.footerSummary}
+          rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
         ></TFoot>
       </table>
     </div>
@@ -352,7 +378,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   const { topContent, bottomContent } = props;
   const pagination = (
-    <div ref={paginationRef} style={{ opacity: Number(showAffixPagination) }}>
+    <div ref={paginationRef} className={tableBaseClass.paginationWrap} style={{ opacity: Number(showAffixPagination) }}>
       {renderPagination()}
     </div>
   );

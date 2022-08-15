@@ -12,7 +12,7 @@ export type overlayStyleProps = Pick<
 // 单位：px
 const MAX_POPUP_WIDTH = 1000;
 
-export default function useOverlayStyle(props: overlayStyleProps) {
+export default function useOverlayInnerStyle(props: overlayStyleProps) {
   const { popupProps, autoWidth, readonly, onPopupVisibleChange } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
@@ -24,13 +24,13 @@ export default function useOverlayStyle(props: overlayStyleProps) {
       popupElement.offsetWidth + SCROLLBAR_WIDTH >= triggerElement.offsetWidth
         ? popupElement.offsetWidth
         : triggerElement.offsetWidth;
-    let otherOverlayStyle: React.CSSProperties = {};
-    if (popupProps && typeof popupProps.overlayStyle === 'object' && !popupProps.overlayStyle.width) {
-      otherOverlayStyle = popupProps.overlayStyle;
+    let otherOverlayInnerStyle: React.CSSProperties = {};
+    if (popupProps && typeof popupProps.overlayInnerStyle === 'object' && !popupProps.overlayInnerStyle.width) {
+      otherOverlayInnerStyle = popupProps.overlayInnerStyle;
     }
     return {
       width: `${Math.min(width, MAX_POPUP_WIDTH)}px`,
-      ...otherOverlayStyle,
+      ...otherOverlayInnerStyle,
     };
   };
 
@@ -40,20 +40,20 @@ export default function useOverlayStyle(props: overlayStyleProps) {
     onPopupVisibleChange?.(visible, context);
   };
 
-  const tOverlayStyle = useMemo(() => {
-    let result: TdPopupProps['overlayStyle'] = {};
-    const overlayStyle = popupProps?.overlayStyle || {};
-    if (isFunction(overlayStyle) || (isObject(overlayStyle) && overlayStyle.width)) {
-      result = overlayStyle;
+  const tOverlayInnerStyle = useMemo(() => {
+    let result: TdPopupProps['overlayInnerStyle'] = {};
+    const overlayInnerStyle = popupProps?.overlayInnerStyle || {};
+    if (isFunction(overlayInnerStyle) || (isObject(overlayInnerStyle) && overlayInnerStyle.width)) {
+      result = overlayInnerStyle;
     } else if (!autoWidth) {
       result = matchWidthFunc;
     }
     return result;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoWidth, popupProps?.overlayStyle]);
+  }, [autoWidth, popupProps?.overlayInnerStyle]);
 
   return {
-    tOverlayStyle,
+    tOverlayInnerStyle,
     innerPopupVisible,
     onInnerPopupVisibleChange,
   };

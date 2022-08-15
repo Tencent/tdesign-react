@@ -19,7 +19,7 @@ exports[`select.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+              class="t-select t-select-input t-select-input--borderless"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -110,7 +110,7 @@ exports[`select.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+              class="t-select t-select-input t-select-input--borderless"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -173,7 +173,7 @@ exports[`select.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+              class="t-select t-select-input t-select-input--borderless"
             >
               <div
                 class="t-input__wrap t-input--auto-width"
@@ -225,7 +225,7 @@ exports[`select.jsx 1`] = `
           class="t-select__wrap"
         >
           <div
-            class="t-popup__reference t-select t-select-input"
+            class="t-select t-select-input"
           >
             <div
               class="t-input__wrap"
@@ -274,7 +274,7 @@ exports[`select.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input t-select-input--borderless"
+              class="t-select t-select-input t-select-input--borderless"
             >
               <div
                 class="t-input__wrap t-input--auto-width"

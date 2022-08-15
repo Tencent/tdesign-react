@@ -207,6 +207,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
       <SelectInput
         disabled={disabled}
         value={inputValue}
+        status={props.status}
+        tips={props.tips}
         popupProps={popupProps}
         inputProps={inputProps}
         popupVisible={popupVisible}

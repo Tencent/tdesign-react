@@ -210,7 +210,7 @@ exports[`base.jsx 1`] = `
             class="t-date-picker"
           >
             <div
-              class="t-popup__reference t-select-input t-select-input--empty"
+              class="t-select-input t-select-input--empty"
             >
               <div
                 class="t-input__wrap"
@@ -472,20 +472,16 @@ exports[`base.jsx 1`] = `
                 </div>
               </div>
             </div>
-            <div
-              class="t-popup__reference"
+            <button
+              class="t-button t-button--theme-default t-button--variant-text"
+              type="button"
             >
-              <button
-                class="t-button t-button--theme-default t-button--variant-text"
-                type="button"
+              <span
+                class="t-button__text"
               >
-                <span
-                  class="t-button__text"
-                >
-                  文字链
-                </span>
-              </button>
-            </div>
+                文字链
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -906,7 +902,7 @@ exports[`clear-validate.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select t-select-input t-select-input--empty"
+              class="t-select t-select-input t-select-input--empty"
             >
               <div
                 class="t-input__wrap"
@@ -1362,7 +1358,7 @@ exports[`disabled.jsx 1`] = `
                 class="t-select__wrap"
               >
                 <div
-                  class="t-popup__reference t-select t-select-input t-select-input--empty"
+                  class="t-select t-select-input t-select-input--empty"
                 >
                   <div
                     class="t-input__wrap"
@@ -1426,7 +1422,7 @@ exports[`disabled.jsx 1`] = `
               class="t-form__controls-content"
             >
               <div
-                class="t-popup__reference t-tree-select t-select-input"
+                class="t-tree-select t-select-input"
               >
                 <div
                   class="t-input__wrap"
@@ -1490,7 +1486,7 @@ exports[`disabled.jsx 1`] = `
               class="t-form__controls-content"
             >
               <div
-                class="t-popup__reference t-cascader t-select-input"
+                class="t-cascader t-select-input"
               >
                 <div
                   class="t-input__wrap"
@@ -1557,7 +1553,7 @@ exports[`disabled.jsx 1`] = `
                 class="t-date-picker"
               >
                 <div
-                  class="t-popup__reference t-select-input t-select-input--empty"
+                  class="t-select-input t-select-input--empty"
                 >
                   <div
                     class="t-input__wrap"
@@ -1837,6 +1833,7 @@ exports[`disabled.jsx 1`] = `
                     class="t-input t-is-disabled t-size-m t-align-left t-is-default"
                   >
                     <input
+                      autocomplete="off"
                       class="t-input__inner"
                       disabled=""
                       placeholder="数字"
@@ -1997,15 +1994,11 @@ exports[`error-message.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              <div
-                class="t-popup__reference"
+              <span
+                class="t-trigger"
               >
-                <span
-                  class="t-trigger"
-                >
-                  使用表单默认校验信息
-                </span>
-              </div>
+                使用表单默认校验信息
+              </span>
             </span>
           </label>
           <label
@@ -2022,15 +2015,11 @@ exports[`error-message.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              <div
-                class="t-popup__reference"
+              <span
+                class="t-trigger"
               >
-                <span
-                  class="t-trigger"
-                >
-                  表单统一配置校验信息
-                </span>
-              </div>
+                表单统一配置校验信息
+              </span>
             </span>
           </label>
           <div
@@ -2396,7 +2385,7 @@ exports[`error-message.jsx 1`] = `
                 class="t-select__wrap"
               >
                 <div
-                  class="t-popup__reference t-select t-select-input t-select-input--empty"
+                  class="t-select t-select-input t-select-input--empty"
                 >
                   <div
                     class="t-input__wrap"
@@ -3140,7 +3129,7 @@ exports[`nested-data.jsx 1`] = `
             class="t-date-picker"
           >
             <div
-              class="t-popup__reference t-select-input t-select-input--empty"
+              class="t-select-input t-select-input--empty"
             >
               <div
                 class="t-input__wrap"
@@ -3277,15 +3266,11 @@ exports[`reset.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              <div
-                class="t-popup__reference"
+              <span
+                class="t-trigger"
               >
-                <span
-                  class="t-trigger"
-                >
-                   重置为初始值 
-                </span>
-              </div>
+                 重置为初始值 
+              </span>
             </span>
           </label>
           <div

@@ -1,7 +1,7 @@
 import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import useClassname from '../../hooks/useClassname';
+import useClassName from '../../hooks/useClassNames';
 import { genGradientPoint, gradientColors2string } from '../../../_common/js/color-picker/color';
 import { GradientColorPoint } from '../../../_common/js/color-picker/gradient';
 import useCommonClassName from '../../../_util/useCommonClassName';
@@ -17,7 +17,7 @@ type TSliderRect = {
 
 const LinearGradient = (props) => {
   const { onChange, color, disabled } = props;
-  const baseClassName = useClassname();
+  const baseClassName = useClassName();
   const { STATUS: statusClassNames } = useCommonClassName();
   const refSlider = useRef<HTMLDivElement>(null);
   const sliderRectRef = useRef<TSliderRect>({

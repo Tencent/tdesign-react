@@ -5,9 +5,10 @@ import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { BaseTableProps, RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
+import { BaseTableProps, RowAndColFixedPosition } from './interface';
+import { TdBaseTableProps } from './type';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
@@ -16,6 +17,7 @@ export interface TableBodyProps extends BaseTableProps {
   showColumnShadow?: { left: boolean; right: boolean };
   tableElm?: HTMLDivElement;
   tableContentElm?: HTMLDivElement;
+  cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
   tableWidth?: number;
   isWidthOverflow?: boolean;
 
@@ -41,6 +43,7 @@ export const extendTableProps = [
   'lastFullRow',
   'rowspanAndColspan',
   'scroll',
+  'cellEmptyContent',
   'onCellClick',
   'onPageChange',
   'onRowClick',
