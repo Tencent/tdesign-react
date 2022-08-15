@@ -17,7 +17,7 @@ import {
 /**
  * 独立一个组件 Hook 方便用户直接使用相关逻辑 自定义任何样式的数字输入框
  */
-export default function useInputNumber(props: TdInputNumberProps) {
+export default function useInputNumber<T extends InputNumberValue = InputNumberValue>(props: TdInputNumberProps<T>) {
   const { SIZE, STATUS } = useCommonClassName();
   const { classPrefix } = useConfig();
   const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -69,7 +69,7 @@ export default function useInputNumber(props: TdInputNumberProps) {
     // @ts-ignore
     if ([undefined, '', null].includes(value)) return;
     const error = getMaxOrMinValidateResult({
-      value,
+      value: value as InputNumberValue,
       max,
       min,
       largeNumber,
@@ -84,9 +84,9 @@ export default function useInputNumber(props: TdInputNumberProps) {
       step: props.step,
       max: props.max,
       min: props.min,
-      lastValue: value,
+      lastValue: value as InputNumberValue,
       largeNumber: props.largeNumber,
-    });
+    }) as T;
 
   const handleReduce = (e: any) => {
     if (disabledReduce || props.readonly) return;
@@ -103,10 +103,11 @@ export default function useInputNumber(props: TdInputNumberProps) {
   const onInnerInputChange = (val: string, ctx: { e: any }) => {
     if (!canInputNumber(val, props.largeNumber)) return;
     setUserInput(val);
-    // 大数-字符串；普通数-数字
-    const newVal = props.largeNumber || !val ? val : Number(val);
+    const isDelete = ctx.e.inputType === 'deleteContentBackward';
+    // 大数-字符串；普通数-数字。此处是了将 2e3，2.1e3 等内容转换为数字
+    const newVal = isDelete || props.largeNumber || !val ? val : Number(val);
     if (newVal !== value && !['-', '.', 'e', 'E'].includes(val.slice(-1))) {
-      onChange(newVal, { type: 'input', e: ctx.e });
+      onChange(newVal as T, { type: 'input', e: ctx.e });
     }
   };
 
@@ -117,14 +118,14 @@ export default function useInputNumber(props: TdInputNumberProps) {
       largeNumber: props.largeNumber,
     });
     if (newValue !== value && String(newValue) !== value) {
-      onChange(newValue, { type: 'blur', e: ctx.e });
+      onChange(newValue as T, { type: 'blur', e: ctx.e });
     }
     props.onBlur?.(newValue, ctx);
   };
 
   const handleFocus = (_: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
     setUserInput(value as string);
-    props.onFocus?.(value, ctx);
+    props.onFocus?.(value as string, ctx);
   };
 
   const handleKeydown = (value: string, ctx: { e: React.KeyboardEvent<HTMLDivElement> }) => {
@@ -155,9 +156,17 @@ export default function useInputNumber(props: TdInputNumberProps) {
       largeNumber: props.largeNumber,
     });
     if (newValue !== value && String(newValue) !== value) {
-      onChange(newValue, { type: 'enter', e: ctx.e });
+      onChange(newValue as T, { type: 'enter', e: ctx.e });
     }
     props.onEnter?.(newValue, ctx);
+  };
+
+  const focus = () => {
+    inputRef.current.focus();
+  };
+
+  const blur = () => {
+    inputRef.current.blur();
   };
 
   const listeners = {
@@ -167,6 +176,7 @@ export default function useInputNumber(props: TdInputNumberProps) {
     onKeyup: handleKeyup,
     onKeypress: handleKeypress,
     onEnter: handleEnter,
+    onClick: focus,
   };
 
   return {
@@ -183,6 +193,8 @@ export default function useInputNumber(props: TdInputNumberProps) {
     userInput,
     setUserInput,
     value,
+    focus,
+    blur,
     onChange,
     handleReduce,
     handleAdd,

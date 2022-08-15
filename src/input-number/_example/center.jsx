@@ -41,8 +41,8 @@ export default function InputNumberExample() {
 
   return (
     <Space direction="vertical">
-      <InputNumber value={decimalValue} onChange={setDecimalValue} step={0.18} max={5} autoWidth />
-      <InputNumber value={value1} onChange={setValue1} step={0.1} max={5} autoWidth />
+      <InputNumber value={decimalValue} onChange={setDecimalValue} decimalPlaces={0} max={5} autoWidth />
+      <InputNumber value={value1} onChange={setValue1} step={0.1} max={5} style={{ width: 250 }} autoWidth />
       <InputNumber
         value={value2}
         max={15}

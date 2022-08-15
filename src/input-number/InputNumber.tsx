@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, ForwardedRef } from 'react';
 import {
   ChevronDownIcon as TdChevronDownIcon,
   RemoveIcon as TdRemoveIcon,
@@ -6,20 +6,26 @@ import {
   AddIcon as TdAddIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-
 import Input from '../input';
 import Button from '../button';
-
 import useInputNumber from './useInputNumber';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { inputNumberDefaultProps } from './defaultProps';
-
+import { InputNumberValue, TdInputNumberProps } from './type';
 import { StyledProps } from '../common';
-import { TdInputNumberProps } from './type';
 
-export interface InputNumberProps<T> extends TdInputNumberProps<T>, StyledProps {}
+export interface InputNumberProps<T = InputNumberValue> extends TdInputNumberProps<T>, StyledProps {}
 
-function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
+export interface InputNumberRef {
+  currentElement: ForwardedRef<HTMLDivElement>;
+  inputElement: ForwardedRef<HTMLDivElement>;
+}
+
+// https://fettblog.eu/typescript-react-generic-forward-refs/
+function TdInputNumber<T extends InputNumberValue = InputNumberValue>(
+  props: InputNumberProps<T>,
+  ref: ForwardedRef<InputNumberRef>,
+) {
   const { ChevronDownIcon, RemoveIcon, ChevronUpIcon, AddIcon } = useGlobalIcon({
     ChevronDownIcon: TdChevronDownIcon,
     RemoveIcon: TdRemoveIcon,
@@ -38,7 +44,7 @@ function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
     handleAdd,
     handleReduce,
     onInnerInputChange,
-  } = useInputNumber(props as any);
+  } = useInputNumber(props);
 
   const wrapRef = useRef(null);
 
@@ -100,7 +106,11 @@ function TdInputNumber<T>(props: InputNumberProps<T>, ref: any) {
   );
 }
 
-const InputNumber = forwardRef(TdInputNumber);
+export type InputNumberOuterForwardRef = {
+  <T>(props: InputNumberProps<T> & { ref?: ForwardedRef<InputNumberRef> }): ReturnType<typeof TdInputNumber>;
+} & React.ForwardRefExoticComponent<InputNumberProps>;
+
+const InputNumber = forwardRef(TdInputNumber) as InputNumberOuterForwardRef;
 
 InputNumber.displayName = 'InputNumber';
 InputNumber.defaultProps = inputNumberDefaultProps;

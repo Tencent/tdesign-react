@@ -29,7 +29,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * 格式化输入框展示值。第二个事件参数 `context.fixedNumber` 表示处理过小数位数 `decimalPlaces` 的数字
    */
-  format?: (value: T, context?: { fixedNumber?: T }) => T;
+  format?: (value: InputNumberValue, context?: { fixedNumber?: InputNumberValue }) => InputNumberValue;
   /**
    * 透传 Input 输入框组件全部属性
    */
@@ -47,12 +47,12 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    * 最大值。如果是大数，请传入字符串
    * @default Infinity
    */
-  max?: T;
+  max?: InputNumberValue;
   /**
    * 最小值。如果是大数，请传入字符串
    * @default -Infinity
    */
-  min?: T;
+  min?: InputNumberValue;
   /**
    * 占位符
    */
@@ -75,7 +75,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    * 数值改变步数，可以是小数。如果是大数，请保证数据类型为字符串
    * @default 1
    */
-  step?: T;
+  step?: InputNumberValue;
   /**
    * 后置内容
    */
