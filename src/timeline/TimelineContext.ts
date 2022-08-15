@@ -1,17 +1,19 @@
 import React from 'react';
-import { TdTimeLineProps } from './type';
+import { TdTimelineProps } from './type';
 
 const StepsContext = React.createContext<{
-  theme: TdTimeLineProps['theme'];
-  reverse: TdTimeLineProps['reverse'];
+  theme: TdTimelineProps['theme'];
+  reverse: TdTimelineProps['reverse'];
   itemsStatus: string[];
-  layout: TdTimeLineProps['layout'];
-  globalAlign?: TdTimeLineProps['align'];
+  layout: TdTimelineProps['layout'];
+  globalAlign?: TdTimelineProps['labelAlign'];
+  mode?: TdTimelineProps['mode'];
 }>({
   theme: 'default',
   reverse: false,
   itemsStatus: [],
   layout: 'vertical',
+  mode: 'alternate',
 });
 
 export default StepsContext;
