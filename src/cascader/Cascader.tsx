@@ -74,15 +74,16 @@ const Cascader = (props: CascaderProps) => {
       multiple={props.multiple}
       loading={props.loading}
       disabled={props.disabled}
+      status={props.status}
+      tips={props.tips}
       suffixIcon={() => renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
-        overlayStyle: panels.length ? { width: 'auto' } : {},
+        overlayInnerStyle: panels.length ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
       inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}
       tagInputProps={{
-        autoWidth: true,
         size: props.size,
         ...(props.tagInputProps as TdCascaderProps['tagInputProps']),
       }}
@@ -93,6 +94,11 @@ const Cascader = (props: CascaderProps) => {
         setInputVal(`${value}`);
       }}
       onTagChange={(val: CascaderValue, ctx) => {
+        if (!(val as []).length && ctx.trigger === 'clear') {
+          ctx.e?.stopPropagation();
+          closeIconClickEffect(cascaderContext);
+          return;
+        }
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
       }}
       onPopupVisibleChange={(val: boolean, context) => {
@@ -110,9 +116,6 @@ const Cascader = (props: CascaderProps) => {
           value: cascaderContext.value,
           e: context.e,
         });
-      }}
-      onClear={() => {
-        closeIconClickEffect(cascaderContext);
       }}
       panel={<Panel cascaderContext={cascaderContext} {...pick(props, ['trigger', 'onChange', 'empty'])}></Panel>}
     />

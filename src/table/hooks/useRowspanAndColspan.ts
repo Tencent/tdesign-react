@@ -34,7 +34,7 @@ export default function useRowspanAndColspan(
     for (let i = rowIndex; i < maxRowIndex; i++) {
       for (let j = colIndex; j < maxColIndex; j++) {
         if (i !== rowIndex || j !== colIndex) {
-          if (!data[i]) continue;
+          if (!data[i] || !columns[j]) return;
           const cellKey = getCellKey(data[i], rowKey, columns[j].colKey, j);
           const state = skipSpansMap.get(cellKey) || {};
           state.skipped = true;
@@ -50,8 +50,8 @@ export default function useRowspanAndColspan(
     columns: BaseTableCol<TableRowData>[],
     rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
   ) => {
-    if (!data || !rowspanAndColspan) return;
     skipSpansMap.clear();
+    if (!data || !rowspanAndColspan) return;
     for (let i = 0, len = data.length; i < len; i++) {
       const row = data[i];
       for (let j = 0, colLen = columns.length; j < colLen; j++) {
@@ -76,10 +76,9 @@ export default function useRowspanAndColspan(
   };
 
   useEffect(() => {
-    if (!data || !rowspanAndColspan) return;
     updateSkipSpansMap(data, columns, rowspanAndColspan);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, columns]);
+  }, [data, columns, rowspanAndColspan]);
 
   return { skipSpansMap, updateSkipSpansMap };
 }

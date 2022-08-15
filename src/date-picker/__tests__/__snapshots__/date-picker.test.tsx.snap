@@ -69,7 +69,7 @@ exports[`base.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -117,7 +117,7 @@ exports[`base.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -174,7 +174,7 @@ exports[`custom-icon.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -259,73 +259,69 @@ exports[`date-presets-alt.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value="2022-01-01,2022-08-08"
           >
             <div
-              class="t-range-input"
-              value="2022-01-01,2022-08-08"
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
+                value="2022-01-01"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
-                  value="2022-01-01"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      readonly=""
-                      type="text"
-                      value="2022-01-01"
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    readonly=""
+                    type="text"
+                    value="2022-01-01"
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                  value="2022-08-08"
-                >
-                  <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      readonly=""
-                      type="text"
-                      value="2022-08-08"
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+                value="2022-08-08"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    readonly=""
+                    type="text"
+                    value="2022-08-08"
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -338,73 +334,69 @@ exports[`date-presets-alt.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value="2022-01-01 11:11:11,2022-08-08 12:12:12"
           >
             <div
-              class="t-range-input"
-              value="2022-01-01 11:11:11,2022-08-08 12:12:12"
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
+                value="2022-01-01 11:11:11"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
-                  value="2022-01-01 11:11:11"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      readonly=""
-                      type="text"
-                      value="2022-01-01 11:11:11"
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    readonly=""
+                    type="text"
+                    value="2022-01-01 11:11:11"
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                  value="2022-08-08 12:12:12"
-                >
-                  <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      readonly=""
-                      type="text"
-                      value="2022-08-08 12:12:12"
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+                value="2022-08-08 12:12:12"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    readonly=""
+                    type="text"
+                    value="2022-08-08 12:12:12"
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -427,69 +419,65 @@ exports[`date-range.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -502,69 +490,65 @@ exports[`date-range.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择日期"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择日期"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -587,7 +571,7 @@ exports[`date-time.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input"
+          class="t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -634,7 +618,7 @@ exports[`date-time.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input"
+          class="t-select-input"
         >
           <div
             class="t-input__wrap"
@@ -691,7 +675,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -739,7 +723,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -787,7 +771,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -835,7 +819,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -883,7 +867,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -931,71 +915,67 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="禁用最近 5 天外的日期"
-                      readonly=""
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="禁用最近 5 天外的日期"
+                    readonly=""
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="禁用最近 5 天外的日期"
-                      readonly=""
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="禁用最近 5 天外的日期"
+                    readonly=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -1150,7 +1130,7 @@ exports[`first-day-of-week.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1208,7 +1188,7 @@ exports[`month.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -1255,69 +1235,65 @@ exports[`month.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择月份"
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择月份"
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择月份"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择月份"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -1358,7 +1334,7 @@ exports[`panel.jsx 1`] = `
                     class="t-select__wrap t-date-picker__header-controller-month"
                   >
                     <div
-                      class="t-popup__reference t-select t-select-input"
+                      class="t-select t-select-input"
                     >
                       <div
                         class="t-input__wrap"
@@ -1404,7 +1380,7 @@ exports[`panel.jsx 1`] = `
                     class="t-select__wrap t-date-picker__header-controller-year"
                   >
                     <div
-                      class="t-popup__reference t-select t-select-input"
+                      class="t-select t-select-input"
                     >
                       <div
                         class="t-input__wrap"
@@ -1974,7 +1950,7 @@ exports[`panel.jsx 1`] = `
                     class="t-select__wrap t-date-picker__header-controller-month"
                   >
                     <div
-                      class="t-popup__reference t-select t-select-input"
+                      class="t-select t-select-input"
                     >
                       <div
                         class="t-input__wrap"
@@ -2020,7 +1996,7 @@ exports[`panel.jsx 1`] = `
                     class="t-select__wrap t-date-picker__header-controller-year"
                   >
                     <div
-                      class="t-popup__reference t-select t-select-input"
+                      class="t-select t-select-input"
                     >
                       <div
                         class="t-input__wrap"
@@ -3371,7 +3347,7 @@ exports[`panel.jsx 1`] = `
                       class="t-select__wrap t-date-picker__header-controller-month"
                     >
                       <div
-                        class="t-popup__reference t-select t-select-input"
+                        class="t-select t-select-input"
                       >
                         <div
                           class="t-input__wrap"
@@ -3417,7 +3393,7 @@ exports[`panel.jsx 1`] = `
                       class="t-select__wrap t-date-picker__header-controller-year"
                     >
                       <div
-                        class="t-popup__reference t-select t-select-input"
+                        class="t-select t-select-input"
                       >
                         <div
                           class="t-input__wrap"
@@ -3975,7 +3951,7 @@ exports[`panel.jsx 1`] = `
                       class="t-select__wrap t-date-picker__header-controller-month"
                     >
                       <div
-                        class="t-popup__reference t-select t-select-input"
+                        class="t-select t-select-input"
                       >
                         <div
                           class="t-input__wrap"
@@ -4021,7 +3997,7 @@ exports[`panel.jsx 1`] = `
                       class="t-select__wrap t-date-picker__header-controller-year"
                     >
                       <div
-                        class="t-popup__reference t-select t-select-input"
+                        class="t-select t-select-input"
                       >
                         <div
                           class="t-input__wrap"
@@ -4595,7 +4571,7 @@ exports[`panel.jsx 1`] = `
                       class="t-select__wrap t-date-picker__header-controller-month"
                     >
                       <div
-                        class="t-popup__reference t-select t-select-input"
+                        class="t-select t-select-input"
                       >
                         <div
                           class="t-input__wrap"
@@ -4641,7 +4617,7 @@ exports[`panel.jsx 1`] = `
                       class="t-select__wrap t-date-picker__header-controller-year"
                     >
                       <div
-                        class="t-popup__reference t-select t-select-input"
+                        class="t-select t-select-input"
                       >
                         <div
                           class="t-input__wrap"
@@ -5982,7 +5958,7 @@ exports[`quarter.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -6029,69 +6005,65 @@ exports[`quarter.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入内容"
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请输入内容"
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入内容"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请输入内容"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -6114,7 +6086,7 @@ exports[`week.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -6161,69 +6133,65 @@ exports[`week.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入内容"
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请输入内容"
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入内容"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请输入内容"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -6246,7 +6214,7 @@ exports[`year.jsx 1`] = `
         class="t-date-picker"
       >
         <div
-          class="t-popup__reference t-select-input t-select-input--empty"
+          class="t-select-input t-select-input--empty"
         >
           <div
             class="t-input__wrap"
@@ -6293,69 +6261,65 @@ exports[`year.jsx 1`] = `
         class="t-date-range-picker"
       >
         <div
-          class="t-range-input-popup"
+          class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-popup__reference t-range-input-popup"
+            class="t-range-input"
+            value=""
           >
             <div
-              class="t-range-input"
-              value=""
+              class="t-range-input__inner"
             >
               <div
-                class="t-range-input__inner"
+                class="t-input__wrap t-range-input__inner-left"
               >
                 <div
-                  class="t-input__wrap t-range-input__inner-left"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择年份"
-                      type="text"
-                      value=""
-                    />
-                  </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择年份"
+                    type="text"
+                    value=""
+                  />
                 </div>
-                <div
-                  class="t-range-input__inner-separator"
-                >
-                   - 
-                </div>
-                <div
-                  class="t-input__wrap t-range-input__inner-right"
-                >
-                  <div
-                    class="t-input t-size-m t-align-left t-is-default"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请选择年份"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <span
-                  class="t-range-input__suffix t-range-input__suffix-icon"
-                >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                </span>
               </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+              >
+                <div
+                  class="t-input t-size-m t-align-left t-is-default"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择年份"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         </div>

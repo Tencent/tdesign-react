@@ -4,7 +4,7 @@ import useConfig from '../hooks/useConfig';
 import Popup from '../popup';
 import useSingle from './useSingle';
 import useMultiple from './useMultiple';
-import useOverlayStyle from './useOverlayStyle';
+import useOverlayInnerStyle from './useOverlayInnerStyle';
 import { TdSelectInputProps } from './type';
 import { StyledProps } from '../common';
 import { selectInputDefaultProps } from './defaultProps';
@@ -18,7 +18,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const selectInputWrapRef = useRef();
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
-  const { tOverlayStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayStyle(props);
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props);
   const { commonInputProps, inputRef, onInnerClear, renderSelectSingle } = useSingle(props);
   const { tagInputRef, renderSelectMultiple } = useMultiple(props);
 
@@ -43,29 +43,29 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
 
   const mainContent = (
-    <Popup
-      ref={selectInputRef}
-      style={props.style}
-      className={popupClasses}
-      trigger={popupProps?.trigger || 'click'}
-      placement="bottom-left"
-      content={props.panel}
-      hideEmptyPopup={true}
-      onVisibleChange={onInnerPopupVisibleChange}
-      {...visibleProps}
-      {...popupProps}
-      disabled={disabled}
-      overlayStyle={tOverlayStyle}
-      updateScrollTop={props.updateScrollTop}
-    >
-      {multiple
-        ? renderSelectMultiple({
-            commonInputProps,
-            onInnerClear,
-            popupVisible: visibleProps.visible,
-          })
-        : renderSelectSingle(visibleProps.visible)}
-    </Popup>
+    <div className={popupClasses} style={props.style}>
+      <Popup
+        ref={selectInputRef}
+        trigger={popupProps?.trigger || 'click'}
+        placement="bottom-left"
+        content={props.panel}
+        hideEmptyPopup={true}
+        onVisibleChange={onInnerPopupVisibleChange}
+        {...visibleProps}
+        {...popupProps}
+        disabled={disabled}
+        overlayInnerStyle={tOverlayInnerStyle}
+        updateScrollTop={props.updateScrollTop}
+      >
+        {multiple
+          ? renderSelectMultiple({
+              commonInputProps,
+              onInnerClear,
+              popupVisible: visibleProps.visible,
+            })
+          : renderSelectSingle(visibleProps.visible)}
+      </Popup>
+    </div>
   );
 
   if (!props.tips) return mainContent;

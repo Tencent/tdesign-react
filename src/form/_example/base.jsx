@@ -20,8 +20,8 @@ export default function BaseForm() {
 
   const setMessage = () => {
     formRef.current.setFields([
-      { name: 'name', status: 'fail', validateMessage: { type: 'error', message: '输入有误' } },
-      { name: 'birthday', status: 'waning', validateMessage: { type: 'warning', message: '时间有误' } },
+      { name: 'name', status: 'error', validateMessage: { type: 'error', message: '输入有误' } },
+      { name: 'birthday', status: 'warning', validateMessage: { type: 'warning', message: '时间有误' } },
     ]);
   };
 

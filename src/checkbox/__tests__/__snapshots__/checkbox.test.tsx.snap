@@ -796,7 +796,7 @@ exports[`max.jsx 1`] = `
             type="button"
           >
             <svg
-              class="t-icon t-icon-remove"
+              class="t-icon t-icon-remove t-size-m"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -817,6 +817,7 @@ exports[`max.jsx 1`] = `
               class="t-input t-size-m t-align-center t-is-default"
             >
               <input
+                autocomplete="off"
                 class="t-input__inner"
                 placeholder="请输入"
                 type="text"
@@ -829,7 +830,7 @@ exports[`max.jsx 1`] = `
             type="button"
           >
             <svg
-              class="t-icon t-icon-add"
+              class="t-icon t-icon-add t-size-m"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"

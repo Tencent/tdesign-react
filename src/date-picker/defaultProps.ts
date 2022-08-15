@@ -8,7 +8,9 @@ export const datePickerDefaultProps: TdDatePickerProps = {
   allowInput: false,
   clearable: false,
   enableTimePicker: false,
+  format: undefined,
   mode: 'date',
+  placeholder: undefined,
   presetsPlacement: 'bottom',
   defaultValue: '',
 };

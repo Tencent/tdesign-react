@@ -1,258 +1,116 @@
-import React, {
-  forwardRef,
-  useState,
-  useCallback,
-  useMemo,
-  FocusEventHandler,
-  KeyboardEventHandler,
-  useEffect,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, ForwardedRef } from 'react';
+import {
+  ChevronDownIcon as TdChevronDownIcon,
+  RemoveIcon as TdRemoveIcon,
+  ChevronUpIcon as TdChevronUpIcon,
+  AddIcon as TdAddIcon,
+} from 'tdesign-icons-react';
 import classNames from 'classnames';
-
-import { StyledProps } from '../common';
-import { TdInputNumberProps, ChangeContext as TdChangeContext } from './type';
-
-import useConfig from '../hooks/useConfig';
-import useCommonClassName from '../_util/useCommonClassName';
-import useUpdateEffect from '../_util/useUpdateEffect';
-
-import StepHandler from './StepHandler';
-import * as numberUtils from './utils/numberUtils';
 import Input from '../input';
+import Button from '../button';
+import useInputNumber from './useInputNumber';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { inputNumberDefaultProps } from './defaultProps';
+import { InputNumberValue, TdInputNumberProps } from './type';
+import { StyledProps } from '../common';
 
-export type InputNumberInternalValue = number | string;
-export type ChangeContext = TdChangeContext & { value?: number };
-export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
+export interface InputNumberProps<T = InputNumberValue> extends TdInputNumberProps<T>, StyledProps {}
 
-const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
-  const {
-    align,
-    className,
-    style,
-    defaultValue,
-    value,
-    disabled,
-    size,
-    theme,
-    step,
-    max,
-    min,
-    decimalPlaces,
-    format,
-    onChange,
-    onBlur,
-    onFocus,
-    onEnter,
-    onKeydown,
-    onKeyup,
-    onKeypress,
-    ...restInputProps
-  } = props;
+export interface InputNumberRef {
+  currentElement: ForwardedRef<HTMLDivElement>;
+  inputElement: ForwardedRef<HTMLDivElement>;
+}
 
-  const { classPrefix } = useConfig();
-  const commonClassNames = useCommonClassName();
-  const componentType = 'input-number';
-  const inputClassName = `${classPrefix}-${componentType}`;
-
-  const getRangeValue = (value: number) => {
-    if (value < min) return min;
-    if (value > max) return max;
-
-    return value;
-  };
-
-  const [internalInputValue, setInternalInputValue] = useState<InputNumberInternalValue>(() => {
-    let initialValue: InputNumberInternalValue = '';
-    if (!numberUtils.isInvalidNumber(defaultValue)) {
-      initialValue = getRangeValue(Number(defaultValue));
-    }
-    if (!numberUtils.isInvalidNumber(value)) {
-      initialValue = value;
-    }
-
-    if (format && initialValue !== '') {
-      return format(getRangeValue(Number(initialValue))) || '';
-    }
-
-    return initialValue;
+// https://fettblog.eu/typescript-react-generic-forward-refs/
+function TdInputNumber<T extends InputNumberValue = InputNumberValue>(
+  props: InputNumberProps<T>,
+  ref: ForwardedRef<InputNumberRef>,
+) {
+  const { ChevronDownIcon, RemoveIcon, ChevronUpIcon, AddIcon } = useGlobalIcon({
+    ChevronDownIcon: TdChevronDownIcon,
+    RemoveIcon: TdRemoveIcon,
+    ChevronUpIcon: TdChevronUpIcon,
+    AddIcon: TdAddIcon,
   });
+  const {
+    classPrefix,
+    wrapClasses,
+    addClasses,
+    reduceClasses,
+    listeners,
+    isError,
+    inputRef,
+    userInput,
+    handleAdd,
+    handleReduce,
+    onInnerInputChange,
+  } = useInputNumber(props);
 
-  let decimalValue: number = internalInputValue as number;
-  if (typeof internalInputValue === 'string') {
-    decimalValue = Number(numberUtils.strToNumber(internalInputValue)) || 0;
-  }
+  const wrapRef = useRef(null);
 
-  const setInputValue = (inputStr: string) => {
-    if (['', undefined].includes(inputStr)) {
-      return setInternalInputValue('');
-    }
+  const status = isError ? 'error' : props.status;
+  const addIcon = props.theme === 'column' ? <ChevronUpIcon size={props.size} /> : <AddIcon size={props.size} />;
+  const reduceIcon =
+    props.theme === 'column' ? <ChevronDownIcon size={props.size} /> : <RemoveIcon size={props.size} />;
 
-    const formattedInputValue = format?.(Number(inputStr)) ?? inputStr;
-    setInternalInputValue(formattedInputValue);
-  };
+  useImperativeHandle(ref, () => ({
+    currentElement: wrapRef.current,
+    inputElement: inputRef.current,
+  }));
 
-  const [isError, setError] = useState<boolean>(false);
-  const disabledDecrease = disabled || isError || (decimalValue - step < min && internalInputValue !== '');
-  const disabledIncrease = disabled || isError || (decimalValue + step > max && internalInputValue !== '');
-
-  const isOutOfRange = (number: number): boolean => number > max || number < min;
-  const checkInput = (inputStr: InputNumberInternalValue): boolean => {
-    if (inputStr === '') {
-      setError(false);
-      return true;
-    }
-
-    const hasError = numberUtils.isInvalidNumber(inputStr) || isOutOfRange(Number(inputStr));
-    setError(hasError);
-    return !hasError;
-  };
-
-  const stepPrecision = useMemo(() => numberUtils.getNumberPrecision(step), [step]);
-
-  const getPrecision = useCallback(
-    (str: InputNumberInternalValue): number => {
-      const numberPrecision = numberUtils.getNumberPrecision(str);
-
-      return decimalPlaces ?? Math.max(numberPrecision, stepPrecision);
-    },
-    [stepPrecision, decimalPlaces],
-  );
-
-  useEffect(() => {
-    if (value !== undefined) {
-      checkInput(value);
-    }
-  }, [value]); // eslint-disable-line
-
-  useUpdateEffect(() => {
-    setInputValue((value ?? '').toString());
-  }, [value]);
-
-  const triggerValueUpdate = (action: ChangeContext) => {
-    const { value, ...context } = action;
-    if (!disabled) {
-      onChange?.(value, context);
-    }
-  };
-
-  const onInternalInput = (inputStr: string, { e }) => {
-    if (inputStr === '') {
-      setInputValue(inputStr);
-      return triggerValueUpdate({ type: 'input', value: undefined, e });
-    }
-    if (inputStr.endsWith('.')) {
-      setInternalInputValue(inputStr);
-      return;
-    }
-    if (/^(([1-9]+[0-9]*\.0+)|(0\.0+))$/.test(inputStr)) {
-      setInternalInputValue(inputStr);
-      return;
-    }
-    const filteredInputStr = numberUtils.strToNumber(inputStr);
-    if (Number.isNaN(filteredInputStr)) {
-      setInternalInputValue(inputStr);
-      if (!checkInput(inputStr)) return;
-    }
-
-    setInputValue(filteredInputStr.toString());
-    if (!checkInput(filteredInputStr)) return;
-    triggerValueUpdate({ type: 'input', value: Number(filteredInputStr), e });
-  };
-
-  const onInternalStep = (action: ChangeContext) => {
-    if (props.readonly) return;
-
-    const { type, e } = action;
-    const currentValue = decimalValue || 0;
-    const precision = getPrecision(currentValue);
-
-    let updateValue: number;
-    switch (type) {
-      case 'add': {
-        const addedVal = currentValue + step;
-        updateValue = Number(Math.max(addedVal, min).toFixed(precision));
-        break;
-      }
-      case 'reduce': {
-        const reducedVal = currentValue - step;
-        updateValue = Number(Math.max(reducedVal, min).toFixed(precision));
-        break;
-      }
-    }
-
-    setInputValue(String(updateValue));
-    triggerValueUpdate({ value: updateValue, type, e });
-    e.preventDefault();
-  };
-
-  const handleBlur: FocusEventHandler<HTMLDivElement> = (e) => {
-    let updateValue;
-    const internalFloatValue = parseFloat(internalInputValue as string);
-    if (internalInputValue === '') {
-      updateValue = undefined;
-    } else if (!Number.isNaN(internalFloatValue)) {
-      updateValue = getRangeValue(internalFloatValue);
-    } else {
-      const checkVal = (internalInputValue as string).replace(/[^0-9]/gi, '');
-      updateValue = checkVal;
-      if (!checkVal) {
-        updateValue = value;
-      }
-    }
-    onBlur?.(updateValue, { e });
-    setInputValue((updateValue ?? '').toString());
-    setError(false);
-
-    if (updateValue !== value) {
-      triggerValueUpdate({ value: updateValue, e, type: '' });
-    }
-  };
-  const handleFocus: FocusEventHandler<HTMLDivElement> = (e) => onFocus?.(decimalValue, { e });
-  const handleKeydownEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    e.key === 'Enter' && onEnter?.(decimalValue, { e });
-  };
-  const handleKeydown: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    onKeydown?.(decimalValue, { e });
-    handleKeydownEnter(e);
-  };
-  const handleKeyup: KeyboardEventHandler<HTMLDivElement> = (e) => onKeyup?.(decimalValue, { e });
-  const handleKeypress: KeyboardEventHandler<HTMLDivElement> = (e) => onKeypress?.(decimalValue, { e });
   return (
-    <div
-      ref={ref}
-      className={classNames(inputClassName, commonClassNames.SIZE[size], className, {
-        [commonClassNames.STATUS.disabled]: disabled,
-        [`${classPrefix}-is-controls-right`]: theme === 'column',
-        [`${inputClassName}--${theme}`]: theme,
-        [`${inputClassName}--auto-width`]: props.autoWidth,
-      })}
-      style={style}
-      onBlur={handleBlur}
-      onFocus={handleFocus}
-      onKeyDown={handleKeydown}
-      onKeyUp={handleKeyup}
-      onKeyPress={handleKeypress}
-    >
-      <StepHandler
-        theme={theme}
-        prefixClassName={inputClassName}
-        disabledDecrease={disabledDecrease}
-        disabledIncrease={disabledIncrease}
-        onStep={onInternalStep}
-      >
-        <Input
-          disabled={disabled}
-          value={internalInputValue}
-          onChange={onInternalInput}
-          status={isError ? 'error' : undefined}
-          align={align || (theme === 'row' ? 'center' : undefined)}
-          {...restInputProps}
+    <div className={classNames(wrapClasses, props.className)} style={props.style} ref={wrapRef}>
+      {props.theme !== 'normal' && (
+        <Button
+          className={reduceClasses}
+          disabled={props.disabled}
+          onClick={handleReduce}
+          variant="outline"
+          shape="square"
+          icon={reduceIcon}
         />
-      </StepHandler>
+      )}
+      <Input
+        ref={inputRef}
+        autocomplete="off"
+        disabled={props.disabled}
+        readonly={props.readonly}
+        placeholder={props.placeholder}
+        autoWidth={props.autoWidth}
+        align={props.align || (props.theme === 'row' ? 'center' : undefined)}
+        status={status}
+        label={props.label}
+        suffix={props.suffix}
+        value={userInput}
+        onChange={onInnerInputChange}
+        size={props.size}
+        {...listeners}
+        {...(props.inputProps || {})}
+      />
+      {props.theme !== 'normal' && (
+        <Button
+          className={addClasses}
+          disabled={props.disabled}
+          onClick={handleAdd}
+          variant="outline"
+          shape="square"
+          icon={addIcon}
+        />
+      )}
+      {props.tips && (
+        <div className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status}`)}>
+          {props.tips}
+        </div>
+      )}
     </div>
   );
-});
+}
+
+export type InputNumberOuterForwardRef = {
+  <T>(props: InputNumberProps<T> & { ref?: ForwardedRef<InputNumberRef> }): ReturnType<typeof TdInputNumber>;
+} & React.ForwardRefExoticComponent<InputNumberProps>;
+
+const InputNumber = forwardRef(TdInputNumber) as InputNumberOuterForwardRef;
 
 InputNumber.displayName = 'InputNumber';
 InputNumber.defaultProps = inputNumberDefaultProps;

@@ -166,9 +166,9 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
           max={pageCount}
           disabled={disabled}
           value={jumpValue}
-          onChange={(val) => setJumpValue(val)}
-          onBlur={(val) => changeCurrent(val)}
-          onEnter={(val) => changeCurrent(val)}
+          onChange={(val: number) => setJumpValue(val)}
+          onBlur={(val: number) => changeCurrent(val)}
+          onEnter={(val: number) => changeCurrent(val)}
           placeholder=""
         />
       </InputAdornment>

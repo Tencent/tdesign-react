@@ -11,7 +11,7 @@ checkProps | Object | - | 参考 checkbox 组件 API。TS 类型：`CheckboxProp
 checkStrictly | Boolean | false | 父子节点选中状态不再关联，可各自选中或取消 | N
 clearable | Boolean | false | 是否支持清空选项 | N
 collapsedItems | TElement | - | 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。TS 类型：`TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-disabled | Boolean | false | 是否禁用组件 | N
+disabled | Boolean | - | 是否禁用组件 | N
 empty | TNode | - | 无匹配选项时的内容，默认全局配置为 '暂无数据'。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filter | Function | - | 自定义过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据。TS 类型：`(filterWords: string, node: TreeNodeModel) => boolean | Promise<boolean>` | N
 filterable | Boolean | false | 是否可搜索 | N
@@ -20,20 +20,22 @@ keys | Object | - | 用来定义 value / label / children 在 `options` 中对�
 lazy | Boolean | true | 延迟加载 children 为 true 的子节点，即使 expandAll 被设置为 true，也同样延迟加载 | N
 load | Function | - | 加载子树数据的方法（仅当节点 children 为 true 时生效）。TS 类型：`(node: TreeNodeModel<CascaderOption>) => Promise<Array<CascaderOption>>` | N
 loading | Boolean | false | 是否为加载状态 | N
-loadingText | TNode | '' | 远程加载时显示的文字，支持自定义。如加上超链接。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+loadingText | TNode | - | 远程加载时显示的文字，支持自定义。如加上超链接。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | 0 | 用于控制多选数量，值为 0 则不限制 | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于多选情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 multiple | Boolean | false | 是否允许多选 | N
 options | Array | [] | 可选项数据源。TS 类型：`Array<CascaderOption>` | N
 placeholder | String | undefined | 占位符 | N
 popupProps | Object | - | 参考 popup 组件 API。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
-popupVisible | Boolean | undefined | 是否显示下拉框 | N
+popupVisible | Boolean | - | 是否显示下拉框 | N
 readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 selectInputProps | Object | - | 透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
 showAllLevels | Boolean | true | 选中值使用完整路径，输入框在单选时也显示完整路径 | N
 size | String | medium | 组件尺寸。可选项：large/medium/small。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+status | String | - | 输入框状态。可选项：default/success/warning/error | N
 tagInputProps | Object | - | 透传 TagInput 标签输入框组件的全部属性。TS 类型：`TagInputProps`，[TagInput API Documents](./tag-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
 tagProps | Object | - | 透传 Tag 标签组件全部属性。TS 类型：`TagProps`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
+tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 trigger | String | click | 展开下一层级的方式。可选项：click/hover | N
 value | String / Number / Array | [] | 选中项的值。TS 类型：`CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string | number | T | Array<CascaderValue<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
 defaultValue | String / Number / Array | [] | 选中项的值。非受控属性。TS 类型：`CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string | number | T | Array<CascaderValue<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N

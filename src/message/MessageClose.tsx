@@ -1,6 +1,4 @@
 /**
- * @author kenzyyang
- * @date 2021-05-11 20:01:45
  * @desc message 关闭按钮组件
  */
 import React from 'react';

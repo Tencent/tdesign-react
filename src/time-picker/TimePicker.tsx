@@ -115,7 +115,7 @@ const TimePicker = forwardRefWithStatics(
           value={isPanelShowed ? currentValue : value ?? undefined}
           inputValue={isPanelShowed ? currentValue : value ?? undefined}
           inputProps={props.inputProps}
-          popupProps={{ overlayStyle: { width: 'auto' }, ...props.popupProps }}
+          popupProps={{ overlayInnerStyle: { width: 'auto' }, ...props.popupProps }}
           panel={
             <TimePickerPanel
               steps={steps}

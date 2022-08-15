@@ -12,7 +12,7 @@ borderless | Boolean | false | 【开发中】无边框模式 | N
 clearable | Boolean | false | 是否允许清空 | N
 collapsedItems | TElement | - | 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。TS 类型：`TNode<{ value: DataOption[]; collapsedSelectedItems: DataOption[]; count: number }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Array | [] | 数据。TS 类型：`Array<DataOption>` | N
-disabled | Boolean | false | 是否禁用组件 | N
+disabled | Boolean | - | 是否禁用组件 | N
 empty | TNode | '' | 当下拉列表为空时显示的内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filter | Function | - | 过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据。TS 类型：`(filterWords: string, option: DataOption) => boolean` | N
 filterable | Boolean | false | 是否可搜索 | N
@@ -20,18 +20,20 @@ inputProps | Object | - | 透传给 输入框 Input 组件的全部属性。TS �
 inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 loading | Boolean | false | 是否正在加载数据 | N
-loadingText | TNode | '' | 远程加载时显示的文字，支持自定义。如加上超链接。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+loadingText | TNode | - | 远程加载时显示的文字，支持自定义。如加上超链接。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | 0 | 用于控制多选数量，值为 0 则不限制 | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于多选情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 multiple | Boolean | false | 是否允许多选 | N
 placeholder | String | undefined | 占位符 | N
 popupProps | Object | - | 透传给 popup 组件的全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
-popupVisible | Boolean | undefined | 是否显示下拉框 | N
+popupVisible | Boolean | - | 是否显示下拉框 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 selectInputProps | Object | - | 【开发中】透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
+status | String | - | 输入框状态。可选项：default/success/warning/error | N
 tagProps | Object | - | 【开发中】透传 Tag 标签组件全部属性。TS 类型：`TagProps`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
+tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 treeProps | Object | - | 透传 Tree 组件的全部属性。TS 类型：`TreeProps`，[Tree API Documents](./tree?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 value | String / Number / Object / Array | - | 选中值。TS 类型：`TreeSelectValue` `type TreeSelectValue = string | number | object | Array<TreeSelectValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 defaultValue | String / Number / Object / Array | - | 选中值。非受控属性。TS 类型：`TreeSelectValue` `type TreeSelectValue = string | number | object | Array<TreeSelectValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N

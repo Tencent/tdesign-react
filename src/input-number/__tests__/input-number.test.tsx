@@ -28,7 +28,7 @@ describe('InputNumber 组件测试', () => {
     );
 
     fireEvent.mouseEnter(container.firstChild);
-    fireEvent.mouseDown(container.querySelector('.t-input-number__increase'));
+    fireEvent.click(container.querySelector('.t-input-number__increase'));
     expect(queryByPlaceholderText(InputNumberPlaceholder).value).toEqual('6');
   });
 

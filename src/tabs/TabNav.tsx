@@ -56,7 +56,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const getIndex = useCallback(
     (value) => {
       const index = itemList.findIndex((item) => item.value === value);
-      return index > -1 ? index : 0;
+      return index > -1 ? index : -1;
     },
     [itemList],
   );
