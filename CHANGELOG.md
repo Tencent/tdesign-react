@@ -5,6 +5,44 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.0 `2022-08-15` 
+### ❗ Breaking Changes
+- `Popup` : 重构了该组件，修复了较多问题 @HQ-Lin ([#1256](https://github.com/Tencent/tdesign-react/pull/1256)):  
+    - 不再生成 div 节点包裹 trigger 元素，`className`、`style` 属性废弃，可自行包裹 div 节点调整 `className`、`style` 属性。
+    - `overlayStyle` 调整为控制 `t-popup` 层级，新增 `overlayInnerStyle` 控制 `t-popup__content` 层级与原先 `overlayStyle` 效果一致。
+    - `overlayClassName` 调整为控制 `t-popup` 层级。
+
+### 🚀 Features
+- `Image`:  新增 `Image` 组件 @insekkei ([#1209](https://github.com/Tencent/tdesign-react/pull/1209))
+- `Link`:  新增 `Link` 组件 @zFitness ([#1277](https://github.com/Tencent/tdesign-react/pull/1277))
+- `Table`:
+    - 支持使用插槽 `footer-summary` 定义通栏表尾，同时支持同名属性 Props `footer-summary` 渲染通栏表尾 @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    - 由于表格支持定义多行表尾，因而本次支持使用 `rowspanAndColspanInFooter` 定义表尾行数据合并单元格，使用方法同 `rowspanAndColspan` @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    - 支持 `min-width` 透传到元素 `<col>` @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    -  新增 `cellEmptyContent`，当列数据为空时显示指定值 @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    - 可编辑行功能，新增实例方法 `validate`，支持校验表格内的全部数据 @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+- `DatePicker`: 
+    - 支持季度国际化配置 @HQ-Lin ([#1261](https://github.com/Tencent/tdesign-react/pull/1261))
+    - 支持滚动年份选择器自动加载更多年份 @HQ-Lin ([#1263](https://github.com/Tencent/tdesign-react/pull/1263))
+- `InputNumber`:  重构组件，支持16 位大数字 @HQ-Lin ([#1266](https://github.com/Tencent/tdesign-react/pull/1266))
+- `Icon`: 新增 qq、wechat、wecom、relativity 和 pin-filled 等图标 @uyarn ([#1289](https://github.com/Tencent/tdesign-react/pull/1289))
+- `Message`:  支持 `config` api @kenzyyang ([#1239](https://github.com/Tencent/tdesign-react/pull/1239))
+- `Form`:  `FormItem` 支持 `status`、`tips` 自定义控制校验状态及提示信息 @HQ-Lin ([#1288](https://github.com/Tencent/tdesign-react/pull/1288))
+
+### 🐞 Bug Fixes
+- `Table`:
+    - 行选中会触发重置列宽调整的结果 @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    - 可编辑行功能，提交校验时只校验了第一列 @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    - 列配置功能，带边框模式，移除分页组件边框下方多余的边框 @chaishi ([#1259](https://github.com/Tencent/tdesign-react/pull/1259))
+    - 列宽度和小于表宽的情况下，调整列宽的结果与预期不符 @ZTao-z ([#1284](https://github.com/Tencent/tdesign-react/pull/1284))
+- `Progress`: 修复`progress` style属性失效的问题 @NWYLZW ([#1260](https://github.com/Tencent/tdesign-react/pull/1260))
+- `Cascader`: 修复点击清除按钮无法一次性清空所有选项 ([issue #1236](https://github.com/Tencent/tdesign-react/issues/1236)) @pengYYYYY ([#1275](https://github.com/Tencent/tdesign-react/pull/1275))
+- `Select`: 修复autoWidth在multiple模式下失效的问题 @uyarn ([#1279](https://github.com/Tencent/tdesign-react/pull/1279))
+- `Tabs`: 修复动态渲染 `panel` 下划线丢失问题 @NWYLZW ([#1258](https://github.com/Tencent/tdesign-react/pull/1258))
+- `Layout`:  修复 `width`、`height` 不生效问题 @southorange1228 ([#1287](https://github.com/Tencent/tdesign-react/pull/1287))
+- `Popup`: 修复函数组件未透传 ref 导致气泡失效问题 @HQ-Lin ([#1256](https://github.com/Tencent/tdesign-react/pull/1256))
+
+
 ## 🌈 0.39.0 `2022-08-08` 
 ### ❗ Breaking Changes
 - `Pagination`: 调整快速跳转样式，`simple` 主题下合并分页控制器与快速跳转控制器 @HQ-Lin ([#1242](https://github.com/Tencent/tdesign-react/pull/1242))
