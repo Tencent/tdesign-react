@@ -8,7 +8,7 @@ export default function LayoutForm() {
   return (
     <Space direction="vertical">
       <div>
-        <Radio.Group value={layout} onChange={(value) => setLayout(value)}>
+        <Radio.Group value={layout} onChange={(value) => setLayout(value)} variant="default-filled">
           <Radio.Button value="vertical">纵向布局</Radio.Button>
           <Radio.Button value="inline">行内布局</Radio.Button>
         </Radio.Group>

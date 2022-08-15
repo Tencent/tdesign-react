@@ -10,6 +10,7 @@ export default function useFormItemStyle(props) {
   const {
     className,
     help,
+    tips,
     name,
     successBorder,
     errorList,
@@ -33,12 +34,16 @@ export default function useFormItemStyle(props) {
 
   // 提示文本
   const extraNode = useMemo(() => {
-    let extra = null;
-    const list = errorList;
-    if (showErrorMessage && list && list[0] && list[0].message) {
+    let extra = tips ? (
+      <div className={`${classPrefix}-input__extra`} title={tips}>
+        {tips}
+      </div>
+    ) : null;
+
+    if (showErrorMessage && errorList?.[0]?.message) {
       extra = (
-        <div className={`${classPrefix}-input__extra`} title={list[0].message}>
-          {list[0].message}
+        <div className={`${classPrefix}-input__extra`} title={errorList[0].message}>
+          {errorList[0].message}
         </div>
       );
     } else if (successList.length) {
@@ -50,7 +55,7 @@ export default function useFormItemStyle(props) {
     }
 
     return extra;
-  }, [showErrorMessage, errorList, successList, classPrefix]);
+  }, [showErrorMessage, errorList, successList, tips, classPrefix]);
 
   const formItemClass = classNames(`${classPrefix}-form__item`, className, {
     [`${classPrefix}-form-item__${renderName}`]: renderName,
@@ -78,10 +83,9 @@ export default function useFormItemStyle(props) {
       });
     }
 
-    const firstErrorType = errorList.length && (errorList[0].type || 'error');
     return classNames(controlCls, {
-      [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
-      [`${classPrefix}-is-error`]: firstErrorType === 'error',
+      [`${classPrefix}-is-warning`]: verifyStatus === 'warning',
+      [`${classPrefix}-is-error`]: ['fail', 'error'].includes(verifyStatus),
     });
   };
 

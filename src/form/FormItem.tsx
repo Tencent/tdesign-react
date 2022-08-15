@@ -66,6 +66,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     style,
     label,
     name,
+    status,
+    tips,
     help,
     initialData,
     className,
@@ -80,7 +82,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
-  const [verifyStatus, setVerifyStatus] = useState(ValidateStatus.TO_BE_VALIDATED);
+  const [verifyStatus, setVerifyStatus] = useState(status);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(getDefaultInitialData(children, initialData));
@@ -102,6 +104,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     useFormItemStyle({
       className,
       help,
+      tips,
       name,
       successBorder,
       errorList,
@@ -221,9 +224,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     }
     // 根据校验结果设置校验状态
     if (validateRules.length) {
-      setVerifyStatus(innerErrorList.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS);
+      let status = ValidateStatus.SUCCESS;
+      if (innerErrorList.length) {
+        status = innerErrorList?.[0]?.type || ValidateStatus.ERROR;
+      }
+      setVerifyStatus(status);
     } else {
-      setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
+      setVerifyStatus(ValidateStatus.VALIDATING);
     }
     // 重置处理
     if (needResetField) {
@@ -284,7 +291,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);
-    setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
+    setVerifyStatus(ValidateStatus.VALIDATING);
   }
 
   function setField(field: { value?: string; status?: ValidateStatus; validateMessage?: FormItemValidateMessage }) {
@@ -309,7 +316,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       return;
     }
     setErrorList(validateMessage);
-    setVerifyStatus(ValidateStatus.FAIL);
+    const status = validateMessage?.[0]?.type || ValidateStatus.ERROR;
+    setVerifyStatus(status);
   }
 
   useEffect(() => {
