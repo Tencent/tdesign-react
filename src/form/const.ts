@@ -1,6 +1,6 @@
 export const enum ValidateStatus {
   SUCCESS = 'success',
-  WARING = 'warning',
+  WARNING = 'warning',
   ERROR = 'error',
   VALIDATING = 'validating',
 }
