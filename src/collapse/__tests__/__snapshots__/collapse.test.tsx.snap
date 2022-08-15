@@ -182,6 +182,9 @@ exports[`base.jsx 1`] = `
                     type="text"
                     value=""
                   />
+                  <span
+                    class="t-input__input-pre"
+                  />
                 </div>
               </div>
             </div>
@@ -534,6 +537,9 @@ exports[`icon.jsx 1`] = `
                         type="text"
                         value=""
                       />
+                      <span
+                        class="t-input__input-pre"
+                      />
                     </div>
                   </div>
                 </div>
@@ -812,6 +818,9 @@ exports[`mutex.jsx 1`] = `
                     type="text"
                     value=""
                   />
+                  <span
+                    class="t-input__input-pre"
+                  />
                 </div>
               </div>
             </div>
@@ -1002,6 +1011,9 @@ exports[`other.jsx 1`] = `
                         placeholder=""
                         type="text"
                         value=""
+                      />
+                      <span
+                        class="t-input__input-pre"
                       />
                     </div>
                   </div>

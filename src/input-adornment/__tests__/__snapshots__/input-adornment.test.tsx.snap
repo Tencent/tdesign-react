@@ -383,6 +383,9 @@ exports[`text.jsx 1`] = `
               type="text"
               value=""
             />
+            <span
+              class="t-input__input-pre"
+            />
           </div>
         </div>
         <span

@@ -750,10 +750,9 @@ exports[`size.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
-          class="t-input t-size-l t-align-left t-is-default"
+          class="t-input t-size-s t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
@@ -769,10 +768,27 @@ exports[`size.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value=""
       >
         <div
           class="t-input t-size-m t-align-left t-is-default"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入内容"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-size-l t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
