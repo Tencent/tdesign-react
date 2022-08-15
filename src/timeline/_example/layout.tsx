@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Timeline, Space, Radio } from 'tdesign-react';
 
-export default function BasicTimeLine() {
+export default function LayoutTimeLine() {
   const [direction, setDirection] = useState<'left' | 'right' | 'alternate'>('left');
   const [mode, setMode] = useState<'same' | 'alternate'>('same');
   const [layout, setLayout] = useState<'vertical' | 'horizontal'>('vertical');

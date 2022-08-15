@@ -1,7 +1,7 @@
 import React from 'react';
 import { Timeline } from 'tdesign-react';
 
-export default function BasicTimeLine() {
+export default function ThemeTimeLine() {
   return (
     <Timeline mode="same">
       <Timeline.Item label="2022-01-01" dotColor="primary">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Timeline, Space, Switch } from 'tdesign-react';
 
-export default function BasicTimeLine() {
+export default function LoadingTimeLine() {
   const [loading, setLoading] = useState(false);
 
   return (

@@ -6,7 +6,7 @@ const CommonStyle = {
   color: 'rgba(0,0,0,.6)',
 };
 
-export default function BasicTimeLine() {
+export default function CustomContentTimeLine() {
   return (
     <Timeline mode="same">
       <Timeline.Item label="2022-01-01">

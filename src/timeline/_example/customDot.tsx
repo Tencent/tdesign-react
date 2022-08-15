@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Timeline, Space, Radio } from 'tdesign-react';
 import { TipsIcon, UserIcon, HeartIcon, HomeIcon } from 'tdesign-icons-react';
 
-export default function BasicTimeLine() {
+export default function CustomDotTimeLine() {
   const [dot, setDot] = useState<'default' | 'dot'>('default');
 
   return (
