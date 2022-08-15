@@ -10,7 +10,7 @@ exports[`align.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-radio-group t-size-m t-radio-group__outline"
+        class="t-radio-group t-size-m t-radio-group--filled"
       >
         <label
           class="t-radio-button"
@@ -64,6 +64,10 @@ exports[`align.jsx 1`] = `
             顶部对齐
           </span>
         </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
       </div>
     </div>
     <div
@@ -2629,7 +2633,7 @@ exports[`layout.jsx 1`] = `
     >
       <div>
         <div
-          class="t-radio-group t-size-m t-radio-group__outline"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button"
@@ -2666,6 +2670,10 @@ exports[`layout.jsx 1`] = `
               行内布局
             </span>
           </label>
+          <div
+            class="t-radio-group__bg-block"
+            style="width: 0px; left: 0px;"
+          />
         </div>
       </div>
     </div>
