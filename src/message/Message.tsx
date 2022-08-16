@@ -130,9 +130,9 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
     // 渲染组件
     ReactDOM.render(
       <MessageComponent
-        theme={theme}
         key={keyIndex}
         {...config}
+        theme={theme}
         style={style}
         onCloseBtnClick={(ctx) => {
           onCloseBtnClick(ctx);
