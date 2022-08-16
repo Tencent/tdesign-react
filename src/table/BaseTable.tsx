@@ -219,11 +219,11 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
   };
   // 多级表头左边线缺失
-  const affixedMultipleHeaderLeftBorder = props.bordered && isMultipleHeader ? 1 : 0;
+  const affixedLeftBorder = props.bordered ? 1 : 0;
   const affixedHeader = Boolean(props.headerAffixedTop && tableWidth) && (
     <div
       ref={affixHeaderRef}
-      style={{ width: `${tableWidth - affixedMultipleHeaderLeftBorder}px`, opacity: headerOpacity }}
+      style={{ width: `${tableWidth - affixedLeftBorder}px`, opacity: headerOpacity }}
       className={classNames(['scrollbar', { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual }])}
     >
       <table className={classNames(tableElmClasses)} style={{ ...tableElementStyles, width: `${tableElmWidth}px` }}>
@@ -269,7 +269,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     >
       <div
         ref={affixFooterRef}
-        style={{ width: `${tableWidth}px`, opacity: Number(showAffixFooter) }}
+        style={{ width: `${tableWidth - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
         className={classNames([
           'scrollbar',
           { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || isVirtual },
