@@ -75,7 +75,7 @@ const Dropdown = (props: DropdownProps) => {
       onVisibleChange={handleVisibleChange}
       {...popupParams}
     >
-      {arrayChildren}
+      {arrayChildren?.[0]}
     </Popup>
   );
 };
