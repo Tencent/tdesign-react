@@ -55,7 +55,7 @@ colon | Boolean | false | 是否在表单标签字段右侧显示冒号 | N
 disabled | Boolean | undefined | 是否禁用整个表单 | N
 errorMessage | Object | - | 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`。TS 类型：`FormErrorMessage` | N
 formControlledComponents | Array | - | 允许表单统一控制禁用状态的自定义组件名称列表。默认会有组件库的全部输入类组件：TInput、TInputNumber、TCascader、TSelect、TOption、TSwitch、TCheckbox、TCheckboxGroup、TRadio、TRadioGroup、TTreeSelect、TDatePicker、TTimePicker、TUpload、TTransfer、TSlider。对于自定义组件，组件内部需要包含可以控制表单禁用状态的变量 `formDisabled`。示例：`['CustomUpload', 'CustomInput']`。TS 类型：`Array<string>` | N
-initialData | Object | - | 【开发中】表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData | N
+initialData | Object | - | 表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData | N
 labelAlign | String | right | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。可选项：left/right/top | N
 labelWidth | String / Number | '100px' | 可以整体设置label标签宽度，默认为100px | N
 layout | String | vertical | 表单布局，有两种方式：纵向布局 和 行内布局。可选项：vertical/inline | N
@@ -104,10 +104,10 @@ name | String / Number / Array | - | 表单字段名称。TS 类型：`string | 
 requiredMark | Boolean | undefined | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
 showErrorMessage | Boolean | undefined | 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage` | N
-status | String | - | 校验状态，当组件被校验时会被 `rules`  的 `message.type` 覆盖，可在需要完全自主控制校验状态时使用。TS 类型：`error | warning | success | validating` | N
+status | String | - | 校验状态，可在需要完全自主控制校验状态时使用。TS 类型：`'error' | 'warning' | 'success' | 'validating'` | N
 statusIcon | TNode | undefined | 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 successBorder | Boolean | false | 是否显示校验成功的边框，默认不显示 | N
-tips | TNode | - | 自定义提示内容，样式跟随 `status` 变动，当组件被校验时会被 `rules`  的 `message` 覆盖，可在需要完全自主控制校验规则时使用。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+tips | TNode | - | 自定义提示内容，样式跟随 `status` 变动，可在需要完全自主控制校验规则时使用。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 
 ### FormList Props
 

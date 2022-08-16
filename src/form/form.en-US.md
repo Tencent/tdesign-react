@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Form Props
 
 name | type | default | description | required
@@ -61,7 +60,7 @@ name | String / Number / Array | - | Typescript：`string | number | Array<strin
 requiredMark | Boolean | undefined | \- | N
 rules | Array | - | Typescript：`Array<FormRule>` | N
 showErrorMessage | Boolean | undefined | \- | N
-status | String | - | Typescript：`error | warning | success | validating` | N
+status | String | - | Typescript：`'error' | 'warning' | 'success' | 'validating'` | N
 statusIcon | TNode | undefined | Typescript：`boolean | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 successBorder | Boolean | false | \- | N
 tips | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

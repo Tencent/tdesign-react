@@ -12,6 +12,7 @@ export default function useFormItemStyle(props) {
     help,
     tips,
     name,
+    status,
     successBorder,
     errorList,
     successList,
@@ -28,6 +29,9 @@ export default function useFormItemStyle(props) {
 
   // formList 下 name 为数组
   const renderName = Array.isArray(name) ? name.join('-') : name;
+
+  // 传入 status 时受控
+  const renderStatus = status || verifyStatus;
 
   // help 文本
   const helpNode = help && <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
@@ -76,7 +80,7 @@ export default function useFormItemStyle(props) {
     const controlCls = `${classPrefix}-form__controls`;
     if (!showErrorMessage) return controlCls;
 
-    const isSuccess = verifyStatus === ValidateStatus.SUCCESS;
+    const isSuccess = renderStatus === ValidateStatus.SUCCESS;
     if (isSuccess) {
       return classNames(controlCls, `${classPrefix}-is-success`, {
         [`${classPrefix}-form--success-border`]: successBorder,
@@ -84,8 +88,8 @@ export default function useFormItemStyle(props) {
     }
 
     return classNames(controlCls, {
-      [`${classPrefix}-is-warning`]: verifyStatus === 'warning',
-      [`${classPrefix}-is-error`]: ['fail', 'error'].includes(verifyStatus),
+      [`${classPrefix}-is-warning`]: renderStatus === 'warning',
+      [`${classPrefix}-is-error`]: ['fail', 'error'].includes(renderStatus),
     });
   };
 
