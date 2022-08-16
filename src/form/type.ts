@@ -184,7 +184,7 @@ export interface TdFormItemProps {
    */
   showErrorMessage?: boolean;
   /**
-   * 校验状态，当组件被校验时会被 `rules`  的 `message.type` 覆盖，可在需要完全自主控制校验状态时使用
+   * 校验状态，可在需要完全自主控制校验状态时使用
    * @default ''
    */
   status?: 'error' | 'warning' | 'success' | 'validating';
@@ -198,7 +198,7 @@ export interface TdFormItemProps {
    */
   successBorder?: boolean;
   /**
-   * 自定义提示内容，样式跟随 `status` 变动，当组件被校验时会被 `rules`  的 `message` 覆盖，可在需要完全自主控制校验规则时使用
+   * 自定义提示内容，样式跟随 `status` 变动，可在需要完全自主控制校验规则时使用
    */
   tips?: TNode;
 }
