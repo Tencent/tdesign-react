@@ -8,7 +8,7 @@ export default function BasicDropdown() {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown minColumnWidth={'100px'} onClick={clickHandler}>
+    <Dropdown minColumnWidth={100} onClick={clickHandler}>
       <Button variant="text" suffix={<Icon name="chevron-down" size="16" />}>
         更多
       </Button>
