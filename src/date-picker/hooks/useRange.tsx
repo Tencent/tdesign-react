@@ -128,7 +128,6 @@ export default function useRange(props: TdDateRangePickerProps) {
       }
       if (!visible) {
         setIsHoverCell(false);
-        setInputValue(formatDate(value, { format, targetFormat: format }));
       }
 
       setPopupVisible(visible);
