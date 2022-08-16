@@ -15,7 +15,18 @@ export interface DropdownProps extends TdDropdownProps {
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const { popupProps = {}, disabled, placement, trigger, className, children, hideAfterItemClick } = props;
+  const {
+    popupProps = {},
+    disabled,
+    placement,
+    trigger,
+    className,
+    children,
+    hideAfterItemClick,
+    maxHeight,
+    maxColumnWidth,
+    minColumnWidth,
+  } = props;
   let content = null;
   const arrayChildren = React.Children.toArray(children);
 
@@ -41,7 +52,7 @@ const Dropdown = (props: DropdownProps) => {
     if (typeof child !== 'object') return;
 
     if (child.type === DropdownMenu) {
-      content = React.cloneElement(child, { onClick: handleMenuClick });
+      content = React.cloneElement(child, { onClick: handleMenuClick, maxHeight, maxColumnWidth, minColumnWidth });
       arrayChildren.splice(idx, 1);
     }
   });
@@ -64,7 +75,7 @@ const Dropdown = (props: DropdownProps) => {
       onVisibleChange={handleVisibleChange}
       {...popupParams}
     >
-      {arrayChildren}
+      {arrayChildren?.[0]}
     </Popup>
   );
 };

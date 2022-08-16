@@ -5,6 +5,16 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.1 `2022-08-16` 
+### 🐞 Bug Fixes
+- `DatePicker`:  修复在左侧输入框聚焦时右侧面板切换月份失效问题 @HQ-Lin ([#1292](https://github.com/Tencent/tdesign-react/pull/1292))
+- `Form`:  修复 FormItem status 受控问题 @HQ-Lin ([#1298](https://github.com/Tencent/tdesign-react/pull/1298))
+- `Radio`:  修复 `Radio.Group` 反选问题 @carolin913 ([#1304](https://github.com/Tencent/tdesign-react/pull/1304))
+- `Dropdown`:  
+    - 修复 `DropdownMenu` 属性透传问题 @carolin913 ([#1304](https://github.com/Tencent/tdesign-react/pull/1304))
+    - 修复下拉菜单展开位置的异常 @uyarn ([#1300](https://github.com/Tencent/tdesign-react/pull/1300))
+
+
 ## 🌈 0.40.0 `2022-08-15` 
 ### ❗ Breaking Changes
 - `Popup` : 重构了该组件，修复了较多问题 @HQ-Lin ([#1256](https://github.com/Tencent/tdesign-react/pull/1256)):  
