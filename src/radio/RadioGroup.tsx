@@ -48,7 +48,7 @@ const RadioGroup = (props: RadioGroupProps) => {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
           }
-          setInternalValue(checkValue, { e });
+          setInternalValue(checked ? checkValue : undefined, { e });
         },
       };
     },
