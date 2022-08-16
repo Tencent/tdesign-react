@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.2 `2022-08-16` 
+### 🐞 Bug Fixes
+- `DatePicker`: 
+    - 修复点击空白区域输入框被清空问题 @HQ-Lin ([#1306](https://github.com/Tencent/tdesign-react/pull/1306))
+    - 修复 safari 下周选择器样式问题 @HQ-Lin ([#742](https://github.com/Tencent/tdesign-common/pull/742/files))
+
 ## 🌈 0.40.1 `2022-08-16` 
 ### 🐞 Bug Fixes
 - `DatePicker`:  修复在左侧输入框聚焦时右侧面板切换月份失效问题 @HQ-Lin ([#1292](https://github.com/Tencent/tdesign-react/pull/1292))
