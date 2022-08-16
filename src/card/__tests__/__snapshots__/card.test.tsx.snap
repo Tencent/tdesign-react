@@ -476,33 +476,29 @@ exports[`footer-actions.jsx 1`] = `
               class="t-col"
               style="flex-basis: auto;"
             >
-              <span
-                class="t-trigger"
+              <button
+                class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+                type="button"
               >
-                <button
-                  class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
-                  type="button"
+                <span
+                  class="t-button__text"
                 >
-                  <span
-                    class="t-button__text"
+                  <svg
+                    class="t-icon t-icon-more"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
                   >
-                    <svg
-                      class="t-icon t-icon-more"
-                      fill="none"
-                      height="1em"
-                      style="font-size: 24px;"
-                      viewBox="0 0 16 16"
-                      width="1em"
-                    >
-                      <path
-                        d="M8 4a1 1 0 100-2 1 1 0 000 2zM8 9a1 1 0 100-2 1 1 0 000 2zM9 13a1 1 0 11-2 0 1 1 0 012 0z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
+                    <path
+                      d="M8 4a1 1 0 100-2 1 1 0 000 2zM8 9a1 1 0 100-2 1 1 0 000 2zM9 13a1 1 0 11-2 0 1 1 0 012 0z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -567,33 +563,29 @@ exports[`footer-actions.jsx 1`] = `
               class="t-col"
               style="flex-basis: auto;"
             >
-              <span
-                class="t-trigger"
+              <button
+                class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+                type="button"
               >
-                <button
-                  class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
-                  type="button"
+                <span
+                  class="t-button__text"
                 >
-                  <span
-                    class="t-button__text"
+                  <svg
+                    class="t-icon t-icon-more"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
                   >
-                    <svg
-                      class="t-icon t-icon-more"
-                      fill="none"
-                      height="1em"
-                      style="font-size: 24px;"
-                      viewBox="0 0 16 16"
-                      width="1em"
-                    >
-                      <path
-                        d="M8 4a1 1 0 100-2 1 1 0 000 2zM8 9a1 1 0 100-2 1 1 0 000 2zM9 13a1 1 0 11-2 0 1 1 0 012 0z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
+                    <path
+                      d="M8 4a1 1 0 100-2 1 1 0 000 2zM8 9a1 1 0 100-2 1 1 0 000 2zM9 13a1 1 0 11-2 0 1 1 0 012 0z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -723,26 +715,22 @@ exports[`footer-content-actions.jsx 1`] = `
       <div
         class="t-card__actions"
       >
-        <span
-          class="t-trigger"
+        <button
+          class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          type="button"
         >
-          <button
-            class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
-            type="button"
+          <span
+            class="t-button__text"
           >
-            <span
-              class="t-button__text"
+            <svg
+              class="t-icon t-icon-more"
             >
-              <svg
-                class="t-icon t-icon-more"
-              >
-                <use
-                  xlink:href="#t-icon-more"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+              <use
+                xlink:href="#t-icon-more"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -953,26 +941,22 @@ exports[`header-footer-actions.jsx 1`] = `
       <div
         class="t-card__actions"
       >
-        <span
-          class="t-trigger"
+        <button
+          class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          type="button"
         >
-          <button
-            class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
-            type="button"
+          <span
+            class="t-button__text"
           >
-            <span
-              class="t-button__text"
+            <svg
+              class="t-icon t-icon-more"
             >
-              <svg
-                class="t-icon t-icon-more"
-              >
-                <use
-                  xlink:href="#t-icon-more"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+              <use
+                xlink:href="#t-icon-more"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
     <div
@@ -1161,26 +1145,22 @@ exports[`header-subtitle-footer-actions.jsx 1`] = `
       <div
         class="t-card__actions"
       >
-        <span
-          class="t-trigger"
+        <button
+          class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          type="button"
         >
-          <button
-            class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
-            type="button"
+          <span
+            class="t-button__text"
           >
-            <span
-              class="t-button__text"
+            <svg
+              class="t-icon t-icon-more"
             >
-              <svg
-                class="t-icon t-icon-more"
-              >
-                <use
-                  xlink:href="#t-icon-more"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+              <use
+                xlink:href="#t-icon-more"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
     <div
