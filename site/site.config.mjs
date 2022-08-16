@@ -73,6 +73,12 @@ export default {
           path: '/react/components/icon',
           component: () => import('tdesign-react/icon/icon.md'),
         },
+        {
+          title: 'Link 文字',
+          name: 'link',
+          path: '/react/components/link',
+          component: () => import('tdesign-react/link/link.md'),
+        },
       ],
     },
     {
@@ -344,7 +350,7 @@ export default {
           component: () => import('tdesign-react/image/image.md'),
         },
         {
-          title: 'ImageViewer 图片',
+          title: 'ImageViewer 图片预览',
           name: 'image-viewer',
           path: '/react/components/image-viewer',
           component: () => import('tdesign-react/image-viewer/image-viewer.md'),

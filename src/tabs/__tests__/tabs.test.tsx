@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, testExamples, waitFor, fireEvent } from '@test/utils';
+import { act } from 'react-dom/test-utils';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
 import TabNav from '../TabNav';
@@ -46,6 +47,66 @@ describe('Tabs 组件测试', () => {
     const tabInstance = await waitFor(() => getByTestId(testId));
 
     expect(() => tabInstance.querySelector('.t-tabs__nav--card')).not.toBe(null);
+  });
+
+  jest.useRealTimers();
+  test('async render card', async () => {
+    const testId = 'tab bar test id';
+
+    const getLists = jest.fn(
+      () =>
+        new Promise<
+          {
+            label: string;
+            value: string;
+          }[]
+        >((re) =>
+          setTimeout(() => {
+            re([
+              { label: 'A', value: 'a' },
+              { label: 'B', value: 'b' },
+            ]);
+          }, 10),
+        ),
+    );
+
+    const useFetch = <F extends () => Promise<any>>(func: F) => {
+      const [data, setData] = React.useState<Awaited<ReturnType<F>> | undefined>(undefined);
+      const funcS = React.useCallback(func, [func]);
+      React.useEffect(() => {
+        funcS().then((ls) => {
+          act(setData.bind(null, ls));
+        });
+      }, [funcS]);
+      return { data };
+    };
+
+    const DynamicTabs = () => {
+      const { data: list = [] } = useFetch(getLists);
+      return (
+        <Tabs data-testid={testId} placement="top" size="medium" value="a">
+          {list && list.map(({ label, value }) => <TabPanel label={label} value={value} key={value} />)}
+        </Tabs>
+      );
+    };
+
+    const { getByTestId } = render(
+      <div data-testid={testId}>
+        <DynamicTabs />
+      </div>,
+    );
+
+    const tabInstance = await waitFor(() => getByTestId(testId));
+
+    const getNavItems = () => tabInstance.querySelectorAll('.t-tabs__nav-item');
+
+    expect(getNavItems().length).toBe(0);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(getNavItems().length).toBe(2);
+    expect(() => tabInstance.querySelector('.t-tabs__bar')).not.toBe(null);
+    const tabBar = tabInstance.querySelector('.t-tabs__bar');
+    // 没有值是正常的，这个地方只是校验修改了 tabs 能触发 tab bar 更新 style 的信息
+    expect(tabBar.getAttribute('style')).toBe('transform: translateX(0px); width: 0px;');
   });
 
   test('different position', async () => {

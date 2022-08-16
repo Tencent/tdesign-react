@@ -27,6 +27,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   formControlledComponents?: Array<string>;
   /**
+   * 表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData
+   */
+  initialData?: object;
+  /**
    * 表单字段标签对齐方式：左对齐、右对齐、顶部对齐
    * @default right
    */
@@ -180,6 +184,11 @@ export interface TdFormItemProps {
    */
   showErrorMessage?: boolean;
   /**
+   * 校验状态，当组件被校验时会被 `rules`  的 `message.type` 覆盖，可在需要完全自主控制校验状态时使用
+   * @default ''
+   */
+  status?: 'error' | 'warning' | 'success' | 'validating';
+  /**
    * 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon
    */
   statusIcon?: TNode;
@@ -188,6 +197,10 @@ export interface TdFormItemProps {
    * @default false
    */
   successBorder?: boolean;
+  /**
+   * 自定义提示内容，样式跟随 `status` 变动，当组件被校验时会被 `rules`  的 `message` 覆盖，可在需要完全自主控制校验规则时使用
+   */
+  tips?: TNode;
 }
 
 export interface TdFormListProps {

@@ -101,6 +101,9 @@ exports[`collapsed.jsx 1`] = `
               value=""
             />
             <span
+              class="t-input__input-pre"
+            />
+            <span
               class="t-input__suffix t-input__suffix-icon"
             >
               <svg
@@ -168,6 +171,9 @@ exports[`collapsed.jsx 1`] = `
               placeholder=""
               type="text"
               value=""
+            />
+            <span
+              class="t-input__input-pre"
             />
             <span
               class="t-input__suffix t-input__suffix-icon"
@@ -317,6 +323,11 @@ exports[`filterable.jsx 1`] = `
               value=""
             />
             <span
+              class="t-input__input-pre"
+            >
+              请选择
+            </span>
+            <span
               class="t-input__suffix t-input__suffix-icon"
             >
               <svg
@@ -452,6 +463,9 @@ exports[`multiple.jsx 1`] = `
           placeholder=""
           type="text"
           value=""
+        />
+        <span
+          class="t-input__input-pre"
         />
         <span
           class="t-input__suffix t-input__suffix-icon"
@@ -701,6 +715,9 @@ exports[`valuedisplay.jsx 1`] = `
               value=""
             />
             <span
+              class="t-input__input-pre"
+            />
+            <span
               class="t-input__suffix t-input__suffix-icon"
             >
               <svg
@@ -837,6 +854,9 @@ exports[`valuetype.jsx 1`] = `
               placeholder=""
               type="text"
               value=""
+            />
+            <span
+              class="t-input__input-pre"
             />
             <span
               class="t-input__suffix t-input__suffix-icon"

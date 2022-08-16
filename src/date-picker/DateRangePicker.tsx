@@ -111,7 +111,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
   // 日期点击
   function onCellClick(date: Date, { e, partial }) {
-    onPick?.(date, { e, partial });
+    onPick?.(date, { e, partial: activeIndex ? 'end' : 'start' });
 
     setIsHoverCell(false);
     setIsSelected(true);
