@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
 import get from 'lodash/get';
+import debounce from 'lodash/debounce';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
@@ -295,11 +296,11 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
   };
 
   let shadowLastScrollLeft: number;
-  const updateColumnFixedShadow = (target: HTMLElement) => {
+  const updateColumnFixedShadow = (target: HTMLElement, extra?: { skipScrollLimit?: boolean }) => {
     if (!isFixedColumn || !target) return;
     const { scrollLeft } = target;
     // 只有左右滚动，需要更新固定列阴影
-    if (shadowLastScrollLeft === scrollLeft) return;
+    if (shadowLastScrollLeft === scrollLeft && (!extra || !extra.skipScrollLimit)) return;
     shadowLastScrollLeft = scrollLeft;
     const isShowRight = target.clientWidth + scrollLeft < target.scrollWidth;
     setShowColumnShadow({
@@ -465,15 +466,15 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     ],
   );
 
-  const refreshTable = () => {
+  const refreshTable = debounce(() => {
     updateTableWidth();
     updateFixedHeader();
     updateThWidthListHandler();
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
-      updateColumnFixedShadow(tableContentRef.current);
+      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
     }
-  };
+  }, 30);
 
   const onResize = refreshTable;
 
@@ -491,18 +492,17 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
       if (columnResizable && recalculateColWidth.current) {
         recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
       }
+      const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
+      if (isWatchResize) {
+        on(window, 'resize', onResize);
+      }
       clearTimeout(timer);
     });
-    if (isFixedColumn || isFixedHeader || !notNeedThWidthList) {
-      on(window, 'resize', onResize);
-    }
     return () => {
-      if (isFixedColumn || isFixedHeader || !notNeedThWidthList) {
-        off(window, 'resize', onResize);
-      }
+      off(window, 'resize', onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFixedColumn]);
 
   return {
     tableWidth,
