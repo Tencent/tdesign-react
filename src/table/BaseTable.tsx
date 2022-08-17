@@ -139,6 +139,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     tableHtmlElement: tableElmRef.current,
     tableContentElement: tableContentRef.current,
     affixHeaderElement: affixHeaderRef.current,
+    refreshTable,
   }));
 
   const onFixedChange = () => {
