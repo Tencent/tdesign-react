@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Textarea, Button, Input, Space } from 'tdesign-react';
+import { Select, Divider, Button, Input, Space } from 'tdesign-react';
 
 const OPTIONS = [
   { label: '架构云', value: '1' },
@@ -36,11 +36,24 @@ export default function PanelExample() {
         style={{ width: '300px', marginRight: '20px' }}
         options={topOptions}
         panelTopContent={
-          <div>
-            <Textarea placeholder="请输入关键词搜索" onChange={handleOnSearch} />
+          <div
+            style={{
+              position: 'sticky',
+              backgroundColor: 'var(--td-bg-color-container)',
+              top: 0,
+              zIndex: 10,
+              paddingTop: 8,
+            }}
+          >
+            <Input
+              placeholder="请输入关键词搜索"
+              onChange={handleOnSearch}
+              style={{ width: 'calc(100% - 4px)', margin: '0 auto' }}
+            />
+            <Divider style={{ margin: '8px 0 0' }} />
           </div>
         }
-      ></Select>
+      />
       <Select
         placeholder="请选择云产品"
         style={{ width: '300px' }}
@@ -51,18 +64,17 @@ export default function PanelExample() {
             {editOrCreate === 'edit' ? (
               <div
                 style={{
+                  padding: '8px 6px',
                   borderTop: '1px solid var(--td-border-level-2-color)',
-                  marginTop: '8px',
-                  padding: '8px 0',
                 }}
               >
-                <Button theme="primary" variant="text" onClick={() => toggleEditOrCreate('create')}>
+                <Button theme="primary" size="small" variant="text" onClick={() => toggleEditOrCreate('create')}>
                   新增选项
                 </Button>
               </div>
             ) : (
-              <div>
-                <Input autoFocus value={inputVal} onChange={(v) => changeInputVal(v)}></Input>
+              <div style={{ padding: 8, borderTop: '1px solid var(--td-border-level-2-color)' }}>
+                <Input size="small" autofocus value={inputVal} onChange={(v) => changeInputVal(v)}></Input>
                 <Button size="small" style={{ marginTop: '12px' }} onClick={handleClickConfirm}>
                   确认
                 </Button>
@@ -78,7 +90,7 @@ export default function PanelExample() {
             )}
           </div>
         }
-      ></Select>
+      />
     </Space>
   );
 }
