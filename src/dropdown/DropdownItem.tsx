@@ -51,9 +51,11 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
       props?.onClick?.(data, { e });
     }
   };
+
   const handleMouseover = (): void => {
     props.onHover(path);
   };
+
   return (
     <div>
       <div

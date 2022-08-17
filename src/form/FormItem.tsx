@@ -82,7 +82,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
-  const [verifyStatus, setVerifyStatus] = useState(status);
+  const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(getDefaultInitialData(children, initialData));
@@ -106,6 +106,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       help,
       tips,
       name,
+      status,
       successBorder,
       errorList,
       successList,

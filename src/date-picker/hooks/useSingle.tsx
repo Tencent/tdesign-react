@@ -92,7 +92,6 @@ export default function useSingleInput(props: TdDatePickerProps) {
       }
       if (!visible) {
         setIsHoverCell(false);
-        setInputValue(formatDate(value, { format, targetFormat: format }));
       }
       setPopupVisible(visible);
     },
