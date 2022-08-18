@@ -9,7 +9,7 @@ import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { getCharacterLength } from '../_util/helper';
+import { getCharacterLength } from '../_common/js/utils/helper';
 import { TdInputProps } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
