@@ -23,10 +23,10 @@ maxlength | Number | - | 用户最多可以输入的字符个数 | N
 name | String | - | 名称，HTML 元素原生属性 | N
 placeholder | String | undefined | 占位符 | N
 readonly | Boolean | false | 只读状态 | N
-status | String | - | 文本框状态。可选项：success/warning/error | N
+status | String | - | 文本框状态。可选项：default/success/warning/error | N
 tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-value | String / Number | - | 文本框值。TS 类型：`TextareaValue` `type TextareaValue = string | number`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/textarea/type.ts) | N
-defaultValue | String / Number | - | 文本框值。非受控属性。TS 类型：`TextareaValue` `type TextareaValue = string | number`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/textarea/type.ts) | N
+value | String / Number | - | 文本框值。TS 类型：`TextareaValue` `type TextareaValue = string`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/textarea/type.ts) | N
+defaultValue | String / Number | - | 文本框值。非受控属性。TS 类型：`TextareaValue` `type TextareaValue = string`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/textarea/type.ts) | N
 onBlur | Function |  | TS 类型：`(value: TextareaValue, context: { e: FocusEvent }) => void`<br/>失去焦点时触发 | N
 onChange | Function |  | TS 类型：`(value: TextareaValue, context?: { e?: InputEvent }) => void`<br/>输入内容变化时触发 | N
 onFocus | Function |  | TS 类型：`(value: TextareaValue, context : { e: FocusEvent }) => void`<br/>获得焦点时触发 | N
