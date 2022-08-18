@@ -9,7 +9,13 @@ import { getCharacterLength } from '../_util/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 import { textareaDefaultProps } from './defaultProps';
 
-export interface TextareaProps extends TdTextareaProps, StyledProps {}
+export interface TextareaProps
+  extends Omit<
+      React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+      'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus'
+    >,
+    TdTextareaProps,
+    StyledProps {}
 export interface TextareaRefInterface extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
