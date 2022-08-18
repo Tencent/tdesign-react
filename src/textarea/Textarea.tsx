@@ -84,6 +84,11 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     }
   }, [autosize]);
 
+  useEffect(() => {
+    adjustTextareaHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textareaRef?.current]);
+
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
