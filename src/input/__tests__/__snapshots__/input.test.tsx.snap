@@ -57,7 +57,6 @@ exports[`Input 组件测试 maxLength 1`] = `
     >
       <input
         class="t-input__inner"
-        maxlength="3"
         placeholder="请输入内容"
         type="text"
         value=""
@@ -588,7 +587,6 @@ exports[`max-length-count.jsx 1`] = `
     >
       <input
         class="t-input__inner"
-        maxlength="5"
         placeholder="请输入"
         type="text"
         value=""
