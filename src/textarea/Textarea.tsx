@@ -5,7 +5,7 @@ import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
-import { getCharacterLength } from '../_util/helper';
+import { getCharacterLength } from '../_common/js/utils/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 import { textareaDefaultProps } from './defaultProps';
 
@@ -44,6 +44,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
   const [isFocused, setIsFocused] = useState(false);
   const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState({});
+  const composingRef = useRef(false);
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
   const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
@@ -89,19 +90,44 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     }
   }, [autosize]);
 
+  useEffect(() => {
+    adjustTextareaHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textareaRef?.current]);
+
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
-    if (!allowInputOverMax && maxcharacter && maxcharacter >= 0) {
-      const stringInfo = getCharacterLength(val, maxcharacter);
-      val = typeof stringInfo === 'object' && stringInfo.characters;
+    if (!allowInputOverMax && !composingRef.current) {
+      if (maxlength && String(val).length >= maxlength) {
+        val = val.slice(0, maxlength);
+      }
+      if (maxcharacter && maxcharacter >= 0) {
+        const stringInfo = getCharacterLength(val, maxcharacter);
+        val = typeof stringInfo === 'object' && stringInfo.characters;
+      }
     }
     setValue(val, { e });
   }
 
+  function handleCompositionStart() {
+    composingRef.current = true;
+  }
+
+  function handleCompositionEnd(e) {
+    if (composingRef.current) {
+      composingRef.current = false;
+      inputValueChangeHandle(e);
+    }
+  }
+
   const renderLimitText = (current: number, max: number) => (
     <span className={`${classPrefix}-textarea__limit`}>
-      {isOvermax ? <span className={`${classPrefix}-textarea__tips--warning`}> {current}</span> : `${current}`}
+      {isOvermax && allowInputOverMax ? (
+        <span className={`${classPrefix}-textarea__tips--warning`}> {current}</span>
+      ) : (
+        `${current}`
+      )}
       {`/${max}`}
     </span>
   );
@@ -121,8 +147,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     if (allowInputOverMax) {
       setIsOvermax(!!(maxlength && currentLength > maxlength) || !!(maxcharacter && characterLength > maxcharacter));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characterLength]);
+  }, [allowInputOverMax, characterLength, currentLength, maxcharacter, maxlength]);
 
   useImperativeHandle(ref as TextareaRefInterface, () => ({
     currentElement: wrapperRef.current,
@@ -140,11 +165,12 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         readOnly={readonly}
         autoFocus={autofocus}
         disabled={disabled}
-        maxLength={allowInputOverMax ? Infinity : maxlength}
         onChange={inputValueChangeHandle}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
       {hasMaxcharacter && renderLimitText(characterLength, maxcharacter)}
