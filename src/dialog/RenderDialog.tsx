@@ -9,10 +9,6 @@ import useDialogEsc from '../_util/useDialogEsc';
 import { dialogDefaultProps } from './defaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
-enum KeyCode {
-  ESC = 27,
-}
-
 function GetCSSValue(v: string | number) {
   return Number.isNaN(Number(v)) ? v : `${Number(v)}px`;
 }
@@ -49,9 +45,11 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     onClose = noop,
     onCloseBtnClick = noop,
     onOverlayClick = noop,
+    onConfirm = noop,
     preventScrollThrough,
     closeBtn,
     closeOnEscKeydown,
+    confirmOnEnter,
     closeOnOverlayClick,
     destroyOnClose,
     showInAttachedElement,
@@ -168,11 +166,17 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-    if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
+    if (e.code === 'Escape') {
       e.stopPropagation();
       onEscKeydown({ e });
       if (closeOnEscKeydown ?? local.closeOnEscKeydown) {
         onClose({ e, trigger: 'esc' });
+      }
+    } else if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+      // 回车键触发点击确认事件
+      e.stopPropagation();
+      if (confirmOnEnter) {
+        onConfirm({ e });
       }
     }
   };
