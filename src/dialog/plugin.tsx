@@ -7,8 +7,8 @@ import { DialogOptions, DialogMethod, DialogConfirmMethod, DialogAlertMethod, Di
 import log from '../_common/js/log';
 
 export interface DialogPluginType extends DialogMethod {
-  alert?: DialogAlertMethod;
-  confirm?: DialogConfirmMethod;
+  alert: DialogAlertMethod;
+  confirm: DialogConfirmMethod;
 }
 
 const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance => {
