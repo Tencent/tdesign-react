@@ -1,5 +1,479 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Radio name 1`] = `
+<DocumentFragment>
+  <label
+    class="t-radio"
+  >
+    <input
+      class="t-radio__former"
+      name="Radio-name"
+      type="radio"
+      value="0"
+    />
+    <span
+      class="t-radio__input"
+    />
+  </label>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup disabled 1`] = `
+<DocumentFragment>
+  <div
+    class="t-radio-group t-size-m t-radio-group__outline"
+  >
+    <label
+      class="t-radio t-is-disabled"
+    >
+      <input
+        class="t-radio__former"
+        disabled=""
+        type="radio"
+        value="北京"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        北京
+      </span>
+    </label>
+    <label
+      class="t-radio t-is-disabled"
+    >
+      <input
+        class="t-radio__former"
+        disabled=""
+        type="radio"
+        value="广州"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        广州
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup name 1`] = `
+<DocumentFragment>
+  <div
+    class="t-radio-group t-size-m t-radio-group__outline"
+  >
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="gz"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        广州
+      </span>
+    </label>
+    <label
+      class="t-radio t-is-disabled"
+    >
+      <input
+        class="t-radio__former"
+        disabled=""
+        type="radio"
+        value="sz"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        深圳
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup option is number 1`] = `
+<DocumentFragment>
+  <div
+    class="t-radio-group t-size-m t-radio-group__outline"
+  >
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="1"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        1
+      </span>
+    </label>
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="2"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        2
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup option is string 1`] = `
+<DocumentFragment>
+  <div
+    class="t-radio-group t-size-m t-radio-group__outline"
+  >
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="北京"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        北京
+      </span>
+    </label>
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="广州"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        广州
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup options 1`] = `
+<DocumentFragment>
+  <div
+    class="t-radio-group t-size-m t-radio-group__outline"
+  >
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="上海"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        上海
+      </span>
+    </label>
+    <label
+      class="t-radio t-is-disabled"
+    >
+      <input
+        class="t-radio__former"
+        disabled=""
+        type="radio"
+        value="广州"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        广州
+      </span>
+    </label>
+    <label
+      class="t-radio t-is-checked"
+    >
+      <input
+        checked=""
+        class="t-radio__former"
+        type="radio"
+        value="北京"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        北京
+      </span>
+    </label>
+    <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        type="radio"
+        value="1"
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        1
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup size 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-radio-group t-size-s t-radio-group__outline"
+    >
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          type="radio"
+          value="gz"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          广州
+        </span>
+      </label>
+    </div>
+    <div
+      class="t-radio-group t-size-m t-radio-group__outline"
+    >
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          type="radio"
+          value="gz1"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          广州
+        </span>
+      </label>
+    </div>
+    <div
+      class="t-radio-group t-size-l t-radio-group__outline"
+    >
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          type="radio"
+          value="gz2"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          广州
+        </span>
+      </label>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RadioGroup variant 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-radio-group t-size-m t-radio-group__outline"
+    >
+      <label
+        class="t-radio t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-radio__former"
+          type="radio"
+          value="gz"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          广州
+        </span>
+      </label>
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          type="radio"
+          value="sz"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          深圳
+        </span>
+      </label>
+    </div>
+    <div
+      class="t-radio-group t-size-m t-radio-group--filled t-radio-group--primary-filled"
+    >
+      <label
+        class="t-radio t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-radio__former"
+          type="radio"
+          value="gz1"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          广州
+        </span>
+      </label>
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          type="radio"
+          value="sz1"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          深圳
+        </span>
+      </label>
+      <div
+        class="t-radio-group__bg-block"
+        style="width: 0px;"
+      />
+    </div>
+    <div
+      class="t-radio-group t-size-m t-radio-group--filled"
+    >
+      <label
+        class="t-radio t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-radio__former"
+          type="radio"
+          value="gz2"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          广州
+        </span>
+      </label>
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          type="radio"
+          value="sz2"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          深圳
+        </span>
+      </label>
+      <div
+        class="t-radio-group__bg-block"
+        style="width: 0px;"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
