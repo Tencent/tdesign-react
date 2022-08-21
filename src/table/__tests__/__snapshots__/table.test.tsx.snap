@@ -4665,110 +4665,22 @@ exports[`editable-cell.jsx 1`] = `
             <td
               class=""
             >
-              <div
-                class="t-table__cell--editable"
-              >
-                Eric
-                <svg
-                  class="t-icon t-icon-edit-1"
-                  fill="none"
-                  height="1em"
-                  style="font-size: 12px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                    opacity="0.9"
-                  >
-                    <path
-                      d="M14.13 4.95L10.9 1.71l.7-.71 3.25 3.24-.7.71zM5.97 13.11l-3.61.72a.3.3 0 01-.35-.35l.72-3.61 7.3-7.3 3.24 3.24-7.3 7.3zm5.89-7.3l-1.83-1.83-6.38 6.38-.46 2.29 2.29-.46 6.38-6.38zM15 11h-4v1h4v-1zM15 13H8.5v1H15v-1z"
-                    />
-                  </g>
-                </svg>
-              </div>
+              Eric
             </td>
             <td
               class=""
             >
-              <div
-                class="t-table__cell--editable"
-              >
-                Vue
-                <svg
-                  class="t-icon t-icon-edit-1"
-                  fill="none"
-                  height="1em"
-                  style="font-size: 12px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                    opacity="0.9"
-                  >
-                    <path
-                      d="M14.13 4.95L10.9 1.71l.7-.71 3.25 3.24-.7.71zM5.97 13.11l-3.61.72a.3.3 0 01-.35-.35l.72-3.61 7.3-7.3 3.24 3.24-7.3 7.3zm5.89-7.3l-1.83-1.83-6.38 6.38-.46 2.29 2.29-.46 6.38-6.38zM15 11h-4v1h4v-1zM15 13H8.5v1H15v-1z"
-                    />
-                  </g>
-                </svg>
-              </div>
+              Vue Framework
             </td>
             <td
               class=""
             >
-              <div
-                class="t-table__cell--editable"
-              >
-                A
-                <svg
-                  class="t-icon t-icon-edit-1"
-                  fill="none"
-                  height="1em"
-                  style="font-size: 12px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                    opacity="0.9"
-                  >
-                    <path
-                      d="M14.13 4.95L10.9 1.71l.7-.71 3.25 3.24-.7.71zM5.97 13.11l-3.61.72a.3.3 0 01-.35-.35l.72-3.61 7.3-7.3 3.24 3.24-7.3 7.3zm5.89-7.3l-1.83-1.83-6.38 6.38-.46 2.29 2.29-.46 6.38-6.38zM15 11h-4v1h4v-1zM15 13H8.5v1H15v-1z"
-                    />
-                  </g>
-                </svg>
-              </div>
+              A
             </td>
             <td
               class=""
             >
-              <div
-                class="t-table__cell--editable"
-              >
-                2021-11-01
-                <svg
-                  class="t-icon t-icon-edit-1"
-                  fill="none"
-                  height="1em"
-                  style="font-size: 12px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                    opacity="0.9"
-                  >
-                    <path
-                      d="M14.13 4.95L10.9 1.71l.7-.71 3.25 3.24-.7.71zM5.97 13.11l-3.61.72a.3.3 0 01-.35-.35l.72-3.61 7.3-7.3 3.24 3.24-7.3 7.3zm5.89-7.3l-1.83-1.83-6.38 6.38-.46 2.29 2.29-.46 6.38-6.38zM15 11h-4v1h4v-1zM15 13H8.5v1H15v-1z"
-                    />
-                  </g>
-                </svg>
-              </div>
+              2021-11-01
             </td>
           </tr>
           <tr
@@ -4807,7 +4719,7 @@ exports[`editable-cell.jsx 1`] = `
               <div
                 class="t-table__cell--editable"
               >
-                React
+                React Framework
                 <svg
                   class="t-icon t-icon-edit-1"
                   fill="none"
@@ -4919,7 +4831,7 @@ exports[`editable-cell.jsx 1`] = `
               <div
                 class="t-table__cell--editable"
               >
-                Miniprogram
+                Miniprogram Framework
                 <svg
                   class="t-icon t-icon-edit-1"
                   fill="none"
@@ -5031,7 +4943,7 @@ exports[`editable-cell.jsx 1`] = `
               <div
                 class="t-table__cell--editable"
               >
-                Flutter
+                Flutter Framework
                 <svg
                   class="t-icon t-icon-edit-1"
                   fill="none"
@@ -5143,7 +5055,7 @@ exports[`editable-cell.jsx 1`] = `
               <div
                 class="t-table__cell--editable"
               >
-                Vue
+                Vue Framework
                 <svg
                   class="t-icon t-icon-edit-1"
                   fill="none"
@@ -20878,7 +20790,7 @@ exports[`pagination.jsx 1`] = `
 exports[`pagination-ajax.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-table t-table--loading"
+    class="t-table"
     style="position: relative;"
   >
     <div
@@ -20888,6 +20800,9 @@ exports[`pagination-ajax.jsx 1`] = `
         class="t-table--layout-fixed"
       >
         <colgroup>
+          <col
+            style="width: 64px;"
+          />
           <col
             style="width: 200px;"
           />
@@ -20905,6 +20820,28 @@ exports[`pagination-ajax.jsx 1`] = `
           class="t-table__header"
         >
           <tr>
+            <th
+              class="t-table__cell-check t-table__th-row-select"
+              data-colkey="row-select"
+            >
+              <div
+                class="t-table__th-cell-inner"
+              >
+                <label
+                  class="t-checkbox t-is-disabled"
+                >
+                  <input
+                    class="t-checkbox__former"
+                    disabled=""
+                    type="checkbox"
+                    value=""
+                  />
+                  <span
+                    class="t-checkbox__input"
+                  />
+                </label>
+              </div>
+            </th>
             <th
               class="t-table__th-name"
               data-colkey="name"
@@ -20951,7 +20888,21 @@ exports[`pagination-ajax.jsx 1`] = `
         </thead>
         <tbody
           class="t-table__body"
-        />
+        >
+          <tr
+            class="t-table__empty-row"
+          >
+            <td
+              colspan="5"
+            >
+              <div
+                class="t-table__empty"
+              >
+                暂无数据
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div
@@ -20967,7 +20918,7 @@ exports[`pagination-ajax.jsx 1`] = `
           <div
             class="t-pagination__total"
           >
-            共 0 项数据
+            共 120 项数据
           </div>
           <div
             class="t-pagination__select"
@@ -21049,9 +21000,51 @@ exports[`pagination-ajax.jsx 1`] = `
             >
               1
             </li>
+            <li
+              class="t-pagination__number"
+            >
+              2
+            </li>
+            <li
+              class="t-pagination__number"
+            >
+              3
+            </li>
+            <li
+              class="t-pagination__number"
+            >
+              4
+            </li>
+            <li
+              class="t-pagination__number"
+            >
+              5
+            </li>
+            <li
+              class="t-pagination__number t-pagination__number--more"
+            >
+              <svg
+                class="t-icon t-icon-ellipsis"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </li>
+            <li
+              class="t-pagination__number"
+            >
+              24
+            </li>
           </ul>
           <div
-            class="t-pagination__btn t-pagination__btn-next t-is-disabled"
+            class="t-pagination__btn t-pagination__btn-next"
           >
             <svg
               class="t-icon t-icon-chevron-right"
@@ -21097,7 +21090,7 @@ exports[`pagination-ajax.jsx 1`] = `
               <span
                 class="t-input-adornment__append"
               >
-                / 1 页
+                / 24 页
               </span>
             </div>
           </div>
@@ -21110,34 +21103,7 @@ exports[`pagination-ajax.jsx 1`] = `
     />
     <div
       class="t-portal-wrapper"
-    >
-      <div
-        class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
-      >
-        <svg
-          class="t-loading__gradient t-icon-loading"
-          height="1em"
-          version="1.1"
-          viewBox="0 0 14 14"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <foreignobject
-            height="12"
-            width="12"
-            x="1"
-            y="1"
-          >
-            <div
-              class="t-loading__gradient-conic"
-            />
-          </foreignobject>
-        </svg>
-        <div
-          class="t-loading__text"
-        />
-      </div>
-    </div>
+    />
   </div>
 </DocumentFragment>
 `;
@@ -21159,7 +21125,7 @@ exports[`select-multiple.jsx 1`] = `
             style="width: 50px;"
           />
           <col
-            style="width: 150px;"
+            style="width: 120px;"
           />
           <col
             style="width: 100px;"
@@ -21167,7 +21133,7 @@ exports[`select-multiple.jsx 1`] = `
           <col />
           <col />
           <col
-            style="width: 200px;"
+            style="width: 150px;"
           />
         </colgroup>
         <thead
@@ -21557,7 +21523,7 @@ exports[`select-single.jsx 1`] = `
             style="width: 50px;"
           />
           <col
-            style="width: 150px;"
+            style="width: 120px;"
           />
           <col
             style="width: 100px;"
@@ -21565,7 +21531,7 @@ exports[`select-single.jsx 1`] = `
           <col />
           <col />
           <col
-            style="width: 200px;"
+            style="width: 150px;"
           />
         </colgroup>
         <thead
