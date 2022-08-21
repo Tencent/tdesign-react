@@ -47,11 +47,11 @@ export default function TableDragSort() {
   const [data, setData] = useState([...initData]);
   const [loading, setLoading] = useState(false);
 
-  // currentData is going to be deprecated.
-  function onDragSort({ currentIndex, targetIndex, current, target, data, newData, e }) {
-    console.log('交换行', currentIndex, targetIndex, current, target, data, newData, e);
+  // { currentIndex, targetIndex, current, target, data, newData, e }
+  function onDragSort(params) {
+    console.log('交换行', params);
     // 数据受控实现
-    setData(newData);
+    setData(params.newData);
   }
 
   return (
