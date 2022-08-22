@@ -147,9 +147,11 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       })}
     >
       {panelTopContent}
-      {isEmpty && <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>}
-      {!isEmpty && loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
-      {!isEmpty && !loading && renderOptions()}
+      {loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
+      {!loading && isEmpty && (
+        <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>
+      )}
+      {!loading && !isEmpty && renderOptions()}
       {panelBottomContent}
     </div>
   );
