@@ -32,7 +32,7 @@ describe('Steps 组件测试', () => {
         <StepItem status="finish" title="1" content="这里是提示文字"></StepItem>
         <StepItem status="process" title="2" content="这里是提示文字"></StepItem>
         <StepItem status="error" title="3" content="这里是提示文字"></StepItem>
-        <StepItem status="wait" title="4" content="这里是提示文字"></StepItem>
+        <StepItem title="4" content="这里是提示文字"></StepItem>
       </Steps>,
     );
 
