@@ -214,6 +214,8 @@ const Input = forwardRefWithStatics(
           const stringInfo = getCharacterLength(value, maxcharacter);
           value = typeof stringInfo === 'object' && stringInfo.characters;
         }
+        // 完成中文输入时同步一次 composingValue
+        setComposingValue(value);
         onChange(value, { e });
       }
     }
