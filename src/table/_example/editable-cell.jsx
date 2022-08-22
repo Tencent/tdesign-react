@@ -1,6 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { Table, Input, Select, DatePicker, MessagePlugin } from 'tdesign-react';
 
+const FRAMEWORK_OPTIONS = [
+  { label: 'Vue Framework', value: 'Vue' },
+  { label: 'React Framework', value: 'React' },
+  { label: 'Miniprogram Framework', value: 'Miniprogram' },
+  { label: 'Flutter Framework', value: 'Flutter' },
+];
+
 export default function EditableCellTable() {
   const initData = new Array(5).fill(null).map((_, i) => ({
     key: String(i + 1),
@@ -19,6 +26,11 @@ export default function EditableCellTable() {
 
   const [data, setData] = useState([...initData]);
   const [relationSelect, setRelationSelect] = useState({});
+
+  const editableCellState = (cellParams) => {
+    // 第一行不允许编辑
+    return cellParams.rowIndex === 0;
+  };
 
   const columns = useMemo(
     () => [
@@ -51,21 +63,19 @@ export default function EditableCellTable() {
             { max: 10, message: '字符数量不能超过 10', type: 'warning' },
           ],
         },
+        // 默认是否为编辑状态
+        defaultEditable: true,
       },
       {
         title: 'Framework',
         colKey: 'framework',
+        cell: ({ row }) => FRAMEWORK_OPTIONS.find((t) => t.value === row.framework)?.label,
         edit: {
           component: Select,
           // props, 透传全部属性到 Select 组件
           props: {
             clearable: true,
-            options: [
-              { label: 'Vue', value: 'Vue' },
-              { label: 'React', value: 'React' },
-              { label: 'Miniprogram', value: 'Miniprogram' },
-              { label: 'Flutter', value: 'Flutter' },
-            ],
+            options: FRAMEWORK_OPTIONS,
           },
           // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
           abortEditOnEvent: ['onChange'],
@@ -139,5 +149,5 @@ export default function EditableCellTable() {
   );
 
   // 当前示例包含：输入框、单选、多选、日期 等场景
-  return <Table rowKey="key" columns={columns} data={data} bordered />;
+  return <Table rowKey="key" columns={columns} data={data} editableCellState={editableCellState} bordered />;
 }
