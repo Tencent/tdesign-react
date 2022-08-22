@@ -719,43 +719,47 @@ exports[`layout.tsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-radio-group t-size-m t-radio-group__outline"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
-              class="t-radio t-is-checked"
+              class="t-radio-button t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="same"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 同侧
               </span>
             </label>
             <label
-              class="t-radio"
+              class="t-radio-button"
             >
               <input
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="alternate"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 交错
               </span>
             </label>
+            <div
+              class="t-radio-group__bg-block"
+              style="width: 0px; left: 0px;"
+            />
           </div>
         </div>
       </div>

@@ -25,9 +25,9 @@ export default function LayoutTimeLine() {
       </Space>
       <Space>
         <h4>label对齐方式</h4>
-        <Radio.Group value={mode} onChange={(v) => setMode(v as any)}>
-          <Radio value="same">同侧</Radio>
-          <Radio value="alternate">交错</Radio>
+        <Radio.Group variant="default-filled" value={mode} onChange={(v) => setMode(v as any)}>
+          <Radio.Button value="same">同侧</Radio.Button>
+          <Radio.Button value="alternate">交错</Radio.Button>
         </Radio.Group>
       </Space>
       <Timeline layout={layout} labelAlign={direction} mode={mode}>
