@@ -9,7 +9,7 @@ import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { getCharacterLength } from '../_common/js/utils/helper';
+import { getCharacterLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
 import { TdInputProps } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
@@ -154,7 +154,6 @@ const Input = forwardRefWithStatics(
         disabled={disabled}
         autoComplete={autocomplete ?? (local.autocomplete || undefined)}
         autoFocus={autofocus}
-        maxLength={maxlength}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
@@ -210,10 +209,13 @@ const Input = forwardRefWithStatics(
       if (composingRef.current) {
         setComposingValue(value);
       } else {
+        value = limitUnicodeMaxLength(value, maxlength);
         if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
           const stringInfo = getCharacterLength(value, maxcharacter);
           value = typeof stringInfo === 'object' && stringInfo.characters;
         }
+        // 完成中文输入时同步一次 composingValue
+        setComposingValue(value);
         onChange(value, { e });
       }
     }

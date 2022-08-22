@@ -5,7 +5,7 @@ import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
-import { getCharacterLength } from '../_common/js/utils/helper';
+import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 import { textareaDefaultProps } from './defaultProps';
 
@@ -48,7 +48,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
   const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
-  const currentLength = useMemo(() => (value ? String(value).length : 0), [value]);
+  const currentLength = useMemo(() => getUnicodeLength(value), [value]);
   const characterLength = useMemo(() => {
     const characterInfo = getCharacterLength(String(value), allowInputOverMax ? Infinity : maxcharacter);
     if (typeof characterInfo === 'object') return characterInfo.length;
@@ -99,9 +99,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     const { target } = e;
     let val = (target as HTMLInputElement).value;
     if (!allowInputOverMax && !composingRef.current) {
-      if (maxlength && String(val).length >= maxlength) {
-        val = val.slice(0, maxlength);
-      }
+      val = limitUnicodeMaxLength(val, maxlength);
       if (maxcharacter && maxcharacter >= 0) {
         const stringInfo = getCharacterLength(val, maxcharacter);
         val = typeof stringInfo === 'object' && stringInfo.characters;
