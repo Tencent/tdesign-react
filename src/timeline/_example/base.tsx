@@ -9,8 +9,8 @@ export default function BasicTimeLine() {
       <Space>
         <h4>时间轴方向</h4>
         <Radio.Group value={direction} onChange={(v) => setDirection(v as any)}>
-          <Radio.Button value="vertical">垂直时间轴</Radio.Button>
-          <Radio.Button value="horizontal">水平时间轴</Radio.Button>
+          <Radio value="vertical">垂直时间轴</Radio>
+          <Radio value="horizontal">水平时间轴</Radio>
         </Radio.Group>
       </Space>
       <Timeline layout={direction} mode="same">

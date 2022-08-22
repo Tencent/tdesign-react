@@ -31,7 +31,7 @@ const Timeline = forwardRefWithStatics(
       (child: JSX.Element) => child.type.displayName === TimelineItem.displayName,
     );
     // 获取所有子节点类型
-    const itemsStatus = React.Children.map(timelineItems, (child: JSX.Element) => child.props.dotColor || 'default');
+    const itemsStatus = React.Children.map(timelineItems, (child: JSX.Element) => child.props?.dotColor || 'primary');
     const hasLabelItem = timelineItems.some((item: React.ReactElement<any>) => !!item?.props?.label);
 
     if (reverse) {

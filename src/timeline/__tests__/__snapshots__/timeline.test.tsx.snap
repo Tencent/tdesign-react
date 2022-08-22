@@ -27,36 +27,36 @@ exports[`base.tsx 1`] = `
             class="t-radio-group t-size-m t-radio-group__outline"
           >
             <label
-              class="t-radio-button t-is-checked"
+              class="t-radio t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="vertical"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 垂直时间轴
               </span>
             </label>
             <label
-              class="t-radio-button"
+              class="t-radio"
             >
               <input
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="horizontal"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 水平时间轴
               </span>
@@ -78,7 +78,7 @@ exports[`base.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -102,7 +102,7 @@ exports[`base.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -126,7 +126,7 @@ exports[`base.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -150,7 +150,7 @@ exports[`base.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -185,7 +185,7 @@ exports[`customContent.tsx 1`] = `
         class="t-timeline-item__wrapper"
       >
         <div
-          class="t-timeline-item__dot t-timeline-item__dot--default"
+          class="t-timeline-item__dot t-timeline-item__dot--primary"
         />
         <div
           class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -216,7 +216,7 @@ exports[`customContent.tsx 1`] = `
         class="t-timeline-item__wrapper"
       >
         <div
-          class="t-timeline-item__dot t-timeline-item__dot--default"
+          class="t-timeline-item__dot t-timeline-item__dot--primary"
         />
         <div
           class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -247,7 +247,7 @@ exports[`customContent.tsx 1`] = `
         class="t-timeline-item__wrapper"
       >
         <div
-          class="t-timeline-item__dot t-timeline-item__dot--default"
+          class="t-timeline-item__dot t-timeline-item__dot--primary"
         />
         <div
           class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -278,7 +278,7 @@ exports[`customContent.tsx 1`] = `
         class="t-timeline-item__wrapper"
       >
         <div
-          class="t-timeline-item__dot t-timeline-item__dot--default"
+          class="t-timeline-item__dot t-timeline-item__dot--primary"
         />
         <div
           class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -333,36 +333,36 @@ exports[`customDot.tsx 1`] = `
             class="t-radio-group t-size-m t-radio-group__outline"
           >
             <label
-              class="t-radio-button t-is-checked"
+              class="t-radio t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="default"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 默认样式
               </span>
             </label>
             <label
-              class="t-radio-button"
+              class="t-radio"
             >
               <input
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="dot"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 Dot样式
               </span>
@@ -384,11 +384,11 @@ exports[`customDot.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--primary"
             >
               <svg
                 class="t-icon t-icon-tips t-timeline-item__dot-content t-size-m"
-                color="#0052D9"
+                color="var(--td-brand-color)"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -423,11 +423,11 @@ exports[`customDot.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--primary"
             >
               <svg
                 class="t-icon t-icon-user t-timeline-item__dot-content t-size-m"
-                color="#0052D9"
+                color="var(--td-brand-color)"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -462,11 +462,11 @@ exports[`customDot.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--primary"
             >
               <svg
                 class="t-icon t-icon-heart t-timeline-item__dot-content t-size-m"
-                color="#0052D9"
+                color="var(--td-brand-color)"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -501,11 +501,11 @@ exports[`customDot.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--custom t-timeline-item__dot--primary"
             >
               <svg
                 class="t-icon t-icon-home t-timeline-item__dot-content t-size-m"
-                color="#0052D9"
+                color="var(--td-brand-color)"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -571,36 +571,36 @@ exports[`layout.tsx 1`] = `
             class="t-radio-group t-size-m t-radio-group__outline"
           >
             <label
-              class="t-radio-button t-is-checked"
+              class="t-radio t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="vertical"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 垂直时间轴
               </span>
             </label>
             <label
-              class="t-radio-button"
+              class="t-radio"
             >
               <input
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="horizontal"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 水平时间轴
               </span>
@@ -630,53 +630,53 @@ exports[`layout.tsx 1`] = `
             class="t-radio-group t-size-m t-radio-group__outline"
           >
             <label
-              class="t-radio-button t-is-checked"
+              class="t-radio t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="left"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 左对齐
               </span>
             </label>
             <label
-              class="t-radio-button"
+              class="t-radio"
             >
               <input
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="alternate"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 交错对齐
               </span>
             </label>
             <label
-              class="t-radio-button"
+              class="t-radio"
             >
               <input
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="right"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 右对齐
               </span>
@@ -706,36 +706,36 @@ exports[`layout.tsx 1`] = `
             class="t-radio-group t-size-m t-radio-group__outline"
           >
             <label
-              class="t-radio-button t-is-checked"
+              class="t-radio t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="same"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 同侧
               </span>
             </label>
             <label
-              class="t-radio-button"
+              class="t-radio"
             >
               <input
-                class="t-radio-button__former"
+                class="t-radio__former"
                 type="radio"
                 value="alternate"
               />
               <span
-                class="t-radio-button__input"
+                class="t-radio__input"
               />
               <span
-                class="t-radio-button__label"
+                class="t-radio__label"
               >
                 交错
               </span>
@@ -757,7 +757,7 @@ exports[`layout.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -781,7 +781,7 @@ exports[`layout.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -805,7 +805,7 @@ exports[`layout.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -829,7 +829,7 @@ exports[`layout.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -903,7 +903,7 @@ exports[`loading.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -927,7 +927,7 @@ exports[`loading.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -951,7 +951,7 @@ exports[`loading.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -975,7 +975,7 @@ exports[`loading.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -1049,7 +1049,7 @@ exports[`reverse.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -1073,7 +1073,7 @@ exports[`reverse.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -1097,7 +1097,7 @@ exports[`reverse.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -1121,7 +1121,7 @@ exports[`reverse.tsx 1`] = `
             class="t-timeline-item__wrapper"
           >
             <div
-              class="t-timeline-item__dot t-timeline-item__dot--default"
+              class="t-timeline-item__dot t-timeline-item__dot--primary"
             />
             <div
               class="t-timeline-item__tail t-timeline-item__tail--theme-default"
@@ -1252,7 +1252,7 @@ exports[`theme.tsx 1`] = `
         class="t-timeline-item__wrapper"
       >
         <div
-          class="t-timeline-item__dot t-timeline-item__dot--default"
+          class="t-timeline-item__dot t-timeline-item__dot--primary"
         />
         <div
           class="t-timeline-item__tail t-timeline-item__tail--theme-default"

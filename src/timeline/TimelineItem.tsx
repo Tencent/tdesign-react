@@ -20,7 +20,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
     className,
     style = {},
     dot,
-    dotColor = 'default',
+    dotColor = 'primary',
     labelAlign,
     children,
     index,

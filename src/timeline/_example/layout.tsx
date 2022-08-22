@@ -11,23 +11,23 @@ export default function LayoutTimeLine() {
       <Space>
         <h4>时间轴方向</h4>
         <Radio.Group value={layout} onChange={(v) => setLayout(v as any)}>
-          <Radio.Button value="vertical">垂直时间轴</Radio.Button>
-          <Radio.Button value="horizontal">水平时间轴</Radio.Button>
+          <Radio value="vertical">垂直时间轴</Radio>
+          <Radio value="horizontal">水平时间轴</Radio>
         </Radio.Group>
       </Space>
       <Space>
         <h4>对齐方式</h4>
         <Radio.Group value={direction} onChange={(v) => setDirection(v as any)}>
-          <Radio.Button value="left">左对齐</Radio.Button>
-          <Radio.Button value="alternate">交错对齐</Radio.Button>
-          <Radio.Button value="right">右对齐</Radio.Button>
+          <Radio value="left">左对齐</Radio>
+          <Radio value="alternate">交错对齐</Radio>
+          <Radio value="right">右对齐</Radio>
         </Radio.Group>
       </Space>
       <Space>
         <h4>label对齐方式</h4>
         <Radio.Group value={mode} onChange={(v) => setMode(v as any)}>
-          <Radio.Button value="same">同侧</Radio.Button>
-          <Radio.Button value="alternate">交错</Radio.Button>
+          <Radio value="same">同侧</Radio>
+          <Radio value="alternate">交错</Radio>
         </Radio.Group>
       </Space>
       <Timeline layout={layout} labelAlign={direction} mode={mode}>
