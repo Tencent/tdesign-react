@@ -190,7 +190,7 @@
     "start-server-and-test": "^1.14.0",
     "tdesign-icons-view": "^0.1.5",
     "tdesign-publish-cli": "^0.0.10",
-    "tdesign-site-components": "^0.10.0",
+    "tdesign-site-components": "^0.10.11",
     "tdesign-theme-generator": "^0.3.1",
     "ts-jest": "^27.1.2",
     "ts-morph": "^13.0.02",
