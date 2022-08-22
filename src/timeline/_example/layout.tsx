@@ -10,24 +10,24 @@ export default function LayoutTimeLine() {
     <Space direction="vertical">
       <Space>
         <h4>时间轴方向</h4>
-        <Radio.Group value={layout} onChange={(v) => setLayout(v as any)}>
-          <Radio value="vertical">垂直时间轴</Radio>
-          <Radio value="horizontal">水平时间轴</Radio>
+        <Radio.Group variant="default-filled" value={layout} onChange={(v) => setLayout(v as any)}>
+          <Radio.Button value="vertical">垂直时间轴</Radio.Button>
+          <Radio.Button value="horizontal">水平时间轴</Radio.Button>
         </Radio.Group>
       </Space>
       <Space>
         <h4>对齐方式</h4>
-        <Radio.Group value={direction} onChange={(v) => setDirection(v as any)}>
-          <Radio value="left">左对齐</Radio>
-          <Radio value="alternate">交错对齐</Radio>
-          <Radio value="right">右对齐</Radio>
+        <Radio.Group variant="default-filled" value={direction} onChange={(v) => setDirection(v as any)}>
+          <Radio.Button value="left">左对齐</Radio.Button>
+          <Radio.Button value="alternate">交错对齐</Radio.Button>
+          <Radio.Button value="right">右对齐</Radio.Button>
         </Radio.Group>
       </Space>
       <Space>
         <h4>label对齐方式</h4>
-        <Radio.Group value={mode} onChange={(v) => setMode(v as any)}>
-          <Radio value="same">同侧</Radio>
-          <Radio value="alternate">交错</Radio>
+        <Radio.Group variant="default-filled" value={mode} onChange={(v) => setMode(v as any)}>
+          <Radio.Button value="same">同侧</Radio.Button>
+          <Radio.Button value="alternate">交错</Radio.Button>
         </Radio.Group>
       </Space>
       <Timeline layout={layout} labelAlign={direction} mode={mode}>

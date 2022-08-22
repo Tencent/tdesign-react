@@ -6,15 +6,16 @@ const DefaultAlign = {
   horizontal: ['top', 'bottom'],
 };
 
-export const useAlign = (align = 'left', layout = 'vertical') =>
+export const useAlign = (align, layout = 'vertical') =>
   useMemo(() => {
-    let renderAlign = 'left';
-    if (layout === 'vertical') {
+    let renderAlign = layout === 'vertical' ? 'left' : 'top';
+    if (layout === 'vertical' && align) {
       const index = DefaultAlign.horizontal.indexOf(align);
       const isError = index !== -1;
       isError && log.warn('Timeline', 'If layout is vertical, align should be "left","alternate" or "right" ');
       renderAlign = isError ? DefaultAlign.vertical[index] : align;
-    } else {
+    }
+    if (layout === 'horizontal' && align) {
       const index = DefaultAlign.vertical.indexOf(align);
       const isError = index !== -1;
       isError && log.warn('Timeline', 'If layout is horizontal, align should be "top","alternate" or "bottom" ');

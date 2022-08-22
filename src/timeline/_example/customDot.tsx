@@ -11,9 +11,9 @@ export default function CustomDotTimeLine() {
     <Space direction="vertical">
       <Space>
         <h4>时间轴样式</h4>
-        <Radio.Group value={dot} onChange={(v) => setDot(v as any)}>
-          <Radio value="default">默认样式</Radio>
-          <Radio value="dot">Dot样式</Radio>
+        <Radio.Group variant="default-filled" value={dot} onChange={(v) => setDot(v as any)}>
+          <Radio.Button value="default">默认样式</Radio.Button>
+          <Radio.Button value="dot">Dot样式</Radio.Button>
         </Radio.Group>
       </Space>
       <Timeline mode="same" theme={dot}>
