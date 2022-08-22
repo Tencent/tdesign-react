@@ -398,6 +398,12 @@ export default {
           component: () => import('tdesign-react/tag/tag.md'),
         },
         {
+          title: 'Timeline 时间轴',
+          name: 'timeline',
+          path: '/react/components/timeline',
+          component: () => import('tdesign-react/timeline/timeline.md'),
+        },
+        {
           title: 'Tooltip 文字提示',
           name: 'tooltip',
           path: '/react/components/tooltip',
