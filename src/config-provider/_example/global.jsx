@@ -26,15 +26,15 @@ export default function GlobalDemo() {
         </p>
 
         <p>
-          中文语言包引入路径：<code>import enConfig from 'tdesign-react/es/locale/zh_CN';</code>
+          中文语言包引入路径：<code>import cnConfig from 'tdesign-react/es/locale/zh_CN';</code>
         </p>
 
         <p>
-          日文语言包引入路径：<code>import enConfig from 'tdesign-react/es/locale/ja_JP';</code>
+          日文语言包引入路径：<code>import jpConfig from 'tdesign-react/es/locale/ja_JP';</code>
         </p>
 
         <p>
-          韩文语言包引入路径：<code>import enConfig from 'tdesign-react/es/locale/ko_KR';</code>
+          韩文语言包引入路径：<code>import krConfig from 'tdesign-react/es/locale/ko_KR';</code>
         </p>
       </Space>
     </ConfigProvider>

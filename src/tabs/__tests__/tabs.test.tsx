@@ -66,7 +66,7 @@ describe('Tabs 组件测试', () => {
               { label: 'A', value: 'a' },
               { label: 'B', value: 'b' },
             ]);
-          }, 10),
+          }, 1000),
         ),
     );
 
@@ -101,7 +101,7 @@ describe('Tabs 组件测试', () => {
     const getNavItems = () => tabInstance.querySelectorAll('.t-tabs__nav-item');
 
     expect(getNavItems().length).toBe(0);
-    await new Promise((resolve) => setTimeout(resolve, 20));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     expect(getNavItems().length).toBe(2);
     expect(() => tabInstance.querySelector('.t-tabs__bar')).not.toBe(null);
     const tabBar = tabInstance.querySelector('.t-tabs__bar');

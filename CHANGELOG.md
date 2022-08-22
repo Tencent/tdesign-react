@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.3 `2022-08-17` 
+### 🐞 Bug Fixes
+- `Message`:  修复 `message` 主题设置失效 @kenzyyang ([#1310](https://github.com/Tencent/tdesign-react/pull/1310))
+- `Tooltip`: 修复 `tooltip` 主题失效 @HQ-Lin ([#749](https://github.com/Tencent/tdesign-common/pull/749))
+
 ## 🌈 0.40.2 `2022-08-16` 
 ### 🐞 Bug Fixes
 - `DatePicker`: 

@@ -78,7 +78,6 @@ exports[`maxlength.jsx 1`] = `
       >
         <textarea
           class="t-textarea__inner"
-          maxlength="20"
           placeholder="请输入内容，超出限制无法输入"
           style="height: auto; min-height: auto;"
         />
@@ -97,7 +96,6 @@ exports[`maxlength.jsx 1`] = `
       >
         <textarea
           class="t-textarea__inner"
-          maxlength="Infinity"
           placeholder="请输入内容，超出限制可以输入"
           style="height: auto; min-height: auto;"
         />
@@ -134,7 +132,6 @@ exports[`maxlength.jsx 1`] = `
       >
         <textarea
           class="t-textarea__inner"
-          maxlength="Infinity"
           placeholder="请输入内容，一个中文汉字表示两个字符长度，超出限制可以输入"
           style="height: auto; min-height: auto;"
         />
