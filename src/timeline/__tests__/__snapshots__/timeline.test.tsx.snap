@@ -24,43 +24,47 @@ exports[`base.tsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-radio-group t-size-m t-radio-group__outline"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
-              class="t-radio t-is-checked"
+              class="t-radio-button t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="vertical"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 垂直时间轴
               </span>
             </label>
             <label
-              class="t-radio"
+              class="t-radio-button"
             >
               <input
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="horizontal"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 水平时间轴
               </span>
             </label>
+            <div
+              class="t-radio-group__bg-block"
+              style="width: 0px; left: 0px;"
+            />
           </div>
         </div>
       </div>
@@ -330,43 +334,47 @@ exports[`customDot.tsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-radio-group t-size-m t-radio-group__outline"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
-              class="t-radio t-is-checked"
+              class="t-radio-button t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="default"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 默认样式
               </span>
             </label>
             <label
-              class="t-radio"
+              class="t-radio-button"
             >
               <input
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="dot"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 Dot样式
               </span>
             </label>
+            <div
+              class="t-radio-group__bg-block"
+              style="width: 0px; left: 0px;"
+            />
           </div>
         </div>
       </div>
@@ -568,43 +576,47 @@ exports[`layout.tsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-radio-group t-size-m t-radio-group__outline"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
-              class="t-radio t-is-checked"
+              class="t-radio-button t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="vertical"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 垂直时间轴
               </span>
             </label>
             <label
-              class="t-radio"
+              class="t-radio-button"
             >
               <input
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="horizontal"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 水平时间轴
               </span>
             </label>
+            <div
+              class="t-radio-group__bg-block"
+              style="width: 0px; left: 0px;"
+            />
           </div>
         </div>
       </div>
@@ -627,60 +639,64 @@ exports[`layout.tsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-radio-group t-size-m t-radio-group__outline"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
-              class="t-radio t-is-checked"
+              class="t-radio-button t-is-checked"
             >
               <input
                 checked=""
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="left"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 左对齐
               </span>
             </label>
             <label
-              class="t-radio"
+              class="t-radio-button"
             >
               <input
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="alternate"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 交错对齐
               </span>
             </label>
             <label
-              class="t-radio"
+              class="t-radio-button"
             >
               <input
-                class="t-radio__former"
+                class="t-radio-button__former"
                 type="radio"
                 value="right"
               />
               <span
-                class="t-radio__input"
+                class="t-radio-button__input"
               />
               <span
-                class="t-radio__label"
+                class="t-radio-button__label"
               >
                 右对齐
               </span>
             </label>
+            <div
+              class="t-radio-group__bg-block"
+              style="width: 0px; left: 0px;"
+            />
           </div>
         </div>
       </div>

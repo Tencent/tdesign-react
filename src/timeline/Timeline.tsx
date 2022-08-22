@@ -16,7 +16,7 @@ const Timeline = forwardRefWithStatics(
   (props: TimelineProps, ref: React.Ref<HTMLUListElement>) => {
     const {
       theme = 'default',
-      labelAlign = 'left',
+      labelAlign,
       children,
       className,
       style,
