@@ -1,7 +1,7 @@
 import React from 'react';
 import { testExamples, render } from '@test/utils';
 import Divider from 'tdesign-react/divider/Divider';
-import Space, { AlignType } from '../index';
+import Space from '../index';
 import { SizeMap } from '../Space';
 
 // 测试组件代码 Example 快照
@@ -41,7 +41,7 @@ describe('Space 组件测试', () => {
   });
 
   test('align', async () => {
-    AlignType.forEach((align) => {
+    ['start', 'end', 'center', 'baseline'].forEach((align: 'start' | 'end' | 'center' | 'baseline') => {
       const { container } = render(
         <Space align={align}>
           <div></div>

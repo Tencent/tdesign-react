@@ -6,14 +6,11 @@
 
 import { TNode, SizeEnum } from '../common';
 
-// export for test
-export const AlignType = ['start', 'end', 'center', 'baseline'] as const;
-
 export interface TdSpaceProps {
   /**
    * 对齐方式
    */
-  align?: typeof AlignType[number];
+  align?: 'start' | 'end' | 'center' | 'baseline';
   /**
    * 是否自动换行，仅在 horizontal 时有效
    * @default false
