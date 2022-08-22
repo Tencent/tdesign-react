@@ -36,6 +36,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     showArrow,
     destroyOnClose,
     overlayClassName,
+    overlayInnerClassName,
     overlayStyle,
     overlayInnerStyle,
     triggerElement,
@@ -146,9 +147,13 @@ const Popup = forwardRef((props: PopupProps, ref) => {
           >
             <div
               ref={contentRef}
-              className={classNames(`${classPrefix}-popup__content`, {
-                [`${classPrefix}-popup__content--arrow`]: showArrow,
-              })}
+              className={classNames(
+                `${classPrefix}-popup__content`,
+                {
+                  [`${classPrefix}-popup__content--arrow`]: showArrow,
+                },
+                overlayInnerClassName,
+              )}
               style={getOverlayStyle(overlayInnerStyle)}
               onScroll={(e) => onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> })}
             >
