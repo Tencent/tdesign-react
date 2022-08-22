@@ -9,15 +9,6 @@ import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
 
-/**
- * TODO:
- * 1. 同时支持行拖拽和列拖拽，此时 dragSort 扩展为支持数组即可
- * 2. 多极表头场景下的列拖拽排序
- * 3. 优化列拖拽排序样式（优先级不高，可以慢慢来）
- * @param props
- * @param primaryTableRef
- * @returns
- */
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
   const { tableDraggableClasses, tableBaseClass, tableFullRowClasses } = useClassName();
@@ -27,9 +18,12 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   // 行拖拽判断条件
   const isRowDraggable = useMemo(() => sortOnRowDraggable || dragSort === 'row', [dragSort, sortOnRowDraggable]);
   // 行拖拽判断条件-手柄列
-  const isRowHandlerDraggable = useMemo(() => dragSort === 'row-handler' && !!dragCol, [dragSort, dragCol]);
+  const isRowHandlerDraggable = useMemo(
+    () => ['row-handler', 'row-handler-col'].includes(dragSort) && !!dragCol,
+    [dragSort, dragCol],
+  );
   // 列拖拽判断条件
-  const isColDraggable = useMemo(() => dragSort === 'col', [dragSort]);
+  const isColDraggable = useMemo(() => ['col', 'row-handler-col'].includes(dragSort), [dragSort]);
   // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
@@ -111,7 +105,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     lastRowList.current = dragInstanceTmp?.toArray();
   };
 
-  // TODO: 优化效果
+  // TODO: 待和 Vue 保持相同逻辑
   const registerColDragEvent = (tableElement: HTMLElement) => {
     if (!isColDraggable || !tableElement) return;
     // 拖拽实例

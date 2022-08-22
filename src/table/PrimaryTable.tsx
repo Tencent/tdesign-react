@@ -79,6 +79,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
     validateRowData,
     validateTableData,
     clearValidateData,
+    ...primaryTableRef.current,
   }));
 
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
@@ -121,6 +122,9 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
             const key = [rowValue, p.col.colKey].join('__');
             const errorList = errorListMap[key];
             errorList && (cellProps.errors = errorList);
+          }
+          if (props.editableCellState) {
+            cellProps.readonly = props.editableCellState(p);
           }
           return <EditableCell {...cellProps} />;
         };

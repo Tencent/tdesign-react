@@ -69,9 +69,9 @@ export default function TableExpandable() {
     </div>
   );
 
-  const rehandleExpandChange = (value, { expandedRowData }) => {
+  const rehandleExpandChange = (value, params) => {
     setExpandedRowKeys(value);
-    console.log('rehandleExpandChange', value, expandedRowData);
+    console.log('rehandleExpandChange', value, params);
   };
 
   // 完全自由控制表格的每一行是否显示展开图标，以及显示什么内容

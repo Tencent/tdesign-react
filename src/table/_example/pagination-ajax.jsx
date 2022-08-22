@@ -3,6 +3,11 @@ import { Table } from 'tdesign-react';
 
 const columns = [
   {
+    colKey: 'row-select',
+    type: 'multiple',
+    width: 64,
+  },
+  {
     width: 200,
     colKey: 'name',
     title: '姓名',
@@ -37,6 +42,7 @@ export default function TableBasic() {
   const [total, setTotal] = useState(0);
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(5);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   // 分页数据变化
   async function rehandleChange(pageInfo) {
@@ -61,8 +67,15 @@ export default function TableBasic() {
       setIsLoading(false);
     } catch (err) {
       setData([]);
+      setTotal(120);
+      setIsLoading(false);
     }
   }
+
+  const onSelectChange = (value, { selectedRowData }) => {
+    setSelectedRowKeys(value);
+    console.log(value, selectedRowData);
+  };
 
   useEffect(() => {
     fetchData({ current, pageSize });
@@ -90,6 +103,8 @@ export default function TableBasic() {
       onPageChange={(pageInfo) => {
         console.log(pageInfo, 'onPageChange pageInfo');
       }}
+      selectedRowKeys={selectedRowKeys}
+      onSelectChange={onSelectChange}
     />
   );
 }

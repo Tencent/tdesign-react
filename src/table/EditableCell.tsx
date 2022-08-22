@@ -27,6 +27,7 @@ export interface EditableCellProps {
   tableBaseClass?: TableClassName['tableBaseClass'];
   /** 行编辑需要使用 editable。单元格编辑则无需使用，设置为 undefined */
   editable?: boolean;
+  readonly?: boolean;
   errors?: AllValidateResult[];
   cellEmptyContent?: TdBaseTableProps['cellEmptyContent'];
   onChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
@@ -38,7 +39,7 @@ const EditableCell = (props: EditableCellProps) => {
   const { row, col, rowIndex, colIndex, errors, editable, tableBaseClass } = props;
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
 
@@ -179,6 +180,7 @@ const EditableCell = (props: EditableCellProps) => {
       value: val,
       col: props.col,
       colIndex: props.colIndex,
+      editedRow: { ...props.row, [props.col.colKey]: val },
     };
     props.onChange?.(params);
     props.onRuleChange?.(params);
@@ -253,6 +255,7 @@ const EditableCell = (props: EditableCellProps) => {
         rowIndex,
         colIndex,
         value: cellValue,
+        editedRow: row,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -261,6 +264,10 @@ const EditableCell = (props: EditableCellProps) => {
   useEffect(() => {
     setErrorList(errors);
   }, [errors]);
+
+  if (props.readonly) {
+    return cellNode || null;
+  }
 
   // 这是非编辑态
   if ((props.editable === undefined && !isEdit) || editable === false) {

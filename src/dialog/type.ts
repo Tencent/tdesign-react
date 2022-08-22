@@ -45,7 +45,11 @@ export interface TdDialogProps {
    * 确认按钮。值为 null 则不显示确认按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制确认事件
    * @default ''
    */
-  confirmBtn?: ButtonProps | TNode;
+  confirmBtn?: ButtonProps | TNode | null;
+  /**
+   * 是否在按下回车键时，触发确认事件
+   */
+  confirmOnEnter?: boolean;
   /**
    * 是否在关闭弹框的时候销毁子元素
    * @default false
@@ -72,7 +76,7 @@ export interface TdDialogProps {
    */
   mode?: 'modal' | 'modeless' | 'normal';
   /**
-   * 对话框位置，内置两种：垂直水平居中显示 和 靠近顶部（top:20%）显示
+   * 对话框位置，内置两种：垂直水平居中显示 和 靠近顶部（top:20%）显示。默认情况，为避免贴顶或贴底，顶部和底部距离最小为 `48px`，可通过调整 `top` 覆盖默认大小
    * @default top
    */
   placement?: 'top' | 'center';
@@ -130,9 +134,9 @@ export interface TdDialogProps {
    */
   onClosed?: () => void;
   /**
-   * 如果“确认”按钮存在，则点击“确认”按钮时触发
+   * 如果“确认”按钮存在，则点击“确认”按钮时触发，或者键盘按下回车键时触发
    */
-  onConfirm?: (context: { e: MouseEvent<HTMLButtonElement> }) => void;
+  onConfirm?: (context: { e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLDivElement> }) => void;
   /**
    * 按下 ESC 时触发事件
    */
@@ -168,19 +172,19 @@ export interface DialogInstance {
   /**
    * 销毁弹框
    */
-  destroy?: () => void;
+  destroy: () => void;
   /**
    * 隐藏弹框
    */
-  hide?: () => void;
+  hide: () => void;
   /**
    * 显示弹框
    */
-  show?: () => void;
+  show: () => void;
   /**
    * 更新弹框内容
    */
-  update?: (props: DialogOptions) => void;
+  update: (props: DialogOptions) => void;
 }
 
 export type DialogEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';
