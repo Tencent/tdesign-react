@@ -5,6 +5,40 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.4 `2022-08-22` 
+### 🚀 Features
+- `Table`: 
+    - BaseTable 新增组件实例方法 `refreshTable`，用于父组件在特殊场景刷新表格 DOM 信息 @chaishi ([#1312](https://github.com/Tencent/tdesign-react/pull/1312))
+    - PrimaryTable 新增 BaseTable 的全部组件实例方法 @chaishi ([#1312](https://github.com/Tencent/tdesign-react/pull/1312))
+    - 支持行拖拽排序和列拖拽排序同时存在，[issue#1290](https://github.com/Tencent/tdesign-vue/issues/1290) @chaishi ([#1341](https://github.com/Tencent/tdesign-react/pull/1341))
+    - 可编辑单元格/行功能，新增 `editableCellState` 用于控制单元格是否可编辑，([issue#1387](https://github.com/Tencent/tdesign-vue-next/issues/1387)) @chaishi ([#1341](https://github.com/Tencent/tdesign-react/pull/1341))
+    - 可编辑单元格/行功能，新增 `edit.defaultEditable` 用于设置初始状态是否为编辑态 @chaishi ([#1341](https://github.com/Tencent/tdesign-react/pull/1341))
+    - 行展开功能，新增事件参数 `currentRowData`，表示当前展开行，[issue#1296](https://github.com/Tencent/tdesign-react/issues/1296) @chaishi ([#1341](https://github.com/Tencent/tdesign-react/pull/1341))
+- `Dialog`: 新增 `confirmOnEnter` API @huoyuhao ([#1328](https://github.com/Tencent/tdesign-react/pull/1328))
+-  `Popup`: 支持 `overlayInnerClassName` api @HQ-Lin ([#1347](https://github.com/Tencent/tdesign-react/pull/1347))
+- `Timeline`: 新增 `Timeline` 组件 @southorange1228 ([#1156](https://github.com/Tencent/tdesign-react/pull/1156))
+
+### 🐞 Bug Fixes
+- `Table`:
+    - [吸顶表头，最后一列有 1px 未对齐](https://github.com/Tencent/tdesign-vue-next/issues/1434) @chaishi ([#1312](https://github.com/Tencent/tdesign-react/pull/1312))
+    - 窗口变动时，固定列阴影效果更新 @chaishi ([#1312](https://github.com/Tencent/tdesign-react/pull/1312))
+    - 修复可编辑行，联动数据校验问题，([issue#1444](https://github.com/Tencent/tdesign-vue-next/issues/1444)) @chaishi ([#1341](https://github.com/Tencent/tdesign-react/pull/1341))
+    - 修复行选中功能，多选，分页数据异步加载，`onSelectChange` 参数 `selectedRowData` 数据不完整问题 @chaishi ([#1341](https://github.com/Tencent/tdesign-react/pull/1341))
+- `Textarea`:
+    - 修复 `maxlength` safari 浏览器兼容性问题 @carolin913 ([#1324]
+    - 修复 `maxcharactor` 设置后中文拼音无法输入问题 @carolin913 ([#1324](https://github.com/Tencent/tdesign-react/pull/1324))
+    - 修复出现在 dialog 无法 autosize 问题 @carolin913 ([#1324](https://github.com/Tencent/tdesign-react/pull/1324))
+    - 修正 emoji 字符长度计算 @HelKyle ([#1331](https://github.com/Tencent/tdesign-react/pull/1331))
+- `Cascader`: 修复 `value` 不是 options 的健值会报错 ([issue #1293](https://github.com/Tencent/tdesign-react/issues/1293)) @pengYYYYY ([#1342](https://github.com/Tencent/tdesign-react/pull/1342))
+- `select`: 调整loading态显示优先于empty属性 @skytt ([#1343](https://github.com/Tencent/tdesign-react/pull/1343))
+- `Input`: 修正 emoji 字符长度计算 @HelKyle ([#1331](https://github.com/Tencent/tdesign-react/pull/1331))
+
+### 🚧 Others
+- `Link`: 完善组件单元测试 @sommouns ([#1339](https://github.com/Tencent/tdesign-react/pull/1339))
+- `Space`: 完善组件单元测试 @StephenArk30 ([#1337](https://github.com/Tencent/tdesign-react/pull/1337))
+- `Steps`: 完善组件单元测试 @insekkei ([#1317](https://github.com/Tencent/tdesign-react/pull/1317))
+- `Radio`: 完善组件单元测试 @Skyenought ([#1334](https://github.com/Tencent/tdesign-react/pull/1334))
+
 ## 🌈 0.40.3 `2022-08-17` 
 ### 🐞 Bug Fixes
 - `Message`:  修复 `message` 主题设置失效 @kenzyyang ([#1310](https://github.com/Tencent/tdesign-react/pull/1310))
