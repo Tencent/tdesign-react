@@ -10,6 +10,7 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 colon | Boolean | false | \- | N
 disabled | Boolean | undefined | \- | N
 errorMessage | Object | - | Typescript：`FormErrorMessage` | N
+form | Object | - | Typescript：`FormInstanceFunctions` | N
 formControlledComponents | Array | - | Typescript：`Array<string>` | N
 initialData | Object | - | \- | N
 labelAlign | String | right | options：left/right/top | N
@@ -34,10 +35,11 @@ name | params | return | description
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | \-
+currentElement | \- | `HTMLFormElement` | \-
 getFieldValue | `(field: keyof FormData)` | `unknown` | \-
 getFieldsValue | \- | `getFieldsValue<FormData>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: string[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
-setFields | `(fields: FieldData[])` | \- | Typescript：`(fields: FieldData[]) => void` `interface FieldData { name: string; value: unknown, status: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
+setFields | `(fields: FieldData[])` | \- | Typescript：`(fields: FieldData[]) => void` `interface FieldData { name: string; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
 setFieldsValue | `(field: Data)` | \- | \-
 setValidateMessage | `(message: FormValidateMessage<FormData>)` | \- | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] }`<br/><br/>`interface FormItemValidateMessage { type: 'warning' | 'error'; message: string }`<br/>
 submit | `(params?: { showErrorMessage?: boolean })` | \- | \-

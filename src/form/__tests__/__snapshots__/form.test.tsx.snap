@@ -2930,6 +2930,7 @@ exports[`nested-data.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value="name"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -2938,7 +2939,7 @@ exports[`nested-data.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入"
                 type="text"
-                value=""
+                value="name"
               />
             </div>
           </div>
@@ -2965,6 +2966,7 @@ exports[`nested-data.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value="age"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -2973,7 +2975,7 @@ exports[`nested-data.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入"
                 type="text"
-                value=""
+                value="age"
               />
             </div>
           </div>
@@ -3137,11 +3139,11 @@ exports[`nested-data.jsx 1`] = `
             class="t-date-picker"
           >
             <div
-              class="t-select-input t-select-input--empty"
+              class="t-select-input"
             >
               <div
                 class="t-input__wrap"
-                value=""
+                value="2022-08-08"
               >
                 <div
                   class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -3154,7 +3156,7 @@ exports[`nested-data.jsx 1`] = `
                     placeholder="请选择日期"
                     readonly=""
                     type="text"
-                    value=""
+                    value="2022-08-08"
                   />
                   <span
                     class="t-input__suffix t-input__suffix-icon"
@@ -3446,345 +3448,6 @@ exports[`reset.jsx 1`] = `
         <div
           class="t-form__item"
           style="margin-left: 100px;"
-        >
-          <div
-            class="t-form__controls"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <button
-                class="t-button t-button--theme-primary t-button--variant-base"
-                style="margin-right: 10px;"
-                type="submit"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  提交
-                </span>
-              </button>
-              <button
-                class="t-button t-button--theme-default t-button--variant-base"
-                type="reset"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  重置
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`size.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-space t-space-vertical"
-    style="gap: 16px;"
-  >
-    <div
-      class="t-space-item"
-    >
-      <div>
-        <div
-          class="t-radio-group t-size-m t-radio-group--filled"
-        >
-          <label
-            class="t-radio-button t-is-checked"
-          >
-            <input
-              checked=""
-              class="t-radio-button__former"
-              type="radio"
-              value="medium"
-            />
-            <span
-              class="t-radio-button__input"
-            />
-            <span
-              class="t-radio-button__label"
-            >
-              中尺寸（默认）
-            </span>
-          </label>
-          <label
-            class="t-radio-button"
-          >
-            <input
-              class="t-radio-button__former"
-              type="radio"
-              value="large"
-            />
-            <span
-              class="t-radio-button__input"
-            />
-            <span
-              class="t-radio-button__label"
-            >
-              大尺寸
-            </span>
-          </label>
-          <div
-            class="t-radio-group__bg-block"
-            style="width: 0px; left: 0px;"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-space-item"
-    >
-      <form
-        class="t-form"
-      >
-        <div
-          class="t-form__item t-form-item__name"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 100px;"
-          >
-            <label>
-              姓名
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 100px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <div
-                class="t-input__wrap"
-              >
-                <div
-                  class="t-input t-size-m t-align-left t-is-default"
-                >
-                  <input
-                    class="t-input__inner"
-                    placeholder="请输入内容"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-form__item t-form-item__tel"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 100px;"
-          >
-            <label>
-              手机号码
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 100px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <div
-                class="t-input__wrap"
-              >
-                <div
-                  class="t-input t-size-m t-align-left t-is-default"
-                >
-                  <input
-                    class="t-input__inner"
-                    placeholder="请输入内容"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-form__item t-form-item__status"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 100px;"
-          >
-            <label>
-              接收短信
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 100px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <button
-                class="t-switch t-size-m"
-                role="switch"
-                type="button"
-              >
-                <span
-                  class="t-switch__handle"
-                />
-                <div
-                  class="t-switch__content"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-form__item t-form-item__gender"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 100px;"
-          >
-            <label>
-              性别
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 100px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <div
-                class="t-radio-group t-size-m t-radio-group__outline"
-              >
-                <label
-                  class="t-radio"
-                >
-                  <input
-                    class="t-radio__former"
-                    type="radio"
-                    value="1"
-                  />
-                  <span
-                    class="t-radio__input"
-                  />
-                  <span
-                    class="t-radio__label"
-                  >
-                    男
-                  </span>
-                </label>
-                <label
-                  class="t-radio"
-                >
-                  <input
-                    class="t-radio__former"
-                    type="radio"
-                    value="2"
-                  />
-                  <span
-                    class="t-radio__input"
-                  />
-                  <span
-                    class="t-radio__label"
-                  >
-                    女
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-form__item t-form-item__course"
-        >
-          <div
-            class="t-form__label t-form__label--right"
-            style="width: 100px;"
-          >
-            <label>
-              课程
-            </label>
-          </div>
-          <div
-            class="t-form__controls"
-            style="margin-left: 100px;"
-          >
-            <div
-              class="t-form__controls-content"
-            >
-              <div
-                class="t-radio-group t-size-m t-radio-group__outline"
-              >
-                <label
-                  class="t-radio"
-                >
-                  <input
-                    class="t-radio__former"
-                    type="radio"
-                    value="1"
-                  />
-                  <span
-                    class="t-radio__input"
-                  />
-                  <span
-                    class="t-radio__label"
-                  >
-                    语文
-                  </span>
-                </label>
-                <label
-                  class="t-radio"
-                >
-                  <input
-                    class="t-radio__former"
-                    type="radio"
-                    value="2"
-                  />
-                  <span
-                    class="t-radio__input"
-                  />
-                  <span
-                    class="t-radio__label"
-                  >
-                    数学
-                  </span>
-                </label>
-                <label
-                  class="t-radio"
-                >
-                  <input
-                    class="t-radio__former"
-                    type="radio"
-                    value="3"
-                  />
-                  <span
-                    class="t-radio__input"
-                  />
-                  <span
-                    class="t-radio__label"
-                  >
-                    英语
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-form__item"
-          style="padding-top: 8px;"
         >
           <div
             class="t-form__controls"

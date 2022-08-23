@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
 
 const { FormItem } = Form;
@@ -25,7 +25,7 @@ const rules = {
 };
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
 
   const onSubmit = ({ validateResult, firstError }) => {
     if (validateResult === true) {
@@ -42,21 +42,21 @@ export default function BaseForm() {
 
   const handleValidateMessage = () => {
     MessagePlugin.success('设置表单校验信息提示成功');
-    formRef.current.setValidateMessage(validateMessage);
+    form.setValidateMessage(validateMessage);
   };
 
   const handleValidateOnly = () => {
-    formRef.current.validateOnly().then((result) => {
+    form.validateOnly().then((result) => {
       console.log('validateOnly: ', result)
     });
   };
   
   useEffect(() => {
-    formRef.current.setValidateMessage(validateMessage);
+    form.setValidateMessage(validateMessage);
   }, []);
 
   return (
-    <Form rules={rules} ref={formRef} onReset={onReset} onSubmit={onSubmit} scrollToFirstError="smooth">
+    <Form rules={rules} form={form} onReset={onReset} onSubmit={onSubmit} scrollToFirstError="smooth">
       <FormItem label="用户名" help="这是用户名字段帮助说明" name="account" initialData=''>
         <Input />
       </FormItem>
