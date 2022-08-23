@@ -2930,6 +2930,7 @@ exports[`nested-data.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value="name"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -2938,7 +2939,7 @@ exports[`nested-data.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入"
                 type="text"
-                value=""
+                value="name"
               />
             </div>
           </div>
@@ -2965,6 +2966,7 @@ exports[`nested-data.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value="age"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -2973,7 +2975,7 @@ exports[`nested-data.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入"
                 type="text"
-                value=""
+                value="age"
               />
             </div>
           </div>
@@ -3137,11 +3139,11 @@ exports[`nested-data.jsx 1`] = `
             class="t-date-picker"
           >
             <div
-              class="t-select-input t-select-input--empty"
+              class="t-select-input"
             >
               <div
                 class="t-input__wrap"
-                value=""
+                value="2022-08-08"
               >
                 <div
                   class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -3154,7 +3156,7 @@ exports[`nested-data.jsx 1`] = `
                     placeholder="请选择日期"
                     readonly=""
                     type="text"
-                    value=""
+                    value="2022-08-08"
                   />
                   <span
                     class="t-input__suffix t-input__suffix-icon"

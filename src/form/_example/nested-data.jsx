@@ -12,7 +12,7 @@ export default function BaseForm() {
       MessagePlugin.info('提交成功');
     }
   };
-  
+
   const setData = () => {
     console.log('getFieldsValue all: ', form.getFieldsValue?.(true));
     console.log('getFieldsValue: ', form.getFieldsValue?.([['user', 'name']]));
@@ -20,7 +20,7 @@ export default function BaseForm() {
     form.setFieldsValue?.({ birthday: '2020-01-01' });
     form.setFieldsValue?.({ user: { gender: 'male' } });
     form.setFields?.([{ name: ['user', 'course'], value: ['la'] }]);
-  }
+  };
 
   const onReset = (e) => {
     console.log(e);
@@ -28,11 +28,25 @@ export default function BaseForm() {
   };
 
   const onValuesChange = (value) => {
-    console.log(value)
-  }
+    console.log(value);
+  };
 
   return (
-    <Form form={form} onSubmit={onSubmit} onReset={onReset} colon labelWidth={100} onValuesChange={onValuesChange}>
+    <Form
+      initialData={{
+        user: {
+          name: 'name',
+          age: 'age',
+        },
+        birthday: '2022-08-08',
+      }}
+      form={form}
+      onSubmit={onSubmit}
+      onReset={onReset}
+      colon
+      labelWidth={100}
+      onValuesChange={onValuesChange}
+    >
       <FormItem label="姓名" name={['user', 'name']} rules={[{ required: true }]}>
         <Input />
       </FormItem>

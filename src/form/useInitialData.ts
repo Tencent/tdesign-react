@@ -21,21 +21,44 @@ ctrlKeyMap.set(Upload, 'files');
 
 // FormItem 默认数据类型
 export const initialDataMap = new Map();
-initialDataMap.set(Tree, []);
-initialDataMap.set(Upload, []);
-initialDataMap.set(Transfer, []);
-initialDataMap.set(Cascader, []);
-initialDataMap.set(TagInput, []);
-initialDataMap.set(RangeInput, []);
-initialDataMap.set(CheckboxGroup, []);
-initialDataMap.set(DateRangePicker, []);
-initialDataMap.set(TimeRangePicker, []);
+[Tree, Upload, Transfer, Cascader, TagInput, RangeInput, CheckboxGroup, DateRangePicker, TimeRangePicker].forEach(
+  (component) => {
+    initialDataMap.set(component, []);
+  },
+);
 
-export function getDefaultInitialData(children: React.ReactNode, initialData: any) {
-  let defaultInitialData = initialData;
+// 整理初始值 优先级：Form.initialData < FormItem.initialData
+export function getDefaultInitialData({ name, formListName, children, initialData, initialDataFromContext }) {
+  let defaultInitialData;
+  if (initialDataFromContext) {
+    if (typeof name === 'string') defaultInitialData = initialDataFromContext[name];
+    if (Array.isArray(name)) {
+      const nameList = formListName ? [formListName, ...name] : name;
+
+      // 创建唯一临时变量 symbol
+      const symbol = Symbol('initialData');
+      let fieldValue = null;
+
+      for (let i = 0; i < nameList.length; i++) {
+        const item = nameList[i];
+        if (Reflect.has(fieldValue || initialDataFromContext, item)) {
+          fieldValue = Reflect.get(fieldValue || initialDataFromContext, item);
+        } else {
+          // 当反射无法获取到值则重置为 symbol
+          fieldValue = symbol;
+          break;
+        }
+      }
+
+      // 说明设置了值
+      if (fieldValue !== symbol) {
+        defaultInitialData = fieldValue;
+      }
+    }
+  }
+  if (typeof initialData !== 'undefined') defaultInitialData = initialData;
   React.Children.forEach(children, (child) => {
-    if (!child) return;
-    if (React.isValidElement(child) && typeof initialData === 'undefined') {
+    if (child && React.isValidElement(child) && typeof defaultInitialData === 'undefined') {
       defaultInitialData = initialDataMap.get(child.type);
     }
   });
