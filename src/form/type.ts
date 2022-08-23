@@ -410,7 +410,7 @@ export interface FormResetParams<FormData> {
 }
 
 export interface FieldData {
-  name: string | any[];
+  name: string | number | Array<string | number>;
   value?: unknown;
   status?: string;
   validateMessage?: { type?: string; message?: string };
