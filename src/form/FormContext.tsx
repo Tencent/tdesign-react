@@ -8,6 +8,7 @@ const FormContext = React.createContext<{
   labelAlign: TdFormProps['labelAlign'];
   layout: TdFormProps['layout'];
   colon: TdFormProps['colon'];
+  initialData: TdFormProps['initialData'];
   requiredMark: TdFormProps['requiredMark'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
@@ -22,6 +23,7 @@ const FormContext = React.createContext<{
   labelAlign: 'right',
   layout: 'vertical',
   colon: false,
+  initialData: {},
   requiredMark: true,
   scrollToFirstError: undefined,
   showErrorMessage: true,

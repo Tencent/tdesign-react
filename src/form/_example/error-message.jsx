@@ -1,5 +1,4 @@
-/* eslint-disable no-template-curly-in-string */
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, MessagePlugin, Radio, Select, Checkbox, Popup, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
@@ -59,7 +58,7 @@ const rules = {
 };
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
   const [errorConfig, setErrorConfig] = useState('default');
 
   const onSubmit = ({ validateResult, firstError }) => {
@@ -76,7 +75,7 @@ export default function BaseForm() {
   };
 
   const handleClear = () => {
-    formRef.current.clearValidate();
+    form.clearValidate();
   };
 
   return (
@@ -98,7 +97,7 @@ export default function BaseForm() {
       </div>
 
       <Form
-        ref={formRef}
+        form={form}
         rules={rules}
         error-message={errorConfig === 'default' ? undefined : errorMessage}
         onReset={onReset}

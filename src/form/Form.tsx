@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps, FormInstanceFunctions } from './type';
+import type { TdFormProps } from './type';
 import useInstance from './hooks/useInstance';
+import useForm from './hooks/useForm';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -15,10 +16,6 @@ export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
 
-export interface FormRefInterface extends React.RefObject<unknown>, FormInstanceFunctions {
-  currentElement: HTMLFormElement;
-}
-
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
     const { classPrefix, form: globalFormConfig } = useConfig();
@@ -26,18 +23,20 @@ const Form = forwardRefWithStatics(
     const {
       style,
       className,
-      labelWidth = '100px',
+      form,
+      labelWidth,
       statusIcon,
-      labelAlign = 'right',
-      layout = 'vertical',
-      colon = false,
+      labelAlign,
+      layout,
+      colon,
+      initialData,
       requiredMark = globalFormConfig.requiredMark,
       scrollToFirstError,
-      showErrorMessage = true,
-      resetType = 'empty',
+      showErrorMessage,
+      resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault = true,
+      preventSubmitDefault,
       disabled,
       children,
       onReset,
@@ -50,39 +49,12 @@ const Form = forwardRefWithStatics(
 
     const formRef: React.RefObject<HTMLFormElement> = useRef();
     const formMapRef = useRef(new Map()); // 收集所有 formItem 实例
+    const formInstance = useInstance(props, formRef, formMapRef);
 
-    const {
-      submit,
-      reset,
-      getFieldValue,
-      getFieldsValue,
-      setFieldsValue,
-      setFields,
-      validate,
-      validateOnly,
-      clearValidate,
-      setValidateMessage,
-    } = useInstance(props, formRef, formMapRef);
-
-    useImperativeHandle(ref as FormRefInterface, () => ({
-      currentElement: formRef.current,
-      submit,
-      reset,
-      getFieldValue,
-      getFieldsValue,
-      setFieldsValue,
-      setFields,
-      validate,
-      validateOnly,
-      clearValidate,
-      setValidateMessage,
-    }));
+    useImperativeHandle(ref, () => formInstance);
+    form && Object.assign(form, { ...formInstance });
 
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
-      if (preventSubmitDefault) {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
@@ -90,7 +62,7 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = getFieldsValue(true);
+      const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
     }
 
@@ -110,6 +82,7 @@ const Form = forwardRefWithStatics(
           labelAlign,
           layout,
           colon,
+          initialData,
           requiredMark,
           errorMessage,
           showErrorMessage,
@@ -125,7 +98,7 @@ const Form = forwardRefWithStatics(
           ref={formRef}
           style={style}
           className={formClass}
-          onSubmit={submit}
+          onSubmit={formInstance.submit}
           onReset={onResetHandler}
           onKeyDown={onKeyDownHandler}
         >
@@ -134,7 +107,7 @@ const Form = forwardRefWithStatics(
       </FormContext.Provider>
     );
   },
-  { FormItem, FormList },
+  { useForm, FormItem, FormList },
 );
 
 Form.displayName = 'Form';

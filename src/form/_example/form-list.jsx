@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form, Input, Button, Select } from 'tdesign-react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
 
@@ -12,15 +12,15 @@ const provinceOptions = [
 ];
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
 
   function onSubmit() {
-    const allFields = formRef.current.getFieldsValue(true);
+    const allFields = form.getFieldsValue(true);
     console.log('allFields', allFields);
   }
 
   return (
-    <Form ref={formRef} onSubmit={onSubmit}>
+    <Form form={form} onSubmit={onSubmit}>
       <FormList name="address">
         {(fields, { add, remove }) => (
           <>

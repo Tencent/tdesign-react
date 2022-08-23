@@ -54,6 +54,7 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 colon | Boolean | false | 是否在表单标签字段右侧显示冒号 | N
 disabled | Boolean | undefined | 是否禁用整个表单 | N
 errorMessage | Object | - | 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`。TS 类型：`FormErrorMessage` | N
+form | Object | - | 经 `Form.useForm()` 创建的 form 控制实例。TS 类型：`FormInstanceFunctions` | N
 formControlledComponents | Array | - | 允许表单统一控制禁用状态的自定义组件名称列表。默认会有组件库的全部输入类组件：TInput、TInputNumber、TCascader、TSelect、TOption、TSwitch、TCheckbox、TCheckboxGroup、TRadio、TRadioGroup、TTreeSelect、TDatePicker、TTimePicker、TUpload、TTransfer、TSlider。对于自定义组件，组件内部需要包含可以控制表单禁用状态的变量 `formDisabled`。示例：`['CustomUpload', 'CustomInput']`。TS 类型：`Array<string>` | N
 initialData | Object | - | 表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData | N
 labelAlign | String | right | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。可选项：left/right/top | N
@@ -78,10 +79,11 @@ onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unkno
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
+currentElement | \- | `HTMLFormElement` | 获取 form dom 元素
 getFieldValue | `(field: keyof FormData)` | `unknown` | 获取单个字段值
 getFieldsValue | \- | `getFieldsValue<FormData>` | 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: string[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | 重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
-setFields | `(fields: FieldData[])` | \- | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: string; value: unknown, status: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
+setFields | `(fields: FieldData[])` | \- | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: string; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
 setFieldsValue | `(field: Data)` | \- | 设置表单字段值
 setValidateMessage | `(message: FormValidateMessage<FormData>)` | \- | 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] }`<br/><br/>`interface FormItemValidateMessage { type: 'warning' | 'error'; message: string }`<br/>
 submit | `(params?: { showErrorMessage?: boolean })` | \- | 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件

@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form, Input, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
 import debounce from 'lodash/debounce';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
   const onSubmit = (e) => {
     console.log(e);
     if (e.validateResult === true) {
@@ -32,12 +32,12 @@ export default function BaseForm() {
 
   const handleChange = debounce((value) => {
     console.log('value', value);
-    formRef.current.validate({ fields: ['password'], trigger: 'blur' });
+    form.validate({ fields: ['password'], trigger: 'blur' });
   }, 500);
 
   return (
     <Form
-      ref={formRef}
+      form={form}
       layout="vertical"
       onSubmit={onSubmit}
       labelWidth={100}
