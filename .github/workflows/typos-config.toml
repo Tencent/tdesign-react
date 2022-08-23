@@ -4,4 +4,6 @@ formated = "formated"
 formate = "formate"
 ba = "ba"
 Contrl = "Contrl"
-thead = "thead"
+
+[files]
+extend-exclude = ["CHANGELOG.md"]
