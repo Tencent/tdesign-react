@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, Input, Select } from 'tdesign-react';
+import { Dialog, Button, Select } from 'tdesign-react';
 
 export default function NotModalExample() {
   const [visible, setVisible] = useState(false);
