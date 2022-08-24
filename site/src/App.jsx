@@ -86,6 +86,7 @@ function Components() {
     };
 
     initHistoryVersions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -132,6 +133,7 @@ function App() {
         />
         <Route path="/react/*" element={<Components />}>
           {renderRouter}
+          <Route path="*" element={<Navigate replace to="/react/overview" />} />
         </Route>
         <Route path="*" element={<Navigate replace to="/react/overview" />} />
       </Routes>
