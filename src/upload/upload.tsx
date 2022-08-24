@@ -119,7 +119,8 @@ const Upload = forwardRef((props: UploadProps, ref) => {
 
   const getLimitedFiles = (files: Array<TdUploadFile> = []) => {
     const isSingleMode = isSingleFile(multiple, theme);
-    const mergedLen = files.length + fileList.length;
+    const currentFileList = fileList || [];
+    const mergedLen = files.length + currentFileList.length;
 
     if (isSingleMode) {
       return files.splice(0, 1);
@@ -127,11 +128,11 @@ const Upload = forwardRef((props: UploadProps, ref) => {
 
     // 限制了最大张数
     if (max > 0) {
-      const limitedFiles = mergedLen > max ? files.slice(0, max - fileList.length) : files;
-      return fileList.concat(limitedFiles);
+      const limitedFiles = mergedLen > max ? files.slice(0, max - currentFileList.length) : files;
+      return currentFileList.concat(limitedFiles);
     }
 
-    return fileList.concat(files);
+    return currentFileList.concat(files);
   };
 
   const onError = useCallback(
@@ -317,10 +318,9 @@ const Upload = forwardRef((props: UploadProps, ref) => {
   };
 
   const uploadFiles = () => {
-    const { length } = fileList;
     let count = 0;
     const newFileList = [];
-    fileList.forEach((uploadFile) => {
+    fileList?.forEach((uploadFile) => {
       handleBeforeUpload(uploadFile).then((canUpload) => {
         count += 1;
         if (canUpload) {
@@ -329,7 +329,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
             upload(uploadFile);
           }
         }
-        if (count === length) {
+        if (count === fileList?.length) {
           setToUploadFiles([...new Set([...toUploadFiles, ...newFileList])]);
           onChange?.(newFileList, { trigger: 'remove' });
         }
@@ -462,7 +462,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       }
     });
 
-    const finish = fileList.every((file) => finishUpload(file.status));
+    const finish = (fileList || []).every((file) => finishUpload(file.status));
     setUploading(!finish);
     filesRef.current = fileList;
   }, [fileList]);
@@ -506,7 +506,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
           max={max}
           onRemove={handleMultipleRemove}
           onTrigger={triggerUpload}
-          files={fileList}
+          files={fileList || []}
           showUploadProgress={showUploadProgress}
           localeFromProps={localeFromProps}
         />
@@ -531,7 +531,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       </BooleanRender>
       <BooleanRender boolExpression={showUploadList}>
         <FlowList
-          files={fileList}
+          files={fileList || []}
           placeholder={placeholder}
           toUploadFiles={toUploadFiles}
           remove={handleListRemove}
