@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, TransitionEvent } from 'react';
 import classNames from 'classnames';
 import {
   CloseIcon as TdCloseIcon,
@@ -102,6 +102,12 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     </div>
   );
 
+  const handleTransitionEnd = (e: TransitionEvent<HTMLDivElement>) => {
+    onClosed({
+      e,
+    });
+  };
+
   return (
     <CSSTransition<undefined>
       in={!closed}
@@ -109,7 +115,6 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
       classNames={{
         exitActive: `${classPrefix}-alert--closing`,
       }}
-      onExited={onClosed}
       addEndListener={(node, done) => {
         node.addEventListener('transitionend', done, false);
       }}
@@ -117,6 +122,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
       <div
         ref={ref}
         className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
+        onTransitionEnd={handleTransitionEnd}
         {...alertProps}
       >
         <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
