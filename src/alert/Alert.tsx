@@ -6,6 +6,8 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { CSSTransition } from 'react-transition-group';
+import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -25,7 +27,19 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
-  const { message, title, operation, theme, icon, close, maxLine, onClose, className, ...alertProps } = props;
+  const {
+    message,
+    title,
+    operation,
+    theme,
+    icon,
+    close,
+    maxLine,
+    onClose,
+    className,
+    onClosed = noop,
+    ...alertProps
+  } = props;
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -88,22 +102,34 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     </div>
   );
 
-  return closed ? null : (
-    <div
-      ref={ref}
-      className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
-      {...alertProps}
+  return (
+    <CSSTransition<undefined>
+      in={!closed}
+      unmountOnExit={true}
+      classNames={{
+        exitActive: `${classPrefix}-alert--closing`,
+      }}
+      onExited={onClosed}
+      addEndListener={(node, done) => {
+        node.addEventListener('transitionend', done, false);
+      }}
     >
-      <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
-      <div className={`${classPrefix}-alert__content`}>
-        {title ? <div className={`${classPrefix}-alert__title`}>{title}</div> : null}
-        <div className={`${classPrefix}-alert__message`}>
-          {renderMessage()}
-          {operation ? <div className={`${classPrefix}-alert__operation`}>{operation}</div> : null}
+      <div
+        ref={ref}
+        className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
+        {...alertProps}
+      >
+        <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
+        <div className={`${classPrefix}-alert__content`}>
+          {title ? <div className={`${classPrefix}-alert__title`}>{title}</div> : null}
+          <div className={`${classPrefix}-alert__message`}>
+            {renderMessage()}
+            {operation ? <div className={`${classPrefix}-alert__operation`}>{operation}</div> : null}
+          </div>
         </div>
+        {close ? renderClose() : null}
       </div>
-      {close ? renderClose() : null}
-    </div>
+    </CSSTransition>
   );
 });
 

@@ -34,16 +34,25 @@ describe('Alert 组件测试', () => {
 
   test('Alert 关闭操作', async () => {
     const ref = React.createRef<HTMLDivElement>();
+    const onClosed = jest.fn();
 
     const { queryByTestId } = render(
-      <Alert ref={ref} theme="error" message={text} close={<div data-testid={testId}>{text}</div>} />,
+      <Alert
+        ref={ref}
+        theme="error"
+        message={text}
+        close={<div data-testid={testId}>{text}</div>}
+        onClosed={onClosed}
+      />,
     );
 
     act(() => {
       fireEvent.click(queryByTestId(testId));
       jest.runAllTimers();
+      fireEvent.transitionEnd(queryByTestId(testId));
     });
     expect(ref.current).toBeNull();
+    expect(onClosed).toHaveBeenCalledTimes(1);
   });
 
   test('Alert 展开收起操作', async () => {
