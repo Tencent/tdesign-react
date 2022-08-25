@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import {
   CloseIcon as TdCloseIcon,
@@ -14,6 +14,9 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
 import { alertDefaultProps } from './defaultProps';
+import composeRefs from '../_util/composeRefs';
+
+const transitionTime = 200;
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
@@ -102,22 +105,21 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     </div>
   );
 
+  const nodeRef = useRef<HTMLDivElement>();
+
   return (
-    <CSSTransition<undefined>
+    <CSSTransition
       in={!closed}
-      unmountOnExit={true}
+      unmountOnExit
       classNames={{
         exitActive: `${classPrefix}-alert--closing`,
       }}
-      addEndListener={(node, done) => {
-        node.addEventListener('transitionend', () => {
-          done();
-          onClosed();
-        });
-      }}
+      nodeRef={nodeRef}
+      timeout={transitionTime}
+      onExited={onClosed}
     >
       <div
-        ref={ref}
+        ref={composeRefs(ref, nodeRef)}
         className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
         {...alertProps}
       >

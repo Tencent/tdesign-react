@@ -45,14 +45,10 @@ describe('Alert 组件测试', () => {
         onClosed={onClosed}
       />,
     );
-
-    act(() => {
-      fireEvent.click(queryByTestId(testId));
-      jest.runAllTimers();
-      expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
-      fireEvent.transitionEnd(queryByTestId(testId));
-    });
-    expect(ref.current).toBeNull();
+    expect(container.querySelector('.t-alert--closing')).not.toBeInTheDocument();
+    fireEvent.click(queryByTestId(testId));
+    expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
+    jest.runAllTimers();
     expect(onClosed).toHaveBeenCalledTimes(1);
   });
 
