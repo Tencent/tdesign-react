@@ -36,7 +36,7 @@ describe('Alert 组件测试', () => {
     const ref = React.createRef<HTMLDivElement>();
     const onClosed = jest.fn();
 
-    const { queryByTestId } = render(
+    const { queryByTestId, container } = render(
       <Alert
         ref={ref}
         theme="error"
@@ -49,6 +49,7 @@ describe('Alert 组件测试', () => {
     act(() => {
       fireEvent.click(queryByTestId(testId));
       jest.runAllTimers();
+      expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
       fireEvent.transitionEnd(queryByTestId(testId));
     });
     expect(ref.current).toBeNull();

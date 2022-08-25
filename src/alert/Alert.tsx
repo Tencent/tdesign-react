@@ -109,9 +109,11 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
       classNames={{
         exitActive: `${classPrefix}-alert--closing`,
       }}
-      onExited={onClosed}
       addEndListener={(node, done) => {
-        node.addEventListener('transitionend', done, false);
+        node.addEventListener('transitionend', () => {
+          done();
+          onClosed();
+        });
       }}
     >
       <div
