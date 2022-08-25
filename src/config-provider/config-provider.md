@@ -7,6 +7,7 @@ TDesign 的组件前缀统一为`t`，在一些业务场景中，有需要改变
 
 ```js
 import { ConfigProvider, Button } from 'tdesign-react/esm'
+import 'tdesign-react/esm/style/index.js'
 
 ...
 <ConfigProvider globalConfig={{ classPrefix: 'any'}}>

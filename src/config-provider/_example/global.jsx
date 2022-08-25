@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import merge from 'lodash/merge';
 import { ConfigProvider, Space } from 'tdesign-react';
@@ -11,7 +12,7 @@ export default function GlobalDemo() {
     table: {},
     pagination: {},
     // 全局动画设置
-    animation: { exclude: [] }
+    animation: { exclude: [] },
   });
 
   return (
@@ -26,7 +27,7 @@ export default function GlobalDemo() {
         </p>
 
         <p>
-          中文语言包引入路径：<code>import cnConfig from 'tdesign-react/es/locale/zh_CN';</code>
+          中文语言包引入路径：<code>import zhConfig from 'tdesign-react/es/locale/zh_CN';</code>
         </p>
 
         <p>
@@ -34,7 +35,7 @@ export default function GlobalDemo() {
         </p>
 
         <p>
-          韩文语言包引入路径：<code>import krConfig from 'tdesign-react/es/locale/ko_KR';</code>
+          韩文语言包引入路径：<code>import koConfig from 'tdesign-react/es/locale/ko_KR';</code>
         </p>
       </Space>
     </ConfigProvider>
