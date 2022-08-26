@@ -25,10 +25,10 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       }
       visible && onVisibleChange(false, { e, trigger: 'document' });
     };
-    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('mousedown', handleDocumentClick);
     document.addEventListener('touchend', handleDocumentClick);
     return () => {
-      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('mousedown', handleDocumentClick);
       document.removeEventListener('touchend', handleDocumentClick);
     };
   }, [shouldToggle, visible, onVisibleChange, triggerRef]);
