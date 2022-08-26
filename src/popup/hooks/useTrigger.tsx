@@ -23,7 +23,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       if (triggerRef.current.contains(e.target) || hasPopupMouseDown.current) {
         return;
       }
-      onVisibleChange(false, { e, trigger: 'document' });
+      visible && onVisibleChange(false, { e, trigger: 'document' });
     };
     document.addEventListener('mousedown', handleDocumentClick);
     document.addEventListener('touchend', handleDocumentClick);
@@ -31,8 +31,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       document.removeEventListener('mousedown', handleDocumentClick);
       document.removeEventListener('touchend', handleDocumentClick);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [shouldToggle, visible, onVisibleChange, triggerRef]);
 
   // 弹出内容交互处理
   function getPopupProps(): any {
