@@ -5,7 +5,7 @@
  * */
 
 import { UploadConfig } from '../config-provider/type';
-import { TNode, TElement } from '../common';
+import { TNode } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps {
@@ -15,7 +15,7 @@ export interface TdUploadProps {
    */
   accept?: string;
   /**
-   * 上传接口
+   * 上传接口。设接口响应数据为字段 `response`，那么 `response.error` 存在时会判断此次上传失败，并显示错误文本信息；`response.url` 会作为文件上传成功后的地址，并使用该地址显示图片
    * @default ''
    */
   action?: string;
@@ -30,9 +30,13 @@ export interface TdUploadProps {
    */
   autoUpload?: boolean;
   /**
-   * 上传文件之前的钩子，参数为上传的文件，返回值决定是否上传
+   * 全部文件上传之前的钩子，参数为上传的文件，返回值决定是否继续上传，若返回值为 `false` 则终止上传
    */
-  beforeUpload?: (file: File | UploadFile) => boolean | Promise<boolean>;
+  beforeAllFilesUpload?: (file: UploadFile[]) => boolean | Promise<boolean>;
+  /**
+   * 单文件上传之前的钩子，参数为上传的文件，返回值决定是否继续上传，若返回值为 `false` 则终止上传
+   */
+  beforeUpload?: (file: UploadFile) => boolean | Promise<boolean>;
   /**
    * 触发上传的内容，同 trigger
    */
@@ -54,21 +58,27 @@ export interface TdUploadProps {
   /**
    * 用于完全自定义文件列表内容
    */
-  fileListDisplay?: TElement;
+  fileListDisplay?: TNode<{ displayFiles: UploadFile[] }>;
   /**
    * 已上传文件列表
+   * @default []
    */
   files?: Array<UploadFile>;
   /**
    * 已上传文件列表，非受控属性
+   * @default []
    */
   defaultFiles?: Array<UploadFile>;
   /**
-   * 文件上传前转换文件数据
+   * 文件上传前转换文件的数据结构，可新增或修改文件对象的属性
    */
   format?: (file: File) => UploadFile;
   /**
-   * 用于格式化文件上传后的响应数据。error 用于显示错误提示，如果 error 值为真，组件会判定为上传失败；url 用于上传文件/图片地址
+   * 用于新增或修改文件上传请求参数
+   */
+  formatRequest?: (requestData: { [key: string]: any }) => { [key: string]: any };
+  /**
+   * 用于格式化文件上传后的接口响应数据，`response` 便是接口响应的原始数据。<br/> 此函数的返回值 `error` 或 `response.error` 会作为错误文本提醒，如果存在会判定为本次上传失败。<br/> 此函数的返回值 `url` 或 `response.url` 会作为上传成功后的链接
    */
   formatResponse?: (response: any, context: FormatResponseContext) => ResponseType;
   /**
@@ -110,7 +120,7 @@ export interface TdUploadProps {
    */
   placeholder?: string;
   /**
-   * 自定义上传方法。返回值 status 表示上传成功或失败，error 表示上传失败的原因，response 表示请求上传成功后的返回数据，response.url 表示上传成功后的图片地址。示例一：`{ status: 'fail', error: '上传失败', response }`。示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`
+   * 自定义上传方法。返回值 `status` 表示上传成功或失败，`error` 或 `response.error` 表示上传失败的原因，`response` 表示请求上传成功后的返回数据，`response.url` 表示上传成功后的图片地址。示例一：`{ status: 'fail', error: '上传失败', response }`。示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`
    */
   requestMethod?: (files: UploadFile | UploadFile[]) => Promise<RequestMethodResponse>;
   /**
@@ -172,15 +182,19 @@ export interface TdUploadProps {
    */
   onDrop?: (context: { e: DragEvent<Element> }) => void;
   /**
-   * 上传失败后触发
+   * 上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构
    */
-  onFail?: (options: { e: ProgressEvent; file: UploadFile }) => void;
+  onFail?: (options: { e: ProgressEvent; file: UploadFile; currentFiles: UploadFile[]; response?: any }) => void;
+  /**
+   * 单个文件上传成功后触发，在多文件场景下会触发多次。`context.file` 表示当前上传成功的单个文件，`context.response` 表示上传请求的返回数据
+   */
+  onOneFileSuccess?: (context: Pick<SuccessContext, 'e' | 'file' | 'response'>) => void;
   /**
    * 点击预览时触发
    */
   onPreview?: (options: { file: UploadFile; e: MouseEvent<HTMLDivElement> }) => void;
   /**
-   * 上传进度变化时触发，真实进度和模拟进度都会触发。type 值为 real 表示真实上传进度，type 值为 mock 表示模拟上传进度
+   * 上传进度变化时触发，真实进度和模拟进度都会触发。`type=real` 表示真实上传进度，`type=mock` 表示模拟上传进度
    */
   onProgress?: (options: ProgressContext) => void;
   /**
@@ -188,13 +202,21 @@ export interface TdUploadProps {
    */
   onRemove?: (context: UploadRemoveContext) => void;
   /**
-   * 文件选择后，上传开始前，触发
+   * 选择文件或图片之后，上传之前，触发该事件
    */
-  onSelectChange?: (files: Array<UploadFile>) => void;
+  onSelectChange?: (files: File[], context: UploadSelectChangeContext) => void;
   /**
-   * 上传成功后触发，`context.currentFiles` 表示当次请求上传的文件，`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br />⚠️ `context.file` 请勿使用
+   * 上传成功后触发。<br/>`context.currentFiles` 表示当次请求上传的文件，`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br/>`context.results` 表示单次选择全部文件上传成功后的响应结果，可以在这个字段存在时提醒用户上传成功或失败。<br />⚠️ `context.file` 请勿使用
    */
   onSuccess?: (context: SuccessContext) => void;
+  /**
+   * 文件上传校验结束事件，有文件数量超出时会触发，文件大小超出限制时会触发等场景
+   */
+  onValidate?: (context: { type: 'FILE_OVER_SIZE_LIMIT' | 'FILES_OVER_LENGTH_LIMIT'; files: UploadFile[] }) => void;
+  /**
+   * 待上传文件列表发生变化时触发，事件参数为待上传文件
+   */
+  onWaitingUploadFilesChange?: (files: Array<UploadFile>) => void;
 }
 
 export interface UploadFile {
@@ -216,9 +238,9 @@ export interface UploadFile {
    */
   raw?: File;
   /**
-   * 上传接口返回的数据
+   * 上传接口返回的数据。`response.error` 存在时会判断此次上传失败，并显示错误文本信息；`response.url` 会作为文件上传成功后的地址，并使用该地址显示图片
    */
-  response?: object;
+  response?: { [key: string]: any };
   /**
    * 文件大小
    */
@@ -237,7 +259,7 @@ export interface UploadFile {
    * 文件上传成功后的下载/访问地址
    * @default ''
    */
-  url: string;
+  url?: string;
 }
 
 export type ResponseType = { error?: string; url?: string } & Record<string, any>;
@@ -269,7 +291,7 @@ export interface TriggerContext {
 }
 
 export interface UploadChangeContext {
-  e?: MouseEvent<HTMLDivElement> | ProgressEvent;
+  e?: MouseEvent<HTMLDivElement | SVGSVGElement | HTMLElement> | ProgressEvent;
   response?: any;
   trigger: string;
   index?: number;
@@ -278,7 +300,8 @@ export interface UploadChangeContext {
 
 export interface ProgressContext {
   e?: ProgressEvent;
-  file: UploadFile;
+  file?: UploadFile;
+  currentFiles: UploadFile[];
   percent: number;
   type: UploadProgressType;
 }
@@ -291,9 +314,15 @@ export interface UploadRemoveContext {
   e: MouseEvent<HTMLElement | SVGElement>;
 }
 
+export interface UploadSelectChangeContext {
+  currentSelectedFiles: UploadFile[];
+}
+
 export interface SuccessContext {
   e?: ProgressEvent;
   file?: UploadFile;
   fileList?: UploadFile[];
-  response: any;
+  currentFiles?: UploadFile[];
+  response?: any;
+  results?: SuccessContext[];
 }
