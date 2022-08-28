@@ -99,8 +99,8 @@ export default function UploadExample() {
           自动上传
         </Checkbox>
         {!autoUpload && (
-          <Button variant="base" theme="default" style={{ padding: '0 4px', height: '22px' }} onClick={uploadFiles}>
-            点击上传文件
+          <Button variant="base" theme="default" size="small" style={{ height: '22px' }} onClick={uploadFiles}>
+            点击上传
           </Button>
         )}
       </Space>
@@ -110,7 +110,7 @@ export default function UploadExample() {
       {/* <!-- 1. formatRequest 用于修改或新增上传请求数据，示例：:formatRequest="(obj) => ({ ...obj, other: 123 })" --> */}
       <Space>
         <Upload
-          placeholder="默认没有文件，这是一段占位文本"
+          placeholder="这是一段没有文件时的占位文本"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
         ></Upload>
 

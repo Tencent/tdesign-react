@@ -1,6 +1,12 @@
 import { useRef, useState, useMemo, ChangeEventHandler } from 'react';
 import { SizeLimitObj, TdUploadProps, UploadFile } from './type';
-import { getFilesAndErrors, validateFile, upload, getTriggerTextField } from '../_common/js/upload/main';
+import {
+  getFilesAndErrors,
+  validateFile,
+  upload,
+  getTriggerTextField,
+  getDisplayFiles,
+} from '../_common/js/upload/main';
 import useControlled from '../hooks/useControlled';
 import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../_common/js/upload/types';
 import { RemoveContext } from './NormalFile';
@@ -37,13 +43,10 @@ export default function useUpload(props: TdUploadProps) {
   const [uploading, setUploading] = useState(false);
 
   // 文件列表显示的内容（自动上传和非自动上传有所不同）
-  const displayFiles = useMemo(() => {
-    if (props.multiple) {
-      return props.autoUpload ? uploadValue : uploadValue.concat(toUploadFiles);
-    }
-    const hasToUploadFile = Boolean(toUploadFiles.length);
-    return (props.autoUpload || !hasToUploadFile ? uploadValue : toUploadFiles) || [];
-  }, [props.autoUpload, props.multiple, toUploadFiles, uploadValue]);
+  const displayFiles = useMemo(
+    () => getDisplayFiles({ multiple: props.multiple, toUploadFiles, uploadValue }),
+    [props.multiple, toUploadFiles, uploadValue],
+  );
 
   const onResponseError = (p: OnResponseErrorContext) => {
     if (!p) return;
