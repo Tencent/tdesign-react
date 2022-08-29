@@ -231,6 +231,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     };
 
     const onDialogMoveStart = (e: React.MouseEvent<HTMLDivElement>) => {
+      // 阻止事件冒泡
       if (canDraggable && e.currentTarget === e.target) {
         const { offsetLeft, offsetTop, offsetHeight, offsetWidth } = dialog.current;
         // 如果弹出框超出屏幕范围 不能进行拖拽
