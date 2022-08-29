@@ -46,7 +46,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     transferItem,
     content,
     tree,
-    showCheckAll = true,
+    showCheckAll,
   } = props;
   const [state, setState] = useState<StateInterface>(() => ({
     source: data.filter((item) => !defaultValue.includes(item.value)),
@@ -95,15 +95,11 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const [sourceTransferItem, targetTransferItem] = getDefaultValue(transferItem);
   const [sourceContent, targetContent] = getDefaultValue(content);
 
-  const [showCheckAllSource, showCheckAllTarget] = useMemo(() => {
-    if (showCheckAll === undefined) {
-      return [true, true];
-    }
-
-    return Array.isArray(showCheckAll)
-      ? [showCheckAll[0] ?? true, showCheckAll[1] ?? true]
-      : [showCheckAll, showCheckAll];
-  }, [showCheckAll]);
+  const [showCheckAllSource, showCheckAllTarget] = useMemo(
+    () =>
+      Array.isArray(showCheckAll) ? [showCheckAll[0] ?? true, showCheckAll[1] ?? true] : [showCheckAll, showCheckAll],
+    [showCheckAll],
+  );
 
   const transformSource = () => {
     const { source, target } = state;
