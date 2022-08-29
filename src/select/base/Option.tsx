@@ -102,7 +102,7 @@ const Option = (props: SelectOptionProps) => {
             onClick={(e) => e.stopPropagation()}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || label}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || content || label}</span>
         </label>
       );
     }
