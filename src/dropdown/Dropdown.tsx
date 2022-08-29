@@ -45,7 +45,7 @@ const Dropdown = (props: DropdownProps) => {
     showArrow: false,
     content: content || DropdownContent(),
     ...omit(popupProps, 'onVisibleChange'),
-    overlayClassName: classNames(dropdownClass, className, popupProps?.overlayClassName),
+    overlayInnerClassName: classNames(dropdownClass, className, popupProps?.overlayInnerClassName),
   };
 
   return (
