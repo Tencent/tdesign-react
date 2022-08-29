@@ -6,7 +6,7 @@ import { ClassName } from '../common';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownSub from './DropdownSub';
-import DropdownSubmenu from './DropdownSubmenu';
+import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
 import { dropdownDefaultProps } from './defaultProps';
 
@@ -62,8 +62,7 @@ const Dropdown = (props: DropdownProps) => {
 };
 
 Dropdown.DropdownItem = DropdownItem;
-Dropdown.DropdownSub = DropdownSub;
-Dropdown.DropdownSubmenu = DropdownSubmenu;
+Dropdown.DropdownMenu = DropdownMenu;
 
 Dropdown.displayName = 'Dropdown';
 Dropdown.defaultProps = dropdownDefaultProps;

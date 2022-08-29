@@ -21,6 +21,10 @@ export default function BasicDropdown() {
         {
           content: '选项五',
           value: 5,
+        },
+        {
+          content: '选项六',
+          value: 6,
           children: [
             {
               content: '选项七',
@@ -31,10 +35,6 @@ export default function BasicDropdown() {
               value: 8,
             },
           ],
-        },
-        {
-          content: '选项六',
-          value: 6,
         },
       ],
     },

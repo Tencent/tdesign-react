@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DropdownSubmenu = ({ children, ...props }) => (
+const DropdownMenu = ({ children, ...props }) => (
   <div {...props}>
     <ul>{children}</ul>
   </div>
 );
 
-DropdownSubmenu.propTypes = {
+DropdownMenu.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-DropdownSubmenu.defaultProps = {
+DropdownMenu.defaultProps = {
   children: null,
   className: null,
 };
 
-DropdownSubmenu.displayName = 'DropdownSubmenu';
+DropdownMenu.displayName = 'DropdownMenu';
 
-export default DropdownSubmenu;
+export default DropdownMenu;
