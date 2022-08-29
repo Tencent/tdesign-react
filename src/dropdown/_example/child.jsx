@@ -41,6 +41,7 @@ export default function BasicDropdown() {
             </DropdownItem>
           </DropdownMenu>
         </DropdownItem>
+        <DropdownItem value={3}>操作三</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );
