@@ -64,11 +64,9 @@ export default function SorterButton(props: SorterButtonProps) {
     const tips = direction === props.sortOrder ? cancelTips : tooltips[direction];
     if (props.hideSortTips ?? locale.hideSortTips) return getSortIcon(direction, activeClass);
     return (
-      <div key={direction} className={tableSortClasses.iconDirection[direction]}>
-        <Tooltip content={tips} placement="right" {...props.tooltipProps} showArrow={false}>
-          {getSortIcon(direction, activeClass)}
-        </Tooltip>
-      </div>
+      <Tooltip content={tips} key={direction} placement="right" {...props.tooltipProps} showArrow={false}>
+        {getSortIcon(direction, activeClass)}
+      </Tooltip>
     );
   });
   return <div className={classNames(classes)}>{sortButton}</div>;
