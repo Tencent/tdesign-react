@@ -68,17 +68,11 @@ export default function mdToReact(options) {
         setTab(currentTab);
         tdDocTabs.current.tab = currentTab;
 
-        tdDocTabs.current.onchange = ({ detail }) => {
-          const { tab: currentTab, tabScrollMap } = detail;
+        tdDocTabs.current.onchange = ({ detail: currentTab }) => {
           setTab(currentTab);
           const query = new URLSearchParams(location.search);
           if (query.get('tab') === currentTab) return;
           navigate({ search: '?tab=' + currentTab });
-          window.scrollTo({
-            left: 0,
-            top: tabScrollMap[currentTab],
-            behavior: 'smooth'
-          });
         }
       }, [location])
 
