@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from 'tdesign-react';
+import { Dialog, Button, Select } from 'tdesign-react';
 
 export default function NotModalExample() {
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
+  const [value, setValue] = useState('');
 
   const handleClick = () => {
     setVisible(true);
@@ -21,6 +22,9 @@ export default function NotModalExample() {
   };
   const handleClose3 = () => {
     setVisible3(false);
+  };
+  const onChange = (value) => {
+    setValue(value);
   };
   return (
     <>
@@ -75,7 +79,19 @@ export default function NotModalExample() {
           console.log('dialog is open');
         }}
       >
-        <p>This is a dialog</p>
+        <Select
+          value={value}
+          onChange={onChange}
+          style={{ width: '40%' }}
+          clearable
+          options={[
+            { label: '架构云', value: '1' },
+            { label: '大数据', value: '2' },
+            { label: '区块链', value: '3' },
+            { label: '物联网', value: '4', disabled: true },
+            { label: '人工智能', value: '5' },
+          ]}
+        ></Select>
       </Dialog>
       <Dialog
         mode="modeless"
