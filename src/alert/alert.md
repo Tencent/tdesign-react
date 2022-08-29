@@ -1,6 +1,7 @@
 :: BASE_DOC ::
 
 ## API
+
 ### Alert Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -15,4 +16,4 @@ operation | TElement | - | 跟在告警内容后面的操作区。TS 类型：`T
 theme | String | info | 组件风格。可选项：success/info/warning/error | N
 title | TNode | - | 标题。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 onClose | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>关闭按钮点击时触发 | N
-onClosed | Function |  | TS 类型：`(context: { e: TransitionEvent }) => void`<br/>告警提示框关闭动画结束后触发 | N
+onClosed | Function |  | TS 类型：`() => void`<br/>告警提示框关闭动画结束后触发 | N
