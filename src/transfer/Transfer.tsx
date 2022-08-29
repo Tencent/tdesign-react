@@ -46,6 +46,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     transferItem,
     content,
     tree,
+    showCheckAll,
   } = props;
   const [state, setState] = useState<StateInterface>(() => ({
     source: data.filter((item) => !defaultValue.includes(item.value)),
@@ -93,6 +94,12 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const [sourceFooter, targetFooter] = getDefaultValue(footer).map((item) => getJSX(item));
   const [sourceTransferItem, targetTransferItem] = getDefaultValue(transferItem);
   const [sourceContent, targetContent] = getDefaultValue(content);
+
+  const [showCheckAllSource, showCheckAllTarget] = useMemo(
+    () =>
+      Array.isArray(showCheckAll) ? [showCheckAll[0] ?? true, showCheckAll[1] ?? true] : [showCheckAll, showCheckAll],
+    [showCheckAll],
+  );
 
   const transformSource = () => {
     const { source, target } = state;
@@ -233,6 +240,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         onCheckbox={(value) => handleCheckChange(value, 'source')}
         onSearch={(val: string) => setSearchState({ ...searchState, source: val })}
         tree={tree}
+        showCheckAll={showCheckAllSource}
       ></TransferList>
       {OperationsCmp()}
       <TransferList
@@ -250,6 +258,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         onCheckbox={(value) => handleCheckChange(value, 'target')}
         onSearch={(val: string) => setSearchState({ ...searchState, target: val })}
         tree={tree}
+        showCheckAll={showCheckAllTarget}
       ></TransferList>
     </div>
   );
