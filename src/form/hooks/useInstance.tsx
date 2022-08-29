@@ -181,7 +181,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
     travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef?.current?.setValue?.(fieldValue);
+      formItemRef.current?.setValue?.(fieldValue);
     });
   }
 
@@ -193,7 +193,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       const { name, ...restFields } = field;
       const formItemRef = getMapValue(name, formMapRef);
 
-      formItemRef?.current?.setField({ ...restFields });
+      formItemRef.current?.setField({ ...restFields });
     });
   }
 
@@ -202,14 +202,14 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     // reset all
     if (typeof params === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
-        formItemRef?.current?.resetField();
+        formItemRef.current?.resetField();
       });
     } else {
       const { type = 'initial', fields = [] } = params;
 
       fields.forEach((name) => {
         const formItemRef = getMapValue(name, formMapRef);
-        formItemRef?.current?.resetField(type);
+        formItemRef.current?.resetField(type);
       });
     }
   }
@@ -219,7 +219,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     // reset all
     if (typeof fields === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
-        formItemRef?.current?.resetValidate();
+        formItemRef.current?.resetValidate();
       });
     } else {
       if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
@@ -234,7 +234,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   // 对外方法，设置 formItem 的错误信息
   function setValidateMessage(message: FormValidateMessage<FormData>) {
     travelMapFromObject(message, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef?.current?.setValidateMessage?.(fieldValue);
+      formItemRef.current?.setValidateMessage?.(fieldValue);
     });
   }
 
@@ -249,5 +249,6 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     setValidateMessage,
     getFieldValue,
     getFieldsValue,
+    currentElement: formRef.current,
   };
 }

@@ -23,6 +23,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   errorMessage?: FormErrorMessage;
   /**
+   * 经 `Form.useForm()` 创建的 form 控制实例
+   */
+  form?: FormInstanceFunctions;
+  /**
    * 允许表单统一控制禁用状态的自定义组件名称列表。默认会有组件库的全部输入类组件：TInput、TInputNumber、TCascader、TSelect、TOption、TSwitch、TCheckbox、TCheckboxGroup、TRadio、TRadioGroup、TTreeSelect、TDatePicker、TTimePicker、TUpload、TTransfer、TSlider。对于自定义组件，组件内部需要包含可以控制表单禁用状态的变量 `formDisabled`。示例：`['CustomUpload', 'CustomInput']`
    */
   formControlledComponents?: Array<string>;
@@ -103,15 +107,19 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   clearValidate?: (fields?: Array<keyof FormData>) => void;
   /**
-   * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
+   * 获取 form dom 元素
    */
-  getFieldsValue?: getFieldsValue<FormData>;
+  currentElement?: HTMLFormElement;
   /**
    * 获取单个字段值
    */
   getFieldValue?: <K extends keyof FormData>(field: K) => FormData[K];
   /**
-   * 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
+   * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
+   */
+  getFieldsValue?: getFieldsValue<FormData>;
+  /**
+   * 重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
    */
   reset?: (params?: FormResetParams<FormData>) => void;
   /**
@@ -241,7 +249,7 @@ export interface FormRule {
    */
   enum?: Array<string>;
   /**
-   * 内置校验方法，校验值是否为身份证号码，组件校验正则为 `/^(\d{18,18}|\d{15,15}|\d{17,17}x)$/i`，示例：`{ idcard: true, message: '请输入正确的身份证号码' }`
+   * 内置校验方法，校验值是否为身份证号码，组件校验正则为 `/^(\\d{18,18}|\\d{15,15}|\\d{17,17}x)$/i`，示例：`{ idcard: true, message: '请输入正确的身份证号码' }`
    */
   idcard?: boolean;
   /**
@@ -274,7 +282,7 @@ export interface FormRule {
    */
   required?: boolean;
   /**
-   * 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }`
+   * 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }`
    */
   telnumber?: boolean;
   /**
@@ -393,7 +401,7 @@ export type ErrorList = Array<FormRule>;
 
 export interface getFieldsValue<T> {
   (nameList: true): T;
-  (nameList: string[]): Record<keyof T, unknown>;
+  (nameList: any[]): Record<keyof T, unknown>;
 }
 
 export interface FormResetParams<FormData> {
@@ -402,9 +410,10 @@ export interface FormResetParams<FormData> {
 }
 
 export interface FieldData {
-  name: string;
-  value: unknown;
-  status: string;
+  name: string | number | Array<string | number>;
+  value?: unknown;
+  status?: string;
+  validateMessage?: { type?: string; message?: string };
 }
 
 export type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] };

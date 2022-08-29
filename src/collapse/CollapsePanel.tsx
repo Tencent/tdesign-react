@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
@@ -45,9 +45,12 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const bodyRef = useRef<HTMLDivElement>();
   const isDisabled = disabled || disableAll;
 
-  if (defaultExpandAll) {
-    updateCollapseValue(innerValue);
-  }
+  useEffect(() => {
+    if (defaultExpandAll) {
+      updateCollapseValue(innerValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
 

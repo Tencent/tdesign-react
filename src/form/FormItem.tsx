@@ -46,6 +46,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const {
     colon,
     layout,
+    initialData: initialDataFromContext,
     requiredMark: requiredMarkFromContext,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
@@ -85,7 +86,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(getDefaultInitialData(children, initialData));
+  const [formValue, setFormValue] = useState(
+    getDefaultInitialData({
+      name,
+      formListName,
+      children,
+      initialData,
+      initialDataFromContext,
+    }),
+  );
 
   const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
@@ -261,7 +270,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   function getResetValue(resetType: string): ValueType {
     if (resetType === 'initial') {
-      return getDefaultInitialData(children, initialData);
+      return getDefaultInitialData({
+        name,
+        formListName,
+        children,
+        initialData,
+        initialDataFromContext,
+      });
     }
 
     let emptyValue: ValueType = '';

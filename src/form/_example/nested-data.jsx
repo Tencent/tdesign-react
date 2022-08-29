@@ -4,7 +4,7 @@ import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker } from 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
 
   const onSubmit = (e) => {
     console.log(e);
@@ -12,15 +12,15 @@ export default function BaseForm() {
       MessagePlugin.info('提交成功');
     }
   };
-  
+
   const setData = () => {
-    console.log('getFieldsValue all: ', formRef.current.getFieldsValue?.(true));
-    console.log('getFieldsValue: ', formRef.current.getFieldsValue?.([['user', 'name']]));
-    console.log('getFieldValue: ', formRef.current.getFieldValue?.(['user', 'name']));
-    formRef.current.setFieldsValue?.({ birthday: '2020-01-01' });
-    formRef.current.setFieldsValue?.({ user: { gender: 'male' } });
-    formRef.current.setFields?.([{ name: ['user', 'course'], value: ['la'] }]);
-  }
+    console.log('getFieldsValue all: ', form.getFieldsValue?.(true));
+    console.log('getFieldsValue: ', form.getFieldsValue?.([['user', 'name']]));
+    console.log('getFieldValue: ', form.getFieldValue?.(['user', 'name']));
+    form.setFieldsValue?.({ birthday: '2020-01-01' });
+    form.setFieldsValue?.({ user: { gender: 'male' } });
+    form.setFields?.([{ name: ['user', 'course'], value: ['la'] }]);
+  };
 
   const onReset = (e) => {
     console.log(e);
@@ -28,11 +28,25 @@ export default function BaseForm() {
   };
 
   const onValuesChange = (value) => {
-    console.log(value)
-  }
+    console.log(value);
+  };
 
   return (
-    <Form ref={formRef} onSubmit={onSubmit} onReset={onReset} colon labelWidth={100} onValuesChange={onValuesChange}>
+    <Form
+      initialData={{
+        user: {
+          name: 'name',
+          age: 'age',
+        },
+        birthday: '2022-08-08',
+      }}
+      form={form}
+      onSubmit={onSubmit}
+      onReset={onReset}
+      colon
+      labelWidth={100}
+      onValuesChange={onValuesChange}
+    >
       <FormItem label="姓名" name={['user', 'name']} rules={[{ required: true }]}>
         <Input />
       </FormItem>
