@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
@@ -45,9 +45,16 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const bodyRef = useRef<HTMLDivElement>();
   const isDisabled = disabled || disableAll;
 
-  if (defaultExpandAll) {
-    updateCollapseValue(innerValue);
-  }
+  const initDefaultExpandAll = useRef(false);
+  useEffect(() => {
+    if (initDefaultExpandAll) {
+      return;
+    }
+    initDefaultExpandAll.current = true;
+    if (defaultExpandAll) {
+      updateCollapseValue(innerValue);
+    }
+  }, [updateCollapseValue, defaultExpandAll, innerValue]);
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
 
