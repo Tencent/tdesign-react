@@ -29,7 +29,12 @@ export interface TheadProps {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
     onColumnMouseover: (e: MouseEvent) => void;
-    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>, nearCol: BaseTableCol<TableRowData>) => void;
+    onColumnMousedown: (
+      e: MouseEvent,
+      col: BaseTableCol<TableRowData>,
+      effectNextCol: BaseTableCol<TableRowData>,
+      effectPrevCol: BaseTableCol<TableRowData>,
+    ) => void;
   };
 }
 
@@ -90,6 +95,7 @@ export default function THead(props: TheadProps) {
                   e,
                   col,
                   index < row.length - 1 ? row[index + 1] : row[index - 1],
+                  index > 0 ? row[index - 1] : row[index + 1],
                 ),
               onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e),
             }
