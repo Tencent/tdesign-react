@@ -45,16 +45,12 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const bodyRef = useRef<HTMLDivElement>();
   const isDisabled = disabled || disableAll;
 
-  const initDefaultExpandAll = useRef(false);
   useEffect(() => {
-    if (initDefaultExpandAll) {
-      return;
-    }
-    initDefaultExpandAll.current = true;
     if (defaultExpandAll) {
       updateCollapseValue(innerValue);
     }
-  }, [updateCollapseValue, defaultExpandAll, innerValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
 
