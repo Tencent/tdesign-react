@@ -158,7 +158,10 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             value={month}
             options={monthOptions}
             onChange={(val) => onMonthChange(val)}
-            popupProps={{ overlayClassName: `${headerClassName}-controller-month-popup` }}
+            popupProps={{
+              attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
+              overlayClassName: `${headerClassName}-controller-month-popup`,
+            }}
           />
         )}
         <Select
@@ -166,7 +169,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
-          popupProps={{ overlayClassName: `${headerClassName}-controller-year-popup`, onScroll: handleScroll }}
+          popupProps={{
+            onScroll: handleScroll,
+            attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
+            overlayClassName: `${headerClassName}-controller-year-popup`,
+          }}
           panelTopContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
               ...
