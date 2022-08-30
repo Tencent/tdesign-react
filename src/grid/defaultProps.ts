@@ -6,4 +6,4 @@ import { TdRowProps, TdColProps } from './type';
 
 export const rowDefaultProps: TdRowProps = { align: 'top', gutter: 0, justify: 'start', tag: 'div' };
 
-export const colDefaultProps: TdColProps = { offset: 0, order: 0, pull: 0, push: 0, span: 12, tag: 'div' };
+export const colDefaultProps: TdColProps = { offset: 0, order: 0, pull: 0, push: 0, tag: 'div' };

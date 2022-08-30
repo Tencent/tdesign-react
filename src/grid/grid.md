@@ -26,7 +26,7 @@ order | Number | 0 | 栅格顺序，flex 布局模式下有效 | N
 pull | Number | 0 | 栅格向左移动格数 | N
 push | Number | 0 | 栅格向右移动格数 | N
 sm | Number / Object | - | ≥768px 响应式栅格，可为栅格数或一个包含其他属性的对象（平板）。TS 类型：`number | BaseColProps` | N
-span | Number | 12 | 栅格占位格数，为 0 时相当于 display: none | N
+span | Number | - | 栅格占位格数，为 0 时相当于 display: none | N
 tag | String | div | 自定义元素标签 | N
 xl | Number / Object | - | ≥1400px 响应式栅格，可为栅格数或一个包含其他属性的对象（中尺寸电脑）。TS 类型：`number | BaseColProps` | N
 xs | Number / Object | - | <768px 响应式栅格，可为栅格数或一个包含其他属性的对象（手机）。TS 类型：`number | BaseColProps` `interface BaseColProps { offset: number; order: number; pull: number; push: number; span: number }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/grid/type.ts) | N

@@ -66,7 +66,6 @@ export interface TdColProps {
   sm?: number | BaseColProps;
   /**
    * 栅格占位格数，为 0 时相当于 display: none
-   * @default 12
    */
   span?: number;
   /**
