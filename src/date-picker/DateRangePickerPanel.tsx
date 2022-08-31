@@ -73,7 +73,9 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   }
 
   // 日期点击
-  function onCellClick(date: Date, { partial }) {
+  function onCellClick(date: Date, { e, partial }) {
+    props.onCellClick?.({ date: value.map((v) => dayjs(v).toDate()), e, partial });
+
     setIsSelected(true);
 
     const nextValue = [...cacheValue];
