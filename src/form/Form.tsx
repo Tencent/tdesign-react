@@ -67,7 +67,8 @@ const Form = forwardRefWithStatics(
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      if ((e.target as Element).tagName.toLowerCase() === 'textarea') return;
+      // 禁用 input 输入框回车自动提交 form
+      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
       if (preventSubmitDefault && e.key === 'Enter') {
         e.preventDefault?.();
         e.stopPropagation?.();
