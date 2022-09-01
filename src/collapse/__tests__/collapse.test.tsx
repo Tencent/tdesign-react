@@ -46,11 +46,11 @@ describe('Collapse Unit Test', () => {
 
       // 默认展开，点击关闭
       fireEvent.click(element);
-      expect(document.querySelector('.t-collapse-panel__body--collapsed')).not.toBeNull();
+      expect(document.querySelector('.t-collapse-panel__body--collapsed')).toBeNull();
 
       // 当前关闭，点击展开
       fireEvent.click(element);
-      expect(document.querySelector('.t-collapse-panel__body--collapsed')).toBeNull();
+      expect(document.querySelector('.t-collapse-panel__body--collapsed')).not.toBeNull();
     });
   });
 });

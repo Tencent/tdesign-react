@@ -5,6 +5,25 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.5 `2022-08-29` 
+### 🚀 Features
+- `Form`: 新增 `useForm` hook 获取 form 实例 & 支持 `initialData` 全局设置初始值 @HQ-Lin ([#1351](https://github.com/Tencent/tdesign-react/pull/1351))
+- `DatePicker`: 优化不设置 `valueType` 场景下与 `format` 一致 @HQ-Lin ([#1382](https://github.com/Tencent/tdesign-react/pull/1382))
+- `Dialog`:  非模态对话框优化拖拽事件鼠标表现 @huoyuhao ([#1355](https://github.com/Tencent/tdesign-react/pull/1355))
+- `Transfer`: 支持 `showCheckAll` api @HelKyle ([#1385](https://github.com/Tencent/tdesign-react/pull/1385))
+
+### 🐞 Bug Fixes
+- `InputAdornment`: 修复在 form 组件下 disabled 设置问题 @HQ-Lin ([#1381](https://github.com/Tencent/tdesign-react/pull/1381))
+- `Slider`: 修复点击 marks 触发 cannot read properties of null 异常 @PBK-B ([#1297](https://github.com/Tencent/tdesign-react/pull/1297))
+- `Upload`: 支持受控使用时`files`可设置为null @uyarn ([#1358](https://github.com/Tencent/tdesign-react/pull/1358))
+- `Popup`: 修复 popup 显示状态点击页面事件重复触发问题 @HQ-Lin ([#1371](https://github.com/Tencent/tdesign-react/pull/1371))
+- `Alert`: 增加关闭动画 && 修复 `onClosed` 回调事件 @HelKyle ([#1368](https://github.com/Tencent/tdesign-react/pull/1368))
+- `Select`: option 设置 content 未生效问题 @carolin913 ([#1383](https://github.com/Tencent/tdesign-react/pull/1383))
+- `Table`:
+    - 修复 tree-select 首次渲染出现 key 为 undefined 的问题 @HelKyle ([#1332](https://github.com/Tencent/tdesign-react/pull/1332))
+    - 修复排序按钮的样式问题 @uyarn ([#1384](https://github.com/Tencent/tdesign-react/pull/1384))
+    - 允许在表头分割线一定范围内触发列宽调整逻辑 @ZTao-z ([#1378](https://github.com/Tencent/tdesign-react/pull/1378))
+
 ## 🌈 0.40.4 `2022-08-22` 
 ### 🚀 Features
 - `Table`: 

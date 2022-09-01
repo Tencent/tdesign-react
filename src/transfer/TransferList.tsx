@@ -25,6 +25,7 @@ interface TransferListProps
   pagination?: Pick<PaginationProps, 'pageSize'> & { onPageChange?: (current: number) => void };
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;
+  showCheckAll?: boolean;
 }
 
 const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
@@ -44,6 +45,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     pagination,
     transferItem,
     tree: treeNode,
+    showCheckAll,
   } = props;
   const notDisabledData = !treeNode
     ? data.filter((item) => !item.disabled)
@@ -76,12 +78,14 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     return (
       <div className={`${CLASSPREFIX}-header`}>
         <div>
-          <Checkbox
-            indeterminate={indeterminate}
-            checked={allChecked}
-            disabled={disabled}
-            onChange={handleAllCheckbox}
-          ></Checkbox>
+          {showCheckAll ? (
+            <Checkbox
+              indeterminate={indeterminate}
+              checked={allChecked}
+              disabled={disabled}
+              onChange={handleAllCheckbox}
+            />
+          ) : null}
           <span>{t(local.title, { checked: checked.length, total })}</span>
         </div>
         <span>{title}</span>

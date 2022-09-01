@@ -7,7 +7,7 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-align | String | top | 纵向对齐方式。可选项：top/middle/bottom | N
+align | String | top | 纵向对齐方式，CSS 属性 `align-items` 值。其中 `top` 和 `start` 等效；`middle` 和 `center` 等效；`bottom` 和 `end` 等效。可选项：start/end/center/stretch/baseline/top/middle/bottom | N
 gutter | Number / Object / Array | 0 | 栅格间隔，示例：`{ xs: 8, sm: 16, md: 24}`。当数据类型为 Number 和 Object 时，用于指定横向间隔。当数据类型为数组时，第一个参数为横向间隔，第二个参数为纵向间隔， [水平间隔, 垂直间隔]。TS 类型：`number |  GutterObject | Array<GutterObject | number>` `interface GutterObject { xs: number; sm: number; md: number } `。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/grid/type.ts) | N
 justify | String | start | flex 布局下的水平排列方式。可选项：start/end/center/space-around/space-between | N
 tag | String | div | 自定义元素标签 | N
@@ -26,7 +26,7 @@ order | Number | 0 | 栅格顺序，flex 布局模式下有效 | N
 pull | Number | 0 | 栅格向左移动格数 | N
 push | Number | 0 | 栅格向右移动格数 | N
 sm | Number / Object | - | ≥768px 响应式栅格，可为栅格数或一个包含其他属性的对象（平板）。TS 类型：`number | BaseColProps` | N
-span | Number | 12 | 栅格占位格数，为 0 时相当于 display: none | N
+span | Number | - | 栅格占位格数，为 0 时相当于 display: none | N
 tag | String | div | 自定义元素标签 | N
 xl | Number / Object | - | ≥1400px 响应式栅格，可为栅格数或一个包含其他属性的对象（中尺寸电脑）。TS 类型：`number | BaseColProps` | N
 xs | Number / Object | - | <768px 响应式栅格，可为栅格数或一个包含其他属性的对象（手机）。TS 类型：`number | BaseColProps` `interface BaseColProps { offset: number; order: number; pull: number; push: number; span: number }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/grid/type.ts) | N
