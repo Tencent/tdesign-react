@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tooltip 组件测试 props button as children destroyOnClose: true 1`] = `
+exports[`Tooltip 组件测试 props disabled-button as children 1`] = `
 <body>
   <div>
     <span
