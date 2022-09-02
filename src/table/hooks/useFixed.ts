@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
 import get from 'lodash/get';
+import { getIEVersion } from 'tdesign-react/_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
@@ -12,7 +13,6 @@ import {
   TableColFixedClasses,
   RecalculateColumnWidthFunc,
 } from '../interface';
-// import { TDisplayNoneElementRefresh } from '../../hooks/useDestroyOnClose';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -477,11 +477,15 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   const onResize = refreshTable;
 
-  // 父元素 display: none 的变化，子元素无法监听到，通过 provide/inject 方式处理组件更新
-  // watch([displayNoneElementRefresh], () => {
-  //   if (!displayNoneElementRefresh) return;
-  //   requestAnimationFrame ? requestAnimationFrame(refreshTable) : refreshTable();
-  // });
+  function addTableResizeObserver(tableElement: HTMLDivElement) {
+    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    if (getIEVersion() < 11) return;
+    const ro = new ResizeObserver(() => {
+      refreshTable();
+    });
+    // 观察一个或多个元素
+    ro.observe(tableElement);
+  }
 
   useEffect(() => {
     const scrollWidth = getScrollbarWidth();
@@ -493,11 +497,13 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
       }
       clearTimeout(timer);
     });
-    if (isFixedColumn || isFixedHeader || !notNeedThWidthList) {
+    const needWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList;
+    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    if (needWatchResize && getIEVersion() < 11) {
       on(window, 'resize', onResize);
     }
     return () => {
-      if (isFixedColumn || isFixedHeader || !notNeedThWidthList) {
+      if (needWatchResize && getIEVersion() < 11) {
         off(window, 'resize', onResize);
       }
     };
@@ -525,5 +531,6 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     getThWidthList,
     updateThWidthList,
     setRecalculateColWidthFuncRef,
+    addTableResizeObserver,
   };
 }
