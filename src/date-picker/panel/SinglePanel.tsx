@@ -6,7 +6,7 @@ import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
 import { TdDatePickerProps, DateValue } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
-import { getDefaultFormat, parseToDayjs } from '../hooks/useFormat';
+import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 

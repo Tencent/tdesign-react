@@ -5,7 +5,7 @@ import { TimePickerPanel } from '../../time-picker';
 import type { SinglePanelProps } from './SinglePanel';
 import type { RangePanelProps } from './RangePanel';
 import useConfig from '../../hooks/useConfig';
-import { getDefaultFormat } from '../hooks/useFormat';
+import { getDefaultFormat } from '../../_common/js/date-picker/format';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
