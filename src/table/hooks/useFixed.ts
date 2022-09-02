@@ -484,7 +484,6 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     const ro = new ResizeObserver(() => {
       refreshTable();
     });
-    // 观察一个或多个元素
     ro.observe(tableElement);
   }
 
