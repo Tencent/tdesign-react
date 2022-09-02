@@ -71,3 +71,4 @@ NotificationPlugin.warning = (options) => renderNotification('warning', options)
 NotificationPlugin.error = (options) => renderNotification('error', options);
 NotificationPlugin.close = (promise) => promise.then((instance) => instance.close());
 NotificationPlugin.closeAll = () => listMap.forEach((list) => list.removeAll());
+// NotificationPlugin.config = (options) => setGlobalConfig(options);

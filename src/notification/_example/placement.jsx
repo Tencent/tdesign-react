@@ -12,6 +12,7 @@ export default function NotificationExample() {
       placement,
       duration: 3000,
       offset: [offsetX, offsetY],
+      closeBtn: true,
     });
   };
 
