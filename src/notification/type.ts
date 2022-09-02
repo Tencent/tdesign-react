@@ -102,4 +102,4 @@ export type NotificationCloseMethod = (options: Promise<NotificationInstance>) =
 
 export type NotificationCloseAllMethod = () => void;
 
-export type NotificationConfigMethod = (options: NotificationInfoOptions) => void;
+export type NotificationConfigMethod = (notify: NotificationOptions) => void;
