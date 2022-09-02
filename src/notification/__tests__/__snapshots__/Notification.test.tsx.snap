@@ -819,7 +819,7 @@ exports[`placement.jsx 1`] = `
           <div
             class="t-input__wrap"
             style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
-            value=""
+            value="0"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -828,7 +828,7 @@ exports[`placement.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入横向偏移量"
                 type="text"
-                value=""
+                value="0"
               />
             </div>
           </div>
@@ -839,7 +839,7 @@ exports[`placement.jsx 1`] = `
           <div
             class="t-input__wrap"
             style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
-            value=""
+            value="0"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -848,7 +848,7 @@ exports[`placement.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入纵向偏移量"
                 type="text"
-                value=""
+                value="0"
               />
             </div>
           </div>
