@@ -19,10 +19,8 @@ import {
 } from '../../_common/js/time-picker/const';
 import { closestLookup } from '../../_common/js/time-picker/utils';
 
-// 仅演示用，不能合
-import './style/picker.less';
-
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
+import useIsomorphicLayoutEffect from '../../_util/useLayoutEffect';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
 
@@ -96,9 +94,30 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   // 获取每个时间的高度
   const getItemHeight = useCallback(() => {
     const maskDom = maskRef?.current?.querySelector('div');
-    const timeItemTotalHeight = maskDom.offsetHeight + parseInt(getComputedStyle(maskDom).marginTop, 10);
-    return timeItemTotalHeight;
+    if (!maskDom) {
+      return {
+        offsetHeight: 0,
+        margin: 0,
+      };
+    }
+    return {
+      offsetHeight: maskDom.offsetHeight,
+      margin: parseInt(getComputedStyle(maskDom).marginTop, 10),
+    };
   }, []);
+
+  const panelOffset = useRef({
+    top: 0,
+    bottom: 0,
+  });
+
+  useIsomorphicLayoutEffect(() => {
+    const { offsetHeight, margin } = getItemHeight();
+    panelOffset.current = {
+      top: offsetHeight * 0.5 + margin * 0.5,
+      bottom: offsetHeight * 0.5 + margin * 1.5,
+    };
+  }, [cols]);
 
   const timeItemCanUsed = useCallback(
     (col: EPickerCols, el: string | number) => {
@@ -152,7 +171,8 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         (time as number) %= 12; // 一定是数字，直接 cast
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
-      const timeItemTotalHeight = getItemHeight();
+      const { offsetHeight, margin } = getItemHeight();
+      const timeItemTotalHeight = offsetHeight + margin;
       const distance = Math.abs(itemIdx * timeItemTotalHeight);
       return distance;
     },
@@ -163,8 +183,9 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     let val: number | string;
     let formattedVal: string;
     const scrollTop = colsRef.current[idx]?.scrollTop;
-
-    let colStep = Math.abs(Math.round(scrollTop / getItemHeight() + 0.5));
+    const { offsetHeight, margin } = getItemHeight();
+    const timeItemTotalHeight = offsetHeight + margin;
+    let colStep = Math.abs(Math.round(scrollTop / timeItemTotalHeight + 0.5));
     const meridiem = MERIDIEM_LIST[Math.min(colStep - 1, 1)].toLowerCase(); // 处理PM、AM与am、pm
 
     if (Number.isNaN(colStep)) colStep = 1;
@@ -307,8 +328,8 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         onScroll={debounce(() => handleScroll(col, idx), 50)}
         style={
           {
-            '--timePickerPanelOffsetTop': 15,
-            '--timePickerPanelOffsetBottom': 21,
+            '--timePickerPanelOffsetTop': panelOffset.current.top,
+            '--timePickerPanelOffsetBottom': panelOffset.current.bottom,
           } as CSSProperties
         }
       >
