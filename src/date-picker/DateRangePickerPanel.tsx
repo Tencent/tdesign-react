@@ -9,7 +9,7 @@ import {
 } from './type';
 import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
-import { formatDate, getDefaultFormat } from './hooks/useFormat';
+import { formatDate, getDefaultFormat } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import log from '../_common/js/log';
 
@@ -74,7 +74,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
   // 日期点击
   function onCellClick(date: Date, { e, partial }) {
-    props.onCellClick?.({ date: value.map((v) => dayjs(v).toDate()), e, partial });
+    props.onCellClick?.({ date: value.map((v) => dayjs(v).toDate()), e, partial: activeIndex ? 'end' : 'start' });
 
     setIsSelected(true);
 
