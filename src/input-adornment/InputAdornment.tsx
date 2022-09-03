@@ -32,7 +32,15 @@ const InputAdornment = forwardRef((props: InputAdornmentProps, ref: React.Ref<HT
     React.Children.map(children, (child) => {
       if (!child) return null;
       if (React.isValidElement(child)) {
-        return React.cloneElement(child, { ...wrapperProps, ...child.props });
+        return React.cloneElement(child, {
+          ...wrapperProps,
+          ...child.props,
+          onChange: (...args) => {
+            // @ts-ignore
+            wrapperProps?.onChange?.call?.(null, ...args);
+            child.props?.onChange?.call?.(null, ...args);
+          },
+        });
       }
       return child;
     });
