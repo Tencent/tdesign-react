@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form, Input, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
 import debounce from 'lodash/debounce';
 
@@ -30,10 +30,12 @@ export default function BaseForm() {
     });
   }
 
-  const handleChange = debounce((value) => {
-    console.log('value', value);
-    form.validate({ fields: ['password'], trigger: 'blur' });
-  }, 500);
+  const handleChange = useRef(
+    debounce((value) => {
+      console.log('value', value);
+      form.validate({ fields: ['password'], trigger: 'blur' });
+    }, 500),
+  ).current;
 
   return (
     <Form

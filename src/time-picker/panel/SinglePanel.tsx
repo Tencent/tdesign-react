@@ -2,7 +2,6 @@ import React, { FC, useCallback, useEffect, useState, useRef, useMemo } from 're
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import debounce from 'lodash/debounce';
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 
@@ -20,6 +19,7 @@ import {
 import { closestLookup } from '../../_common/js/time-picker/utils';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
+import useDebounce from '../../_util/useDebounce';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
 
@@ -156,7 +156,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     [getItemHeight, getColList, format],
   );
 
-  const handleScroll = (col: EPickerCols, idx: number) => {
+  const handleScroll = useDebounce((col: EPickerCols, idx: number) => {
     let val: number | string;
     let formattedVal: string;
     const scrollTop = colsRef.current[idx]?.scrollTop;
@@ -212,7 +212,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         behavior: 'smooth',
       });
     }
-  };
+  }, 50);
 
   const scrollToTime = useCallback(
     (col: EPickerCols, time: number | string, idx: number, behavior: 'auto' | 'smooth' = 'auto') => {
@@ -301,7 +301,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         key={`${col}_${idx}`}
         ref={(el) => (colsRef.current[idx] = el)}
         className={`${panelClassName}-body-scroll`}
-        onScroll={debounce(() => handleScroll(col, idx), 50)}
+        onScroll={() => handleScroll(col, idx)}
       >
         {getColList(col).map((el) => (
           <li

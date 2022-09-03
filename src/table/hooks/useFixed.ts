@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
 import get from 'lodash/get';
-import debounce from 'lodash/debounce';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
@@ -13,6 +12,7 @@ import {
   TableColFixedClasses,
   RecalculateColumnWidthFunc,
 } from '../interface';
+import useDebounce from '../../_util/useDebounce';
 // import { TDisplayNoneElementRefresh } from '../../hooks/useDestroyOnClose';
 
 // 固定列相关类名处理
@@ -466,7 +466,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     ],
   );
 
-  const refreshTable = debounce(() => {
+  const refreshTable = useDebounce(() => {
     updateTableWidth();
     updateFixedHeader();
     updateThWidthListHandler();
