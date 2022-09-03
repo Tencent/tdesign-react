@@ -18,6 +18,8 @@ import {
   TWELVE_HOUR_FORMAT,
 } from '../../_common/js/time-picker/const';
 import { closestLookup } from '../../_common/js/time-picker/utils';
+// 仅做演示用 ！！！ 后面会删
+import './panel.less';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 import useIsomorphicLayoutEffect from '../../_util/useLayoutEffect';
