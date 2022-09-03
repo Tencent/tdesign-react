@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Table, Input, Select, DatePicker, MessagePlugin } from 'tdesign-react';
+import dayjs from 'dayjs';
 
 const FRAMEWORK_OPTIONS = [
   { label: 'Vue Framework', value: 'Vue' },
@@ -142,6 +143,13 @@ export default function EditableCellTable() {
             console.log('Edit Date:', context);
             MessagePlugin.success('Success');
           },
+          // 校验规则，此处同 Form 表单
+          rules: () => [
+            {
+              validator: (val) => dayjs(val).isAfter(dayjs()),
+              message: '只能选择今天以后日期',
+            },
+          ],
         },
       },
     ],

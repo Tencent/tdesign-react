@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import get from 'lodash/get';
 import intersection from 'lodash/intersection';
 import { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
-import TableTreeStore, { KeysType, TableTreeDataMap } from './tree-store';
+import { KeysType, TableTreeDataMap, TreeDataMapType } from '../../_common/js/table/tree-store';
 import useControlled from '../../hooks/useControlled';
 
 export interface GetChildrenDataReturnValue {
@@ -15,7 +15,7 @@ export interface GetChildrenDataReturnValue {
 export const childrenMap = new Map();
 
 export function getChildrenData(
-  treeDataMap: InstanceType<typeof TableTreeStore>['treeDataMap'],
+  treeDataMap: TreeDataMapType,
   data: TableRowData,
   keys: { childrenKey: string; rowKey: string },
   r?: GetChildrenDataReturnValue,
@@ -76,14 +76,14 @@ export function removeChildrenKeys(p: RemoveParams, r?: RemainData): RemainData 
 }
 
 export interface GetKeyDataParams {
-  treeDataMap: InstanceType<typeof TableTreeStore>['treeDataMap'];
+  treeDataMap: TreeDataMapType;
   data: Array<any>;
   column: PrimaryTableCol;
   keys: KeysType;
 }
 
 export interface GetRowDataParams {
-  treeDataMap: InstanceType<typeof TableTreeStore>['treeDataMap'];
+  treeDataMap: TreeDataMapType;
   selectedRowKeys: Array<string | number>;
 }
 

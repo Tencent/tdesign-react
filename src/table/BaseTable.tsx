@@ -182,10 +182,11 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableContentRef]);
 
-  useEffect(() => {
-    addTableResizeObserver(tableRef.current);
+  useEffect(
+    () => addTableResizeObserver(tableRef.current),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableRef]);
+    [tableRef],
+  );
 
   useEffect(getTFootHeight, [tableElmRef]);
 

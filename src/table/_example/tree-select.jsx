@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { EnhancedTable, Radio, Space } from 'tdesign-react';
+import { EnhancedTable, Radio, Space, Button, MessagePlugin } from 'tdesign-react';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 
@@ -65,11 +65,11 @@ const columns = [
 ];
 
 export default function TableSingleSort() {
-  const [data] = useState([...initData]);
+  const [data, setData] = useState([...initData]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [checkStrictly, setCheckStrictly] = useState(true);
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
-  const treeTableRef = useRef();
+  const treeTableRef = useRef(null);
 
   useEffect(() => {
     // 包含 treeDataMap 及各类树形操作方法
@@ -78,11 +78,11 @@ export default function TableSingleSort() {
 
   useEffect(
     () => {
-      selectedRowKeys.value = [];
-      data.value = cloneDeep(data.value);
+      setSelectedRowKeys([]);
+      setData(cloneDeep(data));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [checkStrictly.value],
+    [checkStrictly],
   );
 
   // 可使用 treeTableRef.current.treeDataMap 判断是否为叶子结点，或任意结点的层级
@@ -95,12 +95,28 @@ export default function TableSingleSort() {
     setExpandedRowKeys(val);
   };
 
+  const getTreeExpandedRow = () => {
+    const treeExpandedRowKeys = treeTableRef.current.getTreeExpandedRow('unique');
+    console.log('行唯一标识值：', treeExpandedRowKeys);
+
+    const treeExpandedRow = treeTableRef.current.getTreeExpandedRow('data');
+    console.log('行数据：', treeExpandedRow);
+
+    const treeExpandedRowState = treeTableRef.current.getTreeExpandedRow('all');
+    console.log('全部行信息：', treeExpandedRowState);
+
+    MessagePlugin.success('获取成功，请打开控制台查看');
+  }
+
   return (
     <Space direction="vertical">
-      <Radio.Group value={checkStrictly} onChange={setCheckStrictly} variant="default-filled">
-        <Radio.Button value={true}>父子行选中独立</Radio.Button>
-        <Radio.Button value={false}>父子行选中关联</Radio.Button>
-      </Radio.Group>
+      <Space>
+        <Radio.Group value={checkStrictly} onChange={setCheckStrictly} variant="default-filled">
+          <Radio.Button value={true}>父子行选中独立</Radio.Button>
+          <Radio.Button value={false}>父子行选中关联</Radio.Button>
+        </Radio.Group>
+        <Button onClick={getTreeExpandedRow}>获取树形结构展开的节点</Button>
+      </Space>
 
       <EnhancedTable
         ref={treeTableRef}
