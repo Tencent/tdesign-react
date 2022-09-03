@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
+import useLayoutEffect from '../_util/useLayoutEffect';
 
 // https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md
 const useEvent = function <T extends (...args: any[]) => any>(handler: T): T {

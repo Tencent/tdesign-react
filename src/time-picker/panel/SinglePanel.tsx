@@ -19,7 +19,7 @@ import {
 import { closestLookup } from '../../_common/js/time-picker/utils';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
-import useDebounce from '../../_util/useDebounce';
+import useDebounce from '../../hooks/useDebounce';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
 

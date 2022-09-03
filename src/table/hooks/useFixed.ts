@@ -12,7 +12,7 @@ import {
   TableColFixedClasses,
   RecalculateColumnWidthFunc,
 } from '../interface';
-import useDebounce from '../../_util/useDebounce';
+import useDebounce from '../../hooks/useDebounce';
 // import { TDisplayNoneElementRefresh } from '../../hooks/useDestroyOnClose';
 
 // 固定列相关类名处理
