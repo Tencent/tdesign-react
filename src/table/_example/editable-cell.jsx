@@ -29,7 +29,7 @@ export default function EditableCellTable() {
 
   const editableCellState = (cellParams) => {
     // 第一行不允许编辑
-    return cellParams.rowIndex === 0;
+    return cellParams.rowIndex !== 0;
   };
 
   const columns = useMemo(
