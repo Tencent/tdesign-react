@@ -274,7 +274,12 @@ export default function TableTree() {
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');
   };
 
-  const renderTreeExpandAndFoldIcon = ({ type }) => (type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />);
+  const renderTreeExpandAndFoldIcon = ({ type, row }) => {
+    if (lazyLoadingData?.id === row?.id) {
+      return <Loading size="14px" />;
+    }
+    return (type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />);
+  };
 
   const onPageChange = (pageInfo) => {
     setPagination({ ...pagination, ...pageInfo });
@@ -291,11 +296,11 @@ export default function TableTree() {
   }
 
   const treeExpandIconRender = useMemo(() => {
-    // 懒加载图标渲染
-    if (lazyLoadingData) return lazyLoadingTreeIconRender;
     // 自定义展开图标
-    if (customTreeExpandAndFoldIcon) return renderTreeExpandAndFoldIcon;
-    return undefined;
+    if (customTreeExpandAndFoldIcon) {
+      return renderTreeExpandAndFoldIcon;
+    }
+    return lazyLoadingTreeIconRender;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lazyLoadingData, customTreeExpandAndFoldIcon]);
 
