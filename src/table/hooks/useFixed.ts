@@ -480,11 +480,12 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   function addTableResizeObserver(tableElement: HTMLDivElement) {
     // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-    if (getIEVersion() < 11) return;
-    const ro = new ResizeObserver(() => {
+    if (getIEVersion() < 11 || !ResizeObserver) return;
+    off(window, 'resize', onResize);
+    const tmp = new ResizeObserver(() => {
       refreshTable();
     });
-    ro.observe(tableElement);
+    tmp.observe(tableElement);
   }
 
   useEffect(() => {
@@ -497,13 +498,13 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
         recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
       }
       // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-      if (isWatchResize && getIEVersion() < 11) {
+      if ((isWatchResize && getIEVersion() < 11) || !ResizeObserver) {
         on(window, 'resize', onResize);
       }
       clearTimeout(timer);
     });
     return () => {
-      if (isWatchResize && getIEVersion() < 11) {
+      if ((isWatchResize && getIEVersion() < 11) || !ResizeObserver) {
         off(window, 'resize', onResize);
       }
       clearTimeout(timer);
