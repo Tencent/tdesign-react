@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState, useRef, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useState, useRef, useMemo, CSSProperties } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -18,6 +18,9 @@ import {
   TWELVE_HOUR_FORMAT,
 } from '../../_common/js/time-picker/const';
 import { closestLookup } from '../../_common/js/time-picker/utils';
+
+// 仅演示用，不能合
+import './style/picker.less';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 
@@ -150,7 +153,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const timeItemTotalHeight = getItemHeight();
-      const distance = Math.abs(itemIdx * timeItemTotalHeight + timeItemTotalHeight / 2);
+      const distance = Math.abs(itemIdx * timeItemTotalHeight);
       return distance;
     },
     [getItemHeight, getColList, format],
@@ -192,21 +195,21 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     const distance = getScrollDistance(col, val);
 
     if (!dayjs(dayjsValue).isValid()) return;
-    if (distance !== scrollTop) {
-      if (timeArr.includes(col)) {
-        if (timeItemCanUsed(col, val)) formattedVal = dayjsValue[col]?.(val).format(format);
-      } else {
-        const currentHour = dayjsValue.hour();
-        if (meridiem === AM && currentHour >= 12) {
-          formattedVal = dayjsValue.hour(currentHour - 12).format(format);
-        } else if (meridiem === PM && currentHour < 12) {
-          formattedVal = dayjsValue.hour(currentHour + 12).format(format);
-        }
+    if (timeArr.includes(col)) {
+      if (timeItemCanUsed(col, val)) formattedVal = dayjsValue[col]?.(val).format(format);
+    } else {
+      const currentHour = dayjsValue.hour();
+      if (meridiem === AM && currentHour >= 12) {
+        formattedVal = dayjsValue.hour(currentHour - 12).format(format);
+      } else if (meridiem === PM && currentHour < 12) {
+        formattedVal = dayjsValue.hour(currentHour + 12).format(format);
       }
-      onChange(formattedVal);
-      const scrollCtrl = colsRef.current[cols.indexOf(col)];
-      if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance) return;
+    }
+    onChange(formattedVal);
+    const scrollCtrl = colsRef.current[cols.indexOf(col)];
+    if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance) return;
 
+    if (distance !== scrollTop) {
       scrollCtrl.scrollTo?.({
         top: distance,
         behavior: 'smooth',
@@ -302,6 +305,12 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         ref={(el) => (colsRef.current[idx] = el)}
         className={`${panelClassName}-body-scroll`}
         onScroll={debounce(() => handleScroll(col, idx), 50)}
+        style={
+          {
+            '--timePickerPanelOffsetTop': 15,
+            '--timePickerPanelOffsetBottom': 21,
+          } as CSSProperties
+        }
       >
         {getColList(col).map((el) => (
           <li
