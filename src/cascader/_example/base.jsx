@@ -42,9 +42,5 @@ export default function Example() {
     setValue(value);
   };
 
-  return (
-    <div>
-      <Cascader options={options} onChange={onChange} value={value} size="medium" clearable />
-    </div>
-  );
+  return <Cascader options={options} onChange={onChange} value={value} size="medium" clearable />;
 }

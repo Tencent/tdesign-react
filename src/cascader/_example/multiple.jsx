@@ -44,7 +44,16 @@ export default function Example() {
 
   return (
     <div className="tdesign-demo-block-row">
-      <Cascader options={options} onChange={onChange} value={value} multiple clearable />
+      <Cascader
+        tagInputProps={{
+          excessTagsDisplayType: 'scroll',
+        }}
+        options={options}
+        onChange={onChange}
+        value={value}
+        multiple
+        clearable
+      />
     </div>
   );
 }

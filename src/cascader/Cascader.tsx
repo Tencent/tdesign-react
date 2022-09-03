@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import pick from 'lodash/pick';
+import omit from 'lodash/omit';
 import Panel from './components/Panel';
 import SelectInput from '../select-input';
 import FakeArrow from '../common/FakeArrow';
@@ -79,7 +80,7 @@ const Cascader = (props: CascaderProps) => {
       suffixIcon={() => renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
-        overlayInnerStyle: panels.length ? { width: 'auto' } : {},
+        overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
       inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}
@@ -88,36 +89,53 @@ const Cascader = (props: CascaderProps) => {
         ...(props.tagInputProps as TdCascaderProps['tagInputProps']),
       }}
       tagProps={{ ...(props.tagProps as TdCascaderProps['tagProps']) }}
-      {...props.selectInputProps}
-      onInputChange={(value) => {
+      onInputChange={(value, ctx) => {
         if (!visible) return;
         setInputVal(`${value}`);
+        props?.selectInputProps?.onInputChange?.(value, ctx);
       }}
       onTagChange={(val: CascaderValue, ctx) => {
-        if (!(val as []).length && ctx.trigger === 'clear') {
-          ctx.e?.stopPropagation();
-          closeIconClickEffect(cascaderContext);
-          return;
-        }
+        if (ctx.trigger === 'enter') return;
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
+        props?.selectInputProps?.onTagChange?.(val, ctx);
       }}
       onPopupVisibleChange={(val: boolean, context) => {
         if (props.disabled) return;
         setVisible(val, context);
+        props?.selectInputProps?.onPopupVisibleChange?.(val, context);
       }}
       onBlur={(val, context) => {
         props.onBlur?.({
           value: cascaderContext.value,
           e: context.e,
         });
+        props?.selectInputProps?.onBlur?.(val, context);
       }}
       onFocus={(val, context) => {
         props.onFocus?.({
           value: cascaderContext.value,
           e: context.e,
         });
+        props?.selectInputProps?.onFocus?.(val, context);
       }}
-      panel={<Panel cascaderContext={cascaderContext} {...pick(props, ['trigger', 'onChange', 'empty'])}></Panel>}
+      onClear={(context) => {
+        closeIconClickEffect(cascaderContext);
+        props?.selectInputProps?.onClear?.(context);
+      }}
+      {...omit(props.selectInputProps, [
+        'onTagChange',
+        'onInputChange',
+        'onPopupVisibleChange',
+        'onBlur',
+        'onFocus',
+        'onClear',
+      ])}
+      panel={
+        <Panel
+          cascaderContext={cascaderContext}
+          {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText'])}
+        ></Panel>
+      }
     />
   );
 };
