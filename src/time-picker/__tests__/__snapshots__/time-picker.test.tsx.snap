@@ -518,6 +518,7 @@ exports[`panel.jsx 1`] = `
         </div>
         <ul
           class="t-time-picker__panel-body-scroll"
+          style="--timePickerPanelOffsetTop: 0; --timePickerPanelOffsetBottom: 0;"
         >
           <li
             class="t-time-picker__panel-body-scroll-item"
@@ -642,6 +643,7 @@ exports[`panel.jsx 1`] = `
         </ul>
         <ul
           class="t-time-picker__panel-body-scroll"
+          style="--timePickerPanelOffsetTop: 0; --timePickerPanelOffsetBottom: 0;"
         >
           <li
             class="t-time-picker__panel-body-scroll-item t-is-current"
@@ -946,6 +948,7 @@ exports[`panel.jsx 1`] = `
         </ul>
         <ul
           class="t-time-picker__panel-body-scroll"
+          style="--timePickerPanelOffsetTop: 0; --timePickerPanelOffsetBottom: 0;"
         >
           <li
             class="t-time-picker__panel-body-scroll-item t-is-current"
