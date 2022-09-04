@@ -1,9 +1,9 @@
 import React, { MouseEvent, ReactNode } from 'react';
-import { CloseIcon } from 'tdesign-icons-react';
+import { CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import TLoading from '../loading';
 import { TdUploadProps, UploadFile } from './type';
-// import { abridgeName } from './util';
+import { abridgeName } from '../_common/js/upload/utils';
 import { GlobalConfigProvider } from '../config-provider/type';
 
 export interface RemoveContext {
@@ -32,8 +32,6 @@ export interface NormalFileProps {
 
 export default function NormalFile(props: NormalFileProps) {
   const prefix = `${props.classPrefix}-upload`;
-  // const inputTextClass = [`${props.classPrefix}-input__inner`, { [`${prefix}__placeholder`]: true }];
-  const classes = [`${prefix}__single`, `${prefix}__single-${props.theme}`];
 
   const renderProgress = (percent: number) => (
     <div className={`${prefix}__single-progress`}>
@@ -59,35 +57,41 @@ export default function NormalFile(props: NormalFileProps) {
   // 输入框型预览
   const renderFilePreviewAsInput = () => {
     if (props.theme !== 'file-input') return;
-    // const renderResult = () => {
-    // if (!!props.loadingFile && props.loadingFile.status === 'fail') {
-    //   return <ErrorCircleFilledIcon />;
-    // }
-    // if (props.file && props.file.name && !props.loadingFile) {
-    //   return <CheckCircleFilledIcon />;
-    // }
-    // return '';
-    // };
-    return null;
-    // return (
-    //   <div className={`${prefix}__single-input-preview ${props.classPrefix}-input`}>
-    //     <div className={inputTextClass}>
-    //       {<span className={`${prefix}__single-input-text`}>{abridgeName('', 4, 6)}</span>}
-    //       {/* {showProgress.value && renderProgress()} */}
-    //       {renderResult()}
-    //     </div>
-    //   </div>
-    // );
+    const file = props.displayFiles[0];
+    const inputTextClass = [
+      `${props.classPrefix}-input__inner`,
+      { [`${prefix}__placeholder`]: !props.displayFiles[0] },
+    ];
+    return (
+      <div className={`${prefix}__single-input-preview ${props.classPrefix}-input`}>
+        <div className={classNames(inputTextClass)}>
+          <span className={`${prefix}__single-input-text`}>
+            {file?.name ? abridgeName(file.name, 4, 6) : '未选择文件'}
+          </span>
+          {file?.status === 'progress' && renderProgress(file.percent)}
+          {file?.name && file.status === 'success' && <CheckCircleFilledIcon className={`${prefix}__status-icon`} />}
+          {file?.name && file.status === 'fail' && <ErrorCircleFilledIcon className={`${prefix}__status-icon`} />}
+          <CloseCircleFilledIcon
+            className={`${prefix}__single-input-clear`}
+            onClick={(e) => props.onRemove({ e, file, index: 0 })}
+          />
+        </div>
+      </div>
+    );
   };
 
   const { displayFiles } = props;
   const fileListDisplay = props.fileListDisplay?.({ displayFiles });
+
+  const classes = [`${prefix}__single`, `${prefix}__single-${props.theme}`];
   return (
     <div className={classNames(classes)}>
-      {renderFilePreviewAsInput()}
+      {props.theme === 'file-input' && renderFilePreviewAsInput()}
+
       {props.children}
+
       {props.tips && <small className={classNames(props.tipsClasses)}>{props.tips}</small>}
-      {props.placeholder && !displayFiles[0] && (
+      {props.theme === 'file' && props.placeholder && !displayFiles[0] && (
         <small className={classNames(props.tipsClasses)}>{props.placeholder}</small>
       )}
 

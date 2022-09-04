@@ -40,13 +40,13 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       const localeFromProps = props.locale as TdUploadProps['locale'];
       if (props.theme === 'file-input') {
         return (
-          <Button variant="outline">
+          <Button variant="outline" {...props.triggerButtonProps}>
             {localeFromProps?.triggerUploadText?.fileInput || locale.triggerUploadText.fileInput}
           </Button>
         );
       }
       return (
-        <Button variant="outline" icon={<UploadIcon />}>
+        <Button variant="outline" icon={<UploadIcon />} {...props.triggerButtonProps}>
           {triggerUploadText}
         </Button>
       );
@@ -75,11 +75,6 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     >
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
-        {!!(props.theme === 'file-input' && uploadValue?.length) && (
-          <Button theme="primary" variant="text" onClick={(e) => onRemove({ e, file: uploadValue[0], index: 0 })}>
-            删除
-          </Button>
-        )}
       </div>
     </NormalFile>
   );

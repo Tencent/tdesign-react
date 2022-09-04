@@ -51,13 +51,14 @@ export default function useUpload(props: TdUploadProps) {
   const onResponseError = (p: OnResponseErrorContext) => {
     if (!p) return;
     const { response, event, files } = p;
-    props.onOneFileFail?.({
-      e: event,
-      file: files?.[0],
-      currentFiles: files,
-      failedFiles: files,
-      response,
-    });
+    files?.[0] &&
+      props.onOneFileFail?.({
+        e: event,
+        file: files?.[0],
+        currentFiles: files,
+        failedFiles: files,
+        response,
+      });
   };
 
   const onResponseProgress = (p: InnerProgressContext) => {
@@ -108,6 +109,10 @@ export default function useUpload(props: TdUploadProps) {
       // 文件数量校验不通过
       if (args.lengthOverLimit) {
         props.onValidate?.({ type: 'FILES_OVER_LENGTH_LIMIT', files: args.files });
+      }
+      // 过滤相同的文件名
+      if (args.validateResult?.type === 'FILTER_FILE_SAME_NAME') {
+        props.onValidate?.({ type: 'FILTER_FILE_SAME_NAME', files: args.files });
       }
       // 文件大小校验结果处理
       if (args.fileValidateList instanceof Array) {
@@ -169,10 +174,10 @@ export default function useUpload(props: TdUploadProps) {
           // 只有全部请求完成后，才会存在该字段
           results: list?.map((t) => t.data),
         });
-      } else {
+      } else if (failedFiles?.[0]) {
         props.onFail({
           e: data.event,
-          file: failedFiles?.[0],
+          file: failedFiles[0],
           failedFiles,
           currentFiles: files,
           response: data.response,

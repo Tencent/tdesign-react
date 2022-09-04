@@ -36,7 +36,7 @@ export default function UploadExample() {
     console.log('onOneFileSuccess', params);
   };
 
-  // 文件大小、文件数量等不通过时会触发
+  // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
   const onValidate = (params) => {
     const { files, type } = params;
     console.log('onValidate', params);
@@ -45,15 +45,18 @@ export default function UploadExample() {
       console.log(`${files.map((t) => t.name).join('、')} 等文件大小超出限制`);
     } else if (type === 'FILES_OVER_LENGTH_LIMIT') {
       MessagePlugin.warning('文件数量超出限制，仅上传未超出数量的文件');
+    } else if (type === 'FILTER_FILE_SAME_NAME') {
+      // 如果希望支持上传同名文件，请设置 allowUploadDuplicateFile={true}
+      MessagePlugin.warning('不允许上传同名文件');
     }
   };
 
   // 仅自定义文件列表所需
   // eslint-disable-next-line
   const outsideRemove = (index) => {
-    const tmpFiles = [...files];
+    const tmpFiles = [...files1];
     tmpFiles.splice(index, 1);
-    setFiles(tmpFiles);
+    setFiles1(tmpFiles);
   };
 
   // eslint-disable-next-line
@@ -121,13 +124,14 @@ export default function UploadExample() {
           files={files1}
           onChange={setFiles1}
           action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-          placeholder={multiple ? '文件数量不超过 5 个' : '请上传文件，要求文件大小在 1M 以内'}
+          placeholder={multiple ? '文件数量不超过 5 个' : '要求文件大小在 1M 以内'}
           multiple={multiple}
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}
           isBatchUpload={isBatchUpload}
           sizeLimit={{ size: 1, unit: 'MB' }}
           max={5}
+          allowUploadDuplicateFile={true}
           // fileListDisplay={fileListDisplay}
           // formatRequest={(obj) => ({ ...obj, other: 123 })}
           onSelectChange={handleSelectChange}
@@ -148,7 +152,7 @@ export default function UploadExample() {
           onFail={handleFail}
           placeholder="这是一段没有文件时的占位文本"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-          style={{ marginLeft: '60px' }}
+          style={{ marginLeft: '40px' }}
         ></Upload>
 
         {/* formatResponse 可控制上传成功或者失败 */}
@@ -157,6 +161,7 @@ export default function UploadExample() {
           multiple={multiple}
           onFail={handleFail}
           formatResponse={formatResponse}
+          triggerButtonProps={{ theme: 'default', variant: 'base' }}
           placeholder="文件上传失败示例"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           style={{ marginLeft: '60px' }}

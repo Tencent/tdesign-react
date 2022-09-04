@@ -5,6 +5,7 @@
  * */
 
 import { UploadConfig } from '../config-provider/type';
+import { ButtonProps } from '../button';
 import { TNode } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
@@ -147,6 +148,10 @@ export interface TdUploadProps {
    */
   trigger?: string | TNode<TriggerContext>;
   /**
+   * 透传选择按钮全部属性
+   */
+  triggerButtonProps?: triggerButtonProps;
+  /**
    * 是否在同一个请求中上传全部文件，默认一个请求上传一个文件
    * @default false
    */
@@ -214,9 +219,9 @@ export interface TdUploadProps {
    */
   onSuccess?: (context: SuccessContext) => void;
   /**
-   * 文件上传校验结束事件，有文件数量超出时会触发，文件大小超出限制时会触发等场景
+   * 文件上传校验结束事件，有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
    */
-  onValidate?: (context: { type: 'FILE_OVER_SIZE_LIMIT' | 'FILES_OVER_LENGTH_LIMIT'; files: UploadFile[] }) => void;
+  onValidate?: (context: { type: UploadValidateType; files: UploadFile[] }) => void;
   /**
    * 待上传文件列表发生变化时触发。`contex.files` 表示事件参数为待上传文件，`context.trigger` 引起此次变化的触发来源
    */
@@ -341,3 +346,5 @@ export interface SuccessContext {
   response?: any;
   results?: SuccessContext[];
 }
+
+export type UploadValidateType = 'FILE_OVER_SIZE_LIMIT' | 'FILES_OVER_LENGTH_LIMIT' | 'FILTER_FILE_SAME_NAME';
