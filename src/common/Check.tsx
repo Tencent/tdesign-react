@@ -14,7 +14,7 @@ export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps 
   value?: string | number | boolean;
   children?: React.ReactNode;
   onClick?: MouseEventHandler<HTMLLabelElement>;
-  stopLabelTrigger: Boolean;
+  stopLabelTrigger?: Boolean;
 }
 
 /**
