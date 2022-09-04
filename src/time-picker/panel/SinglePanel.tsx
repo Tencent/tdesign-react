@@ -20,9 +20,14 @@ import {
 import { closestLookup } from '../../_common/js/time-picker/utils';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
-import useIsomorphicLayoutEffect from '../../_util/useLayoutEffect';
+import { usePropRef } from '../../hooks/usePropsRef';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
+
+const panelOffset = {
+  top: 15,
+  bottom: 21,
+};
 
 export interface SinglePanelProps
   extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onChange'> {
@@ -35,6 +40,7 @@ export interface SinglePanelProps
   position?: TimeRangePickerPartial;
   triggerScroll?: boolean;
   resetTriggerScroll?: () => void;
+  isVisible?: boolean;
 }
 
 // https://github.com/iamkun/dayjs/issues/1552
@@ -51,6 +57,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     position = 'start',
     triggerScroll,
     resetTriggerScroll,
+    isVisible,
   } = props;
   const { classPrefix } = useConfig();
   const TEXT_CONFIG = useTimePickerTextConfig();
@@ -105,19 +112,6 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       margin: parseInt(getComputedStyle(maskDom).marginTop, 10),
     };
   }, []);
-
-  const panelOffset = useRef({
-    top: 0,
-    bottom: 0,
-  });
-
-  useIsomorphicLayoutEffect(() => {
-    const { offsetHeight, margin } = getItemHeight();
-    panelOffset.current = {
-      top: offsetHeight * 0.5 + margin * 0.5,
-      bottom: offsetHeight * 0.5 + margin * 1.5,
-    };
-  }, [cols, maskRef?.current]);
 
   const timeItemCanUsed = useCallback(
     (col: EPickerCols, el: string | number) => {
@@ -179,7 +173,14 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     [getItemHeight, getColList, format],
   );
 
+  const isVisibleRef = usePropRef(isVisible);
+
   const handleScroll = (col: EPickerCols, idx: number) => {
+    // 如果不可见，不处理 scroll 事件
+    if (!isVisibleRef.current) {
+      return;
+    }
+
     let val: number | string;
     let formattedVal: string;
     const scrollTop = colsRef.current[idx]?.scrollTop;
@@ -339,8 +340,8 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         onScroll={debounce(() => handleScroll(col, idx), 50)}
         style={
           {
-            '--timePickerPanelOffsetTop': panelOffset.current.top,
-            '--timePickerPanelOffsetBottom': panelOffset.current.bottom,
+            '--timePickerPanelOffsetTop': panelOffset.top,
+            '--timePickerPanelOffsetBottom': panelOffset.bottom,
           } as CSSProperties
         }
       >
