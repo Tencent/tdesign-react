@@ -812,7 +812,7 @@ exports[`multiple.jsx 1`] = `
       class="t-cascader t-select-input t-select-input--multiple"
     >
       <div
-        class="t-input__wrap t-tag-input t-tag-input__with-suffix-icon"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
