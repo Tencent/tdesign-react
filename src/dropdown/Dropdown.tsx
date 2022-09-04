@@ -38,7 +38,6 @@ const Dropdown = (props: DropdownProps) => {
 
   const handleMenuClick = (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
     if (hideAfterItemClick) togglePopupVisible(false);
-
     props?.onClick?.(data, context);
   };
 
