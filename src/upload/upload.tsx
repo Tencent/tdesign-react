@@ -3,10 +3,12 @@ import { UploadIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import type { UploadProps } from './types';
 import NormalFile from './NormalFile';
+import DraggerFile from './DraggerFile';
 import useUpload from './useUpload';
 import Button from '../button';
 import { TdUploadProps } from './type';
 import { uploadDefaultProps } from './defaultProps';
+import { CommonDisplayFileProps } from './interface';
 
 const Upload = forwardRef((props: UploadProps, ref) => {
   const {
@@ -24,8 +26,10 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     disabled,
     onRemove,
     uploadFiles,
-    onFileChange,
+    onNormalFileChange,
+    onDragFileChange,
     triggerUpload,
+    cancelUpload,
   } = useUpload(props);
 
   React.useImperativeHandle(ref, () => ({
@@ -56,27 +60,40 @@ const Upload = forwardRef((props: UploadProps, ref) => {
 
   const triggerElement = renderTrigger();
 
+  const commonDisplayFileProps: CommonDisplayFileProps = {
+    files: uploadValue,
+    toUploadFiles,
+    displayFiles,
+    theme: props.theme,
+    placeholder: props.placeholder,
+    tips: props.tips,
+    sizeOverLimitMessage,
+    classPrefix,
+    tipsClasses,
+    errorClasses,
+    locale,
+    autoUpload: props.autoUpload,
+    fileListDisplay: props.fileListDisplay,
+    onRemove,
+  };
+
   const NormalFileNode = (
-    <NormalFile
-      files={uploadValue}
-      toUploadFiles={toUploadFiles}
-      displayFiles={displayFiles}
-      theme={props.theme}
-      placeholder={props.placeholder}
-      global={locale}
-      tips={props.tips}
-      sizeOverLimitMessage={sizeOverLimitMessage}
-      classPrefix={classPrefix}
-      tipsClasses={tipsClasses}
-      errorClasses={errorClasses}
-      fileListDisplay={props.fileListDisplay}
-      autoUpload={props.autoUpload}
-      onRemove={onRemove}
-    >
+    <NormalFile {...commonDisplayFileProps}>
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
       </div>
     </NormalFile>
+  );
+
+  const SingleFileDraggerUpload = (
+    <DraggerFile
+      {...commonDisplayFileProps}
+      trigger={props.trigger}
+      cancelUpload={cancelUpload}
+      triggerUpload={triggerUpload}
+      uploadFiles={uploadFiles}
+      onDragFileChange={onDragFileChange}
+    />
   );
 
   return (
@@ -85,12 +102,13 @@ const Upload = forwardRef((props: UploadProps, ref) => {
         ref={inputRef}
         type="file"
         disabled={disabled}
-        onChange={onFileChange}
+        onChange={onNormalFileChange}
         multiple={props.multiple}
         accept={props.accept}
         hidden
       />
-      {['file', 'file-input'].includes(props.theme) && NormalFileNode}
+      {['file', 'file-input'].includes(props.theme) && !props.draggable && NormalFileNode}
+      {['file', 'image'].includes(props.theme) && props.draggable && SingleFileDraggerUpload}
     </div>
   );
 });

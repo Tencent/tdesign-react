@@ -4,7 +4,7 @@ import lodashUpdate from 'lodash/update';
 import findIndex from 'lodash/findIndex';
 import classNames from 'classnames';
 import Dialog from '../dialog';
-import Dragger from './dragger';
+import Dragger from './DraggerFile';
 import UploadTrigger from './upload-trigger';
 import Tips from './tips';
 import request from '../_common/js/upload/xhr';

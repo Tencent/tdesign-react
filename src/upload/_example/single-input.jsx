@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Upload, MessagePlugin } from 'tdesign-react';
+import React, { useState, useRef } from 'react';
+import { Upload, MessagePlugin, Space, Button, Checkbox } from 'tdesign-react';
 
 const UploadSingleInput = () => {
+  const uploadRef = useRef();
   const [files, setFiles] = useState([]);
+  const [autoUpload, setAutoUpload] = useState(true);
 
   const handleFail = ({ file }) => {
     MessagePlugin.error(`${file.name} 上传失败`);
@@ -12,18 +14,37 @@ const UploadSingleInput = () => {
     MessagePlugin.success('上传成功');
   };
 
+  // 非自动上传文件，需要在父组件单独执行上传
+  const uploadFiles = () => {
+    uploadRef.current.uploadFiles();
+  };
+
   return (
-    <div style={{ width: '350px' }}>
+    <Space direction='vertical'>
+      <Space>
+        <Checkbox checked={autoUpload} onChange={setAutoUpload}>
+          自动上传
+        </Checkbox>
+        {!autoUpload && (
+          <Button variant="base" theme="default" size="small" style={{ height: '22px' }} onClick={uploadFiles}>
+            点击上传
+          </Button>
+        )}
+      </Space>
+
       <Upload
+        ref={uploadRef}
+        style={{ width: '350px' }}
         value={files}
         onChange={setFiles}
         action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
         theme="file-input"
         placeholder="请选择文件"
+        autoUpload={autoUpload}
         onFail={handleFail}
         onSuccess={onSuccess}
       ></Upload>
-    </div>
+    </Space>
   )
 };
 

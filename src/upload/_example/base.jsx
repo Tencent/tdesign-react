@@ -4,6 +4,7 @@ import { CloseIcon } from 'tdesign-icons-react';
 
 export default function UploadExample() {
   const uploadRef1 = useRef();
+  const uploadRef2 = useRef();
   const uploadRef3 = useRef();
   const [files1, setFiles1] = useState([]);
   const [files2, setFiles2] = useState([
@@ -17,7 +18,7 @@ export default function UploadExample() {
   const [multiple, setMultiple] = useState(false);
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(true);
-  const [isBatchUpload, setIsBatchUpload] = useState(true);
+  const [isBatchUpload, setIsBatchUpload] = useState(false);
 
   const handleFail = ({ file }) => {
     MessagePlugin.error(`文件 ${file.name} 上传失败`);
@@ -40,9 +41,9 @@ export default function UploadExample() {
   const onValidate = (params) => {
     const { files, type } = params;
     console.log('onValidate', params);
-    if (type === 'FILE_OVER_SIZE_LIMI') {
+    if (type === 'FILE_OVER_SIZE_LIMIT') {
       files.map((t) => t.name).join('、');
-      console.log(`${files.map((t) => t.name).join('、')} 等文件大小超出限制`);
+      MessagePlugin.warning(`${files.map((t) => t.name).join('、')} 等文件大小超出限制，已自动过滤`, 5000);
     } else if (type === 'FILES_OVER_LENGTH_LIMIT') {
       MessagePlugin.warning('文件数量超出限制，仅上传未超出数量的文件');
     } else if (type === 'FILTER_FILE_SAME_NAME') {
@@ -74,13 +75,14 @@ export default function UploadExample() {
   // 非自动上传文件，需要在父组件单独执行上传请求
   const uploadFiles = () => {
     uploadRef1.current.uploadFiles();
+    uploadRef2.current.uploadFiles();
   };
 
   // 非自动上传文件，需保存待上传文件列表
   const [waitingUploadFiles, setWaitingUploadFiles] = useState([]);
   const onWaitingUploadFilesChange = (files) => {
     setWaitingUploadFiles(files);
-    console.log(waitingUploadFiles, files);
+    console.log('onWaitingUploadFilesChange', waitingUploadFiles, files);
   };
 
   // 用于格式化接口响应值，error 会被用于上传失败的提示文字；url 表示文件/图片地址
@@ -143,6 +145,7 @@ export default function UploadExample() {
         />
 
         <Upload
+          ref={uploadRef2}
           files={files2}
           onChange={setFiles2}
           multiple={multiple}

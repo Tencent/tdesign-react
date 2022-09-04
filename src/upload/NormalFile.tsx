@@ -1,34 +1,12 @@
-import React, { MouseEvent, ReactNode } from 'react';
+import React from 'react';
 import { CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import TLoading from '../loading';
-import { TdUploadProps, UploadFile } from './type';
+import { UploadFile } from './type';
 import { abridgeName } from '../_common/js/upload/utils';
-import { GlobalConfigProvider } from '../config-provider/type';
+import { CommonDisplayFileProps } from './interface';
 
-export interface RemoveContext {
-  e: MouseEvent<HTMLElement | HTMLDivElement | SVGSVGElement>;
-  file: UploadFile;
-  index: number;
-}
-
-export interface NormalFileProps {
-  files: TdUploadProps['files'];
-  toUploadFiles: TdUploadProps['files'];
-  displayFiles: TdUploadProps['files'];
-  theme: TdUploadProps['theme'];
-  placeholder: TdUploadProps['placeholder'];
-  tips?: TdUploadProps['tips'];
-  classPrefix: string;
-  global: GlobalConfigProvider['upload'];
-  sizeOverLimitMessage?: string;
-  autoUpload?: boolean;
-  tipsClasses?: string;
-  errorClasses?: string[];
-  children?: ReactNode;
-  fileListDisplay?: TdUploadProps['fileListDisplay'];
-  onRemove?: (p: RemoveContext) => void;
-}
+export type NormalFileProps = CommonDisplayFileProps;
 
 export default function NormalFile(props: NormalFileProps) {
   const prefix = `${props.classPrefix}-upload`;
@@ -45,7 +23,15 @@ export default function NormalFile(props: NormalFileProps) {
     if (props.theme !== 'file') return null;
     return files.map((file, index) => (
       <div className={`${prefix}__single-display-text ${prefix}__display-text--margin`} key={file.name + index}>
-        <span className={`${prefix}__single-name`}>{file.name}</span>
+        <span className={`${prefix}__single-name`}>
+          {file.name}
+          {file.status === 'waiting' ? `（${props.locale.progress.waitingText}）` : ''}
+        </span>
+        {file.status === 'fail' && (
+          <small className={classNames(props.errorClasses)} style={{ margin: '0 0 0 -4px' }}>
+            （{props.locale.progress.failText}）
+          </small>
+        )}
         {file.status === 'progress' && renderProgress(file.percent)}
         {(!file.status || file.status === 'success' || !props.autoUpload) && (
           <CloseIcon className={`${prefix}__icon-delete`} onClick={(e) => props.onRemove({ e, file, index })} />
@@ -66,10 +52,10 @@ export default function NormalFile(props: NormalFileProps) {
       <div className={`${prefix}__single-input-preview ${props.classPrefix}-input`}>
         <div className={classNames(inputTextClass)}>
           <span className={`${prefix}__single-input-text`}>
-            {file?.name ? abridgeName(file.name, 4, 6) : '未选择文件'}
+            {file?.name ? abridgeName(file.name, 4, 6) : props.placeholder}
           </span>
           {file?.status === 'progress' && renderProgress(file.percent)}
-          {file?.name && file.status === 'success' && <CheckCircleFilledIcon className={`${prefix}__status-icon`} />}
+          {file?.url && file.status === 'success' && <CheckCircleFilledIcon className={`${prefix}__status-icon`} />}
           {file?.name && file.status === 'fail' && <ErrorCircleFilledIcon className={`${prefix}__status-icon`} />}
           <CloseCircleFilledIcon
             className={`${prefix}__single-input-clear`}
