@@ -5,7 +5,8 @@ import { CloseIcon } from 'tdesign-icons-react';
 export default function UploadExample() {
   const uploadRef1 = useRef();
   const uploadRef3 = useRef();
-  const [files, setFiles] = useState([
+  const [files1, setFiles1] = useState([]);
+  const [files2, setFiles2] = useState([
     {
       name: '这是一个默认文件',
       status: 'success',
@@ -16,6 +17,7 @@ export default function UploadExample() {
   const [multiple, setMultiple] = useState(false);
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(true);
+  const [isBatchUpload, setIsBatchUpload] = useState(true);
 
   const handleFail = ({ file }) => {
     MessagePlugin.error(`文件 ${file.name} 上传失败`);
@@ -92,7 +94,12 @@ export default function UploadExample() {
       <Space>
         {multiple && (
           <Checkbox checked={uploadInOneRequest} onChange={setUploadInOneRequest}>
-            一次上传全部文件
+            一个请求上传多个文件
+          </Checkbox>
+        )}
+        {multiple && (
+          <Checkbox checked={isBatchUpload} onChange={setIsBatchUpload}>
+            整体替换上传
           </Checkbox>
         )}
         <Checkbox checked={autoUpload} onChange={setAutoUpload}>
@@ -110,38 +117,48 @@ export default function UploadExample() {
       {/* <!-- 1. formatRequest 用于修改或新增上传请求数据，示例：:formatRequest="(obj) => ({ ...obj, other: 123 })" --> */}
       <Space>
         <Upload
-          placeholder="这是一段没有文件时的占位文本"
-          action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-        ></Upload>
-
-        <Upload
-          ref={uploadRef3}
-          onFail={handleFail}
-          formatResponse={formatResponse}
-          placeholder="文件上传失败示例"
-          action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-          style={{ marginLeft: '60px' }}
-        />
-
-        <Upload
           ref={uploadRef1}
-          files={files}
-          onChange={setFiles}
+          files={files1}
+          onChange={setFiles1}
           action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-          placeholder={multiple ? '文件数量不超过 5 个，要求文件大小在 1M 以内' : '请上传文件，要求文件大小在 1M 以内'}
+          placeholder={multiple ? '文件数量不超过 5 个' : '请上传文件，要求文件大小在 1M 以内'}
           multiple={multiple}
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}
+          isBatchUpload={isBatchUpload}
           sizeLimit={{ size: 1, unit: 'MB' }}
           max={5}
           // fileListDisplay={fileListDisplay}
           // formatRequest={(obj) => ({ ...obj, other: 123 })}
           onSelectChange={handleSelectChange}
-          onSail={handleFail}
+          onFail={handleFail}
           onSuccess={handleSuccess}
           onOneFileSuccess={onOneFileSuccess}
           onValidate={onValidate}
           onWaitingUploadFilesChange={onWaitingUploadFilesChange}
+        />
+
+        <Upload
+          files={files2}
+          onChange={setFiles2}
+          multiple={multiple}
+          autoUpload={autoUpload}
+          uploadAllFilesInOneRequest={uploadInOneRequest}
+          isBatchUpload={isBatchUpload}
+          onFail={handleFail}
+          placeholder="这是一段没有文件时的占位文本"
+          action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+          style={{ marginLeft: '60px' }}
+        ></Upload>
+
+        {/* formatResponse 可控制上传成功或者失败 */}
+        <Upload
+          ref={uploadRef3}
+          multiple={multiple}
+          onFail={handleFail}
+          formatResponse={formatResponse}
+          placeholder="文件上传失败示例"
+          action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           style={{ marginLeft: '60px' }}
         />
       </Space>

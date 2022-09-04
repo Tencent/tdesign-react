@@ -51,10 +51,11 @@ export default function useUpload(props: TdUploadProps) {
   const onResponseError = (p: OnResponseErrorContext) => {
     if (!p) return;
     const { response, event, files } = p;
-    props.onFail?.({
+    props.onOneFileFail?.({
       e: event,
       file: files?.[0],
       currentFiles: files,
+      failedFiles: files,
       response,
     });
   };
@@ -113,7 +114,7 @@ export default function useUpload(props: TdUploadProps) {
         const { sizeLimitErrors, toFiles } = getFilesAndErrors(args.fileValidateList, getSizeLimitError);
         const tmpWatingFiles = props.autoUpload ? toFiles : toUploadFiles.concat(toFiles);
         setToUploadFiles(tmpWatingFiles);
-        props.onWaitingUploadFilesChange?.(tmpWatingFiles);
+        props.onWaitingUploadFilesChange?.({ files: tmpWatingFiles, trigger: 'validate' });
         // 错误信息处理
         if (sizeLimitErrors[0]) {
           setSizeOverLimitMessage(sizeLimitErrors[0].file.response.error);
@@ -137,12 +138,12 @@ export default function useUpload(props: TdUploadProps) {
     const files = toFiles || toUploadFiles;
     setUploading(true);
     upload({
+      action: props.action,
       uploadedFiles: uploadValue,
       toUploadFiles: files,
       multiple: props.multiple,
       isBatchUpload: props.isBatchUpload,
       uploadAllFilesInOneRequest: props.uploadAllFilesInOneRequest,
-      action: props.action,
       useMockProgress: props.useMockProgress,
       data: props.data,
       requestMethod: props.requestMethod,
@@ -158,7 +159,7 @@ export default function useUpload(props: TdUploadProps) {
       if (status === 'success') {
         setUploadValue(data.files, {
           e: data.event,
-          trigger: 'remove',
+          trigger: 'add',
           index: uploadValue.length,
           file: data.files[0],
         });
@@ -168,21 +169,17 @@ export default function useUpload(props: TdUploadProps) {
           // 只有全部请求完成后，才会存在该字段
           results: list?.map((t) => t.data),
         });
+      } else {
+        props.onFail({
+          e: data.event,
+          file: failedFiles?.[0],
+          failedFiles,
+          currentFiles: files,
+          response: data.response,
+        });
       }
-      // 失败的文件（补充失败的默认文本信息）
-      const tmpFiles = (failedFiles || []).map((file) => {
-        if (!file.response || !file.response.error) {
-          if (!file.response) {
-            // eslint-disable-next-line no-param-reassign
-            file.response = {};
-          }
-          // eslint-disable-next-line no-param-reassign
-          file.response.error = locale.progress.failText;
-        }
-        return file;
-      });
-      setToUploadFiles(tmpFiles);
-      props.onWaitingUploadFilesChange?.(tmpFiles);
+      setToUploadFiles(failedFiles);
+      props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
 
       setUploading(false);
     }, onResponseError);
@@ -204,7 +201,7 @@ export default function useUpload(props: TdUploadProps) {
       const tmpToFiles = [...toUploadFiles];
       tmpToFiles.splice(index, 1);
       setToUploadFiles(tmpToFiles);
-      props.onWaitingUploadFilesChange?.(tmpToFiles);
+      props.onWaitingUploadFilesChange?.({ files: tmpToFiles, trigger: 'remove' });
     }
 
     props.onRemove?.(p);

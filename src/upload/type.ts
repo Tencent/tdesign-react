@@ -182,9 +182,13 @@ export interface TdUploadProps {
    */
   onDrop?: (context: { e: DragEvent<Element> }) => void;
   /**
-   * 上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构
+   * 上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果希望判定为上传失败，但接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构
    */
-  onFail?: (options: { e: ProgressEvent; file: UploadFile; currentFiles: UploadFile[]; response?: any }) => void;
+  onFail?: (options: UploadFailContext) => void;
+  /**
+   * 单个文件上传失败后触发，如果一个请求上传一个文件，则会触发多次
+   */
+  onOneFileFail?: (options: UploadFailContext) => void;
   /**
    * 单个文件上传成功后触发，在多文件场景下会触发多次。`context.file` 表示当前上传成功的单个文件，`context.response` 表示上传请求的返回数据
    */
@@ -214,9 +218,12 @@ export interface TdUploadProps {
    */
   onValidate?: (context: { type: 'FILE_OVER_SIZE_LIMIT' | 'FILES_OVER_LENGTH_LIMIT'; files: UploadFile[] }) => void;
   /**
-   * 待上传文件列表发生变化时触发，事件参数为待上传文件
+   * 待上传文件列表发生变化时触发。`contex.files` 表示事件参数为待上传文件，`context.trigger` 引起此次变化的触发来源
    */
-  onWaitingUploadFilesChange?: (files: Array<UploadFile>) => void;
+  onWaitingUploadFilesChange?: (context: {
+    files: Array<UploadFile>;
+    trigger: 'validate' | 'remove' | 'uploaded';
+  }) => void;
 }
 
 export interface UploadFile {
@@ -291,11 +298,19 @@ export interface TriggerContext {
 }
 
 export interface UploadChangeContext {
-  e?: MouseEvent<HTMLDivElement | SVGSVGElement | HTMLElement> | ProgressEvent;
+  e?: MouseEvent<HTMLDivElement> | ProgressEvent;
   response?: any;
   trigger: string;
   index?: number;
   file?: UploadFile;
+}
+
+export interface UploadFailContext {
+  e: ProgressEvent;
+  failedFiles: UploadFile[];
+  currentFiles: UploadFile[];
+  response?: any;
+  file: UploadFile;
 }
 
 export interface ProgressContext {
