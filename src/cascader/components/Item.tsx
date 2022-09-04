@@ -99,7 +99,8 @@ const Item = forwardRef(
           checked={node.checked}
           indeterminate={node.indeterminate}
           disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
-          name={node.value}
+          name={String(node.value)}
+          stopLabelTrigger={true}
           title={inputVal ? getFullPathLabel(node) : node.label}
           onChange={() => {
             onChange(node);

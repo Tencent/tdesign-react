@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value, setValue] = useState([]);
@@ -47,13 +47,13 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
       {/* 非受控 */}
       <Cascader style={itemStyle} options={options} defaultValue={value} clearable size="small" placeholder="请选择" />
       {/* 受控 */}
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="medium" clearable />
       {/* 受控 */}
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" clearable />
-    </div>
+    </Space>
   );
 }

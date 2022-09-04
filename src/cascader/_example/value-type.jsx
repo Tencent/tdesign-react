@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value1, setValue1] = useState(['1', '1.1']);
@@ -50,11 +50,11 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
       {JSON.stringify(value1)}
       <Cascader options={options} value={value1} onChange={onChange1} valueType="full" />
       {JSON.stringify(value2)}
       <Cascader options={options} value={value2} onChange={onChange2} valueType="full" multiple />
-    </div>
+    </Space>
   );
 }
