@@ -117,7 +117,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       top: offsetHeight * 0.5 + margin * 0.5,
       bottom: offsetHeight * 0.5 + margin * 1.5,
     };
-  }, [cols]);
+  }, [cols, maskRef?.current]);
 
   const timeItemCanUsed = useCallback(
     (col: EPickerCols, el: string | number) => {
@@ -173,7 +173,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const { offsetHeight, margin } = getItemHeight();
       const timeItemTotalHeight = offsetHeight + margin;
-      const distance = Math.abs(itemIdx * timeItemTotalHeight);
+      const distance = Math.abs(Math.max(0, itemIdx) * timeItemTotalHeight);
       return distance;
     },
     [getItemHeight, getColList, format],
@@ -214,8 +214,13 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     else val = meridiem;
 
     const distance = getScrollDistance(col, val);
-
-    if (!dayjs(dayjsValue).isValid()) return;
+    if (
+      !dayjs(dayjsValue).isValid() ||
+      // 过滤键盘错误输入
+      (value && !dayjs(value, format, true).isValid())
+    ) {
+      return;
+    }
     if (timeArr.includes(col)) {
       if (timeItemCanUsed(col, val)) formattedVal = dayjsValue[col]?.(val).format(format);
     } else {
@@ -224,13 +229,19 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         formattedVal = dayjsValue.hour(currentHour - 12).format(format);
       } else if (meridiem === PM && currentHour < 12) {
         formattedVal = dayjsValue.hour(currentHour + 12).format(format);
+      } else {
+        formattedVal = dayjsValue.format(format);
       }
     }
-    onChange(formattedVal);
-    const scrollCtrl = colsRef.current[cols.indexOf(col)];
-    if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance) return;
+
+    if (formattedVal !== value) {
+      onChange(formattedVal);
+    }
 
     if (distance !== scrollTop) {
+      const scrollCtrl = colsRef.current[cols.indexOf(col)];
+      if (!scrollCtrl || scrollCtrl.scrollTop === distance) return;
+
       scrollCtrl.scrollTo?.({
         top: distance,
         behavior: 'smooth',
@@ -242,7 +253,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     (col: EPickerCols, time: number | string, idx: number, behavior: 'auto' | 'smooth' = 'auto') => {
       const distance = getScrollDistance(col, time);
       const scrollCtrl = colsRef.current[idx];
-      if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance || !timeItemCanUsed(col, time)) return;
+      if (!scrollCtrl || scrollCtrl.scrollTop === distance || !timeItemCanUsed(col, time)) return;
 
       scrollCtrl.scrollTo?.({
         top: distance,
