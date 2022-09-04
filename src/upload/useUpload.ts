@@ -9,6 +9,7 @@ import {
   getDisplayFiles,
   removeFiles,
 } from '../_common/js/upload/main';
+import { getFileUrlByFileRaw } from '../_common/js/upload/utils';
 import useControlled from '../hooks/useControlled';
 import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../_common/js/upload/types';
 import useConfig from '../hooks/useConfig';
@@ -29,7 +30,7 @@ export default function useUpload(props: TdUploadProps) {
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
   const [sizeOverLimitMessage, setSizeOverLimitMessage] = useState('');
 
-  const locale = useMemo(() => merge(globalLocale, props.locale), [globalLocale, props.locale]);
+  const locale = useMemo(() => merge({}, globalLocale, props.locale), [globalLocale, props.locale]);
 
   const tipsClasses = `${classPrefix}-upload__tips ${classPrefix}-size-s`;
   const errorClasses = [tipsClasses].concat(`${classPrefix}-upload__tips-error`);
@@ -91,6 +92,35 @@ export default function useUpload(props: TdUploadProps) {
       : `${t(locale.sizeLimitMessage, { sizeLimit: limit.size })} ${limit.unit}`;
   }
 
+  const handleNonAutoUpload = (toFiles: UploadFile[]) => {
+    const tmpFiles = props.multiple ? uploadValue.concat(toFiles) : toFiles;
+    // 图片需要本地预览
+    if (['image', 'image-flow'].includes(props.theme)) {
+      const list = tmpFiles.map(
+        (file) =>
+          new Promise((resolve) => {
+            getFileUrlByFileRaw(file.raw).then((url) => {
+              resolve({ ...file, url });
+            });
+          }),
+      );
+      Promise.all(list).then((files) => {
+        setUploadValue(files, {
+          trigger: 'add',
+          index: uploadValue.length,
+          file: files[0],
+        });
+      });
+    } else {
+      setUploadValue(tmpFiles, {
+        trigger: 'add',
+        index: uploadValue.length,
+        file: tmpFiles[0],
+      });
+    }
+    setToUploadFiles([]);
+  };
+
   const onFileChange = (files: FileList) => {
     if (props.disabled) return;
     // @ts-ignore
@@ -133,13 +163,7 @@ export default function useUpload(props: TdUploadProps) {
         if (autoUpload) {
           uploadFiles(toFiles);
         } else {
-          const files = props.multiple ? uploadValue.concat(toFiles) : toFiles;
-          setUploadValue(files, {
-            trigger: 'add',
-            index: uploadValue.length,
-            file: files[0],
-          });
-          setToUploadFiles([]);
+          handleNonAutoUpload(toFiles);
         }
       }
     });
@@ -158,7 +182,7 @@ export default function useUpload(props: TdUploadProps) {
    * 对外暴露方法，修改时需谨慎
    */
   function uploadFiles(toFiles?: UploadFile[]) {
-    const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success' && !t.url);
+    const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success');
     const files = props.autoUpload ? toFiles || toUploadFiles : notUploadedFiles;
     if (!files || !files.length) return;
     setUploading(true);

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import type { UploadProps } from './types';
 import NormalFile from './NormalFile';
 import DraggerFile from './DraggerFile';
+import ImageCard from './ImageCard';
 import useUpload from './useUpload';
 import Button from '../button';
 import { TdUploadProps } from './type';
@@ -85,7 +86,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     </NormalFile>
   );
 
-  const SingleFileDraggerUpload = (
+  const SingleFileDraggerUploadNode = (
     <DraggerFile
       {...commonDisplayFileProps}
       trigger={props.trigger}
@@ -93,6 +94,19 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       triggerUpload={triggerUpload}
       uploadFiles={uploadFiles}
       onDragFileChange={onDragFileChange}
+    />
+  );
+
+  const ImageCardUploadNode = (
+    <ImageCard
+      {...commonDisplayFileProps}
+      multiple={props.multiple}
+      max={props.max}
+      disabled={props.disabled}
+      showUploadProgress={props.showUploadProgress}
+      triggerUpload={triggerUpload}
+      uploadFiles={uploadFiles}
+      cancelUpload={cancelUpload}
     />
   );
 
@@ -108,7 +122,8 @@ const Upload = forwardRef((props: UploadProps, ref) => {
         hidden
       />
       {['file', 'file-input'].includes(props.theme) && !props.draggable && NormalFileNode}
-      {['file', 'image'].includes(props.theme) && props.draggable && SingleFileDraggerUpload}
+      {['file', 'image'].includes(props.theme) && props.draggable && SingleFileDraggerUploadNode}
+      {['image'].includes(props.theme) && ImageCardUploadNode}
     </div>
   );
 });

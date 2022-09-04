@@ -4,17 +4,13 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { GlobalIconConfig } from 'tdesign-icons-react';
 import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
 import { TNode, TElement } from '../common';
-import { GlobalIconConfig } from 'tdesign-icons-react';
 
 export interface GlobalConfigProvider {
-  /**
-   * icon 全局配置，用来覆盖内置 tdesign-icons
-   */
-  icon?: IconConfig;
   /**
    * 警告全局配置
    */
@@ -60,6 +56,10 @@ export interface GlobalConfigProvider {
    * 表单组件全局配置
    */
   form?: FormConfig;
+  /**
+   * 图标全局配置
+   */
+  icon?: IconConfig;
   /**
    * 输入框组件全局配置
    */
@@ -114,6 +114,24 @@ export interface GlobalConfigProvider {
   upload?: UploadConfig;
 }
 
+export interface TreeSelectConfig {
+  /**
+   * 语言配置，“暂无数据”描述文本
+   * @default ''
+   */
+  empty?: string;
+  /**
+   * 语言配置，“加载中”描述文本
+   * @default ''
+   */
+  loadingText?: string;
+  /**
+   * 语言配置，“请选择”占位符描述文本
+   * @default ''
+   */
+  placeholder?: string;
+}
+
 export interface InputConfig {
   /**
    * 是否开启自动填充功能
@@ -125,29 +143,6 @@ export interface InputConfig {
    * @default ''
    */
   placeholder?: string;
-}
-
-export interface PaginationConfig {
-  /**
-   * 语言配置，每页条数文本，示例：`'{size} 条/页'`
-   * @default ''
-   */
-  itemsPerPage?: string;
-  /**
-   * 语言配置，页码跳转文本，示例：'跳至'
-   * @default ''
-   */
-  jumpTo?: string;
-  /**
-   * 语言配置，“页”描述文本
-   * @default ''
-   */
-  page?: string;
-  /**
-   * 语言配置，数据总条数文本，示例：`'共 {total} 项数据'`
-   * @default ''
-   */
-  total?: string;
 }
 
 export interface CalendarConfig {
@@ -253,50 +248,30 @@ export interface ColorPickerConfig {
   swatchColorTitle?: string;
 }
 
-export interface TransferConfig {
+export interface AnchorConfig {
   /**
-   * 语言配置，“暂无数据”空数据描述文本
+   * 语言配置，“链接复制成功”描述文本
    * @default ''
    */
-  empty?: string;
+  copySuccessText?: string;
   /**
-   * 语言配置，“请输入关键词搜索”占位符描述文本
+   * 语言配置，“复制链接” 描述文本
    * @default ''
    */
-  placeholder?: string;
-  /**
-   * 语言配置，穿梭框标题描述文本，示例：“{checked} / {total} 项”
-   * @default ''
-   */
-  title?: string;
+  copyText?: string;
 }
 
-export interface TimePickerConfig {
+export interface AlertConfig {
   /**
-   * 语言配置，“上午”描述文本
+   * 语言配置，“收起”描述文本
    * @default ''
    */
-  anteMeridiem?: string;
+  collapseText?: string;
   /**
-   * 语言配置，“确定”描述文本
+   * 语言配置，“展开更多”描述文本
    * @default ''
    */
-  confirm?: string;
-  /**
-   * 语言配置，“此刻”描述文本
-   * @default ''
-   */
-  now?: string;
-  /**
-   * 语言配置，\"请选择时间\"占位符描述文本
-   * @default ''
-   */
-  placeholder?: string;
-  /**
-   * 语言配置，“下午”描述文本
-   * @default ''
-   */
-  postMeridiem?: string;
+  expandText?: string;
 }
 
 export interface DatePickerConfig {
@@ -465,6 +440,82 @@ export interface DrawerConfig {
   size?: string;
 }
 
+export interface FormConfig {
+  /**
+   * 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`
+   */
+  errorMessage?: FormErrorMessage;
+  /**
+   * 是否显示必填符号（*），默认显示
+   * @default true
+   */
+  requiredMark?: boolean;
+}
+
+export interface UploadConfigFileList {
+  /**
+   * 语言配置，“文件名” 描述文本
+   * @default ''
+   */
+  fileNameText?: string;
+  /**
+   * 语言配置，“上传日期” 描述文本
+   * @default ''
+   */
+  fileOperationDateText?: string;
+  /**
+   * 语言配置，“操作” 描述文本
+   * @default ''
+   */
+  fileOperationText?: string;
+  /**
+   * 语言配置，“文件尺寸” 描述文本
+   * @default ''
+   */
+  fileSizeText?: string;
+  /**
+   * 语言配置，“状态” 描述文本
+   * @default ''
+   */
+  fileStatusText?: string;
+}
+
+export interface ListConfig {
+  /**
+   * 语言配置，'点击加载更多' 描述文本
+   * @default ''
+   */
+  loadingMoreText?: string;
+  /**
+   * 语言配置，'正在加载中，请稍后' 描述文本
+   * @default ''
+   */
+  loadingText?: string;
+}
+
+export interface PaginationConfig {
+  /**
+   * 语言配置，每页条数文本，示例：`'{size} 条/页'`
+   * @default ''
+   */
+  itemsPerPage?: string;
+  /**
+   * 语言配置，页码跳转文本，示例：'跳至'
+   * @default ''
+   */
+  jumpTo?: string;
+  /**
+   * 语言配置，“页”描述文本
+   * @default ''
+   */
+  page?: string;
+  /**
+   * 语言配置，数据总条数文本，示例：`'共 {total} 项数据'`
+   * @default ''
+   */
+  total?: string;
+}
+
 export interface PopconfirmConfig {
   /**
    * 语言配置，“取消”描述文本
@@ -578,6 +629,13 @@ export interface TableConfig {
   treeExpandAndFoldIcon?: TNode<{ type: 'expand' | 'fold' }>;
 }
 
+export interface StepsConfig {
+  /**
+   * 错误步骤图标，【注意】使用渲染函数输出图标组件
+   */
+  errorIcon?: TElement;
+}
+
 export interface SelectConfig {
   /**
    * 清除图标，【注意】使用渲染函数输出图标组件
@@ -605,6 +663,59 @@ export interface SelectConfig {
   placeholder?: string;
 }
 
+export interface TagConfig {
+  /**
+   * 关闭图标，【注意】使用渲染函数输出图标组件
+   */
+  closeIcon?: TNode;
+}
+
+export interface TimePickerConfig {
+  /**
+   * 语言配置，“上午”描述文本
+   * @default ''
+   */
+  anteMeridiem?: string;
+  /**
+   * 语言配置，“确定”描述文本
+   * @default ''
+   */
+  confirm?: string;
+  /**
+   * 语言配置，“此刻”描述文本
+   * @default ''
+   */
+  now?: string;
+  /**
+   * 语言配置，\"请选择时间\"占位符描述文本
+   * @default ''
+   */
+  placeholder?: string;
+  /**
+   * 语言配置，“下午”描述文本
+   * @default ''
+   */
+  postMeridiem?: string;
+}
+
+export interface TransferConfig {
+  /**
+   * 语言配置，“暂无数据”空数据描述文本
+   * @default ''
+   */
+  empty?: string;
+  /**
+   * 语言配置，“请输入关键词搜索”占位符描述文本
+   * @default ''
+   */
+  placeholder?: string;
+  /**
+   * 语言配置，穿梭框标题描述文本，示例：“{checked} / {total} 项”
+   * @default ''
+   */
+  title?: string;
+}
+
 export interface TreeConfig {
   /**
    * 语言配置，“暂无数据”描述文本
@@ -615,37 +726,6 @@ export interface TreeConfig {
    * 目录层级图标，传入收起状态图标即可。【注意】使用渲染函数输出图标组件
    */
   folderIcon?: TNode;
-}
-
-export interface TreeSelectConfig {
-  /**
-   * 语言配置，“暂无数据”描述文本
-   * @default ''
-   */
-  empty?: string;
-  /**
-   * 语言配置，“加载中”描述文本
-   * @default ''
-   */
-  loadingText?: string;
-  /**
-   * 语言配置，“请选择”占位符描述文本
-   * @default ''
-   */
-  placeholder?: string;
-}
-
-export interface ListConfig {
-  /**
-   * 语言配置，'点击加载更多' 描述文本
-   * @default ''
-   */
-  loadingMoreText?: string;
-  /**
-   * 语言配置，'正在加载中，请稍后' 描述文本
-   * @default ''
-   */
-  loadingText?: string;
 }
 
 export interface UploadConfig {
@@ -672,9 +752,27 @@ export interface UploadConfig {
    */
   sizeLimitMessage?: string;
   /**
-   * 语言配置，上传功能触发文案。示例：{ image: '点击上传图片', normal: '点击上传',  fileInput: '选择文件',reupload: '重新上传',fileInput: '删除' }
+   * 语言配置，上传功能触发文案。示例：{ image: '点击上传图片', normal: '点击上传',  fileInput: '选择文件', reupload: '重新上传', delete: '删除', continueUpload?: '继续选择' }
    */
   triggerUploadText?: UploadTriggerUploadText;
+}
+
+export interface UploadConfigDragger {
+  /**
+   * 语言配置，“ 点击上方“选择文件”或将文件拖到此区域 ” 描述文本
+   * @default ''
+   */
+  clickAndDragText?: string;
+  /**
+   * 语言配置，“释放图标” 描述文本
+   * @default ''
+   */
+  dragDropText?: string;
+  /**
+   * 语言配置，'拖拽到此区域' 描述文本
+   * @default ''
+   */
+  draggingText?: string;
 }
 
 export interface UploadConfigProgress {
@@ -700,105 +798,9 @@ export interface UploadConfigProgress {
   waitingText?: string;
 }
 
-export interface UploadConfigDragger {
-  /**
-   * 语言配置，“ 点击上方“选择文件”或将文件拖到此区域 ” 描述文本
-   * @default ''
-   */
-  clickAndDragText?: string;
-  /**
-   * 语言配置，“释放图标” 描述文本
-   * @default ''
-   */
-  dragDropText?: string;
-  /**
-   * 语言配置，'拖拽到此区域' 描述文本
-   * @default ''
-   */
-  draggingText?: string;
-}
-
-export interface UploadConfigFileList {
-  /**
-   * 语言配置，“文件名” 描述文本
-   * @default ''
-   */
-  fileNameText?: string;
-  /**
-   * 语言配置，“上传日期” 描述文本
-   * @default ''
-   */
-  fileOperationDateText?: string;
-  /**
-   * 语言配置，“操作” 描述文本
-   * @default ''
-   */
-  fileOperationText?: string;
-  /**
-   * 语言配置，“文件尺寸” 描述文本
-   * @default ''
-   */
-  fileSizeText?: string;
-  /**
-   * 语言配置，“状态” 描述文本
-   * @default ''
-   */
-  fileStatusText?: string;
-}
-
-export interface FormConfig {
-  /**
-   * 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`
-   */
-  errorMessage?: FormErrorMessage;
-  /**
-   * 是否显示必填符号（*），默认显示
-   * @default true
-   */
-  requiredMark?: boolean;
-}
-
-export interface TagConfig {
-  /**
-   * 关闭图标，【注意】使用渲染函数输出图标组件
-   */
-  closeIcon?: TNode;
-}
-
-export interface StepsConfig {
-  /**
-   * 错误步骤图标，【注意】使用渲染函数输出图标组件
-   */
-  errorIcon?: TElement;
-}
-
-export interface AlertConfig {
-  /**
-   * 语言配置，“收起”描述文本
-   * @default ''
-   */
-  collapseText?: string;
-  /**
-   * 语言配置，“展开更多”描述文本
-   * @default ''
-   */
-  expandText?: string;
-}
-
-export interface AnchorConfig {
-  /**
-   * 语言配置，“链接复制成功”描述文本
-   * @default ''
-   */
-  copySuccessText?: string;
-  /**
-   * 语言配置，“复制链接” 描述文本
-   * @default ''
-   */
-  copyText?: string;
-}
-
 export type AnimationType = 'ripple' | 'expand' | 'fade';
+
+export type IconConfig = GlobalIconConfig;
 
 export interface ConfigPresetDate {
   [name: string]: DateConfigValue | (() => DateConfigValue);
@@ -814,5 +816,3 @@ export interface UploadTriggerUploadText {
   continueUpload?: string;
   delete?: string;
 }
-
-export type IconConfig = GlobalIconConfig;
