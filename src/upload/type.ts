@@ -152,11 +152,6 @@ export interface TdUploadProps {
    */
   triggerButtonProps?: ButtonProps;
   /**
-   * `autoUpload=false` 时，是否在选择文件或移除文件之后触发 `change` 事件
-   * @default false
-   */
-  triggerChangeEventNonAutoUpload?: boolean;
-  /**
    * 是否在同一个请求中上传全部文件，默认一个请求上传一个文件
    * @default false
    */
@@ -182,15 +177,15 @@ export interface TdUploadProps {
   /**
    * 进入拖拽区域时触发
    */
-  onDragenter?: (context: { e: DragEvent<Element> }) => void;
+  onDragenter?: (context: { e: DragEvent<HTMLDivElement> }) => void;
   /**
    * 离开拖拽区域时触发
    */
-  onDragleave?: (context: { e: DragEvent<Element> }) => void;
+  onDragleave?: (context: { e: DragEvent<HTMLDivElement> }) => void;
   /**
    * 拖拽结束时触发
    */
-  onDrop?: (context: { e: DragEvent<Element> }) => void;
+  onDrop?: (context: { e: DragEvent<HTMLDivElement> }) => void;
   /**
    * 上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果希望判定为上传失败，但接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构
    */

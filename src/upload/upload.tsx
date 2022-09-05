@@ -5,13 +5,16 @@ import type { UploadProps } from './types';
 import NormalFile from './NormalFile';
 import DraggerFile from './DraggerFile';
 import ImageCard from './ImageCard';
+import ImageFlowList from './ImageFlowList';
 import useUpload from './useUpload';
 import Button from '../button';
 import { TdUploadProps } from './type';
 import { uploadDefaultProps } from './defaultProps';
 import { CommonDisplayFileProps } from './interface';
+import { UploadDragEvents } from './useDrag';
 
 const Upload = forwardRef((props: UploadProps, ref) => {
+  const { theme } = props;
   const {
     locale,
     classPrefix,
@@ -43,7 +46,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
   const renderTrigger = () => {
     const getDefaultTrigger = () => {
       const localeFromProps = props.locale as TdUploadProps['locale'];
-      if (props.theme === 'file-input') {
+      if (theme === 'file-input') {
         return (
           <Button variant="outline" {...props.triggerButtonProps}>
             {localeFromProps?.triggerUploadText?.fileInput || locale.triggerUploadText.fileInput}
@@ -65,10 +68,11 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     files: uploadValue,
     toUploadFiles,
     displayFiles,
-    theme: props.theme,
+    theme,
     placeholder: props.placeholder,
     tips: props.tips,
     sizeOverLimitMessage,
+    uploading,
     classPrefix,
     tipsClasses,
     errorClasses,
@@ -76,6 +80,13 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     autoUpload: props.autoUpload,
     fileListDisplay: props.fileListDisplay,
     onRemove,
+  };
+
+  const dragProps: UploadDragEvents = {
+    onDragFileChange,
+    onDragenter: props.onDragenter,
+    onDragleave: props.onDragleave,
+    onDrop: props.onDrop,
   };
 
   const NormalFileNode = (
@@ -89,11 +100,11 @@ const Upload = forwardRef((props: UploadProps, ref) => {
   const SingleFileDraggerUploadNode = (
     <DraggerFile
       {...commonDisplayFileProps}
+      dragEvents={dragProps}
       trigger={props.trigger}
       cancelUpload={cancelUpload}
       triggerUpload={triggerUpload}
       uploadFiles={uploadFiles}
-      onDragFileChange={onDragFileChange}
     />
   );
 
@@ -110,6 +121,20 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     />
   );
 
+  const ImageFlowListNode = (
+    <ImageFlowList
+      {...commonDisplayFileProps}
+      disabled={disabled}
+      dragEvents={dragProps}
+      uploadFiles={uploadFiles}
+      cancelUpload={cancelUpload}
+    >
+      <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
+        {triggerElement}
+      </div>
+    </ImageFlowList>
+  );
+
   return (
     <div className={classNames([props.className, `${classPrefix}-upload`])} style={props.style}>
       <input
@@ -121,9 +146,10 @@ const Upload = forwardRef((props: UploadProps, ref) => {
         accept={props.accept}
         hidden
       />
-      {['file', 'file-input'].includes(props.theme) && !props.draggable && NormalFileNode}
-      {['file', 'image'].includes(props.theme) && props.draggable && SingleFileDraggerUploadNode}
-      {['image'].includes(props.theme) && ImageCardUploadNode}
+      {['file', 'file-input'].includes(theme) && !props.draggable && NormalFileNode}
+      {['file', 'image'].includes(theme) && props.draggable && SingleFileDraggerUploadNode}
+      {theme === 'image' && ImageCardUploadNode}
+      {theme === 'image-flow' && ImageFlowListNode}
     </div>
   );
 });

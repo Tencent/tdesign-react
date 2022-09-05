@@ -13,6 +13,7 @@ export interface CommonDisplayFileProps {
   locale?: GlobalConfigProvider['upload'];
   sizeOverLimitMessage?: string;
   autoUpload?: boolean;
+  uploading?: boolean;
   tipsClasses?: string;
   errorClasses?: string[];
   xhrReq?: XMLHttpRequest;

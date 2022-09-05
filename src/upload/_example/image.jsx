@@ -18,7 +18,6 @@ export default function UploadExample() {
 
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(true);
-  const [isBatchUpload, setIsBatchUpload] = useState(false);
 
   const setFormattedUrlFiles = (files) => {
     const list = files.map(file => new Promise((resolve) => {
@@ -64,9 +63,6 @@ export default function UploadExample() {
       <Space>
         <Checkbox checked={uploadInOneRequest} onChange={setUploadInOneRequest}>
           一个请求上传多个文件
-        </Checkbox>
-        <Checkbox checked={isBatchUpload} onChange={setIsBatchUpload}>
-          整体替换上传多个文件
         </Checkbox>
         <Checkbox checked={autoUpload} onChange={setAutoUpload}>
           自动上传
@@ -120,7 +116,6 @@ export default function UploadExample() {
           sizeLimit={{ size: 2, unit: 'MB' }}
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}
-          isBatchUpload={isBatchUpload}
           onSuccess={onSuccess}
           onValidate={onValidate}
         />

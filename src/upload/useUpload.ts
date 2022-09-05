@@ -173,7 +173,7 @@ export default function useUpload(props: TdUploadProps) {
     onFileChange?.(e.target.files);
   };
 
-  function onDragFileChange(e: DragEvent) {
+  function onDragFileChange(e: DragEvent<HTMLDivElement>) {
     onFileChange?.(e.dataTransfer.files);
   }
 

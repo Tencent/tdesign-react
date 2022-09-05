@@ -38,7 +38,6 @@ theme | String | file | options：custom/file/file-input/file-flow/image/image-f
 tips | String | - | \- | N
 trigger | TElement | - | Typescript：`TNode<TriggerContext>` `interface TriggerContext { dragActive?: boolean;  displayFiles: UploadFile[] }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
 triggerButtonProps | Object | - | Typescript：`ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
-triggerChangeEventNonAutoUpload | Boolean | false | trigger `onChange` on `autoupload=false` | N
 uploadAllFilesInOneRequest | Boolean | false | \- | N
 useMockProgress | Boolean | true | \- | N
 withCredentials | Boolean | false | \- | N

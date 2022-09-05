@@ -1,4 +1,4 @@
-import React, { DragEvent, FC, MouseEvent, useMemo, useRef, useState } from 'react';
+import React, { FC, MouseEvent, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import { abridgeName, getFileSizeText, getCurrentDate } from '../_common/js/upload/utils';
@@ -7,27 +7,26 @@ import Button from '../button';
 import { CommonDisplayFileProps } from './interface';
 import useCommonClassName from '../hooks/useCommonClassName';
 import TLoading from '../loading';
+import useDrag, { UploadDragEvents } from './useDrag';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
   triggerUpload?: () => void;
   uploadFiles?: (toFiles?: UploadFile[]) => void;
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
-  onDragFileChange?: (e: DragEvent) => void;
-  onDragenter?: (e: DragEvent) => void;
-  onDragleave?: (e: DragEvent) => void;
-  onDrop?: (e: DragEvent) => void;
+  dragEvents: UploadDragEvents;
 }
 
 const DraggerFile: FC<DraggerProps> = (props) => {
   const { displayFiles, locale } = props;
-  const [target, setTarget] = useState(null);
-  const [dragActive, setDragActive] = useState(false);
-  const draggerFileRef = useRef();
 
   const { SIZE } = useCommonClassName();
-
   const uploadPrefix = `${props.classPrefix}-upload`;
+
+  const drag = useDrag(props.dragEvents);
+  const { dragActive } = drag;
+
+  const draggerFileRef = useRef();
 
   const classes = useMemo(
     () => [
@@ -37,31 +36,6 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     ],
     [displayFiles, uploadPrefix],
   );
-
-  const handleDrop = (event: DragEvent) => {
-    event.preventDefault();
-    props.onDragFileChange?.(event);
-    props.onDrop?.(event);
-    setDragActive(false);
-  };
-
-  const handleDragenter = (event: DragEvent) => {
-    event.preventDefault();
-    setTarget(event.target);
-    props.onDragenter?.(event);
-    setDragActive(true);
-  };
-
-  const handleDragleave = (event: DragEvent) => {
-    if (event.target !== target) return;
-    event.preventDefault();
-    props.onDragleave?.(event);
-    setDragActive(false);
-  };
-
-  const handleDragover = (event: DragEvent) => {
-    event.preventDefault();
-  };
 
   const renderImage = () => {
     const file = displayFiles[0];
@@ -172,10 +146,10 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     <div
       ref={draggerFileRef}
       className={classNames(classes)}
-      onDrop={handleDrop}
-      onDragEnter={handleDragenter}
-      onDragOver={handleDragover}
-      onDragLeave={handleDragleave}
+      onDrop={drag.handleDrop}
+      onDragEnter={drag.handleDragenter}
+      onDragOver={drag.handleDragover}
+      onDragLeave={drag.handleDragleave}
     >
       {props.trigger?.({ displayFiles, dragActive }) || getContent()}
     </div>
