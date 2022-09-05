@@ -7,7 +7,6 @@ import TDivider from '../divider';
 import DropdownItem from './DropdownItem';
 import { DropdownOption } from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { pxCompat } from '../_util/helper';
 
 const DropdownMenu = (props: DropdownProps) => {
   const { options = [], maxHeight = 300, minColumnWidth = 10, maxColumnWidth = 160, direction } = props;
@@ -15,8 +14,6 @@ const DropdownMenu = (props: DropdownProps) => {
   const { classPrefix } = useConfig();
   const [flatItem, setFlatItem] = useState<any>([]);
 
-  const maxColWidth = Number(maxColumnWidth) - 12;
-  const minColWidth = Number(minColumnWidth) - 12;
   const arrMap = useMemo(() => new Map(), []);
 
   const dropdownClass = `${classPrefix}-dropdown`;
@@ -55,13 +52,7 @@ const DropdownMenu = (props: DropdownProps) => {
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children);
         renderContent = (
-          <div
-            key={idx}
-            style={{
-              maxWidth: pxCompat(maxColWidth),
-              minWidth: pxCompat(minColWidth),
-            }}
-          >
+          <div key={idx}>
             <DropdownItem
               className={classNames(`${dropdownClass}__item`, `${dropdownClass}__item--suffix`)}
               value={optionItem.value}
@@ -92,8 +83,6 @@ const DropdownMenu = (props: DropdownProps) => {
                   [`${dropdownClass}__submenu--${direction}`]: direction,
                 })}
                 style={{
-                  maxWidth: pxCompat(maxColWidth),
-                  minWidth: pxCompat(minColWidth),
                   top: `${idx * 28}px`,
                 }}
               >
@@ -105,13 +94,7 @@ const DropdownMenu = (props: DropdownProps) => {
         );
       } else {
         renderContent = (
-          <div
-            key={idx}
-            style={{
-              maxWidth: pxCompat(maxColWidth),
-              minWidth: pxCompat(minColWidth),
-            }}
-          >
+          <div key={idx}>
             <DropdownItem
               className={`${dropdownClass}__item`}
               value={optionItem.value}
@@ -146,8 +129,6 @@ const DropdownMenu = (props: DropdownProps) => {
       className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`)}
       style={{
         maxHeight: `${maxHeight}px`,
-        maxWidth: `${maxColWidth}px`,
-        minWidth: `${minColWidth}px`,
       }}
     >
       {renderOptions(options)}

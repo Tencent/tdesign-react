@@ -35,8 +35,6 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     isSubmenu,
   } = props;
   const { classPrefix } = useConfig();
-  const maxColWidth = Number(maxColumnWidth) - 28;
-  const minColWidth = Number(minColumnWidth) - 28;
   const dropdownItemRef = useRef<HTMLLIElement>(null);
 
   useRipple(isSubmenu ? null : ref || dropdownItemRef);
@@ -53,8 +51,8 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
         })}
         onClick={handleItemClick}
         style={{
-          maxWidth: pxCompat(maxColWidth),
-          minWidth: pxCompat(minColWidth),
+          maxWidth: pxCompat(maxColumnWidth),
+          minWidth: pxCompat(minColumnWidth),
           ...style,
         }}
         ref={ref || dropdownItemRef}
