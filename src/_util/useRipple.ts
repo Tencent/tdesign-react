@@ -60,7 +60,8 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       if (
         el.classList.contains(`${classPrefix}-is-active`) ||
         el.classList.contains(`${classPrefix}-is-disabled`) ||
-        el.classList.contains(`${classPrefix}-is-checked`)
+        el.classList.contains(`${classPrefix}-is-checked`) ||
+        el.classList.contains(`${classPrefix}-is-loading`)
       )
         return;
 
