@@ -78,7 +78,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       value={isBoolean(value) ? Number(value) : value}
       onClick={(e) => {
         e.stopPropagation();
-        if ((type === 'radio-button' || type === 'radio') && allowUncheck) {
+        if ((type === 'radio-button' || type === 'radio') && allowUncheck && internalChecked) {
           setInternalChecked(!e.currentTarget.checked, { e });
         }
       }}
