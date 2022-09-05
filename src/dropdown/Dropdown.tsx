@@ -28,7 +28,6 @@ const Dropdown = (props: DropdownProps) => {
     style,
   } = props;
 
-  const content = null;
   const arrayChildren = React.Children.toArray(children);
   const { classPrefix } = useConfig();
   const [isPopupVisible, togglePopupVisible] = useState(false);
@@ -53,7 +52,7 @@ const Dropdown = (props: DropdownProps) => {
     placement,
     trigger,
     showArrow: false,
-    content: content || renderContent,
+    content: renderContent,
     ...omit(popupProps, 'onVisibleChange'),
     overlayInnerClassName: classNames(dropdownClass, className, popupProps?.overlayInnerClassName),
     overlayInnerStyle: style,
