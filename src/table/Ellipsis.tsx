@@ -4,16 +4,16 @@ import debounce from 'lodash/debounce';
 
 import { TNode } from '../common';
 import { isNodeOverflow } from '../_util/dom';
-import TPopup, { PopupProps } from '../popup';
+import Tooltip, { TooltipProps } from '../tooltip';
 import useConfig from '../hooks/useConfig';
 
 export interface EllipsisProps {
   content?: string | TNode;
   children?: string | TNode;
   popupContent?: string | number | TNode;
-  placement?: PopupProps['placement'];
+  placement?: TooltipProps['placement'];
   attach?: () => HTMLElement;
-  popupProps?: PopupProps;
+  tooltipProps?: TooltipProps;
   zIndex?: number;
 }
 
@@ -54,9 +54,9 @@ export default function Ellipsis(props: EllipsisProps) {
       zIndex: props.zIndex,
       attach: props.attach,
       placement: props.placement,
-      ...(props.popupProps || {}),
+      ...(props.tooltipProps || {}),
     };
-    content = <TPopup {...rProps}>{ellipsisContent}</TPopup>;
+    content = <Tooltip {...rProps}>{ellipsisContent}</Tooltip>;
   } else {
     content = ellipsisContent;
   }

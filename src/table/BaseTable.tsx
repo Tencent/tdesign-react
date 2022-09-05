@@ -64,6 +64,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     getThWidthList,
     updateThWidthList,
     setRecalculateColWidthFuncRef,
+    addTableResizeObserver,
   } = useFixed(props, finalColumns);
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
@@ -180,6 +181,12 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     setTableContentRef(tableContentRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableContentRef]);
+
+  useEffect(
+    () => addTableResizeObserver(tableRef.current),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tableRef],
+  );
 
   useEffect(getTFootHeight, [tableElmRef]);
 

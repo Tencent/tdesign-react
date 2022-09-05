@@ -124,7 +124,7 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
             errorList && (cellProps.errors = errorList);
           }
           if (props.editableCellState) {
-            cellProps.readonly = props.editableCellState(p);
+            cellProps.readonly = !props.editableCellState(p);
           }
           return <EditableCell {...cellProps} />;
         };

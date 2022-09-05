@@ -154,6 +154,12 @@ export default function useRowSelect(
     };
   }
 
+  useEffect(() => {
+    for (let i = 0, len = data.length; i < len; i++) {
+      selectedRowDataMap.set(get(data[i], rowKey || 'id'), data[i]);
+    }
+  }, [data, rowKey]);
+
   return {
     selectedRowClassNames,
     formatToRowSelectColumn,

@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
+import { getIEVersion } from 'tdesign-react/_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
@@ -13,7 +14,6 @@ import {
   TableColFixedClasses,
   RecalculateColumnWidthFunc,
 } from '../interface';
-// import { TDisplayNoneElementRefresh } from '../../hooks/useDestroyOnClose';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -478,28 +478,40 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   const onResize = refreshTable;
 
-  // 父元素 display: none 的变化，子元素无法监听到，通过 provide/inject 方式处理组件更新
-  // watch([displayNoneElementRefresh], () => {
-  //   if (!displayNoneElementRefresh) return;
-  //   requestAnimationFrame ? requestAnimationFrame(refreshTable) : refreshTable();
-  // });
+  function addTableResizeObserver(tableElement: HTMLDivElement) {
+    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    if (getIEVersion() < 11 || typeof window.ResizeObserver === 'undefined') return;
+    off(window, 'resize', onResize);
+    const resizeObserver = new window.ResizeObserver(() => {
+      refreshTable();
+    });
+    resizeObserver.observe(tableElement);
+    return () => {
+      resizeObserver.unobserve(tableElement);
+      resizeObserver.disconnect();
+    };
+  }
 
   useEffect(() => {
     const scrollWidth = getScrollbarWidth();
     setScrollbarWidth(scrollWidth);
+    const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
     const timer = setTimeout(() => {
       updateTableWidth();
       if (columnResizable && recalculateColWidth.current) {
         recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
       }
-      const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
-      if (isWatchResize) {
+      // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+      if ((isWatchResize && getIEVersion() < 11) || typeof window.ResizeObserver === 'undefined') {
         on(window, 'resize', onResize);
       }
       clearTimeout(timer);
     });
     return () => {
-      off(window, 'resize', onResize);
+      if ((isWatchResize && getIEVersion() < 11) || typeof window.ResizeObserver === 'undefined') {
+        off(window, 'resize', onResize);
+      }
+      clearTimeout(timer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn]);
@@ -525,5 +537,6 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     getThWidthList,
     updateThWidthList,
     setRecalculateColWidthFuncRef,
+    addTableResizeObserver,
   };
 }
