@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
 import get from 'lodash/get';
-import { getIEVersion } from 'tdesign-react/_common/js/utils/helper';
+import { getIEVersion } from '../../_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
