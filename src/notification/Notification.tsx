@@ -35,6 +35,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   } = props;
 
   const { classPrefix } = useConfig();
+  const baseClassPrefix = `${classPrefix}-notification`;
   const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
     CloseIcon: TdCloseIcon,
     InfoCircleFilledIcon: TdInfoCircleFilledIcon,
@@ -61,7 +62,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   const renderIcon = () => {
     if (typeof icon === 'boolean' && !icon) return null;
 
-    const IconWrapper = ({ children }) => <div className={`${classPrefix}-notification__icon`}>{children}</div>;
+    const IconWrapper = ({ children }) => <div className={`${baseClassPrefix}__icon`}>{children}</div>;
 
     // 调整优先级，icon 优先级最高
     if (React.isValidElement(icon)) {
@@ -90,7 +91,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
       return (
         closeBtn && (
           <CloseIcon
-            className={`${classPrefix}-icon-close`}
+            className={`${baseClassPrefix}-icon-close`}
             onClick={(e) => {
               onCloseBtnClick({ e });
             }}
@@ -100,7 +101,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
     }
     return (
       <div
-        className={`${classPrefix}-close`}
+        className={`${baseClassPrefix}-close`}
         onClick={(e) => {
           onCloseBtnClick({ e });
         }}
@@ -112,19 +113,19 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
 
   return (
     <div
-      className={classNames(className, `${classPrefix}-notification`, {
-        [`${classPrefix}-is-${theme}`]: theme,
+      className={classNames(className, baseClassPrefix, {
+        [`${baseClassPrefix}-is-${theme}`]: theme,
       })}
       style={style}
     >
       {renderIcon()}
-      <div className={`${classPrefix}-notification__main`}>
-        <div className={`${classPrefix}-notification__title__wrap`}>
-          <span className={`${classPrefix}-notification__title`}>{title}</span>
+      <div className={`${baseClassPrefix}__main`}>
+        <div className={`${baseClassPrefix}__title__wrap`}>
+          <span className={`${baseClassPrefix}__title`}>{title}</span>
           {renderCloseBtn()}
         </div>
-        {content && <div className={`${classPrefix}-notification__content`}>{renderTNode(content)}</div>}
-        {footer && <div className={`${classPrefix}-notification__detail`}>{renderTNode(footer)}</div>}
+        {content && <div className={`${baseClassPrefix}__content`}>{renderTNode(content)}</div>}
+        {footer && <div className={`${baseClassPrefix}__detail`}>{renderTNode(footer)}</div>}
       </div>
     </div>
   );
