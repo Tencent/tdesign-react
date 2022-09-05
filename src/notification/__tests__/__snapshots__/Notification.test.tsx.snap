@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification t-is-info"
+    class="t-notification t-notification-is-info"
   >
     <div
       class="t-notification__icon"
@@ -34,7 +34,7 @@ exports[`base.jsx 1`] = `
           标题名称
         </span>
         <div
-          class="t-close"
+          class="t-notification-close"
         />
       </div>
       <div
@@ -95,7 +95,7 @@ exports[`content.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -126,7 +126,7 @@ exports[`content.jsx 1`] = `
               自定义内容（字符串）
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -141,7 +141,7 @@ exports[`content.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -172,7 +172,7 @@ exports[`content.jsx 1`] = `
               自定义内容
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -192,7 +192,7 @@ exports[`content.jsx 1`] = `
 exports[`footer.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification t-is-info"
+    class="t-notification t-notification-is-info"
   >
     <div
       class="t-notification__icon"
@@ -223,7 +223,7 @@ exports[`footer.jsx 1`] = `
           自定义底部详情
         </span>
         <div
-          class="t-close"
+          class="t-notification-close"
         />
       </div>
       <div
@@ -264,7 +264,7 @@ exports[`icon.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -295,7 +295,7 @@ exports[`icon.jsx 1`] = `
               普通通知
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -310,7 +310,7 @@ exports[`icon.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-error"
+        class="t-notification t-notification-is-error"
       >
         <div
           class="t-notification__icon"
@@ -341,7 +341,7 @@ exports[`icon.jsx 1`] = `
               危险通知
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -356,7 +356,7 @@ exports[`icon.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-warning"
+        class="t-notification t-notification-is-warning"
       >
         <div
           class="t-notification__icon"
@@ -387,7 +387,7 @@ exports[`icon.jsx 1`] = `
               告警通知
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -402,7 +402,7 @@ exports[`icon.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-success"
+        class="t-notification t-notification-is-success"
       >
         <div
           class="t-notification__icon"
@@ -433,7 +433,7 @@ exports[`icon.jsx 1`] = `
               成功通知
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -458,7 +458,7 @@ exports[`operation.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -489,7 +489,7 @@ exports[`operation.jsx 1`] = `
               超出的文本省略号显示
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -520,7 +520,7 @@ exports[`operation.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -551,7 +551,7 @@ exports[`operation.jsx 1`] = `
               自定义底部
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -582,7 +582,7 @@ exports[`operation.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -618,7 +618,7 @@ exports[`operation.jsx 1`] = `
               </div>
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -651,7 +651,7 @@ exports[`operation.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -687,7 +687,7 @@ exports[`operation.jsx 1`] = `
               </div>
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div
@@ -728,7 +728,7 @@ exports[`operation.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-notification t-is-info"
+        class="t-notification t-notification-is-info"
       >
         <div
           class="t-notification__icon"
@@ -759,7 +759,7 @@ exports[`operation.jsx 1`] = `
               自定义内容
             </span>
             <div
-              class="t-close"
+              class="t-notification-close"
             />
           </div>
           <div

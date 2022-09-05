@@ -8,6 +8,7 @@ import {
 } from 'tdesign-icons-react';
 import { CSSTransition } from 'react-transition-group';
 import noop from '../_util/noop';
+import renderTNode from '../_util/renderTNode';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -101,7 +102,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 
   const renderClose = () => (
     <div className={`${classPrefix}-alert__close`} onClick={handleClose}>
-      {typeof close === 'boolean' ? <CloseIcon /> : close}
+      {typeof close === 'boolean' ? <CloseIcon /> : renderTNode(close)}
     </div>
   );
 
