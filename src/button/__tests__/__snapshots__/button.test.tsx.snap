@@ -1162,7 +1162,7 @@ exports[`status.jsx 1`] = `
       class="t-space-item"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base t-is-loading t-is-disabled"
+        class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
         disabled=""
         type="button"
       >
