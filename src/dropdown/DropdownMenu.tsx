@@ -1,15 +1,17 @@
 import React, { ReactElement, useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
+import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
 import { DropdownProps } from './Dropdown';
 import TDivider from '../divider';
 import DropdownItem from './DropdownItem';
 import { DropdownOption } from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { pxCompat } from '../_util/helper';
 
 const DropdownMenu = (props: DropdownProps) => {
   const { options = [], maxHeight = 300, minColumnWidth = 10, maxColumnWidth = 160, direction } = props;
+
   const { classPrefix } = useConfig();
   const [flatItem, setFlatItem] = useState<any>([]);
 
@@ -20,7 +22,10 @@ const DropdownMenu = (props: DropdownProps) => {
   const dropdownClass = `${classPrefix}-dropdown`;
   const dropdownMenuClass = `${dropdownClass}__menu`;
 
-  const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdIconChevronRight });
+  const { ChevronRightIcon, ChevronLeftIcon } = useGlobalIcon({
+    ChevronRightIcon: TdIconChevronRight,
+    ChevronLeftIcon: TdIconChevronLeft,
+  });
 
   useEffect(() => {
     setFlatItem(arrMap);
@@ -42,20 +47,19 @@ const DropdownMenu = (props: DropdownProps) => {
   // 处理options渲染的场景
   const renderOptions = (data: Array<DropdownOption | React.ReactChild>) => {
     const arr = [];
-    let obj: ReactElement | null = null;
+    let renderContent: ReactElement;
     data.forEach?.((menu, idx) => {
-      const tmp = { ...(menu as Record<string, any>) };
-      const optionItem = tmp as DropdownOption;
+      const optionItem = { ...(menu as DropdownOption) };
       arrMap.set(optionItem.value, optionItem);
 
-      if (tmp.children) {
-        tmp.children = renderOptions(tmp.children);
-        obj = (
+      if (optionItem.children) {
+        optionItem.children = renderOptions(optionItem.children);
+        renderContent = (
           <div
             key={idx}
             style={{
-              maxWidth: `${maxColWidth}px`,
-              minWidth: `${minColWidth}px`,
+              maxWidth: pxCompat(maxColWidth),
+              minWidth: pxCompat(minColWidth),
             }}
           >
             <DropdownItem
@@ -67,35 +71,45 @@ const DropdownMenu = (props: DropdownProps) => {
               disabled={optionItem.disabled}
               minColumnWidth={minColumnWidth}
               maxColumnWidth={maxColumnWidth}
+              isSubmenu={true}
             >
               <div className={`${dropdownClass}__item-content`}>
-                <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
-                <ChevronRightIcon />
+                {direction === 'right' ? (
+                  <>
+                    <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
+                    <ChevronRightIcon />
+                  </>
+                ) : (
+                  <>
+                    <ChevronLeftIcon />
+                    <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
+                  </>
+                )}
               </div>
               <div
                 className={classNames(`${dropdownClass}__submenu`, {
                   [`${dropdownClass}__submenu--disabled`]: optionItem.disabled,
-                  [`${dropdownClass}__submenu--${direction}`]: optionItem.direction,
+                  [`${dropdownClass}__submenu--${direction}`]: direction,
                 })}
                 style={{
-                  maxWidth: `${maxColWidth}px`,
-                  minWidth: `${minColWidth}px`,
+                  maxWidth: pxCompat(maxColWidth),
+                  minWidth: pxCompat(minColWidth),
                   top: `${idx * 28}px`,
                 }}
               >
-                <ul>{tmp.children}</ul>
+                <ul>{optionItem.children}</ul>
               </div>
             </DropdownItem>
             {optionItem.divider ? <TDivider /> : null}
           </div>
         );
       } else {
-        obj = (
+        renderContent = (
           <div
             key={idx}
             style={{
-              maxWidth: `${maxColWidth}px`,
-              minWidth: `${minColWidth}px`,
+              maxWidth: pxCompat(maxColWidth),
+              minWidth: pxCompat(minColWidth),
             }}
           >
             <DropdownItem
@@ -122,14 +136,14 @@ const DropdownMenu = (props: DropdownProps) => {
           </div>
         );
       }
-      arr.push(obj);
+      arr.push(renderContent);
     });
     return arr;
   };
 
   return (
     <div
-      className={dropdownMenuClass}
+      className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`)}
       style={{
         maxHeight: `${maxHeight}px`,
         maxWidth: `${maxColWidth}px`,

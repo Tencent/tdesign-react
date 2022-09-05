@@ -28,8 +28,9 @@ export default function BasicDropdown() {
     <Dropdown
       options={options}
       onClick={clickHandler}
-      trigger={'click'}
+      trigger="click"
       popupProps={{ overlayInnerStyle: { padding: 4 } }}
+      hideAfterItemClick={false}
     >
       <Button>点击我试试</Button>
     </Dropdown>

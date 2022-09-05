@@ -8,7 +8,7 @@ export default function BasicDropdown() {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown minColumnWidth={'100px'}>
+    <Dropdown minColumnWidth={100} trigger="click" hideAfterItemClick={false} direction="left">
       <Button variant="text" suffix={<Icon name="chevron-down" size="16" />}>
         更多
       </Button>
@@ -16,14 +16,14 @@ export default function BasicDropdown() {
         <DropdownItem value={1}>
           操作一
           <DropdownMenu>
-            <DropdownItem value={11}>
-              操作1-1
+            <DropdownItem value={11}>操作1-1</DropdownItem>
+            <DropdownItem value={12}>
+              操作1-2
               <DropdownMenu>
                 <DropdownItem value={111}>操作1-1-1</DropdownItem>
                 <DropdownItem value={112}>操作1-1-2</DropdownItem>
               </DropdownMenu>
             </DropdownItem>
-            <DropdownItem value={12}>操作1-2</DropdownItem>
           </DropdownMenu>
         </DropdownItem>
         <DropdownItem value={2}>

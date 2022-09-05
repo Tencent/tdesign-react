@@ -4,29 +4,46 @@ import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
 import useConfig from '../hooks/useConfig';
 import useRipple from '../_util/useRipple';
 import { dropdownItemDefaultProps } from './defaultProps';
+import { StyledProps } from '../common';
+import { pxCompat } from '../_util/helper';
 
 type DropdownItemProps = Pick<DropdownOption, 'value'> &
-  Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> & {
-    className?: string;
+  Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> &
+  StyledProps & {
     active?: boolean;
     disabled?: boolean;
     children?: React.ReactNode;
     theme?: DropdownItemTheme;
     prefixIcon?: React.ReactNode;
-    onClick?: (value: any, e: any) => void;
+    onClick?: (value: DropdownOption['value'], e: unknown) => void;
+    isSubmenu?: boolean;
   };
 
-const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLDivElement>) => {
-  const { children, className, active, disabled, value, theme, prefixIcon, maxColumnWidth, minColumnWidth, onClick } =
-    props;
+const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLLIElement>) => {
+  const {
+    children,
+    className,
+    active,
+    disabled,
+    value,
+    theme,
+    prefixIcon,
+    maxColumnWidth,
+    minColumnWidth,
+    onClick,
+    style,
+    isSubmenu,
+  } = props;
   const { classPrefix } = useConfig();
   const maxColWidth = Number(maxColumnWidth) - 28;
   const minColWidth = Number(minColumnWidth) - 28;
-  const prefixIconNode = <div className={`${classPrefix}-dropdown__item-icon`}>{prefixIcon}</div>;
-  const dropdownItemRef = useRef(null);
+  const dropdownItemRef = useRef<HTMLLIElement>(null);
 
-  useRipple(ref || dropdownItemRef);
+  useRipple(isSubmenu ? null : ref || dropdownItemRef);
 
+  const handleItemClick = (e: React.MouseEvent) => {
+    onClick?.(value, e);
+  };
   return (
     <>
       <li
@@ -34,14 +51,15 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
           [`${classPrefix}-dropdown__item--active`]: active,
           [`${classPrefix}-dropdown__item--disabled`]: disabled,
         })}
-        onClick={onClick ? (e) => onClick(value, e) : () => null}
+        onClick={handleItemClick}
         style={{
-          maxWidth: `${maxColWidth}px`,
-          minWidth: `${minColWidth}px`,
+          maxWidth: pxCompat(maxColWidth),
+          minWidth: pxCompat(minColWidth),
+          ...style,
         }}
         ref={ref || dropdownItemRef}
       >
-        {prefixIcon && prefixIconNode}
+        {prefixIcon ? <div className={`${classPrefix}-dropdown__item-icon`}>{prefixIcon}</div> : null}
         {children}
       </li>
     </>

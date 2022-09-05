@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import { DropdownOption, TdDropdownProps } from './type';
-import { ClassName } from '../common';
+import { StyledProps } from '../common';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
@@ -11,8 +11,7 @@ import { dropdownDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDropdownOptions from './hooks/useDropdownOptions';
 
-export interface DropdownProps extends TdDropdownProps {
-  className?: ClassName;
+export interface DropdownProps extends TdDropdownProps, StyledProps {
   children?: React.ReactNode;
 }
 
@@ -26,6 +25,7 @@ const Dropdown = (props: DropdownProps) => {
     children,
     hideAfterItemClick,
     options: propsOptions,
+    style,
   } = props;
 
   const content = null;
@@ -56,6 +56,7 @@ const Dropdown = (props: DropdownProps) => {
     content: content || renderContent,
     ...omit(popupProps, 'onVisibleChange'),
     overlayInnerClassName: classNames(dropdownClass, className, popupProps?.overlayInnerClassName),
+    overlayInnerStyle: style,
   };
 
   return (
