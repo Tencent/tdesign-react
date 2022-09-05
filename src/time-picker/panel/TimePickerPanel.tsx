@@ -22,7 +22,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     isFooterDisplay,
     onChange,
     value,
-    isShowPanel,
+    isShowPanel = true,
   } = props;
   const [triggerScroll, toggleTriggerScroll] = useState(false); // 触发滚动
   const { classPrefix } = useConfig();
@@ -56,6 +56,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
           steps={steps}
           value={value}
           triggerScroll={triggerScroll}
+          isVisible={isShowPanel}
           resetTriggerScroll={() => toggleTriggerScroll(false)}
         />
       </div>

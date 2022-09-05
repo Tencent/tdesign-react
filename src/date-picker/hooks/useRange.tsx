@@ -6,7 +6,7 @@ import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import { isValidDate, formatDate, getDefaultFormat } from './useFormat';
+import { isValidDate, formatDate, getDefaultFormat } from '../../_common/js/date-picker/format';
 import useRangeValue from './useRangeValue';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };

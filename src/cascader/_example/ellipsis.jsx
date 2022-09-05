@@ -42,9 +42,5 @@ export default function Example() {
     setValue1(value);
   };
 
-  return (
-    <div className="tdesign-demo-block-row">
-      <Cascader options={options} value={value1} onChange={onChange1} filterable />
-    </div>
-  );
+  return <Cascader options={options} value={value1} onChange={onChange1} filterable />;
 }

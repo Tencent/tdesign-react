@@ -14,6 +14,7 @@ export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps 
   value?: string | number | boolean;
   children?: React.ReactNode;
   onClick?: MouseEventHandler<HTMLLabelElement>;
+  stopLabelTrigger?: Boolean;
 }
 
 /**
@@ -86,12 +87,18 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   );
   // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
   const showLabel = !!(children || label);
+
+  const handleLabelClick = (event) => {
+    // 在tree等组件中使用  阻止label触发checked 与expand冲突
+    if (props.stopLabelTrigger) event.preventDefault();
+  };
+
   return (
     <label ref={ref} className={labelClassName} title={props.title} style={style} {...omit(htmlProps, ['checkAll'])}>
       {input}
       <span className={`${classPrefix}-${type}__input`} />
       {showLabel && (
-        <span key="label" className={`${classPrefix}-${type}__label`}>
+        <span key="label" className={`${classPrefix}-${type}__label`} onClick={handleLabelClick}>
           {children || label}
         </span>
       )}

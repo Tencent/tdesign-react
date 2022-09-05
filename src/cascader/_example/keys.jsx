@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value1, setValue1] = useState('');
@@ -50,9 +50,9 @@ export default function Example() {
   const keys = { label: 'name', value: 'code', children: 'items' };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
       <Cascader keys={keys} options={options} value={value1} onChange={onChange1} />
       <Cascader keys={keys} options={options} value={value2} multiple onChange={onChange2} />
-    </div>
+    </Space>
   );
 }
