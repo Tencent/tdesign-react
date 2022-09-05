@@ -4,7 +4,7 @@ import { Alert, Space } from 'tdesign-react';
 export default function AlertOperation() {
   const operation = <span>相关操作</span>;
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <Alert
         theme="success"
         message="这是一条成功的消息提示"

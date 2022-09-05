@@ -47,10 +47,10 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
         <div className={tableSortClasses.title}>
           {col.ellipsis && ellipsisTitle !== false && ellipsisTitle !== null ? (
             <TEllipsis
-              placement="bottom-right"
+              placement="bottom"
               attach={attach ? () => attach : undefined}
               popupContent={content}
-              popupProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
+              tooltipProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
             >
               {title}
             </TEllipsis>

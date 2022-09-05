@@ -67,8 +67,8 @@ cell | String / Function | - | use cell to render table cell。Typescript：`str
 children | Array | - | grouping table head。Typescript：`Array<BaseTableCol<T>>` | N
 className | String / Object / Array / Function | - | cell classnames。Typescript：`ClassName | ((context: CellData<T>) => ClassName)` `interface CellData<T> extends BaseTableCellParams<T> { type: 'th' | 'td' }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 colKey | String | - | unique key for column | N
-ellipsis | TNode | false | ellipsis cell content。Typescript：`boolean | TNode<BaseTableCellParams<T>> | PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-ellipsisTitle | TNode | undefined | ellipsis title content。Typescript：`boolean | TNode<BaseTableColParams<T>> | PopupProps` `interface BaseTableColParams<T> { col: BaseTableCol<T>; colIndex: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+ellipsis | TNode | false | ellipsis cell content。Typescript：`boolean | TNode<BaseTableCellParams<T>> | TooltipProps`，[Tooltip API Documents](./tooltip?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+ellipsisTitle | TNode | undefined | ellipsis title content。Typescript：`boolean | TNode<BaseTableColParams<T>> | TooltipProps` `interface BaseTableColParams<T> { col: BaseTableCol<T>; colIndex: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 fixed | String | left | fixed current column to left or right。options：left/right | N
 foot | String / Function | - | tfoot content。Typescript：`string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 minWidth | String / Number | - | add CSS property `min-width` to HTML Element `<col>`，Browsers with [TablesNG](https://docs.google.com/document/d/16PFD1GtMI9Zgwu0jtPaKZJ75Q2wyZ9EZnVbBacOfiNA/preview)  support `minWidth` | N
@@ -179,6 +179,7 @@ appendTo | `(key: TableRowValue, newData: T)` | \- | required
 expandAll | \- | \- | required
 foldAll | \- | \- | required
 getData | `(key: TableRowValue)` | `TableRowState<T>` | required。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`type TableRowValue = string | number`<br/>
+getTreeExpandedRow | `(type: 'unique' | 'data' | 'all')` | \- | required。get expanded row data
 getTreeNode | \- | `T[]` | required
 insertAfter | `(key: TableRowValue, newData: T)` | \- | required
 insertBefore | `(key: TableRowValue, newData: T)` | \- | required
@@ -245,7 +246,7 @@ component | \- | - | component definition。Typescript：`ComponentType`。[see 
 defaultEditable | Boolean | false | set default editable once | N
 onEdited | Function | - | trigger on finishing editing。Typescript：`(context: { trigger: string; newRowData: T; rowIndex: number }) => void` | N
 props | Object | - | props of `edit.component`。Typescript：`TableEditableCellProps<T>` `type TableEditableCellProps<T> = TablePlainObject | ((params: TableEditableCellPropsParams<T>) => TablePlainObject)` `interface TableEditableCellPropsParams<T> extends PrimaryTableCellParams<T> { editedRow: T }` `interface TablePlainObject{ [key: string]: any }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-rules | Array | - | form rules。Typescript：`FormRule[]`，[Form API Documents](./form?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+rules | Array | - | form rules。Typescript：`TableEditableCellRules<T>` `type TableEditableCellRules<T> = FormRule[] | ((params: PrimaryTableCellParams<T>) => FormRule[])`，[Form API Documents](./form?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 showEditIcon | Boolean | true | show edit icon | N
 
 ### TableTreeConfig

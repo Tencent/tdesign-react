@@ -7,7 +7,7 @@
 import { AffixProps } from '../affix';
 import { LoadingProps } from '../loading';
 import { PaginationProps, PageInfo } from '../pagination';
-import { PopupProps } from '../popup';
+import { TooltipProps } from '../tooltip';
 import { CheckboxGroupValue } from '../checkbox';
 import { SortableEvent, SortableOptions } from 'sortablejs';
 import { CheckboxProps } from '../checkbox';
@@ -267,14 +267,14 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    */
   colKey?: string;
   /**
-   * 单元格和表头内容超出时，是否显示省略号。如果仅希望单元格超出省略，可设置 `ellipsisTitle = false`。<br/> 值为 `true`，则浮层默认显示单元格内容；<br/>值类型为 `Function` 则自定义浮层显示内容；<br/>值类型为 `Object`，则自动透传属性到 Popup 组件，可用于调整浮层方向等特性
+   * 单元格和表头内容超出时，是否显示省略号。如果仅希望单元格超出省略，可设置 `ellipsisTitle = false`。<br/> 值为 `true`，则浮层默认显示单元格内容；<br/>值类型为 `Function` 则自定义浮层显示内容；<br/>值类型为 `Object`，则自动透传属性到 Tooltip 组件，可用于调整浮层方向等特性
    * @default false
    */
-  ellipsis?: boolean | TNode<BaseTableCellParams<T>> | PopupProps;
+  ellipsis?: boolean | TNode<BaseTableCellParams<T>> | TooltipProps;
   /**
-   * 表头内容超出时，是否显示省略号。优先级高于 `ellipsis`。<br/>值为 `true`，则浮层默认显示表头全部内容；<br/>值类型为 `Function` 则自定义浮层显示表头内容；<br/>值类型为 `Object`，则自动透传属性到 Popup 组件，可用于调整浮层方向等特性
+   * 表头内容超出时，是否显示省略号。优先级高于 `ellipsis`。<br/>值为 `true`，则浮层默认显示表头全部内容；<br/>值类型为 `Function` 则自定义浮层显示表头内容；<br/>值类型为 `Object`，则自动透传属性到 Tooltip 组件，可用于调整浮层方向等特性
    */
-  ellipsisTitle?: boolean | TNode<BaseTableColParams<T>> | PopupProps;
+  ellipsisTitle?: boolean | TNode<BaseTableColParams<T>> | TooltipProps;
   /**
    * 固定列显示位置
    * @default left
@@ -605,6 +605,10 @@ export interface EnhancedTableInstanceFunctions<T extends TableRowData = TableRo
    */
   getData: (key: TableRowValue) => TableRowState<T>;
   /**
+   * 获取展开的树形节点。`type=unique` 标识获取展开节点的行唯一标识值，`type=data` 表示获取展开节点的数据，`type=all` 表示获取行节点包含展开状态的全部数据
+   */
+  getTreeExpandedRow: (type: 'unique' | 'data' | 'all') => void;
+  /**
    * 树形结构中，获取完整的树形结构
    */
   getTreeNode: () => T[];
@@ -797,7 +801,7 @@ export interface TableEditableCellConfig<T extends TableRowData = TableRowData> 
   /**
    * 校验规则
    */
-  rules?: FormRule[];
+  rules?: TableEditableCellRules<T>;
   /**
    * 是否显示编辑图标
    * @default true
@@ -1052,3 +1056,5 @@ export interface TableEditableCellPropsParams<T> extends PrimaryTableCellParams<
 export interface TablePlainObject {
   [key: string]: any;
 }
+
+export type TableEditableCellRules<T> = FormRule[] | ((params: PrimaryTableCellParams<T>) => FormRule[]);
