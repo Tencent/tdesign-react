@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
 import get from 'lodash/get';
-import debounce from 'lodash/debounce';
 import { getIEVersion } from 'tdesign-react/_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
@@ -14,6 +13,7 @@ import {
   TableColFixedClasses,
   RecalculateColumnWidthFunc,
 } from '../interface';
+import useDebounce from '../../hooks/useDebounce';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -466,7 +466,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     ],
   );
 
-  const refreshTable = debounce(() => {
+  const refreshTable = useDebounce(() => {
     updateTableWidth();
     updateFixedHeader();
     updateThWidthListHandler();

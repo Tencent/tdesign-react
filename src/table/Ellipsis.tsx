@@ -1,11 +1,11 @@
 import React, { useRef, useState, MouseEvent } from 'react';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 
 import { TNode } from '../common';
 import { isNodeOverflow } from '../_util/dom';
 import Tooltip, { TooltipProps } from '../tooltip';
 import useConfig from '../hooks/useConfig';
+import useDebounce from '../hooks/useDebounce';
 
 export interface EllipsisProps {
   content?: string | TNode;
@@ -36,7 +36,7 @@ export default function Ellipsis(props: EllipsisProps) {
   };
 
   // 使用 debounce 有两个原因：1. 避免 safari/firefox 等浏览器不显示省略浮层；2. 避免省略列快速滚动时，出现一堆的省略浮层
-  const onMouseAround = debounce((e: MouseEvent<HTMLDivElement>) => {
+  const onMouseAround = useDebounce((e: MouseEvent<HTMLDivElement>) => {
     e.type === 'mouseleave' ? onTriggerMouseleave() : onTriggerMouseenter();
   }, 80);
 
