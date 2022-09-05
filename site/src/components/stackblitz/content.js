@@ -41,6 +41,7 @@ export const styleContent = `
 export const dependenciesContent = JSON.stringify({
   'tdesign-react': orgPkg.version,
   'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+  dayjs: orgPkg.dependencies.dayjs,
   react: orgPkg.devDependencies.react,
   'react-dom': orgPkg.devDependencies['react-dom'],
 });
