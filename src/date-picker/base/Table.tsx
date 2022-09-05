@@ -6,7 +6,7 @@ import DatePickerCell from './Cell';
 import { TdDatePickerProps } from '../type';
 import { SinglePanelProps } from '../panel/SinglePanel';
 import { PanelContentProps } from '../panel/PanelContent';
-import { parseToDayjs } from '../hooks/useFormat';
+import { parseToDayjs } from '../../_common/js/date-picker/format';
 
 export interface DatePickerTableProps
   extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format'>,

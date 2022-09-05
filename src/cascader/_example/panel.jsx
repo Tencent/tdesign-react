@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CascaderPanel } from 'tdesign-react';
+import { CascaderPanel, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value1, setValue1] = useState('');
@@ -52,13 +52,13 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
       <div style={style}>
         <CascaderPanel options={options} value={value1} showAllLevels={false} onChange={onChange1} />
       </div>
       <div style={style}>
         <CascaderPanel options={options} value={value2} showAllLevels={false} multiple onChange={onChange2} />
       </div>
-    </div>
+    </Space>
   );
 }

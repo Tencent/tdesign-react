@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { formatDate, formatTime, isValidDate, getDefaultFormat } from './useFormat';
+import { formatDate, formatTime, isValidDate, getDefaultFormat } from '../../_common/js/date-picker/format';
 import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps } from '../type';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
