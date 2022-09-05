@@ -33,6 +33,9 @@ exports[`base.jsx 1`] = `
         >
           标题名称
         </span>
+        <div
+          class="t-close"
+        />
       </div>
       <div
         class="t-notification__content"
@@ -122,6 +125,9 @@ exports[`content.jsx 1`] = `
             >
               自定义内容（字符串）
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -165,9 +171,16 @@ exports[`content.jsx 1`] = `
             >
               自定义内容
             </span>
+            <div
+              class="t-close"
+            />
           </div>
-          <div>
-            这是一条消息通知
+          <div
+            class="t-notification__content"
+          >
+            <div>
+              这是一条消息通知
+            </div>
           </div>
         </div>
       </div>
@@ -209,6 +222,9 @@ exports[`footer.jsx 1`] = `
         >
           自定义底部详情
         </span>
+        <div
+          class="t-close"
+        />
       </div>
       <div
         class="t-notification__content"
@@ -278,6 +294,9 @@ exports[`icon.jsx 1`] = `
             >
               普通通知
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -321,6 +340,9 @@ exports[`icon.jsx 1`] = `
             >
               危险通知
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -364,6 +386,9 @@ exports[`icon.jsx 1`] = `
             >
               告警通知
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -407,6 +432,9 @@ exports[`icon.jsx 1`] = `
             >
               成功通知
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -460,6 +488,9 @@ exports[`operation.jsx 1`] = `
             >
               超出的文本省略号显示
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -519,6 +550,9 @@ exports[`operation.jsx 1`] = `
             >
               自定义底部
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -583,6 +617,9 @@ exports[`operation.jsx 1`] = `
                 </small>
               </div>
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -649,6 +686,9 @@ exports[`operation.jsx 1`] = `
                 </small>
               </div>
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -718,6 +758,9 @@ exports[`operation.jsx 1`] = `
             >
               自定义内容
             </span>
+            <div
+              class="t-close"
+            />
           </div>
           <div
             class="t-notification__content"
@@ -776,7 +819,7 @@ exports[`placement.jsx 1`] = `
           <div
             class="t-input__wrap"
             style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
-            value=""
+            value="0"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -785,7 +828,7 @@ exports[`placement.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入横向偏移量"
                 type="text"
-                value=""
+                value="0"
               />
             </div>
           </div>
@@ -796,7 +839,7 @@ exports[`placement.jsx 1`] = `
           <div
             class="t-input__wrap"
             style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
-            value=""
+            value="0"
           >
             <div
               class="t-input t-size-m t-align-left t-is-default"
@@ -805,7 +848,7 @@ exports[`placement.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入纵向偏移量"
                 type="text"
-                value=""
+                value="0"
               />
             </div>
           </div>

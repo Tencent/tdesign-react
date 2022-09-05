@@ -11,7 +11,9 @@ import { TreeNode, CascaderContextType } from '../interface';
 import { TdCascaderProps } from '../type';
 import { StyledProps } from '../../common';
 
-export interface CascaderPanelProps extends StyledProps, Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
+export interface CascaderPanelProps
+  extends StyledProps,
+    Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText'> {
   cascaderContext: CascaderContextType;
 }
 
@@ -67,20 +69,26 @@ const Panel = (props: CascaderPanelProps) => {
         );
   };
 
+  let content;
+  if (props.loading) {
+    content = <div className={`${COMPONENT_NAME}__panel--empty`}>{props.loadingText ?? global.loadingText}</div>;
+  } else {
+    content = panels?.length ? (
+      renderPanels()
+    ) : (
+      <div className={`${COMPONENT_NAME}__panel--empty`}>{props.empty ?? global.empty}</div>
+    );
+  }
   return (
     <div
       className={classNames(
         `${COMPONENT_NAME}__panel`,
-        { [`${COMPONENT_NAME}--normal`]: panels.length },
+        { [`${COMPONENT_NAME}--normal`]: panels.length && !props.loading },
         props.className,
       )}
       style={props.style}
     >
-      {panels?.length ? (
-        renderPanels()
-      ) : (
-        <div className={`${COMPONENT_NAME}__panel--empty`}>{props.empty ?? global.empty}</div>
-      )}
+      {content}
     </div>
   );
 };

@@ -101,3 +101,5 @@ export type NotificationSuccessMethod = (options: NotificationInfoOptions) => Pr
 export type NotificationCloseMethod = (options: Promise<NotificationInstance>) => void;
 
 export type NotificationCloseAllMethod = () => void;
+
+export type NotificationConfigMethod = (notify: NotificationOptions) => void;

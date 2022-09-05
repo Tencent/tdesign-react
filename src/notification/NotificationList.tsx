@@ -55,28 +55,20 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     });
   };
 
-  const calOffset = (offset: string | number) => {
-    if (!offset) return '16px';
-    return isNaN(Number(offset)) ? offset : `${offset}px`;
-  };
+  const calOffset = (offset: string | number) => (isNaN(Number(offset)) ? offset : `${offset}px`);
 
   const push = (theme: NotificationThemeList, options: NotificationInfoOptions): Promise<NotificationInstance> => {
     const key = String((seed += 1));
-    let style: React.CSSProperties = {
-      margin: '16px',
-    };
-    if (Array.isArray(options.offset)) {
-      const [horizontal, vertical] = [...options.offset];
-      const horizontalOffset = calOffset(horizontal);
-      const verticalOffset = calOffset(vertical);
+    const [horizontal, vertical] = [...options.offset];
+    const horizontalOffset = calOffset(horizontal);
+    const verticalOffset = calOffset(vertical);
 
-      style = {
-        marginTop: verticalOffset,
-        marginBottom: verticalOffset,
-        marginLeft: horizontalOffset,
-        marginRight: horizontalOffset,
-      };
-    }
+    const style = {
+      marginTop: verticalOffset,
+      marginBottom: verticalOffset,
+      marginLeft: horizontalOffset,
+      marginRight: horizontalOffset,
+    };
     const ref = React.createRef<NotificationInstance>();
 
     setList((oldList) => [

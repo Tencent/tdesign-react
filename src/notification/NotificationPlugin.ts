@@ -7,11 +7,13 @@ import {
   NotificationInfoOptions,
   NotificationInstance,
   NotificationOptions,
-  NotificationPlacementList,
   NotificationSuccessMethod,
   NotificationThemeList,
   NotificationWarningMethod,
+  NotificationConfigMethod,
 } from './type';
+
+import { getConfig, setGlobalConfig } from './config';
 
 // 扩展接口声明的结构，用户使用时可得到 .info 的 ts 提示
 export interface Notification {
@@ -22,6 +24,7 @@ export interface Notification {
   error: NotificationErrorMethod;
   closeAll: NotificationCloseAllMethod;
   close: NotificationCloseMethod;
+  config: NotificationConfigMethod;
 }
 
 /**
@@ -32,12 +35,8 @@ export interface Notification {
 const renderNotification = (theme: NotificationThemeList, options: NotificationInfoOptions) => {
   if (typeof options !== 'object') return;
 
-  const placement: NotificationPlacementList = (() => {
-    if (['top-left', 'top-right', 'bottom-left', 'bottom-right'].indexOf(options.placement) >= 0) {
-      return options.placement;
-    }
-    return 'top-right';
-  })();
+  const configs = getConfig(options);
+  const { placement } = configs;
 
   const attach: HTMLElement = (() => {
     if (options.attach && typeof options.attach === 'string') {
@@ -59,9 +58,7 @@ const renderNotification = (theme: NotificationThemeList, options: NotificationI
     return element;
   })();
 
-  const zIndex = options.zIndex || 6000;
-
-  return fetchListInstance(placement, attach, zIndex).then((listInstance) => listInstance.push(theme, options));
+  return fetchListInstance(placement, attach, configs.zIndex).then((listInstance) => listInstance.push(theme, configs));
 };
 
 export const NotificationPlugin: Notification = (theme, props) => renderNotification(theme, props);
@@ -71,3 +68,4 @@ NotificationPlugin.warning = (options) => renderNotification('warning', options)
 NotificationPlugin.error = (options) => renderNotification('error', options);
 NotificationPlugin.close = (promise) => promise.then((instance) => instance.close());
 NotificationPlugin.closeAll = () => listMap.forEach((list) => list.removeAll());
+NotificationPlugin.config = (options) => setGlobalConfig(options);

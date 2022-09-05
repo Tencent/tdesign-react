@@ -1,9 +1,5 @@
 :: BASE_DOC ::
 
-### 关闭全部
-
-{{ close-all }}
-
 ## API
 ### Notification Props
 
@@ -96,3 +92,11 @@ options | Object | - | 必需。该插件参数为 NotificationPlugin.info() 等
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 -- | \- | - | \-
+
+### notification.config 或 NotificationPlugin.config
+
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+
+参数名称 | 参数类型 | 参数默认值 | 参数说明
+-- | -- | -- | --
+notify | Object | - | 必需。消息通知插件全局配置。TS 类型：`NotificationOptions`
