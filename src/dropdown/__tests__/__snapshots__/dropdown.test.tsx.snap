@@ -129,6 +129,32 @@ exports[`disabled.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`left.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-text"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      更多
+    </span>
+    <span
+      class="t-button__suffix"
+    >
+      <svg
+        class="t-icon t-icon-chevron-down"
+      >
+        <use
+          xlink:href="#t-icon-chevron-down"
+        />
+      </svg>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
 exports[`long.jsx 1`] = `
 <DocumentFragment>
   <button
@@ -166,6 +192,32 @@ exports[`multiple.jsx 1`] = `
 `;
 
 exports[`split.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-text"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      更多
+    </span>
+    <span
+      class="t-button__suffix"
+    >
+      <svg
+        class="t-icon t-icon-chevron-down"
+      >
+        <use
+          xlink:href="#t-icon-chevron-down"
+        />
+      </svg>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-default t-button--variant-text"
