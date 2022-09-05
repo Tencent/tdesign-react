@@ -33,9 +33,10 @@ export default function useDropdownOptions(
   options: DropdownOption[],
 ): DropdownOption[] {
   if (options) return options;
+
   let dropdownMenuChild: React.ReactElement;
   React.Children.forEach(children, (child: React.ReactChild) => {
-    if (typeof child !== 'object') return;
+    if (!React.isValidElement(child)) return;
 
     if (child.type === DropdownMenu && child.props.children) {
       dropdownMenuChild = child.props.children;
