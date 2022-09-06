@@ -5,6 +5,48 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.40.6 `2022-09-06` 
+### 🚀 Features
+- `Table`:
+    - 树形结构，新增 `getTreeExpandedRow`，用于获取展开的树形节点，[issue#1309](https://github.com/Tencent/tdesign-react/issues/1309) @chaishi ([#1420](https://github.com/Tencent/tdesign-react/pull/1420))
+    - 可编辑单元格，`edit.rules` 新增数据类型 `function`，用于动态设置校验规则，[tdesign-vue-next#1472](https://github.com/Tencent/tdesign-vue-next/issues/1472) @chaishi ([#1420](https://github.com/Tencent/tdesign-react/pull/1420))
+    - 文本超出省略由 `Popup` 更为 `Tooltip`，方便定义提醒文本主题色，[issue#1369](https://github.com/Tencent/tdesign-react/issues/1369) @chaishi ([#1420](https://github.com/Tencent/tdesign-react/pull/1420))
+- `Dropdown`:  
+    - 支持下拉菜单项自定义不同主题 @Isabella327 @uyarn ([#1434](https://github.com/Tencent/tdesign-react/pull/1434))
+    - 支持下拉菜单项向左展开 @uyarn  @uyarn ([#1434](https://github.com/Tencent/tdesign-react/pull/1434))
+    - 优化下拉菜单的样式 @Isabella327 @uyarn  @uyarn ([#1434](https://github.com/Tencent/tdesign-react/pull/1434))
+- `Nofitication`: 插件模式支持config @carolin913 ([#1417](https://github.com/Tencent/tdesign-react/pull/1417))
+
+### 🐞 Bug Fixes
+- `InputAdornment`: 修复formItem 包裹 inputAdornment 组件 onChange 冲突问题 @HQ-Lin ([#1419](https://github.com/Tencent/tdesign-react/pull/1419))
+- `TimePicker`: 修复边界滚动异常问题 @HelKyle ([#1426](https://github.com/Tencent/tdesign-react/pull/1426))
+- `Cascader`:
+    - 修复 `loadingText` 无效 ([vue-next #1555](https://github.com/Tencent/tdesign-vue-next/issues/1555)) @pengYYYYY ([#1428](https://github.com/Tencent/tdesign-react/pull/1428))
+    - 修复 `value` 为 `number` 类型时有告警 ([vue-next #1570](https://github.com/Tencent/tdesign-vue-next/issues/1570)) @pengYYYYY ([#1428](https://github.com/Tencent/tdesign-react/pull/1428))
+    - 修复在输入时 `entry` 键会默认全选第一个选项的全部内容 ([vue-next #1529](https://github.com/Tencent/tdesign-vue-next/issues/1529)) @pengYYYYY ([#1428](https://github.com/Tencent/tdesign-react/pull/1428))
+    - 修复通过 `SelectInputProps`  透传方法属性导致传入 `SelectInput` 的数据变成的数组 ([vue-next #1502](https://github.com/Tencent/tdesign-vue-next/issues/1502)) @pengYYYYY ([#1428](https://github.com/Tencent/tdesign-react/pull/1428))
+    - 修复多选状态下点击 `label` 展开子级表现异常 @pengYYYYY ([#1428](https://github.com/Tencent/tdesign-react/pull/1428))
+- `Nofitication`: 修复 classname 透传问题，closebtn/icon 无法支持 bool 设置 @carolin913 ([#1417](https://github.com/Tencent/tdesign-react/pull/1417))
+- `Table`: 
+    - 修复 `editableCellState` 返回值与期望相反问题（Breaking Change） @chaishi ([#1420](https://github.com/Tencent/tdesign-react/pull/1420))
+    - 修复表格部分元素无法随 table 变化而变化，如：空数据，[issue#1319](https://github.com/Tencent/tdesign-react/issues/1319) @chaishi ([#1420](https://github.com/Tencent/tdesign-react/pull/1420))
+    - 修复全选时，事件参数`selectedRowData` 为空的问题 @chaishi ([#1420](https://github.com/Tencent/tdesign-react/pull/1420))
+- `Alert`: 修复 close 不支持 function 类型 @carolin913 ([#1433](https://github.com/Tencent/tdesign-react/pull/1433))
+- `Tabs`: 修复 debounce 问题 @HelKyle ([#1424](https://github.com/Tencent/tdesign-react/pull/1424))
+- `TimePicker`: 修复 debounce 问题 @HelKyle ([#1424](https://github.com/Tencent/tdesign-react/pull/1424))
+- `Table`: 修复 debounce 问题 @HelKyle ([#1424](https://github.com/Tencent/tdesign-react/pull/1424))
+- `Popup`: 修复 debounce 问题 @HelKyle ([#1424](https://github.com/Tencent/tdesign-react/pull/1424))
+- `Radio`:  修复 `onChange` 触发两次问题 @Lmmmmmm-bb ([#1422](https://github.com/Tencent/tdesign-react/pull/1422))
+- `Button`: 调整loading状态的样式问题 @uyarn ([#1437](https://github.com/Tencent/tdesign-react/pull/1437))
+- `Form`:
+    - 兼容 FormItem 未定义字段调用 setFields 方法异常场景 @HQ-Lin ([#1394](https://github.com/Tencent/tdesign-react/pull/1394))
+    - 禁用 input 输入框回车自动提交表单 @HQ-Lin ([#1403](https://github.com/Tencent/tdesign-react/pull/1403))
+- `DatePicker`:
+    - 修复 cell-click 事件失效问题 @HQ-Lin ([#1399](https://github.com/Tencent/tdesign-react/pull/1399))
+    - 修复传入空字符串导致页面崩溃问题 @HQ-Lin ([#1418](https://github.com/Tencent/tdesign-react/pull/1418))
+- `Message`: 修复更改前缀后插件调用展示异常问题 @kenzyyang ([#1431](https://github.com/Tencent/tdesign-react/pull/1431))
+
+
 ## 🌈 0.40.5 `2022-08-29` 
 ### 🚀 Features
 - `Form`: 新增 `useForm` hook 获取 form 实例 & 支持 `initialData` 全局设置初始值 @HQ-Lin ([#1351](https://github.com/Tencent/tdesign-react/pull/1351))
