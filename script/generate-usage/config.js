@@ -827,7 +827,7 @@ module.exports = {
       const panelList = [{ label: 'tree:', value: 'tree:' }];
     `,
     usageStr: `
-      const data = useState([
+      const [data] = useState([
         {
           label: '第一段',
           children: [ { label: '第二段' }, { label: '第二段' } ],
