@@ -25,8 +25,7 @@ export default function useUpload(props: TdUploadProps) {
   const { classPrefix } = useConfig();
   const [globalLocale, t] = useLocaleReceiver('upload');
   const [uploadValue, setUploadValue] = useControlled(props, 'files', props.onChange);
-  // TODO: 可能存在多个请求，一个不够
-  const [xhrReq, setXhrReq] = useState<XMLHttpRequest>();
+  const [xhrReq, setXhrReq] = useState<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
   const [sizeOverLimitMessage, setSizeOverLimitMessage] = useState('');
 
@@ -38,11 +37,13 @@ export default function useUpload(props: TdUploadProps) {
   // 单文件场景：触发元素文本
   const triggerUploadText = useMemo(() => {
     const field = getTriggerTextField({
+      theme: props.theme,
       multiple: props.multiple,
       status: uploadValue?.[0]?.status,
+      autoUpload: props.autoUpload,
     });
     return locale.triggerUploadText[field];
-  }, [locale.triggerUploadText, props.multiple, uploadValue]);
+  }, [locale.triggerUploadText, uploadValue, props.multiple, props.theme, props.autoUpload]);
 
   const [uploading, setUploading] = useState(false);
 
@@ -83,6 +84,11 @@ export default function useUpload(props: TdUploadProps) {
       file: p.files[0],
       response: p.response,
     });
+    const index = uploadValue.findIndex((file) => file.raw === p.files[0].raw);
+    if (index > 0) {
+      uploadValue.splice(index, 1, p.files[0]);
+      setUploadValue([...uploadValue], { trigger: 'status-change' });
+    }
   };
 
   function getSizeLimitError(sizeLimitObj: SizeLimitObj) {
@@ -181,6 +187,7 @@ export default function useUpload(props: TdUploadProps) {
    * 上传文件
    * 对外暴露方法，修改时需谨慎
    */
+  let xhrReqList: { files: UploadFile[]; xhrReq: XMLHttpRequest }[] = [];
   function uploadFiles(toFiles?: UploadFile[]) {
     const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success');
     const files = props.autoUpload ? toFiles || toUploadFiles : notUploadedFiles;
@@ -201,39 +208,49 @@ export default function useUpload(props: TdUploadProps) {
       onResponseProgress,
       onResponseSuccess,
       onResponseError,
-      setXhrObject: (val) => {
-        setXhrReq(val);
+      setXhrObject: (xhr) => {
+        if (xhr.files[0]?.raw && xhrReqList.find((item) => item.files[0].raw === xhr.files[0].raw)) return;
+        xhrReqList = xhrReqList.concat(xhr);
+        const timer = setTimeout(() => {
+          setXhrReq(xhrReqList);
+          clearTimeout(timer);
+        }, 10);
       },
-    }).then(({ status, data, list, failedFiles }) => {
-      if (status === 'success') {
-        if (props.autoUpload) {
-          setUploadValue(data.files, {
+    }).then(
+      ({ status, data, list, failedFiles }) => {
+        setUploading(false);
+        if (status === 'success') {
+          if (props.autoUpload) {
+            setUploadValue(data.files, {
+              e: data.event,
+              trigger: 'add',
+              index: uploadValue.length,
+              file: data.files[0],
+            });
+          }
+          props.onSuccess?.({
+            fileList: data.files,
+            currentFiles: files,
+            // 只有全部请求完成后，才会存在该字段
+            results: list?.map((t) => t.data),
+          });
+        } else if (failedFiles?.[0]) {
+          props.onFail?.({
             e: data.event,
-            trigger: 'add',
-            index: uploadValue.length,
-            file: data.files[0],
+            file: failedFiles[0],
+            failedFiles,
+            currentFiles: files,
+            response: data.response,
           });
         }
-        props.onSuccess?.({
-          fileList: data.files,
-          currentFiles: files,
-          // 只有全部请求完成后，才会存在该字段
-          results: list?.map((t) => t.data),
-        });
-      } else if (failedFiles?.[0]) {
-        props.onFail({
-          e: data.event,
-          file: failedFiles[0],
-          failedFiles,
-          currentFiles: files,
-          response: data.response,
-        });
-      }
-      setToUploadFiles(failedFiles);
-      props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
-
-      setUploading(false);
-    }, onResponseError);
+        setToUploadFiles(failedFiles);
+        props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
+      },
+      (p) => {
+        onResponseError(p);
+        setUploading(false);
+      },
+    );
   }
 
   function onRemove(p: UploadRemoveContext) {
@@ -261,7 +278,25 @@ export default function useUpload(props: TdUploadProps) {
   };
 
   const cancelUpload = (context?: { file?: UploadFile; e?: MouseEvent<HTMLElement> }) => {
-    xhrReq?.abort();
+    xhrReq?.forEach((item) => {
+      item.xhrReq?.abort();
+    });
+    setUploading(false);
+
+    if (props.autoUpload) {
+      setToUploadFiles(toUploadFiles.map((item) => ({ ...item, status: 'waiting' })));
+    } else {
+      setUploadValue(
+        uploadValue.map((item) => {
+          if (item.status !== 'success') {
+            return { ...item, status: 'waiting' };
+          }
+          return item;
+        }),
+        { trigger: 'abort' },
+      );
+    }
+
     if (context?.file) {
       onRemove?.({ file: context.file, e: context.e, index: 0 });
     }

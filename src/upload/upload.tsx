@@ -8,7 +8,6 @@ import ImageCard from './ImageCard';
 import ImageFlowList from './ImageFlowList';
 import useUpload from './useUpload';
 import Button from '../button';
-import { TdUploadProps } from './type';
 import { uploadDefaultProps } from './defaultProps';
 import { CommonDisplayFileProps } from './interface';
 import { UploadDragEvents } from './useDrag';
@@ -45,11 +44,10 @@ const Upload = forwardRef((props: UploadProps, ref) => {
 
   const renderTrigger = () => {
     const getDefaultTrigger = () => {
-      const localeFromProps = props.locale as TdUploadProps['locale'];
       if (theme === 'file-input') {
         return (
           <Button variant="outline" {...props.triggerButtonProps}>
-            {localeFromProps?.triggerUploadText?.fileInput || locale.triggerUploadText.fileInput}
+            {triggerUploadText}
           </Button>
         );
       }

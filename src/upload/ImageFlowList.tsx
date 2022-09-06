@@ -7,7 +7,6 @@ import {
   ErrorCircleFilledIcon,
   TimeFilledIcon,
 } from 'tdesign-icons-react';
-import useCommonClassName from '../_util/useCommonClassName';
 import { CommonDisplayFileProps } from './interface';
 import TButton from '../button';
 import { UploadFile } from './type';
@@ -25,18 +24,15 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
 const ImageFlowList = (props: ImageFlowListProps) => {
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
-  const { SIZE } = useCommonClassName();
   const uploadPrefix = `${props.classPrefix}-upload`;
 
   const drag = useDrag(props.dragEvents);
   const { dragActive } = drag;
 
   const uploadText = useMemo(() => {
-    if (uploading) return `${locale.progress.uploadingText}...`;
-    return displayFiles.find((t) => t.status !== 'success')
-      ? locale.triggerUploadText.reupload
-      : locale.triggerUploadText.normal;
-  }, [displayFiles, locale, uploading]);
+    if (uploading) return `${locale.progress.uploadingText}`;
+    return locale.triggerUploadText.normal;
+  }, [locale, uploading]);
 
   const getStatusMap = () => {
     const iconMap = {
@@ -60,7 +56,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   const renderImgItem = (file: UploadFile, index: number) => {
     const { iconMap, textMap } = getStatusMap();
     return (
-      <li className={`${uploadPrefix}__card-item`}>
+      <li className={`${uploadPrefix}__card-item`} key={file.name + index}>
         <div
           className={classNames([
             `${uploadPrefix}__card-content`,
@@ -106,7 +102,11 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     <div className={`${uploadPrefix}__flow ${uploadPrefix}__flow-${props.theme}`}>
       <div className={`${uploadPrefix}__flow-op`}>
         {props.children}
-        <small className={`${SIZE.small} ${uploadPrefix}__flow-placeholder`}>{props.placeholder}</small>
+        {props.placeholder && (
+          <small className={`${uploadPrefix}__flow-placeholder ${uploadPrefix}__placeholder`}>
+            {props.placeholder}
+          </small>
+        )}
       </div>
 
       <div
@@ -136,6 +136,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           <TButton
             disabled={disabled || uploading || !displayFiles.length}
             theme="primary"
+            loading={uploading}
             onClick={() => props.uploadFiles?.()}
           >
             {uploadText}

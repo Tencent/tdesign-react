@@ -305,10 +305,12 @@ export interface TriggerContext {
 export interface UploadChangeContext {
   e?: MouseEvent<HTMLDivElement> | ProgressEvent;
   response?: any;
-  trigger: string;
+  trigger: UploadFileChangeTrigger;
   index?: number;
   file?: UploadFile;
 }
+
+export type UploadFileChangeTrigger = 'remove' | 'add' | 'abort' | 'status-change';
 
 export interface UploadFailContext {
   e: ProgressEvent;
