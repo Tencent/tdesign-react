@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 
-export default function BasicDropdown() {
+export default function LeftDropdown() {
   const options = [
     {
       content: '选项一',
@@ -15,7 +15,7 @@ export default function BasicDropdown() {
       ],
     },
     {
-      content: '选项二选项二选项二选项二',
+      content: '选项二',
       value: 2,
       children: [
         {
@@ -48,24 +48,14 @@ export default function BasicDropdown() {
         },
       ],
     },
-    {
-      content: '选项四',
-      value: 4,
-      children: [
-        {
-          content: '选项十一',
-          value: 11,
-        },
-      ],
-    },
   ];
   const clickHandler = (data) => {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown options={options} onClick={clickHandler}>
-      <Button theme="default" variant="outline">
-        <Icon name="ellipsis" size="16" />
+    <Dropdown options={options} onClick={clickHandler} direction="left" popupProps={{ placement: 'bottom-right' }}>
+      <Button variant="text" suffix={<Icon name="chevron-down" size="16" />}>
+        更多
       </Button>
     </Dropdown>
   );

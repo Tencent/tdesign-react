@@ -1,147 +1,139 @@
-import React, { useState, isValidElement } from 'react';
+import React, { ReactElement, useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { DropdownOption } from './type';
+import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
 import { DropdownProps } from './Dropdown';
+import TDivider from '../divider';
 import DropdownItem from './DropdownItem';
-
-type RenderType = 'Normal' | 'DropdownItem';
+import { DropdownOption } from './type';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 const DropdownMenu = (props: DropdownProps) => {
-  const { options = [], maxHeight = 300, maxColumnWidth = 100, minColumnWidth = 10 } = props;
-  const [path, setPath] = useState<string>('');
+  const { options = [], maxHeight = 300, minColumnWidth = 10, maxColumnWidth = 160, direction } = props;
+
   const { classPrefix } = useConfig();
-  const dropdownMenuClass = `${classPrefix}-dropdown__menu`;
+  const [flatItem, setFlatItem] = useState<any>([]);
 
-  const isActive = (item: DropdownOption | React.ReactChild, pathPrefix: string, excludeSelf = true): boolean => {
-    const itemPath = isValidElement(item)
-      ? `${pathPrefix}/${item.props.value}`
-      : `${pathPrefix}/${(item as DropdownOption).value}`;
-    if (excludeSelf && path === itemPath) {
-      return false;
+  const arrMap = useMemo(() => new Map(), []);
+
+  const dropdownClass = `${classPrefix}-dropdown`;
+  const dropdownMenuClass = `${dropdownClass}__menu`;
+
+  const { ChevronRightIcon, ChevronLeftIcon } = useGlobalIcon({
+    ChevronRightIcon: TdIconChevronRight,
+    ChevronLeftIcon: TdIconChevronLeft,
+  });
+
+  useEffect(() => {
+    setFlatItem(arrMap);
+  }, [arrMap]);
+
+  const handleItemClick = (options: {
+    value: string | number | { [key: string]: any };
+    context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
+  }) => {
+    const { value, context } = options;
+    let data = null;
+    if (flatItem.length !== 0) {
+      data = flatItem.get(value);
     }
-    return path.indexOf(itemPath) === 0;
+    data?.onClick?.(data, context);
+    props.onClick?.(data, context);
   };
 
-  const isDropdownItem = (child) => {
-    if (isValidElement(child) && child.type === DropdownItem) {
-      return true;
-    }
-    return false;
-  };
+  // 处理options渲染的场景
+  const renderOptions = (data: Array<DropdownOption | React.ReactChild>) => {
+    const arr = [];
+    let renderContent: ReactElement;
+    data.forEach?.((menu, idx) => {
+      const optionItem = { ...(menu as DropdownOption) };
+      arrMap.set(optionItem.value, optionItem);
 
-  const getActiveItemChild = (children, type: RenderType = 'DropdownItem') => {
-    if (!children) {
-      return [];
-    }
-    const activeItemChildren = React.Children.toArray(children);
-    return type === 'DropdownItem'
-      ? activeItemChildren.filter((e) => isDropdownItem(e))
-      : activeItemChildren.filter((e) => !isDropdownItem(e));
-  };
-
-  const handleHoverItem = (path: string) => {
-    setPath(path);
-  };
-
-  const handleItemClick = (
-    options: {
-      data: DropdownOption;
-      context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
-      idx: number;
-    },
-    type: RenderType = 'Normal',
-    child?: React.ReactElement,
-  ) => {
-    const { data, context, idx } = options;
-    if (type === 'Normal') {
-      options[idx]?.onClick?.(data, context);
-    } else {
-      child?.props?.onClick?.(data, context);
-    }
-    props.onClick(data, context);
-  };
-  const renderDropdownColumn = (
-    children: Array<DropdownOption | React.ReactChild>,
-    showSubmenu: boolean,
-    pathPrefix: string,
-  ) => {
-    // eslint-disable-next-line
-    const menuClass = [`${dropdownMenuClass}-column`, 'narrow-scrollbar', { submenu__visible: showSubmenu }];
-    return (
-      <div
-        key={`/${pathPrefix}`}
-        className={classNames(menuClass)}
-        style={{
-          maxHeight: `${maxHeight}px`,
-        }}
-      >
-        {children.map((item, idx) => {
-          if (!isDropdownItem(item)) {
-            const optionItem = item as DropdownOption;
-            return (
-              <DropdownItem
-                key={idx}
-                disabled={optionItem.disabled}
-                active={isActive(optionItem, pathPrefix) || optionItem.active}
-                value={optionItem.value}
-                content={optionItem.content}
-                divider={optionItem.divider}
-                hasChildren={optionItem.children && optionItem.children.length > 0}
-                path={`${pathPrefix}/${optionItem.value}`}
-                maxColumnWidth={maxColumnWidth}
-                minColumnWidth={minColumnWidth}
-                onClick={(data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) =>
-                  handleItemClick({ data, context, idx })
-                }
-                onHover={handleHoverItem}
-              />
-            );
-          }
-          const childItem = item as React.ReactElement;
-          return React.cloneElement(childItem, {
-            key: idx,
-            hasChildren: getActiveItemChild(childItem.props.children).length > 0,
-            path: `${pathPrefix}/${childItem.props.value}`,
-            maxColumnWidth,
-            minColumnWidth,
-            onHover: handleHoverItem,
-            active: isActive(item, pathPrefix) || childItem.props.active,
-            children: getActiveItemChild(childItem.props.children, 'Normal'),
-            onClick: (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) =>
-              handleItemClick({ data, context, idx }, 'DropdownItem', childItem),
-          });
-        })}
-      </div>
-    );
-  };
-
-  const dropdownItems = (options: Array<DropdownOption | React.ReactChild>, pathPrefix = '') => {
-    const columns = [];
-    // 获取当前活跃状态item
-    const activeItem = options.find((item) => isActive(item, pathPrefix, false));
-    columns.push(renderDropdownColumn(options, !!activeItem, pathPrefix));
-
-    if (isValidElement(activeItem)) {
-      const activeItemChildren = getActiveItemChild(activeItem.props.children);
-      if (activeItemChildren.length > 0) {
-        columns.push(...dropdownItems(activeItemChildren, `${pathPrefix}/${activeItem.props.value}`));
+      if (optionItem.children) {
+        optionItem.children = renderOptions(optionItem.children);
+        renderContent = (
+          <div key={idx}>
+            <DropdownItem
+              className={classNames(`${dropdownClass}__item`, `${dropdownClass}__item--suffix`)}
+              value={optionItem.value}
+              theme={optionItem.theme}
+              active={optionItem.active}
+              prefixIcon={optionItem.prefixIcon}
+              disabled={optionItem.disabled}
+              minColumnWidth={minColumnWidth}
+              maxColumnWidth={maxColumnWidth}
+              isSubmenu={true}
+            >
+              <div className={`${dropdownClass}__item-content`}>
+                {direction === 'right' ? (
+                  <>
+                    <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
+                    <ChevronRightIcon />
+                  </>
+                ) : (
+                  <>
+                    <ChevronLeftIcon />
+                    <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
+                  </>
+                )}
+              </div>
+              <div
+                className={classNames(`${dropdownClass}__submenu`, {
+                  [`${dropdownClass}__submenu--disabled`]: optionItem.disabled,
+                  [`${dropdownClass}__submenu--${direction}`]: direction,
+                })}
+                style={{
+                  top: `${idx * 28}px`,
+                }}
+              >
+                <ul>{optionItem.children}</ul>
+              </div>
+            </DropdownItem>
+            {optionItem.divider ? <TDivider /> : null}
+          </div>
+        );
+      } else {
+        renderContent = (
+          <div key={idx}>
+            <DropdownItem
+              className={`${dropdownClass}__item`}
+              value={optionItem.value}
+              theme={optionItem.theme}
+              active={optionItem.active}
+              prefixIcon={optionItem.prefixIcon}
+              disabled={optionItem.disabled}
+              minColumnWidth={minColumnWidth}
+              maxColumnWidth={maxColumnWidth}
+              onClick={
+                optionItem.disabled || optionItem.children
+                  ? () => null
+                  : (
+                      value: string | number | { [key: string]: any },
+                      context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> },
+                    ) => handleItemClick({ value, context })
+              }
+            >
+              <span className={`${dropdownClass}-text`}>{optionItem.content}</span>
+            </DropdownItem>
+            {optionItem.divider ? <TDivider /> : null}
+          </div>
+        );
       }
-    } else if ((activeItem as DropdownOption)?.children?.length) {
-      columns.push(
-        ...dropdownItems(
-          (activeItem as DropdownOption).children,
-          `${pathPrefix}/${(activeItem as DropdownOption).value}`,
-        ),
-      );
-    }
-    return columns;
+      arr.push(renderContent);
+    });
+    return arr;
   };
 
-  const itemContent = getActiveItemChild(props?.children);
-
-  const renderDropdownItems = dropdownItems(itemContent.length > 0 ? itemContent : options);
-  return <div className={dropdownMenuClass}>{renderDropdownItems}</div>;
+  return (
+    <div
+      className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`)}
+      style={{
+        maxHeight: `${maxHeight}px`,
+      }}
+    >
+      {renderOptions(options)}
+    </div>
+  );
 };
 
 DropdownMenu.displayName = 'DropdownMenu';

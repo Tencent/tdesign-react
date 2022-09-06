@@ -1,84 +1,66 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import classNames from 'classnames';
-import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
-import { DropdownOption, TdDropdownProps } from './type';
+import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
 import useRipple from '../_util/useRipple';
-import { pxCompat } from '../_util/helper';
-import TDivider from '../divider';
 import { dropdownItemDefaultProps } from './defaultProps';
+import { StyledProps } from '../common';
+import { pxCompat } from '../_util/helper';
 
-type DropdownItemProps = Pick<DropdownOption, 'content' | 'value' | 'divider' | 'onClick'> &
-  Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> & {
-    path?: string;
-    hasChildren?: boolean;
+type DropdownItemProps = Pick<DropdownOption, 'value'> &
+  Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> &
+  StyledProps & {
     active?: boolean;
     disabled?: boolean;
-    onHover?: (path: string) => void;
-    children?: React.ReactChild;
+    children?: React.ReactNode;
+    theme?: DropdownItemTheme;
+    prefixIcon?: React.ReactNode;
+    onClick?: (value: DropdownOption['value'], e: unknown) => void;
+    isSubmenu?: boolean;
   };
 
-const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLDivElement>) => {
+const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLLIElement>) => {
   const {
-    path = '',
-    hasChildren = false,
-    maxColumnWidth,
-    minColumnWidth,
+    children,
+    className,
     active,
     disabled,
-    content,
     value,
-    divider,
-    children,
+    theme,
+    prefixIcon,
+    maxColumnWidth,
+    minColumnWidth,
+    onClick,
+    style,
+    isSubmenu,
   } = props;
   const { classPrefix } = useConfig();
-  const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdIconChevronRight });
-  const dropdownItemRef = useRef(null);
+  const dropdownItemRef = useRef<HTMLLIElement>(null);
 
-  useRipple(ref || dropdownItemRef);
+  useRipple(isSubmenu ? null : ref || dropdownItemRef);
 
-  const dropdownItemClass = `${classPrefix}-dropdown__item`;
-  const renderSuffix = () =>
-    hasChildren ? <ChevronRightIcon className={`${classPrefix}-dropdown__item-icon`} /> : null;
-  const handleItemClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-    if (!hasChildren && !disabled) {
-      const data = {
-        value,
-        path,
-        content,
-      };
-      props?.onClick?.(data, { e });
-    }
+  const handleItemClick = (e: React.MouseEvent) => {
+    onClick?.(value, e);
   };
-
-  const handleMouseover = (): void => {
-    props.onHover(path);
-  };
-
   return (
-    <div>
-      <div
-        className={classNames(dropdownItemClass, {
-          [`${classPrefix}-dropdown--suffix`]: hasChildren,
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-is-active`]: active,
+    <>
+      <li
+        className={classNames(className, `${classPrefix}-dropdown__item--theme-${theme}`, {
+          [`${classPrefix}-dropdown__item--active`]: active,
+          [`${classPrefix}-dropdown__item--disabled`]: disabled,
         })}
+        onClick={handleItemClick}
         style={{
           maxWidth: pxCompat(maxColumnWidth),
           minWidth: pxCompat(minColumnWidth),
+          ...style,
         }}
-        onClick={handleItemClick}
-        onMouseOver={handleMouseover}
         ref={ref || dropdownItemRef}
       >
-        <div className={`${dropdownItemClass}-content`}>
-          <span className={`${dropdownItemClass}-text`}>{children || content}</span>
-        </div>
-        {renderSuffix()}
-      </div>
-      {divider ? <TDivider /> : null}
-    </div>
+        {prefixIcon ? <div className={`${classPrefix}-dropdown__item-icon`}>{prefixIcon}</div> : null}
+        {children}
+      </li>
+    </>
   );
 });
 
