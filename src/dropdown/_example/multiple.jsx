@@ -64,7 +64,7 @@ export default function BasicDropdown() {
   };
   return (
     <Dropdown options={options} onClick={clickHandler}>
-      <Button theme="default" variant="outline">
+      <Button theme="default" variant="outline" shape="square">
         <Icon name="ellipsis" size="16" />
       </Button>
     </Dropdown>

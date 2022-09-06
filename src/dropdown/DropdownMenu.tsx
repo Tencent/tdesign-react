@@ -68,11 +68,11 @@ const DropdownMenu = (props: DropdownProps) => {
                 {direction === 'right' ? (
                   <>
                     <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
-                    <ChevronRightIcon />
+                    <ChevronRightIcon className={`${dropdownClass}__item-direction`} size="16" />
                   </>
                 ) : (
                   <>
-                    <ChevronLeftIcon />
+                    <ChevronLeftIcon className={`${dropdownClass}__item-direction`} size="16" />
                     <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
                   </>
                 )}
