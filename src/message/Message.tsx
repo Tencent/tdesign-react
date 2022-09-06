@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
@@ -15,13 +15,15 @@ import {
   MessageWarningMethod,
   MessageThemeList,
   MessageConfigMethod,
+  MessagePlacementList,
 } from './type';
 import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
 import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 
-import { getMessageConfig, getMessageDefaultConfig, globalConfig, setGlobalConfig } from './config';
+import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
+import { useMessageClass } from './useMessageClass';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
@@ -40,14 +42,42 @@ export interface MessagePlugin {
   config: MessageConfigMethod;
 }
 
+interface MessageContainerProps {
+  placement: MessagePlacementList;
+  zIndex: number;
+  id: string;
+}
+
+const MessageContainer: React.FC<MessageContainerProps> = (props) => {
+  const { placement, children, zIndex, id } = props;
+
+  const style: CSSProperties = {
+    zIndex,
+  };
+
+  Object.keys(PlacementOffset[placement]).forEach((key) => {
+    style[key] = PlacementOffset[placement][key];
+  });
+
+  if (placement.includes('top')) {
+    style.top = `${globalConfig.top}px`;
+  }
+
+  const { tdMessagePlacementClassGenerator, tdMessageListClass } = useMessageClass();
+
+  return (
+    <div className={classNames(tdMessageListClass, tdMessagePlacementClassGenerator(placement))} style={style} id={id}>
+      {children}
+    </div>
+  );
+};
+
 /**
  * @desc 创建容器，所有的 message 会填充到容器中
  */
 function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
   // 默认注入到 body 中，如果用户有指定，以用户指定的为准
   let mountedDom: AttachNodeReturnValue = document.body;
-
-  const messageDefaultConfig = getMessageDefaultConfig();
 
   // attach 为字符串时认为是选择器
   if (typeof attach === 'string') {
@@ -61,26 +91,17 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
     mountedDom = attach();
   }
 
-  // :todo 暂时写死，需要 pmc 确定如何在非组件中拿到动态配置的样式前缀
-  const tdMessageListClass = 't-message__list';
-  const tdMessagePlacementClass = `t-message-placement--${placement}`;
-
   // 选择器找到一个挂载 message 的容器，不存在则创建
-  const container = Array.from(mountedDom.querySelectorAll(`.${tdMessageListClass}.${tdMessagePlacementClass}`));
+  const containerId = `tdesign-message-container--${placement}`;
+  const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
   if (container.length < 1) {
     const div = document.createElement('div');
-    div.className = classNames(tdMessageListClass, tdMessagePlacementClass);
-    div.style.zIndex = String(zIndex || messageDefaultConfig.zIndex);
-
-    Object.keys(PlacementOffset[placement]).forEach((key) => {
-      div.style[key] = PlacementOffset[placement][key];
-    });
-
-    if (placement.includes('top')) {
-      div.style.top = `${globalConfig.top}px`;
-    }
+    ReactDOM.render(<MessageContainer id={containerId} placement={placement} zIndex={zIndex} />, div);
     mountedDom.appendChild(div);
-    return div;
+
+    // 通过上述流程后保证此处一定存在 container
+    const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+    return container[0];
   }
   return container[0];
 }

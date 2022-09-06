@@ -7,15 +7,14 @@ import {
 } from 'tdesign-icons-react';
 import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
+import renderTNode from '../_util/renderTNode';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-
 import { NotificationInstance, TdNotificationProps } from './type';
-import { Styles } from '../common';
+import { StyledProps } from '../common';
 import { notificationDefaultProps } from './defaultProps';
 
-export interface NotificationProps extends TdNotificationProps {
-  style?: Styles;
+export interface NotificationProps extends TdNotificationProps, StyledProps {
   id?: string;
 }
 
@@ -31,10 +30,12 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
+    className,
     id,
   } = props;
 
   const { classPrefix } = useConfig();
+  const baseClassPrefix = `${classPrefix}-notification`;
   const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
     CloseIcon: TdCloseIcon,
     InfoCircleFilledIcon: TdInfoCircleFilledIcon,
@@ -59,7 +60,9 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   }, []);
 
   const renderIcon = () => {
-    const IconWrapper = ({ children }) => <div className={`${classPrefix}-notification__icon`}>{children}</div>;
+    if (typeof icon === 'boolean' && !icon) return null;
+
+    const IconWrapper = ({ children }) => <div className={`${baseClassPrefix}__icon`}>{children}</div>;
 
     // 调整优先级，icon 优先级最高
     if (React.isValidElement(icon)) {
@@ -83,51 +86,46 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
     return null;
   };
 
+  const renderCloseBtn = () => {
+    if (typeof closeBtn === 'boolean') {
+      return (
+        closeBtn && (
+          <CloseIcon
+            className={`${baseClassPrefix}-icon-close`}
+            onClick={(e) => {
+              onCloseBtnClick({ e });
+            }}
+          />
+        )
+      );
+    }
+    return (
+      <div
+        className={`${baseClassPrefix}-close`}
+        onClick={(e) => {
+          onCloseBtnClick({ e });
+        }}
+      >
+        {renderTNode(closeBtn)}
+      </div>
+    );
+  };
+
   return (
     <div
-      className={classNames(`${classPrefix}-notification`, {
-        [`${classPrefix}-is-${theme}`]: theme,
+      className={classNames(className, baseClassPrefix, {
+        [`${baseClassPrefix}-is-${theme}`]: theme,
       })}
       style={style}
     >
       {renderIcon()}
-      <div className={`${classPrefix}-notification__main`}>
-        <div className={`${classPrefix}-notification__title__wrap`}>
-          <span className={`${classPrefix}-notification__title`}>{title}</span>
-          {((): React.ReactNode => {
-            if (typeof closeBtn === 'boolean' && closeBtn) {
-              return (
-                <CloseIcon
-                  className={`${classPrefix}-icon-close`}
-                  onClick={(e) => {
-                    onCloseBtnClick({ e });
-                  }}
-                />
-              );
-            }
-            if (React.isValidElement(closeBtn)) {
-              return (
-                <div
-                  onClick={(e) => {
-                    onCloseBtnClick({ e });
-                  }}
-                >
-                  {closeBtn}
-                </div>
-              );
-            }
-            return null;
-          })()}
+      <div className={`${baseClassPrefix}__main`}>
+        <div className={`${baseClassPrefix}__title__wrap`}>
+          <span className={`${baseClassPrefix}__title`}>{title}</span>
+          {renderCloseBtn()}
         </div>
-        {((): React.ReactNode => {
-          if (typeof content === 'string') {
-            return <div className={`${classPrefix}-notification__content`}>{content}</div>;
-          }
-          if (React.isValidElement(content)) return content;
-          return null;
-        })()}
-        {React.isValidElement(footer) && <div className={`${classPrefix}-notification__detail`}>{footer}</div>}
-        {typeof footer === 'function' && <div className={`${classPrefix}-notification__detail`}>{footer()}</div>}
+        {content && <div className={`${baseClassPrefix}__content`}>{renderTNode(content)}</div>}
+        {footer && <div className={`${baseClassPrefix}__detail`}>{renderTNode(footer)}</div>}
       </div>
     </div>
   );

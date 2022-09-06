@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import { DropdownOption, TdDropdownProps } from './type';
-import { ClassName } from '../common';
-import useConfig from '../hooks/useConfig';
+import { StyledProps } from '../common';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
 import { dropdownDefaultProps } from './defaultProps';
 
-export interface DropdownProps extends TdDropdownProps {
-  className?: ClassName;
+import useConfig from '../hooks/useConfig';
+import useDropdownOptions from './hooks/useDropdownOptions';
+
+export interface DropdownProps extends TdDropdownProps, StyledProps {
   children?: React.ReactNode;
 }
 
@@ -23,48 +24,38 @@ const Dropdown = (props: DropdownProps) => {
     className,
     children,
     hideAfterItemClick,
-    maxHeight,
-    maxColumnWidth,
-    minColumnWidth,
+    options: propsOptions,
+    style,
   } = props;
-  let content = null;
-  const arrayChildren = React.Children.toArray(children);
 
+  const arrayChildren = React.Children.toArray(children);
   const { classPrefix } = useConfig();
   const [isPopupVisible, togglePopupVisible] = useState(false);
   const dropdownClass = `${classPrefix}-dropdown`;
 
+  const options = useDropdownOptions(arrayChildren, propsOptions);
+
   const handleMenuClick = (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
-    if (hideAfterItemClick) {
-      togglePopupVisible(false);
-    }
+    if (hideAfterItemClick) togglePopupVisible(false);
     props?.onClick?.(data, context);
   };
-
-  const DropdownContent = () => <DropdownMenu {...props} onClick={handleMenuClick}></DropdownMenu>;
 
   const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
     togglePopupVisible(visible);
     popupProps?.onVisibleChange?.(visible, context);
   };
 
-  React.Children.forEach(arrayChildren, (child: React.ReactChild, idx) => {
-    if (typeof child !== 'object') return;
-
-    if (child.type === DropdownMenu) {
-      content = React.cloneElement(child, { onClick: handleMenuClick, maxHeight, maxColumnWidth, minColumnWidth });
-      arrayChildren.splice(idx, 1);
-    }
-  });
+  const renderContent = <DropdownMenu {...props} options={options} onClick={handleMenuClick} />;
 
   const popupParams = {
     disabled,
     placement,
     trigger,
     showArrow: false,
-    content: content || DropdownContent(),
+    content: renderContent,
     ...omit(popupProps, 'onVisibleChange'),
-    overlayClassName: classNames(dropdownClass, className, popupProps?.overlayClassName),
+    overlayInnerClassName: classNames(dropdownClass, className, popupProps?.overlayInnerClassName),
+    overlayInnerStyle: style,
   };
 
   return (
@@ -80,8 +71,8 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-Dropdown.DropdownMenu = DropdownMenu;
 Dropdown.DropdownItem = DropdownItem;
+Dropdown.DropdownMenu = DropdownMenu;
 
 Dropdown.displayName = 'Dropdown';
 Dropdown.defaultProps = dropdownDefaultProps;

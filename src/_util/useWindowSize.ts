@@ -30,6 +30,7 @@ function useWindowSize(): WindowSize {
 
       return () => {
         window.removeEventListener('resize', debounceResize);
+        debounceResize.cancel();
       };
     }
   }, [getSize, validWindow]);

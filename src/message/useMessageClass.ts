@@ -1,4 +1,5 @@
 import useConfig from '../hooks/useConfig';
+import { MessagePlacementList } from './type';
 
 /**
  * @author kenzyyang
@@ -13,11 +14,14 @@ export function useMessageClass() {
   const tdMessageListClass = `${tdMessagePrefix}__list`;
   const tdClassIsGenerator = (append: string) => `${classPrefix}-is-${append}`;
   const tdMessageClassGenerator = (append: string) => `${tdMessagePrefix}__${append}`;
+  const tdMessagePlacementClassGenerator = (placement: MessagePlacementList) =>
+    `${tdMessagePrefix}-placement--${placement}`;
 
   return {
     tdMessagePrefix,
     tdMessageListClass,
     tdClassIsGenerator,
     tdMessageClassGenerator,
+    tdMessagePlacementClassGenerator,
   };
 }

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Dropdown, Button, MessagePlugin,
-} from 'tdesign-react';
+import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
 
 export default function BasicDropdown() {
   const getContent = () => <div>操作四</div>;
@@ -27,10 +25,13 @@ export default function BasicDropdown() {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown options={options} onClick={clickHandler} trigger={'click'} popupProps={{ overlayStyle: { padding: 4 } }}>
-      <Button>
-        点击我试试
-      </Button>
+    <Dropdown
+      options={options}
+      onClick={clickHandler}
+      trigger="click"
+      popupProps={{ overlayInnerStyle: { padding: 4 } }}
+    >
+      <Button>点击我试试</Button>
     </Dropdown>
   );
 }

@@ -116,7 +116,7 @@ export default function THead(props: TheadProps) {
                   placement="bottom"
                   attach={theadRef.current ? () => theadRef.current.parentNode.parentNode as HTMLElement : undefined}
                   popupContent={content}
-                  popupProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
+                  tooltipProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
                 >
                   {innerTh}
                 </TEllipsis>

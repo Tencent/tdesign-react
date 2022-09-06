@@ -168,6 +168,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
     return () => {
       window.removeEventListener('resize', onResize);
+      onResize.cancel();
     };
   });
 

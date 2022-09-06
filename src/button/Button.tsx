@@ -74,7 +74,7 @@ const Button = forwardRef((props: ButtonProps, ref: React.RefObject<HTMLElement>
           [`${classPrefix}-button--shape-${shape}`]: shape !== 'rectangle',
           [`${classPrefix}-button--ghost`]: ghost,
           [`${classPrefix}-is-loading`]: loading,
-          [`${classPrefix}-is-disabled`]: disabled || loading,
+          [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
           [`${classPrefix}-size-full-width`]: block,
