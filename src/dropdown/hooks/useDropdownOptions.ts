@@ -3,6 +3,8 @@ import { DropdownOption } from '../type';
 import DropdownMenu from '../DropdownMenu';
 
 export const getOptionsFromChildren = (children: React.ReactElement): DropdownOption[] => {
+  if (!children) return [];
+
   if (children.type === DropdownMenu) {
     const groupChildren = children.props.children as React.ReactElement;
     if (Array.isArray(groupChildren)) {
