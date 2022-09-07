@@ -262,7 +262,7 @@ exports[`date-presets-alt.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value="2022-01-01,2022-08-08"
           >
             <div
@@ -337,7 +337,7 @@ exports[`date-presets-alt.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value="2022-01-01 11:11:11,2022-08-08 12:12:12"
           >
             <div
@@ -422,7 +422,7 @@ exports[`date-range.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
@@ -493,7 +493,7 @@ exports[`date-range.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
@@ -918,7 +918,7 @@ exports[`disable-date.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
@@ -1238,7 +1238,7 @@ exports[`month.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
@@ -6014,7 +6014,7 @@ exports[`quarter.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
@@ -6142,7 +6142,7 @@ exports[`week.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
@@ -6270,7 +6270,7 @@ exports[`year.jsx 1`] = `
           class="t-range-input-popup t-range-input-popup"
         >
           <div
-            class="t-range-input"
+            class="t-range-input t-range-input--suffix"
             value=""
           >
             <div
