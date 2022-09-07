@@ -5,6 +5,7 @@ const UploadSingleInput = () => {
   const uploadRef = useRef();
   const [files, setFiles] = useState([]);
   const [autoUpload, setAutoUpload] = useState(true);
+  const [disabled, setDisabled] = useState(false);
 
   const handleFail = ({ file }) => {
     MessagePlugin.error(`${file.name} 上传失败`);
@@ -25,6 +26,9 @@ const UploadSingleInput = () => {
         <Checkbox checked={autoUpload} onChange={setAutoUpload}>
           自动上传
         </Checkbox>
+        <Checkbox checked={disabled} onChange={setDisabled}>
+          禁用状态
+        </Checkbox>
         {!autoUpload && (
           <Button variant="base" theme="default" size="small" style={{ height: '22px' }} onClick={uploadFiles}>
             点击上传
@@ -41,6 +45,7 @@ const UploadSingleInput = () => {
         theme="file-input"
         placeholder="请选择文件"
         autoUpload={autoUpload}
+        disabled={disabled}
         onFail={handleFail}
         onSuccess={onSuccess}
       ></Upload>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
 import { CloseIcon } from 'tdesign-icons-react';
 
@@ -15,10 +15,42 @@ export default function UploadExample() {
       size: 1000,
     },
   ]);
+  const [files3, setFiles3] = useState([]);
   const [multiple, setMultiple] = useState(false);
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(true);
   const [isBatchUpload, setIsBatchUpload] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    setFiles3(multiple ? [
+      {
+        name: '这是一个上传成功的文件',
+        status: 'success',
+        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+        size: 1000,
+      },
+      {
+        name: '这是一个上传中的文件',
+        status: 'progress',
+        percent: 30,
+        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+        size: 1000,
+      },
+      {
+        name: '这是一个上传失败的文件',
+        status: 'fail',
+        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+        size: 1000,
+      },
+      {
+        name: '这是一个等待上传的文件',
+        status: 'waiting',
+        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+        size: 1000,
+      },
+    ] : [])
+  }, [multiple]);
 
   const handleFail = ({ file }) => {
     MessagePlugin.error(`文件 ${file.name} 上传失败`);
@@ -97,6 +129,9 @@ export default function UploadExample() {
         </Radio.Group>
       </Space>
       <Space>
+        <Checkbox checked={disabled} onChange={setDisabled}>
+          禁用状态
+        </Checkbox>
         {multiple && (
           <Checkbox checked={uploadInOneRequest} onChange={setUploadInOneRequest}>
             一个请求上传多个文件
@@ -111,8 +146,8 @@ export default function UploadExample() {
           自动上传
         </Checkbox>
         {!autoUpload && (
-          <Button variant="base" theme="default" size="small" style={{ height: '22px' }} onClick={uploadFiles}>
-            点击上传
+          <Button variant="base" theme="default" style={{ height: '22px' }} onClick={uploadFiles}>
+            点击手动上传
           </Button>
         )}
       </Space>
@@ -133,6 +168,7 @@ export default function UploadExample() {
           isBatchUpload={isBatchUpload}
           sizeLimit={{ size: 1, unit: 'MB' }}
           max={5}
+          disabled={disabled}
           allowUploadDuplicateFile={true}
           // fileListDisplay={fileListDisplay}
           // formatRequest={(obj) => ({ ...obj, other: 123 })}
@@ -152,6 +188,8 @@ export default function UploadExample() {
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}
           isBatchUpload={isBatchUpload}
+          disabled={disabled}
+          triggerButtonProps={{ theme: 'primary', variant: 'base' }}
           onFail={handleFail}
           placeholder="这是一段没有文件时的占位文本"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
@@ -161,10 +199,12 @@ export default function UploadExample() {
         {/* formatResponse 可控制上传成功或者失败 */}
         <Upload
           ref={uploadRef3}
+          files={files3}
+          onChange={setFiles3}
           multiple={multiple}
+          disabled={disabled}
           onFail={handleFail}
           formatResponse={formatResponse}
-          triggerButtonProps={{ theme: 'default', variant: 'base' }}
           placeholder="文件上传失败示例"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           style={{ marginLeft: '60px' }}

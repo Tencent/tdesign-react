@@ -46,13 +46,13 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     const getDefaultTrigger = () => {
       if (theme === 'file-input') {
         return (
-          <Button variant="outline" {...props.triggerButtonProps}>
+          <Button disabled={props.disabled} variant="outline" {...props.triggerButtonProps}>
             {triggerUploadText}
           </Button>
         );
       }
       return (
-        <Button variant="outline" icon={<UploadIcon />} {...props.triggerButtonProps}>
+        <Button disabled={props.disabled} variant="outline" icon={<UploadIcon />} {...props.triggerButtonProps}>
           {triggerUploadText}
         </Button>
       );
@@ -68,6 +68,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     displayFiles,
     theme,
     placeholder: props.placeholder,
+    disabled: props.disabled,
     tips: props.tips,
     sizeOverLimitMessage,
     uploading,
@@ -111,7 +112,6 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       {...commonDisplayFileProps}
       multiple={props.multiple}
       max={props.max}
-      disabled={props.disabled}
       showUploadProgress={props.showUploadProgress}
       triggerUpload={triggerUpload}
       uploadFiles={uploadFiles}
@@ -122,7 +122,6 @@ const Upload = forwardRef((props: UploadProps, ref) => {
   const ImageFlowListNode = (
     <ImageFlowList
       {...commonDisplayFileProps}
-      disabled={disabled}
       dragEvents={dragProps}
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
