@@ -827,24 +827,22 @@ module.exports = {
       const panelList = [{ label: 'tree:', value: 'tree:' }];
     `,
     usageStr: `
-      const defaultProps = {
-        data: [
-          {
-            label: '第一段',
-            children: [ { label: '第二段' }, { label: '第二段' } ],
-          },
-          {
-            label: '第一段',
-            children: [ { label: '第二段' }, { label: '第二段' } ],
-          },
-          {
-            label: '第一段',
-            children: [ { label: '第二段' }, { label: '第二段' } ],
-          },
-        ]
-      };
+      const [data] = useState([
+        {
+          label: '第一段',
+          children: [ { label: '第二段' }, { label: '第二段' } ],
+        },
+        {
+          label: '第一段',
+          children: [ { label: '第二段' }, { label: '第二段' } ],
+        },
+        {
+          label: '第一段',
+          children: [ { label: '第二段' }, { label: '第二段' } ],
+        },
+      ]);
       useEffect(() => {
-        setRenderComp(<Tree {...defaultProps} {...changedProps} />);
+        setRenderComp(<Tree data={data} {...changedProps} />);
       }, [changedProps]);
     `,
   },
