@@ -40,6 +40,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     onScroll,
     expandAnimation,
     delay,
+    hideEmptyPopup,
     popperOptions,
     updateScrollTop,
   } = props;
@@ -66,8 +67,17 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     return [delay, delay];
   }, [delay]);
 
+  // 判断展示浮层
+  const showOverlay = useMemo(() => {
+    if (hideEmptyPopup && !content) return false;
+    return visible || popupElement;
+  }, [hideEmptyPopup, content, visible, popupElement]);
+
   // 转化 placement
-  const popperPlacement = useMemo(() => placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement, [placement]);
+  const popperPlacement = useMemo(
+    () => placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement,
+    [placement],
+  );
 
   const { getTriggerNode, getPopupProps, getTriggerDom } = useTrigger({
     triggerRef,
@@ -117,7 +127,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     return { ...overlayStyle };
   }
 
-  const overlay = (visible || popupElement) && (
+  const overlay = showOverlay && (
     <CSSTransition
       appear
       in={visible}
