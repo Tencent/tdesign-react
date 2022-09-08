@@ -4,7 +4,7 @@ import { ImageInfo } from '../type';
 const checkImages = (images) =>
   images.map((image) => {
     const result: ImageInfo = { mainImage: '' };
-    if (typeof image === 'string') result.mainImage = image;
+    if (typeof image === 'string' || !image) result.mainImage = image;
     else {
       result.mainImage = image.mainImage;
       result.thumbnail = image.thumbnail;

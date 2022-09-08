@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  CloseIcon,
-  TimeFilledIcon,
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
-  CloseCircleFilledIcon,
+  CloseIcon as TdCloseIcon,
+  TimeFilledIcon as TdTimeFilledIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   // UploadIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import TLoading from '../loading';
 import { UploadFile } from './type';
 import { abridgeName } from '../_common/js/upload/utils';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { CommonDisplayFileProps } from './interface';
 import Link from '../link';
 
@@ -18,6 +19,16 @@ export type NormalFileProps = CommonDisplayFileProps;
 
 export default function NormalFile(props: NormalFileProps) {
   const { theme, disabled, classPrefix } = props;
+
+  const { CloseIcon, TimeFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } =
+    useGlobalIcon({
+      CloseIcon: TdCloseIcon,
+      TimeFilledIcon: TdTimeFilledIcon,
+      CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+      ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+      CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    });
+
   const uploadPrefix = `${classPrefix}-upload`;
 
   const renderProgress = (percent: number) => (

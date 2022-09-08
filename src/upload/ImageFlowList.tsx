@@ -1,12 +1,14 @@
 import React, { MouseEvent, useMemo } from 'react';
 import classNames from 'classnames';
 import {
-  BrowseIcon,
-  DeleteIcon,
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
-  TimeFilledIcon,
+  BrowseIcon as TdBrowseIcon,
+  DeleteIcon as TdDeleteIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+  TimeFilledIcon as TdTimeFilledIcon,
 } from 'tdesign-icons-react';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import ImageViewer from '../image-viewer';
 import { CommonDisplayFileProps } from './interface';
 import TButton from '../button';
 import { UploadFile } from './type';
@@ -25,6 +27,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${props.classPrefix}-upload`;
+
+  const { BrowseIcon, DeleteIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } = useGlobalIcon({
+    BrowseIcon: TdBrowseIcon,
+    DeleteIcon: TdDeleteIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+    TimeFilledIcon: TdTimeFilledIcon,
+  });
 
   const drag = useDrag(props.dragEvents);
   const { dragActive } = drag;
@@ -78,8 +88,11 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           <div className={`${uploadPrefix}__card-mask`}>
             {file.url && (
               <span className={`${uploadPrefix}__card-mask-item`}>
-                {/* <BrowseIcon onClick={(e) => props.onImgPreview(e, file)} /> */}
-                <BrowseIcon />
+                <ImageViewer
+                  trigger={({ onOpen }) => <BrowseIcon onClick={onOpen} />}
+                  images={displayFiles.map((t) => t.url)}
+                  defaultIndex={index}
+                />
                 <span className={`${uploadPrefix}__card-mask-item-divider`}></span>
               </span>
             )}

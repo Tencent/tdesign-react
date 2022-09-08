@@ -9,12 +9,13 @@ export default function UploadExample() {
   const [files1, setFiles1] = useState([]);
   const [files2, setFiles2] = useState([
     {
-      url: 'http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg',
+      url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
       name: 'default.jpeg',
       status: 'success',
     },
   ]);
   const [files3, setFiles3] = useState([]);
+  const [disabled, setDisabled] = useState(false);
 
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(true);
@@ -61,6 +62,9 @@ export default function UploadExample() {
     <Space direction="vertical">
 
       <Space>
+        <Checkbox checked={disabled} onChange={setDisabled}>
+          禁用状态
+        </Checkbox>
         <Checkbox checked={uploadInOneRequest} onChange={setUploadInOneRequest}>
           一个请求上传多个文件
         </Checkbox>
@@ -84,6 +88,7 @@ export default function UploadExample() {
           theme="image"
           tips="请选择单张图片文件上传"
           accept="image/*"
+          disabled={disabled}
           locale={{
             triggerUploadText: {
               image: '请选择图片',
@@ -100,6 +105,7 @@ export default function UploadExample() {
           theme="image"
           tips="默认已上传文件"
           accept="image/*"
+          disabled={disabled}
           autoUpload={autoUpload}
         />
 
@@ -113,6 +119,7 @@ export default function UploadExample() {
           accept="image/*"
           multiple
           max={3}
+          disabled={disabled}
           sizeLimit={{ size: 2, unit: 'MB' }}
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}

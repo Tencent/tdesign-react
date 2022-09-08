@@ -19,7 +19,7 @@ export default function UploadExample() {
     <Space direction="vertical">
       <div>
         是否自动上传：
-        <Switch value={autoUpload} onChange={(val) => setAutoUpload(val)} />
+        <Switch value={autoUpload} onChange={setAutoUpload} />
       </div>
       <Radio.Group defaultValue="file" onChange={(val) => setTheme(val)} variant="default-filled">
         <Radio.Button value="file">文件拖拽上传</Radio.Button>

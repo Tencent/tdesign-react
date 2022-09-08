@@ -18,7 +18,7 @@ export interface DraggerProps extends CommonDisplayFileProps {
 }
 
 const DraggerFile: FC<DraggerProps> = (props) => {
-  const { displayFiles, locale } = props;
+  const { displayFiles, locale, disabled } = props;
 
   const { SIZE } = useCommonClassName();
   const uploadPrefix = `${props.classPrefix}-upload`;
@@ -76,7 +76,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
             {locale.file.fileOperationDateText}：{getCurrentDate()}
           </small>
           <div className={`${uploadPrefix}__dragger-btns`}>
-            {['progress', 'waiting'].includes(file.status) && (
+            {['progress', 'waiting'].includes(file.status) && !disabled && (
               <Button
                 theme="primary"
                 variant="text"
@@ -92,22 +92,28 @@ const DraggerFile: FC<DraggerProps> = (props) => {
               </Button>
             )}
             {!props.autoUpload && file.status === 'waiting' && (
-              <Button variant="text" theme="primary" onClick={() => props.uploadFiles?.()}>
+              <Button variant="text" theme="primary" disabled={disabled} onClick={() => props.uploadFiles?.()}>
                 {locale.triggerUploadText.normal}
               </Button>
             )}
           </div>
-          {['fail', 'success'].includes(file?.status) && (
+          {['fail', 'success'].includes(file?.status) && !disabled && (
             <div className={`${uploadPrefix}__dragger-btns`}>
               <Button
                 theme="primary"
                 variant="text"
+                disabled={disabled}
                 className={`${uploadPrefix}__dragger-progress-cancel`}
                 onClick={props.triggerUpload}
               >
                 {locale.triggerUploadText.reupload}
               </Button>
-              <Button theme="danger" variant="text" onClick={(e) => props.onRemove({ e, index: 0, file })}>
+              <Button
+                theme="danger"
+                variant="text"
+                disabled={disabled}
+                onClick={(e) => props.onRemove({ e, index: 0, file })}
+              >
                 {locale.triggerUploadText.delete}
               </Button>
             </div>
