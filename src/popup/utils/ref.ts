@@ -1,7 +1,7 @@
 import { isMemo } from 'react-is';
 
 // 合并 refs
-export function composeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
+export function composeRef<T>(...refs: React.Ref<T>[]) {
   return (node: T) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {

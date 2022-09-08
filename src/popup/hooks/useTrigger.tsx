@@ -117,7 +117,17 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     };
 
     if (supportRef(triggerNode)) {
-      triggerProps.ref = composeRef(triggerRef, (triggerNode as any).ref);
+      triggerProps.ref = (instance) => {
+        // compose inner refs
+        composeRef(triggerRef)(instance);
+        // triggerNode ref should't be reset,just forward
+        if (typeof (triggerNode as any).ref === 'function') {
+          (triggerNode as any).ref(instance);
+        } else if ((triggerNode as any).ref) {
+          // eslint-disable-next-line
+          (triggerNode as any).ref.current = instance;
+        }
+      };
     } else {
       // 标记 trigger 元素
       triggerProps['data-popup'] = triggerDataKey.current;

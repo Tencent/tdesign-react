@@ -27,7 +27,16 @@ function getPopperPlacement(placement: TdPopupProps['placement']) {
   return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
 
-const Popup = forwardRef((props: PopupProps, ref) => {
+export interface PopupRef {
+  // 获取popper实例
+  getPopper: () => ReturnType<typeof usePopper>;
+  // 获取Popup dom元素
+  getPopupElement: () => HTMLDivElement;
+  // 获取portal dom元素
+  getPortalElement: () => HTMLDivElement;
+}
+
+const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => {
   const {
     trigger,
     content,
