@@ -13,7 +13,7 @@ import { CommonDisplayFileProps } from '../interface';
 import TButton from '../../button';
 import { UploadFile } from '../type';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
-import { abridgeName } from '../../_common/js/upload/utils';
+import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
@@ -21,6 +21,7 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file?: UploadFile }) => void;
   dragEvents: UploadDragEvents;
   disabled?: boolean;
+  isBatchUpload?: boolean;
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
@@ -62,6 +63,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       textMap,
     };
   };
+
+  const renderEmpty = () => (
+    <div className={`${uploadPrefix}__flow-empty`}>
+      {dragActive ? locale.dragger.dragDropText : locale.dragger.clickAndDragText}
+    </div>
+  );
 
   const renderImgItem = (file: UploadFile, index: number) => {
     const { iconMap, textMap } = getStatusMap();
@@ -111,6 +118,72 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     );
   };
 
+  const renderStatus = (file: UploadFile) => {
+    const { iconMap, textMap } = getStatusMap();
+    return (
+      <div className={`${uploadPrefix}__flow-status`}>
+        {iconMap[file.status]}
+        <span>{textMap[file.status]}</span>
+      </div>
+    );
+  };
+
+  const renderNormalActionCol = (file: UploadFile, index: number) => (
+    <td>
+      <TButton theme="primary" variant="text" onClick={(e: MouseEvent) => props.onRemove({ e, index, file })}>
+        {locale?.triggerUploadText?.delete}
+      </TButton>
+    </td>
+  );
+
+  // batchUpload action col
+  const renderBatchActionCol = (index: number) =>
+    // 第一行数据才需要合并单元格
+    index === 0 ? (
+      <td rowSpan={displayFiles.length} className={`${uploadPrefix}__flow-table__batch-row`}>
+        <TButton
+          theme="primary"
+          variant="text"
+          onClick={(e: MouseEvent) => props.onRemove({ e, index: -1, file: null })}
+        >
+          {locale?.triggerUploadText?.delete}
+        </TButton>
+      </td>
+    ) : (
+      ''
+    );
+  const renderFileList = () => (
+    <table className={`${uploadPrefix}__flow-table`}>
+      <thead>
+        <tr>
+          <th>{locale.file?.fileNameText}</th>
+          <th>{locale.file?.fileSizeText}</th>
+          <th>{locale.file?.fileStatusText}</th>
+          <th>{locale.file?.fileOperationText}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {!displayFiles.length && (
+          <tr>
+            <td colSpan={4}>{renderEmpty()}</td>
+          </tr>
+        )}
+        {displayFiles.map((file, index) => {
+          // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
+          const showBatchUploadAction = props.isBatchUpload;
+          return (
+            <tr key={file.name + index}>
+              <td>{abridgeName(file.name, 7, 10)}</td>
+              <td>{returnFileSize(file.size)}</td>
+              <td>{renderStatus(file)}</td>
+              {showBatchUploadAction ? renderBatchActionCol(index) : renderNormalActionCol(file, index)}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+
   return (
     <div className={`${uploadPrefix}__flow ${uploadPrefix}__flow-${props.theme}`}>
       <div className={`${uploadPrefix}__flow-op`}>
@@ -129,16 +202,15 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         onDragOver={drag.handleDragover}
         onDragLeave={drag.handleDragleave}
       >
-        {!displayFiles.length && (
-          <div className={`${uploadPrefix}__flow-empty`}>
-            {dragActive ? locale.dragger.dragDropText : locale.dragger.clickAndDragText}
-          </div>
-        )}
-        {!!displayFiles.length && (
+        {!displayFiles.length && renderEmpty()}
+
+        {!!displayFiles.length && props.theme === 'image-flow' && (
           <ul className={`${uploadPrefix}__card clearfix`}>
             {displayFiles.map((file, index) => renderImgItem(file, index))}
           </ul>
         )}
+
+        {!!displayFiles.length && props.theme === 'file-flow' && renderFileList()}
       </div>
 
       {!props.autoUpload && (

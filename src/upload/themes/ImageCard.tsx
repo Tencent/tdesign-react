@@ -10,7 +10,7 @@ import { TdUploadProps, UploadFile } from '../type';
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];
   max: TdUploadProps['max'];
-  disabled: TdUploadProps['disabled'];
+  disabled?: TdUploadProps['disabled'];
   showUploadProgress: TdUploadProps['showUploadProgress'];
   triggerUpload?: () => void;
   uploadFiles?: (toFiles?: UploadFile[]) => void;

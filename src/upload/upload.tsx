@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import NormalFile from './themes/NormalFile';
 import DraggerFile from './themes/DraggerFile';
 import ImageCard from './themes/ImageCard';
-import ImageFlowList from './themes/ImageFlowList';
+import MultipleFlowList from './themes/MultipleFlowList';
 import useUpload from './hooks/useUpload';
 import Button from '../button';
 import { uploadDefaultProps } from './defaultProps';
@@ -87,7 +87,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     onDrop: props.onDrop,
   };
 
-  const NormalFileNode = (
+  const getNormalFileNode = () => (
     <NormalFile {...commonDisplayFileProps}>
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
@@ -95,7 +95,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     </NormalFile>
   );
 
-  const SingleFileDraggerUploadNode = (
+  const getSingleFileDraggerUploadNode = () => (
     <DraggerFile
       {...commonDisplayFileProps}
       dragEvents={dragProps}
@@ -106,7 +106,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     />
   );
 
-  const ImageCardUploadNode = (
+  const getImageCardUploadNode = () => (
     <ImageCard
       {...commonDisplayFileProps}
       multiple={props.multiple}
@@ -118,9 +118,10 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     />
   );
 
-  const ImageFlowListNode = (
-    <ImageFlowList
+  const getFlowListNode = () => (
+    <MultipleFlowList
       {...commonDisplayFileProps}
+      isBatchUpload={props.isBatchUpload}
       dragEvents={dragProps}
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
@@ -128,7 +129,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
       </div>
-    </ImageFlowList>
+    </MultipleFlowList>
   );
 
   return (
@@ -142,10 +143,10 @@ const Upload = forwardRef((props: UploadProps, ref) => {
         accept={props.accept}
         hidden
       />
-      {['file', 'file-input'].includes(theme) && !props.draggable && NormalFileNode}
-      {['file', 'image'].includes(theme) && props.draggable && SingleFileDraggerUploadNode}
-      {theme === 'image' && !props.draggable && ImageCardUploadNode}
-      {theme === 'image-flow' && ImageFlowListNode}
+      {['file', 'file-input'].includes(theme) && !props.draggable && getNormalFileNode()}
+      {['file', 'image'].includes(theme) && props.draggable && getSingleFileDraggerUploadNode()}
+      {theme === 'image' && !props.draggable && getImageCardUploadNode()}
+      {['image-flow', 'file-flow'] && getFlowListNode()}
     </div>
   );
 });
