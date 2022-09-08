@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useDragSorter from '../_util/useDragSorter';
-import TInput, { InputValue } from '../input';
+import TInput, { InputValue, InputRef } from '../input';
 import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
 import useTagList from './useTagList';
@@ -16,7 +16,7 @@ import { tagInputDefaultProps } from './defaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
-const TagInput = forwardRef((props: TagInputProps, ref) => {
+const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef>) => {
   const { classPrefix: prefix } = useConfig();
   const { CloseCircleFilledIcon } = useGlobalIcon({
     CloseCircleFilledIcon: TdCloseCircleFilledIcon,
@@ -73,7 +73,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 
-  useImperativeHandle(ref, () => ({ ...(tagInputRef.current || {}) }));
+  useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
 
   const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
     isCompositionRef.current = true;
@@ -125,7 +125,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   return (
     <TInput
-      ref={tagInputRef}
+      ref={tagInputRef as React.RefObject<InputRef>}
       value={tInputValue}
       onChange={(val, context) => {
         setTInputValue(val, { ...context, trigger: 'input' });
