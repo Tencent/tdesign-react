@@ -1,5 +1,5 @@
 import { DragEventHandler, useState, DragEvent } from 'react';
-import { TdUploadProps } from './type';
+import { TdUploadProps } from '../type';
 
 export interface UploadDragEvents {
   onDragFileChange?: (e: DragEvent<HTMLDivElement>) => void;

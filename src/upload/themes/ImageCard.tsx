@@ -1,11 +1,11 @@
 import React, { MouseEvent } from 'react';
 import { BrowseIcon as TdBrowseIcon, DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import Loading from '../loading';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import ImageViewer from '../image-viewer';
-import { CommonDisplayFileProps } from './interface';
-import { TdUploadProps, UploadFile } from './type';
+import Loading from '../../loading';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import ImageViewer from '../../image-viewer';
+import { CommonDisplayFileProps } from '../interface';
+import { TdUploadProps, UploadFile } from '../type';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];

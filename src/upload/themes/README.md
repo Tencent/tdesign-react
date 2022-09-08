@@ -1,0 +1,4 @@
+- NormalFile 普通文件上传，支持单文件和多文件（不带拖拽）
+- ImageCard 普通图片上传，支持单文件和多文件（不带拖拽）
+- DraggerFile 单文件或图片拖拽上传
+- ImageFlowList 批量图上传（带拖拽）

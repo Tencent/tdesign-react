@@ -1,16 +1,15 @@
 import React, { forwardRef } from 'react';
 import { UploadIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import type { UploadProps } from './types';
-import NormalFile from './NormalFile';
-import DraggerFile from './DraggerFile';
-import ImageCard from './ImageCard';
-import ImageFlowList from './ImageFlowList';
-import useUpload from './useUpload';
+import NormalFile from './themes/NormalFile';
+import DraggerFile from './themes/DraggerFile';
+import ImageCard from './themes/ImageCard';
+import ImageFlowList from './themes/ImageFlowList';
+import useUpload from './hooks/useUpload';
 import Button from '../button';
 import { uploadDefaultProps } from './defaultProps';
-import { CommonDisplayFileProps } from './interface';
-import { UploadDragEvents } from './useDrag';
+import { CommonDisplayFileProps, UploadProps } from './interface';
+import { UploadDragEvents } from './hooks/useDrag';
 
 const Upload = forwardRef((props: UploadProps, ref) => {
   const { theme } = props;

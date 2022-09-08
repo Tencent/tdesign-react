@@ -8,12 +8,12 @@ import {
   // UploadIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import TLoading from '../loading';
-import { UploadFile } from './type';
-import { abridgeName } from '../_common/js/upload/utils';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { CommonDisplayFileProps } from './interface';
-import Link from '../link';
+import TLoading from '../../loading';
+import { UploadFile } from '../type';
+import { abridgeName } from '../../_common/js/upload/utils';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { CommonDisplayFileProps } from '../interface';
+import Link from '../../link';
 
 export type NormalFileProps = CommonDisplayFileProps;
 

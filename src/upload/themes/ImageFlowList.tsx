@@ -7,14 +7,14 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   TimeFilledIcon as TdTimeFilledIcon,
 } from 'tdesign-icons-react';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import ImageViewer from '../image-viewer';
-import { CommonDisplayFileProps } from './interface';
-import TButton from '../button';
-import { UploadFile } from './type';
-import useDrag, { UploadDragEvents } from './useDrag';
-import { abridgeName } from '../_common/js/upload/utils';
-import TLoading from '../loading';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import ImageViewer from '../../image-viewer';
+import { CommonDisplayFileProps } from '../interface';
+import TButton from '../../button';
+import { UploadFile } from '../type';
+import useDrag, { UploadDragEvents } from '../hooks/useDrag';
+import { abridgeName } from '../../_common/js/upload/utils';
+import TLoading from '../../loading';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;

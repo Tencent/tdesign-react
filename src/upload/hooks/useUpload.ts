@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo, ChangeEventHandler, DragEvent, MouseEvent } from 'react';
 import merge from 'lodash/merge';
-import { SizeLimitObj, TdUploadProps, UploadFile, UploadRemoveContext } from './type';
+import { SizeLimitObj, TdUploadProps, UploadFile, UploadRemoveContext } from '../type';
 import {
   getFilesAndErrors,
   validateFile,
@@ -8,12 +8,12 @@ import {
   getTriggerTextField,
   getDisplayFiles,
   removeFiles,
-} from '../_common/js/upload/main';
-import { getFileUrlByFileRaw } from '../_common/js/upload/utils';
-import useControlled from '../hooks/useControlled';
-import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../_common/js/upload/types';
-import useConfig from '../hooks/useConfig';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
+} from '../../_common/js/upload/main';
+import { getFileUrlByFileRaw } from '../../_common/js/upload/utils';
+import useControlled from '../../hooks/useControlled';
+import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../../_common/js/upload/types';
+import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 /**
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { StyledProps } from 'tdesign-react/common';
 import { TdUploadProps, UploadRemoveContext } from './type';
 import { GlobalConfigProvider } from '../config-provider/type';
 
@@ -21,4 +22,8 @@ export interface CommonDisplayFileProps {
   children?: ReactNode;
   fileListDisplay?: TdUploadProps['fileListDisplay'];
   onRemove?: (p: UploadRemoveContext) => void;
+}
+
+export interface UploadProps extends StyledProps, Omit<TdUploadProps, 'files'> {
+  children?: ReactNode;
 }
