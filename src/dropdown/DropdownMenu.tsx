@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect, useMemo } from 'react';
+import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
@@ -12,10 +12,6 @@ const DropdownMenu = (props: DropdownProps) => {
   const { options = [], maxHeight = 300, minColumnWidth = 10, maxColumnWidth = 160, direction } = props;
 
   const { classPrefix } = useConfig();
-  const [flatItem, setFlatItem] = useState<any>([]);
-
-  const arrMap = useMemo(() => new Map(), []);
-
   const dropdownClass = `${classPrefix}-dropdown`;
   const dropdownMenuClass = `${dropdownClass}__menu`;
 
@@ -24,19 +20,11 @@ const DropdownMenu = (props: DropdownProps) => {
     ChevronLeftIcon: TdIconChevronLeft,
   });
 
-  useEffect(() => {
-    setFlatItem(arrMap);
-  }, [arrMap]);
-
   const handleItemClick = (options: {
-    value: string | number | { [key: string]: any };
+    data: DropdownOption;
     context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
   }) => {
-    const { value, context } = options;
-    let data = null;
-    if (flatItem.length !== 0) {
-      data = flatItem.get(value);
-    }
+    const { data, context } = options;
     data?.onClick?.(data, context);
     props.onClick?.(data, context);
   };
@@ -47,7 +35,6 @@ const DropdownMenu = (props: DropdownProps) => {
     let renderContent: ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
-      arrMap.set(optionItem.value, optionItem);
 
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children);
@@ -110,7 +97,7 @@ const DropdownMenu = (props: DropdownProps) => {
                   : (
                       value: string | number | { [key: string]: any },
                       context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> },
-                    ) => handleItemClick({ value, context })
+                    ) => handleItemClick({ data: optionItem, context })
               }
             >
               <span className={`${dropdownClass}-text`}>{optionItem.content}</span>
