@@ -134,7 +134,7 @@ export default function UploadExample() {
         </Checkbox>
         {multiple && (
           <Checkbox checked={uploadInOneRequest} onChange={setUploadInOneRequest}>
-            一个请求上传多个文件
+            多个文件一个请求上传
           </Checkbox>
         )}
         {multiple && (

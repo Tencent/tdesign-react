@@ -149,9 +149,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           {locale?.triggerUploadText?.delete}
         </TButton>
       </td>
-    ) : (
-      ''
-    );
+    ) : null;
   const renderFileList = () => (
     <table className={`${uploadPrefix}__flow-table`}>
       <thead>
@@ -159,7 +157,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           <th>{locale.file?.fileNameText}</th>
           <th>{locale.file?.fileSizeText}</th>
           <th>{locale.file?.fileStatusText}</th>
-          <th>{locale.file?.fileOperationText}</th>
+          {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
         </tr>
       </thead>
       <tbody>
@@ -171,12 +169,16 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         {displayFiles.map((file, index) => {
           // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
           const showBatchUploadAction = props.isBatchUpload;
+          const deleteNode =
+            showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
+              ? renderBatchActionCol(index)
+              : renderNormalActionCol(file, index);
           return (
             <tr key={file.name + index}>
               <td>{abridgeName(file.name, 7, 10)}</td>
               <td>{returnFileSize(file.size)}</td>
               <td>{renderStatus(file)}</td>
-              {showBatchUploadAction ? renderBatchActionCol(index) : renderNormalActionCol(file, index)}
+              {disabled ? null : deleteNode}
             </tr>
           );
         })}

@@ -7,7 +7,6 @@ import {
   upload,
   getTriggerTextField,
   getDisplayFiles,
-  removeFiles,
 } from '../../_common/js/upload/main';
 import { getFileUrlByFileRaw } from '../../_common/js/upload/utils';
 import useControlled from '../../hooks/useControlled';
@@ -99,7 +98,7 @@ export default function useUpload(props: TdUploadProps) {
   }
 
   const handleNonAutoUpload = (toFiles: UploadFile[]) => {
-    const tmpFiles = props.multiple ? uploadValue.concat(toFiles) : toFiles;
+    const tmpFiles = props.multiple && !props.isBatchUpload ? uploadValue.concat(toFiles) : toFiles;
     // 图片需要本地预览
     if (['image', 'image-flow'].includes(props.theme)) {
       const list = tmpFiles.map(
@@ -150,7 +149,7 @@ export default function useUpload(props: TdUploadProps) {
         props.onValidate?.({ type: 'FILES_OVER_LENGTH_LIMIT', files: args.files });
       }
       // 过滤相同的文件名
-      if (args.validateResult?.type === 'FILTER_FILE_SAME_NAME') {
+      if (args.hasSameNameFile) {
         props.onValidate?.({ type: 'FILTER_FILE_SAME_NAME', files: args.files });
       }
       // 文件大小校验结果处理
@@ -234,6 +233,8 @@ export default function useUpload(props: TdUploadProps) {
             // 只有全部请求完成后，才会存在该字段
             results: list?.map((t) => t.data),
           });
+          xhrReqList = [];
+          setXhrReq([]);
         } else if (failedFiles?.[0]) {
           props.onFail?.({
             e: data.event,
@@ -255,19 +256,33 @@ export default function useUpload(props: TdUploadProps) {
 
   function onRemove(p: UploadRemoveContext) {
     setSizeOverLimitMessage('');
-    const { newFiles, newToUploadFiles } = removeFiles(uploadValue, toUploadFiles, p);
-    // if (props.multiple) {
-    if (newFiles.length !== uploadValue.length) {
-      setUploadValue(newFiles, {
+    // remove all
+    if (!p.file && p.index === -1) {
+      setToUploadFiles([]);
+      props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
+      setUploadValue([], {
         e: p.e,
         trigger: 'remove',
         index: p.index,
         file: p.file,
       });
+      props.onRemove?.(p);
+      return;
     }
-    if (newToUploadFiles.length !== toUploadFiles.length) {
-      setToUploadFiles(newToUploadFiles);
-      props.onWaitingUploadFilesChange?.({ files: newToUploadFiles, trigger: 'remove' });
+    // remove one file
+    if (autoUpload && p.file.status !== 'success') {
+      // 一般不会走到这里，除非上传失败
+      toUploadFiles.splice(p.index, 1);
+      setToUploadFiles([...toUploadFiles]);
+      props.onWaitingUploadFilesChange?.({ files: [...toUploadFiles], trigger: 'remove' });
+    } else {
+      uploadValue.splice(p.index, 1);
+      setUploadValue([...uploadValue], {
+        e: p.e,
+        trigger: 'remove',
+        index: p.index,
+        file: p.file,
+      });
     }
     props.onRemove?.(p);
   }
