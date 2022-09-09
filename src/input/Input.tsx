@@ -22,7 +22,7 @@ export interface InputProps extends TdInputProps, StyledProps {
   keepWrapperWidth?: boolean; // 控制透传autoWidth之后是否容器宽度也自适应 多选等组件需要用到自适应但也需要保留宽度
 }
 
-export interface InputRefInterface extends React.RefObject<unknown> {
+export interface InputRef extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
   inputElement: HTMLInputElement;
   focus: () => void;
@@ -47,7 +47,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 };
 
 const Input = forwardRefWithStatics(
-  (props: InputProps, ref) => {
+  (props: InputProps, ref: React.RefObject<InputRef>) => {
     // 国际化文本初始化
     const [local, t] = useLocaleReceiver('input');
     const { BrowseIcon, BrowseOffIcon, CloseCircleFilledIcon } = useGlobalIcon({
@@ -300,7 +300,7 @@ const Input = forwardRefWithStatics(
       onWheel?.({ e });
     }
 
-    useImperativeHandle(ref as InputRefInterface, () => ({
+    useImperativeHandle(ref as InputRef, () => ({
       currentElement: wrapperRef.current,
       inputElement: inputRef.current,
       focus: () => inputRef.current?.focus(),
