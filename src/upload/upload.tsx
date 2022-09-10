@@ -115,6 +115,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       triggerUpload={triggerUpload}
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
+      onPreview={props.onPreview}
     />
   );
 
@@ -122,9 +123,11 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     <MultipleFlowList
       {...commonDisplayFileProps}
       isBatchUpload={props.isBatchUpload}
+      draggable={props.draggable}
       dragEvents={dragProps}
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
+      onPreview={props.onPreview}
     >
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}

@@ -157,7 +157,7 @@ export interface TdUploadProps {
    */
   uploadAllFilesInOneRequest?: boolean;
   /**
-   * 是否显示为模拟进度。上传进度有模拟进度和真实进度两种。一般大小的文件上传，真实的上传进度只有 0 和 100，不利于交互呈现，因此组件内置模拟上传进度。真实上传进度一般用于大文件上传
+   * 是否在请求时间超过 300ms 后显示模拟进度。上传进度有模拟进度和真实进度两种。一般大小的文件上传，真实的上传进度只有 0 和 100，不利于交互呈现，因此组件内置模拟上传进度。真实上传进度一般用于大文件上传。
    * @default true
    */
   useMockProgress?: boolean;
@@ -199,9 +199,9 @@ export interface TdUploadProps {
    */
   onOneFileSuccess?: (context: Pick<SuccessContext, 'e' | 'file' | 'response'>) => void;
   /**
-   * 点击预览时触发
+   * 点击图片预览时触发，文件没有预览
    */
-  onPreview?: (options: { file: UploadFile; e: MouseEvent<HTMLDivElement> }) => void;
+  onPreview?: (options: { file: UploadFile; index: number; e: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 上传进度变化时触发，真实进度和模拟进度都会触发。`type=real` 表示真实上传进度，`type=mock` 表示模拟上传进度
    */
@@ -229,6 +229,18 @@ export interface TdUploadProps {
     files: Array<UploadFile>;
     trigger: 'validate' | 'remove' | 'uploaded';
   }) => void;
+}
+
+/** 组件实例方法 */
+export interface UploadInstanceFunctions {
+  /**
+   * 组件实例方法，打开文件选择器
+   */
+  triggerUpload: () => void;
+  /**
+   * 组件实例方法，执行后默认上传未成功上传过的所有文件，也可以上传指定文件
+   */
+  uploadFiles: (files?: UploadFile[]) => void;
 }
 
 export interface UploadFile {

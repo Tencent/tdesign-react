@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo, ChangeEventHandler, DragEvent, MouseEvent } from 'react';
 import merge from 'lodash/merge';
-import { SizeLimitObj, TdUploadProps, UploadFile, UploadRemoveContext } from '../type';
+import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
   getFilesAndErrors,
   validateFile,
@@ -18,7 +18,7 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件
  */
 export default function useUpload(props: TdUploadProps) {
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>();
   // TODO: Form 表单控制上传组件是否禁用
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();
@@ -138,6 +138,7 @@ export default function useUpload(props: TdUploadProps) {
       max: props.max,
       sizeLimit: props.sizeLimit,
       isBatchUpload: props.isBatchUpload,
+      autoUpload: props.autoUpload,
       format: props.format,
       beforeUpload: props.beforeUpload,
       beforeAllFilesUpload: props.beforeAllFilesUpload,
@@ -172,6 +173,9 @@ export default function useUpload(props: TdUploadProps) {
         }
       }
     });
+
+    // 清空 <input type="file"> 元素的文件，避免出现重复文件无法选择的情况
+    inputRef.current.value = null;
   };
 
   const onNormalFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -182,11 +186,11 @@ export default function useUpload(props: TdUploadProps) {
     onFileChange?.(e.dataTransfer.files);
   }
 
+  let xhrReqList: { files: UploadFile[]; xhrReq: XMLHttpRequest }[] = [];
   /**
    * 上传文件
    * 对外暴露方法，修改时需谨慎
    */
-  let xhrReqList: { files: UploadFile[]; xhrReq: XMLHttpRequest }[] = [];
   function uploadFiles(toFiles?: UploadFile[]) {
     const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success');
     const files = props.autoUpload ? toFiles || toUploadFiles : notUploadedFiles;
@@ -244,8 +248,12 @@ export default function useUpload(props: TdUploadProps) {
             response: data.response,
           });
         }
-        setToUploadFiles(failedFiles);
-        props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
+
+        // 非自动上传，文件都在 uploadValue，不涉及 toUploadFiles
+        if (props.autoUpload) {
+          setToUploadFiles(failedFiles);
+          props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
+        }
       },
       (p) => {
         onResponseError(p);
@@ -256,33 +264,37 @@ export default function useUpload(props: TdUploadProps) {
 
   function onRemove(p: UploadRemoveContext) {
     setSizeOverLimitMessage('');
-    // remove all
+    const changePrams: UploadChangeContext = {
+      e: p.e,
+      trigger: 'remove',
+      index: p.index,
+      file: p.file,
+    };
+    // remove all files for batchUpload
     if (!p.file && p.index === -1) {
       setToUploadFiles([]);
       props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
-      setUploadValue([], {
-        e: p.e,
-        trigger: 'remove',
-        index: p.index,
-        file: p.file,
-      });
+      setUploadValue([], changePrams);
       props.onRemove?.(p);
       return;
     }
     // remove one file
     if (autoUpload && p.file.status !== 'success') {
-      // 一般不会走到这里，除非上传失败
       toUploadFiles.splice(p.index, 1);
       setToUploadFiles([...toUploadFiles]);
       props.onWaitingUploadFilesChange?.({ files: [...toUploadFiles], trigger: 'remove' });
+      if (p.file.raw || p.file.name) {
+        const fileIndex = uploadValue.findIndex(
+          (file) => (file.raw && file.raw === p.file.raw) || (file.name && file.name === p.file.name),
+        );
+        if (fileIndex !== -1) {
+          uploadValue.splice(fileIndex, 1);
+          setUploadValue([...uploadValue], changePrams);
+        }
+      }
     } else {
       uploadValue.splice(p.index, 1);
-      setUploadValue([...uploadValue], {
-        e: p.e,
-        trigger: 'remove',
-        index: p.index,
-        file: p.file,
-      });
+      setUploadValue([...uploadValue], changePrams);
     }
     props.onRemove?.(p);
   }

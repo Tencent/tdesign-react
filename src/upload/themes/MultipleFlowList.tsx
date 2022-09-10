@@ -11,7 +11,7 @@ import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
 import TButton from '../../button';
-import { UploadFile } from '../type';
+import { UploadFile , TdUploadProps } from '../type';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
@@ -22,6 +22,8 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
   dragEvents: UploadDragEvents;
   disabled?: boolean;
   isBatchUpload?: boolean;
+  draggable?: boolean;
+  onPreview?: TdUploadProps['onPreview'];
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
@@ -44,6 +46,15 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     if (uploading) return `${locale.progress.uploadingText}`;
     return locale.triggerUploadText.normal;
   }, [locale, uploading]);
+
+  const dragEvents = props.draggable
+    ? {
+        onDrop: drag.handleDrop,
+        onDragEnter: drag.handleDragenter,
+        onDragOver: drag.handleDragover,
+        onDragLeave: drag.handleDragleave,
+      }
+    : {};
 
   const getStatusMap = () => {
     const iconMap = {
@@ -96,7 +107,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             {file.url && (
               <span className={`${uploadPrefix}__card-mask-item`}>
                 <ImageViewer
-                  trigger={({ onOpen }) => <BrowseIcon onClick={onOpen} />}
+                  trigger={({ onOpen }) => (
+                    <BrowseIcon
+                      onClick={(e) => {
+                        props.onPreview?.({ file, index, e });
+                        onOpen();
+                      }}
+                    />
+                  )}
                   images={displayFiles.map((t) => t.url)}
                   defaultIndex={index}
                 />
@@ -150,6 +168,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         </TButton>
       </td>
     ) : null;
+
   const renderFileList = () => (
     <table className={`${uploadPrefix}__flow-table`}>
       <thead>
@@ -186,6 +205,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     </table>
   );
 
+  const cardClassName = `${uploadPrefix}__flow-card-area`;
   return (
     <div className={`${uploadPrefix}__flow ${uploadPrefix}__flow-${props.theme}`}>
       <div className={`${uploadPrefix}__flow-op`}>
@@ -197,23 +217,26 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         )}
       </div>
 
-      <div
-        className={`${uploadPrefix}__flow-card-area`}
-        onDrop={drag.handleDrop}
-        onDragEnter={drag.handleDragenter}
-        onDragOver={drag.handleDragover}
-        onDragLeave={drag.handleDragleave}
-      >
-        {!displayFiles.length && renderEmpty()}
+      {props.theme === 'image-flow' && (
+        <div className={cardClassName} {...dragEvents}>
+          {displayFiles.length ? (
+            <ul className={`${uploadPrefix}__card clearfix`}>
+              {displayFiles.map((file, index) => renderImgItem(file, index))}
+            </ul>
+          ) : (
+            renderEmpty()
+          )}
+        </div>
+      )}
 
-        {!!displayFiles.length && props.theme === 'image-flow' && (
-          <ul className={`${uploadPrefix}__card clearfix`}>
-            {displayFiles.map((file, index) => renderImgItem(file, index))}
-          </ul>
-        )}
-
-        {!!displayFiles.length && props.theme === 'file-flow' && renderFileList()}
-      </div>
+      {props.theme === 'file-flow' &&
+        (displayFiles.length ? (
+          renderFileList()
+        ) : (
+          <div className={cardClassName} {...dragEvents}>
+            {renderEmpty()}
+          </div>
+        ))}
 
       {!props.autoUpload && (
         <div className={`${uploadPrefix}__flow-bottom`}>

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Radio, Upload, Space } from 'tdesign-react';
+import { Radio, Upload, Space, MessagePlugin } from 'tdesign-react';
 
 const RequestMethod = () => {
   const [files, setFiles] = useState([]);
@@ -22,7 +22,7 @@ const RequestMethod = () => {
           file.percent = 100;
           clearTimeout(timer);
           timer = null;
-        }, 520);
+        }, 100);
       }),
     [],
   );
@@ -45,6 +45,14 @@ const RequestMethod = () => {
     setFiles([]);
   }, []);
 
+  const onSuccess = () => {
+    MessagePlugin.success('上传成功');
+  };
+
+  const onFail = () => {
+    MessagePlugin.error('上传失败');
+  };
+
   return (
     <Space direction="vertical" size="large">
       <Radio.Group variant="default-filled" value={uploadMethod} onChange={onChangeUploadMethod}>
@@ -56,7 +64,9 @@ const RequestMethod = () => {
         files={files}
         onChange={setFiles}
         requestMethod={uploadMethod === 'requestSuccessMethod' ? requestSuccessMethod : requestFailMethod}
-        tips="自定义上传方法需要返回成功或失败信息"
+        placeholder="自定义上传方法需要返回成功或失败信息"
+        onSuccess={onSuccess}
+        onFail={onFail}
       />
     </Space>
   );

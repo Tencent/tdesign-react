@@ -15,6 +15,7 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
   triggerUpload?: () => void;
   uploadFiles?: (toFiles?: UploadFile[]) => void;
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
+  onPreview?: TdUploadProps['onPreview'];
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
@@ -29,7 +30,6 @@ const ImageCard = (props: ImageCardUploadProps) => {
     if (multiple) {
       return !max || displayFiles.length < max;
     }
-
     return !displayFiles?.[0];
   }, [displayFiles, max, multiple]);
 
@@ -39,7 +39,14 @@ const ImageCard = (props: ImageCardUploadProps) => {
       <div className={`${classPrefix}-upload__card-mask`}>
         <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
           <ImageViewer
-            trigger={({ onOpen }) => <BrowseIcon onClick={onOpen} />}
+            trigger={({ onOpen }) => (
+              <BrowseIcon
+                onClick={(e) => {
+                  props.onPreview?.({ file, index, e });
+                  onOpen();
+                }}
+              />
+            )}
             images={displayFiles.map((t) => t.url)}
             defaultIndex={index}
           />

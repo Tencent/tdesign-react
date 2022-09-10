@@ -58,6 +58,10 @@ export default function UploadExample() {
     uploadRef3.current.uploadFiles();
   };
 
+  const onPreview = (params) => {
+    console.log('点击图片预览时触发', params);
+  };
+
   return (
     <Space direction="vertical">
 
@@ -125,6 +129,7 @@ export default function UploadExample() {
           uploadAllFilesInOneRequest={uploadInOneRequest}
           onSuccess={onSuccess}
           onValidate={onValidate}
+          onPreview={onPreview}
         />
       </Space>
     </Space>
