@@ -36,13 +36,13 @@ export default function useUpload(props: TdUploadProps) {
   // 单文件场景：触发元素文本
   const triggerUploadText = useMemo(() => {
     const field = getTriggerTextField({
-      theme: props.theme,
+      isBatchUpload: props.isBatchUpload,
       multiple: props.multiple,
       status: uploadValue?.[0]?.status,
       autoUpload: props.autoUpload,
     });
     return locale.triggerUploadText[field];
-  }, [locale.triggerUploadText, uploadValue, props.multiple, props.theme, props.autoUpload]);
+  }, [locale.triggerUploadText, uploadValue, props.multiple, props.isBatchUpload, props.autoUpload]);
 
   const [uploading, setUploading] = useState(false);
 

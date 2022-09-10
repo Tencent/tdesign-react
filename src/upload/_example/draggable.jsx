@@ -26,7 +26,7 @@ export default function UploadExample() {
         <Radio.Button value="image">图片拖拽上传</Radio.Button>
       </Radio.Group>
 
-      {/* {JSON.stringify(files)} */}
+      <br />
 
       <Space>
         {/* 可以使用 trigger 自定义拖拽区域显示的内容 */}

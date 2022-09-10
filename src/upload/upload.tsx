@@ -146,7 +146,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       {['file', 'file-input'].includes(theme) && !props.draggable && getNormalFileNode()}
       {['file', 'image'].includes(theme) && props.draggable && getSingleFileDraggerUploadNode()}
       {theme === 'image' && !props.draggable && getImageCardUploadNode()}
-      {['image-flow', 'file-flow'] && getFlowListNode()}
+      {['image-flow', 'file-flow'].includes(theme) && getFlowListNode()}
     </div>
   );
 });

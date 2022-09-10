@@ -27,6 +27,9 @@ export default function TUploadImageFlow() {
         是否自动上传：
         <Switch value={autoUpload} onChange={setAutoUpload} />
       </div>
+
+      <br />
+
       <Upload
         files={files3}
         onChange={setFiles3}

@@ -66,7 +66,7 @@ export default function UploadExample() {
           禁用状态
         </Checkbox>
         <Checkbox checked={uploadInOneRequest} onChange={setUploadInOneRequest}>
-          一个请求上传多个文件
+          多个文件一个请求上传
         </Checkbox>
         <Checkbox checked={autoUpload} onChange={setAutoUpload}>
           自动上传

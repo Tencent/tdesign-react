@@ -108,6 +108,7 @@ export default function UploadExample() {
   const uploadFiles = () => {
     uploadRef1.current.uploadFiles();
     uploadRef2.current.uploadFiles();
+    uploadRef3.current.uploadFiles();
   };
 
   // 非自动上传文件，需保存待上传文件列表
@@ -185,10 +186,10 @@ export default function UploadExample() {
           files={files2}
           onChange={setFiles2}
           multiple={multiple}
+          disabled={disabled}
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}
           isBatchUpload={isBatchUpload}
-          disabled={disabled}
           triggerButtonProps={{ theme: 'primary', variant: 'base' }}
           onFail={handleFail}
           placeholder="这是一段没有文件时的占位文本"
@@ -203,6 +204,9 @@ export default function UploadExample() {
           onChange={setFiles3}
           multiple={multiple}
           disabled={disabled}
+          autoUpload={autoUpload}
+          uploadAllFilesInOneRequest={uploadInOneRequest}
+          isBatchUpload={isBatchUpload}
           onFail={handleFail}
           formatResponse={formatResponse}
           placeholder="文件上传失败示例"

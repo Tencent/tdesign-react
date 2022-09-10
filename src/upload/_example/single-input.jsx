@@ -35,7 +35,7 @@ const UploadSingleInput = () => {
           </Button>
         )}
       </Space>
-
+      <br />
       <Upload
         ref={uploadRef}
         style={{ width: '350px' }}
