@@ -234,6 +234,7 @@ export default function useUpload(props: TdUploadProps) {
           props.onSuccess?.({
             fileList: data.files,
             currentFiles: files,
+            file: files[0],
             // 只有全部请求完成后，才会存在该字段
             results: list?.map((t) => t.data),
           });

@@ -16,6 +16,7 @@ beforeUpload | Function | - | Typescript：`(file: UploadFile) => boolean | Prom
 children | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Object | - | Typescript：`Record<string, any> | ((file: File) => Record<string, any>)` | N
 disabled | Boolean | false | \- | N
+dragContent | TNode | - | drag content。Typescript：`TNode<TriggerContext>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 draggable | Boolean | false | \- | N
 fileListDisplay | TElement | - | Typescript：`TNode<{ displayFiles: UploadFile[] }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 files | Array | [] | Typescript：`Array<UploadFile>` | N

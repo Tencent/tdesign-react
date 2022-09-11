@@ -10,6 +10,7 @@ import Button from '../button';
 import { uploadDefaultProps } from './defaultProps';
 import { CommonDisplayFileProps, UploadProps } from './interface';
 import { UploadDragEvents } from './hooks/useDrag';
+import CustomFile from './themes/CustomFile';
 
 const Upload = forwardRef((props: UploadProps, ref) => {
   const { theme } = props;
@@ -135,6 +136,20 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     </MultipleFlowList>
   );
 
+  const getCustomFile = () => (
+    <CustomFile
+      {...commonDisplayFileProps}
+      draggable={props.draggable}
+      dragContent={props.dragContent}
+      dragEvents={dragProps}
+      triggerUpload={triggerUpload}
+      childrenNode={props.children}
+      trigger={props.trigger}
+    >
+      {triggerElement}
+    </CustomFile>
+  );
+
   return (
     <div className={classNames([props.className, `${classPrefix}-upload`])} style={props.style}>
       <input
@@ -150,6 +165,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       {['file', 'image'].includes(theme) && props.draggable && getSingleFileDraggerUploadNode()}
       {theme === 'image' && !props.draggable && getImageCardUploadNode()}
       {['image-flow', 'file-flow'].includes(theme) && getFlowListNode()}
+      {theme === 'custom' && getCustomFile()}
     </div>
   );
 });

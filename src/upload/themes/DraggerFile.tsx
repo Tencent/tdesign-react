@@ -92,7 +92,13 @@ const DraggerFile: FC<DraggerProps> = (props) => {
               </Button>
             )}
             {!props.autoUpload && file.status === 'waiting' && (
-              <Button variant="text" theme="primary" disabled={disabled} onClick={() => props.uploadFiles?.()}>
+              <Button
+                variant="text"
+                theme="primary"
+                disabled={disabled}
+                onClick={() => props.uploadFiles?.()}
+                className={`${uploadPrefix}__dragger-upload-btn`}
+              >
                 {locale.triggerUploadText.normal}
               </Button>
             )}
@@ -112,6 +118,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
                 theme="danger"
                 variant="text"
                 disabled={disabled}
+                className={`${uploadPrefix}__dragger-delete-btn`}
                 onClick={(e) => props.onRemove({ e, index: 0, file })}
               >
                 {locale.triggerUploadText.delete}

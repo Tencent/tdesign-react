@@ -39,7 +39,7 @@ export interface TdUploadProps {
    */
   beforeUpload?: (file: UploadFile) => boolean | Promise<boolean>;
   /**
-   * 触发上传的内容，同 trigger
+   * 非拖拽场景，指触发上传的元素，如：“选择文件”。如果是拖拽场景，则是指拖拽区域
    */
   children?: TNode;
   /**
@@ -51,6 +51,10 @@ export interface TdUploadProps {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * 用于自定义拖拽区域
+   */
+  dragContent?: TNode<TriggerContext>;
   /**
    * 是否启用拖拽上传
    * @default false
@@ -144,7 +148,7 @@ export interface TdUploadProps {
    */
   tips?: string;
   /**
-   * 触发上传的内容，`displayFiles` 指本次显示的全部文件
+   * 触发上传的元素，`displayFiles` 指本次显示的全部文件
    */
   trigger?: TNode<TriggerContext>;
   /**
