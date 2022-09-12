@@ -8,6 +8,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 
 export interface ImageModelMiniProps {
   visible: boolean;
+  title?: string;
   draggable: boolean;
   index: number;
   scale: number;
@@ -50,14 +51,28 @@ const DIALOG_CSS_PADDING = {
 };
 
 export const ImageModelMini = (props: ImageModelMiniProps) => {
-  const { visible, index, images, scale, currentImage, onZoomOut, onZoom, onClose, onRotate, onMirror, onReset } =
-    props;
+  const {
+    visible,
+    title,
+    index,
+    images,
+    scale,
+    currentImage,
+    draggable,
+    onZoomOut,
+    onZoom,
+    onClose,
+    onRotate,
+    onMirror,
+    onReset,
+  } = props;
 
   const { classPrefix } = useConfig();
   const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
 
   const header = (
     <div className={`${classPrefix}-image-viewer__mini--header`}>
+      <span>{title}</span>
       {`${index + 1}/${images.length}`}
       <span className={`${classPrefix}-image-viewer__mini--close`}>
         <CloseIcon size="1.5rem" onClick={(e: MouseEvent<any>) => onClose({ trigger: 'close-btn', e })} />
@@ -82,7 +97,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
   return (
     <Dialog
       className={`${classPrefix}-image-viewer__dialog`}
-      draggable
+      draggable={draggable}
       visible={visible}
       width="1000px"
       placement="center"
