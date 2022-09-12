@@ -408,6 +408,10 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     }, 0);
   };
 
+  const resetThWidthList = () => {
+    setThWidthList({});
+  };
+
   const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
     props.onScrollX?.({ e });
     props.onScrollY?.({ e });
@@ -465,6 +469,15 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
       tableContentRef,
     ],
   );
+
+  useEffect(() => {
+    updateTableWidth();
+    resetThWidthList();
+    if (columnResizable) {
+      recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finalColumns]);
 
   const refreshTable = useDebounce(() => {
     updateTableWidth();

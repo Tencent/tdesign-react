@@ -85,7 +85,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize(tableContentRef, refreshTable, getThWidthList, updateThWidthList);
-  const { resizeLineRef, resizeLineStyle, recalculateColWidth } = columnResizeParams;
+  const { resizeLineRef, resizeLineStyle, recalculateColWidth, setEffectColMap } = columnResizeParams;
   setRecalculateColWidthFuncRef(recalculateColWidth);
 
   const dynamicBaseTableClasses = classNames(
@@ -134,6 +134,11 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);
+
+  useEffect(() => {
+    setEffectColMap(thList[0], null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [thList]);
 
   useImperativeHandle(ref, () => ({
     tableElement: tableRef.current,
