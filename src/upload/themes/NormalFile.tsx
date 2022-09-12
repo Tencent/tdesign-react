@@ -5,7 +5,6 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
-  // UploadIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import TLoading from '../../loading';
@@ -15,10 +14,12 @@ import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { CommonDisplayFileProps } from '../interface';
 import Link from '../../link';
 
-export type NormalFileProps = CommonDisplayFileProps;
+export interface NormalFileProps extends CommonDisplayFileProps {
+  multiple: boolean;
+}
 
 export default function NormalFile(props: NormalFileProps) {
-  const { theme, disabled, classPrefix } = props;
+  const { theme, disabled, classPrefix, locale } = props;
 
   const { CloseIcon, TimeFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } =
     useGlobalIcon({
@@ -41,6 +42,9 @@ export default function NormalFile(props: NormalFileProps) {
   // 文本型预览
   const renderFilePreviewAsText = (files: UploadFile[]) => {
     if (theme !== 'file') return null;
+    if (!props.multiple && files[0]?.status === 'fail') {
+      return null;
+    }
     return files.map((file, index) => (
       <div
         className={`${uploadPrefix}__single-display-text ${uploadPrefix}__display-text--margin`}
@@ -56,13 +60,11 @@ export default function NormalFile(props: NormalFileProps) {
         {file.status === 'fail' && (
           <div className={`${uploadPrefix}__flow-status`}>
             <ErrorCircleFilledIcon />
-            {/* <UploadIcon /> */}
           </div>
         )}
         {file.status === 'waiting' && (
           <div className={`${uploadPrefix}__flow-status`}>
             <TimeFilledIcon />
-            {/* <UploadIcon /> */}
           </div>
         )}
         {file.status === 'progress' && renderProgress(file.percent)}
@@ -125,13 +127,13 @@ export default function NormalFile(props: NormalFileProps) {
       {props.sizeOverLimitMessage && (
         <small className={classNames(props.errorClasses)}>{props.sizeOverLimitMessage}</small>
       )}
-      {props.toUploadFiles
-        ?.filter((t) => t.response?.error)
-        .map((file, index) => (
-          <small className={classNames(props.errorClasses)} key={file.name + index}>
-            {file.name} {file.response?.error}
-          </small>
-        ))}
+
+      {/* 单文件上传失败要显示失败的原因 */}
+      {!props.multiple && displayFiles[0]?.status === 'fail' ? (
+        <small className={classNames(props.errorClasses)}>
+          {displayFiles[0].response?.error || locale.progress.failText}
+        </small>
+      ) : null}
     </div>
   );
 }

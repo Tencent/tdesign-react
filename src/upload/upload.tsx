@@ -89,7 +89,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
   };
 
   const getNormalFileNode = () => (
-    <NormalFile {...commonDisplayFileProps}>
+    <NormalFile {...commonDisplayFileProps} multiple={props.multiple}>
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
       </div>

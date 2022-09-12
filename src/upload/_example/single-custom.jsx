@@ -21,10 +21,7 @@ export default function SingleCustom() {
     (file) =>
       new Promise((resolve, reject) => {
         setName('name2');
-        if (file.size > MAX_UPLOAD_SIZE * 1024 * 1024) {
-          message.warning(`上传的图片不能大于${MAX_UPLOAD_SIZE}M`);
-          reject(new Error());
-        }
+        // 在这里写文件上传前的校验
         resolve(true);
       }),
     [],

@@ -31,11 +31,16 @@ const RequestMethod = () => {
   const requestFailMethod = useCallback(
     () =>
       new Promise((resolve) => {
-        // resolve 参数为关键代码
-        resolve({
+        const errorResult = {
           status: 'fail',
-          error: 'for some reason, upload fail',
-        });
+
+          // `errorResult.error` is equal to `errorResult.response.error`
+          // error: 'for some reason, upload fail',
+
+          // this is request response, response.url is required for file or image preview
+          response: { url: '', error: 'for some reason, upload fail' },
+        };
+        resolve(errorResult);
       }),
     [],
   );
