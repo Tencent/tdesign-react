@@ -374,6 +374,12 @@ export default {
           component: () => import('tdesign-react/progress/progress.md'),
         },
         {
+          title: 'Rate 评分',
+          name: 'rate',
+          path: '/react/components/rate',
+          component: () => import('tdesign-react/rate/rate.md'),
+        },
+        {
           title: 'Swiper 轮播框',
           name: 'swiper',
           path: '/react/components/swiper',
@@ -420,12 +426,6 @@ export default {
           name: 'watermark',
           path: '/react/components/watermark',
           component: () => import('tdesign-react/watermark/watermark.md'),
-        },
-        {
-          title: 'Rate 评分',
-          name: 'rate',
-          path: '/react/components/rate',
-          component: () => import('tdesign-react/rate/rate.md'),
         },
       ],
     },
