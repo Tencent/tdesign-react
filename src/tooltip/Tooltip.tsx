@@ -8,14 +8,14 @@ import React, {
   isValidElement,
 } from 'react';
 import classNames from 'classnames';
-import Popup, { PopupVisibleChangeContext } from '../popup';
+import Popup, { PopupVisibleChangeContext, PopupRef } from '../popup';
 import useConfig from '../hooks/useConfig';
 import { TdTooltipProps } from './type';
 import { tooltipDefaultProps } from './defaultProps';
 
 export type TooltipProps = TdTooltipProps;
 
-interface RefProps {
+export interface TooltipRef extends PopupRef {
   setVisible?: (v: boolean) => void;
 }
 
@@ -33,7 +33,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   const { classPrefix } = useConfig();
   const [isTipShowed, setTipshow] = useState(duration !== 0);
   const [timeup, setTimeup] = useState(false);
-  const popupRef = useRef<HTMLDivElement>();
+  const popupRef = useRef<PopupRef>();
   const timerRef = useRef<number | null>(null);
   const [offset, setOffset] = useState([0, 0]);
   const toolTipClass = classNames(
@@ -102,12 +102,10 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     };
   }, [duration, timeup]);
 
-  useImperativeHandle(
-    ref,
-    (): RefProps => ({
-      setVisible,
-    }),
-  );
+  useImperativeHandle(ref, () => ({
+    setVisible,
+    ...((popupRef.current || {}) as any),
+  }));
 
   return (
     <Popup
