@@ -47,7 +47,8 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return locale.triggerUploadText.normal;
   }, [locale, uploading]);
 
-  const dragEvents = props.draggable
+  const draggable = props.draggable ?? true;
+  const dragEvents = draggable
     ? {
         onDrop: drag.handleDrop,
         onDragEnter: drag.handleDragenter,
