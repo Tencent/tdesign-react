@@ -14,13 +14,11 @@ type ValueToOption = {
 
 function setValueToOptionFormOptionDom(dom, valueToOption: ValueToOption, keys: SelectKeysType) {
   const { value, label, children } = dom.props;
-  if (typeof value === 'string' || typeof value === 'number') {
-    // eslint-disable-next-line no-param-reassign
-    valueToOption[value] = {
-      [keys?.value || 'value']: value,
-      [keys?.label || 'label']: label || children || value,
-    };
-  }
+  // eslint-disable-next-line no-param-reassign
+  valueToOption[value] = {
+    [keys?.value || 'value']: value,
+    [keys?.label || 'label']: label || children || value,
+  };
 }
 
 // 获取 value => option，用于快速基于 value 找到对应的 option
