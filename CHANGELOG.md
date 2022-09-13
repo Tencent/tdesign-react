@@ -5,6 +5,37 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.41.0 `2022-09-13` 
+### ❗ Breaking Changes
+- 支持 `es module` 导出不带样式产物，调整 lib 包内容，新增 `cjs` 产物支持 `commonjs` 导出不带样式产物 @HQ-Lin ([#1455](https://github.com/Tencent/tdesign-react/pull/1455))
+
+### 🚀 Features
+- `Popup`: 支持 `popperOptions`、`delay`、`hideEmptyPopup` api @HQ-Lin ([#1444](https://github.com/Tencent/tdesign-react/pull/1444))
+- `Upload`: 
+    -  重构 upload 组件，修复众多问题，支持更多 api
+    - `UploadFile` 对象新增 `uploadTime` 属性，用于表示上传时间 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - `theme=file` 支持多文件上传 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 文件上传前处理函数 `beforeUpload` 存在时，依然支持 `sizeLimit` 检测 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增`beforeAllFilesUpload`，所有文件上传之前执行，支持一次性判定所有文件是否继续上传。已经存在的 `beforeUpload` 用于判定单个文件的是否继续上传 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增事件 `onValidate`，文件校验不通过时触发，可能情况有：自定义全文件校验不通过、文件数量校验不通过、文件数量校验不通过、文件名重复（允许重复文件名场景下不会触发）等 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增事件 `onOneFileSuccess` ，多文件上传场景下，在单个文件上传成功后触发 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增事件 `onOneFileFail` ，多文件上传场景下，在单个文件上传失败后触发 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增 `formatRequest` 用于新增或修改上传请求参数（现有的 `format` 用于格式化文件对象） @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增 `triggerButtonProps` 用于指定文件选择触发按钮风格 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+
+### 🐞 Bug Fixes
+- `Dropdown`:
+    - 优化dropdown样式细节 @uyarn ([#1440](https://github.com/Tencent/tdesign-react/pull/1440))
+    - 修复 value 缺失点击异常 @HelKyle ([#1465](https://github.com/Tencent/tdesign-react/pull/1465))
+- `RangeInput`: 优化 icon 居中展示的问题 @HQ-Lin ([#1447](https://github.com/Tencent/tdesign-react/pull/1447))
+- `DatePicker`: 修复 `cellClick` 返回日期错误 @HQ-Lin ([#1458](https://github.com/Tencent/tdesign-react/pull/1458))
+- `Tabs`: 修复未替换部分classPrefix导致样式异常的问题 @uyarn ([#1476](https://github.com/Tencent/tdesign-react/pull/1476))
+- `tree`: 修复 `disabled` 下不可展开的问题 @uyarn ([#1474](https://github.com/Tencent/tdesign-react/pull/1474))
+- `Upload`: 修复 `autoUpload=false` 时，没有触发 `onChange` 事件问题（可能存在 breaking change） @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+- `Popup`: 修复 ref 透传丢失属性问题 @HQ-Lin ([#1468](https://github.com/Tencent/tdesign-react/pull/1468))
+- `Select`: 修复布尔值选中没有显示对应的文字问题 @samhou1988 ([#1441](https://github.com/Tencent/tdesign-react/pull/1441))
+
+
 ## 🌈 0.40.6 `2022-09-06` 
 ### 🚀 Features
 - `Table`:
