@@ -73,7 +73,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
             {locale.file.fileSizeText}：{getFileSizeText(file.size)}
           </small>
           <small className={`${SIZE.small}`}>
-            {locale.file.fileOperationDateText}：{getCurrentDate()}
+            {locale.file.fileOperationDateText}：{file.uploadTime || getCurrentDate()}
           </small>
           <div className={`${uploadPrefix}__dragger-btns`}>
             {['progress', 'waiting'].includes(file.status) && !disabled && (

@@ -79,4 +79,5 @@ response | Object | - | Typescript：`{ [key: string]: any }` | N
 size | Number | - | \- | N
 status | String | - | Typescript：` 'success' | 'fail' | 'progress' | 'waiting'` | N
 type | String | - | \- | N
+uploadTime | String | - | upload time | N
 url | String | - | \- | N
