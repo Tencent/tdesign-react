@@ -11,7 +11,7 @@ import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
 import TButton from '../../button';
-import { UploadFile , TdUploadProps } from '../type';
+import { UploadFile, TdUploadProps } from '../type';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
@@ -29,7 +29,7 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
 const ImageFlowList = (props: ImageFlowListProps) => {
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
-  const uploadPrefix = `${props.classPrefix}-upload`;
+  const uploadPrefix = `${classPrefix}-upload`;
 
   const { BrowseIcon, DeleteIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } = useGlobalIcon({
     BrowseIcon: TdBrowseIcon,

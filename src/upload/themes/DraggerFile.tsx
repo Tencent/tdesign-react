@@ -56,7 +56,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     }
   };
 
-  const renderMainPreivew = () => {
+  const renderMainPreview = () => {
     const file = displayFiles[0];
     if (!file) return null;
     return (
@@ -144,7 +144,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const getContent = () => {
     const file = displayFiles[0];
     if (file && ['progress', 'success', 'fail', 'waiting'].includes(file.status)) {
-      return renderMainPreivew();
+      return renderMainPreview();
     }
     return (
       <div className={`${uploadPrefix}__trigger`} onClick={props.triggerUpload}>

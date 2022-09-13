@@ -227,7 +227,7 @@ export interface TdUploadProps {
    */
   onValidate?: (context: { type: UploadValidateType; files: UploadFile[] }) => void;
   /**
-   * 待上传文件列表发生变化时触发。`contex.files` 表示事件参数为待上传文件，`context.trigger` 引起此次变化的触发来源
+   * 待上传文件列表发生变化时触发。`context.files` 表示事件参数为待上传文件，`context.trigger` 引起此次变化的触发来源
    */
   onWaitingUploadFilesChange?: (context: {
     files: Array<UploadFile>;

@@ -156,9 +156,9 @@ export default function useUpload(props: TdUploadProps) {
       // 文件大小校验结果处理
       if (args.fileValidateList instanceof Array) {
         const { sizeLimitErrors, toFiles } = getFilesAndErrors(args.fileValidateList, getSizeLimitError);
-        const tmpWatingFiles = autoUpload ? toFiles : toUploadFiles.concat(toFiles);
-        setToUploadFiles(tmpWatingFiles);
-        props.onWaitingUploadFilesChange?.({ files: tmpWatingFiles, trigger: 'validate' });
+        const tmpWaitingFiles = autoUpload ? toFiles : toUploadFiles.concat(toFiles);
+        setToUploadFiles(tmpWaitingFiles);
+        props.onWaitingUploadFilesChange?.({ files: tmpWaitingFiles, trigger: 'validate' });
         // 错误信息处理
         if (sizeLimitErrors[0]) {
           setSizeOverLimitMessage(sizeLimitErrors[0].file.response.error);
