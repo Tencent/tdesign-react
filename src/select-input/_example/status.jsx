@@ -11,7 +11,7 @@ const classStyles = `
 
 .tdesign-demo-select-input-status .t-select-input__wrap {
   width: 300px;
-  vertical-align: -26px;
+  vertical-align: middle;
 }
 </style>
 `;
@@ -37,6 +37,7 @@ const SelectInputStatus = () => {
         ></SelectInput>
       </div>
       <br />
+      <br />
 
       <div>
         <span>只读状态：</span>
@@ -48,7 +49,8 @@ const SelectInputStatus = () => {
           panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
         ></SelectInput>
       </div>
-      <br /><br />
+      <br />
+      <br />
 
       <div>
         <span>成功状态：</span>
@@ -60,6 +62,7 @@ const SelectInputStatus = () => {
           panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
         ></SelectInput>
       </div>
+      <br />
       <br />
 
       <div>
@@ -73,6 +76,7 @@ const SelectInputStatus = () => {
         ></SelectInput>
       </div>
       <br />
+      <br />
 
       <div>
         <span>错误状态：</span>
@@ -85,6 +89,7 @@ const SelectInputStatus = () => {
         ></SelectInput>
       </div>
       <br />
+      <br />
 
       <div>
         <span>加载状态：</span>
@@ -95,11 +100,10 @@ const SelectInputStatus = () => {
           panel={<div className="tdesign-demo__select-empty-status">加载中...</div>}
         ></SelectInput>
       </div>
-      <br />
     </div>
-  )
-}
+  );
+};
 
 SelectInputStatus.displayName = 'SelectInputStatus';
 
-export default SelectInputStatus
+export default SelectInputStatus;

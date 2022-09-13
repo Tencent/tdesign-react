@@ -7,7 +7,7 @@ testExamples(__dirname);
 describe('Transfer 测试', () => {
   test('Transfer default加入测试', async () => {
     const InputPlaceholder = '请输入关键词搜索';
-  const InputValue = '4';
+    const InputValue = '4';
     const list = [];
     for (let i = 0; i < 5; i++) {
       list.push({
@@ -18,7 +18,16 @@ describe('Transfer 测试', () => {
     }
     function TestComponent() {
       const [value, setValue] = useState(['2']);
-      return <Transfer data={list} value={value} checked={['1']} search={true} operation={['加入', '移除']} onChange={(v) => setValue(v)}></Transfer>;
+      return (
+        <Transfer
+          data={list}
+          value={value}
+          checked={['1']}
+          search={true}
+          operation={['加入', '移除']}
+          onChange={(v) => setValue(v)}
+        ></Transfer>
+      );
     }
     const { container, getByText, queryAllByPlaceholderText } = render(<TestComponent />);
     // 加入前
@@ -51,7 +60,7 @@ describe('Transfer 测试', () => {
       });
     }
     function TestComponent() {
-      const [value, setValue] = useState(['2','5']);
+      const [value, setValue] = useState(['2', '5']);
       return <Transfer data={list} value={value} operation={['加入', '移除']} onChange={(v) => setValue(v)}></Transfer>;
     }
     const { container, getByText } = render(<TestComponent />);
