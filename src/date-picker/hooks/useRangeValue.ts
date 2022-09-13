@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import useControlled from '../../hooks/useControlled';
 import { TdDateRangePickerProps, DateRangeValue } from '../type';
-import { isValidDate, formatDate, formatTime, getDefaultFormat, parseToDayjs } from './useFormat';
+import {
+  isValidDate,
+  formatDate,
+  formatTime,
+  getDefaultFormat,
+  parseToDayjs,
+} from '../../_common/js/date-picker/format';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
 import log from '../../_common/js/log';
 

@@ -21,11 +21,11 @@ const FilterableSelect = () => {
     return option.label.indexOf(search) !== -1;
   };
 
-  const handleBlur = ({ value, e }) => {
+  const handleBlur = (value, e) => {
     console.log('handleBlur: ', value, e);
   };
 
-  const handleFocus = ({ value, e }) => {
+  const handleFocus = (value, e) => {
     console.log('handleFocus: ', value, e);
   };
 

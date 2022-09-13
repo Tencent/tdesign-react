@@ -1,5 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Tooltip 组件测试 props disabled-button as children 1`] = `
+<body>
+  <div>
+    <span
+      class="t-popup-open"
+      style="display: inline-block; cursor: not-allowed;"
+    >
+      <button
+        disabled=""
+        style="pointer-events: none;"
+      >
+        触发元素
+      </button>
+    </span>
+  </div>
+  <div
+    class="t-portal-wrapper appear-done enter-done"
+  >
+    <div
+      class="t-popup t-tooltip t-tooltip--default t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="top"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; bottom: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          data-testid="tooltip-test-id"
+        >
+          弹出层内容
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
 exports[`arrow.jsx 1`] = `
 <DocumentFragment>
   <button

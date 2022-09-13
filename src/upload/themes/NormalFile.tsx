@@ -8,11 +8,11 @@ import {
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import TLoading from '../../loading';
+import Link from '../../link';
 import { UploadFile } from '../type';
 import { abridgeName } from '../../_common/js/upload/utils';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { CommonDisplayFileProps } from '../interface';
-import Link from '../../link';
 
 export interface NormalFileProps extends CommonDisplayFileProps {
   multiple: boolean;
@@ -80,12 +80,12 @@ export default function NormalFile(props: NormalFileProps) {
     if (theme !== 'file-input') return;
     const file = props.displayFiles[0];
     const inputTextClass = [
-      `${props.classPrefix}-input__inner`,
+      `${classPrefix}-input__inner`,
       { [`${uploadPrefix}__placeholder`]: !props.displayFiles[0] },
     ];
     const disabledClass = disabled ? `${classPrefix}-is-disabled` : '';
     return (
-      <div className={`${uploadPrefix}__single-input-preview ${props.classPrefix}-input ${disabledClass}`}>
+      <div className={`${uploadPrefix}__single-input-preview ${classPrefix}-input ${disabledClass}`}>
         <div className={classNames(inputTextClass)}>
           <span className={`${uploadPrefix}__single-input-text`}>
             {file?.name ? abridgeName(file.name, 4, 6) : props.placeholder}

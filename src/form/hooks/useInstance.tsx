@@ -117,9 +117,9 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     const { fields, trigger = 'all', showErrorMessage } = param || {};
     const list = [...formMapRef.current.values()]
       .filter(
-        (formItemRef) => isFunction(formItemRef.current?.validate) && needValidate(formItemRef.current?.name, fields),
+        (formItemRef) => isFunction(formItemRef?.current?.validate) && needValidate(formItemRef?.current?.name, fields),
       )
-      .map((formItemRef) => formItemRef.current.validate(trigger, showErrorMessage));
+      .map((formItemRef) => formItemRef?.current.validate(trigger, showErrorMessage));
 
     const validateList = await Promise.all(list);
     return formatValidateResult(validateList);
@@ -131,9 +131,9 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     const list = [...formMapRef.current.values()]
       .filter(
         (formItemRef) =>
-          isFunction(formItemRef.current?.validateOnly) && needValidate(formItemRef.current?.name, fields),
+          isFunction(formItemRef?.current?.validateOnly) && needValidate(formItemRef?.current?.name, fields),
       )
-      .map((formItemRef) => formItemRef.current.validateOnly?.(trigger));
+      .map((formItemRef) => formItemRef?.current.validateOnly?.(trigger));
 
     const validateList = await Promise.all(list);
     return formatValidateResult(validateList);
@@ -144,7 +144,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (!name) return null;
 
     const formItemRef = getMapValue(name, formMapRef);
-    return formItemRef.current.getValue?.();
+    return formItemRef?.current.getValue?.();
   }
 
   // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
@@ -155,10 +155,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       for (const [name, formItemRef] of formMapRef.current.entries()) {
         // 支持数组嵌套
         if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.getValue?.());
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef?.current.getValue?.());
           merge(fieldsValue, fieldValue);
         } else {
-          fieldsValue[name] = formItemRef.current.getValue?.();
+          fieldsValue[name] = formItemRef?.current.getValue?.();
         }
       }
     } else {
@@ -168,10 +168,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
         const formItemRef = getMapValue(name, formMapRef);
         // 支持数组嵌套
         if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.getValue?.());
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef?.current.getValue?.());
           merge(fieldsValue, fieldValue);
         } else {
-          formItemRef && (fieldsValue[name] = formItemRef.current.getValue?.());
+          formItemRef && (fieldsValue[name] = formItemRef?.current.getValue?.());
         }
       });
     }
@@ -181,7 +181,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
     travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef.current?.setValue?.(fieldValue);
+      formItemRef?.current?.setValue?.(fieldValue);
     });
   }
 
@@ -193,7 +193,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       const { name, ...restFields } = field;
       const formItemRef = getMapValue(name, formMapRef);
 
-      formItemRef.current?.setField({ ...restFields });
+      formItemRef?.current?.setField({ ...restFields });
     });
   }
 
@@ -202,14 +202,14 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     // reset all
     if (typeof params === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
-        formItemRef.current?.resetField();
+        formItemRef?.current?.resetField();
       });
     } else {
       const { type = 'initial', fields = [] } = params;
 
       fields.forEach((name) => {
         const formItemRef = getMapValue(name, formMapRef);
-        formItemRef.current?.resetField(type);
+        formItemRef?.current?.resetField(type);
       });
     }
   }
@@ -219,14 +219,14 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     // reset all
     if (typeof fields === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
-        formItemRef.current?.resetValidate();
+        formItemRef?.current?.resetValidate();
       });
     } else {
       if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
 
       fields.forEach((name) => {
         const formItemRef = getMapValue(name, formMapRef);
-        formItemRef.current?.resetValidate();
+        formItemRef?.current?.resetValidate();
       });
     }
   }
@@ -234,7 +234,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   // 对外方法，设置 formItem 的错误信息
   function setValidateMessage(message: FormValidateMessage<FormData>) {
     travelMapFromObject(message, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef.current?.setValidateMessage?.(fieldValue);
+      formItemRef?.current?.setValidateMessage?.(fieldValue);
     });
   }
 

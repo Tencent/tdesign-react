@@ -133,9 +133,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const renderDefaultDragElement = () => {
     const unActiveElement = (
       <div>
-        <span className={`${uploadPrefix}--highlight`}>
-          {locale.triggerUploadText?.normal || locale.triggerUploadText.normal}
-        </span>
+        <span className={`${uploadPrefix}--highlight`}>{locale.triggerUploadText?.normal}</span>
         <span>&nbsp;&nbsp;/&nbsp;&nbsp;{locale.dragger.draggingText}</span>
       </div>
     );

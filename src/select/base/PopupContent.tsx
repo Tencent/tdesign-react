@@ -114,7 +114,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
-          {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (
+          {(options as OptionsType).map(({ value: optionValue, label, disabled, content, ...restData }, index) => (
             <Option
               key={index}
               max={max}
@@ -127,6 +127,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
               disabled={disabled}
               restData={restData}
               keys={keys}
+              content={content}
             />
           ))}
         </ul>

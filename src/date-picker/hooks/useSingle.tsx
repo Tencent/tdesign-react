@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { TdDatePickerProps } from '../type';
-import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
+import { isValidDate, formatDate, formatTime, getDefaultFormat } from '../../_common/js/date-picker/format';
 import useSingleValue from './useSingleValue';
 
 export default function useSingleInput(props: TdDatePickerProps) {

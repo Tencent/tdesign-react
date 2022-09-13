@@ -5,7 +5,6 @@ export default function () {
   const [instance, setInstance] = useState(null);
   const isMessageOpen = instance === null;
   const buttonTips = isMessageOpen ? '打开' : '关闭';
-
   return (
     <Button
       onClick={() => {
