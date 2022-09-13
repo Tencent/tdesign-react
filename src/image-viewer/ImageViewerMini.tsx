@@ -84,7 +84,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
       className={`${classPrefix}-image-viewer__dialog`}
       draggable
       visible={visible}
-      width="1000px"
+      width="min(90vw, 1000px)"
       placement="center"
       mode="modeless"
       cancelBtn={null}
