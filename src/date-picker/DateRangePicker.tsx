@@ -90,6 +90,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         setYear(value.map((v: string) => parseToDayjs(v || new Date(), format).year()));
         setMonth(value.map((v: string) => parseToDayjs(v || new Date(), format).month()));
       }
+    } else {
+      setIsHoverCell(false);
+      setIsFirstValueSelected(false);
+      setInputValue(formatDate(value || [], { format, targetFormat: format }));
     }
     // eslint-disable-next-line
   }, [popupVisible]);
@@ -154,7 +158,6 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       setIsFirstValueSelected(true);
     } else {
       setPopupVisible(false);
-      setIsFirstValueSelected(false);
     }
   }
 
@@ -252,7 +255,6 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       setIsFirstValueSelected(true);
     } else {
       setPopupVisible(false);
-      setIsFirstValueSelected(false);
     }
   }
 
