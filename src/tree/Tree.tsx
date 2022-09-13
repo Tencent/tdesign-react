@@ -87,22 +87,22 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   });
 
   const handleItemClick: TreeItemProps['onClick'] = (node, options) => {
-    if (!node || disabled || node.disabled) {
+    if (!node) {
       return;
     }
+    const isDisabled = disabled || node.disabled;
     const { expand, active, event } = options;
-    if (expand) {
-      setExpanded(node, !node.isExpanded(), event);
-    }
 
-    if (active) {
+    if (expand) setExpanded(node, !node.isExpanded(), event);
+
+    if (active && !isDisabled) {
       setActived(node, !node.isActived());
+      const treeNodeModel = node?.getModel();
+      onClick?.({
+        node: treeNodeModel,
+        e: event,
+      });
     }
-    const treeNodeModel = node?.getModel();
-    onClick?.({
-      node: treeNodeModel,
-      e: event,
-    });
   };
 
   const handleChange: TreeItemProps['onChange'] = (node) => {
