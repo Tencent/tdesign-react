@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { StyledProps } from 'tdesign-react/common';
+import { StyledProps } from '../common';
 import { TdUploadProps, UploadRemoveContext } from './type';
 import { GlobalConfigProvider } from '../config-provider/type';
 

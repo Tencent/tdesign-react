@@ -1,6 +1,9 @@
 import React, { FC, MouseEvent, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
 import { abridgeName, getFileSizeText, getCurrentDate } from '../../_common/js/upload/utils';
 import { TdUploadProps, UploadFile } from '../type';
 import Button from '../../button';
@@ -8,6 +11,7 @@ import { CommonDisplayFileProps } from '../interface';
 import useCommonClassName from '../../hooks/useCommonClassName';
 import TLoading from '../../loading';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -27,6 +31,11 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const { dragActive } = drag;
 
   const draggerFileRef = useRef();
+
+  const { CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
 
   const classes = useMemo(
     () => [
