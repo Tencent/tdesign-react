@@ -279,7 +279,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 };
 
 interface ImageModalProps {
-  title?: string;
+  title?: TNode;
   visible: boolean;
   closeOnOverlay: boolean;
   showOverlay: boolean;

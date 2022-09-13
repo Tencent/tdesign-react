@@ -1,5 +1,6 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+import { TNode } from 'tdesign-react/common';
 import Dialog from '../dialog';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
@@ -8,7 +9,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 
 export interface ImageModelMiniProps {
   visible: boolean;
-  title?: string;
+  title?: TNode;
   draggable: boolean;
   index: number;
   scale: number;

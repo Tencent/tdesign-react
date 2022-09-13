@@ -15,7 +15,7 @@ export default function BasicImageViewer() {
   return (
     <Space>
       {images.map((imgSrc, index) => {
-        const trigger = ({onOpen}) => {
+        const trigger = ({open}) => {
           const mask = (
             <div
               style={{
@@ -26,7 +26,7 @@ export default function BasicImageViewer() {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-              onClick={onOpen}
+              onClick={open}
             >
               <span><BrowseIcon size="20px" name={'browse'}/> 预览</span>
             </div>

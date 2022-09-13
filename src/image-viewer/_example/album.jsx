@@ -7,7 +7,7 @@ const imgV = 'https://tdesign.gtimg.com/demo/demo-image-2.png';
 const img = 'https://tdesign.gtimg.com/demo/demo-image-1.png';
 
 export default function BasicImageViewer() {
-  const trigger = ({onOpen}) => {
+  const trigger = ({open}) => {
     const mask = (
       <div
         style={{
@@ -18,7 +18,7 @@ export default function BasicImageViewer() {
           alignItems: 'center',
           justifyContent: 'center'
         }}
-        onClick={onOpen}
+        onClick={open}
       >
         <span><BrowseIcon size="20px" name={'browse'}/> 预览</span>
       </div>

@@ -20,7 +20,7 @@ export default function BasicImageViewer() {
   return (
     <Space breakLine size={16}>
       {images.map((imgSrc, index) => {
-        const trigger = ({onOpen}) => {
+        const trigger = ({open}) => {
           const mask = (
             <div
               style={{
@@ -31,7 +31,7 @@ export default function BasicImageViewer() {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-              onClick={onOpen}
+              onClick={open}
             >
               <span><BrowseIcon size="20px" name={'browse'}/> 预览</span>
             </div>
@@ -40,7 +40,7 @@ export default function BasicImageViewer() {
           return (
             <Image
               alt={'test'}
-              src={imgSrc?.mainImage || imgSrc}
+              src={typeof imgSrc === 'string' ? imgSrc : imgSrc.mainImage}
               overlayContent={mask}
               overlayTrigger="hover"
               fit="contain"

@@ -15,9 +15,6 @@ const listItemStyle = {
   padding: '3px 5px',
   color: 'var(--td-text-color-primary)',
   transition: 'background-color .2s cubic-bezier(.38,0,.24,1)',
-  boxSizing: 'border-box',
-  whiteSpace: 'nowrap',
-  wordWrap: 'normal',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   '--ripple-color': 'var(--td-bg-color-container-active)'
@@ -35,9 +32,9 @@ const ImageViewerIconList = ({ list, onClick }) => (
 export default function BasicImageViewer() {
   const images = [img, imgH, imgV];
 
-  const trigger = ({onOpen}) => {
+  const trigger = ({open}) => {
     const listCommon = (
-      <ImageViewerIconList onClick={onOpen} list={images.map((i, index) => ({ label: `图片${index}` }))} />
+      <ImageViewerIconList onClick={open} list={images.map((i, index) => ({ label: `图片${index}` }))} />
     );
 
     const mask = (
@@ -50,7 +47,7 @@ export default function BasicImageViewer() {
           alignItems: 'center',
           justifyContent: 'center'
         }}
-        onClick={onOpen}
+        onClick={open}
       >
         <span><BrowseIcon size="20px" name={'browse'}/> 预览</span>
       </div>
@@ -91,7 +88,7 @@ export default function BasicImageViewer() {
         }}>
           <span style={{flex: 1}}>相册封面标题</span>
           <span style={{ cursor: 'pointer' }}>
-            <BrowseIcon onClick={onOpen} />
+            <BrowseIcon onClick={open} />
             <Popup
               trigger="click"
               content={listCommon}

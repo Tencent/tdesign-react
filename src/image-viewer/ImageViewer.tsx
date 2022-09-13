@@ -26,18 +26,18 @@ const ImageViewer = (props: ImageViewerProps) => {
 
   const isMini = mode === 'modeless';
 
-  const onClose = (context) => {
+  const close = (context) => {
     setVisible(false, context);
     setTimeout(() => setVisibled(false), 196);
   };
 
-  const onOpen = () => {
+  const open = () => {
     if (!images) return;
     setVisible(true, null);
     setVisibled(true);
   };
-
-  const uiImage: TNode = isFunction(trigger) ? trigger({ onOpen, onClose }) : trigger;
+  // todo 兼容旧api，新： open close 旧： onOpen, onClose
+  const uiImage: TNode = isFunction(trigger) ? trigger({ open, close, onOpen: open, onClose: close }) : trigger;
 
   return (
     <>
@@ -59,8 +59,8 @@ const ImageViewer = (props: ImageViewerProps) => {
             closeOnOverlay={props.closeOnOverlay}
             closeBtn={props.closeBtn}
             showOverlay={props.showOverlay}
-            onClose={onClose}
-            onOpen={onOpen}
+            onClose={close}
+            onOpen={open}
           />,
           document.body,
         )}
