@@ -20,6 +20,7 @@ const classStyles = `
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 .tdesign-demo__select-input-ul-auto-width > li:hover {
