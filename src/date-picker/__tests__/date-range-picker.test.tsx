@@ -251,7 +251,7 @@ describe('DateRangePicker', () => {
         format={'YYYY-MM-DD'}
         defaultValue={['2022-09-14', '2022-09-15']}
         clearable={true}
-        enableTimePicker
+        // enableTimePicker
       />,
     );
     const inputEle = container.querySelector('.t-input__inner');

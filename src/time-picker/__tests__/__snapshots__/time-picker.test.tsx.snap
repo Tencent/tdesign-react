@@ -1266,7 +1266,7 @@ exports[`range.jsx 1`] = `
       class="t-range-input-popup t-range-input-popup"
     >
       <div
-        class="t-range-input t-time-picker__group"
+        class="t-range-input t-time-picker__group t-range-input--suffix"
         value=""
       >
         <div

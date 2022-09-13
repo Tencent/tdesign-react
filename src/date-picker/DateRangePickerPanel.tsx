@@ -74,13 +74,13 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
   // 日期点击
   function onCellClick(date: Date, { e, partial }) {
-    props.onCellClick?.({ date: value.map((v) => dayjs(v).toDate()), e, partial: activeIndex ? 'end' : 'start' });
-
     setIsSelected(true);
 
     const nextValue = [...cacheValue];
     nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
     setCacheValue(nextValue);
+
+    props.onCellClick?.({ date: nextValue.map((v) => dayjs(v).toDate()), e, partial: activeIndex ? 'end' : 'start' });
 
     // date 模式自动切换年月
     if (mode === 'date') {
