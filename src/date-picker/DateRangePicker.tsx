@@ -69,12 +69,13 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
+    setCacheValue(formatDate(value || [], { format, targetFormat: format }));
+    setInputValue(formatDate(value || [], { format, targetFormat: format }));
+    setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
+
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
-      setIsFirstValueSelected(false);
-      setCacheValue(formatDate(value || [], { format, targetFormat: format }));
-      setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
 
       // 空数据重置为当前年月
       if (!value.length) {
@@ -139,20 +140,23 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 确保两端都是有效值
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 
-    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
       onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'pick',
       });
-      setIsFirstValueSelected(false);
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
+    }
+
+    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
+    if (!isFirstValueSelected) {
+      let nextIndex = notValidIndex;
+      if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
+      setActiveIndex(nextIndex);
       setIsFirstValueSelected(true);
     } else {
-      setActiveIndex(activeIndex ? 0 : 1);
-      setIsFirstValueSelected(true);
+      setPopupVisible(false);
+      setIsFirstValueSelected(false);
     }
   }
 
@@ -232,23 +236,26 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 
-    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && isFirstValueSelected) {
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
       onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'confirm',
       });
       setYear(nextValue.map((v) => dayjs(v, format).year()));
       setMonth(nextValue.map((v) => dayjs(v, format).month()));
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
-    } else {
-      setActiveIndex(activeIndex ? 0 : 1);
     }
 
-    // 记录选中一次
-    setIsFirstValueSelected(true);
+    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
+    if (!isFirstValueSelected) {
+      let nextIndex = notValidIndex;
+      if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
+      setActiveIndex(nextIndex);
+      setIsFirstValueSelected(true);
+    } else {
+      setPopupVisible(false);
+      setIsFirstValueSelected(false);
+    }
   }
 
   // 预设
