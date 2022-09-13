@@ -44,6 +44,7 @@ export const pkgContent = JSON.stringify(
     keywords: ['react', 'starter'],
     main: 'src/main.jsx',
     dependencies: {
+      dayjs: orgPkg.dependencies.dayjs,
       react: orgPkg.devDependencies.react,
       'react-dom': orgPkg.devDependencies['react-dom'],
       'tdesign-react': orgPkg.version,

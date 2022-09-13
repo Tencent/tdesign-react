@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { NotificationPlugin, Button, Input, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
-  const [offsetY, setOffsetY] = useState('');
-  const [offsetX, setOffsetX] = useState('');
+  const [offsetY, setOffsetY] = useState(0);
+  const [offsetX, setOffsetX] = useState(0);
 
   const openNotification = (placement) => {
     NotificationPlugin.info({
@@ -12,6 +12,7 @@ export default function NotificationExample() {
       placement,
       duration: 3000,
       offset: [offsetX, offsetY],
+      closeBtn: true,
     });
   };
 

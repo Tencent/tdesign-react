@@ -130,7 +130,6 @@ const getPlugins = ({
   return plugins;
 };
 
-/** @type {import('rollup').RollupOptions} */
 const cssConfig = {
   input: ['src/**/style/index.js'],
   plugins: [multiInput(), styles({ mode: 'extract' })],
@@ -142,8 +141,21 @@ const cssConfig = {
   },
 };
 
+// 按需加载组件 不带 css 样式
+const libConfig = {
+  input: inputList.concat('!src/index-lib.ts'),
+  external: externalDeps.concat(externalPeerDeps),
+  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  output: {
+    banner,
+    dir: 'lib/',
+    format: 'esm',
+    sourcemap: true,
+    chunkFileNames: '_chunks/dep-[hash].js',
+  },
+};
+
 // 按需加载组件 带 css 样式
-/** @type {import('rollup').RollupOptions} */
 const esConfig = {
   input: inputList.concat('!src/index-lib.ts'),
   // 为了保留 style/css.js
@@ -175,14 +187,14 @@ const esmConfig = {
   },
 };
 
-/** @type {import('rollup').RollupOptions} */
-const libConfig = {
+// commonjs 导出规范，不带 css 样式
+const cjsConfig = {
   input: inputList,
   external: externalDeps.concat(externalPeerDeps),
   plugins: [multiInput()].concat(getPlugins()),
   output: {
     banner,
-    dir: 'lib/',
+    dir: 'cjs/',
     format: 'cjs',
     sourcemap: true,
     exports: 'named',
@@ -190,7 +202,6 @@ const libConfig = {
   },
 };
 
-/** @type {import('rollup').RollupOptions} */
 const umdConfig = {
   input,
   external: externalPeerDeps,
@@ -209,7 +220,6 @@ const umdConfig = {
   },
 };
 
-/** @type {import('rollup').RollupOptions} */
 const umdMinConfig = {
   input,
   external: externalPeerDeps,
@@ -238,4 +248,4 @@ const resetCss = {
   plugins: [postcss({ extract: true })],
 };
 
-export default [cssConfig, libConfig, esConfig, esmConfig, umdConfig, umdMinConfig, resetCss];
+export default [cssConfig, libConfig, cjsConfig, esConfig, esmConfig, umdConfig, umdMinConfig, resetCss];

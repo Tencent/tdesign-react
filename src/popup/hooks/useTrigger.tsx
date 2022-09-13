@@ -55,6 +55,13 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
           hasPopupMouseDown.current = false;
         });
       },
+      onTouchEnd: () => {
+        clearTimeout(mouseDownTimer.current);
+        hasPopupMouseDown.current = true;
+        mouseDownTimer.current = window.setTimeout(() => {
+          hasPopupMouseDown.current = false;
+        });
+      },
     };
   }
 

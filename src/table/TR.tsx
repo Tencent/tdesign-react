@@ -137,17 +137,15 @@ export default function TR(props: TrProps) {
 
   function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, params: RenderEllipsisCellParams) {
     const { cellNode } = params;
-    const { col, colIndex } = cellParams;
-    // 前两列左对齐显示
-    const placement = colIndex < 2 ? 'top-left' : 'top-right';
+    const { col } = cellParams;
     const content = isFunction(col.ellipsis) ? col.ellipsis(cellParams) : undefined;
     const tableElement = props.tableElm;
     return (
       <TEllipsis
-        placement={placement}
+        placement={'top'}
         attach={tableElement ? () => tableElement : undefined}
         popupContent={content}
-        popupProps={typeof col.ellipsis === 'object' ? col.ellipsis : undefined}
+        tooltipProps={typeof col.ellipsis === 'object' ? col.ellipsis : undefined}
       >
         {cellNode}
       </TEllipsis>
