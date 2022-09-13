@@ -117,7 +117,9 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
       overlayClassName={toolTipClass}
       visible={isTipShowed}
       onVisibleChange={handleShowTip}
-      popperModifiers={isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : []}
+      popperOptions={{
+        modifier: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
+      }}
       placement={isPlacedByMouse ? 'bottom-left' : placement}
       {...restProps}
     >

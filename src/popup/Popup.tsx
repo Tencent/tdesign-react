@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useRef, useEffect, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
@@ -17,14 +17,8 @@ import { popupDefaultProps } from './defaultProps';
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
-  // 初始化 popper 的可定制 option
-  popperModifiers?: Array<{ name: string; options: Object }>;
   // 更新内容区域滚动条
   updateScrollTop?: (content: HTMLDivElement) => void;
-}
-
-function getPopperPlacement(placement: TdPopupProps['placement']) {
-  return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
 
 const Popup = forwardRef((props: PopupProps, ref) => {
@@ -45,7 +39,9 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     zIndex,
     onScroll,
     expandAnimation,
-    popperModifiers = [],
+    delay,
+    hideEmptyPopup,
+    popperOptions,
     updateScrollTop,
   } = props;
   const { classPrefix } = useConfig();
@@ -61,6 +57,27 @@ const Popup = forwardRef((props: PopupProps, ref) => {
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef(null); // 内容部分
   const popperRef = useRef(null); // 保存 popper 实例
+
+  // 默认动画时长
+  const DEFAULT_TRANSITION_TIMEOUT = 180;
+
+  // 解析 delay 数据类型
+  const [appearDelay = 0, exitDelay = 0] = useMemo(() => {
+    if (Array.isArray(delay)) return delay;
+    return [delay, delay];
+  }, [delay]);
+
+  // 判断展示浮层
+  const showOverlay = useMemo(() => {
+    if (hideEmptyPopup && !content) return false;
+    return visible || popupElement;
+  }, [hideEmptyPopup, content, visible, popupElement]);
+
+  // 转化 placement
+  const popperPlacement = useMemo(
+    () => placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement,
+    [placement],
+  );
 
   const { getTriggerNode, getPopupProps, getTriggerDom } = useTrigger({
     triggerRef,
@@ -96,11 +113,10 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
 
-  const popperOptions = {
-    modifiers: popperModifiers,
-    placement: getPopperPlacement(placement),
-  };
-  popperRef.current = usePopper(triggerRef.current, popupElement, popperOptions);
+  popperRef.current = usePopper(triggerRef.current, popupElement, {
+    placement: popperPlacement,
+    ...popperOptions,
+  });
   const { styles, attributes } = popperRef.current;
 
   // 整理浮层样式
@@ -111,11 +127,15 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     return { ...overlayStyle };
   }
 
-  const portal = (visible || popupElement) && (
+  const overlay = showOverlay && (
     <CSSTransition
       appear
       in={visible}
-      timeout={180}
+      timeout={{
+        appear: DEFAULT_TRANSITION_TIMEOUT + appearDelay,
+        enter: DEFAULT_TRANSITION_TIMEOUT + appearDelay,
+        exit: DEFAULT_TRANSITION_TIMEOUT + exitDelay,
+      }}
       nodeRef={portalRef}
       unmountOnExit={destroyOnClose}
       onEnter={handleEnter}
@@ -124,7 +144,11 @@ const Popup = forwardRef((props: PopupProps, ref) => {
       <Portal triggerNode={triggerRef.current} attach={attach} ref={portalRef}>
         <CSSTransition
           appear
-          timeout={0}
+          timeout={{
+            appear: appearDelay,
+            enter: appearDelay,
+            exit: exitDelay,
+          }}
           in={visible}
           nodeRef={popupRef}
           {...getTransitionParams({
@@ -175,7 +199,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
   return (
     <React.Fragment>
       {triggerNode}
-      {portal}
+      {overlay}
     </React.Fragment>
   );
 });
