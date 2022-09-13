@@ -2,7 +2,8 @@ import React, { useRef, useEffect, isValidElement } from 'react';
 import { isFragment } from 'react-is';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
-import { supportRef, composeRef } from '../utils/ref';
+import { supportRef, getRefDom } from '../utils/ref';
+import composeRefs from '../../_util/composeRefs';
 
 const ESC_KEY = 'Escape';
 
@@ -20,7 +21,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     if (!shouldToggle) return;
 
     const handleDocumentClick = (e: any) => {
-      if (triggerRef.current.contains(e.target) || hasPopupMouseDown.current) {
+      if (getRefDom(triggerRef).contains(e.target) || hasPopupMouseDown.current) {
         return;
       }
       visible && onVisibleChange(false, { e, trigger: 'document' });
@@ -124,7 +125,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     };
 
     if (supportRef(triggerNode)) {
-      triggerProps.ref = composeRef(triggerRef, (triggerNode as any).ref);
+      triggerProps.ref = composeRefs(triggerRef, (triggerNode as any).ref);
     } else {
       // 标记 trigger 元素
       triggerProps['data-popup'] = triggerDataKey.current;

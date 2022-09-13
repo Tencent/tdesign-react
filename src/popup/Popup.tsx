@@ -9,6 +9,7 @@ import useConfig from '../hooks/useConfig';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
+import { getRefDom } from './utils/ref';
 import { getTransitionParams } from './utils/transition';
 import useMutationObserver from '../_util/useMutationObserver';
 import useWindowSize from '../_util/useWindowSize';
@@ -21,7 +22,16 @@ export interface PopupProps extends TdPopupProps {
   updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
-const Popup = forwardRef((props: PopupProps, ref) => {
+export interface PopupRef {
+  // 获取popper实例
+  getPopper: () => ReturnType<typeof usePopper>;
+  // 获取Popup dom元素
+  getPopupElement: () => HTMLDivElement;
+  // 获取portal dom元素
+  getPortalElement: () => HTMLDivElement;
+}
+
+const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => {
   const {
     trigger,
     content,
@@ -91,7 +101,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
   const triggerNode = getTriggerNode(children);
 
   // 监听 trigger 节点或内容变化动态更新 popup 定位
-  useMutationObserver(triggerRef.current, () => {
+  useMutationObserver(getRefDom(triggerRef), () => {
     popperRef.current?.update?.();
   });
 
@@ -113,7 +123,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
 
-  popperRef.current = usePopper(triggerRef.current, popupElement, {
+  popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
     placement: popperPlacement,
     ...popperOptions,
   });
@@ -121,8 +131,8 @@ const Popup = forwardRef((props: PopupProps, ref) => {
 
   // 整理浮层样式
   function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
-    if (triggerRef.current && popupRef.current && typeof overlayStyle === 'function') {
-      return { ...overlayStyle(triggerRef.current, popupRef.current) };
+    if (getRefDom(triggerRef) && popupRef.current && typeof overlayStyle === 'function') {
+      return { ...overlayStyle(getRefDom(triggerRef), popupRef.current) };
     }
     return { ...overlayStyle };
   }
@@ -141,7 +151,7 @@ const Popup = forwardRef((props: PopupProps, ref) => {
       onEnter={handleEnter}
       onExited={handleExited}
     >
-      <Portal triggerNode={triggerRef.current} attach={attach} ref={portalRef}>
+      <Portal triggerNode={getRefDom(triggerRef)} attach={attach} ref={portalRef}>
         <CSSTransition
           appear
           timeout={{

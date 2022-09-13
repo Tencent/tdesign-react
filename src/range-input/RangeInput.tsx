@@ -126,11 +126,15 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
     toggleIsHover(true);
     onMouseenter?.({ e });
+    // @ts-ignore
+    props.onMouseEnter?.({ e });
   }
 
   function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
     toggleIsHover(false);
     onMouseleave?.({ e });
+    // @ts-ignore
+    props.onMouseLeave?.({ e });
   }
 
   useImperativeHandle(ref as RangeInputRefInterface, () => ({
@@ -161,10 +165,12 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
         [`${classPrefix}-is-${status}`]: status,
         [`${classPrefix}-size-l`]: size === 'large',
         [`${classPrefix}-size-s`]: size === 'small',
+        [`${name}--prefix`]: prefixIconContent || labelContent,
+        [`${name}--suffix`]: suffixContent || suffixIconContent,
       })}
+      {...(restProps as React.HTMLAttributes<HTMLDivElement>)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      {...(restProps as React.HTMLAttributes<HTMLDivElement>)}
     >
       <div className={`${name}__inner`}>
         {prefixIconContent}
