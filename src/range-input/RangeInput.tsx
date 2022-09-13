@@ -161,6 +161,8 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
         [`${classPrefix}-is-${status}`]: status,
         [`${classPrefix}-size-l`]: size === 'large',
         [`${classPrefix}-size-s`]: size === 'small',
+        [`${name}--prefix`]: prefixIconContent || labelContent,
+        [`${name}--suffix`]: suffixContent || suffixIconContent,
       })}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
