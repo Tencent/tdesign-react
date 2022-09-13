@@ -69,13 +69,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
-    setCacheValue(formatDate(value || [], { format, targetFormat: format }));
-    setInputValue(formatDate(value || [], { format, targetFormat: format }));
-    setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
-
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
+      setCacheValue(formatDate(value || [], { format, targetFormat: format }));
+      setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
 
       // 空数据重置为当前年月
       if (!value.length) {
@@ -94,7 +92,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       }
     }
     // eslint-disable-next-line
-  }, [value, popupVisible]);
+  }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
