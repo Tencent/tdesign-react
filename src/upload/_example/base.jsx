@@ -93,9 +93,9 @@ export default function UploadExample() {
   };
 
   // eslint-disable-next-line
-  const fileListDisplay = ({ displayFiles }) => (
+  const fileListDisplay = ({ files }) => (
     <div>
-      {displayFiles.map((file, index) => (
+      {files.map((file, index) => (
         <div key={file.name} className="t-upload__single-display-text t-upload__display-text--margin">
           {file.name}（{file.size} B）
           <CloseIcon className="t-upload__icon-delete" onClick={() => outsideRemove(index)} />
