@@ -85,7 +85,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize(tableContentRef, refreshTable, getThWidthList, updateThWidthList);
-  const { resizeLineRef, resizeLineStyle, recalculateColWidth } = columnResizeParams;
+  const { resizeLineRef, resizeLineStyle, recalculateColWidth, setEffectColMap } = columnResizeParams;
   setRecalculateColWidthFuncRef(recalculateColWidth);
 
   const dynamicBaseTableClasses = classNames(
@@ -134,6 +134,11 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);
+
+  useEffect(() => {
+    setEffectColMap(thList[0], null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [thList]);
 
   useImperativeHandle(ref, () => ({
     tableElement: tableRef.current,
@@ -200,7 +205,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const colgroup = (
     <colgroup>
       {finalColumns.map((col) => {
-        const style: Styles = { width: formatCSSUnit(thWidthList[col.colKey] || col.width) || defaultColWidth };
+        const style: Styles = { width: formatCSSUnit(thWidthList.current[col.colKey] || col.width) || defaultColWidth };
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
         }
@@ -221,20 +226,23 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
   const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
   const affixHeaderWrapHeightStyle = {
-    width: `${tableWidth}px`,
+    width: `${tableWidth.current}px`,
     height: `${affixHeaderWrapHeight}px`,
     opacity: headerOpacity,
     marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
   };
   // 多级表头左边线缺失
   const affixedLeftBorder = props.bordered ? 1 : 0;
-  const affixedHeader = Boolean(props.headerAffixedTop && tableWidth) && (
+  const affixedHeader = Boolean(props.headerAffixedTop && tableWidth.current) && (
     <div
       ref={affixHeaderRef}
-      style={{ width: `${tableWidth - affixedLeftBorder}px`, opacity: headerOpacity }}
+      style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
       className={classNames(['scrollbar', { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual }])}
     >
-      <table className={classNames(tableElmClasses)} style={{ ...tableElementStyles, width: `${tableElmWidth}px` }}>
+      <table
+        className={classNames(tableElmClasses)}
+        style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}
+      >
         {colgroup}
         <THead
           isFixedHeader={isFixedHeader}
@@ -243,7 +251,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           bordered={props.bordered}
           spansAndLeafNodes={spansAndLeafNodes}
           thList={thList}
-          thWidthList={thWidthList}
+          thWidthList={thWidthList.current}
           resizable={props.resizable}
           columnResizeParams={columnResizeParams}
         />
@@ -267,7 +275,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     marginScrollbarWidth += 1;
   }
   // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
-  const affixedFooter = Boolean(props.footerAffixedBottom && props.footData?.length && tableWidth) && (
+  const affixedFooter = Boolean(props.footerAffixedBottom && props.footData?.length && tableWidth.current) && (
     <Affix
       className={tableBaseClass.affixedFooterWrap}
       onFixedChange={onFixedChange}
@@ -277,13 +285,13 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     >
       <div
         ref={affixFooterRef}
-        style={{ width: `${tableWidth - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
+        style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
         className={classNames([
           'scrollbar',
           { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || isVirtual },
         ])}
       >
-        <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth}px` }}>
+        <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}>
           {colgroup}
           <TFoot
             rowKey={props.rowKey}
@@ -293,7 +301,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
             columns={spansAndLeafNodes?.leafColumns || columns}
             rowAttributes={props.rowAttributes}
             rowClassName={props.rowClassName}
-            thWidthList={thWidthList}
+            thWidthList={thWidthList.current}
             footerSummary={props.footerSummary}
             rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
           ></TFoot>
@@ -317,7 +325,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     columns: spansAndLeafNodes?.leafColumns || columns,
     tableElm: tableRef.current,
     tableContentElm: tableContentRef.current,
-    tableWidth,
+    tableWidth: tableWidth.current,
     isWidthOverflow,
     rowKey: props.rowKey || 'id',
     // 虚拟滚动相关属性
@@ -350,7 +358,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           bordered={props.bordered}
           spansAndLeafNodes={spansAndLeafNodes}
           thList={thList}
-          thWidthList={thWidthList}
+          thWidthList={thWidthList.current}
           resizable={props.resizable}
           columnResizeParams={columnResizeParams}
         />
@@ -363,7 +371,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           columns={spansAndLeafNodes?.leafColumns || columns}
           rowAttributes={props.rowAttributes}
           rowClassName={props.rowClassName}
-          thWidthList={thWidthList}
+          thWidthList={thWidthList.current}
           footerSummary={props.footerSummary}
           rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
         ></TFoot>
@@ -438,12 +446,12 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
             ref={horizontalScrollbarRef}
             className={classNames(['scrollbar', tableBaseClass.obviousScrollbar])}
             style={{
-              width: `${tableWidth}px`,
+              width: `${tableWidth.current}px`,
               overflow: 'auto',
               opacity: Number(showAffixFooter),
             }}
           >
-            <div style={{ width: `${tableElmWidth}px`, height: '5px' }}></div>
+            <div style={{ width: `${tableElmWidth.current}px`, height: '5px' }}></div>
           </div>
         </Affix>
       )}

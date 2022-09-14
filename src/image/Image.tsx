@@ -74,8 +74,8 @@ const Image = (props: TdImageProps) => {
 
   const hasMouseEvent = overlayTrigger === 'hover';
   const [shouldShowOverlay, setShouldShowOverlay] = useState(!hasMouseEvent);
-  const handleToggleOverlay = () => {
-    setShouldShowOverlay(!shouldShowOverlay);
+  const handleToggleOverlay = (overlay: boolean) => {
+    setShouldShowOverlay(overlay);
   };
   const renderOverlay = () => {
     if (!overlayContent) return null;
@@ -116,8 +116,8 @@ const Image = (props: TdImageProps) => {
       style={style}
       {...(hasMouseEvent
         ? {
-            onMouseEnter: handleToggleOverlay,
-            onMouseLeave: handleToggleOverlay,
+            onMouseEnter: () => handleToggleOverlay(true),
+            onMouseLeave: () => handleToggleOverlay(false),
           }
         : null)}
       {...rest}

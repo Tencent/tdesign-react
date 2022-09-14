@@ -61,13 +61,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   useEffect(() => {
     // 面板展开重置数据
     if (popupVisible) {
-      setYear(parseToDayjs(value || new Date(), format).year());
-      setMonth(parseToDayjs(value || new Date(), format).month());
-      setTime(formatTime(value || new Date(), timeFormat));
+      setYear(parseToDayjs(value, format).year());
+      setMonth(parseToDayjs(value, format).month());
+      setTime(formatTime(value, timeFormat));
       value && setCacheValue(formatDate(value, { format, targetFormat: format }));
     }
     // eslint-disable-next-line
-  }, [value, popupVisible]);
+  }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
