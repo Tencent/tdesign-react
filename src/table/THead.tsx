@@ -29,12 +29,7 @@ export interface TheadProps {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
     onColumnMouseover: (e: MouseEvent) => void;
-    onColumnMousedown: (
-      e: MouseEvent,
-      col: BaseTableCol<TableRowData>,
-      effectNextCol: BaseTableCol<TableRowData>,
-      effectPrevCol: BaseTableCol<TableRowData>,
-    ) => void;
+    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
   };
 }
 
@@ -90,13 +85,7 @@ export default function THead(props: TheadProps) {
         if (!col.colKey) return null;
         const resizeColumnListener = props.resizable
           ? {
-              onMouseDown: (e) =>
-                columnResizeParams?.onColumnMousedown?.(
-                  e,
-                  col,
-                  index < row.length - 1 ? row[index + 1] : row[index - 1],
-                  index > 0 ? row[index - 1] : row[index + 1],
-                ),
+              onMouseDown: (e) => columnResizeParams?.onColumnMousedown?.(e, col),
               onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e),
             }
           : {};
