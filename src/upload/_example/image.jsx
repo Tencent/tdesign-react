@@ -99,6 +99,9 @@ export default function UploadExample() {
             },
           }}
           autoUpload={autoUpload}
+          formatResponse={() => ({
+              url: "https://tdesign.gtimg.com/demo/demo-image-1.png"
+          })}
         />
 
         <Upload

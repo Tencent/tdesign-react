@@ -171,7 +171,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       onDragOver={drag.handleDragover}
       onDragLeave={drag.handleDragleave}
     >
-      {props.trigger?.({ displayFiles, dragActive }) || getContent()}
+      {props.trigger?.({ files: displayFiles, dragActive }) || getContent()}
     </div>
   );
 };
