@@ -102,9 +102,9 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     left: 0,
     top: 0,
   });
-  const [tableWidth, setTableWidth] = useState(0);
-  const [tableElmWidth, setTableElmWidth] = useState(0);
-  const [thWidthList, setThWidthList] = useState<{ [colKey: string]: number }>({});
+  const tableWidth = useRef(0);
+  const tableElmWidth = useRef(0);
+  const thWidthList = useRef<{ [colKey: string]: number }>({});
 
   const [isFixedColumn, setIsFixedColumn] = useState(false);
   // const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
@@ -365,9 +365,9 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     if (!rect) return;
     // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
     const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-    setTableWidth(rect.width - reduceWidth - (props.bordered ? 1 : 0));
+    tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
-    setTableElmWidth(elmRect?.width);
+    tableElmWidth.current = elmRect?.width;
   };
 
   const updateThWidthList = (trList: HTMLCollection | { [colKey: string]: number }) => {
@@ -382,21 +382,17 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
           widthMap[colKey] = th?.getBoundingClientRect?.().width;
         }
       }
-      setThWidthList(widthMap);
+      thWidthList.current = widthMap;
     } else {
-      setThWidthList((oldData) => {
-        const newData = oldData || {};
-        Object.entries(trList).forEach(([colKey, width]) => {
-          newData[colKey] = width;
-        });
-        return newData;
+      Object.entries(trList).forEach(([colKey, width]) => {
+        thWidthList.current[colKey] = width;
       });
     }
   };
 
   const updateThWidthListHandler = () => {
     if (columnResizable && recalculateColWidth.current) {
-      recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
+      recalculateColWidth.current(finalColumns, thWidthList.current, tableLayout, tableElmWidth.current);
     }
     if (notNeedThWidthList) return;
     const timer = setTimeout(() => {
@@ -409,7 +405,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
   };
 
   const resetThWidthList = () => {
-    setThWidthList({});
+    thWidthList.current = {};
   };
 
   const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
@@ -418,7 +414,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     props.onScroll?.({ e });
   };
 
-  const getThWidthList = () => thWidthList || {};
+  const getThWidthList = () => thWidthList.current || {};
 
   useEffect(
     updateFixedStatus,
@@ -452,6 +448,14 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   useEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
+  useEffect(() => {
+    resetThWidthList();
+    if (columnResizable) {
+      recalculateColWidth.current(finalColumns, thWidthList.current, tableLayout, tableElmWidth.current);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finalColumns]);
+
   // 影响表头宽度的元素
   useEffect(
     updateThWidthListHandler,
@@ -469,15 +473,6 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
       tableContentRef,
     ],
   );
-
-  useEffect(() => {
-    updateTableWidth();
-    resetThWidthList();
-    if (columnResizable) {
-      recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [finalColumns]);
 
   const refreshTable = useDebounce(() => {
     updateTableWidth();
@@ -512,7 +507,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     const timer = setTimeout(() => {
       updateTableWidth();
       if (columnResizable && recalculateColWidth.current) {
-        recalculateColWidth.current(finalColumns, thWidthList, tableLayout, tableElmWidth);
+        recalculateColWidth.current(finalColumns, thWidthList.current, tableLayout, tableElmWidth.current);
       }
       // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
       if ((isWatchResize && getIEVersion() < 11) || typeof window.ResizeObserver === 'undefined') {
