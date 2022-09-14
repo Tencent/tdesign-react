@@ -58,11 +58,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setCacheValue,
   } = useRange(props);
 
-  const { format, valueType, timeFormat } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: props.format,
-    valueType: props.valueType,
   });
 
   // 记录面板是否选中过
@@ -72,7 +71,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
-      setCacheValue(formatDate(value || [], { format, targetFormat: format }));
+      setCacheValue(formatDate(value || [], { format }));
       setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
 
       // 空数据重置为当前年月
@@ -93,7 +92,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     } else {
       setIsHoverCell(false);
       setIsFirstValueSelected(false);
-      setInputValue(formatDate(value || [], { format, targetFormat: format }));
+      setInputValue(formatDate(value || [], { format }));
     }
     // eslint-disable-next-line
   }, [popupVisible]);
@@ -102,7 +101,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   function onCellMouseEnter(date: Date) {
     setIsHoverCell(true);
     const nextValue = [...inputValue];
-    nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
+    nextValue[activeIndex] = formatDate(date, { format });
     setInputValue(nextValue);
   }
 
@@ -120,7 +119,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setIsSelected(true);
 
     const nextValue = [...inputValue];
-    nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
+    nextValue[activeIndex] = formatDate(date, { format });
     setCacheValue(nextValue);
     setInputValue(nextValue);
 
@@ -144,8 +143,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 当两端都有有效值时更改 value
     if (notValidIndex === -1 && nextValue.length === 2) {
-      onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
-        dayjsValue: nextValue.map((v) => dayjs(v)),
+      onChange(formatDate(nextValue, { format }), {
+        dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
         trigger: 'pick',
       });
     }
@@ -227,8 +226,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setTime(nextTime);
 
     setIsSelected(true);
-    setInputValue(formatDate(nextInputValue, { format, targetFormat: format }));
-    setCacheValue(formatDate(nextInputValue, { format, targetFormat: format }));
+    setInputValue(formatDate(nextInputValue, { format }));
+    setCacheValue(formatDate(nextInputValue, { format }));
   }
 
   // 确定
@@ -239,8 +238,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 当两端都有有效值时更改 value
     if (notValidIndex === -1 && nextValue.length === 2) {
-      onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
-        dayjsValue: nextValue.map((v) => dayjs(v)),
+      onChange(formatDate(nextValue, { format }), {
+        dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
         trigger: 'confirm',
       });
       setYear(nextValue.map((v) => dayjs(v, format).year()));
@@ -267,8 +266,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (!Array.isArray(presetValue)) {
       log.error('DateRangePicker', `preset: ${preset} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
-        dayjsValue: presetValue.map((p) => dayjs(p)),
+      onChange(formatDate(presetValue, { format }), {
+        dayjsValue: presetValue.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
       setPopupVisible(false);

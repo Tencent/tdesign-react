@@ -5,7 +5,13 @@ import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { TdDatePickerProps } from '../type';
-import { isValidDate, formatDate, formatTime, getDefaultFormat } from '../../_common/js/date-picker/format';
+import {
+  isValidDate,
+  formatDate,
+  formatTime,
+  getDefaultFormat,
+  parseToDayjs,
+} from '../../_common/js/date-picker/format';
 import useSingleValue from './useSingleValue';
 
 export default function useSingleInput(props: TdDatePickerProps) {
@@ -13,10 +19,9 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const { CalendarIcon } = useGlobalIcon({ CalendarIcon: TdCalendarIcon });
   const name = `${classPrefix}-date-picker`;
 
-  const { format, valueType, timeFormat } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
-    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
@@ -28,7 +33,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value, { format, targetFormat: format }));
+  const [inputValue, setInputValue] = useState(formatDate(value, { format }));
 
   // input 设置
   const inputProps = {
@@ -45,7 +50,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange('', { dayjsValue: dayjs(''), trigger: 'clear' });
+      onChange('', { dayjsValue: dayjs(), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
       props.onBlur?.({ value: val, e });
@@ -71,9 +76,9 @@ export default function useSingleInput(props: TdDatePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(val, format)) {
-        onChange(formatDate(val, { format, targetFormat: valueType }), { dayjsValue: dayjs(val), trigger: 'enter' });
+        onChange(formatDate(val, { format }), { dayjsValue: parseToDayjs(val, format), trigger: 'enter' });
       } else if (isValidDate(value, format)) {
-        setInputValue(formatDate(value, { format, targetFormat: format }));
+        setInputValue(formatDate(value, { format }));
       } else {
         setInputValue('');
       }
@@ -103,9 +108,9 @@ export default function useSingleInput(props: TdDatePickerProps) {
       setInputValue('');
       return;
     }
-    if (!isValidDate(value, valueType)) return;
+    if (!isValidDate(value, format)) return;
 
-    setInputValue(formatDate(value, { format, targetFormat: format }));
+    setInputValue(formatDate(value, { format }));
     // eslint-disable-next-line
   }, [value]);
 
