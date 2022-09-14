@@ -82,7 +82,9 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       normalized.value && result.push(normalized);
       return result;
     }, []);
-  }, [normalizeValue, value]);
+    // data 发生变更时，normalizedValue 也需要更新
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [normalizeValue, value, data]);
 
   const internalInputValue = useMemo(() => {
     if (multiple) return normalizedValue;
