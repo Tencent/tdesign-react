@@ -36,8 +36,8 @@ const CustomFile = (props: CustomFileProps) => {
       onClick={props.triggerUpload}
     >
       <div className={`${classPrefix}-upload__trigger`}>
-        {props.dragContent?.({ dragActive, displayFiles }) ||
-          props.trigger?.({ dragActive, displayFiles }) ||
+        {props.dragContent?.({ dragActive, files: displayFiles }) ||
+          props.trigger?.({ dragActive, files: displayFiles }) ||
           props.childrenNode}
       </div>
     </div>

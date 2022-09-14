@@ -108,7 +108,7 @@ export default function NormalFile(props: NormalFileProps) {
   };
 
   const { displayFiles } = props;
-  const fileListDisplay = props.fileListDisplay?.({ displayFiles });
+  const fileListDisplay = props.fileListDisplay?.({ files: displayFiles });
 
   const classes = [`${uploadPrefix}__single`, `${uploadPrefix}__single-${theme}`];
   return (
