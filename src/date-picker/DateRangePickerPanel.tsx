@@ -98,7 +98,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (enableTimePicker) return;
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
+    if (nextValue.length === 2 && isFirstValueSelected) {
       onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'pick',

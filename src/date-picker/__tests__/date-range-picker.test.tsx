@@ -208,7 +208,7 @@ describe('DateRangePicker', () => {
       fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
     });
     setTimeout(async () => {
-      expect(changeFn).toBeCalledTimes(1);
+      expect(changeFn).toBeCalledTimes(2);
       expect(pickFn).toBeCalledTimes(2);
     }, 0);
   });

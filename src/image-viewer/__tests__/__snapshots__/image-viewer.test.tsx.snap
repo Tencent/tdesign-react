@@ -3,52 +3,102 @@
 exports[`album.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__base"
-    style="width: 240px; height: 240px;"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap;"
   >
     <div
-      class="tdesign-demo-image-viewer__ui-image"
+      class="t-space-item"
     >
-      <img
-        alt="test"
-        class="tdesign-demo-image-viewer__ui-image--img"
-        src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      />
       <div
-        class="tdesign-demo-image-viewer__ui-image--hover"
+        style="position: relative; overflow: hidden; box-sizing: content-box; border-radius: var(--td-radius-medium);"
       >
-        <span>
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            name="browse"
-            style="font-size: 1.4em;"
-            viewBox="0 0 16 16"
-            width="1em"
-          >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-           预览
-        </span>
-      </div>
-      <div
-        class="tdesign-demo-image-viewer__ui-image--footer"
-      >
-        <span
-          class="tdesign-demo-image-viewer__ui-image--title"
+        <div
+          class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+          style="width: 240px; height: 240px; background-color: rgb(255, 255, 255);"
         >
-          相册封面标题
-        </span>
+          <img
+            alt="test"
+            class="t-image t-image--fit-contain t-image--position-center"
+            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          />
+          <div
+            class="t-image__loading"
+          >
+            <div
+              class="t-space t-space-align-center t-space-vertical"
+              style="gap: 8px;"
+            >
+              <div
+                class="t-space-item"
+              >
+                <svg
+                  class="t-icon t-icon-image"
+                  fill="none"
+                  height="1em"
+                  style="font-size: 24px;"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                    fill-rule="evenodd"
+                  />
+                  <path
+                    d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-space-item"
+              >
+                图片加载中
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-image__overlay-content t-image__overlay-content--hidden"
+          >
+            <div
+              style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+            >
+              <span>
+                <svg
+                  class="t-icon t-icon-browse"
+                  fill="none"
+                  height="1em"
+                  name="browse"
+                  style="font-size: 20px;"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                  <path
+                    d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+                 预览
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style="width: 100%; height: 56px; padding: 0px 16px; line-height: 56px; position: absolute; bottom: 0px; box-sizing: border-box; z-index: 1;"
+        >
+          <span>
+            相册封面标题
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -58,87 +108,139 @@ exports[`album.jsx 1`] = `
 exports[`albumIcons.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__base"
-    style="width: 240px; height: 240px;"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap;"
   >
     <div
-      class="tdesign-demo-image-viewer__ui-image"
+      class="t-space-item"
     >
-      <img
-        alt="test"
-        class="tdesign-demo-image-viewer__ui-image--img"
-        src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      />
       <div
-        class="tdesign-demo-image-viewer__ui-image--hover"
+        style="position: relative; overflow: hidden; box-sizing: content-box; border-radius: var(--td-radius-medium);"
       >
-        <span>
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            name="browse"
-            style="font-size: 1.4em;"
-            viewBox="0 0 16 16"
-            width="1em"
-          >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-           预览
-        </span>
-      </div>
-      <div
-        class="tdesign-demo-image-viewer__ui-image--footer"
-      >
-        <span
-          class="tdesign-demo-image-viewer__ui-image--title"
+        <div
+          class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+          style="width: 240px; height: 240px; background-color: rgb(255, 255, 255);"
         >
-          相册封面标题
-        </span>
-        <span
-          class="tdesign-demo-image-viewer__ui-image--icons"
+          <img
+            alt="test"
+            class="t-image t-image--fit-contain t-image--position-center"
+            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          />
+          <div
+            class="t-image__loading"
+          >
+            <div
+              class="t-space t-space-align-center t-space-vertical"
+              style="gap: 8px;"
+            >
+              <div
+                class="t-space-item"
+              >
+                <svg
+                  class="t-icon t-icon-image"
+                  fill="none"
+                  height="1em"
+                  style="font-size: 24px;"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                    fill-rule="evenodd"
+                  />
+                  <path
+                    d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-space-item"
+              >
+                图片加载中
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-image__overlay-content t-image__overlay-content--hidden"
+          >
+            <div
+              style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+            >
+              <span>
+                <svg
+                  class="t-icon t-icon-browse"
+                  fill="none"
+                  height="1em"
+                  name="browse"
+                  style="font-size: 20px;"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                  <path
+                    d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+                 预览
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style="width: 100%; height: 56px; padding: 0px 16px; line-height: 56px; position: absolute; bottom: 0px; display: flex; box-sizing: border-box; z-index: 1;"
         >
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <span
+            style="flex: 1;"
           >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-          <svg
-            class="t-icon t-icon-ellipsis tdesign-demo-image-viewer__ui-image--ellipsis"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+            相册封面标题
+          </span>
+          <span
+            style="cursor: pointer;"
           >
-            <path
-              d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-browse"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+            <svg
+              class="t-icon t-icon-ellipsis"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3 9a1 1 0 110-2 1 1 0 010 2zM7 8a1 1 0 102 0 1 1 0 00-2 0zM12 8a1 1 0 102 0 1 1 0 00-2 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -148,42 +250,91 @@ exports[`albumIcons.jsx 1`] = `
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__base"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap;"
   >
     <div
-      class="tdesign-demo-image-viewer__ui-image"
+      class="t-space-item"
     >
-      <img
-        alt="test"
-        class="tdesign-demo-image-viewer__ui-image--img"
-        src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      />
       <div
-        class="tdesign-demo-image-viewer__ui-image--hover"
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
       >
-        <span>
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            name="browse"
-            style="font-size: 1.4em;"
-            viewBox="0 0 16 16"
-            width="1em"
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+        />
+        <div
+          class="t-image__loading"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
           >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-           预览
-        </span>
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -193,82 +344,175 @@ exports[`base.jsx 1`] = `
 exports[`block.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap;"
   >
     <div
-      class="tdesign-demo-image-viewer__ui-image"
+      class="t-space-item"
     >
-      <img
-        alt="test"
-        class="tdesign-demo-image-viewer__ui-image--img"
-        src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      />
       <div
-        class="tdesign-demo-image-viewer__ui-image--hover"
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
       >
-        <span>
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            name="browse"
-            style="font-size: 1.4em;"
-            viewBox="0 0 16 16"
-            width="1em"
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+        />
+        <div
+          class="t-image__loading"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
           >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-           预览
-        </span>
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
-  >
     <div
-      class="tdesign-demo-image-viewer__ui-image"
+      class="t-space-item"
     >
-      <img
-        alt="test"
-        class="tdesign-demo-image-viewer__ui-image--img"
-        src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      />
       <div
-        class="tdesign-demo-image-viewer__ui-image--hover"
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
       >
-        <span>
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            name="browse"
-            style="font-size: 1.4em;"
-            viewBox="0 0 16 16"
-            width="1em"
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+        />
+        <div
+          class="t-image__loading"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
           >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-           预览
-        </span>
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -293,143 +537,344 @@ exports[`button.jsx 1`] = `
 exports[`error.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
-  >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-error1.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-error1.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
-  >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-error2.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-error2.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
-  >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-error3.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-error3.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -438,41 +883,91 @@ exports[`error.jsx 1`] = `
 exports[`modeless.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__base"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap;"
   >
     <div
-      class="tdesign-demo-image-viewer__ui-image"
+      class="t-space-item"
     >
-      <img
-        alt="test"
-        class="tdesign-demo-image-viewer__ui-image--img"
-        src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      />
       <div
-        class="tdesign-demo-image-viewer__ui-image--hover"
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
       >
-        <span>
-          <svg
-            class="t-icon t-icon-browse"
-            fill="none"
-            height="1em"
-            style="font-size: 1.4em;"
-            viewBox="0 0 16 16"
-            width="1em"
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+        />
+        <div
+          class="t-image__loading"
+        >
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
           >
-            <path
-              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-           预览
-        </span>
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -482,108 +977,260 @@ exports[`modeless.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap;"
   >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
-  >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-3.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-3.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="tdesign-demo-image-viewer__ui-image tdesign-demo-image-viewer__base"
-  >
-    <img
-      alt="test"
-      class="tdesign-demo-image-viewer__ui-image--img"
-      src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-    />
     <div
-      class="tdesign-demo-image-viewer__ui-image--hover"
+      class="t-space-item"
     >
-      <span>
-        <svg
-          class="t-icon t-icon-browse"
-          fill="none"
-          height="1em"
-          style="font-size: 1.4em;"
-          viewBox="0 0 16 16"
-          width="1em"
+      <div
+        class="t-image__wrapper t-image__wrapper--shape-square t-image__wrapper--need-hover"
+        style="width: 160px; height: 160px; border-radius: var(--td-radius-medium); background-color: rgb(255, 255, 255);"
+      >
+        <img
+          alt="test"
+          class="t-image t-image--fit-contain t-image--position-center"
+          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+        />
+        <div
+          class="t-image__loading"
         >
-          <path
-            d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-          <path
-            d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-         预览
-      </span>
+          <div
+            class="t-space t-space-align-center t-space-vertical"
+            style="gap: 8px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <svg
+                class="t-icon t-icon-image"
+                fill="none"
+                height="1em"
+                style="font-size: 24px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10 8a2 2 0 100-4 2 2 0 000 4zm0-1a1 1 0 100-2 1 1 0 000 2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                  fill-rule="evenodd"
+                />
+                <path
+                  d="M2 13a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3a1 1 0 00-1 1v10zm1-1.3l3-3 4.3 4.3H3v-1.3zm0-1.4V3h10v10h-1.3L6 7.3l-3 3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              图片加载中
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-image__overlay-content t-image__overlay-content--hidden"
+        >
+          <div
+            style="background: rgba(0, 0, 0, 0.6); color: rgb(255, 255, 255); height: 100%; display: flex; align-items: center; justify-content: center;"
+          >
+            <span>
+              <svg
+                class="t-icon t-icon-browse"
+                fill="none"
+                height="1em"
+                name="browse"
+                style="font-size: 20px;"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               预览
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>

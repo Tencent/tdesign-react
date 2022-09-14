@@ -5,6 +5,21 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.41.1 `2022-09-14` 
+### 🚀 Features
+- `Upload`:
+    - 自定义方法 `requestMethod`参数在单文件时文件对象，多文件上传时，是数组文件对象 @chaishi ([#1484](https://github.com/Tencent/tdesign-react/pull/1484))
+    - `trigger/dragContent` 参数使用 `files` 而非 `displayFiles` @chaishi ([#1484](https://github.com/Tencent/tdesign-react/pull/1484))
+- `ImageViewer`:
+    - 新增 `title`属性，作为相册标题展示 @Ylushen ([#1471](https://github.com/Tencent/tdesign-react/pull/1471))
+    - 适配移动端展示 @HQ-Lin ([#1480](https://github.com/Tencent/tdesign-react/pull/1480))
+- `DatePicker`: 支持二次更改时间选择器时可单次变更日期 @HQ-Lin ([#1478](https://github.com/Tencent/tdesign-react/pull/1478))
+- `Table`: 优化列宽调整策略 @ZTao-z ([#1483](https://github.com/Tencent/tdesign-react/pull/1483))
+
+### 🐞 Bug Fixes
+- `TreeSelect`: 修复 data 异步更新，input 值没有及时更新的问题 @HelKyle ([#1481](https://github.com/Tencent/tdesign-react/pull/1481))
+
+
 ## 🌈 0.41.0 `2022-09-13` 
 ### ❗ Breaking Changes
 - 支持 `es module` 导出不带样式产物，调整 lib 包内容，新增 `cjs` 产物支持 `commonjs` 导出不带样式产物 @HQ-Lin ([#1455](https://github.com/Tencent/tdesign-react/pull/1455))
