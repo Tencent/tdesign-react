@@ -72,7 +72,6 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
-      setIsFirstValueSelected(false);
       setCacheValue(formatDate(value || [], { format, targetFormat: format }));
       setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
 
@@ -91,9 +90,13 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         setYear(value.map((v: string) => parseToDayjs(v || new Date(), format).year()));
         setMonth(value.map((v: string) => parseToDayjs(v || new Date(), format).month()));
       }
+    } else {
+      setIsHoverCell(false);
+      setIsFirstValueSelected(false);
+      setInputValue(formatDate(value || [], { format, targetFormat: format }));
     }
     // eslint-disable-next-line
-  }, [value, popupVisible]);
+  }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -139,20 +142,22 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 确保两端都是有效值
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 
-    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
       onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'pick',
       });
-      setIsFirstValueSelected(false);
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
+    }
+
+    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
+    if (!isFirstValueSelected) {
+      let nextIndex = notValidIndex;
+      if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
+      setActiveIndex(nextIndex);
       setIsFirstValueSelected(true);
     } else {
-      setActiveIndex(activeIndex ? 0 : 1);
-      setIsFirstValueSelected(true);
+      setPopupVisible(false);
     }
   }
 
@@ -232,23 +237,25 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 
-    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && isFirstValueSelected) {
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
       onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'confirm',
       });
       setYear(nextValue.map((v) => dayjs(v, format).year()));
       setMonth(nextValue.map((v) => dayjs(v, format).month()));
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
-    } else {
-      setActiveIndex(activeIndex ? 0 : 1);
     }
 
-    // 记录选中一次
-    setIsFirstValueSelected(true);
+    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
+    if (!isFirstValueSelected) {
+      let nextIndex = notValidIndex;
+      if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
+      setActiveIndex(nextIndex);
+      setIsFirstValueSelected(true);
+    } else {
+      setPopupVisible(false);
+    }
   }
 
   // 预设

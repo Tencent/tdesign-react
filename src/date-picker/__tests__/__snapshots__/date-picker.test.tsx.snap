@@ -2847,7 +2847,7 @@ exports[`panel.jsx 1`] = `
               <div
                 class="t-date-picker__panel-time-viewer"
               >
-                08:00:00
+                00:00:00
               </div>
               <div
                 class="t-time-picker__panel"
@@ -2870,7 +2870,7 @@ exports[`panel.jsx 1`] = `
                       style="--timePickerPanelOffsetTop: 15; --timePickerPanelOffsetBottom: 21;"
                     >
                       <li
-                        class="t-time-picker__panel-body-scroll-item"
+                        class="t-time-picker__panel-body-scroll-item t-is-current"
                       >
                         00
                       </li>
@@ -2910,7 +2910,7 @@ exports[`panel.jsx 1`] = `
                         07
                       </li>
                       <li
-                        class="t-time-picker__panel-body-scroll-item t-is-current"
+                        class="t-time-picker__panel-body-scroll-item"
                       >
                         08
                       </li>
