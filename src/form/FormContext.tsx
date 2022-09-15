@@ -1,5 +1,5 @@
 import React from 'react';
-import { TdFormProps, TdFormListProps } from './type';
+import { TdFormProps, TdFormListProps, NamePath } from './type';
 import { FormItemInstance } from './FormItem';
 
 const FormContext = React.createContext<{
@@ -17,7 +17,7 @@ const FormContext = React.createContext<{
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
-  onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
+  onFormItemValueChange: (changedValue: Record<string, unknown>, name: NamePath) => void;
 }>({
   labelWidth: '100px',
   labelAlign: 'right',

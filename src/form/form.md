@@ -12,6 +12,32 @@
 
 {{ form-list }}
 
+## Hooks
+
+### Form.useForm
+
+创建 Form 实例，用于管理所有数据状态。
+
+
+### Form.useWatch
+
+用于直接获取 form 中字段对应的值。
+
+```js
+const Demo = () => {
+  const [form] = Form.useForm();
+  const userName = Form.useWatch('username', form);
+
+  return (
+    <Form form={form}>
+      <Form.Item name="username">
+        <Input />
+      </Form.Item>
+    </Form>
+  );
+};
+```
+
 ## FAQ
 
 ### 为什么被 FormItem 包裹的组件 value、defaultValue 没有效果？
@@ -80,10 +106,10 @@ className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
 currentElement | \- | `HTMLFormElement` | 获取 form dom 元素
-getFieldValue | `(field: keyof FormData)` | `unknown` | 获取单个字段值
-getFieldsValue | \- | `getFieldsValue<FormData>` | 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: string[]): Record<keyof T, unknown>;}`<br/>
+getFieldValue | `(field: NamePath) ` | `unknown` | 获取单个字段值
+getFieldsValue | \- | `getFieldsValue<FormData>` | 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | 重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
-setFields | `(fields: FieldData[])` | \- | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: string; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
+setFields | `(fields: FieldData[])` | \- | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: NamePath; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
 setFieldsValue | `(field: Data)` | \- | 设置表单字段值
 setValidateMessage | `(message: FormValidateMessage<FormData>)` | \- | 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] }`<br/><br/>`interface FormItemValidateMessage { type: 'warning' | 'error'; message: string }`<br/>
 submit | `(params?: { showErrorMessage?: boolean })` | \- | 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
@@ -102,7 +128,7 @@ initialData | String / Number / Object / Array | - | 表单初始数据，重置
 label | TNode | '' | 字段标签名称。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。默认使用 Form 的对齐方式，优先级高于 Form.labelAlign。可选项：left/right/top | N
 labelWidth | String / Number | - | 可以整体设置标签宽度，优先级高于 Form.labelWidth | N
-name | String / Number / Array | - | 表单字段名称。TS 类型：`string | number | Array<string | number>` | N
+name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` `type NamePath = string | number | Array<string | number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 requiredMark | Boolean | undefined | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
 showErrorMessage | Boolean | undefined | 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage` | N
