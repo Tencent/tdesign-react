@@ -35,15 +35,16 @@ placeholder | String | - | \- | N
 requestMethod | Function | - | Typescript：`(files: UploadFile | UploadFile[]) => Promise<RequestMethodResponse>` `interface RequestMethodResponse { status: 'success' | 'fail'; error?: string; response: { url?: string; [key: string]: any } }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
 showUploadProgress | Boolean | true | \- | N
 sizeLimit | Number / Object | - | Typescript：`number | SizeLimitObj` `interface SizeLimitObj { size: number; unit: SizeUnit ; message?: string }` `type SizeUnitArray = ['B', 'KB', 'MB', 'GB']` `type SizeUnit = SizeUnitArray[number]`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
+status | String | - | tips status。options：default/success/warning/error | N
 theme | String | file | options：custom/file/file-input/file-flow/image/image-flow | N
-tips | String | - | \- | N
+tips | String | - | tips text below upload component, define it's color with `status` | N
 trigger | TElement | - | Typescript：`TNode<TriggerContext>` `interface TriggerContext { dragActive?: boolean;  files: UploadFile[] }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
 triggerButtonProps | Object | - | Typescript：`ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
 uploadAllFilesInOneRequest | Boolean | false | \- | N
 useMockProgress | Boolean | true | \- | N
 withCredentials | Boolean | false | \- | N
 onCancelUpload | Function |  | Typescript：`() => void`<br/> | N
-onChange | Function |  | Typescript：`(value: Array<UploadFile>, context: UploadChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadChangeContext { e?: MouseEvent | ProgressEvent; response?: any; trigger: string; index?: number; file?: UploadFile }`<br/> | N
+onChange | Function |  | Typescript：`(value: Array<UploadFile>, context: UploadChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadChangeContext { e?: MouseEvent | ProgressEvent; response?: any; trigger: UploadChangeTrigger; index?: number; file?: UploadFile }`<br/><br/>`type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'status-change' | 'progress'`<br/> | N
 onDragenter | Function |  | Typescript：`(context: { e: DragEvent }) => void`<br/> | N
 onDragleave | Function |  | Typescript：`(context: { e: DragEvent }) => void`<br/> | N
 onDrop | Function |  | Typescript：`(context: { e: DragEvent }) => void`<br/> | N

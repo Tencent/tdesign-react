@@ -35,7 +35,7 @@ export default function NormalFile(props: NormalFileProps) {
   const renderProgress = (percent: number) => (
     <div className={`${uploadPrefix}__single-progress`}>
       <TLoading />
-      <span className={`${uploadPrefix}__single-percent`}>{percent}%</span>
+      <span className={`${uploadPrefix}__single-percent`}>{percent || 0}%</span>
     </div>
   );
 

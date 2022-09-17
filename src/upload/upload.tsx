@@ -40,6 +40,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     uploading,
     triggerUpload,
     uploadFiles,
+    cancelUpload,
   }));
 
   const renderTrigger = () => {
