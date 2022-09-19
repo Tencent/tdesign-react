@@ -22,6 +22,6 @@ export const selectDefaultProps: TdSelectProps = {
   valueType: 'value',
 };
 
-export const optionDefaultProps: TdOptionProps = { disabled: false };
+export const optionDefaultProps: TdOptionProps = {};
 
 export const optionGroupDefaultProps: TdOptionGroupProps = { divider: true };

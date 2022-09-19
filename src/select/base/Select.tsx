@@ -71,7 +71,6 @@ const Select = forwardRefWithStatics(
       minCollapsedNum,
       valueDisplay,
       onEnter,
-      onVisibleChange,
       showArrow,
       inputProps,
       panelBottomContent,
@@ -162,7 +161,6 @@ const Select = forwardRefWithStatics(
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
       setShowPopup(visible, ctx);
-      onVisibleChange?.(visible);
       visible && onInputChange('');
     };
 
