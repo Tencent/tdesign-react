@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, ChangeEventHandler, DragEvent, MouseEvent } from 'react';
+import { useRef, useState, useMemo, ChangeEventHandler, DragEvent, MouseEvent, useEffect } from 'react';
 import merge from 'lodash/merge';
 import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
@@ -25,8 +25,8 @@ export default function useUpload(props: TdUploadProps) {
   const { classPrefix } = useConfig();
   const [globalLocale, t] = useLocaleReceiver('upload');
   const [uploadValue, setUploadValue] = useControlled(props, 'files', props.onChange);
-  const [xhrReq, setXhrReq] = useState<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
-  const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
+  const xhrReq = useRef<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
+  const toUploadFiles = useRef<UploadFile[]>([]);
   const [sizeOverLimitMessage, setSizeOverLimitMessage] = useState('');
 
   const locale = useMemo(() => merge({}, globalLocale, props.locale), [globalLocale, props.locale]);
@@ -48,28 +48,53 @@ export default function useUpload(props: TdUploadProps) {
   const [uploading, setUploading] = useState(false);
 
   // 文件列表显示的内容（自动上传和非自动上传有所不同）
-  const displayFiles = useMemo(
-    () => getDisplayFiles({ multiple: props.multiple, toUploadFiles, uploadValue, autoUpload, isBatchUpload }),
-    [props.multiple, toUploadFiles, uploadValue, autoUpload, isBatchUpload],
-  );
+  const [displayFiles, setDisplayFiles] = useState(uploadValue);
+  useEffect(() => {
+    // console.log('toUploadFiles.current::', toUploadFiles.current, uploadValue)
+    const files = getDisplayFiles({
+      multiple: props.multiple,
+      toUploadFiles: toUploadFiles.current,
+      uploadValue: [...uploadValue],
+      autoUpload,
+      isBatchUpload,
+    });
+    console.log('after memo', files);
+    setDisplayFiles(files);
+    // return files;
+  }, [
+    props.multiple,
+    toUploadFiles,
+    uploadValue,
+    autoUpload,
+    isBatchUpload,
+    // toUploadFiles.current.map(file => file.percent).join(),
+  ]);
 
   const onResponseError = (p: OnResponseErrorContext) => {
-    if (!p) return;
+    if (!p || !p.files || !p.files[0]) return;
     const { response, event, files } = p;
-    files?.[0] &&
-      props.onOneFileFail?.({
-        e: event,
-        file: files?.[0],
-        currentFiles: files,
-        failedFiles: files,
-        response,
+    props.onOneFileFail?.({
+      e: event,
+      file: files?.[0],
+      currentFiles: files,
+      failedFiles: files,
+      response,
+    });
+    // 单选或多文件替换，需要清空上一次上传成功的文件
+    if (!props.multiple || props.isBatchUpload) {
+      setUploadValue([], {
+        trigger: 'fail',
+        e: p.event,
+        file: p.files[0],
       });
+    }
   };
 
-  const onResponseProgress = (p: InnerProgressContext, toFiles: UploadFile[]) => {
+  const onResponseProgress = (p: InnerProgressContext) => {
     if (props.autoUpload) {
-      const files = updateProgress(toFiles, props.multiple, p.files);
-      setToUploadFiles([...files]);
+      const files = updateProgress(toUploadFiles.current, props.multiple, p.files);
+      toUploadFiles.current = [...files];
+      console.log('progress', p.file.percent, toUploadFiles.current[0].percent);
     } else {
       const files = updateProgress(uploadValue, props.multiple, p.files);
       setUploadValue([...files], {
@@ -98,23 +123,6 @@ export default function useUpload(props: TdUploadProps) {
         file: p.files[0],
         response: p.response,
       });
-    }
-    if (props.autoUpload) {
-      setUploadValue(uploadValue.concat(p.files), {
-        trigger: 'add',
-        e: p.event,
-        file: p.files[0],
-      });
-    } else {
-      const index = uploadValue.findIndex((file) => file.raw === p.files[0].raw);
-      if (index >= 0) {
-        uploadValue.splice(index, 1, p.files[0]);
-        setUploadValue([...uploadValue], {
-          trigger: 'status-change',
-          e: p.event,
-          file: p.files[0],
-        });
-      }
     }
   };
 
@@ -151,11 +159,11 @@ export default function useUpload(props: TdUploadProps) {
         file: tmpFiles[0],
       });
     }
-    setToUploadFiles([]);
+    toUploadFiles.current = [];
   };
 
   const onFileChange = (files: FileList) => {
-    if (props.disabled) return;
+    if (disabled) return;
     // @ts-ignore
     props.onSelectChange?.([...files], { currentSelectedFiles: toUploadFiles });
     validateFile({
@@ -184,8 +192,7 @@ export default function useUpload(props: TdUploadProps) {
       // 文件大小校验结果处理
       if (args.fileValidateList instanceof Array) {
         const { sizeLimitErrors, toFiles } = getFilesAndErrors(args.fileValidateList, getSizeLimitError);
-        const tmpWaitingFiles = autoUpload ? toFiles : toUploadFiles.concat(toFiles);
-        setToUploadFiles(tmpWaitingFiles);
+        const tmpWaitingFiles = autoUpload ? toFiles : toUploadFiles.current.concat(toFiles);
         props.onWaitingUploadFilesChange?.({ files: tmpWaitingFiles, trigger: 'validate' });
         // 错误信息处理
         if (sizeLimitErrors[0]) {
@@ -196,6 +203,7 @@ export default function useUpload(props: TdUploadProps) {
         }
         // 如果是自动上传
         if (autoUpload) {
+          toUploadFiles.current = tmpWaitingFiles;
           uploadFiles(tmpWaitingFiles);
         } else {
           handleNonAutoUpload(tmpWaitingFiles);
@@ -215,7 +223,6 @@ export default function useUpload(props: TdUploadProps) {
     onFileChange?.(e.dataTransfer.files);
   }
 
-  let xhrReqList: { files: UploadFile[]; xhrReq: XMLHttpRequest }[] = [];
   /**
    * 上传文件
    * 对外暴露方法，修改时需谨慎
@@ -224,6 +231,7 @@ export default function useUpload(props: TdUploadProps) {
     const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success');
     const files = autoUpload ? toFiles : notUploadedFiles;
     if (!files || !files.length) return;
+    xhrReq.current = [];
     setUploading(true);
     upload({
       action: props.action,
@@ -238,21 +246,21 @@ export default function useUpload(props: TdUploadProps) {
       requestMethod: props.requestMethod,
       formatRequest: props.formatRequest,
       formatResponse: props.formatResponse,
-      onResponseProgress: (p) => onResponseProgress(p, toFiles),
+      onResponseProgress,
       onResponseSuccess,
       onResponseError,
       setXhrObject: (xhr) => {
-        if (xhr.files[0]?.raw && xhrReqList.find((item) => item.files[0].raw === xhr.files[0].raw)) return;
-        xhrReqList = xhrReqList.concat(xhr);
-        const timer = setTimeout(() => {
-          setXhrReq(xhrReqList);
-          clearTimeout(timer);
-        }, 10);
+        if (xhr.files[0]?.raw && xhrReq.current.find((item) => item.files[0].raw === xhr.files[0].raw)) return;
+        xhrReq.current = xhrReq.current.concat(xhr);
       },
     }).then(
       ({ status, data, list, failedFiles }) => {
         setUploading(false);
         if (status === 'success') {
+          setUploadValue([...data.files], {
+            trigger: props.autoUpload ? 'add' : 'status-change',
+            file: data.files[0],
+          });
           props.onSuccess?.({
             fileList: data.files,
             currentFiles: files,
@@ -260,8 +268,7 @@ export default function useUpload(props: TdUploadProps) {
             // 只有全部请求完成后，才会存在该字段
             results: list?.map((t) => t.data),
           });
-          xhrReqList = [];
-          setXhrReq([]);
+          xhrReq.current = [];
         } else if (failedFiles?.[0]) {
           props.onFail?.({
             e: data.event,
@@ -274,7 +281,8 @@ export default function useUpload(props: TdUploadProps) {
 
         // 非自动上传，文件都在 uploadValue，不涉及 toUploadFiles
         if (autoUpload) {
-          setToUploadFiles(failedFiles);
+          console.log('failedFiles', failedFiles);
+          toUploadFiles.current = [...failedFiles];
           props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
         }
       },
@@ -294,30 +302,23 @@ export default function useUpload(props: TdUploadProps) {
       file: p.file,
     };
     // remove all files for batchUpload
-    if (!p.file && p.index === -1) {
-      setToUploadFiles([]);
+    if (isBatchUpload || !props.multiple) {
       props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
       setUploadValue([], changePrams);
+      toUploadFiles.current = [];
+      xhrReq.current = [];
       props.onRemove?.(p);
-      return;
-    }
-    // remove one file
-    if (autoUpload && p.file.status !== 'success') {
-      toUploadFiles.splice(p.index, 1);
-      setToUploadFiles([...toUploadFiles]);
-      props.onWaitingUploadFilesChange?.({ files: [...toUploadFiles], trigger: 'remove' });
-      if (p.file.raw || p.file.name) {
-        const fileIndex = uploadValue.findIndex(
-          (file) => (file.raw && file.raw === p.file.raw) || (file.name && file.name === p.file.name),
-        );
-        if (fileIndex !== -1) {
-          uploadValue.splice(fileIndex, 1);
-          setUploadValue([...uploadValue], changePrams);
-        }
-      }
-    } else {
+    } else if (!props.autoUpload) {
       uploadValue.splice(p.index, 1);
       setUploadValue([...uploadValue], changePrams);
+    } else if (p.index < uploadValue.length) {
+      uploadValue.splice(p.index, 1);
+      setUploadValue([...uploadValue], changePrams);
+    } else {
+      const tmpFiles = [...toUploadFiles.current];
+      tmpFiles.splice(p.index - uploadValue.length, 1);
+      toUploadFiles.current = [...tmpFiles];
+      props.onWaitingUploadFilesChange?.({ files: [...tmpFiles], trigger: 'remove' });
     }
     props.onRemove?.(p);
   }
@@ -328,13 +329,13 @@ export default function useUpload(props: TdUploadProps) {
   };
 
   const cancelUpload = (context?: { file?: UploadFile; e?: MouseEvent<HTMLElement> }) => {
-    xhrReq?.forEach((item) => {
+    xhrReq.current?.forEach((item) => {
       item.xhrReq?.abort();
     });
     setUploading(false);
 
     if (autoUpload) {
-      setToUploadFiles(toUploadFiles.map((item) => ({ ...item, status: 'waiting' })));
+      toUploadFiles.current = toUploadFiles.current.map((item) => ({ ...item, status: 'waiting' }));
     } else {
       setUploadValue(
         uploadValue.map((item) => {

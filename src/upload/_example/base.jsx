@@ -106,9 +106,9 @@ export default function UploadExample() {
 
   // 非自动上传文件，需要在父组件单独执行上传请求
   const uploadFiles = () => {
-    uploadRef1.current.uploadFiles();
+    // uploadRef1.current.uploadFiles();
     uploadRef2.current.uploadFiles();
-    uploadRef3.current.uploadFiles();
+    // uploadRef3.current.uploadFiles();
   };
 
   // 非自动上传文件，需保存待上传文件列表
@@ -169,7 +169,7 @@ export default function UploadExample() {
 
       {/* <!-- 1. formatRequest 用于修改或新增上传请求数据，示例：:formatRequest="(obj) => ({ ...obj, other: 123 })" --> */}
       <Space>
-        <Upload
+        {/* <Upload
           ref={uploadRef1}
           files={files1}
           onChange={(val) => {
@@ -193,7 +193,7 @@ export default function UploadExample() {
           onOneFileSuccess={onOneFileSuccess}
           onValidate={onValidate}
           onWaitingUploadFilesChange={onWaitingUploadFilesChange}
-        />
+        /> */}
 
         <Upload
           ref={uploadRef2}
@@ -212,7 +212,7 @@ export default function UploadExample() {
         ></Upload>
 
         {/* formatResponse 可控制上传成功或者失败 */}
-        <Upload
+        {/* <Upload
           ref={uploadRef3}
           files={files3}
           onChange={setFiles3}
@@ -227,7 +227,7 @@ export default function UploadExample() {
           style={{ marginLeft: '60px' }}
           // fileListDisplay={fileListDisplay}
           onFail={handleFail}
-        />
+        /> */}
       </Space>
     </Space>
   );

@@ -9,7 +9,11 @@ import { ButtonProps } from '../button';
 import { TNode } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
-export interface TdUploadProps {
+export interface TdUploadProps<T extends UploadFile = UploadFile> {
+  /**
+   * 文件名过长时，需要省略中间的文本，保留首尾文本。示例：[10, 7]，表示首尾分别保留的文本长度
+   */
+  abridgeName?: Array<number>;
   /**
    * 接受上传的文件类型，[查看 W3C示例](https://www.w3schools.com/tags/att_input_accept.asp)，[查看 MDN 示例](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/file)
    * @default ''
@@ -67,12 +71,12 @@ export interface TdUploadProps {
    * 已上传文件列表
    * @default []
    */
-  files?: Array<UploadFile>;
+  files?: Array<T>;
   /**
    * 已上传文件列表，非受控属性
    * @default []
    */
-  defaultFiles?: Array<UploadFile>;
+  defaultFiles?: Array<T>;
   /**
    * 文件上传前转换文件的数据结构，可新增或修改文件对象的属性
    */
@@ -180,7 +184,7 @@ export interface TdUploadProps {
   /**
    * 已上传文件列表发生变化时触发，`trigger` 表示触发本次的来源
    */
-  onChange?: (value: Array<UploadFile>, context: UploadChangeContext) => void;
+  onChange?: (value: Array<T>, context: UploadChangeContext) => void;
   /**
    * 进入拖拽区域时触发
    */
@@ -239,7 +243,7 @@ export interface TdUploadProps {
 }
 
 /** 组件实例方法 */
-export interface UploadInstanceFunctions {
+export interface UploadInstanceFunctions<T extends UploadFile = UploadFile> {
   /**
    * 组件实例方法，打开文件选择器
    */
@@ -334,7 +338,7 @@ export interface UploadChangeContext {
   file?: UploadFile;
 }
 
-export type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'status-change' | 'progress';
+export type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'status-change' | 'progress' | 'fail';
 
 export interface UploadFailContext {
   e: ProgressEvent;

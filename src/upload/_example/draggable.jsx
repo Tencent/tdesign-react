@@ -3,7 +3,12 @@ import { Upload, Radio, Switch, Space, MessagePlugin } from 'tdesign-react';
 
 export default function UploadExample() {
   const [files, setFiles] = useState([]);
-  const [files2, setFiles2] = useState([{ name: '默认文件', url: 'https://tdesign.gtimg.com/site/source/figma-pc.png', status: 'success', size: 1024 }]);
+  const [files2, setFiles2] = useState([{
+    name: '默认文件',
+    url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+    status: 'success',
+    size: 1024,
+  }]);
   const [autoUpload, setAutoUpload] = React.useState(false);
   const [theme, setTheme] = React.useState('file');
 
