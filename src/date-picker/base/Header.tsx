@@ -199,7 +199,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
-          onVisibleChange={(visible) => {
+          onPopupVisibleChange={(visible) => {
             if (!visible) scrollAnchorRef.current = 'default';
           }}
           popupProps={{
