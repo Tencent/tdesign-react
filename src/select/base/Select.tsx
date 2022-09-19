@@ -345,6 +345,7 @@ const Select = forwardRefWithStatics(
                   return;
                 }}
                 closable={!filterOption?.disabled}
+                {...tagProps}
               >
                 {v}
               </Tag>
