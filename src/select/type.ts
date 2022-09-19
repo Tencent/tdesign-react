@@ -22,11 +22,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   autoWidth?: boolean;
   /**
-   * 是否有边框
-   * @default true
-   */
-  bordered?: boolean;
-  /**
    * 无边框模式
    * @default false
    */

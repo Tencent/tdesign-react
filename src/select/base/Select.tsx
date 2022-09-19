@@ -37,7 +37,6 @@ const Select = forwardRefWithStatics(
 
     const {
       readonly,
-      bordered,
       borderless,
       autoWidth,
       creatable,
@@ -420,7 +419,7 @@ const Select = forwardRefWithStatics(
           disabled={disabled}
           status={props.status}
           tips={props.tips}
-          borderless={borderless || !bordered}
+          borderless={borderless}
           label={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
