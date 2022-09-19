@@ -142,7 +142,9 @@ exports[`base.jsx 1`] = `
                     <span
                       class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                     >
-                      Vue
+                      <span>
+                        Vue
+                      </span>
                       <svg
                         class="t-icon t-icon-close t-tag__icon-close"
                         fill="none"
@@ -160,7 +162,9 @@ exports[`base.jsx 1`] = `
                     <span
                       class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                     >
-                      React
+                      <span>
+                        React
+                      </span>
                       <svg
                         class="t-icon t-icon-close t-tag__icon-close"
                         fill="none"
@@ -497,7 +501,9 @@ exports[`icon.jsx 1`] = `
                         <span
                           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          Vue
+                          <span>
+                            Vue
+                          </span>
                           <svg
                             class="t-icon t-icon-close t-tag__icon-close"
                             fill="none"
@@ -515,7 +521,9 @@ exports[`icon.jsx 1`] = `
                         <span
                           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          React
+                          <span>
+                            React
+                          </span>
                           <svg
                             class="t-icon t-icon-close t-tag__icon-close"
                             fill="none"
@@ -778,7 +786,9 @@ exports[`mutex.jsx 1`] = `
                     <span
                       class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                     >
-                      Vue
+                      <span>
+                        Vue
+                      </span>
                       <svg
                         class="t-icon t-icon-close t-tag__icon-close"
                         fill="none"
@@ -796,7 +806,9 @@ exports[`mutex.jsx 1`] = `
                     <span
                       class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                     >
-                      React
+                      <span>
+                        React
+                      </span>
                       <svg
                         class="t-icon t-icon-close t-tag__icon-close"
                         fill="none"
@@ -972,7 +984,9 @@ exports[`other.jsx 1`] = `
                         <span
                           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          Vue
+                          <span>
+                            Vue
+                          </span>
                           <svg
                             class="t-icon t-icon-close t-tag__icon-close"
                             fill="none"
@@ -990,7 +1004,9 @@ exports[`other.jsx 1`] = `
                         <span
                           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          React
+                          <span>
+                            React
+                          </span>
                           <svg
                             class="t-icon t-icon-close t-tag__icon-close"
                             fill="none"

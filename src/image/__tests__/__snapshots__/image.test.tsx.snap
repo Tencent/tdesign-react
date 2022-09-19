@@ -82,21 +82,23 @@ exports[`extra-always.jsx 1`] = `
                   class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
                   style="border-radius: 3px; background: transparent; color: rgb(255, 255, 255);"
                 >
-                  <svg
-                    class="t-icon t-icon-print"
-                    fill="none"
-                    height="1em"
-                    style="font-size: 16px;"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                  >
-                    <path
-                      d="M4 2v2H3a1 1 0 00-1 1v5a1 1 0 001 1h1v3h8v-3h1a1 1 0 001-1V5a1 1 0 00-1-1h-1V2H4zm7 2H5V3h6v1zM3 5h10v5h-1V8H4v2H3V5zm2 8V9h6v4H5z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
-                   高清
+                  <span>
+                    <svg
+                      class="t-icon t-icon-print"
+                      fill="none"
+                      height="1em"
+                      style="font-size: 16px;"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M4 2v2H3a1 1 0 00-1 1v5a1 1 0 001 1h1v3h8v-3h1a1 1 0 001-1V5a1 1 0 00-1-1h-1V2H4zm7 2H5V3h6v1zM3 5h10v5h-1V8H4v2H3V5zm2 8V9h6v4H5z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                     高清
+                  </span>
                 </span>
               </div>
             </div>
@@ -177,21 +179,23 @@ exports[`extra-always.jsx 1`] = `
                 class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
                 style="position: absolute; right: 8px; bottom: 8px; border-radius: 3px; background: rgb(236, 242, 254); color: rgb(0, 82, 217);"
               >
-                <svg
-                  class="t-icon t-icon-print"
-                  fill="none"
-                  height="1em"
-                  style="font-size: 16px;"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M4 2v2H3a1 1 0 00-1 1v5a1 1 0 001 1h1v3h8v-3h1a1 1 0 001-1V5a1 1 0 00-1-1h-1V2H4zm7 2H5V3h6v1zM3 5h10v5h-1V8H4v2H3V5zm2 8V9h6v4H5z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-                 高清
+                <span>
+                  <svg
+                    class="t-icon t-icon-print"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 16px;"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M4 2v2H3a1 1 0 00-1 1v5a1 1 0 001 1h1v3h8v-3h1a1 1 0 001-1V5a1 1 0 00-1-1h-1V2H4zm7 2H5V3h6v1zM3 5h10v5h-1V8H4v2H3V5zm2 8V9h6v4H5z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                   高清
+                </span>
               </span>
             </div>
           </div>
@@ -1369,7 +1373,9 @@ exports[`gallery-cover.jsx 1`] = `
         class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--mark"
         style="margin: 8px; border-radius: 3px; background: rgb(236, 242, 254); color: rgb(0, 82, 217);"
       >
-        标签一
+        <span>
+          标签一
+        </span>
       </span>
     </div>
   </div>

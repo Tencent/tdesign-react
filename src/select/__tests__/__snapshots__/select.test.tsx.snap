@@ -80,7 +80,9 @@ exports[`collapsed.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  选项一
+                  <span>
+                    选项一
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -98,7 +100,9 @@ exports[`collapsed.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  +1
+                  <span>
+                    +1
+                  </span>
                 </span>
               </div>
               <span
@@ -151,7 +155,9 @@ exports[`collapsed.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  选项一
+                  <span>
+                    选项一
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -327,17 +333,23 @@ exports[`custom-selected.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              选项一选项
+              <span>
+                选项一选项
+              </span>
             </span>
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              选项二选项
+              <span>
+                选项二选项
+              </span>
             </span>
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              选项三选项
+              <span>
+                选项三选项
+              </span>
             </span>
           </div>
           <span
@@ -500,7 +512,9 @@ exports[`filterable.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  选项一
+                  <span>
+                    选项一
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -673,7 +687,9 @@ exports[`keys.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              上海
+              <span>
+                上海
+              </span>
               <svg
                 class="t-icon t-icon-close t-tag__icon-close"
                 fill="none"
@@ -846,7 +862,9 @@ exports[`label-in-value.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  Apple
+                  <span>
+                    Apple
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -915,7 +933,9 @@ exports[`max.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              选项一
+              <span>
+                选项一
+              </span>
               <svg
                 class="t-icon t-icon-close t-tag__icon-close"
                 fill="none"
@@ -988,7 +1008,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  区块链
+                  <span>
+                    区块链
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1006,7 +1028,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  人工智能
+                  <span>
+                    人工智能
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1082,7 +1106,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  云服务器
+                  <span>
+                    云服务器
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1100,7 +1126,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  云数据库
+                  <span>
+                    云数据库
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1118,7 +1146,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  域名注册
+                  <span>
+                    域名注册
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1136,7 +1166,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  网站备案
+                  <span>
+                    网站备案
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1154,7 +1186,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  对象存储
+                  <span>
+                    对象存储
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
@@ -1172,7 +1206,9 @@ exports[`multiple.jsx 1`] = `
                 <span
                   class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                 >
-                  低代码平台
+                  <span>
+                    低代码平台
+                  </span>
                   <svg
                     class="t-icon t-icon-close t-tag__icon-close"
                     fill="none"
