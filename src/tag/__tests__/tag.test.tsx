@@ -12,10 +12,10 @@ describe('Tag 组件测试', () => {
   test('closable and onClose', async () => {
     const tagRegExp = /可删除标签/;
 
-    const { queryAllByText, getByText } = render(<ClosableTag></ClosableTag>);
+    const { queryAllByText, container } = render(<ClosableTag></ClosableTag>);
     // 点击i标签后，关闭一个，3个变2个
     expect(queryAllByText(tagRegExp).length).toEqual(3);
-    fireEvent.click(getByText('可删除标签0').querySelector('.t-icon-close'));
+    fireEvent.click(container.querySelector('.t-tag').querySelector('.t-icon-close'));
     expect(queryAllByText(tagRegExp).length).toEqual(2);
   });
 

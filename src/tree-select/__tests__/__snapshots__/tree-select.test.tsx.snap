@@ -73,7 +73,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                广州市
+                <span>
+                  广州市
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -91,7 +93,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                +1
+                <span>
+                  +1
+                </span>
               </span>
             </div>
             <input
@@ -145,7 +149,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                广州市
+                <span>
+                  广州市
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -163,7 +169,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                更多...
+                <span>
+                  更多...
+                </span>
               </span>
             </div>
             <input
@@ -424,7 +432,9 @@ exports[`multiple.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
           >
-            广州市
+            <span>
+              广州市
+            </span>
             <svg
               class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
@@ -442,7 +452,9 @@ exports[`multiple.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
           >
-            深圳市
+            <span>
+              深圳市
+            </span>
             <svg
               class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
@@ -674,7 +686,9 @@ exports[`valuedisplay.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                广州市(guangzhou)
+                <span>
+                  广州市(guangzhou)
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -692,7 +706,9 @@ exports[`valuedisplay.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                深圳市(shenzhen)
+                <span>
+                  深圳市(shenzhen)
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -815,7 +831,9 @@ exports[`valuetype.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                广州市
+                <span>
+                  广州市
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -833,7 +851,9 @@ exports[`valuetype.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                深圳市
+                <span>
+                  深圳市
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
