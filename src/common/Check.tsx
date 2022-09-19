@@ -94,7 +94,13 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   };
 
   return (
-    <label ref={ref} className={labelClassName} title={props.title} style={style} {...omit(htmlProps, ['checkAll'])}>
+    <label
+      ref={ref}
+      className={labelClassName}
+      title={props.title}
+      style={style}
+      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger'])}
+    >
       {input}
       <span className={`${classPrefix}-${type}__input`} />
       {showLabel && (
