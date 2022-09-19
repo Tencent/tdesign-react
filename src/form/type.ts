@@ -113,7 +113,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取单个字段值
    */
-  getFieldValue?: <K extends keyof FormData>(field: K) => FormData[K];
+  getFieldValue?: (field: NamePath) => unknown;
   /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
@@ -135,7 +135,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   setValidateMessage?: (message: FormValidateMessage<FormData>) => void;
   /**
-   * 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
+   * 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
    */
   submit?: (params?: { showErrorMessage?: boolean }) => void;
   /**
@@ -178,7 +178,7 @@ export interface TdFormItemProps {
   /**
    * 表单字段名称
    */
-  name?: string | number | Array<string | number>;
+  name?: NamePath;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
@@ -410,7 +410,7 @@ export interface FormResetParams<FormData> {
 }
 
 export interface FieldData {
-  name: string | number | Array<string | number>;
+  name: NamePath;
   value?: unknown;
   status?: string;
   validateMessage?: { type?: string; message?: string };
@@ -434,6 +434,8 @@ export type ValidateTriggerType = 'blur' | 'change' | 'all';
 export type Data = { [key: string]: any };
 
 export type InitialData = any;
+
+export type NamePath = string | number | Array<string | number>;
 
 export type FormListField = { key: number; name: number; isListField: boolean };
 

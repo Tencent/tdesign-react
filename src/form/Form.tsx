@@ -3,9 +3,11 @@ import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps } from './type';
+import type { TdFormProps, NamePath } from './type';
+import type { InternalFormInstance } from './hooks/interface';
 import useInstance from './hooks/useInstance';
-import useForm from './hooks/useForm';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useWatch from './hooks/useWatch';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -58,12 +60,15 @@ const Form = forwardRefWithStatics(
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
+      (form as InternalFormInstance)?.getInternalHooks?.(HOOK_MARK).notifyWatch?.([]);
       onReset?.({ e });
     }
 
-    function onFormItemValueChange(changedValue: Record<string, unknown>) {
+    function onFormItemValueChange(changedValue: Record<string, unknown>, name: NamePath) {
       const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
+
+      (form as InternalFormInstance)?.getInternalHooks?.(HOOK_MARK).notifyWatch?.(name);
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
@@ -108,7 +113,7 @@ const Form = forwardRefWithStatics(
       </FormContext.Provider>
     );
   },
-  { useForm, FormItem, FormList },
+  { useForm, useWatch, FormItem, FormList },
 );
 
 Form.displayName = 'Form';
