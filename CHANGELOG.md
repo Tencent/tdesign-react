@@ -5,6 +5,31 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.0 `2022-09-20` 
+### ❗ Breaking Changes
+- `DatePicker`: 移除 `valueType` api，可使用返回的 dayjs 对象自行格式化 @HQ-Lin ([#1487](https://github.com/Tencent/tdesign-react/pull/1487))
+- `Select`: 移除 `onVisibleChange`、`bordered` 多余 api，可使用 `onPopupVisibleChange`、`borderless` 替代 @HQ-Lin ([#1505](https://github.com/Tencent/tdesign-react/pull/1505))
+
+### 🚀 Features
+- `Form`: 新增 `useWatch` hook @HQ-Lin ([#1490](https://github.com/Tencent/tdesign-react/pull/1490))
+- `DatePicker`:
+    - 优化动态更新年份滚动交互体验 @HQ-Lin ([#1502](https://github.com/Tencent/tdesign-react/pull/1502))
+    - 优化二次修改日期不规范时清空另一侧数据 @HQ-Lin ([#1492](https://github.com/Tencent/tdesign-react/pull/1492))
+
+### 🐞 Bug Fixes
+- `Icon`: 修复使用 `classprefix` 替换组件前缀对图标的影响 [#common842](https://github.com/Tencent/tdesign-common/pull/842) @uyarn @HQ-Lin ([#1500](https://github.com/Tencent/tdesign-react/pull/1500))
+- `Cascader`: 修复 `options` 动态设置为空失效 @pengYYYYY ([#1501](https://github.com/Tencent/tdesign-react/pull/1501))
+- `Checkbox`: 修复非规范属性引起的告警  @leosxie ([#1496](https://github.com/Tencent/tdesign-react/pull/1496))
+- `TagInput`: 修复清除按钮未调用 `onClear ` 事件 @pengYYYYY ([#1506](https://github.com/Tencent/tdesign-react/pull/1506))
+- `Select`: 修复透传 `tagProps` 属性失败问题 @HQ-Lin ([#1497](https://github.com/Tencent/tdesign-react/pull/1497))
+- `Notification`: 修复 offset 定位问题 @kenzyyang ([#1504](https://github.com/Tencent/tdesign-react/pull/1504))
+- `SelectInput`:
+    - 修复select-input使用valueDisplay渲染自定义tag筛选项展示居中错误 @AqingCyan ([#1503](https://github.com/Tencent/tdesign-react/pull/1503))
+    - 修复 SelectInput 自适应换行问题 @HQ-Lin ([#1500](https://github.com/Tencent/tdesign-react/pull/1500))
+
+### 🚧 Others
+- 修复 lodash 全量导入问题 @HQ-Lin ([#1491](https://github.com/Tencent/tdesign-react/pull/1491))
+
 ## 🌈 0.41.1 `2022-09-14` 
 ### 🚀 Features
 - `Upload`:
