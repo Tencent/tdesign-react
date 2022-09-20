@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useEffect, Ref, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -78,8 +78,6 @@ const Select = forwardRefWithStatics(
       tagInputProps,
       tagProps,
     } = props;
-
-    const selectPopupRef = useRef();
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
     const { classPrefix } = useConfig();
@@ -314,11 +312,7 @@ const Select = forwardRefWithStatics(
         panelBottomContent,
         panelTopContent,
       };
-      return (
-        <PopupContent {...popupContentProps} ref={selectPopupRef}>
-          {children}
-        </PopupContent>
-      );
+      return <PopupContent {...popupContentProps}>{children}</PopupContent>;
     };
 
     const renderValueDisplay = () => {
@@ -374,12 +368,7 @@ const Select = forwardRefWithStatics(
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = useCallback(
       (content: HTMLDivElement) => {
-        if (!selectPopupRef?.current) {
-          return;
-        }
-        const firstSelectedNode: HTMLDivElement = (selectPopupRef?.current as HTMLUListElement).querySelector(
-          `.${classPrefix}-is-selected`,
-        );
+        const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
         if (firstSelectedNode && content) {
           const { paddingBottom } = getComputedStyle(firstSelectedNode);
           const { marginBottom } = getComputedStyle(content);
@@ -435,6 +424,7 @@ const Select = forwardRefWithStatics(
           }}
           minCollapsedNum={minCollapsedNum}
           collapsedItems={renderCollapsedItems}
+          updateScrollTop={updateScrollTop}
           popupProps={{
             overlayClassName: [`${name}__dropdown`, overlayClassName],
             ...restPopupProps,
@@ -449,7 +439,6 @@ const Select = forwardRefWithStatics(
           onClear={(context) => {
             onClearValue(context);
           }}
-          updateScrollTop={updateScrollTop}
           {...selectInputProps}
         />
       </div>

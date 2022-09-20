@@ -51,11 +51,11 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
         content={props.panel}
         hideEmptyPopup={true}
         onVisibleChange={onInnerPopupVisibleChange}
+        updateScrollTop={props.updateScrollTop}
         {...visibleProps}
         {...popupProps}
         disabled={disabled}
         overlayInnerStyle={tOverlayInnerStyle}
-        updateScrollTop={props.updateScrollTop}
       >
         {multiple
           ? renderSelectMultiple({
