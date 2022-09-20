@@ -22,11 +22,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   autoWidth?: boolean;
   /**
-   * 是否有边框
-   * @default true
-   */
-  bordered?: boolean;
-  /**
    * 无边框模式
    * @default false
    */
@@ -103,6 +98,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   multiple?: boolean;
   /**
    * 数据化配置选项内容
+   * @default []
    */
   options?: Array<T>;
   /**
@@ -125,6 +121,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * 是否显示下拉框
    */
   popupVisible?: boolean;
+  /**
+   * 是否显示下拉框，非受控属性
+   */
+  defaultPopupVisible?: boolean;
   /**
    * 组件前置图标
    */
@@ -195,11 +195,12 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   onBlur?: (context: { value: SelectValue; e: FocusEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> }) => void;
   /**
-   * 选中值变化时触发，`context.trigger` 表示触发变化的来源，`context.selectedOptions` 表示选中值的完整对象
+   * 选中值变化时触发。`context.trigger` 表示触发变化的来源；`context.selectedOptions` 表示选中值的完整对象，数组长度一定和 `value` 相同；`context.option` 表示当前操作的选项，不一定存在
    */
   onChange?: (
     value: SelectValue,
     context: {
+      option?: T;
       selectedOptions: T[];
       trigger: SelectValueChangeTrigger;
       e?: MouseEvent<SVGElement | HTMLDivElement | HTMLLIElement> | KeyboardEvent<HTMLInputElement>;
@@ -237,13 +238,14 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * 输入值变化时，触发搜索事件。主要用于远程搜索新数据
    */
   onSearch?: (filterWords: string) => void;
-  /**
-   * 下拉框隐藏/显示时触发
-   */
-  onVisibleChange?: (visible: boolean) => void;
 }
 
 export interface TdOptionProps {
+  /**
+   * 当前选项是否为全选，全选可以在顶部，也可以在底部。点击当前选项会选中禁用态除外的全部选项，即使是分组选择器也会选中全部选项
+   * @default false
+   */
+  checkAll?: boolean;
   /**
    * 用于定义复杂的选项内容，同 content
    */

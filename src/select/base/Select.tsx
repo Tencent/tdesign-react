@@ -37,7 +37,6 @@ const Select = forwardRefWithStatics(
 
     const {
       readonly,
-      bordered,
       borderless,
       autoWidth,
       creatable,
@@ -71,7 +70,6 @@ const Select = forwardRefWithStatics(
       minCollapsedNum,
       valueDisplay,
       onEnter,
-      onVisibleChange,
       showArrow,
       inputProps,
       panelBottomContent,
@@ -162,7 +160,6 @@ const Select = forwardRefWithStatics(
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
       setShowPopup(visible, ctx);
-      onVisibleChange?.(visible);
       visible && onInputChange('');
     };
 
@@ -422,7 +419,7 @@ const Select = forwardRefWithStatics(
           disabled={disabled}
           status={props.status}
           tips={props.tips}
-          borderless={borderless || !bordered}
+          borderless={borderless}
           label={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
