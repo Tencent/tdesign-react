@@ -80,14 +80,14 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         setMonth(initYearMonthTime({ value, mode, format, enableTimePicker }).month);
       } else if (value.length === 2 && !enableTimePicker) {
         // 确保右侧面板月份比左侧大 避免两侧面板月份一致
-        const nextMonth = value.map((v: string) => parseToDayjs(v || new Date(), format).month());
+        const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
         if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
           nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
         }
         setMonth(nextMonth);
       } else {
-        setYear(value.map((v: string) => parseToDayjs(v || new Date(), format).year()));
-        setMonth(value.map((v: string) => parseToDayjs(v || new Date(), format).month()));
+        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
+        setMonth(value.map((v: string) => parseToDayjs(v, format).month()));
       }
     } else {
       setIsHoverCell(false);
@@ -143,10 +143,17 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 当两端都有有效值时更改 value
     if (notValidIndex === -1 && nextValue.length === 2) {
-      onChange(formatDate(nextValue, { format }), {
-        dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
-        trigger: 'pick',
-      });
+      // 二次修改时当其中一侧不符合上次区间规范时，清空另一侧数据
+      if (!isFirstValueSelected && parseToDayjs(nextValue[0], format).isAfter(parseToDayjs(nextValue[1], format))) {
+        nextValue[activeIndex ? 0 : 1] = '';
+        setCacheValue(nextValue);
+        setInputValue(nextValue);
+      } else {
+        onChange(formatDate(nextValue, { format }), {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'pick',
+        });
+      }
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
@@ -238,12 +245,17 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 当两端都有有效值时更改 value
     if (notValidIndex === -1 && nextValue.length === 2) {
-      onChange(formatDate(nextValue, { format }), {
-        dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
-        trigger: 'confirm',
-      });
-      setYear(nextValue.map((v) => dayjs(v, format).year()));
-      setMonth(nextValue.map((v) => dayjs(v, format).month()));
+      // 二次修改时当其中一侧不符合上次区间规范时，清空另一侧数据
+      if (!isFirstValueSelected && parseToDayjs(nextValue[0], format).isAfter(parseToDayjs(nextValue[1], format))) {
+        nextValue[activeIndex ? 0 : 1] = '';
+        setCacheValue(nextValue);
+        setInputValue(nextValue);
+      } else {
+        onChange(formatDate(nextValue, { format }), {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'confirm',
+        });
+      }
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
