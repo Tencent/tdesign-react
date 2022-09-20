@@ -6,7 +6,7 @@ import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import { isValidDate, formatDate, getDefaultFormat } from '../../_common/js/date-picker/format';
+import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useRangeValue from './useRangeValue';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
@@ -34,10 +34,9 @@ export default function useRange(props: TdDateRangePickerProps) {
     setIsFirstValueSelected,
   } = useRangeValue(props);
 
-  const { format, valueType, timeFormat } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
-    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
@@ -45,7 +44,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); // 确定当前选中的输入框序号
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value, { format, targetFormat: format }));
+  const [inputValue, setInputValue] = useState(formatDate(value, { format }));
 
   // input 设置
   const rangeInputProps = {
@@ -101,12 +100,12 @@ export default function useRange(props: TdDateRangePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(newVal, format)) {
-        onChange(formatDate(newVal, { format, targetFormat: valueType }) as DateValue[], {
-          dayjsValue: newVal.map((v) => dayjs(v)),
+        onChange(formatDate(newVal, { format }) as DateValue[], {
+          dayjsValue: newVal.map((v) => parseToDayjs(v, format)),
           trigger: 'enter',
         });
       } else if (isValidDate(value, format)) {
-        setInputValue(formatDate(value, { format, targetFormat: format }));
+        setInputValue(formatDate(value, { format }));
       } else {
         setInputValue([]);
       }
@@ -137,9 +136,9 @@ export default function useRange(props: TdDateRangePickerProps) {
       setInputValue([]);
       return;
     }
-    if (!isValidDate(value, valueType)) return;
+    if (!isValidDate(value, format)) return;
 
-    setInputValue(formatDate(value, { format, targetFormat: format }));
+    setInputValue(formatDate(value, { format }));
     // eslint-disable-next-line
   }, [value]);
 

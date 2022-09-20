@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SelectInput } from 'tdesign-react';
+import { SelectInput, Space } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -7,11 +7,6 @@ const classStyles = `
   text-align: center;
   color: var(--td-text-color-disabled);
   line-height: 32px;
-}
-
-.tdesign-demo-select-input-status .t-select-input__wrap {
-  width: 300px;
-  vertical-align: middle;
 }
 </style>
 `;
@@ -25,8 +20,8 @@ const SelectInputStatus = () => {
   }, []);
 
   return (
-    <div className="tdesign-demo-select-input-status">
-      <div>
+    <Space direction="vertical" size={32}>
+      <Space>
         <span>禁用状态：</span>
         <SelectInput
           value={selectValue}
@@ -34,12 +29,10 @@ const SelectInputStatus = () => {
           placeholder="Please Select"
           tips="这是禁用状态的文本"
           panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
-        ></SelectInput>
-      </div>
-      <br />
-      <br />
+        />
+      </Space>
 
-      <div>
+      <Space>
         <span>只读状态：</span>
         <SelectInput
           value={selectValue}
@@ -47,12 +40,10 @@ const SelectInputStatus = () => {
           placeholder="Please Select"
           tips="这是只读状态的文本提示"
           panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
-        ></SelectInput>
-      </div>
-      <br />
-      <br />
+        />
+      </Space>
 
-      <div>
+      <Space>
         <span>成功状态：</span>
         <SelectInput
           value={selectValue}
@@ -60,12 +51,10 @@ const SelectInputStatus = () => {
           tips="校验通过文本提示"
           placeholder="Please Select"
           panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
-        ></SelectInput>
-      </div>
-      <br />
-      <br />
+        />
+      </Space>
 
-      <div>
+      <Space>
         <span>警告状态：</span>
         <SelectInput
           value={selectValue}
@@ -73,12 +62,10 @@ const SelectInputStatus = () => {
           tips="校验不通过文本提示"
           placeholder="Please Select"
           panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
-        ></SelectInput>
-      </div>
-      <br />
-      <br />
+        />
+      </Space>
 
-      <div>
+      <Space>
         <span>错误状态：</span>
         <SelectInput
           value={selectValue}
@@ -86,21 +73,19 @@ const SelectInputStatus = () => {
           tips="校验存在严重问题文本提示"
           placeholder="Please Select"
           panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
-        ></SelectInput>
-      </div>
-      <br />
-      <br />
+        />
+      </Space>
 
-      <div>
+      <Space>
         <span>加载状态：</span>
         <SelectInput
           loading={true}
           tips="处于加载状态的文本提示"
           placeholder="Please Select"
           panel={<div className="tdesign-demo__select-empty-status">加载中...</div>}
-        ></SelectInput>
-      </div>
-    </div>
+        />
+      </Space>
+    </Space>
   );
 };
 

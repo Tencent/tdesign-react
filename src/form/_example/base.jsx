@@ -6,6 +6,11 @@ const { FormItem } = Form;
 export default function BaseForm() {
   const [form] = Form.useForm();
 
+  const name = Form.useWatch('name', form);
+  const gender = Form.useWatch('gender', form);
+  console.log('name', name);
+  console.log('gender', gender);
+
   const onSubmit = (e) => {
     console.log(e);
     if (e.validateResult === true) {

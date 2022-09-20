@@ -1,13 +1,17 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
-import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
+import type {
+  TdFormProps,
+  FormValidateResult,
+  FormResetParams,
+  FormValidateMessage,
+  AllValidateResult,
+  NamePath,
+} from '../type';
 import useConfig from '../../hooks/useConfig';
 
-function getMapValue(
-  name: string | number | Array<string | number>,
-  formMapRef: React.MutableRefObject<Map<any, any>>,
-) {
+function getMapValue(name: NamePath, formMapRef: React.MutableRefObject<Map<any, any>>) {
   // 提取所有 map key
   const mapKeys = [...formMapRef.current.keys()];
   // 转译为字符串后比对 key 兼容数组格式
@@ -140,7 +144,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   }
 
   // 对外方法，获取对应 formItem 的值
-  function getFieldValue(name: string | number | Array<string | number>) {
+  function getFieldValue(name: NamePath) {
     if (!name) return null;
 
     const formItemRef = getMapValue(name, formMapRef);
@@ -250,5 +254,6 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     getFieldValue,
     getFieldsValue,
     currentElement: formRef.current,
+    getCurrentElement: () => formRef.current,
   };
 }

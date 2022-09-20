@@ -7,9 +7,10 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type';
+import type { TdFormItemProps, ValueType, FormItemValidateMessage, NamePath } from './type';
 import { StyledProps } from '../common';
 import { validate as validateModal } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
@@ -24,7 +25,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 }
 
 export interface FormItemInstance {
-  name?: string | number | Array<string | number>;
+  name?: NamePath;
   value?: any;
   getValue?: Function;
   setValue?: Function;
@@ -350,12 +351,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
         } else {
           formListValue[name] = formValue;
         }
-        onFormItemValueChange?.({ [formListName]: formListValue });
+        onFormItemValueChange?.({ [formListName]: formListValue }, name);
       } else if (Array.isArray(name)) {
         const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
-        onFormItemValueChange?.({ ...fieldValue });
+        onFormItemValueChange?.({ ...fieldValue }, name);
       } else {
-        onFormItemValueChange?.({ [name as string]: formValue });
+        onFormItemValueChange?.({ [name as string]: formValue }, name);
       }
     }
 

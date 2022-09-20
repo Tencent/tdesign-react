@@ -4,7 +4,7 @@ import { StyledProps } from '../common';
 import { TdDatePickerPanelProps, DateValue, DatePickerYearChangeTrigger, DatePickerMonthChangeTrigger } from './type';
 import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
-import { formatDate, getDefaultFormat } from '../_common/js/date-picker/format';
+import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
@@ -26,10 +26,9 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     onPanelClick,
   } = props;
 
-  const { format, valueType } = getDefaultFormat({
+  const { format } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
-    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
@@ -44,9 +43,9 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     }
 
     if (enableTimePicker) {
-      setCacheValue(formatDate(date, { format, targetFormat: format }));
+      setCacheValue(formatDate(date, { format }));
     } else {
-      onChange(formatDate(date, { format, targetFormat: valueType }), { dayjsValue: dayjs(date), trigger: 'pick' });
+      onChange(formatDate(date, { format }), { dayjsValue: parseToDayjs(date, format), trigger: 'pick' });
     }
   }
 
@@ -73,7 +72,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     if (year !== nextYear) {
       props.onYearChange?.({
         year: nextYear,
-        date: dayjs(value).toDate(),
+        date: parseToDayjs(value, format).toDate(),
         trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
       });
     }
@@ -81,7 +80,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     if (month !== nextMonth) {
       props.onMonthChange?.({
         month: nextMonth,
-        date: dayjs(value).toDate(),
+        date: parseToDayjs(value, format).toDate(),
         trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
       });
     }
@@ -90,7 +89,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     setMonth(nextMonth);
   }
 
-  // timepicker 点击
+  // timePicker 点击
   function onTimePickerChange(val: string) {
     setTime(val);
 
@@ -101,19 +100,19 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
     const currentDate = !dayjs(cacheValue, format).isValid() ? dayjs() : dayjs(cacheValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    setCacheValue(formatDate(nextDate, { format, targetFormat: format }));
+    setCacheValue(formatDate(nextDate, { format }));
 
     props.onTimeChange?.({
       time: val,
-      date: dayjs(value).toDate(),
+      date: parseToDayjs(value, format).toDate(),
       trigger: 'time-hour',
     });
   }
 
   // 确定
   function onConfirmClick({ e }) {
-    onChange(formatDate(cacheValue, { format, targetFormat: valueType }), {
-      dayjsValue: dayjs(cacheValue),
+    onChange(formatDate(cacheValue, { format }), {
+      dayjsValue: parseToDayjs(cacheValue, format),
       trigger: 'confirm',
     });
 
@@ -123,8 +122,8 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   // 预设
   function onPresetClick(presetValue: DateValue | (() => DateValue), { e, preset }) {
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
-    onChange(formatDate(presetVal, { format, targetFormat: valueType }), {
-      dayjsValue: dayjs(presetVal),
+    onChange(formatDate(presetVal, { format }), {
+      dayjsValue: parseToDayjs(presetVal, format),
       trigger: 'preset',
     });
 
@@ -136,7 +135,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 
     props.onYearChange?.({
       year,
-      date: dayjs(value).toDate(),
+      date: parseToDayjs(value, format).toDate(),
       trigger: 'year-select',
     });
   }
@@ -146,7 +145,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 
     props.onMonthChange?.({
       month,
-      date: dayjs(value).toDate(),
+      date: parseToDayjs(value, format).toDate(),
       trigger: 'month-select',
     });
   }

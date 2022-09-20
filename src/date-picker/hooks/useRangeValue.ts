@@ -55,24 +55,21 @@ export function initYearMonthTime({
 export default function useRange(props: TdDateRangePickerProps) {
   const [value, onChange] = useControlled(props, 'value', props.onChange);
 
-  const { format, valueType, timeFormat } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
-    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
   if (props.enableTimePicker) {
     if (!extractTimeFormat(format))
       log.error('DatePicker', `format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
-    if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
-      log.error('DatePicker', `valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
 
   // warning invalid value
   if (!Array.isArray(value)) {
     log.error('DatePicker', `typeof value: ${value} must be Array!`);
-  } else if (!isValidDate(value, valueType)) {
+  } else if (!isValidDate(value, format)) {
     log.error(
       'DatePicker',
       `value: ${value} is invalid dateTime! Check whether the value is consistent with format: ${format}`,
@@ -85,7 +82,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     initYearMonthTime({ value, mode: props.mode, format, enableTimePicker: props.enableTimePicker }).month,
   );
   const [year, setYear] = useState<Array<number>>(initYearMonthTime({ value, mode: props.mode, format }).year);
-  const [cacheValue, setCacheValue] = useState(formatDate(value, { format, targetFormat: format })); // 缓存选中值，panel 点击时更改
+  const [cacheValue, setCacheValue] = useState(formatDate(value, { format })); // 缓存选中值，panel 点击时更改
 
   // 输入框响应 value 变化
   useEffect(() => {
@@ -93,9 +90,9 @@ export default function useRange(props: TdDateRangePickerProps) {
       setCacheValue([]);
       return;
     }
-    if (!isValidDate(value, valueType)) return;
+    if (!isValidDate(value, format)) return;
 
-    setCacheValue(formatDate(value, { format, targetFormat: format }));
+    setCacheValue(formatDate(value, { format }));
     setTime(formatTime(value, timeFormat));
     // eslint-disable-next-line
   }, [value]);
