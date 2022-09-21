@@ -1,6 +1,8 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+import get from 'lodash/get';
+import merge from 'lodash/merge';
 import lodashTemplate from 'lodash/template';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
@@ -8,6 +10,7 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 
+import { calcFieldValue } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { TdFormItemProps, ValueType, FormItemValidateMessage, NamePath } from './type';
@@ -99,8 +102,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
-  const shouldValidate = useRef(false);
-  const valueRef = useRef(formValue);
+  const shouldValidate = useRef(false); // 校验开关
+  const valueRef = useRef(formValue); // 当前最新值
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
@@ -141,8 +144,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules) {
     if (Array.isArray(name)) {
-      const [, itemKey] = name;
-      return formRules?.[formListName]?.[itemKey] || formListRules?.[itemKey] || [];
+      return get(formRules?.[formListName], name) || get(formListRules, name) || [];
     }
     return formRules?.[name] || formListRules || [];
   }
@@ -344,19 +346,14 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     // value change event
     if (typeof name !== 'undefined') {
       if (formListName) {
-        const formListValue = [];
-        if (Array.isArray(name)) {
-          const [index, itemKey] = name;
-          formListValue[index] = { [itemKey]: formValue };
-        } else {
-          formListValue[name] = formValue;
-        }
-        onFormItemValueChange?.({ [formListName]: formListValue }, name);
-      } else if (Array.isArray(name)) {
-        const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
+        // 整理 formItem 的值
+        const formListValue = merge([], calcFieldValue(name, formValue));
+        // 整理 formList 的值
+        const fieldValue = calcFieldValue(formListName, formListValue);
         onFormItemValueChange?.({ ...fieldValue }, name);
       } else {
-        onFormItemValueChange?.({ [name as string]: formValue }, name);
+        const fieldValue = calcFieldValue(name, formValue);
+        onFormItemValueChange?.({ ...fieldValue }, name);
       }
     }
 

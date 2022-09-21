@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
+import merge from 'lodash/merge';
+import get from 'lodash/get';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
 import { TdFormListProps, FormListFieldOperation, FormListField } from './type';
+import { calcFieldValue } from './utils';
 import log from '../_common/js/log';
 
 let key = 0;
@@ -122,16 +125,8 @@ const FormList = (props: TdFormListProps) => {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
           const { name, getValue } = formItemRef.current;
-          if (Array.isArray(name)) {
-            const [index, itemKey] = name;
-            if (!formListValue[index]) {
-              formListValue[index] = { [itemKey]: getValue() };
-            } else {
-              formListValue[index][itemKey] = getValue();
-            }
-          } else {
-            formListValue[name] = getValue();
-          }
+          const fieldValue = calcFieldValue(name, getValue());
+          merge(formListValue, fieldValue);
         });
         return formListValue;
       },
@@ -154,9 +149,9 @@ const FormList = (props: TdFormListProps) => {
             });
             const errorItems = validateResult.filter((item) => Object.values(item)[0] !== true);
             if (errorItems.length) {
-              resolve({ [name]: resultList });
+              resolve({ [String(name)]: resultList });
             } else {
-              resolve({ [name]: true });
+              resolve({ [String(name)]: true });
             }
           });
         });
@@ -181,13 +176,7 @@ const FormList = (props: TdFormListProps) => {
       setValidateMessage: (fieldData) => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {
           const { name } = formItemRef.current;
-          let data;
-          if (Array.isArray(name)) {
-            const [index, itemKey] = name;
-            data = fieldData?.[index]?.[itemKey];
-          } else {
-            data = fieldData?.[name];
-          }
+          const data = get(fieldData, name);
 
           formItemRef.current.setValidateMessage(data);
         });

@@ -41,7 +41,7 @@ export const useFormContext = () => React.useContext(FormContext);
 export default FormContext;
 
 export const FormListContext = React.createContext<{
-  name: string | number;
+  name: NamePath;
   rules: TdFormListProps['rules'];
   formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
 }>({
