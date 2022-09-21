@@ -74,7 +74,7 @@ export default {
           component: () => import('tdesign-react/icon/icon.md'),
         },
         {
-          title: 'Link 文字',
+          title: 'Link 链接',
           name: 'link',
           path: '/react/components/link',
           component: () => import('tdesign-react/link/link.md'),
