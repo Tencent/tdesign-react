@@ -48,7 +48,7 @@ export default function NormalFile(props: NormalFileProps) {
     return files.map((file, index) => (
       <div
         className={`${uploadPrefix}__single-display-text ${uploadPrefix}__display-text--margin`}
-        key={file.name + index}
+        key={file.name + index + file.percent + file.status}
       >
         {file.url ? (
           <Link href={file.url} target="_blank" hover="color" size="small" className={`${uploadPrefix}__single-name`}>
@@ -79,15 +79,15 @@ export default function NormalFile(props: NormalFileProps) {
   const renderFilePreviewAsInput = () => {
     if (theme !== 'file-input') return;
     const file = props.displayFiles[0];
-    if (!file) return null;
     const inputTextClass = [
       `${classPrefix}-input__inner`,
       { [`${uploadPrefix}__placeholder`]: !props.displayFiles[0] },
     ];
     const disabledClass = disabled ? `${classPrefix}-is-disabled` : '';
-    const fileName = props.abridgeName?.length
-      ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1])
-      : file.name;
+    const fileName =
+      props.abridgeName?.length && file?.name
+        ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1])
+        : file?.name;
     return (
       <div className={`${uploadPrefix}__single-input-preview ${classPrefix}-input ${disabledClass}`}>
         <div className={classNames(inputTextClass)}>

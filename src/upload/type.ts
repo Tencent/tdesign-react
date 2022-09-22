@@ -338,7 +338,7 @@ export interface UploadChangeContext {
   file?: UploadFile;
 }
 
-export type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'status-change' | 'progress' | 'fail';
+export type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'progress-success' | 'progress' | 'progress-fail';
 
 export interface UploadFailContext {
   e: ProgressEvent;
