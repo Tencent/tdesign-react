@@ -85,7 +85,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   const renderImgItem = (file: UploadFile, index: number) => {
     const { iconMap, textMap } = getStatusMap();
     return (
-      <li className={`${uploadPrefix}__card-item`} key={file.name + index}>
+      <li className={`${uploadPrefix}__card-item`} key={file.name + index + file.percent + file.status}>
         <div
           className={classNames([
             `${uploadPrefix}__card-content`,

@@ -104,8 +104,8 @@ export default function useUpload(props: TdUploadProps) {
 
   // 只有多个上传请求同时触发时才需 onOneFileSuccess
   const onResponseSuccess = (p: SuccessContext, toFiles: UploadFile[]) => {
-    updateProgress(p, toFiles, 'progress-success');
     if (props.multiple && !props.uploadAllFilesInOneRequest) {
+      updateProgress(p, toFiles, 'progress-success');
       props.onOneFileSuccess?.({
         e: p.event,
         file: p.files[0],
