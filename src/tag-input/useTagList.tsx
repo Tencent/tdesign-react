@@ -55,7 +55,7 @@ export default function useTagList(props: TagInputProps) {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
-    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.code)) {
+    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
       const item = tagValue[index];
       const trigger = 'backspace';
