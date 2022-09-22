@@ -67,7 +67,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
 
   const commonDisplayFileProps: CommonDisplayFileProps = {
     files: uploadValue,
-    toUploadFiles: toUploadFiles.current,
+    toUploadFiles,
     displayFiles,
     theme,
     abridgeName: props.abridgeName,
