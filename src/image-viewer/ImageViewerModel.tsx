@@ -338,7 +338,7 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const onKeyDown = useCallback(
     (event) => {
-      switch (event.code) {
+      switch (event.key) {
         case 'ArrowRight':
           return next();
         case 'ArrowLeft':

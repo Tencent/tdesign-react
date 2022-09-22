@@ -134,9 +134,9 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
       ArrowUp: handleAdd,
       ArrowDown: handleReduce,
     };
-    const code = e.code || e.key;
-    if (keyEvent[code] !== undefined) {
-      keyEvent[code](e);
+
+    if (keyEvent[e.key] !== undefined) {
+      keyEvent[e.key](e);
     }
     props.onKeydown?.(value, ctx);
   };

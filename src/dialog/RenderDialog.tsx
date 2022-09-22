@@ -166,13 +166,13 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-    if (e.code === 'Escape') {
+    if (e.key === 'Escape') {
       e.stopPropagation();
       onEscKeydown({ e });
       if (closeOnEscKeydown ?? local.closeOnEscKeydown) {
         onClose({ e, trigger: 'esc' });
       }
-    } else if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+    } else if (e.key === 'Enter' || e.key === 'NumpadEnter') {
       // 回车键触发点击确认事件
       e.stopPropagation();
       if (confirmOnEnter) {
