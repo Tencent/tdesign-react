@@ -36,6 +36,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | \-
 currentElement | \- | `HTMLFormElement` | \-
+getCurrentElement | \- | `HTMLFormElement` | \-
 getFieldValue | `(field: NamePath) ` | `unknown` | \-
 getFieldsValue | \- | `getFieldsValue<FormData>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
@@ -61,7 +62,7 @@ labelWidth | String / Number | - | \- | N
 name | String / Number / Array | - | Typescript：`NamePath` `type NamePath = string | number | Array<string | number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 requiredMark | Boolean | - | \- | N
 rules | Array | - | Typescript：`Array<FormRule>` | N
-shouldUpdate | Boolean | false | Typescript：`boolean | ((prevValue, curValue) => boolean)` | N
+shouldUpdate | Boolean / Function | false | Typescript：`boolean | ((prevValue, curValue) => boolean)` | N
 showErrorMessage | Boolean | - | \- | N
 status | String | - | Typescript：`'error' | 'warning' | 'success' | 'validating'` | N
 statusIcon | TNode | - | Typescript：`boolean | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

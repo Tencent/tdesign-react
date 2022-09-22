@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
+import get from 'lodash/get';
 import type { NamePath } from '../type';
 import type { InternalFormInstance } from './interface';
 import { HOOK_MARK } from './useForm';
 
-export default function useWatch(fields: NamePath, form: InternalFormInstance) {
+export default function useWatch(name: NamePath, form: InternalFormInstance) {
   const [value, setValue] = useState<any>();
   const valueStr = useMemo(() => JSON.stringify(value), [value]);
   const valueStrRef = useRef(valueStr);
@@ -14,12 +15,12 @@ export default function useWatch(fields: NamePath, form: InternalFormInstance) {
   useEffect(() => {
     if (!isValidForm) return;
 
-    const { getFieldValue, getInternalHooks } = form;
+    const { getFieldsValue, getInternalHooks } = form;
     const { registerWatch } = getInternalHooks(HOOK_MARK);
 
-    // eslint-disable-next-line
-    const cancelRegister = registerWatch((store) => {
-      const newValue = getFieldValue(fields);
+    const cancelRegister = registerWatch(() => {
+      const allFieldsValue = getFieldsValue(true);
+      const newValue = get(allFieldsValue, name);
       const nextValueStr = JSON.stringify(newValue);
 
       // Compare stringify in case it's nest object
@@ -29,7 +30,8 @@ export default function useWatch(fields: NamePath, form: InternalFormInstance) {
       }
     });
 
-    const initialValue = getFieldValue(fields);
+    const allFieldsValue = getFieldsValue(true);
+    const initialValue = get(allFieldsValue, name);
     setValue(initialValue);
 
     return cancelRegister;

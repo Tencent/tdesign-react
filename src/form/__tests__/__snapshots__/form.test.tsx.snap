@@ -317,6 +317,65 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
+      class="t-form__item t-form-item__foo"
+    >
+      <div
+        class="t-form__label t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label>
+          动态选项1
+        </label>
+      </div>
+      <div
+        class="t-form__controls"
+        style="margin-left: 100px;"
+      >
+        <div
+          class="t-form__controls-content"
+        >
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio"
+            >
+              <input
+                class="t-radio__former"
+                type="radio"
+                value="0"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                选项一
+              </span>
+            </label>
+            <label
+              class="t-radio"
+            >
+              <input
+                class="t-radio__former"
+                type="radio"
+                value="1"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                选项二
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
       class="t-form__item t-form-item__course"
     >
       <div
@@ -3205,6 +3264,29 @@ exports[`nested-data.jsx 1`] = `
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-form__item"
+      style="margin-left: 100px;"
+    >
+      <div
+        class="t-form__controls"
+      >
+        <div
+          class="t-form__controls-content"
+        >
+          <button
+            class="t-button t-button--theme-default t-button--variant-dashed"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              Add field
+            </span>
+          </button>
         </div>
       </div>
     </div>

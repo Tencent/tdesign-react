@@ -108,7 +108,11 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取 form dom 元素
    */
-  currentElement?: () => HTMLFormElement;
+  currentElement?: HTMLFormElement;
+  /**
+   * 获取 form dom 元素
+   */
+  getCurrentElement?: () => HTMLFormElement;
   /**
    * 获取单个字段值
    */
@@ -186,7 +190,7 @@ export interface TdFormItemProps {
    */
   rules?: Array<FormRule>;
   /**
-   * 自定义字段更新逻辑
+   * null
    * @default false
    */
   shouldUpdate?: boolean | ((prevValue, curValue) => boolean);

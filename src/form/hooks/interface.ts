@@ -7,6 +7,8 @@ export type WatchCallBack = (values: Store, namePathList: NamePath) => void;
 export interface InternalHooks {
   notifyWatch: (name: NamePath) => void;
   registerWatch: (callback: WatchCallBack) => () => void;
+  getPrevStore: () => Store;
+  setPrevStore: (store: Store) => void;
 }
 
 export interface InternalFormInstance extends FormInstanceFunctions {

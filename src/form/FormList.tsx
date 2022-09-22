@@ -77,13 +77,7 @@ const FormList = (props: TdFormListProps) => {
     Promise.resolve().then(() => {
       [...formListMapRef.current.values()].forEach((formItemRef) => {
         const { name } = formItemRef.current;
-        let data;
-        if (Array.isArray(name)) {
-          const [index, itemKey] = name;
-          data = fieldData?.[index]?.[itemKey];
-        } else {
-          data = fieldData?.[name];
-        }
+        const data = get(fieldData, name);
         callback(formItemRef, data);
       });
     });
@@ -94,13 +88,7 @@ const FormList = (props: TdFormListProps) => {
       const { name, value } = formItemRef.current;
       if (value) return;
 
-      let data;
-      if (Array.isArray(name)) {
-        const [index, itemKey] = name;
-        data = initialValue?.[index]?.[itemKey];
-      } else {
-        data = initialValue?.[name];
-      }
+      const data = get(initialValue, name);
       formItemRef.current.setField({ value: data, status: 'not' });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -139,13 +127,12 @@ const FormList = (props: TdFormListProps) => {
           Promise.all(validates).then((validateResult) => {
             validateResult.forEach((result) => {
               const errorKey = Object.keys(result)[0];
-              const errorValue = Object.values(result)[0];
-              const [index, itemKey] = errorKey.split(',');
-              if (itemKey) {
-                resultList[index] = { [itemKey]: errorValue };
-              } else {
-                resultList[index] = errorValue;
-              }
+              const errorKeyList = errorKey.split(',');
+
+              let errorValue = Object.values(result)[0];
+              errorValue = calcFieldValue(errorKeyList, errorValue);
+
+              merge(resultList, errorValue);
             });
             const errorItems = validateResult.filter((item) => Object.values(item)[0] !== true);
             if (errorItems.length) {

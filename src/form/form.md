@@ -70,6 +70,26 @@ Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onC
 </Form.FormItem>
 ```
 
+### 如何根据某个字段变化动态展示数据
+
+而在某些特定场景，例如修改某个字段值后出现新的字段选项、或者纯粹希望表单任意变化都对某一个区域进行渲染。你可以通过 `shouldUpdate` 修改 `FormItem` 的更新逻辑。
+
+```js
+<Form.FormItem shouldUpdate={(prev, next) => prev.additional !== next.additional}>
+  {({ getFieldValue }) => {
+    if (getFieldValue('additional') === 'test') {
+      return (
+        <Form.FormItem name="test">
+          <Input />
+        </Form.FormItem>
+      );
+    }
+    return null;
+  }}
+  <Input />
+</Form.FormItem>
+```
+
 ## API
 ### Form Props
 
@@ -106,6 +126,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
 currentElement | \- | `HTMLFormElement` | 获取 form dom 元素
+getCurrentElement | \- | `HTMLFormElement` | 获取 form dom 元素
 getFieldValue | `(field: NamePath) ` | `unknown` | 获取单个字段值
 getFieldsValue | \- | `getFieldsValue<FormData>` | 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | 重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
@@ -131,7 +152,7 @@ labelWidth | String / Number | - | 可以整体设置标签宽度，优先级高
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` `type NamePath = string | number | Array<string | number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 requiredMark | Boolean | - | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
-shouldUpdate | Boolean | false | 自定义字段更新逻辑。TS 类型：`boolean | ((prevValue, curValue) => boolean)` | N
+shouldUpdate | Boolean / Function | false | TS 类型：`boolean | ((prevValue, curValue) => boolean)` | N
 showErrorMessage | Boolean | - | 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage` | N
 status | String | - | 校验状态，可在需要完全自主控制校验状态时使用。TS 类型：`'error' | 'warning' | 'success' | 'validating'` | N
 statusIcon | TNode | - | 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
