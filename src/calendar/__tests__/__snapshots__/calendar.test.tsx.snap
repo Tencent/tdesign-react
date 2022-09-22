@@ -7574,7 +7574,9 @@ exports[`cell-append.jsx 1`] = `
                   <span
                     class="t-tag t-tag--primary t-tag--dark t-tag--small t-tag--square t-size-s"
                   >
-                    今天
+                    <span>
+                      今天
+                    </span>
                   </span>
                 </div>
               </div>

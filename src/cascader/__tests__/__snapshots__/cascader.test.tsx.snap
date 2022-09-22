@@ -118,7 +118,9 @@ exports[`check-strictly.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                1/1.1/1.1.2/1.1.2.1
+                <span>
+                  1/1.1/1.1.2/1.1.2.1
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -136,7 +138,9 @@ exports[`check-strictly.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                2
+                <span>
+                  2
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -207,7 +211,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                选项一/子选项一
+                <span>
+                  选项一/子选项一
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -225,7 +231,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                +2
+                <span>
+                  +2
+                </span>
               </span>
             </div>
             <span
@@ -273,7 +281,9 @@ exports[`collapsed.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                选项一/子选项一
+                <span>
+                  选项一/子选项一
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -396,7 +406,9 @@ exports[`disabled.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
               >
-                选项一/子选项一
+                <span>
+                  选项一/子选项一
+                </span>
               </span>
             </div>
             <span
@@ -545,7 +557,9 @@ exports[`filterable.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                当选项一数据展示文本过长时/子选项一
+                <span>
+                  当选项一数据展示文本过长时/子选项一
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -824,7 +838,9 @@ exports[`multiple.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              选项一/子选项一
+              <span>
+                选项一/子选项一
+              </span>
               <svg
                 class="t-icon t-icon-close t-tag__icon-close"
                 fill="none"
@@ -1635,7 +1651,9 @@ exports[`value-type.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                选项一/子选项一
+                <span>
+                  选项一/子选项一
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"
@@ -1653,7 +1671,9 @@ exports[`value-type.jsx 1`] = `
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                选项一/子选项二
+                <span>
+                  选项一/子选项二
+                </span>
                 <svg
                   class="t-icon t-icon-close t-tag__icon-close"
                   fill="none"

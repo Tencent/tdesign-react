@@ -6,6 +6,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
+import useLayoutEffect from '../_util/useLayoutEffect';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -133,10 +134,12 @@ const Input = forwardRefWithStatics(
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
 
-    useEffect(() => {
-      if (!autoWidth) return;
-      if (inputPreRef.current?.offsetWidth === 0) return;
-      if (inputRef.current) inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
+    useLayoutEffect(() => {
+      if (!autoWidth || !inputRef.current) return;
+      // 推迟到下一帧处理防止异步渲染 input 场景宽度计算为 0
+      requestAnimationFrame(() => {
+        inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
+      });
     }, [autoWidth, value, placeholder, inputRef]);
 
     useEffect(() => {

@@ -99,6 +99,7 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
   const onClearClick = (e: MouseEvent<SVGElement>) => {
     clearAll({ e });
     setTInputValue('', { e, trigger: 'clear' });
+    props.onClear?.({ e });
   };
 
   const suffixIconNode = showClearIcon ? (
