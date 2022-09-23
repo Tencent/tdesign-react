@@ -9,7 +9,7 @@ import {
 } from './type';
 import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
-import { formatDate, getDefaultFormat } from '../_common/js/date-picker/format';
+import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import log from '../_common/js/log';
 
@@ -45,11 +45,10 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     setCacheValue,
   } = useRangeValue(props);
 
-  const { format, valueType } = getDefaultFormat({
+  const { format } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: props.format,
-    valueType: props.valueType,
   });
 
   // 记录面板是否选中过
@@ -62,7 +61,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   function onCellMouseEnter(date: Date) {
     setIsHoverCell(true);
     const nextValue = [...hoverValue];
-    nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
+    nextValue[activeIndex] = formatDate(date, { format });
     setHoverValue(nextValue);
   }
 
@@ -74,13 +73,13 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
   // 日期点击
   function onCellClick(date: Date, { e, partial }) {
-    props.onCellClick?.({ date: value.map((v) => dayjs(v).toDate()), e, partial: activeIndex ? 'end' : 'start' });
-
     setIsSelected(true);
 
     const nextValue = [...cacheValue];
-    nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
+    nextValue[activeIndex] = formatDate(date, { format });
     setCacheValue(nextValue);
+
+    props.onCellClick?.({ date: nextValue.map((v) => dayjs(v).toDate()), e, partial: activeIndex ? 'end' : 'start' });
 
     // date 模式自动切换年月
     if (mode === 'date') {
@@ -98,9 +97,9 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (enableTimePicker) return;
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
-        dayjsValue: nextValue.map((v) => dayjs(v)),
+    if (nextValue.length === 2 && isFirstValueSelected) {
+      onChange(formatDate(nextValue, { format }), {
+        dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
         trigger: 'pick',
       });
       setIsFirstValueSelected(false);
@@ -155,7 +154,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       props.onYearChange?.({
         partial,
         year: nextYear[partialIndex],
-        date: value.map((v) => dayjs(v).toDate()),
+        date: value.map((v) => parseToDayjs(v, format).toDate()),
         trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
       });
     }
@@ -164,7 +163,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       props.onMonthChange?.({
         partial,
         month: nextMonth[partialIndex],
-        date: value.map((v) => dayjs(v).toDate()),
+        date: value.map((v) => parseToDayjs(v, format).toDate()),
         trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
       });
     }
@@ -195,7 +194,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     setTime(nextTime);
 
     setIsSelected(true);
-    setCacheValue(formatDate(nextInputValue, { format, targetFormat: format }));
+    setCacheValue(formatDate(nextInputValue, { format }));
 
     props.onTimeChange?.({
       time: val,
@@ -211,8 +210,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (nextValue.length === 2 && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
-        dayjsValue: nextValue.map((v) => dayjs(v)),
+      onChange(formatDate(nextValue, { format }), {
+        dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
         trigger: 'confirm',
       });
       setYear(nextValue.map((v) => dayjs(v, format).year()));
@@ -232,8 +231,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (!Array.isArray(presetVal)) {
       log.error('DateRangePickerPanel', `preset: ${presetValue} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetVal, { format, targetFormat: valueType }), {
-        dayjsValue: presetVal.map((p) => dayjs(p)),
+      onChange(formatDate(presetVal, { format }), {
+        dayjsValue: presetVal.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
     }

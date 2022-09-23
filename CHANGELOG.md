@@ -5,6 +5,77 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.0 `2022-09-20` 
+### ❗ Breaking Changes
+- `DatePicker`: 移除 `valueType` api，可使用返回的 dayjs 对象自行格式化 @HQ-Lin ([#1487](https://github.com/Tencent/tdesign-react/pull/1487))
+- `Select`: 移除 `onVisibleChange`、`bordered` 多余 api，可使用 `onPopupVisibleChange`、`borderless` 替代 @HQ-Lin ([#1505](https://github.com/Tencent/tdesign-react/pull/1505))
+
+### 🚀 Features
+- `Form`: 新增 `useWatch` hook @HQ-Lin ([#1490](https://github.com/Tencent/tdesign-react/pull/1490))
+- `DatePicker`:
+    - 优化动态更新年份滚动交互体验 @HQ-Lin ([#1502](https://github.com/Tencent/tdesign-react/pull/1502))
+    - 优化二次修改日期不规范时清空另一侧数据 @HQ-Lin ([#1492](https://github.com/Tencent/tdesign-react/pull/1492))
+
+### 🐞 Bug Fixes
+- `Icon`: 修复使用 `classprefix` 替换组件前缀对图标的影响 [#common842](https://github.com/Tencent/tdesign-common/pull/842) @uyarn @HQ-Lin ([#1500](https://github.com/Tencent/tdesign-react/pull/1500))
+- `Cascader`: 修复 `options` 动态设置为空失效 @pengYYYYY ([#1501](https://github.com/Tencent/tdesign-react/pull/1501))
+- `Checkbox`: 修复非规范属性引起的告警  @leosxie ([#1496](https://github.com/Tencent/tdesign-react/pull/1496))
+- `TagInput`: 修复清除按钮未调用 `onClear ` 事件 @pengYYYYY ([#1506](https://github.com/Tencent/tdesign-react/pull/1506))
+- `Select`: 修复透传 `tagProps` 属性失败问题 @HQ-Lin ([#1497](https://github.com/Tencent/tdesign-react/pull/1497))
+- `Notification`: 修复 offset 定位问题 @kenzyyang ([#1504](https://github.com/Tencent/tdesign-react/pull/1504))
+- `SelectInput`:
+    - 修复select-input使用valueDisplay渲染自定义tag筛选项展示居中错误 @AqingCyan ([#1503](https://github.com/Tencent/tdesign-react/pull/1503))
+    - 修复 SelectInput 自适应换行问题 @HQ-Lin ([#1500](https://github.com/Tencent/tdesign-react/pull/1500))
+
+### 🚧 Others
+- 修复 lodash 全量导入问题 @HQ-Lin ([#1491](https://github.com/Tencent/tdesign-react/pull/1491))
+
+## 🌈 0.41.1 `2022-09-14` 
+### 🚀 Features
+- `Upload`:
+    - 自定义方法 `requestMethod`参数在单文件时文件对象，多文件上传时，是数组文件对象 @chaishi ([#1484](https://github.com/Tencent/tdesign-react/pull/1484))
+    - `trigger/dragContent` 参数使用 `files` 而非 `displayFiles` @chaishi ([#1484](https://github.com/Tencent/tdesign-react/pull/1484))
+- `ImageViewer`:
+    - 新增 `title`属性，作为相册标题展示 @Ylushen ([#1471](https://github.com/Tencent/tdesign-react/pull/1471))
+    - 适配移动端展示 @HQ-Lin ([#1480](https://github.com/Tencent/tdesign-react/pull/1480))
+- `DatePicker`: 支持二次更改时间选择器时可单次变更日期 @HQ-Lin ([#1478](https://github.com/Tencent/tdesign-react/pull/1478))
+- `Table`: 优化列宽调整策略 @ZTao-z ([#1483](https://github.com/Tencent/tdesign-react/pull/1483))
+
+### 🐞 Bug Fixes
+- `TreeSelect`: 修复 data 异步更新，input 值没有及时更新的问题 @HelKyle ([#1481](https://github.com/Tencent/tdesign-react/pull/1481))
+
+
+## 🌈 0.41.0 `2022-09-13` 
+### ❗ Breaking Changes
+- 支持 `es module` 导出不带样式产物，调整 lib 包内容，新增 `cjs` 产物支持 `commonjs` 导出不带样式产物 @HQ-Lin ([#1455](https://github.com/Tencent/tdesign-react/pull/1455))
+
+### 🚀 Features
+- `Popup`: 支持 `popperOptions`、`delay`、`hideEmptyPopup` api @HQ-Lin ([#1444](https://github.com/Tencent/tdesign-react/pull/1444))
+- `Upload`: 
+    -  重构 upload 组件，修复众多问题，支持更多 api
+    - `UploadFile` 对象新增 `uploadTime` 属性，用于表示上传时间 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - `theme=file` 支持多文件上传 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 文件上传前处理函数 `beforeUpload` 存在时，依然支持 `sizeLimit` 检测 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增`beforeAllFilesUpload`，所有文件上传之前执行，支持一次性判定所有文件是否继续上传。已经存在的 `beforeUpload` 用于判定单个文件的是否继续上传 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增事件 `onValidate`，文件校验不通过时触发，可能情况有：自定义全文件校验不通过、文件数量校验不通过、文件数量校验不通过、文件名重复（允许重复文件名场景下不会触发）等 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增事件 `onOneFileSuccess` ，多文件上传场景下，在单个文件上传成功后触发 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增事件 `onOneFileFail` ，多文件上传场景下，在单个文件上传失败后触发 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增 `formatRequest` 用于新增或修改上传请求参数（现有的 `format` 用于格式化文件对象） @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+    - 新增 `triggerButtonProps` 用于指定文件选择触发按钮风格 @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+
+### 🐞 Bug Fixes
+- `Dropdown`:
+    - 优化dropdown样式细节 @uyarn ([#1440](https://github.com/Tencent/tdesign-react/pull/1440))
+    - 修复 value 缺失点击异常 @HelKyle ([#1465](https://github.com/Tencent/tdesign-react/pull/1465))
+- `RangeInput`: 优化 icon 居中展示的问题 @HQ-Lin ([#1447](https://github.com/Tencent/tdesign-react/pull/1447))
+- `DatePicker`: 修复 `cellClick` 返回日期错误 @HQ-Lin ([#1458](https://github.com/Tencent/tdesign-react/pull/1458))
+- `Tabs`: 修复未替换部分classPrefix导致样式异常的问题 @uyarn ([#1476](https://github.com/Tencent/tdesign-react/pull/1476))
+- `tree`: 修复 `disabled` 下不可展开的问题 @uyarn ([#1474](https://github.com/Tencent/tdesign-react/pull/1474))
+- `Upload`: 修复 `autoUpload=false` 时，没有触发 `onChange` 事件问题（可能存在 breaking change） @chaishi ([#1461](https://github.com/Tencent/tdesign-react/pull/1461))
+- `Popup`: 修复 ref 透传丢失属性问题 @HQ-Lin ([#1468](https://github.com/Tencent/tdesign-react/pull/1468))
+- `Select`: 修复布尔值选中没有显示对应的文字问题 @samhou1988 ([#1441](https://github.com/Tencent/tdesign-react/pull/1441))
+
+
 ## 🌈 0.40.6 `2022-09-06` 
 ### 🚀 Features
 - `Table`:

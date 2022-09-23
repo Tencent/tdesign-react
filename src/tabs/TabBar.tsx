@@ -23,7 +23,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     let offset = 0;
 
     if (containerRef.current) {
-      const itemsRef = containerRef.current.querySelectorAll?.('.t-tabs__nav-item');
+      const itemsRef = containerRef.current.querySelectorAll?.(`.${tabsClassPrefix}__nav-item`);
 
       if (itemsRef.length - 1 >= activeId) {
         itemsRef.forEach((item, itemIndex) => {
@@ -59,7 +59,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     <div
       className={classNames({
         [`${tabsClassPrefix}__bar`]: true,
-        [`t-is-${tabPosition}`]: true,
+        [`${classPrefix}-is-${tabPosition}`]: true,
       })}
       style={barStyle}
     ></div>

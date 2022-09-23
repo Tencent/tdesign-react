@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import Select from '../../select';
@@ -34,6 +34,8 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { mode, year, month, onMonthChange, onYearChange, onJumperClick } = props;
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
+
+  const scrollAnchorRef = useRef('default');
 
   const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
 
@@ -144,8 +146,36 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   function handleScroll({ e }) {
     if (e.target.scrollTop === 0) {
       handlePanelTopClick();
+      scrollAnchorRef.current = 'top';
     } else if (e.target.scrollTop === e.target.scrollHeight - e.target.clientHeight) {
       handlePanelBottomClick();
+      scrollAnchorRef.current = 'bottom';
+    }
+  }
+
+  function handleUpdateScrollTop(content: HTMLElement) {
+    if (scrollAnchorRef.current === 'top') {
+      // eslint-disable-next-line no-param-reassign
+      content.scrollTop = 30 * 10;
+    } else if (scrollAnchorRef.current === 'bottom') {
+      // eslint-disable-next-line no-param-reassign
+      content.scrollTop = content.scrollHeight - 30 * 10;
+    } else {
+      const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
+
+      if (firstSelectedNode) {
+        const { paddingBottom } = getComputedStyle(firstSelectedNode);
+        const { marginBottom } = getComputedStyle(content);
+        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+        // 小于0时不需要特殊处理，会被设为0
+        const updateValue =
+          firstSelectedNode.offsetTop -
+          content.offsetTop -
+          (content.clientHeight - firstSelectedNode.clientHeight) +
+          elementBottomHeight;
+        // eslint-disable-next-line no-param-reassign
+        content.scrollTop = updateValue;
+      }
     }
   }
 
@@ -169,8 +199,12 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
+          onPopupVisibleChange={(visible) => {
+            if (!visible) scrollAnchorRef.current = 'default';
+          }}
           popupProps={{
             onScroll: handleScroll,
+            updateScrollTop: handleUpdateScrollTop,
             attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
             overlayClassName: `${headerClassName}-controller-year-popup`,
           }}

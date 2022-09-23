@@ -19,6 +19,7 @@ const options = [
   {
     label: '江苏省',
     value: 'jiangsu',
+    disabled: true,
     children: [
       {
         label: '南京市',

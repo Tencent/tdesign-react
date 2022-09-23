@@ -58,11 +58,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setCacheValue,
   } = useRange(props);
 
-  const { format, valueType, timeFormat } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: props.format,
-    valueType: props.valueType,
   });
 
   // 记录面板是否选中过
@@ -72,8 +71,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
-      setIsFirstValueSelected(false);
-      setCacheValue(formatDate(value || [], { format, targetFormat: format }));
+      setCacheValue(formatDate(value || [], { format }));
       setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
 
       // 空数据重置为当前年月
@@ -82,24 +80,28 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         setMonth(initYearMonthTime({ value, mode, format, enableTimePicker }).month);
       } else if (value.length === 2 && !enableTimePicker) {
         // 确保右侧面板月份比左侧大 避免两侧面板月份一致
-        const nextMonth = value.map((v: string) => parseToDayjs(v || new Date(), format).month());
+        const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
         if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
           nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
         }
         setMonth(nextMonth);
       } else {
-        setYear(value.map((v: string) => parseToDayjs(v || new Date(), format).year()));
-        setMonth(value.map((v: string) => parseToDayjs(v || new Date(), format).month()));
+        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
+        setMonth(value.map((v: string) => parseToDayjs(v, format).month()));
       }
+    } else {
+      setIsHoverCell(false);
+      setIsFirstValueSelected(false);
+      setInputValue(formatDate(value || [], { format }));
     }
     // eslint-disable-next-line
-  }, [value, popupVisible]);
+  }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
     setIsHoverCell(true);
     const nextValue = [...inputValue];
-    nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
+    nextValue[activeIndex] = formatDate(date, { format });
     setInputValue(nextValue);
   }
 
@@ -117,7 +119,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setIsSelected(true);
 
     const nextValue = [...inputValue];
-    nextValue[activeIndex] = formatDate(date, { format, targetFormat: format });
+    nextValue[activeIndex] = formatDate(date, { format });
     setCacheValue(nextValue);
     setInputValue(nextValue);
 
@@ -139,20 +141,29 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 确保两端都是有效值
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
+      // 二次修改时当其中一侧不符合上次区间规范时，清空另一侧数据
+      if (!isFirstValueSelected && parseToDayjs(nextValue[0], format).isAfter(parseToDayjs(nextValue[1], format))) {
+        nextValue[activeIndex ? 0 : 1] = '';
+        setCacheValue(nextValue);
+        setInputValue(nextValue);
+      } else {
+        onChange(formatDate(nextValue, { format }), {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'pick',
+        });
+      }
+    }
+
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
-        dayjsValue: nextValue.map((v) => dayjs(v)),
-        trigger: 'pick',
-      });
-      setIsFirstValueSelected(false);
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
+    if (!isFirstValueSelected) {
+      let nextIndex = notValidIndex;
+      if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
+      setActiveIndex(nextIndex);
       setIsFirstValueSelected(true);
     } else {
-      setActiveIndex(activeIndex ? 0 : 1);
-      setIsFirstValueSelected(true);
+      setPopupVisible(false);
     }
   }
 
@@ -222,8 +233,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setTime(nextTime);
 
     setIsSelected(true);
-    setInputValue(formatDate(nextInputValue, { format, targetFormat: format }));
-    setCacheValue(formatDate(nextInputValue, { format, targetFormat: format }));
+    setInputValue(formatDate(nextInputValue, { format }));
+    setCacheValue(formatDate(nextInputValue, { format }));
   }
 
   // 确定
@@ -232,23 +243,30 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 
-    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
-        dayjsValue: nextValue.map((v) => dayjs(v)),
-        trigger: 'confirm',
-      });
-      setYear(nextValue.map((v) => dayjs(v, format).year()));
-      setMonth(nextValue.map((v) => dayjs(v, format).month()));
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
-    } else {
-      setActiveIndex(activeIndex ? 0 : 1);
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
+      // 二次修改时当其中一侧不符合上次区间规范时，清空另一侧数据
+      if (!isFirstValueSelected && parseToDayjs(nextValue[0], format).isAfter(parseToDayjs(nextValue[1], format))) {
+        nextValue[activeIndex ? 0 : 1] = '';
+        setCacheValue(nextValue);
+        setInputValue(nextValue);
+      } else {
+        onChange(formatDate(nextValue, { format }), {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'confirm',
+        });
+      }
     }
 
-    // 记录选中一次
-    setIsFirstValueSelected(true);
+    // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
+    if (!isFirstValueSelected) {
+      let nextIndex = notValidIndex;
+      if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
+      setActiveIndex(nextIndex);
+      setIsFirstValueSelected(true);
+    } else {
+      setPopupVisible(false);
+    }
   }
 
   // 预设
@@ -260,8 +278,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (!Array.isArray(presetValue)) {
       log.error('DateRangePicker', `preset: ${preset} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
-        dayjsValue: presetValue.map((p) => dayjs(p)),
+      onChange(formatDate(presetValue, { format }), {
+        dayjsValue: presetValue.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
       setPopupVisible(false);

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Radio, Upload, Space } from 'tdesign-react';
+import { Radio, Upload, Space, MessagePlugin } from 'tdesign-react';
 
 const RequestMethod = () => {
   const [files, setFiles] = useState([]);
@@ -22,7 +22,7 @@ const RequestMethod = () => {
           file.percent = 100;
           clearTimeout(timer);
           timer = null;
-        }, 520);
+        }, 100);
       }),
     [],
   );
@@ -31,11 +31,16 @@ const RequestMethod = () => {
   const requestFailMethod = useCallback(
     () =>
       new Promise((resolve) => {
-        // resolve 参数为关键代码
-        resolve({
+        const errorResult = {
           status: 'fail',
-          error: 'for some reason, upload fail',
-        });
+
+          // `errorResult.error` is equal to `errorResult.response.error`
+          // error: 'for some reason, upload fail',
+
+          // this is request response, response.url is required for file or image preview
+          response: { url: '', error: 'for some reason, upload fail' },
+        };
+        resolve(errorResult);
       }),
     [],
   );
@@ -44,6 +49,14 @@ const RequestMethod = () => {
     setUploadMethod(value);
     setFiles([]);
   }, []);
+
+  const onSuccess = () => {
+    MessagePlugin.success('上传成功');
+  };
+
+  const onFail = () => {
+    MessagePlugin.error('上传失败');
+  };
 
   return (
     <Space direction="vertical" size="large">
@@ -56,7 +69,9 @@ const RequestMethod = () => {
         files={files}
         onChange={setFiles}
         requestMethod={uploadMethod === 'requestSuccessMethod' ? requestSuccessMethod : requestFailMethod}
-        tips="自定义上传方法需要返回成功或失败信息"
+        placeholder="自定义上传方法需要返回成功或失败信息"
+        onSuccess={onSuccess}
+        onFail={onFail}
       />
     </Space>
   );

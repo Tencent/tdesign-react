@@ -263,12 +263,12 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
               className={classNames(`${classPrefix}-image-viewer__header--box`, {
                 [`${classPrefix}-is-active`]: index === currentIndex,
               })}
+              onClick={() => onImgClick(index)}
             >
               <img
                 alt=""
                 src={image.thumbnail || image.mainImage}
                 className={`${classPrefix}-image-viewer__header--img`}
-                onClick={() => onImgClick(index)}
               />
             </div>
           ))}
@@ -279,6 +279,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 };
 
 interface ImageModalProps {
+  title?: TNode;
   visible: boolean;
   closeOnOverlay: boolean;
   showOverlay: boolean;
@@ -311,6 +312,7 @@ export const ImageModal = (props: ImageModalProps) => {
     onOpen,
     onClose,
     visible,
+    title,
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
@@ -336,7 +338,7 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const onKeyDown = useCallback(
     (event) => {
-      switch (event.code) {
+      switch (event.key) {
         case 'ArrowRight':
           return next();
         case 'ArrowLeft':
@@ -381,6 +383,7 @@ export const ImageModal = (props: ImageModalProps) => {
         next={next}
         mirror={mirror}
         scale={scale}
+        title={title}
         onMirror={onMirror}
         onZoom={onZoom}
         onClose={onClose}
@@ -422,7 +425,10 @@ export const ImageModal = (props: ImageModalProps) => {
       {images.length > 1 && (
         <>
           <ImageViewerHeader images={images} currentIndex={index} onImgClick={setIndex} />
-          <div className={`${classPrefix}-image-viewer__modal--index`}>{`${index + 1}/${images.length}`}</div>
+          <div className={`${classPrefix}-image-viewer__modal--index`}>
+            <span>{title}</span>
+            {`${index + 1}/${images.length}`}
+          </div>
           <ImageModelIcon
             size="24px"
             name="chevron-left"

@@ -5375,7 +5375,9 @@ exports[`editable-row.jsx 1`] = `
                             <span
                               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                             >
-                              A
+                              <span>
+                                A
+                              </span>
                               <svg
                                 class="t-icon t-icon-close t-tag__icon-close"
                                 fill="none"

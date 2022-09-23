@@ -36,10 +36,10 @@ className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | \-
 currentElement | \- | `HTMLFormElement` | \-
-getFieldValue | `(field: keyof FormData)` | `unknown` | \-
-getFieldsValue | \- | `getFieldsValue<FormData>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: string[]): Record<keyof T, unknown>;}`<br/>
+getFieldValue | `(field: NamePath) ` | `unknown` | \-
+getFieldsValue | \- | `getFieldsValue<FormData>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
-setFields | `(fields: FieldData[])` | \- | Typescript：`(fields: FieldData[]) => void` `interface FieldData { name: string; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
+setFields | `(fields: FieldData[])` | \- | Typescript：`(fields: FieldData[]) => void` `interface FieldData { name: NamePath; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
 setFieldsValue | `(field: Data)` | \- | \-
 setValidateMessage | `(message: FormValidateMessage<FormData>)` | \- | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] }`<br/><br/>`interface FormItemValidateMessage { type: 'warning' | 'error'; message: string }`<br/>
 submit | `(params?: { showErrorMessage?: boolean })` | \- | \-
@@ -58,7 +58,7 @@ initialData | String / Number / Object / Array | - | Typescript：`InitialData` 
 label | TNode | '' | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | options：left/right/top | N
 labelWidth | String / Number | - | \- | N
-name | String / Number / Array | - | Typescript：`string | number | Array<string | number>` | N
+name | String / Number / Array | - | Typescript：`NamePath` `type NamePath = string | number | Array<string | number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 requiredMark | Boolean | undefined | \- | N
 rules | Array | - | Typescript：`Array<FormRule>` | N
 showErrorMessage | Boolean | undefined | \- | N

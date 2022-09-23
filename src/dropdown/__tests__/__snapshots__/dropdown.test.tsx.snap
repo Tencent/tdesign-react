@@ -29,7 +29,7 @@ exports[`base.jsx 1`] = `
 exports[`button.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+    class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
     type="button"
   >
     <span
@@ -173,7 +173,7 @@ exports[`long.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+    class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
     type="button"
   >
     <span
