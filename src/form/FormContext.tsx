@@ -19,7 +19,7 @@ const FormContext = React.createContext<{
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
-  onFormItemValueChange: (changedValue: Record<string, unknown>, name: NamePath) => void;
+  onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   form: {},
   labelWidth: '100px',

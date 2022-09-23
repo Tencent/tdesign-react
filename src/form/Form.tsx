@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps, NamePath } from './type';
+import type { TdFormProps } from './type';
 import type { InternalFormInstance } from './hooks/interface';
 import useInstance from './hooks/useInstance';
 import useForm, { HOOK_MARK } from './hooks/useForm';
@@ -64,11 +64,9 @@ const Form = forwardRefWithStatics(
       onReset?.({ e });
     }
 
-    function onFormItemValueChange(changedValue: Record<string, unknown>, name: NamePath) {
+    function onFormItemValueChange(changedValue: Record<string, unknown>) {
       const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
-
-      (form as InternalFormInstance)?.getInternalHooks?.(HOOK_MARK).notifyWatch?.(name);
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {

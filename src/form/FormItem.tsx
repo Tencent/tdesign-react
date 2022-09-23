@@ -348,30 +348,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }
 
   useEffect(() => {
-    // 控制是否需要校验
-    if (!shouldValidate.current) return;
-
-    // value change event
-    if (typeof name !== 'undefined') {
-      if (formListName) {
-        // 整理 formItem 的值
-        const formListValue = merge([], calcFieldValue(name, formValue));
-        // 整理 formList 的值
-        const fieldValue = calcFieldValue(formListName, formListValue);
-        onFormItemValueChange?.({ ...fieldValue }, name);
-      } else {
-        const fieldValue = calcFieldValue(name, formValue);
-        onFormItemValueChange?.({ ...fieldValue }, name);
-      }
-    }
-
-    const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
-
-    filterRules.length && validate('change');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValue]);
-
-  useEffect(() => {
     // 注册自定义更新回调
     if (!shouldUpdate || !form) return;
 
@@ -408,6 +384,33 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, formListName]);
+
+  useEffect(() => {
+    // value 变化通知 watch 事件
+    form?.getInternalHooks?.(HOOK_MARK).notifyWatch?.(name);
+
+    // 控制是否需要校验
+    if (!shouldValidate.current) return;
+
+    // value change event
+    if (typeof name !== 'undefined') {
+      if (formListName) {
+        // 整理 formItem 的值
+        const formListValue = merge([], calcFieldValue(name, formValue));
+        // 整理 formList 的值
+        const fieldValue = calcFieldValue(formListName, formListValue);
+        onFormItemValueChange?.({ ...fieldValue });
+      } else {
+        const fieldValue = calcFieldValue(name, formValue);
+        onFormItemValueChange?.({ ...fieldValue });
+      }
+    }
+
+    const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
+
+    filterRules.length && validate('change');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formValue]);
 
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
