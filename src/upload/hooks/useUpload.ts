@@ -300,7 +300,6 @@ export default function useUpload(props: TdUploadProps) {
       // toUploadFiles.current = [];
       setToUploadFiles([]);
       xhrReq.current = [];
-      props.onRemove?.(p);
     } else if (!props.autoUpload) {
       uploadValue.splice(p.index, 1);
       setUploadValue([...uploadValue], changePrams);

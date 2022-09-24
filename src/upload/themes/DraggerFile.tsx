@@ -4,7 +4,7 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { abridgeName, getFileSizeText, getCurrentDate } from '../../_common/js/upload/utils';
+import { abridgeName, getFileSizeText } from '../../_common/js/upload/utils';
 import { TdUploadProps, UploadFile } from '../type';
 import Button from '../../button';
 import { CommonDisplayFileProps } from '../interface';
@@ -68,12 +68,13 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const renderMainPreview = () => {
     const file = displayFiles[0];
     if (!file) return null;
+    const fileName = props.abridgeName ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1]) : file.name;
     return (
       <div className={`${uploadPrefix}__dragger-progress`}>
         {props.theme === 'image' && renderImage()}
         <div className={`${uploadPrefix}__dragger-progress-info`}>
           <div className={`${uploadPrefix}__dragger-text`}>
-            <span className={`${uploadPrefix}__single-name`}>{abridgeName(file.name)}</span>
+            <span className={`${uploadPrefix}__single-name`}>{fileName}</span>
             {file.status === 'progress' && renderUploading()}
             {file.status === 'success' && <CheckCircleFilledIcon />}
             {file.status === 'fail' && <ErrorCircleFilledIcon />}
@@ -82,7 +83,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
             {locale.file.fileSizeText}：{getFileSizeText(file.size)}
           </small>
           <small className={`${SIZE.small}`}>
-            {locale.file.fileOperationDateText}：{file.uploadTime || getCurrentDate()}
+            {locale.file.fileOperationDateText}：{file.uploadTime || '-'}
           </small>
           <div className={`${uploadPrefix}__dragger-btns`}>
             {['progress', 'waiting'].includes(file.status) && !disabled && (
