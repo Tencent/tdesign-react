@@ -129,6 +129,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
         popupProps={{
           overlayInnerStyle: {
             width: 'auto',
+            padding: 0,
           },
           ...props.popupProps,
         }}
