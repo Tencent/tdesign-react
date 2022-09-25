@@ -12,6 +12,7 @@ import { TreeItemProps } from './interface';
 
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
+import { TreeDraggableContext } from './TreeDraggableContext';
 
 export type TreeProps = TdTreeProps;
 
@@ -242,18 +243,29 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       </TransitionGroup>
     );
   };
+
+  const draggable = useMemo(
+    () => ({
+      props,
+      store,
+    }),
+    [props, store],
+  );
+
   return (
-    <div
-      className={classNames(treeClassNames.tree, {
-        [treeClassNames.disabled]: disabled,
-        [treeClassNames.treeHoverable]: hover,
-        [treeClassNames.treeCheckable]: checkable,
-        [treeClassNames.treeFx]: transition,
-        [treeClassNames.treeBlockNode]: expandOnClickNode,
-      })}
-    >
-      {renderItems()}
-    </div>
+    <TreeDraggableContext.Provider value={draggable}>
+      <div
+        className={classNames(treeClassNames.tree, {
+          [treeClassNames.disabled]: disabled,
+          [treeClassNames.treeHoverable]: hover,
+          [treeClassNames.treeCheckable]: checkable,
+          [treeClassNames.treeFx]: transition,
+          [treeClassNames.treeBlockNode]: expandOnClickNode,
+        })}
+      >
+        {renderItems()}
+      </div>
+    </TreeDraggableContext.Provider>
   );
 });
 

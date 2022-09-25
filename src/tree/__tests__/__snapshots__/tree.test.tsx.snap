@@ -469,6 +469,25 @@ exports[`disabled.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`draggable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-tree t-tree--hoverable t-tree--transition"
+      >
+        暂无数据
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`empty.jsx 1`] = `
 <DocumentFragment>
   <div

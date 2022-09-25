@@ -26,4 +26,5 @@ export const treeDefaultProps: TdTreeProps = {
   defaultValue: [],
   defaultActived: [],
   valueMode: 'onlyLeaf',
+  draggable: false,
 };
