@@ -297,6 +297,11 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    */
   resize?: TableColumnResizeConfig;
   /**
+   * 是否允许拖拽调整该列大小，仅当 `table.resizable = true` 时生效
+   * @default true
+   */
+  resizable?: boolean;
+  /**
    * 自定义表头渲染，优先级高于 render
    */
   title?: string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>;
