@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from 'tdesign-react';
+import { Dialog, Button, TooltipLite } from 'tdesign-react';
 
 export default function BasicUsage() {
   const [visible, setVisible] = useState(false);
@@ -43,6 +43,7 @@ export default function BasicUsage() {
         onOverlayClick={onClickOverlay}
       >
         <p>This is a dialog</p>
+        <TooltipLite content="1232">213123</TooltipLite>
       </Dialog>
     </>
   );

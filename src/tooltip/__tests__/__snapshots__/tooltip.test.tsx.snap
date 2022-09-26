@@ -224,6 +224,152 @@ exports[`duration.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`lite.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                下方文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                上方文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                无箭头文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                无投影文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <span
+              style="display: inline-block; cursor: not-allowed;"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
+                disabled=""
+                style="pointer-events: none;"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  不可用状态下提示
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                浅色模式
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                无箭头浅色模式
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`mouse.jsx 1`] = `
 <DocumentFragment>
   <a
