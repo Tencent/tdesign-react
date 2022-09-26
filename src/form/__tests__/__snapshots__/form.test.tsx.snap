@@ -2001,14 +2001,19 @@ exports[`disabled.jsx 1`] = `
                           </span>
                         </div>
                       </div>
+                      <div
+                        class="t-upload__card-name"
+                      >
+                        avatar.jpg
+                      </div>
                     </li>
                   </ul>
-                  <small
-                    class="t-upload__tips t-size-s"
-                  >
-                    请选择单张图片文件上传
-                  </small>
                 </div>
+                <small
+                  class="t-upload__tips t-size-s"
+                >
+                  请选择单张图片文件上传
+                </small>
               </div>
             </div>
           </div>

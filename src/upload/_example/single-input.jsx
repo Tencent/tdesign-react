@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Upload, MessagePlugin, Space, Button, Checkbox } from 'tdesign-react';
 
 const UploadSingleInput = () => {
-  const uploadRef = useRef();
+  const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [autoUpload, setAutoUpload] = useState(true);
   const [disabled, setDisabled] = useState(false);
@@ -39,8 +39,9 @@ const UploadSingleInput = () => {
       <Upload
         ref={uploadRef}
         style={{ width: '350px' }}
-        value={files}
+        files={files}
         onChange={setFiles}
+        abridgeName={[8, 6]}
         action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
         theme="file-input"
         placeholder="请选择文件"

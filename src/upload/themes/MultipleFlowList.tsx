@@ -15,6 +15,7 @@ import { UploadFile, TdUploadProps } from '../type';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
+import Link from '../../link';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;
@@ -40,7 +41,6 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   });
 
   const drag = useDrag(props.dragEvents);
-  const { dragActive } = drag;
 
   const uploadText = useMemo(() => {
     if (uploading) return `${locale.progress.uploadingText}`;
@@ -78,14 +78,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderEmpty = () => (
     <div className={`${uploadPrefix}__flow-empty`}>
-      {dragActive ? locale.dragger.dragDropText : locale.dragger.clickAndDragText}
+      {drag.dragActive ? locale.dragger.dragDropText : locale.dragger.clickAndDragText}
     </div>
   );
 
   const renderImgItem = (file: UploadFile, index: number) => {
     const { iconMap, textMap } = getStatusMap();
     return (
-      <li className={`${uploadPrefix}__card-item`} key={file.name + index}>
+      <li className={`${uploadPrefix}__card-item`} key={file.name + index + file.percent + file.status}>
         <div
           className={classNames([
             `${uploadPrefix}__card-content`,
@@ -142,7 +142,10 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return (
       <div className={`${uploadPrefix}__flow-status`}>
         {iconMap[file.status]}
-        <span>{textMap[file.status]}</span>
+        <span>
+          {textMap[file.status]}
+          {file.status === 'progress' ? ` ${file.percent}%` : ''}
+        </span>
       </div>
     );
   };
@@ -171,7 +174,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     ) : null;
 
   const renderFileList = () => (
-    <table className={`${uploadPrefix}__flow-table`}>
+    <table className={`${uploadPrefix}__flow-table`} {...dragEvents}>
       <thead>
         <tr>
           <th>{locale.file?.fileNameText}</th>
@@ -193,9 +196,20 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
               ? renderBatchActionCol(index)
               : renderNormalActionCol(file, index);
+          const fileName = props.abridgeName?.length
+            ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1])
+            : file.name;
           return (
             <tr key={file.name + index}>
-              <td>{abridgeName(file.name, 7, 10)}</td>
+              <td>
+                {file.url ? (
+                  <Link href={file.url} target="_blank" hover="color">
+                    {fileName}
+                  </Link>
+                ) : (
+                  fileName
+                )}
+              </td>
               <td>{returnFileSize(file.size)}</td>
               <td>{renderStatus(file)}</td>
               {disabled ? null : deleteNode}

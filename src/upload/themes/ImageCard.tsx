@@ -1,6 +1,10 @@
 import React, { MouseEvent } from 'react';
-import { BrowseIcon as TdBrowseIcon, DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-react';
-import classNames from 'classnames';
+import {
+  BrowseIcon as TdBrowseIcon,
+  DeleteIcon as TdDeleteIcon,
+  AddIcon as TdAddIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+} from 'tdesign-icons-react';
 import Loading from '../../loading';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
@@ -19,11 +23,12 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
-  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, showUploadProgress, disabled } = props;
-  const { BrowseIcon, DeleteIcon, AddIcon } = useGlobalIcon({
+  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, disabled } = props;
+  const { BrowseIcon, DeleteIcon, AddIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     AddIcon: TdAddIcon,
     BrowseIcon: TdBrowseIcon,
     DeleteIcon: TdDeleteIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
   const showTrigger = React.useMemo(() => {
@@ -63,32 +68,40 @@ const ImageCard = (props: ImageCardUploadProps) => {
     </div>
   );
 
+  const renderProgressFile = (file: UploadFile, loadCard: string) => (
+      <div className={loadCard}>
+        <Loading loading={true} size="medium" />
+        <p>
+          {locale?.progress?.uploadingText}
+          {props.showUploadProgress ? ` ${file.percent}%` : ''}
+        </p>
+      </div>
+    );
+
+  const renderFailFile = (file: UploadFile, index: number, loadCard: string) => (
+      <div className={loadCard}>
+        <ErrorCircleFilledIcon />
+        <p>{file.response?.error || locale?.progress?.failText}</p>
+        <div className={`${classPrefix}-upload__card-mask`}>
+          <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
+            <DeleteIcon onClick={({ e }: { e: MouseEvent }) => props?.onRemove?.({ e, file, index })} />
+          </span>
+        </div>
+      </div>
+    );
+
   const cardItemClasses = `${classPrefix}-upload__card-item ${classPrefix}-is-background`;
   return (
     <div>
       <ul className={`${classPrefix}-upload__card`}>
-        {displayFiles?.map((file, index) => {
-          if (file.status === 'progress') {
-            return (
-              <li className={cardItemClasses} key={file.name + index}>
-                <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
-                  <Loading
-                    loading={true}
-                    size="medium"
-                    text={
-                      <p>
-                        {locale?.progress?.uploadingText}
-                        {showUploadProgress ? `${file.percent}%` : ''}
-                      </p>
-                    }
-                  />
-                </div>
-              </li>
-            );
-          }
+        {displayFiles?.map((file: UploadFile, index: number) => {
+          const loadCard = `${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`;
           return (
-            <li className={cardItemClasses} key={file.name + index}>
-              {renderMainContent(file, index)}
+            <li className={cardItemClasses} key={index}>
+              {file.status === 'progress' && renderProgressFile(file, loadCard)}
+              {file.status === 'fail' && renderFailFile(file, index, loadCard)}
+              {!['progress', 'fail'].includes(file.status) && file.url && renderMainContent(file, index)}
+              <div className={`${classPrefix}-upload__card-name`}>{file.name}</div>
             </li>
           );
         })}
@@ -101,8 +114,6 @@ const ImageCard = (props: ImageCardUploadProps) => {
           </li>
         )}
       </ul>
-
-      {props.tips && <small className={classNames(props.tipsClasses)}>{props.tips}</small>}
     </div>
   );
 };

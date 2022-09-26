@@ -35,7 +35,7 @@ export default function NormalFile(props: NormalFileProps) {
   const renderProgress = (percent: number) => (
     <div className={`${uploadPrefix}__single-progress`}>
       <TLoading />
-      <span className={`${uploadPrefix}__single-percent`}>{percent}%</span>
+      <span className={`${uploadPrefix}__single-percent`}>{percent || 0}%</span>
     </div>
   );
 
@@ -48,7 +48,7 @@ export default function NormalFile(props: NormalFileProps) {
     return files.map((file, index) => (
       <div
         className={`${uploadPrefix}__single-display-text ${uploadPrefix}__display-text--margin`}
-        key={file.name + index}
+        key={file.name + index + file.percent + file.status}
       >
         {file.url ? (
           <Link href={file.url} target="_blank" hover="color" size="small" className={`${uploadPrefix}__single-name`}>
@@ -84,12 +84,14 @@ export default function NormalFile(props: NormalFileProps) {
       { [`${uploadPrefix}__placeholder`]: !props.displayFiles[0] },
     ];
     const disabledClass = disabled ? `${classPrefix}-is-disabled` : '';
+    const fileName =
+      props.abridgeName?.length && file?.name
+        ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1])
+        : file?.name;
     return (
       <div className={`${uploadPrefix}__single-input-preview ${classPrefix}-input ${disabledClass}`}>
         <div className={classNames(inputTextClass)}>
-          <span className={`${uploadPrefix}__single-input-text`}>
-            {file?.name ? abridgeName(file.name, 4, 6) : props.placeholder}
-          </span>
+          <span className={`${uploadPrefix}__single-input-text`}>{file?.name ? fileName : props.placeholder}</span>
           {file?.status === 'progress' && renderProgress(file.percent)}
           {file?.status === 'waiting' && <TimeFilledIcon className={`${uploadPrefix}__status-icon`} />}
           {file?.url && file.status === 'success' && (
@@ -117,7 +119,6 @@ export default function NormalFile(props: NormalFileProps) {
 
       {props.children}
 
-      {props.tips && <small className={classNames(props.tipsClasses)}>{props.tips}</small>}
       {theme === 'file' && props.placeholder && !displayFiles[0] && (
         <small className={classNames(props.tipsClasses)}>{props.placeholder}</small>
       )}
@@ -129,7 +130,7 @@ export default function NormalFile(props: NormalFileProps) {
       )}
 
       {/* 单文件上传失败要显示失败的原因 */}
-      {!props.multiple && displayFiles[0]?.status === 'fail' ? (
+      {!props.multiple && displayFiles[0]?.status === 'fail' && theme === 'file' ? (
         <small className={classNames(props.errorClasses)}>
           {displayFiles[0].response?.error || locale.progress.failText}
         </small>
