@@ -84,6 +84,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
           nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
         }
+        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
         setMonth(nextMonth);
       } else {
         setYear(value.map((v: string) => parseToDayjs(v, format).year()));
