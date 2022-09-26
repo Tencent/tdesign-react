@@ -72,6 +72,12 @@ export default function useSingleInput(props: TdDatePickerProps) {
       !Number.isNaN(newTime) && setTime(newTime);
     },
     onEnter: (val: string) => {
+      if (!val) {
+        onChange('', { dayjsValue: dayjs(), trigger: 'enter' });
+        setPopupVisible(false);
+        return;
+      }
+
       if (!isValidDate(val, format) && !isValidDate(value, format)) return;
 
       setPopupVisible(false);
@@ -94,9 +100,6 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onVisibleChange: (visible: boolean, context: any) => {
       if (context.trigger === 'trigger-element-click') {
         return setPopupVisible(true);
-      }
-      if (!visible) {
-        setIsHoverCell(false);
       }
       setPopupVisible(visible);
     },
