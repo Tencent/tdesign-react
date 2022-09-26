@@ -12,12 +12,14 @@ import useTagList from './useTagList';
 import useHover from './useHover';
 import useControlled from '../hooks/useControlled';
 import { StyledProps } from '../common';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { tagInputDefaultProps } from './defaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
 const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef>) => {
   const { classPrefix: prefix } = useConfig();
+  const [local, t] = useLocaleReceiver('input');
   const { CloseCircleFilledIcon } = useGlobalIcon({
     CloseCircleFilledIcon: TdCloseCircleFilledIcon,
   });
@@ -28,7 +30,7 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
     readonly,
     disabled,
     clearable,
-    placeholder,
+    placeholder = t(local.placeholder),
     valueDisplay,
     label,
     inputProps,
