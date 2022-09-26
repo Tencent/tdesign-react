@@ -301,28 +301,6 @@ exports[`lite.jsx 1`] = `
             </button>
           </div>
         </div>
-        <div
-          class="t-space-item"
-        >
-          <div>
-            <span
-              style="display: inline-block; cursor: not-allowed;"
-            >
-              <button
-                class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
-                disabled=""
-                style="pointer-events: none;"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  不可用状态下提示
-                </span>
-              </button>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
     <div
@@ -362,6 +340,28 @@ exports[`lite.jsx 1`] = `
                 无箭头浅色模式
               </span>
             </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <span
+              style="display: inline-block; cursor: not-allowed;"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
+                disabled=""
+                style="pointer-events: none;"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  不可用状态下提示
+                </span>
+              </button>
+            </span>
           </div>
         </div>
       </div>

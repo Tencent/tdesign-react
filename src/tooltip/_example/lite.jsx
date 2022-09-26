@@ -19,11 +19,6 @@ export default function BasicUsage() {
         <TooltipLite content="提示" showShadow={false}>
           <Button variant="outline">无投影文字提示</Button>
         </TooltipLite>
-        <TooltipLite content="不可用提示">
-          <Button disabled variant="outline">
-            不可用状态下提示
-          </Button>
-        </TooltipLite>
       </Space>
       <Space>
         <TooltipLite content="浅色提示" theme="light">
@@ -31,6 +26,11 @@ export default function BasicUsage() {
         </TooltipLite>
         <TooltipLite content="浅色提示" theme="light" showArrow={false} showShadow={true}>
           <Button variant="outline">无箭头浅色模式</Button>
+        </TooltipLite>
+        <TooltipLite content="不可用提示">
+          <Button disabled variant="outline">
+            不可用状态下提示
+          </Button>
         </TooltipLite>
       </Space>
     </Space>
