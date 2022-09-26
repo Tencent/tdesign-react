@@ -2,6 +2,7 @@ import React, { ReactNode, useState, useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { StyledProps } from '../common';
 import useSwitch from '../_util/useSwitch';
+import wrapDisabledButton from '../_util/wrapDisabledButton';
 import Portal from '../common/Portal';
 import useConfig from '../hooks/useConfig';
 import getPosition from '../_common/js/utils/getPosition';
@@ -33,28 +34,11 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
       onMouseEnter: hoverAction.on,
       onMouseLeave: hoverAction.off,
     };
-
-    const displayName = children.type?.displayName;
-    // disable情况下button不响应mouse事件，但需要展示tooltip，所以要包裹一层
-    if ((children.type === 'button' || displayName === 'Button') && children?.props?.disabled) {
-      const displayStyle = children.props?.style?.display ? children.props.style.display : 'inline-block';
-      const child = React.cloneElement(children, {
-        ...appendProps,
-        style: {
-          ...children?.props?.style,
-          pointerEvents: 'none',
-        },
-      });
-      return (
-        <span {...appendProps} style={{ display: displayStyle, cursor: 'not-allowed' }}>
-          {child}
-        </span>
-      );
-    }
-
     if (!React.isValidElement(children)) {
       return React.cloneElement(<div>{children}</div>, { ...appendProps });
     }
+    const wrappedButton = wrapDisabledButton(children, appendProps);
+    if (wrappedButton) return wrappedButton;
     return React.cloneElement(children, { ...appendProps });
   };
 

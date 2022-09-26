@@ -163,12 +163,12 @@ export const ImageViewerUtils = ({
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils--content`}>
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="镜像" showShadow={false}>
+        <TooltipLite content="镜像" showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal--icon`}>
             <MirrorIcon size="medium" onClick={onMirror} />
           </div>
         </TooltipLite>
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="旋转" showShadow={false}>
+        <TooltipLite content="旋转" showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal--icon`}>
             <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
           </div>
@@ -180,7 +180,7 @@ export const ImageViewerUtils = ({
           label={`${scale * 100}%`}
         />
         <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="原始大小" showShadow={false}>
+        <TooltipLite content="原始大小" showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal--icon`}>
             <ImageIcon
               size="medium"

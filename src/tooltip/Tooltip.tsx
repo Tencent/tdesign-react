@@ -1,15 +1,8 @@
-import React, {
-  forwardRef,
-  useState,
-  useEffect,
-  useRef,
-  useImperativeHandle,
-  cloneElement,
-  isValidElement,
-} from 'react';
+import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle, isValidElement } from 'react';
 import classNames from 'classnames';
 import Popup, { PopupVisibleChangeContext, PopupRef } from '../popup';
 import useConfig from '../hooks/useConfig';
+import wrapDisabledButton from '../_util/wrapDisabledButton';
 import { TdTooltipProps } from './type';
 import { tooltipDefaultProps } from './defaultProps';
 
@@ -61,18 +54,8 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   };
 
   const getTriggerChildren = (children) => {
-    const displayName = children.type?.displayName;
-    // disable情况下button不响应mouse事件，但需要展示tooltip，所以要包裹一层
-    if ((children.type === 'button' || displayName === 'Button') && children?.props?.disabled) {
-      const displayStyle = children.props?.style?.display ? children.props.style.display : 'inline-block';
-      const child = cloneElement(children, {
-        style: {
-          ...children.props.style,
-          pointerEvents: 'none',
-        },
-      });
-      return <span style={{ display: displayStyle, cursor: 'not-allowed' }}>{child}</span>;
-    }
+    const wrappedButton = wrapDisabledButton(children);
+    if (wrappedButton) return wrappedButton;
     return children;
   };
 

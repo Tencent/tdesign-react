@@ -6,7 +6,7 @@ export default function Placements() {
   return (
     <div style={styles.container}>
       <Tooltip content="这是Tooltip内容" placement="top" showArrow destroyOnClose>
-        <Button variant="outline" style={styles.placementTop}>
+        <Button variant="outline" style={styles.placementTop} disabled>
           top
         </Button>
       </Tooltip>
