@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { ReactNode } from 'react';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { CommonDisplayFileProps } from '../interface';
@@ -52,7 +51,6 @@ const CustomFile = (props: CustomFileProps) => {
           {props.childrenNode || props.children}
         </div>
       )}
-      {props.tips && <small className={classNames(props.tipsClasses)}>{props.tips}</small>}
     </>
   );
 };

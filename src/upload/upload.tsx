@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 import { UploadIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import NormalFile from './themes/NormalFile';
@@ -8,11 +8,13 @@ import MultipleFlowList from './themes/MultipleFlowList';
 import useUpload from './hooks/useUpload';
 import Button from '../button';
 import { uploadDefaultProps } from './defaultProps';
-import { CommonDisplayFileProps, UploadProps } from './interface';
+import { CommonDisplayFileProps, UploadProps, UploadRef } from './interface';
 import { UploadDragEvents } from './hooks/useDrag';
 import CustomFile from './themes/CustomFile';
+import { UploadFile } from './type';
 
-const Upload = forwardRef((props: UploadProps, ref) => {
+// const Upload = forwardRef((props: UploadProps, ref) => {
+function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref: ForwardedRef<UploadRef>) {
   const { theme } = props;
   const {
     locale,
@@ -40,19 +42,20 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     uploading,
     triggerUpload,
     uploadFiles,
+    cancelUpload,
   }));
 
   const renderTrigger = () => {
     const getDefaultTrigger = () => {
       if (theme === 'file-input') {
         return (
-          <Button disabled={props.disabled} variant="outline" {...props.triggerButtonProps}>
+          <Button disabled={disabled} variant="outline" {...props.triggerButtonProps}>
             {triggerUploadText}
           </Button>
         );
       }
       return (
-        <Button disabled={props.disabled} variant="outline" icon={<UploadIcon />} {...props.triggerButtonProps}>
+        <Button disabled={disabled} variant="outline" icon={<UploadIcon />} {...props.triggerButtonProps}>
           {triggerUploadText}
         </Button>
       );
@@ -67,6 +70,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     toUploadFiles,
     displayFiles,
     theme,
+    abridgeName: props.abridgeName,
     placeholder: props.placeholder,
     disabled: props.disabled,
     tips: props.tips,
@@ -166,12 +170,22 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       {theme === 'image' && !props.draggable && getImageCardUploadNode()}
       {['image-flow', 'file-flow'].includes(theme) && getFlowListNode()}
       {theme === 'custom' && getCustomFile()}
+      {props.tips && (
+        <small className={classNames([tipsClasses, { [`${classPrefix}-upload__tips-${props.status}`]: props.status }])}>
+          {props.tips}
+        </small>
+      )}
     </div>
   );
-});
+}
+
+export type UploadOuterForwardRef = {
+  <T>(props: UploadProps<T> & { ref?: ForwardedRef<UploadRef> }): ReturnType<typeof TdUpload>;
+} & React.ForwardRefExoticComponent<UploadProps>;
+
+const Upload = forwardRef(TdUpload) as UploadOuterForwardRef;
 
 Upload.displayName = 'Upload';
-
 Upload.defaultProps = uploadDefaultProps;
 
 export default Upload;

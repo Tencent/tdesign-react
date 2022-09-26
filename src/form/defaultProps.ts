@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdFormProps, TdFormItemProps, TdFormListProps } from './type';
+import { TdFormProps, TdFormItemProps } from './type';
 
 export const formDefaultProps: TdFormProps = {
   colon: false,
@@ -15,8 +15,4 @@ export const formDefaultProps: TdFormProps = {
   submitWithWarningMessage: false,
 };
 
-export const formItemDefaultProps: TdFormItemProps = {
-  successBorder: false,
-};
-
-export const formListDefaultProps: TdFormListProps = {};
+export const formItemDefaultProps: TdFormItemProps = { shouldUpdate: false, successBorder: false };

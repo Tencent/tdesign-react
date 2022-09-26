@@ -549,7 +549,7 @@ exports[`draggable.jsx 1`] = `
                   <small
                     class="t-size-s"
                   >
-                    上传日期：2022-08-27 8:0:0
+                    上传日期：2022-09-25
                   </small>
                   <div
                     class="t-upload__dragger-btns"
@@ -906,49 +906,108 @@ exports[`image.jsx 1`] = `
           class="t-space-item"
         >
           <div
-            class="t-upload"
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
           >
-            <input
-              accept="image/*"
-              hidden=""
-              type="file"
-            />
-            <div>
-              <ul
-                class="t-upload__card"
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-upload"
               >
-                <li
-                  class="t-upload__card-item t-is-background"
-                >
-                  <div
-                    class="t-upload__card-container t-upload__card-box"
+                <input
+                  accept="image/*"
+                  hidden=""
+                  type="file"
+                />
+                <div>
+                  <ul
+                    class="t-upload__card"
                   >
-                    <svg
-                      class="t-icon t-icon-add"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
+                    <li
+                      class="t-upload__card-item t-is-background"
                     >
-                      <path
-                        d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
-                    <p
-                      class="t-size-s"
-                    >
-                      请选择图片
-                    </p>
-                  </div>
-                </li>
-              </ul>
-              <small
-                class="t-upload__tips t-size-s"
+                      <div
+                        class="t-upload__card-container t-upload__card-box"
+                      >
+                        <svg
+                          class="t-icon t-icon-add"
+                          fill="none"
+                          height="1em"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                        <p
+                          class="t-size-s"
+                        >
+                          请选择图片
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <small
+                  class="t-upload__tips t-size-s"
+                >
+                  请选择单张图片文件上传（上传成功状态演示）
+                </small>
+              </div>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <div
+                class="t-upload"
               >
-                请选择单张图片文件上传
-              </small>
+                <input
+                  accept="image/*"
+                  hidden=""
+                  type="file"
+                />
+                <div>
+                  <ul
+                    class="t-upload__card"
+                  >
+                    <li
+                      class="t-upload__card-item t-is-background"
+                    >
+                      <div
+                        class="t-upload__card-container t-upload__card-box"
+                      >
+                        <svg
+                          class="t-icon t-icon-add"
+                          fill="none"
+                          height="1em"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                        <p
+                          class="t-size-s"
+                        >
+                          点击上传图片
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <small
+                  class="t-upload__tips t-size-s"
+                >
+                  单张图片文件上传（上传失败状态演示）
+                </small>
+              </div>
             </div>
           </div>
         </div>
@@ -1029,13 +1088,13 @@ exports[`image.jsx 1`] = `
                       </span>
                     </div>
                   </div>
+                  <div
+                    class="t-upload__card-name"
+                  >
+                    default.jpeg
+                  </div>
                 </li>
               </ul>
-              <small
-                class="t-upload__tips t-size-s"
-              >
-                默认已上传文件
-              </small>
             </div>
           </div>
         </div>
@@ -1082,12 +1141,12 @@ exports[`image.jsx 1`] = `
                   </div>
                 </li>
               </ul>
-              <small
-                class="t-upload__tips t-size-s"
-              >
-                允许选择多张图片文件上传，最多只能上传 3 张图片
-              </small>
             </div>
+            <small
+              class="t-upload__tips t-size-s"
+            >
+              允许选择多张图片文件上传，最多只能上传 3 张图片
+            </small>
           </div>
         </div>
       </div>

@@ -194,7 +194,7 @@ const Input = forwardRefWithStatics(
         {showInput && renderInput}
         {autoWidth && (
           <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
-            {value || props.placeholder}
+            {value || placeholder}
           </span>
         )}
         {suffixContent ? <div className={`${classPrefix}-input__suffix`}>{suffixContent}</div> : null}

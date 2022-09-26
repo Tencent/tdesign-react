@@ -3,9 +3,9 @@ import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-r
 import { CloseIcon } from 'tdesign-icons-react';
 
 export default function UploadExample() {
-  const uploadRef1 = useRef();
-  const uploadRef2 = useRef();
-  const uploadRef3 = useRef();
+  const uploadRef1 = useRef(null);
+  const uploadRef2 = useRef(null);
+  const uploadRef3 = useRef(null);
   const [files1, setFiles1] = useState([]);
   const [files2, setFiles2] = useState([
     {
@@ -87,15 +87,15 @@ export default function UploadExample() {
   // 仅自定义文件列表所需
   // eslint-disable-next-line
   const outsideRemove = (index) => {
-    const tmpFiles = [...files1];
+    const tmpFiles = [...files3];
     tmpFiles.splice(index, 1);
-    setFiles1(tmpFiles);
+    setFiles3(tmpFiles);
   };
 
   // eslint-disable-next-line
-  const fileListDisplay = ({ files }) => (
+  const fileListDisplay = () => (
     <div>
-      {files.map((file, index) => (
+      {files3.map((file, index) => (
         <div key={file.name} className="t-upload__single-display-text t-upload__display-text--margin">
           {file.name}（{file.size} B）
           <CloseIcon className="t-upload__icon-delete" onClick={() => outsideRemove(index)} />
@@ -119,7 +119,19 @@ export default function UploadExample() {
   };
 
   // 用于格式化接口响应值，error 会被用于上传失败的提示文字；url 表示文件/图片地址
-  const formatResponse = (res) => ({ ...res, error: '上传失败，请重试', url: res.url });
+  const formatResponse = (res) => ({ ...res, error: '上传失败，请重试', url: res?.url });
+
+  /** 单个文件校验方法，示例代码有效，勿删 */
+  // const beforeUpload = (file) => {
+  //   MessagePlugin.error(`文件 ${file.name} 不满足条件`);
+  //   return false;
+  // };
+
+  /** 全部文件一次性校验方法，示例代码有效，勿删 */
+  // const beforeAllFilesUpload = () => {
+  //   MessagePlugin.error(`文件不满足条件`);
+  //   return false;
+  // };
 
   return (
     <Space direction="vertical">
@@ -160,7 +172,10 @@ export default function UploadExample() {
         <Upload
           ref={uploadRef1}
           files={files1}
-          onChange={setFiles1}
+          onChange={(val) => {
+            console.log(val);
+            setFiles1(val);
+          }}
           action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           placeholder={multiple ? '文件数量不超过 5 个' : '要求文件大小在 1M 以内'}
           multiple={multiple}
@@ -171,7 +186,6 @@ export default function UploadExample() {
           max={5}
           disabled={disabled}
           allowUploadDuplicateFile={true}
-          // fileListDisplay={fileListDisplay}
           // formatRequest={(obj) => ({ ...obj, other: 123 })}
           onSelectChange={handleSelectChange}
           onFail={handleFail}
@@ -191,10 +205,10 @@ export default function UploadExample() {
           uploadAllFilesInOneRequest={uploadInOneRequest}
           isBatchUpload={isBatchUpload}
           triggerButtonProps={{ theme: 'primary', variant: 'base' }}
-          onFail={handleFail}
           placeholder="这是一段没有文件时的占位文本"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           style={{ marginLeft: '40px' }}
+          onFail={handleFail}
         ></Upload>
 
         {/* formatResponse 可控制上传成功或者失败 */}
@@ -207,11 +221,12 @@ export default function UploadExample() {
           autoUpload={autoUpload}
           uploadAllFilesInOneRequest={uploadInOneRequest}
           isBatchUpload={isBatchUpload}
-          onFail={handleFail}
           formatResponse={formatResponse}
           placeholder="文件上传失败示例"
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           style={{ marginLeft: '60px' }}
+          // fileListDisplay={fileListDisplay}
+          onFail={handleFail}
         />
       </Space>
     </Space>

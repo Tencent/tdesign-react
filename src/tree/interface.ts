@@ -39,3 +39,5 @@ export interface TreeItemProps
    */
   onChange?: (node: TreeNode) => void;
 }
+
+export type DropPosition = -1 | 0 | 1;

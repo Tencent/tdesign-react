@@ -62,6 +62,10 @@ export default function UploadExample() {
     console.log('点击图片预览时触发', params);
   };
 
+  const formatResponse = () => {
+    return { name: 'FileName', error: '网络异常，图片上传失败' };
+  };
+
   return (
     <Space direction="vertical">
 
@@ -84,25 +88,35 @@ export default function UploadExample() {
 
       <br/>
       <Space direction='vertical'>
-        <Upload
-          ref={uploadRef1}
-          files={files1}
-          onChange={setFiles1}
-          action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-          theme="image"
-          tips="请选择单张图片文件上传"
-          accept="image/*"
-          disabled={disabled}
-          locale={{
-            triggerUploadText: {
-              image: '请选择图片',
-            },
-          }}
-          autoUpload={autoUpload}
-          formatResponse={() => ({
-              url: "https://tdesign.gtimg.com/demo/demo-image-1.png"
-          })}
-        />
+        <Space>
+          <Upload
+            ref={uploadRef1}
+            files={files1}
+            onChange={setFiles1}
+            action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+            theme="image"
+            tips="请选择单张图片文件上传（上传成功状态演示）"
+            accept="image/*"
+            disabled={disabled}
+            locale={{
+              triggerUploadText: {
+                image: '请选择图片',
+              },
+            }}
+            autoUpload={autoUpload}
+            formatResponse={() => ({
+                url: "https://tdesign.gtimg.com/demo/demo-image-1.png"
+            })}
+          />
+
+          <Upload
+            action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+            theme="image"
+            tips="单张图片文件上传（上传失败状态演示）"
+            accept="image/*"
+            formatResponse={formatResponse}
+          />
+        </Space>
 
         <Upload
           ref={uploadRef2}
@@ -110,7 +124,6 @@ export default function UploadExample() {
           onChange={setFiles2}
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           theme="image"
-          tips="默认已上传文件"
           accept="image/*"
           disabled={disabled}
           autoUpload={autoUpload}

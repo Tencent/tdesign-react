@@ -8,7 +8,7 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 colon | Boolean | false | \- | N
-disabled | Boolean | undefined | \- | N
+disabled | Boolean | - | \- | N
 errorMessage | Object | - | Typescript：`FormErrorMessage` | N
 form | Object | - | Typescript：`FormInstanceFunctions` | N
 formControlledComponents | Array | - | Typescript：`Array<string>` | N
@@ -17,12 +17,12 @@ labelAlign | String | right | options：left/right/top | N
 labelWidth | String / Number | '100px' | \- | N
 layout | String | vertical | options：vertical/inline | N
 preventSubmitDefault | Boolean | true | \- | N
-requiredMark | Boolean | undefined | \- | N
+requiredMark | Boolean | - | \- | N
 resetType | String | empty | options：empty/initial | N
 rules | Object | - | Typescript：`{ [field in keyof FormData]: Array<FormRule> }` | N
-scrollToFirstError | String | '' | options：''/smooth/auto | N
+scrollToFirstError | String | - | options：''/smooth/auto | N
 showErrorMessage | Boolean | true | \- | N
-statusIcon | TNode | undefined | Typescript：`boolean | TNode<TdFormItemProps>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+statusIcon | TNode | - | Typescript：`boolean | TNode<TdFormItemProps>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 submitWithWarningMessage | Boolean | false | \- | N
 onReset | Function |  | Typescript：`(context: { e?: FormResetEvent }) => void`<br/> | N
 onSubmit | Function |  | Typescript：`(context: SubmitContext<FormData>) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface SubmitContext<T extends Data = Data> { e?: FormSubmitEvent; validateResult: FormValidateResult<T>; firstError?: string }`<br/><br/>`type FormValidateResult<T> = boolean | ValidateResultObj<T>`<br/><br/>`type ValidateResultObj<T> = { [key in keyof T]: boolean | ValidateResultList }`<br/><br/>`type ValidateResultList = Array<AllValidateResult>`<br/><br/>`type AllValidateResult = CustomValidateObj | ValidateResultType`<br/><br/>`interface ValidateResultType extends FormRule { result: boolean }`<br/><br/>`type ValidateResult<T> = { [key in keyof T]: boolean | ErrorList }`<br/><br/>`type ErrorList = Array<FormRule>`<br/> | N
@@ -36,6 +36,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | \-
 currentElement | \- | `HTMLFormElement` | \-
+getCurrentElement | \- | `HTMLFormElement` | \-
 getFieldValue | `(field: NamePath) ` | `unknown` | \-
 getFieldsValue | \- | `getFieldsValue<FormData>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
@@ -55,15 +56,16 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 for | String | - | \- | N
 help | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 initialData | String / Number / Object / Array | - | Typescript：`InitialData` `type InitialData = any`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-label | TNode | '' | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+label | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | options：left/right/top | N
 labelWidth | String / Number | - | \- | N
 name | String / Number / Array | - | Typescript：`NamePath` `type NamePath = string | number | Array<string | number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-requiredMark | Boolean | undefined | \- | N
+requiredMark | Boolean | - | \- | N
 rules | Array | - | Typescript：`Array<FormRule>` | N
-showErrorMessage | Boolean | undefined | \- | N
+shouldUpdate | Boolean / Function | false | Typescript：`boolean | ((prevValue, curValue) => boolean)` | N
+showErrorMessage | Boolean | - | \- | N
 status | String | - | Typescript：`'error' | 'warning' | 'success' | 'validating'` | N
-statusIcon | TNode | undefined | Typescript：`boolean | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+statusIcon | TNode | - | Typescript：`boolean | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 successBorder | Boolean | false | \- | N
 tips | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 
@@ -74,8 +76,8 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 children | Function | - | Typescript：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number | number[]) => void, move: (from: number, to: number) => void  }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-initialData | Array | [] | Typescript：`Array<any>` | N
-name | String / Number | - | \- | N
+initialData | Array | - | Typescript：`Array<any>` | N
+name | String / Number / Array | - | Typescript：`NamePath` | N
 rules | Object / Array | - | Typescript：`{ [field in keyof FormData]: Array<FormRule> } | Array<FormRule>` | N
 
 ### FormRule
