@@ -69,7 +69,6 @@ export interface TdFormProps<FormData extends Data = Data> {
   rules?: { [field in keyof FormData]: Array<FormRule> };
   /**
    * 表单校验不通过时，是否自动滚动到第一个校验不通过的字段，平滑滚动或是瞬间直达。值为空则表示不滚动
-   * @default ''
    */
   scrollToFirstError?: '' | 'smooth' | 'auto';
   /**
@@ -110,6 +109,10 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    * 获取 form dom 元素
    */
   currentElement?: HTMLFormElement;
+  /**
+   * 获取 form dom 元素
+   */
+  getCurrentElement?: () => HTMLFormElement;
   /**
    * 获取单个字段值
    */
@@ -164,7 +167,6 @@ export interface TdFormItemProps {
   initialData?: InitialData;
   /**
    * 字段标签名称
-   * @default ''
    */
   label?: TNode;
   /**
@@ -187,6 +189,11 @@ export interface TdFormItemProps {
    * 表单字段校验规则
    */
   rules?: Array<FormRule>;
+  /**
+   * null
+   * @default false
+   */
+  shouldUpdate?: boolean | ((prevValue, curValue) => boolean);
   /**
    * 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage`
    */
@@ -218,13 +225,12 @@ export interface TdFormListProps {
   children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
   /**
    * 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准
-   * @default []
    */
   initialData?: Array<any>;
   /**
    * 表单字段名称
    */
-  name?: string | number;
+  name?: NamePath;
   /**
    * 表单字段校验规则
    */

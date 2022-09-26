@@ -45,6 +45,29 @@ export default function BaseForm() {
           <Radio value="female">女性</Radio>
         </Radio.Group>
       </FormItem>
+      <FormItem shouldUpdate={(prev, next) => prev.gender !== next.gender}>
+        {({ getFieldValue }) => {
+          if (getFieldValue('gender') === 'female') {
+            return (
+              <FormItem label="动态选项2" name="bar">
+                <Radio.Group>
+                  <Radio value="2">选项三</Radio>
+                  <Radio value="3">选项四</Radio>
+                </Radio.Group>
+              </FormItem>
+            );
+          } else {
+            return (
+              <FormItem label="动态选项1" name="foo">
+                <Radio.Group>
+                  <Radio value="0">选项一</Radio>
+                  <Radio value="1">选项二</Radio>
+                </Radio.Group>
+              </FormItem>
+            );
+          }
+        }}
+      </FormItem>
       <FormItem label="课程" name="course">
         <Checkbox.Group>
           <Checkbox value="la">加辣</Checkbox>
