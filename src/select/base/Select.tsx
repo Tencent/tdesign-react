@@ -329,7 +329,7 @@ const Select = forwardRefWithStatics(
             return (
               <Tag
                 key={key}
-                closable={!filterOption?.disabled}
+                closable={!filterOption?.disabled && !disabled}
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
