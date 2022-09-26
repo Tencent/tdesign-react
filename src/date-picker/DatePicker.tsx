@@ -59,11 +59,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
 
   useEffect(() => {
     // 面板展开重置数据
+    setCacheValue(formatDate(value, { format }));
+    setInputValue(formatDate(value, { format }));
+
     if (popupVisible) {
       setYear(parseToDayjs(value, format).year());
       setMonth(parseToDayjs(value, format).month());
       setTime(formatTime(value, timeFormat));
-      value && setCacheValue(formatDate(value, { format }));
+    } else {
+      setIsHoverCell(false);
     }
     // eslint-disable-next-line
   }, [popupVisible]);
