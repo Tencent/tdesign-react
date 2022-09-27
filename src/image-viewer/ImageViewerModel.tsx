@@ -8,7 +8,7 @@ import {
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import Tooltip from '../tooltip';
+import { TooltipLite } from '../tooltip';
 import useConfig from '../hooks/useConfig';
 import { TNode } from '../common';
 import { downloadFile } from './utils';
@@ -163,30 +163,16 @@ export const ImageViewerUtils = ({
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils-content`}>
-        <Tooltip
-          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          content="镜像"
-          destroyOnClose
-          placement="top"
-          showArrow
-          theme="default"
-        >
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="镜像" showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <MirrorIcon size="medium" onClick={onMirror} />
           </div>
-        </Tooltip>
-        <Tooltip
-          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          content="旋转"
-          destroyOnClose
-          placement="top"
-          showArrow
-          theme="default"
-        >
+        </TooltipLite>
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="旋转" showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
           </div>
-        </Tooltip>
+        </TooltipLite>
         <ImageModelIcon size="medium" name="zoom-out" onClick={onZoomOut} />
         <ImageModelIcon
           className={`${classPrefix}-image-viewer__utils-scale`}
@@ -194,14 +180,7 @@ export const ImageViewerUtils = ({
           label={`${scale * 100}%`}
         />
         <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
-        <Tooltip
-          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          content="原始大小"
-          destroyOnClose
-          placement="top"
-          showArrow
-          theme="default"
-        >
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="原始大小" showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <ImageIcon
               size="medium"
@@ -211,7 +190,7 @@ export const ImageViewerUtils = ({
               }}
             />
           </div>
-        </Tooltip>
+        </TooltipLite>
         {currentImage.download && (
           <ImageModelIcon
             size="medium"

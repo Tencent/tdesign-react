@@ -1,7 +1,7 @@
 export interface IAnimationTransitionParams {
   classPrefix: String;
-  expandAnimation: boolean;
-  fadeAnimation: boolean;
+  expandAnimation?: boolean;
+  fadeAnimation?: boolean;
 }
 
 export const getTransitionParams = ({ classPrefix, expandAnimation, fadeAnimation }: IAnimationTransitionParams) => {

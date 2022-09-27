@@ -1,12 +1,4 @@
-import React, {
-  forwardRef,
-  useState,
-  useEffect,
-  useRef,
-  useImperativeHandle,
-  cloneElement,
-  isValidElement,
-} from 'react';
+import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import Popup, { PopupVisibleChangeContext, PopupRef } from '../popup';
 import useConfig from '../hooks/useConfig';
@@ -60,22 +52,6 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     };
   };
 
-  const getTriggerChildren = (children) => {
-    const displayName = children.type?.displayName;
-    // disable情况下button不响应mouse事件，但需要展示tooltip，所以要包裹一层
-    if ((children.type === 'button' || displayName === 'Button') && children?.props?.disabled) {
-      const displayStyle = children.props?.style?.display ? children.props.style.display : 'inline-block';
-      const child = cloneElement(children, {
-        style: {
-          ...children.props.style,
-          pointerEvents: 'none',
-        },
-      });
-      return <span style={{ display: displayStyle, cursor: 'not-allowed' }}>{child}</span>;
-    }
-    return children;
-  };
-
   const handleShowTip = (visible: boolean, { e, trigger }: PopupVisibleChangeContext) => {
     if (duration === 0 || (duration !== 0 && timeup)) {
       if (
@@ -116,12 +92,12 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
       visible={isTipShowed}
       onVisibleChange={handleShowTip}
       popperOptions={{
-        modifier: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
+        modifiers: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
       }}
       placement={isPlacedByMouse ? 'bottom-left' : placement}
       {...restProps}
     >
-      {isValidElement(children) ? getTriggerChildren(children) : children}
+      {children}
     </Popup>
   );
 });

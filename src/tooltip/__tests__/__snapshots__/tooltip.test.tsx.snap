@@ -3,42 +3,11 @@
 exports[`Tooltip 组件测试 props disabled-button as children 1`] = `
 <body>
   <div>
-    <span
-      class="t-popup-open"
-      style="display: inline-block; cursor: not-allowed;"
+    <button
+      disabled=""
     >
-      <button
-        disabled=""
-        style="pointer-events: none;"
-      >
-        触发元素
-      </button>
-    </span>
-  </div>
-  <div
-    class="t-portal-wrapper appear-done enter-done"
-  >
-    <div
-      class="t-popup t-tooltip t-tooltip--default t-popup--animation-enter-active t-popup--animation-enter-to"
-      data-popper-escaped="true"
-      data-popper-placement="top"
-      data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; bottom: 0px; transform: translate(0px, 0px);"
-    >
-      <div
-        class="t-popup__content t-popup__content--arrow"
-      >
-        <div
-          class="t-popup__arrow"
-          style=""
-        />
-        <div
-          data-testid="tooltip-test-id"
-        >
-          弹出层内容
-        </div>
-      </div>
-    </div>
+      触发元素
+    </button>
   </div>
 </body>
 `;
@@ -221,6 +190,147 @@ exports[`duration.jsx 1`] = `
       点击再次查看
     </span>
   </button>
+</DocumentFragment>
+`;
+
+exports[`lite.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                下方文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                上方文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                无箭头文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                无投影文字提示
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                浅色模式
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                无箭头浅色模式
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div>
+            <div
+              class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
+              disabled=""
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                不可用状态下提示
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
