@@ -1146,7 +1146,7 @@ exports[`status.jsx 1`] = `
     <div
       class="t-space-item"
     >
-      <button
+      <div
         class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
         disabled=""
         type="button"
@@ -1156,7 +1156,7 @@ exports[`status.jsx 1`] = `
         >
           填充按钮
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-space-item"

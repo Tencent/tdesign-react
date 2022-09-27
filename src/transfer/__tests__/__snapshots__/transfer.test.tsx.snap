@@ -412,7 +412,7 @@ exports[`base.jsx 1`] = `
     <div
       class="t-transfer__operations"
     >
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -434,8 +434,8 @@ exports[`base.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
-      <button
+      </div>
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -457,7 +457,7 @@ exports[`base.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"
@@ -976,7 +976,7 @@ exports[`checked.jsx 1`] = `
           </svg>
         </span>
       </button>
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -998,7 +998,7 @@ exports[`checked.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"
@@ -1487,7 +1487,7 @@ exports[`custom.jsx 1`] = `
     <div
       class="t-transfer__operations"
     >
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -1497,8 +1497,8 @@ exports[`custom.jsx 1`] = `
         >
           加入
         </span>
-      </button>
-      <button
+      </div>
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -1508,7 +1508,7 @@ exports[`custom.jsx 1`] = `
         >
           移除
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"
@@ -2074,7 +2074,7 @@ exports[`custom-render.jsx 1`] = `
     <div
       class="t-transfer__operations"
     >
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -2096,8 +2096,8 @@ exports[`custom-render.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
-      <button
+      </div>
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -2119,7 +2119,7 @@ exports[`custom-render.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"
@@ -2221,7 +2221,7 @@ exports[`empty.jsx 1`] = `
       <div
         class="t-transfer__operations"
       >
-        <button
+        <div
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
           type="button"
@@ -2243,8 +2243,8 @@ exports[`empty.jsx 1`] = `
               />
             </svg>
           </span>
-        </button>
-        <button
+        </div>
+        <div
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
           type="button"
@@ -2266,7 +2266,7 @@ exports[`empty.jsx 1`] = `
               />
             </svg>
           </span>
-        </button>
+        </div>
       </div>
       <div
         class="t-transfer__list t-transfer__list-target"
@@ -2360,7 +2360,7 @@ exports[`empty.jsx 1`] = `
       <div
         class="t-transfer__operations"
       >
-        <button
+        <div
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
           type="button"
@@ -2382,8 +2382,8 @@ exports[`empty.jsx 1`] = `
               />
             </svg>
           </span>
-        </button>
-        <button
+        </div>
+        <div
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
           type="button"
@@ -2405,7 +2405,7 @@ exports[`empty.jsx 1`] = `
               />
             </svg>
           </span>
-        </button>
+        </div>
       </div>
       <div
         class="t-transfer__list t-transfer__list-target"
@@ -2763,7 +2763,7 @@ exports[`pagination.jsx 1`] = `
     <div
       class="t-transfer__operations"
     >
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -2785,8 +2785,8 @@ exports[`pagination.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
-      <button
+      </div>
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -2808,7 +2808,7 @@ exports[`pagination.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"
@@ -3397,7 +3397,7 @@ exports[`search.jsx 1`] = `
     <div
       class="t-transfer__operations"
     >
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -3419,8 +3419,8 @@ exports[`search.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
-      <button
+      </div>
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -3442,7 +3442,7 @@ exports[`search.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"
@@ -3571,7 +3571,7 @@ exports[`tree.jsx 1`] = `
     <div
       class="t-transfer__operations"
     >
-      <button
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -3593,8 +3593,8 @@ exports[`tree.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
-      <button
+      </div>
+      <div
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
         type="button"
@@ -3616,7 +3616,7 @@ exports[`tree.jsx 1`] = `
             />
           </svg>
         </span>
-      </button>
+      </div>
     </div>
     <div
       class="t-transfer__list t-transfer__list-target"

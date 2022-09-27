@@ -82,8 +82,8 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
   useEffect(() => {
-    if (!options.length) return;
     if (!treeStore) {
+      if (!options.length) return;
       const store = new TreeStore({
         keys: {
           ...keys,

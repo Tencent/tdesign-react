@@ -34,11 +34,11 @@ describe('ImageViewer', () => {
 
     // 鼠标点击后，有元素
     expect(onClose).toHaveBeenCalledTimes(1);
-    const imgModal = await waitFor(() => document.querySelector('.t-image-viewer__modal--pic'));
+    const imgModal = await waitFor(() => document.querySelector('.t-image-viewer__modal-pic'));
     expect(imgModal).toBeTruthy();
 
     // 模拟鼠标点击关闭
-    const closeBtn = await waitFor(() => document.querySelector('.t-image-viewer__modal--close-bt'));
+    const closeBtn = await waitFor(() => document.querySelector('.t-image-viewer__modal-close-bt'));
     act(() => {
       fireEvent.click(closeBtn);
       jest.runAllTimers();
@@ -77,7 +77,7 @@ describe('ImageViewerMini', () => {
     });
 
     // 鼠标点击后，有 mini 元素
-    const miniHeader = await waitFor(() => document.querySelector('.t-image-viewer__mini--header'));
+    const miniHeader = await waitFor(() => document.querySelector('.t-image-viewer__mini-header'));
     const miniFooter = await waitFor(() => document.querySelector('.t-image-viewer-mini__footer'));
     expect(miniHeader).toBeTruthy();
     expect(miniFooter).toBeTruthy();
@@ -128,7 +128,7 @@ describe('ImageViewerModel', () => {
     expect(onIndexChange).toHaveBeenCalledTimes(2);
 
     // 鼠标点击遮罩
-    const mask = await waitFor(() => document.querySelector('.t-image-viewer__modal--mask'));
+    const mask = await waitFor(() => document.querySelector('.t-image-viewer__modal-mask'));
     act(() => {
       fireEvent.click(mask);
       jest.runAllTimers();
@@ -149,7 +149,7 @@ describe('ImageViewerModel', () => {
       jest.runAllTimers();
     });
 
-    const img = await waitFor(() => document.querySelector('.t-image-viewer__modal--image'));
+    const img = await waitFor(() => document.querySelector('.t-image-viewer__modal-image'));
     expect(getComputedStyle(img).transform).toBe('rotateZ(0deg) scale(1)');
     userEvent.type(document.body, '{ArrowUp}');
     expect(getComputedStyle(img).transform).toBe('rotateZ(0deg) scale(1.5)');

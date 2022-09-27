@@ -59,7 +59,7 @@ describe('Button 组件测试', () => {
   test('disabled', async () => {
     const clickFn = jest.fn();
     const { container } = render(<Button disabled onClick={clickFn} />);
-    expect(container.firstChild).toBeDisabled();
+    expect(container.firstChild.nodeName).toBe('DIV');
     fireEvent.click(container.firstChild);
     expect(clickFn).toBeCalledTimes(0);
   });

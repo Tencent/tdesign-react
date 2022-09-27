@@ -1245,7 +1245,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
             <div
               class="t-steps-item__title"
             >
-              未进行的步骤
+              进行中的步骤
             </div>
             <div
               class="t-steps-item__description"
@@ -1270,7 +1270,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
             <div
               class="t-steps-item__title"
             >
-              进行中的步骤
+              已完成的步骤
             </div>
             <div
               class="t-steps-item__description"
@@ -1510,7 +1510,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <div
               class="t-steps-item__title"
             >
-              未进行的步骤
+              进行中的步骤
             </div>
             <div
               class="t-steps-item__description"
@@ -1553,7 +1553,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <div
               class="t-steps-item__title"
             >
-              进行中的步骤
+              已完成的步骤
             </div>
             <div
               class="t-steps-item__description"

@@ -63,11 +63,11 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     const horizontalOffset = calOffset(horizontal);
     const verticalOffset = calOffset(vertical);
 
-    const style = {
-      marginTop: verticalOffset,
-      marginBottom: verticalOffset,
-      marginLeft: horizontalOffset,
-      marginRight: horizontalOffset,
+    const style: Styles = {
+      top: verticalOffset,
+      left: horizontalOffset,
+      marginBottom: 16,
+      position: 'relative',
     };
     const ref = React.createRef<NotificationInstance>();
 

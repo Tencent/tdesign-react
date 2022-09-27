@@ -69,7 +69,6 @@ export interface TdFormProps<FormData extends Data = Data> {
   rules?: { [field in keyof FormData]: Array<FormRule> };
   /**
    * 表单校验不通过时，是否自动滚动到第一个校验不通过的字段，平滑滚动或是瞬间直达。值为空则表示不滚动
-   * @default ''
    */
   scrollToFirstError?: '' | 'smooth' | 'auto';
   /**
@@ -111,9 +110,13 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   currentElement?: HTMLFormElement;
   /**
+   * 获取 form dom 元素
+   */
+  getCurrentElement?: () => HTMLFormElement;
+  /**
    * 获取单个字段值
    */
-  getFieldValue?: <K extends keyof FormData>(field: K) => FormData[K];
+  getFieldValue?: (field: NamePath) => unknown;
   /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
@@ -135,7 +138,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   setValidateMessage?: (message: FormValidateMessage<FormData>) => void;
   /**
-   * 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
+   * 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
    */
   submit?: (params?: { showErrorMessage?: boolean }) => void;
   /**
@@ -164,7 +167,6 @@ export interface TdFormItemProps {
   initialData?: InitialData;
   /**
    * 字段标签名称
-   * @default ''
    */
   label?: TNode;
   /**
@@ -178,7 +180,7 @@ export interface TdFormItemProps {
   /**
    * 表单字段名称
    */
-  name?: string | number | Array<string | number>;
+  name?: NamePath;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
@@ -187,6 +189,11 @@ export interface TdFormItemProps {
    * 表单字段校验规则
    */
   rules?: Array<FormRule>;
+  /**
+   * null
+   * @default false
+   */
+  shouldUpdate?: boolean | ((prevValue, curValue) => boolean);
   /**
    * 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage`
    */
@@ -218,13 +225,12 @@ export interface TdFormListProps {
   children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
   /**
    * 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准
-   * @default []
    */
   initialData?: Array<any>;
   /**
    * 表单字段名称
    */
-  name?: string | number;
+  name?: NamePath;
   /**
    * 表单字段校验规则
    */
@@ -410,7 +416,7 @@ export interface FormResetParams<FormData> {
 }
 
 export interface FieldData {
-  name: string | number | Array<string | number>;
+  name: NamePath;
   value?: unknown;
   status?: string;
   validateMessage?: { type?: string; message?: string };
@@ -434,6 +440,8 @@ export type ValidateTriggerType = 'blur' | 'change' | 'all';
 export type Data = { [key: string]: any };
 
 export type InitialData = any;
+
+export type NamePath = string | number | Array<string | number>;
 
 export type FormListField = { key: number; name: number; isListField: boolean };
 

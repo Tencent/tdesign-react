@@ -139,7 +139,9 @@ exports[`footer.jsx 1`] = `
         <span
           class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
         >
-          默认标签
+          <span>
+            默认标签
+          </span>
         </span>
       </div>
     </div>

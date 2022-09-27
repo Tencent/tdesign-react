@@ -317,6 +317,65 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
+      class="t-form__item t-form-item__foo"
+    >
+      <div
+        class="t-form__label t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label>
+          动态选项1
+        </label>
+      </div>
+      <div
+        class="t-form__controls"
+        style="margin-left: 100px;"
+      >
+        <div
+          class="t-form__controls-content"
+        >
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
+          >
+            <label
+              class="t-radio"
+            >
+              <input
+                class="t-radio__former"
+                type="radio"
+                value="0"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                选项一
+              </span>
+            </label>
+            <label
+              class="t-radio"
+            >
+              <input
+                class="t-radio__former"
+                type="radio"
+                value="1"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                选项二
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
       class="t-form__item t-form-item__course"
     >
       <div
@@ -1873,52 +1932,83 @@ exports[`disabled.jsx 1`] = `
               >
                 <input
                   accept="image/*"
-                  disabled=""
                   hidden=""
                   type="file"
                 />
-                <ul
-                  class="t-upload__card"
-                >
-                  <li
-                    class="t-upload__card-item t-is--background"
+                <div>
+                  <ul
+                    class="t-upload__card"
                   >
-                    <div
-                      class="t-upload__card-content t-upload__card-box"
+                    <li
+                      class="t-upload__card-item t-is-background"
                     >
-                      <img
-                        class="t-upload__card-image"
-                        src="https://tdesign.gtimg.com/site/avatar.jpg"
-                      />
                       <div
-                        class="t-upload__card-mask"
+                        class="t-upload__card-content t-upload__card-box"
                       >
-                        <span
-                          class="t-upload__card-mask-item"
+                        <img
+                          class="t-upload__card-image"
+                          src="https://tdesign.gtimg.com/site/avatar.jpg"
+                        />
+                        <div
+                          class="t-upload__card-mask"
                         >
-                          <svg
-                            class="t-icon t-icon-browse"
-                            fill="none"
-                            height="1em"
-                            viewBox="0 0 16 16"
-                            width="1em"
+                          <span
+                            class="t-upload__card-mask-item"
                           >
-                            <path
-                              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
-                              fill="currentColor"
-                              fill-opacity="0.9"
-                            />
-                            <path
-                              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-                              fill="currentColor"
-                              fill-opacity="0.9"
-                            />
-                          </svg>
-                        </span>
+                            <svg
+                              class="t-icon t-icon-browse"
+                              fill="none"
+                              height="1em"
+                              viewBox="0 0 16 16"
+                              width="1em"
+                            >
+                              <path
+                                d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+                                fill="currentColor"
+                                fill-opacity="0.9"
+                              />
+                              <path
+                                d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+                                fill="currentColor"
+                                fill-opacity="0.9"
+                              />
+                            </svg>
+                          </span>
+                          <span
+                            class="t-upload__card-mask-item-divider"
+                          />
+                          <span
+                            class="t-upload__card-mask-item"
+                          >
+                            <svg
+                              class="t-icon t-icon-delete"
+                              fill="none"
+                              height="1em"
+                              viewBox="0 0 16 16"
+                              width="1em"
+                            >
+                              <path
+                                d="M6 12V6h1v6H6zM9 6v6h1V6H9z"
+                                fill="currentColor"
+                                fill-opacity="0.9"
+                              />
+                              <path
+                                d="M10.5 3H14v1h-1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V4H2V3h3.5V1.8c0-.44.36-.8.8-.8h3.4c.44 0 .8.36.8.8V3zm-4 0h3V2h-3v1zM4 4v10h8V4H4z"
+                                fill="currentColor"
+                                fill-opacity="0.9"
+                              />
+                            </svg>
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                </ul>
+                      <div
+                        class="t-upload__card-name"
+                      >
+                        avatar.jpg
+                      </div>
+                    </li>
+                  </ul>
+                </div>
                 <small
                   class="t-upload__tips t-size-s"
                 >
@@ -1938,7 +2028,7 @@ exports[`disabled.jsx 1`] = `
             <div
               class="t-form__controls-content"
             >
-              <button
+              <div
                 class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
                 disabled=""
                 style="margin-right: 10px;"
@@ -1949,8 +2039,8 @@ exports[`disabled.jsx 1`] = `
                 >
                   提交
                 </span>
-              </button>
-              <button
+              </div>
+              <div
                 class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
                 disabled=""
                 type="reset"
@@ -1960,7 +2050,7 @@ exports[`disabled.jsx 1`] = `
                 >
                   重置
                 </span>
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -3179,6 +3269,29 @@ exports[`nested-data.jsx 1`] = `
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-form__item"
+      style="margin-left: 100px;"
+    >
+      <div
+        class="t-form__controls"
+      >
+        <div
+          class="t-form__controls-content"
+        >
+          <button
+            class="t-button t-button--theme-default t-button--variant-dashed"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              Add field
+            </span>
+          </button>
         </div>
       </div>
     </div>

@@ -15,20 +15,19 @@ export default function SingleCustom() {
   }, []);
   const handleSuccess = useCallback(() => {
     setTips('');
+    message.success('上传成功');
   }, []);
   const beforeUpload = useCallback(
     (file) =>
       new Promise((resolve, reject) => {
         setName('name2');
-        if (file.size > MAX_UPLOAD_SIZE * 1024 * 1024) {
-          message.warning(`上传的图片不能大于${MAX_UPLOAD_SIZE}M`);
-          reject(new Error(false));
-        }
+        // 在这里写文件上传前的校验
         resolve(true);
       }),
     [],
   );
 
+  // 也可以使用 useUpload 自定义上传组件，该 Hook 包含上传组件的所有的逻辑
   return (
     <Space direction="vertical">
       <Upload
@@ -50,9 +49,9 @@ export default function SingleCustom() {
       </Upload>
       {files?.length > 0 && (
         <div style={{ fontSize: '13px' }}>
-          <ul>
+          <ul style={{ padding: 0 }}>
             {files.map((file, index) => (
-              <li key={index} style={{ marginTop: '16px' }}>
+              <li key={index} style={{ listStyleType: 'none' }}>
                 {file.name}
               </li>
             ))}

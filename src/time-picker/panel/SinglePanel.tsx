@@ -183,7 +183,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
     let val: number | string;
     let formattedVal: string;
-    const scrollTop = colsRef.current[idx]?.scrollTop;
+    const scrollTop = colsRef.current[idx]?.scrollTop + panelOffset.top;
     const { offsetHeight, margin } = getItemHeight();
     const timeItemTotalHeight = offsetHeight + margin;
     let colStep = Math.abs(Math.round(scrollTop / timeItemTotalHeight + 0.5));

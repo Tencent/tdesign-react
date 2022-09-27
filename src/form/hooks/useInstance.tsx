@@ -1,54 +1,17 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
-import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
+import type {
+  TdFormProps,
+  FormValidateResult,
+  FormResetParams,
+  FormValidateMessage,
+  AllValidateResult,
+  NamePath,
+} from '../type';
 import useConfig from '../../hooks/useConfig';
-
-function getMapValue(
-  name: string | number | Array<string | number>,
-  formMapRef: React.MutableRefObject<Map<any, any>>,
-) {
-  // 提取所有 map key
-  const mapKeys = [...formMapRef.current.keys()];
-  // 转译为字符串后比对 key 兼容数组格式
-  const key = mapKeys.find((key) => String(key) === String(name));
-  // 拿到 key 引用地址获取 value
-  return formMapRef.current.get(key);
-}
-
-// 通过对象数据类型获取 map 引用
-function travelMapFromObject(
-  obj: Record<any, any>,
-  formMapRef: React.MutableRefObject<Map<any, any>>,
-  callback: Function,
-) {
-  for (const [mapName, formItemRef] of formMapRef.current.entries()) {
-    // 支持嵌套数据结构
-    if (Array.isArray(mapName)) {
-      // 创建唯一临时变量 symbol
-      const symbol = Symbol('name');
-      let fieldValue = null;
-
-      for (let i = 0; i < mapName.length; i++) {
-        const item = mapName[i];
-        if (Reflect.has(fieldValue || obj, item)) {
-          fieldValue = Reflect.get(fieldValue || obj, item);
-        } else {
-          // 当反射无法获取到值则重置为 symbol
-          fieldValue = symbol;
-          break;
-        }
-      }
-
-      // 说明设置了值
-      if (fieldValue !== symbol) {
-        callback(formItemRef, fieldValue);
-      }
-    } else if (Reflect.has(obj, mapName)) {
-      callback(formItemRef, obj[mapName]);
-    }
-  }
-}
+import { getMapValue, travelMapFromObject, calcFieldValue } from '../utils';
+import log from '../../_common/js/log';
 
 // 检测是否需要校验 默认全量校验
 function needValidate(name: string, fields: string[]) {
@@ -69,7 +32,7 @@ function formatValidateResult(validateResultList) {
     // 整理嵌套数据
     if (result[key] && key.includes(',')) {
       const keyList = key.split(',');
-      const fieldValue = keyList.reduceRight((prev, curr) => ({ [curr]: prev }), result[key]);
+      const fieldValue = calcFieldValue(keyList, result[key]);
       merge(result, fieldValue);
       delete result[key];
     }
@@ -140,7 +103,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   }
 
   // 对外方法，获取对应 formItem 的值
-  function getFieldValue(name: string | number | Array<string | number>) {
+  function getFieldValue(name: NamePath) {
     if (!name) return null;
 
     const formItemRef = getMapValue(name, formMapRef);
@@ -153,26 +116,21 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
     if (nameList === true) {
       for (const [name, formItemRef] of formMapRef.current.entries()) {
-        // 支持数组嵌套
-        if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef?.current.getValue?.());
-          merge(fieldsValue, fieldValue);
-        } else {
-          fieldsValue[name] = formItemRef?.current.getValue?.();
-        }
+        const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
+        merge(fieldsValue, fieldValue);
       }
     } else {
-      if (!Array.isArray(nameList)) throw new Error('getFieldsValue 参数需要 Array 类型');
+      if (!Array.isArray(nameList)) {
+        log.error('Form', '`getFieldsValue` 参数需要 Array 类型');
+        return {};
+      }
 
       nameList.forEach((name) => {
         const formItemRef = getMapValue(name, formMapRef);
-        // 支持数组嵌套
-        if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef?.current.getValue?.());
-          merge(fieldsValue, fieldValue);
-        } else {
-          formItemRef && (fieldsValue[name] = formItemRef?.current.getValue?.());
-        }
+        if (!formItemRef) return;
+
+        const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
+        merge(fieldsValue, fieldValue);
       });
     }
     return fieldsValue;
@@ -250,5 +208,6 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     getFieldValue,
     getFieldsValue,
     currentElement: formRef.current,
+    getCurrentElement: () => formRef.current,
   };
 }

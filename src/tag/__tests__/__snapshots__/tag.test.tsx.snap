@@ -76,13 +76,17 @@ Object {
     <div>
       <span
         class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
-      />
+      >
+        <span />
+      </span>
     </div>
   </body>,
   "container": <div>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
-    />
+    >
+      <span />
+    </span>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -166,6 +170,7 @@ Object {
             fill-rule="evenodd"
           />
         </svg>
+        <span />
       </span>
     </div>
   </body>,
@@ -193,6 +198,7 @@ Object {
           fill-rule="evenodd"
         />
       </svg>
+      <span />
     </span>
   </div>,
   "debug": [Function],
@@ -268,7 +274,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -282,7 +290,9 @@ exports[`base.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              超链接
+              <span>
+                超链接
+              </span>
             </span>
           </a>
         </div>
@@ -301,7 +311,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -310,7 +322,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
           >
-            标签二
+            <span>
+              标签二
+            </span>
           </span>
         </div>
         <div
@@ -319,7 +333,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
           >
-            标签三
+            <span>
+              标签三
+            </span>
           </span>
         </div>
         <div
@@ -328,7 +344,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
           >
-            标签四
+            <span>
+              标签四
+            </span>
           </span>
         </div>
       </div>
@@ -346,7 +364,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--primary t-tag--light t-tag--medium t-tag--square"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -355,7 +375,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--warning t-tag--light t-tag--medium t-tag--square"
           >
-            标签二
+            <span>
+              标签二
+            </span>
           </span>
         </div>
         <div
@@ -364,7 +386,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--danger t-tag--light t-tag--medium t-tag--square"
           >
-            标签三
+            <span>
+              标签三
+            </span>
           </span>
         </div>
         <div
@@ -373,7 +397,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--success t-tag--light t-tag--medium t-tag--square"
           >
-            标签四
+            <span>
+              标签四
+            </span>
           </span>
         </div>
       </div>
@@ -391,7 +417,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--primary t-tag--outline t-tag--medium t-tag--square"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -400,7 +428,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--warning t-tag--outline t-tag--medium t-tag--square"
           >
-            标签二
+            <span>
+              标签二
+            </span>
           </span>
         </div>
         <div
@@ -409,7 +439,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--danger t-tag--outline t-tag--medium t-tag--square"
           >
-            标签三
+            <span>
+              标签三
+            </span>
           </span>
         </div>
         <div
@@ -418,7 +450,9 @@ exports[`base.jsx 1`] = `
           <span
             class="t-tag t-tag--success t-tag--outline t-tag--medium t-tag--square"
           >
-            标签四
+            <span>
+              标签四
+            </span>
           </span>
         </div>
       </div>
@@ -447,7 +481,9 @@ exports[`delete.jsx 1`] = `
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             style="margin-right: 30px;"
           >
-            可删除标签0
+            <span>
+              可删除标签0
+            </span>
             <svg
               class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
@@ -490,7 +526,9 @@ exports[`delete.jsx 1`] = `
                 fill-rule="evenodd"
               />
             </svg>
-            可删除标签1
+            <span>
+              可删除标签1
+            </span>
             <svg
               class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
@@ -513,7 +551,9 @@ exports[`delete.jsx 1`] = `
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
             style="margin-right: 30px;"
           >
-            可删除标签2
+            <span>
+              可删除标签2
+            </span>
             <svg
               class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
@@ -540,20 +580,22 @@ exports[`delete.jsx 1`] = `
         <span
           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
         >
-          <svg
-            class="t-icon t-icon-add"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
-          >
-            <path
-              d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-          可添加标签
+          <span>
+            <svg
+              class="t-icon t-icon-add"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.35 8.65v3.85h1.3V8.65h3.85v-1.3H8.65V3.5h-1.3v3.85H3.5v1.3h3.85z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+            可添加标签
+          </span>
         </span>
       </div>
     </div>
@@ -586,7 +628,9 @@ exports[`icon.jsx 1`] = `
         fill-rule="evenodd"
       />
     </svg>
-    默认标签
+    <span>
+      默认标签
+    </span>
   </span>
 </DocumentFragment>
 `;
@@ -662,7 +706,9 @@ exports[`shape.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -671,7 +717,9 @@ exports[`shape.jsx 1`] = `
           <span
             class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
       </div>
@@ -690,7 +738,9 @@ exports[`shape.jsx 1`] = `
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--round"
             style="margin-right: 5px;"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -699,7 +749,9 @@ exports[`shape.jsx 1`] = `
           <span
             class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--round"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
       </div>
@@ -717,7 +769,9 @@ exports[`shape.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--mark"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
         <div
@@ -726,7 +780,9 @@ exports[`shape.jsx 1`] = `
           <span
             class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--mark"
           >
-            标签一
+            <span>
+              标签一
+            </span>
           </span>
         </div>
       </div>
@@ -754,7 +810,9 @@ exports[`size.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
           >
-            小型标签
+            <span>
+              小型标签
+            </span>
           </span>
         </div>
         <div
@@ -763,7 +821,9 @@ exports[`size.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
           >
-            默认标签
+            <span>
+              默认标签
+            </span>
           </span>
         </div>
         <div
@@ -772,7 +832,9 @@ exports[`size.jsx 1`] = `
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
           >
-            大型标签
+            <span>
+              大型标签
+            </span>
           </span>
         </div>
       </div>

@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
-import { DatePicker, Radio, Space } from 'tdesign-react';
+import React from 'react';
+import { DatePicker, Space } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  const [valueType, setValueType] = useState('YYYY-MM-DD');
-
-  function handleChange(value) {
-    console.log(value);
+  function handleChange(value, context) {
+    console.log('onChange:', value, context);
+    console.log('timestamp', context.dayjsValue.valueOf());
+    console.log('YYYYMMDD', context.dayjsValue.format('YYYYMMDD'));
   }
 
   return (
     <Space direction="vertical">
-      <h3>valueType: </h3>
-      <div>
-        <Radio.Group variant="default-filled" value={valueType} onChange={(value) => setValueType(value)}>
-          <Radio.Button value="YYYY-MM-DD">YYYY-MM-DD</Radio.Button>
-          <Radio.Button value="time-stamp">time-stamp</Radio.Button>
-        </Radio.Group>
-      </div>
-
-      <DatePicker valueType={valueType} onChange={handleChange} />
-      <DatePicker placeholder="可清除、可输入的日期选择器" valueType={valueType} onChange={handleChange} clearable allowInput />
+      <DatePicker onChange={handleChange} />
+      <DatePicker placeholder="可清除、可输入的日期选择器" onChange={handleChange} clearable allowInput />
     </Space>
   );
 }

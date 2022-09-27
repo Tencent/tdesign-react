@@ -4,7 +4,7 @@ import { Select, Input, InputAdornment, Space } from 'tdesign-react';
 export default function BaseExample() {
   const protocolSelect = (
     <Select
-      bordered={false}
+      borderless
       autoWidth
       options={['http://', 'https://'].map((value) => ({ label: value, value }))}
       defaultValue="http://"
@@ -13,7 +13,7 @@ export default function BaseExample() {
 
   const tldSelect = (
     <Select
-      bordered={false}
+      borderless
       autoWidth
       options={['.com', '.cn', '.net', '.org'].map((value) => ({ label: value, value }))}
       defaultValue=".cn"

@@ -4,8 +4,10 @@ import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import type { TdFormProps } from './type';
+import type { InternalFormInstance } from './hooks/interface';
 import useInstance from './hooks/useInstance';
-import useForm from './hooks/useForm';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useWatch from './hooks/useWatch';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -23,7 +25,6 @@ const Form = forwardRefWithStatics(
     const {
       style,
       className,
-      form,
       labelWidth,
       statusIcon,
       labelAlign,
@@ -47,17 +48,19 @@ const Form = forwardRefWithStatics(
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
+    const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef: React.RefObject<HTMLFormElement> = useRef();
-    const formMapRef = useRef(new Map()); // 收集所有 formItem 实例
+    const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
     const formInstance = useInstance(props, formRef, formMapRef);
 
     useImperativeHandle(ref, () => formInstance);
-    form && Object.assign(form, { ...formInstance });
+    Object.assign(form, { ...formInstance });
 
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
+      (form as InternalFormInstance)?.getInternalHooks?.(HOOK_MARK).notifyWatch?.([]);
       onReset?.({ e });
     }
 
@@ -78,6 +81,7 @@ const Form = forwardRefWithStatics(
     return (
       <FormContext.Provider
         value={{
+          form,
           labelWidth,
           statusIcon,
           labelAlign,
@@ -108,7 +112,7 @@ const Form = forwardRefWithStatics(
       </FormContext.Provider>
     );
   },
-  { useForm, FormItem, FormList },
+  { useForm, useWatch, FormItem, FormList },
 );
 
 Form.displayName = 'Form';

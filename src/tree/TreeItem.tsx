@@ -1,4 +1,4 @@
-import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
+import React, { CSSProperties, DragEventHandler, forwardRef, MouseEvent, ReactNode, useRef, DragEvent } from 'react';
 import classNames from 'classnames';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
@@ -8,6 +8,8 @@ import TreeNode from '../_common/js/tree/tree-node';
 import Checkbox from '../checkbox';
 import { useTreeConfig } from './useTreeConfig';
 import { TreeItemProps } from './interface';
+import useDraggable from './useDraggable';
+import composeRefs from '../_util/composeRefs';
 
 /**
  * 树节点组件
@@ -191,7 +193,6 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       return (
         <Checkbox
           ref={labelRef}
-          // value={node.value}
           checked={node.checked}
           indeterminate={node.indeterminate}
           disabled={checkboxDisabled}
@@ -237,24 +238,81 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     return null;
   };
 
-  // ？？这里写两个属性，ts 就不会报错了
-  const styles = {
-    '--level': level,
-    boxShadow: '',
+  const nodeRef = useRef<HTMLDivElement>(null);
+
+  const { setDragStatus, isDragging, dropPosition, isDragOver } = useDraggable({
+    node,
+    nodeRef,
+  });
+
+  const handleDragStart: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    setDragStatus('dragStart', evt);
+
+    try {
+      // ie throw error firefox-need-it
+      evt.dataTransfer?.setData('text/plain', '');
+    } catch (e) {
+      // empty
+    }
+  };
+  const handleDragEnd: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    setDragStatus('dragEnd', evt);
+  };
+  const handleDragOver: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    evt.preventDefault();
+    setDragStatus('dragOver', evt);
+  };
+  const handleDragLeave: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    setDragStatus('dragLeave', evt);
+  };
+  const handleDrop: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    evt.preventDefault();
+    setDragStatus('drop', evt);
   };
 
   return (
     <div
-      ref={ref}
+      ref={composeRefs(ref, nodeRef)}
       data-value={node.value}
       data-level={level}
       className={classNames(treeClassNames.treeNode, {
         [treeClassNames.treeNodeOpen]: node.expanded,
         [treeClassNames.actived]: node.isActivable() ? node.actived : false,
         [treeClassNames.disabled]: node.isDisabled(),
+        [treeClassNames.treeNodeDraggable]: node.isDraggable(),
+        [treeClassNames.treeNodeDragging]: isDragging,
+        [treeClassNames.treeNodeDragTipTop]: isDragOver && dropPosition < 0,
+        [treeClassNames.treeNodeDragTipBottom]: isDragOver && dropPosition > 0,
+        [treeClassNames.treeNodeDragTipHighlight]: !isDragging && isDragOver && dropPosition === 0,
       })}
-      style={styles}
+      style={
+        {
+          '--level': level,
+          boxShadow: '',
+        } as CSSProperties
+      }
       onClick={handleClick}
+      draggable={node.isDraggable()}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
     >
       {renderLine()}
       {renderIcon()}

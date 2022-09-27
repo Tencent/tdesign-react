@@ -1,7 +1,7 @@
 import React, { MouseEvent, useState, forwardRef } from 'react';
 import classNames from 'classnames';
 import { StarFilledIcon as TdStarFilledIcon } from 'tdesign-icons-react';
-import Tooltip from '../tooltip';
+import { TooltipLite } from '../tooltip';
 import { TdRateProps } from './type';
 import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
@@ -85,14 +85,14 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
             onMouseMove={(event) => mouseEnterHandler(event, index + 1)}
           >
             {showText ? (
-              <Tooltip key={index} content={texts[displayValue - 1]}>
+              <TooltipLite key={index} content={texts[displayValue - 1]}>
                 <div className={`${classPrefix}-rate__star-top`}>
                   <RateIcon size={size} color={activeColor} />
                 </div>
                 <div className={`${classPrefix}-rate__star-bottom`}>
                   <RateIcon size={size} color={defaultColor} />
                 </div>
-              </Tooltip>
+              </TooltipLite>
             ) : (
               <>
                 <div className={`${classPrefix}-rate__star-top`}>
