@@ -9,7 +9,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 activeIndex | Number | - | 输入框高亮状态序号 | N
 clearable | Boolean | false | 是否可清空 | N
-disabled | Boolean | - | 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用 | N
+disabled | Boolean | - | 是否禁用范围输入框 | N
 format | Array / Function | - | 指定输入框展示值的格式。TS 类型：`InputFormatType | Array<InputFormatType>` | N
 inputProps | Object / Array | - | 透传 Input 输入框组件全部属性，数组第一项表示第一个输入框属性，第二项表示第二个输入框属性。示例：`[{ label: 'A', name: 'A-name' }, { label: 'B',  name: 'B-name' }]`。TS 类型：`InputProps | Array<InputProps>`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/range-input/type.ts) | N
 label | TNode | - | 左侧内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

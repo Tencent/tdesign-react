@@ -1,10 +1,14 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker } from 'tdesign-react';
+import { MinusCircleIcon } from 'tdesign-icons-react';
 
-const { FormItem } = Form;
+const { FormItem, FormList } = Form;
 
 export default function BaseForm() {
   const [form] = Form.useForm();
+
+  const user = Form.useWatch('user', form);
+  console.log('user', user);
 
   const onSubmit = (e) => {
     console.log(e);
@@ -69,6 +73,35 @@ export default function BaseForm() {
       <FormItem label="出生日期" name="birthday">
         <DatePicker />
       </FormItem>
+      <FormList name={['user', 'address']}>
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <FormItem key={key}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'province']}
+                  label="省份"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Input />
+                </FormItem>
+                <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
+                  <Input />
+                </FormItem>
+                <FormItem>
+                  <MinusCircleIcon size="20px" style={{ cursor: 'pointer' }} onClick={() => remove(name)} />
+                </FormItem>
+              </FormItem>
+            ))}
+            <FormItem style={{ marginLeft: 100 }}>
+              <Button theme="default" variant="dashed" onClick={() => add({ province: 'bj', area: 'tzmax' })}>
+                Add field
+              </Button>
+            </FormItem>
+          </>
+        )}
+      </FormList>
       <FormItem style={{ marginLeft: 100 }}>
         <Button type="submit" theme="primary">
           提交

@@ -1,6 +1,9 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+import get from 'lodash/get';
+import merge from 'lodash/merge';
+import isFunction from 'lodash/isFunction';
 import lodashTemplate from 'lodash/template';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
@@ -8,10 +11,12 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 
+import { calcFieldValue } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import type { TdFormItemProps, ValueType, FormItemValidateMessage, NamePath } from './type';
+import type { TdFormItemProps, ValueType, FormItemValidateMessage, NamePath, FormInstanceFunctions } from './type';
 import { StyledProps } from '../common';
+import { HOOK_MARK } from './hooks/useForm';
 import { validate as validateModal } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
@@ -21,7 +26,7 @@ import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 import { ValidateStatus } from './const';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
-  children?: React.ReactNode;
+  children?: React.ReactNode | ((form: FormInstanceFunctions) => React.ReactElement);
 }
 
 export interface FormItemInstance {
@@ -45,6 +50,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
   const {
+    form,
     colon,
     layout,
     initialData: initialDataFromContext,
@@ -73,6 +79,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     help,
     initialData,
     className,
+    shouldUpdate,
     successBorder,
     statusIcon = statusIconFromContext,
     rules: innerRules = getInnerRules(name, rulesFromContext, formListName, formListRules),
@@ -81,6 +88,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     requiredMark = requiredMarkFromContext,
   } = props;
 
+  const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
@@ -97,10 +105,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     }),
   );
 
-  const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
+  const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
-  const shouldValidate = useRef(false);
-  const valueRef = useRef(formValue);
+  const shouldValidate = useRef(false); // 校验开关
+  const valueRef = useRef(formValue); // 当前最新值
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
@@ -133,6 +141,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   // 更新 form 表单字段
   const updateFormValue = (newVal: any, validate = true) => {
+    const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
+    setPrevStore?.(form?.getFieldsValue?.(true));
+
     shouldValidate.current = validate;
     valueRef.current = newVal;
     setFormValue(newVal);
@@ -141,8 +152,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules) {
     if (Array.isArray(name)) {
-      const [, itemKey] = name;
-      return formRules?.[formListName]?.[itemKey] || formListRules?.[itemKey] || [];
+      return get(formRules?.[formListName], name) || get(formListRules, name) || [];
     }
     return formRules?.[name] || formListRules || [];
   }
@@ -338,25 +348,61 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }
 
   useEffect(() => {
+    // 注册自定义更新回调
+    if (!shouldUpdate || !form) return;
+
+    const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
+    const cancelRegister = registerWatch?.(() => {
+      const currStore = form?.getFieldsValue?.(true) || {};
+      let updateFlag = shouldUpdate as boolean;
+      if (isFunction(shouldUpdate)) updateFlag = shouldUpdate(getPrevStore?.(), currStore);
+
+      if (updateFlag) forceUpdate({});
+    });
+
+    return cancelRegister;
+  }, [shouldUpdate, form]);
+
+  useEffect(() => {
+    // 记录填写 name 属性 formItem
+    if (typeof name === 'undefined') return;
+
+    // formList 下特殊处理
+    if (formListName) {
+      formListMapRef.current.set(name, formItemRef);
+      return () => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        formListMapRef.current.delete(name);
+      };
+    }
+
+    if (!formMapRef) return;
+    formMapRef.current.set(name, formItemRef);
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      formMapRef.current.delete(name);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, formListName]);
+
+  useEffect(() => {
+    // value 变化通知 watch 事件
+    form?.getInternalHooks?.(HOOK_MARK).notifyWatch?.(name);
+
     // 控制是否需要校验
     if (!shouldValidate.current) return;
 
     // value change event
     if (typeof name !== 'undefined') {
       if (formListName) {
-        const formListValue = [];
-        if (Array.isArray(name)) {
-          const [index, itemKey] = name;
-          formListValue[index] = { [itemKey]: formValue };
-        } else {
-          formListValue[name] = formValue;
-        }
-        onFormItemValueChange?.({ [formListName]: formListValue }, name);
-      } else if (Array.isArray(name)) {
-        const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
-        onFormItemValueChange?.({ ...fieldValue }, name);
+        // 整理 formItem 的值
+        const formListValue = merge([], calcFieldValue(name, formValue));
+        // 整理 formList 的值
+        const fieldValue = calcFieldValue(formListName, formListValue);
+        onFormItemValueChange?.({ ...fieldValue });
       } else {
-        onFormItemValueChange?.({ [name as string]: formValue }, name);
+        const fieldValue = calcFieldValue(name, formValue);
+        onFormItemValueChange?.({ ...fieldValue });
       }
     }
 
@@ -365,27 +411,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     filterRules.length && validate('change');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue]);
-
-  useEffect(() => {
-    if (typeof name === 'undefined') return;
-
-    // formList 下特殊处理
-    if (formListName) {
-      formListMapRef.current.set(name, currentFormItemRef);
-      return () => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        formListMapRef.current.delete(name);
-      };
-    }
-
-    if (!formMapRef) return;
-    formMapRef.current.set(name, currentFormItemRef);
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(name);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, formListName]);
 
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
@@ -401,7 +426,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     resetValidate: resetHandler,
   };
   useImperativeHandle(ref, (): FormItemInstance => instance);
-  useImperativeHandle(currentFormItemRef, (): FormItemInstance => instance);
+  useImperativeHandle(formItemRef, (): FormItemInstance => instance);
+
+  // 传入 form 实例支持自定义渲染
+  if (isFunction(children)) return children(form);
 
   return (
     <div className={formItemClass} style={style}>

@@ -194,7 +194,7 @@ const Input = forwardRefWithStatics(
         {showInput && renderInput}
         {autoWidth && (
           <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
-            {value || props.placeholder}
+            {value || placeholder}
           </span>
         )}
         {suffixContent ? <div className={`${classPrefix}-input__suffix`}>{suffixContent}</div> : null}
@@ -322,9 +322,7 @@ const Input = forwardRefWithStatics(
       >
         {renderInputNode}
         {tips && (
-          <div
-            className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status || 'normal'}`)}
-          >
+          <div className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status}`)}>
             {tips}
           </div>
         )}

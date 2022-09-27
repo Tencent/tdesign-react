@@ -52,8 +52,9 @@ const Button = forwardRef((props: ButtonProps, ref: React.RefObject<HTMLElement>
 
   const renderTag = useMemo(() => {
     if (!tag && href) return 'a';
+    if (!tag && disabled) return 'div';
     return tag || 'button';
-  }, [tag, href]);
+  }, [tag, href, disabled]);
 
   return React.createElement(
     renderTag,

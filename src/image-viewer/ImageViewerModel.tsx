@@ -8,7 +8,7 @@ import {
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import Tooltip from '../tooltip';
+import { TooltipLite } from '../tooltip';
 import useConfig from '../hooks/useConfig';
 import { TNode } from '../common';
 import { downloadFile } from './utils';
@@ -28,9 +28,9 @@ const ImageError = () => {
   return (
     <div className={`${classPrefix}-image-viewer__img-error`}>
       {/* 脱离文档流 */}
-      <div className={`${classPrefix}-image-viewer__img-error--content`}>
+      <div className={`${classPrefix}-image-viewer__img-error-content`}>
         <ImageErrorIcon size="4em" />
-        <div className={`${classPrefix}-image-viewer__img-error--text`}>图片加载失败，可尝试重新加载</div>
+        <div className={`${classPrefix}-image-viewer__img-error-text`}>图片加载失败，可尝试重新加载</div>
       </div>
     </div>
   );
@@ -64,12 +64,12 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
   }, [src]);
 
   return (
-    <div className={`${classPrefix}-image-viewer__modal--pic`}>
-      <div className={`${classPrefix}-image-viewer__modal--box`} style={boxStyle}>
+    <div className={`${classPrefix}-image-viewer__modal-pic`}>
+      <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError />}
         {!error && !!preSrc && (
           <img
-            className={`${classPrefix}-image-viewer__modal--image`}
+            className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
@@ -83,7 +83,7 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
         )}
         {!error && (
           <img
-            className={`${classPrefix}-image-viewer__modal--image`}
+            className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
@@ -123,13 +123,13 @@ const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, si
   const Icon = Icons[name];
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer__modal--icon`, className, {
+      className={classNames(`${classPrefix}-image-viewer__modal-icon`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
       })}
       onClick={onClick}
     >
       {name && <Icon size={size} className={isRange ? 'is-range' : null} />}
-      {label && <span className={`${classPrefix}-image-viewer__modal--icon-label`}>{label}</span>}
+      {label && <span className={`${classPrefix}-image-viewer__modal-icon-label`}>{label}</span>}
     </div>
   );
 };
@@ -162,47 +162,26 @@ export const ImageViewerUtils = ({
 
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
-      <div className={`${classPrefix}-image-viewer__utils--content`}>
-        <Tooltip
-          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          content="镜像"
-          destroyOnClose
-          placement="top"
-          showArrow
-          theme="default"
-        >
-          <div className={`${classPrefix}-image-viewer__modal--icon`}>
+      <div className={`${classPrefix}-image-viewer__utils-content`}>
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="镜像" showShadow={false}>
+          <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <MirrorIcon size="medium" onClick={onMirror} />
           </div>
-        </Tooltip>
-        <Tooltip
-          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          content="旋转"
-          destroyOnClose
-          placement="top"
-          showArrow
-          theme="default"
-        >
-          <div className={`${classPrefix}-image-viewer__modal--icon`}>
+        </TooltipLite>
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="旋转" showShadow={false}>
+          <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
           </div>
-        </Tooltip>
+        </TooltipLite>
         <ImageModelIcon size="medium" name="zoom-out" onClick={onZoomOut} />
         <ImageModelIcon
-          className={`${classPrefix}-image-viewer__utils--scale`}
+          className={`${classPrefix}-image-viewer__utils-scale`}
           size="medium"
           label={`${scale * 100}%`}
         />
         <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
-        <Tooltip
-          overlayClassName={`${classPrefix}-image-viewer__utils--tip`}
-          content="原始大小"
-          destroyOnClose
-          placement="top"
-          showArrow
-          theme="default"
-        >
-          <div className={`${classPrefix}-image-viewer__modal--icon`}>
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="原始大小" showShadow={false}>
+          <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <ImageIcon
               size="medium"
               name="image"
@@ -211,7 +190,7 @@ export const ImageViewerUtils = ({
               }}
             />
           </div>
-        </Tooltip>
+        </TooltipLite>
         {currentImage.download && (
           <ImageModelIcon
             size="medium"
@@ -250,17 +229,17 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
       <ImageModelIcon
         size="20px"
         name="chevron-down"
-        className={`${classPrefix}-image-viewer__header--pre__bt`}
+        className={`${classPrefix}-image-viewer__header-pre-bt`}
         onClick={() => setIsExpand(!isExpand)}
       />
-      <div className={`${classPrefix}-image-viewer__header--prev`}>
-        <div className={`${classPrefix}-image-viewer__bokeh--left`} />
-        <div className={`${classPrefix}-image-viewer__bokeh--right`} />
-        <div className={`${classPrefix}-image-viewer__header--trans`} style={transStyle}>
+      <div className={`${classPrefix}-image-viewer__header-prev`}>
+        <div className={`${classPrefix}-image-viewer__bokeh-left`} />
+        <div className={`${classPrefix}-image-viewer__bokeh-right`} />
+        <div className={`${classPrefix}-image-viewer__header-trans`} style={transStyle}>
           {images.map((image, index) => (
             <div
               key={index}
-              className={classNames(`${classPrefix}-image-viewer__header--box`, {
+              className={classNames(`${classPrefix}-image-viewer__header-box`, {
                 [`${classPrefix}-is-active`]: index === currentIndex,
               })}
               onClick={() => onImgClick(index)}
@@ -268,7 +247,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
               <img
                 alt=""
                 src={image.thumbnail || image.mainImage}
-                className={`${classPrefix}-image-viewer__header--img`}
+                className={`${classPrefix}-image-viewer__header-img`}
               />
             </div>
           ))}
@@ -338,7 +317,7 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const onKeyDown = useCallback(
     (event) => {
-      switch (event.code) {
+      switch (event.key) {
         case 'ArrowRight':
           return next();
         case 'ArrowLeft':
@@ -402,7 +381,7 @@ export const ImageModal = (props: ImageModalProps) => {
       <ImageModelIcon
         name="close"
         size="24px"
-        className={`${classPrefix}-image-viewer__modal--close-bt `}
+        className={`${classPrefix}-image-viewer__modal-close-bt `}
         onClick={(e: MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
@@ -418,28 +397,28 @@ export const ImageModal = (props: ImageModalProps) => {
     >
       {!!showOverlay && (
         <div
-          className={`${classPrefix}-image-viewer__modal--mask`}
+          className={`${classPrefix}-image-viewer__modal-mask`}
           onClick={(e: MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
         />
       )}
       {images.length > 1 && (
         <>
           <ImageViewerHeader images={images} currentIndex={index} onImgClick={setIndex} />
-          <div className={`${classPrefix}-image-viewer__modal--index`}>
+          <div className={`${classPrefix}-image-viewer__modal-index`}>
             <span>{title}</span>
             {`${index + 1}/${images.length}`}
           </div>
           <ImageModelIcon
             size="24px"
             name="chevron-left"
-            className={`${classPrefix}-image-viewer__modal--prev-bt`}
+            className={`${classPrefix}-image-viewer__modal-prev-bt`}
             onClick={prev}
             disabled={index <= 0}
           />
           <ImageModelIcon
             size="24px"
             name="chevron-right"
-            className={`${classPrefix}-image-viewer__modal--next-bt`}
+            className={`${classPrefix}-image-viewer__modal-next-bt`}
             onClick={next}
             disabled={index >= images.length - 1}
           />

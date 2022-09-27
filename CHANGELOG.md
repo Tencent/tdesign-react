@@ -5,6 +5,35 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.1 `2022-09-27` 
+### 🚀 Features
+- `Form`: 
+    - `FormList` name 支持传入数组 @HQ-Lin ([#1518](https://github.com/Tencent/tdesign-react/pull/1518))
+    - `FormItem` 支持函数渲染子节点 @HQ-Lin ([#1518](https://github.com/Tencent/tdesign-react/pull/1518))
+    - `FormItem` 支持 shouldUpdate api 自定义控制渲染时机 @HQ-Lin ([#1518](https://github.com/Tencent/tdesign-react/pull/1518))
+- `Upload`:
+    - 所有风格支持 `tips` 和 `status`，用于定义说明文本 @chaishi ([#1524](https://github.com/Tencent/tdesign-react/pull/1524))
+    - 支持 `files` 数据类型泛型 @chaishi ([#1524](https://github.com/Tencent/tdesign-react/pull/1524))
+- `Table`: 新增 column.resizable 支持自定义任意列是否可拖拽调整宽度 @ZTao-z ([#1535](https://github.com/Tencent/tdesign-react/pull/1535))
+- `Tooltip`: 新增lite模式子组件，rate/imageviewer改用lite版本 @carolin913 ([#1546](https://github.com/Tencent/tdesign-react/pull/1546))
+- `TimePicker`:  优化边距 ui @wanghanzhen ([#1531](https://github.com/Tencent/tdesign-react/pull/1531))
+- `ImageViewer`:  优化内部 dom 节点class bem 命名规范 @Ylushen ([#1533](https://github.com/Tencent/tdesign-react/pull/1533))
+
+### 🐞 Bug Fixes
+- `Upload`:
+    - 修复无法多次拖拽上传文件问题 @chaishi ([#1524](https://github.com/Tencent/tdesign-react/pull/1524))
+    - 修复文件大小超出时无法显示错误问题 @chaishi ([#1524](https://github.com/Tencent/tdesign-react/pull/1524))
+    - 修复文件上传进度仅显示 0% 和 100%，缺少中间进度 问题 @chaishi ([#1524](https://github.com/Tencent/tdesign-react/pull/1524))
+- `Input`:
+    - 修复input的 autoWidth 配置开启下,计算宽度时取的 placeholder不正确问题 @yusongH ([#1537](https://github.com/Tencent/tdesign-react/pull/1537))
+    - 修复默认状态提示文字颜色错误问题 @xiaosansiji ([#1486](https://github.com/Tencent/tdesign-react/pull/1486))
+- `TimePicker`: 修复部分场景滚动异常无法选中23:59:59的问题 @uyarn ([#1511](https://github.com/Tencent/tdesign-react/pull/1511))
+- `Dropdown`: 修复点击选项没有触发onVisibleChange的问题 @uyarn ([#1516](https://github.com/Tencent/tdesign-react/pull/1516))
+- `Tree`: 支持树可拖拽 @HelKyle ([#1534](https://github.com/Tencent/tdesign-react/pull/1534))
+- `Select`: 修复Select组件多选情况下禁用组件后还能点击删除选项的问题 @AqingCyan ([#1529](https://github.com/Tencent/tdesign-react/pull/1529))
+- `TagInput`: 修复 react 16 版本 event 对象缺失 code 属性判断错误 @HQ-Lin ([#1526](https://github.com/Tencent/tdesign-react/pull/1526))
+- `DatePicker`:  修复输入框清空后关闭弹窗未重置问题 @HQ-Lin ([#1543](https://github.com/Tencent/tdesign-react/pull/1543))
+
 ## 🌈 0.42.0 `2022-09-20` 
 ### ❗ Breaking Changes
 - `DatePicker`: 移除 `valueType` api，可使用返回的 dayjs 对象自行格式化 @HQ-Lin ([#1487](https://github.com/Tencent/tdesign-react/pull/1487))

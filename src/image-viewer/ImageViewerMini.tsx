@@ -72,10 +72,10 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
   const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
 
   const header = (
-    <div className={`${classPrefix}-image-viewer__mini--header`}>
+    <div className={`${classPrefix}-image-viewer__mini-header`}>
       <span>{title}</span>
       {`${index + 1}/${images.length}`}
-      <span className={`${classPrefix}-image-viewer__mini--close`}>
+      <span className={`${classPrefix}-image-viewer__mini-close`}>
         <CloseIcon size="1.5rem" onClick={(e: MouseEvent<any>) => onClose({ trigger: 'close-btn', e })} />
       </span>
     </div>

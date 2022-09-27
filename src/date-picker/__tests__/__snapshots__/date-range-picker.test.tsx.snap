@@ -3729,7 +3729,7 @@ exports[`panel.jsx 1`] = `
             <div
               class="t-date-picker__presets"
             />
-            <button
+            <div
               class="t-button t-button--theme-primary t-button--variant-base t-is-disabled t-size-s"
               disabled=""
               type="button"
@@ -3739,7 +3739,7 @@ exports[`panel.jsx 1`] = `
               >
                 确定
               </span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
@@ -6354,7 +6354,7 @@ exports[`panel.jsx 1`] = `
             <div
               class="t-date-picker__presets"
             />
-            <button
+            <div
               class="t-button t-button--theme-primary t-button--variant-base t-is-disabled t-size-s"
               disabled=""
               type="button"
@@ -6364,7 +6364,7 @@ exports[`panel.jsx 1`] = `
               >
                 确定
               </span>
-            </button>
+            </div>
           </div>
         </div>
       </div>

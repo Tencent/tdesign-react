@@ -6,7 +6,7 @@
 
 import { CheckboxProps } from '../checkbox';
 import { TNode, TreeOptionData } from '../common';
-import { MouseEvent } from 'react';
+import { MouseEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
@@ -60,6 +60,11 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 是否禁用树操作
    */
   disabled?: boolean;
+  /**
+   * 节点是否可拖拽
+   * @default false
+   */
+  draggable?: boolean;
   /**
    * 数据为空时展示的文本
    * @default ''
@@ -180,6 +185,31 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 异步加载后触发，泛型 `T` 表示树节点 TS 类型
    */
   onLoad?: (context: { node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragStart?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点结束拖拽时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragEnd?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragOver?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragLeave?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点在目标元素上释放时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDrop?: (context: {
+    e: DragEvent;
+    dragNode: TreeNodeModel<T>;
+    dropNode: TreeNodeModel<T>;
+    dropPosition: number;
+  }) => void;
 }
 
 /** 组件实例方法 */

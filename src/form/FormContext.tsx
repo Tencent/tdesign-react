@@ -1,8 +1,10 @@
 import React from 'react';
 import { TdFormProps, TdFormListProps, NamePath } from './type';
 import { FormItemInstance } from './FormItem';
+import { InternalFormInstance } from './hooks/interface';
 
 const FormContext = React.createContext<{
+  form?: InternalFormInstance;
   labelWidth?: TdFormProps['labelWidth'];
   statusIcon?: TdFormProps['statusIcon'];
   labelAlign: TdFormProps['labelAlign'];
@@ -17,8 +19,9 @@ const FormContext = React.createContext<{
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
-  onFormItemValueChange: (changedValue: Record<string, unknown>, name: NamePath) => void;
+  onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
+  form: {},
   labelWidth: '100px',
   labelAlign: 'right',
   layout: 'vertical',
@@ -41,7 +44,7 @@ export const useFormContext = () => React.useContext(FormContext);
 export default FormContext;
 
 export const FormListContext = React.createContext<{
-  name: string | number;
+  name: NamePath;
   rules: TdFormListProps['rules'];
   formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
 }>({
