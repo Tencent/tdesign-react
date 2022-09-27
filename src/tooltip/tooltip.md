@@ -1,5 +1,14 @@
 :: BASE_DOC ::
 
+### 模拟原生title
+
+{{ mouse }}
+
+### 定时消失
+
+{{ duration }}
+
+
 ## API
 ### Tooltip Props
 

@@ -1,8 +1,7 @@
-import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle, isValidElement } from 'react';
+import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import Popup, { PopupVisibleChangeContext, PopupRef } from '../popup';
 import useConfig from '../hooks/useConfig';
-import wrapDisabledButton from '../_util/wrapDisabledButton';
 import { TdTooltipProps } from './type';
 import { tooltipDefaultProps } from './defaultProps';
 
@@ -53,12 +52,6 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     };
   };
 
-  const getTriggerChildren = (children) => {
-    const wrappedButton = wrapDisabledButton(children);
-    if (wrappedButton) return wrappedButton;
-    return children;
-  };
-
   const handleShowTip = (visible: boolean, { e, trigger }: PopupVisibleChangeContext) => {
     if (duration === 0 || (duration !== 0 && timeup)) {
       if (
@@ -99,12 +92,12 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
       visible={isTipShowed}
       onVisibleChange={handleShowTip}
       popperOptions={{
-        modifier: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
+        modifiers: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
       }}
       placement={isPlacedByMouse ? 'bottom-left' : placement}
       {...restProps}
     >
-      {isValidElement(children) ? getTriggerChildren(children) : children}
+      {children}
     </Popup>
   );
 });

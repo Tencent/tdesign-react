@@ -781,7 +781,7 @@ exports[`file-flow-list.jsx 1`] = `
           <div
             class="t-upload__flow-bottom"
           >
-            <button
+            <div
               class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
               disabled=""
               type="button"
@@ -791,8 +791,8 @@ exports[`file-flow-list.jsx 1`] = `
               >
                 取消上传
               </span>
-            </button>
-            <button
+            </div>
+            <div
               class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
               disabled=""
               type="button"
@@ -802,7 +802,7 @@ exports[`file-flow-list.jsx 1`] = `
               >
                 点击上传
               </span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1253,7 +1253,7 @@ exports[`img-flow-list.jsx 1`] = `
           <div
             class="t-upload__flow-bottom"
           >
-            <button
+            <div
               class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
               disabled=""
               type="button"
@@ -1263,8 +1263,8 @@ exports[`img-flow-list.jsx 1`] = `
               >
                 取消上传
               </span>
-            </button>
-            <button
+            </div>
+            <div
               class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
               disabled=""
               type="button"
@@ -1274,7 +1274,7 @@ exports[`img-flow-list.jsx 1`] = `
               >
                 点击上传
               </span>
-            </button>
+            </div>
           </div>
         </div>
       </div>

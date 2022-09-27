@@ -2028,7 +2028,7 @@ exports[`disabled.jsx 1`] = `
             <div
               class="t-form__controls-content"
             >
-              <button
+              <div
                 class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
                 disabled=""
                 style="margin-right: 10px;"
@@ -2039,8 +2039,8 @@ exports[`disabled.jsx 1`] = `
                 >
                   提交
                 </span>
-              </button>
-              <button
+              </div>
+              <div
                 class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
                 disabled=""
                 type="reset"
@@ -2050,7 +2050,7 @@ exports[`disabled.jsx 1`] = `
                 >
                   重置
                 </span>
-              </button>
+              </div>
             </div>
           </div>
         </div>
