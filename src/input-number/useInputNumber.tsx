@@ -44,13 +44,13 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const getUserInput = (value: InputNumberValue) => {
     if (!value && value !== 0) return '';
-    let inputStr = String(value);
+    let inputStr = value || value === 0 ? String(value) : '';
     if (!inputRef.current.currentElement.contains?.(document.activeElement)) {
       const num = formatToNumber(inputStr, {
         decimalPlaces: props.decimalPlaces,
         largeNumber: props.largeNumber,
       });
-      inputStr = num && num !== 0 ? String(num) : '';
+      inputStr = num || num === 0 ? String(num) : '';
       if (props.format) {
         inputStr = String(props.format(value, { fixedNumber: inputStr }));
       }

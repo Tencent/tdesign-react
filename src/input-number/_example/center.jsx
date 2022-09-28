@@ -39,6 +39,7 @@ export default function InputNumberExample() {
     console.info('enter', v, ctx);
   }
 
+  // inputProps={{ tips }} 和 tips={tips} 均可
   return (
     <Space direction="vertical">
       <InputNumber value={decimalValue} onChange={setDecimalValue} decimalPlaces={0} max={5} autoWidth />
@@ -47,7 +48,7 @@ export default function InputNumberExample() {
         value={value2}
         max={15}
         min={-2}
-        tips={tips}
+        inputProps={{ tips }}
         suffix="个"
         style={{ width: 300 }}
         onChange={handleChange}
