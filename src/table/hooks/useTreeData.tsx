@@ -291,3 +291,5 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     getTreeExpandedRow,
   };
 }
+
+export type UseTreeDataReturnType = ReturnType<typeof useTreeData>;
