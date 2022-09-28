@@ -19,9 +19,10 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const { CalendarIcon } = useGlobalIcon({ CalendarIcon: TdCalendarIcon });
   const name = `${classPrefix}-date-picker`;
 
-  const { format, timeFormat } = getDefaultFormat({
+  const { format, valueType, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
+    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
@@ -82,7 +83,10 @@ export default function useSingleInput(props: TdDatePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(val, format)) {
-        onChange(formatDate(val, { format }), { dayjsValue: parseToDayjs(val, format), trigger: 'enter' });
+        onChange(formatDate(val, { format, targetFormat: valueType }), {
+          dayjsValue: parseToDayjs(val, format),
+          trigger: 'enter',
+        });
       } else if (isValidDate(value, format)) {
         setInputValue(formatDate(value, { format }));
       } else {
