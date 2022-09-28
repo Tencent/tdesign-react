@@ -39,15 +39,16 @@ export default function InputNumberExample() {
     console.info('enter', v, ctx);
   }
 
+  // inputProps={{ tips }} 和 tips={tips} 均可
   return (
     <Space direction="vertical">
       <InputNumber value={decimalValue} onChange={setDecimalValue} decimalPlaces={0} max={5} autoWidth />
-      <InputNumber value={value1} onChange={setValue1} step={0.1} max={5} style={{ width: 250 }} autoWidth />
+      <InputNumber value={value1} onChange={setValue1} step={0.1} max={5} style={{ width: 250 }} />
       <InputNumber
         value={value2}
         max={15}
         min={-2}
-        tips={tips}
+        inputProps={{ tips }}
         suffix="个"
         style={{ width: 300 }}
         onChange={handleChange}
