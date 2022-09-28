@@ -12,13 +12,15 @@ import useFixed from './hooks/useFixed';
 import useAffix from './hooks/useAffix';
 import usePagination from './hooks/usePagination';
 import Loading from '../loading';
-import { BaseTableProps } from './interface';
+import { BaseTableProps, BaseTableRef } from './interface';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
 import { getAffixProps } from './utils';
 import log from '../_common/js/log';
+import { baseTableDefaultProps } from './defaultProps';
 
-import { StyledProps, Styles } from '../common';
+import { Styles } from '../common';
+import { TableRowData } from './type';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -27,9 +29,8 @@ export interface TableListeners {
   [key: string]: Function;
 }
 
-export interface TBaseTableProps extends BaseTableProps, StyledProps {}
-
-const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
+const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
+  // function BaseTable<T>(props: BaseTableProps<T>) {
   const { tableLayout, height, data, columns, style, headerAffixedTop, bordered, resizable } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
@@ -37,7 +38,6 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const { virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } = useClassName();
   // 表格基础样式类
   const { tableClasses, tableContentStyles, tableElementStyles } = useStyle(props);
-  // const [global] = useLocaleReceiver('table');
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
@@ -473,4 +473,10 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
 BaseTable.displayName = 'BaseTable';
 
-export default BaseTable;
+BaseTable.defaultProps = baseTableDefaultProps;
+
+export default BaseTable as <T extends TableRowData = TableRowData>(
+  props: BaseTableProps<T> & {
+    ref?: React.Ref<BaseTableRef>;
+  },
+) => React.ReactElement;

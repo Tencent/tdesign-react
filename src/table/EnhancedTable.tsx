@@ -1,16 +1,18 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import PrimaryTable from './PrimaryTable';
 import { PrimaryTableCol, TableRowData, DragSortContext } from './type';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { EnhancedTableProps, PrimaryTableProps } from './interface';
+import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
 
 import { StyledProps } from '../common';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
-const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
+const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, ref) => {
   const { tree, columns, style, className } = props;
+
+  const primaryTableRef = useRef<EnhancedTableRef>();
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColumn, swapData, ...treeInstanceFunctions } = useTreeData(props);
@@ -42,7 +44,11 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     return isTreeData ? columns : getColumns(columns);
   })();
 
-  useImperativeHandle(ref, () => ({ treeDataMap, ...treeInstanceFunctions }));
+  useImperativeHandle(ref, () => ({
+    treeDataMap,
+    ...treeInstanceFunctions,
+    ...primaryTableRef.current,
+  }));
 
   const onDragSortChange = (params: DragSortContext<TableRowData>) => {
     if (props.beforeDragSort && !props.beforeDragSort(params)) return;
@@ -69,9 +75,13 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     style,
     className,
   };
-  return <PrimaryTable {...primaryTableProps} />;
+  return <PrimaryTable {...primaryTableProps} ref={primaryTableRef} />;
 });
 
 EnhancedTable.displayName = 'EnhancedTable';
 
-export default EnhancedTable;
+export default EnhancedTable as <T extends TableRowData = TableRowData>(
+  props: EnhancedTableProps<T> & {
+    ref?: React.Ref<EnhancedTableRef>;
+  },
+) => React.ReactElement;

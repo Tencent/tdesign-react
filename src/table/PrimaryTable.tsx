@@ -13,16 +13,17 @@ import useDragSort from './hooks/useDragSort';
 import useAsyncLoading from './hooks/useAsyncLoading';
 import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
-import { BaseTableProps, PrimaryTableProps } from './interface';
+import { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import EditableCell, { EditableCellProps } from './EditableCell';
 import { StyledProps } from '../common';
 import { useEditableRow } from './hooks/useEditableRow';
+import { primaryTableDefaultProps } from './defaultProps';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
-const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
+const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
   const { tableDraggableClasses, tableBaseClass, tableSelectedClasses } = useClassName();
@@ -208,7 +209,6 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
 
   return (
     <BaseTable
-      ref={primaryTableRef}
       {...baseTableProps}
       className={classNames(primaryTableClasses, className)}
       style={style}
@@ -219,4 +219,10 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
 
 PrimaryTable.displayName = 'PrimaryTable';
 
-export default PrimaryTable;
+PrimaryTable.defaultProps = primaryTableDefaultProps;
+
+export default PrimaryTable as <T extends TableRowData = TableRowData>(
+  props: PrimaryTableProps<T> & {
+    ref?: React.Ref<PrimaryTableRef>;
+  },
+) => React.ReactElement;
