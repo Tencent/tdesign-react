@@ -225,6 +225,7 @@ export default function useUpload(props: TdUploadProps) {
     setUploading(true);
     upload({
       action: props.action,
+      headers: props.headers,
       uploadedFiles: uploadValue,
       toUploadFiles: files,
       multiple: props.multiple,
