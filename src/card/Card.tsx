@@ -42,7 +42,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   const cardClass = classNames(`${classPrefix}-card`, className, {
     [commonClassNames.SIZE.small]: size === 'small',
     [`${classPrefix}-card--bordered`]: bordered,
-    [`${classPrefix}--shadow`]: shadow,
+    [`${classPrefix}-card--shadow`]: shadow,
     [`${classPrefix}-card--shadow-hover`]: hoverShadow,
   });
 
