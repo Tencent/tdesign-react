@@ -274,7 +274,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
       onPopupVisibleChange={useMergeFn(setPopupVisible)}
-      onFocus={useMergeFn(handleFocus, () => setPopupVisible(true, { trigger: 'trigger-element-click' }))}
+      onFocus={useMergeFn(handleFocus)}
       onBlur={useMergeFn(handleBlur)}
       onClear={handleClear}
       onTagChange={handleTagChange}
