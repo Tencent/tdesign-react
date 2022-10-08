@@ -42,10 +42,11 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
       [tableFilterClasses.filterable]: !!filterIcon,
     };
     const content = isFunction(ellipsisTitle) ? ellipsisTitle({ col, colIndex }) : undefined;
+    const isEllipsis = ellipsisTitle !== undefined ? Boolean(ellipsisTitle) : Boolean(col.ellipsis);
     return (
       <div className={classNames(classes)}>
         <div className={tableSortClasses.title}>
-          {col.ellipsis && ellipsisTitle !== false && ellipsisTitle !== null ? (
+          {isEllipsis ? (
             <TEllipsis
               placement="bottom"
               attach={attach ? () => attach : undefined}

@@ -26,7 +26,7 @@ export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
-  const { tableDraggableClasses, tableBaseClass, tableSelectedClasses } = useClassName();
+  const { tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props);
   // 展开/收起行功能
@@ -92,6 +92,17 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
       const isDisplayColumn = item.children?.length || tDisplayColumns?.includes(item.colKey);
       if (!isDisplayColumn && props.columnController && tDisplayColumns) continue;
       item = formatToRowSelectColumn(item);
+      const { sort } = props;
+      if (item.sorter && props.showSortColumnBgColor) {
+        const sorts = sort instanceof Array ? sort : [sort];
+        const sortedColumn = sorts.find((sort) => sort && sort.sortBy === item.colKey && sort.descending !== undefined);
+        if (sortedColumn) {
+          item.className =
+            item.className instanceof Array
+              ? item.className.concat(tableSortClasses.sortColumn)
+              : [item.className, tableSortClasses.sortColumn];
+        }
+      }
       // 添加排序图标和过滤图标
       if (item.sorter || item.filter) {
         const titleContent = renderTitle(item, i);

@@ -6,15 +6,19 @@ import useControlled from '../../hooks/useControlled';
 import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
+function isFilterValueExist(value: any) {
+  const isArrayTrue = value instanceof Array && value.length;
+  const isObject = typeof value === 'object' && !(value instanceof Array);
+  const isObjectTrue = isObject && Object.keys(value).length;
+  return isArrayTrue || isObjectTrue || !['null', '', 'undefined'].includes(String(value));
+}
+
 // 筛选条件不为空，才需要显示筛选结果行
 function filterEmptyData(data: FilterValue) {
   const newFilterValue: FilterValue = {};
   Object.keys(data).forEach((key) => {
     const item = data[key];
-    const isArrayTrue = item instanceof Array && item.length;
-    const isObject = typeof item === 'object' && !(item instanceof Array);
-    const isObjectTrue = isObject && Object.keys(item).length;
-    if (isArrayTrue || isObjectTrue || !['null', '', 'undefined'].includes(String(item))) {
+    if (isFilterValueExist(item)) {
       newFilterValue[key] = item;
     }
   });
@@ -82,7 +86,7 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
           });
           value = label.join();
         }
-        if (value) {
+        if (isFilterValueExist(value)) {
           arr.push(`${col.title}：${value}`);
         }
       });

@@ -94,6 +94,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       },
     };
 
+    if (!dragContainer) return;
     if (isRowDraggable) {
       dragInstanceTmp = new Sortable(dragContainer, { ...baseOptions });
     } else if (isRowHandlerDraggable) {
@@ -150,6 +151,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       },
     };
     const container = tableElement.querySelector('thead > tr') as HTMLDivElement;
+    if (!container) return;
     dragInstanceTmp = new Sortable(container, options);
     lastColList.current = dragInstanceTmp?.toArray();
   };

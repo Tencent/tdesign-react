@@ -9,6 +9,7 @@ import useConfig from '../hooks/useConfig';
 import { BaseTableCol, TableRowData } from './type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './Ellipsis';
+import { formatClassNames } from './utils';
 
 export interface TheadProps {
   // 是否固定表头
@@ -67,7 +68,7 @@ export default function THead(props: TheadProps) {
           row: {},
           rowIndex: -1,
         };
-        const customClasses = isFunction(col.className) ? col.className({ ...colParams, type: 'th' }) : col.className;
+        const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
         const thClasses = [
           thStyles.classes,
           customClasses,
@@ -90,6 +91,7 @@ export default function THead(props: TheadProps) {
             }
           : {};
         const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle({ col, colIndex: index }) : undefined;
+        const isEllipsis = col.ellipsisTitle !== undefined ? Boolean(col.ellipsisTitle) : Boolean(col.ellipsis);
         return (
           <th
             key={col.colKey}
@@ -100,7 +102,7 @@ export default function THead(props: TheadProps) {
             {...resizeColumnListener}
           >
             <div className={tableBaseClass.thCellInner}>
-              {col.ellipsis && col.ellipsisTitle !== false && col.ellipsisTitle !== null ? (
+              {isEllipsis ? (
                 <TEllipsis
                   placement="bottom"
                   attach={theadRef.current ? () => theadRef.current.parentNode.parentNode as HTMLElement : undefined}

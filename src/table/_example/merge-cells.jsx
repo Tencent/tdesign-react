@@ -120,7 +120,6 @@ export default function TableExample() {
       bordered={true}
       columns={columns}
       rowKey="default"
-      size="small"
       rowspanAndColspan={rowspanAndColspan}
     />
   );

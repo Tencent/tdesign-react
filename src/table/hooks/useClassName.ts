@@ -114,6 +114,7 @@ export default function useClassName() {
     // 排序功能，全部类名
     tableSortClasses: {
       sortable: `${classPrefix}-table__cell--sortable`,
+      sortColumn: `${classPrefix}-table__sort-column`,
       title: `${classPrefix}-table__cell--title`,
       trigger: `${classPrefix}-table__cell--sort-trigger`,
       doubleIcon: `${classPrefix}-table__double-icons`,
@@ -157,6 +158,7 @@ export default function useClassName() {
       col: `${classPrefix}-table__tree-col`,
       inlineCol: `${classPrefix}-table__tree-col--inline`,
       icon: `${classPrefix}-table__tree-op-icon`,
+      leafNode: `${classPrefix}-table__tree-leaf-node`,
     },
 
     // 拖拽功能类名

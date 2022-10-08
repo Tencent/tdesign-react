@@ -73,7 +73,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       setTreeNodeCol(treeNodeColTmp);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [columns],
+    [columns, props.tree?.treeNodeColumnIndex],
   );
 
   function resetData(data: TableRowData[]) {
@@ -155,7 +155,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         );
       }
       return (
-        <div style={colStyle} className={classNames(classes)}>
+        <div style={colStyle} className={classNames([classes, tableTreeClasses.leafNode])}>
+          <span className={tableTreeClasses.icon}></span>
           {cellInfo}
         </div>
       );

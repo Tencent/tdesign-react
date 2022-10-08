@@ -2,7 +2,7 @@ import React, { useMemo, useRef, MouseEvent } from 'react';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import classnames from 'classnames';
-import { formatRowAttributes, formatRowClassNames } from './utils';
+import { formatClassNames, formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles, getColumnFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
@@ -73,7 +73,11 @@ export function renderCell(
     cellEmptyContent?: TdBaseTableProps['cellEmptyContent'];
   },
 ) {
-  const { col, row } = params;
+  const { col, row, rowIndex } = params;
+  // support serial number column
+  if (col.colKey === 'serial-number') {
+    return rowIndex + 1;
+  }
   if (isFunction(col.cell)) {
     return col.cell(params);
   }
@@ -157,7 +161,7 @@ export default function TR(props: TrProps) {
     const { cellSpans, dataLength, rowAndColFixedPosition } = extra;
     const cellNode = renderCell(params, { cellEmptyContent: props.cellEmptyContent });
     const tdStyles = getColumnFixedStyles(col, colIndex, rowAndColFixedPosition, tableColFixedClasses);
-    const customClasses = isFunction(col.className) ? col.className({ ...params, type: 'td' }) : col.className;
+    const customClasses = formatClassNames(col.className, { ...params, type: 'td' });
     const classes = [
       tdStyles.classes,
       customClasses,
