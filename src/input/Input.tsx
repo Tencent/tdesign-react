@@ -135,9 +135,9 @@ const Input = forwardRefWithStatics(
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
 
     useLayoutEffect(() => {
-      if (!autoWidth || !inputRef.current) return;
       // 推迟到下一帧处理防止异步渲染 input 场景宽度计算为 0
       requestAnimationFrame(() => {
+        if (!autoWidth || !inputRef.current) return;
         inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
       });
     }, [autoWidth, value, placeholder, inputRef]);
