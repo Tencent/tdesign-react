@@ -1,4 +1,5 @@
 import React, { useEffect, useState, MutableRefObject } from 'react';
+import isFunction from 'lodash/isFunction';
 import useClassName from './useClassName';
 import TButton from '../../button';
 import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue } from '../type';
@@ -62,8 +63,8 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
         </TButton>
       </div>
     );
-    const filterContent = props.filterRow;
-    if (props.filterRow && !filterContent) return null;
+    const filterContent = isFunction(props.filterRow) ? props.filterRow() : props.filterRow;
+    if (filterContent === null) return null;
     const r = filterContent || defaultNode;
     if (!r) return null;
     return <div className={tableFilterClasses.inner}>{r}</div>;

@@ -177,6 +177,7 @@ export default function TableSingleSort() {
         // defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
         onChange={onChange}
+        // filterRow={() => null}
         // 非受控写法
         pagination={{
           defaultCurrent: 1,
