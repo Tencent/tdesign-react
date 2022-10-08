@@ -13,6 +13,7 @@ import useDragSort from './hooks/useDragSort';
 import useAsyncLoading from './hooks/useAsyncLoading';
 import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
+import useStyle from './hooks/useStyle';
 import { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import EditableCell, { EditableCellProps } from './EditableCell';
 import { StyledProps } from '../common';
@@ -26,7 +27,8 @@ export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
-  const { tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
+  const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
+  const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props);
   // 展开/收起行功能
@@ -111,7 +113,10 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
           const sortIcon = item.sorter ? renderSortIcon(p) : null;
           const filterIcon = item.filter ? renderFilterIcon(p) : null;
           const attach = primaryTableRef.current?.tableContentRef;
-          return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach);
+          return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach, {
+            classPrefix,
+            ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
+          });
         };
         item.ellipsisTitle = false;
       }

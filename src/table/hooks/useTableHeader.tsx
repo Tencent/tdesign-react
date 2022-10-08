@@ -36,6 +36,10 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
     colIndex: number,
     ellipsisTitle: BaseTableCol['ellipsisTitle'],
     attach: HTMLElement,
+    extra?: {
+      classPrefix: string;
+      ellipsisOverlayClassName: string;
+    },
   ) => {
     const classes = {
       [tableSortClasses.sortable]: !!sortIcon,
@@ -52,6 +56,8 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
               attach={attach ? () => attach : undefined}
               popupContent={content}
               tooltipProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
+              classPrefix={extra?.classPrefix}
+              overlayClassName={extra?.ellipsisOverlayClassName}
             >
               {title}
             </TEllipsis>

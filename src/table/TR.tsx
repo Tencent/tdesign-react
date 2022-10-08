@@ -51,6 +51,8 @@ export interface TrProps extends TrCommonProps {
   rowKey: string;
   row?: TableRowData;
   rowIndex?: number;
+  ellipsisOverlayClassName: string;
+  classPrefix: string;
   dataLength?: number;
   rowAndColFixedPosition?: RowAndColFixedPosition;
   skipSpansMap?: Map<string, SkipSpansValue>;
@@ -142,14 +144,23 @@ export default function TR(props: TrProps) {
   function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, params: RenderEllipsisCellParams) {
     const { cellNode } = params;
     const { col } = cellParams;
-    const content = isFunction(col.ellipsis) ? col.ellipsis(cellParams) : undefined;
+    let content = isFunction(col.ellipsis) ? col.ellipsis(cellParams) : undefined;
+    if (typeof col.ellipsis === 'object' && isFunction(col.ellipsis.content)) {
+      content = col.ellipsis.content(cellParams);
+    }
+    let tooltipProps = {};
+    if (typeof col.ellipsis === 'object') {
+      tooltipProps = 'props' in col.ellipsis ? col.ellipsis.props : col.ellipsis || undefined;
+    }
     const tableElement = props.tableElm;
     return (
       <TEllipsis
         placement={'top'}
         attach={tableElement ? () => tableElement : undefined}
         popupContent={content}
-        tooltipProps={typeof col.ellipsis === 'object' ? col.ellipsis : undefined}
+        tooltipProps={tooltipProps}
+        overlayClassName={props.ellipsisOverlayClassName}
+        classPrefix={props.classPrefix}
       >
         {cellNode}
       </TEllipsis>
@@ -178,10 +189,16 @@ export default function TR(props: TrProps) {
       const p = { ...params, e };
       props.onCellClick?.(p);
     };
-    const attrs = { ...col.attrs, rowSpan: cellSpans.rowspan, colSpan: cellSpans.colspan };
-    if (!col.colKey) return null;
+    const normalAttrs = isFunction(col.attrs) ? col.attrs({ ...params, type: 'td' }) : col.attrs;
+    const attrs = { ...normalAttrs, rowSpan: cellSpans.rowspan, colSpan: cellSpans.colspan };
     return (
-      <td key={col.colKey} className={classnames(classes)} style={tdStyles.style} {...attrs} onClick={onClick}>
+      <td
+        key={col.colKey + colIndex}
+        className={classnames(classes)}
+        style={tdStyles.style}
+        {...attrs}
+        onClick={onClick}
+      >
         {col.ellipsis ? renderEllipsisCell(params, { cellNode }) : cellNode}
       </td>
     );

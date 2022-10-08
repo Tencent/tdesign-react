@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { BaseTableProps } from '../interface';
+import { BaseTableProps, PrimaryTableProps } from '../interface';
 import { ClassName, Styles } from '../../common';
 import useClassName from './useClassName';
 import useCommonClassName from '../../hooks/useCommonClassName';
@@ -9,7 +9,7 @@ export function formatCSSUnit(unit: string | number) {
   return isNaN(Number(unit)) ? unit : `${unit}px`;
 }
 
-export default function useStyle(props: BaseTableProps) {
+export default function useStyle(props: BaseTableProps | PrimaryTableProps) {
   const { className, size, bordered, stripe, hover, verticalAlign, height, maxHeight, tableContentWidth } = props;
 
   const { tableBaseClass, tableAlignClasses } = useClassName();
@@ -63,6 +63,7 @@ export default function useStyle(props: BaseTableProps) {
 
   return {
     tableClasses,
+    sizeClassNames,
     tableElementStyles,
     tableContentStyles,
   };

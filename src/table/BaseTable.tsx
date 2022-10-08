@@ -34,9 +34,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
   const [tableFootHeight, setTableFootHeight] = useState(0);
-  const { virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } = useClassName();
+  const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
+    useClassName();
   // 表格基础样式类
-  const { tableClasses, tableContentStyles, tableElementStyles } = useStyle(props);
+  const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
@@ -223,6 +224,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     thWidthList: thWidthList.current,
     resizable: props.resizable,
     columnResizeParams,
+    classPrefix,
+    ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
   };
 
   // 多级表头左边线缺失
@@ -347,6 +350,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     '-webkit-transform': translate,
   };
   const tableBodyProps = {
+    classPrefix,
+    ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     rowAndColFixedPosition,
     showColumnShadow,
     // data: isVirtual ? visibleData : data,

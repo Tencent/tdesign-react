@@ -169,7 +169,7 @@ export default function TableSingleSort() {
         <span>已选筛选条件：{JSON.stringify(filterValue)}</span>
       </div>
       <Table
-        rowKey="id"
+        rowKey="key"
         data={data}
         columns={columns}
         // filterIcon={<IconFont name="add-circle" size="1em" />}
