@@ -134,6 +134,8 @@ export default function TBody(props: TableBodyProps) {
       rowIndex,
       dataLength,
       skipSpansMap,
+      classPrefix: props.classPrefix,
+      ellipsisOverlayClassName: props.ellipsisOverlayClassName,
       ...pick(props, properties),
     };
     if (props.onCellClick) {
