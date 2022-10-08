@@ -111,25 +111,34 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   // 渲染 options
   const renderOptions = () => {
     if (options) {
+      const uniqueOptions = [];
+      options.forEach((option: SelectOptionProps) => {
+        const index = uniqueOptions.findIndex((item) => item.label === option.label && item.value === option.value);
+        if (index === -1) {
+          uniqueOptions.push(option);
+        }
+      });
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
-          {(options as OptionsType).map(({ value: optionValue, label, disabled, content, ...restData }, index) => (
-            <Option
-              key={index}
-              max={max}
-              label={label}
-              value={optionValue}
-              onSelect={onSelect}
-              selectedValue={value}
-              multiple={multiple}
-              size={size}
-              disabled={disabled}
-              restData={restData}
-              keys={keys}
-              content={content}
-            />
-          ))}
+          {(uniqueOptions as OptionsType).map(
+            ({ value: optionValue, label, disabled, content, ...restData }, index) => (
+              <Option
+                key={index}
+                max={max}
+                label={label}
+                value={optionValue}
+                onSelect={onSelect}
+                selectedValue={value}
+                multiple={multiple}
+                size={size}
+                disabled={disabled}
+                restData={restData}
+                keys={keys}
+                content={content}
+              />
+            ),
+          )}
         </ul>
       );
     }

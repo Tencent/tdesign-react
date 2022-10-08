@@ -237,6 +237,8 @@ const Select = forwardRefWithStatics(
         // 如果有自定义的filter方法 使用自定义的filter方法
         if (Array.isArray(tmpPropOptions)) {
           filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
+        } else if (Array.isArray(Object.values(valueToOption))) {
+          filteredOptions = Object.values(valueToOption).filter((option) => filter(value, option));
         }
       } else if (Array.isArray(tmpPropOptions)) {
         const upperValue = value.toUpperCase();
