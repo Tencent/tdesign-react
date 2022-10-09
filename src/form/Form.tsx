@@ -4,7 +4,6 @@ import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import type { TdFormProps } from './type';
-import type { InternalFormInstance } from './hooks/interface';
 import useInstance from './hooks/useInstance';
 import useForm, { HOOK_MARK } from './hooks/useForm';
 import useWatch from './hooks/useWatch';
@@ -60,7 +59,7 @@ const Form = forwardRefWithStatics(
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
-      (form as InternalFormInstance)?.getInternalHooks?.(HOOK_MARK).notifyWatch?.([]);
+      form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       onReset?.({ e });
     }
 
