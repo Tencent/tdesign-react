@@ -51,9 +51,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     setCacheValue,
   } = useSingle(props);
 
-  const { format, timeFormat } = getDefaultFormat({
+  const { format, timeFormat, valueType } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
+    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
@@ -96,7 +97,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (enableTimePicker) {
       setCacheValue(formatDate(date, { format }));
     } else {
-      onChange(formatDate(date, { format }), {
+      onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
@@ -148,7 +149,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   function onConfirmClick() {
     const nextValue = formatDate(inputValue, { format });
     if (nextValue) {
-      onChange(formatDate(inputValue, { format }), {
+      onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(inputValue, format),
         trigger: 'confirm',
       });
@@ -164,7 +165,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    onChange(formatDate(presetValue, { format }), {
+    onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
       dayjsValue: parseToDayjs(presetValue, format),
       trigger: 'preset',
     });

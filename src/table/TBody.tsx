@@ -12,6 +12,8 @@ import { TdBaseTableProps } from './type';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
+  classPrefix: string;
+  ellipsisOverlayClassName: string;
   // 固定列 left/right 具体值
   rowAndColFixedPosition?: RowAndColFixedPosition;
   showColumnShadow?: { left: boolean; right: boolean };
@@ -111,6 +113,8 @@ export default function TBody(props: TableBodyProps) {
   const trNodeList = [];
 
   const properties = [
+    'classPrefix',
+    'ellipsisOverlayClassName',
     'rowAndColFixedPosition',
     'scroll',
     'tableElm',
@@ -130,6 +134,8 @@ export default function TBody(props: TableBodyProps) {
       rowIndex,
       dataLength,
       skipSpansMap,
+      classPrefix: props.classPrefix,
+      ellipsisOverlayClassName: props.ellipsisOverlayClassName,
       ...pick(props, properties),
     };
     if (props.onCellClick) {
@@ -137,7 +143,7 @@ export default function TBody(props: TableBodyProps) {
     }
 
     const trNode = (
-      <TR key={get(row, props.rowKey || 'id') || rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
+      <TR key={get(row, props.rowKey || 'id') + rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
     );
     trNodeList.push(trNode);
 

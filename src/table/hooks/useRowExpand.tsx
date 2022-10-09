@@ -84,7 +84,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     p: TableExpandedRowParams<TableRowData> & { tableWidth: number; isWidthOverflow: boolean },
   ) => {
     const rowId = get(p.row, props.rowKey || 'id');
-    if (!tExpandedRowKeys.includes(rowId)) return null;
+    if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
     return (
       <tr

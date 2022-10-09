@@ -17,20 +17,20 @@ empty | TNode | '' | empty text or empty element。Typescript：`string | TNode`
 firstFullRow | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 fixedRows | Array | - | Typescript：`Array<number>` | N
 footData | Array | [] | table foot data。Typescript：`Array<T>` | N
-footerAffixProps | Object | - | `deprecated`。affix props。Typescript：`AffixProps` | N
-footerAffixedBottom | Boolean / Object | false | affix foot to viewport bottom。Typescript：`boolean | AffixProps` | N
+footerAffixProps | Object | - | `deprecated`。affix props。Typescript：`Partial<AffixProps>` | N
+footerAffixedBottom | Boolean / Object | false | affix foot to viewport bottom。Typescript：`boolean | Partial<AffixProps>` | N
 footerSummary | TNode | - | footer summary content。Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-headerAffixProps | Object | - | `deprecated`。affix props。Typescript：`AffixProps`，[Affix API Documents](./affix?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-headerAffixedTop | Boolean / Object | false | affix header to viewport top。Typescript：`boolean | AffixProps` | N
+headerAffixProps | Object | - | `deprecated`。affix props。Typescript：`Partial<AffixProps>`，[Affix API Documents](./affix?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+headerAffixedTop | Boolean / Object | false | affix header to viewport top。Typescript：`boolean | Partial<AffixProps>` | N
 height | String / Number | - | table height | N
-horizontalScrollAffixedBottom | Boolean / Object | - | affix props。Typescript：`boolean | AffixProps` | N
+horizontalScrollAffixedBottom | Boolean / Object | - | affix props。Typescript：`boolean | Partial<AffixProps>` | N
 hover | Boolean | false | show hover style | N
 lastFullRow | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 loading | TNode | undefined | loading state table。Typescript：`boolean | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 loadingProps | Object | - | Typescript：`LoadingProps`，[Loading API Documents](./loading?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 maxHeight | String / Number | - | table max height | N
 pagination | Object | - | you can use all props of pagination component with paginationProps。Typescript：`PaginationProps`，[Pagination API Documents](./pagination?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-paginationAffixedBottom | Boolean / Object | - | affix props。Typescript：`boolean | AffixProps` | N
+paginationAffixedBottom | Boolean / Object | - | affix props。Typescript：`boolean | Partial<AffixProps>` | N
 resizable | Boolean | false | allow to resize column width | N
 rowAttributes | Object / Array / Function | - | `tr` attributes。Typescript：`TableRowAttributes<T>` `type TableRowAttributes<T> = HTMLElementAttributes | ((params: { row: T; rowIndex: number; type: 'body' | 'foot' }) => HTMLElementAttributes) | Array<TableRowAttributes<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 rowClassName | String / Object / Array / Function | - | table `th` classname。Typescript：`ClassName | ((params: RowClassNameParams<T>) => ClassName)` `interface RowClassNameParams<T> { row: T; rowIndex: number; type?: 'body' | 'foot' }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
@@ -38,6 +38,7 @@ rowKey | String | 'id' | required。unique key for each row data | Y
 rowspanAndColspan | Function | - | rowspan and colspan。Typescript：`TableRowspanAndColspanFunc<T>` `type TableRowspanAndColspanFunc<T> = (params: BaseTableCellParams<T>) => RowspanColspan` `interface RowspanColspan { colspan?: number; rowspan?: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 rowspanAndColspanInFooter | Function | - | rowspan and colspan for footer。Typescript：`TableRowspanAndColspanFunc<T>` | N
 scroll | Object | - | lazy load and virtual scroll。Typescript：`TableScroll` | N
+showHeader | Boolean | true | show table header | N
 size | String | medium | options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 stripe | Boolean | false | show stripe style | N
 tableContentWidth | String | - | \- | N
@@ -62,17 +63,19 @@ onScrollY | Function |  | Typescript：`(params: { e: WheelEvent }) => void`<br/
 name | type | default | description | required
 -- | -- | -- | -- | --
 align | String | left | align type。options：left/right/center | N
-attrs | Object | - | html attributes | N
+attrs | Object / Function | - | html attributes。Typescript：`BaseTableColumnAttributes<T>` `type BaseTableColumnAttributes<T> = { [key: string]: any } | ((context: CellData<T>) => { [key: string]: any })`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 cell | String / Function | - | use cell to render table cell。Typescript：`string | TNode<BaseTableCellParams<T>>` `interface BaseTableCellParams<T> { row: T; rowIndex: number; col: BaseTableCol<T>; colIndex: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 children | Array | - | grouping table head。Typescript：`Array<BaseTableCol<T>>` | N
-className | String / Object / Array / Function | - | cell classnames。Typescript：`ClassName | ((context: CellData<T>) => ClassName)` `interface CellData<T> extends BaseTableCellParams<T> { type: 'th' | 'td' }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+className | String / Object / Array / Function | - | cell classnames。Typescript：`TableColumnClassName<T> | TableColumnClassName<T>[]` `type TableColumnClassName<T> = ClassName | ((context: CellData<T>) => ClassName)` `interface CellData<T> extends BaseTableCellParams<T> { type: 'th' | 'td' }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 colKey | String | - | unique key for column | N
-ellipsis | TNode | false | ellipsis cell content。Typescript：`boolean | TNode<BaseTableCellParams<T>> | TooltipProps`，[Tooltip API Documents](./tooltip?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-ellipsisTitle | TNode | undefined | ellipsis title content。Typescript：`boolean | TNode<BaseTableColParams<T>> | TooltipProps` `interface BaseTableColParams<T> { col: BaseTableCol<T>; colIndex: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+colspan | Number | - | one line head colspan | N
+ellipsis | TNode | false | ellipsis cell content。Typescript：`boolean | TNode<BaseTableCellParams<T>> | TooltipProps | { props: TooltipProps; content: TNode<BaseTableCellParams<T>> }`，[Tooltip API Documents](./tooltip?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+ellipsisTitle | TNode | undefined | ellipsis title content。Typescript：`boolean | TNode<BaseTableColParams<T>> | TooltipProps | { props: TooltipProps; content: TNode<BaseTableColParams<T>> }` `interface BaseTableColParams<T> { col: BaseTableCol<T>; colIndex: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 fixed | String | left | fixed current column to left or right。options：left/right | N
 foot | String / Function | - | tfoot content。Typescript：`string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 minWidth | String / Number | - | add CSS property `min-width` to HTML Element `<col>`，Browsers with [TablesNG](https://docs.google.com/document/d/16PFD1GtMI9Zgwu0jtPaKZJ75Q2wyZ9EZnVbBacOfiNA/preview)  support `minWidth` | N
 render | Function | - | render function can be used to render cell or head。Typescript：`TNode<BaseTableRenderParams<T>>` `interface BaseTableRenderParams<T> extends BaseTableCellParams<T> { type: RenderType }` `type RenderType = 'cell' | 'title'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+resizable | Boolean | true | resize current column width | N
 resize | Object | - | Typescript：`TableColumnResizeConfig` `interface TableColumnResizeConfig { minWidth: number; maxWidth: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 title | String / Function | - | th content。Typescript：`string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 width | String / Number | - | column width | N
@@ -108,6 +111,7 @@ indeterminateSelectedRowKeys | Array | - | indeterminate selected row keys, row 
 multipleSort | Boolean | false | support multiple column fields sort | N
 selectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。Typescript：`Array<string | number>` | N
 defaultSelectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。uncontrolled property。Typescript：`Array<string | number>` | N
+showSortColumnBgColor | Boolean | false | column shows sort bg color | N
 sort | Object / Array | - | sort configs。Typescript：`TableSort` `type TableSort = SortInfo | Array<SortInfo>` `interface SortInfo { sortBy: string; descending: boolean }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 defaultSort | Object / Array | - | sort configs。uncontrolled property。Typescript：`TableSort` `type TableSort = SortInfo | Array<SortInfo>` `interface SortInfo { sortBy: string; descending: boolean }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 sortIcon | TElement | - | sort icon。Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -244,7 +248,7 @@ name | type | default | description | required
 abortEditOnEvent | Array | - | Typescript：`string[]` | N
 component | \- | - | component definition。Typescript：`ComponentType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 defaultEditable | Boolean | false | set default editable once | N
-onEdited | Function | - | trigger on finishing editing。Typescript：`(context: { trigger: string; newRowData: T; rowIndex: number }) => void` | N
+onEdited | Function | - | trigger on finishing editing。Typescript：`(context: PrimaryTableOnEditedContext<T>) => void` `type PrimaryTableOnEditedContext<T> = PrimaryTableCellParams<T> & { trigger: string; newRowData: T; }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 props | Object | - | props of `edit.component`。Typescript：`TableEditableCellProps<T>` `type TableEditableCellProps<T> = TablePlainObject | ((params: TableEditableCellPropsParams<T>) => TablePlainObject)` `interface TableEditableCellPropsParams<T> extends PrimaryTableCellParams<T> { editedRow: T }` `interface TablePlainObject{ [key: string]: any }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 rules | Array | - | form rules。Typescript：`TableEditableCellRules<T>` `type TableEditableCellRules<T> = FormRule[] | ((params: PrimaryTableCellParams<T>) => FormRule[])`，[Form API Documents](./form?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 showEditIcon | Boolean | true | show edit icon | N

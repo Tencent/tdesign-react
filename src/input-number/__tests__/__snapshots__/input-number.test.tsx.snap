@@ -421,7 +421,7 @@ exports[`center.jsx 1`] = `
       class="t-space-item"
     >
       <div
-        class="t-input-number t-size-m t-input-number--row t-input-number--auto-width"
+        class="t-input-number t-size-m t-input-number--row"
         style="width: 250px;"
       >
         <button
@@ -443,7 +443,7 @@ exports[`center.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input__wrap t-input--auto-width"
+          class="t-input__wrap"
           value=""
         >
           <div
@@ -456,11 +456,6 @@ exports[`center.jsx 1`] = `
               type="text"
               value=""
             />
-            <span
-              class="t-input__input-pre"
-            >
-              请输入
-            </span>
           </div>
         </div>
         <button
@@ -528,6 +523,11 @@ exports[`center.jsx 1`] = `
               个
             </div>
           </div>
+          <div
+            class="t-input__tips t-input__tips--error"
+          >
+            number can not be exceed maximum
+          </div>
         </div>
         <button
           class="t-input-number__increase t-is-disabled t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
@@ -547,11 +547,6 @@ exports[`center.jsx 1`] = `
             />
           </svg>
         </button>
-        <div
-          class="t-input__tips t-input__tips--error"
-        >
-          number can not be exceed maximum
-        </div>
       </div>
     </div>
   </div>

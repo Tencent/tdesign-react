@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { TNode } from '../common';
 import { isNodeOverflow } from '../_util/dom';
 import Tooltip, { TooltipProps } from '../tooltip';
-import useConfig from '../hooks/useConfig';
 import useDebounce from '../hooks/useDebounce';
 
 export interface EllipsisProps {
@@ -15,15 +14,22 @@ export interface EllipsisProps {
   attach?: () => HTMLElement;
   tooltipProps?: TooltipProps;
   zIndex?: number;
+  overlayClassName?: string;
+  classPrefix?: string;
 }
 
 /** 超出省略显示 */
 export default function Ellipsis(props: EllipsisProps) {
-  const { classPrefix } = useConfig();
+  const { classPrefix } = props;
   const root = useRef<HTMLDivElement>();
   const [isOverflow, setIsOverflow] = useState(false);
 
   const ellipsisClasses = classNames([`${classPrefix}-table__ellipsis`, `${classPrefix}-text-ellipsis`]);
+
+  const innerEllipsisClassName: TooltipProps['overlayClassName'] = [
+    `${classPrefix}-table__ellipsis-content`,
+    props.overlayClassName,
+  ];
 
   // 当表格数据量大时，不希望默认渲染全量的 Popup，期望在用户 mouseenter 的时候再显示
   const onTriggerMouseenter = () => {
@@ -47,6 +53,7 @@ export default function Ellipsis(props: EllipsisProps) {
     </div>
   );
   let content = null;
+  const { tooltipProps } = props;
   if (isOverflow) {
     const rProps = {
       content: props.popupContent || cellNode,
@@ -54,6 +61,9 @@ export default function Ellipsis(props: EllipsisProps) {
       zIndex: props.zIndex,
       attach: props.attach,
       placement: props.placement,
+      overlayClassName: tooltipProps?.overlayClassName
+        ? innerEllipsisClassName.concat(tooltipProps.overlayClassName)
+        : innerEllipsisClassName,
       ...(props.tooltipProps || {}),
     };
     content = <Tooltip {...rProps}>{ellipsisContent}</Tooltip>;

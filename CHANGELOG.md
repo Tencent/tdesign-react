@@ -5,6 +5,43 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.2 `2022-10-09` 
+### 🚀 Features
+- `Select`: 调整下拉交互 允许输入时不关闭下拉面板 减少相关交互问题 @uyarn ([#1570](https://github.com/Tencent/tdesign-react/pull/1570))
+- `DatePicker`: 支持`valueType` API @HQ-Lin ([#1554](https://github.com/Tencent/tdesign-react/pull/1554))
+- `Table`:
+    - 新增 `showHeader`，支持隐藏表头 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 新增 `column.colKey = serial-number`，支持序号列功能，[#1517](https://github.com/Tencent/tdesign-vue-next/issues/1517) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 新增 `showSortColumnBgColor`，用于控制是否显示排序列背景色 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 支持属性 `tree.treeNodeColumnIndex` 动态修改， [#1487](https://github.com/Tencent/tdesign-vue-next/issues/1487) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 表格列属性 `attrs` 支持自定义任意单元格属性 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 新增列属性 `colspan`，用于设置单行表头合并 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 超出省略功能，支持同时设置省略浮层内容 `ellipsis.content` 和属性透传 `ellipsis.props` @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 支持泛型 @chaishi ([#1552](https://github.com/Tencent/tdesign-react/pull/1552))
+
+### 🐞 Bug Fixes
+- `InputNumber`: 输入中文或特殊符号时，清空数字为 `undefined` @chaishi ([#1553](https://github.com/Tencent/tdesign-react/pull/1553))
+- `Upload`:
+    - 请求支持带上自定义 `headers` @chaishi ([#1553](https://github.com/Tencent/tdesign-react/pull/1553))
+    - 请求支持 `withCredentials` @chaishi ([#1553](https://github.com/Tencent/tdesign-react/pull/1553))
+    - 添加参数 `response` 到事件 `onSuccess`，单文件是对象，多文件是数组，[tdesign-vue-next#1774](https://github.com/Tencent/tdesign-vue-next/issues/1774) @chaishi ([#1558](https://github.com/Tencent/tdesign-react/pull/1558))
+- `Card`: 修复`shadow` API不生效的问题 @Flower-F ([#1555](https://github.com/Tencent/tdesign-react/pull/1555))
+- `Select`: 修复新创建的条目与已有项重复时重复显示的问题 @samhou1988 ([#1550](https://github.com/Tencent/tdesign-react/pull/1550))
+- `TreeSelect`: 修复 filterable 时，点击 treeselect 闪的问题 @HelKyle ([#1569](https://github.com/Tencent/tdesign-react/pull/1569))
+- `Form`: 修复 FormList 动态设置节点初始值丢失问题 @HQ-Lin ([#1571](https://github.com/Tencent/tdesign-react/pull/1571))
+- `Input`: 兼容异步渲染组件计算宽度异常情况 @HQ-Lin ([#1568](https://github.com/Tencent/tdesign-react/pull/1568))
+- `Table`:
+    - 筛选功能，修复 `filterRow={() => null}` 或者 `filterRow={null}` 无法隐藏过滤行问题，[issue#1438](https://github.com/Tencent/tdesign-react/issues/1438) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 树形结构，叶子节点缩进距离修正 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 超出省略功能，`ellipsisTitle`优先级应当高于 `ellipsis`， [tdesign-vue#1404](https://github.com/Tencent/tdesign-vue/issues/1404) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 行选中功能，修复 `column.type=single` 时，`column.title` 无效问题，[issue#1372](https://github.com/Tencent/tdesign-vue/issues/1372) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 过滤功能，`list.value` 值为 `number` 无法高亮过滤图标问题 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 行选中功能，数据变化时，选中的数据依旧是变化前的数据，[#1722](https://github.com/Tencent/tdesign-vue-next/issues/1722) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 不提供`expandedRowKeys`的绑定会报错 ，缺少判空，[#1704](https://github.com/Tencent/tdesign-vue-next/issues/1704) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+- `Dialog`: 修复初次点击内容区域移到 mask 区域后关闭弹窗问题 @HQ-Lin ([#1573](https://github.com/Tencent/tdesign-react/pull/1573))
+- `Pagination`: 修复 `jumper` 输入框联动问题 @HQ-Lin ([#1574](https://github.com/Tencent/tdesign-react/pull/1574))
+
+
 ## 🌈 0.42.1 `2022-09-27` 
 ### 🚀 Features
 - `Form`: 

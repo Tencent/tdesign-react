@@ -13,19 +13,22 @@ import useDragSort from './hooks/useDragSort';
 import useAsyncLoading from './hooks/useAsyncLoading';
 import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
-import { BaseTableProps, PrimaryTableProps } from './interface';
+import useStyle from './hooks/useStyle';
+import { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import EditableCell, { EditableCellProps } from './EditableCell';
 import { StyledProps } from '../common';
 import { useEditableRow } from './hooks/useEditableRow';
+import { primaryTableDefaultProps } from './defaultProps';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
-const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
+const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
-  const { tableDraggableClasses, tableBaseClass, tableSelectedClasses } = useClassName();
+  const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
+  const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props);
   // 展开/收起行功能
@@ -91,6 +94,17 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
       const isDisplayColumn = item.children?.length || tDisplayColumns?.includes(item.colKey);
       if (!isDisplayColumn && props.columnController && tDisplayColumns) continue;
       item = formatToRowSelectColumn(item);
+      const { sort } = props;
+      if (item.sorter && props.showSortColumnBgColor) {
+        const sorts = sort instanceof Array ? sort : [sort];
+        const sortedColumn = sorts.find((sort) => sort && sort.sortBy === item.colKey && sort.descending !== undefined);
+        if (sortedColumn) {
+          item.className =
+            item.className instanceof Array
+              ? item.className.concat(tableSortClasses.sortColumn)
+              : [item.className, tableSortClasses.sortColumn];
+        }
+      }
       // 添加排序图标和过滤图标
       if (item.sorter || item.filter) {
         const titleContent = renderTitle(item, i);
@@ -99,7 +113,10 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
           const sortIcon = item.sorter ? renderSortIcon(p) : null;
           const filterIcon = item.filter ? renderFilterIcon(p) : null;
           const attach = primaryTableRef.current?.tableContentRef;
-          return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach);
+          return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach, {
+            classPrefix,
+            ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
+          });
         };
         item.ellipsisTitle = false;
       }
@@ -208,7 +225,6 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
 
   return (
     <BaseTable
-      ref={primaryTableRef}
       {...baseTableProps}
       className={classNames(primaryTableClasses, className)}
       style={style}
@@ -219,4 +235,10 @@ const PrimaryTable = forwardRef((props: TPrimaryTableProps, ref) => {
 
 PrimaryTable.displayName = 'PrimaryTable';
 
-export default PrimaryTable;
+PrimaryTable.defaultProps = primaryTableDefaultProps;
+
+export default PrimaryTable as <T extends TableRowData = TableRowData>(
+  props: PrimaryTableProps<T> & {
+    ref?: React.Ref<PrimaryTableRef>;
+  },
+) => React.ReactElement;

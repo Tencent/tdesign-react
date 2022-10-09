@@ -44,14 +44,13 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const getUserInput = (value: InputNumberValue) => {
     if (!value && value !== 0) return '';
-    let inputStr = String(value);
+    let inputStr = value || value === 0 ? String(value) : '';
     if (!inputRef.current.currentElement.contains?.(document.activeElement)) {
-      inputStr = String(
-        formatToNumber(inputStr, {
-          decimalPlaces: props.decimalPlaces,
-          largeNumber: props.largeNumber,
-        }),
-      );
+      const num = formatToNumber(inputStr, {
+        decimalPlaces: props.decimalPlaces,
+        largeNumber: props.largeNumber,
+      });
+      inputStr = num || num === 0 ? String(num) : '';
       if (props.format) {
         inputStr = String(props.format(value, { fixedNumber: inputStr }));
       }
@@ -117,6 +116,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
       decimalPlaces: props.decimalPlaces,
       largeNumber: props.largeNumber,
     });
+    console.log(getUserInput(value), newValue);
     if (newValue !== value && String(newValue) !== value) {
       onChange(newValue as T, { type: 'blur', e: ctx.e });
     }

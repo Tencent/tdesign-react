@@ -25,6 +25,7 @@ export default function TableBasic() {
   const [hover, setHover] = useState(false);
   const [tableLayout, setTableLayout] = useState(false);
   const [size, setSize] = useState('medium');
+  const [showHeader, setShowHeader] = useState(true);
 
   // <!-- 当数据为空需要占位时，会显示 cellEmptyContent -->
   const table = (
@@ -33,8 +34,9 @@ export default function TableBasic() {
       resizable
       columns={[
         {
+          // 序号列，设置 colKey = serial-number 即可
+          colKey: 'serial-number',
           width: '100',
-          colKey: 'index',
           title: '序号',
           // 对齐方式
           align: 'center',
@@ -43,6 +45,7 @@ export default function TableBasic() {
           // 设置列属性
           attrs: {
             'data-id': 'first-column',
+            style: {},
           },
         },
         {
@@ -72,6 +75,8 @@ export default function TableBasic() {
            * 3.值类型为 Object，则自动透传属性到 Popup 组件。
            */
           ellipsis: true,
+          // 表头不省略，优先级高于 ellipsis
+          ellipsisTitle: false,
 
           // 透传省略内容浮层 Popup 组件全部特性，示例代码有效，勿删！！！
           // ellipsis: { placement: 'bottom', destroyOnClose: false },
@@ -88,6 +93,7 @@ export default function TableBasic() {
       bordered={bordered}
       hover={hover}
       stripe={stripe}
+      showHeader={showHeader}
       tableLayout={tableLayout ? 'auto' : 'fixed'}
       rowClassName={({ rowIndex }) => `${rowIndex}-class`}
       cellEmptyContent={'-'}
@@ -123,7 +129,7 @@ export default function TableBasic() {
         <RadioButton value="medium">中尺寸</RadioButton>
         <RadioButton value="large">大尺寸</RadioButton>
       </RadioGroup>
-      <div>
+      <Space>
         <Checkbox value={stripe} onChange={setStripe}>
           显示斑马纹
         </Checkbox>
@@ -136,7 +142,10 @@ export default function TableBasic() {
         <Checkbox value={tableLayout} onChange={setTableLayout}>
           宽度自适应
         </Checkbox>
-      </div>
+        <Checkbox value={showHeader} onChange={setShowHeader}>
+         显示表头
+        </Checkbox>
+      </Space>
 
       {table}
     </Space>
