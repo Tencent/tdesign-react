@@ -62,6 +62,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const portalRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>();
   const bodyCssTextRef = useRef<string>();
+  const contentClickRef = useRef(false);
   const isModal = mode === 'modal';
   const isNormal = mode === 'normal';
   const canDraggable = props.draggable && mode === 'modeless';
@@ -152,7 +153,10 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
-      if (e.target === dialogPosition.current) {
+      // 判断点击事件初次点击是否为内容区域
+      if (contentClickRef.current) {
+        contentClickRef.current = false;
+      } else if (e.target === dialogPosition.current) {
         onOverlayClick({ e });
         onClose({ e, trigger: 'overlay' });
       }
@@ -231,6 +235,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     };
 
     const onDialogMoveStart = (e: React.MouseEvent<HTMLDivElement>) => {
+      contentClickRef.current = true;
       // 阻止事件冒泡
       if (canDraggable && e.currentTarget === e.target) {
         const { offsetLeft, offsetTop, offsetHeight, offsetWidth } = dialog.current;
