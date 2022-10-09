@@ -34,9 +34,10 @@ export default function useRange(props: TdDateRangePickerProps) {
     setIsFirstValueSelected,
   } = useRangeValue(props);
 
-  const { format, timeFormat } = getDefaultFormat({
+  const { format, timeFormat, valueType } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
+    valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
@@ -100,7 +101,7 @@ export default function useRange(props: TdDateRangePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(newVal, format)) {
-        onChange(formatDate(newVal, { format }) as DateValue[], {
+        onChange(formatDate(newVal, { format, targetFormat: valueType }) as DateValue[], {
           dayjsValue: newVal.map((v) => parseToDayjs(v, format)),
           trigger: 'enter',
         });

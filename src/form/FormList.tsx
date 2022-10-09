@@ -73,8 +73,8 @@ const FormList = (props: TdFormListProps) => {
         isListField: true,
       })),
     );
-    // 延迟至 microtask 队列末尾再赋值
-    Promise.resolve().then(() => {
+    // 延迟至 FormItem 渲染后再赋值
+    requestAnimationFrame(() => {
       [...formListMapRef.current.values()].forEach((formItemRef) => {
         const { name } = formItemRef.current;
         const data = get(fieldData, name);

@@ -447,6 +447,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
             if (React.isValidElement(child)) {
               if (child.type === FormItem) {
                 return React.cloneElement(child, {
+                  // @ts-ignore
                   ref: (el) => {
                     if (!el) return;
                     innerFormItemsRef.current[index] = el;

@@ -58,10 +58,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setCacheValue,
   } = useRange(props);
 
-  const { format, timeFormat } = getDefaultFormat({
+  const { format, timeFormat, valueType } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: props.format,
+    valueType: props.valueType,
   });
 
   // 记录面板是否选中过
@@ -150,7 +151,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         setCacheValue(nextValue);
         setInputValue(nextValue);
       } else {
-        onChange(formatDate(nextValue, { format }), {
+        onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
           dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
           trigger: 'pick',
         });
@@ -252,7 +253,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         setCacheValue(nextValue);
         setInputValue(nextValue);
       } else {
-        onChange(formatDate(nextValue, { format }), {
+        onChange(formatDate(nextValue, { format, targetFormat: valueType }), {
           dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
           trigger: 'confirm',
         });
@@ -279,7 +280,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (!Array.isArray(presetValue)) {
       log.error('DateRangePicker', `preset: ${preset} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetValue, { format }), {
+      onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
         dayjsValue: presetValue.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
