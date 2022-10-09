@@ -1,4 +1,4 @@
-import React, { useState, useMemo, forwardRef } from 'react';
+import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import noop from '../_util/noop';
@@ -83,7 +83,6 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     if (nextCurrent > pageCount) nextCurrent = pageCount;
 
     setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
-    setJumpValue(nextCurrent);
 
     onChange({
       current: nextCurrent,
@@ -138,6 +137,10 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     changeCurrent,
     pageEllipsisMode,
   });
+
+  useEffect(() => {
+    setJumpValue(current);
+  }, [current]);
 
   const pageSizeContrl =
     showPageSize && pageSizeOptions.length ? (
