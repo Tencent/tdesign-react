@@ -24,6 +24,7 @@ const FormList = (props: TdFormListProps) => {
   );
   const formListMapRef = useRef(new Map()); // 收集 formItem 实例
   const formListRef = useRef<FormItemInstance>(); // 当前 formList 实例
+  const fieldsTaskQueueRef = useRef([]); // 记录更改 fields 数据后 callback 队列
 
   const operation: FormListFieldOperation = {
     add(defaultValue?: any, insertIndex?: number) {
@@ -73,26 +74,35 @@ const FormList = (props: TdFormListProps) => {
         isListField: true,
       })),
     );
-    // 延迟至 FormItem 渲染后再赋值
-    requestAnimationFrame(() => {
-      [...formListMapRef.current.values()].forEach((formItemRef) => {
-        const { name } = formItemRef.current;
-        const data = get(fieldData, name);
-        callback(formItemRef, data);
-      });
-    });
+    // 添加至队列中 等待下次渲染完成执行对应逻辑
+    fieldsTaskQueueRef.current.push({ callback, fieldData });
   }
 
   useEffect(() => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
+      if (!formItemRef.current) return;
+
       const { name, value } = formItemRef.current;
-      if (value) return;
+      if (value) return; // 内部有值则忽略初始化设置
 
       const data = get(initialValue, name);
       formItemRef.current.setField({ value: data, status: 'not' });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fields, initialValue]);
+  }, [initialValue]);
+
+  useEffect(() => {
+    const currentQueue = fieldsTaskQueueRef.current.pop();
+    if (!currentQueue) return;
+
+    [...formListMapRef.current.values()].forEach((formItemRef) => {
+      if (!formItemRef.current) return;
+
+      const { name } = formItemRef.current;
+      const { fieldData, callback } = currentQueue;
+      const data = get(fieldData, name);
+      callback(formItemRef, data);
+    });
+  }, [fields]);
 
   useEffect(() => {
     if (!name || !formMapRef) return;
@@ -121,7 +131,7 @@ const FormList = (props: TdFormListProps) => {
       validate: (trigger = 'all') => {
         const resultList = [];
         const validates = [...formListMapRef.current.values()].map((formItemRef) =>
-          formItemRef.current.validate(trigger),
+          formItemRef?.current?.validate?.(trigger),
         );
         return new Promise((resolve) => {
           Promise.all(validates).then((validateResult) => {
@@ -145,18 +155,18 @@ const FormList = (props: TdFormListProps) => {
       },
       setValue: (fieldData: any[]) => {
         setListFields(fieldData, (formItemRef, data) => {
-          formItemRef?.current?.setValue(data);
+          formItemRef?.current?.setValue?.(data);
         });
       },
       setField: (fieldData: { value?: any[]; status?: string }) => {
         const { value, status } = fieldData;
         setListFields(value, (formItemRef, data) => {
-          formItemRef?.current?.setField({ value: data, status });
+          formItemRef?.current?.setField?.({ value: data, status });
         });
       },
       resetField: () => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {
-          formItemRef.current.resetField();
+          formItemRef?.current?.resetField?.();
         });
         setInitialValue([]);
       },
@@ -165,12 +175,12 @@ const FormList = (props: TdFormListProps) => {
           const { name } = formItemRef.current;
           const data = get(fieldData, name);
 
-          formItemRef.current.setValidateMessage(data);
+          formItemRef?.current?.setValidateMessage?.(data);
         });
       },
       resetValidate: () => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {
-          formItemRef.current.resetValidate();
+          formItemRef?.current?.resetValidate?.();
         });
       },
     }),
