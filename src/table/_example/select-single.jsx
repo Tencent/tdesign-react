@@ -3,6 +3,8 @@ import { Table } from 'tdesign-react';
 
 const columns = [
   {
+    // title: '选择',
+    // align: 'center',
     colKey: 'row-select',
     type: 'single',
     // 允许单选(Radio)取消行选中

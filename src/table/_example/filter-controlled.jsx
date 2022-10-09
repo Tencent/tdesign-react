@@ -3,64 +3,60 @@ import { Table, Button, DateRangePickerPanel, Space } from 'tdesign-react';
 
 const columns = [
   {
-    colKey: 'instance',
-    title: '集群名称',
-    // filter: {
-    //   type: 'single',
-    //   list: [
-    //     { label: 'any one', value: '' },
-    //     { label: 'JQTest1', value: 'JQTest1' },
-    //     { label: 'JQTest2', value: 'JQTest2' },
-    //     { label: 'JQTest3', value: 'JQTest3' },
-    //   ],
-    // },
-  },
-  {
-    colKey: 'survivalTime',
-    title: '存活时间',
-    sorter: (a, b) => a.survivalTime - b.survivalTime,
+    title: 'FirstName',
+    colKey: 'firstName',
+    // 单选过滤配置
     filter: {
       type: 'single',
-      // showConfirmAndReset: true,
       list: [
-        { label: '300', value: 300 },
-        { label: '500', value: 500 },
-        { label: '1000', value: 1000 },
+        { label: 'anyone', value: '' },
+        { label: 'Heriberto', value: 'Heriberto' },
+        { label: 'Eric', value: 'Eric' },
       ],
     },
   },
   {
-    colKey: 'owner',
-    title: '管理员',
-    filter: {
-      type: 'input',
-      showConfirmAndReset: true,
-      // 自定义触发搜索确认的事件
-      confirmEvents: ['onEnter'],
-      props: {
-        placeholder: '请输入关键词搜索',
-      },
-    },
-  },
-  {
-    colKey: 'area',
-    title: '区域',
+    title: 'LastName',
+    colKey: 'lastName',
+    // 多选过滤配置
     filter: {
       type: 'multiple',
-      showConfirmAndReset: true,
+      resetValue: [],
       list: [
-        { label: '广州', value: '广州' },
-        { label: '成都', value: '成都' },
-        { label: '深圳', value: '深圳' },
+        { label: 'All', checkAll: true },
+        { label: 'Skures', value: 'Skures' },
+        { label: 'Purves', value: 'Purves' },
       ],
+      // 是否显示重置取消按钮，一般情况不需要显示
+      showConfirmAndReset: true,
     },
   },
   {
-    title: '自定义过滤',
-    colKey: 'createTime',
-    // 自定义过滤组件
+    title: 'Email',
+    colKey: 'email',
+    // 输入框过滤配置
     filter: {
-      // 直接传入组件，请确保自定义过滤组件包含 value 和 onChange 等两个参数，组件内部会自动处理
+      type: 'input',
+
+      // 文本域搜索
+      // component: Textarea,
+
+      resetValue: '',
+      // 按下 Enter 键时也触发确认搜索
+      confirmEvents: ['onEnter'],
+      props: { placeholder: '输入关键词过滤' },
+      // 是否显示重置取消按钮，一般情况不需要显示
+      showConfirmAndReset: true,
+    },
+  },
+  {
+    title: 'Date',
+    colKey: 'createTime',
+    // 用于查看同时存在排序和过滤时的图标显示是否正常
+    sorter: true,
+    // 自定义过滤组件：日期过滤配置，请确保自定义组件包含 value 和 onChange 属性
+    filter: {
+      type: 'custom',
       component: DateRangePickerPanel,
       props: {
         firstDayOfWeek: 7,
@@ -72,31 +68,60 @@ const columns = [
     },
   },
 ];
-const initData = [
-  {
-    id: 1,
-    instance: 'JQTest1',
-    status: 0,
-    owner: 'jenny;peter',
-    survivalTime: 300,
-    area: '广州',
-    createTime: '2021-11-01',
-  },
-  { id: 2, instance: 'JQTest2', status: 1, owner: 'jenny', survivalTime: 1000, area: '上海', createTime: '2021-12-01' },
-  { id: 3, instance: 'JQTest3', status: 2, owner: 'jenny', survivalTime: 500, area: '北京', createTime: '2022-01-01' },
-  { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500, area: '成都', createTime: '2022-02-01' },
-  { id: 5, instance: 'JQTest5', status: 1, owner: 'jeff', survivalTime: 500, area: '深圳', createTime: '2022-03-01' },
-  { id: 6, instance: 'JQTest1', status: 1, owner: 'tony', survivalTime: 800, area: '南京', createTime: '2022-04-01' },
-];
+
+const initData = new Array(5).fill(null).map((_, i) => ({
+  key: String(i + 1),
+  firstName: ['Eric', 'Gilberta', 'Heriberto', 'Lazarus', 'Zandra'][i % 4],
+  lastName: ['Spinke', 'Purves', 'Kment', 'Skures', 'Croson'][i % 4],
+  email: [
+    'espinke0@apache.org',
+    'gpurves1@issuu.com',
+    'hkment2@nsw.gov.au',
+    'lskures3@apache.org',
+    'zcroson5@virginia.edu',
+  ][i % 4],
+  createTime: ['2021-11-01', '2021-12-01', '2022-01-01', '2022-02-01', '2022-03-01'][i % 4],
+}));
+
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
   //  survivalTime: [300, 500]
-  const [filterValue, setFilterValue] = useState({});
+  const [filterValue, setFilterValue] = useState({
+    lastName: [], createTime: [],
+  });
 
-  function onFilterChange(filterVal, col) {
-    console.log(filterVal, col);
-    setFilterValue(filterVal);
-    // TODO: 在此处理过滤数据效果，以达到更真实的过滤效果
+  const request = (filters) => {
+    const timer = setTimeout(() => {
+      clearTimeout(timer);
+      const newData = initData.filter((item) => {
+        let result = true;
+        if (filters.firstName) {
+          result = item.firstName === filters.firstName;
+        }
+        if (result && filters.lastName && filters.lastName.length) {
+          result = filters.lastName.includes(item.lastName);
+        }
+        if (result && filters.email) {
+          result = item.email.indexOf(filters.email) !== -1;
+        }
+        if (result && filters.createTime && filters.createTime.length) {
+          result = item.createTime === filters.createTime;
+        }
+        return result;
+      });
+      setData(newData);
+    }, 100);
+  };
+
+  function onFilterChange(filters, col) {
+    console.log(filters, col);
+    setFilterValue({
+      ...filters,
+      createTime: filters.createTime || [],
+      lastName: filters.lastName || [],
+    });
+    // 在此处理过滤数据效果，以达到更真实的过滤效果
+    request(filters);
   }
 
   function onChange(info, context) {
@@ -144,7 +169,7 @@ export default function TableSingleSort() {
         <span>已选筛选条件：{JSON.stringify(filterValue)}</span>
       </div>
       <Table
-        rowKey="id"
+        rowKey="key"
         data={data}
         columns={columns}
         // filterIcon={<IconFont name="add-circle" size="1em" />}
@@ -152,6 +177,7 @@ export default function TableSingleSort() {
         // defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
         onChange={onChange}
+        // filterRow={() => null}
         // 非受控写法
         pagination={{
           defaultCurrent: 1,

@@ -67,7 +67,7 @@ export default function useAffix(props: TdBaseTableProps) {
   const isAffixedBottomElementShow = (elementRect: DOMRect, tableRect: DOMRect, headerHeight: number) =>
     tableRect.top + headerHeight < elementRect.top && elementRect.top > elementRect.height;
 
-  const getOffsetTop = (props: boolean | AffixProps) => {
+  const getOffsetTop = (props: boolean | Partial<AffixProps>) => {
     if (typeof props === 'boolean') return 0;
     return props.offsetTop || 0;
   };
@@ -76,7 +76,7 @@ export default function useAffix(props: TdBaseTableProps) {
     if (!isAffixed && !isVirtualScroll) return;
     const pos = tableContentRef.current?.getBoundingClientRect();
     const headerRect = tableContentRef.current?.querySelector('thead')?.getBoundingClientRect();
-    const headerHeight = headerRect.height || 0;
+    const headerHeight = headerRect?.height || 0;
     const footerRect = affixFooterRef.current?.getBoundingClientRect();
     if ((props.headerAffixedTop || isVirtualScroll) && affixHeaderRef.current) {
       const offsetTop = getOffsetTop(props.headerAffixProps || props.headerAffixedTop);

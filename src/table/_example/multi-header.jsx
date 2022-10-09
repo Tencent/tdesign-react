@@ -179,7 +179,7 @@ export default function TableExample() {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       {/* <!-- 按钮操作区域 --> */}
-      <div>
+      <Space>
         <Checkbox checked={bordered} onChange={setBordered}>
           显示表格边框
         </Checkbox>
@@ -195,7 +195,7 @@ export default function TableExample() {
         <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
           表头吸顶
         </Checkbox>
-      </div>
+      </Space>
 
       <Table
         data={data}

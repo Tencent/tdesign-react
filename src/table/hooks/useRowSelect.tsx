@@ -111,7 +111,6 @@ export default function useRowSelect(
     let selectedRowKeys = [...tSelectedRowKeys];
     const reRowKey = rowKey || 'id';
     const id = get(row, reRowKey);
-    selectedRowDataMap.set(id, row);
     const selectedRowIndex = selectedRowKeys.indexOf(id);
     const isExisted = selectedRowIndex !== -1;
     if (selectColumn.type === 'multiple') {
@@ -150,7 +149,7 @@ export default function useRowSelect(
       width: col.width || 64,
       className: tableSelectedClasses.checkCell,
       cell: (p: PrimaryTableCellParams<TableRowData>) => renderSelectCell(p),
-      title: col.type === 'multiple' ? getSelectedHeader() : '',
+      title: col.type === 'multiple' ? getSelectedHeader() : col.title,
     };
   }
 

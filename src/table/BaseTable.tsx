@@ -30,14 +30,14 @@ export interface TableListeners {
 }
 
 const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
-  // function BaseTable<T>(props: BaseTableProps<T>) {
   const { tableLayout, height, data, columns, style, headerAffixedTop, bordered, resizable } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
   const [tableFootHeight, setTableFootHeight] = useState(0);
-  const { virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } = useClassName();
+  const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
+    useClassName();
   // 表格基础样式类
-  const { tableClasses, tableContentStyles, tableElementStyles } = useStyle(props);
+  const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
@@ -214,101 +214,133 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     </colgroup>
   );
 
+  const headProps = {
+    isFixedHeader,
+    rowAndColFixedPosition,
+    isMultipleHeader,
+    bordered: props.bordered,
+    spansAndLeafNodes,
+    thList,
+    thWidthList: thWidthList.current,
+    resizable: props.resizable,
+    columnResizeParams,
+    classPrefix,
+    ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
+  };
+
+  // 多级表头左边线缺失
+  const affixedLeftBorder = props.bordered ? 1 : 0;
+
   /**
    * Affixed Header
    */
-  // onlyVirtualScrollBordered 用于浏览器兼容性处理，只有 chrome 需要调整 bordered，FireFox 和 Safari 不需要
-  const onlyVirtualScrollBordered =
-    !!(isVirtual && !headerAffixedTop && bordered) && /Chrome/.test(navigator?.userAgent);
-  const borderWidth = bordered && onlyVirtualScrollBordered ? 1 : 0;
-  const affixHeaderWrapHeight =
-    (affixHeaderRef.current?.getBoundingClientRect().height || 0) - scrollbarWidth - borderWidth;
-  // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
-  const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
-  const affixHeaderWrapHeightStyle = {
-    width: `${tableWidth.current}px`,
-    height: `${affixHeaderWrapHeight}px`,
-    opacity: headerOpacity,
-    marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
-  };
-  // 多级表头左边线缺失
-  const affixedLeftBorder = props.bordered ? 1 : 0;
-  const affixedHeader = Boolean(props.headerAffixedTop && tableWidth.current) && (
-    <div
-      ref={affixHeaderRef}
-      style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
-      className={classNames(['scrollbar', { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual }])}
-    >
-      <table
-        className={classNames(tableElmClasses)}
-        style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}
+  const renderFixedHeader = () => {
+    // onlyVirtualScrollBordered 用于浏览器兼容性处理，只有 chrome 需要调整 bordered，FireFox 和 Safari 不需要
+    const onlyVirtualScrollBordered =
+      !!(isVirtual && !headerAffixedTop && bordered) && /Chrome/.test(navigator?.userAgent);
+    const borderWidth = bordered && onlyVirtualScrollBordered ? 1 : 0;
+    const affixHeaderWrapHeight =
+      (affixHeaderRef.current?.getBoundingClientRect().height || 0) - scrollbarWidth - borderWidth;
+    // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
+    const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
+    const affixHeaderWrapHeightStyle = {
+      width: `${tableWidth.current}px`,
+      height: `${affixHeaderWrapHeight}px`,
+      opacity: headerOpacity,
+      marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
+    };
+    const affixedHeader = Boolean(props.headerAffixedTop && tableWidth.current) && (
+      <div
+        ref={affixHeaderRef}
+        style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
+        className={classNames([
+          'scrollbar',
+          { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual },
+        ])}
       >
-        {colgroup}
-        <THead
-          isFixedHeader={isFixedHeader}
-          rowAndColFixedPosition={rowAndColFixedPosition}
-          isMultipleHeader={isMultipleHeader}
-          bordered={props.bordered}
-          spansAndLeafNodes={spansAndLeafNodes}
-          thList={thList}
-          thWidthList={thWidthList.current}
-          resizable={props.resizable}
-          columnResizeParams={columnResizeParams}
-        />
-      </table>
-    </div>
-  );
+        <table
+          className={classNames(tableElmClasses)}
+          style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}
+        >
+          {colgroup}
+          {props.showHeader && <THead {...headProps} />}
+        </table>
+      </div>
+    );
 
-  // 添加这一层，是为了隐藏表头的横向滚动条。如果以后不需要照顾 IE 10 以下的项目，则可直接移除这一层
-  // 彼时，可更为使用 CSS 样式中的 .hideScrollbar()
-  const affixHeaderWithWrap = (
-    <div className={tableBaseClass.affixedHeaderWrap} style={affixHeaderWrapHeightStyle}>
-      {affixedHeader}
-    </div>
-  );
+    // 添加这一层，是为了隐藏表头的横向滚动条。如果以后不需要照顾 IE 10 以下的项目，则可直接移除这一层
+    // 彼时，可更为使用 CSS 样式中的 .hideScrollbar()
+    const affixHeaderWithWrap = (
+      <div className={tableBaseClass.affixedHeaderWrap} style={affixHeaderWrapHeightStyle}>
+        {affixedHeader}
+      </div>
+    );
+    return affixHeaderWithWrap;
+  };
+
+  const renderAffixedHeader = () => {
+    if (!props.showHeader) return null;
+    return (
+      !!(isVirtual || props.headerAffixedTop) &&
+      (props.headerAffixedTop ? (
+        <Affix
+          offsetTop={0}
+          {...getAffixProps(props.headerAffixedTop, props.headerAffixProps)}
+          onFixedChange={onFixedChange}
+        >
+          {renderFixedHeader()}
+        </Affix>
+      ) : (
+        isFixedHeader && renderFixedHeader()
+      ))
+    );
+  };
 
   /**
    * Affixed Footer
    */
-  let marginScrollbarWidth = isWidthOverflow ? scrollbarWidth : 0;
-  if (bordered) {
-    marginScrollbarWidth += 1;
-  }
-  // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
-  const affixedFooter = Boolean(props.footerAffixedBottom && props.footData?.length && tableWidth.current) && (
-    <Affix
-      className={tableBaseClass.affixedFooterWrap}
-      onFixedChange={onFixedChange}
-      offsetBottom={marginScrollbarWidth || 0}
-      {...getAffixProps(props.footerAffixedBottom)}
-      style={{ marginTop: `${-1 * (tableFootHeight + marginScrollbarWidth)}px` }}
-    >
-      <div
-        ref={affixFooterRef}
-        style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
-        className={classNames([
-          'scrollbar',
-          { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || isVirtual },
-        ])}
+  const renderAffixedFooter = () => {
+    let marginScrollbarWidth = isWidthOverflow ? scrollbarWidth : 0;
+    if (bordered) {
+      marginScrollbarWidth += 1;
+    }
+    // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
+    const affixedFooter = Boolean(props.footerAffixedBottom && props.footData?.length && tableWidth.current) && (
+      <Affix
+        className={tableBaseClass.affixedFooterWrap}
+        onFixedChange={onFixedChange}
+        offsetBottom={marginScrollbarWidth || 0}
+        {...getAffixProps(props.footerAffixedBottom)}
+        style={{ marginTop: `${-1 * (tableFootHeight + marginScrollbarWidth)}px` }}
       >
-        <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}>
-          {colgroup}
-          <TFoot
-            rowKey={props.rowKey}
-            isFixedHeader={isFixedHeader}
-            rowAndColFixedPosition={rowAndColFixedPosition}
-            footData={props.footData}
-            columns={spansAndLeafNodes?.leafColumns || columns}
-            rowAttributes={props.rowAttributes}
-            rowClassName={props.rowClassName}
-            thWidthList={thWidthList.current}
-            footerSummary={props.footerSummary}
-            rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
-          ></TFoot>
-        </table>
-      </div>
-    </Affix>
-  );
+        <div
+          ref={affixFooterRef}
+          style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
+          className={classNames([
+            'scrollbar',
+            { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || isVirtual },
+          ])}
+        >
+          <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}>
+            {colgroup}
+            <TFoot
+              rowKey={props.rowKey}
+              isFixedHeader={isFixedHeader}
+              rowAndColFixedPosition={rowAndColFixedPosition}
+              footData={props.footData}
+              columns={spansAndLeafNodes?.leafColumns || columns}
+              rowAttributes={props.rowAttributes}
+              rowClassName={props.rowClassName}
+              thWidthList={thWidthList.current}
+              footerSummary={props.footerSummary}
+              rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
+            ></TFoot>
+          </table>
+        </div>
+      </Affix>
+    );
+    return affixedFooter;
+  };
 
   const translate = `translate(0, ${0}px)`;
   const virtualStyle = {
@@ -318,6 +350,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     '-webkit-transform': translate,
   };
   const tableBodyProps = {
+    classPrefix,
+    ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     rowAndColFixedPosition,
     showColumnShadow,
     // data: isVirtual ? visibleData : data,
@@ -351,17 +385,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       {isVirtual && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
         {colgroup}
-        <THead
-          isFixedHeader={isFixedHeader}
-          rowAndColFixedPosition={rowAndColFixedPosition}
-          isMultipleHeader={isMultipleHeader}
-          bordered={props.bordered}
-          spansAndLeafNodes={spansAndLeafNodes}
-          thList={thList}
-          thWidthList={thWidthList.current}
-          resizable={props.resizable}
-          columnResizeParams={columnResizeParams}
-        />
+        {props.showHeader && <THead {...headProps} />}
         <TBody {...tableBodyProps} />
         <TFoot
           rowKey={props.rowKey}
@@ -404,22 +428,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={{ position: 'relative', ...style }}>
       {!!topContent && <div className={tableBaseClass.topContent}>{topContent}</div>}
 
-      {!!(isVirtual || props.headerAffixedTop) &&
-        (props.headerAffixedTop ? (
-          <Affix
-            offsetTop={0}
-            {...getAffixProps(props.headerAffixedTop, props.headerAffixProps)}
-            onFixedChange={onFixedChange}
-          >
-            {affixHeaderWithWrap}
-          </Affix>
-        ) : (
-          isFixedHeader && affixHeaderWithWrap
-        ))}
+      {renderAffixedHeader()}
 
       {tableContent}
 
-      {affixedFooter}
+      {renderAffixedFooter()}
 
       {loadingContent}
 

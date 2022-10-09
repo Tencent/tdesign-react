@@ -1255,75 +1255,115 @@ exports[`base.jsx 1`] = `
     <div
       class="t-space-item"
     >
-      <div>
-        <label
-          class="t-checkbox"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value="0"
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            显示斑马纹
-          </span>
-        </label>
-        <label
-          class="t-checkbox"
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value="0"
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              显示斑马纹
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value="0"
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            显示表格边框
-          </span>
-        </label>
-        <label
-          class="t-checkbox"
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value="0"
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              显示表格边框
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value="0"
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            显示悬浮效果
-          </span>
-        </label>
-        <label
-          class="t-checkbox"
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value="0"
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              显示悬浮效果
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value="0"
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            宽度自适应
-          </span>
-        </label>
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value="0"
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              宽度自适应
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <label
+            class="t-checkbox"
+          >
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value="1"
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              显示表头
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -1364,9 +1404,9 @@ exports[`base.jsx 1`] = `
             >
               <tr>
                 <th
-                  class="custom-column-class-name t-table__th-index t-align-center"
-                  data-colkey="index"
-                  style="width: 100px;"
+                  class="custom-column-class-name t-table__th-serial-number t-align-center"
+                  data-colkey="serial-number"
+                  data-id="first-column"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -1426,11 +1466,7 @@ exports[`base.jsx 1`] = `
                   <div
                     class="t-table__th-cell-inner"
                   >
-                    <div
-                      class="t-table__ellipsis t-text-ellipsis"
-                    >
-                      详情信息
-                    </div>
+                    详情信息
                   </div>
                 </th>
               </tr>
@@ -1445,7 +1481,7 @@ exports[`base.jsx 1`] = `
                   class="custom-column-class-name t-align-center"
                   data-id="first-column"
                 >
-                  5
+                  1
                 </td>
                 <td
                   class=""
@@ -1484,7 +1520,7 @@ exports[`base.jsx 1`] = `
                   class="custom-column-class-name t-align-center"
                   data-id="first-column"
                 >
-                  6
+                  2
                 </td>
                 <td
                   class=""
@@ -1523,7 +1559,7 @@ exports[`base.jsx 1`] = `
                   class="custom-column-class-name t-align-center"
                   data-id="first-column"
                 >
-                  7
+                  3
                 </td>
                 <td
                   class=""
@@ -1562,7 +1598,7 @@ exports[`base.jsx 1`] = `
                   class="custom-column-class-name t-align-center"
                   data-id="first-column"
                 >
-                  8
+                  4
                 </td>
                 <td
                   class=""
@@ -1601,7 +1637,7 @@ exports[`base.jsx 1`] = `
                   class="custom-column-class-name t-align-center"
                   data-id="first-column"
                 >
-                  9
+                  5
                 </td>
                 <td
                   class=""
@@ -5756,6 +5792,433 @@ exports[`editable-row.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`ellipsis.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-table"
+      style="position: relative;"
+    >
+      <div
+        class="t-table__content"
+      >
+        <table
+          class="t-table--layout-fixed"
+        >
+          <colgroup>
+            <col />
+            <col
+              style="width: 120px;"
+            />
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead
+            class="t-table__header"
+          >
+            <tr>
+              <th
+                class="t-table__th-desc"
+                data-colkey="desc"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    Description
+                  </div>
+                </div>
+              </th>
+              <th
+                class="t-table__th-something"
+                data-colkey="something"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    这是一个很长很长的标题
+                  </div>
+                </div>
+              </th>
+              <th
+                class="t-table__th-link"
+                data-colkey="link"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    Link
+                  </div>
+                </div>
+              </th>
+              <th
+                class="t-table__th-ellipsisProps"
+                data-colkey="ellipsisProps"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    Ellipsis Props
+                  </div>
+                </div>
+              </th>
+              <th
+                class="t-table__th-ellipsisContent"
+                data-colkey="ellipsisContent"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    Ellipsis Content
+                  </div>
+                </div>
+              </th>
+              <th
+                class="t-table__th-propsAndContent1"
+                data-colkey="propsAndContent1"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  <div
+                    class="t-table__ellipsis t-text-ellipsis"
+                  >
+                    Props & Content
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
+          >
+            <tr
+              class=""
+            >
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  单元格文本超出省略设置
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                仅标题省略
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  <a
+                    href="/vue-next/components/table"
+                    target="_blank"
+                  >
+                    Long link text. Popup content is pure text
+                  </a>
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting ellipsis tooltip to be light
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Custom Ellipsis Content
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting props and content at the same time
+                </div>
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  这是普通文本的超出省略
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                仅标题省略
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  <a
+                    href="/vue-next/components/table"
+                    target="_blank"
+                  >
+                    Long link text. Popup content is pure text
+                  </a>
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting ellipsis tooltip to be light
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Custom Ellipsis Content
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting props and content at the same time
+                </div>
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  单元格文本超出省略设置
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                仅标题省略
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  <a
+                    href="/vue-next/components/table"
+                    target="_blank"
+                  >
+                    Long link text. Popup content is pure text
+                  </a>
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting ellipsis tooltip to be light
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Custom Ellipsis Content
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting props and content at the same time
+                </div>
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  这是普通文本的超出省略
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                仅标题省略
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  <a
+                    href="/vue-next/components/table"
+                    target="_blank"
+                  >
+                    Long link text. Popup content is pure text
+                  </a>
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting ellipsis tooltip to be light
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Custom Ellipsis Content
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting props and content at the same time
+                </div>
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  单元格文本超出省略设置
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                仅标题省略
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  <a
+                    href="/vue-next/components/table"
+                    target="_blank"
+                  >
+                    Long link text. Popup content is pure text
+                  </a>
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting ellipsis tooltip to be light
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Custom Ellipsis Content
+                </div>
+              </td>
+              <td
+                class="t-table-td--ellipsis"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  Setting props and content at the same time
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="t-table__pagination-wrap"
+        style="opacity: 1;"
+      />
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`empty.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -6697,7 +7160,7 @@ exports[`filter-controlled.jsx 1`] = `
           </span>
         </button>
         <span>
-          已选筛选条件：{}
+          已选筛选条件：{"lastName":[],"createTime":[]}
         </span>
       </div>
     </div>
@@ -6719,25 +7182,143 @@ exports[`filter-controlled.jsx 1`] = `
               <col />
               <col />
               <col />
-              <col />
             </colgroup>
             <thead
               class="t-table__header"
             >
               <tr>
                 <th
-                  class="t-table__th-instance"
-                  data-colkey="instance"
+                  class="t-table__th-firstName"
+                  data-colkey="firstName"
                 >
                   <div
                     class="t-table__th-cell-inner"
                   >
-                    集群名称
+                    <div
+                      class="t-table__cell--filterable"
+                    >
+                      <div
+                        class="t-table__cell--title"
+                      >
+                        <div>
+                          FirstName
+                        </div>
+                        <div
+                          class="t-table__filter-icon-wrap"
+                        >
+                          <div
+                            class="t-table__filter-icon"
+                          >
+                            <div>
+                              <svg
+                                class="t-icon t-icon-filter"
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 16 16"
+                                width="1em"
+                              >
+                                <path
+                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
+                                  fill="currentColor"
+                                  fill-opacity="0.9"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </th>
                 <th
-                  class="t-table__th-survivalTime"
-                  data-colkey="survivalTime"
+                  class="t-table__th-lastName"
+                  data-colkey="lastName"
+                >
+                  <div
+                    class="t-table__th-cell-inner"
+                  >
+                    <div
+                      class="t-table__cell--filterable"
+                    >
+                      <div
+                        class="t-table__cell--title"
+                      >
+                        <div>
+                          LastName
+                        </div>
+                        <div
+                          class="t-table__filter-icon-wrap"
+                        >
+                          <div
+                            class="t-table__filter-icon"
+                          >
+                            <div>
+                              <svg
+                                class="t-icon t-icon-filter"
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 16 16"
+                                width="1em"
+                              >
+                                <path
+                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
+                                  fill="currentColor"
+                                  fill-opacity="0.9"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  class="t-table__th-email"
+                  data-colkey="email"
+                >
+                  <div
+                    class="t-table__th-cell-inner"
+                  >
+                    <div
+                      class="t-table__cell--filterable"
+                    >
+                      <div
+                        class="t-table__cell--title"
+                      >
+                        <div>
+                          Email
+                        </div>
+                        <div
+                          class="t-table__filter-icon-wrap"
+                        >
+                          <div
+                            class="t-table__filter-icon"
+                          >
+                            <div>
+                              <svg
+                                class="t-icon t-icon-filter"
+                                fill="none"
+                                height="1em"
+                                viewBox="0 0 16 16"
+                                width="1em"
+                              >
+                                <path
+                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
+                                  fill="currentColor"
+                                  fill-opacity="0.9"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  class="t-table__th-createTime"
+                  data-colkey="createTime"
                 >
                   <div
                     class="t-table__th-cell-inner"
@@ -6749,7 +7330,7 @@ exports[`filter-controlled.jsx 1`] = `
                         class="t-table__cell--title"
                       >
                         <div>
-                          存活时间
+                          Date
                         </div>
                         <div
                           class="t-table__filter-icon-wrap"
@@ -6816,135 +7397,6 @@ exports[`filter-controlled.jsx 1`] = `
                     </div>
                   </div>
                 </th>
-                <th
-                  class="t-table__th-owner"
-                  data-colkey="owner"
-                >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    <div
-                      class="t-table__cell--filterable"
-                    >
-                      <div
-                        class="t-table__cell--title"
-                      >
-                        <div>
-                          管理员
-                        </div>
-                        <div
-                          class="t-table__filter-icon-wrap"
-                        >
-                          <div
-                            class="t-table__filter-icon"
-                          >
-                            <div>
-                              <svg
-                                class="t-icon t-icon-filter"
-                                fill="none"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                width="1em"
-                              >
-                                <path
-                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
-                                  fill="currentColor"
-                                  fill-opacity="0.9"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-area"
-                  data-colkey="area"
-                >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    <div
-                      class="t-table__cell--filterable"
-                    >
-                      <div
-                        class="t-table__cell--title"
-                      >
-                        <div>
-                          区域
-                        </div>
-                        <div
-                          class="t-table__filter-icon-wrap"
-                        >
-                          <div
-                            class="t-table__filter-icon"
-                          >
-                            <div>
-                              <svg
-                                class="t-icon t-icon-filter"
-                                fill="none"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                width="1em"
-                              >
-                                <path
-                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
-                                  fill="currentColor"
-                                  fill-opacity="0.9"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-createTime"
-                  data-colkey="createTime"
-                >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    <div
-                      class="t-table__cell--filterable"
-                    >
-                      <div
-                        class="t-table__cell--title"
-                      >
-                        <div>
-                          自定义过滤
-                        </div>
-                        <div
-                          class="t-table__filter-icon-wrap"
-                        >
-                          <div
-                            class="t-table__filter-icon"
-                          >
-                            <div>
-                              <svg
-                                class="t-icon t-icon-filter"
-                                fill="none"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                width="1em"
-                              >
-                                <path
-                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
-                                  fill="currentColor"
-                                  fill-opacity="0.9"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </th>
               </tr>
             </thead>
             <tbody
@@ -6956,22 +7408,17 @@ exports[`filter-controlled.jsx 1`] = `
                 <td
                   class=""
                 >
-                  JQTest1
+                  Eric
                 </td>
                 <td
                   class=""
                 >
-                  300
+                  Spinke
                 </td>
                 <td
                   class=""
                 >
-                  jenny;peter
-                </td>
-                <td
-                  class=""
-                >
-                  广州
+                  espinke0@apache.org
                 </td>
                 <td
                   class=""
@@ -6985,22 +7432,17 @@ exports[`filter-controlled.jsx 1`] = `
                 <td
                   class=""
                 >
-                  JQTest2
+                  Gilberta
                 </td>
                 <td
                   class=""
                 >
-                  1000
+                  Purves
                 </td>
                 <td
                   class=""
                 >
-                  jenny
-                </td>
-                <td
-                  class=""
-                >
-                  上海
+                  gpurves1@issuu.com
                 </td>
                 <td
                   class=""
@@ -7014,22 +7456,17 @@ exports[`filter-controlled.jsx 1`] = `
                 <td
                   class=""
                 >
-                  JQTest3
+                  Heriberto
                 </td>
                 <td
                   class=""
                 >
-                  500
+                  Kment
                 </td>
                 <td
                   class=""
                 >
-                  jenny
-                </td>
-                <td
-                  class=""
-                >
-                  北京
+                  hkment2@nsw.gov.au
                 </td>
                 <td
                   class=""
@@ -7043,22 +7480,17 @@ exports[`filter-controlled.jsx 1`] = `
                 <td
                   class=""
                 >
-                  JQTest4
+                  Lazarus
                 </td>
                 <td
                   class=""
                 >
-                  1500
+                  Skures
                 </td>
                 <td
                   class=""
                 >
-                  peter
-                </td>
-                <td
-                  class=""
-                >
-                  成都
+                  lskures3@apache.org
                 </td>
                 <td
                   class=""
@@ -7072,27 +7504,22 @@ exports[`filter-controlled.jsx 1`] = `
                 <td
                   class=""
                 >
-                  JQTest5
+                  Eric
                 </td>
                 <td
                   class=""
                 >
-                  500
+                  Spinke
                 </td>
                 <td
                   class=""
                 >
-                  jeff
+                  espinke0@apache.org
                 </td>
                 <td
                   class=""
                 >
-                  深圳
-                </td>
-                <td
-                  class=""
-                >
-                  2022-03-01
+                  2021-11-01
                 </td>
               </tr>
             </tbody>
@@ -17425,7 +17852,7 @@ exports[`loading.jsx 1`] = `
 exports[`merge-cells.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-table t-size-s t-table--bordered t-table--rowspan-colspan"
+    class="t-table t-table--bordered t-table--rowspan-colspan"
     style="position: relative;"
   >
     <div
@@ -17435,21 +17862,12 @@ exports[`merge-cells.jsx 1`] = `
         class="t-table--layout-fixed"
       >
         <colgroup>
-          <col
-            style="width: 100px; min-width: 100px;"
-          />
-          <col
-            style="width: 100px; min-width: 100px;"
-          />
-          <col
-            style="width: 100px; min-width: 100px;"
-          />
-          <col
-            style="width: 100px; min-width: 100px;"
-          />
-          <col
-            style="width: 100px; min-width: 100px;"
-          />
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
         </colgroup>
         <thead
           class="t-table__header"
@@ -17462,11 +17880,7 @@ exports[`merge-cells.jsx 1`] = `
               <div
                 class="t-table__th-cell-inner"
               >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  平台
-                </div>
+                平台
               </div>
             </th>
             <th
@@ -17476,11 +17890,7 @@ exports[`merge-cells.jsx 1`] = `
               <div
                 class="t-table__th-cell-inner"
               >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  类型
-                </div>
+                类型
               </div>
             </th>
             <th
@@ -17490,11 +17900,7 @@ exports[`merge-cells.jsx 1`] = `
               <div
                 class="t-table__th-cell-inner"
               >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  默认值
-                </div>
+                默认值
               </div>
             </th>
             <th
@@ -17504,15 +17910,12 @@ exports[`merge-cells.jsx 1`] = `
               <div
                 class="t-table__th-cell-inner"
               >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  是否必传
-                </div>
+                是否必传
               </div>
             </th>
             <th
               class="row t-table__th-description"
+              colspan="2"
               data-colkey="description"
             >
               <div
@@ -17521,7 +17924,7 @@ exports[`merge-cells.jsx 1`] = `
                 <div
                   class="t-table__ellipsis t-text-ellipsis"
                 >
-                  说明
+                  合并单行表头的最后两列
                 </div>
               </div>
             </th>
@@ -17534,74 +17937,51 @@ exports[`merge-cells.jsx 1`] = `
             class=""
           >
             <td
-              class="test t-table-td--ellipsis t-table__td-first-col"
+              class="test t-table__td-first-col"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                公有
-              </div>
+              公有
             </td>
             <td
-              class="row t-table-td--ellipsis"
+              class="row"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Array&lt;any&gt;
-              </div>
+              Array&lt;any&gt;
             </td>
             <td
-              class="test4 t-table-td--ellipsis"
+              class="test4"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                []
-              </div>
+              []
             </td>
             <td
-              class="test3 t-table-td--ellipsis"
+              class="test3"
               colspan="2"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Y
-              </div>
+              Y
+            </td>
+            <td
+              class=""
+            >
+              表头合并
             </td>
           </tr>
           <tr
             class=""
           >
             <td
-              class="test t-table-td--ellipsis t-table__td-first-col"
+              class="test t-table__td-first-col"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                私有
-              </div>
+              公有
             </td>
             <td
-              class="row t-table-td--ellipsis"
+              class="row"
               colspan="2"
               rowspan="2"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                String/""
-              </div>
+              String
             </td>
             <td
-              class="test3 t-table-td--ellipsis"
+              class="test3"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Y
-              </div>
+              Y
             </td>
             <td
               class="row t-table-td--ellipsis"
@@ -17612,27 +17992,24 @@ exports[`merge-cells.jsx 1`] = `
                 描述
               </div>
             </td>
+            <td
+              class=""
+            >
+              表头合并
+            </td>
           </tr>
           <tr
             class=""
           >
             <td
-              class="test t-table-td--ellipsis t-table__td-first-col"
+              class="test t-table__td-first-col"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                私有
-              </div>
+              公有
             </td>
             <td
-              class="test3 t-table-td--ellipsis"
+              class="test3"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Y
-              </div>
+              Y
             </td>
             <td
               class="row t-table-td--ellipsis"
@@ -17643,45 +18020,34 @@ exports[`merge-cells.jsx 1`] = `
                 复杂类型
               </div>
             </td>
+            <td
+              class=""
+            >
+              表头合并
+            </td>
           </tr>
           <tr
             class=""
           >
             <td
-              class="test t-table-td--ellipsis t-table__td-first-col"
+              class="test t-table__td-first-col"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                公有
-              </div>
+              公有
             </td>
             <td
-              class="row t-table-td--ellipsis"
+              class="row"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Boolean
-              </div>
+              Boolean
             </td>
             <td
-              class="test4 t-table-td--ellipsis"
+              class="test4"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                false
-              </div>
+              false
             </td>
             <td
-              class="test3 t-table-td--ellipsis"
+              class="test3"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                N
-              </div>
+              Y
             </td>
             <td
               class="row t-table-td--ellipsis"
@@ -17692,38 +18058,31 @@ exports[`merge-cells.jsx 1`] = `
                 标识符
               </div>
             </td>
+            <td
+              class=""
+            >
+              表头合并
+            </td>
           </tr>
           <tr
             class=""
           >
             <td
-              class="test t-table-td--ellipsis t-table__td-first-col"
+              class="test t-table__td-first-col"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                公有
-              </div>
+              公有
             </td>
             <td
-              class="row t-table-td--ellipsis"
+              class="row"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Number
-              </div>
+              Array&lt;any&gt;
             </td>
             <td
-              class="test4 t-table-td--ellipsis t-table__td-last-row"
+              class="test4 t-table__td-last-row"
               colspan="2"
               rowspan="2"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                -1 / N
-              </div>
+              -1
             </td>
             <td
               class="row t-table-td--ellipsis"
@@ -17731,21 +18090,27 @@ exports[`merge-cells.jsx 1`] = `
               <div
                 class="t-table__ellipsis t-text-ellipsis"
               >
-                位置
+                数据源
               </div>
+            </td>
+            <td
+              class=""
+            >
+              表头合并
             </td>
           </tr>
           <tr
             class=""
           >
             <td
-              class="test t-table-td--ellipsis t-table__td-first-col"
+              class="test t-table__td-first-col"
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                私有
-              </div>
+              公有
+            </td>
+            <td
+              class="row"
+            >
+              String
             </td>
             <td
               class="row t-table-td--ellipsis"
@@ -17753,17 +18118,13 @@ exports[`merge-cells.jsx 1`] = `
               <div
                 class="t-table__ellipsis t-text-ellipsis"
               >
-                Number
+                描述
               </div>
             </td>
             <td
-              class="row t-table-td--ellipsis"
+              class=""
             >
-              <div
-                class="t-table__ellipsis t-text-ellipsis"
-              >
-                Number 类型
-              </div>
+              表头合并
             </td>
           </tr>
         </tbody>
@@ -17790,94 +18151,117 @@ exports[`multi-header.jsx 1`] = `
     <div
       class="t-space-item"
     >
-      <div>
-        <label
-          class="t-checkbox t-is-checked"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
         >
-          <input
-            checked=""
-            class="t-checkbox__former"
-            type="checkbox"
-            value=""
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox t-is-checked"
           >
-            显示表格边框
-          </span>
-        </label>
-        <label
-          class="t-checkbox t-is-checked"
+            <input
+              checked=""
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              显示表格边框
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            checked=""
-            class="t-checkbox__former"
-            type="checkbox"
-            value=""
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox t-is-checked"
           >
-            显示固定表头
-          </span>
-        </label>
-        <label
-          class="t-checkbox"
+            <input
+              checked=""
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              显示固定表头
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value=""
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            固定左侧列
-          </span>
-        </label>
-        <label
-          class="t-checkbox"
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              固定左侧列
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value=""
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            固定右侧列
-          </span>
-        </label>
-        <label
-          class="t-checkbox"
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              固定右侧列
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value=""
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
+          <label
+            class="t-checkbox"
           >
-            表头吸顶
-          </span>
-        </label>
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              表头吸顶
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -21091,7 +21475,7 @@ exports[`select-multiple.jsx 1`] = `
           <col />
           <col />
           <col
-            style="width: 150px;"
+            style="width: 200px;"
           />
         </colgroup>
         <thead
@@ -21884,7 +22268,7 @@ exports[`single-sort.jsx 1`] = `
                   </div>
                 </th>
                 <th
-                  class="t-table__th-status"
+                  class="t-table__sort-column t-table__th-status"
                   data-colkey="status"
                 >
                   <div
@@ -21946,7 +22330,7 @@ exports[`single-sort.jsx 1`] = `
                   </div>
                 </th>
                 <th
-                  class="t-table__th-survivalTime"
+                  class="status-class-bg t-table__th-survivalTime"
                   data-colkey="survivalTime"
                 >
                   <div
@@ -22031,7 +22415,7 @@ exports[`single-sort.jsx 1`] = `
                   JQTest1
                 </td>
                 <td
-                  class=""
+                  class="t-table__sort-column"
                 >
                   <p
                     class="status"
@@ -22040,7 +22424,7 @@ exports[`single-sort.jsx 1`] = `
                   </p>
                 </td>
                 <td
-                  class=""
+                  class="status-class-bg"
                 >
                   1000
                 </td>
@@ -22059,7 +22443,7 @@ exports[`single-sort.jsx 1`] = `
                   JQTest2
                 </td>
                 <td
-                  class=""
+                  class="t-table__sort-column"
                 >
                   <p
                     class="status warning"
@@ -22068,7 +22452,7 @@ exports[`single-sort.jsx 1`] = `
                   </p>
                 </td>
                 <td
-                  class=""
+                  class="status-class-bg"
                 >
                   1000
                 </td>
@@ -22087,7 +22471,7 @@ exports[`single-sort.jsx 1`] = `
                   JQTest3
                 </td>
                 <td
-                  class=""
+                  class="t-table__sort-column"
                 >
                   <p
                     class="status unhealth"
@@ -22096,7 +22480,7 @@ exports[`single-sort.jsx 1`] = `
                   </p>
                 </td>
                 <td
-                  class=""
+                  class="status-class-bg"
                 >
                   500
                 </td>
@@ -22115,7 +22499,7 @@ exports[`single-sort.jsx 1`] = `
                   JQTest4
                 </td>
                 <td
-                  class=""
+                  class="t-table__sort-column"
                 >
                   <p
                     class="status warning"
@@ -22124,7 +22508,7 @@ exports[`single-sort.jsx 1`] = `
                   </p>
                 </td>
                 <td
-                  class=""
+                  class="status-class-bg"
                 >
                   1500
                 </td>
@@ -22146,6 +22530,272 @@ exports[`single-sort.jsx 1`] = `
           style="display: none; left: 10px; height: 10px; bottom: 0px;"
         />
       </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`style.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-demo__style"
+  >
+    <div
+      class="t-table"
+      style="position: relative;"
+    >
+      <div
+        class="t-table__content"
+      >
+        <table
+          class="t-table--layout-fixed"
+        >
+          <colgroup>
+            <col
+              style="width: 80px;"
+            />
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead
+            class="t-table__header"
+          >
+            <tr>
+              <th
+                class="t-table__th-serial-number t-align-center"
+                data-colkey="serial-number"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  序号
+                </div>
+              </th>
+              <th
+                class="t-table__th-framework"
+                data-colkey="framework"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  框架
+                </div>
+              </th>
+              <th
+                class="t-table__th-data t-align-right"
+                data-colkey="data"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  数据
+                </div>
+              </th>
+              <th
+                class="t-table__th-ringRatio t-align-right"
+                data-colkey="ringRatio"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  环比
+                </div>
+              </th>
+              <th
+                class="last-column-class-name t-table__th-yearRatio t-align-right"
+                data-colkey="yearRatio"
+              >
+                <div
+                  class="t-table__th-cell-inner"
+                >
+                  同比
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
+          >
+            <tr
+              class=""
+            >
+              <td
+                class="t-align-center"
+              >
+                1
+              </td>
+              <td
+                class=""
+              >
+                tdesign-vue
+              </td>
+              <td
+                class="t-align-right"
+              >
+                100,000
+              </td>
+              <td
+                class="t-align-right"
+              >
+                8%
+              </td>
+              <td
+                class="last-column-class-name t-align-right"
+              >
+                10%
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-align-center"
+              >
+                2
+              </td>
+              <td
+                class=""
+              >
+                tdesign-react
+              </td>
+              <td
+                class="t-align-right"
+                style="color: green; font-weight: 600; font-size: 16px;"
+              >
+                21,514
+              </td>
+              <td
+                class="t-align-right"
+              >
+                30%
+              </td>
+              <td
+                class="last-column-class-name t-align-right"
+              >
+                20%
+              </td>
+            </tr>
+            <tr
+              class="custom-third-class-name"
+            >
+              <td
+                class="t-align-center"
+              >
+                3
+              </td>
+              <td
+                class=""
+              >
+                tdesign-vue-next
+              </td>
+              <td
+                class="t-align-right"
+              >
+                7,884
+              </td>
+              <td
+                class="t-align-right"
+              >
+                75%
+              </td>
+              <td
+                class="last-column-class-name t-align-right"
+              >
+                80%
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-align-center"
+              >
+                4
+              </td>
+              <td
+                class=""
+              >
+                tdesign-vue
+              </td>
+              <td
+                class="t-align-right"
+              >
+                1,290
+              </td>
+              <td
+                class="custom-cell-class-name t-align-right"
+              >
+                200%
+              </td>
+              <td
+                class="last-column-class-name t-align-right"
+              >
+                100%
+              </td>
+            </tr>
+            <tr
+              class=""
+            >
+              <td
+                class="t-align-center"
+              >
+                5
+              </td>
+              <td
+                class=""
+              >
+                tdesign-react
+              </td>
+              <td
+                class="t-align-right"
+              >
+                100,000
+              </td>
+              <td
+                class="t-align-right"
+              >
+                8%
+              </td>
+              <td
+                class="last-column-class-name t-align-right"
+              >
+                10%
+              </td>
+            </tr>
+          </tbody>
+          <tfoot
+            class="t-table__footer"
+          >
+            <tr
+              class="t-table__row--full"
+            >
+              <td
+                colspan="5"
+              >
+                <div
+                  class="t-table__row-full-element"
+                >
+                  <div
+                    class="t-table__row-filter-inner"
+                  >
+                    汇总：近期数据波动较大
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div
+        class="t-table__pagination-wrap"
+        style="opacity: 1;"
+      />
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>

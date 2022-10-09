@@ -28,6 +28,11 @@ const columns = [
     width: 200,
     sortType: 'all',
     sorter: true,
+    // 自定义列，或单元格类名
+    className: (params) => {
+      console.log(params);
+      return 'status-class-bg';
+    },
   },
   { colKey: 'owner', title: '管理员', width: 100 },
 ];
@@ -81,6 +86,7 @@ export default function TableSingleSort() {
         columns={columns}
         sort={sort}
         hideSortTips={hideSortTips}
+        showSortColumnBgColor={true}
         onSortChange={onSortChange}
       />
     </Space>

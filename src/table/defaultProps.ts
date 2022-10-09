@@ -17,6 +17,7 @@ export const baseTableDefaultProps: TdBaseTableProps = {
   loading: undefined,
   resizable: false,
   rowKey: 'id',
+  showHeader: true,
   size: 'medium',
   stripe: false,
   tableLayout: 'fixed',
@@ -31,6 +32,7 @@ export const primaryTableDefaultProps: Pick<
   | 'defaultExpandedRowKeys'
   | 'multipleSort'
   | 'defaultSelectedRowKeys'
+  | 'showSortColumnBgColor'
   | 'sortOnRowDraggable'
 > = {
   columnControllerVisible: undefined,
@@ -39,5 +41,6 @@ export const primaryTableDefaultProps: Pick<
   defaultExpandedRowKeys: [],
   multipleSort: false,
   defaultSelectedRowKeys: [],
+  showSortColumnBgColor: false,
   sortOnRowDraggable: false,
 };

@@ -122,8 +122,11 @@ export default function TableFilterController(props: TableFilterControllerProps)
 
   if (!column.filter || (column.filter && !Object.keys(column.filter).length)) return null;
   const defaultFilterIcon = t(locale.filterIcon) || <FilterIcon />;
+  const filterValue = tFilterValue?.[column.colKey];
+  const isObjectTrue = typeof filterValue === 'object' && !isEmpty(filterValue);
+  const isValueTrue = filterValue && typeof filterValue !== 'object';
   return (
-    <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: !isEmpty(tFilterValue?.[column.colKey]) }])}>
+    <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: isObjectTrue || isValueTrue }])}>
       <Popup
         // attach={primaryTableElement ? () => primaryTableElement : undefined}
         visible={filterPopupVisible}

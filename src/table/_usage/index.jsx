@@ -26,6 +26,7 @@ export default function Usage() {
   const data = Array(30)
     .fill(0)
     .map((_, i) => ({
+      id: i,
       index: i,
       platform: "公有",
       description: "数据源",

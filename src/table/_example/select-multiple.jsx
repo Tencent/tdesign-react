@@ -36,7 +36,7 @@ const columns = [
   { colKey: 'description', title: '描述' },
   {
     colKey: 'op',
-    width: 150,
+    width: 200,
     title: '操作',
     align: 'center',
     cell() {
