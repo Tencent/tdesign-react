@@ -31,7 +31,7 @@ spline: explain
 - `Form`: 修复 FormList 动态设置节点初始值丢失问题 @HQ-Lin ([#1571](https://github.com/Tencent/tdesign-react/pull/1571))
 - `Input`: 兼容异步渲染组件计算宽度异常情况 @HQ-Lin ([#1568](https://github.com/Tencent/tdesign-react/pull/1568))
 - `Table`:
-    - 筛选功能，修复 `filterRow={() => null}` 或者 `filterRow={null}` 无法隐藏过滤行问题，[issue#1438](https://github.com/Tencent/tdesign-react/issues/1438) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
+    - 筛选功能，修复 `filterRow={null}` 无法隐藏过滤行问题，[issue#1438](https://github.com/Tencent/tdesign-react/issues/1438) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
     - 树形结构，叶子节点缩进距离修正 @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
     - 超出省略功能，`ellipsisTitle`优先级应当高于 `ellipsis`， [tdesign-vue#1404](https://github.com/Tencent/tdesign-vue/issues/1404) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
     - 行选中功能，修复 `column.type=single` 时，`column.title` 无效问题，[issue#1372](https://github.com/Tencent/tdesign-vue/issues/1372) @chaishi ([#1566](https://github.com/Tencent/tdesign-react/pull/1566))
