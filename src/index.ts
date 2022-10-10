@@ -61,3 +61,4 @@ export * from './timeline';
 export * from './image';
 export * from './rate';
 export * from './link';
+export * from './guide';

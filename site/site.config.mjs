@@ -453,6 +453,12 @@ export default {
           component: () => import('tdesign-react/drawer/drawer.md'),
         },
         {
+          title: 'Guide 引导',
+          name: 'guide',
+          path: '/react/components/guide',
+          component: () => import('tdesign-react/guide/guide.md'),
+        },
+        {
           title: 'Message 全局提醒',
           name: 'message',
           path: '/react/components/message',

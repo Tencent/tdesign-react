@@ -1,0 +1,40 @@
+.guide-container {
+  max-width: 600px;
+  padding: 40px;
+}
+
+.title-major {
+  color: var(--td-text-color-primary);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+.title-sub {
+  margin-top: 8px;
+  color: var(--td-text-color-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.field {
+  margin-top: 50px;
+}
+
+.label {
+  margin-bottom: 8px;
+  color: var(--td-text-color-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.action {
+  display: inline-flex;
+  margin-top: 50px;
+}
+
+.action button {
+  margin-right: 10px;
+}

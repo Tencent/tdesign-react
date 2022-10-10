@@ -1,0 +1,12 @@
+.dialog-img {
+  width: 100%;
+}
+
+p {
+  margin-top: 16px;
+  color: var(--td-text-color-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 22px;
+}
