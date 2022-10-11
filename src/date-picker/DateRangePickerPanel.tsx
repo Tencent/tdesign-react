@@ -98,7 +98,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (nextValue.length === 2 && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { format }), {
+      onChange(formatDate(nextValue, { format, autoSwap: true }), {
         dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
         trigger: 'pick',
       });
@@ -210,7 +210,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (nextValue.length === 2 && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { format }), {
+      onChange(formatDate(nextValue, { format, autoSwap: true }), {
         dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
         trigger: 'confirm',
       });
@@ -231,7 +231,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (!Array.isArray(presetVal)) {
       log.error('DateRangePickerPanel', `preset: ${presetValue} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetVal, { format }), {
+      onChange(formatDate(presetVal, { format, autoSwap: true }), {
         dayjsValue: presetVal.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
