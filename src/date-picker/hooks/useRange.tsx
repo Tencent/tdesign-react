@@ -101,7 +101,7 @@ export default function useRange(props: TdDateRangePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(newVal, format)) {
-        onChange(formatDate(newVal, { format, targetFormat: valueType }) as DateValue[], {
+        onChange(formatDate(newVal, { format, targetFormat: valueType, autoSwap: true }) as DateValue[], {
           dayjsValue: newVal.map((v) => parseToDayjs(v, format)),
           trigger: 'enter',
         });
