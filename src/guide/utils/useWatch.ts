@@ -16,5 +16,5 @@ export default function useWatch(value, fn, config = { immediate: false }) {
     }
 
     oldValue.current = value;
-  }, [value]);
+  }, [config.immediate, fn, value]);
 }

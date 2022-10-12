@@ -5,19 +5,19 @@ import './base.css';
 export default function BasicGuide() {
   const steps = [
     {
-      element: '.main-title',
+      element: '.main-title-base',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom-right',
     },
     {
-      element: '.label-field',
+      element: '.label-field-base',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom',
     },
     {
-      element: '.action',
+      element: '.action-base',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'right',
@@ -70,11 +70,11 @@ export default function BasicGuide() {
         destroyOnClose={true}
       >
         <div className="guide-container">
-          <div className="main-title">
+          <div className="main-title-base">
             <div className="title-major">Guide 用户引导</div>
             <div className="title-sub">按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。</div>
           </div>
-          <div className="field label-field">
+          <div className="field label-field-base">
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
@@ -82,7 +82,7 @@ export default function BasicGuide() {
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
-          <Row className="action">
+          <Row className="action action-base">
             <Button>确定</Button>
             <Button theme="default" variant="base">
               取消

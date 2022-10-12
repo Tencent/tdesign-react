@@ -11,13 +11,13 @@ export default function NoMaskGuide() {
       placement: 'bottom-right',
     },
     {
-      element: '.label-field',
+      element: '.label-field-no-mask',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom',
     },
     {
-      element: '.action',
+      element: '.action-no-mask',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'right',
@@ -74,7 +74,7 @@ export default function NoMaskGuide() {
             <div className="title-major">Guide 用户引导</div>
             <div className="title-sub">按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。</div>
           </div>
-          <div className="field label-field">
+          <div className="field label-field-no-mask">
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
@@ -82,7 +82,7 @@ export default function NoMaskGuide() {
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
-          <Row className="action">
+          <Row className="action action-no-mask">
             <Button>确定</Button>
             <Button theme="default" variant="base">
               取消

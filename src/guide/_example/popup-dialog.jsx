@@ -6,20 +6,20 @@ import DialogBody from './dialog-body';
 export default function PopupDialogGuide() {
   const steps = [
     {
-      element: '.main-title',
+      element: '.main-title-popup-dialog',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom-right',
     },
     {
-      element: '.label-field',
+      element: '.label-field-popup-dialog',
       title: '新手引导标题',
-      body: DialogBody,
+      body: DialogBody(),
       placement: 'bottom',
       mode: 'dialog',
     },
     {
-      element: '.action',
+      element: '.action-popup-dialog',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'right',
@@ -72,11 +72,11 @@ export default function PopupDialogGuide() {
         destroyOnClose={true}
       >
         <div className="guide-container">
-          <div className="main-title">
+          <div className="main-title-popup-dialog">
             <div className="title-major">Guide 用户引导</div>
             <div className="title-sub">按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。</div>
           </div>
-          <div className="field label-field">
+          <div className="field label-field-popup-dialog">
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
@@ -84,7 +84,7 @@ export default function PopupDialogGuide() {
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
-          <Row className="action">
+          <Row className="action action-popup-dialog">
             <Button>确定</Button>
             <Button theme="default" variant="base">
               取消

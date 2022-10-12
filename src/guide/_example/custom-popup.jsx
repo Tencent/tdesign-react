@@ -40,21 +40,21 @@ export default function CustomPopupGuide() {
 
   const steps = [
     {
-      element: '.main-title',
+      element: '.main-title-custom-popup',
       title: '新手引导标题',
       description: '新手引导的说明文案',
       placement: 'bottom-right',
       content: <MyPopup />,
     },
     {
-      element: '.label-field-1',
+      element: '.label-field-1-custom-popup',
       title: '新手引导标题',
       description: '新手引导的说明文案',
       placement: 'bottom',
       content: <MyPopup />,
     },
     {
-      element: '.label-field-2',
+      element: '.label-field-2-custom-popup',
       title: '新手引导标题',
       description: '新手引导的说明文案',
       placement: 'bottom-left',
@@ -74,15 +74,15 @@ export default function CustomPopupGuide() {
         destroyOnClose={true}
       >
         <div className="guide-container">
-          <div className="main-title">
+          <div className="main-title-custom-popup">
             <div className="title-major">Guide 用户引导</div>
             <div className="title-sub">按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。</div>
           </div>
-          <div className="field label-field-1">
+          <div className="field label-field-1-custom-popup">
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
-          <div className="field label-field-2">
+          <div className="field label-field-2-custom-popup">
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>

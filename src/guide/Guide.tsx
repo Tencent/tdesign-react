@@ -185,7 +185,7 @@ const Guide = (props: GuideProps) => {
   const useMount = (callback) => {
     useEffect(() => {
       callback();
-    }, []);
+    }, [callback]);
   };
 
   useMount(() => {
@@ -353,6 +353,7 @@ const Guide = (props: GuideProps) => {
         showArrow={!content}
         zIndex={zIndex}
         overlayClassName={currentStepInfo.stepOverlayClass}
+        overlayInnerClassName={{ [`${prefixCls}__popup--content`]: !!content }}
         placement={currentStepInfo.placement as StepPopupPlacement}
       >
         <div ref={referenceLayerRef} className={cx(classes)} />

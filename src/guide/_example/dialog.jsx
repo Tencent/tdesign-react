@@ -6,19 +6,19 @@ import DialogBody from './dialog-body';
 export default function DialogGuide() {
   const steps = [
     {
-      element: '.main-title',
+      element: '.main-title-dialog',
       title: '新手引导标题',
       body: DialogBody(),
       placement: 'bottom-right',
     },
     {
-      element: '.label-field',
+      element: '.label-field-dialog',
       title: '新手引导标题',
       body: DialogBody(),
       placement: 'bottom',
     },
     {
-      element: '.action',
+      element: '.action-dialog',
       title: '新手引导标题',
       body: DialogBody(),
       placement: 'right',
@@ -71,11 +71,11 @@ export default function DialogGuide() {
         destroyOnClose={true}
       >
         <div className="guide-container">
-          <div className="main-title">
+          <div className="main-title-dialog">
             <div className="title-major">Guide 用户引导</div>
             <div className="title-sub">按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。</div>
           </div>
-          <div className="field label-field">
+          <div className="field label-field-dialog">
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
@@ -83,7 +83,7 @@ export default function DialogGuide() {
             <div className="label">Label</div>
             <Input placeholder="请输入内容" />
           </div>
-          <Row className="action">
+          <Row className="action action-dialog">
             <Button>确定</Button>
             <Button theme="default" variant="base">
               取消
