@@ -114,7 +114,7 @@ exports[`base.jsx 1`] = `
                 </div>
               </div>
               <div
-                class="t-row action-base t-row--start t-row--top"
+                class="t-row action action-base t-row--start t-row--top"
                 style="margin-left: 0px; margin-right: 0px;"
               >
                 <button
@@ -436,7 +436,7 @@ exports[`dialog.jsx 1`] = `
                 </div>
               </div>
               <div
-                class="t-row action-dialog t-row--start t-row--top"
+                class="t-row action action-dialog t-row--start t-row--top"
                 style="margin-left: 0px; margin-right: 0px;"
               >
                 <button
@@ -665,7 +665,7 @@ exports[`no-mask.jsx 1`] = `
                 </div>
               </div>
               <div
-                class="t-row action-no-mask t-row--start t-row--top"
+                class="t-row action action-no-mask t-row--start t-row--top"
                 style="margin-left: 0px; margin-right: 0px;"
               >
                 <button
@@ -826,7 +826,7 @@ exports[`popup-dialog.jsx 1`] = `
                 </div>
               </div>
               <div
-                class="t-row action-popup-dialog t-row--start t-row--top"
+                class="t-row action action-popup-dialog t-row--start t-row--top"
                 style="margin-left: 0px; margin-right: 0px;"
               >
                 <button
