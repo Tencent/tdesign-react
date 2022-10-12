@@ -7,21 +7,21 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-cell | TNode | - | 单元格插槽。TS 类型：`string | TNode<CalendarCell>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-cellAppend | TNode | - | 单元格插槽，在原来的内容之后追加。TS 类型：`string | TNode<CalendarCell>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-controllerConfig | Boolean / Object | - | 右上角控制器配置。值为 false 则表示不显示控制器，值为 true 则显示控制器默认配置，值类型为 CalendarController 则显示为自定义控制器配置。TS 类型：`boolean | CalendarController` | N
-fillWithZero | Boolean | - | 小于 10 的日期，是否使用 '0' 填充。默认表现为 `01` `02`，值为 false 表现为 `1` `2` `9` | N
-firstDayOfWeek | Number | - | 第一天从星期几开始，仅在日历展示维度为月份时（mode = month）有效。默认为 1。可选项：1/2/3/4/5/6/7 | N
+cell | TNode | - | 单元格插槽。TS 类型：`string \| TNode<CalendarCell>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+cellAppend | TNode | - | 单元格插槽，在原来的内容之后追加。TS 类型：`string \| TNode<CalendarCell>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+controllerConfig | Boolean / Object | - | 右上角控制器配置。值为 false 则表示不显示控制器，值为 true 则显示控制器默认配置，值类型为 CalendarController 则显示为自定义控制器配置。TS 类型：`boolean \| CalendarController` | N
+fillWithZero | Boolean | true | 小于 10 的日期，是否使用 '0' 填充。默认表现为 `01` `02`，值为 false 表现为 `1` `2` `9` | N
+firstDayOfWeek | Number | 1 | 第一天从星期几开始，仅在日历展示维度为月份时（mode = month）有效。默认为 1。可选项：1/2/3/4/5/6/7 | N
 format | String | 'YYYY-MM-DD' | 用于格式化日期，决定事件参数 formattedFilterDate 的输出值。[详细文档](https://day.js.org/docs/en/display/format) | N
-head | TNode | - | 头部插槽（左上角处，默认不显示任何内容）。TS 类型：`string | TNode<ControllerOptions>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+head | TNode | - | 头部插槽（左上角处，默认不显示任何内容）。TS 类型：`string \| TNode<ControllerOptions>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 isShowWeekendDefault | Boolean | true | 默认是否显示周末 | N
 mode | String | month | 日历展示维度。可选项：month/year | N
 month | String / Number | - | 控制当前面板展示月份，优先级高于 `controllerConfig.month` | N
 preventCellContextmenu | Boolean | false | 是否禁用单元格右键默认系统菜单 | N
 range | Array | - | 用于设置日历的年月份显示范围，[范围开始，范围结束]。TS 类型：`Array<CalendarValue>` | N
 theme | String | full | 日历风格。可选项：full/card | N
-value | String / Date | - | 当前高亮的日期。TS 类型：`CalendarValue` `type CalendarValue = string | Date`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
-week | TNode | - | 用于自定义日历星期呈现方式。CalendarWeek.day 表示当前是星期几。示例一：['周一', '周二', '周三', '周四', '周五', '星期六', '星期天']。示例二：`({ day }) => '周' + day`。TS 类型：`Array<string> | TNode<CalendarWeek>` `interface CalendarWeek { day: WeekDay }` `type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
+value | String / Date | - | 当前高亮的日期。TS 类型：`CalendarValue` `type CalendarValue = string \| Date`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
+week | TNode | - | 用于自定义日历星期呈现方式。CalendarWeek.day 表示当前是星期几。示例一：['周一', '周二', '周三', '周四', '周五', '星期六', '星期天']。示例二：`({ day }) => '周' + day`。TS 类型：`Array<string> \| TNode<CalendarWeek>` `interface CalendarWeek { day: WeekDay }` `type WeekDay = 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
 year | String / Number | - | 控制当前面板展示年份，优先级高于 `controllerConfig.year` | N
 onCellClick | Function |  | TS 类型：`(options: { cell: CalendarCell; e: MouseEvent }) => void`<br/>日历单元格点击时触发 | N
 onCellDoubleClick | Function |  | TS 类型：`(options: { cell: CalendarCell; e: MouseEvent }) => void`<br/>日历单元格双击时触发 | N

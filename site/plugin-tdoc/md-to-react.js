@@ -181,11 +181,6 @@ function customRender({ source, file, md }) {
     return `<td-code text="${codeStr}"></td-code>`;
   });
 
-  apiMd = apiMd.replace(/`([^`\r\n]+)`/g, (str, codeStr) => {
-    codeStr = codeStr.replace(/\|/g, '\\|');
-    return `\`${codeStr}\``;
-  });
-
   const mdSegment = {
     ...pageData,
     componentName,
