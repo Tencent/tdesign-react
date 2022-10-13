@@ -143,8 +143,9 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     }
 
     if (contentWrapperRef.current) {
+      // 只有 visible 为 true 的时候才需要 focus
       // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
-      containerRef.current.focus();
+      visible && containerRef.current.focus();
 
       contentWrapperRef.current.style.transform = transform;
     }
