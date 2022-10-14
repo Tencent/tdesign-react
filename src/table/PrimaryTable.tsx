@@ -225,6 +225,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
 
   return (
     <BaseTable
+      ref={primaryTableRef}
       {...baseTableProps}
       className={classNames(primaryTableClasses, className)}
       style={style}

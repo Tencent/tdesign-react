@@ -193,7 +193,7 @@ export default function TR(props: TrProps) {
     const attrs = { ...normalAttrs, rowSpan: cellSpans.rowspan, colSpan: cellSpans.colspan };
     return (
       <td
-        key={col.colKey + colIndex}
+        key={col.colKey || colIndex}
         className={classnames(classes)}
         style={tdStyles.style}
         {...attrs}
