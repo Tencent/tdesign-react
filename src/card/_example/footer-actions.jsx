@@ -66,11 +66,11 @@ export default function FooterActionsCard() {
         footer={
           <Row align="middle" justify="center">
             <Col flex="auto">
-              <Button variant="text" shape="square">
-                <HeartIcon size={24}></HeartIcon>
+              <Button variant="text" shape="square" style={{ marginRight: '8px' }}>
+                <HeartIcon size={16}></HeartIcon>
               </Button>
               <Button variant="text" shape="square">
-                <ShareIcon size={24}></ShareIcon>
+                <ShareIcon size={16}></ShareIcon>
               </Button>
             </Col>
           </Row>
