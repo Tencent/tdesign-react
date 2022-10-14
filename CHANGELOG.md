@@ -5,6 +5,17 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.3 `2022-10-14` 
+### 🚀 Features
+- `Form`: 调整 requiredMark api 可独立控制星号展示 @HQ-Lin ([#1580](https://github.com/Tencent/tdesign-react/pull/1580))
+### 🐞 Bug Fixes
+- `Table`:
+    - 唯一 key 不再和 rowIndex 相加，避免重复问题 @chaishi ([#1594](https://github.com/Tencent/tdesign-react/pull/1594))
+    - 拖拽排序失效问题，primaryTableRef 丢失 @chaishi ([#1594](https://github.com/Tencent/tdesign-react/pull/1594))
+-  `DatePicker`: 修复 range 数据格式化异常问题 @HQ-Lin ([#1587](https://github.com/Tencent/tdesign-react/pull/1587))
+- `Collapse`:  修复 defaultExpandAll 属性没有生效 & 包含 form 表单的时候样式出现溢出问题 @duanbaosheng ([#1579](https://github.com/Tencent/tdesign-react/pull/1579))
+- `Form`: 修复 `getInternalHooks` 警告问题 @HQ-Lin ([#1577](https://github.com/Tencent/tdesign-react/pull/1577))
+
 ## 🌈 0.42.2 `2022-10-09` 
 ### 🚀 Features
 - `Select`: 调整下拉交互 允许输入时不关闭下拉面板 减少相关交互问题 @uyarn ([#1570](https://github.com/Tencent/tdesign-react/pull/1570))
