@@ -143,7 +143,7 @@ export default function TBody(props: TableBodyProps) {
     }
 
     const trNode = (
-      <TR key={get(row, props.rowKey || 'id') + rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
+      <TR key={get(row, props.rowKey || 'id') || rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
     );
     trNodeList.push(trNode);
 
