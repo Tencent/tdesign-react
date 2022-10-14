@@ -1,9 +1,7 @@
 import path from 'path';
-// import { istanbul } from 'vite-plugin-istanbul';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
-import replace from '@rollup/plugin-replace';
-import { defineConfig } from 'vite';
 import pwaConfig from './pwaConfig';
 import tdocPlugin from './plugin-tdoc';
 
@@ -27,6 +25,7 @@ export default ({ mode }) =>
         '@common': resolvePath('../src/_common'),
         'tdesign-react/es': resolvePath('../src'),
         'tdesign-react': resolvePath('../src'),
+        '@test/utils': resolvePath('../test/utils'),
       },
     },
     build: {
@@ -48,16 +47,5 @@ export default ({ mode }) =>
         strict: false,
       },
     },
-    plugins: [
-      react(),
-      tdocPlugin(),
-      VitePWA(pwaConfig),
-      replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
-      // istanbul({
-      //   cwd: resolvePath('../'),
-      //   include: ['src/**/*'],
-      //   exclude: ['src/_common/**/*'],
-      //   extension: ['.js', '.ts', '.jsx', '.tsx'],
-      // }),
-    ],
+    plugins: [react(), tdocPlugin(), VitePWA(pwaConfig)],
   });

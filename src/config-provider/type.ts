@@ -633,7 +633,7 @@ export interface StepsConfig {
   /**
    * 错误步骤图标，【注意】使用渲染函数输出图标组件
    */
-  errorIcon?: TElement;
+  errorIcon?: TNode;
 }
 
 export interface SelectConfig {

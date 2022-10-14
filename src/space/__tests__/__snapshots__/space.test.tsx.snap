@@ -1,4 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
+
+exports[`Space 组件测试 > render 1`] = `
+<div>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  />
+</div>
+`;
 
 exports[`Space 组件测试 render 1`] = `
 <div>

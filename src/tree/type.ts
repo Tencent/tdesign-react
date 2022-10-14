@@ -136,7 +136,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 连接线。值为 false 不显示连接线；值为 true 显示默认连接线；值类型为 Function 表示自定义连接线
    * @default false
    */
-  line?: TNode;
+  line?: TNode | TNode<TreeNodeModel>;
   /**
    * 加载子数据的方法，在展开节点时调用（仅当节点 children 为 true 时生效），泛型 `T` 表示树节点 TS 类型
    */

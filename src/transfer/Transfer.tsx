@@ -86,12 +86,12 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const [SourceEmptyCmp, TargetEmptyCmp] = getDefaultValue(empty, t(local.empty)).map((item) => getJSX(item));
   const [sourceDisable, targetDisable] = getDefaultValue(disabled, false);
   const [sourcePagonation, targetPagonation] = getDefaultValue(pagination);
-  const [sourceTitle, targetTitle] = getDefaultValue(title).map((item) => getJSX(item));
-  const [leftOperation, rightOperation] = getDefaultValue(operation, [
+  const [sourceTitle, targetTitle] = getDefaultValue(title as any as any).map((item) => getJSX(item));
+  const [leftOperation, rightOperation] = getDefaultValue(operation as any, [
     () => <ChevronRightIcon />,
     () => <ChevronLeftIcon />,
   ]).map((item) => getJSX(item));
-  const [sourceFooter, targetFooter] = getDefaultValue(footer).map((item) => getJSX(item));
+  const [sourceFooter, targetFooter] = getDefaultValue(footer as any).map((item) => getJSX(item));
   const [sourceTransferItem, targetTransferItem] = getDefaultValue(transferItem);
   const [sourceContent, targetContent] = getDefaultValue(content);
 

@@ -1,11 +1,8 @@
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent, vi } from '@test/utils';
 import React from 'react';
 import List from '../List';
 
 const { ListItem, ListItemMeta } = List;
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('List 组件测试', () => {
   const data = [
@@ -30,7 +27,7 @@ describe('List 组件测试', () => {
 
   describe('List Props', () => {
     test('asyncLoading is string & onLoadMore', () => {
-      const clickFn = jest.fn();
+      const clickFn = vi.fn();
       const { container, queryByText } = render(
         <List
           asyncLoading="load-more"
@@ -149,7 +146,7 @@ describe('List 组件测试', () => {
     });
 
     test('onScroll', () => {
-      const fn = jest.fn();
+      const fn = vi.fn();
       const { container } = render(
         <List
           style={{

@@ -54,7 +54,7 @@ export interface TdImageProps {
   /**
    * 图片上方的浮层内容
    */
-  overlayContent?: TElement;
+  overlayContent?: TNode;
   /**
    * 浮层 `overlayContent` 出现的时机
    * @default always

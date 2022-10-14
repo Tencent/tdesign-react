@@ -21,6 +21,7 @@ export interface TabNavProps extends TdTabsProps {
   tabClick: (s: TabValue) => void;
   activeValue: TabValue;
   size?: 'medium' | 'large';
+  children?: React.ReactNode;
 }
 
 const TabNav: React.FC<TabNavProps> = (props) => {

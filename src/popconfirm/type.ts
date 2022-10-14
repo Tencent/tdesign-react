@@ -36,7 +36,7 @@ export interface TdPopconfirmProps {
   /**
    * 确认框图标
    */
-  icon?: TElement;
+  icon?: TNode;
   /**
    * 浮层出现位置
    * @default top

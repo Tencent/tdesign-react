@@ -3,20 +3,16 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 
-import { testExamples, render, fireEvent, act, waitFor } from '@test/utils';
+import { render, fireEvent, act, waitFor, vi } from '@test/utils';
 
 import { DateRangePicker } from '..';
-// import type { DateValue } from '../type';
 
 // 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
 MockDate.set('2022-08-27');
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('DateRangePicker', () => {
-  // const InputPlaceholder = '测试DateRangePicker';
-
   beforeEach(() => {
+    vi.useFakeTimers();
     MockDate.set('2022-08-27');
   });
 
@@ -34,16 +30,14 @@ describe('DateRangePicker', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  // it('clearable', async () => {
-  //   const { container } = render(<DateRangePicker defaultValue={['2022-09-14', '2022-10-01']} clearable={true} />);
-  //   // 模拟鼠标进入
-  //   act(() => {
-  //     fireEvent.mouseEnter(container.querySelector('input'));
-  //     jest.runAllTimers();
-  //   });
-  //   const clearElement = await waitFor(() => document.querySelector('.t-input__suffix-clear'));
-  //   expect(clearElement).not.toBeNull();
-  // });
+  it('clearable', async () => {
+    const { container } = render(<DateRangePicker defaultValue={['2022-09-14', '2022-10-01']} clearable={true} />);
+    // 模拟鼠标进入
+    fireEvent.mouseEnter(container.querySelector('input'));
+
+    const clearElement = document.querySelector('.t-range-input__suffix-clear');
+    expect(clearElement).not.toBeNull();
+  });
 
   it('disableDate', () => {
     const disabledDate = {
@@ -64,7 +58,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker enableTimePicker={true} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time'));
     expect(panelElement).toBeInTheDocument();
@@ -74,7 +68,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker firstDayOfWeek={3} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const weekElement = await waitFor(() => document.querySelector('.t-date-picker__table table thead tr th'));
     expect(weekElement).toHaveTextContent('三');
@@ -96,7 +90,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker mode={'quarter'} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const pickerTable = await waitFor(() => document.querySelector('.t-date-picker__table'));
     expect(pickerTable).toHaveTextContent('一季度');
@@ -106,7 +100,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker mode={'week'} value={['2022-37th', '2022-38th']} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-week'));
     expect(weekEle).not.toBeNull();
@@ -121,7 +115,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker popupProps={{ showArrow: true }} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const popupArrow = await waitFor(() => document.querySelector('.t-popup__arrow'));
     expect(popupArrow).toBeInTheDocument();
@@ -140,7 +134,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker presets={{ 特定日期范围: ['2021-01-01', '2022-01-01'] }} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const pickerPresets = await waitFor(() => document.querySelector('.t-date-picker__presets'));
     expect(pickerPresets).toHaveTextContent('特定日期范围');
@@ -170,7 +164,7 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker enableTimePicker={true} timePickerProps={{ value: '13:01:01' }} />);
     act(() => {
       fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
+      vi.runAllTimers();
     });
     const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time .t-is-current'));
     expect(panelElement).toHaveTextContent('13');
@@ -183,8 +177,8 @@ describe('DateRangePicker', () => {
   });
 
   it('onBlur onFocus', async () => {
-    const blurFn = jest.fn();
-    const focusFn = jest.fn();
+    const blurFn = vi.fn();
+    const focusFn = vi.fn();
 
     const { container } = render(<DateRangePicker allowInput onBlur={blurFn} onFocus={focusFn} />);
     const InputDom = container.querySelector('.t-input__inner');
@@ -195,54 +189,47 @@ describe('DateRangePicker', () => {
   });
 
   it('onChange onPick onInput', async () => {
-    const changeFn = jest.fn();
-    const pickFn = jest.fn();
+    const changeFn = vi.fn();
+    const pickFn = vi.fn();
     const { container } = render(
       <DateRangePicker defaultValue={['2022-08-29', '2022-09-14']} onChange={changeFn} onPick={pickFn} />,
     );
-    await act(async () => {
-      fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
-      const firstTBody = await waitFor(() => document.querySelector('tbody'));
-      fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
-      fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
-    });
-    setTimeout(async () => {
-      expect(changeFn).toBeCalledTimes(2);
-      expect(pickFn).toBeCalledTimes(2);
-    }, 0);
+    fireEvent.click(container.querySelector('input'));
+
+    const firstTBody = await waitFor(() => document.querySelector('tbody'));
+    fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
+    fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
+
+    expect(changeFn).toBeCalledTimes(2);
+    expect(pickFn).toBeCalledTimes(2);
   });
 
   it('panel select month and year', async () => {
     const { container } = render(<DateRangePicker defaultValue={['2022-08-29', '2022-09-14']} />);
-    await act(async () => {
-      fireEvent.click(container.querySelector('input'));
-      jest.runAllTimers();
-    });
-    await act(async () => {
-      const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
+    fireEvent.click(container.querySelector('input'));
 
-      const monthPanel = panelEle.querySelector('.t-date-picker__header-controller-month .t-input');
-      fireEvent.click(monthPanel);
-      const monthPopup = await waitFor(() => document.querySelector('.t-select__list'));
-      fireEvent.click(monthPopup.firstChild);
+    const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
 
-      const monthInput = await waitFor(() =>
-        document.querySelector('.t-date-picker__header-controller-month .t-input__inner'),
-      );
-      expect((monthInput as HTMLInputElement).value).toEqual('1 月');
+    const monthPanel = panelEle.querySelector('.t-date-picker__header-controller-month .t-input');
+    fireEvent.click(monthPanel);
+    const monthPopup = await waitFor(() => document.querySelector('.t-select__list'));
+    fireEvent.click(monthPopup.firstChild);
 
-      const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
-      fireEvent.click(yearPanel);
-      const yearPopup = await waitFor(() =>
-        document.querySelector('.t-date-picker__header-controller-year .t-select__list .t-is-selected'),
-      );
-      fireEvent.click(yearPopup.nextElementSibling);
-      const yearInput = await waitFor(() =>
-        document.querySelector('.t-date-picker__header-controller-year .t-input__inner'),
-      );
-      expect((yearInput as HTMLInputElement).value).toEqual('2023');
-    });
+    const monthInput = await waitFor(() =>
+      document.querySelector('.t-date-picker__header-controller-month .t-input__inner'),
+    );
+    expect((monthInput as HTMLInputElement).value).toEqual('1 月');
+
+    const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
+    fireEvent.click(yearPanel);
+    const yearPopup = await waitFor(() =>
+      document.querySelector('.t-date-picker__header-controller-year .t-select__list .t-is-selected'),
+    );
+    fireEvent.click(yearPopup.nextElementSibling);
+    const yearInput = await waitFor(() =>
+      document.querySelector('.t-date-picker__header-controller-year .t-input__inner'),
+    );
+    expect((yearInput as HTMLInputElement).value).toEqual('2023');
   });
 
   it('pure trigger onChange onPick', async () => {

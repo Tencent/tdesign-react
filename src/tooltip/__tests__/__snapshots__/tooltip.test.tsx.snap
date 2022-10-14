@@ -1,4 +1,16 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
+
+exports[`Tooltip 组件测试 > props > disabled-button as children 1`] = `
+<body>
+  <div>
+    <button
+      disabled=""
+    >
+      触发元素
+    </button>
+  </div>
+</body>
+`;
 
 exports[`Tooltip 组件测试 props disabled-button as children 1`] = `
 <body>

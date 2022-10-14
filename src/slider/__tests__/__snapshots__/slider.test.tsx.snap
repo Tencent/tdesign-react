@@ -1,4 +1,36 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
+
+exports[`Slider 组件测试 > create 1`] = `
+<div>
+  <div
+    class="t-slider__container"
+  >
+    <div
+      class="t-slider"
+    >
+      <div
+        class="t-slider__rail"
+      >
+        <div
+          class="t-slider__track"
+          style="left: 0%;"
+        />
+        <div
+          class="t-slider__button-wrapper"
+        >
+          <div
+            class="t-slider__button"
+          />
+        </div>
+        <div />
+        <div
+          class="t-slider__mark"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`Slider 组件测试 create 1`] = `
 <div>

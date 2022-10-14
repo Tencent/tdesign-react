@@ -1,6 +1,13 @@
-import { testExamples } from '@test/utils';
+// import { render } from '@test/utils';
+// import React from 'react';
 import MockDate from 'mockdate';
+// import Upload from '../index';
 
 MockDate.set('2022-08-27');
-// 测试组件代码 Example 快照
-testExamples(__dirname);
+
+// TODO
+describe('Upload 组件测试', () => {
+  test('dom', () => {
+    expect(true).toBe(true);
+  });
+});

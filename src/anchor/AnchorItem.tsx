@@ -6,7 +6,9 @@ import { StyledProps } from '../common';
 import { AnchorContext } from './AnchorContext';
 import { anchorItemDefaultProps } from './defaultProps';
 
-export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {}
+export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
+  children?: React.ReactNode;
+}
 
 const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);

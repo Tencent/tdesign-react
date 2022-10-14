@@ -132,6 +132,7 @@ export default function useSorter(props: TdPrimaryTableProps) {
       hideSortTips: props.hideSortTips,
     };
     return (
+      // @ts-ignore TODO 待类型完善后移除
       <SorterButton
         key={`sorter-button-${col.colKey}`}
         {...sorterButtonsProps}

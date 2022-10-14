@@ -1,9 +1,6 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent, vi } from '@test/utils';
 import Checkbox from '../Checkbox';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Checkbox', () => {
   test('checked & children', () => {
@@ -18,7 +15,7 @@ describe('Checkbox', () => {
   });
 
   test('disabled', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const { container } = render(<Checkbox disabled={true} onChange={fn}></Checkbox>);
     expect(container.firstChild).toHaveClass('t-is-disabled');
     fireEvent.click(container.firstChild);
@@ -41,7 +38,7 @@ describe('Checkbox', () => {
   });
 
   test('onChange', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const { container } = render(<Checkbox disabled={true} onChange={fn}></Checkbox>);
     fireEvent.click(container.firstChild);
     expect(fn).toBeCalledTimes(0);
@@ -62,7 +59,7 @@ describe('CheckboxGroup', () => {
   });
 
   test('onChange', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const { container } = render(
       <Checkbox.Group value={['gz']} onChange={fn}>
         <Checkbox value="gz">广州</Checkbox>

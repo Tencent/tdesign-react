@@ -100,7 +100,7 @@ export interface TdDropdownItemProps {
   /**
    * 组件前置图标
    */
-  prefixIcon?: TElement;
+  prefixIcon?: TNode;
   /**
    * 下拉菜单选项主题
    * @default default

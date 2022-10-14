@@ -4,7 +4,7 @@ import { TdTimelineItemProps } from './type';
 import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
 import TimelineContext from './TimelineContext';
-import renderTNode from '../_util/renderTNode';
+import parseTNode from '../_util/parseTNode';
 import { useAlign } from './useAlign';
 import Loading from '../loading';
 
@@ -53,13 +53,14 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
   };
 
   const dotElement = useMemo(() => {
-    const ele = renderTNode(dot);
-    return (
-      ele &&
-      React.cloneElement(ele, {
+    const ele = parseTNode(dot);
+
+    if (React.isValidElement(ele)) {
+      return React.cloneElement<any>(ele, {
         className: classNames(ele?.props?.className, `${classPrefix}-timeline-item__dot-content`),
-      })
-    );
+      });
+    }
+    return ele;
   }, [dot, classPrefix]);
 
   // 节点类名

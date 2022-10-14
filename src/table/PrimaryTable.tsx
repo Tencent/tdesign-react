@@ -206,6 +206,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   const firstFullRow = formatNode('firstFullRow', renderFirstFilterRow, !hasEmptyCondition);
   const lastFullRow = formatNode('lastFullRow', renderAsyncLoading, !!props.asyncLoading);
 
+  // @ts-ignore TODO 待类型完善后移除
   const baseTableProps = {
     ...props,
     rowClassName: tRowClassNames,

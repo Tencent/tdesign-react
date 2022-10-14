@@ -1,15 +1,7 @@
-/*
- * @Author: Bin
- * @Date: 2022-08-15
- * @FilePath: /tdesign-react/src/slider/__tests__/slider.test.tsx
- */
 import React, { useState } from 'react';
 
-import { testExamples, render, fireEvent, act, waitFor } from '@test/utils';
+import { render, fireEvent } from '@test/utils';
 import Slider from '../Slider';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Slider 组件测试', () => {
   // 测试渲染
@@ -61,29 +53,25 @@ describe('Slider 组件测试', () => {
 
     const inputSelector = 'input';
 
-    await act(async () => {
-      render(<SliderView />);
-      // 获取 input
-      const inputElement = await waitFor(() => document.querySelector(inputSelector));
-      const sliderElement2 = await waitFor(() => document.querySelector('#slider_value'));
-      expect(inputElement).not.toBeNull();
-      expect(sliderElement2).not.toBeNull();
+    render(<SliderView />);
+    // 获取 input
+    expect(document.querySelector(inputSelector)).not.toBeNull();
+    expect(document.querySelector('#slider_value')).not.toBeNull();
 
-      let value = '80';
-      fireEvent.change(inputElement, { target: { value } });
-      fireEvent.click(inputElement); // 触发 value change
-      expect(sliderElement2.textContent).toBe(value);
+    let value = '80';
+    fireEvent.change(document.querySelector(inputSelector), { target: { value } });
+    fireEvent.click(document.querySelector(inputSelector)); // 触发 value change
+    expect(document.querySelector('#slider_value').textContent).toBe(value);
 
-      value = '10000';
-      fireEvent.change(inputElement, { target: { value } });
-      fireEvent.click(inputElement); // 触发 value change
-      expect(sliderElement2.textContent).not.toBe(value);
+    value = '10000';
+    fireEvent.change(document.querySelector(inputSelector), { target: { value } });
+    fireEvent.click(document.querySelector(inputSelector)); // 触发 value change
+    expect(document.querySelector('#slider_value').textContent).not.toBe(value);
 
-      value = '1';
-      fireEvent.change(inputElement, { target: { value } });
-      fireEvent.click(inputElement); // 触发 value change
-      expect(sliderElement2.textContent).not.toBe(value);
-    });
+    value = '1';
+    fireEvent.change(document.querySelector(inputSelector), { target: { value } });
+    fireEvent.click(document.querySelector(inputSelector)); // 触发 value change
+    expect(document.querySelector('#slider_value').textContent).not.toBe(value);
   });
 
   // 测试替换 label
@@ -103,20 +91,13 @@ describe('Slider 组件测试', () => {
 
     const buttonSelector = '.t-slider__button-wrapper';
 
-    await act(async () => {
-      render(<SliderView />);
-      // 获取 input
-      const buttonElement1 = await waitFor(() => document.querySelector(buttonSelector));
-      expect(buttonElement1).not.toBeNull();
+    render(<SliderView />);
+    // 获取 input
+    expect(document.querySelector(buttonSelector)).not.toBeNull();
 
-      // 模拟鼠标进入
-      act(() => {
-        fireEvent.mouseEnter(buttonElement1);
-        jest.runAllTimers();
-      });
-      const popupElement = await waitFor(() => document.querySelector('.t-popup__content'));
-      expect(popupElement.textContent).toBe('10°C');
-    });
+    // 模拟鼠标进入
+    fireEvent.mouseEnter(document.querySelector(buttonSelector));
+    expect(document.querySelector('.t-popup__content').textContent).toBe('10°C');
   });
 
   // 测试事件
@@ -135,19 +116,15 @@ describe('Slider 组件测试', () => {
       );
     };
 
-    await act(async () => {
-      const index = 0;
-      const { getByText } = render(<SliderView />);
-      // 获取 input
-      const markElement = await waitFor(() => document.querySelector('.t-slider__mark'));
-      const valueElement = await waitFor(() => document.querySelector('#slider_value'));
-      expect(valueElement).not.toBeNull();
+    const index = 0;
+    const { getByText } = render(<SliderView />);
+    // 获取 input
+    expect(document.querySelector('#slider_value')).not.toBeNull();
 
-      fireEvent.click(getByText(Object.values(marks)[index])); // 触发点击 mark 标签
-      expect(valueElement.textContent).toBe(Object.keys(marks)[index]);
+    fireEvent.click(getByText(Object.values(marks)[index])); // 触发点击 mark 标签
+    expect(document.querySelector('#slider_value').textContent).toBe(Object.keys(marks)[index]);
 
-      fireEvent.click(markElement); // 触发点击 mark 标签
-      expect(valueElement.textContent).toBe('1'); // 复原进度默认值
-    });
+    fireEvent.click(document.querySelector('.t-slider__mark')); // 触发点击 mark 标签
+    expect(document.querySelector('#slider_value').textContent).toBe('1'); // 复原进度默认值
   });
 });

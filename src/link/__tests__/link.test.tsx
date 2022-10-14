@@ -1,19 +1,10 @@
-/*
- * @Author: CarltonJin
- * @Date: 2022-08-21
- * @FilePath: /tdesign-react/src/link/__tests__/link.test.tsx
- */
 import React, { FunctionComponent, ComponentClass } from 'react';
-import { testExamples, render, screen, fireEvent } from '@test/utils';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, vi } from '@test/utils';
 import Link from '../Link';
 
 export interface TestExampleOverrides {
   [exampleFileName: string]: (Component: FunctionComponent<unknown> | ComponentClass<unknown>) => void | Promise<void>;
 }
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Link', () => {
   test('base', () => {
@@ -23,11 +14,11 @@ describe('Link', () => {
   });
 
   test('disabled', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const { container } = render(<Link data-testid="disabled" disabled={true} onClick={fn} />);
     expect(container.firstChild).toHaveClass('t-is-disabled', '');
 
-    userEvent.hover(screen.getByTestId('disabled'));
+    fireEvent.mouseEnter(screen.getByTestId('disabled'));
     expect(screen.getByTestId('disabled')).not.toHaveClass('t-link--hover-underline');
 
     fireEvent.click(container.firstChild);

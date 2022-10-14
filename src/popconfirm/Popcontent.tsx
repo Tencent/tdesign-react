@@ -40,9 +40,6 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
         style: { color },
         ...icon.props,
       });
-      // icon 是自定义组件类型
-    } else if (typeof icon === 'function') {
-      iconComponent = icon();
     } else if (defaultIcon) {
       iconComponent = React.cloneElement(defaultIcon, {
         style: { color },
@@ -53,7 +50,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
 
   function renderCancel() {
     if (React.isValidElement(cancelBtn)) {
-      return React.cloneElement(cancelBtn, {
+      return React.cloneElement<any>(cancelBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'cancel' });
           cancelBtn.props?.onClick?.(e);
@@ -82,7 +79,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
 
   function renderConfirm() {
     if (React.isValidElement(confirmBtn)) {
-      return React.cloneElement(confirmBtn, {
+      return React.cloneElement<any>(confirmBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'confirm' });
           confirmBtn.props?.onClick?.(e);

@@ -1,11 +1,8 @@
 import React from 'react';
-import { testExamples, render, waitFor, fireEvent } from '@test/utils';
+import { render, waitFor, fireEvent, vi } from '@test/utils';
 import Steps from '../Steps';
 
 const { StepItem } = Steps;
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 const stepOptions = [
   {
@@ -43,7 +40,7 @@ describe('Steps 组件测试', () => {
 
   test('options 测试', async () => {
     const testId = 'step options test';
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
 
     const { getByTestId } = render(
       <div data-testid={testId}>

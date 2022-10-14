@@ -1,17 +1,14 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
-import InputNumber from '../InputNumber';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
+import InputNumber from '../index';
 
 describe('InputNumber 组件测试', () => {
   const InputNumberPlaceholder = '请输入内容';
   const InputNumberValue = 9;
 
   test('input number change', async () => {
-    const changeFn = jest.fn();
+    const changeFn = vi.fn();
     const { container, queryByPlaceholderText } = render(
       <InputNumber placeholder={InputNumberPlaceholder} onChange={changeFn} />,
     );
@@ -33,7 +30,7 @@ describe('InputNumber 组件测试', () => {
   });
 
   test('blur', async () => {
-    const blurFn = jest.fn();
+    const blurFn = vi.fn();
     const { queryByPlaceholderText } = render(<InputNumber placeholder={InputNumberPlaceholder} onBlur={blurFn} />);
     const InputDom = queryByPlaceholderText(InputNumberPlaceholder);
     fireEvent.change(InputDom, { target: { value: 1 } });
@@ -42,19 +39,21 @@ describe('InputNumber 组件测试', () => {
   });
 
   test('keyDown', async () => {
-    const onEnterFn = jest.fn();
-    const onKeydownFn = jest.fn();
+    const user = userEvent.setup();
+    const onEnterFn = vi.fn();
+    const onKeydownFn = vi.fn();
     const { queryByPlaceholderText } = render(
       <InputNumber placeholder={InputNumberPlaceholder} onEnter={onEnterFn} onKeydown={onKeydownFn} />,
     );
     const InputNumberDom = queryByPlaceholderText(InputNumberPlaceholder);
-    userEvent.type(InputNumberDom, '123{enter}');
+    await user.type(InputNumberDom, '123{enter}');
+
     expect(onEnterFn).toBeCalled();
     expect(onKeydownFn).toBeCalled();
   });
 
   test('disabled', async () => {
-    const changeFn = jest.fn();
+    const changeFn = vi.fn();
     const { queryByPlaceholderText } = render(
       <InputNumber placeholder={InputNumberPlaceholder} disabled onChange={changeFn} />,
     );

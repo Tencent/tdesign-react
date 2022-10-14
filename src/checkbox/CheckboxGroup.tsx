@@ -128,7 +128,7 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
     <div className={classNames(`${classPrefix}-checkbox-group`, className)} style={style}>
       <CheckContext.Provider value={context}>
         {useOptions
-          ? options.map((v, index) => {
+          ? options.map((v: any, index) => {
               const type = typeof v;
               switch (type) {
                 case 'string': {
