@@ -168,6 +168,9 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       }
       clearTimeout(timer);
     });
+    return () => {
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primaryTableRef, columns, dragSort]);
 
