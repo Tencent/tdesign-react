@@ -16,12 +16,12 @@ duration | Number | 300 | 滑动动画时长 | N
 height | Number | - | 当使用垂直方向滚动时的高度 | N
 interval | Number | 5000 | 轮播间隔时间 | N
 loop | Boolean | true | 是否循环播放 | N
-navigation | TNode | - | 导航器全部配置。TS 类型：`SwiperNavigation | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+navigation | TNode | - | 导航器全部配置。TS 类型：`SwiperNavigation \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 stopOnHover | Boolean | true | 是否悬浮时停止轮播 | N
 theme | String | light | 深色模式和浅色模式。可选项：light/dark | N
 trigger | String | hover | 触发切换的方式：悬浮、点击等。可选项：hover/click | N
 type | String | default | 样式类型：默认样式、卡片样式。可选项：default/card | N
-onChange | Function |  | TS 类型：`(current: number, context: { source: SwiperChangeSource }) => void`<br/>轮播切换时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/swiper/type.ts)。<br/>`type SwiperChangeSource = 'autoplay' | 'click' | 'hover'`<br/> | N
+onChange | Function |  | TS 类型：`(current: number, context: { source: SwiperChangeSource }) => void`<br/>轮播切换时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/swiper/type.ts)。<br/>`type SwiperChangeSource = 'autoplay' \| 'click' \| 'hover'`<br/> | N
 
 ### SwiperNavigation
 
@@ -30,4 +30,4 @@ onChange | Function |  | TS 类型：`(current: number, context: { source: Swipe
 placement | String | inside | 导航器位置，位于主体的内侧或是外侧。可选项：inside/outside | N
 showSlideBtn | String | always | 何时显示导航器的翻页按钮：始终显示、悬浮显示、永不显示。可选项：always/hover/never | N
 size | String | medium | 导航器尺寸。可选项：small/medium/large | N
-type | String | - | 导航器类型，点状(dots)、点条状(dots-bar)、条状(bars)、分式(fraction)等。TS 类型：`SwiperNavigationType` `type SwiperNavigationType = 'dots' | 'dots-bar' | 'bars' | 'fraction'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/swiper/type.ts) | N
+type | String | - | 导航器类型，点状(dots)、点条状(dots-bar)、条状(bars)、分式(fraction)等。TS 类型：`SwiperNavigationType` `type SwiperNavigationType = 'dots' \| 'dots-bar' \| 'bars' \| 'fraction'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/swiper/type.ts) | N

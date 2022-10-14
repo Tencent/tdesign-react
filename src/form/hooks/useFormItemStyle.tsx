@@ -36,6 +36,9 @@ export default function useFormItemStyle(props) {
   // help 文本
   const helpNode = help && <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
 
+  // 判断是否有星号
+  const needRequiredMark = requiredMark || (requiredMark ?? innerRules.filter((rule: any) => rule.required).length > 0);
+
   // 提示文本
   const extraNode = useMemo(() => {
     let extra = tips ? (
@@ -68,8 +71,7 @@ export default function useFormItemStyle(props) {
   });
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
-    [`${classPrefix}-form__label--required`]:
-      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
+    [`${classPrefix}-form__label--required`]: needRequiredMark,
     [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
     [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,

@@ -7,7 +7,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 alert | Object | - | Alert global configs。Typescript：`AlertConfig` | N
 anchor | Object | - | Anchor global configs。Typescript：`AnchorConfig` | N
-animation | Object | - | Typescript：`Partial<Record<'include'|'exclude', Array<AnimationType>>>` `type AnimationType = 'ripple' | 'expand' | 'fade'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+animation | Object | - | Typescript：`Partial<Record<'include'\|'exclude', Array<AnimationType>>>` `type AnimationType = 'ripple' \| 'expand' \| 'fade'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 calendar | Object | - | Calendar global configs。Typescript：`CalendarConfig` | N
 cascader | Object | - | Cascader global configs。Typescript：`CascaderConfig` | N
 classPrefix | String | t | \- | N
@@ -31,20 +31,21 @@ tree | Object | - | Tree global configs。Typescript：`TreeConfig` | N
 treeSelect | Object | - | TreeSelect global configs。Typescript：`TreeSelectConfig` | N
 upload | Object | - | Upload global configs。Typescript：`UploadConfig` | N
 
-### TreeSelectConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-empty | String | - | \- | N
-loadingText | String | - | \- | N
-placeholder | String | - | placeholder text | N
-
 ### InputConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
 autocomplete | String | - | \- | N
 placeholder | String | - | \- | N
+
+### PaginationConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+itemsPerPage | String | - | \- | N
+jumpTo | String | - | \- | N
+page | String | - | \- | N
+total | String | - | \- | N
 
 ### CalendarConfig
 
@@ -80,19 +81,23 @@ clearConfirmText | String | - | \- | N
 recentColorTitle | String | - | \- | N
 swatchColorTitle | String | - | \- | N
 
-### AnchorConfig
+### TransferConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-copySuccessText | String | - | \- | N
-copyText | String | - | \- | N
+empty | String | - | \- | N
+placeholder | String | - | \- | N
+title | String | - | \- | N
 
-### AlertConfig
+### TimePickerConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-collapseText | String | - | \- | N
-expandText | String | - | \- | N
+anteMeridiem | String | - | \- | N
+confirm | String | - | \- | N
+now | String | - | \- | N
+placeholder | String | - | placeholder text | N
+postMeridiem | String | - | \- | N
 
 ### DatePickerConfig
 
@@ -113,7 +118,7 @@ placeholder | Object | - | Typescript：`{ date?: string; month?: string; year?:
 preDecade | String | - | pre decade text | N
 preMonth | String | - | pre month text | N
 preYear | String | - | pre year text | N
-presets | Object | - | Typescript：`ConfigPresetDate` `interface ConfigPresetDate { [name: string]: DateConfigValue | (() => DateConfigValue) }` `type DateConfigValue = string | Date | Array<DateConfigValue>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+presets | Object | - | Typescript：`ConfigPresetDate` `interface ConfigPresetDate { [name: string]: DateConfigValue \| (() => DateConfigValue) }` `type DateConfigValue = string \| Date \| Array<DateConfigValue>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 quarters | Array | - | Typescript：`string[]` | N
 rangeSeparator | String | - | range separator text | N
 selectDate | String | - | select date text | N
@@ -126,61 +131,28 @@ yearAriaLabel | String | - | year text | N
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-cancel | Object | - | Typescript：`string | ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+cancel | Object | - | Typescript：`string \| ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 closeOnEscKeydown | Boolean | true | \- | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirm | Object | - | Typescript：`string | ButtonProps` | N
+confirm | Object | - | Typescript：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript：`{ default: string; info: string; warning: string; danger: string; success: string; }` | N
 
 ### DrawerConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-cancel | String | - | Typescript：`string | ButtonProps` | N
+cancel | String | - | Typescript：`string \| ButtonProps` | N
 closeOnEscKeydown | Boolean | true | \- | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirm | String | - | Typescript：`string | ButtonProps` | N
-size | String | small | \- | N
-
-### FormConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-errorMessage | Object | - | Typescript：`FormErrorMessage`，[Form API Documents](./form?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
-requiredMark | Boolean | true | \- | N
-
-### UploadConfigFileList
-
-name | type | default | description | required
--- | -- | -- | -- | --
-fileNameText | String | - | \- | N
-fileOperationDateText | String | - | \- | N
-fileOperationText | String | - | \- | N
-fileSizeText | String | - | \- | N
-fileStatusText | String | - | \- | N
-
-### ListConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-loadingMoreText | String | - | \- | N
-loadingText | String | - | \- | N
-
-### PaginationConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-itemsPerPage | String | - | \- | N
-jumpTo | String | - | \- | N
-page | String | - | \- | N
-total | String | - | \- | N
+confirm | String | - | Typescript：`string \| ButtonProps` | N
+size | String | 'small' | \- | N
 
 ### PopconfirmConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-cancel | String / Object | - | Typescript：`string | ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
-confirm | String / Object | - | Typescript：`string | ButtonProps` | N
+cancel | String / Object | - | Typescript：`string \| ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+confirm | String / Object | - | Typescript：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript：`{ default: string; warning: string; danger: string; }` | N
 
 ### TableConfig
@@ -193,7 +165,7 @@ columnConfigButtonText | String | - | \- | N
 columnConfigDescriptionText | String | - | \- | N
 columnConfigTitleText | String | - | \- | N
 confirmText | String | - | \- | N
-empty | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+empty | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 expandIcon | TElement | undefined | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filterIcon | TElement | undefined | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 hideSortTips | Boolean | false | hide sort tips | N
@@ -206,13 +178,7 @@ sortAscendingOperationText | String | - | \- | N
 sortCancelOperationText | String | - | \- | N
 sortDescendingOperationText | String | - | \- | N
 sortIcon | TElement | undefined | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-treeExpandAndFoldIcon | Function | undefined | Typescript：`TNode<{ type: 'expand' | 'fold' }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-
-### StepsConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-errorIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+treeExpandAndFoldIcon | Function | undefined | Typescript：`TNode<{ type: 'expand' \| 'fold' }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 
 ### SelectConfig
 
@@ -224,36 +190,27 @@ filterable | Boolean | false | \- | N
 loadingText | String | - | \- | N
 placeholder | String | - | placeholder text | N
 
-### TagConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-closeIcon | Function | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-
-### TimePickerConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-anteMeridiem | String | - | \- | N
-confirm | String | - | \- | N
-now | String | - | \- | N
-placeholder | String | - | placeholder text | N
-postMeridiem | String | - | \- | N
-
-### TransferConfig
-
-name | type | default | description | required
--- | -- | -- | -- | --
-empty | String | - | \- | N
-placeholder | String | - | \- | N
-title | String | - | \- | N
-
 ### TreeConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
 empty | String | - | \- | N
 folderIcon | Function | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+
+### TreeSelectConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+empty | String | - | \- | N
+loadingText | String | - | \- | N
+placeholder | String | - | placeholder text | N
+
+### ListConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+loadingMoreText | String | - | \- | N
+loadingText | String | - | \- | N
 
 ### UploadConfig
 
@@ -266,14 +223,6 @@ progress | Object | - | Typescript：`UploadConfigProgress` | N
 sizeLimitMessage | String | - | \- | N
 triggerUploadText | Object | - | Typescript：`UploadTriggerUploadText` `interface UploadTriggerUploadText { image?: string, normal?: string,  fileInput?: string,  reupload?: string, continueUpload?: string, delete?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 
-### UploadConfigDragger
-
-name | type | default | description | required
--- | -- | -- | -- | --
-clickAndDragText | String | - | \- | N
-dragDropText | String | - | \- | N
-draggingText | String | - | \- | N
-
 ### UploadConfigProgress
 
 name | type | default | description | required
@@ -282,3 +231,54 @@ failText | String | - | \- | N
 successText | String | - | \- | N
 uploadingText | String | - | \- | N
 waitingText | String | - | \- | N
+
+### UploadConfigDragger
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+clickAndDragText | String | - | \- | N
+dragDropText | String | - | \- | N
+draggingText | String | - | \- | N
+
+### UploadConfigFileList
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+fileNameText | String | - | \- | N
+fileOperationDateText | String | - | \- | N
+fileOperationText | String | - | \- | N
+fileSizeText | String | - | \- | N
+fileStatusText | String | - | \- | N
+
+### FormConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorMessage | Object | - | Typescript：`FormErrorMessage`，[Form API Documents](./form?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+requiredMark | Boolean | true | \- | N
+
+### TagConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+closeIcon | Function | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+
+### StepsConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+
+### AlertConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+collapseText | String | - | \- | N
+expandText | String | - | \- | N
+
+### AnchorConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+copySuccessText | String | - | \- | N
+copyText | String | - | \- | N

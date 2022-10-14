@@ -3,7 +3,7 @@ import type { NamePath } from '../type';
 import type { WatchCallBack, InternalHooks, InternalFormInstance, Store } from './interface';
 import log from '../../_common/js/log';
 
-export const HOOK_MARK = Symbol('TD_FORM_INTERNAL_HOOKS');
+export const HOOK_MARK = 'TD_FORM_INTERNAL_HOOKS';
 
 // TODO 后续将所有实例函数迁移到 FormStore 内统一管理
 class FormStore {
@@ -33,7 +33,7 @@ class FormStore {
     getInternalHooks: this.getInternalHooks,
   });
 
-  private getInternalHooks = (key: Symbol): InternalHooks | null => {
+  private getInternalHooks = (key: string): InternalHooks | null => {
     if (key === HOOK_MARK) {
       return {
         notifyWatch: this.notifyWatch,

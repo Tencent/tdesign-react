@@ -10,9 +10,9 @@ import BaseUsage, {
 } from "@site/src/components/BaseUsage";
 import jsxToString from "react-element-to-jsx-string";
 
+import { Collapse } from "tdesign-react";
 import configProps from "./props.json";
 
-import { Collapse } from "tdesign-react";
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);

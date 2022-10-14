@@ -387,7 +387,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   useEffect(() => {
     // value 变化通知 watch 事件
-    form?.getInternalHooks?.(HOOK_MARK).notifyWatch?.(name);
+    form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
 
     // 控制是否需要校验
     if (!shouldValidate.current) return;
