@@ -50,6 +50,21 @@ export default function ThemeTagExample() {
           标签四
         </Tag>
       </Space>
+
+      <Space>
+        <Tag theme="primary" variant="light-outline">
+          标签一
+        </Tag>
+        <Tag theme="warning" variant="light-outline">
+          标签二
+        </Tag>
+        <Tag theme="danger" variant="light-outline">
+          标签三
+        </Tag>
+        <Tag theme="success" variant="light-outline">
+          标签四
+        </Tag>
+      </Space>
     </Space>
   );
 }

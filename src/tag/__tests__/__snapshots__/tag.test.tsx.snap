@@ -457,6 +457,59 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--light-outline t-tag--medium t-tag--square"
+          >
+            <span>
+              标签一
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--warning t-tag--light-outline t-tag--medium t-tag--square"
+          >
+            <span>
+              标签二
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--danger t-tag--light-outline t-tag--medium t-tag--square"
+          >
+            <span>
+              标签三
+            </span>
+          </span>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <span
+            class="t-tag t-tag--success t-tag--light-outline t-tag--medium t-tag--square"
+          >
+            <span>
+              标签四
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
