@@ -4,7 +4,7 @@ import { DiscountIcon, AddIcon } from 'tdesign-icons-react';
 import Tag from '../Tag';
 import CheckTag from '../CheckTag';
 import Space from '../../space';
-import Input from '../../Input';
+import Input from '../../input';
 
 function ClosableTag() {
   const [inputVisible, toggleInputVisible] = useState(false);
