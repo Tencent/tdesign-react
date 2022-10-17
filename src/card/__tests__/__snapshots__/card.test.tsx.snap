@@ -423,6 +423,7 @@ exports[`footer-actions.jsx 1`] = `
               >
                 <button
                   class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+                  style="margin-right: 8px;"
                   type="button"
                 >
                   <span
@@ -432,7 +433,7 @@ exports[`footer-actions.jsx 1`] = `
                       class="t-icon t-icon-heart"
                       fill="none"
                       height="1em"
-                      style="font-size: 24px;"
+                      style="font-size: 16px;"
                       viewBox="0 0 16 16"
                       width="1em"
                     >
@@ -455,7 +456,7 @@ exports[`footer-actions.jsx 1`] = `
                       class="t-icon t-icon-share"
                       fill="none"
                       height="1em"
-                      style="font-size: 24px;"
+                      style="font-size: 16px;"
                       viewBox="0 0 16 16"
                       width="1em"
                     >
