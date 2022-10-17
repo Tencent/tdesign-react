@@ -56,7 +56,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
           result.push({
             value: numberKey,
             label: marks[numberKey],
-            position: (numberKey - min) / max,
+            position: (numberKey - min) / (max - min),
           });
         }
       });

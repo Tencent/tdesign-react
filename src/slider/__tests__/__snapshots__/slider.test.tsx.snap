@@ -831,20 +831,42 @@ exports[`min-and-max.jsx 1`] = `
       >
         <div
           class="t-slider__track"
-          style="left: 0%; width: 100%;"
+          style="left: 0%; width: 0%;"
         />
         <div
           class="t-slider__button-wrapper"
-          style="left: 100%;"
+          style="left: 0%;"
         >
           <div
             class="t-slider__button"
           />
         </div>
-        <div />
+        <div>
+          <div
+            class="t-slider__stop"
+            style="left: 0%;"
+          />
+          <div
+            class="t-slider__stop"
+            style="left: 100%;"
+          />
+        </div>
         <div
           class="t-slider__mark"
-        />
+        >
+          <div
+            class="t-slider__mark-text"
+            style="left: 0%;"
+          >
+            min:10
+          </div>
+          <div
+            class="t-slider__mark-text"
+            style="left: 100%;"
+          >
+            max:30
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -877,10 +899,32 @@ exports[`min-and-max.jsx 1`] = `
             class="t-slider__button"
           />
         </div>
-        <div />
+        <div>
+          <div
+            class="t-slider__stop"
+            style="left: 0%;"
+          />
+          <div
+            class="t-slider__stop"
+            style="left: 100%;"
+          />
+        </div>
         <div
           class="t-slider__mark"
-        />
+        >
+          <div
+            class="t-slider__mark-text"
+            style="left: 0%;"
+          >
+            min:10
+          </div>
+          <div
+            class="t-slider__mark-text"
+            style="left: 100%;"
+          >
+            max:30
+          </div>
+        </div>
       </div>
     </div>
   </div>
