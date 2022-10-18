@@ -164,7 +164,6 @@ const Select = forwardRefWithStatics(
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
     const onTagChange = (_currentTags: SelectInputValue, context) => {
       const { trigger, index, item, e } = context;
-      console.log(trigger, 'trigger');
       // backspace
       if (trigger === 'backspace') {
         e.stopPropagation();
