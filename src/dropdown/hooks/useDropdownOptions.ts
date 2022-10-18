@@ -12,8 +12,8 @@ export const getOptionsFromChildren = (children: React.ReactElement): DropdownOp
       return getOptionsFromChildren(groupChildren);
     }
   }
-  const childrenNode = Array.isArray(children) ? children : [children];
-  return childrenNode
+
+  return React.Children.toArray(children)
     .map((item: React.ReactElement) => {
       const groupChildren = item.props?.children;
       const contextRes = item.props?.content;
