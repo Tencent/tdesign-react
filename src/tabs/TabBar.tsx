@@ -1,6 +1,7 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
+import useMutationObserver from '../_util/useMutationObserver';
 
 interface TabBarProps {
   tabPosition: string;
@@ -54,6 +55,10 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabPosition, activeId, containerRef.current]);
+
+  useMutationObserver(containerRef.current, () => {
+    computeStyle();
+  });
 
   return (
     <div
