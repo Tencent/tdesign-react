@@ -117,11 +117,13 @@ const Swiper = (props: SwiperProps) => {
     (index: number, context: { source: SwiperChangeSource }) => {
       // 事件通知
       onChange(index % childrenLength, context);
-      // 设置内部 index
-      setNeedAnimation(true);
-      setCurrentIndex(index);
+      if (index !== currentIndex) {
+        // 设置内部 index
+        setNeedAnimation(true);
+        setCurrentIndex(index);
+      }
     },
-    [childrenLength, onChange],
+    [childrenLength, currentIndex, onChange],
   );
 
   // 定时器
