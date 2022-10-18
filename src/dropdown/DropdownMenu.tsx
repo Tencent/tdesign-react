@@ -73,7 +73,7 @@ const DropdownMenu = (props: DropdownProps) => {
                   top: `${idx * 30}px`,
                 }}
               >
-                <ul>{optionItem.children}</ul>
+                <ul>{optionItem.children as React.ReactNode}</ul>
               </div>
             </DropdownItem>
             {optionItem.divider ? <TDivider /> : null}

@@ -91,9 +91,9 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     return (
       <div ref={headRef} className={classnames(cls)} onClick={handleClick}>
         {showExpandIcon && expandIconPlacement === 'left' ? renderIcon(expandIconPlacement) : null}
-        {header && header}
+        {header}
         <div className={`${componentName}__header--blank`}></div>
-        {headerRightContent && headerRightContent}
+        {headerRightContent}
         {showExpandIcon && expandIconPlacement === 'right' ? renderIcon(expandIconPlacement) : null}
       </div>
     );

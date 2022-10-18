@@ -107,6 +107,7 @@ const Select = forwardRefWithStatics(
         setCurrentOptions(options);
         setTmpPropOptions(options);
       }
+      // @ts-ignore TODO 待类型完善后移除
       setValueToOption(getValueToOption(children, options, keys) || {});
     }, [options, keys, children]);
 

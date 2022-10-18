@@ -25,7 +25,7 @@ export interface TdTagProps {
   /**
    * 标签中的图标，可自定义图标呈现
    */
-  icon?: TElement;
+  icon?: TNode;
   /**
    * 标签最大宽度，宽度超出后会出现省略号。示例：'50px' / 80
    */

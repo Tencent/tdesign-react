@@ -21,7 +21,7 @@ interface TransferListProps
   empty?: TNode | string;
   title?: TNode;
   footer?: TNode;
-  content?: TNode;
+  content?: TNode | TNode<{ data: Object }>;
   pagination?: Pick<PaginationProps, 'pageSize'> & { onPageChange?: (current: number) => void };
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;

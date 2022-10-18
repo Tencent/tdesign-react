@@ -43,9 +43,10 @@ export interface MessagePlugin {
 }
 
 interface MessageContainerProps {
-  placement: MessagePlacementList;
-  zIndex: number;
-  id: string;
+  placement?: MessagePlacementList;
+  zIndex?: number;
+  id?: string;
+  children?: React.ReactNode;
 }
 
 const MessageContainer: React.FC<MessageContainerProps> = (props) => {

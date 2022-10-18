@@ -1,11 +1,8 @@
 import React from 'react';
-import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
+import { render, act, fireEvent, waitFor, vi } from '@test/utils';
 import { CheckCircleIcon } from 'tdesign-icons-react';
 import Popconfirm from '../Popconfirm';
 import Popcontent from '../Popcontent';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Popconfirm 组件测试', () => {
   const testId = 'popup-test-id';
@@ -29,7 +26,6 @@ describe('Popconfirm 组件测试', () => {
   //   // 模拟鼠标进入
   //   act(() => {
   //     fireEvent.mouseEnter(getByText(triggerElement));
-  //     jest.runAllTimers();
   //   });
 
   //   expect(ref.current).not.toBeNull();
@@ -48,8 +44,8 @@ describe('Popconfirm 组件测试', () => {
   // });
 
   test('click 触发测试', async () => {
-    const onCancelMock = jest.fn();
-    const onConfirmMock = jest.fn();
+    const onCancelMock = vi.fn();
+    const onConfirmMock = vi.fn();
     const { getByText, queryByTestId, queryByText } = render(
       <Popconfirm
         placement="top"
@@ -71,7 +67,6 @@ describe('Popconfirm 组件测试', () => {
     // 模拟鼠标点击
     act(() => {
       fireEvent.click(getByText(triggerElement));
-      jest.runAllTimers();
     });
 
     // 鼠标进入后，有元素，而且内容为 popupText + 两个按钮
@@ -83,14 +78,12 @@ describe('Popconfirm 组件测试', () => {
     expect(confirmBtn).not.toBeNull();
     act(() => {
       fireEvent.click(cancelBtn);
-      jest.runAllTimers();
     });
 
     expect(onCancelMock).toHaveBeenCalledTimes(1);
 
     act(() => {
       fireEvent.click(confirmBtn);
-      jest.runAllTimers();
     });
 
     expect(onConfirmMock).toHaveBeenCalledTimes(1);

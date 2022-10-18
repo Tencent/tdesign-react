@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
-import renderTNode from '../../_util/renderTNode';
+import parseTNode from '../../_util/parseTNode';
 import { ValidateStatus } from '../const';
 
 export default function useFormItemStyle(props) {
@@ -34,7 +34,7 @@ export default function useFormItemStyle(props) {
   const renderStatus = status || verifyStatus;
 
   // help 文本
-  const helpNode = help && <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
+  const helpNode = help && <div className={`${classPrefix}-input__help`}>{parseTNode(help)}</div>;
 
   // 判断是否有星号
   const needRequiredMark = requiredMark || (requiredMark ?? innerRules.filter((rule: any) => rule.required).length > 0);

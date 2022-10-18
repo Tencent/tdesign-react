@@ -5,11 +5,10 @@
  * @FilePath: /tdesign-react/src/progress/__tests__/progress.test.tsx
  */
 import React from 'react';
-import { render, testExamples, waitFor } from '@test/utils';
+import { render, waitFor } from '@test/utils';
 import Progress from '../Progress';
 import { ThemeEnum } from '../type';
 
-testExamples(__dirname);
 describe('Progress 组件测试', () => {
   test('render theme', async () => {
     const testId = 'progress test theme';

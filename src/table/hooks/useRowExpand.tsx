@@ -50,11 +50,13 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     const { row, rowIndex } = p;
     const currentId = get(row, props.rowKey || 'id');
     const expanded = tExpandedRowKeys.includes(currentId);
+    // @ts-ignore TODO 待类型完善后移除
     const defaultIcon: ReactNode = locale.expandIcon || <ChevronRightCircleIcon />;
     let icon = defaultIcon;
     if (expandIcon === false || expandIcon === null) {
       icon = null;
     } else if (isFunction(expandIcon)) {
+      // @ts-ignore TODO 待类型完善后移除
       icon = expandIcon({ row, index: rowIndex });
     }
     const classes = [

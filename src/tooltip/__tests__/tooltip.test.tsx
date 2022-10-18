@@ -1,10 +1,7 @@
 import React from 'react';
-import { testExamples, render, act, fireEvent, waitFor, screen } from '@test/utils';
+import { render, fireEvent, waitFor, screen, mockTimeout } from '@test/utils';
 import Tooltip from '../Tooltip';
 import { TdTooltipProps } from '../type';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Tooltip 组件测试', () => {
   const tooltipText = '弹出层内容';
@@ -26,10 +23,7 @@ describe('Tooltip 组件测试', () => {
     expect(queryByTestId(tooltipTestId)).toBeNull();
 
     // 模拟鼠标进入
-    act(() => {
-      fireEvent.mouseEnter(getByText(triggerElement));
-      jest.runAllTimers();
-    });
+    fireEvent.mouseEnter(getByText(triggerElement));
 
     // 鼠标进入后，有元素，而且内容为 tooltipText
     const popupElement = queryByTestId(tooltipTestId);
@@ -40,10 +34,7 @@ describe('Tooltip 组件测试', () => {
     });
 
     // 模拟鼠标离开
-    act(() => {
-      fireEvent.mouseLeave(getByText(triggerElement));
-      jest.runAllTimers();
-    });
+    fireEvent.mouseLeave(getByText(triggerElement));
 
     // 鼠标离开，style 的 display 应该为 none
     const popupElement2 = queryByTestId(tooltipTestId);
@@ -62,10 +53,7 @@ describe('Tooltip 组件测试', () => {
         </Tooltip>,
       );
 
-      act(() => {
-        fireEvent.mouseEnter(result.getByText(triggerElement));
-        jest.runAllTimers();
-      });
+      fireEvent.mouseEnter(result.getByText(triggerElement));
       await waitFor(() => result.queryByTestId(tooltipTestId));
 
       return {
@@ -78,10 +66,7 @@ describe('Tooltip 组件测试', () => {
           );
         },
         mouseLeave: () => {
-          act(() => {
-            fireEvent.mouseLeave(result.getByText(triggerElement));
-            jest.runAllTimers();
-          });
+          fireEvent.mouseLeave(result.getByText(triggerElement));
         },
         ref,
       };
@@ -103,9 +88,7 @@ describe('Tooltip 组件测试', () => {
       });
 
       expect(getTooltip().querySelector('.t-popup__content--arrow')).not.toBeNull();
-      rerender({
-        showArrow: false,
-      });
+      rerender({ showArrow: false });
       expect(getTooltip().querySelector('.t-popup__content--arrow')).toBeNull();
     });
 
@@ -114,14 +97,11 @@ describe('Tooltip 组件测试', () => {
         duration: 1000,
       });
 
-      act(() => {
-        ref.current.setVisible(true);
-      });
+      ref.current.setVisible(true);
 
       expect(getTooltip()).toBeTruthy();
-      jest.advanceTimersByTime(1000);
-      jest.runAllTimers();
-      expect(getTooltip()).toBeFalsy();
+
+      await mockTimeout(() => expect(getTooltip()).toBeFalsy(), 1500);
     });
 
     describe('placement', () => {
@@ -147,7 +127,7 @@ describe('Tooltip 组件测试', () => {
         });
         expect(getTooltip()).toBeTruthy();
         mouseLeave();
-        expect(getTooltip()).toBeFalsy();
+        await mockTimeout(() => expect(getTooltip()).toBeFalsy());
       });
 
       test('destroyOnClose: false', async () => {

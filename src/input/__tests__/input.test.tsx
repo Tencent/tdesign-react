@@ -1,18 +1,15 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import { LockOnIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../Input';
 import InputAdornment from '../../input-adornment';
 
-// 测试组件代码 Example 快照
-testExamples(__dirname);
-
 describe('Input 组件测试', () => {
   const InputPlaceholder = '请输入内容';
   const InputValue = '24/05/2020';
   test('create', async () => {
-    const changeFn = jest.fn();
+    const changeFn = vi.fn();
     const { container, queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} onChange={changeFn} />);
     expect(container.firstChild.firstChild.classList.contains('t-input')).toBeTruthy();
     expect(queryByPlaceholderText(InputPlaceholder)).toBeInTheDocument();
@@ -44,7 +41,7 @@ describe('Input 组件测试', () => {
     expect(asFragment()).toMatchSnapshot();
   });
   test('clearable', async () => {
-    const clearFn = jest.fn();
+    const clearFn = vi.fn();
     const { asFragment, queryByPlaceholderText, container } = render(
       <Input placeholder={InputPlaceholder} clearable onClear={clearFn} />,
     );
@@ -64,7 +61,7 @@ describe('Input 组件测试', () => {
     expect(container.querySelector('.t-input__suffix-clear')).not.toBeInTheDocument();
   });
   test('should not lost focus when clear input', async () => {
-    const blurFn = jest.fn();
+    const blurFn = vi.fn();
     const { queryByPlaceholderText, container } = render(
       <Input placeholder={InputPlaceholder} clearable onBlur={blurFn} />,
     );
@@ -80,8 +77,9 @@ describe('Input 组件测试', () => {
     expect(blurFn).toBeCalledTimes(1);
   });
   test('onComposition can be call', async () => {
-    const onCompositionStartFn = jest.fn();
-    const onCompositionEndFn = jest.fn();
+    const user = userEvent.setup();
+    const onCompositionStartFn = vi.fn();
+    const onCompositionEndFn = vi.fn();
     const { queryByPlaceholderText } = render(
       <Input
         placeholder={InputPlaceholder}
@@ -90,29 +88,30 @@ describe('Input 组件测试', () => {
       />,
     );
     const InputDom = queryByPlaceholderText(InputPlaceholder);
-    userEvent.type(InputDom, InputValue);
+    await user.type(InputDom, InputValue);
     fireEvent.compositionStart(InputDom);
-    userEvent.type(InputDom, InputValue);
+    await user.type(InputDom, InputValue);
     fireEvent.compositionEnd(InputDom);
     fireEvent.compositionEnd(InputDom);
-    userEvent.type(InputDom, InputValue);
+    await user.type(InputDom, InputValue);
     expect(onCompositionStartFn).toBeCalled();
     expect(onCompositionEndFn).toBeCalled();
     expect(InputDom.value).toBe([InputValue, InputValue, InputValue].join(''));
   });
   test('keyDown', async () => {
-    const onEnterFn = jest.fn();
-    const onKeydownFn = jest.fn();
+    const user = userEvent.setup();
+    const onEnterFn = vi.fn();
+    const onKeydownFn = vi.fn();
     const { queryByPlaceholderText } = render(
       <Input placeholder={InputPlaceholder} onEnter={onEnterFn} onKeydown={onKeydownFn} />,
     );
     const InputDom = queryByPlaceholderText(InputPlaceholder);
-    userEvent.type(InputDom, 'abc{enter}');
+    await user.type(InputDom, 'abc{enter}');
     expect(onEnterFn).toBeCalled();
     expect(onKeydownFn).toBeCalled();
   });
   test('disabled', async () => {
-    const changeFn = jest.fn();
+    const changeFn = vi.fn();
     const { queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} disabled onChange={changeFn} />);
     expect(queryByPlaceholderText(InputPlaceholder).disabled).toBeTruthy();
   });

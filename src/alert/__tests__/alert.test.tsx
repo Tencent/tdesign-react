@@ -1,9 +1,6 @@
 import React from 'react';
-import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
+import { render, fireEvent, waitFor, mockTimeout, act, vi } from '@test/utils';
 import Alert from '../Alert';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Alert 组件测试', () => {
   const testId = 'alert-test-id';
@@ -33,23 +30,27 @@ describe('Alert 组件测试', () => {
   });
 
   test('Alert 关闭操作', async () => {
-    const ref = React.createRef<HTMLDivElement>();
-    const onClosed = jest.fn();
+    const onClose = vi.fn();
+    const onClosed = vi.fn();
 
     const { queryByTestId, container } = render(
       <Alert
-        ref={ref}
         theme="error"
         message={text}
         close={<div data-testid={testId}>{text}</div>}
+        onClose={onClose}
         onClosed={onClosed}
       />,
     );
     expect(container.querySelector('.t-alert--closing')).not.toBeInTheDocument();
-    fireEvent.click(queryByTestId(testId));
+
+    act(() => {
+      fireEvent.click(queryByTestId(testId));
+    });
+    expect(onClose).toHaveBeenCalledTimes(1);
     expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
-    jest.runAllTimers();
-    expect(onClosed).toHaveBeenCalledTimes(1);
+
+    await mockTimeout(() => expect(onClosed).toHaveBeenCalledTimes(1), 300);
   });
 
   test('Alert 展开收起操作', async () => {
@@ -67,7 +68,6 @@ describe('Alert 组件测试', () => {
     const btn = await waitFor(() => queryByText('展开更多'));
     act(() => {
       fireEvent.click(btn);
-      jest.runAllTimers();
     });
 
     const element1 = await waitFor(() => queryByTestId(testId));
@@ -76,7 +76,6 @@ describe('Alert 组件测试', () => {
     const btn1 = await waitFor(() => queryByText('收起'));
     act(() => {
       fireEvent.click(btn1);
-      jest.runAllTimers();
     });
 
     const element3 = await waitFor(() => queryByTestId(testId));

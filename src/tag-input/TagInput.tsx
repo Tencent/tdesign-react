@@ -136,7 +136,7 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
       size={size}
       readonly={readonly}
       disabled={disabled}
-      label={() => renderLabel({ displayNode, label })}
+      label={renderLabel({ displayNode, label })}
       className={classnames(classes)}
       style={props.style}
       tips={tips}

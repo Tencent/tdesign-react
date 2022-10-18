@@ -1,8 +1,6 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
-import { Notification, NotificationPlugin } from 'tdesign-react';
-
-testExamples(__dirname);
+import { render, fireEvent, mockTimeout } from '@test/utils';
+import { Notification, NotificationPlugin } from '../index';
 
 describe('Notification test', () => {
   test('mount and unmount', () => {
@@ -92,13 +90,11 @@ describe('Notification test', () => {
   test('auto close', async () => {
     NotificationPlugin.closeAll();
 
-    await NotificationPlugin.info({ duration: 3000 });
+    await NotificationPlugin.info({ duration: 1000 });
 
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
 
-    jest.runAllTimers();
-
-    expect(document.querySelectorAll('.t-notification').length).toBe(0);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(0), 1200);
   });
 
   test('click close button', async () => {

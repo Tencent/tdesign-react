@@ -12,6 +12,7 @@ import { CommonDisplayFileProps, UploadProps, UploadRef } from './interface';
 import { UploadDragEvents } from './hooks/useDrag';
 import CustomFile from './themes/CustomFile';
 import { UploadFile } from './type';
+import parseTNode from '../_util/parseTNode';
 
 // const Upload = forwardRef((props: UploadProps, ref) => {
 function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref: ForwardedRef<UploadRef>) {
@@ -60,7 +61,9 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
         </Button>
       );
     };
-    return props.trigger || props.children || getDefaultTrigger();
+    return (
+      parseTNode(props.trigger, { dragActive: false, files: uploadValue }) || props.children || getDefaultTrigger()
+    );
   };
 
   const triggerElement = renderTrigger();

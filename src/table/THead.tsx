@@ -131,6 +131,7 @@ export default function THead(props: TheadProps) {
                   placement="bottom"
                   attach={theadRef.current ? () => theadRef.current.parentNode.parentNode as HTMLElement : undefined}
                   popupContent={content}
+                  // @ts-ignore TODO 待类型完善后移除
                   tooltipProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
                   overlayClassName={props.ellipsisOverlayClassName}
                   classPrefix={props.classPrefix}

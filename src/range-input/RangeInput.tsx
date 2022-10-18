@@ -7,6 +7,7 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
 import type { StyledProps, TNode } from '../common';
+import parseTNode from '../_util/parseTNode';
 import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
 import { rangeInputDefaultProps } from './defaultProps';
 
@@ -24,19 +25,11 @@ function calcArrayValue(value: unknown | Array<unknown>) {
 }
 
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode) => {
-  let result: React.ReactNode = null;
-
-  if (icon) result = icon;
-
-  if (typeof icon === 'function') result = icon();
+  const result = parseTNode(icon);
 
   const iconClassName = icon ? `${classPrefix}-range-input__${type}-icon` : '';
 
-  if (result) {
-    result = <span className={`${classPrefix}-range-input__${type} ${iconClassName}`}>{result}</span>;
-  }
-
-  return result;
+  return result ? <span className={`${classPrefix}-range-input__${type} ${iconClassName}`}>{result}</span> : null;
 };
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObject<HTMLDivElement>) => {
@@ -100,9 +93,9 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   }
 
   const labelContent = isFunction(label) ? label() : label;
-  const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
+  const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
   const suffixContent = isFunction(suffix) ? suffix() : suffix;
-  const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+  const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
 
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
     onClear?.({ e });

@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { CommonDisplayFileProps } from '../interface';
 import { TdUploadProps } from '../type';
+import parseTNode from '../../_util/parseTNode';
 
 export interface CustomFileProps extends CommonDisplayFileProps {
   dragEvents: UploadDragEvents;
@@ -35,7 +36,7 @@ const CustomFile = (props: CustomFileProps) => {
       onClick={props.triggerUpload}
     >
       <div className={`${classPrefix}-upload__trigger`}>
-        {props.dragContent?.({ dragActive, files: displayFiles }) ||
+        {parseTNode(props.dragContent, { dragActive, files: displayFiles }) ||
           props.trigger?.({ dragActive, files: displayFiles }) ||
           props.childrenNode}
       </div>

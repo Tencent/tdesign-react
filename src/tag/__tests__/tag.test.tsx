@@ -1,12 +1,80 @@
-import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
-import { DiscountIcon } from 'tdesign-icons-react';
+import React, { useState } from 'react';
+import { render, fireEvent, vi } from '@test/utils';
+import { DiscountIcon, AddIcon } from 'tdesign-icons-react';
 import Tag from '../Tag';
 import CheckTag from '../CheckTag';
-import ClosableTag from '../_example/delete';
+import Space from '../../space';
+import Input from '../../input';
 
-// 测试组件代码 Example 快照
-testExamples(__dirname);
+function ClosableTag() {
+  const [inputVisible, toggleInputVisible] = useState(false);
+  const [tagList, setTagList] = useState([
+    {
+      name: '可删除标签',
+      showClose: true,
+    },
+    {
+      name: '可删除标签',
+      icon: <DiscountIcon />,
+      showClose: true,
+    },
+    {
+      name: '可删除标签',
+      showClose: true,
+      disabled: true,
+    },
+  ]);
+
+  /**
+   * @param {number} i
+   */
+  const deleteTag = (i) => {
+    const newtagList = [...tagList];
+    newtagList.splice(i, 1);
+    setTagList(newtagList);
+  };
+
+  const handleClickAdd = () => {
+    toggleInputVisible(true);
+  };
+
+  const handleInputEnter = (value) => {
+    toggleInputVisible(false);
+    if (value) setTagList((currentList) => currentList.concat([{ name: value, showClose: true }]));
+  };
+
+  return (
+    <Space direction="vertical">
+      <Space>
+        {tagList.map((tag, i) => (
+          <Tag
+            key={i}
+            closable
+            onClose={() => {
+              deleteTag(i);
+            }}
+            icon={tag.icon}
+            disabled={tag.disabled}
+            style={{ marginRight: 30 }}
+          >
+            {tag.name}
+            {i}
+          </Tag>
+        ))}
+      </Space>
+      <div style={{ display: 'flex', cursor: 'pointer' }}>
+        {inputVisible ? (
+          <Input onBlur={handleInputEnter} onEnter={handleInputEnter} style={{ width: '94px' }} />
+        ) : (
+          <Tag onClick={handleClickAdd}>
+            <AddIcon />
+            可添加标签
+          </Tag>
+        )}
+      </div>
+    </Space>
+  );
+}
 
 describe('Tag 组件测试', () => {
   test('closable and onClose', async () => {
@@ -25,7 +93,7 @@ describe('Tag 组件测试', () => {
   });
 
   test('disabled', async () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const wrapper = render(<Tag disabled={true} onClick={fn}></Tag>);
     expect(wrapper).toMatchSnapshot();
     fireEvent.click(wrapper.container.firstChild);
@@ -113,7 +181,7 @@ describe('Tag 组件测试', () => {
   });
 
   test('onClick', async () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const wrapper = render(<Tag onClick={fn}></Tag>);
     fireEvent.click(wrapper.container.firstChild);
     expect(fn).toHaveBeenCalled();
@@ -134,21 +202,21 @@ describe('CheckTag 组件测试', () => {
   });
 
   test('disabled', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const wrapper = render(<CheckTag onClick={fn} disabled={true}></CheckTag>);
     fireEvent.click(wrapper.container.firstChild);
     expect(fn).toBeCalledTimes(0);
   });
 
   test('onChange', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const wrapper = render(<CheckTag content="内容" onChange={fn}></CheckTag>);
     fireEvent.click(wrapper.container.firstChild);
     expect(fn).toHaveBeenCalled();
   });
 
   test('onClick', () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const wrapper = render(<CheckTag onClick={fn}></CheckTag>);
     fireEvent.click(wrapper.container.firstChild);
     expect(fn).toHaveBeenCalled();

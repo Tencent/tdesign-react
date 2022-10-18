@@ -1,9 +1,6 @@
 import React from 'react';
-import { render, testExamples } from '@test/utils';
+import { render } from '@test/utils';
 import Comment from '../Comment';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Comment', () => {
   test('author', () => {

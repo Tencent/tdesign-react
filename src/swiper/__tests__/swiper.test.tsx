@@ -1,11 +1,8 @@
 import React from 'react';
-import { testExamples, render, act, waitFor, fireEvent } from '@test/utils';
-import { Swiper } from '..';
+import { render, fireEvent } from '@test/utils';
+import Swiper from '../index';
 
 const { SwiperItem } = Swiper;
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Swiper 组件测试', () => {
   // 测试渲染
@@ -39,19 +36,16 @@ describe('Swiper 组件测试', () => {
       </>
     );
 
-    await act(async () => {
-      render(<TestView />);
-      // 获取 element
-      const element = await waitFor(() => document.querySelector('.t-swiper__container'));
-      const arrows = await waitFor(() => document.querySelectorAll('.t-swiper__navigation-item'));
-      expect(element).not.toBeNull();
-      expect(arrows.length).toBe(3);
+    render(<TestView />);
+    // 获取 element
 
-      fireEvent.click(arrows[1]);
-      fireEvent.mouseEnter(arrows[1]);
-      fireEvent.mouseLeave(arrows[1]);
-      expect(arrows[1].classList.contains('t-is-active')).toBeTruthy();
-    });
+    expect(document.querySelector('.t-swiper__container')).not.toBeNull();
+    expect(document.querySelectorAll('.t-swiper__navigation-item').length).toBe(3);
+
+    fireEvent.click(document.querySelectorAll('.t-swiper__navigation-item')[1]);
+    fireEvent.mouseEnter(document.querySelectorAll('.t-swiper__navigation-item')[1]);
+    fireEvent.mouseLeave(document.querySelectorAll('.t-swiper__navigation-item')[1]);
+    expect(document.querySelectorAll('.t-swiper__navigation-item')[1].classList.contains('t-is-active')).toBeTruthy();
   });
 
   // 测试事件
@@ -72,21 +66,16 @@ describe('Swiper 组件测试', () => {
       </>
     );
 
-    await act(async () => {
-      render(<TestView />);
-      // 获取 element
-      const arrowLeft = await waitFor(() => document.querySelector('.t-swiper__arrow-left'));
-      const arrowRight = await waitFor(() => document.querySelector('.t-swiper__arrow-right'));
-      const element = await waitFor(() => document.querySelector('.t-swiper__container'));
-      expect(arrowLeft).not.toBeNull();
-      expect(arrowRight).not.toBeNull();
-      expect(element).not.toBeNull();
+    render(<TestView />);
+    // 获取 element
+    expect(document.querySelector('.t-swiper__arrow-left')).not.toBeNull();
+    expect(document.querySelector('.t-swiper__arrow-right')).not.toBeNull();
+    expect(document.querySelector('.t-swiper__container')).not.toBeNull();
 
-      fireEvent.click(arrowRight);
-      expect(element.getAttribute('style')).toBe(
-        'transform: translate3d(-100%, 0px, 0px); transition: transform 0.3s ease;',
-      );
-      fireEvent.click(arrowLeft);
-    });
+    fireEvent.click(document.querySelector('.t-swiper__arrow-right'));
+    expect(document.querySelector('.t-swiper__container').getAttribute('style')).toBe(
+      'transform: translate3d(-100%, 0px, 0px); transition: transform 0.3s ease;',
+    );
+    fireEvent.click(document.querySelector('.t-swiper__arrow-left'));
   });
 });

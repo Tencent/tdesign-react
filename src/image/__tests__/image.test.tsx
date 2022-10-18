@@ -1,9 +1,6 @@
 import React from 'react';
-import { testExamples, render } from '@test/utils';
-import Image from '../Image';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
+import { render } from '@test/utils';
+import Image from '../index';
 
 describe('Image 组件测试', () => {
   const src = 'https://tdesign.gtimg.com/demo/demo-image-1.png';

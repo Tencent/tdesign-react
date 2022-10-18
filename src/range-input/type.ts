@@ -178,7 +178,7 @@ export interface TdRangeInputPopupProps {
   /**
    * 下拉框内容，可完全自定义
    */
-  panel?: TElement;
+  panel?: TNode;
   /**
    * 透传 Popup 浮层组件全部属性
    */
