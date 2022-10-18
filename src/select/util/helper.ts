@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType } from '../type';
+import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
@@ -12,7 +12,7 @@ type ValueToOption = {
   [value: string | number]: TdOptionProps;
 };
 
-function setValueToOptionFormOptionDom(dom, valueToOption: ValueToOption, keys: SelectKeysType) {
+function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueToOption, keys: SelectKeysType) {
   const { value, label, children } = dom.props;
   // eslint-disable-next-line no-param-reassign
   valueToOption[value] = {
@@ -22,7 +22,11 @@ function setValueToOptionFormOptionDom(dom, valueToOption: ValueToOption, keys: 
 }
 
 // 获取 value => option，用于快速基于 value 找到对应的 option
-export const getValueToOption = (children, options: TdOptionProps[], keys: SelectKeysType): ValueToOption => {
+export const getValueToOption = (
+  children: ReactElement,
+  options: TdOptionProps[],
+  keys: SelectKeysType,
+): ValueToOption => {
   const valueToOption = {};
 
   // options 优先级高于 children
@@ -73,7 +77,7 @@ export const getValueToOption = (children, options: TdOptionProps[], keys: Selec
 
 // 获取单选的 label
 export const getLabel = (
-  children,
+  children: ReactElement,
   value: SelectValue<TdOptionProps>,
   options: TdOptionProps[],
   keys: SelectKeysType,
@@ -152,7 +156,7 @@ export const getSelectValueArr = (
   values: SelectValue | SelectValue[],
   activeValue: SelectValue,
   selected?: boolean,
-  valueType?: 'object' | 'value',
+  valueType?: TdSelectProps['valueType'],
   keys?: SelectKeysType,
   objVal?: SelectValue,
 ) => {
@@ -179,4 +183,26 @@ export const getSelectValueArr = (
     }
     return currentValues;
   }
+};
+
+// 计算onChange事件回调的selectedOptions参数
+export const getSelectedOptions = (
+  value: SelectValue,
+  multiple: TdSelectProps['multiple'],
+  valueType: TdSelectProps['valueType'],
+  keys: SelectKeysType,
+  tmpPropOptions: Array<unknown>,
+) => {
+  const isObjectType = valueType === 'object';
+  let currentSelectedOptions = [];
+  if (multiple) {
+    currentSelectedOptions = isObjectType
+      ? (value as Array<string | number>)
+      : tmpPropOptions?.filter?.((v) => (value as Array<string | number>).includes?.(v[keys?.value || 'value']));
+  } else {
+    currentSelectedOptions = isObjectType
+      ? [value]
+      : tmpPropOptions?.filter?.((v) => value === v[keys?.value || 'value']) || [];
+  }
+  return currentSelectedOptions;
 };
