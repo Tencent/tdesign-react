@@ -56,16 +56,15 @@ export default function BaseForm() {
                 </Radio.Group>
               </FormItem>
             );
-          } else {
-            return (
-              <FormItem label="动态选项1" name="foo">
-                <Radio.Group>
-                  <Radio value="0">选项一</Radio>
-                  <Radio value="1">选项二</Radio>
-                </Radio.Group>
-              </FormItem>
-            );
           }
+          return (
+            <FormItem label="动态选项1" name="foo">
+              <Radio.Group>
+                <Radio value="0">选项一</Radio>
+                <Radio value="1">选项二</Radio>
+              </Radio.Group>
+            </FormItem>
+          );
         }}
       </FormItem>
       <FormItem label="课程" name="course">
