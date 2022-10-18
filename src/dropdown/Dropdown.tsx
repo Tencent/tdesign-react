@@ -34,6 +34,7 @@ const Dropdown = (props: DropdownProps) => {
   const dropdownClass = `${classPrefix}-dropdown`;
 
   const options = useDropdownOptions(arrayChildren, propsOptions);
+
   const handleMenuClick = (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
     if (hideAfterItemClick) {
       togglePopupVisible(false);

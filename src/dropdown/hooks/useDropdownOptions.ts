@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { DropdownOption } from '../type';
 import DropdownMenu from '../DropdownMenu';
 import DropdownItem from '../DropdownItem';
@@ -37,11 +37,8 @@ export default function useDropdownOptions(
   children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
   options: DropdownOption[],
 ): DropdownOption[] {
-  const [calcOptions, setCalcOptions] = useState([]);
-
-  useEffect(() => {
-    if (options && options.length > 0) return setCalcOptions(options);
-
+  const dropdownOptions = useMemo(() => {
+    if (options && options.length > 0) return options;
     let dropdownMenuChild: React.ReactElement;
     React.Children.forEach(children, (child: React.ReactChild) => {
       if (!React.isValidElement(child)) return;
@@ -50,9 +47,9 @@ export default function useDropdownOptions(
         dropdownMenuChild = (child.props as { children: React.ReactElement }).children;
       }
     });
-    setCalcOptions(getOptionsFromChildren(dropdownMenuChild));
+    return getOptionsFromChildren(dropdownMenuChild);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
-  return calcOptions;
+  return dropdownOptions;
 }
