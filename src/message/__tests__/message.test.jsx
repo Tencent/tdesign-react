@@ -48,7 +48,6 @@ describe('Message Component test', () => {
     const { container } = render(<Message closeBtn={true}>{defaultMessage}</Message>);
     expect(container.firstChild).toHaveClass('t-is-closable');
     expect(container.getElementsByClassName('t-message__close').length).toBe(1);
-    expect(container).toMatchSnapshot();
   });
 
   test(':closeBtn is a string, equal "关闭".', () => {
@@ -56,30 +55,22 @@ describe('Message Component test', () => {
     const { container, getByText } = render(<Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>);
     expect(container.getElementsByClassName('t-message__close').length).toBe(1);
     expect(getByText(closeBtnTxt).textContent).toBe(closeBtnTxt);
-    expect(container).toMatchSnapshot();
   });
 
   test(':closeBtn is a function, () => VNode.', () => {
     const { container, getByText } = render(<Message closeBtn={<b>x</b>}>{defaultMessage}</Message>);
     expect(container.getElementsByClassName('t-message__close').length).toBe(1);
     expect(getByText('x')).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
   });
 
   test(':icon is false', () => {
     const { container } = render(<Message icon={false}>{defaultMessage}</Message>);
     expect(container.firstChild).not.toHaveClass('t-icon');
-    expect(container).toMatchSnapshot();
   });
 
   test(':icon is a function, () => TIconMore', () => {
     const { container } = render(<Message icon={() => <HelpIcon></HelpIcon>}>{defaultMessage}</Message>);
     // t-icon
     expect(container.firstChild).not.toHaveClass('t-icon');
-    expect(container).toMatchSnapshot();
-  });
-  test(':default is a function, () => <b>这是重要信息</b>', () => {
-    const { container } = render(<Message>{<b>这是重要信息</b>}</Message>);
-    expect(container).toMatchSnapshot();
   });
 });

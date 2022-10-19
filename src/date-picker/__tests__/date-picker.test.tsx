@@ -20,16 +20,6 @@ describe('DatePicker', () => {
     MockDate.reset();
   });
 
-  test('className style', () => {
-    const wrapper = render(<DatePicker className="test-class" style={{ width: '100px' }} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  test('allowInput', () => {
-    const wrapper = render(<DatePicker allowInput={false} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   test('clearable', async () => {
     const { container } = render(<DatePicker defaultValue={'2022-09-14'} clearable={true} />);
     // 模拟鼠标进入

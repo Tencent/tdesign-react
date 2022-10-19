@@ -8,7 +8,6 @@ describe('Slider 组件测试', () => {
   test('create', async () => {
     const { container } = render(<Slider />);
     expect(container.querySelectorAll('.t-slider')).toHaveLength(1);
-    expect(container).toMatchSnapshot();
   });
 
   // 测试标记

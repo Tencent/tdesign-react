@@ -32,11 +32,6 @@ describe('Checkbox', () => {
     expect(queryByText('选中项')).toBeInTheDocument();
   });
 
-  test('name', () => {
-    const { asFragment } = render(<Checkbox name={'checkbox-name'}></Checkbox>);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
   test('onChange', () => {
     const fn = vi.fn();
     const { container } = render(<Checkbox disabled={true} onChange={fn}></Checkbox>);
@@ -73,7 +68,7 @@ describe('CheckboxGroup', () => {
   });
 
   test('option', () => {
-    const { container, asFragment } = render(
+    const { container } = render(
       <Checkbox.Group
         defaultValue={['北京']}
         options={[
@@ -86,19 +81,8 @@ describe('CheckboxGroup', () => {
         ]}
       ></Checkbox.Group>,
     );
-    expect(asFragment()).toMatchSnapshot();
     fireEvent.click(container.firstChild.lastChild);
     expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
-  });
-
-  test('option is string', () => {
-    const { asFragment } = render(<Checkbox.Group options={['北京', '广州']}></Checkbox.Group>);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('option is number', () => {
-    const { asFragment } = render(<Checkbox.Group options={[1, 2]}></Checkbox.Group>);
-    expect(asFragment()).toMatchSnapshot();
   });
 
   test('value is string', () => {
@@ -123,32 +107,14 @@ describe('CheckboxGroup', () => {
     expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
   });
 
-  test('disabled', () => {
-    const { asFragment } = render(<Checkbox.Group options={['北京', '广州']} disabled></Checkbox.Group>);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('name', () => {
-    const { asFragment } = render(
-      <Checkbox.Group name={'checkbox-group-name'}>
-        <Checkbox value="gz">广州</Checkbox>
-        <Checkbox value="sz" disabled>
-          深圳
-        </Checkbox>
-      </Checkbox.Group>,
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
-
   test('max', () => {
-    const { container, asFragment } = render(
+    const { container } = render(
       <Checkbox.Group max={2} defaultValue={['sz']}>
         <Checkbox value="gz">广州</Checkbox>
         <Checkbox value="sz">深圳</Checkbox>
         <Checkbox value="bj">北京</Checkbox>
       </Checkbox.Group>,
     );
-    expect(asFragment()).toMatchSnapshot();
     fireEvent.click(container.firstChild.firstChild);
     expect(container.firstChild.lastChild).toHaveClass('t-is-disabled');
   });

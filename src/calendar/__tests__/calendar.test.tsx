@@ -10,11 +10,6 @@ MockDate.set('2021-08-27');
 describe('Calendar测试', () => {
   // test props api
   describe(':props', () => {
-    test(':value', () => {
-      const wrapper = render(<Calendar value={'2022-08-30'}></Calendar>);
-      expect(wrapper).toMatchSnapshot();
-    });
-
     test(':theme', () => {
       const { container } = render(<Calendar theme={'card'}></Calendar>);
       expect(container.firstChild.classList.contains('t-calendar--card')).toBeTruthy();
@@ -26,26 +21,6 @@ describe('Calendar测试', () => {
       expect(tableCell[0]).toBeInTheDocument();
     });
 
-    test(':mode', () => {
-      const wrapper = render(<Calendar mode={'year'}></Calendar>);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    test(':firstDayOfWeek', () => {
-      const wrapper = render(<Calendar firstDayOfWeek={3}></Calendar>);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    test(':isShowWeekendDefault', () => {
-      const wrapper = render(<Calendar isShowWeekendDefault={false}></Calendar>);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    test(':range', () => {
-      const testRange = ['2012-08', '2022-08'];
-      const wrapper = render(<Calendar range={testRange}></Calendar>);
-      expect(wrapper).toMatchSnapshot();
-    });
     test('click 单击单元格', async () => {
       const mockFn = vi.fn();
       const { container } = render(<Calendar onCellClick={mockFn}></Calendar>);

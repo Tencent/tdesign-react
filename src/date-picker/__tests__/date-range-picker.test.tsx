@@ -1,6 +1,5 @@
 import MockDate from 'mockdate';
 import React from 'react';
-import dayjs from 'dayjs';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 
 import { render, fireEvent, act, waitFor, vi } from '@test/utils';
@@ -20,16 +19,6 @@ describe('DateRangePicker', () => {
     MockDate.reset();
   });
 
-  it('className style', () => {
-    const wrapper = render(<DateRangePicker className="test-class" style={{ width: '100px' }} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('allowInput', () => {
-    const wrapper = render(<DateRangePicker allowInput={false} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('clearable', async () => {
     const { container } = render(<DateRangePicker defaultValue={['2022-09-14', '2022-10-01']} clearable={true} />);
     // 模拟鼠标进入
@@ -37,15 +26,6 @@ describe('DateRangePicker', () => {
 
     const clearElement = document.querySelector('.t-range-input__suffix-clear');
     expect(clearElement).not.toBeNull();
-  });
-
-  it('disableDate', () => {
-    const disabledDate = {
-      before: dayjs().subtract(5, 'day').format(),
-      after: dayjs().add(5, 'day').format(),
-    };
-    const wrapper = render(<DateRangePicker disableDate={disabledDate} />);
-    expect(Array.from(wrapper.container.children)).toMatchSnapshot();
   });
 
   it('disabled', () => {

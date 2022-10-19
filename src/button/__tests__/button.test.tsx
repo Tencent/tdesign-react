@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, vi } from '@test/utils';
-import { Icon } from 'tdesign-icons-react';
 import Button from '../Button';
 
 describe('Button 组件测试', () => {
@@ -36,10 +35,6 @@ describe('Button 组件测试', () => {
 
     fireEvent.click(container.firstChild);
     expect(clickFn).toBeCalledTimes(0);
-  });
-  test('icon', async () => {
-    const { asFragment } = render(<Button icon={<Icon name="loading" />} />);
-    expect(asFragment()).toMatchSnapshot();
   });
   test('ghost', async () => {
     const { container } = render(<Button ghost />);

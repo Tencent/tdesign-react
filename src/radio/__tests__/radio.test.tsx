@@ -33,11 +33,6 @@ describe('Radio', () => {
     expect(queryByText('选中项')).toBeInTheDocument();
   });
 
-  test('name', () => {
-    const { asFragment } = render(<Radio name={'Radio-name'}></Radio>);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
   test('onChange', () => {
     const fn = vi.fn();
     const { container } = render(<Radio disabled={true} onChange={fn} />);
@@ -74,25 +69,14 @@ describe('RadioGroup', () => {
   });
 
   test('options', () => {
-    const { container, asFragment } = render(
+    const { container } = render(
       <Radio.Group
         defaultValue="北京"
         options={[{ value: '上海', label: '上海' }, { value: '广州', label: '广州', disabled: true }, '北京', 1]}
       ></Radio.Group>,
     );
-    expect(asFragment()).toMatchSnapshot();
     fireEvent.click(container.firstChild.lastChild);
     expect(container.firstChild.lastChild).toHaveClass('t-is-checked');
-  });
-
-  test('option is string', () => {
-    const { asFragment } = render(<Radio.Group options={['北京', '广州']} />);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('option is number', () => {
-    const { asFragment } = render(<Radio.Group options={[1, 2]}></Radio.Group>);
-    expect(asFragment()).toMatchSnapshot();
   });
 
   test('value is string', () => {
@@ -115,63 +99,5 @@ describe('RadioGroup', () => {
       </Radio.Group>,
     );
     expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
-  });
-
-  test('disabled', () => {
-    const { asFragment } = render(<Radio.Group options={['北京', '广州']} disabled></Radio.Group>);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('name', () => {
-    const { asFragment } = render(
-      <Radio.Group name={'Radio-group-name'}>
-        <Radio value="gz">广州</Radio>
-        <Radio value="sz" disabled>
-          深圳
-        </Radio>
-      </Radio.Group>,
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('size', () => {
-    const { asFragment } = render(
-      <div>
-        <Radio.Group size="small">
-          <Radio value="gz">广州</Radio>
-        </Radio.Group>
-
-        <Radio.Group size="medium">
-          <Radio value="gz1">广州</Radio>
-        </Radio.Group>
-
-        <Radio.Group size="large">
-          <Radio value="gz2">广州</Radio>
-        </Radio.Group>
-      </div>,
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('variant', () => {
-    const { asFragment } = render(
-      <div>
-        <Radio.Group variant="outline" defaultValue="gz">
-          <Radio value="gz">广州</Radio>
-          <Radio value="sz">深圳</Radio>
-        </Radio.Group>
-
-        <Radio.Group variant="primary-filled" defaultValue="gz1">
-          <Radio value="gz1">广州</Radio>
-          <Radio value="sz1">深圳</Radio>
-        </Radio.Group>
-
-        <Radio.Group variant="default-filled" defaultValue="gz2">
-          <Radio value="gz2">广州</Radio>
-          <Radio value="sz2">深圳</Radio>
-        </Radio.Group>
-      </div>,
-    );
-    expect(asFragment()).toMatchSnapshot();
   });
 });

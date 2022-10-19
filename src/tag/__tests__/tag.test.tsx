@@ -95,14 +95,8 @@ describe('Tag 组件测试', () => {
   test('disabled', async () => {
     const fn = vi.fn();
     const wrapper = render(<Tag disabled={true} onClick={fn}></Tag>);
-    expect(wrapper).toMatchSnapshot();
     fireEvent.click(wrapper.container.firstChild);
     expect(fn).toBeCalledTimes(0);
-  });
-
-  test('icon', async () => {
-    const wrapper = render(<Tag icon={<DiscountIcon />}></Tag>);
-    expect(wrapper).toMatchSnapshot();
   });
 
   test('maxWidth', async () => {
@@ -192,7 +186,6 @@ describe('CheckTag 组件测试', () => {
   test('checked & defaultChecked', () => {
     const wrapper = render(<CheckTag checked={true} defaultChecked={true}></CheckTag>);
     expect(wrapper.container.firstChild.classList.contains('t-tag--checked')).toBeTruthy();
-    expect(wrapper).toMatchSnapshot();
   });
 
   test('content', () => {
