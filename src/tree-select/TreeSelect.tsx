@@ -92,7 +92,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     return filterable && popupVisible ? filterInput : normalizedValue[0] || '';
   }, [multiple, normalizedValue, filterable, popupVisible, filterInput]);
 
-  const inputPlaceholader = useMemo(() => {
+  const inputPlaceholder = useMemo(() => {
     // 可筛选、单选、弹框且有值时提示当前值
     if (filterable && !multiple && popupVisible && normalizedValue.length) {
       return typeof normalizedValue[0].label === 'string' ? normalizedValue[0].label : String(normalizedValue[0].value);
@@ -270,7 +270,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       allowInput={multiple || filterable}
       inputProps={{ ...inputProps, size }}
       tagInputProps={{ size, excessTagsDisplayType: 'break-line', inputProps, tagProps: props.tagProps }}
-      placeholder={inputPlaceholader}
+      placeholder={inputPlaceholder}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
       onPopupVisibleChange={useMergeFn(setPopupVisible)}

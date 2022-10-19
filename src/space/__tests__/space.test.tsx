@@ -5,11 +5,6 @@ import Space from '../index';
 import { SizeMap } from '../Space';
 
 describe('Space 组件测试', () => {
-  test('render', async () => {
-    const { container } = render(<Space></Space>);
-    expect(container).toMatchSnapshot();
-  });
-
   test('direction and size', async () => {
     const sizeMap = new Map<any, string>(
       Object.entries({

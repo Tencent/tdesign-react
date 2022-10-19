@@ -139,12 +139,5 @@ describe('Tooltip 组件测试', () => {
         expect(getTooltip()).toBeTruthy();
       });
     });
-
-    test('disabled-button as children', async () => {
-      await renderWithProps({
-        children: <button disabled>触发元素</button>,
-      });
-      expect(document.body).toMatchSnapshot();
-    });
   });
 });

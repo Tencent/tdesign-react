@@ -6,29 +6,6 @@ describe('Alert 组件测试', () => {
   const testId = 'alert-test-id';
   const text = 'Alert内容';
 
-  test('Alert 主题图标显示', () => {
-    const props = {
-      message: text,
-    };
-    const { asFragment } = render(<Alert {...props} theme="error" />);
-    expect(asFragment()).toMatchSnapshot();
-
-    const { asFragment: asFragment2 } = render(<Alert {...props} theme="warning" />);
-    expect(asFragment2()).toMatchSnapshot();
-
-    const { asFragment: asFragment3 } = render(<Alert {...props} theme="info" />);
-    expect(asFragment3()).toMatchSnapshot();
-
-    const { asFragment: asFragment4 } = render(<Alert {...props} theme="success" />);
-    expect(asFragment4()).toMatchSnapshot();
-
-    const { asFragment: asFragment5 } = render(<Alert {...props} theme="error" />);
-    expect(asFragment5()).toMatchSnapshot();
-
-    const { asFragment: asFragment6 } = render(<Alert {...props} theme="error" icon={<span>CustomIcon</span>} />);
-    expect(asFragment6()).toMatchSnapshot();
-  });
-
   test('Alert 关闭操作', async () => {
     const onClose = vi.fn();
     const onClosed = vi.fn();

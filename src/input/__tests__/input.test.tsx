@@ -1,9 +1,7 @@
 import React from 'react';
 import { render, fireEvent, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
-import { LockOnIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../Input';
-import InputAdornment from '../../input-adornment';
 
 describe('Input 组件测试', () => {
   const InputPlaceholder = '请输入内容';
@@ -17,37 +15,13 @@ describe('Input 组件测试', () => {
     expect(changeFn).toBeCalledTimes(1);
     expect(changeFn.mock.calls[0][0]).toBe(InputValue);
   });
-  test('InputAdornment', async () => {
-    const { asFragment } = render(
-      <InputAdornment prepend="http://">
-        <Input placeholder={InputPlaceholder} />
-      </InputAdornment>,
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
-  test('prefixIcon suffixIcon', async () => {
-    const { asFragment } = render(
-      <Input
-        prefixIcon={<LockOnIcon />}
-        suffixIcon={<ErrorCircleFilledIcon />}
-        placeholder={InputPlaceholder}
-        type="password"
-      />,
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
-  test('prefixIcon is function', async () => {
-    const { asFragment } = render(<Input prefixIcon={() => <span>prefixIcon</span>} placeholder={InputPlaceholder} />);
-    expect(asFragment()).toMatchSnapshot();
-  });
   test('clearable', async () => {
     const clearFn = vi.fn();
-    const { asFragment, queryByPlaceholderText, container } = render(
+    const { queryByPlaceholderText, container } = render(
       <Input placeholder={InputPlaceholder} clearable onClear={clearFn} />,
     );
     fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
     expect(queryByPlaceholderText(InputPlaceholder).value).toEqual(InputValue);
-    expect(asFragment()).toMatchSnapshot();
     fireEvent.mouseEnter(container.firstChild.firstChild);
     fireEvent.click(container.querySelector('.t-input__suffix-clear'));
     expect(queryByPlaceholderText(InputPlaceholder).value).toEqual('');
@@ -118,10 +92,6 @@ describe('Input 组件测试', () => {
   test('password', async () => {
     const { queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} type="password" />);
     expect(queryByPlaceholderText(InputPlaceholder).type).toEqual('password');
-  });
-  test('maxLength', async () => {
-    const { asFragment } = render(<Input placeholder={InputPlaceholder} maxlength={3} />);
-    expect(asFragment()).toMatchSnapshot();
   });
   test('status', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} status="error" />);

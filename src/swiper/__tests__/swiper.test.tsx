@@ -9,7 +9,6 @@ describe('Swiper 组件测试', () => {
   test('create', async () => {
     const { container } = render(<Swiper></Swiper>);
     expect(container.querySelectorAll('.t-swiper')).toHaveLength(1);
-    expect(container).toMatchSnapshot();
   });
 
   // 测试事件

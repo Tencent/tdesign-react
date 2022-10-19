@@ -8,7 +8,6 @@ describe('Rate 组件测试', () => {
     const { container } = render(<Rate />);
     expect(container.firstChild.classList.contains('t-rate')).toBeTruthy();
     expect(document.querySelectorAll('.t-rate__item')).toHaveLength(5);
-    expect(container).toMatchSnapshot();
   });
   // 点击测试
   test('onChange', async () => {
@@ -27,8 +26,7 @@ describe('Rate 组件测试', () => {
   });
   // 数量测试
   test('count', async () => {
-    const { container } = render(<Rate count={10} />);
+    render(<Rate count={10} />);
     expect(document.querySelectorAll('.t-rate__item')).toHaveLength(10);
-    expect(container).toMatchSnapshot();
   });
 });
