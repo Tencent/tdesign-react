@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, Ref, useMemo, useCallback, ReactElement } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -6,11 +6,11 @@ import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getSelectValueArr, getValueToOption } from '../util/helper';
+import { getSelectValueArr, getValueToOption, getSelectedOptions } from '../util/helper';
 import noop from '../../_util/noop';
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
-import SelectInput from '../../select-input';
+import SelectInput, { SelectInputValue } from '../../select-input';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
@@ -107,8 +107,7 @@ const Select = forwardRefWithStatics(
         setCurrentOptions(options);
         setTmpPropOptions(options);
       }
-      // @ts-ignore TODO 待类型完善后移除
-      setValueToOption(getValueToOption(children, options, keys) || {});
+      setValueToOption(getValueToOption(children as ReactElement, options, keys) || {});
     }, [options, keys, children]);
 
     // 同步 value 对应的 options
@@ -163,7 +162,7 @@ const Select = forwardRefWithStatics(
     };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
-    const onTagChange = (_currentTags, context) => {
+    const onTagChange = (_currentTags: SelectInputValue, context) => {
       const { trigger, index, item, e } = context;
       // backspace
       if (trigger === 'backspace') {
@@ -182,13 +181,15 @@ const Select = forwardRefWithStatics(
           return;
         }
         const values = getSelectValueArr(value, value[closest], true, valueType, keys);
-        onChange(values, { e, trigger, selectedOptions: [] });
+
+        // 处理onChange回调中的selectedOptions参数
+        const currentSelectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         return;
       }
 
       if (trigger === 'clear') {
         e.stopPropagation();
-        // TODO: selectedOptions
         onChange([], { e, trigger, selectedOptions: [] });
         return;
       }
@@ -196,7 +197,10 @@ const Select = forwardRefWithStatics(
       if (trigger === 'tag-remove') {
         e.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
-        onChange(values, { e, trigger, selectedOptions: [] });
+        // 处理onChange回调中的selectedOptions参数
+        const currentSelectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+
+        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         if (isFunction(onRemove)) {
           onRemove({
             value: value[index],
@@ -212,7 +216,7 @@ const Select = forwardRefWithStatics(
 
     // 选中 Popup 某项
     const handleChange = (
-      value: string | number,
+      value: string | number | Array<string | number | Record<string, string | number>>,
       context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger },
     ) => {
       if (multiple) {
@@ -223,7 +227,10 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
-      onChange?.(value, { ...context, selectedOptions: [] });
+      // 处理onChange回调中的selectedOptions参数
+      const currentSelectedOptions = getSelectedOptions(value, multiple, valueType, keys, tmpPropOptions);
+
+      onChange?.(value, { ...context, selectedOptions: currentSelectedOptions });
     };
 
     // 处理filter逻辑
@@ -266,9 +273,9 @@ const Select = forwardRefWithStatics(
     const onClearValue = (context) => {
       context.e.stopPropagation();
       if (Array.isArray(value)) {
-        onChange([], context);
+        onChange([], { ...context, selectedOptions: [] });
       } else {
-        onChange(null, context);
+        onChange(null, { ...context, selectedOptions: [] });
       }
       onInputChange(undefined);
       onClear(context);
@@ -304,7 +311,7 @@ const Select = forwardRefWithStatics(
         multiple,
         showPopup,
         // popup弹出层内容只会在点击事件之后触发 并且无任何透传参数
-        setShowPopup: (show) => handleShowPopup(show, {}),
+        setShowPopup: (show: boolean) => handleShowPopup(show, {}),
         options: currentOptions,
         empty,
         max,
@@ -337,7 +344,9 @@ const Select = forwardRefWithStatics(
                 onClose={({ e }) => {
                   e.stopPropagation();
                   const values = getSelectValueArr(value, value[key], true, valueType, keys);
-                  onChange(values, null);
+
+                  const selectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+                  onChange(values, { e, selectedOptions, trigger: 'uncheck' });
                   tagProps?.onClose?.({ e });
                 }}
               >
