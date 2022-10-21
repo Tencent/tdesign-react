@@ -29,11 +29,10 @@
   "types": [
     "node",
     "jest",
+    "vitest/globals",
     "@testing-library/jest-dom",
     "@testing-library/react-hooks",
-    "@testing-library/react",
-    "@testing-library/cypress",
-    "cypress"
+    "@testing-library/react"
   ],
   "compileOnSave": false
 }

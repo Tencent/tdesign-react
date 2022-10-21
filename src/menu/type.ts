@@ -34,11 +34,11 @@ export interface TdMenuProps {
   /**
    * 站点 LOGO
    */
-  logo?: TElement;
+  logo?: TNode;
   /**
    * 导航操作区域
    */
-  operations?: TElement;
+  operations?: TNode;
   /**
    * 菜单风格
    * @default light
@@ -84,11 +84,11 @@ export interface TdHeadMenuProps {
   /**
    * 站点 LOGO
    */
-  logo?: TElement;
+  logo?: TNode;
   /**
    * 导航操作区域
    */
-  operations?: TElement;
+  operations?: TNode;
   /**
    * null
    * @default light
@@ -128,7 +128,7 @@ export interface TdSubmenuProps {
   /**
    * 菜单项图标
    */
-  icon?: TElement;
+  icon?: TNode;
   /**
    * 二级菜单内容
    */

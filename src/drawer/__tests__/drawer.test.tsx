@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { fireEvent, render, testExamples } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
 import Drawer from '../index';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 function DrawerDemo(props) {
   const [visible, setVisible] = useState(false);
@@ -98,7 +95,7 @@ describe('test Drawer', () => {
     });
   });
   test('Drawer onCancel', () => {
-    const onCancelFn = jest.fn();
+    const onCancelFn = vi.fn();
     const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
     fireEvent.click(getByText('Open'));
     expect(onCancelFn).not.toBeCalled();

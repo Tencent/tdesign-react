@@ -37,6 +37,7 @@ const ImageViewer = (props: ImageViewerProps) => {
     setVisibled(true);
   };
   // todo 兼容旧api，新： open close 旧： onOpen, onClose
+  // @ts-ignore TODO 待类型完善后移除
   const uiImage: TNode = isFunction(trigger) ? trigger({ open, close, onOpen: open, onClose: close }) : trigger;
 
   return (

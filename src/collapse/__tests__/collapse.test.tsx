@@ -1,13 +1,10 @@
 import React from 'react';
-import { testExamples, render, act, waitFor, fireEvent } from '@test/utils';
+import { render, fireEvent } from '@test/utils';
 
 import { Collapse } from '..';
 import { TdCollapseProps, TdCollapsePanelProps } from '../type';
 
 const { Panel } = Collapse;
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 type TestComponentProps = {
   collapse?: TdCollapseProps;
@@ -38,19 +35,18 @@ describe('Collapse Unit Test', () => {
         </Panel>
       </Collapse>
     );
-    await act(async () => {
-      render(<CollapseTest />);
-      // 获取 element
-      const element = await waitFor(() => document.querySelector('.t-collapse-panel__header'));
-      expect(element).not.toBeNull();
+    const { container } = render(<CollapseTest />);
 
-      // 默认展开，点击关闭
-      fireEvent.click(element);
-      expect(document.querySelector('.t-collapse-panel__body--collapsed')).toBeNull();
+    // 获取 element
+    const element = container.querySelector('.t-collapse-panel__header');
+    expect(element).not.toBeNull();
 
-      // 当前关闭，点击展开
-      fireEvent.click(element);
-      expect(document.querySelector('.t-collapse-panel__body--collapsed')).not.toBeNull();
-    });
+    // 默认展开，点击关闭
+    fireEvent.click(element);
+    expect(document.querySelector('.t-collapse-panel__body--collapsed')).toBeNull();
+
+    // 当前关闭，点击展开
+    fireEvent.click(element);
+    expect(document.querySelector('.t-collapse-panel__body--collapsed')).not.toBeNull();
   });
 });

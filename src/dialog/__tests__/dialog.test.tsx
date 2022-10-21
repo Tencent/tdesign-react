@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 function DialogDemo(props) {
   const [visible, setVisible] = useState(false);
@@ -31,8 +28,7 @@ function DialogDemo(props) {
         confirmOnEnter
         onClose={handleClose}
         onConfirm={onConfirm}
-        mode={props.mode || 'normal'}
-        draggable={props.draggable || false}
+        {...props}
       >
         <p>This is a dialog</p>
       </Dialog>
@@ -41,6 +37,8 @@ function DialogDemo(props) {
 }
 
 describe('Dialog组件测试', () => {
+  const user = userEvent.setup();
+
   test('BasicDialog', () => {
     const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
@@ -56,19 +54,19 @@ describe('Dialog组件测试', () => {
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
   });
 
-  test('EscCloseDialog', () => {
+  test('EscCloseDialog', async () => {
     const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
     fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
   });
 
-  test('EnterConfirm', () => {
+  test('EnterConfirm', async () => {
     const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
     fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
-    userEvent.keyboard('{Enter}');
+    await user.keyboard('{Enter}');
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
   });
 
@@ -84,7 +82,7 @@ describe('Dialog组件测试', () => {
     expect(document.querySelector('.t-dialog')).toHaveStyle({ left: '0px', top: '0px' });
   });
 
-  test('DialogPlugin', () => {
+  test('DialogPlugin', async () => {
     const showDialog = () => {
       const mydialog = DialogPlugin({
         header: 'Dialog-Plugin',
@@ -157,15 +155,15 @@ describe('Dialog组件测试', () => {
     );
     fireEvent.click(getByText('Show Dialog'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
     fireEvent.click(getByText('Confirm Dialog'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
     fireEvent.click(getByText('Alert Dialog'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
     fireEvent.click(getByText('Handle Dialog'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();

@@ -55,6 +55,7 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
               placement="bottom"
               attach={attach ? () => attach : undefined}
               popupContent={content}
+              // @ts-ignore TODO 待类型完善后移除
               tooltipProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
               classPrefix={extra?.classPrefix}
               overlayClassName={extra?.ellipsisOverlayClassName}

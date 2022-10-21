@@ -77,7 +77,7 @@ const Cascader = (props: CascaderProps) => {
       disabled={props.disabled}
       status={props.status}
       tips={props.tips}
-      suffixIcon={() => renderSuffixIcon()}
+      suffixIcon={renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
         overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},

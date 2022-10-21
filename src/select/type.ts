@@ -128,7 +128,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 组件前置图标
    */
-  prefixIcon?: TElement;
+  prefixIcon?: TNode;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false

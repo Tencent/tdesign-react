@@ -1,18 +1,10 @@
 import React from 'react';
-import { testExamples, render } from '@test/utils';
-import Divider from 'tdesign-react/divider/Divider';
+import { render } from '@test/utils';
+import Divider from '../../divider';
 import Space from '../index';
 import { SizeMap } from '../Space';
 
-// 测试组件代码 Example 快照
-testExamples(__dirname);
-
 describe('Space 组件测试', () => {
-  test('render', async () => {
-    const { container } = render(<Space></Space>);
-    expect(container).toMatchSnapshot();
-  });
-
   test('direction and size', async () => {
     const sizeMap = new Map<any, string>(
       Object.entries({

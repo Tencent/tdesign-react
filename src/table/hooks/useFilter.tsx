@@ -138,6 +138,7 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
     return (
       <TableFilterController
         column={col}
+        // @ts-ignore TODO 待类型完善后移除
         filterIcon={props.filterIcon}
         tFilterValue={tFilterValue}
         innerFilterValue={innerFilterValue}

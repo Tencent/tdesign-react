@@ -1,9 +1,7 @@
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent } from '@test/utils';
 import React from 'react';
 import Loading from '../Loading';
 import { LoadingPlugin as loading } from '../plugin';
-
-testExamples(__dirname);
 
 describe('Loading 组件测试', () => {
   // loading为true显示加载组件

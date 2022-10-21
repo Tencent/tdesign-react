@@ -2,7 +2,6 @@ import React from 'react';
 
 // 兼容特殊数据结构和受控 key
 import Tree from '../tree/Tree';
-import Cascader from '../cascader/Cascader';
 import Upload from '../upload/upload';
 import CheckTag from '../tag/CheckTag';
 import Checkbox from '../checkbox/Checkbox';
@@ -21,11 +20,9 @@ ctrlKeyMap.set(Upload, 'files');
 
 // FormItem 默认数据类型
 export const initialDataMap = new Map();
-[Tree, Upload, Transfer, Cascader, TagInput, RangeInput, CheckboxGroup, DateRangePicker, TimeRangePicker].forEach(
-  (component) => {
-    initialDataMap.set(component, []);
-  },
-);
+[Tree, Upload, Transfer, TagInput, RangeInput, CheckboxGroup, DateRangePicker, TimeRangePicker].forEach((component) => {
+  initialDataMap.set(component, []);
+});
 
 // 整理初始值 优先级：Form.initialData < FormItem.initialData
 export function getDefaultInitialData({ name, formListName, children, initialData, initialDataFromContext }) {

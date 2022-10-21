@@ -1,15 +1,11 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
-import { Icon } from 'tdesign-icons-react';
+import { render, fireEvent, vi } from '@test/utils';
 import Button from '../Button';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Button 组件测试', () => {
   const ButtonText = '按钮组件';
   test('create', async () => {
-    const clickFn = jest.fn();
+    const clickFn = vi.fn();
     const { container, queryByText } = render(<Button onClick={clickFn}>{ButtonText}</Button>);
     expect(container.firstChild.classList.contains('t-button--variant-base')).toBeTruthy();
     expect(queryByText(ButtonText)).toBeInTheDocument();
@@ -33,16 +29,12 @@ describe('Button 组件测试', () => {
     expect(container.firstChild.classList.contains('t-button--variant-outline')).toBeTruthy();
   });
   test('loading', async () => {
-    const clickFn = jest.fn();
+    const clickFn = vi.fn();
     const { container } = render(<Button loading onClick={clickFn} />);
     expect(container.firstChild.classList.contains('t-is-loading')).toBeTruthy();
 
     fireEvent.click(container.firstChild);
     expect(clickFn).toBeCalledTimes(0);
-  });
-  test('icon', async () => {
-    const { asFragment } = render(<Button icon={<Icon name="loading" />} />);
-    expect(asFragment()).toMatchSnapshot();
   });
   test('ghost', async () => {
     const { container } = render(<Button ghost />);
@@ -57,7 +49,7 @@ describe('Button 组件测试', () => {
     expect(container.firstChild.classList.contains('t-button--shape-square')).toBeTruthy();
   });
   test('disabled', async () => {
-    const clickFn = jest.fn();
+    const clickFn = vi.fn();
     const { container } = render(<Button disabled onClick={clickFn} />);
     expect(container.firstChild.nodeName).toBe('DIV');
     fireEvent.click(container.firstChild);

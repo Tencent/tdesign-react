@@ -12,11 +12,12 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { getCharacterLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
 import { TdInputProps } from './type';
-import { StyledProps, TNode } from '../common';
+import { StyledProps, TNode, TElement } from '../common';
 import InputGroup from './InputGroup';
 import useControlled from '../hooks/useControlled';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
@@ -31,20 +32,12 @@ export interface InputRef extends React.RefObject<unknown> {
   select: () => void;
 }
 
-const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode) => {
-  let result: React.ReactNode = null;
-
-  if (icon) result = icon;
-
-  if (typeof icon === 'function') result = icon();
+const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode | TElement) => {
+  const result = parseTNode(icon);
 
   const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : '';
 
-  if (result) {
-    result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
-  }
-
-  return result;
+  return result ? <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span> : null;
 };
 
 const Input = forwardRefWithStatics(
@@ -115,7 +108,7 @@ const Input = forwardRefWithStatics(
     const [composingValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
-    const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
+    const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
     let suffixIconNew = suffixIcon;
 
     if (isShowClearIcon)
@@ -130,7 +123,7 @@ const Input = forwardRefWithStatics(
       }
     }
 
-    const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+    const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
 

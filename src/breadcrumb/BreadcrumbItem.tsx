@@ -7,6 +7,7 @@ import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
+import parseTNode from '../_util/parseTNode';
 import { breadcrumbItemDefaultProps } from './defaultProps';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
@@ -66,7 +67,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     );
   }
 
-  const separatorInProps = typeof separator === 'function' ? separator() : separator;
+  const separatorInProps = parseTNode(separator);
   const separatorContent = separatorInProps || separatorInContext || (
     <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />
   );

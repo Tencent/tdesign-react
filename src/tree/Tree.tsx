@@ -13,6 +13,7 @@ import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
 import { TreeDraggableContext } from './TreeDraggableContext';
+import parseTNode from '../_util/parseTNode';
 
 export type TreeProps = TdTreeProps;
 
@@ -198,14 +199,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     [visibleNodes],
   );
 
-  const renderEmpty = () => {
-    let emptyView = empty || emptyText;
-    if (empty instanceof Function) {
-      emptyView = empty();
-    }
-
-    return emptyView;
-  };
+  const renderEmpty = () => parseTNode(empty, null, emptyText);
 
   const renderItems = () => {
     if (visibleNodes.length <= 0) {

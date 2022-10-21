@@ -7,7 +7,7 @@ import {
 } from 'tdesign-icons-react';
 import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
-import renderTNode from '../_util/renderTNode';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { NotificationInstance, TdNotificationProps } from './type';
@@ -106,7 +106,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
           onCloseBtnClick({ e });
         }}
       >
-        {renderTNode(closeBtn)}
+        {parseTNode(closeBtn)}
       </div>
     );
   };
@@ -124,8 +124,8 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
           <span className={`${baseClassPrefix}__title`}>{title}</span>
           {renderCloseBtn()}
         </div>
-        {content && <div className={`${baseClassPrefix}__content`}>{renderTNode(content)}</div>}
-        {footer && <div className={`${baseClassPrefix}__detail`}>{renderTNode(footer)}</div>}
+        {content && <div className={`${baseClassPrefix}__content`}>{parseTNode(content)}</div>}
+        {footer && <div className={`${baseClassPrefix}__detail`}>{parseTNode(footer)}</div>}
       </div>
     </div>
   );

@@ -1,12 +1,9 @@
 import React from 'react';
-import { render, testExamples, waitFor, fireEvent } from '@test/utils';
-import { act } from 'react-dom/test-utils';
+import { render, waitFor, fireEvent, act, vi } from '@test/utils';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
 import TabNav from '../TabNav';
 import { TdTabsProps } from '../type';
-
-testExamples(__dirname);
 
 describe('Tabs 组件测试', () => {
   test('render Tab bar', async () => {
@@ -49,11 +46,11 @@ describe('Tabs 组件测试', () => {
     expect(() => tabInstance.querySelector('.t-tabs__nav--card')).not.toBe(null);
   });
 
-  jest.useRealTimers();
+  vi.useRealTimers();
   test('async render card', async () => {
     const testId = 'tab bar test id';
 
-    const getLists = jest.fn(
+    const getLists = vi.fn(
       () =>
         new Promise<
           {
@@ -142,7 +139,7 @@ describe('Tabs 组件测试', () => {
   test('remove tab', async () => {
     const testId = 'remove tab test id';
 
-    const removeFn = jest.fn();
+    const removeFn = vi.fn();
 
     const { getByTestId } = render(
       <div data-testid={testId}>
@@ -165,7 +162,7 @@ describe('Tabs 组件测试', () => {
   test('remove disabled tab', async () => {
     const testId = 'remove disabled tab test id';
 
-    const removeFn = jest.fn();
+    const removeFn = vi.fn();
 
     const { getByTestId } = render(
       <div data-testid={testId}>
@@ -188,7 +185,7 @@ describe('Tabs 组件测试', () => {
   test('click tab item', async () => {
     const testId = 'tab item test id';
 
-    const clickFn = jest.fn();
+    const clickFn = vi.fn();
 
     const { getByTestId } = render(
       <div data-testid={testId}>
@@ -211,7 +208,7 @@ describe('Tabs 组件测试', () => {
   test('add tab item', async () => {
     const testId = 'add tab item test id';
 
-    const addFn = jest.fn();
+    const addFn = vi.fn();
 
     const { getByTestId } = render(
       <div data-testid={testId}>
