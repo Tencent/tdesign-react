@@ -100,7 +100,7 @@ const DropdownMenu = (props: DropdownProps) => {
                     ) => handleItemClick({ data: optionItem, context })
               }
             >
-              <span className={`${dropdownClass}-text`}>{optionItem.content}</span>
+              <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
             </DropdownItem>
             {optionItem.divider ? <TDivider /> : null}
           </div>
