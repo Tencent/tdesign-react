@@ -29,7 +29,7 @@ export default function quoteComment() {
 
   return (
     <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
+      avatar="https://tdesign.gtimg.com/site/avatar.jpg"
       author="评论作者名A"
       datetime="今天16:38"
       content="A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
