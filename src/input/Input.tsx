@@ -207,6 +207,12 @@ const Input = forwardRefWithStatics(
       } else {
         value = limitUnicodeMaxLength(value, maxlength);
         if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
+          // 判断新的输入是否超长，超长不给予修改
+          const stringLength = getCharacterLength(value);
+          if (stringLength > maxcharacter) {
+            // show error tips
+            return;
+          }
           const stringInfo = getCharacterLength(value, maxcharacter);
           value = typeof stringInfo === 'object' && stringInfo.characters;
         }

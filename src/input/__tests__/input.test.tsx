@@ -101,4 +101,17 @@ describe('Input 组件测试', () => {
     const { container } = render(<Input placeholder={InputPlaceholder} size="large" />);
     expect(container.firstChild.firstChild.classList.contains('t-size-l')).toBeTruthy();
   });
+  test('value should not be change when over the limit length', async () => {
+    const changeFn = vi.fn();
+    const firstValue = 'Hello';
+    const { queryByPlaceholderText } = render(
+      <Input placeholder={InputPlaceholder} onChange={changeFn} maxcharacter={5} />,
+    );
+    fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: firstValue } });
+    expect(changeFn).toBeCalledTimes(1);
+    const secondValue = 'Hello!Tencent';
+    fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: secondValue } });
+    expect(changeFn).toBeCalledTimes(1);
+    expect(queryByPlaceholderText(InputPlaceholder).value).toBe(firstValue);
+  });
 });
