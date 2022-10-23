@@ -23,6 +23,7 @@ export default function useUpload(props: TdUploadProps) {
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();
   const [globalLocale, t] = useLocaleReceiver('upload');
+  // TODO: 兼容 value，和 files 等效（待扩展实现 useControlled
   const [uploadValue, setUploadValue] = useControlled(props, 'files', props.onChange);
   const xhrReq = useRef<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);

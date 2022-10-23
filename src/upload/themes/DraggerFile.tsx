@@ -12,6 +12,7 @@ import useCommonClassName from '../../hooks/useCommonClassName';
 import TLoading from '../../loading';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
+import ImageViewer from '../../image-viewer';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -49,7 +50,12 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const renderImage = () => {
     const file = displayFiles[0];
     if (!file) return null;
-    return <div className={`${uploadPrefix}__dragger-img-wrap`}>{file.url && <img src={file.url} />}</div>;
+    const url = file.url || file.response?.url;
+    return (
+      <div className={`${uploadPrefix}__dragger-img-wrap`}>
+        {url && <ImageViewer images={[url]} trigger={({ onOpen }) => <img src={url} onClick={onOpen} />}></ImageViewer>}
+      </div>
+    );
   };
 
   const renderUploading = () => {
