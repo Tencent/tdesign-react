@@ -142,6 +142,7 @@ export default function UploadExample() {
           disabled={disabled}
           sizeLimit={{ size: 2, unit: 'MB' }}
           autoUpload={autoUpload}
+          abridgeName={[6, 6]}
           uploadAllFilesInOneRequest={uploadInOneRequest}
           onSuccess={onSuccess}
           onValidate={onValidate}
