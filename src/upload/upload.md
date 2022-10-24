@@ -16,7 +16,7 @@ beforeAllFilesUpload | Function | - | 全部文件上传之前的钩子，参数
 beforeUpload | Function | - | 单文件上传之前的钩子，参数为上传的文件，返回值决定是否继续上传，若返回值为 `false` 则终止上传。TS 类型：`(file: UploadFile) => boolean \| Promise<boolean>` | N
 children | TNode | - | 非拖拽场景，指触发上传的元素，如：“选择文件”。如果是拖拽场景，则是指拖拽区域。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Object | - | 上传文件时所需的额外数据。TS 类型：`Record<string, any> \| ((file: File) => Record<string, any>)` | N
-disabled | Boolean | false | 是否禁用 | N
+disabled | Boolean | - | 是否禁用 | N
 dragContent | TNode | - | 用于自定义拖拽区域。TS 类型：`TNode \| TNode<TriggerContext>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 draggable | Boolean | undefined | 是否启用拖拽上传，不同的组件风格默认值不同 | N
 fileListDisplay | TElement | - | 用于完全自定义文件列表内容。TS 类型：`TNode<{ files: UploadFile[] }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

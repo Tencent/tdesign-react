@@ -52,7 +52,6 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
   data?: Record<string, any> | ((file: File) => Record<string, any>);
   /**
    * 是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**
