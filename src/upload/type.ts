@@ -68,12 +68,12 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   fileListDisplay?: TNode<{ files: UploadFile[] }>;
   /**
-   * 已上传文件列表
+   * 已上传文件列表，同 `value`
    * @default []
    */
   files?: Array<T>;
   /**
-   * 已上传文件列表，非受控属性
+   * 已上传文件列表，同 `value`，非受控属性
    * @default []
    */
   defaultFiles?: Array<T>;
@@ -173,6 +173,16 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   useMockProgress?: boolean;
   /**
+   * 已上传文件列表，同 `files`
+   * @default []
+   */
+  value?: Array<T>;
+  /**
+   * 已上传文件列表，同 `files`，非受控属性
+   * @default []
+   */
+  defaultValue?: Array<T>;
+  /**
    * 上传请求时是否携带 cookie
    * @default false
    */
@@ -198,11 +208,11 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   onDrop?: (context: { e: DragEvent<HTMLDivElement> }) => void;
   /**
-   * 上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果希望判定为上传失败，但接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构
+   * 上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果希望判定为上传失败，但接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构。如果是多文件多请求上传场景，请到事件 `onOneFileFail` 中查看 `response`
    */
   onFail?: (options: UploadFailContext) => void;
   /**
-   * 单个文件上传失败后触发，如果一个请求上传一个文件，则会触发多次
+   * 多文件/图片场景下，单个文件上传失败后触发，如果一个请求上传一个文件，则会触发多次。单文件/图片不会触发
    */
   onOneFileFail?: (options: UploadFailContext) => void;
   /**
@@ -226,7 +236,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   onSelectChange?: (files: File[], context: UploadSelectChangeContext) => void;
   /**
-   * 上传成功后触发。<br/>`context.currentFiles` 表示当次请求上传的文件，`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br/>`context.results` 表示单次选择全部文件上传成功后的响应结果，可以在这个字段存在时提醒用户上传成功或失败。<br />⚠️ `context.file` 请勿使用
+   * 上传成功后触发。<br/>`context.currentFiles` 表示当次请求上传的文件，`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br/>`context.results` 表示单次选择全部文件上传成功后的响应结果，可以在这个字段存在时提醒用户上传成功或失败。<br />
    */
   onSuccess?: (context: SuccessContext) => void;
   /**
