@@ -21,7 +21,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     if (!shouldToggle) return;
 
     const handleDocumentClick = (e: any) => {
-      if (getRefDom(triggerRef).contains(e.target) || hasPopupMouseDown.current) {
+      if (getRefDom(triggerRef)?.contains?.(e.target) || hasPopupMouseDown.current) {
         return;
       }
       visible && onVisibleChange(false, { e, trigger: 'document' });
