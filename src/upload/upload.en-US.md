@@ -16,7 +16,7 @@ beforeAllFilesUpload | Function | - | before all files upload, return false can 
 beforeUpload | Function | - | Typescript：`(file: UploadFile) => boolean \| Promise<boolean>` | N
 children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Object | - | Typescript：`Record<string, any> \| ((file: File) => Record<string, any>)` | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 dragContent | TNode | - | drag content。Typescript：`TNode \| TNode<TriggerContext>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 draggable | Boolean | undefined | \- | N
 fileListDisplay | TElement | - | Typescript：`TNode<{ files: UploadFile[] }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
