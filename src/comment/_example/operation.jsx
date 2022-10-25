@@ -22,7 +22,7 @@ export default function OperationComment() {
 
   return (
     <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
+      avatar="https://tdesign.gtimg.com/site/avatar.jpg"
       author="评论作者名"
       datetime="今天16:38"
       content="评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
