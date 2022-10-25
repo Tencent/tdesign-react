@@ -196,9 +196,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
               ? renderBatchActionCol(index)
               : renderNormalActionCol(file, index);
-          const fileName = props.abridgeName?.length
-            ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1])
-            : file.name;
+          const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
           return (
             <tr key={file.name + index}>
               <td>

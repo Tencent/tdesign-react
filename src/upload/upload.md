@@ -16,8 +16,8 @@ beforeAllFilesUpload | Function | - | 全部文件上传之前的钩子，参数
 beforeUpload | Function | - | 单文件上传之前的钩子，参数为上传的文件，返回值决定是否继续上传，若返回值为 `false` 则终止上传。TS 类型：`(file: UploadFile) => boolean \| Promise<boolean>` | N
 children | TNode | - | 非拖拽场景，指触发上传的元素，如：“选择文件”。如果是拖拽场景，则是指拖拽区域。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 data | Object | - | 上传文件时所需的额外数据。TS 类型：`Record<string, any> \| ((file: File) => Record<string, any>)` | N
-disabled | Boolean | false | 是否禁用 | N
-dragContent | TNode | - | 用于自定义拖拽区域。TS 类型：`TNode<TriggerContext>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+disabled | Boolean | - | 是否禁用 | N
+dragContent | TNode | - | 用于自定义拖拽区域。TS 类型：`TNode \| TNode<TriggerContext>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 draggable | Boolean | undefined | 是否启用拖拽上传，不同的组件风格默认值不同 | N
 fileListDisplay | TElement | - | 用于完全自定义文件列表内容。TS 类型：`TNode<{ files: UploadFile[] }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 files | Array | [] | 已上传文件列表，同 `value`。TS 类型：`Array<T>` | N
@@ -51,8 +51,8 @@ onChange | Function |  | TS 类型：`(value: Array<T>, context: UploadChangeCon
 onDragenter | Function |  | TS 类型：`(context: { e: DragEvent }) => void`<br/>进入拖拽区域时触发 | N
 onDragleave | Function |  | TS 类型：`(context: { e: DragEvent }) => void`<br/>离开拖拽区域时触发 | N
 onDrop | Function |  | TS 类型：`(context: { e: DragEvent }) => void`<br/>拖拽结束时触发 | N
-onFail | Function |  | TS 类型：`(options: UploadFailContext) => void`<br/>上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果希望判定为上传失败，但接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadFailContext { e: ProgressEvent; failedFiles: UploadFile[]; currentFiles: UploadFile[]; response?: any; file: UploadFile }`<br/> | N
-onOneFileFail | Function |  | TS 类型：`(options: UploadFailContext) => void`<br/>单个文件上传失败后触发，如果一个请求上传一个文件，则会触发多次 | N
+onFail | Function |  | TS 类型：`(options: UploadFailContext) => void`<br/>上传失败后触发。`response` 指接口响应结果，`response.error` 会作为错误文本提醒。如果希望判定为上传失败，但接口响应数据不包含 `error` 字段，可以使用 `formatResponse` 格式化 `response` 数据结构。如果是多文件多请求上传场景，请到事件 `onOneFileFail` 中查看 `response`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadFailContext { e: ProgressEvent; failedFiles: UploadFile[]; currentFiles: UploadFile[]; response?: any; file: UploadFile }`<br/> | N
+onOneFileFail | Function |  | TS 类型：`(options: UploadFailContext) => void`<br/>多文件/图片场景下，单个文件上传失败后触发，如果一个请求上传一个文件，则会触发多次。单文件/图片不会触发 | N
 onOneFileSuccess | Function |  | TS 类型：`(context: Pick<SuccessContext, 'e' \| 'file' \| 'response'>) => void`<br/>单个文件上传成功后触发，在多文件场景下会触发多次。`context.file` 表示当前上传成功的单个文件，`context.response` 表示上传请求的返回数据 | N
 onPreview | Function |  | TS 类型：`(options: { file: UploadFile; index: number; e: MouseEvent }) => void`<br/>点击图片预览时触发，文件没有预览 | N
 onProgress | Function |  | TS 类型：`(options: ProgressContext) => void`<br/>上传进度变化时触发，真实进度和模拟进度都会触发。`type=real` 表示真实上传进度，`type=mock` 表示模拟上传进度。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface ProgressContext { e?: ProgressEvent; file?: UploadFile; currentFiles: UploadFile[]; percent: number; type: UploadProgressType }`<br/><br/>`type UploadProgressType = 'real' \| 'mock'`<br/> | N
