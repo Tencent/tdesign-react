@@ -1,9 +1,73 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Drawer, Guide, Input, Row } from 'tdesign-react';
-import './base.css';
 import DialogBody from './dialog-body';
 
+const classStyles = `
+<style>
+.guide-container {
+  max-width: 600px;
+  padding: 40px;
+}
+
+.title-major {
+  color: var(--td-text-color-primary);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+.title-sub {
+  margin-top: 8px;
+  color: var(--td-text-color-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.field {
+  margin-top: 50px;
+}
+
+.label {
+  margin-bottom: 8px;
+  color: var(--td-text-color-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.action {
+  display: inline-flex;
+  margin-top: 50px;
+}
+
+.action button:first-child {
+  margin-right: 10px;
+}
+
+/* dialog body */
+
+.dialog-img {
+  width: 100%;
+}
+
+p {
+  margin-top: 16px;
+  color: var(--td-text-color-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 22px;
+}
+</style>
+`;
+
 export default function DialogGuide() {
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   const steps = [
     {
       element: '.main-title-dialog',

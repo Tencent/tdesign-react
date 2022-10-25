@@ -1,9 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowUpIcon } from 'tdesign-icons-react';
 import Button from '../../button';
-import './my-popup.css';
+
+const classStyles = `
+<style>
+.my-popup {
+  width: 240px;
+}
+
+.pop-icon {
+  margin-top: 10px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.popup-desc {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 20px;
+}
+
+.popup-action {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.popup-action button {
+  margin-left: 8px;
+}
+
+</style>
+`;
 
 export default function MyPopup(props) {
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   const { handlePrev, handleNext, handleSkip, handleFinish, current, total } = props;
 
   return (
