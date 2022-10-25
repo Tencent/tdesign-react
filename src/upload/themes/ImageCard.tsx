@@ -10,6 +10,7 @@ import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
 import { TdUploadProps, UploadFile } from '../type';
+import { abridgeName } from '../../_common/js/upload/utils';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];
@@ -69,26 +70,26 @@ const ImageCard = (props: ImageCardUploadProps) => {
   );
 
   const renderProgressFile = (file: UploadFile, loadCard: string) => (
-      <div className={loadCard}>
-        <Loading loading={true} size="medium" />
-        <p>
-          {locale?.progress?.uploadingText}
-          {props.showUploadProgress ? ` ${file.percent}%` : ''}
-        </p>
-      </div>
-    );
+    <div className={loadCard}>
+      <Loading loading={true} size="medium" />
+      <p>
+        {locale?.progress?.uploadingText}
+        {props.showUploadProgress ? ` ${file.percent}%` : ''}
+      </p>
+    </div>
+  );
 
   const renderFailFile = (file: UploadFile, index: number, loadCard: string) => (
-      <div className={loadCard}>
-        <ErrorCircleFilledIcon />
-        <p>{file.response?.error || locale?.progress?.failText}</p>
-        <div className={`${classPrefix}-upload__card-mask`}>
-          <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
-            <DeleteIcon onClick={({ e }: { e: MouseEvent }) => props?.onRemove?.({ e, file, index })} />
-          </span>
-        </div>
+    <div className={loadCard}>
+      <ErrorCircleFilledIcon />
+      <p>{file.response?.error || locale?.progress?.failText}</p>
+      <div className={`${classPrefix}-upload__card-mask`}>
+        <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
+          <DeleteIcon onClick={({ e }: { e: MouseEvent }) => props?.onRemove?.({ e, file, index })} />
+        </span>
       </div>
-    );
+    </div>
+  );
 
   const cardItemClasses = `${classPrefix}-upload__card-item ${classPrefix}-is-background`;
   return (
@@ -96,12 +97,13 @@ const ImageCard = (props: ImageCardUploadProps) => {
       <ul className={`${classPrefix}-upload__card`}>
         {displayFiles?.map((file: UploadFile, index: number) => {
           const loadCard = `${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`;
+          const fileName = props.abridgeName ? abridgeName(file.name, ...props.abridgeName) : file.name;
           return (
             <li className={cardItemClasses} key={index}>
               {file.status === 'progress' && renderProgressFile(file, loadCard)}
               {file.status === 'fail' && renderFailFile(file, index, loadCard)}
               {!['progress', 'fail'].includes(file.status) && file.url && renderMainContent(file, index)}
-              <div className={`${classPrefix}-upload__card-name`}>{file.name}</div>
+              <div className={`${classPrefix}-upload__card-name`}>{fileName}</div>
             </li>
           );
         })}
