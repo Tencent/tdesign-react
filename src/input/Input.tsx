@@ -179,7 +179,7 @@ const Input = forwardRefWithStatics(
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onWheel={handleWheel}
+        onWheel={(e) => onWheel?.({ e })}
         onClick={(e) => onClick?.({ e })}
       >
         {prefixIconContent}
@@ -201,18 +201,18 @@ const Input = forwardRefWithStatics(
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
-      let { value } = e.currentTarget;
+      let { value: newStr } = e.currentTarget;
       if (composingRef.current) {
-        setComposingValue(value);
+        setComposingValue(newStr);
       } else {
-        value = limitUnicodeMaxLength(value, maxlength);
+        newStr = limitUnicodeMaxLength(newStr, maxlength, String(value));
         if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
-          const stringInfo = getCharacterLength(value, maxcharacter);
-          value = typeof stringInfo === 'object' && stringInfo.characters;
+          const stringInfo = getCharacterLength(newStr, maxcharacter);
+          newStr = typeof stringInfo === 'object' && stringInfo.characters;
         }
         // 完成中文输入时同步一次 composingValue
-        setComposingValue(value);
-        onChange(value, { e });
+        setComposingValue(newStr);
+        onChange(newStr, { e });
       }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
@@ -290,10 +290,6 @@ const Input = forwardRefWithStatics(
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
       toggleIsHover(false);
       onMouseleave?.({ e });
-    }
-
-    function handleWheel(e: React.WheelEvent<HTMLDivElement>) {
-      onWheel?.({ e });
     }
 
     useImperativeHandle(ref as InputRef, () => ({
