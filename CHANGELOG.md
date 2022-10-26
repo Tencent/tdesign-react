@@ -14,7 +14,7 @@ spline: explain
 
 ### 🐞 Bug Fixes
 - `Drawer`: 修复浮层关闭后聚焦问题 @NWYLZW ([#1591](https://github.com/Tencent/tdesign-react/pull/1591))
-- `Input`: 修复input 限制字符无效问题 @HQ-Lin ([#1624](https://github.com/Tencent/tdesign-react/pull/1624))
+- `Input`: 修复 input 限制字符无效问题 @HQ-Lin ([#1624](https://github.com/Tencent/tdesign-react/pull/1624))
 - `Slider`: 修复 slider marks 为 object 时刻度位置异常 @HelKyle ([#1600](https://github.com/Tencent/tdesign-react/pull/1600))
 - `Popup`: 兼容 trigger 元素获取异常报错问题 @HQ-Lin ([#1626](https://github.com/Tencent/tdesign-react/pull/1626))
 - `Form`: 调整 `requireMark `、`showErrorMessage`等默认值 @HQ-Lin ([#1602](https://github.com/Tencent/tdesign-react/pull/1602))
@@ -26,14 +26,14 @@ spline: explain
 - `Upload`:
     - 修复 `name` 无效问题 @chaishi ([#1616](https://github.com/Tencent/tdesign-react/pull/1616))
     - 图片上传，自定义上传方法不支持图片回显问题 @chaishi ([#1616](https://github.com/Tencent/tdesign-react/pull/1616))
-    - 修复便衣结果无法识别 `interface` 文件问题，[issue#1586](https://github.com/Tencent/tdesign-react/issues/1586) @chaishi ([#1616](https://github.com/Tencent/tdesign-react/pull/1616))
+    - 修复结果无法识别 `interface` 文件问题，[issue#1586](https://github.com/Tencent/tdesign-react/issues/1586) @chaishi ([#1616](https://github.com/Tencent/tdesign-react/pull/1616))
     - 修复 Form 控制禁用状态失效问题 @chaishi ([#1621](https://github.com/Tencent/tdesign-react/pull/1621))
 - `Tabs`:
     - 支持 list api @NWYLZW ([#1598](https://github.com/Tencent/tdesign-react/pull/1598))
     - 修复 activeId 下划线不能跟随内容变动而变化的问题 @insekkei ([#1607](https://github.com/Tencent/tdesign-react/pull/1607))
 
 ### 🚧 Others
-- feat: 测试框架切换至 vitest @HQ-Lin ([#1596](https://github.com/Tencent/tdesign-react/pull/1596))
+- 测试框架切换至 vitest @HQ-Lin ([#1596](https://github.com/Tencent/tdesign-react/pull/1596))
 
 ## 🌈 0.42.3 `2022-10-14` 
 ### 🚀 Features
