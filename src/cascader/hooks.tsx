@@ -99,7 +99,6 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       store.append(options);
       setTreeStore(store);
     } else {
-      if (isEqual(treeStore.config.options, options)) return;
       treeStore.reload(options);
       treeStore.refreshNodes();
       treeStoreExpendEffect(treeStore, scopeVal, []);
@@ -123,10 +122,9 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       load,
       lazy,
       valueMode,
-      options,
     };
     treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
+  }, [checkStrictly, disabled, keys, lazy, load, valueMode, treeStore]);
 
   // value 校验逻辑
   useEffect(() => {
