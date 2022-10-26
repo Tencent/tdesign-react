@@ -10,7 +10,7 @@ const testConfig: InlineConfig = {
       : ['src/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   globals: true,
   environment: 'jsdom',
-  testTimeout: 8000,
+  testTimeout: 16000,
   transformMode: {
     web: [/\.[jt]sx$/],
   },
