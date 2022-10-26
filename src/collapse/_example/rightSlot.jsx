@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Button, Checkbox } from 'tdesign-react';
+import { Collapse, Button, Checkbox, Space } from 'tdesign-react';
 
 const { Panel } = Collapse;
 export default function CollapseExample() {
@@ -15,7 +15,7 @@ export default function CollapseExample() {
       <Panel
         header="这是一个折叠标题"
         headerRightContent={
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Space>
             <Checkbox
               checked={disable}
               onClick={() => {
@@ -25,7 +25,7 @@ export default function CollapseExample() {
               是否禁止
             </Checkbox>
             <Button size="small">操作</Button>
-          </div>
+          </Space>
         }
         disabled={disable}
       >

@@ -85,9 +85,7 @@ export default function NormalFile(props: NormalFileProps) {
     ];
     const disabledClass = disabled ? `${classPrefix}-is-disabled` : '';
     const fileName =
-      props.abridgeName?.length && file?.name
-        ? abridgeName(file.name, props.abridgeName[0], props.abridgeName[1])
-        : file?.name;
+      props.abridgeName?.length && file?.name ? abridgeName(file.name, ...props.abridgeName) : file?.name;
     return (
       <div className={`${uploadPrefix}__single-input-preview ${classPrefix}-input ${disabledClass}`}>
         <div className={classNames(inputTextClass)}>
