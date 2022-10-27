@@ -45,12 +45,10 @@ const FormList = (props: TdFormListProps) => {
       }
     },
     remove(index: number | number[]) {
-      const nextFields = fields
-        .filter((_, i) => {
-          if (Array.isArray(index)) return !index.includes(i);
-          return i !== index;
-        })
-        .map((field, index) => Object.assign(field, { name: index }));
+      const nextFields = fields.filter((_, i) => {
+        if (Array.isArray(index)) return !index.includes(i);
+        return i !== index;
+      });
 
       setInitialValue(initialValue.filter((_, idx) => idx !== index));
       setFields(nextFields);
@@ -122,11 +120,13 @@ const FormList = (props: TdFormListProps) => {
       getValue() {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
+          if (!formItemRef.current) return;
+
           const { name, getValue } = formItemRef.current;
           const fieldValue = calcFieldValue(name, getValue());
           merge(formListValue, fieldValue);
         });
-        return formListValue;
+        return formListValue.filter((item) => !!item);
       },
       validate: (trigger = 'all') => {
         const resultList = [];
@@ -172,6 +172,8 @@ const FormList = (props: TdFormListProps) => {
       },
       setValidateMessage: (fieldData) => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {
+          if (!formItemRef.current) return;
+
           const { name } = formItemRef.current;
           const data = get(fieldData, name);
 
