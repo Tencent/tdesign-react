@@ -45,9 +45,9 @@ const FormList = (props: TdFormListProps) => {
       }
     },
     remove(index: number | number[]) {
-      const nextFields = fields.filter((_, i) => {
-        if (Array.isArray(index)) return !index.includes(i);
-        return i !== index;
+      const nextFields = fields.filter((item) => {
+        if (Array.isArray(index)) return !index.includes(item.name);
+        return item.name !== index;
       });
 
       setInitialValue(initialValue.filter((_, idx) => idx !== index));
