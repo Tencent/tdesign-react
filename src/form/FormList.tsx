@@ -3,6 +3,7 @@ import merge from 'lodash/merge';
 import get from 'lodash/get';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
+import { HOOK_MARK } from './hooks/useForm';
 import { TdFormListProps, FormListFieldOperation, FormListField } from './type';
 import { calcFieldValue } from './utils';
 import log from '../_common/js/log';
@@ -10,7 +11,7 @@ import log from '../_common/js/log';
 let key = 0;
 
 const FormList = (props: TdFormListProps) => {
-  const { formMapRef } = useFormContext();
+  const { formMapRef, form } = useFormContext();
   const { name, initialData = [], rules, children } = props;
 
   const [initialValue, setInitialValue] = useState(initialData);
@@ -45,10 +46,12 @@ const FormList = (props: TdFormListProps) => {
       }
     },
     remove(index: number | number[]) {
-      const nextFields = fields.filter((item) => {
-        if (Array.isArray(index)) return !index.includes(item.name);
-        return item.name !== index;
-      });
+      const nextFields = fields
+        .filter((item) => {
+          if (Array.isArray(index)) return !index.includes(item.name);
+          return item.name !== index;
+        })
+        .map((field, i) => ({ ...field, name: i }));
 
       setInitialValue(initialValue.filter((_, idx) => idx !== index));
       setFields(nextFields);
@@ -89,6 +92,9 @@ const FormList = (props: TdFormListProps) => {
   }, [initialValue]);
 
   useEffect(() => {
+    // fields 变化通知 watch 事件
+    form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
+
     const currentQueue = fieldsTaskQueueRef.current.pop();
     if (!currentQueue) return;
 
@@ -100,7 +106,7 @@ const FormList = (props: TdFormListProps) => {
       const data = get(fieldData, name);
       callback(formItemRef, data);
     });
-  }, [fields]);
+  }, [form, name, fields]);
 
   useEffect(() => {
     if (!name || !formMapRef) return;
@@ -126,7 +132,7 @@ const FormList = (props: TdFormListProps) => {
           const fieldValue = calcFieldValue(name, getValue());
           merge(formListValue, fieldValue);
         });
-        return formListValue.filter((item) => !!item);
+        return formListValue;
       },
       validate: (trigger = 'all') => {
         const resultList = [];
