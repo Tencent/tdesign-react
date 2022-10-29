@@ -192,6 +192,6 @@ export interface TdInputProps {
   onWheel?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
 }
 
-export type InputFormatType = (value: InputValue) => number | string;
+export type InputFormatType = (value: InputValue) => string;
 
 export type InputValue = string;
