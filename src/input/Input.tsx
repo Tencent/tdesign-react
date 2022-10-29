@@ -330,7 +330,9 @@ const Input = forwardRefWithStatics(
       >
         {renderInputNode}
         {tips && (
-          <div className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status}`)}>
+          <div
+            className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${tStatus || 'default'}`)}
+          >
             {tips}
           </div>
         )}
