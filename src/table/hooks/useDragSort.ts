@@ -51,6 +51,16 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     originalColumns.current = props.columns;
   }, [props.columns]);
 
+  // 本地分页的表格，index 不同，需加上分页计数
+  function getDataPageIndex(index: number) {
+    const { pagination } = props;
+    // 开启本地分页的场景
+    if (!props.disableDataPage && pagination && data.length > pagination.pageSize) {
+      return pagination.pageSize * (pagination.current - 1) + index;
+    }
+    return index;
+  }
+
   const registerRowDragEvent = (element: HTMLElement) => {
     if (!isRowHandlerDraggable && !isRowDraggable) return;
     // 拖拽实例
@@ -82,7 +92,11 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
           targetIndex,
           target: tData.current[targetIndex],
           data: tData.current,
-          newData: swapDragArrayElement([...tData.current], currentIndex, targetIndex),
+          newData: swapDragArrayElement(
+            [...tData.current],
+            getDataPageIndex(currentIndex),
+            getDataPageIndex(targetIndex),
+          ),
           e: evt,
           sort: 'row',
         };
