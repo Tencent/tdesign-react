@@ -62,7 +62,6 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     }
     const baseOptions: SortableOptions = {
       animation: 150,
-      ...props.dragSortOptions,
       ghostClass: tableDraggableClasses.ghost,
       chosenClass: tableDraggableClasses.chosen,
       dragClass: tableDraggableClasses.dragging,
@@ -92,6 +91,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
 
         onDragSort?.(params);
       },
+      ...props.dragSortOptions,
     };
 
     if (!dragContainer) return;
