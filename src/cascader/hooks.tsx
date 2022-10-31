@@ -21,7 +21,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
   const [innerPopupVisible, setPopupVisible] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
 
-  const [inputVal, setInputVal] = useState<number | string>('');
+  const [inputVal, setInputVal] = useState('');
   const [treeStore, setTreeStore] = useState(null);
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);

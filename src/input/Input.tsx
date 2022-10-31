@@ -10,7 +10,6 @@ import useLayoutEffect from '../_util/useLayoutEffect';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { getCharacterLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
 import { TdInputProps } from './type';
 import { StyledProps, TNode, TElement } from '../common';
 import InputGroup from './InputGroup';
@@ -18,6 +17,7 @@ import useControlled from '../hooks/useControlled';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
+import useLengthLimit from './useLengthLimit';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
@@ -74,6 +74,8 @@ const Input = forwardRefWithStatics(
       suffix,
       showInput = true,
       keepWrapperWidth,
+      showLimitNumber,
+      allowInputOverMax,
       format,
       onClick,
       onClear,
@@ -89,11 +91,21 @@ const Input = forwardRefWithStatics(
       onWheel,
       onCompositionstart,
       onCompositionend,
+      onValidate,
       onChange: onChangeFromProps,
       ...restProps
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
+
+    const { limitNumber, getValueByLimitNumber, tStatus } = useLengthLimit({
+      value: value === undefined ? undefined : String(value),
+      status,
+      maxlength,
+      maxcharacter,
+      allowInputOverMax,
+      onValidate,
+    });
 
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
@@ -126,6 +138,8 @@ const Input = forwardRefWithStatics(
     const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
+    const limitNumberNode =
+      limitNumber && showLimitNumber ? <div className={`${classPrefix}-input__limit-number`}>{limitNumber}</div> : null;
 
     useLayoutEffect(() => {
       // 推迟到下一帧处理防止异步渲染 input 场景宽度计算为 0
@@ -139,13 +153,16 @@ const Input = forwardRefWithStatics(
       setRenderType(type);
     }, [type]);
 
+    const innerValue = composingRef.current ? composingValue : value ?? '';
+    const formatDisplayValue = format && !isFocused ? format(innerValue) : innerValue;
+
     const renderInput = (
       <input
         ref={inputRef}
         placeholder={placeholder}
         type={renderType}
         className={`${classPrefix}-input__inner`}
-        value={composingRef.current ? composingValue : value ?? ''}
+        value={formatDisplayValue}
         readOnly={readonly}
         disabled={disabled}
         autoComplete={autocomplete ?? (local.autocomplete || undefined)}
@@ -172,7 +189,7 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-size-l`]: size === 'large',
           [`${classPrefix}-size-m`]: size === 'medium',
           [`${classPrefix}-align-${align}`]: align,
-          [`${classPrefix}-is-${status}`]: status,
+          [`${classPrefix}-is-${tStatus}`]: tStatus,
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
@@ -190,7 +207,12 @@ const Input = forwardRefWithStatics(
             {value || placeholder}
           </span>
         )}
-        {suffixContent ? <div className={`${classPrefix}-input__suffix`}>{suffixContent}</div> : null}
+        {suffixContent || limitNumberNode ? (
+          <div className={`${classPrefix}-input__suffix`}>
+            {suffixContent}
+            {limitNumberNode}
+          </div>
+        ) : null}
         {suffixIconContent}
       </div>
     );
@@ -205,10 +227,8 @@ const Input = forwardRefWithStatics(
       if (composingRef.current) {
         setComposingValue(newStr);
       } else {
-        newStr = limitUnicodeMaxLength(newStr, maxlength, String(value));
-        if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
-          const stringInfo = getCharacterLength(newStr, maxcharacter);
-          newStr = typeof stringInfo === 'object' && stringInfo.characters;
+        if (props.type !== 'number') {
+          newStr = getValueByLimitNumber(newStr);
         }
         // 完成中文输入时同步一次 composingValue
         setComposingValue(newStr);
@@ -271,7 +291,6 @@ const Input = forwardRefWithStatics(
       const {
         currentTarget: { value },
       } = e;
-      format && onChange(format(value), { e });
       onBlur?.(value, { e });
       toggleIsFocused(false);
     }
@@ -311,7 +330,9 @@ const Input = forwardRefWithStatics(
       >
         {renderInputNode}
         {tips && (
-          <div className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status}`)}>
+          <div
+            className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${tStatus || 'default'}`)}
+          >
             {tips}
           </div>
         )}
