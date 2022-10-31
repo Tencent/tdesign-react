@@ -76,42 +76,44 @@ const MessageContainer: React.FC<MessageContainerProps> = (props) => {
 /**
  * @desc 创建容器，所有的 message 会填充到容器中
  */
-function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
-  // 默认注入到 body 中，如果用户有指定，以用户指定的为准
-  let mountedDom: AttachNodeReturnValue = document.body;
+function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions): Promise<Element> {
+  return new Promise((resolve) => {
+    // 默认注入到 body 中，如果用户有指定，以用户指定的为准
+    let mountedDom: AttachNodeReturnValue = document.body;
 
-  // attach 为字符串时认为是选择器
-  if (typeof attach === 'string') {
-    const result = document.querySelectorAll(attach);
-    if (result.length >= 1) {
-      // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable
-      // eslint-disable-next-line prefer-destructuring
-      mountedDom = result[0];
+    // attach 为字符串时认为是选择器
+    if (typeof attach === 'string') {
+      const result = document.querySelectorAll(attach);
+      if (result.length >= 1) {
+        // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable
+        // eslint-disable-next-line prefer-destructuring
+        mountedDom = result[0];
+      }
+    } else if (typeof attach === 'function') {
+      mountedDom = attach();
     }
-  } else if (typeof attach === 'function') {
-    mountedDom = attach();
-  }
 
-  // 选择器找到一个挂载 message 的容器，不存在则创建
-  const containerId = `tdesign-message-container--${placement}`;
-  const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-  if (container.length < 1) {
-    const div = document.createElement('div');
-    ReactDOM.render(<MessageContainer id={containerId} placement={placement} zIndex={zIndex} />, div);
-    mountedDom.appendChild(div);
-
-    // 通过上述流程后保证此处一定存在 container
+    // 选择器找到一个挂载 message 的容器，不存在则创建
+    const containerId = `tdesign-message-container--${placement}`;
     const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-    return container[0];
-  }
-  return container[0];
+    if (container.length < 1) {
+      const div = document.createElement('div');
+      ReactDOM.render(<MessageContainer id={containerId} placement={placement} zIndex={zIndex} />, div, () => {
+        mountedDom.appendChild(div);
+        const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+        resolve(container[0]);
+      });
+    } else {
+      resolve(container[0]);
+    }
+  });
 }
 
 /**
  * @desc 函数式调用时的 message 渲染函数
  */
-function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
-  const container = createContainer(config) as HTMLElement;
+async function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
+  const container = (await createContainer(config)) as HTMLElement;
 
   const { content, offset, onDurationEnd = noop, onCloseBtnClick = noop } = config;
   const div = document.createElement('div');
