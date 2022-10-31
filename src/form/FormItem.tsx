@@ -31,6 +31,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 
 export interface FormItemInstance {
   name?: NamePath;
+  isUpdated?: boolean;
   value?: any;
   getValue?: Function;
   setValue?: Function;
@@ -107,6 +108,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
+  const isUpdatedRef = useRef(false); // 校验开关
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
@@ -145,6 +147,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
 
+    isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
     setFormValue(newVal);
@@ -425,6 +428,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const instance: FormItemInstance = {
     name,
     value: formValue,
+    isUpdated: isUpdatedRef.current,
     getValue: () => valueRef.current,
     setValue: (newVal: any) => updateFormValue(newVal),
     setField,

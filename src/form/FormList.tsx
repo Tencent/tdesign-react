@@ -83,8 +83,8 @@ const FormList = (props: TdFormListProps) => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
       if (!formItemRef.current) return;
 
-      const { name, value } = formItemRef.current;
-      if (value) return; // 内部有值则忽略初始化设置
+      const { name, isUpdated } = formItemRef.current;
+      if (isUpdated) return; // 内部更新过值则跳过
 
       const data = get(initialValue, name);
       formItemRef.current.setField({ value: data, status: 'not' });
@@ -159,6 +159,7 @@ const FormList = (props: TdFormListProps) => {
           });
         });
       },
+      // TODO 支持局部更新数据
       setValue: (fieldData: any[]) => {
         setListFields(fieldData, (formItemRef, data) => {
           formItemRef?.current?.setValue?.(data);
