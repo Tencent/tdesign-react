@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Pagination Props
 
 name | type | default | description | required
@@ -10,13 +9,14 @@ className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 current | Number | 1 | \- | N
 defaultCurrent | Number | 1 | uncontrolled property | N
-disabled | Boolean | false | \- | N
+disabled | Boolean | - | \- | N
 foldedMaxPageBtn | Number | 5 | \- | N
 maxPageBtn | Number | 10 | \- | N
 pageEllipsisMode | String | mid | options：mid/both-ends | N
 pageSize | Number | 10 | each page count | N
 defaultPageSize | Number | 10 | each page count。uncontrolled property | N
-pageSizeOptions | Array | () => [5, 10, 20, 50] | Typescript：`Array<number \| { label: string; value: number }>` | N
+pageSizeOptions | Array | [5, 10, 20, 50] | Typescript：`Array<number \| { label: string; value: number }>` | N
+selectProps | Object | - | Typescript：`SelectProps`，[Select API Documents](./select?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/pagination/type.ts) | N
 showFirstAndLastPageBtn | Boolean | false | \- | N
 showJumper | Boolean | false | \- | N
 showPageNumber | Boolean | true | \- | N

@@ -60,6 +60,7 @@ export default function useColumnResize(
     if (!resizeLineRef.current) return;
 
     const target = (e.target as HTMLElement).closest('th');
+    if (!target) return;
     const targetBoundRect = target.getBoundingClientRect();
     if (!resizeLineParams.isDragging) {
       // 当离右边框的距离不超过 8 时，显示拖拽图标

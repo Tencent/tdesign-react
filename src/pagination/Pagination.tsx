@@ -145,7 +145,14 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
   const pageSizeContrl =
     showPageSize && pageSizeOptions.length ? (
       <div className={`${name}__select`}>
-        <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+        <Select
+          autoWidth={true}
+          size={size}
+          value={pageSize}
+          disabled={disabled}
+          onChange={changePageSize}
+          {...props.selectProps}
+        >
           {pageSizeOptions.map((item) =>
             typeof item === 'number' ? (
               <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />

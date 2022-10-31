@@ -56,6 +56,7 @@ export default function TableBasic() {
 
   return (
     <Table
+      id='pagination-table'
       data={data}
       columns={columns}
       rowKey="index"
@@ -75,6 +76,11 @@ export default function TableBasic() {
         onPageSizeChange(size, pageInfo) {
           console.log(size, 'onPageSizeChange size');
           console.log(pageInfo, 'onPageSizeChange pageInfo');
+        },
+        selectProps: {
+          popupProps: {
+            attach: () => document.getElementById('pagination-table'),
+          },
         },
       }}
       // 受控用法：与分页组件对齐
