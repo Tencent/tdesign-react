@@ -1,7 +1,9 @@
-import React, { MouseEvent, useRef } from 'react';
+import React, { MouseEvent } from 'react';
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import useRipple from '../_util/useRipple';
+import useDomRefCallback from '../hooks/useDomRefCallback';
+
 import { TdTabPanelProps, TdTabsProps } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
@@ -45,8 +47,10 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   // 样式变量和常量定义
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
-  const rippleRef = useRef();
-  useRipple(rippleRef);
+
+  // 斜八度动画
+  const [navItemDom, setRefCurrent] = useDomRefCallback();
+  useRipple(navItemDom);
 
   return (
     <div
@@ -65,7 +69,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
       {isCard ? (
         <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
       ) : (
-        <div ref={rippleRef} className={classNames(tdTabsClassGenerator('nav-item-wrapper'))}>
+        <div ref={setRefCurrent} className={classNames(tdTabsClassGenerator('nav-item-wrapper'))}>
           <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
         </div>
       )}
