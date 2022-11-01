@@ -51,9 +51,9 @@ describe('Pagination test', () => {
     );
     expect(container.querySelector('.t-icon-ellipsis')).toBeInTheDocument();
 
-    fireEvent.click(getByText('1'));
+    fireEvent.click(getByText('2'));
     expect(changeFn.mock.calls[0][0]).toEqual({
-      current: 1,
+      current: 2,
       previous: 1,
       pageSize: 5,
     });
@@ -64,8 +64,8 @@ describe('Pagination test', () => {
 
     fireEvent.click(container.querySelector('.t-pagination__number--more'));
     expect(changeFn.mock.calls[1][0]).toEqual({
-      current: 6,
-      previous: 1,
+      current: 7,
+      previous: 2,
       pageSize: 5,
     });
     fireEvent.mouseOver(container.querySelector('.t-pagination__number--more'));
@@ -74,7 +74,7 @@ describe('Pagination test', () => {
     expect(container.querySelector('.t-icon-chevron-left-double')).not.toBeInTheDocument();
 
     fireEvent.click(container.querySelector('.t-pagination__number--more'));
-    expect(document.querySelector('.t-is-current')).toHaveTextContent('1');
+    expect(document.querySelector('.t-is-current')).toHaveTextContent('2');
   });
   test('theme', () => {
     const changeFn = vi.fn();

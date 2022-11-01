@@ -5,7 +5,7 @@ export default function Controlled() {
   const [visible] = useState(true);
 
   return (
-    <Popup content="这是popup内容" trigger="manual" placement="right" visible={visible}>
+    <Popup content="这是popup内容" trigger="context-menu" placement="right" visible={visible}>
       <Button>一直显示</Button>
     </Popup>
   );
