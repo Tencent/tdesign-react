@@ -141,6 +141,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     setInputValue(formatDate(nextDate, { format }));
+    setCacheValue(formatDate(nextDate, { format }));
 
     onPick?.(nextDate);
   }
