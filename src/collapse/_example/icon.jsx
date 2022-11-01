@@ -10,7 +10,6 @@ export default function CollapseExample() {
   const options = [
     { value: 1, label: '左边' },
     { value: 2, label: '右边' },
-    { value: 3, label: '不展示' },
   ];
   return (
     <Space direction="vertical">
