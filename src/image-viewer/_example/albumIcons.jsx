@@ -49,7 +49,7 @@ export default function BasicImageViewer() {
         }}
         onClick={open}
       >
-        <span><BrowseIcon size="20px" name={'browse'}/> 预览</span>
+        <span><BrowseIcon size="16px" name={'browse'}/> 预览</span>
       </div>
     );
 
@@ -88,7 +88,7 @@ export default function BasicImageViewer() {
         }}>
           <span style={{flex: 1}}>相册封面标题</span>
           <span style={{ cursor: 'pointer' }}>
-            <BrowseIcon onClick={open} />
+            <BrowseIcon size={16} onClick={open} />
             <Popup
               trigger="click"
               content={listCommon}
@@ -96,7 +96,7 @@ export default function BasicImageViewer() {
               overlayStyle={{ width: '140px', padding: '6px' }}
               destroyOnClose
             >
-              <EllipsisIcon/>
+              <EllipsisIcon size={16}/>
             </Popup>
           </span>
         </div>

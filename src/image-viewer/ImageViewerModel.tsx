@@ -218,7 +218,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 
   const [isExpand, setIsExpand] = useState(true);
 
-  const transStyle = { transform: `translateX(-${currentIndex * 84}px)` };
+  const transStyle = { transform: `translateX(-${currentIndex * 62}px)` };
 
   return (
     <div

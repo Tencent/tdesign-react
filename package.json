@@ -115,7 +115,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/estree": "0.0.50",
     "@types/hoist-non-react-statics": "^3.3.1",
-    "@types/lodash": "^4.14.170",
+    "@types/lodash": "4.14.182",
     "@types/node": "^17.0.21",
     "@types/raf": "^3.4.0",
     "@types/react": "^17.0.19",
