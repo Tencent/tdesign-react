@@ -37,7 +37,7 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
  */
 export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?: string): void {
   const { classPrefix } = useConfig();
-
+  const currentDom = ref?.current;
   // 全局配置
   const { keepRipple } = useAnimation();
 
@@ -54,7 +54,6 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
     (e) => {
       const el = ref?.current;
       const rippleColor = getRippleColor(el, fixedRippleColor);
-
       if (e.button !== 0 || !el || !keepRipple) return;
 
       if (
@@ -141,6 +140,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
           if (rippleContainer.children.length === 0) rippleContainer.remove();
         }, period * 2 + 100);
       };
+
       el.addEventListener('pointerup', handleClearRipple, false);
       el.addEventListener('pointerleave', handleClearRipple, false);
     },
@@ -150,11 +150,10 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
   useEffect(() => {
     const el = ref?.current;
     if (!el) return;
-
     el.addEventListener('pointerdown', handleAddRipple, false);
 
     return () => {
       el.removeEventListener('pointerdown', handleAddRipple, false);
     };
-  }, [handleAddRipple, fixedRippleColor, ref]);
+  }, [handleAddRipple, fixedRippleColor, ref, currentDom]);
 }
