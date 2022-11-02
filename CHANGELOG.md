@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.5 `2022-11-02` 
+### 🚀 Features
+- `Collapse`: 支持 expandIcon 属性 @asbstty ([#1651](https://github.com/Tencent/tdesign-react/pull/1651))
+- `Pagination`: 透传`selectProps` 和 `selectProps.popupProps` 到组件 `Pagination`，以便实现挂载节点等复杂场景需求， [issue#1611](https://github.com/Tencent/tdesign-react/issues/1611) @chaishi ([#1638](https://github.com/Tencent/tdesign-react/pull/1638))
+- `Input`:
+    - 支持在输入框实时显示数字限制 @chaishi ([#1635](https://github.com/Tencent/tdesign-react/pull/1635))
+    - 支持对 `unicode` 字符长度的判定 @chaishi ([#1635](https://github.com/Tencent/tdesign-react/pull/1635))
+
+### 🐞 Bug Fixes
+- `Form`: 修复不同 trigger 下校验结果互相覆盖问题 @HQ-Lin ([#1630](https://github.com/Tencent/tdesign-react/pull/1630))
+- `Cascader`: 修复出现重复的 `options` @pengYYYYY ([#1628](https://github.com/Tencent/tdesign-react/pull/1628))
+- `Table`:
+    - 提高 `dragSortOptions` 优先级，以便父组件自定义全部参数，[issue#1556](https://github.com/Tencent/tdesign-react/issues/1556) @chaishi ([#1638](https://github.com/Tencent/tdesign-react/pull/1638))
+    - 修复可编辑表格，行编辑，数据校验问题，[issue#1514](https://github.com/Tencent/tdesign-react/issues/1514) @chaishi ([#1638](https://github.com/Tencent/tdesign-react/pull/1638))
+    - 修复吸顶表头超出省略问题，[tdesign-vue#1639](https://github.com/Tencent/tdesign-vue/issues/1639) @chaishi ([#1638](https://github.com/Tencent/tdesign-react/pull/1638))
+- `Input`:
+    - 输入框达到数量 `maxlength` 时，无法删除且无法修改输入框内容，[issue#1633](https://github.com/Tencent/tdesign-react/issues/1633) @chaishi ([#1635](https://github.com/Tencent/tdesign-react/pull/1635))
+    - 修复聚焦的时候未恢复 format 之前的值问题 [issue#1634](https://github.com/Tencent/tdesign-react/issues/1634) @chaishi ([#1635](https://github.com/Tencent/tdesign-react/pull/1635))
+- `Datepicker`: 修复 `popupProps.onVisibleChange` 方法不能正常触发的问题 @xiaosansiji ([#1644](https://github.com/Tencent/tdesign-react/pull/1644))
+- `Button`: 修复动画在disabled状态切换后失效的问题 @uyarn ([#1653](https://github.com/Tencent/tdesign-react/pull/1653))
+- `Pagination`: 修复相同页码也会触发onChange的问题 @HQ-Lin ([#1650](https://github.com/Tencent/tdesign-react/pull/1650))
+- `Message`: 支持异步渲染组件 @kenzyyang ([#1641](https://github.com/Tencent/tdesign-react/pull/1641))
+- `DatePicker`: 修复单选日期时间无法确定问题 @HQ-Lin ([#1645](https://github.com/Tencent/tdesign-react/pull/1645))
+
 ## 🌈 0.42.4 `2022-10-26` 
 ### 🚀 Features
 - `Tag`: 样式优化，实现 light-outline 风格 @HelKyle ([#1590](https://github.com/Tencent/tdesign-react/pull/1590))
