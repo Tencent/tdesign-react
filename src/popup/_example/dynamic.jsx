@@ -15,7 +15,7 @@ export default function Controlled() {
   };
 
   return (
-    <Popup content={content} trigger="manual" placement="top" visible={visible}>
+    <Popup content={content} trigger="context-menu" placement="top" visible={visible}>
       <Button onClick={toggleContent}>点击改变内容{spanVisible && <span>，再点一下</span>}</Button>
     </Popup>
   );

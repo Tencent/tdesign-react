@@ -68,7 +68,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
 
   // 处理改变当前页的逻辑
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
-    if (disabled) return;
+    if (disabled || current === _nextCurrent) return;
 
     let nextCurrent = _nextCurrent;
     let nextPageSize = _nextPageSize;
