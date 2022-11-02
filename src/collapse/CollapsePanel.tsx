@@ -39,8 +39,9 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse-panel`;
   const innerValue = value || index;
-  const showExpandIcon = expandIcon === undefined ? expandIconAll : expandIcon;
+  const finalExpandIcon = (expandIcon === undefined ? expandIconAll : expandIcon) || null;
   const headRef = useRef();
+  const iconRef = useRef();
   const contentRef = useRef<HTMLDivElement>();
   const bodyRef = useRef<HTMLDivElement>();
   const isDisabled = disabled || disableAll;
@@ -63,23 +64,35 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   );
 
   const handleClick = (e) => {
-    const canExpand =
-      (expandOnRowClick && e.target === headRef.current) || ['svg', 'path'].includes((e.target as Element).tagName);
+    const canExpand = (expandOnRowClick && e.currentTarget === headRef.current) || e.currentTarget === iconRef.current;
 
     if (canExpand && !isDisabled) {
       updateCollapseValue(innerValue);
     }
+    e.stopPropagation();
   };
 
-  const renderIcon = (direction: string) => (
-    <FakeArrow
-      style={{
-        transform: isActive ? 'rotate(180deg)' : 'rotate(-90deg)',
-      }}
-      isActive={isActive}
-      overlayClassName={classnames(`${componentName}__icon`, `${componentName}__icon--${direction}`)}
-    />
-  );
+  const renderIcon = () => {
+    let iconNode = null;
+    if (React.isValidElement(finalExpandIcon)) {
+      iconNode = finalExpandIcon;
+    } else if (finalExpandIcon) {
+      iconNode = <FakeArrow overlayClassName={classnames(`${componentName}__icon--default`)} />;
+    }
+    return (
+      iconNode && (
+        <div
+          className={`${componentName}__icon ${componentName}__icon--${expandIconPlacement} ${
+            isActive ? `${componentName}__icon--active` : ''
+          }`}
+          ref={iconRef}
+          onClick={handleClick}
+        >
+          {iconNode}
+        </div>
+      )
+    );
+  };
 
   const renderHeader = () => {
     const cls = [
@@ -90,11 +103,11 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     ];
     return (
       <div ref={headRef} className={classnames(cls)} onClick={handleClick}>
-        {showExpandIcon && expandIconPlacement === 'left' ? renderIcon(expandIconPlacement) : null}
+        {expandIconPlacement === 'left' && renderIcon()}
         {header}
         <div className={`${componentName}__header--blank`}></div>
         {headerRightContent}
-        {showExpandIcon && expandIconPlacement === 'right' ? renderIcon(expandIconPlacement) : null}
+        {expandIconPlacement === 'right' && renderIcon()}
       </div>
     );
   };
