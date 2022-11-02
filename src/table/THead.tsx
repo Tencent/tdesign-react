@@ -66,6 +66,17 @@ export default function THead(props: TheadProps) {
     return map;
   }, [props.thList]);
 
+  const getTableNode = (thead: HTMLElement) => {
+    let parent = thead;
+    while (parent) {
+      parent = parent.parentNode as HTMLElement;
+      if (parent?.classList?.contains(`${props.classPrefix}-table`)) {
+        break;
+      }
+    }
+    return parent;
+  };
+
   const renderThNodeList = (rowAndColFixedPosition: RowAndColFixedPosition, thWidthList: TheadProps['thWidthList']) => {
     // thBorderMap: rowspan 会影响 tr > th 是否为第一列表头，从而影响边框
     const thBorderMap = new Map<any, boolean>();
@@ -129,7 +140,7 @@ export default function THead(props: TheadProps) {
               {isEllipsis ? (
                 <TEllipsis
                   placement="bottom"
-                  attach={theadRef.current ? () => theadRef.current.parentNode.parentNode as HTMLElement : undefined}
+                  attach={theadRef.current ? () => getTableNode(theadRef.current) : undefined}
                   popupContent={content}
                   // @ts-ignore TODO 待类型完善后移除
                   tooltipProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}

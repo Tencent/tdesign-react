@@ -31,6 +31,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 
 export interface FormItemInstance {
   name?: NamePath;
+  isUpdated?: boolean;
   value?: any;
   getValue?: Function;
   setValue?: Function;
@@ -107,8 +108,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
+  const isUpdatedRef = useRef(false); // 校验开关
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
+  const errorListMapRef = useRef(new Map());
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
@@ -144,6 +147,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
 
+    isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
     setFormValue(newVal);
@@ -239,15 +243,23 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       allowSetValue,
     } = await analysisValidateResult(trigger);
 
+    // 缓存不同 trigger 下的错误信息
+    if (innerErrorList.length) {
+      errorListMapRef.current.set(trigger, innerErrorList);
+    } else {
+      errorListMapRef.current.delete(trigger);
+    }
+    const cacheErrorList = [...errorListMapRef.current.values()].flat();
+
     if (allowSetValue) {
       setSuccessList(innerSuccessList);
-      setErrorList(innerErrorList);
+      setErrorList(cacheErrorList.length ? cacheErrorList : innerErrorList);
     }
     // 根据校验结果设置校验状态
     if (validateRules.length) {
       let status = ValidateStatus.SUCCESS;
-      if (innerErrorList.length) {
-        status = innerErrorList?.[0]?.type || ValidateStatus.ERROR;
+      if (innerErrorList.length || cacheErrorList.length) {
+        status = innerErrorList?.[0]?.type || cacheErrorList?.[0]?.type || ValidateStatus.ERROR;
       }
       setVerifyStatus(status);
     } else {
@@ -416,6 +428,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const instance: FormItemInstance = {
     name,
     value: formValue,
+    isUpdated: isUpdatedRef.current,
     getValue: () => valueRef.current,
     setValue: (newVal: any) => updateFormValue(newVal),
     setField,
