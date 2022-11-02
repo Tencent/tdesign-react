@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
@@ -7,6 +7,7 @@ import Checkbox from '../../checkbox/Checkbox';
 
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
+import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useCommonClassName from '../../_util/useCommonClassName';
 import useRipple from '../../_util/useRipple';
 
@@ -36,8 +37,9 @@ const Item = forwardRef(
     const { classPrefix: prefix } = useConfig();
     const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
     const COMPONENT_NAME = `${prefix}-cascader__item`;
-    const itemRef = useRef();
-    useRipple(ref || itemRef);
+    const [itemDom, setRefCurrent] = useDomRefCallback();
+
+    useRipple(ref?.current || itemDom);
 
     /**
      * class
@@ -114,7 +116,7 @@ const Item = forwardRef(
 
     return (
       <li
-        ref={ref || itemRef}
+        ref={ref || setRefCurrent}
         className={itemClass}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();

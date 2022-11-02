@@ -1,6 +1,7 @@
-import React, { forwardRef, useRef, useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
+import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../_util/useRipple';
 import Loading from '../loading';
 import { TdButtonProps } from './type';
@@ -34,8 +35,8 @@ const Button = forwardRef((props: ButtonProps, ref: React.RefObject<HTMLElement>
 
   const { classPrefix } = useConfig();
 
-  const btnRef = useRef();
-  useRipple(ref || btnRef);
+  const [btnDom, setRefCurrent] = useDomRefCallback();
+  useRipple(ref?.current || btnDom);
 
   const renderChildren = content ?? children;
 
@@ -62,7 +63,7 @@ const Button = forwardRef((props: ButtonProps, ref: React.RefObject<HTMLElement>
       ...buttonProps,
       href,
       type,
-      ref: ref || btnRef,
+      ref: ref || setRefCurrent,
       disabled: disabled || loading,
       className: classNames(
         className,
