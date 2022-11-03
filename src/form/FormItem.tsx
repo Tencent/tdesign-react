@@ -243,8 +243,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       allowSetValue,
     } = await analysisValidateResult(trigger);
 
-    // 缓存不同 trigger 下的错误信息
-    if (innerErrorList.length) {
+    // 缓存不同 trigger 下的错误信息 all 包含了所有场景需过滤
+    if (innerErrorList.length && trigger !== 'all') {
       errorListMapRef.current.set(trigger, innerErrorList);
     } else {
       errorListMapRef.current.delete(trigger);
@@ -400,6 +400,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   useEffect(() => {
     // value 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
+
+    console.log('shouldValidate.current', shouldValidate.current);
 
     // 控制是否需要校验
     if (!shouldValidate.current) return;
