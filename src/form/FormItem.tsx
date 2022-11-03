@@ -243,8 +243,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       allowSetValue,
     } = await analysisValidateResult(trigger);
 
-    // 缓存不同 trigger 下的错误信息
-    if (innerErrorList.length) {
+    // 缓存不同 trigger 下的错误信息 all 包含了所有场景需过滤
+    if (innerErrorList.length && trigger !== 'all') {
       errorListMapRef.current.set(trigger, innerErrorList);
     } else {
       errorListMapRef.current.delete(trigger);
