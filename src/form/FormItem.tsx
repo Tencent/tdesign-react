@@ -401,8 +401,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     // value 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
 
-    console.log('shouldValidate.current', shouldValidate.current);
-
     // 控制是否需要校验
     if (!shouldValidate.current) return;
 
