@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo, useCallback, ReactElement } from 'react';
+import React, { useState, useEffect, Ref, useMemo, ReactElement } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -378,25 +378,23 @@ const Select = forwardRefWithStatics(
     );
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
-    const updateScrollTop = useCallback(
-      (content: HTMLDivElement) => {
-        const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
-        if (firstSelectedNode && content) {
-          const { paddingBottom } = getComputedStyle(firstSelectedNode);
-          const { marginBottom } = getComputedStyle(content);
-          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
-          // 小于0时不需要特殊处理，会被设为0
-          const updateValue =
-            firstSelectedNode.offsetTop -
-            content.offsetTop -
-            (content.clientHeight - firstSelectedNode.clientHeight) +
-            elementBottomHeight;
-          // eslint-disable-next-line no-param-reassign
-          content.scrollTop = updateValue;
-        }
-      },
-      [classPrefix],
-    );
+    const updateScrollTop = (content: HTMLDivElement) => {
+      if (!content) return;
+      const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
+      if (firstSelectedNode) {
+        const { paddingBottom } = getComputedStyle(firstSelectedNode);
+        const { marginBottom } = getComputedStyle(content);
+        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+        // 小于0时不需要特殊处理，会被设为0
+        const updateValue =
+          firstSelectedNode.offsetTop -
+          content.offsetTop -
+          (content.clientHeight - firstSelectedNode.clientHeight) +
+          elementBottomHeight;
+        // eslint-disable-next-line no-param-reassign
+        content.scrollTop = updateValue;
+      }
+    };
 
     const { onMouseEnter, onMouseLeave } = props;
 

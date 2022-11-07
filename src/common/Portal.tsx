@@ -16,20 +16,24 @@ export interface PortalProps {
   children: React.ReactNode;
 }
 
-export function getAttach(attach: PortalProps['attach']) {
+export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLElement): AttachNodeReturnValue {
   if (!canUseDocument) return null;
 
-  let parent: AttachNodeReturnValue;
+  let el: AttachNodeReturnValue;
   if (typeof attach === 'string') {
-    parent = document.querySelector(attach);
+    el = document.querySelector(attach);
   }
   if (typeof attach === 'function') {
-    parent = attach();
+    el = attach(triggerNode);
   }
   if (typeof attach === 'object' && attach instanceof window.HTMLElement) {
-    parent = attach;
+    el = attach;
   }
-  return parent || document.body;
+
+  // fix el in iframe
+  if (el && el.nodeType === 1) return el;
+
+  return document.body;
 }
 
 const Portal = forwardRef((props: PortalProps, ref) => {
@@ -44,25 +48,11 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   }, [classPrefix]);
 
   useEffect(() => {
-    let parentElement = document.body;
-    let el = null;
-
-    // 处理 attach
-    if (typeof attach === 'function') {
-      el = attach(triggerNode);
-    } else if (typeof attach === 'string') {
-      el = document.querySelector(attach);
-    }
-
-    // fix el in iframe
-    if (el && el.nodeType === 1) {
-      parentElement = el;
-    }
-
-    parentElement.appendChild(container);
+    const parentElement = getAttach(attach, triggerNode);
+    parentElement?.appendChild?.(container);
 
     return () => {
-      parentElement?.removeChild(container);
+      parentElement?.removeChild?.(container);
     };
   }, [container, attach, triggerNode]);
 
