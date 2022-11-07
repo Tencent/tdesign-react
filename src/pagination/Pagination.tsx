@@ -46,6 +46,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     onPageSizeChange,
     style,
     className,
+    selectProps,
     ...otherProps
   } = props;
   // 原生 html 属性透传
@@ -151,7 +152,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
           value={pageSize}
           disabled={disabled}
           onChange={changePageSize}
-          {...props.selectProps}
+          {...selectProps}
         >
           {pageSizeOptions.map((item) =>
             typeof item === 'number' ? (
