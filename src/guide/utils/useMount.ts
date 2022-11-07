@@ -6,11 +6,9 @@ export default function useMount(mount: () => void, unmount: () => void) {
   return useEffect(() => {
     if (isMounted.current) {
       isMounted.current = false;
-
+      mount();
       return;
     }
-
-    mount();
 
     return unmount;
     // eslint-disable-next-line react-hooks/exhaustive-deps
