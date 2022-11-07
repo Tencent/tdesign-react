@@ -19,17 +19,21 @@ export interface PortalProps {
 export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLElement): AttachNodeReturnValue {
   if (!canUseDocument) return null;
 
-  let parent: AttachNodeReturnValue;
+  let el: AttachNodeReturnValue;
   if (typeof attach === 'string') {
-    parent = document.querySelector(attach);
+    el = document.querySelector(attach);
   }
   if (typeof attach === 'function') {
-    parent = attach(triggerNode);
+    el = attach(triggerNode);
   }
   if (typeof attach === 'object' && attach instanceof window.HTMLElement) {
-    parent = attach;
+    el = attach;
   }
-  return parent || document.body;
+
+  // fix el in iframe
+  if (el && el.nodeType === 1) return el;
+
+  return document.body;
 }
 
 const Portal = forwardRef((props: PortalProps, ref) => {
