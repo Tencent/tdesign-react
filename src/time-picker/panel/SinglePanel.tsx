@@ -355,7 +355,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
             onClick={() => handleTimeItemClick(col, el, idx)}
           >
             {/* eslint-disable-next-line no-nested-ternary */}
-            {timeArr.includes(col) ? (TWELVE_HOUR_FORMAT.test(format) && el === '00' ? '12' : el) : TEXT_CONFIG[el]}
+            {timeArr.includes(col) ? (TWELVE_HOUR_FORMAT.test(format) && col === EPickerCols.hour && el === '00' ? '12' : el) : TEXT_CONFIG[el]}
           </li>
         ))}
       </ul>

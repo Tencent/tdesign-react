@@ -20,7 +20,7 @@ export default function BasicImageViewer() {
         }}
         onClick={open}
       >
-        <span><BrowseIcon size="20px" name={'browse'}/> 预览</span>
+        <span><BrowseIcon size="16px" name={'browse'}/> 预览</span>
       </div>
     );
 

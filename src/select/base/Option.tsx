@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
 
 import useConfig from '../../hooks/useConfig';
+import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../common';
 import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';
@@ -56,9 +57,11 @@ const Option = (props: SelectOptionProps) => {
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
 
   const { classPrefix } = useConfig();
-  const optionRef = useRef();
+
   // 使用斜八角动画
-  useRipple(optionRef);
+  const [subMenuDom, setRefCurrent] = useDomRefCallback();
+
+  useRipple(subMenuDom);
 
   // 处理单选场景
   if (!multiple) {
@@ -119,7 +122,7 @@ const Option = (props: SelectOptionProps) => {
       })}
       key={value}
       onClick={handleSelect}
-      ref={optionRef}
+      ref={setRefCurrent}
       style={style}
     >
       {renderItem(children)}

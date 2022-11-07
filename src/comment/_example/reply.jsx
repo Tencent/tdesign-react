@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Comment } from 'tdesign-react';
 import { IconFont } from 'tdesign-icons-react';
 
+const classStyles = `
+  <style>
+    .comment-reply > .t-comment__inner .t-comment__actions {
+      margin-right: 24px;
+    }
+  </style>
+`;
+
 export default function replyComment() {
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   const actionTextStyle = {
     display: 'inline-block',
     marginLeft: '6px',
@@ -35,7 +48,7 @@ export default function replyComment() {
 
   const replyElement = (
     <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
+      avatar="https://tdesign.gtimg.com/site/avatar.jpg"
       author={replyAuthor}
       datetime="今天16:38"
       content="B评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
@@ -45,7 +58,8 @@ export default function replyComment() {
 
   return (
     <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
+      className="comment-reply"
+      avatar="https://tdesign.gtimg.com/site/avatar.jpg"
       author="评论作者名A"
       datetime="今天16:38"
       content="A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
 import useRipple from '../_util/useRipple';
+import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import TreeNode from '../_common/js/tree/tree-node';
 import Checkbox from '../checkbox';
@@ -162,8 +163,8 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   };
 
   // 使用 斜八角动画
-  const labelRef = useRef();
-  useRipple(labelRef);
+  const [labelDom, setRefCurrent] = useDomRefCallback();
+  useRipple(labelDom);
 
   const renderLabel = () => {
     const emptyView = locale('empty');
@@ -192,7 +193,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
       return (
         <Checkbox
-          ref={labelRef}
+          ref={setRefCurrent}
           checked={node.checked}
           indeterminate={node.indeterminate}
           disabled={checkboxDisabled}
@@ -206,7 +207,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       );
     }
     return (
-      <span ref={labelRef} date-target="label" className={labelClasses}>
+      <span ref={setRefCurrent} date-target="label" className={labelClasses}>
         <span style={{ position: 'relative' }}>{labelText}</span>
       </span>
     );

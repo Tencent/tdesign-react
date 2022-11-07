@@ -31,7 +31,7 @@ const initData = new Array(5).fill(null).map((_, i) => ({
 }));
 
 export default function EditableRowTable() {
-  const tableRef = useRef();
+  const tableRef = useRef(null);
   const [data, setData] = useState([...initData]);
   const [editableRowKeys, setEditableRowKeys] = useState(['1']);
   let currentSaveId = '';
@@ -89,6 +89,7 @@ export default function EditableRowTable() {
     console.log('Event Row Validate:', params);
   };
 
+  // 行数据编辑时触发，返回最新输入结果
   const onRowEdit = (params) => {
     const { row, rowIndex, col, value } = params;
     const oldRowData = editMap[row.key]?.editedRow || row;

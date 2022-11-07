@@ -10,6 +10,10 @@ export default function BasicComment() {
     alignItems: 'flex-end',
   };
 
+  const buttonStyle = {
+    marginTop: '8px',
+  };
+
   function submitReply() {
     NotificationPlugin.info({
       title: '回复内容',
@@ -27,9 +31,11 @@ export default function BasicComment() {
           setReplayData(value);
         }}
       />
-      <Button onClick={submitReply}>回复</Button>
+      <Button style={buttonStyle} onClick={submitReply}>
+        回复
+      </Button>
     </div>
   );
 
-  return <Comment avatar="https://tdesign.gtimg.com/list-icon.png" content={replyForm} />;
+  return <Comment avatar="https://tdesign.gtimg.com/site/avatar.jpg" content={replyForm} />;
 }

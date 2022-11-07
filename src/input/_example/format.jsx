@@ -15,7 +15,7 @@ export default function InputExample() {
   return (
     <Input
       value={value}
-      onChange={(v) => setValue(v)}
+      onChange={setValue}
       status={inputStatus}
       format={format}
       tips={tips}

@@ -1,7 +1,8 @@
-import React, { useRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
 import useConfig from '../hooks/useConfig';
+import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../_util/useRipple';
 import { dropdownItemDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
@@ -35,9 +36,9 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     isSubmenu,
   } = props;
   const { classPrefix } = useConfig();
-  const dropdownItemRef = useRef<HTMLLIElement>(null);
+  const [dropdownItemDom, setRefCurrent] = useDomRefCallback();
 
-  useRipple(isSubmenu ? null : ref || dropdownItemRef);
+  useRipple(isSubmenu ? null : ref?.current || dropdownItemDom);
 
   const handleItemClick = (e: React.MouseEvent) => {
     onClick?.(value, e);
@@ -55,7 +56,7 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
           minWidth: pxCompat(minColumnWidth),
           ...style,
         }}
-        ref={ref || dropdownItemRef}
+        ref={ref || setRefCurrent}
       >
         {prefixIcon ? <div className={`${classPrefix}-dropdown__item-icon`}>{prefixIcon}</div> : null}
         {children}

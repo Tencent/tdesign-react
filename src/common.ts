@@ -3,7 +3,7 @@
 import { ReactElement, ReactNode, CSSProperties, FormEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
-export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
+export type TElement = ReactElement | (() => ReactElement);
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
 export type TNode<T = undefined> = T extends undefined ? ReactNode : (props: T) => ReactNode;
 

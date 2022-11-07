@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { TabValue, TdTabsProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -14,13 +14,20 @@ export interface TabsProps extends TdTabsProps, StyledProps {
 
 const Tabs = forwardRefWithStatics(
   (props: TabsProps, ref) => {
-    const { children, placement, onRemove, value: tabValue, onChange, className, style } = props;
+    const { children, list, placement, onRemove, value: tabValue, onChange, className, style } = props;
     let { defaultValue } = props;
 
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
 
-    const itemList = React.Children.map(children, (child: any) => {
+    const memoChildren = useMemo(() => {
+      if (!list || list.length === 0) {
+        return children;
+      }
+      return list.map((panelProps) => <TabPanel key={panelProps.value} {...panelProps} />);
+    }, [children, list]);
+
+    const itemList = React.Children.map(memoChildren, (child: any) => {
       if (child && child.type === TabPanel) {
         return child.props;
       }
@@ -68,7 +75,7 @@ const Tabs = forwardRefWithStatics(
       <div ref={ref} className={classNames(tdTabsClassPrefix, className)} style={style}>
         {placement !== 'bottom' ? renderHeader() : null}
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
-          {React.Children.map(children, (child: any) => {
+          {React.Children.map(memoChildren, (child: any) => {
             if (child && child.type === TabPanel) {
               if (child.props.value === value) {
                 return child;

@@ -26,6 +26,33 @@ describe('Tabs 组件测试', () => {
     expect(() => tabInstance.querySelector('.t-tabs__nav')).not.toBe(null);
   });
 
+  test('render by list prop', async () => {
+    const testId = 'tab bar test id';
+    const { getByTestId } = render(
+      <div data-testid={testId}>
+        <Tabs
+          data-testid={testId}
+          size={'medium'}
+          list={[
+            {
+              label: 'a',
+              value: 'a',
+            },
+            {
+              label: 'b',
+              value: 'b',
+            },
+          ]}
+        />
+      </div>,
+    );
+
+    const tabInstance = await waitFor(() => getByTestId(testId));
+
+    expect(tabInstance.querySelector('.t-tabs__nav')).not.toBe(null);
+    expect(tabInstance.querySelector('.t-tabs__nav-wrap').children.length).toBe(4);
+  });
+
   test('render card theme', async () => {
     const testId = 'tab card theme test id';
     const { getByTestId } = render(

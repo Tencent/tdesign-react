@@ -6,13 +6,15 @@ import { TdInputProps } from './type';
 
 export const inputDefaultProps: TdInputProps = {
   align: 'left',
-  autofocus: false,
+  allowInputOverMax: false,
   autoWidth: false,
+  autocomplete: undefined,
+  autofocus: false,
   clearable: false,
+  placeholder: undefined,
   readonly: false,
   showClearIconOnEmpty: false,
+  showLimitNumber: false,
   size: 'medium',
-  status: 'default',
   type: 'text',
-  defaultValue: '',
 };

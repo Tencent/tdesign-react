@@ -68,7 +68,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
 
   // 处理改变当前页的逻辑
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
-    if (disabled) return;
+    if (disabled || current === _nextCurrent) return;
 
     let nextCurrent = _nextCurrent;
     let nextPageSize = _nextPageSize;
@@ -145,7 +145,14 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
   const pageSizeContrl =
     showPageSize && pageSizeOptions.length ? (
       <div className={`${name}__select`}>
-        <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+        <Select
+          autoWidth={true}
+          size={size}
+          value={pageSize}
+          disabled={disabled}
+          onChange={changePageSize}
+          {...props.selectProps}
+        >
           {pageSizeOptions.map((item) =>
             typeof item === 'number' ? (
               <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
