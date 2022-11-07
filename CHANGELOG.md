@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.42.6 `2022-11-07` 
+### 🚀 Features
+- `Guide`: support guide component @Yilun-Sun ([#1581](https://github.com/Tencent/tdesign-react/pull/1581))
+
+### 🐞 Bug Fixes
+- `Table`: 当禁用resizable时，基础表格表头默认使用用户定义的列宽 @ZTao-z ([#1662](https://github.com/Tencent/tdesign-react/pull/1662))
+- `Dropdown`: 修复Children变化时没有重新渲染的异常 @uyarn ([#1673](https://github.com/Tencent/tdesign-react/pull/1673))
+- `Select`:
+    - 修复选项文案过程内容未正确显示的问题 @uyarn ([#1676](https://github.com/Tencent/tdesign-react/pull/1676))
+    - 修复可过滤选择器选中项目失去焦点选中失败问题 @HQ-Lin ([#1675](https://github.com/Tencent/tdesign-react/pull/1675))
+- `InputNumber`: 修复最小值为0仍可点击减号至-1的问题 @lilonghe @uyarn ([#1676](https://github.com/Tencent/tdesign-react/pull/1676))
+- `Input`: 修复在输入框进行预渲染处于 `display: none` 状态时，宽度计算不正确问题，[tdesign-vue#1678](https://github.com/Tencent/tdesign-vue/issues/1678) @chaishi ([#1669](https://github.com/Tencent/tdesign-react/pull/1669))
+- `Pagination`: 修复 `selectProps` warn @chaishi ([#1669](https://github.com/Tencent/tdesign-react/pull/1669))
+- `Form`: 修复提交后 onChange 校验不清除状态问题 @HQ-Lin ([#1664](https://github.com/Tencent/tdesign-react/pull/1664))
+- `TreeSelect`: 修复 valueDisplay 和 filterable 同时设置时的显示问题 @moecasts ([#1674](https://github.com/Tencent/tdesign-react/pull/1674))
+
 ## 🌈 0.42.5 `2022-11-02` 
 ### 🚀 Features
 - `Collapse`: 支持 expandIcon 属性 @asbstty ([#1651](https://github.com/Tencent/tdesign-react/pull/1651))
