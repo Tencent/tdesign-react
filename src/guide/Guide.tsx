@@ -185,11 +185,9 @@ const Guide = (props: GuideProps) => {
 
   useEffect(() => {
     initGuide();
-    console.log('init');
 
     return () => {
       destroyGuide();
-      console.log('destroy');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
