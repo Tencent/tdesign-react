@@ -6,7 +6,7 @@ import useConfig from '../hooks/useConfig';
 import Popup from '../popup';
 import { GuideCrossProps, StepPopupPlacement, TdGuideProps } from './type';
 import { addClass, removeClass, isFixed, getWindowScroll } from '../_util/dom';
-import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm, useWatch } from './utils';
+import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
 import setStyle from '../_common/js/utils/set-style';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
@@ -173,24 +173,26 @@ const Guide = (props: GuideProps) => {
     }
   };
 
-  useWatch(innerCurrent, (newValue) => {
-    if (newValue >= 0 && newValue < steps.length) {
+  useEffect(() => {
+    if (innerCurrent >= 0 && innerCurrent < steps.length) {
       initGuide();
     } else {
       setActive(false);
       destroyGuide();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [innerCurrent]);
 
-  const useMount = (callback) => {
-    useEffect(() => {
-      callback();
-    }, [callback]);
-  };
-
-  useMount(() => {
+  useEffect(() => {
     initGuide();
-  });
+    console.log('init');
+
+    return () => {
+      destroyGuide();
+      console.log('destroy');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderOverlayLayer = () =>
     createPortal(
