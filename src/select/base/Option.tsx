@@ -109,7 +109,7 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <span>{children || content || label}</span>;
+    return <span title={label as string}>{children || content || label}</span>;
   };
 
   return (
