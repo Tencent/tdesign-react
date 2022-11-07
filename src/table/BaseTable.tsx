@@ -202,10 +202,14 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   }
 
   const defaultColWidth = props.tableLayout === 'fixed' && isWidthOverflow ? '100px' : undefined;
-  const colgroup = (
+  const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
       {finalColumns.map((col) => {
-        const style: Styles = { width: formatCSSUnit(thWidthList.current[col.colKey] || col.width) || defaultColWidth };
+        const style: Styles = {
+          width:
+            formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width) ||
+            defaultColWidth,
+        };
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
         }
@@ -213,7 +217,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       })}
     </colgroup>
   );
-
   const headProps = {
     isFixedHeader,
     rowAndColFixedPosition,
@@ -262,7 +265,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
           className={classNames(tableElmClasses)}
           style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}
         >
-          {colgroup}
+          {renderColGroup(true)}
           {props.showHeader && <THead {...headProps} />}
         </table>
       </div>
@@ -322,7 +325,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
           ])}
         >
           <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}>
-            {colgroup}
+            {renderColGroup(true)}
             <TFoot
               rowKey={props.rowKey}
               isFixedHeader={isFixedHeader}
@@ -384,8 +387,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     >
       {isVirtual && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
-        {colgroup}
-        {props.showHeader && <THead {...headProps} />}
+        {renderColGroup(false)}
+        {props.showHeader && <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />}
         <TBody {...tableBodyProps} />
         <TFoot
           rowKey={props.rowKey}

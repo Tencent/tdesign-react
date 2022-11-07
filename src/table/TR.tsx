@@ -10,6 +10,7 @@ import TEllipsis from './Ellipsis';
 import { BaseTableCellParams, TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
 import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
+import { TooltipProps } from '../tooltip';
 
 export interface RenderTdExtra {
   rowAndColFixedPosition: RowAndColFixedPosition;
@@ -143,7 +144,7 @@ export default function TR(props: TrProps) {
 
   function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, params: RenderEllipsisCellParams) {
     const { cellNode } = params;
-    const { col } = cellParams;
+    const { col, colIndex } = cellParams;
     let content = isFunction(col.ellipsis) ? col.ellipsis(cellParams) : undefined;
     if (typeof col.ellipsis === 'object' && isFunction(col.ellipsis.content)) {
       content = col.ellipsis.content(cellParams);
@@ -153,9 +154,11 @@ export default function TR(props: TrProps) {
       tooltipProps = 'props' in col.ellipsis ? col.ellipsis.props : col.ellipsis || undefined;
     }
     const tableElement = props.tableElm;
+    let placement: TooltipProps['placement'] = colIndex === 0 ? 'top-left' : 'top';
+    placement = colIndex === props.columns.length - 1 ? 'top-right' : placement;
     return (
       <TEllipsis
-        placement={'top'}
+        placement={placement}
         attach={tableElement ? () => tableElement : undefined}
         popupContent={content}
         tooltipProps={tooltipProps}
