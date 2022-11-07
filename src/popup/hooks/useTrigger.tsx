@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, isValidElement } from 'react';
+import React, { useRef, useEffect, isValidElement, useCallback } from 'react';
 import { isFragment } from 'react-is';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
@@ -147,9 +147,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   }
 
   // ref 透传失败时使用 dom 查找
-  function getTriggerDom() {
-    return document.querySelector(`[data-popup="${triggerDataKey.current}"]`);
-  }
+  const getTriggerDom = useCallback(() => document.querySelector(`[data-popup="${triggerDataKey.current}"]`), []);
 
   return {
     getTriggerNode,
