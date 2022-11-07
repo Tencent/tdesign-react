@@ -86,6 +86,12 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
         }
         triggerNode.props.onTouchStart?.(e);
       },
+      onMouseOver: (e: MouseEvent) => {
+        if (trigger === 'hover' && visible !== true) {
+          onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
+        }
+        triggerNode.props.onMouseEnter?.(e);
+      },
       onMouseEnter: (e: MouseEvent) => {
         if (trigger === 'hover') {
           onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
