@@ -48,8 +48,7 @@ export default function useDropdownOptions(
       }
     });
     return getOptionsFromChildren(dropdownMenuChild);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options, children]);
 
   return dropdownOptions;
 }
