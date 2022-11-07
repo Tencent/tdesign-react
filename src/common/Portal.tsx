@@ -16,7 +16,7 @@ export interface PortalProps {
   children: React.ReactNode;
 }
 
-export function getAttach(attach: PortalProps['attach']): AttachNodeReturnValue {
+export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLElement): AttachNodeReturnValue {
   if (!canUseDocument) return null;
 
   let parent: AttachNodeReturnValue;
@@ -24,7 +24,7 @@ export function getAttach(attach: PortalProps['attach']): AttachNodeReturnValue 
     parent = document.querySelector(attach);
   }
   if (typeof attach === 'function') {
-    parent = attach();
+    parent = attach(triggerNode);
   }
   if (typeof attach === 'object' && attach instanceof window.HTMLElement) {
     parent = attach;
@@ -44,8 +44,8 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   }, [classPrefix]);
 
   useEffect(() => {
-    const parentElement = getAttach(attach);
-    parentElement.appendChild(container);
+    const parentElement = getAttach(attach, triggerNode);
+    parentElement?.appendChild?.(container);
 
     return () => {
       parentElement?.removeChild?.(container);
