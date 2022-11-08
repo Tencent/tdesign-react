@@ -34,11 +34,13 @@ export const useTreeSelectUtils = (
 
   const normalizeValue = usePersistFn((value: TreeSelectValue) => {
     const valueKey = treeProps?.keys?.value ?? 'value';
+    const labelKey = treeProps?.keys?.label ?? 'label';
     const realValue = valueType === 'value' ? (value as string) : (value as NodeOptions)?.[valueKey];
     const node = getNodeItem(realValue);
+    const realLabel = valueType === 'object' ? value?.[labelKey] : undefined;
     return {
       value: realValue,
-      label: node?.label ?? String(realValue),
+      label: node?.label ?? realLabel ?? String(realValue),
     };
   });
 
