@@ -275,8 +275,10 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
             className={classnames(`${prefixCls}`, `${prefixCls}--default`)}
             onMouseDown={onDialogMoveStart}
           >
-            {closer}
-            {header}
+            <div className={classnames(`${prefixCls}__header`)}>
+              {header}
+              {closer}
+            </div>
             {body}
             {footer}
           </div>
