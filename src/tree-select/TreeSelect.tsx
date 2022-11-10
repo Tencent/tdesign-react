@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect } from 'react';
+import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect, useImperativeHandle } from 'react';
 
 import classNames from 'classnames';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
@@ -28,7 +28,7 @@ export interface NodeOptions {
 const useMergeFn = <T extends any[]>(...fns: Array<(...args: T) => void>) =>
   usePersistFn((...args: T) => fns.forEach((fn) => fn?.(...args)));
 
-const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivElement>) => {
+const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   /* ---------------------------------config---------------------------------------- */
 
   // 国际化文本初始化
@@ -68,8 +68,14 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
   const [filterInput, setFilterInput] = useControlled(props, 'inputValue', onInputChange);
 
   const treeRef = useRef<ElementRef<typeof Tree>>();
+  const selectInputRef = useRef();
 
   const { normalizeValue, formatValue, getNodeItem } = useTreeSelectUtils(props, treeRef);
+
+  useImperativeHandle(ref, () => ({
+    ...(selectInputRef.current || {}),
+    ...(treeRef.current || {}),
+  }));
 
   /* ---------------------------------computed value---------------------------------------- */
 
@@ -273,7 +279,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       tips={props.tips}
       {...props.selectInputProps}
       {...selectInputProps}
-      ref={ref}
+      ref={selectInputRef}
       className={classNames(
         `${classPrefix}-tree-select`,
         {
