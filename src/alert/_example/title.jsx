@@ -8,6 +8,7 @@ export default function AlertDescription() {
       message="这是一条普通的消息提示描述，这是一条普通的消息提示描述"
       title="这是一条普通的消息提示"
       operation={operation}
+      close
     />
   );
 }
