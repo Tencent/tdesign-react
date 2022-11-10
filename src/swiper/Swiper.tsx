@@ -77,6 +77,7 @@ const Swiper = (props: SwiperProps) => {
   const swiperAnimationTimer = useRef(null); // 计时器指针
   const isHovering = useRef(false);
   const swiperWrap = useRef(null);
+  const preCurrent = useRef(defaultCurrent - 0);
 
   const getWrapAttribute = (attr) => swiperWrap.current?.parentNode?.[attr];
 
@@ -155,9 +156,16 @@ const Swiper = (props: SwiperProps) => {
   // 监听 current 参数变化
   useEffect(() => {
     if (current !== undefined) {
-      swiperTo(current % childrenLength, { source: 'autoplay' });
+      const nextCurrent = current % childrenLength;
+      if (nextCurrent === 0 && preCurrent.current === childrenLength - 1) {
+        swiperTo(childrenLength, { source: 'autoplay' });
+      } else {
+        swiperTo(nextCurrent, { source: 'autoplay' });
+      }
+      preCurrent.current = nextCurrent;
     }
-  }, [current, childrenLength, swiperTo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, childrenLength]);
 
   // 监听每次轮播结束
   useEffect(() => {
