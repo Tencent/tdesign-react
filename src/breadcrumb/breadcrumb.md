@@ -21,6 +21,7 @@ children | TNode | - | 子元素，同 content。TS 类型：`string \| TNode`�
 content | TNode | - | 子元素。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 disabled | Boolean | - | 是否禁用当前项点击 | N
 href | String | - | 跳转链接 | N
+icon | TElement | - | 面板屑项内的前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 maxWidth | String | undefined | 最大宽度，超出后会以省略号形式呈现。优先级高于 Breadcrumb 中的 maxItemWidth | N
 replace | Boolean | false | 路由跳转是否采用覆盖的方式（覆盖后将没有浏览器历史记录） | N
 router | Object | - | 路由对象。如果项目存在 Router，则默认使用 Router。TS 类型：`any` | N
