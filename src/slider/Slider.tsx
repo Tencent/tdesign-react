@@ -204,14 +204,17 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
           ></div>
           {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
           {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
-          <div>
-            {renderDots.map(({ position, value }) => (
-              <div
-                key={value}
-                style={{ [stepDirection]: numberToPercent(position) }}
-                className={classNames(`${classPrefix}-slider__stop`)}
-              ></div>
-            ))}
+          <div className={`${classPrefix}-slider__stops`}>
+            {renderDots.map(({ position, value }) => {
+              if (position === 0 || position === 1) return null;
+              return (
+                <div
+                  key={value}
+                  style={{ [stepDirection]: numberToPercent(position) }}
+                  className={classNames(`${classPrefix}-slider__stop`)}
+                ></div>
+              );
+            })}
           </div>
           <div className={classNames(`${classPrefix}-slider__mark`)}>
             {renderDots.map(({ position, value, label }) => (
