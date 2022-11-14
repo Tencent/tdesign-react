@@ -21,6 +21,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     disabled,
     maxItemWidth,
     maxWidth,
+    icon,
     href,
     to,
     target,
@@ -34,6 +35,8 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`);
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;
+  const textClassName = `${classPrefix}-breadcrumb__inner-text`;
+
   const textClassNames = classNames(`${classPrefix}-breadcrumb--text-overflow`, {
     [commonClassNames.STATUS.disabled]: disabled,
   });
@@ -49,7 +52,8 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   const textContent = (
     <span className={textWrapperClassName} style={maxWidthForItem}>
-      {children}
+      {typeof icon === 'function' ? icon() : icon}
+      <span className={textClassName}>{children}</span>
     </span>
   );
 
