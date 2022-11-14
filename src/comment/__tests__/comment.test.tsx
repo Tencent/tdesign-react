@@ -58,6 +58,6 @@ describe('Comment', () => {
 
     const { container } = render(<Comment actions={actions}></Comment>);
     expect(container.querySelector('.t-comment__actions')).toBeInTheDocument();
-    expect(container.querySelectorAll('.t-comment__actions li')).toHaveLength(2);
+    expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(2);
   });
 });
