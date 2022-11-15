@@ -115,7 +115,7 @@ interface ImageModelIconProps {
   onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, size = '3em' }: ImageModelIconProps) => {
+const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, size = '16px' }: ImageModelIconProps) => {
   const { classPrefix } = useConfig();
 
   const Icons = useIconMap();
@@ -218,7 +218,8 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
 
   const [isExpand, setIsExpand] = useState(true);
 
-  const transStyle = { transform: `translateX(-${currentIndex * 62}px)` };
+  // 宽高比 16:9 按比例偏移
+  const transStyle = { transform: `translateX(calc(-${currentIndex} * (40px / 9 * 16 + 4px)))` };
 
   return (
     <div
@@ -227,14 +228,11 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
       })}
     >
       <ImageModelIcon
-        size="20px"
         name="chevron-down"
         className={`${classPrefix}-image-viewer__header-pre-bt`}
         onClick={() => setIsExpand(!isExpand)}
       />
       <div className={`${classPrefix}-image-viewer__header-prev`}>
-        <div className={`${classPrefix}-image-viewer__bokeh-left`} />
-        <div className={`${classPrefix}-image-viewer__bokeh-right`} />
         <div className={`${classPrefix}-image-viewer__header-trans`} style={transStyle}>
           {images.map((image, index) => (
             <div
