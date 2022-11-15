@@ -9,6 +9,7 @@ export const tooltipDefaultProps: TdTooltipProps = {
   placement: 'top',
   showArrow: true,
   theme: 'default',
+  duration: 0,
 };
 
 export const tooltipLiteDefaultProps: TdTooltipLiteProps = {
