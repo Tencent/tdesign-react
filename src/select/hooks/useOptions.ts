@@ -2,6 +2,7 @@ import React, { useState, useEffect, ReactNode, ReactElement } from 'react';
 import get from 'lodash/get';
 import { SelectKeysType, SelectOption, SelectValue } from '../type';
 import { getValueToOption } from '../util/helper';
+import Option from '../base/Option';
 
 // 处理 options 的逻辑
 export default function UseOptions(
@@ -19,8 +20,14 @@ export default function UseOptions(
   // 处理设置 option 的逻辑
   useEffect(() => {
     let transformedOptions = options;
+
     const arrayChildren = React.Children.toArray(children);
-    if (arrayChildren.length > 0) {
+    const isChildrenFilterable =
+      arrayChildren.length > 0 &&
+      arrayChildren.filter((v: ReactElement) => v.type === Option && typeof v.props.children === 'string').length ===
+        arrayChildren.length;
+
+    if (isChildrenFilterable) {
       transformedOptions = arrayChildren.map((v: { props: SelectOption }) => ({
         label: typeof v.props.children === 'string' ? v.props.children : v.props.label,
         ...v.props,
@@ -34,7 +41,7 @@ export default function UseOptions(
         label: get(option, keys?.label || 'label'),
       }));
     }
-    setCurrentOptions(transformedOptions);
+    !isChildrenFilterable && setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
 
     setValueToOption(getValueToOption(children as ReactElement, options, keys) || {});
