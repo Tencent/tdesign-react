@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { Select, Space } from 'tdesign-react';
 
+const { Option } = Select;
+
 const FilterableSelect = () => {
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState(['1']);
@@ -40,7 +42,13 @@ const FilterableSelect = () => {
         style={{ width: '400px', display: 'inline-block' }}
         onBlur={handleBlur}
         onFocus={handleFocus}
-      />
+      >
+        {options.map((option, index) => (
+          <Option key={index} value={option.value}>
+            {option.label}
+          </Option>
+        ))}
+      </Select>
       <Select
         value={value2}
         onChange={setValue2}
