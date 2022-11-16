@@ -12,6 +12,10 @@ const FilterableSelect = () => {
     setValue(value);
   };
 
+  const onMultipleChange = (value) => {
+    setValue2(value);
+  };
+
   const options = [
     { label: '选项一', value: '1' },
     { label: '选项二', value: '2' },
@@ -37,7 +41,6 @@ const FilterableSelect = () => {
         value={value}
         onChange={onChange}
         placeholder="-请选择-"
-        options={options}
         filterable
         style={{ width: '400px', display: 'inline-block' }}
         onBlur={handleBlur}
@@ -51,7 +54,7 @@ const FilterableSelect = () => {
       </Select>
       <Select
         value={value2}
-        onChange={setValue2}
+        onChange={onMultipleChange}
         multiple
         placeholder="-请选择-"
         options={options}

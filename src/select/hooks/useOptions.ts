@@ -2,6 +2,7 @@ import React, { useState, useEffect, ReactNode, ReactElement } from 'react';
 import get from 'lodash/get';
 import { SelectKeysType, SelectOption, SelectValue } from '../type';
 import { getValueToOption } from '../util/helper';
+import OptionGroup from '../base/OptionGroup';
 
 // 处理 options 的逻辑
 export default function UseOptions(
@@ -19,8 +20,9 @@ export default function UseOptions(
   // 处理设置 option 的逻辑
   useEffect(() => {
     let transformedOptions = options;
+
     const arrayChildren = React.Children.toArray(children);
-    if (arrayChildren.length > 0) {
+    if (arrayChildren.filter((v: ReactElement) => v.type !== OptionGroup).length > 0) {
       transformedOptions = arrayChildren.map((v: { props: SelectOption }) => ({
         label: typeof v.props.children === 'string' ? v.props.children : v.props.label,
         ...v.props,
