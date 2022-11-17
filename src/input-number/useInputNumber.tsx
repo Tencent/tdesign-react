@@ -20,7 +20,7 @@ import {
 export default function useInputNumber<T extends InputNumberValue = InputNumberValue>(props: TdInputNumberProps<T>) {
   const { SIZE, STATUS } = useCommonClassName();
   const { classPrefix } = useConfig();
-  const [value, onChange] = useControlled(props, 'value', props.onChange);
+  const [tValue, onChange] = useControlled(props, 'value', props.onChange);
   const [userInput, setUserInput] = useState('');
   const [displayValue, setDisplayValue] = useState('');
   const [isError, setIsError] = useState<'exceed-maximum' | 'below-minimum'>();
@@ -29,8 +29,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const { max, min, largeNumber, onValidate } = props;
 
-  const disabledReduce = props.disabled || !canReduceNumber(value, props.min, props.largeNumber);
-  const disabledAdd = props.disabled || !canAddNumber(value, props.max, props.largeNumber);
+  const disabledReduce = props.disabled || !canReduceNumber(tValue, props.min, props.largeNumber);
+  const disabledAdd = props.disabled || !canAddNumber(tValue, props.max, props.largeNumber);
 
   const wrapClasses = classNames(`${classPrefix}-input-number`, SIZE[props.size], {
     [STATUS.disabled]: props.disabled,
@@ -59,23 +59,23 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   useEffect(() => {
-    const inputValue = [undefined, null].includes(value) ? '' : String(value);
+    const inputValue = [undefined, null].includes(tValue) ? '' : String(tValue);
     setUserInput(getUserInput(inputValue));
     // eslint-disable-next-line
-  }, [value]);
+  }, [tValue]);
 
   useEffect(() => {
     // @ts-ignore
-    if ([undefined, '', null].includes(value)) return;
+    if ([undefined, '', null].includes(tValue)) return;
     const error = getMaxOrMinValidateResult({
-      value: value as InputNumberValue,
+      value: tValue as InputNumberValue,
       max,
       min,
       largeNumber,
     });
     setIsError(error);
     onValidate?.({ error });
-  }, [value, max, min, largeNumber, onValidate]);
+  }, [tValue, max, min, largeNumber, onValidate]);
 
   const handleStepValue = (op: 'add' | 'reduce') =>
     getStepValue({
@@ -83,7 +83,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
       step: props.step,
       max: props.max,
       min: props.min,
-      lastValue: value as InputNumberValue,
+      lastValue: tValue as InputNumberValue,
       largeNumber: props.largeNumber,
     }) as T;
 
@@ -101,11 +101,10 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const onInnerInputChange = (val: string, ctx: { e: any }) => {
     if (!canInputNumber(val, props.largeNumber)) return;
-    setUserInput(val);
     const isDelete = ctx.e.inputType === 'deleteContentBackward';
     // 大数-字符串；普通数-数字。此处是了将 2e3，2.1e3 等内容转换为数字
     const newVal = isDelete || props.largeNumber || !val ? val : Number(val);
-    if (newVal !== value && !['-', '.', 'e', 'E'].includes(val.slice(-1))) {
+    if (newVal !== tValue && !['-', '.', 'e', 'E'].includes(val.slice(-1))) {
       onChange(newVal as T, { type: 'input', e: ctx.e });
     }
   };
@@ -116,7 +115,6 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
       decimalPlaces: props.decimalPlaces,
       largeNumber: props.largeNumber,
     });
-    console.log(getUserInput(value), newValue);
     if (newValue !== value && String(newValue) !== value) {
       onChange(newValue as T, { type: 'blur', e: ctx.e });
     }
@@ -124,8 +122,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   const handleFocus = (_: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
-    setUserInput(value as string);
-    props.onFocus?.(value as string, ctx);
+    setUserInput(tValue as string);
+    props.onFocus?.(tValue as string, ctx);
   };
 
   const handleKeydown = (value: string, ctx: { e: React.KeyboardEvent<HTMLDivElement> }) => {
@@ -192,7 +190,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     setIsError,
     userInput,
     setUserInput,
-    value,
+    tValue,
     focus,
     blur,
     onChange,

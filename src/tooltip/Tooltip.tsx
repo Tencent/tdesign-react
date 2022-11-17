@@ -1,31 +1,28 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import Popup, { PopupVisibleChangeContext, PopupRef } from '../popup';
+import Popup, { PopupVisibleChangeContext } from '../popup';
 import useConfig from '../hooks/useConfig';
 import { TdTooltipProps } from './type';
 import { tooltipDefaultProps } from './defaultProps';
 
 export type TooltipProps = TdTooltipProps;
 
-export interface TooltipRef extends PopupRef {
-  setVisible?: (v: boolean) => void;
-}
-
 const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   const {
     theme,
-    showArrow = true,
-    destroyOnClose = true,
+    showArrow,
+    destroyOnClose,
     overlayClassName,
     children,
-    duration = 0,
-    placement = 'top',
+    duration,
+    placement,
+    onVisibleChange,
     ...restProps
   } = props;
+
   const { classPrefix } = useConfig();
-  const [isTipShowed, setTipshow] = useState(duration !== 0);
-  const [timeup, setTimeup] = useState(false);
-  const popupRef = useRef<PopupRef>();
+  const [timeUp, setTimeUp] = useState(false);
+  const popupRef = useRef(null);
   const timerRef = useRef<number | null>(null);
   const [offset, setOffset] = useState([0, 0]);
   const toolTipClass = classNames(
@@ -37,49 +34,37 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   );
   const isPlacedByMouse = placement === 'mouse';
 
-  const setVisible = (v: boolean) => {
-    if (duration !== 0) setTimeup(false);
-    setTipshow(v);
-  };
-
   const calculatePos = (e) => {
     const rect = (e.target as HTMLElement).getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    return {
-      x,
-      y,
-    };
+    return { x, y };
   };
 
-  const handleShowTip = (visible: boolean, { e, trigger }: PopupVisibleChangeContext) => {
-    if (duration === 0 || (duration !== 0 && timeup)) {
-      if (
-        visible &&
-        placement === 'mouse' &&
-        (trigger === 'trigger-element-hover' || trigger === 'trigger-element-click')
-      ) {
-        const { x } = calculatePos(e);
-        setOffset([x, 0]);
-      }
-      setTipshow(visible);
-    }
-  };
+  function handleVisibleChange(visible: boolean, { e, trigger }: PopupVisibleChangeContext) {
+    setTimeUp(false);
+    onVisibleChange?.(visible, { e, trigger });
+
+    if (placement !== 'mouse' || !visible) return;
+
+    const { x } = calculatePos(e);
+    setOffset([x, 0]);
+  }
 
   useEffect(() => {
-    if (duration !== 0 && !timeup) {
+    if (duration !== 0 && !timeUp) {
+      popupRef.current?.setVisible?.(true);
       timerRef.current = window.setTimeout(() => {
-        setTipshow(false);
-        setTimeup(true);
+        popupRef.current?.setVisible?.(false);
+        setTimeUp(true);
       }, duration);
     }
     return () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
+      window.clearTimeout(timerRef.current);
     };
-  }, [duration, timeup]);
+  }, [duration, timeUp]);
 
   useImperativeHandle(ref, () => ({
-    setVisible,
     ...((popupRef.current || {}) as any),
   }));
 
@@ -89,8 +74,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
       destroyOnClose={destroyOnClose}
       showArrow={isPlacedByMouse ? false : showArrow}
       overlayClassName={toolTipClass}
-      visible={isTipShowed}
-      onVisibleChange={handleShowTip}
+      onVisibleChange={handleVisibleChange}
       popperOptions={{
         modifiers: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
       }}

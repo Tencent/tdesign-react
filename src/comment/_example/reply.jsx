@@ -1,47 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Comment } from 'tdesign-react';
-import { IconFont } from 'tdesign-icons-react';
-
-const classStyles = `
-  <style>
-    .comment-reply > .t-comment__inner .t-comment__actions {
-      margin-right: 24px;
-    }
-  </style>
-`;
+import { CaretRightSmallIcon, ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 export default function replyComment() {
-  useEffect(() => {
-    // 添加示例代码所需样式
-    document.head.insertAdjacentHTML('beforeend', classStyles);
-  }, []);
-
-  const actionTextStyle = {
-    display: 'inline-block',
-    marginLeft: '6px',
-    lineHeight: '15px',
-  };
-
-  const authorIconStyle = {
-    display: 'inline-block',
-    margin: '0 4px',
-  };
-
   const actions = [
-    <span key="thumbUp">
-      <IconFont name="thumb-up" />
-      <span style={actionTextStyle}>6</span>
-    </span>,
-    <span key="chat">
-      <IconFont name="chat" />
-      <span style={actionTextStyle}>回复</span>
-    </span>,
+    <React.Fragment key="ThumbUp">
+      <ThumbUpIcon size="16px" />
+      <span>6</span>
+    </React.Fragment>,
+    <React.Fragment key="Chat">
+      <ChatIcon size="16px" />
+      <span>回复</span>
+    </React.Fragment>,
   ];
 
   const replyAuthor = (
     <>
       <span>评论作者名B</span>
-      <IconFont name="caret-right-small" size="small" style={authorIconStyle} />
+      <CaretRightSmallIcon size="small" />
       <span>评论作者名A</span>
     </>
   );

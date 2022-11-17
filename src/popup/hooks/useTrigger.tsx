@@ -1,17 +1,15 @@
 import React, { useRef, useEffect, isValidElement, useCallback } from 'react';
 import { isFragment } from 'react-is';
 import classNames from 'classnames';
-import useConfig from '../../hooks/useConfig';
 import { supportRef, getRefDom } from '../utils/ref';
 import composeRefs from '../../_util/composeRefs';
 
 const ESC_KEY = 'Escape';
 
 export default function useTrigger({ content, disabled, trigger, visible, onVisibleChange, triggerRef }) {
-  const { classPrefix } = useConfig();
   const hasPopupMouseDown = useRef(false);
   const mouseDownTimer = useRef(0);
-  const triggerDataKey = useRef(`${classPrefix}-popup--${Math.random().toFixed(10)}`);
+  const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
 
   // 禁用和无内容时不展示
   const shouldToggle = !disabled && content;
@@ -71,9 +69,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     if (!shouldToggle) return {};
 
     const triggerProps: any = {
-      className: visible
-        ? classNames(triggerNode.props.className, `${classPrefix}-popup-open`)
-        : triggerNode.props.className,
+      className: visible ? classNames(triggerNode.props.className, `t-popup-open`) : triggerNode.props.className,
       onClick: (e: MouseEvent) => {
         if (trigger === 'click') {
           onVisibleChange(!visible, { e, trigger: 'trigger-element-click' });
@@ -137,11 +133,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   // 整理 trigger 元素
   function getTriggerNode(children: React.ReactNode) {
     const triggerNode =
-      isValidElement(children) && !isFragment(children) ? (
-        children
-      ) : (
-        <span className={`${classPrefix}-trigger`}>{children}</span>
-      );
+      isValidElement(children) && !isFragment(children) ? children : <span className="t-trigger">{children}</span>;
 
     return React.cloneElement(triggerNode, getTriggerProps(triggerNode));
   }

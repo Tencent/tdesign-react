@@ -23,6 +23,9 @@ export const initialDataMap = new Map();
 [Tree, Upload, Transfer, TagInput, RangeInput, CheckboxGroup, DateRangePicker, TimeRangePicker].forEach((component) => {
   initialDataMap.set(component, []);
 });
+[Checkbox].forEach((component) => {
+  initialDataMap.set(component, false);
+});
 
 // 整理初始值 优先级：Form.initialData < FormItem.initialData
 export function getDefaultInitialData({ name, formListName, children, initialData, initialDataFromContext }) {

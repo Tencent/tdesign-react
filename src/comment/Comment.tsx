@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdCommentProps } from './type';
@@ -33,11 +34,13 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
 
   const actionsElement =
     actions && actions.length ? (
-      <ul className={`${classPrefix}-comment__actions`}>
+      <div className={`${classPrefix}-comment__actions`}>
         {actions.map((action, index) => (
-          <li key={`action-${index}`}>{action}</li>
+          <Button key={`action-${index}`} size="small" variant="text">
+            {action}
+          </Button>
         ))}
-      </ul>
+      </div>
     ) : null;
 
   const contentElement = (

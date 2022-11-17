@@ -7,18 +7,9 @@ const { BreadcrumbItem } = Breadcrumb;
 export default function BreadcrumbExample() {
   return (
     <Breadcrumb>
-      <BreadcrumbItem>
-        <BooksIcon />
-        页面1
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <BooksIcon />
-        页面2
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <BooksIcon />
-        页面3
-      </BreadcrumbItem>
+      <BreadcrumbItem icon={<BooksIcon />}>页面1</BreadcrumbItem>
+      <BreadcrumbItem icon={<BooksIcon />}>页面2</BreadcrumbItem>
+      <BreadcrumbItem icon={<BooksIcon />}>页面3</BreadcrumbItem>
     </Breadcrumb>
   );
 }

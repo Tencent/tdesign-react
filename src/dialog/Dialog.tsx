@@ -126,7 +126,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       success: <CheckCircleFilledIcon className={`${classPrefix}-is-success`} />,
     };
     return (
-      <div className={`${prefixCls}__header`}>
+      <div className={`${prefixCls}__header-content`}>
         {iconMap[state.theme]}
         {state.header}
       </div>

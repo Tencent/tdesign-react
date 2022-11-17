@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.43.0 `2022-11-17` 
+### ❗ Breaking Changes
+- `Comment/Slider/ImageViewer`: 组件 DOM 结构调整，有覆盖样式的同学请关注 @HQ-Lin ([#1785](https://github.com/Tencent/tdesign-react/pull/1707)、[#1794](https://github.com/Tencent/tdesign-react/pull/1708)、[#1788](https://github.com/Tencent/tdesign-react/pull/1711))
+- 部分组件间距、尺寸等样式统一调整，支持使用尺寸相关Design Token调整间距、尺寸大小 @uyarn ([common #993](https://github.com/Tencent/tdesign-common/pull/993)) @Wen1kang ([common #977](https://github.com/Tencent/tdesign-common/pull/977)) 
+
+### 🚀 Features
+- `Breadcrumb`: 新增`icon` API @uyarn ([#1702](https://github.com/Tencent/tdesign-react/pull/1702))
+- `Select`: 支持使用Option Children形式时使用过滤等功能 @uyarn ([#1715](https://github.com/Tencent/tdesign-react/pull/1715))
+### 🐞 Bug Fixes
+- `swiper`: swiper控制current交互和正常保持一致 @duenyang ([#1693](https://github.com/Tencent/tdesign-react/pull/1693))
+- `Loading`: 处理loading在dialog等场景中样式异常的问题 @uyarn ([#1694](https://github.com/Tencent/tdesign-react/pull/1694))
+- `Breadcrumbe`: 修复文字省略样式丢失的问题 @uyarn ([#1702](https://github.com/Tencent/tdesign-react/pull/1702))
+- `popconfirm`: 修复官网demo气泡框描述文案字体颜色 @iLunZ ([#1705](https://github.com/Tencent/tdesign-react/pull/1705))
+- `InputNumber`: 组件支持受控 @chaishi ([#1703](https://github.com/Tencent/tdesign-react/pull/1703))
+- `Form`: 修复拦截 checkbox 默认值为 undefined 控制台警告问题 @HQ-Lin ([#1682](https://github.com/Tencent/tdesign-react/pull/1682))
+- `popconfirm`: 修复官网demo气泡框描述文案字体颜色 @iLunZ ([#1705](https://github.com/Tencent/tdesign-react/pull/1705))
+- `TreeSelect`:
+    - 当 valueType="object" 且 value 不在 tree.data 中时, 优先展示  @moecasts ([#1681](https://github.com/Tencent/tdesign-react/pull/1681))
+    - 修复浮层样式问题 @HQ-Lin ([#1689](https://github.com/Tencent/tdesign-react/pull/1689))
+    - 暴露 treeRef 的方法 @moecasts ([#1698](https://github.com/Tencent/tdesign-react/pull/1698))
+- `Tooltip`: 修复非受控问题 @HQ-Lin ([#1712](https://github.com/Tencent/tdesign-react/pull/1712))
+
 ## 🌈 0.42.6 `2022-11-07` 
 ### 🚀 Features
 - `Guide`: support guide component @Yilun-Sun ([#1581](https://github.com/Tencent/tdesign-react/pull/1581))

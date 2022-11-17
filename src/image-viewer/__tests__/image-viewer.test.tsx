@@ -70,9 +70,7 @@ describe('ImageViewerMini', () => {
     });
 
     // 鼠标点击后，有 mini 元素
-    const miniHeader = await waitFor(() => document.querySelector('.t-image-viewer__mini-header'));
     const miniFooter = await waitFor(() => document.querySelector('.t-image-viewer-mini__footer'));
-    expect(miniHeader).toBeTruthy();
     expect(miniFooter).toBeTruthy();
 
     // 模拟鼠标点击关闭
