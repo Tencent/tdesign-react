@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo, ReactElement } from 'react';
+import React, { useEffect, Ref, useMemo } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -6,7 +6,7 @@ import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getSelectValueArr, getValueToOption, getSelectedOptions } from '../util/helper';
+import { getSelectValueArr, getSelectedOptions } from '../util/helper';
 import noop from '../../_util/noop';
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
@@ -19,6 +19,7 @@ import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } 
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 import { PopupVisibleChangeContext } from '../../popup';
+import useOptions from '../hooks/useOptions';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -87,66 +88,14 @@ const Select = forwardRefWithStatics(
 
     const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
-    const [currentOptions, setCurrentOptions] = useState([]);
-    const [tmpPropOptions, setTmpPropOptions] = useState([]);
-    const [valueToOption, setValueToOption] = useState({});
-    const [selectedOptions, setSelectedOptions] = useState([]);
 
-    // 处理设置 option 的逻辑
-    useEffect(() => {
-      if (keys) {
-        // 如果有定制 keys 先做转换
-        const transformedOptions = options?.map((option) => ({
-          ...option,
-          value: get(option, keys?.value || 'value'),
-          label: get(option, keys?.label || 'label'),
-        }));
-        setCurrentOptions(transformedOptions);
-        setTmpPropOptions(transformedOptions);
-      } else {
-        setCurrentOptions(options);
-        setTmpPropOptions(options);
-      }
-      setValueToOption(getValueToOption(children as ReactElement, options, keys) || {});
-    }, [options, keys, children]);
-
-    // 同步 value 对应的 options
-    useEffect(() => {
-      setSelectedOptions((oldSelectedOptions) => {
-        const valueKey = keys?.value || 'value';
-        const labelKey = keys?.label || 'label';
-        if (Array.isArray(value)) {
-          return value
-            .map((item) => {
-              if (valueType === 'value') {
-                return (
-                  valueToOption[item as string | number] ||
-                  oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
-                    [valueKey]: item,
-                    [labelKey]: item,
-                  }
-                );
-              }
-              return item;
-            })
-            .filter(Boolean);
-        }
-
-        if (value !== undefined && value !== null) {
-          if (valueType === 'value') {
-            return [
-              valueToOption[value as string | number] ||
-                oldSelectedOptions.find((option) => get(option, valueKey) === value) || {
-                  [valueKey]: value,
-                  [labelKey]: value,
-                },
-            ].filter(Boolean);
-          }
-          return [value];
-        }
-        return [];
-      });
-    }, [value, keys, valueType, valueToOption]);
+    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions } = useOptions(
+      keys,
+      options,
+      children,
+      valueType,
+      value,
+    );
 
     const selectedLabel = useMemo(() => {
       if (multiple) {
