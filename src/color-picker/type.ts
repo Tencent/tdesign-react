@@ -22,7 +22,6 @@ export interface TdColorPickerProps {
   colorModes?: Array<'monochrome' | 'linear-gradient'>;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -96,7 +95,9 @@ export type ColorPickerChangeTrigger =
   | 'palette-brightness'
   | 'palette-hue-bar'
   | 'palette-alpha-bar'
-  | 'input';
+  | 'input'
+  | 'preset'
+  | 'recent';
 
 export interface ColorObject {
   alpha: number;
