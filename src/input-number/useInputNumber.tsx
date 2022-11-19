@@ -112,12 +112,11 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     const isDelete = e.nativeEvent.inputType === 'deleteContentBackward';
     const inputSpecialCode = specialCode.includes(val.slice(-1));
     const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
-    const isSpecialCode = inputSpecialCode;
-    if ((!isNaN(Number(val)) && !isSpecialCode) || deleteSpecialCode) {
+    if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {
       const newVal = val === '' ? undefined : Number(val);
       onChange(newVal as T, { type: 'input', e });
     }
-    if (isSpecialCode || deleteSpecialCode) {
+    if (inputSpecialCode || deleteSpecialCode) {
       setUserInput(val);
     }
   };
