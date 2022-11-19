@@ -101,6 +101,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     onChange(newValue, { type: 'add', e });
   };
 
+  // 1.2 -> 1. -> 1
   const onInnerInputChange = (val: string, { e }: { e: any }) => {
     if (!canInputNumber(val, largeNumber)) return;
     if (props.largeNumber) {
@@ -108,12 +109,15 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
       return;
     }
     // specialCode 新增或删除这些字符时不触发 change 事件
-    const isNumberCode = specialCode.includes(e.nativeEvent.data) || specialCode.includes(String(val).slice(-1));
-    if (!isNaN(Number(val)) && !isNumberCode) {
+    const isDelete = e.nativeEvent.inputType === 'deleteContentBackward';
+    const inputSpecialCode = specialCode.includes(val.slice(-1));
+    const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
+    const isSpecialCode = inputSpecialCode;
+    if ((!isNaN(Number(val)) && !isSpecialCode) || deleteSpecialCode) {
       const newVal = val === '' ? undefined : Number(val);
       onChange(newVal as T, { type: 'input', e });
     }
-    if (isNumberCode) {
+    if (isSpecialCode || deleteSpecialCode) {
       setUserInput(val);
     }
   };
