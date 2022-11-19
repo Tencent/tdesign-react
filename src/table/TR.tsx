@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef, MouseEvent } from 'react';
+import React, { useMemo, useRef, MouseEvent } from 'react';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import classnames from 'classnames';
@@ -95,7 +95,7 @@ export function renderCell(
 }
 
 // 表格行组件
-const TR = memo((props: TrProps) => {
+export default function TR(props: TrProps) {
   const {
     row,
     rowKey,
@@ -255,8 +255,6 @@ const TR = memo((props: TrProps) => {
         : columnVNodeList}
     </tr>
   );
-});
-
-export default TR;
+}
 
 TR.displayName = 'TR';
