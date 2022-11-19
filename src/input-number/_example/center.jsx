@@ -42,8 +42,23 @@ export default function InputNumberExample() {
   // inputProps={{ tips }} 和 tips={tips} 均可
   return (
     <Space direction="vertical">
-      <InputNumber value={decimalValue} onChange={setDecimalValue} decimalPlaces={0} max={5} autoWidth />
-      <InputNumber value={value1} onChange={setValue1} step={0.1} max={5} style={{ width: 250 }} />
+      <InputNumber
+        value={decimalValue}
+        onChange={setDecimalValue}
+        decimalPlaces={0}
+        max={5}
+        autoWidth
+      />
+
+      <InputNumber
+        value={value1}
+        onChange={setValue1}
+        step={0.1}
+        max={5}
+        allowInputOverLimit={false}
+        style={{ width: 250 }}
+      />
+
       <InputNumber
         value={value2}
         max={15}
