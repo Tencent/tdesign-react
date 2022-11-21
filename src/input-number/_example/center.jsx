@@ -53,7 +53,7 @@ export default function InputNumberExample() {
       <InputNumber
         value={value1}
         onChange={setValue1}
-        step={0.1}
+        step={0.18}
         max={5}
         allowInputOverLimit={false}
         style={{ width: 250 }}
