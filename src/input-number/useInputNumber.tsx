@@ -14,6 +14,8 @@ import {
   getStepValue,
 } from '../_common/js/input-number/number';
 
+export const specialCode = ['-', '.', 'e', 'E'];
+
 /**
  * 独立一个组件 Hook 方便用户直接使用相关逻辑 自定义任何样式的数字输入框
  */
@@ -27,7 +29,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const inputRef = useRef(null);
 
-  const { max, min, largeNumber, onValidate } = props;
+  const { max, min, largeNumber, decimalPlaces, onValidate } = props;
 
   const disabledReduce = props.disabled || !canReduceNumber(tValue, props.min, props.largeNumber);
   const disabledAdd = props.disabled || !canAddNumber(tValue, props.max, props.largeNumber);
@@ -47,8 +49,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     let inputStr = value || value === 0 ? String(value) : '';
     if (!inputRef.current.currentElement.contains?.(document.activeElement)) {
       const num = formatToNumber(inputStr, {
-        decimalPlaces: props.decimalPlaces,
-        largeNumber: props.largeNumber,
+        decimalPlaces,
+        largeNumber,
       });
       inputStr = num || num === 0 ? String(num) : '';
       if (props.format) {
@@ -99,21 +101,45 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     onChange(newValue, { type: 'add', e });
   };
 
-  const onInnerInputChange = (val: string, ctx: { e: any }) => {
-    if (!canInputNumber(val, props.largeNumber)) return;
-    const isDelete = ctx.e.inputType === 'deleteContentBackward';
-    // 大数-字符串；普通数-数字。此处是了将 2e3，2.1e3 等内容转换为数字
-    const newVal = isDelete || props.largeNumber || !val ? val : Number(val);
-    if (newVal !== tValue && !['-', '.', 'e', 'E'].includes(val.slice(-1))) {
-      onChange(newVal as T, { type: 'input', e: ctx.e });
+  // 1.2 -> 1. -> 1
+  const onInnerInputChange = (val: string, { e }: { e: any }) => {
+    if (!canInputNumber(val, largeNumber)) return;
+    if (props.largeNumber) {
+      onChange(val as T, { type: 'input', e });
+      return;
+    }
+    // specialCode 新增或删除这些字符时不触发 change 事件
+    const isDelete = e.nativeEvent.inputType === 'deleteContentBackward';
+    const inputSpecialCode = specialCode.includes(val.slice(-1));
+    const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
+    if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {
+      const newVal = val === '' ? undefined : Number(val);
+      onChange(newVal as T, { type: 'input', e });
+    }
+    if (inputSpecialCode || deleteSpecialCode) {
+      setUserInput(val);
     }
   };
 
   const handleBlur = (value: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
+    if (!props.allowInputOverLimit) {
+      const r = getMaxOrMinValidateResult({
+        value: tValue,
+        largeNumber,
+        max,
+        min,
+      });
+      if (r === 'below-minimum') {
+        onChange(min as T, { type: 'blur', e: ctx.e });
+      } else if (r === 'exceed-maximum') {
+        onChange(max as T, { type: 'blur', e: ctx.e });
+      }
+      return;
+    }
     setUserInput(getUserInput(value));
     const newValue = formatToNumber(value, {
-      decimalPlaces: props.decimalPlaces,
-      largeNumber: props.largeNumber,
+      decimalPlaces,
+      largeNumber,
     });
     if (newValue !== value && String(newValue) !== value) {
       onChange(newValue as T, { type: 'blur', e: ctx.e });
