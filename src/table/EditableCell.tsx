@@ -14,7 +14,7 @@ import {
 } from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TableClassName } from './hooks/useClassName';
-import { renderCell } from './TR';
+import { renderCell } from './Cell';
 import { validate } from '../form/formModel';
 import log from '../_common/js/log';
 import { AllValidateResult } from '../form/type';
