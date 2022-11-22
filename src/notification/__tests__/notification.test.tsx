@@ -45,18 +45,20 @@ describe('Notification test', () => {
   });
 
   test('open and close', async () => {
+    NotificationPlugin.closeAll();
+
     const notification = await NotificationPlugin.info({});
-    expect(document.querySelectorAll('.t-notification').length).toBe(1);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(1), 100);
     notification.close();
-    expect(document.querySelectorAll('.t-notification').length).toBe(0);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(0), 100);
 
     const notificationPromise = NotificationPlugin.info({});
 
     await notificationPromise;
 
-    expect(document.querySelectorAll('.t-notification').length).toBe(1);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(1), 100);
     await NotificationPlugin.close(notificationPromise);
-    expect(document.querySelectorAll('.t-notification').length).toBe(0);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(0), 100);
   });
 
   test('open with theme', async () => {
@@ -67,10 +69,10 @@ describe('Notification test', () => {
     await NotificationPlugin.warning({});
     await NotificationPlugin.error({});
 
-    expect(document.querySelectorAll('.t-notification .t-is-info').length).toBe(1);
-    expect(document.querySelectorAll('.t-notification .t-is-success').length).toBe(1);
-    expect(document.querySelectorAll('.t-notification .t-is-warning').length).toBe(1);
-    expect(document.querySelectorAll('.t-notification .t-is-error').length).toBe(1);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification .t-is-info').length).toBe(1), 100);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification .t-is-success').length).toBe(1), 100);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification .t-is-warning').length).toBe(1), 100);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification .t-is-error').length).toBe(1), 100);
   });
 
   test('open with placement', async () => {
@@ -81,10 +83,16 @@ describe('Notification test', () => {
     await NotificationPlugin.info({ placement: 'bottom-left' });
     await NotificationPlugin.info({ placement: 'bottom-right' });
 
-    expect(document.querySelectorAll('.t-notification__show--top-left').length).toBe(1);
-    expect(document.querySelectorAll('.t-notification__show--top-right').length).toBe(1);
-    expect(document.querySelectorAll('.t-notification__show--bottom-left').length).toBe(1);
-    expect(document.querySelectorAll('.t-notification__show--bottom-right').length).toBe(1);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification__show--top-left').length).toBe(1), 100);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification__show--top-right').length).toBe(1), 100);
+    await mockTimeout(
+      () => expect(document.querySelectorAll('.t-notification__show--bottom-left').length).toBe(1),
+      100,
+    );
+    await mockTimeout(
+      () => expect(document.querySelectorAll('.t-notification__show--bottom-right').length).toBe(1),
+      100,
+    );
   });
 
   test('auto close', async () => {
@@ -92,7 +100,7 @@ describe('Notification test', () => {
 
     await NotificationPlugin.info({ duration: 1000 });
 
-    expect(document.querySelectorAll('.t-notification').length).toBe(1);
+    await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(1), 100);
 
     await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(0), 1200);
   });
@@ -104,8 +112,9 @@ describe('Notification test', () => {
       closeBtn: <span id="close_button">关闭</span>,
     });
 
-    fireEvent.click(document.querySelector('#close_button'));
-
-    expect(document.querySelectorAll('.t-notification').length).toBe(0);
+    await mockTimeout(() => {
+      fireEvent.click(document.querySelector('#close_button'));
+      return expect(document.querySelectorAll('.t-notification').length).toBe(0);
+    }, 300);
   });
 });

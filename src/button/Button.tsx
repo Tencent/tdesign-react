@@ -6,6 +6,7 @@ import useRipple from '../_util/useRipple';
 import Loading from '../loading';
 import { TdButtonProps } from './type';
 import { buttonDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
 
 export interface ButtonProps
   extends TdButtonProps,
@@ -87,7 +88,7 @@ const Button = forwardRef((props: ButtonProps, ref: React.RefObject<HTMLElement>
     <>
       {iconNode}
       {renderChildren && <span className={`${classPrefix}-button__text`}>{renderChildren}</span>}
-      {suffix && <span className={`${classPrefix}-button__suffix`}>{suffix}</span>}
+      {suffix && <span className={`${classPrefix}-button__suffix`}>{parseTNode(suffix)}</span>}
     </>,
   );
 });

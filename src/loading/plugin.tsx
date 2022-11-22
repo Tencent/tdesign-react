@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, unmount } from '../_util/react-render';
 import Loading, { LoadingProps } from './Loading';
 import { LoadingInstance, TdLoadingProps } from './type';
 
@@ -28,13 +28,13 @@ export const LoadingPlugin: LoadingPluginMethod = (options) => {
     showOverlay: !!attach,
   };
 
-  ReactDOM.render(<Loading {...defaultProps} {...props} attach={null}></Loading>, div);
+  render(<Loading {...defaultProps} {...props} attach={null}></Loading>, div);
 
   container.appendChild(div);
 
   return {
     hide: () => {
-      ReactDOM.unmountComponentAtNode(div);
+      unmount(div);
       div.remove();
     },
   };
