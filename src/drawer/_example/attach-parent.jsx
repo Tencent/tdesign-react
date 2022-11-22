@@ -14,6 +14,7 @@ export default function () {
   };
   return (
     <div
+      id="demo-container"
       style={{
         position: 'relative',
         height: '400px',
@@ -57,6 +58,7 @@ export default function () {
           visible={visible}
           onClose={handleClose}
           mode={mode}
+          attach="#demo-container"
         >
           <p>This is a drawer</p>
         </Drawer>

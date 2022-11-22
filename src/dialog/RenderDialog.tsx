@@ -7,7 +7,7 @@ import { DialogProps } from './Dialog';
 import useDialogEsc from '../_util/useDialogEsc';
 import { dialogDefaultProps } from './defaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import useDialogLockStyle from './hooks/useDialogLockStyle';
+import useLockStyle from './hooks/useLockStyle';
 
 function GetCSSValue(v: string | number) {
   return Number.isNaN(Number(v)) ? v : `${Number(v)}px`;
@@ -66,7 +66,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const dialogOpenClass = `${prefixCls}__${mode}`;
 
   useDialogEsc(visible, wrap);
-  useDialogLockStyle(props);
+  useLockStyle(props);
   useImperativeHandle(ref, () => wrap.current);
 
   useEffect(() => {
