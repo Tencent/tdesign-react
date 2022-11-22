@@ -29,7 +29,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const inputRef = useRef(null);
 
-  const { max, min, largeNumber, decimalPlaces, onValidate } = props;
+  const { max, min, largeNumber, decimalPlaces, allowInputOverLimit, onValidate } = props;
 
   const disabledReduce = props.disabled || !canReduceNumber(tValue, props.min, props.largeNumber);
   const disabledAdd = props.disabled || !canAddNumber(tValue, props.max, props.largeNumber);
@@ -79,26 +79,40 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     onValidate?.({ error });
   }, [tValue, max, min, largeNumber, onValidate]);
 
-  const handleStepValue = (op: 'add' | 'reduce') =>
-    getStepValue({
+  const handleStepValue = (op: 'add' | 'reduce') => {
+    const newValue = getStepValue({
       op,
       step: props.step,
       max: props.max,
       min: props.min,
-      lastValue: tValue as InputNumberValue,
+      lastValue: tValue,
       largeNumber: props.largeNumber,
-    }) as T;
+    });
+    const { largeNumber, max, min } = props;
+    const overLimit = getMaxOrMinValidateResult({
+      value: newValue,
+      largeNumber,
+      max,
+      min,
+    });
+    return {
+      overLimit,
+      newValue,
+    };
+  };
 
   const handleReduce = (e: any) => {
     if (disabledReduce || props.readonly) return;
-    const newValue = handleStepValue('reduce');
-    onChange(newValue, { type: 'reduce', e });
+    const r = handleStepValue('reduce');
+    if (r.overLimit && !allowInputOverLimit) return;
+    onChange(r.newValue, { type: 'reduce', e });
   };
 
   const handleAdd = (e: any) => {
     if (disabledAdd || props.readonly) return;
-    const newValue = handleStepValue('add');
-    onChange(newValue, { type: 'add', e });
+    const r = handleStepValue('add');
+    if (r.overLimit && !allowInputOverLimit) return;
+    onChange(r.newValue, { type: 'add', e });
   };
 
   // 1.2 -> 1. -> 1
