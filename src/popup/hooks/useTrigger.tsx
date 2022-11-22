@@ -9,6 +9,7 @@ const ESC_KEY = 'Escape';
 export default function useTrigger({ content, disabled, trigger, visible, onVisibleChange, triggerRef }) {
   const hasPopupMouseDown = useRef(false);
   const mouseDownTimer = useRef(0);
+  const triggerMouseLeaveTimer = useRef(0);
   const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
 
   // 禁用和无内容时不展示
@@ -24,6 +25,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       }
       visible && onVisibleChange(false, { e, trigger: 'document' });
     };
+
     document.addEventListener('mousedown', handleDocumentClick);
     document.addEventListener('touchend', handleDocumentClick);
     return () => {
@@ -39,6 +41,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     return {
       onMouseEnter: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          clearTimeout(triggerMouseLeaveTimer.current);
           onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
         }
       },
@@ -90,7 +93,9 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onMouseLeave: (e: MouseEvent) => {
         if (trigger === 'hover') {
-          onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
+          triggerMouseLeaveTimer.current = window.setTimeout(() => {
+            onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
+          }, 200);
         }
         triggerNode.props.onMouseLeave?.(e);
       },
