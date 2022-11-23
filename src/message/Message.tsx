@@ -1,6 +1,6 @@
-import React, { CSSProperties } from 'react';
-import ReactDOM from 'react-dom';
+import React, { CSSProperties, useEffect } from 'react';
 import classNames from 'classnames';
+import { render, unmount } from '../_util/react-render';
 
 import {
   MessageCloseAllMethod,
@@ -47,10 +47,11 @@ interface MessageContainerProps {
   zIndex?: number;
   id?: string;
   children?: React.ReactNode;
+  renderCallback?: Function;
 }
 
 const MessageContainer: React.FC<MessageContainerProps> = (props) => {
-  const { placement, children, zIndex, id } = props;
+  const { placement, children, zIndex, id, renderCallback } = props;
 
   const style: CSSProperties = {
     zIndex,
@@ -63,6 +64,11 @@ const MessageContainer: React.FC<MessageContainerProps> = (props) => {
   if (placement.includes('top')) {
     style.top = `${globalConfig.top}px`;
   }
+
+  useEffect(() => {
+    renderCallback();
+    // eslint-disable-next-line
+  }, []);
 
   const { tdMessagePlacementClassGenerator, tdMessageListClass } = useMessageClass();
 
@@ -98,11 +104,19 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions):
     const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
     if (container.length < 1) {
       const div = document.createElement('div');
-      ReactDOM.render(<MessageContainer id={containerId} placement={placement} zIndex={zIndex} />, div, () => {
-        mountedDom.appendChild(div);
-        const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-        resolve(container[0]);
-      });
+      render(
+        <MessageContainer
+          id={containerId}
+          placement={placement}
+          zIndex={zIndex}
+          renderCallback={() => {
+            mountedDom.appendChild(div);
+            const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+            resolve(container[0]);
+          }}
+        />,
+        div,
+      );
     } else {
       resolve(container[0]);
     }
@@ -122,7 +136,7 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
 
   const message = {
     close: () => {
-      ReactDOM.unmountComponentAtNode(div);
+      unmount(div);
       div.remove();
       message.closed = true;
     },
@@ -152,7 +166,7 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
 
   return new Promise((resolve) => {
     // 渲染组件
-    ReactDOM.render(
+    render(
       <MessageComponent
         key={keyIndex}
         {...config}

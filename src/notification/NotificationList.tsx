@@ -1,5 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import { render } from '../_util/react-render';
 import useConfig from '../hooks/useConfig';
 import {
   NotificationInfoOptions,
@@ -30,6 +30,7 @@ interface NotificationListProps {
   attach: HTMLElement;
   zIndex: number;
   placement: NotificationPlacementList;
+  renderCallback: Function;
 }
 
 let seed = 0;
@@ -39,7 +40,7 @@ export const listMap: Map<NotificationPlacementList, NotificationListInstance> =
 export const NotificationRemoveContext = React.createContext<(key: string) => void>(noop);
 
 const NotificationList = forwardRef<NotificationListInstance, NotificationListProps>((props, ref) => {
-  const { placement, zIndex } = props;
+  const { placement, zIndex, renderCallback } = props;
   const { classPrefix } = useConfig();
   const [list, setList] = useState<NotificationListOpenOption[]>([]);
 
@@ -83,18 +84,21 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
       },
     ]);
 
-    return Promise.resolve(ref.current);
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        resolve(ref.current);
+      });
+    });
   };
 
-  const removeAll = () => {
-    setList([]);
-  };
+  const removeAll = () => setList([]);
 
-  useImperativeHandle(ref, () => ({
-    push,
-    remove,
-    removeAll,
-  }));
+  useImperativeHandle(ref, () => ({ push, remove, removeAll }));
+
+  useEffect(() => {
+    renderCallback({ push, remove, removeAll });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <NotificationRemoveContext.Provider value={remove}>
@@ -131,21 +135,19 @@ export const fetchListInstance = (
     if (listMap.has(placement)) {
       resolve(listMap.get(placement));
     } else {
-      let hasExec = false;
-      ReactDOM.render(
+      render(
         <NotificationList
           attach={attach}
           placement={placement}
           zIndex={Number(zIndex)}
-          ref={(instance) => {
-            if (!hasExec) {
-              hasExec = true;
-              listMap.set(placement, instance);
-              resolve(instance);
-            }
+          renderCallback={(instance) => {
+            listMap.set(placement, instance);
           }}
         />,
         attach,
       );
+      requestAnimationFrame(() => {
+        resolve(listMap.get(placement));
+      });
     }
   });

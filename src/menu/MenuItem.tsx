@@ -50,14 +50,16 @@ const MenuItem: FC<MenuItemProps> = (props) => {
       style={{ ...style }}
       onClick={handleClick}
     >
-      {icon}
-      {href ? (
-        <a href={href} target={target} className={classNames(`${classPrefix}-menu__item-link`)}>
+      <>
+        {icon}
+        {href ? (
+          <a href={href} target={target} className={classNames(`${classPrefix}-menu__item-link`)}>
+            <span className={`${classPrefix}-menu__content`}>{children}</span>
+          </a>
+        ) : (
           <span className={`${classPrefix}-menu__content`}>{children}</span>
-        </a>
-      ) : (
-        <span className={`${classPrefix}-menu__content`}>{children}</span>
-      )}
+        )}
+      </>
     </li>
   );
 };

@@ -123,7 +123,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
           {title ? <div className={`${classPrefix}-alert__title`}>{title}</div> : null}
           <div className={`${classPrefix}-alert__message`}>
             {renderMessage()}
-            {operation ? <div className={`${classPrefix}-alert__operation`}>{operation}</div> : null}
+            {operation ? <div className={`${classPrefix}-alert__operation`}>{parseTNode(operation)}</div> : null}
           </div>
         </div>
         {close ? renderClose() : null}
