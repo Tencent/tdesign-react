@@ -176,10 +176,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const getTFootHeight = () => {
     if (!tableElmRef.current) return;
     const timer = setTimeout(() => {
-      const height = tableElmRef.current?.querySelector('tfoot')?.getBoundingClientRect().height;
+      const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
       setTableFootHeight(height);
       clearTimeout(timer);
-    });
+    }, 1);
   };
 
   useEffect(() => {
@@ -498,7 +498,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       {!!topContent && <div className={tableBaseClass.topContent}>{topContent}</div>}
 
       {useMemo(
-        () => renderAffixedHeader(),
+        renderAffixedHeader,
         // eslint-disable-next-line
         [
           // eslint-disable-next-line
@@ -519,7 +519,33 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
       {tableContent}
 
-      {renderAffixedFooter()}
+      {/* eslint-disable-next-line */}
+      {useMemo(renderAffixedFooter, [
+        showAffixFooter,
+        isFixedHeader,
+        rowAndColFixedPosition,
+        spansAndLeafNodes,
+        columns,
+        thWidthList,
+        tableBaseClass,
+        tableElementStyles,
+        tableElmWidth,
+        affixFooterRef,
+        affixedLeftBorder,
+        bordered,
+        isWidthOverflow,
+        scrollbarWidth,
+        tableElmClasses,
+        tableFootHeight,
+        tableWidth,
+        props.rowKey,
+        props.footData,
+        props.rowAttributes,
+        props.rowClassName,
+        props.footerSummary,
+        props.footerAffixedBottom,
+        props.rowspanAndColspanInFooter,
+      ])}
 
       {loadingContent}
 
