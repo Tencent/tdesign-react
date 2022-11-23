@@ -3,11 +3,11 @@ import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
 import noop from '../_util/noop';
-import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
 import useDialogEsc from '../_util/useDialogEsc';
 import { dialogDefaultProps } from './defaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import useLockStyle from './hooks/useLockStyle';
 
 function GetCSSValue(v: string | number) {
   return Number.isNaN(Number(v)) ? v : `${Number(v)}px`;
@@ -46,7 +46,6 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     onCloseBtnClick = noop,
     onOverlayClick = noop,
     onConfirm = noop,
-    preventScrollThrough,
     closeBtn,
     closeOnEscKeydown,
     confirmOnEnter,
@@ -60,64 +59,15 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const dialogPosition = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
   const portalRef = useRef<HTMLDivElement>();
-  const bodyOverflow = useRef<string>();
-  const bodyCssTextRef = useRef<string>();
   const contentClickRef = useRef(false);
   const isModal = mode === 'modal';
   const isNormal = mode === 'normal';
   const canDraggable = props.draggable && mode === 'modeless';
   const dialogOpenClass = `${prefixCls}__${mode}`;
+
   useDialogEsc(visible, wrap);
+  useLockStyle(props);
   useImperativeHandle(ref, () => wrap.current);
-  useLayoutEffect(() => {
-    bodyOverflow.current = document.body.style.overflow;
-    bodyCssTextRef.current = document.body.style.cssText;
-  }, []);
-
-  useLayoutEffect(() => {
-    if (visible) {
-      if (isModal && bodyOverflow.current !== 'hidden' && preventScrollThrough && !showInAttachedElement) {
-        const scrollWidth = window.innerWidth - document.body.offsetWidth;
-        // 减少回流
-        if (bodyCssTextRef.current === '') {
-          let bodyCssText = 'overflow: hidden;';
-          if (scrollWidth > 0) {
-            bodyCssText += `position: relative;width: calc(100% - ${scrollWidth}px);`;
-          }
-          document.body.style.cssText = bodyCssText;
-        } else {
-          if (scrollWidth > 0) {
-            document.body.style.width = `calc(100% - ${scrollWidth}px)`;
-            document.body.style.position = 'relative';
-          }
-          document.body.style.overflow = 'hidden';
-        }
-      }
-      if (wrap.current) {
-        wrap.current.focus();
-      }
-    } else if (isModal) {
-      const openDialogDom = document.querySelectorAll(`${prefixCls}__mode`);
-      if (openDialogDom.length < 1) {
-        document.body.style.cssText = bodyCssTextRef.current;
-      }
-    }
-
-    // 组件销毁后重置 body 样式
-    return () => {
-      if (isModal) {
-        // 此处只能查询 mode 模式的 dialog 个数 因为 modeless 会点击透传 normal 是正常文档流
-        const openDialogDom = document.querySelectorAll(`${prefixCls}__mode`);
-        if (openDialogDom.length < 1) {
-          document.body.style.cssText = bodyCssTextRef.current;
-          document.body.style.overflow = bodyOverflow.current;
-        }
-      } else {
-        document.body.style.cssText = bodyCssTextRef.current;
-        document.body.style.overflow = bodyOverflow.current;
-      }
-    };
-  }, [preventScrollThrough, attach, visible, mode, isModal, showInAttachedElement, prefixCls]);
 
   useEffect(() => {
     // 动画渲染初始位置
@@ -133,13 +83,6 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const onAnimateLeave = () => {
     if (wrap.current) {
       wrap.current.style.display = 'none';
-    }
-    if (isModal && preventScrollThrough) {
-      // 还原 body 的滚动条
-      const openDialogDom = document.querySelectorAll(`${prefixCls}__mode`);
-      if (isModal && openDialogDom.length < 1) {
-        document.body.style.overflow = bodyOverflow.current;
-      }
     }
     if (!isModal) {
       // 关闭弹窗 清空拖拽设置的相关 css
