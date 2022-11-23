@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.43.1 `2022-11-23` 
+### 🚀 Features
+- `Select`: Select option子组件搜索以label优先 支持复杂children为node节点的搜索 @uyarn ([#1717](https://github.com/Tencent/tdesign-react/pull/1717))
+- `ColorPicker`: 增加对OnChange事件区分最近使用和预设的颜色的点击事件 @josonyang ([#1722](https://github.com/Tencent/tdesign-react/pull/1722))
+- `InputNumber`:
+    - 支持 `allowInputOverLimit`，用于设置是否允许输入数字超过 `max` `min` 范围的值 @chaishi ([#1723](https://github.com/Tencent/tdesign-react/pull/1723))
+    -  新增和减少按钮支持 `allowInputOverLimit ` @chaishi ([#1727](https://github.com/Tencent/tdesign-react/pull/1727))
+- `ColorPicker`: 增加对OnChange事件区分最近使用和预设的颜色的点击事件 @josonyang ([#1722](https://github.com/Tencent/tdesign-react/pull/1722))
+- `Table`: 减少表格渲染次数，[issue#1731](https://github.com/Tencent/tdesign-react/issues/1731) @chaishi ([#1732](https://github.com/Tencent/tdesign-react/pull/1732))
+- `TreeSelect`: 优化`checkable`时点击非叶子节点选中的问题 @uyarn ([#1734](https://github.com/Tencent/tdesign-react/pull/1734))
+- `Dialog`:  优化关闭动画不流畅问题 @honkinglin ([#1729](https://github.com/Tencent/tdesign-react/pull/1729))
+- `Other`: 兼容 React 18 render 警告 @honkinglin ([#1718](https://github.com/Tencent/tdesign-react/pull/1718))
+
+### 🐞 Bug Fixes
+- `InputNumber`: 修复上个版本无法输入小数点问题 @chaishi ([#1723](https://github.com/Tencent/tdesign-react/pull/1723))
+- `Select`: 支持valueDisplay API在单选模式的使用 @uyarn ([#1733](https://github.com/Tencent/tdesign-react/pull/1733))
+- `Table`: 
+    - 吸底表尾默认位置不正确 @chaishi ([#1737](https://github.com/Tencent/tdesign-react/pull/1737))
+    - 添加依赖到 `onRuleChange`，以保证数据最新 @chaishi ([#1739](https://github.com/Tencent/tdesign-react/pull/1739))
+- `Popup`: 修复 `delay` 无效问题 @honkinglin ([#1740](https://github.com/Tencent/tdesign-react/pull/1740))
+
+
 ## 🌈 0.43.0 `2022-11-17` 
 ### ❗ Breaking Changes
 - `Comment/Slider/ImageViewer`: 组件 DOM 结构调整，有覆盖样式的同学请关注 @honkinglin ([#1785](https://github.com/Tencent/tdesign-react/pull/1707)、[#1794](https://github.com/Tencent/tdesign-react/pull/1708)、[#1788](https://github.com/Tencent/tdesign-react/pull/1711))
