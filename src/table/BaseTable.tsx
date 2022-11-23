@@ -231,6 +231,21 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
   };
 
+  const headUseMemoDependencies = [
+    resizable,
+    thWidthList,
+    isFixedHeader,
+    rowAndColFixedPosition,
+    isMultipleHeader,
+    spansAndLeafNodes,
+    thList,
+    columnResizeParams,
+    classPrefix,
+    props.bordered,
+    props.resizable,
+    props.size,
+  ];
+
   // 多级表头左边线缺失
   const affixedLeftBorder = props.bordered ? 1 : 0;
 
@@ -388,20 +403,71 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       {isVirtual && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
         {renderColGroup(false)}
-        {props.showHeader && <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />}
-        <TBody {...tableBodyProps} />
-        <TFoot
-          rowKey={props.rowKey}
-          isFixedHeader={isFixedHeader}
-          rowAndColFixedPosition={rowAndColFixedPosition}
-          footData={props.footData}
-          columns={spansAndLeafNodes?.leafColumns || columns}
-          rowAttributes={props.rowAttributes}
-          rowClassName={props.rowClassName}
-          thWidthList={thWidthList.current}
-          footerSummary={props.footerSummary}
-          rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
-        ></TFoot>
+        {useMemo(() => {
+          if (!props.showHeader) return null;
+          return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
+          // eslint-disable-next-line
+        }, headUseMemoDependencies)}
+
+        {useMemo(
+          () => (
+            <TBody {...tableBodyProps} />
+          ),
+          // eslint-disable-next-line
+          [
+            tableBodyProps.classPrefix,
+            tableBodyProps.ellipsisOverlayClassName,
+            tableBodyProps.rowAndColFixedPosition,
+            tableBodyProps.showColumnShadow,
+            tableBodyProps.data,
+            tableBodyProps.columns,
+            tableBodyProps.tableElm,
+            tableBodyProps.tableContentElm,
+            tableBodyProps.tableWidth,
+            isWidthOverflow,
+            props.rowKey,
+            props.rowClassName,
+            props.rowAttributes,
+            props.loading,
+            props.empty,
+            props.fixedRows,
+            props.firstFullRow,
+            props.lastFullRow,
+            props.rowspanAndColspan,
+            props.scroll,
+            props.cellEmptyContent,
+          ],
+        )}
+
+        {useMemo(
+          () => (
+            <TFoot
+              rowKey={props.rowKey}
+              isFixedHeader={isFixedHeader}
+              rowAndColFixedPosition={rowAndColFixedPosition}
+              footData={props.footData}
+              columns={spansAndLeafNodes?.leafColumns || columns}
+              rowAttributes={props.rowAttributes}
+              rowClassName={props.rowClassName}
+              thWidthList={thWidthList.current}
+              footerSummary={props.footerSummary}
+              rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
+            ></TFoot>
+          ),
+          // eslint-disable-next-line
+          [
+            isFixedHeader,
+            rowAndColFixedPosition,
+            spansAndLeafNodes,
+            columns,
+            thWidthList,
+            props.rowKey,
+            props.footData,
+            props.rowAttributes,
+            props.rowClassName,
+            props.footerSummary,
+          ],
+        )}
       </table>
     </div>
   );
@@ -431,7 +497,25 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={{ position: 'relative', ...style }}>
       {!!topContent && <div className={tableBaseClass.topContent}>{topContent}</div>}
 
-      {renderAffixedHeader()}
+      {useMemo(
+        () => renderAffixedHeader(),
+        // eslint-disable-next-line
+        [
+          // eslint-disable-next-line
+          ...headUseMemoDependencies,
+          showAffixHeader,
+          tableWidth,
+          tableElmWidth,
+          affixHeaderRef,
+          affixedLeftBorder,
+          tableElmClasses,
+          tableElementStyles,
+          columns,
+          spansAndLeafNodes,
+          props.showHeader,
+          props.headerAffixedTop,
+        ],
+      )}
 
       {tableContent}
 
