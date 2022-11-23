@@ -234,6 +234,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
         disabled={disabled}
         empty={empty}
         allowFoldNodeOnFilter={true}
+        expandOnClickNode={true}
         {...(multiple
           ? {
               checkable: true,
