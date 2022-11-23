@@ -47,9 +47,7 @@ const FilterableSelect = () => {
         onFocus={handleFocus}
       >
         {options.map((option, index) => (
-          <Option key={index} value={option.value}>
-            {option.label}
-          </Option>
+          <Option key={index} value={option.value} label={option.label}></Option>
         ))}
       </Select>
       <Select

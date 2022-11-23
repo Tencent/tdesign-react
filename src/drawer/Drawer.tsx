@@ -1,19 +1,18 @@
-import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useCallback } from 'react';
+import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useMemo } from 'react';
 import classnames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
-import { addClass, removeClass } from '../_util/dom';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import getScrollbarWidth from '../_util/getScrollbarWidth';
-import hasScrollBar from '../_util/hasScrollBar';
 import { TdDrawerProps, DrawerEventSource } from './type';
 import { StyledProps } from '../common';
-import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
+import Portal from '../common/Portal';
+import useLockStyle from './hooks/useLockStyle';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -29,7 +28,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     className,
     style,
     visible,
-    attach = '',
+    attach,
     showOverlay,
     size: propsSize,
     placement,
@@ -51,8 +50,6 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     confirmBtn,
     zIndex,
     destroyOnClose,
-    mode,
-    preventScrollThrough = true,
     sizeDraggable,
   } = props;
 
@@ -64,28 +61,22 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const cancelText = t(local.cancel);
 
   const { classPrefix } = useConfig();
+  const maskRef = useRef<HTMLDivElement>();
   const containerRef = useRef<HTMLDivElement>();
-  const contentWrapperRef = useRef<HTMLDivElement>();
   const drawerWrapperRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
   const prefixCls = `${classPrefix}-drawer`;
-  const lockCls = `${prefixCls}--lock`;
 
-  const transform = visible ? 'translate(0px)' : '';
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
   const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
   const [isDestroyOnClose, setIsDestroyOnClose] = useState(false);
 
-  useImperativeHandle(ref, () => containerRef.current);
+  const sizeValue = useMemo(() => {
+    const sizeMap = { small: '300px', medium: '500px', large: '760px' };
+    return dragSizeValue || sizeMap[size] || size;
+  }, [dragSizeValue, size]);
 
-  useEffect(() => {
-    if (preventScrollThrough) {
-      if (visible && !showInAttachedElement) {
-        addClass(document.body, lockCls);
-      } else {
-        removeClass(document.body, lockCls);
-      }
-    }
-  }, [visible, showInAttachedElement, lockCls, preventScrollThrough]);
+  useLockStyle({ ...props, sizeValue });
+  useImperativeHandle(ref, () => containerRef.current);
 
   // 重置销毁钩子判断
   useEffect(() => {
@@ -93,63 +84,11 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     setIsDestroyOnClose(false);
   }, [visible, destroyOnClose]);
 
-  const getSizeValue = useCallback(
-    (size: string): string => {
-      if (dragSizeValue) return dragSizeValue;
-
-      const defaultSize = isNaN(Number(size)) ? size : `${size}px`;
-      return (
-        {
-          small: '300px',
-          medium: '500px',
-          large: '760px',
-        }[size] || defaultSize
-      );
-    },
-    [dragSizeValue],
-  );
-
   useEffect(() => {
-    let documentBodyCssText = '';
-
-    if (visible) {
-      if (attach !== '' && hasScrollBar()) {
-        // 处理滚动条宽度导致晃动的问题。
-        const scrollbarWidth = getScrollbarWidth();
-        documentBodyCssText = `overflow: hidden; width: calc(100% - ${scrollbarWidth}px);`;
-
-        if (mode !== 'push') {
-          // 这里做简单的性能优化，如果是 body 那么在下面 mode=push 的模式下，一起使用 cssText 设置，减少重绘重排
-          document.body.style.cssText = documentBodyCssText;
-        }
-      }
-    }
-
-    if (mode === 'push') {
-      drawerWrapperRef.current.style.cssText = 'transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s';
-
-      const marginStr = {
-        left: `margin: 0 0 0 ${getSizeValue(size)}`,
-        right: `margin: 0 0 0 -${getSizeValue(size)}`,
-        top: `margin: ${getSizeValue(size)} 0 0 0`,
-        bottom: `margin: -${getSizeValue(size)} 0 0 0`,
-      }[placement];
-
-      if (visible) {
-        drawerWrapperRef.current.style.cssText += marginStr;
-      } else {
-        drawerWrapperRef.current.style.cssText = drawerWrapperRef.current.style.cssText.replace(/margin:.+;/, '');
-      }
-    }
-
-    if (contentWrapperRef.current) {
-      // 只有 visible 为 true 的时候才需要 focus
-      // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
-      visible && containerRef.current.focus();
-
-      contentWrapperRef.current.style.transform = transform;
-    }
-  }, [attach, mode, transform, visible, placement, size, getSizeValue]);
+    if (!visible) return;
+    // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
+    containerRef.current?.focus?.();
+  }, [visible]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
@@ -175,42 +114,15 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   function onTransitionEnd() {
     if (!visible) {
-      // 重置样式
-      document.body.style.display = 'none';
-      document.body.style.overflow = '';
-      document.body.style.width = '';
-      document.body.style.margin = '';
-      document.body.style.display = 'block';
-
       destroyOnClose && setIsDestroyOnClose(true);
     }
   }
 
-  const drawerClass = classnames(prefixCls, className, `${prefixCls}--${placement}`, {
-    [`${prefixCls}--open`]: visible,
-    [`${prefixCls}--attach`]: showInAttachedElement,
-    [`${prefixCls}--without-mask`]: !showOverlay,
-  });
-
-  const contentWrapperClass = classnames(
-    `${prefixCls}__content-wrapper`,
-    `${prefixCls}__content-wrapper--${placement}`,
-  );
-
-  const getContentWrapperStyle = useCallback(
-    () => ({
+  const contentWrapperStyle = useMemo(() => ({
       transform: visible ? 'translateX(0)' : undefined,
-      width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
-      height: ['top', 'bottom'].includes(placement) ? getSizeValue(size) : '',
-    }),
-    [visible, placement, size, getSizeValue],
-  );
-
-  const [contentWrapperStyle, setContentWrapperStyle] = useState(getContentWrapperStyle());
-
-  useEffect(() => {
-    setContentWrapperStyle(getContentWrapperStyle());
-  }, [getContentWrapperStyle]);
+      width: ['left', 'right'].includes(placement) ? sizeValue : '',
+      height: ['top', 'bottom'].includes(placement) ? sizeValue : '',
+    }), [visible, placement, sizeValue]);
 
   function getFooter(): React.ReactNode {
     if (footer !== true) return footer;
@@ -244,7 +156,19 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     );
   }
 
-  const renderOverlay = showOverlay && <div className={`${prefixCls}__mask`} onClick={onMaskClick} />;
+  const renderOverlay = showOverlay && (
+    <CSSTransition
+      in={visible}
+      appear
+      timeout={200}
+      mountOnEnter
+      classNames={`${prefixCls}-fade`}
+      unmountOnExit={destroyOnClose}
+      nodeRef={maskRef}
+    >
+      <div ref={maskRef} className={`${prefixCls}__mask`} onClick={onMaskClick} />
+    </CSSTransition>
+  );
   const renderCloseBtn = closeBtn && (
     <div onClick={onClickCloseBtn} className={`${prefixCls}__close-btn`}>
       {closeIcon}
@@ -257,17 +181,24 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   if (isDestroyOnClose && !visible) return null;
 
   return (
-    <DrawerWrapper attach={attach} ref={drawerWrapperRef}>
+    <Portal attach={attach} ref={drawerWrapperRef}>
       <div
         ref={containerRef}
-        className={drawerClass}
+        className={classnames(prefixCls, className, `${prefixCls}--${placement}`, {
+          [`${prefixCls}--open`]: visible,
+          [`${prefixCls}--attach`]: showInAttachedElement,
+          [`${prefixCls}--without-mask`]: !showOverlay,
+        })}
         style={{ zIndex, ...style }}
         tabIndex={-1} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
         onKeyDown={onKeyDownEsc}
         onTransitionEnd={onTransitionEnd}
       >
         {renderOverlay}
-        <div ref={contentWrapperRef} className={contentWrapperClass} style={contentWrapperStyle}>
+        <div
+          className={classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper--${placement}`)}
+          style={contentWrapperStyle}
+        >
           {renderCloseBtn}
           {renderHeader}
           {renderBody}
@@ -275,7 +206,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
           {sizeDraggable && <div style={draggableLineStyles} onMouseDown={enableDrag}></div>}
         </div>
       </div>
-    </DrawerWrapper>
+    </Portal>
   );
 });
 

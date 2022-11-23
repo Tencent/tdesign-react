@@ -495,8 +495,8 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     });
     resizeObserver.observe(tableElement);
     return () => {
-      resizeObserver.unobserve(tableElement);
-      resizeObserver.disconnect();
+      resizeObserver?.unobserve?.(tableElement);
+      resizeObserver?.disconnect?.();
     };
   }
 

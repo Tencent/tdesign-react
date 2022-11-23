@@ -24,27 +24,31 @@ export default function UseOptions(
     const arrayChildren = React.Children.toArray(children);
     const isChildrenFilterable =
       arrayChildren.length > 0 &&
-      arrayChildren.filter((v: ReactElement) => v.type === Option && typeof v.props.children === 'string').length ===
-        arrayChildren.length;
+      arrayChildren.filter((v: ReactElement) => v.type === Option).length === arrayChildren.length;
 
     if (isChildrenFilterable) {
-      transformedOptions = arrayChildren.map((v: { props: SelectOption }) => ({
-        label: typeof v.props.children === 'string' ? v.props.children : v.props.label,
-        ...v.props,
-      }));
+      transformedOptions = arrayChildren.map((v) => {
+        if (React.isValidElement(v)) {
+          return {
+            ...v.props,
+            label: v.props.label || (v.props.children as string),
+          };
+        }
+        return { label: v };
+      });
     }
     if (keys) {
       // 如果有定制 keys 先做转换
-      transformedOptions = options?.map((option) => ({
+      transformedOptions = transformedOptions?.map((option) => ({
         ...option,
         value: get(option, keys?.value || 'value'),
         label: get(option, keys?.label || 'label'),
       }));
     }
-    !isChildrenFilterable && setCurrentOptions(transformedOptions);
+    setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
 
-    setValueToOption(getValueToOption(children as ReactElement, options, keys) || {});
+    setValueToOption(getValueToOption(children as ReactElement, options as any, keys) || {});
   }, [options, keys, children]);
 
   // 同步 value 对应的 options

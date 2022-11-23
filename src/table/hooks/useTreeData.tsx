@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import TableTreeStore, { SwapParams } from '../../_common/js/table/tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
-import { renderCell } from '../TR';
+import { renderCell } from '../Cell';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 

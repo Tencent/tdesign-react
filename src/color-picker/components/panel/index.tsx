@@ -247,7 +247,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     }
 
     // 色块点击
-    const handleSetColor = (value: string) => {
+    const handleSetColor = (value: string, trigger: ColorPickerChangeTrigger) => {
       const isGradientValue = Color.isGradientColor(value);
       const color = colorInstanceRef.current;
       if (isGradientValue) {
@@ -264,7 +264,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
       } else {
         color.update(value);
       }
-      emitColorChange();
+      emitColorChange(trigger);
     };
 
     return (
@@ -277,7 +277,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
               editable
               handleAddColor={addRecentlyUsedColor}
               colors={recentlyUsedColors as string[]}
-              onSetColor={(color: string) => handleSetColor(color)}
+              onSetColor={(color: string) => handleSetColor(color, 'recent')}
               onChange={handleRecentlyUsedColorsChange}
             />
           )}
@@ -286,7 +286,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
               {...baseProps}
               title={t(local.swatchColorTitle)}
               colors={systemColors}
-              onSetColor={(color: string) => handleSetColor(color)}
+              onSetColor={(color: string) => handleSetColor(color, 'preset')}
             />
           )}
         </div>

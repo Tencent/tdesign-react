@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from '../_util/react-render';
 import DialogComponent, { DialogProps } from './Dialog';
 
 import { getAttach } from '../_util/dom';
@@ -16,13 +16,8 @@ const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance =>
   const options = { ...props };
   const fragment = document.createDocumentFragment();
 
-  ReactDOM.render(
-    <DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />,
-    fragment,
-    () => {
-      (document.activeElement as HTMLElement).blur();
-    },
-  );
+  render(<DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />, fragment);
+
   const container = getAttach(options.attach);
   if (container) {
     container.appendChild(fragment);
@@ -32,17 +27,25 @@ const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance =>
 
   const dialogNode: DialogInstance = {
     show: () => {
-      container.appendChild(fragment);
-      dialogRef.current?.show();
+      requestAnimationFrame(() => {
+        container.appendChild(fragment);
+        dialogRef.current?.show();
+      });
     },
     hide: () => {
-      dialogRef.current?.destroy();
+      requestAnimationFrame(() => {
+        dialogRef.current?.destroy();
+      });
     },
     update: (updateOptions: DialogOptions) => {
-      dialogRef.current?.update(updateOptions);
+      requestAnimationFrame(() => {
+        dialogRef.current?.update(updateOptions);
+      });
     },
     destroy: () => {
-      dialogRef.current?.destroy();
+      requestAnimationFrame(() => {
+        dialogRef.current?.destroy();
+      });
     },
   };
   return dialogNode;

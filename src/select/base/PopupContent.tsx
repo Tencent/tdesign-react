@@ -122,7 +122,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       return (
         <ul className={`${classPrefix}-select__list`}>
           {(uniqueOptions as OptionsType).map(
-            ({ value: optionValue, label, disabled, content, ...restData }, index) => (
+            ({ value: optionValue, label, disabled, content, children, ...restData }, index) => (
               <Option
                 key={index}
                 max={max}
@@ -136,7 +136,10 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
                 restData={restData}
                 keys={keys}
                 content={content}
-              />
+                {...restData}
+              >
+                {children}
+              </Option>
             ),
           )}
         </ul>

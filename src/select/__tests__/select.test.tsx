@@ -272,9 +272,9 @@ describe('Select 组件测试', () => {
       display: 'block',
     });
     await user.keyboard('{Enter}');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('123_test1');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('123_test2');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('123_test3');
+    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test1'), 100);
+    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test2'), 100);
+    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test3'), 100);
 
     // 清空 input，popup 展示 Apple、Orange、Banana
     fireEvent.change(document.querySelector('input'), { target: { value: '' } });
@@ -283,9 +283,9 @@ describe('Select 组件测试', () => {
       display: 'block',
     });
     await user.keyboard('{Enter}');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Orange');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Banana');
+    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Apple'), 100);
+    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Orange'), 100);
+    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Banana'), 100);
   });
 
   test('远程搜索多选测试', async () => {

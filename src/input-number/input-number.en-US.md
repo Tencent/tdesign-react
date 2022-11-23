@@ -8,6 +8,7 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 align | String | - | options：left/center/right | N
+allowInputOverLimit | Boolean | true | \- | N
 autoWidth | Boolean | false | \- | N
 decimalPlaces | Number | undefined | \- | N
 disabled | Boolean | - | \- | N

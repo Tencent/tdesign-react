@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, fireEvent } from '@test/utils';
+import { render, fireEvent, mockTimeout } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
@@ -154,20 +154,20 @@ describe('Dialog组件测试', () => {
       </>,
     );
     fireEvent.click(getByText('Show Dialog'));
-    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
     await user.keyboard('{Escape}');
-    expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
     fireEvent.click(getByText('Confirm Dialog'));
-    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
     await user.keyboard('{Escape}');
-    expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
     fireEvent.click(getByText('Alert Dialog'));
-    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
     await user.keyboard('{Escape}');
-    expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
     fireEvent.click(getByText('Handle Dialog'));
-    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
     fireEvent.click(getByText('GET IT'));
-    expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
   });
 });

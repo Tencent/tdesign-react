@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import useConfig from '../hooks/useConfig';
 import { TdLinkProps } from './type';
+import parseTNode from '../_util/parseTNode';
 
 export interface LinkProps extends TdLinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'children'> {}
 
@@ -47,9 +48,13 @@ const Link = React.forwardRef(
         })}
         onClick={handleClick}
       >
-        {prefixIcon && <span className={classNames([`${classPrefix}-link__prefix-icon`])}>{prefixIcon}</span>}
+        {prefixIcon && (
+          <span className={classNames([`${classPrefix}-link__prefix-icon`])}>{parseTNode(prefixIcon)}</span>
+        )}
         {childNode}
-        {suffixIcon && <span className={classNames([`${classPrefix}-link__suffix-icon`])}>{suffixIcon}</span>}
+        {suffixIcon && (
+          <span className={classNames([`${classPrefix}-link__suffix-icon`])}>{parseTNode(suffixIcon)}</span>
+        )}
       </a>
     );
   },

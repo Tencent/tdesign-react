@@ -310,7 +310,7 @@ const Select = forwardRefWithStatics(
       if (multiple) {
         return ({ onClose }) => valueDisplay({ value: selectedLabel, onClose });
       }
-      return selectedLabel.length ? (valueDisplay({ value: selectedLabel[0], onClose: noop }) as string) : '';
+      return valueDisplay({ value: selectedLabel, onClose: noop });
     };
 
     const renderCollapsedItems = useMemo(
