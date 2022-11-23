@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
@@ -71,12 +72,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;
 
-  // 解析 delay 数据类型
-  const [appearDelay = 0, exitDelay = 0] = useMemo(() => {
-    if (Array.isArray(delay)) return delay;
-    return [delay, delay];
-  }, [delay]);
-
   // 判断展示浮层
   const showOverlay = useMemo(() => {
     if (hideEmptyPopup && !content) return false;
@@ -95,10 +90,11 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     disabled,
     trigger,
     visible,
+    delay,
     onVisibleChange,
   });
 
-  const triggerNode = getTriggerNode(children);
+  const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
 
   // 监听 trigger 节点或内容变化动态更新 popup 定位
   useMutationObserver(getRefDom(triggerRef), () => {
@@ -141,11 +137,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     <CSSTransition
       appear
       in={visible}
-      timeout={{
-        appear: DEFAULT_TRANSITION_TIMEOUT + appearDelay,
-        enter: DEFAULT_TRANSITION_TIMEOUT + appearDelay,
-        exit: DEFAULT_TRANSITION_TIMEOUT + exitDelay,
-      }}
+      timeout={DEFAULT_TRANSITION_TIMEOUT}
       nodeRef={portalRef}
       unmountOnExit={destroyOnClose}
       onEnter={handleEnter}
@@ -154,11 +146,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
       <Portal triggerNode={getRefDom(triggerRef)} attach={attach} ref={portalRef}>
         <CSSTransition
           appear
-          timeout={{
-            appear: appearDelay,
-            enter: appearDelay,
-            exit: exitDelay,
-          }}
+          timeout={DEFAULT_TRANSITION_TIMEOUT}
           in={visible}
           nodeRef={popupRef}
           {...getTransitionParams({
