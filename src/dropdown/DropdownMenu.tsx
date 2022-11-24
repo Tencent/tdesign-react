@@ -35,7 +35,6 @@ const DropdownMenu = (props: DropdownProps) => {
     let renderContent: ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
-      console.log('--------options', optionItem);
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children);
         renderContent = (
