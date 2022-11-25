@@ -24,21 +24,29 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
   const popupRef = useRef(null);
   const { classPrefix } = useConfig();
   const [hover, hoverAction] = useSwitch();
+  const [clientX, setHoverClientX] = useState(0);
   const [position, setPosition] = useState(null);
   const { keepFade } = useAnimation();
 
   useEffect(() => {
     if (triggerRef.current && contentRef.current) {
-      setPosition(getPosition(triggerRef.current, contentRef.current, placement));
+      setPosition(getPosition(triggerRef.current, contentRef.current, placement, clientX));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerRef.current, contentRef.current, placement, hover]);
 
+  const onSwitchHover = (action: String, e: MouseEvent) => {
+    setHoverClientX(e.clientX);
+    hoverAction.set(action === 'on');
+  };
+
+  const showTipArrow = showArrow && placement !== 'mouse';
+
   const getTriggerChildren = (children) => {
     const appendProps = {
       ref: triggerRef,
-      onMouseEnter: hoverAction.on,
-      onMouseLeave: hoverAction.off,
+      onMouseEnter: (e) => onSwitchHover('on', e),
+      onMouseLeave: (e) => onSwitchHover('off', e),
     };
     if (!React.isValidElement(children)) {
       return React.cloneElement(<div>{children}</div>, { ...appendProps });
@@ -78,7 +86,7 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
             >
               <div
                 className={classnames(`${classPrefix}-popup__content`, {
-                  [`${classPrefix}-popup__content--arrow`]: showArrow,
+                  [`${classPrefix}-popup__content--arrow`]: showTipArrow,
                 })}
                 style={{
                   position: 'absolute',
@@ -89,7 +97,7 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
                 ref={contentRef}
               >
                 {content}
-                {showArrow && <div className={`${classPrefix}-popup__arrow`} />}
+                {showTipArrow && <div className={`${classPrefix}-popup__arrow`} />}
               </div>
             </div>
           </CSSTransition>

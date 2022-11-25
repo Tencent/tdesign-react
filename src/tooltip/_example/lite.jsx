@@ -13,6 +13,9 @@ export default function BasicUsage() {
         <TooltipLite content="提示" placement="top">
           <Button variant="outline">上方文字提示</Button>
         </TooltipLite>
+        <TooltipLite content="提示" placement="mouse">
+          <Button variant="outline">鼠标位置显示提示</Button>
+        </TooltipLite>
         <TooltipLite content="提示" showArrow={false}>
           <Button variant="outline">无箭头文字提示</Button>
         </TooltipLite>
