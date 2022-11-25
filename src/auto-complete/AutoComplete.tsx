@@ -49,14 +49,14 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     if (props.popupProps?.overlayClassName) {
       classes = classes.concat(props.popupProps.overlayClassName);
     }
-    return classes;
+    return classNames(classes);
   })();
   const popupInnerClasses = (() => {
     let classes: ClassName = [`${classPrefix}-select__dropdown-inner`];
     if (props.popupProps?.overlayInnerClassName) {
       classes = classes.concat(props.popupProps.overlayInnerClassName);
     }
-    return classes;
+    return classNames(classes);
   })();
 
   const onInputChange = (value: string, context: { e: FormEvent<HTMLInputElement> }) => {

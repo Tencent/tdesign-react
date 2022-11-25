@@ -173,6 +173,13 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'AutoComplete 自动完成',
+          name: 'auto-complete',
+          meta: {},
+          path: '/react/components/auto-complete',
+          component: () => import('tdesign-react/auto-complete/auto-complete.md'),
+        },
+        {
           title: 'Cascader 级联组件',
           name: 'cascader',
           meta: {},

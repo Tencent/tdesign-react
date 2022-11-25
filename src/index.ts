@@ -40,6 +40,7 @@ export * from './breadcrumb';
 export * from './affix';
 export * from './dropdown';
 export * from './slider';
+export * from './auto-complete';
 export * from './cascader';
 export * from './time-picker';
 export * from './date-picker';

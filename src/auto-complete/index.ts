@@ -5,7 +5,7 @@ import './style/index.js';
 
 export * from './type';
 
-export { AutoCompleteProps } from './AutoComplete';
+export type { AutoCompleteProps } from './AutoComplete';
 
 export type HighlightOptionProps = TdHighlightOptionProps;
 

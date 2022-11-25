@@ -52,18 +52,18 @@ const OptionsList = (props: OptionsListProps) => {
       }
       return option;
     });
-    // 默认过滤规则
-    if (props.filterable) {
-      const regExp = new RegExp(value, 'i');
-      options = options.filter((item) => regExp.test(item.text));
-    }
     // 自定义过滤规则
     if (props.filter) {
       options = options.filter((option) => props.filter(value, option));
+    } else if (props.filterable) {
+      // 默认过滤规则
+      const regExp = new RegExp(value, 'i');
+      options = options.filter((item) => regExp.test(item.text));
     }
+
     return options;
     // eslint-disable-next-line
-  }, [props.options, value, props.filterable, props.filter]);
+  }, [props.options, value, props.filterable]);
 
   const onOptionClick = (e: MouseEvent<HTMLLIElement>) => {
     let liNode = e.target as HTMLElement;
