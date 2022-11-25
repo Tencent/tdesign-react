@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Drawer Props
 
 name | type | default | description | required
@@ -34,3 +33,27 @@ onCloseBtnClick | Function |  | Typescript：`(context: { e: MouseEvent }) => vo
 onConfirm | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onEscKeydown | Function |  | Typescript：`(context: { e: KeyboardEvent }) => void`<br/> | N
 onOverlayClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
+
+### DrawerOptions
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+attach | String / Function | 'body' | Typescript：`AttachNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+className | String | - | \- | N
+style | Object | - | Typescript：`Styles`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+`Omit<DrawerProps, 'attach'>` | \- | - | \- | N
+
+### DrawerInstance
+
+name | params | return | description
+-- | -- | -- | --
+destroy | \- | \- | \-
+hide | \- | \- | \-
+show | \- | \- | \-
+update | `(props: DrawerOptions)` | \- | \-
+
+### drawer 或 DrawerPlugin
+
+name | params | default | description
+-- | -- | -- | --
+options | \- | - | Typescript：`DrawerOptions`

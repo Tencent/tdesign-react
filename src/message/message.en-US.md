@@ -12,7 +12,7 @@ content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](
 duration | Number | 3000 | \- | N
 icon | TNode | true | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | info | options：info/success/warning/error/question/loading。Typescript：`MessageThemeList` `type MessageThemeList = 'info' \| 'success' \| 'warning' \| 'error' \| 'question' \| 'loading'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/message/type.ts) | N
-onClose | Function |  | Typescript：`(context?: { trigger: 'duration' \| 'close-click' }) => void`<br/>close message event | N
+onClose | Function |  | Typescript：`(context: { trigger: 'close-click' \| 'duration-end', e?: MouseEvent }) => void`<br/>close message event | N
 onCloseBtnClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onDurationEnd | Function |  | Typescript：`() => void`<br/> | N
 
@@ -30,8 +30,6 @@ zIndex | Number | 5000 | \- | N
 
 ### message 或 MessagePlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 theme | String | - | required。Typescript：`MessageThemeList`
@@ -40,16 +38,12 @@ duration | Number | 3000 | \-
 
 ### message.info 或 MessagePlugin.info
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 message | String / Object | - | required。Typescript：`string \| MessageInfoOptions` `type MessageInfoOptions = Omit<MessageOptions, 'theme'>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/message/type.ts)
 duration | Number | 3000 | \-
 
 ### message.error 或 MessagePlugin.error
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --
@@ -58,16 +52,12 @@ duration | Number | 3000 | \-
 
 ### message.warning 或 MessagePlugin.warning
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 message | String / Object | - | required。Typescript：`string \| MessageInfoOptions`
 duration | Number | 3000 | \-
 
 ### message.success 或 MessagePlugin.success
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --
@@ -76,16 +66,12 @@ duration | Number | 3000 | \-
 
 ### message.loading 或 MessagePlugin.loading
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 message | String / Object | - | required。Typescript：`string \| MessageInfoOptions`
 duration | Number | 3000 | \-
 
 ### message.question 或 MessagePlugin.question
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --
@@ -94,15 +80,11 @@ duration | Number | 3000 | \-
 
 ### message.closeAll 或 MessagePlugin.closeAll
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 \- | \- | - | \-
 
 ### message.config 或 MessagePlugin.config
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --

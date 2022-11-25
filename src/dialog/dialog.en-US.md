@@ -59,8 +59,6 @@ update | `(props: DialogOptions)` | \- | \-
 
 ### dialog 或 DialogPlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | \- | - | Typescript：`DialogOptions`
@@ -69,15 +67,11 @@ options | \- | - | Typescript：`DialogOptions`
 
 ### dialog.confirm 或 DialogPlugin.confirm
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | \- | - | Typescript：`DialogOptions`
 
 ### dialog.alert 或 DialogPlugin.alert
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --

@@ -5,7 +5,7 @@
  * */
 
 import { ButtonProps } from '../button';
-import { TNode, AttachNode } from '../common';
+import { TNode, Styles, AttachNode } from '../common';
 import { MouseEvent, KeyboardEvent } from 'react';
 
 export interface TdDrawerProps {
@@ -29,17 +29,14 @@ export interface TdDrawerProps {
   children?: TNode;
   /**
    * 关闭按钮，可以自定义。值为 true 显示默认关闭按钮，值为 false 不显示关闭按钮。值类型为 string 则直接显示值，如：“关闭”。值类型为 TNode，则表示呈现自定义按钮示例
-   * @default true
    */
   closeBtn?: TNode;
   /**
    * 按下 ESC 时是否触发抽屉关闭事件
-   * @default true
    */
   closeOnEscKeydown?: boolean;
   /**
    * 点击蒙层时是否触发抽屉关闭事件
-   * @default true
    */
   closeOnOverlayClick?: boolean;
   /**
@@ -89,7 +86,6 @@ export interface TdDrawerProps {
   showOverlay?: boolean;
   /**
    * 尺寸，支持 'small', 'medium', 'large'，'35px', '30%',  '3em' 等。纵向抽屉调整的是抽屉宽度，横向抽屉调整的是抽屉高度
-   * @default small
    */
   size?: string;
   /**
@@ -132,6 +128,42 @@ export interface TdDrawerProps {
   onOverlayClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
+export interface DrawerOptions extends Omit<TdDrawerProps, 'attach'> {
+  /**
+   * 抽屉挂载的节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
+   * @default 'body'
+   */
+  attach?: AttachNode;
+  /**
+   * 抽屉类名，示例：'t-class-drawer-first t-class-drawer-second'
+   * @default ''
+   */
+  className?: string;
+  /**
+   * 弹框 style 属性，输入 [CSSStyleDeclaration.cssText](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/cssText)
+   */
+  style?: Styles;
+}
+
+export interface DrawerInstance {
+  /**
+   * 销毁抽屉
+   */
+  destroy?: () => void;
+  /**
+   * 隐藏抽屉
+   */
+  hide?: () => void;
+  /**
+   * 显示抽屉
+   */
+  show?: () => void;
+  /**
+   * 更新抽屉内容
+   */
+  update?: (props: DrawerOptions) => void;
+}
+
 export type FooterButton = string | ButtonProps | TNode;
 
 export type DrawerEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';
@@ -140,3 +172,5 @@ export interface DrawerCloseContext {
   trigger: DrawerEventSource;
   e: MouseEvent<HTMLDivElement | HTMLButtonElement> | KeyboardEvent<HTMLDivElement>;
 }
+
+export type DrawerMethod = (options?: DrawerOptions) => void;

@@ -5,13 +5,22 @@
 import { TdDialogProps } from './type';
 
 export const dialogDefaultProps: TdDialogProps = {
+  attach: '',
+  body: '',
+  cancelBtn: '',
   closeBtn: true,
+  closeOnEscKeydown: undefined,
+  closeOnOverlayClick: undefined,
+  confirmBtn: '',
   destroyOnClose: false,
   draggable: false,
+  footer: true,
+  header: true,
   mode: 'modal',
   placement: 'top',
   preventScrollThrough: true,
   showInAttachedElement: false,
   showOverlay: true,
   theme: 'default',
+  visible: false,
 };

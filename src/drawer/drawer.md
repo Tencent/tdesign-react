@@ -33,3 +33,27 @@ onCloseBtnClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => voi
 onConfirm | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果“确认”按钮存在，则点击“确认”按钮时触发 | N
 onEscKeydown | Function |  | TS 类型：`(context: { e: KeyboardEvent }) => void`<br/>按下 ESC 键时触发 | N
 onOverlayClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果蒙层存在，点击蒙层时触发 | N
+
+### DrawerOptions
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+attach | String / Function | 'body' | 抽屉挂载的节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body。TS 类型：`AttachNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+className | String | - | 抽屉类名，示例：'t-class-drawer-first t-class-drawer-second' | N
+style | Object | - | 弹框 style 属性，输入 [CSSStyleDeclaration.cssText](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/cssText)。TS 类型：`Styles`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+`Omit<DrawerProps, 'attach'>` | \- | - | 继承 `Omit<DrawerProps, 'attach'>` 中的全部 API | N
+
+### DrawerInstance
+
+名称 | 参数 | 返回值 | 描述
+-- | -- | -- | --
+destroy | \- | \- | 销毁抽屉
+hide | \- | \- | 隐藏抽屉
+show | \- | \- | 显示抽屉
+update | `(props: DrawerOptions)` | \- | 更新抽屉内容
+
+### drawer 或 DrawerPlugin
+
+参数名称 | 参数类型 | 参数默认值 | 参数说明
+-- | -- | -- | --
+options | \- | - | TS 类型：`DrawerOptions`
