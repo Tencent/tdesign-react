@@ -3,7 +3,7 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import Select from '../../select';
 import { TdDatePickerProps } from '../type';
-import PaginationMini, { TdPaginationMiniProps } from '../../pagination';
+import { PaginationMini, TdPaginationMiniProps } from '../../pagination';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;
