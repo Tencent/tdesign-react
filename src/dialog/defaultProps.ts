@@ -5,13 +5,9 @@
 import { TdDialogProps } from './type';
 
 export const dialogDefaultProps: TdDialogProps = {
-  attach: '',
-  body: '',
-  cancelBtn: '',
   closeBtn: true,
   closeOnEscKeydown: undefined,
   closeOnOverlayClick: undefined,
-  confirmBtn: '',
   destroyOnClose: false,
   draggable: false,
   footer: true,
