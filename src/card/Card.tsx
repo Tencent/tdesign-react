@@ -130,15 +130,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
     </div>
   );
 
-  if (loading) {
-    return (
-      <Loading>
-        <div className={cardClass}></div>
-      </Loading>
-    );
-  }
-
-  return (
+  const card = (
     <div ref={ref} className={cardClass} style={style}>
       {showHeader ? renderHeader() : null}
       {renderCover}
@@ -146,6 +138,8 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
       {renderFooter}
     </div>
   );
+
+  return loading ? <Loading>{card}</Loading> : card;
 });
 
 Card.displayName = 'Card';
