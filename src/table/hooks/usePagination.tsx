@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useConfig from '../../hooks/useConfig';
-import Pagination, { PageInfo } from '../../pagination';
+import Pagination, { PageInfo, PaginationProps } from '../../pagination';
 import { TdBaseTableProps, TableRowData } from '../type';
 
 // 分页功能包含：远程数据排序受控、远程数据排序非受控、本地数据排序受控、本地数据排序非受控 等 4 类功能
 export default function usePagination(props: TdBaseTableProps) {
   const { pagination, data, disableDataPage } = props;
   const { classPrefix } = useConfig();
+  const [innerPagination, setInnerPagination] = useState<PaginationProps>(props.pagination);
 
   const [dataSource, setDataSource] = useState<TableRowData[]>([]);
   const [isPaginateData, setIsPaginateData] = useState(false);
@@ -16,13 +17,16 @@ export default function usePagination(props: TdBaseTableProps) {
       // data 数据数量超出分页大小时，则自动启动本地数据分页
       const isPaginateData = Boolean(!disableDataPage && data.length > pageSize);
       setIsPaginateData(isPaginateData);
+      let newData: TableRowData[] = [];
       if (isPaginateData) {
         const start = (current - 1) * pageSize;
         const end = current * pageSize;
-        setDataSource([...data.slice(start, end)]);
+        newData = [...data.slice(start, end)];
       } else {
-        setDataSource(data);
+        newData = data;
       }
+      setDataSource(newData);
+      return newData;
     },
     [data, disableDataPage],
   );
@@ -48,11 +52,14 @@ export default function usePagination(props: TdBaseTableProps) {
           {...pagination}
           onChange={(pageInfo: PageInfo) => {
             props.pagination?.onChange?.(pageInfo);
-            props.onPageChange?.(pageInfo, dataSource);
+            setInnerPagination(pageInfo);
+            let newData = dataSource;
             // 如果是非受控情况的分页变化，还需更新分页数据（data）
             if (pagination && !pagination.current && pagination.defaultCurrent) {
-              updateDataSourceAndPaginate(pageInfo.current, pageInfo.pageSize);
+              newData = updateDataSourceAndPaginate(pageInfo.current, pageInfo.pageSize);
             }
+            // TODO: dataSource
+            props.onPageChange?.(pageInfo, newData);
           }}
         />
       </div>
@@ -62,6 +69,7 @@ export default function usePagination(props: TdBaseTableProps) {
   return {
     isPaginateData,
     dataSource,
+    innerPagination,
     renderPagination,
   };
 }

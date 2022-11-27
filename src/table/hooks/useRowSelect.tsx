@@ -1,6 +1,6 @@
 // 行选中相关功能：单选 + 多选
 
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
 import intersection from 'lodash/intersection';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -27,16 +27,38 @@ export default function useRowSelect(
   tableSelectedClasses: TableClassName['tableSelectedClasses'],
 ) {
   const { selectedRowKeys, columns, data, rowKey, indeterminateSelectedRowKeys } = props;
+  const { pagination, reserveSelectedRowOnPaginate } = props;
+  const [currentPaginateData, setCurrentPaginateData] = useState<TableRowData[]>(data);
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
     defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
   });
   const selectColumn = columns.find(({ type }) => ['multiple', 'single'].includes(type));
-  const canSelectedRows = data.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+
+  const canSelectedRows = useMemo(() => {
+    const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
+    return currentData.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+    // eslint-disable-next-line
+  }, [reserveSelectedRowOnPaginate, data, currentPaginateData]);
+
   // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
   const intersectionKeys = intersection(
     tSelectedRowKeys,
     canSelectedRows.map((t) => get(t, rowKey || 'id')),
+  );
+
+  useEffect(
+    () => {
+      if (reserveSelectedRowOnPaginate) return;
+      // 分页变化时，在 onPageChange 中设置 setCurrentPaginateData，PrimaryTable 中
+      const { pageSize, current, defaultPageSize, defaultCurrent } = pagination;
+      const tPageSize = pageSize || defaultPageSize;
+      const tCurrent = current || defaultCurrent;
+      const newData = data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent);
+      setCurrentPaginateData(newData);
+    },
+    // eslint-disable-next-line
+    [data, reserveSelectedRowOnPaginate],
   );
 
   useEffect(
@@ -161,6 +183,9 @@ export default function useRowSelect(
 
   return {
     selectedRowClassNames,
+    currentPaginateData,
+    setCurrentPaginateData,
+    setTSelectedRowKeys,
     formatToRowSelectColumn,
   };
 }

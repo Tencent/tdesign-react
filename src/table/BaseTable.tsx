@@ -33,6 +33,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const { tableLayout, height, data, columns, style, headerAffixedTop, bordered, resizable } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
+  const bottomContentRef = useRef<HTMLDivElement>();
   const [tableFootHeight, setTableFootHeight] = useState(0);
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
     useClassName();
@@ -81,7 +82,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     updateAffixHeaderOrFooter,
   } = useAffix(props);
 
-  const { dataSource, isPaginateData, renderPagination } = usePagination(props);
+  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize(tableContentRef, refreshTable, getThWidthList, updateThWidthList);
@@ -114,6 +115,15 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
     [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
   );
+
+  const [dividerBottom, setDividerBottom] = useState(0);
+  useEffect(() => {
+    if (!bordered) return;
+    const bottomRect = bottomContentRef.current?.getBoundingClientRect();
+    const paginationRect = paginationRef.current?.getBoundingClientRect();
+    const bottom = (bottomRect?.height || 0) + (paginationRect?.height || 0);
+    setDividerBottom(bottom);
+  }, [bottomContentRef, paginationRef, bordered]);
 
   useEffect(() => {
     setUseFixedTableElmRef(tableElmRef.current);
@@ -395,6 +405,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     cellEmptyContent: props.cellEmptyContent,
     renderExpandedRow: props.renderExpandedRow,
     ...pick(props, extendTableProps),
+    pagination: innerPagination,
   };
   const tableContent = (
     <div
@@ -494,7 +505,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       {renderPagination()}
     </div>
   );
-  const bottom = !!bottomContent && <div className={tableBaseClass.bottomContent}>{bottomContent}</div>;
+  const bottom = !!bottomContent && (
+    <div ref={bottomContentRef} className={tableBaseClass.bottomContent}>
+      {bottomContent}
+    </div>
+  );
 
   return (
     <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={{ position: 'relative', ...style }}>
@@ -552,15 +567,19 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
       {loadingContent}
 
-      {showRightDivider && (
-        <div
-          className={tableBaseClass.scrollbarDivider}
-          style={{
-            right: `${scrollbarWidth}px`,
-            height: `${tableContentRef.current?.getBoundingClientRect().height}px`,
-          }}
-        ></div>
-      )}
+      {useMemo(() => {
+        if (!showRightDivider) return null;
+        return (
+          <div
+            className={tableBaseClass.scrollbarDivider}
+            style={{
+              right: `${scrollbarWidth}px`,
+              bottom: dividerBottom ? `${dividerBottom}px` : undefined,
+              height: `${tableContentRef.current?.getBoundingClientRect().height}px`,
+            }}
+          ></div>
+        );
+      }, [tableBaseClass, showRightDivider, scrollbarWidth, dividerBottom, tableContentRef])}
 
       {bottom}
 

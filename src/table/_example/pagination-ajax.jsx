@@ -8,6 +8,11 @@ const columns = [
     width: 64,
   },
   {
+    colKey: 'serial-number',
+    title: '序号',
+    width: 60,
+  },
+  {
     width: 200,
     colKey: 'name',
     title: '姓名',
@@ -105,6 +110,7 @@ export default function TableBasic() {
       }}
       selectedRowKeys={selectedRowKeys}
       onSelectChange={onSelectChange}
+      // reserveSelectedRowOnPaginate={false}
     />
   );
 }
