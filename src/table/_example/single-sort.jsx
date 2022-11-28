@@ -29,8 +29,7 @@ const columns = [
     sortType: 'all',
     sorter: true,
     // 自定义列，或单元格类名
-    className: (params) => {
-      console.log(params);
+    className: () => {
       return 'status-class-bg';
     },
   },

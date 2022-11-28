@@ -86,7 +86,7 @@ export default function TableStyle() {
   ];
   
   const getRowClassName = ({ row, rowIndex }) => {
-   console.log(row, rowIndex);
+  //  console.log(row, rowIndex);
    if (rowIndex === 2) return 'custom-third-class-name';
    return '';
   };

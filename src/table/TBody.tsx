@@ -9,6 +9,7 @@ import useClassName from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 import { BaseTableProps, RowAndColFixedPosition } from './interface';
 import { TdBaseTableProps } from './type';
+import { PaginationProps } from '../pagination';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
@@ -22,6 +23,7 @@ export interface TableBodyProps extends BaseTableProps {
   cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
   tableWidth?: number;
   isWidthOverflow?: boolean;
+  pagination?: PaginationProps;
 
   // 以下内容为虚拟滚动所需参数
   translateY?: number;
@@ -137,6 +139,7 @@ export default function TBody(props: TableBodyProps) {
       classPrefix: props.classPrefix,
       ellipsisOverlayClassName: props.ellipsisOverlayClassName,
       ...pick(props, properties),
+      pagination: props.pagination,
     };
     if (props.onCellClick) {
       trProps.onCellClick = props.onCellClick;

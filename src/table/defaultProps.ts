@@ -31,6 +31,7 @@ export const primaryTableDefaultProps: Pick<
   | 'expandIcon'
   | 'defaultExpandedRowKeys'
   | 'multipleSort'
+  | 'reserveSelectedRowOnPaginate'
   | 'defaultSelectedRowKeys'
   | 'showSortColumnBgColor'
   | 'sortOnRowDraggable'
@@ -40,6 +41,7 @@ export const primaryTableDefaultProps: Pick<
   expandIcon: true,
   defaultExpandedRowKeys: [],
   multipleSort: false,
+  reserveSelectedRowOnPaginate: true,
   defaultSelectedRowKeys: [],
   showSortColumnBgColor: false,
   sortOnRowDraggable: false,

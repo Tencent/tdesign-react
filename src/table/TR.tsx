@@ -9,6 +9,7 @@ import { TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './t
 import useLazyLoad from './hooks/useLazyLoad';
 import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 import Cell from './Cell';
+import { PaginationProps } from '../pagination';
 
 export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 
@@ -51,6 +52,7 @@ export interface TrProps extends TrCommonProps {
   scroll?: TableScroll;
   tableElm?: HTMLDivElement;
   tableContentElm?: HTMLDivElement;
+  pagination?: PaginationProps;
   onRowMounted?: () => void;
 }
 
@@ -135,6 +137,7 @@ export default function TR(props: TrProps) {
         tableElm={props.tableElm}
         classPrefix={props.classPrefix}
         overlayClassName={props.ellipsisOverlayClassName}
+        pagination={props.pagination}
       />
     );
   });
