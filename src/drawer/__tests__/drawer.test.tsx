@@ -19,6 +19,7 @@ function DrawerDemo(props) {
         footer={props.footer}
         visible={visible}
         onClose={handleClose}
+        closeBtn={props.closeBtn}
         confirmBtn={props.confirmBtn}
         cancelBtn={props.cancelBtn}
         showOverlay={props.notShowOverlay ? false : true}
@@ -44,7 +45,7 @@ describe('test Drawer', () => {
     expect(document.querySelector('.t-drawer__content-wrapper--right')).toBeInTheDocument();
   });
   test('Drawer close', async () => {
-    const { getByText } = render(<DrawerDemo />);
+    const { getByText } = render(<DrawerDemo closeBtn={true} />);
     fireEvent.click(getByText('Open'));
     fireEvent.click(document.querySelector('.t-drawer__close-btn'));
     expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();

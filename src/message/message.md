@@ -32,7 +32,7 @@ content | TNode | - | 用于自定义消息弹出内容。TS 类型：`string \|
 duration | Number | 3000 | 消息内置计时器，计时到达时会触发 duration-end 事件。单位：毫秒。值为 0 则表示没有计时器。 | N
 icon | TNode | true | 用于自定义消息前面的图标，优先级大于 theme 设定的图标。值为 false 则不显示图标，值为 true 显示 theme 设定图标。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | info | 消息组件风格。可选项：info/success/warning/error/question/loading。TS 类型：`MessageThemeList` `type MessageThemeList = 'info' \| 'success' \| 'warning' \| 'error' \| 'question' \| 'loading'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/message/type.ts) | N
-onClose | Function |  | TS 类型：`(context?: { trigger: 'duration' \| 'close-click' }) => void`<br/>关闭消息时触发 | N
+onClose | Function |  | TS 类型：`(context: { trigger: 'close-click' \| 'duration-end', e?: MouseEvent }) => void`<br/>关闭消息时触发 | N
 onCloseBtnClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>当关闭按钮存在时，用户点击关闭按钮触发 | N
 onDurationEnd | Function |  | TS 类型：`() => void`<br/>计时结束后触发 | N
 
@@ -50,8 +50,6 @@ zIndex | Number | 5000 | 消息层级 | N
 
 ### message 或 MessagePlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 theme | String | - | 必需。消息类型。TS 类型：`MessageThemeList`
@@ -60,16 +58,12 @@ duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表�
 
 ### message.info 或 MessagePlugin.info
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 message | String / Object | - | 必需。消息内容。TS 类型：`string \| MessageInfoOptions` `type MessageInfoOptions = Omit<MessageOptions, 'theme'>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/message/type.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.error 或 MessagePlugin.error
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -78,16 +72,12 @@ duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表�
 
 ### message.warning 或 MessagePlugin.warning
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 message | String / Object | - | 必需。消息内容。TS 类型：`string \| MessageInfoOptions`
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.success 或 MessagePlugin.success
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -96,16 +86,12 @@ duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表�
 
 ### message.loading 或 MessagePlugin.loading
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 message | String / Object | - | 必需。消息提醒内容。TS 类型：`string \| MessageInfoOptions`
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.question 或 MessagePlugin.question
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -114,15 +100,11 @@ duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表�
 
 ### message.closeAll 或 MessagePlugin.closeAll
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 \- | \- | - | \-
 
 ### message.config 或 MessagePlugin.config
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --

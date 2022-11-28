@@ -7,14 +7,14 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-attach | String / Function | '' | Typescript：`AttachNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-body | TNode | '' | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-cancelBtn | TNode | '' | Typescript：`string \| ButtonProps \| TNode \| null`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/dialog/type.ts) | N
+attach | String / Function | - | Typescript：`AttachNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+body | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+cancelBtn | TNode | - | Typescript：`string \| ButtonProps \| TNode \| null`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/dialog/type.ts) | N
 children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 closeBtn | TNode | true | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 closeOnEscKeydown | Boolean | true | \- | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirmBtn | TNode | '' | Typescript：`string \| ButtonProps \| TNode \| null`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+confirmBtn | TNode | - | Typescript：`string \| ButtonProps \| TNode \| null`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 confirmOnEnter | Boolean | - | confirm on enter | N
 destroyOnClose | Boolean | false | \- | N
 draggable | Boolean | false | \- | N
@@ -59,8 +59,6 @@ update | `(props: DialogOptions)` | \- | \-
 
 ### dialog 或 DialogPlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | \- | - | Typescript：`DialogOptions`
@@ -69,15 +67,11 @@ options | \- | - | Typescript：`DialogOptions`
 
 ### dialog.confirm 或 DialogPlugin.confirm
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | \- | - | Typescript：`DialogOptions`
 
 ### dialog.alert 或 DialogPlugin.alert
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --
