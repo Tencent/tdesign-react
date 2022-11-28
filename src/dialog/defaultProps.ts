@@ -18,5 +18,4 @@ export const dialogDefaultProps: TdDialogProps = {
   showInAttachedElement: false,
   showOverlay: true,
   theme: 'default',
-  visible: false,
 };
