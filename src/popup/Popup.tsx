@@ -98,7 +98,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 
   // 监听 trigger 节点或内容变化动态更新 popup 定位
   useMutationObserver(getRefDom(triggerRef), () => {
-    popperRef.current?.update?.();
+    setTimeout(() => popperRef.current?.update?.(), 0);
   });
 
   // 窗口尺寸变化时调整位置
