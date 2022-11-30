@@ -59,8 +59,9 @@ export default function useTagList(props: TagInputProps) {
       const index = tagValue.length - 1;
       const item = tagValue[index];
       const trigger = 'backspace';
-      setTagValue(tagValue.slice(0, -1), { e, index, item, trigger });
-      onRemove?.({ e, index, item, trigger, value: tagValue });
+      const newValue = tagValue.slice(0, -1);
+      setTagValue(newValue, { e, index, item, trigger });
+      onRemove?.({ e, index, item, trigger, value: newValue });
     }
     setOldInputValue(value);
   };
