@@ -153,13 +153,13 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
     }, config.duration);
   }
 
-  let style: React.CSSProperties = {};
+  let style: React.CSSProperties = { ...config.style };
   if (Array.isArray(offset) && offset.length === 2) {
     const [left, top] = offset;
     style = {
-      ...config.style,
       left,
       top,
+      ...style,
       position: 'relative',
     };
   }

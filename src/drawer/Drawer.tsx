@@ -68,7 +68,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
   const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
-  const [isDestroyOnClose, setIsDestroyOnClose] = useState(false);
+  const [animationStart, setAnimationStart] = useState(false);
 
   const sizeValue = useMemo(() => {
     const sizeMap = { small: '300px', medium: '500px', large: '760px' };
@@ -77,12 +77,6 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   useLockStyle({ ...props, sizeValue });
   useImperativeHandle(ref, () => containerRef.current);
-
-  // 重置销毁钩子判断
-  useEffect(() => {
-    if (!destroyOnClose || !visible) return;
-    setIsDestroyOnClose(false);
-  }, [visible, destroyOnClose]);
 
   useEffect(() => {
     if (!visible) return;
@@ -112,17 +106,14 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     onConfirm?.({ e });
   }
 
-  function onTransitionEnd() {
-    if (!visible) {
-      destroyOnClose && setIsDestroyOnClose(true);
-    }
-  }
-
-  const contentWrapperStyle = useMemo(() => ({
-      transform: visible ? 'translateX(0)' : undefined,
+  const contentWrapperStyle = useMemo(
+    () => ({
+      transform: visible && animationStart ? 'translateX(0)' : undefined,
       width: ['left', 'right'].includes(placement) ? sizeValue : '',
       height: ['top', 'bottom'].includes(placement) ? sizeValue : '',
-    }), [visible, placement, sizeValue]);
+    }),
+    [visible, placement, sizeValue, animationStart],
+  );
 
   function getFooter(): React.ReactNode {
     if (footer !== true) return footer;
@@ -157,15 +148,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   }
 
   const renderOverlay = showOverlay && (
-    <CSSTransition
-      in={visible}
-      appear
-      timeout={200}
-      mountOnEnter
-      classNames={`${prefixCls}-fade`}
-      unmountOnExit={destroyOnClose}
-      nodeRef={maskRef}
-    >
+    <CSSTransition in={visible} timeout={200} classNames={`${prefixCls}-fade`} nodeRef={maskRef}>
       <div ref={maskRef} className={`${prefixCls}__mask`} onClick={onMaskClick} />
     </CSSTransition>
   );
@@ -178,35 +161,41 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const renderBody = <div className={`${prefixCls}__body`}>{body || children}</div>;
   const renderFooter = footer && <div className={`${prefixCls}__footer`}>{getFooter()}</div>;
 
-  if (isDestroyOnClose && !visible) return null;
-
   return (
-    <Portal attach={attach} ref={drawerWrapperRef}>
-      <div
-        ref={containerRef}
-        className={classnames(prefixCls, className, `${prefixCls}--${placement}`, {
-          [`${prefixCls}--open`]: visible,
-          [`${prefixCls}--attach`]: showInAttachedElement,
-          [`${prefixCls}--without-mask`]: !showOverlay,
-        })}
-        style={{ zIndex, ...style }}
-        tabIndex={-1} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
-        onKeyDown={onKeyDownEsc}
-        onTransitionEnd={onTransitionEnd}
-      >
-        {renderOverlay}
+    <CSSTransition
+      in={visible}
+      nodeRef={drawerWrapperRef}
+      unmountOnExit={destroyOnClose}
+      timeout={{ appear: 10, enter: 10, exit: 300 }}
+      onEntered={() => setAnimationStart(true)}
+      onExited={() => setAnimationStart(false)}
+    >
+      <Portal attach={attach} ref={drawerWrapperRef}>
         <div
-          className={classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper--${placement}`)}
-          style={contentWrapperStyle}
+          ref={containerRef}
+          className={classnames(prefixCls, className, `${prefixCls}--${placement}`, {
+            [`${prefixCls}--open`]: visible,
+            [`${prefixCls}--attach`]: showInAttachedElement,
+            [`${prefixCls}--without-mask`]: !showOverlay,
+          })}
+          style={{ zIndex, ...style }}
+          tabIndex={-1} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
+          onKeyDown={onKeyDownEsc}
         >
-          {renderCloseBtn}
-          {renderHeader}
-          {renderBody}
-          {renderFooter}
-          {sizeDraggable && <div style={draggableLineStyles} onMouseDown={enableDrag}></div>}
+          {renderOverlay}
+          <div
+            className={classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper--${placement}`)}
+            style={contentWrapperStyle}
+          >
+            {renderCloseBtn}
+            {renderHeader}
+            {renderBody}
+            {renderFooter}
+            {sizeDraggable && <div style={draggableLineStyles} onMouseDown={enableDrag}></div>}
+          </div>
         </div>
-      </div>
-    </Portal>
+      </Portal>
+    </CSSTransition>
   );
 });
 
