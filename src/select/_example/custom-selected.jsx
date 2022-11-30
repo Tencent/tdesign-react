@@ -24,7 +24,7 @@ const CustomSelected = () => {
         clearable
         defaultValue={'1'}
         style={{ width: '300px', marginRight: '20px' }}
-        valueDisplay={({ value }) => `选中${value}`}
+        valueDisplay={({ value }) => (value ? `选中${value}` : null)}
       >
         {options.map((v, i) => (
           <Select.Option value={v.value} key={i}>
