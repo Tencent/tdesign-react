@@ -96,10 +96,13 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
 
+  const updateTimeRef = useRef(null);
   // 监听 trigger 节点或内容变化动态更新 popup 定位
   useMutationObserver(getRefDom(triggerRef), () => {
-    popperRef.current?.update?.();
+    clearTimeout(updateTimeRef.current);
+    updateTimeRef.current = setTimeout(() => popperRef.current?.update?.(), 0);
   });
+  useEffect(() => () => clearTimeout(updateTimeRef.current), []);
 
   // 窗口尺寸变化时调整位置
   useEffect(() => {
