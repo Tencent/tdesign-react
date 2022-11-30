@@ -6,7 +6,7 @@ import useConfig from '../hooks/useConfig';
 
 // 翻转箭头统一组件
 function FakeArrow(props: {
-  overlayClassName?: ClassName;
+  className?: ClassName;
   isActive?: boolean;
   disabled?: boolean;
   style?: React.CSSProperties;
@@ -20,7 +20,7 @@ function FakeArrow(props: {
         {
           [`${classPrefix}-fake-arrow--active`]: props?.isActive && !props?.disabled,
         },
-        props?.overlayClassName,
+        props?.className,
       )}
       width="16"
       height="16"

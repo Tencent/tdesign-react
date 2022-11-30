@@ -245,9 +245,7 @@ const Select = forwardRefWithStatics(
         );
       }
 
-      return (
-        showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
-      );
+      return showArrow && <FakeArrow className={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
     };
 
     // 渲染主体内容
