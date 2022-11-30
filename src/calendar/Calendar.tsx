@@ -10,7 +10,7 @@ import useLayoutEffect from '../_util/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
 import { StyledProps } from '../common';
-import { blockName, controlSectionSize, minYear, createDateList, createMonthList } from './_util';
+import { blockName, minYear, createDateList, createMonthList } from './_util';
 import CalendarCellComp from './CalendarCellComp';
 import { calendarDefaultProps } from './defaultProps';
 
@@ -326,6 +326,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const prefixCls = usePrefixClass();
   const currentDate = dayjs().format('YYYY-MM-DD');
   const currentMonth = dayjs().format('YYYY-MM');
+  const controlSectionSize = props.theme === 'card' ? 'small' : 'medium';
 
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
@@ -375,55 +376,55 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                 />
               )}
             </div>
-          </div>
-          {/* 模式切换 */}
-          <div className={prefixCls([blockName, 'control-section'])} style={{ height: 'auto' }}>
-            {visibleForMode && (
-              <Radio.Group
-                variant="default-filled"
-                size={controlSectionSize}
-                value={mode}
-                disabled={disabled}
-                onChange={(value) => setMode(value as string)}
-                {...radioGroupPropsForMode}
-              >
-                <Radio.Button value="month">{t(local.monthRadio)}</Radio.Button>
-                <Radio.Button value="year">{t(local.yearRadio)}</Radio.Button>
-              </Radio.Group>
+            {/* 模式切换 */}
+            <div className={prefixCls([blockName, 'control-section-cell'])} style={{ height: 'auto' }}>
+              {visibleForMode && (
+                <Radio.Group
+                  variant="default-filled"
+                  size={controlSectionSize}
+                  value={mode}
+                  disabled={disabled}
+                  onChange={(value) => setMode(value as string)}
+                  {...radioGroupPropsForMode}
+                >
+                  <Radio.Button value="month">{t(local.monthRadio)}</Radio.Button>
+                  <Radio.Button value="year">{t(local.yearRadio)}</Radio.Button>
+                </Radio.Group>
+              )}
+            </div>
+            {/* 周末隐藏显示切换 */}
+            {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
+              <div className={prefixCls([blockName, 'control-section-cell'])}>
+                <CheckTag
+                  className="t-calendar__control-tag"
+                  checked={!isShowWeekend}
+                  disabled={disabled}
+                  size={controlSectionSize}
+                  onClick={() => {
+                    setIsShowWeekend(!isShowWeekend);
+                  }}
+                  {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
+                >
+                  {`${isShowWeekend ? t(local.hideWeekend) : t(local.showWeekend)}`}
+                </CheckTag>
+              </div>
+            )}
+            {/* 回到当前按钮 */}
+            {theme === 'full' && visibleForCurrent && (
+              <div className={prefixCls([blockName, 'control-section-cell'])}>
+                <Button
+                  size={controlSectionSize}
+                  disabled={disabled}
+                  onClick={() => {
+                    toCurrent();
+                  }}
+                  {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
+                >
+                  {mode === 'year' ? t(local.thisMonth) : t(local.today)}
+                </Button>
+              </div>
             )}
           </div>
-          {/* 周末隐藏显示切换 */}
-          {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
-            <div className={prefixCls([blockName, 'control-section'])}>
-              <CheckTag
-                className="t-calendar__control-tag"
-                checked={!isShowWeekend}
-                disabled={disabled}
-                size={controlSectionSize}
-                onClick={() => {
-                  setIsShowWeekend(!isShowWeekend);
-                }}
-                {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
-              >
-                {`${isShowWeekend ? t(local.hideWeekend) : t(local.showWeekend)}`}
-              </CheckTag>
-            </div>
-          )}
-          {/* 回到当前按钮 */}
-          {theme === 'full' && visibleForCurrent && (
-            <div className={prefixCls([blockName, 'control-section'])}>
-              <Button
-                size={controlSectionSize}
-                disabled={disabled}
-                onClick={() => {
-                  toCurrent();
-                }}
-                {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
-              >
-                {mode === 'year' ? t(local.thisMonth) : t(local.today)}
-              </Button>
-            </div>
-          )}
         </div>
       )}
       {/* 主体部分 */}
