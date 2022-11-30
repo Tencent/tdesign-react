@@ -51,7 +51,7 @@ const Cascader = (props: CascaderProps) => {
     const { visible, disabled } = cascaderContext;
     return (
       <FakeArrow
-        overlayClassName={getFakeArrowIconClass(classPrefix, STATUS, cascaderContext)}
+        className={getFakeArrowIconClass(classPrefix, STATUS, cascaderContext)}
         isActive={visible}
         disabled={disabled}
       />

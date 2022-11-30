@@ -12,13 +12,13 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import Button from '../button';
 import { StyledProps } from '../common';
-import type { TdJumperProps } from './type';
-import { jumperDefaultProps } from './defaultProps';
+import type { TdPaginationMiniProps } from './type';
+import { paginationMiniDefaultProps } from './defaultProps';
 import noop from '../_util/noop';
 
-export interface JumperProps extends TdJumperProps, StyledProps {}
+export interface PaginationMiniProps extends TdPaginationMiniProps, StyledProps {}
 
-const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) => {
+const PaginationMini = forwardRef((props: PaginationMiniProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
   const { RoundIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
     RoundIcon: TdRoundIcon,
@@ -44,8 +44,8 @@ const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) =
 
   return (
     <div
-      className={classNames(`${classPrefix}-jumper`, className, {
-        [`${classPrefix}-jumper--outline`]: variant === 'outline',
+      className={classNames(`${classPrefix}-pagination-mini`, className, {
+        [`${classPrefix}-pagination-mini--outline`]: variant === 'outline',
       })}
       ref={ref}
       style={style}
@@ -57,7 +57,7 @@ const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) =
         shape="square"
         onClick={(e) => onChange({ e, trigger: 'prev' })}
         icon={layout === 'horizontal' ? <ChevronLeftIcon /> : <ChevronUpIcon />}
-        className={`${classPrefix}-jumper__prev`}
+        className={`${classPrefix}-pagination-mini__prev`}
         disabled={disabledConfig.prev}
       />
 
@@ -69,7 +69,7 @@ const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) =
           shape="square"
           onClick={(e) => onChange({ e, trigger: 'current' })}
           icon={<RoundIcon />}
-          className={`${classPrefix}-jumper__current`}
+          className={`${classPrefix}-pagination-mini__current`}
           disabled={disabledConfig.current}
         />
       )}
@@ -81,14 +81,14 @@ const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) =
         shape="square"
         onClick={(e) => onChange({ e, trigger: 'next' })}
         icon={layout === 'horizontal' ? <ChevronRightIcon /> : <ChevronDownIcon />}
-        className={`${classPrefix}-jumper__next`}
+        className={`${classPrefix}-pagination-mini__next`}
         disabled={disabledConfig.next}
       />
     </div>
   );
 });
 
-Jumper.displayName = 'Jumper';
-Jumper.defaultProps = jumperDefaultProps;
+PaginationMini.displayName = 'PaginationMini';
+PaginationMini.defaultProps = paginationMiniDefaultProps;
 
-export default Jumper;
+export default PaginationMini;

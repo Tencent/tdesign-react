@@ -5,6 +5,38 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.44.0 `2022-11-30` 
+### ❗ Breaking Changes
+- `Jumper`: Jumper 更名为 PaginationMini 组件，正在使用 Jumper 组件的同学请从 Pagination 中导出替换 @honkinglin ([#1749](https://github.com/Tencent/tdesign-react/pull/1749))
+- `Tooltip`: 移除 placement 的 mouse 模式，该场景请使用 TooltipLite @carolin913 ([#1751](https://github.com/Tencent/tdesign-react/pull/1751))
+
+### 🚀 Features
+- `TooltipLite`: placement 支持 mouse 模式，实现原生title体验 @carolin913 ([#1751](https://github.com/Tencent/tdesign-react/pull/1751))
+- `Table`: 选中行功能，新增 `reserveSelectedRowOnPaginate`，用于支持在分页场景中，仅选中当前页数据，切换分页时清空选中结果，全选仅选中当前页数据 @chaishi ([#1755](https://github.com/Tencent/tdesign-react/pull/1755))
+- `Drawer`: 默认不显示关闭按钮，有取消和确认按钮足矣，同其他框架保持一致 @chaishi ([#1746](https://github.com/Tencent/tdesign-react/pull/1746))
+- `AutoComplete`: 新增组件 `AutoComplete` @chaishi ([#1752](https://github.com/Tencent/tdesign-react/pull/1752))
+- `Calendar`: 调整卡片类型的控制面板尺寸大小 @uyarn ([#1766](https://github.com/Tencent/tdesign-react/pull/1766))
+
+### 🐞 Bug Fixes
+- `Table`:
+    - 减少表格重渲染  #1688 @jsonz1993 ([#1704](https://github.com/Tencent/tdesign-react/pull/1704))
+    - 修复本地数据分页场景中，切换分页大小，`onPageChange` 事件参数返回的数据不正确问题 @chaishi ([#1755](https://github.com/Tencent/tdesign-react/pull/1755))
+    - 序号列支持跨分页显示，[issue#1726](https://github.com/Tencent/tdesign-react/issues/1726)，[tdesign-vue-next#2072](https://github.com/Tencent/tdesign-vue-next/issues/2072) @chaishi ([#1755](https://github.com/Tencent/tdesign-react/pull/1755))
+    - 修复分页场景下，设置 max-height 和 bordered 之后，边框线位置不正确 [tdesign-vue-next#2062](https://github.com/Tencent/tdesign-vue-next/issues/2062) @chaishi ([#1755](https://github.com/Tencent/tdesign-react/pull/1755))
+- `Card`: 修复 Card 组件 loading 高度塌陷 @HelKyle ([#1754](https://github.com/Tencent/tdesign-react/pull/1754))
+- `TagInput`:
+    - 标签边距和图标位置调整 @chaishi ([#1758](https://github.com/Tencent/tdesign-react/pull/1758))
+    - 右侧图标会和标签重合问题 @chaishi ([#1758](https://github.com/Tencent/tdesign-react/pull/1758))
+    - 修复 `onRemove` 事件参数未能返回最新 `value` 问题 @chaishi ([#1758](https://github.com/Tencent/tdesign-react/pull/1758))
+- `Calendar`: 修复控制面板对齐的问题 @uyarn ([#1766](https://github.com/Tencent/tdesign-react/pull/1766))
+- `Menu`: 修复纵向类型二级菜单左边间距丢失的问题 @uyarn ([#1766](https://github.com/Tencent/tdesign-react/pull/1766))
+- `Dropdown`:  修复透传 className 和 style 的问题 @insekkei ([#1745](https://github.com/Tencent/tdesign-react/pull/1745))
+- `Message`:  修复在 offset 不存在时 style 生效 @kenzyyang ([#1762](https://github.com/Tencent/tdesign-react/pull/1762))
+- `TreeSelect`: 修复 valueDisplay 清空按钮不展示问题 @honkinglin ([#1757](https://github.com/Tencent/tdesign-react/pull/1757))
+- `SelectInput`: 修复某些场景下select-input 无法输入的问题 @HelKyle ([#1760](https://github.com/Tencent/tdesign-react/pull/1760))
+- `Drawer`: 修复动画效果异常 @honkinglin ([#1761](https://github.com/Tencent/tdesign-react/pull/1761))
+
+
 ## 🌈 0.43.1 `2022-11-23` 
 ### 🚀 Features
 - `Select`: Select option子组件搜索以label优先 支持复杂children为node节点的搜索 @uyarn ([#1717](https://github.com/Tencent/tdesign-react/pull/1717))

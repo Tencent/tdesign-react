@@ -115,11 +115,15 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
       })
     : valueDisplay;
 
+  const isEmpty = !(Array.isArray(tagValue) && tagValue.length);
+
   const classes = [
     NAME_CLASS,
     {
       [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
       [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
+      [`${prefix}-is-empty`]: isEmpty,
+      [`${prefix}-tag-input--with-tag`]: !isEmpty,
     },
     props.className,
   ];

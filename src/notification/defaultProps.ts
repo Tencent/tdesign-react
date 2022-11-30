@@ -5,6 +5,8 @@
 import { TdNotificationProps } from './type';
 
 export const notificationDefaultProps: TdNotificationProps = {
+  closeBtn: undefined,
   duration: 3000,
+  icon: true,
   theme: 'info',
 };
