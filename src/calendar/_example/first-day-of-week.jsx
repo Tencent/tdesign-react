@@ -1,12 +1,12 @@
 import React from 'react';
-import { Select, Calendar } from 'tdesign-react';
+import { Select, Calendar, Space } from 'tdesign-react';
 
 export default function CalendarExample() {
   const [firstDayOfWeek, setFirstDayOfWeek] = React.useState(3);
 
   return (
     <div>
-      <div style={{ margin: '12px 0' }}>
+      <Space align="center" style={{ margin: '12px 0' }}>
         <label>日历的第一列为：</label>
         <Select
           style={{
@@ -26,7 +26,7 @@ export default function CalendarExample() {
           ]}
           onChange={(value) => setFirstDayOfWeek(value)}
         />
-      </div>
+      </Space>
       <Calendar firstDayOfWeek={firstDayOfWeek} />
     </div>
   );
