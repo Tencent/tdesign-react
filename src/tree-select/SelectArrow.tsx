@@ -15,7 +15,7 @@ export const SelectArrow = ({ isActive, isHighlight, disabled }: SelectArrowProp
     <FakeArrow
       isActive={isActive}
       disabled={disabled}
-      overlayClassName={classNames({
+      className={classNames({
         [`${classPrefix}-fake-arrow--highlight`]: isHighlight,
         [`${classPrefix}-fake-arrow--disable`]: disabled,
       })}
