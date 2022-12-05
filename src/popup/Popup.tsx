@@ -149,7 +149,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
       <Portal triggerNode={getRefDom(triggerRef)} attach={attach} ref={portalRef}>
         <CSSTransition
           appear
-          timeout={DEFAULT_TRANSITION_TIMEOUT}
+          timeout={0}
           in={visible}
           nodeRef={popupRef}
           {...getTransitionParams({
