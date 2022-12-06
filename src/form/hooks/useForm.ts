@@ -75,7 +75,7 @@ class FormStore {
 }
 
 export default function useForm(form?: InternalFormInstance) {
-  const formRef = useRef<InternalFormInstance>({});
+  const formRef = useRef<InternalFormInstance>(Object.create({}));
   const [, forceUpdate] = useState({});
 
   // eslint-disable-next-line
