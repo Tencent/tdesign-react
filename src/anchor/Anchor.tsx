@@ -35,7 +35,7 @@ const Anchor = forwardRefWithStatics(
       affixProps,
       bounds,
       targetOffset,
-      container = () => window,
+      container,
       size,
       children,
       cursor,
