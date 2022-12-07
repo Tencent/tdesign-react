@@ -173,50 +173,59 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       </td>
     ) : null;
 
-  const renderFileList = () => (
-    <table className={`${uploadPrefix}__flow-table`} {...dragEvents}>
-      <thead>
-        <tr>
-          <th>{locale.file?.fileNameText}</th>
-          <th>{locale.file?.fileSizeText}</th>
-          <th>{locale.file?.fileStatusText}</th>
-          {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
-        </tr>
-      </thead>
-      <tbody>
-        {!displayFiles.length && (
+  const renderFileList = () => {
+    if (props.fileListDisplay) {
+      const list = props.fileListDisplay({
+        files: displayFiles,
+        dragEvents,
+      });
+      return list;
+    }
+    return (
+      <table className={`${uploadPrefix}__flow-table`} {...dragEvents}>
+        <thead>
           <tr>
-            <td colSpan={4}>{renderEmpty()}</td>
+            <th>{locale.file?.fileNameText}</th>
+            <th>{locale.file?.fileSizeText}</th>
+            <th>{locale.file?.fileStatusText}</th>
+            {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
           </tr>
-        )}
-        {displayFiles.map((file, index) => {
-          // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
-          const showBatchUploadAction = props.isBatchUpload;
-          const deleteNode =
-            showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
-              ? renderBatchActionCol(index)
-              : renderNormalActionCol(file, index);
-          const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
-          return (
-            <tr key={file.name + index}>
-              <td>
-                {file.url ? (
-                  <Link href={file.url} target="_blank" hover="color">
-                    {fileName}
-                  </Link>
-                ) : (
-                  fileName
-                )}
-              </td>
-              <td>{returnFileSize(file.size)}</td>
-              <td>{renderStatus(file)}</td>
-              {disabled ? null : deleteNode}
+        </thead>
+        <tbody>
+          {!displayFiles.length && (
+            <tr>
+              <td colSpan={4}>{renderEmpty()}</td>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+          )}
+          {displayFiles.map((file, index) => {
+            // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
+            const showBatchUploadAction = props.isBatchUpload;
+            const deleteNode =
+              showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
+                ? renderBatchActionCol(index)
+                : renderNormalActionCol(file, index);
+            const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
+            return (
+              <tr key={file.name + index}>
+                <td>
+                  {file.url ? (
+                    <Link href={file.url} target="_blank" hover="color">
+                      {fileName}
+                    </Link>
+                  ) : (
+                    fileName
+                  )}
+                </td>
+                <td>{returnFileSize(file.size)}</td>
+                <td>{renderStatus(file)}</td>
+                {disabled ? null : deleteNode}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  };
 
   const cardClassName = `${uploadPrefix}__flow-card-area`;
   return (
