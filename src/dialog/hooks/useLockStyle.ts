@@ -1,5 +1,4 @@
 import { useRef, useCallback } from 'react';
-import getScrollbarWidth from '../../_util/getScrollbarWidth';
 import useLayoutEffect from '../../_util/useLayoutEffect';
 import { DialogProps } from '../Dialog';
 
@@ -18,7 +17,7 @@ export default function useDialogLockStyle(props: DialogProps) {
   }, []);
 
   useLayoutEffect(() => {
-    const scrollbarWidth = getScrollbarWidth();
+    const scrollbarWidth = window.innerWidth - document.body.offsetWidth;
     lockStyleRef.current.dataset.id = `td_dialog_${+new Date()}_${(key += 1)}`;
     lockStyleRef.current.innerHTML = `
       html body {
