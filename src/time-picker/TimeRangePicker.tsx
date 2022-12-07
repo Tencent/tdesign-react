@@ -123,7 +123,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     <div className={classNames(name, className)} style={style}>
       <RangeInputPopup
         style={style}
-        disabled={disabled as boolean}
+        disabled={disabled}
         popupVisible={isPanelShowed}
         onPopupVisibleChange={handleShowPopup}
         popupProps={{

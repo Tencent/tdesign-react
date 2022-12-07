@@ -139,10 +139,10 @@ export interface TdTimeRangePickerProps {
     context: { partial: TimeRangePickerPartial },
   ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
   /**
-   * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
+   * 是否禁用组件
    * @default false
    */
-  disabled?: boolean | Array<boolean>;
+  disabled?: boolean;
   /**
    * 用于格式化时间，[详细文档](https://day.js.org/docs/en/display/format)
    * @default HH:mm:ss

@@ -40,7 +40,7 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 disableTime | Function | - | Typescript：`(h: number, m: number, s: number, context: { partial: TimeRangePickerPartial }) =>Partial<{ hour: Array<number>, minute: Array<number>, second: Array<number> }>` `type TimeRangePickerPartial = 'start' \| 'end'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/time-picker/type.ts) | N
-disabled | Boolean / Array | false | Typescript：`boolean \| Array<boolean>` | N
+disabled | Boolean | false | Typescript：`boolean \| Array<boolean>` | N
 format | String | HH:mm:ss | \- | N
 hideDisabledTime | Boolean | true | \- | N
 placeholder | String / Array | undefined | Typescript：`string \| Array<string>` | N
