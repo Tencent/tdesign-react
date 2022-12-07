@@ -107,7 +107,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    */
   onBlur?: (value: InputNumberValue, context: { e: FocusEvent<HTMLDivElement> }) => void;
   /**
-   * 值变化时触发
+   * 值变化时触发，`type` 表示触发本次变化的来源
    */
   onChange?: (value: T, context: ChangeContext) => void;
   /**
@@ -142,9 +142,9 @@ export interface ChangeContext {
   type: ChangeSource;
   e:
     | FormEvent<HTMLDivElement>
-    | MouseEvent<HTMLDivElement>
+    | MouseEvent<HTMLDivElement | SVGElement>
     | FocusEvent<HTMLDivElement>
     | KeyboardEvent<HTMLDivElement>;
 }
 
-export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | '';
+export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | 'clear';
