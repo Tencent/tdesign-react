@@ -116,6 +116,8 @@ const TimePicker = forwardRefWithStatics(
           inputValue={isPanelShowed ? currentValue : value ?? undefined}
           inputProps={props.inputProps}
           popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
+          tips={props.tips}
+          status={props.status}
           panel={
             <TimePickerPanel
               steps={steps}
@@ -125,6 +127,7 @@ const TimePicker = forwardRefWithStatics(
               isShowPanel={isPanelShowed}
               disableTime={disableTime}
               onChange={setCurrentValue}
+              onPick={props.onPick}
               hideDisabledTime={hideDisabledTime}
               handleConfirmClick={handleClickConfirm}
             />
