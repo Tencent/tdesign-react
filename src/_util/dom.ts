@@ -103,7 +103,7 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
   if (typeof container === 'function') {
     return container();
   }
-  return container;
+  return container || window;
 };
 
 /**
