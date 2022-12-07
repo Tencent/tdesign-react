@@ -1,4 +1,4 @@
-import React, { useEffect, Ref, useMemo } from 'react';
+import React, { useEffect, Ref, useMemo, KeyboardEvent } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -345,6 +345,9 @@ const Select = forwardRefWithStatics(
 
     const { onMouseEnter, onMouseLeave } = props;
 
+    const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
+      onEnter?.({ ...context, value });
+    };
     return (
       <div
         className={classNames(`${name}__wrap`, className)}
@@ -391,7 +394,7 @@ const Select = forwardRefWithStatics(
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}
-          onEnter={onEnter}
+          onEnter={handleEnter}
           onBlur={onBlur}
           onClear={(context) => {
             onClearValue(context);
