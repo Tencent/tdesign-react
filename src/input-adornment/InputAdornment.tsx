@@ -15,20 +15,18 @@ const InputAdornment = forwardRef((props: InputAdornmentProps, ref: React.Ref<HT
   const { prepend, append, children, className, style, ...wrapperProps } = props;
 
   const renderAddon = (type: string, classPrefix: string, Content) => {
-    let result: React.ReactNode;
+    if (typeof Content === 'undefined') return null;
+
+    let addonNode: React.ReactNode;
     const isContentNode = isString(Content) || isNumber(Content);
 
     if (typeof Content === 'function') {
-      result = <Content />;
-    } else if (typeof Content !== 'undefined') {
-      result = (
-        <span className={`${classPrefix}-input-adornment__${type}`}>
-          {isContentNode ? <span className={`${classPrefix}-input-adornment__text`}>{Content}</span> : Content}
-        </span>
-      );
+      addonNode = <Content />;
+    } else {
+      addonNode = isContentNode ? <span className={`${classPrefix}-input-adornment__text`}>{Content}</span> : Content;
     }
 
-    return result;
+    return addonNode ? <span className={`${classPrefix}-input-adornment__${type}`}>{addonNode}</span> : addonNode;
   };
 
   const renderChildren = () =>
