@@ -28,6 +28,7 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
+  const { draggable = true } = props;
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
@@ -47,8 +48,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return locale.triggerUploadText.normal;
   }, [locale, uploading]);
 
-  const draggable = props.draggable ?? true;
-  const dragEvents = draggable
+  const innerDragEvents = draggable
     ? {
         onDrop: drag.handleDrop,
         onDragEnter: drag.handleDragenter,
@@ -177,12 +177,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     if (props.fileListDisplay) {
       const list = props.fileListDisplay({
         files: displayFiles,
-        dragEvents,
+        dragEvents: innerDragEvents,
       });
       return list;
     }
     return (
-      <table className={`${uploadPrefix}__flow-table`} {...dragEvents}>
+      <table className={`${uploadPrefix}__flow-table`} {...innerDragEvents}>
         <thead>
           <tr>
             <th>{locale.file?.fileNameText}</th>
@@ -240,7 +240,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       </div>
 
       {props.theme === 'image-flow' && (
-        <div className={cardClassName} {...dragEvents}>
+        <div className={cardClassName} {...innerDragEvents}>
           {displayFiles.length ? (
             <ul className={`${uploadPrefix}__card clearfix`}>
               {displayFiles.map((file, index) => renderImgItem(file, index))}
@@ -255,7 +255,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         (displayFiles.length ? (
           renderFileList()
         ) : (
-          <div className={cardClassName} {...dragEvents}>
+          <div className={cardClassName} {...innerDragEvents}>
             {renderEmpty()}
           </div>
         ))}
