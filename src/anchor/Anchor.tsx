@@ -147,9 +147,9 @@ const Anchor = forwardRefWithStatics(
       const { scrollContainer } = intervalRef.current;
 
       handleScroll();
-      scrollContainer.addEventListener('scroll', handleScroll);
+      scrollContainer?.addEventListener('scroll', handleScroll);
       return () => {
-        scrollContainer.removeEventListener('scroll', handleScroll);
+        scrollContainer?.removeEventListener('scroll', handleScroll);
       };
     }, [container, handleScroll]);
 

@@ -6,7 +6,7 @@
 
 import { UploadConfig } from '../config-provider/type';
 import { ButtonProps } from '../button';
-import { TNode } from '../common';
+import { TNode, UploadDisplayDragEvents } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps<T extends UploadFile = UploadFile> {
@@ -65,7 +65,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
   /**
    * 用于完全自定义文件列表内容
    */
-  fileListDisplay?: TNode<{ files: UploadFile[] }>;
+  fileListDisplay?: TNode<{ files: UploadFile[]; dragEvents?: UploadDisplayDragEvents }>;
   /**
    * 已上传文件列表，同 `value`
    * @default []
@@ -363,6 +363,7 @@ export interface ProgressContext {
   currentFiles: UploadFile[];
   percent: number;
   type: UploadProgressType;
+  XMLHttpRequest?: XMLHttpRequest;
 }
 
 export type UploadProgressType = 'real' | 'mock';

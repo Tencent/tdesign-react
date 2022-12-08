@@ -1,5 +1,4 @@
 import { useRef, useCallback, useMemo } from 'react';
-import getScrollbarWidth from '../../_util/getScrollbarWidth';
 import useLayoutEffect from '../../_util/useLayoutEffect';
 
 let key = 1;
@@ -16,15 +15,19 @@ export default function useLockStyle(props) {
     }, 150);
   }, []);
 
-  const marginString = useMemo(() => ({
-      top: `margin: ${sizeValue} 0 0 0`,
-      left: `margin: 0 0 0 ${sizeValue}`,
-      right: `margin: 0 0 0 -${sizeValue}`,
-      bottom: `margin: -${sizeValue} 0 0 0`,
-    }[placement]), [placement, sizeValue]);
+  const marginString = useMemo(
+    () =>
+      ({
+        top: `margin: ${sizeValue} 0 0 0`,
+        left: `margin: 0 0 0 ${sizeValue}`,
+        right: `margin: 0 0 0 -${sizeValue}`,
+        bottom: `margin: -${sizeValue} 0 0 0`,
+      }[placement]),
+    [placement, sizeValue],
+  );
 
   useLayoutEffect(() => {
-    const scrollbarWidth = getScrollbarWidth();
+    const scrollbarWidth = window.innerWidth - document.body.offsetWidth;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
     lockStyleRef.current.innerHTML = `
       html body {
