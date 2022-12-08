@@ -70,7 +70,7 @@ export default function TableBasic() {
 
   // 模拟远程请求
   async function fetchData(pageInfo) {
-    // setIsLoading(true);
+    setIsLoading(true);
     try {
       const { current, pageSize } = pageInfo;
       // 请求可能存在跨域问题
