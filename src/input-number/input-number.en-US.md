@@ -21,7 +21,7 @@ min | String / Number | -Infinity | Typescript：`InputNumberValue` | N
 placeholder | String | undefined | \- | N
 readonly | Boolean | false | \- | N
 size | String | medium | options：small/medium/large | N
-status | String | - | options：default/success/warning/error | N
+status | String | default | options：default/success/warning/error | N
 step | String / Number | 1 | Typescript：`InputNumberValue` | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | row | options：column/row/normal | N
