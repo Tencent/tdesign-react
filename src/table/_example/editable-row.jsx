@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Checkbox } from 'tdesign-react';
+import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Link } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 const classStyles = `
 <style>
-.t-table-demo__editable-row .table-operations > button {
+.t-table-demo__editable-row .table-operations > .t-link {
   padding: 0 8px;
   line-height: 22px;
   height: 22px;
@@ -17,8 +17,8 @@ const classStyles = `
 
 const initData = new Array(5).fill(null).map((_, i) => ({
   key: String(i + 1),
-  firstName: ['Eric', 'Gilberta', 'Heriberto', 'Lazarus', 'Zandra'][i % 4],
-  framework: ['Vue', 'React', 'Miniprogram', 'Flutter'][i % 4],
+  firstName: ['贾明', '张三', '王芳'][i % 3],
+  status: i % 3,
   email: [
     'espinke0@apache.org',
     'gpurves1@issuu.com',
@@ -26,9 +26,20 @@ const initData = new Array(5).fill(null).map((_, i) => ({
     'lskures3@apache.org',
     'zcroson5@virginia.edu',
   ][i % 4],
-  letters: [['A'], ['B', 'E'], ['C'], ['D', 'G', 'H']][i % 4],
-  createTime: ['2021-11-01', '2021-12-01', '2022-01-01', '2022-02-01', '2022-03-01'][i % 4],
+  letters: [
+    ['激励奖品快递费'],
+    ['相关周边制作费', '激励奖品快递费'],
+    ['相关周边制作费'],
+    ['激励奖品快递费', '相关周边制作费'],
+  ][i % 4],
+  createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
 }));
+
+const STATUS_OPTIONS = [
+  { label: '审批通过', value: 0 },
+  { label: '审批过期', value: 1 },
+  { label: '审批失败', value: 2 },
+];
 
 export default function EditableRowTable() {
   const tableRef = useRef(null);
@@ -131,7 +142,7 @@ export default function EditableRowTable() {
   const columns = useMemo(
     () => [
       {
-        title: 'FirstName',
+        title: '申请人',
         colKey: 'firstName',
         align: 'left',
         // 编辑状态相关配置，全部集中在 edit
@@ -154,20 +165,16 @@ export default function EditableRowTable() {
         },
       },
       {
-        title: 'Framework',
-        colKey: 'framework',
+        title: '申请状态',
+        colKey: 'status',
+        cell: ({ row }) => STATUS_OPTIONS.find((t) => t.value === row.status)?.label,
         edit: {
           component: Select,
           // props, 透传全部属性到 Select 组件
           props: {
             clearable: true,
             autoWidth: true,
-            options: [
-              { label: 'Vue', value: 'Vue' },
-              { label: 'React', value: 'React' },
-              { label: 'Miniprogram', value: 'Miniprogram' },
-              { label: 'Flutter', value: 'Flutter' },
-            ],
+            options: STATUS_OPTIONS,
           },
           showEditIcon: false,
           // 校验规则，此处同 Form 表单
@@ -175,7 +182,7 @@ export default function EditableRowTable() {
         },
       },
       {
-        title: 'Letters',
+        title: '申请事项',
         colKey: 'letters',
         cell: ({ row }) => row?.letters?.join('、'),
         edit: {
@@ -187,15 +194,12 @@ export default function EditableRowTable() {
             minCollapsedNum: 1,
             autoWidth: true,
             options: [
-              { label: 'A', value: 'A' },
-              { label: 'B', value: 'B' },
-              { label: 'C', value: 'C' },
-              { label: 'D', value: 'D' },
-              { label: 'E', value: 'E' },
-              // 如果框架选择了 React，则 Letters 隐藏 G 和 H
-              { label: 'G', value: 'G', show: () => editedRow.framework !== 'React' },
-              { label: 'H', value: 'H', show: () => editedRow.framework !== 'React' },
-            ].filter(t => (t.show === undefined ? true : t.show())),
+              { label: '宣传物料制作费用', value: '宣传物料制作费用' },
+              { label: 'algolia 服务报销', value: 'algolia 服务报销' },
+              // 如果状态选择了 已过期，则 Letters 隐藏 G 和 H
+              { label: '相关周边制作费', value: '相关周边制作费', show: () => editedRow.status !== 0 },
+              { label: '激励奖品快递费', value: '激励奖品快递费', show: () => editedRow.status !== 0 },
+            ].filter((t) => (t.show === undefined ? true : t.show())),
           }),
           showEditIcon: false,
           // 校验规则，此处同 Form 表单
@@ -203,7 +207,7 @@ export default function EditableRowTable() {
         },
       },
       {
-        title: 'Date',
+        title: '创建日期',
         colKey: 'createTime',
         className: 't-demo-col__datepicker',
         // props, 透传全部属性到 DatePicker 组件
@@ -220,7 +224,7 @@ export default function EditableRowTable() {
         },
       },
       {
-        title: 'Operate',
+        title: '操作栏',
         colKey: 'operate',
         width: 150,
         cell: ({ row }) => {
@@ -228,24 +232,24 @@ export default function EditableRowTable() {
           return (
             <div className="table-operations">
               {!editable && (
-                <Button theme="primary" variant="text" data-id={row.key} onClick={onEdit}>
+                <Link theme="primary" hover="color" data-id={row.key} onClick={onEdit}>
                   编辑
-                </Button>
+                </Link>
               )}
               {editable && (
-                <Button theme="primary" variant="text" data-id={row.key} onClick={onSave}>
+                <Link theme="primary" hover="color" data-id={row.key} onClick={onSave}>
                   保存
-                </Button>
+                </Link>
               )}
               {editable && (
-                <Button theme="primary" variant="text" data-id={row.key} onClick={onCancel}>
+                <Link theme="primary" hover="color" data-id={row.key} onClick={onCancel}>
                   取消
-                </Button>
+                </Link>
               )}
             </div>
           );
         },
-      }
+      },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data, editableRowKeys],
@@ -261,12 +265,12 @@ export default function EditableRowTable() {
         </Radio.Group>
       </div>
       <br />
-      {openCheckAll && (<div>
-        <Button onClick={onValidateTableData}>
-          校验全部
-        </Button>
-      </div>)}
-      
+      {openCheckAll && (
+        <div>
+          <Button onClick={onValidateTableData}>校验全部</Button>
+        </div>
+      )}
+
       <br />
       <Table
         ref={tableRef}
@@ -277,6 +281,7 @@ export default function EditableRowTable() {
         onRowEdit={onRowEdit}
         onRowValidate={onRowValidate}
         onValidate={onValidate}
+        table-layout="auto"
         bordered
       />
     </div>

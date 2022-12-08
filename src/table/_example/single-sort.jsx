@@ -1,48 +1,58 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag } from 'tdesign-react';
+import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+const statusNameListMap = {
+  0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
+  1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
+  2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
+};
 
 const columns = [
-  { colKey: 'instance', title: '集群名称', width: 150 },
+  { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',
-    title: '状态',
-    width: 100,
+    title: '申请状态',
+    width: '150',
     sortType: 'all',
     sorter: true,
-    cell({ row }) {
-      switch (row.status) {
-        case 0:
-          return <p className="status">健康</p>;
-        case 1:
-          return <p className="status warning">警告</p>;
-        case 2:
-          return <p className="status unhealth">异常</p>;
-        default:
-          return null;
-      }
+    cell: ({ rowIndex }) => {
+      const status = rowIndex % 3;
+      return (
+        <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
+          {statusNameListMap[status].icon}
+          {statusNameListMap[status].label}
+        </Tag>
+      );
     },
   },
   {
-    colKey: 'survivalTime',
-    title: '存活时间(s)',
-    width: 200,
+    colKey: 'time',
+    title: '申请耗时(天)',
+    width: '140',
+    align: 'center',
     sortType: 'all',
     sorter: true,
-    // 自定义列，或单元格类名
-    className: () => {
-      return 'status-class-bg';
-    },
   },
-  { colKey: 'owner', title: '管理员', width: 100 },
+  { colKey: 'channel', title: '签署方式', width: '120' },
+  { colKey: 'createTime', title: '申请时间' },
 ];
-const initData = [
-  { id: 1, instance: 'JQTest1', status: 0, owner: 'jenny;peter', survivalTime: 1000 },
-  { id: 2, instance: 'JQTest2', status: 1, owner: 'jenny', survivalTime: 1000 },
-  { id: 3, instance: 'JQTest3', status: 2, owner: 'jenny', survivalTime: 500 },
-  { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500 },
-];
+
+const initialData = new Array(4).fill(null).map((_, i) => ({
+  index: i + 1,
+  applicant: ['贾明', '张三', '王芳'][i % 3],
+  status: i % 3,
+  channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
+  detail: {
+    email: ['w.cezkdudy@lhll.au', 'r.nmgw@peurezgn.sl', 'p.cumx@rampblpa.ru'][i % 3],
+  },
+  matters: ['宣传物料制作费用', 'algolia 服务报销', '相关周边制作费', '激励奖品快递费'][i % 4],
+  time: [2, 3, 1, 4][i % 4],
+  createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
+}));
+
 export default function TableSingleSort() {
-  const [data, setData] = useState([...initData]);
+  const [data, setData] = useState([...initialData]);
   const [sort, setSort] = useState({
     // 按照 status 字段进行排序
     sortBy: 'status',
@@ -59,10 +69,10 @@ export default function TableSingleSort() {
     // 模拟异步请求，进行数据排序
     const timer = setTimeout(() => {
       if (!sort || !sort.sortBy) {
-        setData([...initData]);
+        setData([...initialData]);
         return;
       }
-      const dataNew = initData
+      const dataNew = initialData
         .concat()
         .sort((a, b) => (sort.descending ? b[sort.sortBy] - a[sort.sortBy] : a[sort.sortBy] - b[sort.sortBy]));
       setData([...dataNew]);
@@ -80,7 +90,7 @@ export default function TableSingleSort() {
       </div>
 
       <Table
-        rowKey="id"
+        rowKey="index"
         data={data}
         columns={columns}
         sort={sort}

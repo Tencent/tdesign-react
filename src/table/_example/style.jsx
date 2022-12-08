@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Table } from 'tdesign-react';
+import { Table, Tag } from 'tdesign-react';
+import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
@@ -21,74 +22,85 @@ const classStyles = `
 </style>
 `;
 
+const statusNameListMap = {
+  0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
+  1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
+  2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
+};
+
 export default function TableStyle() {
   const data = [];
   const total = 5;
   for (let i = 0; i < total; i++) {
-   data.push({
-     id: i,
-     framework: ['tdesign-vue', 'tdesign-react', 'tdesign-vue-next'][i % 3],
-     data: ['100,000', '21,514', '7,884', '1,290'][i % 4],
-     ringRatio: ['8%', '30%', '75%', '200%'][i % 4],
-     yearRatio: ['10%', '20%', '80%', '100%'][i % 4],
-   });
+    data.push({
+      applicant: ['贾明', '张三', '王芳'][i % 3],
+      status: i % 3,
+      channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
+      detail: {
+        email: ['w.cezkdudy@lhll.au', 'r.nmgw@peurezgn.sl', 'p.cumx@rampblpa.ru'][i % 3],
+      },
+      matters: ['宣传物料制作费用', 'algolia 服务报销', '相关周边制作费', '激励奖品快递费'][i % 4],
+      time: [2, 10, 1][i % 3],
+      createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
+    });
   }
 
   useEffect(() => {
     // 添加示例代码所需样式
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
-  
+
   const columns = [
-   {
-     colKey: 'serial-number',
-     title: '序号',
-     align: 'center',
-     width: 80,
-   },
-   { colKey: 'framework', title: '框架' },
-   {
-     colKey: 'data',
-     title: '数据',
-     align: 'right',
-     // 设置单元格内联样式
-     attrs: ({ type, row }) => ({
-       style:
-         type === 'td' && row.data === '21,514'
-           ? {
-               color: 'green',
-               fontWeight: 600,
-               backgroundColor: 'var(--td-brand-color-1)',
-               fontSize: '16px',
-             }
-           : undefined,
-     }),
-   },
-   {
-     colKey: 'ringRatio',
-     title: '环比',
-     align: 'right',
-     // 设置单元格类名
-     className: ({ type, row }) => {
-       if (type === 'td' && row.ringRatio === '200%') {
-         return 'custom-cell-class-name';
-       }
-       return '';
-     },
-   },
-   {
-     colKey: 'yearRatio',
-     title: '同比',
-     align: 'right',
-     // 设置列类名
-     className: 'last-column-class-name',
-   },
+    { colKey: 'applicant', title: '申请人', width: 100 },
+    {
+      colKey: 'status',
+      title: '审批状态',
+      width: 120,
+      cell: ({ row }) => (
+        <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
+          {statusNameListMap[row.status].icon}
+          {statusNameListMap[row.status].label}
+        </Tag>
+      ),
+    },
+    {
+      colKey: 'time',
+      title: '申请耗时(天)',
+      width: 120,
+      align: 'center',
+      // 设置单元格类名
+      className: ({ row }) => {
+        if (row.time >= 9) {
+          return 'custom-cell-class-name';
+        }
+        return '';
+      },
+      attrs: ({ row }) => {
+        if (row.time >= 9) {
+          return {
+            style: {
+              fontWeight: 600,
+              backgroundColor: 'var(--td-warning-color-light)',
+            },
+          };
+        }
+      },
+    },
+    {
+      colKey: 'channel',
+      title: '签署方式',
+      width: 120,
+      align: 'right',
+      className: () => 'custom-cell-class-name',
+    },
+    { colKey: 'detail.email', title: '邮箱地址', width: 160, ellipsis: true },
+    { colKey: 'createTime', title: '申请时间' },
   ];
-  
-  const getRowClassName = ({ row, rowIndex }) => {
-  //  console.log(row, rowIndex);
-   if (rowIndex === 2) return 'custom-third-class-name';
-   return '';
+
+  const getRowClassName = ({ rowIndex }) => {
+    //  console.log(row, rowIndex);
+    if (rowIndex === 2) return 'custom-third-class-name';
+    return '';
   };
 
   return (
@@ -101,6 +113,6 @@ export default function TableStyle() {
         rowClassName={getRowClassName}
         footerSummary={<div className="t-table__row-filter-inner">汇总：近期数据波动较大</div>}
       ></Table>
-   </div>
+    </div>
   );
 }
