@@ -112,6 +112,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
+  const snakeName = []
+    .concat(formListName, name)
+    .filter((item) => item !== undefined)
+    .join('_'); // 转化 name
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
@@ -126,7 +130,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       className,
       help,
       tips,
-      name,
+      snakeName,
       status,
       successBorder,
       errorList,
@@ -272,7 +276,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     setResetValidating(false);
 
     return {
-      [String(name)]: innerErrorList.length === 0 ? true : resultList,
+      [snakeName]: innerErrorList.length === 0 ? true : resultList,
     };
   }
 
@@ -280,7 +284,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     const { errorList: innerErrorList, resultList } = await analysisValidateResult(trigger);
 
     return {
-      [String(name)]: innerErrorList.length === 0 ? true : resultList,
+      [snakeName]: innerErrorList.length === 0 ? true : resultList,
     };
   }
 
