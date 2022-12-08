@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.44.1 `2022-12-08` 
+### 🚀 Features
+- `TimePicker`: 新增`status`、`tips`和`onPick` API @uyarn ([#1786](https://github.com/Tencent/tdesign-react/pull/1786))
+- `ColorPicker`: 新增`showPrimaryColorPreview` API 控制色彩选择条右侧主色区块的展示 @uyarn ([#1788](https://github.com/Tencent/tdesign-react/pull/1788))
+- `Upload`:
+    - `onProgress/onSuccess/onFail` 等事件参数添加 `XMLHttpRequest`，用于获取 http status 等数据 @chaishi ([#1781](https://github.com/Tencent/tdesign-react/pull/1781))
+    - `fileListDisplay` 支持自定义多文件列表 @chaishi ([#1781](https://github.com/Tencent/tdesign-react/pull/1781))
+
+### 🐞 Bug Fixes
+- `InputNumber`:
+    - 无法输入小数点后面的第一位数字 `0`，[tdesign-vue-next#2103](https://github.com/Tencent/tdesign-vue-next/issues/2103) @chaishi ([#1780](https://github.com/Tencent/tdesign-react/pull/1780))
+    - 修复无法使用清空按钮清除输入数字问题，[issue#1855](https://github.com/Tencent/tdesign-vue/issues/1855) @chaishi ([#1780](https://github.com/Tencent/tdesign-react/pull/1780))
+    - 修复 status 默认值缺失 @honkinglin ([#1790](https://github.com/Tencent/tdesign-react/pull/1790))
+- `Popup`: 快速移动鼠标弹出层闪烁 @HelKyle ([#1769](https://github.com/Tencent/tdesign-react/pull/1769))
+- `dialog`: 修复 dialog instance ts 类型警告 @moecasts ([#1783](https://github.com/Tencent/tdesign-react/pull/1783))
+- `affix`: 新增 content @ontheroad1992 ([#1778](https://github.com/Tencent/tdesign-react/pull/1778))
+- `TimePicker`: 修复打开面板时无法直接清空时间的交互问题 @uyarn ([#1786](https://github.com/Tencent/tdesign-react/pull/1786))
+- `Select`: 修复`onEnter`事件回调参数异常的问题 @uyarn ([#1789](https://github.com/Tencent/tdesign-react/pull/1789))
+- `Form`: 修复 ts 类型警告 @honkinglin ([#1775](https://github.com/Tencent/tdesign-react/pull/1775))
+- `Anchor`: 修复 container 默认值问题 @ontheroad1992 ([#1776](https://github.com/Tencent/tdesign-react/pull/1776))
+- `InputAdornment`: 修复样式问题 @honkinglin ([#1784](https://github.com/Tencent/tdesign-react/pull/1784))
+- `Dialog`: 修复滚动条宽度计算问题 @honkinglin ([#1787](https://github.com/Tencent/tdesign-react/pull/1787))
+
+
 ## 🌈 0.44.0 `2022-11-30` 
 ### ❗ Breaking Changes
 - `Jumper`: Jumper 更名为 PaginationMini 组件，正在使用 Jumper 组件的同学请从 Pagination 中导出替换 @honkinglin ([#1749](https://github.com/Tencent/tdesign-react/pull/1749))
