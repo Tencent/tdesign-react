@@ -1,6 +1,6 @@
 /** React 特有全局类型 */
 
-import { ReactElement, ReactNode, CSSProperties, FormEvent } from 'react';
+import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
 export type TElement = ReactElement | (() => ReactElement);
@@ -25,6 +25,13 @@ export type Styles = CSSProperties;
 export interface StyledProps {
   className?: string;
   style?: CSSProperties;
+}
+
+export interface UploadDisplayDragEvents {
+  onDrop?: (event: DragEvent<HTMLDivElement>) => void;
+  onDragEnter?: (event: DragEvent<HTMLDivElement>) => void;
+  onDragOver?: (event: DragEvent<HTMLDivElement>) => void;
+  onDragLeave?: (event: DragEvent<HTMLDivElement>) => void;
 }
 /** 通用全局类型 */
 

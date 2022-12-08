@@ -100,6 +100,7 @@ export default function useUpload(props: TdUploadProps) {
       currentFiles: p.files,
       percent: p.percent,
       type: p.type,
+      XMLHttpRequest: p.XMLHttpRequest,
     });
   };
 
