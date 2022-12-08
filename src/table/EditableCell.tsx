@@ -281,7 +281,7 @@ const EditableCell = (props: EditableCellProps) => {
         }}
       >
         {cellNode}
-        {col.edit?.showEditIcon !== false && <Edit1Icon size="12px" />}
+        {col.edit?.showEditIcon !== false && <Edit1Icon />}
       </div>
     );
   }

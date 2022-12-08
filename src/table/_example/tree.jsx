@@ -1,11 +1,11 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading } from 'tdesign-react';
+import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from 'tdesign-react';
 import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 
 function getObject(i, currentPage) {
   return {
     id: i,
-    key: `我是 ${i}_${currentPage} 号`,
+    key: `申请人 ${i}_${currentPage} 号`,
     platform: i % 2 === 0 ? '共有' : '私有',
     type: ['String', 'Number', 'Array', 'Object'][i % 4],
     default: ['-', '0', '[]', '{}'][i % 4],
@@ -28,14 +28,14 @@ function getData(currentPage = 1) {
       const secondObj = {
         ...obj,
         id: secondIndex,
-        key: `我是 ${secondIndex}_${currentPage} 号（${pageInfo}）`,
+        key: `申请人 ${secondIndex}_${currentPage} 号（${pageInfo}）`,
       };
       secondObj.list = new Array(3).fill(null).map((m, n) => {
         const thirdIndex = secondIndex * 1000 + 100 * m + (n + 1) * 10;
         return {
           ...obj,
           id: thirdIndex,
-          key: `我是 ${thirdIndex}_${currentPage} 号（${pageInfo}）`,
+          key: `申请人 ${thirdIndex}_${currentPage} 号（${pageInfo}）`,
           // 子节点懒加载
           list: true,
         };
@@ -53,14 +53,14 @@ function getData(currentPage = 1) {
     ...getObject(66666, currentPage),
     /** 如果子节点为懒加载，则初始值设置为 true */
     list: true,
-    key: '我是懒加载节点 66666，点我体验',
+    key: '申请人懒加载节点 66666，点我体验',
   });
   // 懒加载2
   data.push({
     ...getObject(88888, currentPage),
     /** 如果子节点为懒加载，则初始值设置为 true */
     list: true,
-    key: '我是懒加载节点 88888，点我体验 ',
+    key: '申请人懒加载节点 88888，点我体验 ',
   });
   return data;
 }
@@ -112,11 +112,11 @@ export default function TableTree() {
     const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
     table.current.appendTo(row.key, {
       id: randomKey1,
-      key: `我是 ${randomKey1} 号`,
+      key: `申请人 ${randomKey1} 号`,
       platform: '私有',
       type: 'Number',
     });
-    MessagePlugin.success(`已插入子节点我是 ${randomKey1} 号，请展开查看`);
+    MessagePlugin.success(`已插入子节点申请人 ${randomKey1} 号，请展开查看`);
 
     // 一次性添加多个子节点。示例代码有效，勿删！!!
     // appendMultipleDataTo(row);
@@ -128,19 +128,19 @@ export default function TableTree() {
     const newData = [
       {
         id: randomKey1,
-        key: `我是 ${randomKey1} 号`,
+        key: `申请人 ${randomKey1} 号`,
         platform: '私有',
         type: 'Number',
       },
       {
         id: randomKey2,
-        key: `我是 ${randomKey2} 号`,
+        key: `申请人 ${randomKey2} 号`,
         platform: '私有',
         type: 'Number',
       },
     ];
     table.current.appendTo(row?.key, newData);
-    MessagePlugin.success(`已插入子节点我是 ${randomKey1} 和 ${randomKey2} 号，请展开查看`);
+    MessagePlugin.success(`已插入子节点申请人 ${randomKey1} 和 ${randomKey2} 号，请展开查看`);
   }
 
   // 当前节点之前，新增兄弟节前
@@ -148,11 +148,11 @@ export default function TableTree() {
     const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
     table.current.insertBefore(row.key, {
       id: randomKey,
-      key: `我是 ${randomKey} 号`,
+      key: `申请人 ${randomKey} 号`,
       platform: '私有',
       type: 'Number',
     });
-    MessagePlugin.success(`已插入子节点我是 ${randomKey} 号，请展开查看`);
+    MessagePlugin.success(`已插入子节点申请人 ${randomKey} 号，请展开查看`);
   };
 
   // 当前节点之后，新增兄弟节前
@@ -160,11 +160,11 @@ export default function TableTree() {
     const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
     table.current.insertAfter(row.key, {
       id: randomKey,
-      key: `我是 ${randomKey} 号`,
+      key: `申请人 ${randomKey} 号`,
       platform: '私有',
       type: 'Number',
     });
-    MessagePlugin.success(`已插入子节点我是 ${randomKey} 号，请展开查看`);
+    MessagePlugin.success(`已插入子节点申请人 ${randomKey} 号，请展开查看`);
   };
 
   const columns = [
@@ -203,25 +203,25 @@ export default function TableTree() {
       // 增、删、改、查 等操作
       cell: ({ row }) => (
         <div className="tdesign-table-demo__table-operations">
-          <Button variant="text" style={{ padding: '0 8px' }} onClick={() => appendTo(row)}>
+          <Link hover="color" style={{ padding: '0 8px' }} onClick={() => appendTo(row)}>
             插入
-          </Button>
-          <Button variant="text" style={{ padding: '0 8px' }} onClick={() => insertBefore(row)}>
+          </Link>
+          <Link hover="color" style={{ padding: '0 8px' }} onClick={() => insertBefore(row)}>
             前插
-          </Button>
-          <Button variant="text" style={{ padding: '0 8px' }} onClick={() => insertAfter(row)}>
+          </Link>
+          <Link hover="color" style={{ padding: '0 8px' }} onClick={() => insertAfter(row)}>
             后插
-          </Button>
-          <Button variant="text" style={{ padding: '0 8px' }} onClick={() => onEditClick(row)}>
+          </Link>
+          <Link hover="color" style={{ padding: '0 8px' }} onClick={() => onEditClick(row)}>
             更新
-          </Button>
-          <Button variant="text" style={{ padding: '0 8px' }} onClick={() => onLookUp(row)}>
+          </Link>
+          <Link hover="color" style={{ padding: '0 8px' }} onClick={() => onLookUp(row)}>
             查看
-          </Button>
+          </Link>
           <Popconfirm content="确认删除吗" onConfirm={() => onDeleteConfirm(row)}>
-            <Button variant="text" style={{ padding: '0 8px' }}>
+            <Link hover="color" style={{ padding: '0 8px' }}>
               删除
-            </Button>
+            </Link>
           </Popconfirm>
         </div>
       ),
@@ -230,10 +230,10 @@ export default function TableTree() {
 
   const onRowToggle = () => {
     const rowIds = [
-      '我是 1_1 号（第 1 页）',
-      '我是 2_1 号（第 1 页）',
-      '我是 3_1 号（第 1 页）',
-      '我是 4_1 号（第 1 页）',
+      '申请人 1_1 号（第 1 页）',
+      '申请人 2_1 号（第 1 页）',
+      '申请人 3_1 号（第 1 页）',
+      '申请人 4_1 号（第 1 页）',
     ];
     rowIds.forEach((id) => {
       // getData 参数为行唯一标识，lodash.get(row, rowKey)
@@ -248,7 +248,7 @@ export default function TableTree() {
     const key = Math.round(Math.random() * 10010);
     table.current.appendTo('', {
       id: key,
-      key: `我是 ${key}_${1} 号`,
+      key: `申请人 ${key}_${1} 号`,
       platform: key % 2 === 0 ? '共有' : '私有',
       type: ['String', 'Number', 'Array', 'Object'][key % 4],
       default: ['-', '0', '[]', '{}'][key % 4],
@@ -278,7 +278,7 @@ export default function TableTree() {
     if (lazyLoadingData?.id === row?.id) {
       return <Loading size="14px" />;
     }
-    return (type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />);
+    return type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />;
   };
 
   const onPageChange = (pageInfo) => {
@@ -301,7 +301,7 @@ export default function TableTree() {
       return renderTreeExpandAndFoldIcon;
     }
     return lazyLoadingTreeIconRender;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lazyLoadingData, customTreeExpandAndFoldIcon]);
 
   function onTreeExpandChange(context) {

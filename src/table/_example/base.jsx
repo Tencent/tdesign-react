@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Radio, Space } from 'tdesign-react';
+import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
+import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -7,17 +8,24 @@ const data = [];
 const total = 28;
 for (let i = 0; i < total; i++) {
   data.push({
-    index: i,
-    platform: i % 2 === 0 ? '共有' : '私有',
-    type: ['String', 'Number', 'Array', 'Object'][i % 4],
-    default: ['0', '[]'][i % 5],
+    index: i + 1,
+    applicant: ['贾明', '张三', '王芳'][i % 3],
+    status: i % 3,
+    channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
     detail: {
-      position: `读取 ${i} 个数据的嵌套信息值`,
+      email: ['w.cezkdudy@lhll.au', 'r.nmgw@peurezgn.sl', 'p.cumx@rampblpa.ru'][i % 3],
     },
-    needed: i % 4 === 0 ? '是' : '否',
-    description: '数据源',
+    matters: ['宣传物料制作费用', 'algolia 服务报销', '相关周边制作费', '激励奖品快递费'][i % 4],
+    time: [2, 3, 1, 4][i % 4],
+    createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
   });
 }
+
+const statusNameListMap = {
+  0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
+  1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
+  2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
+};
 
 export default function TableBasic() {
   const [stripe, setStripe] = useState(false);
@@ -33,59 +41,20 @@ export default function TableBasic() {
       data={data}
       resizable
       columns={[
+        { colKey: 'applicant', title: '申请人', width: '100' },
         {
-          // 序号列，设置 colKey = serial-number 即可
-          colKey: 'serial-number',
-          width: '100',
-          title: '序号',
-          // 对齐方式
-          align: 'center',
-          // 设置列类名
-          className: 'custom-column-class-name',
-          // 设置列属性
-          attrs: {
-            'data-id': 'first-column',
-            style: {},
-          },
+          colKey: 'status',
+          title: '申请状态',
+          cell: ({ row }) => (
+              <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
+                {statusNameListMap[row.status].icon}
+                {statusNameListMap[row.status].label}
+              </Tag>
+            ),
         },
-        {
-          width: 100,
-          colKey: 'platform',
-          title: '平台',
-        },
-        {
-          colKey: 'type',
-          title: '类型',
-        },
-        {
-          colKey: 'default',
-          title: '默认值',
-        },
-        {
-          colKey: 'needed',
-          title: '是否必传',
-        },
-        {
-          colKey: 'detail.position',
-          title: '详情信息',
-          width: 200,
-          /**
-           * 1.内容超出时，是否显示省略号。值为 true，则浮层默认显示单元格内容；
-           * 2.值类型为 () => ReactNode 则自定义浮层显示内容；
-           * 3.值类型为 Object，则自动透传属性到 Popup 组件。
-           */
-          ellipsis: true,
-          // 表头不省略，优先级高于 ellipsis
-          ellipsisTitle: false,
-
-          // 透传省略内容浮层 Popup 组件全部特性，示例代码有效，勿删！！！
-          // ellipsis: { placement: 'bottom', destroyOnClose: false },
-
-          // 完全自定义 ellipsis 浮层的样式和内容，示例代码有效，勿删！！！
-          // ellipsis: ({ row, col, rowIndex, colIndex }) => (
-          //   <div>自定义浮层内容：ID({row.index})；第 {rowIndex + 1} 行；第 {colIndex} 列；列标识：{col.colKey}</div>
-          // ),
-        },
+        { colKey: 'channel', title: '签署方式' },
+        { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
+        { colKey: 'createTime', title: '申请时间' },
       ]}
       rowKey="index"
       verticalAlign="top"

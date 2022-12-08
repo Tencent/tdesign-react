@@ -1,43 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Radio, Checkbox, Space } from 'tdesign-react';
-import { ChevronRightCircleIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import { Table, Radio, Checkbox, Space, Tag } from 'tdesign-react';
+import {
+  ChevronRightCircleIcon,
+  ChevronRightIcon,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+  CloseCircleFilledIcon,
+} from 'tdesign-icons-react';
+
+const statusNameListMap = {
+  0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
+  1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
+  2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
+};
 
 export default function TableExpandable() {
   const getColumns = (isFixedColumn) => [
-    { colKey: 'instance', title: '集群名称', fixed: isFixedColumn ? 'left' : '' },
+    { colKey: 'applicant', title: '申请人', width: '80', fixed: isFixedColumn ? 'left' : '' },
     {
       colKey: 'status',
-      title: '状态',
-      cell: ({ row }) => (row.status === 0 ? '异常' : '健康'),
+      title: '申请状态',
+      cell: ({ row }) => (
+          <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
+            {statusNameListMap[row.status].icon}
+            {statusNameListMap[row.status].label}
+          </Tag>
+        ),
     },
-    { colKey: 'owner', title: '管理员' },
-    { colKey: 'description', title: '描述' },
-    { colKey: 'field1', title: '字段 1' },
-    { colKey: 'field2', title: '字段 2' },
-    { colKey: 'field3', title: '字段 3' },
-    { colKey: 'field4', title: '字段 4' },
-    { colKey: 'field5', title: '字段 5' },
-    { colKey: 'field6', title: '字段 6' },
-    {
-      colKey: 'op',
-      title: '操作',
-      cell: () => <span>管理</span>,
-      fixed: isFixedColumn ? 'right' : '',
-    },
+    { colKey: 'channel', title: '签署方式' },
+    { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
+    { colKey: 'createTime', title: '申请时间' },
+    { colKey: 'operation', title: '操作', fixed: isFixedColumn ? 'right' : '' },
+  
   ];
 
-  const initialData = new Array(5).fill(null).map((item, index) => ({
-    id: index + 100,
-    instance: `JQTest${index + 1}`,
-    status: index % 2,
-    owner: 'jenny;peter',
-    description: 'description',
-    field1: 'field1',
-    field2: 'field2',
-    field3: 'field3',
-    field4: 'field4',
-    field5: 'field5',
-    field6: 'field6',
+  const initialData = new Array(5).fill(null).map((item, i) => ({
+    index: i + 1,
+    applicant: ['贾明', '张三', '王芳'][i % 3],
+    status: i % 3,
+    channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
+    detail: {
+      email: ['w.cezkdudy@lhll.au', 'r.nmgw@peurezgn.sl', 'p.cumx@rampblpa.ru'][i % 3],
+    },
+    matters: ['宣传物料制作费用', 'algolia 服务报销', '相关周边制作费', '激励奖品快递费'][i % 4],
+    time: [2, 3, 1, 4][i % 4],
+    createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
   }));
 
   const [data] = useState(initialData);
@@ -53,19 +60,19 @@ export default function TableExpandable() {
   const expandedRow = ({ row }) => (
     <div className="more-detail">
       <p className="title">
-        <b>集群名称:</b>
+        <b>申请人:</b>
       </p>
-      <p className="content">{row.instance}</p>
+      <p className="content">{row.applicant}</p>
       <br />
       <p className="title">
-        <b>管理员:</b>
+        <b>邮箱地址:</b>
       </p>
-      <p className="content">{row.owner}</p>
+      <p className="content">{row.detail.email}</p>
       <br />
       <p className="title">
-        <b>描述:</b>
+        <b>签署方式:</b>
       </p>
-      <p className="content">{row.description}</p>
+      <p className="content">{row.channel}</p>
     </div>
   );
 
@@ -75,11 +82,11 @@ export default function TableExpandable() {
   };
 
   // 完全自由控制表格的每一行是否显示展开图标，以及显示什么内容
-  const tmpExpandIcon = ({ row, index }) => {
+  const tmpExpandIcon = ({ index }) => {
     // 第一行不显示展开图标
     if (index === 0) return false;
     // 第三行，使用自定义展开图标
-    if (row?.id === 103) return <ChevronRightIcon />;
+    if (index === 3) return <ChevronRightIcon />;
     // 其他行，使用表格同款展开图标
     return <ChevronRightCircleIcon />;
   };
@@ -123,7 +130,7 @@ export default function TableExpandable() {
 
       {/* <!-- :defaultExpandedRowKeys="defaultExpandedRowKeys" --> */}
       <Table
-        rowKey="id"
+        rowKey="index"
         columns={columns}
         data={emptyData ? [] : data}
         expandedRowKeys={expandedRowKeys}
