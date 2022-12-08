@@ -62,6 +62,11 @@ export interface TdColorPickerProps {
    */
   selectInputProps?: SelectInputProps;
   /**
+   * 是否展示颜色选择条右侧的颜色预览区域
+   * @default true
+   */
+  showPrimaryColorPreview?: boolean;
+  /**
    * 系统预设的颜色样例，值为 `null` 或 `[]` 则不显示系统色，值为 `undefined` 会显示组件内置的系统默认色
    */
   swatchColors?: Array<string>;
