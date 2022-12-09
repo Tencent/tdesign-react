@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Radio, Checkbox, Space, Tag } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
 import {
   ChevronRightCircleIcon,
   ChevronRightIcon,
@@ -14,6 +14,18 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
+const classStyles = `
+<style>
+.more-detail > p {
+  display: inline-block;
+  margin: 4px 0;
+}
+.more-detail > p.title {
+  width: 120px;
+}
+</style>
+`;
+
 export default function TableExpandable() {
   const getColumns = (isFixedColumn) => [
     { colKey: 'applicant', title: '申请人', width: '80', fixed: isFixedColumn ? 'left' : '' },
@@ -21,17 +33,25 @@ export default function TableExpandable() {
       colKey: 'status',
       title: '申请状态',
       cell: ({ row }) => (
-          <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-            {statusNameListMap[row.status].icon}
-            {statusNameListMap[row.status].label}
-          </Tag>
-        ),
+        <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
+          {statusNameListMap[row.status].icon}
+          {statusNameListMap[row.status].label}
+        </Tag>
+      ),
     },
     { colKey: 'channel', title: '签署方式' },
     { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
     { colKey: 'createTime', title: '申请时间' },
-    { colKey: 'operation', title: '操作', fixed: isFixedColumn ? 'right' : '' },
-  
+    {
+      colKey: 'operation',
+      title: '操作',
+      fixed: isFixedColumn ? 'right' : '',
+      cell: ({ row }) => (
+        <Link theme="primary" hover="color">
+          {row.status === 0 ? '查看详情' : '再次申请'}
+        </Link>
+      ),
+    },
   ];
 
   const initialData = new Array(5).fill(null).map((item, i) => ({
@@ -103,6 +123,11 @@ export default function TableExpandable() {
       setExpandIcon(val);
     }
   }, [expandControl]);
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>

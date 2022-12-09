@@ -73,6 +73,7 @@ export default function TableFixHeader() {
 
   // 自定义表尾方式三：自定义合并单元格表尾
   const rowspanAndColspanInFooter = ({ rowIndex, colIndex }) => {
+    console.log(rowIndex, colIndex)
     // 中间列合并，收尾两列不合并
     if (rowIndex === 0 && colIndex === 1) return { colspan: columns.length - 2 };
     return {};

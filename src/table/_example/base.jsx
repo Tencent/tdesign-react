@@ -39,7 +39,7 @@ export default function TableBasic() {
   const table = (
     <Table
       data={data}
-      resizable
+      resizable={tableLayout === 'fixed' ? true : false}
       columns={[
         { colKey: 'applicant', title: '申请人', width: '100' },
         {

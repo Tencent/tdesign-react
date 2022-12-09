@@ -145,6 +145,7 @@ export default function EditableRowTable() {
         title: '申请人',
         colKey: 'firstName',
         align: 'left',
+        width: 120,
         // 编辑状态相关配置，全部集中在 edit
         edit: {
           // 1. 支持任意组件。需保证组件包含 `value` 和 `onChange` 两个属性，且 onChange 的第一个参数值为 new value。
@@ -168,6 +169,7 @@ export default function EditableRowTable() {
         title: '申请状态',
         colKey: 'status',
         cell: ({ row }) => STATUS_OPTIONS.find((t) => t.value === row.status)?.label,
+        width: 150,
         edit: {
           component: Select,
           // props, 透传全部属性到 Select 组件
@@ -209,6 +211,7 @@ export default function EditableRowTable() {
       {
         title: '创建日期',
         colKey: 'createTime',
+        width: 150,
         className: 't-demo-col__datepicker',
         // props, 透传全部属性到 DatePicker 组件
         edit: {

@@ -88,7 +88,7 @@ export default function TableTree() {
   const onEditClick = (row) => {
     const newData = {
       ...row,
-      platform: 'New',
+      platform: '电子签署',
       type: 'Symbol',
       default: 'undefined',
     };
@@ -113,7 +113,7 @@ export default function TableTree() {
     table.current.appendTo(row.key, {
       id: randomKey1,
       key: `申请人 ${randomKey1} 号`,
-      platform: '私有',
+      platform: '电子签署',
       type: 'Number',
     });
     MessagePlugin.success(`已插入子节点申请人 ${randomKey1} 号，请展开查看`);
@@ -129,13 +129,13 @@ export default function TableTree() {
       {
         id: randomKey1,
         key: `申请人 ${randomKey1} 号`,
-        platform: '私有',
+        platform: '电子签署',
         type: 'Number',
       },
       {
         id: randomKey2,
         key: `申请人 ${randomKey2} 号`,
-        platform: '私有',
+        platform: '纸质签署',
         type: 'Number',
       },
     ];
@@ -149,7 +149,7 @@ export default function TableTree() {
     table.current.insertBefore(row.key, {
       id: randomKey,
       key: `申请人 ${randomKey} 号`,
-      platform: '私有',
+      platform: '纸质签署',
       type: 'Number',
     });
     MessagePlugin.success(`已插入子节点申请人 ${randomKey} 号，请展开查看`);
@@ -161,7 +161,7 @@ export default function TableTree() {
     table.current.insertAfter(row.key, {
       id: randomKey,
       key: `申请人 ${randomKey} 号`,
-      platform: '私有',
+      platform: '纸质签署',
       type: 'Number',
     });
     MessagePlugin.success(`已插入子节点申请人 ${randomKey} 号，请展开查看`);
@@ -178,13 +178,6 @@ export default function TableTree() {
       align: 'center',
     },
     {
-      colKey: 'id',
-      title: '编号',
-      ellipsis: true,
-      cell: ({ row }) => String(row.id),
-      width: 100,
-    },
-    {
       width: 180,
       colKey: 'key',
       title: '名称',
@@ -192,8 +185,8 @@ export default function TableTree() {
     },
     {
       colKey: 'platform',
-      title: '平台',
-      width: 80,
+      title: '签署方式',
+      width: 100,
     },
     {
       colKey: 'operate',
