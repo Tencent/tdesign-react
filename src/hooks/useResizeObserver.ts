@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react';
+import isFunction from 'lodash/isFunction';
 
 export default function useResizeObserver(container: HTMLElement, callback: (data: [ResizeObserverEntry]) => void) {
   let containerObserver: ResizeObserver = null;
@@ -17,7 +18,7 @@ export default function useResizeObserver(container: HTMLElement, callback: (dat
     observeContainer();
     return () => {
       containerObserver?.unobserve(container);
-      containerObserver?.disconnect();
+      isFunction(containerObserver?.disconnect) && containerObserver.disconnect();
     };
     // eslint-disable-next-line
   }, [container, containerObserver]);
