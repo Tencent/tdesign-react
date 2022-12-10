@@ -1,4 +1,6 @@
-// import { ref, onMounted, computed, nextTick, Ref, UnwrapRef } from 'vue';
+/**
+ * 原作者 @louiszhai 思路
+ */
 import { useState, useMemo, useEffect } from 'react';
 import observe from '../../_common/js/utils/observe';
 
