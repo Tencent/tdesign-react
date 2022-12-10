@@ -12,9 +12,9 @@ const statusNameListMap = {
 const CHILDREN_KEY = 'childrenList';
 
 const initData = [];
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 500; i++) {
   const obj = {
-    key: i,
+    key: `first_level_${i}`,
     applicant: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
     channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
@@ -28,7 +28,7 @@ for (let i = 0; i < 5; i++) {
     const secondObj = {
       ...obj,
       status: secondIndex % 3,
-      key: secondIndex,
+      key: `second_level_${secondIndex}`,
       applicant: ['贾明', '张三', '王芳'][secondIndex % 3],
     };
     secondObj.childrenList = new Array(3).fill(null).map((m, n) => {
@@ -36,7 +36,7 @@ for (let i = 0; i < 5; i++) {
       return {
         ...obj,
         status: thirdIndex % 3,
-        key: thirdIndex,
+        key: `third_level_${thirdIndex}`,
         applicant: ['贾明', '张三', '王芳'][thirdIndex % 3],
       };
     });
@@ -58,6 +58,7 @@ const columns = [
     // 自由调整宽度，如果发现元素看不见，请加大宽度
     width: 50,
   },
+  { colKey: 'serial-number', title: '序号', width: 80 },
   { colKey: 'applicant', title: '申请人', width: 120 },
   {
     colKey: 'status',
@@ -71,7 +72,7 @@ const columns = [
     ),
   },
   { colKey: 'matters', title: '申请事项', width: '150' },
-  { colKey: 'email', title: '邮箱地址' },
+  // { colKey: 'email', title: '邮箱地址' },
 ];
 
 export default function TableSingleSort() {
@@ -118,6 +119,20 @@ export default function TableSingleSort() {
     MessagePlugin.success('获取成功，请打开控制台查看');
   };
 
+  const scrollToElement = () => {
+    const treeNodeData = treeTableRef.current.getData('first_level_150');
+    console.log(treeNodeData);
+    // 因为可能会存在前面的元素节点展开，或行展开，故而下标跟序号不一定一样，不一定是 150
+    treeTableRef.current.scrollToElement({
+      // 跳转元素下标（第 151 个元素位置，下标/序号不一定是 150）
+      index: treeNodeData.rowIndex - selectedRowKeys.length,
+      // 滚动元素距离顶部的距离（如表头高度）
+      top: 47,
+      // 高度动态变化场景下，即 isFixedRowHeight = false。延迟设置元素位置，一般用于依赖不同高度异步渲染等场景，单位：毫秒。（固定高度不需要这个）
+      time: 60,
+    });
+  };
+
   return (
     <Space direction="vertical">
       <Space>
@@ -126,6 +141,7 @@ export default function TableSingleSort() {
           <Radio.Button value={false}>父子行选中关联</Radio.Button>
         </Radio.Group>
         <Button onClick={getTreeExpandedRow}>获取树形结构展开的节点</Button>
+        <Button onClick={scrollToElement}>滚动到指定元素</Button>
       </Space>
 
       <EnhancedTable
@@ -136,7 +152,9 @@ export default function TableSingleSort() {
         // indeterminateSelectedRowKeys={[1]}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
-        tree={{ checkStrictly, childrenKey: CHILDREN_KEY }}
+        tree={{ checkStrictly, childrenKey: CHILDREN_KEY, treeNodeColumnIndex: 2 }}
+        height={300}
+        scroll={{ type: 'virtual' }}
         expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}
