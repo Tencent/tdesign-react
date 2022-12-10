@@ -28,7 +28,7 @@ for (let i = 0; i < 20; i++) {
 }
 
 export default function TableFixedColumn() {
-  const [tableLayout, setTableLayout] = useState('fixed');
+  const [tableLayout, setTableLayout] = useState('auto');
   const [fixedTopAndBottomRows, setFixedTopAndBottomRows] = useState(false);
   // <!-- 如果希望表格列宽自适应，设置 `table-layout: auto` 即可。需同时设置 table-content-width -->
   // <!-- fixedRows: [2, 2] 表示冻结表格的头两行和尾两行 -->

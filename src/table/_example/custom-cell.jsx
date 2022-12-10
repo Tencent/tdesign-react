@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { ErrorCircleFilledIcon, CheckCircleFilledIcon, UserIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const data = [];
 const statusNameListMap = {
@@ -25,8 +25,12 @@ for (let i = 0; i < 5; i++) {
 const columns = [
   {
     colKey: 'applicant',
-    title: '申请人',
     width: 120,
+    title: () => (
+      <span style={{ display: 'flex', alignItems: 'center' }}>
+        <UserIcon style={{ marginRight: 5 }}></UserIcon>申请人
+      </span>
+    ),
   },
   {
     title: '审批状态',

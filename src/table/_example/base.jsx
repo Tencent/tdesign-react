@@ -39,7 +39,6 @@ export default function TableBasic() {
   const table = (
     <Table
       data={data}
-      resizable
       columns={[
         { colKey: 'applicant', title: '申请人', width: '100' },
         {

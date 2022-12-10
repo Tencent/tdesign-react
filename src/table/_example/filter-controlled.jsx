@@ -170,7 +170,7 @@ export default function TableSingleSort() {
   // }
   return (
     <Space direction="vertical">
-      <div>
+      <Space direction="horizontal" align="center">
         <Button
           onClick={() => {
             setFilterValue({});
@@ -180,7 +180,7 @@ export default function TableSingleSort() {
           清空已筛选
         </Button>
         <span>已选筛选条件：{JSON.stringify(filterValue)}</span>
-      </div>
+      </Space>
       <Table
         rowKey="key"
         data={data}

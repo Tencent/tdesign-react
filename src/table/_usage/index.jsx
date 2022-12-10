@@ -16,7 +16,7 @@ export default function Usage() {
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: 'baseTable', value: 'baseTable', config: baseTableConfigProps }];
+  const panelList = [{ label: 'Table', value: 'baseTable', config: baseTableConfigProps }];
 
   const data = Array(30)
     .fill(0)
