@@ -13,7 +13,7 @@ export default function mdToReact(options) {
   const mdSegment = customRender(options);
   const { demoDefsStr, demoCodesDefsStr } = options;
 
-  let coverage = '';
+  let coverage = {};
   if (mdSegment.isComponent) {
     coverage = testCoverage[camelCase(mdSegment.componentName)] || {};
   }
