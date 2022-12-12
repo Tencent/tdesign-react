@@ -97,7 +97,13 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * @param p 行数据
    */
   function toggleExpandData(p: { row: TableRowData; rowIndex: number; trigger?: 'inner' }) {
-    const newData = store.toggleExpandData(p, dataSource, rowDataKeys);
+    const currentData = { ...p };
+    // eslint-disable-next-line
+    if (p.row.__VIRTUAL_SCROLL_INDEX !== undefined) {
+      // eslint-disable-next-line
+      currentData.rowIndex = p.row.__VIRTUAL_SCROLL_INDEX;
+    }
+    const newData = store.toggleExpandData(currentData, dataSource, rowDataKeys);
     setDataSource([...newData]);
     if (p.trigger === 'inner') {
       const rowValue = get(p.row, rowDataKeys.rowKey);
