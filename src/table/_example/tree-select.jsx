@@ -118,6 +118,10 @@ export default function TableSingleSort() {
     MessagePlugin.success('获取成功，请打开控制台查看');
   };
 
+  const onRowClick = (data) => {
+    console.log(data)
+  };
+
   return (
     <Space direction="vertical">
       <Space>
@@ -136,10 +140,11 @@ export default function TableSingleSort() {
         // indeterminateSelectedRowKeys={[1]}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
-        tree={{ checkStrictly, childrenKey: CHILDREN_KEY }}
+        tree={{ checkStrictly, childrenKey: CHILDREN_KEY, expandTreeNodeOnClick: true }}
         expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}
+        onRowClick={onRowClick}
       />
     </Space>
   );
