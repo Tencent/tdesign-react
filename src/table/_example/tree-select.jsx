@@ -59,11 +59,10 @@ const columns = [
     width: 50,
   },
   { colKey: 'serial-number', title: '序号', width: 80 },
-  { colKey: 'applicant', title: '申请人', width: 120 },
+  { colKey: 'applicant', title: '申请人' },
   {
     colKey: 'status',
     title: '状态',
-    width: 144,
     cell: ({ row }) => (
       <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
         {statusNameListMap[row.status].icon}
@@ -71,7 +70,7 @@ const columns = [
       </Tag>
     ),
   },
-  { colKey: 'matters', title: '申请事项', width: '150' },
+  { colKey: 'matters', title: '申请事项' },
   // { colKey: 'email', title: '邮箱地址' },
 ];
 
@@ -119,6 +118,10 @@ export default function TableSingleSort() {
     MessagePlugin.success('获取成功，请打开控制台查看');
   };
 
+  const onRowClick = (data) => {
+    console.log(data)
+  };
+
   const scrollToElement = () => {
     const treeNodeData = treeTableRef.current.getData('first_level_150');
     console.log(treeNodeData);
@@ -152,12 +155,18 @@ export default function TableSingleSort() {
         // indeterminateSelectedRowKeys={[1]}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
-        tree={{ checkStrictly, childrenKey: CHILDREN_KEY, treeNodeColumnIndex: 2 }}
+        tree={{
+          checkStrictly,
+          childrenKey: CHILDREN_KEY,
+          treeNodeColumnIndex: 2,
+          expandTreeNodeOnClick: true,
+        }}
         height={300}
         scroll={{ type: 'virtual' }}
         expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}
+        onRowClick={onRowClick}
       />
     </Space>
   );
