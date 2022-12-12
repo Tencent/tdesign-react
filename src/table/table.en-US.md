@@ -37,7 +37,7 @@ rowClassName | String / Object / Array / Function | - | table `th` classname。T
 rowKey | String | 'id' | required。unique key for each row data | Y
 rowspanAndColspan | Function | - | rowspan and colspan。Typescript：`TableRowspanAndColspanFunc<T>` `type TableRowspanAndColspanFunc<T> = (params: BaseTableCellParams<T>) => RowspanColspan` `interface RowspanColspan { colspan?: number; rowspan?: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 rowspanAndColspanInFooter | Function | - | rowspan and colspan for footer。Typescript：`TableRowspanAndColspanFunc<T>` | N
-scroll | Object | - | lazy load and virtual scroll。Typescript：`TableScroll` | N
+scroll | Object | - | lazy load and virtual scroll。Typescript：`InfinityScroll`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 showHeader | Boolean | true | show table header | N
 size | String | medium | options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 stripe | Boolean | false | show stripe style | N
@@ -110,6 +110,7 @@ hideSortTips | Boolean | - | hide sort tips | N
 indeterminateSelectedRowKeys | Array | - | indeterminate selected row keys, row key is from data[rowKey]。Typescript：`Array<string \| number>` | N
 multipleSort | Boolean | false | support multiple column fields sort | N
 reserveSelectedRowOnPaginate | Boolean | true | \- | N
+selectOnRowClick | Boolean | - | select row data on row click | N
 selectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。Typescript：`Array<string \| number>` | N
 defaultSelectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。uncontrolled property。Typescript：`Array<string \| number>` | N
 showSortColumnBgColor | Boolean | false | column shows sort bg color | N
@@ -215,20 +216,11 @@ name | type | default | description | required
 component | TElement | - | Typescript：`ComponentType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 confirmEvents | Array | - | Typescript：`string[]` | N
 list | Array | - | Typescript：`Array<OptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 props | Array | - | Typescript：`FilterProps` `type FilterProps = RadioProps \| CheckboxProps \| InputProps \| { [key: string]: any }`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 resetValue | \- | - | Typescript：`any` | N
 showConfirmAndReset | Boolean | false | \- | N
 type | String | - | Typescript：`FilterType` `type FilterType = 'input' \| 'single' \| 'multiple'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-
-### TableScroll
-
-name | type | default | description | required
--- | -- | -- | -- | --
-bufferSize | Number | 20 | \- | N
-isFixedRowHeight | Boolean | false | \- | N
-rowHeight | Number | - | \- | N
-threshold | Number | 100 | \- | N
-type | String | - | required。options：lazy/virtual | Y
 
 ### TableColumnController
 
@@ -263,3 +255,13 @@ childrenKey | String | children | \- | N
 defaultExpandAll | Boolean | false | \- | N
 indent | Number | 24 | \- | N
 treeNodeColumnIndex | Number | 0 | \- | N
+
+### InfinityScroll
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+bufferSize | Number | 20 | \- | N
+isFixedRowHeight | Boolean | false | \- | N
+rowHeight | Number | - | \- | N
+threshold | Number | 100 | \- | N
+type | String | - | required。options：lazy/virtual | Y

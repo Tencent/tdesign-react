@@ -1,15 +1,17 @@
-import React, { useMemo, useRef, MouseEvent } from 'react';
+import React, { useMemo, useRef, MouseEvent, useEffect } from 'react';
 import get from 'lodash/get';
 import classnames from 'classnames';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
-import { TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './type';
+import { TableRowData, RowspanColspan, TdBaseTableProps } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
 import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 import Cell from './Cell';
 import { PaginationProps } from '../pagination';
+import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
+import { InfinityScroll } from '../common';
 
 export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 
@@ -49,11 +51,12 @@ export interface TrProps extends TrCommonProps {
   rowHeight?: number;
   trs?: Map<number, object>;
   bufferSize?: number;
-  scroll?: TableScroll;
+  scroll?: InfinityScroll;
   tableElm?: HTMLDivElement;
   tableContentElm?: HTMLDivElement;
   pagination?: PaginationProps;
-  onRowMounted?: () => void;
+  virtualConfig?: VirtualScrollConfig;
+  onRowMounted?: (data: any) => void;
 }
 
 export const ROW_LISTENERS = ['click', 'dblclick', 'mouseover', 'mousedown', 'mouseenter', 'mouseleave', 'mouseup'];
@@ -71,6 +74,8 @@ export default function TR(props: TrProps) {
     scroll,
     tableContentElm,
     rowAndColFixedPosition,
+    virtualConfig,
+    onRowMounted,
   } = props;
 
   const trRef = useRef<HTMLTableRowElement>();
@@ -99,9 +104,16 @@ export default function TR(props: TrProps) {
   const useLazyLoadParams = useMemo(() => ({ ...scroll, rowIndex }), [scroll, rowIndex]);
   const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentElm, trRef.current, useLazyLoadParams);
 
-  // const { row, rowIndex, dataLength, rowAndColFixedPosition, scrollType, isInit } = props;
-  // const hasHolder = scrollType === 'lazy' && !isInit;
-  // const rowHeightRef: Ref = inject('rowHeightRef');
+  useEffect(() => {
+    if (virtualConfig.isVirtualScroll && trRef.current) {
+      onRowMounted?.({
+        ref: trRef.current,
+        data: row,
+      });
+    }
+    // eslint-disable-next-line
+  }, [virtualConfig.isVirtualScroll, trRef, row]);
+
   const columnVNodeList = props.columns?.map((col, colIndex) => {
     const cellSpans: RowspanColspan = {};
     const params = {
