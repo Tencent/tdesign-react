@@ -59,11 +59,10 @@ const columns = [
     width: 50,
   },
   { colKey: 'serial-number', title: '序号', width: 80 },
-  { colKey: 'applicant', title: '申请人', width: 120 },
+  { colKey: 'applicant', title: '申请人' },
   {
     colKey: 'status',
     title: '状态',
-    width: 144,
     cell: ({ row }) => (
       <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
         {statusNameListMap[row.status].icon}
@@ -71,7 +70,7 @@ const columns = [
       </Tag>
     ),
   },
-  { colKey: 'matters', title: '申请事项', width: '150' },
+  { colKey: 'matters', title: '申请事项' },
   // { colKey: 'email', title: '邮箱地址' },
 ];
 
