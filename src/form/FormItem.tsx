@@ -434,7 +434,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     value: formValue,
     isUpdated: isUpdatedRef.current,
     getValue: () => valueRef.current,
-    setValue: (newVal: any) => updateFormValue(newVal, false),
+    setValue: (newVal: any) => updateFormValue(newVal),
     setField,
     validate,
     validateOnly,
