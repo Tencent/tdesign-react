@@ -89,7 +89,7 @@ export default function useFormItemStyle(props) {
     return classNames(controlCls, {
       [`${classPrefix}-is-warning`]: renderStatus === 'warning',
       [`${classPrefix}-is-error`]: ['fail', 'error'].includes(renderStatus),
-      [`${classPrefix}-form-has-error`]:
+      [`${classPrefix}-form--has-error`]:
         renderStatus === ValidateStatus.ERROR || renderStatus === ValidateStatus.WARNING,
     });
   };

@@ -50,7 +50,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (r === true) return;
     const [firstKey] = Object.keys(r);
     if (scrollToFirstError) {
-      scrollTo(`.${classPrefix}-form-has-error`);
+      scrollTo(`.${classPrefix}-form--has-error`);
     }
     return r[firstKey][0]?.message;
   }
