@@ -30,8 +30,8 @@ function formatValidateResult(validateResultList) {
     }
 
     // 整理嵌套数据
-    if (result[key] && key.includes(',')) {
-      const keyList = key.split(',');
+    if (result[key] && key.includes('_')) {
+      const keyList = key.split('_');
       const fieldValue = calcFieldValue(keyList, result[key]);
       merge(result, fieldValue);
       delete result[key];
@@ -42,7 +42,6 @@ function formatValidateResult(validateResultList) {
 
 export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
   const { classPrefix } = useConfig();
-  const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
 
   const { scrollToFirstError, preventSubmitDefault = true, onSubmit } = props;
 
@@ -51,7 +50,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (r === true) return;
     const [firstKey] = Object.keys(r);
     if (scrollToFirstError) {
-      scrollTo(`.${FORM_ITEM_CLASS_PREFIX + firstKey}`);
+      scrollTo(`.${classPrefix}-form--has-error`);
     }
     return r[firstKey][0]?.message;
   }
