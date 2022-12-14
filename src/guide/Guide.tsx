@@ -16,7 +16,7 @@ export type GuideProps = TdGuideProps;
 const Guide = (props: GuideProps) => {
   const { counter, hideCounter, hidePrev, hideSkip, steps, zIndex } = props;
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, guide: guideGlobalConfig } = useConfig();
   const prefixCls = `${classPrefix}-guide`;
   const lockCls = `${prefixCls}--lock`;
 
@@ -251,7 +251,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handleSkip}
-            {...getCurrentCrossProps('skipButtonProps')}
+            {...(getCurrentCrossProps('skipButtonProps') ?? guideGlobalConfig.skipButtonProps)}
           />
         )}
         {!hidePrev && !isFirst && (
@@ -261,7 +261,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handlePrev}
-            {...getCurrentCrossProps('prevButtonProps')}
+            {...(getCurrentCrossProps('prevButtonProps') ?? guideGlobalConfig.prevButtonProps)}
           />
         )}
         {!isLast && (
@@ -271,7 +271,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handleNext}
-            {...getCurrentCrossProps('nextButtonProps')}
+            {...(getCurrentCrossProps('nextButtonProps') ?? guideGlobalConfig.nextButtonProps)}
           />
         )}
         {isLast && (
@@ -281,7 +281,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handleFinish}
-            {...props.finishButtonProps}
+            {...(props.finishButtonProps ?? guideGlobalConfig.finishButtonProps)}
           />
         )}
       </div>
