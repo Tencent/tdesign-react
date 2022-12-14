@@ -30,8 +30,6 @@ const Guide = (props: GuideProps) => {
   const referenceLayerRef = useRef<HTMLDivElement>(null);
   // 当前高亮的元素
   const currentHighlightLayerElm = useRef<HTMLElement>(null);
-  // 下一个高亮的元素
-  const nextHighlightLayerElm = useRef<HTMLElement>(null);
   // dialog wrapper ref
   const dialogWrapperRef = useRef<HTMLDivElement>(null);
   // dialog ref
@@ -52,8 +50,8 @@ const Guide = (props: GuideProps) => {
 
   // 设置高亮层的位置
   const setHighlightLayerPosition = (highlighLayer: HTMLElement) => {
-    let { top, left } = getRelativePosition(nextHighlightLayerElm.current, currentHighlightLayerElm.current);
-    let { width, height } = nextHighlightLayerElm.current.getBoundingClientRect();
+    let { top, left } = getRelativePosition(currentHighlightLayerElm.current);
+    let { width, height } = currentHighlightLayerElm.current.getBoundingClientRect();
     const highlightPadding = getCurrentCrossProps('highlightPadding');
 
     if (isPopup) {
@@ -76,15 +74,13 @@ const Guide = (props: GuideProps) => {
   };
 
   const showPopupGuide = () => {
-    const currentElement = getTargetElm(currentStepInfo.element);
-    nextHighlightLayerElm.current = currentElement;
-    currentHighlightLayerElm.current = currentElement;
+    currentHighlightLayerElm.current = getTargetElm(currentStepInfo.element);
 
     setTimeout(() => {
-      scrollToParentVisibleArea(nextHighlightLayerElm.current);
+      scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
       setHighlightLayerPosition(referenceLayerRef.current);
-      scrollToElm(nextHighlightLayerElm.current);
+      scrollToElm(currentHighlightLayerElm.current);
     });
   };
 
@@ -94,12 +90,10 @@ const Guide = (props: GuideProps) => {
 
   const showDialogGuide = () => {
     setTimeout(() => {
-      const currentElement = dialogTooltipRef.current;
-      nextHighlightLayerElm.current = currentElement;
-      currentHighlightLayerElm.current = currentElement;
-      scrollToParentVisibleArea(nextHighlightLayerElm.current);
+      currentHighlightLayerElm.current = dialogTooltipRef.current;
+      scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
-      scrollToElm(nextHighlightLayerElm.current);
+      scrollToElm(currentHighlightLayerElm.current);
     });
   };
 
@@ -130,7 +124,7 @@ const Guide = (props: GuideProps) => {
     const total = stepsTotal;
     setActive(false);
     setInnerCurrent(-1, { e, total });
-    props.onSkip?.({ e, current: -1, total });
+    props.onSkip?.({ e, current: innerCurrent, total });
   };
 
   const handlePrev = (e) => {
@@ -159,7 +153,7 @@ const Guide = (props: GuideProps) => {
     const total = stepsTotal;
     setActive(false);
     setInnerCurrent(-1, { e, total });
-    props.onFinish?.({ e, current: -1, total });
+    props.onFinish?.({ e, current: innerCurrent, total });
   };
 
   const initGuide = () => {

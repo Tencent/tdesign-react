@@ -1006,7 +1006,7 @@ module.exports = {
     `,
     panelStr: `
       const panelList = [
-        { label: 'baseTable', value: 'baseTable', config: baseTableConfigProps },
+        { label: 'Table', value: 'baseTable', config: baseTableConfigProps },
       ];
 
       const data = Array(30).fill(0).map((_, i) => ({

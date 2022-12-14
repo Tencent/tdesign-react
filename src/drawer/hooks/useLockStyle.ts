@@ -1,5 +1,6 @@
 import { useRef, useCallback, useMemo } from 'react';
 import useLayoutEffect from '../../_util/useLayoutEffect';
+import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
 
 let key = 1;
 
@@ -27,7 +28,8 @@ export default function useLockStyle(props) {
   );
 
   useLayoutEffect(() => {
-    const scrollbarWidth = window.innerWidth - document.body.offsetWidth;
+    const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
+    const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
     lockStyleRef.current.innerHTML = `
       html body {
