@@ -124,7 +124,7 @@ const Guide = (props: GuideProps) => {
     const total = stepsTotal;
     setActive(false);
     setInnerCurrent(-1, { e, total });
-    props.onSkip?.({ e, current: -1, total });
+    props.onSkip?.({ e, current: innerCurrent, total });
   };
 
   const handlePrev = (e) => {
@@ -153,7 +153,7 @@ const Guide = (props: GuideProps) => {
     const total = stepsTotal;
     setActive(false);
     setInnerCurrent(-1, { e, total });
-    props.onFinish?.({ e, current: -1, total });
+    props.onFinish?.({ e, current: innerCurrent, total });
   };
 
   const initGuide = () => {
