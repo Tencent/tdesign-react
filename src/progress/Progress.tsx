@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import {
-  CheckCircleIcon as TdCheckCircleIcon,
-  CloseCircleIcon as TdCloseCircleIcon,
-  ErrorCircleIcon as TdErrorCircleIcon,
+  CloseIcon as TdCloseIcon,
+  CheckIcon as TdCheckIcon,
+  ErrorIcon as TdErrorIcon,
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
@@ -29,9 +29,9 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     CloseCircleFilledIcon,
     ErrorCircleFilledIcon,
   } = useGlobalIcon({
-    CheckCircleIcon: TdCheckCircleIcon,
-    CloseCircleIcon: TdCloseCircleIcon,
-    ErrorCircleIcon: TdErrorCircleIcon,
+    CheckCircleIcon: TdCheckIcon,
+    CloseCircleIcon: TdCloseIcon,
+    ErrorCircleIcon: TdErrorIcon,
     CheckCircleFilledIcon: TdCheckCircleFilledIcon,
     CloseCircleFilledIcon: TdCloseCircleFilledIcon,
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
@@ -212,7 +212,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
         ) : (
           <>
             <div className={`${classPrefix}-progress__inner`} style={barStyle}></div>
-            {label && <div className={`${classPrefix}-progress__info`}>{`${percentage}%`}</div>}
+            {getInfoContent()}
           </>
         )}
       </div>
