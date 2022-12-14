@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.44.2 `2022-12-14` 
+### 🚀 Features
+- `Table`:
+    - 支持任意行高虚拟滚动和树形结构虚拟滚动、支持滚动定位到任意元素 @chaishi ([#1798](https://github.com/Tencent/tdesign-react/pull/1798))
+    - 树形结构，支持点击行展开树节点 @chaishi ([#1800](https://github.com/Tencent/tdesign-react/pull/1800))
+    - 树形结构，点击树节点展开图标的时候，不再冒泡到行点击事件 `onRowClick` @chaishi ([#1800](https://github.com/Tencent/tdesign-react/pull/1800))
+
+### 🐞 Bug Fixes
+- `SelectInput`: 修复 `selectInput` 出现异常的`tips` 节点 @pengYYYYY ([#1792](https://github.com/Tencent/tdesign-react/pull/1792))
+- `Form`: 修复 formList 下 error 跳转问题 @honkinglin ([#1794](https://github.com/Tencent/tdesign-react/pull/1794))
+- `Guide`: skip 和 finish 事件正确返回 current；相对元素位置不正确； @zhangpaopao0609 ([#1803](https://github.com/Tencent/tdesign-react/pull/1803))
+- `DatePicker`: 修复右侧面板月份展示错误 @honkinglin ([#1802](https://github.com/Tencent/tdesign-react/pull/1802))
+- `Dialog`:  修复滚动条判断问题 @honkinglin ([#1795](https://github.com/Tencent/tdesign-react/pull/1795))
+
 ## 🌈 0.44.1 `2022-12-08` 
 ### 🚀 Features
 - `TimePicker`: 新增`status`、`tips`和`onPick` API @uyarn ([#1786](https://github.com/Tencent/tdesign-react/pull/1786))
