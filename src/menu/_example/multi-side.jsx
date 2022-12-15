@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
-import { Menu } from 'tdesign-react';
+import { Menu, Button } from 'tdesign-react';
 import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
 
 const { SubMenu, MenuItem } = Menu;
@@ -23,7 +23,9 @@ function MultiSide() {
         expanded={expands}
         onExpand={(values) => setExpands(values)}
         onChange={(v) => setActive(v)}
-        operations={<ViewListIcon className="t-menu__operations-icon" onClick={() => setCollapsed(!collapsed)} />}
+        operations={
+          <Button variant="text" shape="square" icon={<ViewListIcon />} onClick={() => setCollapsed(!collapsed)} />
+        }
         style={{ marginRight: 20 }}
       >
         <MenuItem value="0" icon={<AppIcon />}>
@@ -74,7 +76,14 @@ function MultiSide() {
         onExpand={(values) => setDarkExpands(values)}
         onChange={(v) => setDarkActive(v)}
         operations={
-          <ViewListIcon className="t-menu__operations-icon" onClick={() => setDarkCollapsed(!darkCollapsed)} />
+          <div className="tdesign-demo-menu-collapse--dark">
+            <Button
+              variant="text"
+              shape="square"
+              icon={<ViewListIcon />}
+              onClick={() => setDarkCollapsed(!darkCollapsed)}
+            />
+          </div>
         }
       >
         <MenuItem value="0" icon={<AppIcon />}>
