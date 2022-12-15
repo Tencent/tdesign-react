@@ -12,21 +12,25 @@ import jsxToString from "react-element-to-jsx-string";
 
 import configProps from "./props.json";
 
-import { Jumper } from "tdesign-react";
+import { Card } from "tdesign-react";
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "jumper", value: "jumper" }];
+  const panelList = [{ label: "card", value: "card" }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
   useEffect(() => {
-    setRenderComp(<Jumper {...changedProps}></Jumper>);
+    setRenderComp(
+      <Card {...changedProps}>
+        仅有内容区域的卡片形式。卡片内容区域可以是文字、图片、表单、表格等形式信息内容。可使用大中小不同的卡片尺寸，按业务需求进行呈现。
+      </Card>
+    );
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {

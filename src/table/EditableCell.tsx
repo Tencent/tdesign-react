@@ -260,7 +260,7 @@ const EditableCell = (props: EditableCellProps) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cellValue, row, cellParams, currentRow]);
+  }, [props.editable, cellValue, row, col, cellParams, currentRow]);
 
   useEffect(() => {
     setErrorList(errors);
@@ -281,7 +281,7 @@ const EditableCell = (props: EditableCellProps) => {
         }}
       >
         {cellNode}
-        {col.edit?.showEditIcon !== false && <Edit1Icon size="12px" />}
+        {col.edit?.showEditIcon !== false && <Edit1Icon />}
       </div>
     );
   }

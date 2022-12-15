@@ -8,5 +8,9 @@ export default function BasicTimePicker() {
     setValue(v);
   };
 
-  return <TimePicker value={value} onChange={handleValueChange} />;
+  const handleOnPick = (v, context) => {
+    console.log('onPick', v, context);
+  };
+
+  return <TimePicker value={value} onChange={handleValueChange} onPick={handleOnPick} />;
 }

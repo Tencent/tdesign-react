@@ -35,6 +35,10 @@ const FilterableSelect = () => {
     console.log('handleFocus: ', value, e);
   };
 
+  const handleEnter = (context) => {
+    console.log('handleEnter: ', context);
+  };
+
   return (
     <Space breakLine style={{ width: '100%' }}>
       <Select
@@ -45,6 +49,7 @@ const FilterableSelect = () => {
         style={{ width: '400px', display: 'inline-block' }}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        onEnter={handleEnter}
       >
         {options.map((option, index) => (
           <Option key={index} value={option.value} label={option.label}></Option>

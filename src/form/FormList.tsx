@@ -26,6 +26,10 @@ const FormList = (props: TdFormListProps) => {
   const formListMapRef = useRef(new Map()); // 收集 formItem 实例
   const formListRef = useRef<FormItemInstance>(); // 当前 formList 实例
   const fieldsTaskQueueRef = useRef([]); // 记录更改 fields 数据后 callback 队列
+  const snakeName = []
+    .concat(name)
+    .filter((item) => item !== undefined)
+    .join('_'); // 转化 name
 
   const operation: FormListFieldOperation = {
     add(defaultValue?: any, insertIndex?: number) {
@@ -142,19 +146,14 @@ const FormList = (props: TdFormListProps) => {
         return new Promise((resolve) => {
           Promise.all(validates).then((validateResult) => {
             validateResult.forEach((result) => {
-              const errorKey = Object.keys(result)[0];
-              const errorKeyList = errorKey.split(',');
-
-              let errorValue = Object.values(result)[0];
-              errorValue = calcFieldValue(errorKeyList, errorValue);
-
+              const errorValue = Object.values(result)[0];
               merge(resultList, errorValue);
             });
             const errorItems = validateResult.filter((item) => Object.values(item)[0] !== true);
             if (errorItems.length) {
-              resolve({ [String(name)]: resultList });
+              resolve({ [snakeName]: resultList });
             } else {
-              resolve({ [String(name)]: true });
+              resolve({ [snakeName]: true });
             }
           });
         });

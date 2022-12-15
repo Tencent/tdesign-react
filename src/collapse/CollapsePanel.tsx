@@ -77,7 +77,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     if (React.isValidElement(finalExpandIcon)) {
       iconNode = finalExpandIcon;
     } else if (finalExpandIcon) {
-      iconNode = <FakeArrow overlayClassName={classnames(`${componentName}__icon--default`)} />;
+      iconNode = <FakeArrow className={classnames(`${componentName}__icon--default`)} />;
     }
     return (
       iconNode && (

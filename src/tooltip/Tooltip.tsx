@@ -24,7 +24,6 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   const [timeUp, setTimeUp] = useState(false);
   const popupRef = useRef(null);
   const timerRef = useRef<number | null>(null);
-  const [offset, setOffset] = useState([0, 0]);
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
     {
@@ -32,23 +31,10 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     },
     overlayClassName,
   );
-  const isPlacedByMouse = placement === 'mouse';
-
-  const calculatePos = (e) => {
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    return { x, y };
-  };
 
   function handleVisibleChange(visible: boolean, { e, trigger }: PopupVisibleChangeContext) {
     setTimeUp(false);
     onVisibleChange?.(visible, { e, trigger });
-
-    if (placement !== 'mouse' || !visible) return;
-
-    const { x } = calculatePos(e);
-    setOffset([x, 0]);
   }
 
   useEffect(() => {
@@ -72,13 +58,10 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     <Popup
       ref={popupRef}
       destroyOnClose={destroyOnClose}
-      showArrow={isPlacedByMouse ? false : showArrow}
+      showArrow={showArrow}
       overlayClassName={toolTipClass}
       onVisibleChange={handleVisibleChange}
-      popperOptions={{
-        modifiers: isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : [],
-      }}
-      placement={isPlacedByMouse ? 'bottom-left' : placement}
+      placement={placement}
       {...restProps}
     >
       {children}

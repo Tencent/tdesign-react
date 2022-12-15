@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Notification Props
 
 name | type | default | description | required
@@ -31,16 +30,12 @@ zIndex | Number | 6000 | \- | N
 
 ### notification 或 NotificationPlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 theme | String | info | required。options：info/success/warning/error。Typescript：`NotificationThemeList`
 options | Object | - | required。Typescript：`NotificationOptions`
 
 ### notification.info 或 NotificationPlugin.info
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --
@@ -50,8 +45,6 @@ options | Object | - | required。Typescript：`NotificationInfoOptions` `type N
 
 ### notification.warning 或 NotificationPlugin.warning
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | Object | - | required。Typescript：`NotificationInfoOptions`
@@ -59,8 +52,6 @@ options | Object | - | required。Typescript：`NotificationInfoOptions`
 插件返回值：`Promise<NotificationInstance>`
 
 ### notification.error 或 NotificationPlugin.error
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --
@@ -70,8 +61,6 @@ options | Object | - | required。Typescript：`NotificationInfoOptions`
 
 ### notification.success 或 NotificationPlugin.success
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | Object | - | required。Typescript：`NotificationInfoOptions`
@@ -80,23 +69,17 @@ options | Object | - | required。Typescript：`NotificationInfoOptions`
 
 ### notification.close 或 NotificationPlugin.close
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 options | Object | - | required。Typescript：`Promise<NotificationInstance>`
 
 ### notification.closeAll 或 NotificationPlugin.closeAll
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 name | params | default | description
 -- | -- | -- | --
 -- | \- | - | \-
 
 ### notification.config 或 NotificationPlugin.config
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 name | params | default | description
 -- | -- | -- | --

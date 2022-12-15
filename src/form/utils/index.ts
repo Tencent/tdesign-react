@@ -15,7 +15,11 @@ export function getMapValue(name: NamePath, formMapRef: React.MutableRefObject<M
 // 将数据整理成对象，数组 name 转化嵌套对象: ['user', 'name'] => { user: { name: '' } }
 export function calcFieldValue(name: NamePath, value: any) {
   if (Array.isArray(name)) {
-    const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), value);
+    const fieldValue = name.reduceRight((prev, curr) => {
+      const arr = [];
+      if (/^\d+$/.test(String(curr))) arr[curr] = prev;
+      return arr.length ? arr : { [curr]: prev };
+    }, value);
     return { ...fieldValue };
   }
 

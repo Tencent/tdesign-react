@@ -1,4 +1,14 @@
-import React, { FC, useCallback, useEffect, useState, useRef, useMemo, CSSProperties } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  CSSProperties,
+  MouseEvent,
+  UIEvent,
+} from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -30,7 +40,7 @@ const panelOffset = {
 };
 
 export interface SinglePanelProps
-  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onChange'> {
+  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onPick'> {
   disableTime?: (
     h: number,
     m: number,
@@ -41,6 +51,7 @@ export interface SinglePanelProps
   triggerScroll?: boolean;
   resetTriggerScroll?: () => void;
   isVisible?: boolean;
+  onChange: Function;
 }
 
 // https://github.com/iamkun/dayjs/issues/1552
@@ -175,7 +186,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
   const isVisibleRef = usePropRef(isVisible);
 
-  const handleScroll = useDebounce((col: EPickerCols, idx: number) => {
+  const handleScroll = useDebounce((col: EPickerCols, idx: number, e: MouseEvent | UIEvent) => {
     // 如果不可见，不处理 scroll 事件
     if (!isVisibleRef.current) {
       return;
@@ -236,7 +247,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     }
 
     if (formattedVal !== value) {
-      onChange(formattedVal);
+      onChange(formattedVal, e);
     }
 
     if (distance !== scrollTop) {
@@ -285,7 +296,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     [cols, scrollToTime, dayjsValue, value, steps, getColList, resetTriggerScroll],
   );
 
-  const handleTimeItemClick = (col: EPickerCols, el: string | number, idx: number) => {
+  const handleTimeItemClick = (col: EPickerCols, el: string | number, idx: number, e: MouseEvent) => {
     if (!timeItemCanUsed(col, el)) return;
     if (timeArr.includes(col)) {
       if (col === EPickerCols.hour && dayjsValue.format('a') === PM && cols.includes(EPickerCols.meridiem)) {
@@ -295,20 +306,20 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       scrollToTime(col, el, idx, 'smooth');
 
       setTimeout(() => {
-        onChange(dayjsValue[col]?.(el).format(format));
+        onChange(dayjsValue[col]?.(el).format(format), e);
       }, 100);
     } else {
       const currentHour = dayjsValue.hour();
       if (el === AM && currentHour >= 12) {
-        onChange(dayjsValue.hour(currentHour - 12).format(format));
+        onChange(dayjsValue.hour(currentHour - 12).format(format), e);
       } else if (el === PM && currentHour < 12) {
-        onChange(dayjsValue.hour(currentHour + 12).format(format));
+        onChange(dayjsValue.hour(currentHour + 12).format(format), e);
       }
     }
   };
 
   useEffect(() => {
-    updateTimeScrollPos(true);
+    if (value) updateTimeScrollPos(true);
   }, [value, updateTimeScrollPos]);
 
   useEffect(() => {
@@ -337,7 +348,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         key={`${col}_${idx}`}
         ref={(el) => (colsRef.current[idx] = el)}
         className={`${panelClassName}-body-scroll`}
-        onScroll={() => handleScroll(col, idx)}
+        onScroll={(e) => handleScroll(col, idx, e)}
         style={
           {
             '--timePickerPanelOffsetTop': panelOffset.top,
@@ -352,10 +363,14 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
               [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col, el),
               [`${classPrefix}-is-current`]: isCurrent(col, el),
             })}
-            onClick={() => handleTimeItemClick(col, el, idx)}
+            onClick={(e) => handleTimeItemClick(col, el, idx, e)}
           >
             {/* eslint-disable-next-line no-nested-ternary */}
-            {timeArr.includes(col) ? (TWELVE_HOUR_FORMAT.test(format) && col === EPickerCols.hour && el === '00' ? '12' : el) : TEXT_CONFIG[el]}
+            {timeArr.includes(col)
+              ? TWELVE_HOUR_FORMAT.test(format) && col === EPickerCols.hour && el === '00'
+                ? '12'
+                : el
+              : TEXT_CONFIG[el]}
           </li>
         ))}
       </ul>

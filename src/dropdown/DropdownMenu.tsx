@@ -35,13 +35,13 @@ const DropdownMenu = (props: DropdownProps) => {
     let renderContent: ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
-
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children);
         renderContent = (
           <div key={idx}>
             <DropdownItem
-              className={classNames(`${dropdownClass}__item`, `${dropdownClass}__item--suffix`)}
+              className={classNames(optionItem.className, `${dropdownClass}__item`, `${dropdownClass}__item--suffix`)}
+              style={optionItem.style}
               value={optionItem.value}
               theme={optionItem.theme}
               active={optionItem.active}
@@ -83,7 +83,8 @@ const DropdownMenu = (props: DropdownProps) => {
         renderContent = (
           <div key={idx}>
             <DropdownItem
-              className={`${dropdownClass}__item`}
+              className={classNames(optionItem.className, `${dropdownClass}__item`)}
+              style={optionItem.style}
               value={optionItem.value}
               theme={optionItem.theme}
               active={optionItem.active}

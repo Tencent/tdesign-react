@@ -21,7 +21,7 @@ const FormContext = React.createContext<{
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
-  form: {},
+  form: undefined,
   labelWidth: '100px',
   labelAlign: 'right',
   layout: 'vertical',
