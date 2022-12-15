@@ -121,7 +121,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { className, style, children, title, value, level = 1 } = props;
-  console.log(level);
 
   const { active, onChange, expandType } = useContext(MenuContext);
   const { classPrefix } = useConfig();
