@@ -233,6 +233,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     rowAndColFixedPosition,
     isMultipleHeader,
     bordered: props.bordered,
+    maxHeight: props.maxHeight,
+    height: props.height,
     spansAndLeafNodes,
     thList,
     thWidthList: thWidthList.current,
