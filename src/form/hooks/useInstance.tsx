@@ -14,9 +14,9 @@ import { getMapValue, travelMapFromObject, calcFieldValue } from '../utils';
 import log from '../../_common/js/log';
 
 // 检测是否需要校验 默认全量校验
-function needValidate(name: string, fields: string[]) {
+function needValidate(name: NamePath, fields: string[]) {
   if (!fields || !Array.isArray(fields)) return true;
-  return fields.indexOf(name) !== -1;
+  return fields.some((item) => String(item) === String(name));
 }
 
 // 整理校验结果
