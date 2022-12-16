@@ -22,6 +22,11 @@ const columns = [
         { label: '已过期', value: 1 },
         { label: '审批失败', value: 2 },
       ],
+      // 透传浮层全部属性，示例代码
+      // popupProps: {
+      //   placement: 'right',
+      //   attach: () => document.body
+      // },
     },
     cell: ({ row }) => (
       <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
