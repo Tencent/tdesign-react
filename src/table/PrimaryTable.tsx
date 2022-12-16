@@ -37,10 +37,13 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
-  const { selectedRowClassNames, setCurrentPaginateData, formatToRowSelectColumn, setTSelectedRowKeys } = useRowSelect(
-    props,
-    tableSelectedClasses,
-  );
+  const {
+    selectedRowClassNames,
+    setCurrentPaginateData,
+    formatToRowSelectColumn,
+    setTSelectedRowKeys,
+    onInnerSelectRowClick,
+  } = useRowSelect(props, tableSelectedClasses);
   // 过滤功能
   const { hasEmptyCondition, isTableOverflowHidden, renderFilterIcon, renderFirstFilterRow } = useFilter(
     props,
@@ -186,6 +189,11 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     }
   };
 
+  const onInnerRowClick: TdPrimaryTableProps['onRowClick'] = (context) => {
+    onInnerExpandRowClick(context);
+    onInnerSelectRowClick(context);
+  };
+
   function formatNode(api: string, renderInnerNode: Function, condition: boolean, extra?: { reverse?: boolean }) {
     if (!condition) return props[api];
     const innerNode = renderInnerNode();
@@ -232,8 +240,8 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;
 
-  if (props.expandOnRowClick) {
-    baseTableProps.onRowClick = onInnerExpandRowClick;
+  if (props.expandOnRowClick || props.selectOnRowClick) {
+    baseTableProps.onRowClick = onInnerRowClick;
   }
 
   return (

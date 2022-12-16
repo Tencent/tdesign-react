@@ -55,10 +55,9 @@ for (let i = 0; i < 5; i++) {
   });
 }
 
-
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([1]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   function onSelectChange(value, { selectedRowData }) {
     console.log(value, selectedRowData);
@@ -70,6 +69,7 @@ export default function TableSingleSort() {
       rowKey="index"
       data={data}
       columns={columns}
+      selectOnRowClick={true}
       selectedRowKeys={selectedRowKeys}
       onSelectChange={onSelectChange}
     />

@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import isFunction from 'lodash/isFunction';
 import { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
 import SorterButton from '../SorterButton';
@@ -12,6 +12,7 @@ export default function useSorter(props: TdPrimaryTableProps) {
   const [tData, setTData] = useControlled(props, 'data', props.onDataChange);
   // 本地数据排序：用于记录哪些字段是自定义排序函数
   const sorterFuncMap = getSorterFuncMap(props.columns);
+  const [innerSort, setInnerSort] = useState<SortInfo | SortInfo[]>();
 
   const sortArray = (() => {
     const sort = tSortInfo;
@@ -91,6 +92,7 @@ export default function useSorter(props: TdPrimaryTableProps) {
     const currentDataSource = currentData;
     setTSortInfo(sortInfo, { currentDataSource, col });
     props.onChange?.({ sorter: sortInfo }, { currentData, trigger: 'sorter' });
+    setInnerSort(sortInfo);
   }
 
   function getSortOrder(descending: boolean) {
@@ -140,6 +142,28 @@ export default function useSorter(props: TdPrimaryTableProps) {
       />
     );
   }
+
+  const isSortInfoSame = (a: SortInfo | SortInfo[], b: SortInfo | SortInfo[]) => {
+    const tmpSortInfo = Array.isArray(a) ? a : [a];
+    const tmpInnerSortInfo = Array.isArray(b) ? b : [b];
+    if (tmpSortInfo.length && !b) return false;
+    // eslint-disable-next-line
+    for (let i = 0, len = tmpSortInfo.length; i < len; i++) {
+      const item = tmpSortInfo[i];
+      const result = tmpInnerSortInfo.find((t) => t.sortBy === item.sortBy);
+      if (!result) return false;
+      return item.descending === result.descending;
+    }
+  };
+
+  useEffect(() => {
+    if (!tSortInfo || !Object.keys(tSortInfo).length) return;
+    // isSortInfoSame 的两个参数顺序不可变
+    if (!isSortInfoSame(tSortInfo, innerSort)) {
+      handleDataSort(tSortInfo);
+    }
+    // eslint-disable-next-line
+  }, [tSortInfo]);
 
   return {
     renderSortIcon,
