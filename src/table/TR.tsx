@@ -132,6 +132,9 @@ export default function TR(props: TrProps) {
     }
     const onClick = (e: MouseEvent<HTMLTableCellElement>) => {
       const p = { ...params, e };
+      if (col.stopPropagation) {
+        e.stopPropagation();
+      }
       props.onCellClick?.(p);
     };
     return (
