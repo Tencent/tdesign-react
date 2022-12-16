@@ -71,7 +71,7 @@ const FormList = (props: TdFormListProps) => {
   };
 
   // 外部设置 fields 优先级最高，可以更改渲染的节点
-  function setListFields(fieldData: any[], callback: Function) {
+  function setListFields(fieldData: any[], callback: Function, originData) {
     setFields(
       fieldData.map((_, index) => ({
         key: (key += 1),
@@ -80,8 +80,19 @@ const FormList = (props: TdFormListProps) => {
       })),
     );
     // 添加至队列中 等待下次渲染完成执行对应逻辑
-    fieldsTaskQueueRef.current.push({ callback, fieldData });
+    fieldsTaskQueueRef.current.push({ callback, fieldData, originData });
   }
+
+  useEffect(() => {
+    if (!name || !formMapRef) return;
+    formMapRef.current.set(name, formListRef);
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      formMapRef.current.delete(name);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
 
   useEffect(() => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
@@ -102,31 +113,35 @@ const FormList = (props: TdFormListProps) => {
     const currentQueue = fieldsTaskQueueRef.current.pop();
     if (!currentQueue) return;
 
-    [...formListMapRef.current.values()].forEach((formItemRef) => {
-      if (!formItemRef.current) return;
+    const { fieldData, callback, originData } = currentQueue;
+    // 等待子节点渲染完毕
+    Promise.resolve().then(() => {
+      [...formListMapRef.current.values()].forEach((formItemRef) => {
+        if (!formItemRef.current) return;
 
-      const { name } = formItemRef.current;
-      const { fieldData, callback } = currentQueue;
-      const data = get(fieldData, name);
-      callback(formItemRef, data);
+        const { name: itemName } = formItemRef.current;
+        const data = get(fieldData, itemName);
+        callback(formItemRef, data);
+      });
+
+      // formList 嵌套 formList
+      if (!formMapRef || !formMapRef.current) return;
+      [...formMapRef.current.values()].forEach((formItemRef) => {
+        if (!formItemRef.current) return;
+
+        const { name: itemName, isFormList } = formItemRef.current;
+        if (String(itemName) === String(name) || !isFormList) return;
+        const data = get(originData, itemName);
+        if (data) callback(formItemRef, data);
+      });
     });
-  }, [form, name, fields]);
-
-  useEffect(() => {
-    if (!name || !formMapRef) return;
-    formMapRef.current.set(name, formListRef);
-
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(name);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name]);
+  }, [form, name, fields, formMapRef]);
 
   useImperativeHandle(
     formListRef,
     (): FormItemInstance => ({
       name,
+      isFormList: true,
       getValue() {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
@@ -159,16 +174,24 @@ const FormList = (props: TdFormListProps) => {
         });
       },
       // TODO 支持局部更新数据
-      setValue: (fieldData: any[]) => {
-        setListFields(fieldData, (formItemRef, data) => {
-          formItemRef?.current?.setValue?.(data);
-        });
+      setValue: (fieldData: any[], originData) => {
+        setListFields(
+          fieldData,
+          (formItemRef, data) => {
+            formItemRef?.current?.setValue?.(data);
+          },
+          originData,
+        );
       },
-      setField: (fieldData: { value?: any[]; status?: string }) => {
+      setField: (fieldData: { value?: any[]; status?: string }, originData) => {
         const { value, status } = fieldData;
-        setListFields(value, (formItemRef, data) => {
-          formItemRef?.current?.setField?.({ value: data, status });
-        });
+        setListFields(
+          value,
+          (formItemRef, data) => {
+            formItemRef?.current?.setField?.({ value: data, status });
+          },
+          originData,
+        );
       },
       resetField: () => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {

@@ -138,7 +138,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
     travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef?.current?.setValue?.(fieldValue);
+      formItemRef?.current?.setValue?.(fieldValue, fields);
     });
   }
 
@@ -150,7 +150,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       const { name, ...restFields } = field;
       const formItemRef = getMapValue(name, formMapRef);
 
-      formItemRef?.current?.setField({ ...restFields });
+      formItemRef?.current?.setField(restFields, field);
     });
   }
 
