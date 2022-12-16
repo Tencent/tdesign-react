@@ -101,12 +101,20 @@ export default function useRowSelect(
     };
   }
 
+  function getRowSelectDisabledData(p: PrimaryTableCellParams<TableRowData>) {
+    const { col, row, rowIndex } = p;
+    const disabled: boolean = typeof col.disabled === 'function' ? col.disabled({ row, rowIndex }) : col.disabled;
+    const checkProps = isFunction(col.checkProps) ? col.checkProps({ row, rowIndex }) : col.checkProps;
+    return {
+      disabled: disabled || checkProps?.disabled,
+      checkProps,
+    };
+  }
+
   function renderSelectCell(p: PrimaryTableCellParams<TableRowData>) {
-    const { col: column, row = {}, rowIndex } = p;
+    const { col: column, row = {} } = p;
     const checked = tSelectedRowKeys.includes(get(row, rowKey || 'id'));
-    const disabled: boolean =
-      typeof column.disabled === 'function' ? column.disabled({ row, rowIndex }) : column.disabled;
-    const checkProps = isFunction(column.checkProps) ? column.checkProps({ row, rowIndex }) : column.checkProps;
+    const { disabled, checkProps } = getRowSelectDisabledData(p);
     const selectBoxProps = {
       checked,
       disabled,
@@ -175,6 +183,18 @@ export default function useRowSelect(
     };
   }
 
+  const onInnerSelectRowClick: TdPrimaryTableProps['onRowClick'] = ({ row, index }) => {
+    const selectedColIndex = props.columns.findIndex((item) => item.colKey === 'row-select');
+    const { disabled } = getRowSelectDisabledData({
+      row,
+      rowIndex: index,
+      col: props.columns[selectedColIndex],
+      colIndex: selectedColIndex,
+    });
+    if (disabled) return;
+    handleSelectChange(row);
+  };
+
   useEffect(() => {
     for (let i = 0, len = data.length; i < len; i++) {
       selectedRowDataMap.set(get(data[i], rowKey || 'id'), data[i]);
@@ -187,5 +207,6 @@ export default function useRowSelect(
     setCurrentPaginateData,
     setTSelectedRowKeys,
     formatToRowSelectColumn,
+    onInnerSelectRowClick,
   };
 }
