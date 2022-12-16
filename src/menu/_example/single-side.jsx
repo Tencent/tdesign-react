@@ -13,7 +13,7 @@ function SingleSide() {
       <Menu
         value={active}
         onChange={(v) => setActive(v)}
-        logo={<img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" width="136" alt="logo" />}
         style={{ marginRight: 20 }}
       >
         <MenuItem value={'0'}>
@@ -43,7 +43,7 @@ function SingleSide() {
         value={darkActive}
         theme="dark"
         onChange={(v) => setDarkActive(v)}
-        logo={<img src="https://www.tencent.com/img/index/menu_logo.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" width="136" alt="logo" />}
       >
         <MenuItem value={'0'}>
           <span>仪表盘</span>
