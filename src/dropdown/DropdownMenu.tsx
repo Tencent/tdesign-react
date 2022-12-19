@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import throttle from 'lodash/throttle';
 import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
 import { DropdownProps } from './Dropdown';
@@ -20,6 +21,18 @@ const DropdownMenu = (props: DropdownProps) => {
     ChevronLeftIcon: TdIconChevronLeft,
   });
 
+  const menuRef = useRef<HTMLDivElement>();
+  const [isOverMaxHeight, setIsOverMaxHeight] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    if (menuRef.current) {
+      const menuHeight = menuRef.current.childNodes?.length * 30;
+
+      if (menuHeight >= maxHeight) setIsOverMaxHeight(true);
+    }
+  }, [maxHeight]);
+
   const handleItemClick = (options: {
     data: DropdownOption;
     context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
@@ -29,12 +42,20 @@ const DropdownMenu = (props: DropdownProps) => {
     props.onClick?.(data, context);
   };
 
+  const handleScroll = () => {
+    if (menuRef.current) setScrollTop(menuRef.current.scrollTop);
+  };
+
+  const throttleUpdate = throttle(handleScroll, 100);
+
   // 处理options渲染的场景
   const renderOptions = (data: Array<DropdownOption | React.ReactChild>) => {
     const arr = [];
     let renderContent: ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
+      const onViewIdx = Math.ceil(scrollTop / 30);
+      const itemIdx = idx >= onViewIdx ? idx - onViewIdx : idx;
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children);
         renderContent = (
@@ -70,7 +91,7 @@ const DropdownMenu = (props: DropdownProps) => {
                   [`${dropdownClass}__submenu--${direction}`]: direction,
                 })}
                 style={{
-                  top: `${idx * 30}px`,
+                  top: `${itemIdx * 30}px`,
                 }}
               >
                 <ul>{optionItem.children as React.ReactNode}</ul>
@@ -114,10 +135,14 @@ const DropdownMenu = (props: DropdownProps) => {
 
   return (
     <div
-      className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`)}
+      className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`, {
+        [`${dropdownMenuClass}--overflow`]: isOverMaxHeight,
+      })}
       style={{
         maxHeight: `${maxHeight}px`,
       }}
+      ref={menuRef}
+      onScroll={throttleUpdate}
     >
       {renderOptions(options)}
     </div>
