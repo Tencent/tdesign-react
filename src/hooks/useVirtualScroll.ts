@@ -171,11 +171,13 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       setVisibleData(tmpData);
 
       const timer = setTimeout(() => {
-        const tmpContainerHeight = container.current.getBoundingClientRect().height;
-        containerHeight.current = tmpContainerHeight;
-        const scrollTopHeightList = getTrScrollTopHeightList(trHeightList, tmpContainerHeight);
-        trScrollTopHeightList.current = scrollTopHeightList;
-        clearTimeout(timer);
+        if (container.current) {
+          const tmpContainerHeight = container.current.getBoundingClientRect().height;
+          containerHeight.current = tmpContainerHeight;
+          const scrollTopHeightList = getTrScrollTopHeightList(trHeightList, tmpContainerHeight);
+          trScrollTopHeightList.current = scrollTopHeightList;
+          clearTimeout(timer);
+        }
       }, 1);
     },
     // eslint-disable-next-line
