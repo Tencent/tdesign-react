@@ -15,7 +15,6 @@ export interface InternalHooks {
 
 export interface InternalFormInstance extends FormInstanceFunctions {
   _init?: boolean;
-  flashQueue?: Function;
 
   getInternalHooks?: (secret: string) => InternalHooks | null;
 }

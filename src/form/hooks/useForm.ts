@@ -89,6 +89,7 @@ class FormStore {
   private notifyWatch = (namePath: NamePath = []) => {
     // No need to cost perf when nothing need to watch
     if (this.watchList.length) {
+      // @ts-ignore
       const values = this.getFieldsValue?.(namePath);
 
       this.watchList.forEach((callback) => {
