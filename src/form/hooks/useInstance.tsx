@@ -14,9 +14,9 @@ import { getMapValue, travelMapFromObject, calcFieldValue } from '../utils';
 import log from '../../_common/js/log';
 
 // 检测是否需要校验 默认全量校验
-function needValidate(name: string, fields: string[]) {
+function needValidate(name: NamePath, fields: string[]) {
   if (!fields || !Array.isArray(fields)) return true;
-  return fields.indexOf(name) !== -1;
+  return fields.some((item) => String(item) === String(name));
 }
 
 // 整理校验结果
@@ -138,7 +138,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
     travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef?.current?.setValue?.(fieldValue);
+      formItemRef?.current?.setValue?.(fieldValue, fields);
     });
   }
 
@@ -150,7 +150,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       const { name, ...restFields } = field;
       const formItemRef = getMapValue(name, formMapRef);
 
-      formItemRef?.current?.setField({ ...restFields });
+      formItemRef?.current?.setField(restFields, field);
     });
   }
 
