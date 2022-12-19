@@ -73,12 +73,26 @@ const TableVirtualScroll = () => {
     { colKey: 'detail.email', title: '邮箱地址' },
     { colKey: 'createTime', title: '申请时间' },
   ];
+
+  const height = 300;
+  // const [height, setHeight] = useState(300);
+
+  // const setLowerHeight = () => {
+  //   setHeight(150);
+  // };
+
+  // const setHigherHeight = () => {
+  //   setHeight(600);
+  // };
   
   return (
     <Space direction="vertical">
       <Space align="center">
         <Button onClick={scrollToElement}>滚动到指定元素</Button>
         <Checkbox checked={bordered} onChange={setBordered}>是否显示边框</Checkbox>
+        {/* 高度变化代码保留；用于测试 Table 高度变化时，是否表现正常 */}
+        {/* <Button onClick={setLowerHeight}>Lower Height</Button> */}
+        {/* <Button onClick={setHigherHeight}>Higher Height</Button> */}
       </Space>
 
       <Table
@@ -87,7 +101,7 @@ const TableVirtualScroll = () => {
         data={data}
         columns={columns}
         bordered={bordered}
-        height={300}
+        height={height}
         scroll={{ type: 'virtual', rowHeight: 48, bufferSize: 10 }}
       ></Table>
     </Space>
