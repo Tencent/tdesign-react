@@ -17,6 +17,7 @@ import { SelectArrow } from './SelectArrow';
 import { useTreeSelectPassThroughProps } from './useTreeSelectPassthoughProps';
 import { useTreeSelectLocale } from './useTreeSelectLocale';
 import { treeSelectDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
 
 export interface TreeSelectProps extends TdTreeSelectProps, StyledProps {}
 
@@ -130,9 +131,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   }, [filterable, multiple, popupVisible, normalizedValue, placeholder, normalizedValueDisplay]);
 
   const showLoading = !disabled && loading;
-
-  // 多选不能过滤时需要展示假的 placeholder
-  const showFakePlaceholder = multiple && !filterable && !normalizedValue.length;
 
   /* ---------------------------------handler---------------------------------------- */
 
@@ -264,16 +262,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     [normalizedValue, props],
   );
 
-  const renderLabel = () =>
-    showFakePlaceholder ? (
-      <>
-        {prefixIcon}
-        <span className={`${classPrefix}-tree-select--placeholder`}>{placeholder}</span>
-      </>
-    ) : (
-      prefixIcon
-    );
-
   return (
     <SelectInput
       status={props.status}
@@ -281,17 +269,11 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
       {...props.selectInputProps}
       {...selectInputProps}
       ref={selectInputRef}
-      className={classNames(
-        `${classPrefix}-tree-select`,
-        {
-          [`${classPrefix}-tree-select--without-input`]: multiple && !filterable,
-        },
-        className,
-      )}
+      className={classNames(`${classPrefix}-tree-select`, className)}
       value={internalInputValue}
       inputValue={filterInput}
       panel={renderTree()}
-      allowInput={multiple || filterable}
+      allowInput={filterable}
       inputProps={{ ...inputProps, size }}
       tagInputProps={{ size, excessTagsDisplayType: 'break-line', inputProps, tagProps: props.tagProps }}
       placeholder={inputPlaceholder}
@@ -311,7 +293,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
         )
       }
       collapsedItems={renderCollapsedItems}
-      label={renderLabel()}
+      label={parseTNode(prefixIcon)}
       valueDisplay={internalInputValueDisplay}
     />
   );
