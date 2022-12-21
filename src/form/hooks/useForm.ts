@@ -13,19 +13,40 @@ class FormStore {
 
   private forceRootUpdate: () => void;
 
-  constructor(forceRootUpdate: () => void) {
-    this.forceRootUpdate = forceRootUpdate;
+  constructor(forceReRender) {
+    this.forceRootUpdate = forceReRender;
   }
 
+  public taskQueue: any[] = [];
+
+  public flashQueue = () => {
+    this.taskQueue.forEach((task) => {
+      this[task.name].apply(this, [...task.args]);
+    });
+    this.taskQueue = [];
+  };
+
   public getForm = (): InternalFormInstance => ({
-    submit: null,
-    reset: null,
+    submit: (...args) => {
+      this.taskQueue.push({ args, name: 'submit' });
+    },
+    reset: (...args) => {
+      this.taskQueue.push({ args, name: 'reset' });
+    },
     validate: null,
     validateOnly: null,
-    clearValidate: null,
-    setFields: null,
-    setFieldsValue: null,
-    setValidateMessage: null,
+    clearValidate: (...args) => {
+      this.taskQueue.push({ args, name: 'clearValidate' });
+    },
+    setFields: (...args) => {
+      this.taskQueue.push({ args, name: 'setFields' });
+    },
+    setFieldsValue: (...args) => {
+      this.taskQueue.push({ args, name: 'setFieldsValue' });
+    },
+    setValidateMessage: (...args) => {
+      this.taskQueue.push({ args, name: 'setValidateMessage' });
+    },
     getFieldValue: null,
     getFieldsValue: null,
     _init: true,
@@ -36,6 +57,12 @@ class FormStore {
   private getInternalHooks = (key: string): InternalHooks | null => {
     if (key === HOOK_MARK) {
       return {
+        setForm: (formInstance) => {
+          Object.keys(formInstance).forEach((key) => {
+            this[key] = formInstance[key];
+          });
+        },
+        flashQueue: this.flashQueue,
         notifyWatch: this.notifyWatch,
         registerWatch: this.registerWatch,
         getPrevStore: () => this.prevStore,
@@ -62,6 +89,7 @@ class FormStore {
   private notifyWatch = (namePath: NamePath = []) => {
     // No need to cost perf when nothing need to watch
     if (this.watchList.length) {
+      // @ts-ignore
       const values = this.getFieldsValue?.(namePath);
 
       this.watchList.forEach((callback) => {
@@ -69,9 +97,6 @@ class FormStore {
       });
     }
   };
-
-  // TODO 暂时先从组件初始化时外部 merge 覆盖相关 form 操作函数
-  private getFieldsValue = null;
 }
 
 export default function useForm(form?: InternalFormInstance) {

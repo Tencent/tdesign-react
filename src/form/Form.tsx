@@ -54,6 +54,12 @@ const Form = forwardRefWithStatics(
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
+    form?.getInternalHooks?.(HOOK_MARK)?.setForm?.(formInstance);
+
+    // form 初始化后清空队列
+    React.useEffect(() => {
+      form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
+    }, [form]);
 
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
       [...formMapRef.current.values()].forEach((formItemRef) => {

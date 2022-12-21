@@ -110,18 +110,20 @@ const FormList = (props: TdFormListProps) => {
     // fields 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
 
-    const currentQueue = fieldsTaskQueueRef.current.pop();
-    if (!currentQueue) return;
-
-    const { fieldData, callback, originData } = currentQueue;
     // 等待子节点渲染完毕
     Promise.resolve().then(() => {
+      if (!fieldsTaskQueueRef.current.length) return;
+
+      const currentQueue = fieldsTaskQueueRef.current[0];
+      const { fieldData, callback, originData } = currentQueue;
+
       [...formListMapRef.current.values()].forEach((formItemRef) => {
         if (!formItemRef.current) return;
 
         const { name: itemName } = formItemRef.current;
         const data = get(fieldData, itemName);
         callback(formItemRef, data);
+        fieldsTaskQueueRef.current.pop();
       });
 
       // formList 嵌套 formList
