@@ -21,9 +21,6 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 }
 
 const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) => {
-  // @ts-ignore 废弃属性提示，发布正式版移除
-  if (props.mode === 'normal') log.error('Dialog', 'mode="normal" is not supported, please use DialogCard.');
-
   const { classPrefix } = useConfig();
 
   const componentCls = `${classPrefix}-dialog`;
@@ -71,18 +68,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
     canDraggable: draggable && mode === 'modeless',
   });
 
-  const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
-      // 判断点击事件初次点击是否为内容区域
-      if (contentClickRef.current) {
-        contentClickRef.current = false;
-      } else if (e.target === dialogPosition.current) {
-        onOverlayClick?.({ e });
-        onClose?.({ e, trigger: 'overlay' });
-      }
-    }
-  };
-
   useEffect(() => {
     if (isPlugin) return;
     // 插件式调用不会更新props, 只有组件式调用才会更新props
@@ -103,6 +88,24 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       setState((prevState) => ({ ...prevState, ...newOptions }));
     },
   }));
+
+  // @ts-ignore 兼容旧版本 2.0 移除
+  if (props.mode === 'normal') {
+    log.error('Dialog', 'mode="normal" is not supported, please use DialogCard.');
+    return <DialogCard {...props} />;
+  }
+
+  const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
+      // 判断点击事件初次点击是否为内容区域
+      if (contentClickRef.current) {
+        contentClickRef.current = false;
+      } else if (e.target === dialogPosition.current) {
+        onOverlayClick?.({ e });
+        onClose?.({ e, trigger: 'overlay' });
+      }
+    }
+  };
 
   const handleCancel = ({ e }) => {
     onCancel?.({ e });
@@ -174,7 +177,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       <Portal attach={attach} ref={portalRef}>
         <div
           ref={wrapRef}
-          className={classNames(props.className, `${componentCls}__ctx`, `${componentCls}__ctx--${mode}`, {
+          className={classNames(props.className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
           })}
