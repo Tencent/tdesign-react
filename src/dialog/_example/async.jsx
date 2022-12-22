@@ -28,7 +28,7 @@ export default function BasicUsage() {
         visible={visible}
         confirmBtn={<Button loading={loading}>保存中...</Button>}
         onClose={handleClose}
-        onClickConfirm={handleCloseAsync}
+        onConfirm={handleCloseAsync}
       >
         <p>This is a dialog</p>
       </Dialog>

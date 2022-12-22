@@ -8,28 +8,15 @@ import { ButtonProps } from '../button';
 import { TNode, Styles, AttachNode } from '../common';
 import { MouseEvent, KeyboardEvent } from 'react';
 
-export interface TdDialogProps {
+export interface TdDialogProps extends TdDialogCardProps {
   /**
    * 对话框挂载的节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
    */
   attach?: AttachNode;
   /**
-   * 对话框内容
-   */
-  body?: TNode;
-  /**
-   * 取消按钮，可自定义。值为 null 则不显示取消按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制取消事件
-   */
-  cancelBtn?: ButtonProps | TNode | null;
-  /**
    * 对话框内容，同 body
    */
   children?: TNode;
-  /**
-   * 关闭按钮，可以自定义。值为 true 显示默认关闭按钮，值为 false 不显示关闭按钮。值类型为 string 则直接显示值，如：“关闭”。值类型为 TNode，则表示呈现自定义按钮示例
-   * @default true
-   */
-  closeBtn?: TNode;
   /**
    * 按下 ESC 时是否触发对话框关闭事件
    */
@@ -38,10 +25,6 @@ export interface TdDialogProps {
    * 点击蒙层时是否触发关闭事件
    */
   closeOnOverlayClick?: boolean;
-  /**
-   * 确认按钮。值为 null 则不显示确认按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制确认事件
-   */
-  confirmBtn?: ButtonProps | TNode | null;
   /**
    * 是否在按下回车键时，触发确认事件
    */
@@ -57,20 +40,10 @@ export interface TdDialogProps {
    */
   draggable?: boolean;
   /**
-   * 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 不显示任何内容，值类型为 Function 表示自定义底部内容
-   * @default true
-   */
-  footer?: TNode;
-  /**
-   * 头部内容。值为 true 显示空白头部，值为 false 不显示任何内容，值类型为 string 则直接显示值，值类型为 Function 表示自定义头部内容
-   * @default true
-   */
-  header?: TNode;
-  /**
-   * 对话框类型，有 4 种：模态对话框、非模态对话框、普通对话框、全屏对话框。弹出「模态对话框」时，只能操作对话框里面的内容，不能操作其他内容。弹出「非模态对话框」时，则可以操作页面内所有内容。「普通对话框」是指没有脱离文档流的对话框，可以在这个基础上开发更多的插件
+   * 对话框类型，有 3 种：模态对话框、非模态对话框、全屏对话框。弹出「模态对话框」时，只能操作对话框里面的内容，不能操作其他内容。弹出「非模态对话框」时，则可以操作页面内所有内容。「普通对话框」是指没有脱离文档流的对话框，可以在这个基础上开发更多的插件
    * @default modal
    */
-  mode?: 'modal' | 'modeless' | 'normal' | 'full-screen';
+  mode?: 'modal' | 'modeless' | 'full-screen';
   /**
    * 对话框位置，内置两种：垂直水平居中显示 和 靠近顶部（top:20%）显示。默认情况，为避免贴顶或贴底，顶部和底部距离最小为 `48px`，可通过调整 `top` 覆盖默认大小
    * @default top
@@ -92,17 +65,11 @@ export interface TdDialogProps {
    */
   showOverlay?: boolean;
   /**
-   * 对话框风格
-   * @default default
-   */
-  theme?: 'default' | 'info' | 'warning' | 'danger' | 'success';
-  /**
    * 用于弹框具体窗口顶部的距离，优先级大于 placement
    */
   top?: string | number;
   /**
    * 控制对话框是否显示
-   * @default false
    */
   visible?: boolean;
   /**
@@ -114,25 +81,13 @@ export interface TdDialogProps {
    */
   zIndex?: number;
   /**
-   * 如果“取消”按钮存在，则点击“取消”按钮时触发，同时触发关闭事件
-   */
-  onCancel?: (context: { e: MouseEvent<HTMLButtonElement> }) => void;
-  /**
    * 关闭事件，点击取消按钮、点击关闭按钮、点击蒙层、按下 ESC 等场景下触发
    */
   onClose?: (context: DialogCloseContext) => void;
   /**
-   * 点击右上角关闭按钮时触发
-   */
-  onCloseBtnClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
-  /**
    * 对话框消失动画效果结束后触发
    */
   onClosed?: () => void;
-  /**
-   * 如果“确认”按钮存在，则点击“确认”按钮时触发，或者键盘按下回车键时触发
-   */
-  onConfirm?: (context: { e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLDivElement> }) => void;
   /**
    * 按下 ESC 时触发事件
    */
@@ -145,6 +100,53 @@ export interface TdDialogProps {
    * 如果蒙层存在，点击蒙层时触发
    */
   onOverlayClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+}
+
+export interface TdDialogCardProps {
+  /**
+   * 对话框内容
+   */
+  body?: TNode;
+  /**
+   * 取消按钮，可自定义。值为 null 则不显示取消按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制取消事件
+   */
+  cancelBtn?: ButtonProps | TNode | null;
+  /**
+   * 关闭按钮，可以自定义。值为 true 显示默认关闭按钮，值为 false 不显示关闭按钮。值类型为 string 则直接显示值，如：“关闭”。值类型为 TNode，则表示呈现自定义按钮示例
+   * @default true
+   */
+  closeBtn?: TNode;
+  /**
+   * 确认按钮。值为 null 则不显示确认按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制确认事件
+   */
+  confirmBtn?: ButtonProps | TNode | null;
+  /**
+   * 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 不显示任何内容，值类型为 Function 表示自定义底部内容
+   * @default true
+   */
+  footer?: TNode;
+  /**
+   * 头部内容。值为 true 显示空白头部，值为 false 不显示任何内容，值类型为 string 则直接显示值，值类型为 Function 表示自定义头部内容
+   * @default true
+   */
+  header?: TNode;
+  /**
+   * 对话框风格
+   * @default default
+   */
+  theme?: 'default' | 'info' | 'warning' | 'danger' | 'success';
+  /**
+   * 如果“取消”按钮存在，则点击“取消”按钮时触发，同时触发关闭事件
+   */
+  onCancel?: (context: { e: MouseEvent<HTMLButtonElement> }) => void;
+  /**
+   * 点击右上角关闭按钮时触发
+   */
+  onCloseBtnClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 如果“确认”按钮存在，则点击“确认”按钮时触发，或者键盘按下回车键时触发
+   */
+  onConfirm?: (context: { e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLDivElement> }) => void;
 }
 
 export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
@@ -168,19 +170,19 @@ export interface DialogInstance {
   /**
    * 销毁弹框
    */
-  destroy: () => void;
+  destroy?: () => void;
   /**
    * 隐藏弹框
    */
-  hide: () => void;
+  hide?: () => void;
   /**
    * 显示弹框
    */
-  show: () => void;
+  show?: () => void;
   /**
    * 更新弹框内容
    */
-  update: (props: DialogOptions) => void;
+  update?: (props: DialogOptions) => void;
 }
 
 export type DialogEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';
