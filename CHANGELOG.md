@@ -5,6 +5,38 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.0 `2022-12-22` 
+
+### ❗ Breaking Changes
+- `Dialog`: 重构 Dialog，兼容 mode="normal" 属性更改为 DialogCard 实现，新增控制台警告 @honkinglin ([#1830](https://github.com/Tencent/tdesign-react/pull/1830))
+
+### 🚀 Features
+- `Table`:
+    - 支持设置 `col.stopPropagation` 阻止整列事件冒泡 @chaishi ([#1816](https://github.com/Tencent/tdesign-react/pull/1816))
+    - 可筛选表格，新增 `filter.popupProps` ，支持透传 Popup 组件全部属性，[tdesign-vue-next#2088](https://github.com/Tencent/tdesign-vue-next/issues/2088) @chaishi ([#1817](https://github.com/Tencent/tdesign-react/pull/1817))
+    - 选中行表格，新增 `selectOnRowClick`，支持点击行选中，[tdesign-vue-next#1954](https://github.com/Tencent/tdesign-vue-next/issues/1954) @chaishi ([#1817](https://github.com/Tencent/tdesign-react/pull/1817))
+    - 本地排序功能，支持对默认数据进行排序 @chaishi ([#1817](https://github.com/Tencent/tdesign-react/pull/1817))
+- `Menu`: 弹出菜单中箭头不再翻转，间距等样式与 Dropdown 子菜单对齐 @xiaosansiji ([#1813](https://github.com/Tencent/tdesign-react/pull/1813))
+- `Dialog`: 重构 Dialog，新增 DialogCard 子组件 @honkinglin ([#1830](https://github.com/Tencent/tdesign-react/pull/1830))
+
+### 🐞 Bug Fixes
+- `Input`: 修复 input 动态宽度计算问题 @honkinglin ([#1806](https://github.com/Tencent/tdesign-react/pull/1806))
+- `Table`:
+    - 修复固定表头缺少在数据没有溢出时，缺少背景色问题 @chaishi ([#1812](https://github.com/Tencent/tdesign-react/pull/1812))
+    - 设置展开图标阻止事件冒泡，避免点击展开图标时触发行点击事件，进而触发其他特性 @chaishi ([#1816](https://github.com/Tencent/tdesign-react/pull/1816))
+    - 虚拟滚动支持表格高度动态变化，[tdesign-vue-next#1374](https://github.com/Tencent/tdesign-vue-next/issues/1374) @chaishi ([#1827](https://github.com/Tencent/tdesign-react/pull/1827))
+    - 修复表格宽度过小时抖动问题 @chaishi ([#1827](https://github.com/Tencent/tdesign-react/pull/1827))
+- `Dropdown`: 修复多级菜单过长无法选择的问题 @uyarn ([#1821](https://github.com/Tencent/tdesign-react/pull/1821))
+- `Tree`: 修复叶子节点的label区域无法触发选中的问题 @uyarn ([#1822](https://github.com/Tencent/tdesign-react/pull/1822))
+- `Form`:
+    - 修复异步渲染 form 组件赋值失败问题 @honkinglin ([#1824](https://github.com/Tencent/tdesign-react/pull/1824))
+    - 修复 formList 嵌套赋值问题 @honkinglin ([#1819](https://github.com/Tencent/tdesign-react/pull/1819))
+- `Guide`: 部分默认属性通过全局配置获取 @zhangpaopao0609 ([#1808](https://github.com/Tencent/tdesign-react/pull/1808))
+- `Progress`: 修复 label 展示问题 @honkinglin ([#1809](https://github.com/Tencent/tdesign-react/pull/1809))
+- `TreeSelect`:  修复 input 宽度展示问题 @honkinglin ([#1820](https://github.com/Tencent/tdesign-react/pull/1820))
+- `ColorPicker`:  修复 swatchs panel 默认标题错误 @josonyang ([#1810](https://github.com/Tencent/tdesign-react/pull/1810))
+
+
 ## 🌈 0.44.2 `2022-12-14` 
 ### 🚀 Features
 - `Table`:
