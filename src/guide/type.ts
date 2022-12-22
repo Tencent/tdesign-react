@@ -5,31 +5,24 @@
  * */
 
 import { ButtonProps } from '../button';
-import { TNode, AttachNode } from '../common';
+import { TNode, TElement, AttachNode } from '../common';
+import { MouseEvent } from 'react';
 
 export interface TdGuideProps {
   /**
    * 用于自定义渲染计数部分
    */
-  counter?: TNode;
+  counter?: TElement;
   /**
-   * null
-   * @default 当前步骤，即整个引导的进度。-1 则不展示，用于需要中断展示的场景
+   * 当前步骤，即整个引导的进度。-1 则不展示，用于需要中断展示的场景
    */
   current?: number;
   /**
-   * null，非受控属性
-   * @default 当前步骤，即整个引导的进度。-1 则不展示，用于需要中断展示的场景
+   * 当前步骤，即整个引导的进度。-1 则不展示，用于需要中断展示的场景，非受控属性
    */
   defaultCurrent?: number;
   /**
-   * null
-   * @default 当前步骤，即整个引导的进度。-1 则不展示，用于需要中断展示的场景
-   */
-  modelValue?: number;
-  /**
-   * 透传 完成 的全部属性
-   * @default { content: '完成', theme: 'primary' }
+   * 透传 完成 的全部属性，示例：`{ content: '完成', theme: 'primary' }`
    */
   finishButtonProps?: ButtonProps;
   /**
@@ -58,13 +51,11 @@ export interface TdGuideProps {
    */
   mode?: 'popup' | 'dialog';
   /**
-   * 透传 下一步按钮 的全部属性
-   * @default { content: '下一步', theme: 'primary' }
+   * 透传 下一步按钮 的全部属性，示例：{ content: '下一步', theme: 'primary' }
    */
   nextButtonProps?: ButtonProps;
   /**
-   * 透传 上一步按钮 的全部属性
-   * @default { content: '上一步', theme: 'primary' }
+   * 透传 上一步按钮 的全部属性，示例：{ content: '上一步', theme: 'default' }
    */
   prevButtonProps?: ButtonProps;
   /**
@@ -73,8 +64,7 @@ export interface TdGuideProps {
    */
   showOverlay?: boolean;
   /**
-   * 透传 跳过按钮 的全部属性
-   * @default { content: '跳过', theme: 'default' }
+   * 透传 跳过按钮 的全部属性，{ content: '跳过', theme: 'default' }
    */
   skipButtonProps?: ButtonProps;
   /**
@@ -89,38 +79,38 @@ export interface TdGuideProps {
   /**
    * 当前步骤发生变化时触发
    */
-  onChange?: (current: number, context?: { e: MouseEvent; total: number }) => void;
+  onChange?: (current: number, context?: { e: MouseEvent<HTMLDivElement>; total: number }) => void;
   /**
    * 点击完成按钮时触发
    */
-  onFinish?: (context: { e: MouseEvent; current: number; total: number }) => void;
+  onFinish?: (context: { e: MouseEvent<HTMLDivElement>; current: number; total: number }) => void;
   /**
    * 点击下一步时触发
    */
-  onNextStepClick?: (context: { e: MouseEvent; next: number; current: number; total: number }) => void;
+  onNextStepClick?: (context: { e: MouseEvent<HTMLDivElement>; next: number; current: number; total: number }) => void;
   /**
    * 点击上一步时触发
    */
-  onPrevStepClick?: (context: { e: MouseEvent; prev: number; current: number; total: number }) => void;
+  onPrevStepClick?: (context: { e: MouseEvent<HTMLDivElement>; prev: number; current: number; total: number }) => void;
   /**
    * 点击跳过按钮时触发
    */
-  onSkip?: (context: { e: MouseEvent; current: number; total: number }) => void;
+  onSkip?: (context: { e: MouseEvent<HTMLDivElement>; current: number; total: number }) => void;
 }
 
 export interface TdGuideStepProps {
   /**
    * 当前步骤提示框的内容
    */
-  body?: string | TNode;
+  body?: TNode;
   /**
    * 自定义内容，同 content
    */
-  children?: string | TNode;
+  children?: TNode;
   /**
    * 用户自定义引导弹框的内容，一旦存在，此时除 `placement`、`offset`和`element` 外，其它属性全部失效）
    */
-  content?: TNode;
+  content?: TElement;
   /**
    * 高亮的节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'#tdesign' 或 () => document.querySelector('#tdesign')
    */
@@ -128,7 +118,7 @@ export interface TdGuideStepProps {
   /**
    * 用户自定义的高亮框 (仅当 `mode` 为 `popup` 时生效)
    */
-  highlightContent?: TNode;
+  highlightContent?: TElement;
   /**
    * 高亮框的内边距
    */
