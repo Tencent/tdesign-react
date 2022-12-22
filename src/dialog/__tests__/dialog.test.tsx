@@ -47,12 +47,12 @@ describe('Dialog组件测试', () => {
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
   });
 
-  test('CloseDialog', () => {
+  test('CloseDialog', async () => {
     const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
     fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     fireEvent.click(document.querySelector('.t-dialog__close'));
-    mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 300);
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
   });
 
   test('EscCloseDialog', async () => {
@@ -60,16 +60,16 @@ describe('Dialog组件测试', () => {
     fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
-    mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 300);
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
   });
 
-  // test('EnterConfirm', async () => {
-  //   const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
-  //   fireEvent.click(getByText('Open Dialog Modal'));
-  //   expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
-  //   await user.keyboard('{Enter}');
-  //   expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
-  // });
+  test('EnterConfirm', async () => {
+    const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
+    fireEvent.click(getByText('Open Dialog Modal'));
+    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    await user.keyboard('{Enter}');
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
+  });
 
   test('DraggableDialog', () => {
     const { getByText } = render(<DialogDemo mode="modeless" draggable={true} />);
@@ -85,14 +85,14 @@ describe('Dialog组件测试', () => {
 
   test('DialogPlugin', async () => {
     const showDialog = () => {
-      const mydialog = DialogPlugin({
+      const myDialog = DialogPlugin({
         header: 'Dialog-Plugin',
         body: '函数调用Dialog方式一',
         onConfirm: () => {
-          mydialog.hide();
+          myDialog.hide();
         },
         onClose: () => {
-          mydialog.hide();
+          myDialog.hide();
         },
       });
     };
@@ -135,7 +135,12 @@ describe('Dialog组件测试', () => {
       dialogNode.update({
         header: 'Updated-Dialog-Plugin',
         cancelBtn: null,
-        confirmBtn: 'GET IT',
+        confirmBtn: {
+          content: 'GET IT!',
+          variant: 'base',
+          theme: 'danger',
+          id: 'test',
+        },
         onConfirm: () => {
           dialogNode.hide();
           dialogNode.destroy();
@@ -155,20 +160,21 @@ describe('Dialog组件测试', () => {
       </>,
     );
     fireEvent.click(getByText('Show Dialog'));
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
+    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
     fireEvent.click(getByText('Confirm Dialog'));
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
+    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
     fireEvent.click(getByText('Alert Dialog'));
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
+    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
     fireEvent.click(getByText('Handle Dialog'));
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument(), 100);
-    fireEvent.click(getByText('GET IT'));
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 100);
+    expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    await mockTimeout(() => true, 100);
+    fireEvent.click(document.querySelector('#test'));
+    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
   });
 });

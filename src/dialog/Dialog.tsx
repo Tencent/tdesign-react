@@ -207,6 +207,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
                 <DialogCard
                   ref={dialogCardRef}
                   {...restState}
+                  onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}
                   onMouseDown={onDialogMoveStart}
