@@ -143,7 +143,8 @@ const Input = forwardRefWithStatics(
 
     const updateInputWidth = () => {
       if (!autoWidth || !inputRef.current) return;
-      inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
+      const { width } = inputPreRef.current.getBoundingClientRect();
+      inputRef.current.style.width = `${width}px`;
     };
 
     useLayoutEffect(() => {

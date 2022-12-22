@@ -1,12 +1,10 @@
 import { useRef, useCallback } from 'react';
 import useLayoutEffect from '../../_util/useLayoutEffect';
-import { DialogProps } from '../Dialog';
 import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
 
 let key = 1;
 
-export default function useDialogLockStyle(props: DialogProps) {
-  const { preventScrollThrough, visible, mode, showInAttachedElement } = props;
+export default function useDialogLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement }) {
   const lockStyleRef = useRef(document.createElement('style'));
   const timerRef = useRef(null);
 

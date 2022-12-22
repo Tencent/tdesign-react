@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Dialog, Button, Select } from 'tdesign-react';
+import { Dialog, DialogCard, Button, Select } from 'tdesign-react';
 
 export default function NotModalExample() {
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
-  const [visible3, setVisible3] = useState(false);
   const [value, setValue] = useState('');
 
   const handleClick = () => {
@@ -19,9 +18,6 @@ export default function NotModalExample() {
   };
   const handleClose2 = () => {
     setVisible2(false);
-  };
-  const handleClose3 = () => {
-    setVisible3(false);
   };
   const onChange = (value) => {
     setValue(value);
@@ -48,14 +44,6 @@ export default function NotModalExample() {
         style={{ marginRight: 16 }}
       >
         非模态对话框2
-      </Button>
-      <Button
-        theme="primary"
-        onClick={() => {
-          setVisible3(true);
-        }}
-      >
-        普通对话框
       </Button>
 
       <Dialog
@@ -105,17 +93,9 @@ export default function NotModalExample() {
       >
         <p>This is a dialog</p>
       </Dialog>
-      <Dialog
-        mode="normal"
-        header="普通对话框"
-        visible={visible3}
-        onClose={handleClose3}
-        onOpened={() => {
-          console.log('dialog is open');
-        }}
-      >
+      <DialogCard header="普通对话框">
         <p>This is a dialog</p>
-      </Dialog>
+      </DialogCard>
     </>
   );
 }

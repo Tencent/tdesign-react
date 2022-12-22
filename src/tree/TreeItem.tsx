@@ -214,7 +214,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
           name={String(node.value)}
           onChange={() => onChange(node)}
           className={labelClasses}
-          stopLabelTrigger={true}
+          stopLabelTrigger={!!node.children}
           {...checkProps}
         >
           <span date-target="label">{labelText}</span>

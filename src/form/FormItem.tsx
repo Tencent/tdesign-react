@@ -41,6 +41,7 @@ export interface FormItemInstance {
   setValidateMessage?: Function;
   resetValidate?: Function;
   validateOnly?: Function;
+  isFormList?: boolean;
 }
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {

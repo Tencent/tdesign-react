@@ -75,6 +75,7 @@ export default function TableSingleSort() {
       rowKey="index"
       data={data}
       columns={columns}
+      selectOnRowClick={true}
       selectedRowKeys={selectedRowKeys}
       onSelectChange={onSelectChange}
     />

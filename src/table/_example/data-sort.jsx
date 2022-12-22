@@ -58,13 +58,19 @@ for (let i = 0; i < 5; i++) {
 
 export default function TableSingleSort() {
   const [data, setData] = useState(initialData);
-  const [sortInfo, setSortInfo] = useState({ sortBy: 'survivalTime', descending: true });
+  const [sortInfo, setSortInfo] = useState({ sortBy: 'status', descending: true });
   const [multipleSort, setMultipleSort] = useState(false);
 
   function onSortChange(sort, options) {
     console.log(sort, options);
     setSortInfo(sort);
-    setData(options.currentDataSource);
+    // 默认不存在排序时，也可以在这里设置 data 的值
+    // setData(options.currentDataSource);
+  }
+
+  // 默认存在排序时，必须在这里给 data 赋值
+  function onDataChange(newData) {
+    setData(newData);
   }
 
   return (
@@ -79,6 +85,7 @@ export default function TableSingleSort() {
         sort={sortInfo}
         multipleSort={multipleSort}
         onSortChange={onSortChange}
+        onDataChange={onDataChange}
       />
     </Space>
   );
