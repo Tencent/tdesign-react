@@ -122,7 +122,7 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
   return (
     <div ref={ref} {...otherProps} className={classNames(componentCls, `${componentCls}--default`, className)}>
       <div className={classNames(`${componentCls}__header`)}>
-        {renderHeader()}
+        <div className={`${componentCls}__header-content`}>{renderHeader()}</div>
         {renderCloseBtn()}
       </div>
       <div className={`${componentCls}__body`}>{body || children}</div>
