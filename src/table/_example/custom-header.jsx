@@ -39,8 +39,12 @@ const columns = [
     colKey: 'status',
     // 使用 cell 方法自定义单元格：
     cell: ({ row }) => (
-      <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-        {statusNameListMap[row.status].icon}
+      <Tag
+        shape="round"
+        theme={statusNameListMap[row.status].theme}
+        variant="light-outline"
+        icon={statusNameListMap[row.status].icon}
+      >
         {statusNameListMap[row.status].label}
       </Tag>
     ),

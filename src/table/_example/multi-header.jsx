@@ -74,8 +74,12 @@ export default function TableExample() {
           cell: ({ rowIndex }) => {
             const status = rowIndex % 3;
             return (
-              <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-                {statusNameListMap[status].icon}
+              <Tag
+                shape="round"
+                theme={statusNameListMap[status].theme}
+                variant="light-outline"
+                icon={statusNameListMap[status].icon}
+              >
                 {statusNameListMap[status].label}
               </Tag>
             );
