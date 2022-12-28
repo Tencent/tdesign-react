@@ -21,7 +21,7 @@ const TABLES = [Table, BaseTable, PrimaryTable, EnhancedTable];
 
 TABLES.forEach((TTable) => {
   describe(TTable.name, () => {
-    it('Events.onCellClick', async () => {
+    it('Events.onCellClick', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onCellClick={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -30,7 +30,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowClick', async () => {
+    it('Events.onRowClick', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowClick={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -39,7 +39,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowDblclick', async () => {
+    it('Events.onRowDblclick', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowDblclick={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -48,7 +48,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowMouseup', async () => {
+    it('Events.onRowMouseup', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowMouseup={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -58,7 +58,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowMousedown', async () => {
+    it('Events.onRowMousedown', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowMousedown={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -68,7 +68,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowMouseenter', async () => {
+    it('Events.onRowMouseenter', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowMouseenter={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -77,7 +77,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowMouseleave', async () => {
+    it('Events.onRowMouseleave', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowMouseleave={fn} columns={SIMPLE_COLUMNS}></TTable>,
@@ -86,7 +86,7 @@ TABLES.forEach((TTable) => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('Events.onRowMouseover', async () => {
+    it('Events.onRowMouseover', () => {
       const fn = vi.fn();
       const { container } = render(
         <TTable rowKey="index" bordered data={data} onRowMouseover={fn} columns={SIMPLE_COLUMNS}></TTable>,

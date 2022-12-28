@@ -58,7 +58,6 @@ export default function usePagination(props: TdBaseTableProps) {
             if (pagination && !pagination.current && pagination.defaultCurrent) {
               newData = updateDataSourceAndPaginate(pageInfo.current, pageInfo.pageSize);
             }
-            // TODO: dataSource
             props.onPageChange?.(pageInfo, newData);
           }}
         />
