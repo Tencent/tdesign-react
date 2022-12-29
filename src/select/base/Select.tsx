@@ -162,6 +162,16 @@ const Select = forwardRefWithStatics(
         }
       }
     };
+    const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
+      if (!props.multiple) return;
+      const selectableOptions = currentOptions
+        .filter((option) => !option.checkAll && !option.disabled)
+        .map((option) => option.value);
+
+      const checkAllValue =
+        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>).length ? selectableOptions : [];
+      onChange?.(checkAllValue, { e, trigger: checkAll ? 'check' : 'uncheck', selectedOptions: checkAllValue });
+    };
 
     // 选中 Popup 某项
     const handleChange = (
@@ -268,6 +278,7 @@ const Select = forwardRefWithStatics(
         keys,
         panelBottomContent,
         panelTopContent,
+        onCheckAllChange,
       };
       return <PopupContent {...popupContentProps}>{children}</PopupContent>;
     };
