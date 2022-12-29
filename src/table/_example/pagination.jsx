@@ -35,8 +35,12 @@ const columns = [
     cell: ({ rowIndex }) => {
       const status = rowIndex % 3;
       return (
-        <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-          {statusNameListMap[status].icon}
+        <Tag
+          shape="round"
+          theme={statusNameListMap[status].theme}
+          variant="light-outline"
+          icon={statusNameListMap[status].icon}
+        >
           {statusNameListMap[status].label}
         </Tag>
       );
@@ -66,7 +70,7 @@ export default function TableBasic() {
       </Radio.Group>
 
       <Table
-        id='pagination-table'
+        id="pagination-table"
         data={data}
         columns={columns}
         rowKey="index"

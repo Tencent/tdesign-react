@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Checkbox, Space, Tag } from 'tdesign-react';
-import {
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
-  CloseCircleFilledIcon,
-} from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -21,8 +17,12 @@ const columns = [
     sortType: 'all',
     sorter: (a, b) => a.status - b.status,
     cell: ({ row }) => (
-      <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-        {statusNameListMap[row.status].icon}
+      <Tag
+        shape="round"
+        theme={statusNameListMap[row.status].theme}
+        variant="light-outline"
+        icon={statusNameListMap[row.status].icon}
+      >
         {statusNameListMap[row.status].label}
       </Tag>
     ),

@@ -51,7 +51,7 @@ function getColumns({ fixedLeftColumn, fixedRightColumn }) {
       align: 'left',
       colKey: 'applicant',
       title: '申请人',
-      foot: () => <b style={{'fontWeight': 'bold'}}>表尾信息</b>,
+      foot: () => <b style={{ fontWeight: 'bold' }}>表尾信息</b>,
       width: '120',
       fixed: fixedLeftColumn ? 'left' : undefined,
     },
@@ -60,11 +60,15 @@ function getColumns({ fixedLeftColumn, fixedRightColumn }) {
       title: '申请状态',
       width: '150',
       cell: ({ row }) => (
-          <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-            {statusNameListMap[row.status].icon}
-            {statusNameListMap[row.status].label}
-          </Tag>
-        ),
+        <Tag
+          shape="round"
+          theme={statusNameListMap[row.status].theme}
+          variant="light-outline"
+          icon={statusNameListMap[row.status].icon}
+        >
+          {statusNameListMap[row.status].label}
+        </Tag>
+      ),
     },
     { colKey: 'channel', title: '签署方式', width: '120' },
     { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },

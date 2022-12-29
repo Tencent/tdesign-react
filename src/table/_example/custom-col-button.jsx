@@ -42,8 +42,12 @@ export default function TableCustomColButton() {
         };
 
         return (
-          <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-            {statusNameListMap[row.status].icon}
+          <Tag
+            shape="round"
+            theme={statusNameListMap[row.status].theme}
+            variant="light-outline"
+            icon={statusNameListMap[row.status].icon}
+          >
             {statusNameListMap[row.status].label}
           </Tag>
         );
