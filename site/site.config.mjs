@@ -110,6 +110,12 @@ export default {
           path: '/react/components/space',
           component: () => import('tdesign-react/space/space.md'),
         },
+        {
+          title: 'Typography 排版',
+          name: 'typography',
+          path: '/react/components/typography',
+          component: () => import('tdesign-react/typography/typography.md'),
+        },
       ],
     },
     {
