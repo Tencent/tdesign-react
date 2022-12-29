@@ -52,8 +52,12 @@ export default function TableFixedColumn() {
           cell: ({ rowIndex }) => {
             const status = rowIndex % 3;
             return (
-              <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-                {statusNameListMap[status].icon}
+              <Tag
+                shape="round"
+                theme={statusNameListMap[status].theme}
+                variant="light-outline"
+                icon={statusNameListMap[status].icon}
+              >
                 {statusNameListMap[status].label}
               </Tag>
             );
@@ -63,11 +67,18 @@ export default function TableFixedColumn() {
         { colKey: 'matters', title: '申请事项', width: '150', foot: '-' },
         { colKey: 'detail.email', title: '邮箱地址' },
         { colKey: 'createTime', title: '申请日期', width: '120', foot: '-' },
-        { colKey: 'operation', title: '操作', width: '150', foot: '-', fixed: 'right', cell: ({ row }) => (
-          <Link theme="primary" hover="color">
-            { row.status === 0 ? '查看详情' : '再次申请' }
-          </Link>
-        ) },
+        {
+          colKey: 'operation',
+          title: '操作',
+          width: '150',
+          foot: '-',
+          fixed: 'right',
+          cell: ({ row }) => (
+            <Link theme="primary" hover="color">
+              {row.status === 0 ? '查看详情' : '再次申请'}
+            </Link>
+          ),
+        },
       ]}
       rowKey="index"
     />

@@ -81,10 +81,10 @@ style | Object | - | 弹框 style 属性，输入 [CSSStyleDeclaration.cssText](
 
 名称 | 参数 | 返回值 | 描述
 -- | -- | -- | --
-destroy | \- | \- | 销毁弹框
-hide | \- | \- | 隐藏弹框
-show | \- | \- | 显示弹框
-update | `(props: DialogOptions)` | \- | 更新弹框内容
+destroy | \- | \- | 必需。销毁弹框
+hide | \- | \- | 必需。隐藏弹框
+show | \- | \- | 必需。显示弹框
+update | `(props: DialogOptions)` | \- | 必需。更新弹框内容
 
 ### dialog 或 DialogPlugin
 

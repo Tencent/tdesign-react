@@ -37,8 +37,12 @@ const columns = [
     cell: ({ rowIndex }) => {
       const status = rowIndex % 3;
       return (
-        <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-          {statusNameListMap[status].icon}
+        <Tag
+          shape="round"
+          theme={statusNameListMap[status].theme}
+          variant="light-outline"
+          icon={statusNameListMap[status].icon}
+        >
           {statusNameListMap[status].label}
         </Tag>
       );
@@ -93,13 +97,5 @@ export default function TableExample() {
     }
   }
 
-  return (
-    <Table
-      data={data}
-      bordered={true}
-      columns={columns}
-      rowKey="i"
-      rowspanAndColspan={rowspanAndColspan}
-    />
-  );
+  return <Table data={data} bordered={true} columns={columns} rowKey="i" rowspanAndColspan={rowspanAndColspan} />;
 }

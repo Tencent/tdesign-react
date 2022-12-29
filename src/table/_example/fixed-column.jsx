@@ -46,8 +46,12 @@ export default function TableFixedColumn() {
           width: 150,
           fixed: leftFixedColumn >= 2 ? 'left' : undefined,
           cell: ({ row }) => (
-            <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-              {statusNameListMap[row.status].icon}
+            <Tag
+              shape="round"
+              theme={statusNameListMap[row.status].theme}
+              variant="light-outline"
+              icon={statusNameListMap[row.status].icon}
+            >
               {statusNameListMap[row.status].label}
             </Tag>
           ),
@@ -55,11 +59,17 @@ export default function TableFixedColumn() {
         { colKey: 'detail.email', title: '邮箱地址', width: 180 },
         { colKey: 'matters', title: '申请事项', width: 200 },
         { colKey: 'createTime', title: '申请日期', width: 120, fixed: rightFixedColumn >= 2 ? 'right' : undefined },
-        { colKey: 'operation', title: '操作', width: 100, fixed: 'right', cell: ({ row }) => (
-          <Link theme="primary" hover="color">
-            { row.status === 0 ? '查看详情' : '再次申请' }
-          </Link>
-        )},
+        {
+          colKey: 'operation',
+          title: '操作',
+          width: 100,
+          fixed: 'right',
+          cell: ({ row }) => (
+            <Link theme="primary" hover="color">
+              {row.status === 0 ? '查看详情' : '再次申请'}
+            </Link>
+          ),
+        },
       ]}
     />
   );

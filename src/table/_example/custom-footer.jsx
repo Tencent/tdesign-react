@@ -12,7 +12,7 @@ const columns = [
     align: 'left',
     colKey: 'applicant',
     title: '申请人',
-    foot: () => <b style={{ 'fontWeight': 'bold' }}>表尾信息</b>,
+    foot: () => <b style={{ fontWeight: 'bold' }}>表尾信息</b>,
     width: '120',
   },
   {
@@ -21,8 +21,12 @@ const columns = [
     width: '150',
     // 使用 cell 方法自定义单元格：
     cell: ({ row }) => (
-      <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-        {statusNameListMap[row.status].icon}
+      <Tag
+        shape="round"
+        theme={statusNameListMap[row.status].theme}
+        variant="light-outline"
+        icon={statusNameListMap[row.status].icon}
+      >
         {statusNameListMap[row.status].label}
       </Tag>
     ),
@@ -33,7 +37,7 @@ const columns = [
   {
     colKey: 'createTime',
     title: '申请时间',
-    foot: () => <div style={{ 'textAlign': 'left' }}>表尾信息</div>,
+    foot: () => <div style={{ textAlign: 'left' }}>表尾信息</div>,
   },
 ];
 
@@ -73,7 +77,7 @@ export default function TableFixHeader() {
 
   // 自定义表尾方式三：自定义合并单元格表尾
   const rowspanAndColspanInFooter = ({ rowIndex, colIndex }) => {
-    console.log(rowIndex, colIndex)
+    console.log(rowIndex, colIndex);
     // 中间列合并，收尾两列不合并
     if (rowIndex === 0 && colIndex === 1) return { colspan: columns.length - 2 };
     return {};

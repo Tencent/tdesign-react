@@ -60,10 +60,10 @@ style | Object | - | Typescript：`Styles`。[see more ts definition](https://gi
 
 name | params | return | description
 -- | -- | -- | --
-destroy | \- | \- | \-
-hide | \- | \- | \-
-show | \- | \- | \-
-update | `(props: DialogOptions)` | \- | \-
+destroy | \- | \- | required
+hide | \- | \- | required
+show | \- | \- | required
+update | `(props: DialogOptions)` | \- | required
 
 ### dialog 或 DialogPlugin
 

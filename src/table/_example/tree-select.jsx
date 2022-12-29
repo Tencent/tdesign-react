@@ -64,8 +64,12 @@ const columns = [
     colKey: 'status',
     title: '状态',
     cell: ({ row }) => (
-      <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-        {statusNameListMap[row.status].icon}
+      <Tag
+        shape="round"
+        theme={statusNameListMap[row.status].theme}
+        variant="light-outline"
+        icon={statusNameListMap[row.status].icon}
+      >
         {statusNameListMap[row.status].label}
       </Tag>
     ),
@@ -119,7 +123,7 @@ export default function TableSingleSort() {
   };
 
   const onRowClick = (data) => {
-    console.log(data)
+    console.log(data);
   };
 
   const scrollToElement = () => {

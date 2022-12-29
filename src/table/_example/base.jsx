@@ -45,11 +45,15 @@ export default function TableBasic() {
           colKey: 'status',
           title: '申请状态',
           cell: ({ row }) => (
-              <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-                {statusNameListMap[row.status].icon}
-                {statusNameListMap[row.status].label}
-              </Tag>
-            ),
+            <Tag
+              shape="round"
+              theme={statusNameListMap[row.status].theme}
+              variant="light-outline"
+              icon={statusNameListMap[row.status].icon}
+            >
+              {statusNameListMap[row.status].label}
+            </Tag>
+          ),
         },
         { colKey: 'channel', title: '签署方式' },
         { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
@@ -111,7 +115,7 @@ export default function TableBasic() {
           宽度自适应
         </Checkbox>
         <Checkbox value={showHeader} onChange={setShowHeader}>
-         显示表头
+          显示表头
         </Checkbox>
       </Space>
 
