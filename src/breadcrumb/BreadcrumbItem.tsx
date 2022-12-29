@@ -55,7 +55,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
   );
 
   useEffect(() => {
-    if (!breadcrumbText.current) setIsCutOff(false);
+    if (!breadcrumbText.current) return;
     return setIsCutOff(isNodeOverflow(breadcrumbText.current));
   }, [breadcrumbText]);
 
