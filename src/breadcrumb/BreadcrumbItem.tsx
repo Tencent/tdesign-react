@@ -10,7 +10,7 @@ import { BreadcrumbContext } from './BreadcrumbContext';
 import parseTNode from '../_util/parseTNode';
 import { breadcrumbItemDefaultProps } from './defaultProps';
 import { isNodeOverflow } from '../_util/dom';
-import Tooltip from '../tooltip';
+import { TooltipLite } from '../tooltip';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -89,7 +89,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   return (
     <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
-      {isCutOff ? <Tooltip content={children}>{itemContent}</Tooltip> : itemContent}
+      {isCutOff ? <TooltipLite content={children}>{itemContent}</TooltipLite> : itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
   );
