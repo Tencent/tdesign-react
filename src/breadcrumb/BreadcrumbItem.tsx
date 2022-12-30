@@ -1,4 +1,4 @@
-import React, { forwardRef, useContext, useMemo } from 'react';
+import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
@@ -9,6 +9,8 @@ import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 import parseTNode from '../_util/parseTNode';
 import { breadcrumbItemDefaultProps } from './defaultProps';
+import { isNodeOverflow } from '../_util/dom';
+import { TooltipLite } from '../tooltip';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -32,6 +34,8 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
   } = props;
 
   const { maxItemWidthInContext, separator: separatorInContext } = useContext(BreadcrumbContext);
+  const breadcrumbText = useRef<HTMLSpanElement>(null);
+  const [isCutOff, setIsCutOff] = useState(false);
 
   const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`);
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;
@@ -50,10 +54,17 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     [maxItemWidth, maxWidth, maxItemWidthInContext],
   );
 
+  useEffect(() => {
+    if (!breadcrumbText.current) return;
+    return setIsCutOff(isNodeOverflow(breadcrumbText.current));
+  }, [breadcrumbText]);
+
   const textContent = (
     <span className={textWrapperClassName} style={maxWidthForItem}>
       {typeof icon === 'function' ? icon() : icon}
-      <span className={textClassName}>{children}</span>
+      <span ref={breadcrumbText} className={textClassName}>
+        {children}
+      </span>
     </span>
   );
 
@@ -78,7 +89,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   return (
     <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
-      {itemContent}
+      {isCutOff ? <TooltipLite content={children}>{itemContent}</TooltipLite> : itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
   );
