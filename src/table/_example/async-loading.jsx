@@ -31,11 +31,15 @@ const columns = [
     title: '申请状态',
     width: '150',
     cell: ({ row }) => (
-        <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
-          {statusNameListMap[row.status].icon}
-          {statusNameListMap[row.status].label}
-        </Tag>
-      ),
+      <Tag
+        shape="round"
+        theme={statusNameListMap[row.status].theme}
+        variant="light-outline"
+        icon={statusNameListMap[row.status].icon}
+      >
+        {statusNameListMap[row.status].label}
+      </Tag>
+    ),
   },
   { colKey: 'channel', title: '签署方式', width: '120' },
   { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },

@@ -5,6 +5,15 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.1 `2022-12-29` 
+### 🚀 Features
+- `Select`: 支持选项`checkAll` 功能 @uyarn ([#1841](https://github.com/Tencent/tdesign-react/pull/1841))
+
+### 🐞 Bug Fixes
+- `TooltipLite`: 修复层叠上下文样式问题 @moecasts ([#1838](https://github.com/Tencent/tdesign-react/pull/1838))
+- `DatePicker`: 修复年份选择器区间错误 @honkinglin ([#1833](https://github.com/Tencent/tdesign-react/pull/1833))
+- `Table`: 修复 onPageChange 回调参数错误 @chaishi ([#1840](https://github.com/Tencent/tdesign-react/pull/1840))
+
 ## 🌈 0.45.0 `2022-12-22` 
 
 ### ❗ Breaking Changes

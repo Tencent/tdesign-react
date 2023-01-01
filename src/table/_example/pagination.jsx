@@ -9,7 +9,7 @@ const statusNameListMap = {
 };
 
 const data = [];
-const total = 60;
+const total = 59;
 for (let i = 0; i < total; i++) {
   data.push({
     index: i,
@@ -26,6 +26,7 @@ for (let i = 0; i < total; i++) {
 }
 
 const columns = [
+  { colKey: 'serial-number', width: 80, title: '序号' },
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',
@@ -34,15 +35,19 @@ const columns = [
     cell: ({ rowIndex }) => {
       const status = rowIndex % 3;
       return (
-        <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-          {statusNameListMap[status].icon}
+        <Tag
+          shape="round"
+          theme={statusNameListMap[status].theme}
+          variant="light-outline"
+          icon={statusNameListMap[status].icon}
+        >
           {statusNameListMap[status].label}
         </Tag>
       );
     },
   },
   { colKey: 'channel', title: '签署方式', width: '120' },
-  { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
+  // { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
   { colKey: 'createTime', title: '申请时间' },
   { colKey: 'row-select', type: 'multiple', width: 46 },
 ];
@@ -50,6 +55,8 @@ const columns = [
 export default function TableBasic() {
   const [reserveSelectedRowOnPaginate, setReserveSelectedRowOnPaginate] = useState(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  // const [current, setCurrent] = useState(2);
+  // const [pageSize, setPageSize] = useState(5);
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
@@ -63,7 +70,7 @@ export default function TableBasic() {
       </Radio.Group>
 
       <Table
-        id='pagination-table'
+        id="pagination-table"
         data={data}
         columns={columns}
         rowKey="index"

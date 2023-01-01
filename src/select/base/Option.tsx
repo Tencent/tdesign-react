@@ -28,8 +28,10 @@ export interface SelectOptionProps
       restData?: Record<string, any>;
     },
   ) => void;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   restData?: Record<string, any>;
   keys?: SelectKeysType;
+  optionLength?: number;
 }
 
 const componentType = 'select';
@@ -39,6 +41,7 @@ const Option = (props: SelectOptionProps) => {
     disabled: propDisabled,
     label: propLabel,
     selectedValue,
+    checkAll,
     multiple,
     size,
     max,
@@ -70,7 +73,6 @@ const Option = (props: SelectOptionProps) => {
         ? value === selectedValue
         : value === get(selectedValue, keys?.value || 'value');
   }
-
   // 处理多选场景
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
@@ -80,11 +82,17 @@ const Option = (props: SelectOptionProps) => {
       }
       return get(item, keys?.value || 'value') === value;
     });
+    if (props.checkAll) {
+      selected = selectedValue.length === props.optionLength;
+    }
   }
 
   const handleSelect = (event: React.MouseEvent<HTMLLIElement>) => {
-    if (!disabled) {
+    if (!disabled && !checkAll) {
       onSelect(value, { label: String(label), selected, event, restData });
+    }
+    if (checkAll) {
+      props.onCheckAllChange?.(selected, event);
     }
   };
 

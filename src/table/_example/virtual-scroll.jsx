@@ -62,8 +62,12 @@ const TableVirtualScroll = () => {
       cell: ({ rowIndex }) => {
         const status = rowIndex % 3;
         return (
-          <Tag shape="round" theme={statusNameListMap[status].theme} variant="light-outline">
-            {statusNameListMap[status].icon}
+          <Tag
+            shape="round"
+            theme={statusNameListMap[status].theme}
+            variant="light-outline"
+            icon={statusNameListMap[status].icon}
+          >
             {statusNameListMap[status].label}
           </Tag>
         );
@@ -84,12 +88,14 @@ const TableVirtualScroll = () => {
   // const setHigherHeight = () => {
   //   setHeight(600);
   // };
-  
+
   return (
     <Space direction="vertical">
       <Space align="center">
         <Button onClick={scrollToElement}>滚动到指定元素</Button>
-        <Checkbox checked={bordered} onChange={setBordered}>是否显示边框</Checkbox>
+        <Checkbox checked={bordered} onChange={setBordered}>
+          是否显示边框
+        </Checkbox>
         {/* 高度变化代码保留；用于测试 Table 高度变化时，是否表现正常 */}
         {/* <Button onClick={setLowerHeight}>Lower Height</Button> */}
         {/* <Button onClick={setHigherHeight}>Higher Height</Button> */}
