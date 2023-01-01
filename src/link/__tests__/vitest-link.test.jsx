@@ -4,12 +4,16 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
-import Link from '..';
+import { fireEvent, vi, render } from '@test/utils';
+import { Link } from '..';
 
 describe('Link Component', () => {
   it('props.children works fine', () => {
-    const { container } = render(<Link children={<span className="custom-node">TNode</span>}></Link>);
+    const { container } = render(
+      <Link>
+        <span className="custom-node">TNode</span>
+      </Link>,
+    );
     expect(container.querySelector('.custom-node')).toBeTruthy();
     expect(container).toMatchSnapshot();
   });
@@ -21,11 +25,17 @@ describe('Link Component', () => {
   });
 
   it('props.disabled works fine', () => {
+    // disabled default value is
     const { container: container1 } = render(<Link>Text</Link>);
-    expect(container1.querySelector('.t-is-disabled')).toBeFalsy();
+    expect(container1.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
+    // disabled = true
     const { container: container2 } = render(<Link disabled={true}>Text</Link>);
     expect(container2.firstChild).toHaveClass('t-is-disabled');
     expect(container2).toMatchSnapshot();
+    // disabled = false
+    const { container: container3 } = render(<Link disabled={false}>Text</Link>);
+    expect(container3.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
+    expect(container3).toMatchSnapshot();
   });
 
   ['color', 'underline'].forEach((item) => {
@@ -37,7 +47,7 @@ describe('Link Component', () => {
   });
 
   it('props.href works fine', () => {
-    const { container } = render(<Link href="https://tdesign.tencent.com/"></Link>);
+    const { container } = render(<Link href={'https://tdesign.tencent.com/'}>Text</Link>);
     expect(container.firstChild.getAttribute('href')).toBe('https://tdesign.tencent.com/');
     expect(container).toMatchSnapshot();
   });
@@ -67,7 +77,7 @@ describe('Link Component', () => {
   });
 
   it('props.target works fine', () => {
-    const { container } = render(<Link target="_blank"></Link>);
+    const { container } = render(<Link target={'_blank'}>Text</Link>);
     expect(container.firstChild.getAttribute('target')).toBe('_blank');
     expect(container).toMatchSnapshot();
   });
@@ -81,10 +91,15 @@ describe('Link Component', () => {
   });
 
   it('props.underline works fine', () => {
+    // underline default value is
     const { container: container1 } = render(<Link>Text</Link>);
-    expect(container1.querySelector('.t-is-underline')).toBeFalsy();
+    expect(container1.querySelector(`.${'t-is-underline'}`)).toBeFalsy();
+    // underline = true
     const { container: container2 } = render(<Link underline={true}>Text</Link>);
     expect(container2.firstChild).toHaveClass('t-is-underline');
+    // underline = false
+    const { container: container3 } = render(<Link underline={false}>Text</Link>);
+    expect(container3.querySelector(`.${'t-is-underline'}`)).toBeFalsy();
   });
 
   it('Link Event: click', () => {

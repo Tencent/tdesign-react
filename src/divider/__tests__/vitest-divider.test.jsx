@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { render } from '@test/utils';
-import Divider from '..';
+import { Divider } from '..';
 
 describe('Divider Component', () => {
   ['left', 'right', 'center'].forEach((item) => {
@@ -23,15 +23,20 @@ describe('Divider Component', () => {
   });
 
   it('props.dashed works fine', () => {
-    const { container: container1 } = render(<Divider>Text</Divider>);
-    expect(container1.querySelector('.t-divider--dashed')).toBeFalsy();
-    const { container: container2 } = render(<Divider dashed={true}>Text</Divider>);
+    // dashed default value is false
+    const { container: container1 } = render(<Divider></Divider>);
+    expect(container1.querySelector(`.${'t-divider--dashed'}`)).toBeFalsy();
+    // dashed = true
+    const { container: container2 } = render(<Divider dashed={true}></Divider>);
     expect(container2.firstChild).toHaveClass('t-divider--dashed');
+    // dashed = false
+    const { container: container3 } = render(<Divider dashed={false}></Divider>);
+    expect(container3.querySelector(`.${'t-divider--dashed'}`)).toBeFalsy();
   });
 
   ['horizontal', 'vertical'].forEach((item) => {
     it(`props.layout is equal to ${item}`, () => {
-      const { container } = render(<Divider layout={item}>Text</Divider>);
+      const { container } = render(<Divider layout={item}></Divider>);
       expect(container.firstChild).toHaveClass(`t-divider--${item}`);
       expect(container).toMatchSnapshot();
     });

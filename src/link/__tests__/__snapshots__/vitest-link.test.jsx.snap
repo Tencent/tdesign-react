@@ -38,6 +38,16 @@ exports[`Link Component > props.disabled works fine 1`] = `
 </div>
 `;
 
+exports[`Link Component > props.disabled works fine 2`] = `
+<div>
+  <a
+    class="t-link t-link--theme-default t-link--hover-underline"
+  >
+    Text
+  </a>
+</div>
+`;
+
 exports[`Link Component > props.hover is equal to color 1`] = `
 <div>
   <a
@@ -63,7 +73,9 @@ exports[`Link Component > props.href works fine 1`] = `
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
     href="https://tdesign.tencent.com/"
-  />
+  >
+    Text
+  </a>
 </div>
 `;
 
@@ -102,7 +114,9 @@ exports[`Link Component > props.target works fine 1`] = `
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
     target="_blank"
-  />
+  >
+    Text
+  </a>
 </div>
 `;
 

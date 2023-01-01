@@ -4,20 +4,30 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
-import Button from '..';
+import { fireEvent, vi, render } from '@test/utils';
+import { Button } from '..';
 
 describe('Button Component', () => {
   it('props.block works fine', () => {
+    // block default value is false
     const { container: container1 } = render(<Button>Text</Button>);
-    expect(container1.querySelector('.t-size-full-width')).toBeFalsy();
+    expect(container1.querySelector(`.${'t-size-full-width'}`)).toBeFalsy();
+    // block = true
     const { container: container2 } = render(<Button block={true}>Text</Button>);
     expect(container2.firstChild).toHaveClass('t-size-full-width');
     expect(container2).toMatchSnapshot();
+    // block = false
+    const { container: container3 } = render(<Button block={false}>Text</Button>);
+    expect(container3.querySelector(`.${'t-size-full-width'}`)).toBeFalsy();
+    expect(container3).toMatchSnapshot();
   });
 
   it('props.children works fine', () => {
-    const { container } = render(<Button children={<span className="custom-node">TNode</span>}></Button>);
+    const { container } = render(
+      <Button>
+        <span className="custom-node">TNode</span>
+      </Button>,
+    );
     expect(container.querySelector('.custom-node')).toBeTruthy();
     expect(container).toMatchSnapshot();
   });
@@ -29,44 +39,69 @@ describe('Button Component', () => {
   });
 
   it('props.disabled works fine', () => {
+    // disabled default value is false
     const { container: container1 } = render(<Button>Text</Button>);
-    expect(container1.querySelector('.t-is-disabled')).toBeFalsy();
+    expect(container1.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
+    // disabled = true
     const { container: container2 } = render(<Button disabled={true}>Text</Button>);
     expect(container2.firstChild).toHaveClass('t-is-disabled');
     expect(container2).toMatchSnapshot();
+    // disabled = false
+    const { container: container3 } = render(<Button disabled={false}>Text</Button>);
+    expect(container3.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
+    expect(container3).toMatchSnapshot();
   });
 
   it('props.ghost works fine', () => {
+    // ghost default value is false
     const { container: container1 } = render(<Button>Text</Button>);
-    expect(container1.querySelector('.t-button--ghost')).toBeFalsy();
+    expect(container1.querySelector(`.${'t-button--ghost'}`)).toBeFalsy();
+    // ghost = true
     const { container: container2 } = render(<Button ghost={true}>Text</Button>);
     expect(container2.firstChild).toHaveClass('t-button--ghost');
     expect(container2).toMatchSnapshot();
+    // ghost = false
+    const { container: container3 } = render(<Button ghost={false}>Text</Button>);
+    expect(container3.querySelector(`.${'t-button--ghost'}`)).toBeFalsy();
+    expect(container3).toMatchSnapshot();
   });
 
   it('props.href works fine', () => {
-    const { container } = render(<Button href="https://tdesign.tencent.com/"></Button>);
+    const { container } = render(<Button href={'https://tdesign.tencent.com/'}>Text</Button>);
     expect(container.firstChild.getAttribute('href')).toBe('https://tdesign.tencent.com/');
     expect(container).toMatchSnapshot();
   });
 
   it('props.icon works fine', () => {
-    const { container } = render(<Button icon={<span className="custom-node">TNode</span>}></Button>);
+    const { container } = render(<Button icon={<span className="custom-node">TNode</span>}>Text</Button>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
   it('props.loading works fine', () => {
+    // loading default value is false
     const { container: container1 } = render(<Button>Text</Button>);
-    expect(container1.querySelector('.t-is-loading')).toBeFalsy();
+    expect(container1.querySelector(`.${'t-is-loading'}`)).toBeFalsy();
+    // loading = true
     const { container: container2 } = render(<Button loading={true}>Text</Button>);
     expect(container2.firstChild).toHaveClass('t-is-loading');
     expect(container2).toMatchSnapshot();
+    // loading = false
+    const { container: container3 } = render(<Button loading={false}>Text</Button>);
+    expect(container3.querySelector(`.${'t-is-loading'}`)).toBeFalsy();
+    expect(container3).toMatchSnapshot();
   });
 
   it('props.loading: Button contains element `.t-loading`', () => {
-    const { container } = render(<Button loading={true}></Button>);
-    expect(container.querySelector('.t-loading')).toBeTruthy();
-    expect(container).toMatchSnapshot();
+    // loading default value is false
+    const { container } = render(<Button>Text</Button>);
+    expect(container.querySelector('.t-loading')).toBeFalsy();
+    // loading = false
+    const { container: container1 } = render(<Button loading={false}>Text</Button>);
+    expect(container1.querySelector('.t-loading')).toBeFalsy();
+    // loading = true
+    const { container: container2 } = render(<Button loading={true}>Text</Button>);
+    expect(container2.querySelector('.t-loading')).toBeTruthy();
+    expect(container2).toMatchSnapshot();
   });
 
   const shapeClassNameList = [
@@ -103,14 +138,14 @@ describe('Button Component', () => {
   });
 
   it('props.suffix works fine', () => {
-    const { container } = render(<Button suffix={<span className="custom-node">TNode</span>}></Button>);
+    const { container } = render(<Button suffix={<span className="custom-node">TNode</span>}>Text</Button>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
   const tagExpectedDom = ['button', 'a', 'div'];
   ['button', 'a', 'div'].forEach((item, index) => {
     it(`props.tag is equal to ${item}`, () => {
-      const { container } = render(<Button tag={item}></Button>);
+      const { container } = render(<Button tag={item}>Text</Button>);
       expect(container.querySelector(tagExpectedDom[index])).toBeTruthy();
       expect(container).toMatchSnapshot();
     });
