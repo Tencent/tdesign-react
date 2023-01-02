@@ -9,4 +9,5 @@ export const autoCompleteDefaultProps: TdAutoCompleteProps = {
   highlightKeyword: true,
   placeholder: undefined,
   size: 'medium',
+  status: 'default',
 };
