@@ -76,7 +76,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
       closeOnOverlayClick={false}
       cancelBtn={null}
       confirmBtn={null}
-      header={title}
+      header={<span className={`${classPrefix}-image-viewer__dialog-title`}>{title}</span>}
       footer={footer}
       onClose={onClose}
     >
