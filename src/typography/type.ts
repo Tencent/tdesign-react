@@ -2,6 +2,10 @@ import { TNode } from '../common';
 
 export interface TdTypographyTextProps {
   /**
+   * 是否省略
+   */
+  ellipsis?: boolean;
+  /**
    * 添加代码样式
    */
   code?: boolean;
@@ -57,9 +61,12 @@ export interface TdTypographyTitleProps extends Omit<TdTypographyTextProps, 'ell
    * 标题等级，相当于 `h1`、`h2`、`h3`、`h4`、`h5`
    */
   level: number;
+  ellipsis?: boolean | Ellipsis;
 }
 
-export type TdTypographyParagraphProps = Omit<TdTypographyTextProps, 'ellipsis'>
+export interface TdTypographyParagraphProps extends Omit<TdTypographyTextProps, 'ellipsis'> {
+  ellipsis?: boolean | Ellipsis;
+}
 
 export type Ellipsis = {
   rows: number;

@@ -11,7 +11,7 @@ export interface TypographyTitleProps extends TdTypographyTitleProps, StyledProp
 const TypographyTitle = forwardRef<HTMLSpanElement, TypographyTitleProps>((props, ref) => {
   const { classPrefix } = useConfig();
 
-  const { className, style, level, content, children, status, disabled, copyable } = props;
+  const { className, style, level, content, children, status, disabled, copyable, ellipsis } = props;
 
   return React.createElement(
     `h${Math.min(level, 5)}`,
@@ -21,6 +21,7 @@ const TypographyTitle = forwardRef<HTMLSpanElement, TypographyTitleProps>((props
       className: classNames(`${classPrefix}-typography`, className, {
         [`${classPrefix}-typography--${status}`]: status,
         [`${classPrefix}-typography--disabled`]: disabled,
+        [`${classPrefix}-typography--ellipsis`]: ellipsis,
       }),
     },
     <>

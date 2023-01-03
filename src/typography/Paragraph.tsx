@@ -11,7 +11,7 @@ export interface TypographyParagraphProps extends TdTypographyTextProps, StyledP
 const TypographyParagraph = forwardRef<HTMLDivElement, TypographyParagraphProps>((props, ref) => {
   const { classPrefix } = useConfig();
 
-  const { className, style, content, children, status, disabled, copyable } = props;
+  const { className, style, content, children, status, disabled, copyable, ellipsis } = props;
 
   const renderCopy = useMemo(() => {
     if (copyable === true) return <Copy text={String(content || children)} />;
@@ -26,6 +26,7 @@ const TypographyParagraph = forwardRef<HTMLDivElement, TypographyParagraphProps>
       className={classNames(`${classPrefix}-typography`, className, {
         [`${classPrefix}-typography--${status}`]: status,
         [`${classPrefix}-typography--disabled`]: disabled,
+        [`${classPrefix}-typography--ellipsis`]: ellipsis,
       })}
       style={style}
     >
