@@ -223,10 +223,10 @@ export default function TableTree() {
 
   const onRowToggle = () => {
     const rowIds = [
-      '申请人 1_1 号（第 1 页）',
-      '申请人 2_1 号（第 1 页）',
-      '申请人 3_1 号（第 1 页）',
-      '申请人 4_1 号（第 1 页）',
+      '申请人 1_1 号',
+      '申请人 2_1 号',
+      '申请人 3_1 号',
+      '申请人 4_1 号',
     ];
     rowIds.forEach((id) => {
       // getData 参数为行唯一标识，lodash.get(row, rowKey)
