@@ -126,7 +126,7 @@ export default function useRange(props: TdDateRangePickerProps) {
       // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
       props.popupProps?.onVisibleChange?.(visible, context);
       // 输入框点击不关闭面板
-      if (context.trigger === 'trigger-element-click') {
+      if (context.trigger === 'trigger-element-mousedown') {
         const indexMap = { 0: 'first', 1: 'second' };
         inputRef.current.focus({ position: indexMap[activeIndex] });
         return setPopupVisible(true);

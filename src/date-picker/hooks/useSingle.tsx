@@ -107,7 +107,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onVisibleChange: (visible: boolean, context: any) => {
       // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
       props.popupProps?.onVisibleChange?.(visible, context);
-      if (context.trigger === 'trigger-element-click') {
+      if (context.trigger === 'trigger-element-mousedown') {
         return setPopupVisible(true);
       }
       setPopupVisible(visible);
