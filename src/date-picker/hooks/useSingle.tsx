@@ -13,6 +13,7 @@ import {
   parseToDayjs,
 } from '../../_common/js/date-picker/format';
 import useSingleValue from './useSingleValue';
+import type { TdPopupProps } from '../../popup/type';
 
 export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
@@ -100,6 +101,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const popupProps = {
     expandAnimation: true,
     ...props.popupProps,
+    trigger: 'mousedown' as TdPopupProps['trigger'],
     overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean, context: any) => {

@@ -8,6 +8,7 @@ import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useRangeValue from './useRangeValue';
+import type { TdPopupProps } from '../../popup/type';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
@@ -118,6 +119,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   const popupProps = {
     expandAnimation: true,
     ...props.popupProps,
+    trigger: 'mousedown' as TdPopupProps['trigger'],
     overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean, context) => {

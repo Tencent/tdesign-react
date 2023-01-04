@@ -88,6 +88,15 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
     const triggerProps: any = {
       className: visible ? classNames(triggerNode.props.className, `t-popup-open`) : triggerNode.props.className,
+      onMouseDown: (e: MouseEvent) => {
+        if (trigger === 'mousedown') {
+          callFuncWithDelay({
+            delay: visible ? appearDelay : exitDelay,
+            callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          });
+        }
+        triggerNode.props.onMouseDown?.(e);
+      },
       onClick: (e: MouseEvent) => {
         if (trigger === 'click') {
           callFuncWithDelay({
@@ -98,7 +107,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
         triggerNode.props.onClick?.(e);
       },
       onTouchStart: (e: TouchEvent) => {
-        if (trigger === 'hover') {
+        if (trigger === 'hover' || trigger === 'mousedown') {
           callFuncWithDelay({
             delay: appearDelay,
             callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
