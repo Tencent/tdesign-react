@@ -210,7 +210,6 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-size-m`]: size === 'medium',
           [`${classPrefix}-align-${align}`]: align,
           [`${classPrefix}-is-${tStatus}`]: tStatus,
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,

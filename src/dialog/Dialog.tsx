@@ -181,7 +181,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
           })}
-          style={{ ...style, zIndex, width: parseValueToPx(width) }}
+          style={{ zIndex }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
@@ -207,6 +207,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
                 <DialogCard
                   ref={dialogCardRef}
                   {...restState}
+                  style={{ ...style, width: parseValueToPx(width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}

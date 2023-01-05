@@ -5,6 +5,29 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.2 `2023-01-05` 
+### 🚀 Features
+- `语言包`: 新增阿拉伯语的语言包 @Ylushen ([common #1097](https://github.com/Tencent/tdesign-common/pull/1097))
+- `AutoComplete`:
+    - 新增清空功能 `clearable` @chaishi ([#1845](https://github.com/Tencent/tdesign-react/pull/1845))
+    - 新增自动聚焦功能 `autofocus` @chaishi ([#1845](https://github.com/Tencent/tdesign-react/pull/1845))
+    - 支持 `style` 和 `className` @chaishi ([#1845](https://github.com/Tencent/tdesign-react/pull/1845))
+    - 新增 `enter/blur/compositionend/compositionstar`t 等事件，及相关参数和文档保持一致 @chaishi ([#1845](https://github.com/Tencent/tdesign-react/pull/1845))
+- `Breadcrumb`:  超长文本省略支持悬浮查看完整内容 @yaogengzhu ([#1837](https://github.com/Tencent/tdesign-react/pull/1837))
+- `Popup`:  新增 trigger=mousedown 功能 @honkinglin ([#1857](https://github.com/Tencent/tdesign-react/pull/1857))
+
+### 🐞 Bug Fixes
+- `table`: 修正 onDragSort 使用过期变量的问题 @lich-yoo ([#1844](https://github.com/Tencent/tdesign-react/pull/1844))
+- `AutoComplete`: 修复 `options` 不存在时，组件因缺少判空报错问题 @chaishi ([#1845](https://github.com/Tencent/tdesign-react/pull/1845))
+- `Dialog`: 修复 `style` 透传问题 @honkinglin ([#1859](https://github.com/Tencent/tdesign-react/pull/1859))
+- `Form`: 修复 `unsafe-eval`报错的问题 @honkinglin ([#1860](https://github.com/Tencent/tdesign-react/pull/1860))
+- `Select`: 修复`readonly`状态下可以通过选项的关闭按钮移除选项的问题 @uyarn ([#1862](https://github.com/Tencent/tdesign-react/pull/1862))
+- `DatePicker`:
+    - 修复输入框变化面板未响应问题 @honkinglin ([#1858](https://github.com/Tencent/tdesign-react/pull/1858))
+    - 修复年份面板禁用样式问题 @honkinglin ([#1861](https://github.com/Tencent/tdesign-react/pull/1861))
+- `ImageViewer`:  z-index层级调整，修复窗口模式拖拽问题 @Ylushen ([#1851](https://github.com/Tencent/tdesign-react/pull/1851))
+
+
 ## 🌈 0.45.1 `2022-12-29` 
 ### 🚀 Features
 - `Select`: 支持选项`checkAll` 功能 @uyarn ([#1841](https://github.com/Tencent/tdesign-react/pull/1841))

@@ -5,6 +5,7 @@ import get from 'lodash/get';
 import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
+import useLatest from '../../_util/useLatest';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
@@ -50,6 +51,9 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     dragColumns.current = props.columns;
     originalColumns.current = props.columns;
   }, [props.columns]);
+
+  // fix: https://github.com/Tencent/tdesign/issues/294 修正 onDragSort 会使用旧的变量问题
+  const onDragSortRef = useLatest(onDragSort);
 
   // 本地分页的表格，index 不同，需加上分页计数
   function getDataPageIndex(index: number) {
@@ -103,7 +107,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         // currentData is going to be deprecated.
         params.currentData = params.newData;
 
-        onDragSort?.(params);
+        onDragSortRef.current?.(params);
       },
       ...props.dragSortOptions,
     };
@@ -161,7 +165,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         };
         // currentData is going to be deprecated.
         params.currentData = params.newData;
-        onDragSort?.(params);
+        onDragSortRef.current?.(params);
       },
     };
     const container = tableElement.querySelector('thead > tr') as HTMLDivElement;

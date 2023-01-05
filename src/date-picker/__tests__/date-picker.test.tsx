@@ -36,13 +36,13 @@ describe('DatePicker', () => {
     const disabledDate = (date: DateValue) => date && dayjs().isBefore(date);
     const { container: container1 } = render(<DatePicker disableDate={disabledDate} />);
     act(() => {
-      fireEvent.click(container1.querySelector('input'));
+      fireEvent.mouseDown(container1.querySelector('input'));
       vi.runAllTimers();
     });
 
     const { container: container2 } = render(<DatePicker disableDate={(date) => dayjs(date).day() === 6} />);
     act(() => {
-      fireEvent.click(container2.querySelector('input'));
+      fireEvent.mouseDown(container2.querySelector('input'));
       vi.runAllTimers();
     });
 
@@ -55,13 +55,13 @@ describe('DatePicker', () => {
       />,
     );
     act(() => {
-      fireEvent.click(container3.querySelector('input'));
+      fireEvent.mouseDown(container3.querySelector('input'));
       vi.runAllTimers();
     });
 
     const { container: container4 } = render(<DatePicker disableDate={['2022-09-14', '2022-09-16']} />);
     act(() => {
-      fireEvent.click(container4.querySelector('input'));
+      fireEvent.mouseDown(container4.querySelector('input'));
       vi.runAllTimers();
     });
 
@@ -74,7 +74,7 @@ describe('DatePicker', () => {
       />,
     );
     act(() => {
-      fireEvent.click(container5.querySelector('input'));
+      fireEvent.mouseDown(container5.querySelector('input'));
       vi.runAllTimers();
     });
 
@@ -91,7 +91,7 @@ describe('DatePicker', () => {
   test('enableTimePicker', async () => {
     const { container } = render(<DatePicker enableTimePicker={true} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time'));
@@ -101,7 +101,7 @@ describe('DatePicker', () => {
   test('firstDayOfWeek', async () => {
     const { container } = render(<DatePicker firstDayOfWeek={3} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const weekElement = await waitFor(() => document.querySelector('.t-date-picker__table table thead tr th'));
@@ -127,7 +127,7 @@ describe('DatePicker', () => {
   test('mode week', async () => {
     const { container: container1 } = render(<DatePicker mode={'week'} value={'2022-37th'} />);
     act(() => {
-      fireEvent.click(container1.querySelector('input'));
+      fireEvent.mouseDown(container1.querySelector('input'));
       vi.runAllTimers();
     });
     const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-week'));
@@ -137,7 +137,7 @@ describe('DatePicker', () => {
   test('mode month', async () => {
     const { container } = render(<DatePicker mode={'month'} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const pickerTable = await waitFor(() => document.querySelector('tbody'));
@@ -147,7 +147,7 @@ describe('DatePicker', () => {
   test('mode quarter', async () => {
     const { container } = render(<DatePicker mode={'quarter'} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const pickerTable = await waitFor(() => document.querySelector('.t-date-picker__table'));
@@ -157,7 +157,7 @@ describe('DatePicker', () => {
   test('mode year', async () => {
     const { container } = render(<DatePicker mode={'year'} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-year'));
@@ -172,7 +172,7 @@ describe('DatePicker', () => {
   test('popupProps', async () => {
     const { container } = render(<DatePicker popupProps={{ showArrow: true }} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const popupArrow = await waitFor(() => document.querySelector('.t-popup__arrow'));
@@ -194,7 +194,7 @@ describe('DatePicker', () => {
     };
     const { container } = render(<DatePicker presets={presets} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const table = await waitFor(() => document.querySelector('table'));
@@ -212,7 +212,7 @@ describe('DatePicker', () => {
   test('timePickerProps', async () => {
     const { container } = render(<DatePicker enableTimePicker={true} timePickerProps={{ value: '13:01:01' }} />);
     act(() => {
-      fireEvent.click(container.querySelector('input'));
+      fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
     const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time .t-is-current'));
@@ -241,7 +241,7 @@ describe('DatePicker', () => {
     const changeFn = vi.fn();
     const pickFn = vi.fn();
     const { container } = render(<DatePicker format={'YYYY-MM-DD'} onChange={changeFn} onPick={pickFn} />);
-    fireEvent.click(container.querySelector('input'));
+    fireEvent.mouseDown(container.querySelector('input'));
 
     const firstDay = document.querySelector('.t-date-picker__cell--first-day-of-month');
     fireEvent.click(firstDay);
@@ -253,7 +253,7 @@ describe('DatePicker', () => {
     const changeFn = vi.fn();
     const pickFn = vi.fn();
     const { container } = render(<DatePicker format={'YYYY-MM-DD'} onChange={changeFn} onPick={pickFn} />);
-    fireEvent.click(container.querySelector('input'));
+    fireEvent.mouseDown(container.querySelector('input'));
 
     const firstDay = await waitFor(() => document.querySelector('.t-date-picker__cell--first-day-of-month'));
     fireEvent.click(firstDay);
@@ -263,7 +263,7 @@ describe('DatePicker', () => {
 
   test('panel select month and year', async () => {
     const { container } = render(<DatePicker defaultValue={'2022-09-14'} />);
-    fireEvent.click(container.querySelector('input'));
+    fireEvent.mouseDown(container.querySelector('input'));
 
     const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
 
@@ -292,7 +292,7 @@ describe('DatePicker', () => {
 
   test('panel select year, popup scroll', async () => {
     const { container } = render(<DatePicker defaultValue={'2022-09-14'} />);
-    fireEvent.click(container.querySelector('input'));
+    fireEvent.mouseDown(container.querySelector('input'));
 
     const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
     const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
@@ -313,7 +313,7 @@ describe('DatePicker', () => {
 
   test('cell handleMouseEnter', async () => {
     const { container } = render(<DatePicker />);
-    fireEvent.click(container.querySelector('input'));
+    fireEvent.mouseDown(container.querySelector('input'));
 
     const tbodyEle = await waitFor(() => document.querySelector('tbody'));
     fireEvent.mouseEnter(tbodyEle.firstChild.firstChild);

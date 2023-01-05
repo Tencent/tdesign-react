@@ -4,7 +4,6 @@ import isString from 'lodash/isString';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import isFunction from 'lodash/isFunction';
-import lodashTemplate from 'lodash/template';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -17,7 +16,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { TdFormItemProps, ValueType, FormItemValidateMessage, NamePath, FormInstanceFunctions } from './type';
 import { StyledProps } from '../common';
 import { HOOK_MARK } from './hooks/useForm';
-import { validate as validateModal } from './formModel';
+import { validate as validateModal, parseMessage } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { formItemDefaultProps } from './defaultProps';
@@ -218,9 +217,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       .map((item) => {
         Object.keys(item).forEach((key) => {
           if (!item.message && errorMessages[key]) {
-            const compiled = lodashTemplate(errorMessages[key]);
             // eslint-disable-next-line
-            item.message = compiled({ name: isString(label) ? label : name, validate: item[key] });
+            item.message = parseMessage(errorMessages[key], {
+              validate: item[key],
+              name: isString(label) ? label : String(name),
+            });
           }
         });
         return item;

@@ -102,3 +102,14 @@ export async function validate(value: ValueType, rules: Array<FormRule>): Promis
   const r = await Promise.all(all);
   return r;
 }
+
+/**
+ * Replace with template.
+ * `${name} is wrong` + { name: 'password' } = password is wrong
+ */
+export function parseMessage(template: string, options: Record<string, string>): string {
+  return template.replace(/\$\{\w+\}/g, (str: string) => {
+    const key = str.slice(2, -1);
+    return options[key];
+  });
+}
