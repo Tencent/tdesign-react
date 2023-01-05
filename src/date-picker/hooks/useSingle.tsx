@@ -65,8 +65,9 @@ export default function useSingleInput(props: TdDatePickerProps) {
 
       // 跳过不符合格式化的输入框内容
       if (!isValidDate(val, format)) return;
-      const newMonth = dayjs(val).month();
-      const newYear = dayjs(val).year();
+      setCacheValue(val);
+      const newMonth = parseToDayjs(val, format).month();
+      const newYear = parseToDayjs(val, format).year();
       const newTime = formatTime(val, timeFormat);
       !Number.isNaN(newYear) && setYear(newYear);
       !Number.isNaN(newMonth) && setMonth(newMonth);
