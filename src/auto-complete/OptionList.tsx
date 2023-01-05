@@ -1,5 +1,6 @@
 import React, { useMemo, useState, MouseEvent, useEffect } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
 import log from '../_common/js/log';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
@@ -32,7 +33,7 @@ const OptionsList = (props: OptionsListProps) => {
   ];
 
   const tOptions = useMemo(() => {
-    let options = props.options.map((item) => {
+    let options = (props.options || []).map((item) => {
       let option: AutoCompleteOptionObj = {};
       if (typeof item === 'string') {
         option = { text: item, label: item };
@@ -116,7 +117,7 @@ const OptionsList = (props: OptionsListProps) => {
         if (item.text === active) {
           cls.push(`${classPrefix}-select-option--hover`);
         }
-        const content = item.label || item.text;
+        const content = (isFunction(item.label) ? item.label() : item.label) || item.text;
         return (
           <li key={item.text} className={classNames(cls)} title={item.text} onClick={onOptionClick}>
             {typeof content === 'string' && props.highlightKeyword ? (

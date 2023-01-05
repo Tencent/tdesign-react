@@ -14,7 +14,7 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
   /**
    * 自动获取焦点
    */
-  autoFocus?: boolean;
+  autofocus?: boolean;
   /**
    * 触发显示联想词下拉框的元素，同 `triggerElement`
    */
@@ -76,6 +76,7 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
   size?: SizeEnum;
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**

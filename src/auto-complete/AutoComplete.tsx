@@ -43,7 +43,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     };
   };
 
-  const classes = [`${classPrefix}-auto-complete`];
+  const classes = [`${classPrefix}-auto-complete`].concat(props.className);
   const popupClasses = (() => {
     let classes: ClassName = [`${classPrefix}-select__dropdown`];
     if (props.popupProps?.overlayClassName) {
@@ -77,6 +77,22 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     props.onFocus?.({ ...context, value });
   };
 
+  const onInnerBlur: InputProps['onBlur'] = (value, context) => {
+    props.onBlur?.({ ...context, value });
+  };
+
+  const onInnerEnter: InputProps['onEnter'] = (value, context) => {
+    props.onEnter?.({ ...context, value });
+  };
+
+  const onInnerCompositionend: InputProps['onCompositionend'] = (value, context) => {
+    props.onCompositionend?.({ ...context, value });
+  };
+
+  const onInnerCompositionstart: InputProps['onCompositionstart'] = (value, context) => {
+    props.onCompositionstart?.({ ...context, value });
+  };
+
   const onInnerSelect: OptionsListProps['onSelect'] = (value, context) => {
     if (props.readonly || props.disabled) return;
     setPopupVisible(false);
@@ -99,8 +115,15 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
       status={props.status}
       readonly={props.readonly}
       disabled={props.disabled}
+      clearable={props.clearable}
+      autofocus={props.autofocus}
+      onClear={props.onClear}
       onChange={onInputChange}
       onFocus={onInnerFocus}
+      onBlur={onInnerBlur}
+      onEnter={onInnerEnter}
+      onCompositionend={onInnerCompositionend}
+      onCompositionstart={onInnerCompositionstart}
       {...innerInputProps}
     />
   );
@@ -135,7 +158,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     overlayClassName: popupClasses,
   };
   return (
-    <div className={classNames(classes)}>
+    <div className={classNames(classes)} style={props.style}>
       <Popup
         ref={popupRef}
         visible={popupVisible}
