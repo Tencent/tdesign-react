@@ -74,7 +74,10 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       checked={internalChecked}
       disabled={disabled}
       name={name}
+      tabIndex={-1}
       value={isBoolean(value) ? Number(value) : value}
+      data-value={typeof value === 'string' ? `'${value}'` : value}
+      data-allow-uncheck={allowUncheck || undefined}
       onClick={(e) => {
         e.stopPropagation();
         if ((type === 'radio-button' || type === 'radio') && allowUncheck && internalChecked) {
@@ -99,6 +102,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   return (
     <label
       ref={ref}
+      tabIndex={disabled ? undefined : 0}
       className={labelClassName}
       title={props.title}
       style={style}
