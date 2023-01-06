@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Radio Props
 
 name | type | default | description | required
@@ -15,8 +14,9 @@ children | TNode | - | Typescript：`string \| TNode`。[see more ts definition]
 disabled | Boolean | undefined | \- | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 name | String | - | \- | N
-value | String / Number / Boolean | false | Typescript：`T` | N
+value | String / Number / Boolean | undefined | Typescript：`T` | N
 onChange | Function |  | Typescript：`(checked: boolean, context: { e: ChangeEvent }) => void`<br/> | N
+onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/>trigger on click | N
 
 ### RadioGroup Props
 
@@ -24,6 +24,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+allowUncheck | Boolean | false | \- | N
 disabled | Boolean | undefined | \- | N
 name | String | - | \- | N
 options | Array | - | Typescript：`Array<RadioOption>` `type RadioOption = string \| number \| RadioOptionObj` `interface RadioOptionObj { label?: string \| TNode; value?: string \| number; disabled?: boolean }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/radio/type.ts) | N

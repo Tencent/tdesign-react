@@ -1,4 +1,4 @@
-import React, { Ref, forwardRef, useContext, MouseEventHandler } from 'react';
+import React, { Ref, forwardRef, useContext, MouseEvent } from 'react';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
@@ -7,13 +7,11 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { TdCheckboxProps } from '../checkbox/type';
 
-export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps {
+export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
   title?: string;
-  value?: string | number | boolean;
   children?: React.ReactNode;
-  onClick?: MouseEventHandler<HTMLLabelElement>;
   stopLabelTrigger?: Boolean;
 }
 
@@ -47,6 +45,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     className,
     style,
     readonly,
+    onClick,
     ...htmlProps
   } = props;
 
@@ -93,6 +92,10 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     if (props.stopLabelTrigger) event.preventDefault();
   };
 
+  const onInnerClick = (e: MouseEvent<HTMLLabelElement>) => {
+    onClick?.({ e });
+  };
+
   return (
     <label
       ref={ref}
@@ -100,6 +103,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       title={props.title}
       style={style}
       {...omit(htmlProps, ['checkAll', 'stopLabelTrigger'])}
+      onClick={onInnerClick}
     >
       {input}
       <span className={`${classPrefix}-${type}__input`} />

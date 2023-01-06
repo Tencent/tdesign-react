@@ -42,6 +42,9 @@ const RadioGroup = (props: RadioGroupProps) => {
 
       return {
         ...checkProps,
+        name: props.name,
+        // 有一个允许取消，就可以取消选中
+        allowUncheck: checkProps.allowUncheck || props.allowUncheck,
         checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
         onChange(checked, { e }) {
