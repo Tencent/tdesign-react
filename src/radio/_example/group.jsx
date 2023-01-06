@@ -27,14 +27,14 @@ export default function RadioExample() {
   const itemOptions = ['北京', '上海', '广州', '深圳'];
   return (
     <Space direction="vertical">
-      <Radio.Group value={city} onChange={setCity}>
+      <Radio.Group value={city} onChange={setCity} allowUncheck>
         <Radio value="bj">北京</Radio>
         <Radio value="sh">上海</Radio>
         <Radio value="gz">广州</Radio>
         <Radio value="sz">深圳</Radio>
       </Radio.Group>
 
-      <Radio.Group value={city2} options={objOptions} onChange={setCity2} />
+      <Radio.Group value={city2} options={objOptions} allowUncheck onChange={setCity2} />
 
       <Radio.Group value={city3} options={itemOptions} onChange={setCity3} />
     </Space>
