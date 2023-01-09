@@ -86,7 +86,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     const calcValue: TreeSelectValue[] = Array.isArray(value) ? value : [value];
     return calcValue.reduce<NodeOptions[]>((result, value) => {
       const normalized = normalizeValue(value);
-      normalized.value && result.push(normalized);
+      typeof normalized.value !== 'undefined' && result.push(normalized);
       return result;
     }, []);
     // data 发生变更时，normalizedValue 也需要更新
