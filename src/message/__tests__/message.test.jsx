@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@test/utils';
+import { render, fireEvent, mockTimeout, vi } from '@test/utils';
 import {
   InfoCircleFilledIcon,
   CheckCircleFilledIcon,
@@ -8,7 +8,7 @@ import {
   HelpIcon,
   LoadingIcon,
 } from 'tdesign-icons-react';
-import Message from '../index';
+import Message, { MessagePlugin } from '../index';
 
 const defaultMessage = '默认的message';
 
@@ -96,5 +96,187 @@ describe('Message Component test', () => {
       expect(container.querySelector('.wrapper')).not.toBe(null);
       expect(container.querySelector('.wrapper')).toHaveTextContent(defaultMessage);
     });
+  });
+});
+
+describe('Message Functional test', () => {
+  test('Message 基础函数式调用，消息应该正常展示、隐藏', async () => {
+    const openText = 'open';
+    const closeText = 'close';
+    const TestComponent = () => {
+      let message
+      const handleOpen = () => {
+        message = MessagePlugin.info(defaultMessage)
+      }
+      const handleClose = () => {
+        MessagePlugin.close(message)
+      }
+
+      return (
+        <>
+          <button onClick={handleOpen}>{openText}</button>
+          <button onClick={handleClose}>{closeText}</button>
+        </>
+      )
+    };
+
+    const { getByText } = render(<TestComponent />);
+    expect(document.querySelector('.t-message')).toBe(null);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector('.t-message')).not.toBeNull());
+    await mockTimeout(() => expect(document.querySelector('.t-message')).toHaveTextContent(defaultMessage));
+    fireEvent.click(getByText(closeText));
+    await mockTimeout(() => expect(document.querySelector('.t-message')).toBeNull());
+  });
+
+  test('存在关闭按钮，点击关闭按钮应该触发 onCloseBtnClick', async () => {
+    const openText = 'open';
+    const option = {
+      content: defaultMessage,
+      duration: 0,
+      closeBtn: <div id="testId">关闭</div>,
+      onCloseBtnClick: () => 1
+    };
+    const spy = vi.spyOn(option, 'onCloseBtnClick');
+    const TestComponent = () => {
+      const handleOpen = () => {
+        MessagePlugin.info(option)
+      }
+
+      return (
+        <>
+          <button onClick={handleOpen}>{openText}</button>
+        </>
+      )
+    };
+
+    const { getByText } = render(<TestComponent />);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector('#testId')).not.toBeNull());
+    fireEvent.click(document.querySelector('#testId'));
+    await mockTimeout(() => expect(spy).toHaveBeenCalled());
+    expect(document.querySelector('#testId')).toBeNull()
+  });
+
+  test('传入 duration 大于0，倒计时结束后消息应该隐藏', async () => {
+    const duration = 2000;
+    const openText = 'open';
+    const { getByText } = render(<button onClick={() => MessagePlugin.info(defaultMessage, duration)}>{openText}</button>);
+    expect(document.querySelector('.t-message')).toBe(null);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector('.t-message')).not.toBeNull());
+    await mockTimeout(() => expect(document.querySelector('.t-message')).toBeNull(), duration + 100);
+  });
+
+  test('传入 duration 且 onDurationEnd，倒计时结束后应该执行 onDurationEnd', async () => {
+    const duration = 2000;
+    const openText = 'open';
+    const option = {
+      content: defaultMessage,
+      onDurationEnd: () => 1
+    };
+    const spy = vi.spyOn(option, 'onDurationEnd');
+    const { getByText } = render(<button onClick={() => MessagePlugin.info(option, duration)}>{openText}</button>);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(spy).toHaveBeenCalled(), duration + 100);
+  });
+
+  test('attach 为 String，应该正确挂载指定的节点', async () => {
+    const openText = 'open';
+    const option = {
+      content: defaultMessage,
+      attach: '#testId'
+    };
+    const TestComponent = () => {
+      const handleOpen = () => MessagePlugin.info(option);
+
+      return (
+        <>
+          <div id="testId" />
+          <button onClick={handleOpen}>{openText}</button>
+        </>
+      )
+    };
+
+    const { getByText } = render(<TestComponent />);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector('#testId').querySelector('.t-message')).not.toBeNull());
+  });
+
+  test('attach 为 Function，应该正确挂载指定的节点', async () => {
+    const openText = 'open';
+    const option = {
+      content: defaultMessage,
+      attach: () => document.querySelector('#testId')
+    };
+    const TestComponent = () => {
+      const handleOpen = () => MessagePlugin.info(option);
+
+      return (
+        <>
+          <div id="testId" />
+          <button onClick={handleOpen}>{openText}</button>
+        </>
+      )
+    };
+
+    const { getByText } = render(<TestComponent />);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector('#testId').querySelector('.t-message')).not.toBeNull());
+  });
+
+  test('设置 offset，应该相对于 placement 正确偏移', async () => {
+    const openText = 'open';
+    const [offsetX, offsetY] = [-10, 20]
+    const option = {
+      content: defaultMessage,
+      offset: [offsetX, offsetY]
+    };
+    const TestComponent = () => {
+      const handleOpen = () => MessagePlugin.info(option);
+
+      return (
+        <>
+          <button onClick={handleOpen}>{openText}</button>
+        </>
+      )
+    };
+    const expectStyle = `left: ${offsetX}px; top: ${offsetY}px;`
+    const { getByText } = render(<TestComponent />);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector('.t-message')).toHaveStyle(expectStyle));
+  });
+
+  test.concurrent.each([
+    'center',
+    'top',
+    'left',
+    'right',
+    'bottom',
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right'
+  ])('不同的 placement 值，弹出消息应该出现在对应位置', async placement => {
+    const option = {
+      content: defaultMessage,
+      duration: 0,
+      placement
+    };
+    const openText = `open${placement}`;
+    const TestComponent = () => {
+      const handleOpen = () => MessagePlugin.info(option);
+
+      return (
+        <>
+          <button onClick={handleOpen}>{openText}</button>
+        </>
+      )
+    };
+
+    const { getByText } = render(<TestComponent />);
+    fireEvent.click(getByText(openText));
+    await mockTimeout(() => expect(document.querySelector(`.t-message-placement--${placement}`)).not.toBeNull());
+    await mockTimeout(() => expect(document.querySelector(`.t-message-placement--${placement}`).querySelector('.t-message')).not.toBeNull());
   });
 });
