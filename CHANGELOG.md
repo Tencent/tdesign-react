@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.3 `2023-01-11` 
+### 🚀 Features
+- `Radio`:
+    - 新增键盘事件支持，tab 键切换选项，enter 键选中 @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
+    - Radio.Group 新增 `allowUncheck`，支持取消选中（Radio. allowUncheck 本身已支持） @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
+    - `onClick` 参数由 `(e: MouseEvent)` 调整为 `({ e: MouseEvent })` @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
+
+### 🐞 Bug Fixes
+- `Radio`: 修复 Radio.Group 不支持 `name` 属性问题 @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
+- `Form`: 修复 `FormList` `add` `remove` 未触发 `onValuesChange` 事件 @honkinglin ([#1871](https://github.com/Tencent/tdesign-react/pull/1871))
+- `TreeSelect`:
+    - 修复选项文案过程样式的异常 @uyarn ([#1875](https://github.com/Tencent/tdesign-react/pull/1875))
+    - 修复 value 为 0 无法选中问题 @honkinglin ([#1869](https://github.com/Tencent/tdesign-react/pull/1869))
+- `Popup`: 修复滚动事件执行时机问题 @honkinglin ([#1870](https://github.com/Tencent/tdesign-react/pull/1870))
+
+
 ## 🌈 0.45.2 `2023-01-05` 
 ### 🚀 Features
 - `语言包`: 新增阿拉伯语的语言包 @Ylushen ([common #1097](https://github.com/Tencent/tdesign-common/pull/1097))
