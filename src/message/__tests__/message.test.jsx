@@ -73,4 +73,28 @@ describe('Message Component test', () => {
     // t-icon
     expect(container.firstChild).not.toHaveClass('t-icon');
   });
+
+  test(':style', () => {
+    const style = { backgroundColor: 'rgb(51, 51, 51)' }
+    THEME_LIST.forEach((t) => {
+      const { container } = render(<Message theme={t} style={style}>{defaultMessage}</Message>);
+      expect(container.firstChild).toHaveStyle(`background-color: ${style.backgroundColor};` );
+    });
+  });
+
+  test(':content as string, should get equal text', () => {
+    THEME_LIST.forEach((t) => {
+      const { container } = render(<Message theme={t} content={defaultMessage} />);
+      expect(container.firstChild).toHaveTextContent(defaultMessage);
+    });
+  });
+
+  test(':content as ReactNode', () => {
+    const ReactNode = <p className="wrapper">{defaultMessage}</p>
+    THEME_LIST.forEach((t) => {
+      const { container } = render(<Message theme={t} content={ReactNode} />);
+      expect(container.querySelector('.wrapper')).not.toBe(null);
+      expect(container.querySelector('.wrapper')).toHaveTextContent(defaultMessage);
+    });
+  });
 });
