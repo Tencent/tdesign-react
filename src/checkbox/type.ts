@@ -5,7 +5,7 @@
  * */
 
 import { TNode } from '../common';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, MouseEvent } from 'react';
 
 export interface TdCheckboxProps {
   /**
@@ -53,11 +53,15 @@ export interface TdCheckboxProps {
   /**
    * 多选框的值
    */
-  value?: string | number;
+  value?: string | number | boolean;
   /**
    * 值变化时触发
    */
   onChange?: (checked: boolean, context: { e: ChangeEvent<HTMLInputElement> }) => void;
+  /**
+   * 点击时出发，一般用于外层阻止冒泡场景
+   */
+  onClick?: (context: { e: MouseEvent<HTMLLabelElement> }) => void;
 }
 
 export interface TdCheckboxGroupProps {

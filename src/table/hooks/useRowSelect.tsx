@@ -124,7 +124,8 @@ export default function useRowSelect(
       },
     };
     // 选中行功能中，点击 checkbox/radio 需阻止事件冒泡，避免触发不必要的 onRowClick
-    const onCheckClick = (e: MouseEvent<HTMLLabelElement>) => {
+    const onCheckClick = (p: { e: MouseEvent<HTMLLabelElement> } | MouseEvent<HTMLLabelElement>) => {
+      const e = 'e' in p ? p.e : p;
       e?.stopPropagation();
     };
     if (column.type === 'single') return <Radio {...selectBoxProps} onClick={onCheckClick} />;

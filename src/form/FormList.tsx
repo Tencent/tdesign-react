@@ -11,10 +11,10 @@ import log from '../_common/js/log';
 let key = 0;
 
 const FormList = (props: TdFormListProps) => {
-  const { formMapRef, form } = useFormContext();
+  const { formMapRef, form, onFormItemValueChange } = useFormContext();
   const { name, initialData = [], rules, children } = props;
 
-  const [initialValue, setInitialValue] = useState(initialData);
+  const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(
     initialData.map((data, index) => ({
       key: (key += 1),
@@ -43,11 +43,13 @@ const FormList = (props: TdFormListProps) => {
       cloneFields.forEach((field, index) => Object.assign(field, { name: index }));
       setFields(cloneFields);
 
+      const nextFormListValue = [...formListValue];
       if (typeof defaultValue !== 'undefined') {
-        const nextInitialValue = [...initialValue];
-        nextInitialValue[index] = defaultValue;
-        setInitialValue(nextInitialValue);
+        nextFormListValue[index] = defaultValue;
+        setFormListValue(nextFormListValue);
       }
+      const fieldValue = calcFieldValue(name, nextFormListValue);
+      onFormItemValueChange?.({ ...fieldValue });
     },
     remove(index: number | number[]) {
       const nextFields = fields
@@ -56,9 +58,13 @@ const FormList = (props: TdFormListProps) => {
           return item.name !== index;
         })
         .map((field, i) => ({ ...field, name: i }));
-
-      setInitialValue(initialValue.filter((_, idx) => idx !== index));
       setFields(nextFields);
+
+      const nextFormListValue = formListValue.filter((_, idx) => idx !== index);
+      setFormListValue(nextFormListValue);
+
+      const fieldValue = calcFieldValue(name, nextFormListValue);
+      onFormItemValueChange?.({ ...fieldValue });
     },
     move(from: number, to: number) {
       const cloneFields = [...fields];
@@ -101,10 +107,10 @@ const FormList = (props: TdFormListProps) => {
       const { name, isUpdated } = formItemRef.current;
       if (isUpdated) return; // 内部更新过值则跳过
 
-      const data = get(initialValue, name);
+      const data = get(formListValue, name);
       formItemRef.current.setField({ value: data, status: 'not' });
     });
-  }, [initialValue]);
+  }, [formListValue]);
 
   useEffect(() => {
     // fields 变化通知 watch 事件
@@ -199,7 +205,7 @@ const FormList = (props: TdFormListProps) => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {
           formItemRef?.current?.resetField?.();
         });
-        setInitialValue([]);
+        setFormListValue([]);
       },
       setValidateMessage: (fieldData) => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {
