@@ -10,7 +10,7 @@ spline: explain
 - `Radio`:
     - 新增键盘事件支持，tab 键切换选项，enter 键选中 @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
     - Radio.Group 新增 `allowUncheck`，支持取消选中（Radio. allowUncheck 本身已支持） @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
-    - `onClick` 参数由 `(e: MouseEvent)` 调整为 `({ e: MouseEvent })` @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
+    - `onClick` 参数由 `(e: MouseEvent)` 调整为 `({'\u007B'} e: MouseEvent {'\u007d'})` @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
 
 ### 🐞 Bug Fixes
 - `Radio`: 修复 Radio.Group 不支持 `name` 属性问题 @chaishi ([#1865](https://github.com/Tencent/tdesign-react/pull/1865))
