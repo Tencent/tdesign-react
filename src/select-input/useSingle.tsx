@@ -6,7 +6,7 @@ import { SelectInputCommonProperties } from './interface';
 import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
 export interface RenderSelectSingleInputParams {
@@ -77,7 +77,7 @@ export default function useSingle(props: TdSelectInputProps) {
         {...commonInputProps}
         autoWidth={props.autoWidth}
         placeholder={singleValueDisplay ? '' : props.placeholder}
-        value={singleValueDisplay ? undefined : displayedValue}
+        value={singleValueDisplay ? ' ' : displayedValue}
         label={
           <>
             {props.label}
@@ -100,6 +100,7 @@ export default function useSingle(props: TdSelectInputProps) {
         {...props.inputProps}
         inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
+          [`${classPrefix}-is-focused`]: popupVisible,
         })}
       />
     );

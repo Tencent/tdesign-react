@@ -1,18 +1,18 @@
-import React, { Ref, forwardRef, useContext, MouseEventHandler } from 'react';
+import React, { Ref, forwardRef, useContext, MouseEvent } from 'react';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
 import { StyledProps } from '../common';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { TdCheckboxProps } from '../checkbox/type';
 
-export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps {
+export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
-  value?: string | number | boolean;
+  title?: string;
   children?: React.ReactNode;
-  onClick?: MouseEventHandler<HTMLLabelElement>;
+  stopLabelTrigger?: Boolean;
 }
 
 /**
@@ -45,6 +45,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     className,
     style,
     readonly,
+    onClick,
     ...htmlProps
   } = props;
 
@@ -59,7 +60,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
 
-  const labelClassName = classNames(className, `${classPrefix}-${type}`, {
+  const labelClassName = classNames(`${classPrefix}-${type}`, className, {
     [`${classPrefix}-is-checked`]: internalChecked,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-indeterminate`]: indeterminate,
@@ -73,24 +74,48 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       checked={internalChecked}
       disabled={disabled}
       name={name}
+      tabIndex={-1}
       value={isBoolean(value) ? Number(value) : value}
+      data-value={typeof value === 'string' ? `'${value}'` : value}
+      data-allow-uncheck={allowUncheck || undefined}
       onClick={(e) => {
         e.stopPropagation();
-        if ((type === 'radio-button' || type === 'radio') && allowUncheck) {
+        if ((type === 'radio-button' || type === 'radio') && allowUncheck && internalChecked) {
           setInternalChecked(!e.currentTarget.checked, { e });
         }
       }}
       onChange={(e) => setInternalChecked(e.currentTarget.checked, { e })}
     />
   );
+  // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
+  const showLabel = !!(children || label);
+
+  const handleLabelClick = (event) => {
+    // 在tree等组件中使用  阻止label触发checked 与expand冲突
+    if (props.stopLabelTrigger) event.preventDefault();
+  };
+
+  const onInnerClick = (e: MouseEvent<HTMLLabelElement>) => {
+    onClick?.({ e });
+  };
 
   return (
-    <label ref={ref} className={labelClassName} style={style} {...omit(htmlProps, ['checkAll'])}>
+    <label
+      ref={ref}
+      tabIndex={disabled ? undefined : 0}
+      className={labelClassName}
+      title={props.title}
+      style={style}
+      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger'])}
+      onClick={onInnerClick}
+    >
       {input}
       <span className={`${classPrefix}-${type}__input`} />
-      <span key="label" className={`${classPrefix}-${type}__label`}>
-        {children || label}
-      </span>
+      {showLabel && (
+        <span key="label" className={`${classPrefix}-${type}__label`} onClick={handleLabelClick}>
+          {children || label}
+        </span>
+      )}
     </label>
   );
 });

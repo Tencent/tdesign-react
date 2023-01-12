@@ -1,11 +1,12 @@
-import React, { useState, useMemo, forwardRef } from 'react';
+import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import Select from '../select';
 import InputNumber from '../input-number';
+import InputAdornment from '../input-adornment';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import useBoundaryJumper from './hooks/useBoundaryJumper';
@@ -34,6 +35,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     showPreviousAndNextBtn,
     showFirstAndLastPageBtn,
     showJumper,
+    pageEllipsisMode,
     disabled,
     foldedMaxPageBtn,
     maxPageBtn,
@@ -44,6 +46,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     onPageSizeChange,
     style,
     className,
+    selectProps,
     ...otherProps
   } = props;
   // 原生 html 属性透传
@@ -66,7 +69,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
 
   // 处理改变当前页的逻辑
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
-    if (disabled) return;
+    if (disabled || current === _nextCurrent) return;
 
     let nextCurrent = _nextCurrent;
     let nextPageSize = _nextPageSize;
@@ -81,7 +84,6 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     if (nextCurrent > pageCount) nextCurrent = pageCount;
 
     setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
-    setJumpValue(nextCurrent);
 
     onChange({
       current: nextCurrent,
@@ -90,7 +92,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     });
   };
 
-  // 处理改变pageSize的逻辑
+  // 处理改变 pageSize 的逻辑
   const changePageSize = (nextPageSize: number) => {
     const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
     const pageInfo = {
@@ -100,23 +102,12 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     };
     setPageSize(nextPageSize, pageInfo);
 
-    // 改变分页大小也需要触发onChange回调 如果改变分页大小会改变currentPage 则由changeCurrent内去触发onChange 否则需要自己触发
+    // 改变分页大小也需要触发 onChange 回调 如果改变分页大小会改变 currentPage 则由 changeCurrent 内去触发 onChange 否则需要自己触发
     if (current !== nextCurrent) {
       changeCurrent(nextCurrent, nextPageSize);
     } else {
       onChange(pageInfo);
     }
-  };
-
-  // 处理极简版的当前页ga的逻辑
-  const onSimpleCurrentChange = (nextCurrent: number) => {
-    if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
-    setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize });
-    onChange({
-      current: nextCurrent,
-      previous: current,
-      pageSize,
-    });
   };
 
   const { totalContrl } = useTotal({ totalContent, pageSize, current, total });
@@ -145,12 +136,24 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     pageCount,
     foldedMaxPageBtn,
     changeCurrent,
+    pageEllipsisMode,
   });
+
+  useEffect(() => {
+    setJumpValue(current);
+  }, [current]);
 
   const pageSizeContrl =
     showPageSize && pageSizeOptions.length ? (
       <div className={`${name}__select`}>
-        <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+        <Select
+          autoWidth={true}
+          size={size}
+          value={pageSize}
+          disabled={disabled}
+          onChange={changePageSize}
+          {...selectProps}
+        >
           {pageSizeOptions.map((item) =>
             typeof item === 'number' ? (
               <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
@@ -162,38 +165,24 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
       </div>
     ) : null;
 
-  const simplePageNumberContrl = theme === 'simple' && showPageNumber && (
-    <div className={`${name}__select`}>
-      <Select autoWidth={true} size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
-        {Array(pageCount)
-          .fill(0)
-          .map((_, i) => i + 1)
-          .map((item) => (
-            <Option key={item} label={`${item}/${pageCount}`} value={item}>
-              {item}/{pageCount}
-            </Option>
-          ))}
-      </Select>
-    </div>
-  );
-
-  const Jumper = showJumper && (
+  const Jumper = (
     <div className={`${name}__jump`}>
       {t(locale.jumpTo)}
-      <InputNumber
-        className={`${classPrefix}-pagination__input`}
-        min={min}
-        size={size}
-        theme="normal"
-        max={pageCount}
-        disabled={disabled}
-        value={jumpValue}
-        onChange={(val) => setJumpValue(val)}
-        onBlur={(val) => changeCurrent(val)}
-        onEnter={(val) => changeCurrent(val)}
-        placeholder=""
-      />
-      {t(locale.page)}
+      <InputAdornment append={`/ ${pageCount} ${t(locale.page)}`}>
+        <InputNumber
+          className={`${classPrefix}-pagination__input`}
+          min={min}
+          size={size}
+          theme="normal"
+          max={pageCount}
+          disabled={disabled}
+          value={jumpValue}
+          onChange={(val: number) => setJumpValue(val)}
+          onBlur={(val: number) => changeCurrent(val)}
+          onEnter={(val: number) => changeCurrent(val)}
+          placeholder=""
+        />
+      </InputAdornment>
     </div>
   );
 
@@ -218,13 +207,13 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
       {/* 常规版 */}
       {theme === 'default' && pageNumberContrl}
       {/* 极简版 */}
-      {theme === 'simple' && simplePageNumberContrl}
+      {theme === 'simple' && Jumper}
       {/* 下一页跳转 */}
       {nextJumper}
       {/* 尾页跳转 */}
       {lastPageJumper}
       {/* 快速跳转 */}
-      {Jumper}
+      {theme === 'default' && showJumper && Jumper}
     </div>
   );
 });

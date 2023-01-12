@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 import { TdDatePickerProps, TdDateRangePickerProps, DateValue } from '../type';
 
 interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presetsPlacement'> {
@@ -38,7 +38,12 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
         <div className={`${classPrefix}-date-picker__presets`}>
           {presets &&
             Object.keys(presets).map((key: string) => (
-              <Button key={key} size="small" variant="text" onClick={(e) => onPresetClick(presets[key], { e })}>
+              <Button
+                key={key}
+                size="small"
+                variant="text"
+                onClick={(e) => onPresetClick(presets[key], { e, preset: { [key]: presets[key] } })}
+              >
                 {key}
               </Button>
             ))}

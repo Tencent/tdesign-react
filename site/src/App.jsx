@@ -40,16 +40,10 @@ function Components() {
   const tdHeaderRef = useRef();
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
+  const tdSelectRef = useRef();
   const tdDocSearch = useRef();
 
-  const [versionOptions, setVersionOptions] = useState([]);
   const [version] = useState(currentVersion);
-
-  function changeVersion(version) {
-    if (version === currentVersion) return;
-    const historyUrl = `//${version}-tdesign-react.surge.sh`;
-    window.open(historyUrl, '_blank');
-  }
 
   function initHistoryVersions() {
     fetch(registryUrl)
@@ -64,7 +58,7 @@ function Components() {
 
           options.unshift({ label: v, value: v.replace(/\./g, '_') });
         });
-        setVersionOptions(options);
+        tdSelectRef.current.options = options;
       });
   }
 
@@ -85,6 +79,15 @@ function Components() {
       });
     };
 
+    tdSelectRef.current.onchange = ({ detail }) => {
+      const { value: version } = detail;
+      if (version === currentVersion) return;
+
+      const historyUrl = `https://${version}-tdesign-react.surge.sh`;
+      window.open(historyUrl, '_blank');
+      tdSelectRef.current.value = currentVersion;
+    };
+
     initHistoryVersions();
   }, []);
 
@@ -93,17 +96,13 @@ function Components() {
   }, [location]);
 
   return (
-    <ConfigProvider /* globalConfig={{ locale, animation: { exclude: ['ripple'] }}} */>
+    <ConfigProvider /* globalConfig={{ animation: { exclude: ['ripple'] }}} */>
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
-          {versionOptions.length ? (
-            <div slot="extra">
-              <Select popupProps={{ zIndex: 800 }} value={version} options={versionOptions} onChange={changeVersion} />
-            </div>
-          ) : null}
+          <td-select ref={tdSelectRef} value={version} slot="extra"></td-select>
         </td-doc-aside>
 
         <td-doc-content ref={tdDocContentRef}>
@@ -111,6 +110,7 @@ function Components() {
           <td-doc-footer slot="doc-footer"></td-doc-footer>
         </td-doc-content>
       </td-doc-layout>
+      <td-theme-generator />
     </ConfigProvider>
   );
 }

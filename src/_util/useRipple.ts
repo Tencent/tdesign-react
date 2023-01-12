@@ -1,5 +1,5 @@
-import { useEffect, useCallback, RefObject, useMemo } from 'react';
-import useConfig from './useConfig';
+import { useEffect, useCallback, useMemo } from 'react';
+import useConfig from '../hooks/useConfig';
 import useAnimation from './useAnimation';
 import setStyle from './setStyle';
 import { canUseDocument } from './dom';
@@ -28,19 +28,17 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
 };
 
 /**
- * 斜八角动画hooks 支持三种方式使用
+ * 斜八角动画 hooks 支持三种方式使用
  * 1. fixedRippleColor 固定色值 useRipple(ref,fixedRippleColor);
  * 2. dynamicColor 动态色值 data.ripple="rippleColor" useRipple(ref)
- * 3. CSS variables（recommended） 配合节点对应CSS设置 --ripple-color useRipple(ref)
- * @param ref 需要使用斜八角动画的DOM
+ * 3. CSS variables（recommended） 配合节点对应 CSS 设置 --ripple-color useRipple(ref)
+ * @param dom 需要使用斜八角动画的 DOM
  * @param fixedRippleColor 斜八角的动画颜色
  */
-export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?: string): void {
+export default function useRipple(el: HTMLElement, fixedRippleColor?: string): void {
   const { classPrefix } = useConfig();
-
   // 全局配置
   const { keepRipple } = useAnimation();
-
   const rippleContainer = useMemo(() => {
     if (!canUseDocument) return null;
     const container = document.createElement('div');
@@ -52,15 +50,14 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = useCallback(
     (e) => {
-      const el = ref?.current;
       const rippleColor = getRippleColor(el, fixedRippleColor);
-
       if (e.button !== 0 || !el || !keepRipple) return;
 
       if (
         el.classList.contains(`${classPrefix}-is-active`) ||
         el.classList.contains(`${classPrefix}-is-disabled`) ||
-        el.classList.contains(`${classPrefix}-is-checked`)
+        el.classList.contains(`${classPrefix}-is-checked`) ||
+        el.classList.contains(`${classPrefix}-is-loading`)
       )
         return;
 
@@ -84,7 +81,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
         });
         el.appendChild(rippleContainer);
       }
-      // 新增一个ripple
+      // 新增一个 ripple
       const ripple = document.createElement('div');
 
       ripple.className = `${classPrefix}-ripple__inner`;
@@ -127,7 +124,6 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       }, 0);
       // 清除动画节点 clear ripple container
       const handleClearRipple = () => {
-        const el = ref?.current;
         ripple.style.backgroundColor = noneRippleBg;
 
         if (!el) return;
@@ -140,20 +136,19 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
           if (rippleContainer.children.length === 0) rippleContainer.remove();
         }, period * 2 + 100);
       };
+
       el.addEventListener('pointerup', handleClearRipple, false);
       el.addEventListener('pointerleave', handleClearRipple, false);
     },
-    [classPrefix, ref, fixedRippleColor, rippleContainer, keepRipple],
+    [classPrefix, el, fixedRippleColor, rippleContainer, keepRipple],
   );
 
   useEffect(() => {
-    const el = ref?.current;
     if (!el) return;
-
     el.addEventListener('pointerdown', handleAddRipple, false);
 
     return () => {
       el.removeEventListener('pointerdown', handleAddRipple, false);
     };
-  }, [handleAddRipple, fixedRippleColor, ref]);
+  }, [handleAddRipple, fixedRippleColor, el]);
 }

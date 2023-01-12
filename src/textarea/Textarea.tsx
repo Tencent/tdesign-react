@@ -1,15 +1,21 @@
 import React, { forwardRef, useState, useEffect, useMemo, useRef, useCallback, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
-import { getCharacterLength } from '../_util/helper';
+import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 import { textareaDefaultProps } from './defaultProps';
 
-export interface TextareaProps extends TdTextareaProps, StyledProps {}
+export interface TextareaProps
+  extends Omit<
+      React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+      'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus'
+    >,
+    TdTextareaProps,
+    StyledProps {}
 export interface TextareaRefInterface extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
@@ -30,21 +36,24 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     autosize,
     status,
     tips,
+    allowInputOverMax,
     ...otherProps
   } = props;
 
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
   const [isFocused, setIsFocused] = useState(false);
+  const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState({});
+  const composingRef = useRef(false);
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
   const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
-  const currentLength = useMemo(() => (value ? String(value).length : 0), [value]);
+  const currentLength = useMemo(() => getUnicodeLength(value), [value]);
   const characterLength = useMemo(() => {
-    const characterInfo = getCharacterLength(String(value), maxcharacter);
+    const characterInfo = getCharacterLength(String(value), allowInputOverMax ? Infinity : maxcharacter);
     if (typeof characterInfo === 'object') return characterInfo.length;
     return characterInfo;
-  }, [value, maxcharacter]);
+  }, [value, allowInputOverMax, maxcharacter]);
 
   const { classPrefix } = useConfig();
 
@@ -66,7 +75,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     return eventProps;
   }, {});
 
-  const textareaClassNames = classNames(className, `${classPrefix}-textarea__inner`, {
+  const textareaClassNames = classNames(`${classPrefix}-textarea__inner`, className, {
     [`${classPrefix}-is-${status}`]: status,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
@@ -81,15 +90,45 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     }
   }, [autosize]);
 
+  useEffect(() => {
+    adjustTextareaHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textareaRef?.current]);
+
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
-    if (maxcharacter && maxcharacter >= 0) {
-      const stringInfo = getCharacterLength(val, maxcharacter);
-      val = typeof stringInfo === 'object' && stringInfo.characters;
+    if (!allowInputOverMax && !composingRef.current) {
+      val = limitUnicodeMaxLength(val, maxlength);
+      if (maxcharacter && maxcharacter >= 0) {
+        const stringInfo = getCharacterLength(val, maxcharacter);
+        val = typeof stringInfo === 'object' && stringInfo.characters;
+      }
     }
     setValue(val, { e });
   }
+
+  function handleCompositionStart() {
+    composingRef.current = true;
+  }
+
+  function handleCompositionEnd(e) {
+    if (composingRef.current) {
+      composingRef.current = false;
+      inputValueChangeHandle(e);
+    }
+  }
+
+  const renderLimitText = (current: number, max: number) => (
+    <span className={`${classPrefix}-textarea__limit`}>
+      {isOvermax && allowInputOverMax ? (
+        <span className={`${classPrefix}-textarea__tips--warning`}> {current}</span>
+      ) : (
+        `${current}`
+      )}
+      {`/${max}`}
+    </span>
+  );
 
   useEffect(() => {
     // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
@@ -102,13 +141,19 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     adjustTextareaHeight();
   }, [adjustTextareaHeight, value]);
 
+  useEffect(() => {
+    if (allowInputOverMax) {
+      setIsOvermax(!!(maxlength && currentLength > maxlength) || !!(maxcharacter && characterLength > maxcharacter));
+    }
+  }, [allowInputOverMax, characterLength, currentLength, maxcharacter, maxlength]);
+
   useImperativeHandle(ref as TextareaRefInterface, () => ({
     currentElement: wrapperRef.current,
     textareaElement: textareaRef.current,
   }));
 
   return (
-    <div style={style} ref={wrapperRef} className={classNames(className, `${classPrefix}-textarea`)}>
+    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
       <textarea
         {...textareaProps}
         {...eventProps}
@@ -118,19 +163,16 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         readOnly={readonly}
         autoFocus={autofocus}
         disabled={disabled}
-        maxLength={maxlength}
         onChange={inputValueChangeHandle}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
-      {hasMaxcharacter ? (
-        <span className={`${classPrefix}-textarea__limit`}>{`${characterLength}/${maxcharacter}`}</span>
-      ) : null}
-      {!hasMaxcharacter && maxlength ? (
-        <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span>
-      ) : null}
+      {hasMaxcharacter && renderLimitText(characterLength, maxcharacter)}
+      {!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength)}
       {tips ? (
         <div
           className={classNames(`${classPrefix}-textarea__tips`, {

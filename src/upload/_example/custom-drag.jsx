@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload } from 'tdesign-react';
+import { Button, message, Upload, Space } from 'tdesign-react';
 import { CloudUploadIcon } from 'tdesign-icons-react';
 
 export default function CustomDrag() {
@@ -33,9 +33,9 @@ export default function CustomDrag() {
 
       function renderFiles(files) {
         return (
-          <ul>
+          <ul style={{ padding: '0' }}>
             {files.map((file) => (
-              <li key={file.name}>{file.name}</li>
+              <li key={file.name} style={{ listStyleType: 'none' }}>{file.name}</li>
             ))}
           </ul>
         );
@@ -45,7 +45,7 @@ export default function CustomDrag() {
         <>
           {files?.length ? renderFiles(files) : renderCustomDrag()}
           {files?.length > 0 && (
-            <Button variant="base" style={{ marginTop: '36px' }}>
+            <Button variant="base" style={{ marginTop: '16px' }}>
               更换文件
             </Button>
           )}
@@ -57,26 +57,23 @@ export default function CustomDrag() {
     [files, progress],
   );
   return (
-    <div className="tdesign-demo-upload t-upload">
-      <Button variant="outline" onClick={upload}>
-        <CloudUploadIcon />
+    <Space direction="vertical">
+      <Button variant="outline" icon={<CloudUploadIcon />} onClick={upload}>
         点击上传
       </Button>
-      <br />
-      <br />
       <Upload
         ref={uploadDom}
         files={files}
         action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
         draggable
         theme="custom"
-        customDraggerRender={customDraggerRender}
+        dragContent={customDraggerRender}
         onChange={handleChange}
         onTrigger={handleChange}
         onFail={handleFail}
         onSuccess={handleSuccess}
         onProgress={onProgress}
       />
-    </div>
+    </Space>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, isValidElement } from 'react';
 import classnames from 'classnames';
-import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import { ChevronLeftIcon as TdChevronLeftIcon, ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
 import { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
 import { StyledProps } from '../common';
@@ -56,6 +57,10 @@ const Swiper = (props: SwiperProps) => {
     type,
   } = props;
   const { classPrefix } = useConfig();
+  const { ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
 
   let navigationConfig = defaultNavigation;
   let navigationNode = null;
@@ -72,6 +77,7 @@ const Swiper = (props: SwiperProps) => {
   const swiperAnimationTimer = useRef(null); // 计时器指针
   const isHovering = useRef(false);
   const swiperWrap = useRef(null);
+  const preCurrent = useRef(defaultCurrent - 0);
 
   const getWrapAttribute = (attr) => swiperWrap.current?.parentNode?.[attr];
 
@@ -112,11 +118,13 @@ const Swiper = (props: SwiperProps) => {
     (index: number, context: { source: SwiperChangeSource }) => {
       // 事件通知
       onChange(index % childrenLength, context);
-      // 设置内部 index
-      setNeedAnimation(true);
-      setCurrentIndex(index);
+      if (index !== currentIndex) {
+        // 设置内部 index
+        setNeedAnimation(true);
+        setCurrentIndex(index);
+      }
     },
-    [childrenLength, onChange],
+    [childrenLength, currentIndex, onChange],
   );
 
   // 定时器
@@ -148,9 +156,16 @@ const Swiper = (props: SwiperProps) => {
   // 监听 current 参数变化
   useEffect(() => {
     if (current !== undefined) {
-      swiperTo(current % childrenLength, { source: 'autoplay' });
+      const nextCurrent = current % childrenLength;
+      if (nextCurrent === 0 && preCurrent.current === childrenLength - 1) {
+        swiperTo(childrenLength, { source: 'autoplay' });
+      } else {
+        swiperTo(nextCurrent, { source: 'autoplay' });
+      }
+      preCurrent.current = nextCurrent;
     }
-  }, [current, childrenLength, swiperTo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, childrenLength]);
 
   // 监听每次轮播结束
   useEffect(() => {

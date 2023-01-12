@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { upperCase } from 'lodash';
+import upperCase from 'lodash/upperCase';
 import Select from '../../../../select';
 import FormatInput from './inputs';
 import Color from '../../../../_common/js/color-picker/color';
@@ -28,11 +28,12 @@ const FormatPanel = (props: TdColorFormatProps) => {
     <div className={`${baseClassName}__format`}>
       <div className={`${baseClassName}__format--item`}>
         <Select
-          size="medium"
+          size="small"
           className={`${baseClassName}__format-mode-select`}
           popupProps={{
             overlayClassName: `${baseClassName}__select-options`,
           }}
+          autoWidth
           value={formatMode}
           onChange={handleModeChange}
         >

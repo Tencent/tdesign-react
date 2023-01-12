@@ -1,9 +1,6 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
+import { render, fireEvent, vi } from '@test/utils';
 import Switch from '../Switch';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Switch 组件测试', () => {
   test('create', async () => {
@@ -18,10 +15,6 @@ describe('Switch 组件测试', () => {
     const { queryByText } = render(<Switch value={false} label={({ value }) => (value ? '开' : '关')} />);
     expect(queryByText('关')).toBeInTheDocument();
   });
-  test('customValue', async () => {
-    const thrown = () => render(<Switch value={true} customValue={[1, 2]} />);
-    expect(thrown).toThrow();
-  });
   test('loading', async () => {
     const { container } = render(<Switch loading />);
     expect(container.firstChild.classList.contains('t-is-loading')).toBeTruthy();
@@ -32,14 +25,14 @@ describe('Switch 组件测试', () => {
   });
 
   test('disabled', async () => {
-    const clickFn = jest.fn();
+    const clickFn = vi.fn();
     const { container } = render(<Switch disabled />);
     expect(container.firstChild).toBeDisabled();
     fireEvent.click(container.firstChild);
     expect(clickFn).toBeCalledTimes(0);
   });
   test('onChange', async () => {
-    const clickFn = jest.fn();
+    const clickFn = vi.fn();
     const { container } = render(<Switch onChange={clickFn} />);
     fireEvent.click(container.firstChild);
     expect(clickFn).toBeCalledTimes(1);

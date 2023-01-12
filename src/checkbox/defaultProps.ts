@@ -13,7 +13,6 @@ export const checkboxDefaultProps: TdCheckboxProps = {
 };
 
 export const checkboxGroupDefaultProps: TdCheckboxGroupProps = {
-  disabled: false,
   max: undefined,
   defaultValue: [],
 };

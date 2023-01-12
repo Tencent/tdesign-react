@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button } from 'tdesign-react';
+import { Drawer, Radio, Button, Space } from 'tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);
-  const [size, setSzie] = useState('small');
+  const [size, setSize] = useState('small');
 
   const handleClick = () => {
     setVisible(true);
@@ -12,8 +12,8 @@ export default function () {
     setVisible(false);
   };
   return (
-    <div className="tdesign-demo-block-column">
-      <Radio.Group value={size} onChange={(value) => setSzie(value)}>
+    <Space>
+      <Radio.Group value={size} onChange={(value) => setSize(value)}>
         <Radio.Button value="small">small(300px)</Radio.Button>
         <Radio.Button value="medium">medium(500px)</Radio.Button>
         <Radio.Button value="large">large(760px)</Radio.Button>
@@ -29,6 +29,6 @@ export default function () {
       <Drawer size={size} title="Drawer" placement="right" visible={visible} onClose={handleClose}>
         <p>抽屉的内容</p>
       </Drawer>
-    </div>
+    </Space>
   );
 }

@@ -37,18 +37,17 @@ export default function Example() {
   const [value, setValue] = useState('');
 
   return (
-    <div style={{ width: 300 }}>
-      <TreeSelect
-        data={options}
-        clearable
-        placeholder="请输入"
-        value={value}
-        prefixIcon={<UserIcon />}
-        onChange={(val) => {
-          setValue(val);
-          console.log(val);
-        }}
-      />
-    </div>
+    <TreeSelect
+      data={options}
+      clearable
+      placeholder="请输入"
+      value={value}
+      prefixIcon={<UserIcon />}
+      onChange={(val) => {
+        setValue(val);
+        console.log(val);
+      }}
+      style={{ width: 300 }}
+    />
   );
 }

@@ -3,7 +3,7 @@ import isString from 'lodash/isString';
 import { easeInOutCubic, EasingFunction } from './easing';
 import { ScrollContainer, ScrollContainerElement } from '../common';
 
-// 用于判断是否可使用dom
+// 用于判断是否可使用 dom
 export const canUseDocument = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
@@ -38,7 +38,7 @@ export const off = ((): any => {
   };
 })();
 
-function hasClass(el: Element, cls: string) {
+export function hasClass(el: Element, cls: string) {
   if (!el || !cls) return false;
   if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
   if (el.classList) {
@@ -91,7 +91,7 @@ export const removeClass = function (el: Element, cls: string) {
 
 /**
  * 获取滚动容器
- * 因为document不存在scroll等属性, 因此排除document
+ * 因为 document 不存在 scroll 等属性, 因此排除 document
  * window | HTMLElement
  * @param {ScrollContainerElement} [container='body']
  * @returns {ScrollContainer}
@@ -103,11 +103,11 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
   if (typeof container === 'function') {
     return container();
   }
-  return container;
+  return container || window;
 };
 
 /**
- * 返回是否window对象
+ * 返回是否 window 对象
  *
  * @export
  * @param {any} obj
@@ -124,11 +124,11 @@ type ScrollTarget = HTMLElement | Window | Document;
  *
  * @export
  * @param {ScrollTarget} target
- * @param {boolean} isLeft true为获取scrollLeft, false为获取scrollTop
+ * @param {boolean} isLeft true 为获取 scrollLeft, false 为获取 scrollTop
  * @returns {number}
  */
 export function getScroll(target: ScrollTarget, isLeft?: boolean): number {
-  // node环境或者target为空
+  // node 环境或者 target 为空
   if (typeof window === 'undefined' || !target) {
     return 0;
   }
@@ -168,8 +168,8 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
       if (time < duration) {
         raf(fnc);
       } else {
-        // 由于上面步骤设置了scrollTop, 滚动事件可能未触发完毕
-        // 此时应该在下一帧再执行res
+        // 由于上面步骤设置了 scrollTop, 滚动事件可能未触发完毕
+        // 此时应该在下一帧再执行 res
         raf(res);
       }
     };
@@ -208,3 +208,88 @@ export const getCssVarsValue = (name: string, element?: HTMLElement) => {
   const el = element || document.documentElement;
   return getComputedStyle(el).getPropertyValue(name);
 };
+
+/**
+ * 检查元素是否在父元素视图
+ * http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+ * @param elm 元素
+ * @param parent
+ * @returns boolean
+ */
+export function elementInViewport(elm: HTMLElement, parent?: HTMLElement): boolean {
+  const rect = elm.getBoundingClientRect();
+  if (parent) {
+    const parentRect = parent.getBoundingClientRect();
+    return (
+      rect.top >= parentRect.top &&
+      rect.left >= parentRect.left &&
+      rect.bottom <= parentRect.bottom &&
+      rect.right <= parentRect.right
+    );
+  }
+  return rect.top >= 0 && rect.left >= 0 && rect.bottom + 80 <= window.innerHeight && rect.right <= window.innerWidth;
+}
+
+/**
+ * 获取元素某个 css 对应的值
+ * @param element 元素
+ * @param propName css 名
+ * @returns string
+ */
+export function getElmCssPropValue(element: HTMLElement, propName: string): string {
+  let propValue = '';
+
+  if (document.defaultView && document.defaultView.getComputedStyle) {
+    propValue = document.defaultView.getComputedStyle(element, null).getPropertyValue(propName);
+  }
+
+  if (propValue && propValue.toLowerCase) {
+    return propValue.toLowerCase();
+  }
+
+  return propValue;
+}
+
+/**
+ * 判断元素是否处在 position fixed 中
+ * @param element 元素
+ * @returns boolean
+ */
+export function isFixed(element: HTMLElement): boolean {
+  const p = element.parentNode as HTMLElement;
+
+  if (!p || p.nodeName === 'HTML') {
+    return false;
+  }
+
+  if (getElmCssPropValue(element, 'position') === 'fixed') {
+    return true;
+  }
+
+  return isFixed(p);
+}
+
+/**
+ * 获取当前视图滑动的距离
+ * @returns { scrollTop: number, scrollLeft: number }
+ */
+export function getWindowScroll(): { scrollTop: number; scrollLeft: number } {
+  const { body } = document;
+  const docElm = document.documentElement;
+  const scrollTop = window.pageYOffset || docElm.scrollTop || body.scrollTop;
+  const scrollLeft = window.pageXOffset || docElm.scrollLeft || body.scrollLeft;
+
+  return { scrollTop, scrollLeft };
+}
+
+/**
+ * 获取当前视图的大小
+ * @returns { width: number, height: number }
+ */
+export function getWindowSize(): { width: number; height: number } {
+  if (window.innerWidth !== undefined) {
+    return { width: window.innerWidth, height: window.innerHeight };
+  }
+  const doc = document.documentElement;
+  return { width: doc.clientWidth, height: doc.clientHeight };
+}

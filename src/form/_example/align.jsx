@@ -1,14 +1,13 @@
-// @ts-nocheck
 import React, { useState } from 'react';
-import { Form, Radio, Input } from 'tdesign-react';
+import { Form, Radio, Input, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
 
 export default function AlignForm() {
   const [labelAlign, setLabelAlign] = useState('right');
   return (
-    <div className="tdesign-demo-block-column">
-      <Radio.Group value={labelAlign} onChange={(value) => setLabelAlign(value)}>
+    <Space direction="vertical">
+      <Radio.Group value={labelAlign} onChange={(value) => setLabelAlign(value)} variant="default-filled">
         <Radio.Button value="left">左对齐</Radio.Button>
         <Radio.Button value="right">右对齐</Radio.Button>
         <Radio.Button value="top">顶部对齐</Radio.Button>
@@ -21,6 +20,6 @@ export default function AlignForm() {
           <Input />
         </FormItem>
       </Form>
-    </div>
+    </Space>
   );
 }

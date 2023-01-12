@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, MessagePlugin } from 'tdesign-react';
+import React from 'react';
+import { Button, MessagePlugin, Space } from 'tdesign-react';
 
 let message = null;
 
@@ -7,7 +7,7 @@ export default function () {
   const list = [];
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Button
         onClick={() => {
           message = MessagePlugin.info('I am duration 20s Message', 20 * 1000);
@@ -33,6 +33,6 @@ export default function () {
       >
         close all Message
       </Button>
-    </div>
+    </Space>
   );
 }

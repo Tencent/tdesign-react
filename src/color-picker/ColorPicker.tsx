@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Popup, PopupProps } from '../popup';
 import { ColorPickerProps, TdColorContext } from './interface';
-import useClassname from './hooks/useClassname';
+import useClassName from './hooks/useClassNames';
 import useControlled from '../hooks/useControlled';
 import ColorTrigger from './components/trigger';
 import ColorPanel from './components/panel/index';
@@ -9,9 +9,9 @@ import useClickOutside from '../_util/useClickOutside';
 import { colorPickerDefaultProps } from './defaultProps';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
-  const baseClassName = useClassname();
+  const baseClassName = useClassName();
   const { popupProps, disabled, inputProps, onChange, colorModes, ...rest } = props;
-  const { overlayClassName, overlayStyle = {}, ...restPopupProps } = popupProps || {};
+  const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
   const [visible, setVisible] = useState(false);
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
@@ -25,9 +25,9 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     visible,
     ...restPopupProps,
     overlayClassName: [baseClassName, overlayClassName],
-    overlayStyle: {
+    overlayInnerStyle: {
       padding: 0,
-      ...overlayStyle,
+      ...overlayInnerStyle,
     },
   };
 
@@ -58,7 +58,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
       }
     >
       <div className={`${baseClassName}__trigger`} ref={triggerRef}>
-        <ColorTrigger color={innerValue} disabled={disabled} inputProps={inputProps} onTriggerChange={setInnerValue} />
+        <ColorTrigger disabled={disabled} inputProps={inputProps} value={innerValue} onChange={setInnerValue} />
       </div>
     </Popup>
   );

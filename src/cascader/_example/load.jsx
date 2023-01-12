@@ -7,18 +7,14 @@ export default function Example() {
     {
       label: '选项1',
       value: '1',
-      children: true,
+      children: [],
     },
     {
       label: '选项2',
       value: '2',
-      children: true,
+      children: [],
     },
   ];
-
-  const itemStyle = {
-    marginTop: '16px',
-  };
 
   const onChange1 = (value) => {
     setValue1(value);
@@ -44,9 +40,5 @@ export default function Example() {
       }, 1000);
     });
 
-  return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} value={value1} onChange={onChange1} load={load} />
-    </div>
-  );
+  return <Cascader options={options} value={value1} onChange={onChange1} load={load} />;
 }

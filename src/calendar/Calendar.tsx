@@ -10,7 +10,7 @@ import useLayoutEffect from '../_util/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
 import { StyledProps } from '../common';
-import { blockName, controlSectionSize, minYear, createDateList, createMonthList } from './_util';
+import { blockName, minYear, createDateList, createMonthList } from './_util';
 import CalendarCellComp from './CalendarCellComp';
 import { calendarDefaultProps } from './defaultProps';
 
@@ -34,28 +34,28 @@ const getDefaultControllerConfigData = (visible = true): InternalCalendarControl
   // 模式切换单选组件设置
   mode: {
     visible: true, // 是否显示
-    radioGroupProps: {}, // 用于透传props给该radioGroup组件
+    radioGroupProps: {}, // 用于透传 props 给该 radioGroup 组件
   },
   // 年份选择框组件相关设置
   year: {
     visible: true, // 是否显示
-    selectProps: { popupProps: { overlayStyle: { width: '110px' } } }, // 用于透传props给该select组件
+    selectProps: { popupProps: { overlayInnerStyle: { width: '110px' } } }, // 用于透传props给该select组件
   },
   // 年份选择框组件相关设置
   month: {
     visible: true, // 是否显示（“year”模式下本身是不显示该组件的）
-    selectProps: { popupProps: { overlayStyle: { width: '90px' } } }, // 用于透传props给该select组件
+    selectProps: { popupProps: { overlayInnerStyle: { width: '90px' } } }, // 用于透传props给该select组件
   },
   // 隐藏\显示周末按钮组件相关设置
   weekend: {
     visible: true, // 是否显示
-    showWeekendButtonProps: {}, // 用于透传props给显示周末按钮组件
-    hideWeekendButtonProps: {}, // 用于透传props给隐藏周末按钮组件
+    showWeekendButtonProps: {}, // 用于透传 props 给显示周末按钮组件
+    hideWeekendButtonProps: {}, // 用于透传 props 给隐藏周末按钮组件
   },
   // “今天\本月”按钮组件相关设置
   current: {
     visible: true, // 是否显示
-    currentDayButtonProps: {}, // 用于透传props给“今天”钮组件（“month”模式下有效）
+    currentDayButtonProps: {}, // 用于透传 props 给“今天”钮组件（“month”模式下有效）
     currentMonthButtonProps: {}, // 用于透传props给“本月”按钮组件（“year”模式下有效）
   },
 });
@@ -326,6 +326,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const prefixCls = usePrefixClass();
   const currentDate = dayjs().format('YYYY-MM-DD');
   const currentMonth = dayjs().format('YYYY-MM');
+  const controlSectionSize = props.theme === 'card' ? 'small' : 'medium';
 
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
@@ -375,55 +376,55 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                 />
               )}
             </div>
-          </div>
-          {/* 模式切换 */}
-          <div className={prefixCls([blockName, 'control-section'])} style={{ height: 'auto' }}>
-            {visibleForMode && (
-              <Radio.Group
-                variant="default-filled"
-                size={controlSectionSize}
-                value={mode}
-                disabled={disabled}
-                onChange={(value) => setMode(value as string)}
-                {...radioGroupPropsForMode}
-              >
-                <Radio.Button value="month">{t(local.monthRadio)}</Radio.Button>
-                <Radio.Button value="year">{t(local.yearRadio)}</Radio.Button>
-              </Radio.Group>
+            {/* 模式切换 */}
+            <div className={prefixCls([blockName, 'control-section-cell'])} style={{ height: 'auto' }}>
+              {visibleForMode && (
+                <Radio.Group
+                  variant="default-filled"
+                  size={controlSectionSize}
+                  value={mode}
+                  disabled={disabled}
+                  onChange={(value) => setMode(value as string)}
+                  {...radioGroupPropsForMode}
+                >
+                  <Radio.Button value="month">{t(local.monthRadio)}</Radio.Button>
+                  <Radio.Button value="year">{t(local.yearRadio)}</Radio.Button>
+                </Radio.Group>
+              )}
+            </div>
+            {/* 周末隐藏显示切换 */}
+            {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
+              <div className={prefixCls([blockName, 'control-section-cell'])}>
+                <CheckTag
+                  className="t-calendar__control-tag"
+                  checked={!isShowWeekend}
+                  disabled={disabled}
+                  size={controlSectionSize}
+                  onClick={() => {
+                    setIsShowWeekend(!isShowWeekend);
+                  }}
+                  {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
+                >
+                  {`${isShowWeekend ? t(local.hideWeekend) : t(local.showWeekend)}`}
+                </CheckTag>
+              </div>
+            )}
+            {/* 回到当前按钮 */}
+            {theme === 'full' && visibleForCurrent && (
+              <div className={prefixCls([blockName, 'control-section-cell'])}>
+                <Button
+                  size={controlSectionSize}
+                  disabled={disabled}
+                  onClick={() => {
+                    toCurrent();
+                  }}
+                  {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
+                >
+                  {mode === 'year' ? t(local.thisMonth) : t(local.today)}
+                </Button>
+              </div>
             )}
           </div>
-          {/* 周末隐藏显示切换 */}
-          {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
-            <div className={prefixCls([blockName, 'control-section'])}>
-              <CheckTag
-                className="t-calendar__control-tag"
-                checked={!isShowWeekend}
-                disabled={disabled}
-                size={controlSectionSize}
-                onClick={() => {
-                  setIsShowWeekend(!isShowWeekend);
-                }}
-                {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
-              >
-                {`${isShowWeekend ? t(local.hideWeekend) : t(local.showWeekend)}`}
-              </CheckTag>
-            </div>
-          )}
-          {/* 回到当前按钮 */}
-          {theme === 'full' && visibleForCurrent && (
-            <div className={prefixCls([blockName, 'control-section'])}>
-              <Button
-                size={controlSectionSize}
-                disabled={disabled}
-                onClick={() => {
-                  toCurrent();
-                }}
-                {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
-              >
-                {mode === 'year' ? t(local.thisMonth) : t(local.today)}
-              </Button>
-            </div>
-          )}
         </div>
       )}
       {/* 主体部分 */}

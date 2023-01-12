@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdMenuProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -33,7 +33,7 @@ const Menu = forwardRefWithStatics(
       <MenuContext.Provider value={value}>
         <div
           ref={ref}
-          className={classNames(className, `${classPrefix}-default-menu`, {
+          className={classNames(`${classPrefix}-default-menu`, className, {
             [`${classPrefix}-is-collapsed`]: collapsed,
             [`${classPrefix}-menu--dark`]: theme === 'dark',
           })}

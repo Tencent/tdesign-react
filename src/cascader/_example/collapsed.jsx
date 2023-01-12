@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value, setValue] = useState(['1.1', '1.2', '1.3']);
@@ -42,23 +42,27 @@ export default function Example() {
     setValue(value);
   };
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
-      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={2} />
+    <Space direction="vertical">
+      <Cascader options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
       <Cascader
-        style={itemStyle}
         options={options}
         value={value}
         onChange={onChange}
         multiple
         minCollapsedNum={1}
-        collapsedItems={<div>自定义内容</div>}
+        collapsedItems={({ count }) =>
+          count > 0 && (
+            <span
+              style={{
+                color: '#00a870',
+              }}
+            >
+              +{count - 1}
+            </span>
+          )
+        }
       />
-    </div>
+    </Space>
   );
 }

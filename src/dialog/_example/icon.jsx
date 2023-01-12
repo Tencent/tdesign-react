@@ -12,7 +12,7 @@ export default function BasicUsage() {
     setVisible(false);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleClick}>
         Open Modal
       </Button>
@@ -26,6 +26,6 @@ export default function BasicUsage() {
         visible={visible}
         onClose={handleClose}
       ></Dialog>
-    </div>
+    </>
   );
 }

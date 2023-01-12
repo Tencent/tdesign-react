@@ -1,5 +1,5 @@
 /**
- * 当前页面动态插入CSS
+ * 当前页面动态插入 CSS
  */
 
 const prefix = 't-dynamic-css-';

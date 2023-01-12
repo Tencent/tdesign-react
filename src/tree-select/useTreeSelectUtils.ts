@@ -4,13 +4,17 @@ import Tree, { TreeNodeValue } from '../tree';
 import TreeStore from '../_common/js/tree/tree-store';
 import { usePersistFn } from '../_util/usePersistFn';
 import type { NodeOptions, TreeSelectProps } from './TreeSelect';
+import { treeSelectDefaultProps } from './defaultProps';
 
 export const useTreeSelectUtils = (
   { data, treeProps, valueType }: TreeSelectProps,
   treeRef: MutableRefObject<ElementRef<typeof Tree>>,
 ) => {
   const defaultStore = useMemo(() => {
-    const store = new TreeStore({ ...treeProps });
+    const store = new TreeStore({
+      ...treeSelectDefaultProps.treeProps,
+      ...treeProps,
+    });
     store.append(data);
     return store;
   }, [data, treeProps]);
@@ -30,11 +34,13 @@ export const useTreeSelectUtils = (
 
   const normalizeValue = usePersistFn((value: TreeSelectValue) => {
     const valueKey = treeProps?.keys?.value ?? 'value';
+    const labelKey = treeProps?.keys?.label ?? 'label';
     const realValue = valueType === 'value' ? (value as string) : (value as NodeOptions)?.[valueKey];
     const node = getNodeItem(realValue);
+    const realLabel = valueType === 'object' ? value?.[labelKey] : undefined;
     return {
       value: realValue,
-      label: node?.label ?? String(realValue),
+      label: node?.label ?? realLabel ?? String(realValue),
     };
   });
 

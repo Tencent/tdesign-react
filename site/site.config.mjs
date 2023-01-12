@@ -37,6 +37,12 @@ export default {
       type: 'doc', // 组件文档
       children: [
         {
+          title: '全局特性配置',
+          name: 'config',
+          path: '/react/config',
+          component: () => import('tdesign-react/config-provider/config-provider.md'),
+        },
+        {
           title: '自定义主题',
           name: 'custom-theme',
           path: '/react/custom-theme',
@@ -62,16 +68,16 @@ export default {
           component: () => import('tdesign-react/button/button.md'),
         },
         {
-          title: 'Divider 分割线',
-          name: 'divider',
-          path: '/react/components/divider',
-          component: () => import('tdesign-react/divider/divider.md'),
-        },
-        {
           title: 'Icon 图标',
           name: 'icon',
           path: '/react/components/icon',
           component: () => import('tdesign-react/icon/icon.md'),
+        },
+        {
+          title: 'Link 链接',
+          name: 'link',
+          path: '/react/components/link',
+          component: () => import('tdesign-react/link/link.md'),
         },
       ],
     },
@@ -80,6 +86,12 @@ export default {
       name: 'layouts',
       type: 'component', // 组件文档
       children: [
+        {
+          title: 'Divider 分割线',
+          name: 'divider',
+          path: '/react/components/divider',
+          component: () => import('tdesign-react/divider/divider.md'),
+        },
         {
           title: 'Grid 栅格',
           name: 'grid',
@@ -91,6 +103,12 @@ export default {
           name: 'layout',
           path: '/react/components/layout',
           component: () => import('tdesign-react/layout/layout.md'),
+        },
+        {
+          title: 'Space 间距',
+          name: 'space',
+          path: '/react/components/space',
+          component: () => import('tdesign-react/space/space.md'),
         },
       ],
     },
@@ -155,6 +173,13 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'AutoComplete 自动完成',
+          name: 'auto-complete',
+          meta: {},
+          path: '/react/components/auto-complete',
+          component: () => import('tdesign-react/auto-complete/auto-complete.md'),
+        },
+        {
           title: 'Cascader 级联组件',
           name: 'cascader',
           meta: {},
@@ -190,6 +215,12 @@ export default {
           name: 'input',
           path: '/react/components/input',
           component: () => import('tdesign-react/input/input.md'),
+        },
+        {
+          title: 'InputAdornment 输入装饰器',
+          name: 'input-adornment',
+          path: '/react/components/input-adornment',
+          component: () => import('tdesign-react/input-adornment/input-adornment.md'),
         },
         {
           title: 'InputNumber 数字输入框',
@@ -299,7 +330,7 @@ export default {
           title: 'Card 卡片',
           name: 'card',
           path: '/react/components/card',
-          component: () => import('tdesign-react/card/card.md')
+          component: () => import('tdesign-react/card/card.md'),
         },
         {
           title: 'Collapse 折叠面板',
@@ -312,6 +343,18 @@ export default {
           name: 'comment',
           path: '/react/components/comment',
           component: () => import('tdesign-react/comment/comment.md'),
+        },
+        {
+          title: 'Image 图片',
+          name: 'image',
+          path: '/react/components/image',
+          component: () => import('tdesign-react/image/image.md'),
+        },
+        {
+          title: 'ImageViewer 图片预览',
+          name: 'image-viewer',
+          path: '/react/components/image-viewer',
+          component: () => import('tdesign-react/image-viewer/image-viewer.md'),
         },
         {
           title: 'List 列表',
@@ -330,6 +373,12 @@ export default {
           name: 'progress',
           path: '/react/components/progress',
           component: () => import('tdesign-react/progress/progress.md'),
+        },
+        {
+          title: 'Rate 评分',
+          name: 'rate',
+          path: '/react/components/rate',
+          component: () => import('tdesign-react/rate/rate.md'),
         },
         {
           title: 'Swiper 轮播框',
@@ -354,6 +403,12 @@ export default {
           name: 'tag',
           path: '/react/components/tag',
           component: () => import('tdesign-react/tag/tag.md'),
+        },
+        {
+          title: 'Timeline 时间轴',
+          name: 'timeline',
+          path: '/react/components/timeline',
+          component: () => import('tdesign-react/timeline/timeline.md'),
         },
         {
           title: 'Tooltip 文字提示',
@@ -397,6 +452,12 @@ export default {
           name: 'drawer',
           path: '/react/components/drawer',
           component: () => import('tdesign-react/drawer/drawer.md'),
+        },
+        {
+          title: 'Guide 引导',
+          name: 'guide',
+          path: '/react/components/guide',
+          component: () => import('tdesign-react/guide/guide.md'),
         },
         {
           title: 'Message 全局提醒',

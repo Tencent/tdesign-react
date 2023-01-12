@@ -1,45 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { Input } from '../../input';
 import ColorLib from '../../_common/js/color-picker/color';
 import { TdColorPickerProps } from '..';
-import useClassname from '../hooks/useClassname';
+import useClassName from '../hooks/useClassNames';
+import useControlled from '../../hooks/useControlled';
 import { TdColorContext } from '../interface';
 
-export interface ColorTriggerProps extends TdColorPickerProps {
-  color?: string;
-  onTriggerChange?: (v?: string, context?: TdColorContext) => {};
+export interface ColorTriggerProps extends Pick<TdColorPickerProps, 'disabled' | 'inputProps'> {
+  value?: string;
+  onChange?: (v?: string, context?: TdColorContext) => {};
 }
 
 const ColorPickerTrigger = (props: ColorTriggerProps) => {
-  const baseClassName = useClassname();
-  const {
-    color = '',
-    disabled = false,
-    inputProps = {
-      autoWidth: true,
-    },
-    onTriggerChange,
-  } = props;
+  const baseClassName = useClassName();
+  const { disabled = false, inputProps = { autoWidth: true } } = props;
 
-  const [value, setValue] = useState(color);
+  const [value, setValue] = useControlled(props, 'value', props.onChange);
 
-  const handleChange = (input: string) => {
+  const handleChange = (input: string, ctx: any) => {
     if (ColorLib.isValid(input)) {
-      setValue(input);
-    } else {
-      setValue(color);
+      setValue(input, ctx);
     }
   };
-
-  useEffect(() => {
-    onTriggerChange(value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  useEffect(() => {
-    setValue(color);
-  }, [color]);
 
   return (
     <div className={`${baseClassName}__trigger--default`}>
@@ -49,12 +32,7 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
         disabled={disabled}
         label={
           <div className={classNames(`${baseClassName}__trigger--default__color`, `${baseClassName}--bg-alpha`)}>
-            <span
-              className={'color-inner'}
-              style={{
-                background: value,
-              }}
-            ></span>
+            <span className={'color-inner'} style={{ background: value }}></span>
           </div>
         }
         onBlur={handleChange}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tag, Input } from 'tdesign-react';
+import { Tag, Input, Space } from 'tdesign-react';
 import { DiscountIcon, AddIcon } from 'tdesign-icons-react';
 
 export default function ClosableTagExample() {
@@ -40,8 +40,8 @@ export default function ClosableTagExample() {
   };
 
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         {tagList.map((tag, i) => (
           <Tag
             key={i}
@@ -57,17 +57,16 @@ export default function ClosableTagExample() {
             {i}
           </Tag>
         ))}
-      </div>
+      </Space>
       <div style={{ display: 'flex', cursor: 'pointer' }}>
         {inputVisible ? (
           <Input onBlur={handleInputEnter} onEnter={handleInputEnter} style={{ width: '94px' }} />
         ) : (
-          <Tag onClick={handleClickAdd}>
-            <AddIcon />
+          <Tag onClick={handleClickAdd} icon={<AddIcon />}>
             可添加标签
           </Tag>
         )}
       </div>
-    </div>
+    </Space>
   );
 }

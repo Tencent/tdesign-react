@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import Button from '../button';
+import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdCommentProps } from './type';
 import { commentDefaultProps } from './defaultProps';
@@ -33,11 +34,13 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
 
   const actionsElement =
     actions && actions.length ? (
-      <ul className={`${classPrefix}-comment__actions`}>
+      <div className={`${classPrefix}-comment__actions`}>
         {actions.map((action, index) => (
-          <li key={`action-${index}`}>{action}</li>
+          <Button key={`action-${index}`} size="small" variant="text">
+            {action}
+          </Button>
         ))}
-      </ul>
+      </div>
     ) : null;
 
   const contentElement = (
@@ -52,7 +55,7 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
   const replyElement = reply ? <div className={classNames(`${classPrefix}-comment__reply`)}>{reply}</div> : null;
 
   return (
-    <div ref={ref} style={style} className={classNames(className, [`${classPrefix}-comment`])}>
+    <div ref={ref} style={style} className={classNames(`${classPrefix}-comment`, className)}>
       <div className={`${classPrefix}-comment__inner`}>
         {avatarElement}
         {contentElement}

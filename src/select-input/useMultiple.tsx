@@ -5,7 +5,7 @@ import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys } from '.
 import TagInput, { TagInputValue } from '../tag-input';
 import { SelectInputCommonProperties } from './interface';
 import useControlled from '../hooks/useControlled';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
@@ -48,8 +48,8 @@ export default function useMultiple(props: TdSelectInputProps) {
     <TagInput
       ref={tagInputRef}
       {...p.commonInputProps}
-      readonly={!props.allowInput || props.readonly}
       autoWidth={props.autoWidth}
+      readonly={props.readonly}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
       tag={props.tag}
@@ -73,8 +73,10 @@ export default function useMultiple(props: TdSelectInputProps) {
       }}
       {...props.tagInputProps}
       inputProps={{
+        readonly: !props.allowInput || props.readonly,
         inputClass: classNames(props.tagInputProps?.className, {
           [`${classPrefix}-input--focused`]: p.popupVisible,
+          [`${classPrefix}-is-focused`]: p.popupVisible,
         }),
       }}
     />

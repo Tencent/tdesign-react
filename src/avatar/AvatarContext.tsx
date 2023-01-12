@@ -4,6 +4,7 @@ const AvatarContext = React.createContext('default');
 
 export interface AvatarContextProps {
   size?: string;
+  children?: React.ReactNode;
 }
 
 export const AvatarContextProvider: React.FC<AvatarContextProps> = ({ children, size }) => (

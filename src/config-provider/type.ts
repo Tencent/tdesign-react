@@ -4,9 +4,11 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { GlobalIconConfig } from 'tdesign-icons-react';
 import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
+import { MessageOptions } from '../message';
 import { TNode, TElement } from '../common';
 
 export interface GlobalConfigProvider {
@@ -56,6 +58,14 @@ export interface GlobalConfigProvider {
    */
   form?: FormConfig;
   /**
+   * 引导全局配置
+   */
+  guide?: GuideConfig;
+  /**
+   * 图标全局配置
+   */
+  icon?: IconConfig;
+  /**
    * 输入框组件全局配置
    */
   input?: InputConfig;
@@ -63,6 +73,10 @@ export interface GlobalConfigProvider {
    * 列表组件全局配置
    */
   list?: ListConfig;
+  /**
+   * 消息组件全局配置
+   */
+  message?: MessageConfig;
   /**
    * 分页组件全局配置
    */
@@ -110,6 +124,11 @@ export interface GlobalConfigProvider {
 }
 
 export interface InputConfig {
+  /**
+   * 是否开启自动填充功能
+   * @default ''
+   */
+  autocomplete?: string;
   /**
    * 语言配置，“请输入”占位符描述文本
    * @default ''
@@ -171,7 +190,7 @@ export interface CalendarConfig {
    */
   monthRadio?: string;
   /**
-   * 语言配置，"月"选择描述文本。示例：`'{month} 月'`
+   * 语言配置，\"月\"选择描述文本。示例：`'{month} 月'`
    * @default ''
    */
   monthSelection?: string;
@@ -237,7 +256,7 @@ export interface ColorPickerConfig {
    */
   recentColorTitle?: string;
   /**
-   * 语言配置，"系统预设颜色" 区域标题文本
+   * 语言配置，\"系统预设颜色\" 区域标题文本
    * @default ''
    */
   swatchColorTitle?: string;
@@ -278,7 +297,7 @@ export interface TimePickerConfig {
    */
   now?: string;
   /**
-   * 语言配置，"请选择时间"占位符描述文本
+   * 语言配置，\"请选择时间\"占位符描述文本
    * @default ''
    */
   placeholder?: string;
@@ -321,7 +340,7 @@ export interface DatePickerConfig {
    */
   monthAriaLabel?: string;
   /**
-   * 星期文本描述，默认值：['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+   * 星期文本描述，默认值：['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月']
    */
   months?: string[];
   /**
@@ -359,14 +378,18 @@ export interface DatePickerConfig {
    */
   preMonth?: string;
   /**
-   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
-   */
-  presets?: ConfigPresetDate;
-  /**
    * 语言配置，“上一年” 描述文本
    * @default ''
    */
   preYear?: string;
+  /**
+   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
+   */
+  presets?: ConfigPresetDate;
+  /**
+   * 季度文本描述，默认值：['1 季度', '2 季度', '3 季度', '4 季度']
+   */
+  quarters?: string[];
   /**
    * 语言配置，“ 至 ” 范围分隔符描述文本，示例：' ~ '
    * @default ''
@@ -404,6 +427,16 @@ export interface DialogConfig {
    */
   cancel?: string | ButtonProps;
   /**
+   * 按下 ESC 时是否触发对话框关闭事件
+   * @default true
+   */
+  closeOnEscKeydown?: boolean;
+  /**
+   * 点击蒙层时是否触发关闭事件
+   * @default true
+   */
+  closeOnOverlayClick?: boolean;
+  /**
    * 确认按钮风格
    */
   confirm?: string | ButtonProps;
@@ -420,10 +453,25 @@ export interface DrawerConfig {
    */
   cancel?: string | ButtonProps;
   /**
+   * 按下 ESC 时是否触发抽屉关闭事件
+   * @default true
+   */
+  closeOnEscKeydown?: boolean;
+  /**
+   * 点击蒙层时是否触发关闭事件
+   * @default true
+   */
+  closeOnOverlayClick?: boolean;
+  /**
    * 语言配置，“确认”描述文本
    * @default ''
    */
   confirm?: string | ButtonProps;
+  /**
+   * 尺寸配置，配置Drawer尺寸
+   * @default 'small'
+   */
+  size?: string;
 }
 
 export interface PopconfirmConfig {
@@ -550,6 +598,11 @@ export interface SelectConfig {
    */
   empty?: string;
   /**
+   * 全局配置是否可筛选
+   * @default false
+   */
+  filterable?: boolean;
+  /**
    * 语言配置，“加载中”描述文本
    * @default ''
    */
@@ -628,7 +681,7 @@ export interface UploadConfig {
    */
   sizeLimitMessage?: string;
   /**
-   * 语言配置，上传功能触发文案。示例：{ image: '点击上传图片', normal: '点击上传',  fileInput: '选择文件',reupload: '重新上传',fileInput: '删除' }
+   * 语言配置，上传功能触发文案。示例：{ image: '点击上传图片', normal: '点击上传',  fileInput: '选择文件', reupload: '重新上传', delete: '删除', continueUpload?: '继续选择' }
    */
   triggerUploadText?: UploadTriggerUploadText;
 }
@@ -725,7 +778,7 @@ export interface StepsConfig {
   /**
    * 错误步骤图标，【注意】使用渲染函数输出图标组件
    */
-  errorIcon?: TElement;
+  errorIcon?: TNode;
 }
 
 export interface AlertConfig {
@@ -754,7 +807,30 @@ export interface AnchorConfig {
   copyText?: string;
 }
 
+export interface MessageConfig extends MessageOptions {}
+
+export interface GuideConfig {
+  /**
+   * 最后一步中的完成按钮，示例：`{ content: '完成', theme: 'primary' }`
+   */
+  finishButtonProps?: ButtonProps;
+  /**
+   * 下一步按钮，示例：`{ content: '下一步', theme: 'primary' }`
+   */
+  nextButtonProps?: ButtonProps;
+  /**
+   * 上一步按钮，示例：`{ content: '上一步', theme: 'default' }`
+   */
+  prevButtonProps?: ButtonProps;
+  /**
+   * 跳过按钮，示例：`{ content: '跳过', theme: 'default' }`
+   */
+  skipButtonProps?: ButtonProps;
+}
+
 export type AnimationType = 'ripple' | 'expand' | 'fade';
+
+export type IconConfig = GlobalIconConfig;
 
 export interface ConfigPresetDate {
   [name: string]: DateConfigValue | (() => DateConfigValue);
@@ -767,6 +843,6 @@ export interface UploadTriggerUploadText {
   normal?: string;
   fileInput?: string;
   reupload?: string;
-  continueUpload: string;
+  continueUpload?: string;
   delete?: string;
 }

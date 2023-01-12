@@ -1,20 +1,20 @@
 import React from 'react';
-import { Switch } from 'tdesign-react';
+import { Switch, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 
 export default function SwitchBasic() {
   const renderActiveContent = () => <Icon name="check" />;
   const renderInactiveContent = () => <Icon name="close" />;
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Switch size="large" label={['开', '关']} />
         <Switch size="large" defaultValue label={['开', '关']} />
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Switch size="large" label={[renderActiveContent(), renderInactiveContent()]} />
         <Switch size="large" defaultValue label={[renderActiveContent(), renderInactiveContent()]} />
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

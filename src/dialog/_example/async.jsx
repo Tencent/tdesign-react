@@ -19,7 +19,7 @@ export default function BasicUsage() {
     }, 2000);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleClick}>
         Open Modal
       </Button>
@@ -28,10 +28,10 @@ export default function BasicUsage() {
         visible={visible}
         confirmBtn={<Button loading={loading}>保存中...</Button>}
         onClose={handleClose}
-        onClickConfirm={handleCloseAsync}
+        onConfirm={handleCloseAsync}
       >
         <p>This is a dialog</p>
       </Dialog>
-    </div>
+    </>
   );
 }

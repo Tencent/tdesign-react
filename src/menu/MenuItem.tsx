@@ -1,6 +1,7 @@
-import React, { FC, useContext, useRef } from 'react';
+import React, { FC, useContext } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../_util/useRipple';
 import { TdMenuItemProps } from './type';
 import { StyledProps } from '../common';
@@ -22,15 +23,16 @@ const MenuItem: FC<MenuItemProps> = (props) => {
     onClick,
   } = props;
   const { classPrefix } = useConfig();
+
   // 斜八角动画
-  const menuItemRef = useRef();
-  useRipple(menuItemRef);
+  const [menuItemDom, setRefCurrent] = useDomRefCallback();
+  useRipple(menuItemDom);
 
   const { onChange, setState, active } = useContext(MenuContext);
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation();
-    if (disabled || active === value) return;
+    if (disabled) return;
 
     onClick && onClick({ e });
     onChange(value);
@@ -39,8 +41,8 @@ const MenuItem: FC<MenuItemProps> = (props) => {
 
   return (
     <li
-      ref={menuItemRef}
-      className={classNames(className, `${classPrefix}-menu__item`, {
+      ref={setRefCurrent}
+      className={classNames(`${classPrefix}-menu__item`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-active`]: value === active,
         [`${classPrefix}-menu__item--plain`]: !icon,
@@ -48,14 +50,16 @@ const MenuItem: FC<MenuItemProps> = (props) => {
       style={{ ...style }}
       onClick={handleClick}
     >
-      {icon}
-      {href ? (
-        <a href={href} target={target} className={classNames(`${classPrefix}-menu__item-link`)}>
+      <>
+        {icon}
+        {href ? (
+          <a href={href} target={target} className={classNames(`${classPrefix}-menu__item-link`)}>
+            <span className={`${classPrefix}-menu__content`}>{children}</span>
+          </a>
+        ) : (
           <span className={`${classPrefix}-menu__content`}>{children}</span>
-        </a>
-      ) : (
-        <span className={`${classPrefix}-menu__content`}>{children}</span>
-      )}
+        )}
+      </>
     </li>
   );
 };

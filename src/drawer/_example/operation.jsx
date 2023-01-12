@@ -11,7 +11,7 @@ export default function () {
     setVisible(false);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleClick}>
         打开抽屉
       </Button>
@@ -25,6 +25,6 @@ export default function () {
           </Form.FormItem>
         </Form>
       </Drawer>
-    </div>
+    </>
   );
 }

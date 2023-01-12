@@ -1,14 +1,15 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import {
-  CheckCircleIcon,
-  CloseCircleIcon,
-  ErrorCircleIcon,
-  CheckCircleFilledIcon,
-  CloseCircleFilledIcon,
-  ErrorCircleFilledIcon,
+  CloseIcon as TdCloseIcon,
+  CheckIcon as TdCheckIcon,
+  ErrorIcon as TdErrorIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../common';
 import { TdProgressProps } from './type';
@@ -19,6 +20,23 @@ export interface ProgressProps extends TdProgressProps, StyledProps {}
  * 按钮组件
  */
 const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement>) => {
+  const { classPrefix } = useConfig();
+  const {
+    CheckCircleIcon,
+    CloseCircleIcon,
+    ErrorCircleIcon,
+    CheckCircleFilledIcon,
+    CloseCircleFilledIcon,
+    ErrorCircleFilledIcon,
+  } = useGlobalIcon({
+    CheckCircleIcon: TdCheckIcon,
+    CloseCircleIcon: TdCloseIcon,
+    ErrorCircleIcon: TdErrorIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+    ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
+  });
+
   const { theme, percentage, label, color = '', trackColor, strokeWidth, size, className } = props;
   let { status } = props;
   if (!status && percentage >= 100) {
@@ -29,14 +47,13 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     error: CloseCircleFilledIcon,
     warning: ErrorCircleFilledIcon,
   };
-  const { classPrefix } = useConfig();
   // 进度条展示内容
   const getInfoContent = () => {
     if (!label) {
       return '';
     }
     let info: React.ReactNode;
-    // 为布尔值，默认百分百展示，否则之间展示label内容
+    // 为布尔值，默认百分百展示，否则之间展示 label 内容
     if (typeof label === 'boolean') {
       info = <div className={`${classPrefix}-progress__info`}>{`${percentage}%`}</div>;
       if (['success', 'error', 'warning'].includes(status)) {
@@ -195,7 +212,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
         ) : (
           <>
             <div className={`${classPrefix}-progress__inner`} style={barStyle}></div>
-            {label && <div className={`${classPrefix}-progress__info`}>{`${percentage}%`}</div>}
+            {getInfoContent()}
           </>
         )}
       </div>
@@ -215,7 +232,11 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
       </div>
     );
   }
-  return <div className={className}>{progressDom}</div>;
+  return (
+    <div className={className} style={props.style}>
+      {progressDom}
+    </div>
+  );
 });
 
 Progress.displayName = 'Progress';

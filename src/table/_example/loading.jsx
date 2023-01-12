@@ -13,12 +13,7 @@ export default function EmptyTable() {
     <div>
       <Table data={[]} columns={columns} rowKey="id" loading={true}></Table>
 
-      <Table
-        data={[]}
-        columns={columns}
-        rowKey="id"
-        loading={'自定义加载状态文本'}
-      ></Table>
+      <Table data={[]} columns={columns} rowKey="id" loading={'自定义加载状态文本'}></Table>
 
       <Table
         data={[]}
@@ -32,7 +27,6 @@ export default function EmptyTable() {
           </div>
         }
       ></Table>
-      
     </div>
   );
 }

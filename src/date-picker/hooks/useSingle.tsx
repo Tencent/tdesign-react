@@ -1,96 +1,96 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CalendarIcon } from 'tdesign-icons-react';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
-import useControlled from '../../hooks/useControlled';
-import { TdDatePickerProps, DateValue } from '../type';
-import useFormat from './useFormat';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { TdDatePickerProps } from '../type';
+import {
+  isValidDate,
+  formatDate,
+  formatTime,
+  getDefaultFormat,
+  parseToDayjs,
+} from '../../_common/js/date-picker/format';
+import useSingleValue from './useSingleValue';
+import type { TdPopupProps } from '../../popup/type';
 
-export default function useSingle(props: TdDatePickerProps) {
+export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+  const { CalendarIcon } = useGlobalIcon({ CalendarIcon: TdCalendarIcon });
   const name = `${classPrefix}-date-picker`;
 
-  const inputRef = useRef<HTMLInputElement>();
-
-  const {
-    mode,
-    prefixIcon,
-    suffixIcon,
-    inputProps: inputPropsFromProps,
-    popupProps: popupPropsFromProps,
-    allowInput,
-    clearable,
-    placeholder = globalDatePickerConfig.placeholder[mode],
-    onBlur,
-    onFocus,
-    onInput,
-  } = props;
-
-  const [value, onChange] = useControlled(props, 'value', props.onChange);
-  const { isValidDate, formatDate, formatTime } = useFormat({
-    value,
-    mode,
+  const { format, valueType, timeFormat } = getDefaultFormat({
+    mode: props.mode,
     format: props.format,
     valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
   });
 
+  const inputRef = useRef<HTMLInputElement>();
+
+  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
+    useSingleValue(props);
+
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
-  const [timeValue, setTimeValue] = useState(formatTime(value));
-  const [month, setMonth] = useState<number>(dayjs(value).month() || new Date().getMonth());
-  const [year, setYear] = useState<number>(dayjs(value).year() || new Date().getFullYear());
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value));
-  const [cacheValue, setCacheValue] = useState(formatDate(value)); // 缓存选中值，panel 点击时更改
+  const [inputValue, setInputValue] = useState(formatDate(value, { format }));
 
   // input 设置
   const inputProps = {
-    ...inputPropsFromProps,
+    ...props.inputProps,
     ref: inputRef,
-    clearable,
-    prefixIcon,
-    readonly: !allowInput,
-    placeholder,
-    suffixIcon: suffixIcon || <CalendarIcon />,
+    clearable: props.clearable,
+    prefixIcon: props.prefixIcon,
+    readonly: !props.allowInput,
+    placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
+    suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     className: classNames({
       [`${name}__input--placeholder`]: isHoverCell,
     }),
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange('', { dayjsValue: dayjs(''), trigger: 'clear' });
+      onChange('', { dayjsValue: dayjs(), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
-      onBlur?.({ value: val, e });
+      props.onBlur?.({ value: val, e });
     },
     onFocus: (_: string, { e }) => {
-      onFocus?.({ value, e });
+      props.onFocus?.({ value, e });
     },
-    onChange: (val: string, { e }) => {
-      onInput?.({ input: val, value, e });
-
+    onChange: (val: string) => {
       // 输入事件
       setInputValue(val);
 
       // 跳过不符合格式化的输入框内容
-      if (!isValidDate(val)) return;
-      const newMonth = dayjs(val).month();
-      const newYear = dayjs(val).year();
-      const newTime = formatTime(val);
+      if (!isValidDate(val, format)) return;
+      setCacheValue(val);
+      const newMonth = parseToDayjs(val, format).month();
+      const newYear = parseToDayjs(val, format).year();
+      const newTime = formatTime(val, timeFormat);
       !Number.isNaN(newYear) && setYear(newYear);
       !Number.isNaN(newMonth) && setMonth(newMonth);
-      !Number.isNaN(newTime) && setTimeValue(newTime);
+      !Number.isNaN(newTime) && setTime(newTime);
     },
     onEnter: (val: string) => {
-      if (!isValidDate(val) && !isValidDate(value)) return;
+      if (!val) {
+        onChange('', { dayjsValue: dayjs(), trigger: 'enter' });
+        setPopupVisible(false);
+        return;
+      }
+
+      if (!isValidDate(val, format) && !isValidDate(value, format)) return;
 
       setPopupVisible(false);
-      if (isValidDate(val)) {
-        onChange(formatDate(val, 'valueType') as DateValue, { dayjsValue: dayjs(val), trigger: 'enter' });
-      } else if (isValidDate(value)) {
-        setInputValue(formatDate(value));
+      if (isValidDate(val, format)) {
+        onChange(formatDate(val, { format, targetFormat: valueType }), {
+          dayjsValue: parseToDayjs(val, format),
+          trigger: 'enter',
+        });
+      } else if (isValidDate(value, format)) {
+        setInputValue(formatDate(value, { format }));
       } else {
         setInputValue('');
       }
@@ -100,15 +100,17 @@ export default function useSingle(props: TdDatePickerProps) {
   // popup 设置
   const popupProps = {
     expandAnimation: true,
-    ...popupPropsFromProps,
-    overlayStyle: popupPropsFromProps?.overlayStyle ?? { width: 'auto' },
-    overlayClassName: classNames(popupPropsFromProps?.overlayClassName, `${name}__panel-container`),
-    onVisibleChange: (visible: boolean) => {
-      setPopupVisible(visible);
-      if (!visible) {
-        setIsHoverCell(false);
-        setInputValue(formatDate(value));
+    ...props.popupProps,
+    trigger: 'mousedown' as TdPopupProps['trigger'],
+    overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
+    overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
+    onVisibleChange: (visible: boolean, context: any) => {
+      // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
+      props.popupProps?.onVisibleChange?.(visible, context);
+      if (context.trigger === 'trigger-element-mousedown') {
+        return setPopupVisible(true);
       }
+      setPopupVisible(visible);
     },
   };
 
@@ -116,15 +118,11 @@ export default function useSingle(props: TdDatePickerProps) {
   useEffect(() => {
     if (!value) {
       setInputValue('');
-      setCacheValue('');
-      setTimeValue(formatTime(new Date()));
       return;
     }
-    if (!isValidDate(value, 'valueType')) return;
+    if (!isValidDate(value, format)) return;
 
-    setInputValue(formatDate(value));
-    setCacheValue(formatDate(value));
-    setTimeValue(formatTime(value));
+    setInputValue(formatDate(value, { format }));
     // eslint-disable-next-line
   }, [value]);
 
@@ -132,7 +130,7 @@ export default function useSingle(props: TdDatePickerProps) {
     year,
     month,
     value,
-    timeValue,
+    time,
     inputValue,
     popupVisible,
     inputProps,
@@ -142,7 +140,7 @@ export default function useSingle(props: TdDatePickerProps) {
     onChange,
     setYear,
     setMonth,
-    setTimeValue,
+    setTime,
     setIsHoverCell,
     setInputValue,
     setPopupVisible,

@@ -1,16 +1,22 @@
 import React from 'react';
-import { Button } from 'tdesign-react';
+import { Button, Space } from 'tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Button theme="default">填充按钮</Button>
-        <Button variant="outline" theme="default">描边按钮</Button>
-        <Button variant="dashed" theme="default">虚框按钮</Button>
-        <Button variant="text" theme="default">文字按钮</Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+        <Button variant="outline" theme="default">
+          描边按钮
+        </Button>
+        <Button variant="dashed" theme="default">
+          虚框按钮
+        </Button>
+        <Button variant="text" theme="default">
+          文字按钮
+        </Button>
+      </Space>
+      <Space>
         <Button theme="primary" variant="base">
           填充按钮
         </Button>
@@ -23,8 +29,8 @@ export default function ButtonExample() {
         <Button theme="primary" variant="text">
           文字按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button theme="danger" variant="base">
           填充按钮
         </Button>
@@ -37,8 +43,8 @@ export default function ButtonExample() {
         <Button theme="danger" variant="text">
           文字按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button theme="warning" variant="base">
           填充按钮
         </Button>
@@ -51,8 +57,8 @@ export default function ButtonExample() {
         <Button theme="warning" variant="text">
           文字按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button theme="success" variant="base">
           填充按钮
         </Button>
@@ -65,7 +71,7 @@ export default function ButtonExample() {
         <Button theme="success" variant="text">
           文字按钮
         </Button>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

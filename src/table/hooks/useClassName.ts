@@ -1,18 +1,24 @@
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
 
 export default function useClassName() {
   const { classPrefix } = useConfig();
   const classNames = {
+    classPrefix,
     tableBaseClass: {
       table: `${classPrefix}-table`,
+      columnResizableTable: `${classPrefix}-table--column-resizable`,
       body: `${classPrefix}-table__body`,
       overflowVisible: `${classPrefix}-table--overflow-visible`,
       content: `${classPrefix}-table__content`,
       topContent: `${classPrefix}-table__top-content`,
       bottomContent: `${classPrefix}-table__bottom-content`,
+      paginationWrap: `${classPrefix}-table__pagination-wrap`,
       tdLastRow: `${classPrefix}-table__td-last-row`,
       tdFirstCol: `${classPrefix}-table__td-first-col`,
       thCellInner: `${classPrefix}-table__th-cell-inner`,
+      tableRowEdit: `${classPrefix}-table--row-edit`,
+      cellEditable: `${classPrefix}-table__cell--editable`,
+      cellEditWrap: `${classPrefix}-table__cell-wrap`,
       bordered: `${classPrefix}-table--bordered`,
       striped: `${classPrefix}-table--striped`,
       hover: `${classPrefix}-table--hoverable`,
@@ -24,12 +30,20 @@ export default function useClassName() {
       columnFixed: `${classPrefix}-table--column-fixed`,
       widthOverflow: `${classPrefix}-table--width-overflow`,
       multipleHeader: `${classPrefix}-table--multiple-header`,
+      footerAffixed: `${classPrefix}-table--footer-affixed`,
+      horizontalBarAffixed: `${classPrefix}-table--horizontal-bar-affixed`,
       affixedHeader: `${classPrefix}-table--affixed-header`,
       affixedHeaderElm: `${classPrefix}-table__affixed-header-elm`,
+      affixedFooterElm: `${classPrefix}-table__affixed-footer-elm`,
+      affixedFooterWrap: `${classPrefix}-table__affixed-footer-wrap`,
       // 边框模式，固定表头，横向滚动时，右侧添加边线，分隔滚动条
       scrollbarDivider: `${classPrefix}-table__scroll-bar-divider`,
       // 当用户设置 height 为固定高度，为保证行元素铺满 table，则需设置 table 元素高度为 100%
       fullHeight: `${classPrefix}-table--full-height`,
+      // 拖拽列时的标记线
+      resizeLine: `${classPrefix}-table__resize-line`,
+      obviousScrollbar: `${classPrefix}-table__scrollbar--obvious`,
+      affixedHeaderWrap: `${classPrefix}-table__affixed-header-elm-wrap`,
     },
 
     tdAlignClasses: {
@@ -101,6 +115,7 @@ export default function useClassName() {
     // 排序功能，全部类名
     tableSortClasses: {
       sortable: `${classPrefix}-table__cell--sortable`,
+      sortColumn: `${classPrefix}-table__sort-column`,
       title: `${classPrefix}-table__cell--title`,
       trigger: `${classPrefix}-table__cell--sort-trigger`,
       doubleIcon: `${classPrefix}-table__double-icons`,
@@ -117,6 +132,7 @@ export default function useClassName() {
     tableSelectedClasses: {
       selected: `${classPrefix}-table__row--selected`,
       disabled: `${classPrefix}-table__row--disabled`,
+      checkCell: `${classPrefix}-table__cell-check`,
     },
 
     // 过滤功能，全部类名
@@ -143,6 +159,7 @@ export default function useClassName() {
       col: `${classPrefix}-table__tree-col`,
       inlineCol: `${classPrefix}-table__tree-col--inline`,
       icon: `${classPrefix}-table__tree-op-icon`,
+      leafNode: `${classPrefix}-table__tree-leaf-node`,
     },
 
     // 拖拽功能类名
@@ -167,3 +184,5 @@ export default function useClassName() {
 
   return classNames;
 }
+
+export type TableClassName = ReturnType<typeof useClassName>;

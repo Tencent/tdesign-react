@@ -1,10 +1,12 @@
 import React, { useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps, FormInstanceFunctions } from './type';
+import type { TdFormProps } from './type';
 import useInstance from './hooks/useInstance';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useWatch from './hooks/useWatch';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -15,10 +17,6 @@ export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
 
-export interface FormRefInterface extends React.RefObject<unknown>, FormInstanceFunctions {
-  currentElement: HTMLFormElement;
-}
-
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
     const { classPrefix, form: globalFormConfig } = useConfig();
@@ -26,74 +24,59 @@ const Form = forwardRefWithStatics(
     const {
       style,
       className,
-      labelWidth = '100px',
+      labelWidth,
       statusIcon,
-      labelAlign = 'right',
-      layout = 'vertical',
-      colon = false,
+      labelAlign,
+      layout,
+      colon,
+      initialData,
       requiredMark = globalFormConfig.requiredMark,
       scrollToFirstError,
-      showErrorMessage = true,
-      resetType = 'empty',
+      showErrorMessage,
+      resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault = true,
+      preventSubmitDefault,
       disabled,
       children,
       onReset,
       onValuesChange = noop,
     } = props;
 
-    const formClass = classNames(className, `${classPrefix}-form`, {
+    const formClass = classNames(`${classPrefix}-form`, className, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
+    const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef: React.RefObject<HTMLFormElement> = useRef();
-    const formMapRef = useRef(new Map()); // 收集所有 formItem 实例
+    const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
+    const formInstance = useInstance(props, formRef, formMapRef);
 
-    const {
-      submit,
-      reset,
-      getFieldValue,
-      getFieldsValue,
-      setFieldsValue,
-      setFields,
-      validate,
-      clearValidate,
-      setValidateMessage,
-    } = useInstance(props, formRef, formMapRef);
+    useImperativeHandle(ref, () => formInstance);
+    Object.assign(form, { ...formInstance });
+    form?.getInternalHooks?.(HOOK_MARK)?.setForm?.(formInstance);
 
-    useImperativeHandle(ref as FormRefInterface, () => ({
-      currentElement: formRef.current,
-      submit,
-      reset,
-      getFieldValue,
-      getFieldsValue,
-      setFieldsValue,
-      setFields,
-      validate,
-      clearValidate,
-      setValidateMessage,
-    }));
+    // form 初始化后清空队列
+    React.useEffect(() => {
+      form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
+    }, [form]);
 
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
-      if (preventSubmitDefault) {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
+      form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       onReset?.({ e });
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = getFieldsValue(true);
+      const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      if ((e.target as Element).tagName.toLowerCase() === 'textarea') return;
+      // 禁用 input 输入框回车自动提交 form
+      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
       if (preventSubmitDefault && e.key === 'Enter') {
         e.preventDefault?.();
         e.stopPropagation?.();
@@ -103,11 +86,13 @@ const Form = forwardRefWithStatics(
     return (
       <FormContext.Provider
         value={{
+          form,
           labelWidth,
           statusIcon,
           labelAlign,
           layout,
           colon,
+          initialData,
           requiredMark,
           errorMessage,
           showErrorMessage,
@@ -123,7 +108,7 @@ const Form = forwardRefWithStatics(
           ref={formRef}
           style={style}
           className={formClass}
-          onSubmit={submit}
+          onSubmit={formInstance.submit}
           onReset={onResetHandler}
           onKeyDown={onKeyDownHandler}
         >
@@ -132,7 +117,7 @@ const Form = forwardRefWithStatics(
       </FormContext.Provider>
     );
   },
-  { FormItem, FormList },
+  { useForm, useWatch, FormItem, FormList },
 );
 
 Form.displayName = 'Form';

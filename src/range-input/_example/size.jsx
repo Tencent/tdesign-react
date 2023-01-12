@@ -1,12 +1,12 @@
 import React from 'react';
-import { RangeInput } from 'tdesign-react';
+import { RangeInput, Space } from 'tdesign-react';
 
 export default function BaseExample() {
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <RangeInput size="small" />
       <RangeInput />
       <RangeInput size="large" />
-    </div>
+    </Space>
   );
 }

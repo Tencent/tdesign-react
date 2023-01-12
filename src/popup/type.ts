@@ -22,17 +22,20 @@ export interface TdPopupProps {
    */
   content?: TNode;
   /**
+   * 延时显示或隐藏浮层，[延迟显示的时间，延迟隐藏的时间]，单位：毫秒。如果只有一个时间，则表示显示和隐藏的延迟时间相同。示例 `'300'` 或者 `[200, 200]`。默认为：[250, 150]
+   */
+  delay?: number | Array<number>;
+  /**
    * 是否在关闭浮层时销毁浮层
    * @default false
    */
   destroyOnClose?: boolean;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
-   * 【开发中】浮层是否隐藏空内容，默认不隐藏
+   * 浮层是否隐藏空内容，默认不隐藏
    * @default false
    */
   hideEmptyPopup?: boolean;
@@ -40,6 +43,14 @@ export interface TdPopupProps {
    * 浮层类名，示例：'name1 name2 name3' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
    */
   overlayClassName?: ClassName;
+  /**
+   * 浮层内容部分类名，示例：'name1 name2 name3' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
+   */
+  overlayInnerClassName?: ClassName;
+  /**
+   * 浮层内容部分样式，第一个参数 `triggerElement` 表示触发元素 DOM 节点，第二个参数 `popupElement` 表示浮层元素 DOM 节点
+   */
+  overlayInnerStyle?: Styles | ((triggerElement: HTMLElement, popupElement: HTMLElement) => Styles);
   /**
    * 浮层样式，第一个参数 `triggerElement` 表示触发元素 DOM 节点，第二个参数 `popupElement` 表示浮层元素 DOM 节点
    */
@@ -50,6 +61,10 @@ export interface TdPopupProps {
    */
   placement?: PopupPlacement;
   /**
+   * popper 初始化配置，详情参考 https://popper.js.org/docs/
+   */
+  popperOptions?: object;
+  /**
    * 是否显示浮层箭头
    * @default false
    */
@@ -58,19 +73,17 @@ export interface TdPopupProps {
    * 触发浮层出现的方式
    * @default hover
    */
-  trigger?: 'hover' | 'click' | 'focus' | 'context-menu';
+  trigger?: 'hover' | 'click' | 'focus' | 'mousedown' | 'context-menu';
   /**
-   * 触发元素
+   * 触发元素。值类型为字符串表示元素选择器
    */
   triggerElement?: TNode;
   /**
    * 是否显示浮层
-   * @default false
    */
   visible?: boolean;
   /**
    * 是否显示浮层，非受控属性
-   * @default false
    */
   defaultVisible?: boolean;
   /**
@@ -82,7 +95,7 @@ export interface TdPopupProps {
    */
   onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
   /**
-   * 当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=document` 表示右击触发
+   * 当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=context-menu` 表示右击触发
    */
   onVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
 }

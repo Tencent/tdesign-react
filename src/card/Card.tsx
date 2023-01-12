@@ -5,7 +5,7 @@ import { TdCardProps } from './type';
 import Loading from '../loading';
 import { StyledProps } from '../common';
 
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 import { cardDefaultProps } from './defaultProps';
 
@@ -39,10 +39,10 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   // 是否为海报风格2
   const isPoster2 = theme === 'poster2';
 
-  const cardClass = classNames(className, `${classPrefix}-card`, {
+  const cardClass = classNames(`${classPrefix}-card`, className, {
     [commonClassNames.SIZE.small]: size === 'small',
     [`${classPrefix}-card--bordered`]: bordered,
-    [`${classPrefix}--shadow`]: shadow,
+    [`${classPrefix}-card--shadow`]: shadow,
     [`${classPrefix}-card--shadow-hover`]: hoverShadow,
   });
 
@@ -94,24 +94,28 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
 
   const renderAvatar = avatar && <div className={avatarClass}>{avatar}</div>;
 
-  const renderActions = actions && !isPoster2 && <div className={actionClass}>{actions}</div>;
+  const renderHeaderActions = actions && !isPoster2 && <div className={actionClass}>{actions}</div>;
+  const renderFooterActions = actions && isPoster2 && <div className={actionClass}>{actions}</div>;
 
   const renderStatus = status && isPoster2 && <div className={actionClass}>{status}</div>;
 
-  const renderHeader = showHeader && (
-    <div className={headerClass}>
-      <div className={`${classPrefix}-card__header-wrapper`}>
-        {renderAvatar}
-        <div>
-          {renderTitle}
-          {renderSubtitle}
-          {renderDescription}
+  const renderHeader = () => {
+    if (header) return <div className={headerClass}>{header}</div>;
+    return (
+      <div className={headerClass}>
+        <div className={`${classPrefix}-card__header-wrapper`}>
+          {renderAvatar}
+          <div>
+            {renderTitle}
+            {renderSubtitle}
+            {renderDescription}
+          </div>
         </div>
+        {renderHeaderActions}
+        {renderStatus}
       </div>
-      {renderActions}
-      {renderStatus}
-    </div>
-  );
+    );
+  };
 
   const renderCover = cover ? (
     <div className={coverClass}>{typeof cover === 'string' ? <img src={cover} alt=""></img> : cover}</div>
@@ -122,26 +126,20 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   const renderFooter = footer && (
     <div className={footerClass}>
       <div className={`${classPrefix}-card__footer-wrapper`}>{footer}</div>
-      {isPoster2 && actions && renderActions}
+      {renderFooterActions}
     </div>
   );
 
-  if (loading) {
-    return (
-      <Loading>
-        <div className={cardClass}></div>
-      </Loading>
-    );
-  }
-
-  return (
+  const card = (
     <div ref={ref} className={cardClass} style={style}>
-      {renderHeader}
+      {showHeader ? renderHeader() : null}
       {renderCover}
       {renderChildren}
       {renderFooter}
     </div>
   );
+
+  return loading ? <Loading>{card}</Loading> : card;
 });
 
 Card.displayName = 'Card';

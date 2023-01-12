@@ -1,27 +1,45 @@
 import React, { useState } from 'react';
-
-import { Select } from 'tdesign-react';
-
-const { Option } = Select;
+import { Select, Space } from 'tdesign-react';
 
 const SelectPopupProps = () => {
-  const [value, setValue] = useState('apple');
+  const [value, setValue] = useState('1');
   const onChange = (value) => {
     setValue(value);
   };
   return (
-    <div style={{ display: 'flex' }}>
+    <Space>
       <Select
         value={value}
         onChange={onChange}
-        style={{ width: '40%' }}
-        popupProps={{ overlayStyle: { width: '600px' } }}
-      >
-        <Option key="apple" label="Apple" value="apple" />
-        <Option key="orange" label="Orange" value="orange" disabled />
-        <Option key="banana" label="Banana" value="banana" />
-      </Select>
-    </div>
+        style={{ width: '300px', display: 'inline-block' }}
+        options={[
+          {
+            label: '固定300px宽度',
+            value: '1',
+          },
+          {
+            label: '选项内容超长超长超长超长超长超长超长超长超长超长超长的选项',
+            value: '2',
+          },
+        ]}
+      ></Select>
+      <Select
+        value={value}
+        onChange={onChange}
+        style={{ width: '300px' }}
+        popupProps={{ overlayInnerStyle: { width: '300px' } }}
+        options={[
+          {
+            label: '下拉框强制和输入框同宽',
+            value: '1',
+          },
+          {
+            label: '选项内容超长超长超长超长超长超长超长超长超长超长超长的选项',
+            value: '2',
+          },
+        ]}
+      ></Select>
+    </Space>
   );
 };
 

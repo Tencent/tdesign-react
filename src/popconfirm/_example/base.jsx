@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Popconfirm, MessagePlugin } from 'tdesign-react';
+import { Button, Popconfirm, MessagePlugin, Space } from 'tdesign-react';
 
 export default function BasicExample() {
   const [visible, setVisible] = useState(false);
@@ -14,14 +14,18 @@ export default function BasicExample() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popconfirm content={'确认删除订单吗'} cancelBtn={null}>
         <Button theme="primary">删除订单</Button>
       </Popconfirm>
       <Popconfirm
         visible={visible}
         content={'是否提交审核？（自由控制浮层显示或隐藏）'}
-        confirmBtn={<Button size={'small'} onClick={deleteClickHandler}>确定</Button>}
+        confirmBtn={
+          <Button size={'small'} onClick={deleteClickHandler}>
+            确定
+          </Button>
+        }
         onCancel={() => {
           setVisible(false);
         }}
@@ -35,6 +39,6 @@ export default function BasicExample() {
           提交审核
         </Button>
       </Popconfirm>
-    </div>
+    </Space>
   );
 }

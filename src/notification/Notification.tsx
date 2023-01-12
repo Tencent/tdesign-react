@@ -1,54 +1,46 @@
 import React, { forwardRef, useContext } from 'react';
-import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+import classNames from 'classnames';
+import {
+  CloseIcon as TdCloseIcon,
+  InfoCircleFilledIcon as TdInfoCircleFilledIcon,
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+} from 'tdesign-icons-react';
 import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
-
+import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { NotificationInstance, TdNotificationProps } from './type';
-import { Styles } from '../common';
+import { StyledProps } from '../common';
 import { notificationDefaultProps } from './defaultProps';
 
-const blockName = 'notification';
-
-export interface NotificationProps extends TdNotificationProps {
-  style?: Styles;
+export interface NotificationProps extends TdNotificationProps, StyledProps {
   id?: string;
 }
 
 export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   const {
-    title = null,
-    content = null,
-    theme = null,
-    icon = null,
+    title,
+    content,
+    theme,
+    icon,
     closeBtn,
-    footer = null,
-    duration = 3000,
+    footer,
+    duration,
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
-    id = '',
+    className,
+    id,
   } = props;
 
   const { classPrefix } = useConfig();
-  const prefixCls = React.useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
-        }
-      });
-      return className;
-    },
-    [classPrefix],
-  );
+  const baseClassPrefix = `${classPrefix}-notification`;
+  const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
+    CloseIcon: TdCloseIcon,
+    InfoCircleFilledIcon: TdInfoCircleFilledIcon,
+    CheckCircleFilledIcon: TdCheckCircleFilledIcon,
+  });
 
   const remove = useContext(NotificationRemoveContext);
   React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));
@@ -68,7 +60,9 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   }, []);
 
   const renderIcon = () => {
-    const IconWrapper = ({ children }) => <div className={`${classPrefix}-notification__icon`}>{children}</div>;
+    if (typeof icon === 'boolean' && !icon) return null;
+
+    const IconWrapper = ({ children }) => <div className={`${baseClassPrefix}__icon`}>{children}</div>;
 
     // 调整优先级，icon 优先级最高
     if (React.isValidElement(icon)) {
@@ -78,60 +72,60 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
     if (theme && theme === 'success') {
       return (
         <IconWrapper>
-          <CheckCircleFilledIcon className={prefixCls('is-success')} />
+          <CheckCircleFilledIcon className={`${classPrefix}-is-success`} />
         </IconWrapper>
       );
     }
     if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
       return (
         <IconWrapper>
-          <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />
+          <InfoCircleFilledIcon className={`${classPrefix}-is-${theme}`} />
         </IconWrapper>
       );
     }
     return null;
   };
 
+  const renderCloseBtn = () => {
+    if (typeof closeBtn === 'boolean') {
+      return (
+        closeBtn && (
+          <CloseIcon
+            className={`${baseClassPrefix}-icon-close`}
+            onClick={(e) => {
+              onCloseBtnClick({ e });
+            }}
+          />
+        )
+      );
+    }
+    return (
+      <div
+        className={`${baseClassPrefix}-close`}
+        onClick={(e) => {
+          onCloseBtnClick({ e });
+        }}
+      >
+        {parseTNode(closeBtn)}
+      </div>
+    );
+  };
+
   return (
-    <div className={prefixCls(blockName)} style={style}>
+    <div
+      className={classNames(className, baseClassPrefix, {
+        [`${baseClassPrefix}-is-${theme}`]: theme,
+      })}
+      style={style}
+    >
       {renderIcon()}
-      <div className={prefixCls([blockName, 'main'])}>
-        <div className={prefixCls([blockName, 'title__wrap'])}>
-          <span className={prefixCls([blockName, 'title'])}>{title}</span>
-          {((): React.ReactNode => {
-            if (typeof closeBtn === 'boolean' && closeBtn) {
-              return (
-                <CloseIcon
-                  className={prefixCls('icon-close')}
-                  onClick={(e) => {
-                    onCloseBtnClick({ e });
-                  }}
-                />
-              );
-            }
-            if (React.isValidElement(closeBtn)) {
-              return (
-                <div
-                  onClick={(e) => {
-                    onCloseBtnClick({ e });
-                  }}
-                >
-                  {closeBtn}
-                </div>
-              );
-            }
-            return null;
-          })()}
+      <div className={`${baseClassPrefix}__main`}>
+        <div className={`${baseClassPrefix}__title__wrap`}>
+          <span className={`${baseClassPrefix}__title`}>{title}</span>
+          {renderCloseBtn()}
         </div>
-        {((): React.ReactNode => {
-          if (typeof content === 'string') {
-            return <div className={prefixCls([blockName, 'content'])}>{content}</div>;
-          }
-          if (React.isValidElement(content)) return content;
-          return null;
-        })()}
-        {React.isValidElement(footer) && <div className={prefixCls([blockName, 'detail'])}>{footer}</div>}
-        {typeof footer === 'function' && <div className={prefixCls([blockName, 'detail'])}>{footer()}</div>}
+        {content && <div className={`${baseClassPrefix}__content`}>{parseTNode(content)}</div>}
+        {footer && <div className={`${baseClassPrefix}__detail`}>{parseTNode(footer)}</div>}
       </div>
     </div>
   );

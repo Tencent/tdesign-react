@@ -1,41 +1,30 @@
 import React from 'react';
 import { Comment } from 'tdesign-react';
-import { IconFont } from 'tdesign-icons-react';
+import { CaretRightSmallIcon, ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 export default function replyComment() {
-  const actionTextStyle = {
-    display: 'inline-block',
-    marginLeft: '6px',
-    lineHeight: '15px',
-  };
-
-  const authorIconStyle = {
-    display: 'inline-block',
-    margin: '0 4px',
-  };
-
   const actions = [
-    <span key="thumbUp">
-      <IconFont name="thumb-up" />
-      <span style={actionTextStyle}>6</span>
-    </span>,
-    <span key="chat">
-      <IconFont name="chat" />
-      <span style={actionTextStyle}>回复</span>
-    </span>,
+    <React.Fragment key="ThumbUp">
+      <ThumbUpIcon size="16px" />
+      <span>6</span>
+    </React.Fragment>,
+    <React.Fragment key="Chat">
+      <ChatIcon size="16px" />
+      <span>回复</span>
+    </React.Fragment>,
   ];
 
   const replyAuthor = (
     <>
       <span>评论作者名B</span>
-      <IconFont name="caret-right-small" size="small" style={authorIconStyle} />
+      <CaretRightSmallIcon size="small" />
       <span>评论作者名A</span>
     </>
   );
 
   const replyElement = (
     <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
+      avatar="https://tdesign.gtimg.com/site/avatar.jpg"
       author={replyAuthor}
       datetime="今天16:38"
       content="B评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
@@ -45,7 +34,8 @@ export default function replyComment() {
 
   return (
     <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
+      className="comment-reply"
+      avatar="https://tdesign.gtimg.com/site/avatar.jpg"
       author="评论作者名A"
       datetime="今天16:38"
       content="A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"

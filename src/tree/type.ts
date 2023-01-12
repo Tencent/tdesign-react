@@ -6,7 +6,7 @@
 
 import { CheckboxProps } from '../checkbox';
 import { TNode, TreeOptionData } from '../common';
-import { MouseEvent } from 'react';
+import { MouseEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
@@ -55,11 +55,16 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 禁用复选框，可支持禁用不同的行
    * @default false
    */
-  disableCheck?: boolean | ((node: TreeNodeModel) => boolean);
+  disableCheck?: boolean | ((node: TreeNodeModel<T>) => boolean);
   /**
    * 是否禁用树操作
    */
   disabled?: boolean;
+  /**
+   * 节点是否可拖拽
+   * @default false
+   */
+  draggable?: boolean;
   /**
    * 数据为空时展示的文本
    * @default ''
@@ -112,7 +117,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 节点图标，可自定义
    * @default true
    */
-  icon?: boolean | TNode<TreeNodeModel>;
+  icon?: boolean | TNode<TreeNodeModel<T>>;
   /**
    * 用来定义 value / label / children 在 `options` 中对应的字段别名
    */
@@ -131,7 +136,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 连接线。值为 false 不显示连接线；值为 true 显示默认连接线；值类型为 Function 表示自定义连接线
    * @default false
    */
-  line?: TNode;
+  line?: TNode | TNode<TreeNodeModel>;
   /**
    * 加载子数据的方法，在展开节点时调用（仅当节点 children 为 true 时生效），泛型 `T` 表示树节点 TS 类型
    */
@@ -180,6 +185,31 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 异步加载后触发，泛型 `T` 表示树节点 TS 类型
    */
   onLoad?: (context: { node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragStart?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点结束拖拽时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragEnd?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragOver?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragLeave?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点在目标元素上释放时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDrop?: (context: {
+    e: DragEvent;
+    dragNode: TreeNodeModel<T>;
+    dropNode: TreeNodeModel<T>;
+    dropPosition: number;
+  }) => void;
 }
 
 /** 组件实例方法 */
@@ -324,7 +354,7 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
   /**
    * 默认获取当前节点的全部子节点，deep 值为 true 则表示获取全部子孙节点
    */
-  getChildren: (deep: boolean) => Array<TreeNodeModel> | boolean;
+  getChildren: (deep: boolean) => Array<TreeNodeModel<T>> | boolean;
   /**
    * 获取节点在父节点的子节点列表中的位置，如果没有父节点，则获取节点在根节点列表的位置
    */
@@ -336,23 +366,23 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
   /**
    * 获取单个父节点
    */
-  getParent: () => TreeNodeModel;
+  getParent: () => TreeNodeModel<T>;
   /**
    * 获取所有父节点
    */
-  getParents: () => Array<TreeNodeModel>;
+  getParents: () => Array<TreeNodeModel<T>>;
   /**
    * 获取节点全路径
    */
-  getPath: () => Array<TreeNodeModel>;
+  getPath: () => Array<TreeNodeModel<T>>;
   /**
    * 获取根节点
    */
-  getRoot: () => TreeNodeModel;
+  getRoot: () => TreeNodeModel<T>;
   /**
    * 获取兄弟节点，包含自己在内
    */
-  getSiblings: () => Array<TreeNodeModel>;
+  getSiblings: () => Array<TreeNodeModel<T>>;
   /**
    * 在当前节点前插入新节点，泛型 `T` 表示树节点 TS 类型
    */

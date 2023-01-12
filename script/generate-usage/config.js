@@ -96,15 +96,35 @@ module.exports = {
       }, [changedProps]);
     `,
   },
-  'date-picker': {
+  card: {
     importStr: `
       import configProps from './props.json';\n
-      import { DatePicker, DateRangePicker } from 'tdesign-react';\n`,
+      import { Card } from 'tdesign-react';\n`,
     configStr: `
       const [configList, setConfigList] = useState(configProps);
     `,
     panelStr: `
-      const panelList = [{ label: 'datePicker', value: 'datePicker' }, { label: 'dateRangePicker', value: 'dateRangePicker' }];
+      const panelList = [{ label: 'card', value: 'card' }];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp(<Card {...changedProps}>仅有内容区域的卡片形式。卡片内容区域可以是文字、图片、表单、表格等形式信息内容。可使用大中小不同的卡片尺寸，按业务需求进行呈现。</Card>);
+      }, [changedProps]);
+    `,
+  },
+  'date-picker': {
+    importStr: `
+      import DatePickerConfigProps from './date-picker-props.json';\n
+      import DateRangePickerConfigProps from './date-range-picker-props.json';\n
+      import { DatePicker, DateRangePicker } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(DatePickerConfigProps);
+    `,
+    panelStr: `
+      const panelList = [
+        { label: 'datePicker', value: 'datePicker', config: DatePickerConfigProps },
+        { label: 'dateRangePicker', value: 'dateRangePicker', config: DateRangePickerConfigProps }
+      ];
 
       const panelMap = {
         datePicker: <DatePicker {...changedProps} />,
@@ -644,7 +664,7 @@ module.exports = {
       useEffect(() => {
         setRenderComp((
           <Badge {...defaultProps} {...changedProps}>
-            <Button>按钮</Button>  
+            <Button>按钮</Button>
           </Badge>
         ));
       }, [changedProps]);
@@ -823,24 +843,22 @@ module.exports = {
       const panelList = [{ label: 'tree:', value: 'tree:' }];
     `,
     usageStr: `
-      const defaultProps = {
-        data: [
-          {
-            label: '第一段',
-            children: [ { label: '第二段' }, { label: '第二段' } ],
-          },
-          {
-            label: '第一段',
-            children: [ { label: '第二段' }, { label: '第二段' } ],
-          },
-          {
-            label: '第一段',
-            children: [ { label: '第二段' }, { label: '第二段' } ],
-          },
-        ]
-      };
+      const [data] = useState([
+        {
+          label: '第一段',
+          children: [ { label: '第二段' }, { label: '第二段' } ],
+        },
+        {
+          label: '第一段',
+          children: [ { label: '第二段' }, { label: '第二段' } ],
+        },
+        {
+          label: '第一段',
+          children: [ { label: '第二段' }, { label: '第二段' } ],
+        },
+      ]);
       useEffect(() => {
-        setRenderComp(<Tree {...defaultProps} {...changedProps} />);
+        setRenderComp(<Tree data={data} {...changedProps} />);
       }, [changedProps]);
     `,
   },
@@ -982,26 +1000,21 @@ module.exports = {
   table: {
     importStr: `
       import baseTableConfigProps from './base-table-props.json';\n
-      import primaryTableConfigProps from './primary-table-props.json';\n
       import { Table } from 'tdesign-react';\n`,
     configStr: `
       const [configList, setConfigList] = useState(baseTableConfigProps);
     `,
     panelStr: `
       const panelList = [
-        { label: 'baseTable', value: 'baseTable', config: baseTableConfigProps },
-        { label: 'primaryTable', value: 'primaryTable', config: primaryTableConfigProps },
+        { label: 'Table', value: 'baseTable', config: baseTableConfigProps },
       ];
 
-      const data = [];
-      const total = 30;
-      for (let i = 0; i < total; i++) {
-        data.push({
-          index: i,
-          platform: '公有',
-          description: '数据源',
-        });
-      }
+      const data = Array(30).fill(0).map((_, i) => ({
+        index: i,
+        platform: '公有',
+        description: '数据源',
+      }));
+
       const columns = [
         {colKey: 'index', title: 'index'},
         {colKey: 'platform', title: '平台'},
@@ -1012,25 +1025,92 @@ module.exports = {
         data,
         columns,
         maxHeight: 140,
-        pagination: { total, defaultPageSize: 10 },
+        pagination: { total: 30, defaultPageSize: 10 },
       };
 
       const panelMap = {
         baseTable: <Table {...defaultProps} {...changedProps} />,
-        primaryTable: (
-          <Table {...defaultProps} {...changedProps}/>
-        ),
       };
     `,
     usageStr: `
       useEffect(() => {
-        const config = panelList.find(item => item.value === panel).config;
-        setConfigList(config);
-      }, [panel]);
-
-      useEffect(() => {
         setRenderComp(panelMap[panel]);
       }, [changedProps, panel]);
     `,
+  },
+  Space: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Space, Button } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'space', value: 'space' }];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp((
+          <Space {...changedProps}>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+          </Space>
+        ));
+      }, [changedProps]);
+    `,
+  },
+  Jumper: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Jumper } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'jumper', value: 'jumper' }];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp((
+          <Jumper {...changedProps}></Jumper>
+        ));
+      }, [changedProps]);
+    `,
+  },
+  Collapse: {
+    importStr: `
+    import configProps from './props.json';\n
+    import { Collapse } from 'tdesign-react';\n`,
+    configStr: `
+    const [configList, setConfigList] = useState(configProps);
+  `,
+    panelStr: `
+    const panelList = [{ label: 'collapse', value: 'collapse' }];
+  `,
+    usageStr: `
+    const { Panel } = Collapse;
+    useEffect(() => {
+      setRenderComp((
+        <Collapse defaultValue="default" {...changedProps}>
+          <Panel header="这是一个折叠标题">
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+          </Panel>
+          <Panel header="设置默认展开项" value="default">
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+          </Panel>
+          <Panel header="嵌套使用折叠面板">
+            <Collapse>
+              <Panel header="这是一个折叠标题">
+                这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+              </Panel>
+            </Collapse>
+          </Panel>
+        </Collapse>
+      ));
+    }, [changedProps]);
+  `,
   },
 };

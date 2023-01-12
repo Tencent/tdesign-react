@@ -1,17 +1,16 @@
 import React from 'react';
-import { Tree } from 'tdesign-react';
+import { Tree, Space } from 'tdesign-react';
 
 export default () => {
   const empty = () => <div>😊 空数据（ empty props ）</div>;
 
   return (
-    <div className="tdesign-tree-base">
+    <Space direction="vertical">
       <Tree data={[]} />
-      <br />
+
       <Tree data={[]} empty="😊 空数据（string）" />
-      <br />
+
       <Tree data={[]} empty={empty} />
-      <br />
-    </div>
+    </Space>
   );
 };

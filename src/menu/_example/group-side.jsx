@@ -1,7 +1,16 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Menu } from 'tdesign-react';
-import { ViewListIcon, ChartIcon, FileIcon } from 'tdesign-icons-react';
+import { Menu, Button } from 'tdesign-react';
+import {
+  ViewListIcon,
+  ServerIcon,
+  Edit1Icon,
+  RootListIcon,
+  CheckIcon,
+  UserIcon,
+  AppIcon,
+  LoginIcon,
+} from 'tdesign-icons-react';
 
 const { MenuGroup, MenuItem, SubMenu } = Menu;
 
@@ -14,7 +23,9 @@ function GroupSide() {
       value={value}
       onChange={(value) => setValue(value)}
       collapsed={collapsed}
-      operations={<ViewListIcon onClick={() => setCollapsed(!collapsed)} />}
+      operations={
+        <Button variant="text" shape="square" icon={<ViewListIcon />} onClick={() => setCollapsed(!collapsed)} />
+      }
       logo={
         collapsed ? (
           <img
@@ -23,37 +34,39 @@ function GroupSide() {
             alt="logo"
           />
         ) : (
-          <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />
+          <img src="https://tdesign.gtimg.com/site/baseLogo-light.png" width="136" alt="logo" />
         )
       }
     >
-      <MenuGroup title="Classification A">
-        <MenuItem value="1" icon={<ChartIcon />}>
+      <MenuGroup title="主导航">
+        <MenuItem value="item1" icon={<AppIcon />}>
           仪表盘
         </MenuItem>
       </MenuGroup>
-      <MenuGroup title="Classification B">
-        <MenuItem value="2">调度平台</MenuItem>
-        <MenuItem value="3">菜单内容二很长很长很长很长很长很长很长很长</MenuItem>
-      </MenuGroup>
-      <MenuGroup title="Classification C">
-        <MenuItem value="4">精准监控</MenuItem>
-        <SubMenu value="5" title={<span>资源列表</span>} icon={<FileIcon />}>
-          <MenuGroup title="inner Classification D">
-            <SubMenu value="2-1" title="二级菜单-1">
-              <MenuGroup title="inner Classification E">
-                <MenuItem value="3-1">三级菜单-1</MenuItem>
-              </MenuGroup>
-              <MenuItem value="3-2">三级菜单-2</MenuItem>
-              <MenuItem value="3-3">三级菜单-3</MenuItem>
-            </SubMenu>
-          </MenuGroup>
-          <MenuGroup title="inner Classification E">
-            <MenuItem value="2-2">
-              <span>二级菜单-2</span>
-            </MenuItem>
-          </MenuGroup>
+      <MenuGroup title="组件">
+        <SubMenu title="列表项" value="2-1" icon={<ServerIcon />}>
+          <MenuItem value="2-1-1">基础列表项</MenuItem>
+          <MenuItem value="2-1-2">卡片列表项</MenuItem>
+          <MenuItem value="2-1-3">筛选列表项</MenuItem>
+          <MenuItem value="2-1-4">树状筛选列表项</MenuItem>
         </SubMenu>
+        <MenuItem value="2-2" icon={<Edit1Icon />}>
+          表单项
+        </MenuItem>
+        <MenuItem value="2-3" icon={<RootListIcon />}>
+          详情页
+        </MenuItem>
+        <MenuItem value="2-4" icon={<CheckIcon />}>
+          结果页
+        </MenuItem>
+      </MenuGroup>
+      <MenuGroup title="更多">
+        <MenuItem value="item3" icon={<UserIcon />}>
+          个人页
+        </MenuItem>
+        <MenuItem value="item4" icon={<LoginIcon />}>
+          登录页
+        </MenuItem>
       </MenuGroup>
     </Menu>
   );

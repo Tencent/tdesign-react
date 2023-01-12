@@ -5,29 +5,28 @@ import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { RowspanColspan, TableRowData, BaseTableCellParams } from './type';
-import { BaseTableProps } from './interface';
-import { RowAndColFixedPosition } from './hooks/useFixed';
 import useClassName from './hooks/useClassName';
+import useRowspanAndColspan from './hooks/useRowspanAndColspan';
+import { BaseTableProps, RowAndColFixedPosition } from './interface';
+import { TdBaseTableProps } from './type';
+import { PaginationProps } from '../pagination';
+import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
+  classPrefix: string;
+  ellipsisOverlayClassName: string;
   // 固定列 left/right 具体值
   rowAndColFixedPosition?: RowAndColFixedPosition;
   showColumnShadow?: { left: boolean; right: boolean };
   tableElm?: HTMLDivElement;
   tableContentElm?: HTMLDivElement;
+  cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
   tableWidth?: number;
   isWidthOverflow?: boolean;
-
-  // 以下内容为虚拟滚动所需参数
-  translateY?: number;
-  scrollType?: string;
-  isVirtual?: boolean;
-  rowHeight?: number;
-  trs?: Map<number, object>;
-  bufferSize?: number;
-  handleRowMounted?: () => void;
+  virtualConfig: VirtualScrollConfig;
+  pagination?: PaginationProps;
+  handleRowMounted?: (rowData: any) => void;
 }
 
 // table 到 body 的相同属性
@@ -42,6 +41,7 @@ export const extendTableProps = [
   'lastFullRow',
   'rowspanAndColspan',
   'scroll',
+  'cellEmptyContent',
   'onCellClick',
   'onPageChange',
   'onRowClick',
@@ -58,11 +58,13 @@ export const extendTableProps = [
 
 export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
-  const { data, columns } = props;
+  const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig } = props;
   const [global, t] = useLocaleReceiver('table');
   const { tableFullRowClasses, tableBaseClass } = useClassName();
+  const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
 
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
+  const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
 
   const renderEmpty = (columns: TableBodyProps['columns']) => (
     <tr className={classNames([tableBaseClass.emptyRow, { [tableFullRowClasses.base]: props.isWidthOverflow }])}>
@@ -80,9 +82,10 @@ export default function TBody(props: TableBodyProps) {
   const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row') => {
     const tType = camelCase(type);
     const fullRowNode = {
-      'first-full-row': props.firstFullRow,
-      'last-full-row': props.lastFullRow,
+      'first-full-row': firstFullRow,
+      'last-full-row': lastFullRow,
     }[type];
+
     if (!fullRowNode) return null;
     const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
@@ -101,30 +104,13 @@ export default function TBody(props: TableBodyProps) {
     );
   };
 
-  // 受合并单元格影响，部分单元格不显示
-  let skipSpansMap = new Map<any, boolean>();
-
-  const onTrRowspanOrColspan = (params: BaseTableCellParams<TableRowData>, cellSpans: RowspanColspan) => {
-    const { rowIndex, colIndex } = params;
-    if (!cellSpans.rowspan && !cellSpans.colspan) return;
-    const maxRowIndex = rowIndex + (cellSpans.rowspan || 1);
-    const maxColIndex = colIndex + (cellSpans.colspan || 1);
-    for (let i = rowIndex; i < maxRowIndex; i++) {
-      for (let j = colIndex; j < maxColIndex; j++) {
-        if (i !== rowIndex || j !== colIndex) {
-          skipSpansMap.set([i, j].join(), true);
-        }
-      }
-    }
-  };
-
   const columnLength = columns.length;
-  const dataLength = data.length;
+  const dataLength = data?.length;
   const trNodeList = [];
-  // 每次渲染清空合并单元格信息
-  skipSpansMap = new Map<any, boolean>();
 
   const properties = [
+    'classPrefix',
+    'ellipsisOverlayClassName',
     'rowAndColFixedPosition',
     'scroll',
     'tableElm',
@@ -141,12 +127,15 @@ export default function TBody(props: TableBodyProps) {
       rowKey: props.rowKey || 'id',
       row,
       columns,
-      rowIndex,
+      // eslint-disable-next-line
+      rowIndex: row.__VIRTUAL_SCROLL_INDEX || rowIndex,
       dataLength,
       skipSpansMap,
+      virtualConfig,
+      classPrefix: props.classPrefix,
+      ellipsisOverlayClassName: props.ellipsisOverlayClassName,
       ...pick(props, properties),
-      // 遍历的同时，计算后面的节点，是否会因为合并单元格跳过渲染
-      onTrRowspanOrColspan,
+      pagination: props.pagination,
     };
     if (props.onCellClick) {
       trProps.onCellClick = props.onCellClick;
@@ -178,18 +167,21 @@ export default function TBody(props: TableBodyProps) {
       {getFullRow(columnLength, 'last-full-row')}
     </>
   );
-  const isEmpty = !data?.length && !props.loading;
+  const isEmpty = !data?.length && !props.loading && !hasFullRowConfig;
 
-  const translate = `translate(0, ${props.translateY}px)`;
-  const posStyle = {
-    transform: translate,
-    '-ms-transform': translate,
-    '-moz-transform': translate,
-    '-webkit-transform': translate,
-  };
+  // 垫上隐藏的 tr 元素高度
+  const translate = `translate(0, ${virtualConfig.translateY}px)`;
+  const posStyle = virtualConfig.isVirtualScroll
+    ? {
+        transform: translate,
+        msTransform: translate,
+        MozTransform: translate,
+        WebkitTransform: translate,
+      }
+    : undefined;
 
   return (
-    <tbody className={classNames(tbodyClasses)} style={props.isVirtual && { ...posStyle }}>
+    <tbody className={classNames(tbodyClasses)} style={{ ...posStyle }}>
       {isEmpty ? renderEmpty(columns) : list}
     </tbody>
   );

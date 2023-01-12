@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -16,7 +16,7 @@ const InputGroup = forwardRef((props: InputGroupProps, ref: React.Ref<HTMLDivEle
   return (
     <div
       ref={ref}
-      className={classNames(className, `${classPrefix}-input-group`, {
+      className={classNames(`${classPrefix}-input-group`, className, {
         [`${classPrefix}-input-group--separate`]: separate,
       })}
       {...wrapperProps}

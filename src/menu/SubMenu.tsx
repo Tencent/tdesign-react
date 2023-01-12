@@ -2,8 +2,9 @@ import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from '
 import classNames from 'classnames';
 import { StyledProps } from '../common';
 import { TdSubmenuProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { MenuContext } from './MenuContext';
+import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
@@ -19,6 +20,7 @@ export interface SubMenuWithCustomizeProps extends SubMenuProps {
 
 const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const { content, children = content, disabled, icon, title, value, className, style, level = 1 } = props;
+
   const { classPrefix } = useConfig();
 
   // popup 状态下控制开关
@@ -70,7 +72,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   return (
     <li
-      className={classNames(className, `${classPrefix}-submenu`, {
+      className={classNames(`${classPrefix}-submenu`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-opened`]: isOpen,
       })}
@@ -86,7 +88,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         })}
       >
         {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
-        <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
+        <FakeArrow style={fakeArrowStyle} isActive={level === 1 && isOpen} disabled={disabled} />
       </div>
       {isPopUp ? (
         <div
@@ -118,7 +120,8 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 };
 
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
-  const { className, style, children, title, value, level } = props;
+  const { className, style, children, title, value, level = 1 } = props;
+
   const { active, onChange, expandType } = useContext(MenuContext);
   const { classPrefix } = useConfig();
   const [open, setOpen] = useState(false);
@@ -127,8 +130,9 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const handleClick = () => onChange(value);
 
   // 斜八角动画
-  const subMenuRef = useRef();
-  useRipple(subMenuRef);
+  const [subMenuDom, setRefCurrent] = useDomRefCallback();
+
+  useRipple(subMenuDom);
 
   // pupup 导航
   const isPopUp = expandType === 'popup';
@@ -149,14 +153,14 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   return (
     <li
-      className={classNames(className, `${classPrefix}-submenu`, {
+      className={classNames(`${classPrefix}-submenu`, className, {
         [`${classPrefix}-is-opened`]: open,
       })}
       onMouseEnter={() => handleMouseEvent('enter')}
       onMouseLeave={() => handleMouseEvent('leave')}
     >
       <div
-        ref={subMenuRef}
+        ref={setRefCurrent}
         className={classNames(`${classPrefix}-menu__item`, {
           [`${classPrefix}-is-active`]: isActive,
           [`${classPrefix}-is-opened`]: open,
@@ -165,7 +169,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
         style={style}
       >
         <span>{title}</span>
-        {showPopup && <FakeArrow style={fakeArrowStyle} isActive={open} />}
+        {showPopup && <FakeArrow style={fakeArrowStyle} isActive={level === 1 && open} />}
       </div>
       {showPopup && (
         <div

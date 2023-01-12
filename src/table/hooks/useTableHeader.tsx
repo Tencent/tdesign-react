@@ -36,21 +36,29 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
     colIndex: number,
     ellipsisTitle: BaseTableCol['ellipsisTitle'],
     attach: HTMLElement,
+    extra?: {
+      classPrefix: string;
+      ellipsisOverlayClassName: string;
+    },
   ) => {
     const classes = {
       [tableSortClasses.sortable]: !!sortIcon,
       [tableFilterClasses.filterable]: !!filterIcon,
     };
     const content = isFunction(ellipsisTitle) ? ellipsisTitle({ col, colIndex }) : undefined;
+    const isEllipsis = ellipsisTitle !== undefined ? Boolean(ellipsisTitle) : Boolean(col.ellipsis);
     return (
       <div className={classNames(classes)}>
         <div className={tableSortClasses.title}>
-          {col.ellipsis && ellipsisTitle !== false && ellipsisTitle !== null ? (
+          {isEllipsis ? (
             <TEllipsis
-              placement="bottom-right"
+              placement="bottom"
               attach={attach ? () => attach : undefined}
               popupContent={content}
-              popupProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
+              // @ts-ignore TODO 待类型完善后移除
+              tooltipProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
+              classPrefix={extra?.classPrefix}
+              overlayClassName={extra?.ellipsisOverlayClassName}
             >
               {title}
             </TEllipsis>

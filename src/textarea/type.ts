@@ -9,6 +9,11 @@ import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTextareaProps {
   /**
+   * 超出maxlength或maxcharacter之后是否还允许输入
+   * @default false
+   */
+  allowInputOverMax?: boolean;
+  /**
    * 自动聚焦，拉起键盘
    * @default false
    */
@@ -52,7 +57,7 @@ export interface TdTextareaProps {
   /**
    * 文本框状态
    */
-  status?: 'success' | 'warning' | 'error';
+  status?: 'default' | 'success' | 'warning' | 'error';
   /**
    * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
    */
@@ -91,4 +96,4 @@ export interface TdTextareaProps {
   onKeyup?: (value: TextareaValue, context: { e: KeyboardEvent<HTMLTextAreaElement> }) => void;
 }
 
-export type TextareaValue = string | number;
+export type TextareaValue = string;

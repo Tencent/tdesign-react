@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { TdAsideProps } from './type';
 import { StyledProps } from '../common';
 
@@ -19,7 +19,7 @@ const Aside = (props: AsideProps) => {
 
   const { classPrefix } = useConfig();
   const asideClassNames = classNames(`${classPrefix}-layout__sider`, className);
-  const asideWidth = typeof width === 'number' ? `${width}px` : String(width);
+  const asideWidth = isNaN(Number(width)) ? width : `${width}px`;
 
   const asideStyle = {
     width: asideWidth,

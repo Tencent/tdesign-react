@@ -26,23 +26,25 @@ export default function Placements() {
     clearInterval(timerRef.current);
     setTimer();
     ref.current.setVisible(true);
-  }
+  };
 
   useEffect(() => {
     setTimer();
     return () => {
       clearInterval(timerRef.current);
-    }
+    };
   }, []);
 
   return (
-    <div>
+    <>
       <Tooltip content={`提示在${count}秒后消失`} duration={5000} ref={ref}>
-        <Button variant="text">
-          定时消失
-        </Button>
+        <Button variant="text">定时消失</Button>
       </Tooltip>
-      {reset && <Button variant="outline" onClick={onResetClick}>点击再次查看</Button>}
-    </div>
+      {reset && (
+        <Button variant="outline" onClick={onResetClick}>
+          点击再次查看
+        </Button>
+      )}
+    </>
   );
 }

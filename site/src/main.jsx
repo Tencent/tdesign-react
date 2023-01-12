@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import ReloadPrompt from './components/ReloadPrompt';
 
 // import tdesign style;
 import 'tdesign-react/style/index.js';
@@ -14,10 +13,13 @@ import 'tdesign-site-components/lib/styles/prism-theme-dark.less';
 
 import 'tdesign-icons-view';
 
-ReactDOM.render(
+import 'tdesign-theme-generator';
+
+const rootElement = document.getElementById('app');
+const root = createRoot(rootElement);
+
+root.render(
   <React.StrictMode>
     <App />
-    <ReloadPrompt />
   </React.StrictMode>,
-  document.getElementById('app'),
 );

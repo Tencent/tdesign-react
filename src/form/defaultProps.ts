@@ -15,6 +15,4 @@ export const formDefaultProps: TdFormProps = {
   submitWithWarningMessage: false,
 };
 
-export const formItemDefaultProps: TdFormItemProps = {
-  successBorder: false,
-};
+export const formItemDefaultProps: TdFormItemProps = { shouldUpdate: false, successBorder: false };

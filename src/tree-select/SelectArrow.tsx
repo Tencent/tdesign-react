@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import FakeArrow from '../common/FakeArrow';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 
 interface SelectArrowProps {
   isActive: boolean;
@@ -15,7 +15,7 @@ export const SelectArrow = ({ isActive, isHighlight, disabled }: SelectArrowProp
     <FakeArrow
       isActive={isActive}
       disabled={disabled}
-      overlayClassName={classNames({
+      className={classNames({
         [`${classPrefix}-fake-arrow--highlight`]: isHighlight,
         [`${classPrefix}-fake-arrow--disable`]: disabled,
       })}

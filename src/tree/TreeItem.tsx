@@ -1,12 +1,17 @@
-import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
+import React, { CSSProperties, DragEventHandler, forwardRef, MouseEvent, ReactNode, useRef, DragEvent } from 'react';
 import classNames from 'classnames';
-import { CaretRightSmallIcon } from 'tdesign-icons-react';
+import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
 import useRipple from '../_util/useRipple';
+import useDomRefCallback from '../hooks/useDomRefCallback';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import TreeNode from '../_common/js/tree/tree-node';
 import Checkbox from '../checkbox';
 import { useTreeConfig } from './useTreeConfig';
 import { TreeItemProps } from './interface';
+import useDraggable from './useDraggable';
+import composeRefs from '../_util/composeRefs';
+import useConfig from '../hooks/useConfig';
 
 /**
  * 树节点组件
@@ -25,11 +30,28 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     onClick,
     onChange,
   } = props;
+
+  const { CaretRightSmallIcon } = useGlobalIcon({
+    CaretRightSmallIcon: TdCaretRightSmallIcon,
+  });
   const { level } = node;
 
   const { treeClassNames, locale } = useTreeConfig();
+  const { classPrefix } = useConfig();
 
   const handleClick = (evt: MouseEvent<HTMLDivElement>) => {
+    const srcTarget = evt.target as HTMLElement;
+    const isBranchTrigger =
+      node.children &&
+      expandOnClickNode &&
+      (srcTarget.className === `${classPrefix}-checkbox__input` || srcTarget.tagName.toLowerCase() === 'input');
+
+    if (isBranchTrigger) return;
+
+    // 处理expandOnClickNode时与checkbox的选中的逻辑冲突
+    if (expandOnClickNode && node.children && srcTarget.className?.indexOf?.(`${classPrefix}-tree__label`) !== -1)
+      evt.preventDefault();
+
     onClick?.(node, {
       event: evt,
       expand: expandOnClickNode,
@@ -155,8 +177,8 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   };
 
   // 使用 斜八角动画
-  const labelRef = useRef();
-  useRipple(labelRef);
+  const [labelDom, setRefCurrent] = useDomRefCallback();
+  useRipple(labelDom);
 
   const renderLabel = () => {
     const emptyView = locale('empty');
@@ -185,14 +207,14 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
       return (
         <Checkbox
-          ref={labelRef}
-          // value={node.value}
+          ref={setRefCurrent}
           checked={node.checked}
           indeterminate={node.indeterminate}
           disabled={checkboxDisabled}
           name={String(node.value)}
           onChange={() => onChange(node)}
           className={labelClasses}
+          stopLabelTrigger={!!node.children}
           {...checkProps}
         >
           <span date-target="label">{labelText}</span>
@@ -200,7 +222,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       );
     }
     return (
-      <span ref={labelRef} date-target="label" className={labelClasses}>
+      <span ref={setRefCurrent} date-target="label" className={labelClasses} title={node.label}>
         <span style={{ position: 'relative' }}>{labelText}</span>
       </span>
     );
@@ -232,24 +254,81 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     return null;
   };
 
-  // ？？这里写两个属性，ts 就不会报错了
-  const styles = {
-    '--level': level,
-    boxShadow: '',
+  const nodeRef = useRef<HTMLDivElement>(null);
+
+  const { setDragStatus, isDragging, dropPosition, isDragOver } = useDraggable({
+    node,
+    nodeRef,
+  });
+
+  const handleDragStart: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    setDragStatus('dragStart', evt);
+
+    try {
+      // ie throw error firefox-need-it
+      evt.dataTransfer?.setData('text/plain', '');
+    } catch (e) {
+      // empty
+    }
+  };
+  const handleDragEnd: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    setDragStatus('dragEnd', evt);
+  };
+  const handleDragOver: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    evt.preventDefault();
+    setDragStatus('dragOver', evt);
+  };
+  const handleDragLeave: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    setDragStatus('dragLeave', evt);
+  };
+  const handleDrop: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+    const { node } = props;
+    if (!node.isDraggable()) return;
+    evt.stopPropagation();
+    evt.preventDefault();
+    setDragStatus('drop', evt);
   };
 
   return (
     <div
-      ref={ref}
+      ref={composeRefs(ref, nodeRef)}
       data-value={node.value}
       data-level={level}
       className={classNames(treeClassNames.treeNode, {
         [treeClassNames.treeNodeOpen]: node.expanded,
         [treeClassNames.actived]: node.isActivable() ? node.actived : false,
         [treeClassNames.disabled]: node.isDisabled(),
+        [treeClassNames.treeNodeDraggable]: node.isDraggable(),
+        [treeClassNames.treeNodeDragging]: isDragging,
+        [treeClassNames.treeNodeDragTipTop]: isDragOver && dropPosition < 0,
+        [treeClassNames.treeNodeDragTipBottom]: isDragOver && dropPosition > 0,
+        [treeClassNames.treeNodeDragTipHighlight]: !isDragging && isDragOver && dropPosition === 0,
       })}
-      style={styles}
+      style={
+        {
+          '--level': level,
+          boxShadow: '',
+        } as CSSProperties
+      }
       onClick={handleClick}
+      draggable={node.isDraggable()}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
     >
       {renderLine()}
       {renderIcon()}

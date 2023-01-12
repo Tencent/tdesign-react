@@ -1,10 +1,11 @@
 import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
-import { InfoCircleFilledIcon } from 'tdesign-icons-react';
+import { InfoCircleFilledIcon as TdInfoCircleFilledIcon } from 'tdesign-icons-react';
 import Button from '../button';
 import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { PopconfirmProps } from './Popconfirm';
 import type { PopconfirmVisibleChangeContext } from './type';
 
@@ -12,6 +13,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
   const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
 
   const { classPrefix } = useConfig();
+  const { InfoCircleFilledIcon } = useGlobalIcon({ InfoCircleFilledIcon: TdInfoCircleFilledIcon });
 
   const hideCancel = cancelBtn === null || cancelBtn === undefined;
   const hideConfirm = confirmBtn === null || confirmBtn === undefined;
@@ -38,9 +40,6 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
         style: { color },
         ...icon.props,
       });
-      // icon 是自定义组件类型
-    } else if (typeof icon === 'function') {
-      iconComponent = icon();
     } else if (defaultIcon) {
       iconComponent = React.cloneElement(defaultIcon, {
         style: { color },
@@ -51,7 +50,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
 
   function renderCancel() {
     if (React.isValidElement(cancelBtn)) {
-      return React.cloneElement(cancelBtn, {
+      return React.cloneElement<any>(cancelBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'cancel' });
           cancelBtn.props?.onClick?.(e);
@@ -66,7 +65,8 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
     return (
       <Button
         size="small"
-        variant="outline"
+        theme="default"
+        variant="base"
         onClick={(e) => {
           onClose({ e, trigger: 'cancel' });
           onCancel({ e });
@@ -79,7 +79,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
 
   function renderConfirm() {
     if (React.isValidElement(confirmBtn)) {
-      return React.cloneElement(confirmBtn, {
+      return React.cloneElement<any>(confirmBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'confirm' });
           confirmBtn.props?.onClick?.(e);

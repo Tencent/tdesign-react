@@ -2,7 +2,7 @@ import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
 
 import isString from 'lodash/isString';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
@@ -81,7 +81,7 @@ const List = forwardRefWithStatics(
         ref={ref}
         style={style}
         onScroll={handleScroll}
-        className={classNames(className, 't-list', {
+        className={classNames(`${classPrefix}-list`, className, {
           [`${classPrefix}-list--split`]: split,
           [`${classPrefix}-list--stripe`]: stripe,
           [`${classPrefix}-list--vertical-action`]: layout === 'vertical',

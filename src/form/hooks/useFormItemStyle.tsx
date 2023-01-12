@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import useConfig from '../../_util/useConfig';
-import renderTNode from '../../_util/renderTNode';
-import { VALIDATE_STATUS } from '../FormItem';
+import useConfig from '../../hooks/useConfig';
+import parseTNode from '../../_util/parseTNode';
+import { ValidateStatus } from '../const';
 
 export default function useFormItemStyle(props) {
   const { classPrefix } = useConfig();
@@ -10,7 +10,9 @@ export default function useFormItemStyle(props) {
   const {
     className,
     help,
-    name,
+    tips,
+    snakeName,
+    status,
     successBorder,
     errorList,
     successList,
@@ -25,20 +27,27 @@ export default function useFormItemStyle(props) {
     innerRules,
   } = props;
 
-  // formList 下 name 为数组
-  const renderName = Array.isArray(name) ? name.join('-') : name;
+  // 传入 status 时受控
+  const renderStatus = status || verifyStatus;
 
   // help 文本
-  const helpNode = help && <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
+  const helpNode = help && <div className={`${classPrefix}-input__help`}>{parseTNode(help)}</div>;
+
+  // 判断是否有星号
+  const needRequiredMark = requiredMark || (requiredMark ?? innerRules.filter((rule: any) => rule.required).length > 0);
 
   // 提示文本
   const extraNode = useMemo(() => {
-    let extra = null;
-    const list = errorList;
-    if (showErrorMessage && list && list[0] && list[0].message) {
+    let extra = tips ? (
+      <div className={`${classPrefix}-input__extra`} title={tips}>
+        {tips}
+      </div>
+    ) : null;
+
+    if (showErrorMessage && errorList?.[0]?.message) {
       extra = (
-        <div className={`${classPrefix}-input__extra`} title={list[0].message}>
-          {list[0].message}
+        <div className={`${classPrefix}-input__extra`} title={errorList[0].message}>
+          {errorList[0].message}
         </div>
       );
     } else if (successList.length) {
@@ -50,17 +59,16 @@ export default function useFormItemStyle(props) {
     }
 
     return extra;
-  }, [showErrorMessage, errorList, successList, classPrefix]);
+  }, [showErrorMessage, errorList, successList, tips, classPrefix]);
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
-    [`${classPrefix}-form-item__${renderName}`]: renderName,
+  const formItemClass = classNames(`${classPrefix}-form__item`, className, {
+    [`${classPrefix}-form-item__${snakeName}`]: snakeName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
   });
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
-    [`${classPrefix}-form__label--required`]:
-      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
+    [`${classPrefix}-form__label--required`]: needRequiredMark,
     [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
     [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
@@ -71,17 +79,18 @@ export default function useFormItemStyle(props) {
     const controlCls = `${classPrefix}-form__controls`;
     if (!showErrorMessage) return controlCls;
 
-    const isSuccess = verifyStatus === VALIDATE_STATUS.SUCCESS;
+    const isSuccess = renderStatus === ValidateStatus.SUCCESS;
     if (isSuccess) {
       return classNames(controlCls, `${classPrefix}-is-success`, {
         [`${classPrefix}-form--success-border`]: successBorder,
       });
     }
 
-    const firstErrorType = errorList.length && (errorList[0].type || 'error');
     return classNames(controlCls, {
-      [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
-      [`${classPrefix}-is-error`]: firstErrorType === 'error',
+      [`${classPrefix}-is-warning`]: renderStatus === 'warning',
+      [`${classPrefix}-is-error`]: ['fail', 'error'].includes(renderStatus),
+      [`${classPrefix}-form--has-error`]:
+        renderStatus === ValidateStatus.ERROR || renderStatus === ValidateStatus.WARNING,
     });
   };
 

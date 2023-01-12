@@ -1,11 +1,13 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../input';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
 import type { StyledProps, TNode } from '../common';
+import parseTNode from '../_util/parseTNode';
 import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
 import { rangeInputDefaultProps } from './defaultProps';
 
@@ -23,23 +25,18 @@ function calcArrayValue(value: unknown | Array<unknown>) {
 }
 
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode) => {
-  let result: React.ReactNode = null;
-
-  if (icon) result = icon;
-
-  if (typeof icon === 'function') result = icon();
+  const result = parseTNode(icon);
 
   const iconClassName = icon ? `${classPrefix}-range-input__${type}-icon` : '';
 
-  if (result) {
-    result = <span className={`${classPrefix}-range-input__${type} ${iconClassName}`}>{result}</span>;
-  }
-
-  return result;
+  return result ? <span className={`${classPrefix}-range-input__${type} ${iconClassName}`}>{result}</span> : null;
 };
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObject<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
+  const { CloseCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+  });
 
   const {
     className,
@@ -96,9 +93,9 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   }
 
   const labelContent = isFunction(label) ? label() : label;
-  const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
+  const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
   const suffixContent = isFunction(suffix) ? suffix() : suffix;
-  const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+  const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
 
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
     onClear?.({ e });
@@ -122,11 +119,15 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
     toggleIsHover(true);
     onMouseenter?.({ e });
+    // @ts-ignore
+    props.onMouseEnter?.({ e });
   }
 
   function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
     toggleIsHover(false);
     onMouseleave?.({ e });
+    // @ts-ignore
+    props.onMouseLeave?.({ e });
   }
 
   useImperativeHandle(ref as RangeInputRefInterface, () => ({
@@ -152,14 +153,17 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
       ref={wrapperRef}
       style={style}
       className={classNames(name, className, {
+        [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-focused`]: isFocused,
         [`${classPrefix}-is-${status}`]: status,
         [`${classPrefix}-size-l`]: size === 'large',
         [`${classPrefix}-size-s`]: size === 'small',
+        [`${name}--prefix`]: prefixIconContent || labelContent,
+        [`${name}--suffix`]: suffixContent || suffixIconContent,
       })}
+      {...(restProps as React.HTMLAttributes<HTMLDivElement>)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      {...(restProps as React.HTMLAttributes<HTMLDivElement>)}
     >
       <div className={`${name}__inner`}>
         {prefixIconContent}

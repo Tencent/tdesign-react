@@ -12,6 +12,8 @@ import { TreeItemProps } from './interface';
 
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
+import { TreeDraggableContext } from './TreeDraggableContext';
+import parseTNode from '../_util/parseTNode';
 
 export type TreeProps = TdTreeProps;
 
@@ -87,22 +89,22 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   });
 
   const handleItemClick: TreeItemProps['onClick'] = (node, options) => {
-    if (!node || disabled || node.disabled) {
+    if (!node) {
       return;
     }
+    const isDisabled = disabled || node.disabled;
     const { expand, active, event } = options;
-    if (expand) {
-      setExpanded(node, !node.isExpanded(), event);
-    }
 
-    if (active) {
+    if (expand) setExpanded(node, !node.isExpanded(), event);
+
+    if (active && !isDisabled) {
       setActived(node, !node.isActived());
+      const treeNodeModel = node?.getModel();
+      onClick?.({
+        node: treeNodeModel,
+        e: event,
+      });
     }
-    const treeNodeModel = node?.getModel();
-    onClick?.({
-      node: treeNodeModel,
-      e: event,
-    });
   };
 
   const handleChange: TreeItemProps['onChange'] = (node) => {
@@ -197,14 +199,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     [visibleNodes],
   );
 
-  const renderEmpty = () => {
-    let emptyView = empty || emptyText;
-    if (empty instanceof Function) {
-      emptyView = empty();
-    }
-
-    return emptyView;
-  };
+  const renderEmpty = () => parseTNode(empty, null, emptyText);
 
   const renderItems = () => {
     if (visibleNodes.length <= 0) {
@@ -242,18 +237,29 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       </TransitionGroup>
     );
   };
+
+  const draggable = useMemo(
+    () => ({
+      props,
+      store,
+    }),
+    [props, store],
+  );
+
   return (
-    <div
-      className={classNames(treeClassNames.tree, {
-        [treeClassNames.disabled]: disabled,
-        [treeClassNames.treeHoverable]: hover,
-        [treeClassNames.treeCheckable]: checkable,
-        [treeClassNames.treeFx]: transition,
-        [treeClassNames.treeBlockNode]: expandOnClickNode,
-      })}
-    >
-      {renderItems()}
-    </div>
+    <TreeDraggableContext.Provider value={draggable}>
+      <div
+        className={classNames(treeClassNames.tree, {
+          [treeClassNames.disabled]: disabled,
+          [treeClassNames.treeHoverable]: hover,
+          [treeClassNames.treeCheckable]: checkable,
+          [treeClassNames.treeFx]: transition,
+          [treeClassNames.treeBlockNode]: expandOnClickNode,
+        })}
+      >
+        {renderItems()}
+      </div>
+    </TreeDraggableContext.Provider>
   );
 });
 

@@ -1,8 +1,16 @@
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-import { PrimaryTableCol, RowClassNameParams, TableRowData, TdBaseTableProps } from './type';
+import {
+  CellData,
+  PrimaryTableCol,
+  RowClassNameParams,
+  TableColumnClassName,
+  TableRowData,
+  TdBaseTableProps,
+} from './type';
 import { ClassName, HTMLElementAttributes } from '../common';
+import { AffixProps } from '../affix';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
@@ -66,6 +74,23 @@ export function formatRowClassNames(
     customClasses = customClasses.concat(tClass);
   }
   return customClasses;
+}
+
+export function formatClassNames(
+  classNames: TableColumnClassName<TableRowData> | TableColumnClassName<TableRowData>[],
+  params: CellData<TableRowData>,
+) {
+  const classes = classNames instanceof Array ? classNames : [classNames];
+  const arr: any[] = [];
+  for (let i = 0, len = classes.length; i < len; i++) {
+    const cls = classes[i];
+    if (isFunction(cls)) {
+      arr.push(cls(params));
+    } else {
+      arr.push(cls);
+    }
+  }
+  return arr;
 }
 
 export function filterDataByIds(
@@ -147,4 +172,22 @@ export function getCurrentRowByKey<T extends { colKey?: string; children?: any[]
       return getCurrentRowByKey(columns[i]?.children, key);
     }
   }
+}
+
+/** 透传 Affix 组件全部特性 */
+export function getAffixProps(mainAffixProps: boolean | Partial<AffixProps>, subAffixProps?: Partial<AffixProps>) {
+  if (typeof mainAffixProps === 'object') return mainAffixProps;
+  if (typeof subAffixProps === 'object') return subAffixProps;
+  return {};
+}
+
+export function getEditableKeysMap(keys: Array<string | number>, list: any[], rowKey: string) {
+  const map: { [key: string | number]: boolean } = {};
+  for (let i = 0, len = list.length; i < len; i++) {
+    const rowValue = get(list[i], rowKey);
+    if (keys.includes(rowValue)) {
+      map[rowValue] = true;
+    }
+  }
+  return map;
 }

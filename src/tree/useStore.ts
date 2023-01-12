@@ -24,6 +24,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     activeMultiple,
     actived,
     disabled,
+    draggable,
     checkable,
     value,
     checkStrictly,
@@ -95,6 +96,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       expandMutex,
       expandParent,
       disabled,
+      draggable,
       load,
       lazy,
       valueMode,
@@ -153,8 +155,14 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
 
   useUpdateEffect(() => {
     if (data && Array.isArray(data)) {
+      const expanded = store.getExpanded();
+      const checked = store.getChecked();
+      const actived = store.getActived();
       store.removeAll();
       store.append(data);
+      store.setChecked(checked);
+      store.setActived(actived);
+      store.setExpanded(expanded);
     }
   }, [data, store]);
 

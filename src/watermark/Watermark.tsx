@@ -4,7 +4,7 @@ import { StyledProps } from '../common';
 import generateBase64Url from '../_common/js/watermark/generateBase64Url';
 import randomMovingStyle from '../_common/js/watermark/randomMovingStyle';
 import injectStyle from '../_common/js/utils/injectStyle';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../_util/useMutationObserver';
 import { TdWatermarkProps } from './type';
 import { watermarkDefaultProps as defaultProps } from './defaultProps';

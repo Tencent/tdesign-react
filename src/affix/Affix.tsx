@@ -3,19 +3,17 @@ import isFunction from 'lodash/isFunction';
 import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { affixDefaultProps } from './defaultProps';
 
-export interface AffixProps extends TdAffixProps, StyledProps {
-  children: React.ReactNode;
-}
+export interface AffixProps extends TdAffixProps, StyledProps {}
 
 export interface AffixRef {
   handleScroll: () => void;
 }
 
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
-  const { children, zIndex, container, offsetBottom, offsetTop, onFixedChange } = props;
+  const { children, content, zIndex, container, offsetBottom, offsetTop, className, style, onFixedChange } = props;
 
   const { classPrefix } = useConfig();
 
@@ -124,8 +122,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   }, [container, handleScroll]);
 
   return (
-    <div ref={affixWrapRef}>
-      <div ref={affixRef}>{children}</div>
+    <div ref={affixWrapRef} className={className} style={style}>
+      <div ref={affixRef}>{children || content}</div>
     </div>
   );
 });

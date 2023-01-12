@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value, setValue] = useState('');
@@ -38,32 +38,14 @@ export default function Example() {
     },
   ];
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   const onChange = (value) => {
     setValue(value);
   };
 
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader
-        style={itemStyle}
-        options={options}
-        value={value}
-        trigger="click"
-        onChange={onChange}
-        placeholder="请选择"
-      />
-      <Cascader
-        style={itemStyle}
-        options={options}
-        value={value}
-        trigger="hover"
-        onChange={onChange}
-        placeholder="请选择"
-      />
-    </div>
+    <Space direction="vertical">
+      <Cascader options={options} value={value} trigger="click" onChange={onChange} />
+      <Cascader options={options} value={value} trigger="hover" onChange={onChange} />
+    </Space>
   );
 }

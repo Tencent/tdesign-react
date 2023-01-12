@@ -57,7 +57,7 @@ const SelectInputWidth = () => {
         <SelectInput
           value={selectValue}
           popupProps={{
-            overlayStyle: { width: 'auto' },
+            overlayInnerStyle: { width: 'auto' },
           }}
           placeholder="Please Select"
           className="t-demo-normal"
@@ -71,7 +71,7 @@ const SelectInputWidth = () => {
         <SelectInput
           value={selectValue}
           popupProps={{
-            overlayStyle: { width: '360px' },
+            overlayInnerStyle: { width: '360px' },
           }}
           placeholder="Please Select"
           className="t-demo-normal"

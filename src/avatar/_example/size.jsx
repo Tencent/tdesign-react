@@ -1,10 +1,10 @@
 import React from 'react';
-import { Avatar } from 'tdesign-react';
+import { Avatar, Space } from 'tdesign-react';
 
 export default function SizeAvatar() {
   return (
-    <div className="demo-avatar">
-      <div className="demo-avatar-block" style={{ marginBottom: '40px' }}>
+    <Space direction="vertical" size="large">
+      <Space align="center">
         <Avatar size="small" style={{ marginRight: '40px' }}>
           W
         </Avatar>
@@ -17,8 +17,8 @@ export default function SizeAvatar() {
         <Avatar size="100px" style={{ marginRight: '40px' }}>
           W
         </Avatar>
-      </div>
-      <div className="demo-avatar-block">
+      </Space>
+      <Space align="center">
         <Avatar shape="round" size="small" style={{ marginRight: '40px' }}>
           W
         </Avatar>
@@ -31,7 +31,7 @@ export default function SizeAvatar() {
         <Avatar shape="round" size="100px" style={{ marginRight: '40px' }}>
           W
         </Avatar>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }

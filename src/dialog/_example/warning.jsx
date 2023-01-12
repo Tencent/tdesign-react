@@ -33,7 +33,7 @@ export default function WarningExample() {
     setVisibleError(false);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={onClickConfirm} style={{ marginRight: 16 }}>
         提示反馈
       </Button>
@@ -88,6 +88,6 @@ export default function WarningExample() {
         visible={visibleError}
         onClose={onCloseError}
       ></Dialog>
-    </div>
+    </>
   );
 }

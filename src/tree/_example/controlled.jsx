@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Addon, Input, Tree } from 'tdesign-react';
+import { InputAdornment, Input, Tree, Space } from 'tdesign-react';
 
 const items = [
   {
@@ -138,16 +138,16 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
-      <Addon prepend="checked:">
+    <Space direction="vertical">
+      <InputAdornment prepend="checked:">
         <Input value={allChecked} />
-      </Addon>
-      <Addon prepend="expanded:">
+      </InputAdornment>
+      <InputAdornment prepend="expanded:">
         <Input value={allExpanded} />
-      </Addon>
-      <Addon prepend="actived:">
+      </InputAdornment>
+      <InputAdornment prepend="actived:">
         <Input value={allActived} />
-      </Addon>
+      </InputAdornment>
       <Tree
         data={items}
         checkable
@@ -163,6 +163,6 @@ export default () => {
         onActive={handleActive}
         onChange={handleChange}
       />
-    </div>
+    </Space>
   );
 };

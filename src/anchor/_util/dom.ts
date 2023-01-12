@@ -6,14 +6,14 @@ export type AnchorContainer = HTMLElement | Window;
 export function getOffsetTop(target: HTMLElement, container: AnchorContainer) {
   const { top } = target.getBoundingClientRect();
   if (container === window) {
-    // 减去document的边框
+    // 减去 document 的边框
     return top - document.documentElement.clientTop;
   }
   return top - (container as HTMLElement).getBoundingClientRect().top;
 }
 
 /**
- * 返回是否window对象
+ * 返回是否 window 对象
  *
  * @export
  * @param {any} obj
@@ -34,7 +34,7 @@ type ScrollTarget = HTMLElement | Window | Document;
  * @returns {number}
  */
 export function getScroll(target: ScrollTarget, isLeft?: boolean): number {
-  // node环境或者target为空
+  // node 环境或者 target 为空
   if (typeof window === 'undefined' || !target) {
     return 0;
   }
@@ -74,8 +74,8 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
       if (time < duration) {
         raf(fnc);
       } else {
-        // 由于上面步骤设置了scrollTop, 滚动事件可能未触发完毕
-        // 此时应该在下一帧再执行res
+        // 由于上面步骤设置了 scrollTop, 滚动事件可能未触发完毕
+        // 此时应该在下一帧再执行 res
         raf(res);
       }
     };

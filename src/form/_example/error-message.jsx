@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Form, Input, Button, MessagePlugin, Radio, Select, Checkbox, Popup } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Form, Input, Button, MessagePlugin, Radio, Select, Checkbox, Popup, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -58,7 +58,7 @@ const rules = {
 };
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
   const [errorConfig, setErrorConfig] = useState('default');
 
   const onSubmit = ({ validateResult, firstError }) => {
@@ -75,11 +75,11 @@ export default function BaseForm() {
   };
 
   const handleClear = () => {
-    formRef.current.clearValidate();
+    form.clearValidate();
   };
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       {/* 可以使用全局 ConfigProvider errorMessage 配置规则校验结果描述，而无需给每一个表单都配置校验信息 */}
       <div>
         <Radio.Group variant="default-filled" value={errorConfig} onChange={(v) => setErrorConfig(v)}>
@@ -97,7 +97,7 @@ export default function BaseForm() {
       </div>
 
       <Form
-        ref={formRef}
+        form={form}
         rules={rules}
         error-message={errorConfig === 'default' ? undefined : errorMessage}
         onReset={onReset}
@@ -157,6 +157,6 @@ export default function BaseForm() {
           </Button>
         </FormItem>
       </Form>
-    </div>
+    </Space>
   );
 }

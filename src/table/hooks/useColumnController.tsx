@@ -2,14 +2,15 @@
  * 自定义显示列控制器，即列配置
  */
 import React, { useEffect, ChangeEvent, useRef } from 'react';
-import { SettingIcon } from 'tdesign-icons-react';
+import { SettingIcon as TdSettingIcon } from 'tdesign-icons-react';
 import intersection from 'lodash/intersection';
 import classNames from 'classnames';
 import Checkbox, { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
 import { DialogPlugin } from '../../dialog/plugin';
 import { renderTitle } from './useTableHeader';
 import { PrimaryTableCol, TdPrimaryTableProps } from '../type';
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useControlled from '../../hooks/useControlled';
 import { getCurrentRowByKey } from '../utils';
 import { DialogInstance } from '../../dialog';
@@ -30,6 +31,7 @@ export function getColumnKeys(columns: PrimaryTableCol[], keys = new Set<string>
 
 export default function useColumnController(props: TdPrimaryTableProps) {
   const { classPrefix, table } = useConfig();
+  const { SettingIcon } = useGlobalIcon({ SettingIcon: TdSettingIcon });
   const { columns, columnController, displayColumns, columnControllerVisible } = props;
   const dialogInstance = useRef<DialogInstance>();
 
@@ -85,7 +87,8 @@ export default function useColumnController(props: TdPrimaryTableProps) {
 
   const handleClickAllShowColumns = (checked: boolean, ctx: { e: ChangeEvent<HTMLDivElement> }) => {
     if (checked) {
-      const newData = columns?.map((t) => t.colKey) || [];
+      const checkboxOptions = getCheckboxOptions(columns);
+      const newData = checkboxOptions?.map((t) => t.value) || [];
       columnCheckboxKeys.current = newData;
       props.onColumnChange?.({ type: 'check', columns: newData, e: ctx.e });
     } else {

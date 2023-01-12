@@ -1,21 +1,21 @@
 import React from 'react';
-import { DialogPlugin, Button } from 'tdesign-react';
+import { DialogPlugin, Button, Space } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 
 export default function PluginModalExample() {
   const showDialog = () => {
-    const mydialog = DialogPlugin({
+    const myDialog = DialogPlugin({
       header: 'Dialog-Plugin',
       body: 'Hi, darling! Do you want to be my lover?',
       onConfirm: ({ e }) => {
         console.log('confirm clicked', e);
-        mydialog.hide();
+        myDialog.hide();
       },
       onClose: ({ e, trigger }) => {
         console.log('e: ', e);
         console.log('trigger: ', trigger);
-        mydialog.hide();
+        myDialog.hide();
       },
     });
   };
@@ -97,11 +97,11 @@ export default function PluginModalExample() {
     });
   };
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <p>函数调用方式一：DialogPlugin(options)</p>
       <p>函数调用方式二：DialogPlugin.confirm(options)</p>
       <p>函数调用方式三：DialogPlugin.alert(options)</p>
-      <div className="tdesign-demo-block-row">
+      <div>
         <Button theme="primary" onClick={showDialog} style={buttonStyle}>
           dialog
         </Button>
@@ -118,6 +118,6 @@ export default function PluginModalExample() {
           DialogPlugin.confirm
         </Button>
       </div>
-    </div>
+    </Space>
   );
 }

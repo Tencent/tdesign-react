@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
-import { DatePicker, DateRangePicker } from 'tdesign-react';
+import { DatePicker, DateRangePicker, Space } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [pickDate, setPickDate] = useState();
@@ -19,7 +19,7 @@ export default function YearDatePicker() {
   }, [pickDate]);
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <DatePicker
         placeholder="禁用昨天、前天"
         disableDate={[dayjs().subtract(1, 'day').format(), dayjs().subtract(2, 'day').format()]}
@@ -53,6 +53,6 @@ export default function YearDatePicker() {
           after: dayjs().add(5, 'day').format(),
         }}
       />
-    </div>
+    </Space>
   );
 }

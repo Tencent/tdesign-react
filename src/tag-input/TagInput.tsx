@@ -1,10 +1,11 @@
-import React, { KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import React, { CompositionEvent, KeyboardEvent, useRef, useImperativeHandle, forwardRef, MouseEvent } from 'react';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useDragSorter from '../_util/useDragSorter';
-import TInput, { InputValue } from '../input';
+import TInput, { InputValue, InputRef } from '../input';
 import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
 import useTagList from './useTagList';
@@ -15,8 +16,11 @@ import { tagInputDefaultProps } from './defaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
-const TagInput = forwardRef((props: TagInputProps, ref) => {
+const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef>) => {
   const { classPrefix: prefix } = useConfig();
+  const { CloseCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+  });
 
   const {
     excessTagsDisplayType,
@@ -50,6 +54,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       targetClassNameRegExp: new RegExp(`^${prefix}-tag`),
     },
   });
+  const isCompositionRef = useRef(false);
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
 
@@ -68,22 +73,33 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 
-  useImperativeHandle(ref, () => ({ ...(tagInputRef.current || {}) }));
+  useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
+
+  const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
+    isCompositionRef.current = true;
+    inputProps?.onCompositionstart?.(value, context);
+  };
+
+  const onInputCompositionend = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
+    isCompositionRef.current = false;
+    inputProps?.onCompositionend?.(value, context);
+  };
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     setTInputValue('', { e: context.e, trigger: 'enter' });
-    onInnerEnter(value, context);
+    !isCompositionRef.current && onInnerEnter(value, context);
     scrollToRight();
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
-    (tagInputRef.current as any).inputElement.focus();
+    (tagInputRef.current as any).inputElement?.focus?.();
     onClick?.(context);
   };
 
   const onClearClick = (e: MouseEvent<SVGElement>) => {
     clearAll({ e });
     setTInputValue('', { e, trigger: 'clear' });
+    props.onClear?.({ e });
   };
 
   const suffixIconNode = showClearIcon ? (
@@ -99,29 +115,32 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       })
     : valueDisplay;
 
+  const isEmpty = !(Array.isArray(tagValue) && tagValue.length);
+
   const classes = [
     NAME_CLASS,
     {
       [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
       [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
+      [`${prefix}-is-empty`]: isEmpty,
+      [`${prefix}-tag-input--with-tag`]: !isEmpty,
     },
     props.className,
   ];
 
   return (
     <TInput
-      ref={tagInputRef}
-      {...inputProps}
+      ref={tagInputRef as React.RefObject<InputRef>}
       value={tInputValue}
       onChange={(val, context) => {
         setTInputValue(val, { ...context, trigger: 'input' });
       }}
-      autoWidth={autoWidth}
+      autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
       onWheel={onWheel}
       size={size}
       readonly={readonly}
       disabled={disabled}
-      label={() => renderLabel({ displayNode, label })}
+      label={renderLabel({ displayNode, label })}
       className={classnames(classes)}
       style={props.style}
       tips={tips}
@@ -129,6 +148,8 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       placeholder={tagInputPlaceholder}
       suffix={suffix}
       suffixIcon={suffixIconNode}
+      showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
+      keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}
@@ -147,6 +168,9 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       onBlur={(inputValue, context) => {
         onBlur?.(tagValue, { e: context.e, inputValue });
       }}
+      onCompositionstart={onInputCompositionstart}
+      onCompositionend={onInputCompositionend}
+      {...inputProps}
     />
   );
 });

@@ -12,7 +12,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
 import { PopupVisibleChangeContext } from '../popup';
-import { TNode, TElement, SizeEnum } from '../common';
+import { TNode, TElement, SizeEnum, TScroll } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
@@ -21,11 +21,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * @default false
    */
   autoWidth?: boolean;
-  /**
-   * 是否有边框
-   * @default true
-   */
-  bordered?: boolean;
   /**
    * 无边框模式
    * @default false
@@ -47,12 +42,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   creatable?: boolean;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
    * 当下拉列表为空时显示的内容
-   * @default ''
    */
   empty?: TNode;
   /**
@@ -61,7 +54,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   filter?: (filterWords: string, option: T) => boolean | Promise<boolean>;
   /**
    * 是否可搜索
-   * @default false
    */
   filterable?: boolean;
   /**
@@ -87,7 +79,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   loading?: boolean;
   /**
    * 远程加载时显示的文字，支持自定义。如加上超链接
-   * @default ''
    */
   loadingText?: TNode;
   /**
@@ -131,9 +122,13 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   popupVisible?: boolean;
   /**
+   * 是否显示下拉框，非受控属性
+   */
+  defaultPopupVisible?: boolean;
+  /**
    * 组件前置图标
    */
-  prefixIcon?: TElement;
+  prefixIcon?: TNode;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
@@ -145,7 +140,11 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   reserveKeyword?: boolean;
   /**
-   * 【开发中】透传 SelectInput 筛选器输入框组件的全部属性
+   * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
+   */
+  scroll?: TScroll;
+  /**
+   * 透传 SelectInput 筛选器输入框组件的全部属性
    */
   selectInputProps?: SelectInputProps;
   /**
@@ -159,13 +158,21 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   size?: SizeEnum;
   /**
-   * 【开发中】透传 TagInput 标签输入框组件的全部属性
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
+   * 透传 TagInput 标签输入框组件的全部属性
    */
   tagInputProps?: TagInputProps;
   /**
-   * 【开发中】透传 Tag 标签组件全部属性
+   * 透传 Tag 标签组件全部属性
    */
   tagProps?: TagProps;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 选中值
    */
@@ -188,13 +195,15 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   onBlur?: (context: { value: SelectValue; e: FocusEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> }) => void;
   /**
-   * 选中值变化时触发，`context. trigger` 表示触发变化的来源
+   * 选中值变化时触发。`context.trigger` 表示触发变化的来源；`context.selectedOptions` 表示选中值的完整对象，数组长度一定和 `value` 相同；`context.option` 表示当前操作的选项，不一定存在
    */
   onChange?: (
     value: SelectValue,
     context: {
+      option?: T;
+      selectedOptions: T[];
       trigger: SelectValueChangeTrigger;
-      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent<SVGElement | HTMLDivElement | HTMLLIElement> | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**
@@ -229,13 +238,14 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * 输入值变化时，触发搜索事件。主要用于远程搜索新数据
    */
   onSearch?: (filterWords: string) => void;
-  /**
-   * 下拉框隐藏/显示时触发
-   */
-  onVisibleChange?: (visible: boolean) => void;
 }
 
 export interface TdOptionProps {
+  /**
+   * 当前选项是否为全选，全选可以在顶部，也可以在底部。点击当前选项会选中禁用态除外的全部选项，即使是分组选择器也会选中全部选项
+   * @default false
+   */
+  checkAll?: boolean;
   /**
    * 用于定义复杂的选项内容，同 content
    */

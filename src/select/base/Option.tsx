@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
 
-import useConfig from '../../_util/useConfig';
+import useConfig from '../../hooks/useConfig';
+import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../common';
 import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';
@@ -20,10 +21,17 @@ export interface SelectOptionProps
   children?: React.ReactNode;
   onSelect?: (
     value: string | number,
-    context: { label?: string; selected?: boolean; event: React.MouseEvent; restData?: Record<string, any> },
+    context: {
+      label?: string;
+      selected?: boolean;
+      event: React.MouseEvent<HTMLLIElement>;
+      restData?: Record<string, any>;
+    },
   ) => void;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   restData?: Record<string, any>;
   keys?: SelectKeysType;
+  optionLength?: number;
 }
 
 const componentType = 'select';
@@ -33,6 +41,7 @@ const Option = (props: SelectOptionProps) => {
     disabled: propDisabled,
     label: propLabel,
     selectedValue,
+    checkAll,
     multiple,
     size,
     max,
@@ -40,7 +49,10 @@ const Option = (props: SelectOptionProps) => {
     value,
     onSelect,
     children,
+    content,
     restData,
+    style,
+    className,
   } = props;
 
   let selected: boolean;
@@ -48,9 +60,11 @@ const Option = (props: SelectOptionProps) => {
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
 
   const { classPrefix } = useConfig();
-  const optionRef = useRef();
+
   // 使用斜八角动画
-  useRipple(optionRef);
+  const [subMenuDom, setRefCurrent] = useDomRefCallback();
+
+  useRipple(subMenuDom);
 
   // 处理单选场景
   if (!multiple) {
@@ -59,21 +73,26 @@ const Option = (props: SelectOptionProps) => {
         ? value === selectedValue
         : value === get(selectedValue, keys?.value || 'value');
   }
-
   // 处理多选场景
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (isNumber(item) || isString(item)) {
-        // 如果非object类型
+        // 如果非 object 类型
         return item === value;
       }
       return get(item, keys?.value || 'value') === value;
     });
+    if (props.checkAll) {
+      selected = selectedValue.length === props.optionLength;
+    }
   }
 
-  const handleSelect = (event: React.MouseEvent) => {
-    if (!disabled || (multiple && selected)) {
+  const handleSelect = (event: React.MouseEvent<HTMLLIElement>) => {
+    if (!disabled && !checkAll) {
       onSelect(value, { label: String(label), selected, event, restData });
+    }
+    if (checkAll) {
+      props.onCheckAllChange?.(selected, event);
     }
   };
 
@@ -82,7 +101,7 @@ const Option = (props: SelectOptionProps) => {
       return (
         <label
           className={classNames(`${classPrefix}-checkbox`, {
-            [`${classPrefix}-is-disabled`]: disabled && !selected,
+            [`${classPrefix}-is-disabled`]: disabled,
             [`${classPrefix}-is-checked`]: selected,
           })}
         >
@@ -94,16 +113,16 @@ const Option = (props: SelectOptionProps) => {
             onClick={(e) => e.stopPropagation()}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || label}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || content || label}</span>
         </label>
       );
     }
-    return <span>{children || label}</span>;
+    return <span title={label as string}>{children || content || label}</span>;
   };
 
   return (
     <li
-      className={classNames(props.className, `${classPrefix}-${componentType}-option`, {
+      className={classNames(className, `${classPrefix}-${componentType}-option`, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-selected`]: selected,
         [`${classPrefix}-size-s`]: size === 'small',
@@ -111,7 +130,8 @@ const Option = (props: SelectOptionProps) => {
       })}
       key={value}
       onClick={handleSelect}
-      ref={optionRef}
+      ref={setRefCurrent}
+      style={style}
     >
       {renderItem(children)}
     </li>

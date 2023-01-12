@@ -3,9 +3,10 @@ import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
-import { SearchIcon } from 'tdesign-icons-react';
+import { SearchIcon as TdSearchIcon } from 'tdesign-icons-react';
 import { getLeafNodes } from './utils';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TdTransferProps, TransferValue } from './type';
 import { TNode, StyledProps } from '../common';
 import Checkbox from '../checkbox';
@@ -20,10 +21,11 @@ interface TransferListProps
   empty?: TNode | string;
   title?: TNode;
   footer?: TNode;
-  content?: TNode;
+  content?: TNode | TNode<{ data: Object }>;
   pagination?: Pick<PaginationProps, 'pageSize'> & { onPageChange?: (current: number) => void };
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;
+  showCheckAll?: boolean;
 }
 
 const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
@@ -43,6 +45,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     pagination,
     transferItem,
     tree: treeNode,
+    showCheckAll,
   } = props;
   const notDisabledData = !treeNode
     ? data.filter((item) => !item.disabled)
@@ -56,6 +59,9 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   }, [checked, notDisabledData]);
 
   const { classPrefix } = useConfig();
+  const { SearchIcon } = useGlobalIcon({
+    SearchIcon: TdSearchIcon,
+  });
   const CLASSPREFIX = `${classPrefix}-transfer__list`;
   const [local, t] = useLocaleReceiver('transfer');
 
@@ -72,12 +78,14 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     return (
       <div className={`${CLASSPREFIX}-header`}>
         <div>
-          <Checkbox
-            indeterminate={indeterminate}
-            checked={allChecked}
-            disabled={disabled}
-            onChange={handleAllCheckbox}
-          ></Checkbox>
+          {showCheckAll ? (
+            <Checkbox
+              indeterminate={indeterminate}
+              checked={allChecked}
+              disabled={disabled}
+              onChange={handleAllCheckbox}
+            />
+          ) : null}
           <span>{t(local.title, { checked: checked.length, total })}</span>
         </div>
         <span>{title}</span>

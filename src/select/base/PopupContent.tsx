@@ -2,8 +2,8 @@ import React, { Children, Ref, forwardRef, isValidElement, cloneElement } from '
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
-import { TdSelectProps, SelectValue, TdOptionProps } from '../type';
-import useConfig from '../../_util/useConfig';
+import { TdSelectProps, SelectValue, TdOptionProps, SelectValueChangeTrigger } from '../type';
+import useConfig from '../../hooks/useConfig';
 import Option, { SelectOptionProps } from './Option';
 
 type OptionsType = TdOptionProps[];
@@ -24,7 +24,15 @@ interface SelectPopupProps
     | 'panelTopContent'
     | 'panelBottomContent'
   > {
-  onChange?: (value: SelectValue, context?: { label?: string | number; restData?: Record<string, any> }) => void;
+  onChange?: (
+    value: SelectValue,
+    context?: {
+      label?: string | number;
+      restData?: Record<string, any>;
+      e: React.MouseEvent<HTMLLIElement>;
+      trigger: SelectValueChangeTrigger;
+    },
+  ) => void;
   /**
    * 是否展示popup
    */
@@ -34,6 +42,7 @@ interface SelectPopupProps
    */
   setShowPopup: (show: boolean) => void;
   children?: React.ReactNode;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
@@ -54,6 +63,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     keys,
     panelTopContent,
     panelBottomContent,
+    onCheckAllChange,
   } = props;
 
   // 国际化文本初始化
@@ -63,7 +73,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   const { classPrefix } = useConfig();
   if (!children && !props.options) return null;
 
-  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, restData }) => {
+  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
     const isValObj = valueType === 'object';
     let objVal = {};
     if (isValObj) {
@@ -82,12 +92,12 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     if (multiple) {
       // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label });
+      onChange(values, { label, e: event, trigger: 'check' });
     } else {
       // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
 
-      onChange(selectVal, { label });
+      onChange(selectVal, { label, e: event, trigger: 'check' });
       setShowPopup(!showPopup);
     }
   };
@@ -103,24 +113,40 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   // 渲染 options
   const renderOptions = () => {
     if (options) {
-      // 通过options API配置的
+      const uniqueOptions = [];
+      options.forEach((option: SelectOptionProps) => {
+        const index = uniqueOptions.findIndex((item) => item.label === option.label && item.value === option.value);
+        if (index === -1) {
+          uniqueOptions.push(option);
+        }
+      });
+      const selectableOption = uniqueOptions.filter((v) => !v.disabled && !v.checkAll);
+      // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
-          {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (
-            <Option
-              key={index}
-              max={max}
-              label={label}
-              value={optionValue}
-              onSelect={onSelect}
-              selectedValue={value}
-              multiple={multiple}
-              size={size}
-              disabled={disabled}
-              restData={restData}
-              keys={keys}
-            />
-          ))}
+          {(uniqueOptions as OptionsType).map(
+            ({ value: optionValue, label, disabled, content, children, ...restData }, index) => (
+              <Option
+                key={index}
+                max={max}
+                label={label}
+                value={optionValue}
+                onSelect={onSelect}
+                selectedValue={value}
+                optionLength={selectableOption.length}
+                multiple={multiple}
+                size={size}
+                disabled={disabled}
+                restData={restData}
+                keys={keys}
+                content={content}
+                onCheckAllChange={onCheckAllChange}
+                {...restData}
+              >
+                {children}
+              </Option>
+            ),
+          )}
         </ul>
       );
     }
@@ -139,9 +165,11 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       })}
     >
       {panelTopContent}
-      {isEmpty && <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>}
-      {!isEmpty && loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
-      {!isEmpty && !loading && renderOptions()}
+      {loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
+      {!loading && isEmpty && (
+        <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>
+      )}
+      {!loading && !isEmpty && renderOptions()}
       {panelBottomContent}
     </div>
   );

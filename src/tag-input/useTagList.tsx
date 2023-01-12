@@ -1,9 +1,9 @@
 import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
-import { isFunction } from 'lodash';
+import isFunction from 'lodash/isFunction';
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
 import Tag from '../tag';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { DragSortInnerProps } from '../_util/useDragSorter';
 
@@ -55,12 +55,13 @@ export default function useTagList(props: TagInputProps) {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
-    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.code)) {
+    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
       const item = tagValue[index];
       const trigger = 'backspace';
-      setTagValue(tagValue.slice(0, -1), { e, index, item, trigger });
-      onRemove?.({ e, index, item, trigger, value: tagValue });
+      const newValue = tagValue.slice(0, -1);
+      setTagValue(newValue, { e, index, item, trigger });
+      onRemove?.({ e, index, item, trigger, value: newValue });
     }
     setOldInputValue(value);
   };

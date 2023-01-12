@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 import { TdSliderProps } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import { numberToPercent } from './utils/handleNumber';
 import { StyledProps, TNode } from '../common';
@@ -56,7 +56,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
           result.push({
             value: numberKey,
             label: marks[numberKey],
-            position: (numberKey - min) / max,
+            position: (numberKey - min) / (max - min),
           });
         }
       });
@@ -86,9 +86,9 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
     const safeValue = Number(newValue.toFixed(32));
     let resultValue = Math.max(Math.min(max, safeValue), min);
     // 判断是否出现左值大于右值
-    if (nodeIndex === LEFT_NODE && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
+    if (nodeIndex === LEFT_NODE && value && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
     // 判断是否出现右值大于左值
-    if (nodeIndex === RIGHT_NODE && safeValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
+    if (nodeIndex === RIGHT_NODE && value && safeValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
     if (Array.isArray(value)) {
       const arrValue = value.slice();
       arrValue[nodeIndex] = resultValue;
@@ -190,7 +190,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
     >
       <div
         ref={sliderRef}
-        className={classNames(className, `${classPrefix}-slider`, {
+        className={classNames(`${classPrefix}-slider`, className, {
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-slider--vertical`]: isVertical,
           [`${classPrefix}-slider--with-input`]: inputNumberProps,
@@ -204,14 +204,17 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
           ></div>
           {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
           {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
-          <div>
-            {renderDots.map(({ position, value }) => (
-              <div
-                key={value}
-                style={{ [stepDirection]: numberToPercent(position) }}
-                className={classNames(`${classPrefix}-slider__stop`)}
-              ></div>
-            ))}
+          <div className={`${classPrefix}-slider__stops`}>
+            {renderDots.map(({ position, value }) => {
+              if (position === 0 || position === 1) return null;
+              return (
+                <div
+                  key={value}
+                  style={{ [stepDirection]: numberToPercent(position) }}
+                  className={classNames(`${classPrefix}-slider__stop`)}
+                ></div>
+              );
+            })}
           </div>
           <div className={classNames(`${classPrefix}-slider__mark`)}>
             {renderDots.map(({ position, value, label }) => (

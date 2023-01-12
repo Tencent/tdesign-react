@@ -48,21 +48,19 @@ export default function HorizontalStepsWithNumbers() {
   );
 
   return (
-    <>
-      <Steps layout="vertical" defaultCurrent={current}>
-        <StepItem title="步骤1" content="这里是提示文字">
-          {current === 0 ? nextBtn : null}
-        </StepItem>
-        <StepItem title="步骤2" content="这里是提示文字">
-          {current === 1 ? preNextBtnGroup : null}
-        </StepItem>
-        <StepItem title="步骤3" content="这里是提示文字">
-          {current === 2 ? preNextBtnGroup : null}
-        </StepItem>
-        <StepItem title="步骤4" content="这里是提示文字">
-          {current === 3 ? preBtn : null}
-        </StepItem>
-      </Steps>
-    </>
+    <Steps layout="vertical" defaultCurrent={current}>
+      <StepItem title="步骤1" content="这里是提示文字">
+        {current === 0 ? nextBtn : null}
+      </StepItem>
+      <StepItem title="步骤2" content="这里是提示文字">
+        {current === 1 ? preNextBtnGroup : null}
+      </StepItem>
+      <StepItem title="步骤3" content="这里是提示文字">
+        {current === 2 ? preNextBtnGroup : null}
+      </StepItem>
+      <StepItem title="步骤4" content="这里是提示文字">
+        {current === 3 ? preBtn : null}
+      </StepItem>
+    </Steps>
   );
 }

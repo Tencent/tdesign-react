@@ -27,7 +27,7 @@ export default function CustomFooterExample() {
     setVisibleFooter(false);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleConfirmClick} style={{ marginRight: 16 }}>
         只显示确认按钮
       </Button>
@@ -64,6 +64,6 @@ export default function CustomFooterExample() {
       >
         <p>This is a dialog</p>
       </Dialog>
-    </div>
+    </>
   );
 }

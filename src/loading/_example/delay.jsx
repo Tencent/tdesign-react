@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Loading, Button } from 'tdesign-react';
+import { Loading, Button, Space } from 'tdesign-react';
 
 export default function LoadingDelay() {
   const [data, setData] = useState('');
@@ -20,7 +20,7 @@ export default function LoadingDelay() {
   }, []);
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <div>
         <Loading delay={500} size="small" loading={loading}></Loading>
         {data ? <div>{`loading 作为独立元素：${data}`}</div> : null}
@@ -40,6 +40,6 @@ export default function LoadingDelay() {
           慢速重新加载数据
         </Button>
       </div>
-    </div>
+    </Space>
   );
 }

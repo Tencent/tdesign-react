@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Select } from 'tdesign-react';
 
 const { FormItem } = Form;
@@ -53,7 +53,7 @@ const options = [
 ];
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
 
   const onSubmit = ({ validateResult, firstError }) => {
     if (validateResult === true) {
@@ -69,17 +69,17 @@ export default function BaseForm() {
   };
 
   const handleClear = () => {
-    formRef.current.clearValidate();
+    form.clearValidate();
   };
 
   // 清除指定字段的校验结果
   const clearFieldsValidateResult = () => {
-    formRef.current.clearValidate(['email', 'course', 'content.url']);
+    form.clearValidate(['email', 'course', 'content.url']);
     MessagePlugin.success('已清除邮箱、课程、个人网站等字段校验结果');
   };
 
   return (
-    <Form ref={formRef} rules={rules} onReset={onReset} onSubmit={onSubmit} scrollToFirstError="smooth">
+    <Form form={form} rules={rules} onReset={onReset} onSubmit={onSubmit} scrollToFirstError="smooth">
       <FormItem label="用户名" help="这是用户名字段帮助说明" name="account">
         <Input />
       </FormItem>

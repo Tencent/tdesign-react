@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import useConfig from '../_util/useConfig';
+import useConfig from './useConfig';
 
 export default function useCommonClassName() {
   const { classPrefix } = useConfig();
@@ -37,6 +37,9 @@ export default function useCommonClassName() {
       STATUS: names.STATUS,
       sizeClassNames: names.SIZE,
       statusClassNames: names.STATUS,
+      classPrefix,
     };
   }, [classPrefix]);
 }
+
+export type CommonClassNameType = ReturnType<typeof useCommonClassName>;

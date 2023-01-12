@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Avatar from './Avatar';
 import Popup from '../popup/Popup';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { AvatarContextProvider } from './AvatarContext';
 import { TdAvatarGroupProps } from './type';
 import { StyledProps } from '../common';

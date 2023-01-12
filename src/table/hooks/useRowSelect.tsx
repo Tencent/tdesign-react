@@ -1,6 +1,6 @@
 // 行选中相关功能：单选 + 多选
 
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
 import intersection from 'lodash/intersection';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -13,24 +13,52 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { filterDataByIds, isRowSelectedDisabled } from '../utils';
-import useClassName from './useClassName';
+import { isRowSelectedDisabled } from '../utils';
+import { TableClassName } from './useClassName';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
 import { ClassName } from '../../common';
 import log from '../../_common/js/log';
 
-export default function useRowSelect(props: TdPrimaryTableProps) {
-  const { selectedRowKeys, columns, data, rowKey } = props;
-  const { tableSelectedClasses } = useClassName();
+const selectedRowDataMap = new Map<string | number, TableRowData>();
+
+export default function useRowSelect(
+  props: TdPrimaryTableProps,
+  tableSelectedClasses: TableClassName['tableSelectedClasses'],
+) {
+  const { selectedRowKeys, columns, data, rowKey, indeterminateSelectedRowKeys } = props;
+  const { pagination, reserveSelectedRowOnPaginate } = props;
+  const [currentPaginateData, setCurrentPaginateData] = useState<TableRowData[]>(data);
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
-  const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange);
-  const selectColumn = props.columns.find(({ type }) => ['multiple', 'single'].includes(type));
-  const canSelectedRows = props.data.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+  const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
+    defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
+  });
+  const selectColumn = columns.find(({ type }) => ['multiple', 'single'].includes(type));
+
+  const canSelectedRows = useMemo(() => {
+    const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
+    return currentData.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+    // eslint-disable-next-line
+  }, [reserveSelectedRowOnPaginate, data, currentPaginateData]);
+
   // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
   const intersectionKeys = intersection(
     tSelectedRowKeys,
     canSelectedRows.map((t) => get(t, rowKey || 'id')),
+  );
+
+  useEffect(
+    () => {
+      if (reserveSelectedRowOnPaginate) return;
+      // 分页变化时，在 onPageChange 中设置 setCurrentPaginateData，PrimaryTable 中
+      const { pageSize, current, defaultPageSize, defaultCurrent } = pagination;
+      const tPageSize = pageSize || defaultPageSize;
+      const tCurrent = current || defaultCurrent;
+      const newData = data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent);
+      setCurrentPaginateData(newData);
+    },
+    // eslint-disable-next-line
+    [data, reserveSelectedRowOnPaginate],
   );
 
   useEffect(
@@ -56,23 +84,37 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
   }
 
   function getSelectedHeader() {
-    const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
-    return () => (
-      <Checkbox
-        checked={intersectionKeys.length === canSelectedRows.length}
-        indeterminate={isIndeterminate}
-        disabled={!canSelectedRows.length}
-        onChange={handleSelectAll}
-      />
-    );
+    return () => {
+      const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
+      const isChecked =
+        intersectionKeys.length !== 0 &&
+        canSelectedRows.length !== 0 &&
+        intersectionKeys.length === canSelectedRows.length;
+      return (
+        <Checkbox
+          checked={isChecked}
+          indeterminate={isIndeterminate}
+          disabled={!canSelectedRows.length}
+          onChange={handleSelectAll}
+        />
+      );
+    };
+  }
+
+  function getRowSelectDisabledData(p: PrimaryTableCellParams<TableRowData>) {
+    const { col, row, rowIndex } = p;
+    const disabled: boolean = typeof col.disabled === 'function' ? col.disabled({ row, rowIndex }) : col.disabled;
+    const checkProps = isFunction(col.checkProps) ? col.checkProps({ row, rowIndex }) : col.checkProps;
+    return {
+      disabled: disabled || checkProps?.disabled,
+      checkProps,
+    };
   }
 
   function renderSelectCell(p: PrimaryTableCellParams<TableRowData>) {
-    const { col: column, row = {}, rowIndex } = p;
+    const { col: column, row = {} } = p;
     const checked = tSelectedRowKeys.includes(get(row, rowKey || 'id'));
-    const disabled: boolean =
-      typeof column.disabled === 'function' ? column.disabled({ row, rowIndex }) : column.disabled;
-    const checkProps = isFunction(column.checkProps) ? column.checkProps({ row, rowIndex }) : column.checkProps;
+    const { disabled, checkProps } = getRowSelectDisabledData(p);
     const selectBoxProps = {
       checked,
       disabled,
@@ -82,11 +124,17 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
       },
     };
     // 选中行功能中，点击 checkbox/radio 需阻止事件冒泡，避免触发不必要的 onRowClick
-    const onCheckClick = (e: MouseEvent<HTMLLabelElement>) => {
+    const onCheckClick = (p: { e: MouseEvent<HTMLLabelElement> } | MouseEvent<HTMLLabelElement>) => {
+      const e = 'e' in p ? p.e : p;
       e?.stopPropagation();
     };
     if (column.type === 'single') return <Radio {...selectBoxProps} onClick={onCheckClick} />;
-    if (column.type === 'multiple') return <Checkbox {...selectBoxProps} onClick={onCheckClick} />;
+    if (column.type === 'multiple') {
+      const isIndeterminate = indeterminateSelectedRowKeys?.length
+        ? indeterminateSelectedRowKeys.includes(get(row, rowKey))
+        : false;
+      return <Checkbox indeterminate={isIndeterminate} {...selectBoxProps} onClick={onCheckClick} />;
+    }
     return null;
   }
 
@@ -105,7 +153,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
       return;
     }
     setTSelectedRowKeys(selectedRowKeys, {
-      selectedRowData: filterDataByIds(props.data, selectedRowKeys, reRowKey),
+      selectedRowData: selectedRowKeys.map((t) => selectedRowDataMap.get(t)),
       currentRowKey: id,
       currentRowData: row,
       type: isExisted ? 'uncheck' : 'check',
@@ -118,7 +166,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
     const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => !canSelectedRowKeys.includes(id)) || [];
     const allIds = checked ? [...disabledSelectedRowKeys, ...canSelectedRowKeys] : [...disabledSelectedRowKeys];
     setTSelectedRowKeys(allIds, {
-      selectedRowData: filterDataByIds(props.data, allIds, reRowKey),
+      selectedRowData: checked ? allIds.map((t) => selectedRowDataMap.get(t)) : [],
       type: checked ? 'check' : 'uncheck',
       currentRowKey: 'CHECK_ALL_BOX',
     });
@@ -130,13 +178,36 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
     return {
       ...col,
       width: col.width || 64,
+      className: tableSelectedClasses.checkCell,
       cell: (p: PrimaryTableCellParams<TableRowData>) => renderSelectCell(p),
-      title: col.type === 'multiple' ? getSelectedHeader() : '',
+      title: col.type === 'multiple' ? getSelectedHeader() : col.title,
     };
   }
 
+  const onInnerSelectRowClick: TdPrimaryTableProps['onRowClick'] = ({ row, index }) => {
+    const selectedColIndex = props.columns.findIndex((item) => item.colKey === 'row-select');
+    const { disabled } = getRowSelectDisabledData({
+      row,
+      rowIndex: index,
+      col: props.columns[selectedColIndex],
+      colIndex: selectedColIndex,
+    });
+    if (disabled) return;
+    handleSelectChange(row);
+  };
+
+  useEffect(() => {
+    for (let i = 0, len = data.length; i < len; i++) {
+      selectedRowDataMap.set(get(data[i], rowKey || 'id'), data[i]);
+    }
+  }, [data, rowKey]);
+
   return {
     selectedRowClassNames,
+    currentPaginateData,
+    setCurrentPaginateData,
+    setTSelectedRowKeys,
     formatToRowSelectColumn,
+    onInnerSelectRowClick,
   };
 }

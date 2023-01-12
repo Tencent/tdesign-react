@@ -19,25 +19,21 @@ const clickHandler = (data) => {
 
 export default function FooterContentActionsCard() {
   return (
-    <div className="tdesign-demo-block">
-      <Card
-        title="标题"
-        subtitle="副标题"
-        actions={
-          <Dropdown options={options} onClick={clickHandler} minColumnWidth="112">
-            <Button variant="text" shape="square">
-              <Icon name="more" size="24" />
-            </Button>
-          </Dropdown>
-        }
-        bordered
-        theme="poster2"
-        cover="https://tdesign.gtimg.com/site/source/card-demo.png"
-        style={{ width: '400px' }}
-        footer={
-          <Comment author="标题" content="卡片内容" avatar="https://tdesign.gtimg.com/site/avatar-boy.jpg"></Comment>
-        }
-      ></Card>
-    </div>
+    <Card
+      actions={
+        <Dropdown options={options} onClick={clickHandler} minColumnWidth="112">
+          <Button variant="text" shape="square">
+            <Icon name="more" size="24" />
+          </Button>
+        </Dropdown>
+      }
+      bordered
+      theme="poster2"
+      cover="https://tdesign.gtimg.com/site/source/card-demo.png"
+      style={{ width: '400px' }}
+      footer={
+        <Comment author="标题" content="卡片内容" avatar="https://tdesign.gtimg.com/site/avatar-boy.jpg"></Comment>
+      }
+    ></Card>
   );
 }

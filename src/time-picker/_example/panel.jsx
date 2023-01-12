@@ -6,13 +6,7 @@ const { TimePickerPanel } = TimePicker;
 function Panel() {
   const [value, setValue] = useState('');
 
-  return (
-    <>
-      <div>
-        <TimePickerPanel value={value} onChange={setValue} />
-      </div>
-    </>
-  );
+  return <TimePickerPanel value={value} onChange={setValue} />;
 }
 
 export default Panel;

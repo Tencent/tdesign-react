@@ -5,8 +5,11 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
+import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { SelectInputProps } from '../select-input';
+import { TagInputProps } from '../tag-input';
+import { TagProps } from '../tag';
 import { TreeNodeModel } from '../tree';
 import { PopupVisibleChangeContext } from '../popup';
 import { TNode, TreeOptionData, SizeEnum } from '../common';
@@ -33,7 +36,6 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   collapsedItems?: TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number }>;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -41,10 +43,18 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    */
   empty?: TNode;
   /**
+   * 自定义过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据
+   */
+  filter?: (filterWords: string, node: TreeNodeModel) => boolean | Promise<boolean>;
+  /**
    * 是否可搜索
    * @default false
    */
   filterable?: boolean;
+  /**
+   * 透传 Input 输入框组件的全部属性
+   */
+  inputProps?: InputProps;
   /**
    * 用来定义 value / label / children 在 `options` 中对应的字段别名
    */
@@ -65,7 +75,6 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   loading?: boolean;
   /**
    * 远程加载时显示的文字，支持自定义。如加上超链接
-   * @default ''
    */
   loadingText?: TNode;
   /**
@@ -106,7 +115,7 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    */
   readonly?: boolean;
   /**
-   * 【开发中】透传 SelectInput 筛选器输入框组件的全部属性
+   * 透传 SelectInput 筛选器输入框组件的全部属性
    */
   selectInputProps?: SelectInputProps;
   /**
@@ -119,6 +128,22 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    * @default medium
    */
   size?: SizeEnum;
+  /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
+   * 透传 TagInput 标签输入框组件的全部属性
+   */
+  tagInputProps?: TagInputProps;
+  /**
+   * 透传 Tag 标签组件全部属性
+   */
+  tagProps?: TagProps;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 展开下一层级的方式
    * @default click

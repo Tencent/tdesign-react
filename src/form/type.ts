@@ -23,9 +23,17 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   errorMessage?: FormErrorMessage;
   /**
+   * 经 `Form.useForm()` 创建的 form 控制实例
+   */
+  form?: FormInstanceFunctions;
+  /**
    * 允许表单统一控制禁用状态的自定义组件名称列表。默认会有组件库的全部输入类组件：TInput、TInputNumber、TCascader、TSelect、TOption、TSwitch、TCheckbox、TCheckboxGroup、TRadio、TRadioGroup、TTreeSelect、TDatePicker、TTimePicker、TUpload、TTransfer、TSlider。对于自定义组件，组件内部需要包含可以控制表单禁用状态的变量 `formDisabled`。示例：`['CustomUpload', 'CustomInput']`
    */
   formControlledComponents?: Array<string>;
+  /**
+   * 表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData
+   */
+  initialData?: object;
   /**
    * 表单字段标签对齐方式：左对齐、右对齐、顶部对齐
    * @default right
@@ -62,7 +70,7 @@ export interface TdFormProps<FormData extends Data = Data> {
   /**
    * 表单校验不通过时，是否自动滚动到第一个校验不通过的字段，平滑滚动或是瞬间直达。值为空则表示不滚动
    */
-  scrollToFirstError?: 'smooth' | 'auto';
+  scrollToFirstError?: '' | 'smooth' | 'auto';
   /**
    * 校验不通过时，是否显示错误提示信息，统一控制全部表单项。如果希望控制单个表单项，请给 FormItem 设置该属性
    * @default true
@@ -82,7 +90,7 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   onReset?: (context: { e?: FormResetEvent }) => void;
   /**
-   * 表单提交时触发。其中 context.validateResult 表示校验结果，context .firstError 表示校验不通过的第一个规则提醒。context.validateResult 值为 true 表示校验通过；如果校验不通过，context.validateResult 值为校验结果列表
+   * 表单提交时触发。其中 `context.validateResult` 表示校验结果，`context.firstError` 表示校验不通过的第一个规则提醒。`context.validateResult` 值为 `true` 表示校验通过；如果校验不通过，`context.validateResult` 值为校验结果列表。<br />【注意】⚠️ 默认情况，输入框按下 Enter 键会自动触发提交事件，如果希望禁用这个默认行为，可以给输入框添加  enter 事件，并在事件中设置 `e.preventDefault()`
    */
   onSubmit?: (context: SubmitContext<FormData>) => void;
   /**
@@ -96,39 +104,51 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
    */
-  clearValidate?: (fields?: Array<keyof FormData>) => void;
+  clearValidate: (fields?: Array<keyof FormData>) => void;
   /**
-   * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
+   * 获取 form dom 元素
    */
-  getFieldsValue?: (nameList: string[] | boolean) => Record<keyof FormData, unknown>;
+  currentElement?: HTMLFormElement;
+  /**
+   * 获取 form dom 元素
+   */
+  getCurrentElement?: () => HTMLFormElement;
   /**
    * 获取单个字段值
    */
-  getFieldValue?: (field: keyof FormData) => unknown;
+  getFieldValue: (field: NamePath) => unknown;
   /**
-   * 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
+   * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
-  reset?: (params?: FormResetParams) => void;
+  getFieldsValue: getFieldsValue<FormData>;
+  /**
+   * 重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
+   */
+  reset: (params?: FormResetParams<FormData>) => void;
   /**
    * 设置多组字段状态
    */
-  setFields?: (fields: FieldData[]) => void;
+  setFields: (fields: FieldData[]) => void;
   /**
    * 设置表单字段值
    */
-  setFieldsValue?: (field: Data) => void;
+  setFieldsValue: (field: Data) => void;
   /**
    * 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型
    */
-  setValidateMessage?: (message: FormValidateMessage<FormData>) => void;
+  setValidateMessage: (message: FormValidateMessage<FormData>) => void;
   /**
-   * 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
+   * 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
    */
-  submit?: () => void;
+  submit: (params?: { showErrorMessage?: boolean }) => void;
   /**
-   * 校验函数，泛型 `FormData` 表示表单数据 TS 类型。<br/>【关于参数】`params.fields` 表示校验字段，如果设置了 `fields`，本次校验将仅对这些字段进行校验。`params.trigger` 表示本次触发校验的范围，'blur' 表示只触发校验规则设定为 trigger='blur' 的字段，'change' 表示只触发校验规则设定为 trigger='change' 的字段，默认触发全范围校验。<br />【关于返回值】返回值为 true 表示校验通过；如果校验不通过，返回值为校验结果列表
+   * 校验函数，包含错误文本提示等功能。泛型 `FormData` 表示表单数据 TS 类型。<br/>【关于参数】`params.fields` 表示校验字段，如果设置了 `fields`，本次校验将仅对这些字段进行校验。`params.trigger` 表示本次触发校验的范围，'params.trigger = blur' 表示只触发校验规则设定为 trigger='blur' 的字段，'params.trigger = change' 表示只触发校验规则设定为 trigger='change' 的字段，默认触发全范围校验。`params.showErrorMessage` 表示校验结束后是否显示错误文本提示，默认显示。<br />【关于返回值】返回值为 true 表示校验通过；如果校验不通过，返回值为校验结果列表
    */
-  validate?: (params?: FormValidateParams) => Promise<FormValidateResult<FormData>>;
+  validate: (params?: FormValidateParams) => Promise<FormValidateResult<FormData>>;
+  /**
+   * 纯净的校验函数，仅返回校验结果，不对组件进行任何操作。泛型 `FormData` 表示表单数据 TS 类型。参数和返回值含义同 `validate` 方法
+   */
+  validateOnly: (params?: Pick<FormValidateParams, 'fields' | 'trigger'>) => Promise<FormValidateResult<FormData>>;
 }
 
 export interface TdFormItemProps {
@@ -147,7 +167,6 @@ export interface TdFormItemProps {
   initialData?: InitialData;
   /**
    * 字段标签名称
-   * @default ''
    */
   label?: TNode;
   /**
@@ -161,20 +180,29 @@ export interface TdFormItemProps {
   /**
    * 表单字段名称
    */
-  name?: string | number | Array<string | number>;
+  name?: NamePath;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
   requiredMark?: boolean;
   /**
    * 表单字段校验规则
-   * @default []
    */
   rules?: Array<FormRule>;
+  /**
+   * null
+   * @default false
+   */
+  shouldUpdate?: boolean | ((prevValue, curValue) => boolean);
   /**
    * 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage`
    */
   showErrorMessage?: boolean;
+  /**
+   * 校验状态，可在需要完全自主控制校验状态时使用
+   * @default ''
+   */
+  status?: 'error' | 'warning' | 'success' | 'validating';
   /**
    * 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon
    */
@@ -184,6 +212,10 @@ export interface TdFormItemProps {
    * @default false
    */
   successBorder?: boolean;
+  /**
+   * 自定义提示内容，样式跟随 `status` 变动，可在需要完全自主控制校验规则时使用
+   */
+  tips?: TNode;
 }
 
 export interface TdFormListProps {
@@ -192,14 +224,13 @@ export interface TdFormListProps {
    */
   children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
   /**
-   * 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准
-   * @default []
+   * 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准
    */
   initialData?: Array<any>;
   /**
    * 表单字段名称
    */
-  name?: string | number;
+  name?: NamePath;
   /**
    * 表单字段校验规则
    */
@@ -224,7 +255,7 @@ export interface FormRule {
    */
   enum?: Array<string>;
   /**
-   * 内置校验方法，校验值是否为身份证号码，组件校验正则为 `/^(\d{18,18}|\d{15,15}|\d{17,17}x)$/i`，示例：`{ idcard: true, message: '请输入正确的身份证号码' }`
+   * 内置校验方法，校验值是否为身份证号码，组件校验正则为 `/^(\\d{18,18}|\\d{15,15}|\\d{17,17}x)$/i`，示例：`{ idcard: true, message: '请输入正确的身份证号码' }`
    */
   idcard?: boolean;
   /**
@@ -257,7 +288,7 @@ export interface FormRule {
    */
   required?: boolean;
   /**
-   * 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }`
+   * 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }`
    */
   telnumber?: boolean;
   /**
@@ -278,6 +309,10 @@ export interface FormRule {
    * 自定义校验规则，示例：`{ validator: (val) => val.length > 0, message: '请输入内容'}`
    */
   validator?: CustomValidator;
+  /**
+   * 内置校验方法，校验值是否为空格。示例：`{ whitespace: true, message: '值不能为空' }`
+   */
+  whitespace?: boolean;
 }
 
 export interface FormErrorMessage {
@@ -370,15 +405,21 @@ export type ValidateResult<T> = { [key in keyof T]: boolean | ErrorList };
 
 export type ErrorList = Array<FormRule>;
 
-export interface FormResetParams {
-  type: 'initial' | 'empty';
+export interface getFieldsValue<T> {
+  (nameList: true): T;
+  (nameList: any[]): Record<keyof T, unknown>;
+}
+
+export interface FormResetParams<FormData> {
+  type?: 'initial' | 'empty';
   fields?: Array<keyof FormData>;
 }
 
 export interface FieldData {
-  name: string;
-  value: unknown;
-  status: string;
+  name: NamePath;
+  value?: unknown;
+  status?: string;
+  validateMessage?: { type?: string; message?: string };
 }
 
 export type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] };
@@ -390,6 +431,7 @@ export interface FormItemValidateMessage {
 
 export interface FormValidateParams {
   fields?: Array<string>;
+  showErrorMessage?: boolean;
   trigger?: ValidateTriggerType;
 }
 
@@ -398,6 +440,8 @@ export type ValidateTriggerType = 'blur' | 'change' | 'all';
 export type Data = { [key: string]: any };
 
 export type InitialData = any;
+
+export type NamePath = string | number | Array<string | number>;
 
 export type FormListField = { key: number; name: number; isListField: boolean };
 

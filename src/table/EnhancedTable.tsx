@@ -1,23 +1,25 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import PrimaryTable from './PrimaryTable';
-import { PrimaryTableCol, TableRowData } from './type';
+import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { EnhancedTableProps, PrimaryTableProps } from './interface';
+import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
 
 import { StyledProps } from '../common';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
-const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
+const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, ref) => {
   const { tree, columns, style, className } = props;
 
+  const primaryTableRef = useRef<EnhancedTableRef>();
+
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
-  const { store, dataSource, formatTreeColumn, ...treeInstanceFunctions } = useTreeData(props);
+  const { store, dataSource, formatTreeColumn, swapData, ...treeInstanceFunctions } = useTreeData(props);
 
-  const [treeDataMap] = useState(store?.treeDataMap);
+  const treeDataMap = store?.treeDataMap;
 
-  const { onInnerSelectChange } = useTreeSelect(props, treeDataMap);
+  const { tIndeterminateSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, treeDataMap);
 
   // 影响列和单元格内容的因素有：树形节点需要添加操作符 [+] [-]
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
@@ -42,21 +44,60 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     return isTreeData ? columns : getColumns(columns);
   })();
 
-  useImperativeHandle(ref, () => ({ ...treeInstanceFunctions }));
+  const onEnhancedTableRowClick: TdPrimaryTableProps['onRowClick'] = (p) => {
+    if (props.tree?.expandTreeNodeOnClick) {
+      treeInstanceFunctions.toggleExpandData(
+        {
+          row: p.row,
+          rowIndex: p.index,
+        },
+        'row-click',
+      );
+    }
+    props.onRowClick?.(p);
+  };
+
+  useImperativeHandle(ref, () => ({
+    treeDataMap,
+    ...treeInstanceFunctions,
+    ...primaryTableRef.current,
+  }));
+
+  const onDragSortChange = (params: DragSortContext<TableRowData>) => {
+    if (props.beforeDragSort && !props.beforeDragSort(params)) return;
+    swapData({
+      data: params.data,
+      current: params.current,
+      target: params.target,
+      currentIndex: params.currentIndex,
+      targetIndex: params.targetIndex,
+    });
+    props.onDragSort?.(params);
+  };
 
   const primaryTableProps: PrimaryTableProps = {
     ...props,
     data: dataSource,
     columns: tColumns,
+    // 半选状态节点
+    indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
     disableDataPage: Boolean(tree && Object.keys(tree).length),
     onSelectChange: onInnerSelectChange,
+    onDragSort: onDragSortChange,
     style,
     className,
   };
-  return <PrimaryTable {...primaryTableProps} />;
+  if (props.tree?.expandTreeNodeOnClick) {
+    primaryTableProps.onRowClick = onEnhancedTableRowClick;
+  }
+  return <PrimaryTable {...primaryTableProps} ref={primaryTableRef} />;
 });
 
 EnhancedTable.displayName = 'EnhancedTable';
 
-export default EnhancedTable;
+export default EnhancedTable as <T extends TableRowData = TableRowData>(
+  props: EnhancedTableProps<T> & {
+    ref?: React.Ref<EnhancedTableRef>;
+  },
+) => React.ReactElement;

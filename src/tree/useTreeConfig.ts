@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export function useTreeConfig() {
@@ -31,6 +31,11 @@ export function useTreeConfig() {
       treeIconDefault: `${tree}__icon--default`,
       treeSpace: `${tree}__space`,
       treeOperations: `${tree}__operations`,
+      treeNodeDraggable: `${tree}__item--draggable`,
+      treeNodeDragging: `${tree}__item--dragging`,
+      treeNodeDragTipTop: `${tree}__item--tip-top`,
+      treeNodeDragTipBottom: `${tree}__item--tip-bottom`,
+      treeNodeDragTipHighlight: `${tree}__item--tip-highlight`,
       line: `${tree}__line`,
       lineIsLeaf: `${tree}__line--leaf`,
       lineIsFirst: `${tree}__line--first`,

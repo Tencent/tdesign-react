@@ -2,9 +2,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import difference from 'lodash/difference';
 import classnames from 'classnames';
 
-import { ChevronRightIcon, ChevronLeftIcon } from 'tdesign-icons-react';
+import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
-import useConfig from '../_util/useConfig';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import Button from '../button';
 import TransferList from './TransferList';
 import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLeafNodes } from './utils';
@@ -45,6 +46,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     transferItem,
     content,
     tree,
+    showCheckAll,
   } = props;
   const [state, setState] = useState<StateInterface>(() => ({
     source: data.filter((item) => !defaultValue.includes(item.value)),
@@ -64,6 +66,10 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const isCheckedControlled = 'checked' in props;
 
   const { classPrefix } = useConfig();
+  const { ChevronRightIcon, ChevronLeftIcon } = useGlobalIcon({
+    ChevronLeftIcon: TdChevronLeftIcon,
+    ChevronRightIcon: TdChevronRightIcon,
+  });
   const transferClassName = `${classPrefix}-transfer`;
 
   const [local, t] = useLocaleReceiver('transfer');
@@ -80,14 +86,20 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const [SourceEmptyCmp, TargetEmptyCmp] = getDefaultValue(empty, t(local.empty)).map((item) => getJSX(item));
   const [sourceDisable, targetDisable] = getDefaultValue(disabled, false);
   const [sourcePagonation, targetPagonation] = getDefaultValue(pagination);
-  const [sourceTitle, targetTitle] = getDefaultValue(title).map((item) => getJSX(item));
-  const [leftOperation, rightOperation] = getDefaultValue(operation, [
+  const [sourceTitle, targetTitle] = getDefaultValue(title as any as any).map((item) => getJSX(item));
+  const [leftOperation, rightOperation] = getDefaultValue(operation as any, [
     () => <ChevronRightIcon />,
     () => <ChevronLeftIcon />,
   ]).map((item) => getJSX(item));
-  const [sourceFooter, targetFooter] = getDefaultValue(footer).map((item) => getJSX(item));
+  const [sourceFooter, targetFooter] = getDefaultValue(footer as any).map((item) => getJSX(item));
   const [sourceTransferItem, targetTransferItem] = getDefaultValue(transferItem);
   const [sourceContent, targetContent] = getDefaultValue(content);
+
+  const [showCheckAllSource, showCheckAllTarget] = useMemo(
+    () =>
+      Array.isArray(showCheckAll) ? [showCheckAll[0] ?? true, showCheckAll[1] ?? true] : [showCheckAll, showCheckAll],
+    [showCheckAll],
+  );
 
   const transformSource = () => {
     const { source, target } = state;
@@ -96,7 +108,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     let newTarget = [...target, ...sourceCheckeds];
     let newTargetValue = newTarget.map((t) => t.value);
 
-    // 树结构处理source/target节点数据
+    // 树结构处理 source/target 节点数据
     if (tree) {
       newSource = filterCheckedTreeNodes(source, checkeds.source);
       newTarget = getTargetNodes(newSource, data);
@@ -119,7 +131,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     let newTarget = difference(target, targetCheckeds);
     let newTargetValue = newTarget.map((t) => t.value);
 
-    // 树结构处理source/target节点数据
+    // 树结构处理 source/target 节点数据
     if (tree) {
       newTarget = filterCheckedTreeNodes(target, checkeds.target);
       newSource = getTargetNodes(newTarget, data);
@@ -144,7 +156,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
       <div className={`${transferClassName}__operations`}>
         <Button
           key={isSourceDisabled ? 'right-outline' : 'right-base'}
-          variant={isSourceDisabled ? 'outline' : 'base'}
+          variant="outline"
           disabled={isSourceDisabled}
           onClick={transformSource}
         >
@@ -152,7 +164,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         </Button>
         <Button
           key={isSourceDisabled ? 'left-outline' : 'left-base'}
-          variant={isTargetDisabled ? 'outline' : 'base'}
+          variant="outline"
           disabled={isTargetDisabled}
           onClick={transformTarget}
         >
@@ -180,7 +192,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     if (isTargetControlled && Array.isArray(value)) {
       let newTarget = data.filter((item) => value.includes(item.value));
       let newSource = difference(data, newTarget);
-      // 树结构处理source/target节点数据
+      // 树结构处理 source/target 节点数据
       if (tree) {
         newSource = filterCheckedTreeNodes(data, value);
         newTarget = getTargetNodes(newSource, data);
@@ -228,6 +240,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         onCheckbox={(value) => handleCheckChange(value, 'source')}
         onSearch={(val: string) => setSearchState({ ...searchState, source: val })}
         tree={tree}
+        showCheckAll={showCheckAllSource}
       ></TransferList>
       {OperationsCmp()}
       <TransferList
@@ -245,6 +258,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         onCheckbox={(value) => handleCheckChange(value, 'target')}
         onSearch={(val: string) => setSearchState({ ...searchState, target: val })}
         tree={tree}
+        showCheckAll={showCheckAllTarget}
       ></TransferList>
     </div>
   );
