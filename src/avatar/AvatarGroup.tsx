@@ -32,15 +32,32 @@ const AvatarGroup = (props: AvatarGroupProps) => {
   if (max && childrenCount > max) {
     const showList = allChildrenList.slice(0, max);
     const hiddenList = allChildrenList.slice(max, childrenCount);
+    // written by sheep： Avatar 内部的 Popup 即将移除，用户可以通过 ReactNode 自己组合 Popup，不需要组件内嵌
     const popupNum = `+${childrenCount - max}`;
     const popupMergeProps = { ...popupProps, placement };
     const popupNodes = popupProps ? (
       <Popup {...popupMergeProps}>
-        {collapseAvatar ? <Avatar size={size}>{collapseAvatar}</Avatar> : <Avatar size={size}>{popupNum}</Avatar>}
+        {collapseAvatar ? (
+          <Avatar className={`${preClass}__collapse`} size={size}>
+            {collapseAvatar}
+          </Avatar>
+        ) : (
+          <Avatar className={`${preClass}__collapse`} size={size}>
+            {popupNum}
+          </Avatar>
+        )}
       </Popup>
     ) : (
       <Popup key="avatar-popup-key" placement={placement} content={hiddenList} trigger="hover" showArrow>
-        {collapseAvatar ? <Avatar size={size}>{collapseAvatar}</Avatar> : <Avatar size={size}>{popupNum}</Avatar>}
+        {collapseAvatar ? (
+          <Avatar className={`${preClass}__collapse`} size={size}>
+            {collapseAvatar}
+          </Avatar>
+        ) : (
+          <Avatar className={`${preClass}__collapse`} size={size}>
+            {popupNum}
+          </Avatar>
+        )}
       </Popup>
     );
     showList.push(popupNodes);
