@@ -1,5 +1,47 @@
 // Vitest Snapshot v1
 
+exports[`Avatar Component > props.children works fine 1`] = `
+<div>
+  <div
+    class="t-avatar t-avatar--circle"
+  >
+    <span
+      style="transform: scale(1);"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Avatar Component > props.shape is equal to circle 1`] = `
+<div>
+  <div
+    class="t-avatar t-avatar--circle"
+  >
+    <span
+      style="transform: scale(1);"
+    />
+  </div>
+</div>
+`;
+
+exports[`Avatar Component > props.shape is equal to round 1`] = `
+<div>
+  <div
+    class="t-avatar t-avatar--round"
+  >
+    <span
+      style="transform: scale(1);"
+    />
+  </div>
+</div>
+`;
+
 exports[`AvatarGroup Component > props.cascading is equal to left-up 1`] = `
 <div>
   <div
@@ -13,5 +55,46 @@ exports[`AvatarGroup Component > props.cascading is equal to right-up 1`] = `
   <div
     class="t-avatar-group t-avatar--offset-right"
   />
+</div>
+`;
+
+exports[`AvatarGroup Component > props.collapseAvatar works fine 1`] = `
+<div>
+  <div
+    class="t-avatar-group t-avatar--offset-right"
+  >
+    <div
+      class="t-avatar t-avatar--circle"
+    >
+      <img
+        src="https://tdesign.gtimg.com/site/avatar.jpg"
+      />
+    </div>
+    <div
+      class="t-avatar t-avatar--circle"
+    >
+      <span
+        style="transform: scale(1);"
+      >
+        W
+      </span>
+    </div>
+    <div
+      class="t-avatar t-avatar--circle t-avatar-icon"
+    />
+    <div
+      class="t-avatar t-avatar__collapse t-size-m t-avatar--circle"
+    >
+      <span
+        style="transform: scale(1);"
+      >
+        <span
+          class="custom-node"
+        >
+          TNode
+        </span>
+      </span>
+    </div>
+  </div>
 </div>
 `;
