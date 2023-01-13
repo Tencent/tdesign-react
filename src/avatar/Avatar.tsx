@@ -8,7 +8,7 @@ import composeRefs from '../_util/composeRefs';
 import { TdAvatarProps } from './type';
 import { StyledProps } from '../common';
 import AvatarContext from './AvatarContext';
-import AvatarGroup from './AvararGroup';
+import AvatarGroup from './AvatarGroup';
 import { avatarDefaultProps } from './defaultProps';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {

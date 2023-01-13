@@ -1,0 +1,17 @@
+// Vitest Snapshot v1
+
+exports[`AvatarGroup Component > props.cascading is equal to left-up 1`] = `
+<div>
+  <div
+    class="t-avatar-group t-avatar--offset-left"
+  />
+</div>
+`;
+
+exports[`AvatarGroup Component > props.cascading is equal to right-up 1`] = `
+<div>
+  <div
+    class="t-avatar-group t-avatar--offset-right"
+  />
+</div>
+`;
