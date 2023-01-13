@@ -7,7 +7,7 @@ import React from 'react';
 import { fireEvent, vi, render, mockDelay } from '@test/utils';
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
-// Mock ResizeObserver
+// Mock ResizeObserver 11
 class ResizeObserver {
   observe() {
     return this;
