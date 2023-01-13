@@ -34,7 +34,7 @@ function GroupSide() {
             alt="logo"
           />
         ) : (
-          <img src="https://tdesign.gtimg.com/site/baseLogo-light.png" width="136" alt="logo" />
+          <img src="https://tdesign.gtimg.com/site/baseLogo-light.png" height="28" alt="logo" />
         )
       }
     >

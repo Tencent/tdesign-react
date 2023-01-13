@@ -13,7 +13,7 @@ function Double() {
       <HeadMenu
         value={active}
         onChange={(v) => setActive(v)}
-        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" height="28" alt="logo" />}
         style={{ marginBottom: 20 }}
       >
         <SubMenu value="sub-0" title="菜单1">
@@ -47,7 +47,7 @@ function Double() {
         theme="dark"
         value={darkActive}
         onChange={(v) => setDarkActive(v)}
-        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" height="28" alt="logo" />}
       >
         <SubMenu value="sub-0" title="菜单1">
           <MenuItem value="1">子菜单1</MenuItem>
