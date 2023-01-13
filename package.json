@@ -61,7 +61,7 @@
     "init": "node script/init-component",
     "robot": "publish-cli robot-msg",
     "prepare": "husky install",
-    "update:coverage-badge": "node test/scripts/generate-coverage.js"
+    "update:coverage-badge": "node script/generate-coverage.js"
   },
   "config": {
     "commitizen": {
