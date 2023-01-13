@@ -211,7 +211,7 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
           [`${classPrefix}-align-${align}`]: align,
-          [`${classPrefix}-is-${tStatus}`]: tStatus,
+          [`${classPrefix}-is-${tStatus}`]: tStatus && tStatus !== 'default',
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,

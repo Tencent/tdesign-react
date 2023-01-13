@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import _userEvent from '@testing-library/user-event';
 export * from '@testing-library/react';
 export * from 'vitest';
+import { fireEvent } from '@testing-library/react';
 
 export const userEvent = _userEvent;
 
@@ -16,4 +17,8 @@ export function mockDelay(timeout = 300) {
   return new Promise((resolve) => {
     setTimeout(() => resolve(true), timeout);
   });
+}
+
+export function simulateInputChange(dom, text) {
+  fireEvent.change(dom, { target: { value: text } });
 }
