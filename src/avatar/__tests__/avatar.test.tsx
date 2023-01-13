@@ -2,20 +2,7 @@ import React from 'react';
 import { vi, render, fireEvent } from '@test/utils';
 import Avatar from '../Avatar';
 
-// Mock ResizeObserver
-class ResizeObserver {
-  observe() {
-    return this;
-  }
-
-  unobserve() {
-    return this;
-  }
-}
-
 describe('Avatar 组件测试', () => {
-  // @ts-ignore
-  window.ResizeObserver = window.ResizeObserver || ResizeObserver;
   test('Avatar 默认 DOM 结构', async () => {
     const imageSrc = 'https://tdesign.gtimg.com/site/avatar.jpg';
     const wrapper = render(<Avatar image={imageSrc} alt="test-avatar"></Avatar>);

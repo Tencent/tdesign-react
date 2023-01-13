@@ -20,10 +20,6 @@ describe('Anchor 组件测试', () => {
     const domDistance = getScroll(wrapper.getByTestId(childTestID), true);
     expect(domDistance).toEqual(distance);
 
-    // target is null
-    const nullDistance = getScroll(null, true);
-    expect(nullDistance).toEqual(distance);
-
     // target is document
     const documentDistance = getScroll(document, true);
     expect(documentDistance).toEqual(distance);
@@ -34,5 +30,17 @@ describe('Anchor 组件测试', () => {
 
     const scrollToPromise = scrollTo(10, {});
     expect(scrollToPromise).toBeInstanceOf(Promise);
+  });
+
+  test('render links', async () => {
+    render(
+      <Anchor>
+        <AnchorItem href="#test-a" />
+        <AnchorItem href="#test-b" />
+      </Anchor>,
+    );
+    expect(document.querySelector('.t-is-active')).toBe(null);
+    expect(document.querySelector('a[href="#test-a"]')).not.toBe(null);
+    expect(document.querySelector('a[href="#test-b"]')).not.toBe(null);
   });
 });

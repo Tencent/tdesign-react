@@ -33,7 +33,7 @@ function Single() {
         theme="light"
         value={active}
         onChange={(v) => setActive(v)}
-        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" height="28" alt="logo" />}
         operations={operations()}
         style={{ marginBottom: 20 }}
       >
@@ -55,7 +55,7 @@ function Single() {
         theme="dark"
         value={darkActive}
         onChange={(v) => setDarkActive(v)}
-        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" height="28" alt="logo" />}
         operations={operationsDark()}
       >
         <MenuItem value={'0'}>
