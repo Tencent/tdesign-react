@@ -17,7 +17,7 @@ lineSpace | Number | 16 | \- | N
 movable | Boolean | false | \- | N
 moveInterval | Number | 3000 | \- | N
 offset | Array | - | Typescript：`Array<number>` | N
-removable | Boolean | true | \- | N
+removable | Boolean | false | \- | N
 rotate | Number | -22 | \- | N
 watermarkContent | Object / Array | - | Typescript：`WatermarkText\|WatermarkImage\|Array<WatermarkText\|WatermarkImage>` | N
 width | Number | - | \- | N
