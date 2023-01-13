@@ -7,8 +7,19 @@ import React from 'react';
 import { fireEvent, vi, render, mockDelay } from '@test/utils';
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
+// Mock ResizeObserver
+class ResizeObserver {
+  observe() {
+    return this;
+  }
 
+  unobserve() {
+    return this;
+  }
+}
 describe('Avatar Component', () => {
+  // @ts-ignore
+  window.ResizeObserver = window.ResizeObserver || ResizeObserver;
   it('props.alt works fine', () => {
     const wrapper = render(<Avatar alt="Avatar" image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>);
     const container = wrapper.container.querySelector('img');
