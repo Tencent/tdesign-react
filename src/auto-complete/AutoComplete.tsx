@@ -133,7 +133,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     />
   );
   // 联想词列表
-  const listContent = (
+  const listContent = Array.isArray(props.options) && (
     <AutoCompleteOptionList
       ref={optionListRef}
       value={tValue}
@@ -157,6 +157,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
         {bottomContent}
       </div>
     ) : null;
+
   const popupProps = {
     ...props.popupProps,
     overlayInnerStyle: getOverlayStyle,
