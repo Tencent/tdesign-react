@@ -5,7 +5,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateInputChange, simulateClipboardPaste } from '@test/utils';
 import { Input, InputGroup } from '..';
 import { getInputGroupDefaultMount } from './mount';
 
@@ -405,8 +405,9 @@ describe('Input Component', () => {
 
   it('events.paste works fine', () => {
     const onPasteFn = vi.fn();
-    const { container } = render(<Input onPaste={onPasteFn}></Input>);
-    expect(onPasteFn).toHaveBeenCalled(1);
+    const { getByDisplayValue } = render(<Input onPaste={onPasteFn}></Input>);
+    simulateClipboardPaste(getByDisplayValue(''), 'hello');
+    expect(onPasteFn).toHaveBeenCalled();
     expect(onPasteFn.mock.calls[0][0].e.type).toBe('paste');
   });
 
@@ -419,7 +420,8 @@ describe('Input Component', () => {
 
   it('events.wheel works fine', () => {
     const onWheelFn = vi.fn();
-    const { container } = render(<Input onWheel={onWheelFn}></Input>);
+    const { getByDisplayValue } = render(<Input onWheel={onWheelFn}></Input>);
+    fireEvent.wheel(getByDisplayValue(''));
     expect(onWheelFn).toHaveBeenCalled(1);
     expect(onWheelFn.mock.calls[0][0].e.type).toBe('wheel');
   });
