@@ -4,20 +4,9 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { CSSProperties } from 'react';
-import { TNode, TElement } from '../common';
+import { TNode, ImageEvent } from '../common';
 
 export interface TdImageProps {
-  /**
-   * 图片 className
-   * @default ''
-   */
-  className?: string;
-  /**
-   * 图片 style
-   * @default null
-   */
-  style?: CSSProperties;
   /**
    * 图片描述
    * @default ''
@@ -82,9 +71,9 @@ export interface TdImageProps {
   /**
    * 图片加载失败时触发
    */
-  onError?: () => void;
+  onError?: (context: { e: ImageEvent<HTMLDivElement> }) => void;
   /**
    * 图片加载完成时触发
    */
-  onLoad?: () => void;
+  onLoad?: (context: { e: ImageEvent<HTMLDivElement> }) => void;
 }
