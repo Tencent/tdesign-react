@@ -1,4 +1,4 @@
-import React, { useMemo, useState, MouseEvent, useEffect } from 'react';
+import React, { useMemo, useState, MouseEvent, useEffect, useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
@@ -6,6 +6,7 @@ import log from '../_common/js/log';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
 import { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import HighlightOption from './HighlightOption';
+import { on, off } from '../_util/dom';
 
 export interface OptionsListProps {
   sizeClassNames: CommonClassNameType['sizeClassNames'];
@@ -19,7 +20,12 @@ export interface OptionsListProps {
   onSelect?: (keyword: string, context: { e: MouseEvent<HTMLLIElement> | KeyboardEvent | any }) => void;
 }
 
-const OptionsList = (props: OptionsListProps) => {
+export interface OptionsListRef {
+  addKeyboardListener: () => void;
+  removeKeyboardListener: () => void;
+}
+
+const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: OptionsListProps, ref) => {
   const { value, onSelect, popupVisible } = props;
   const [active, setActive] = useState('');
   const { classPrefix } = useConfig();
@@ -91,14 +97,27 @@ const OptionsList = (props: OptionsListProps) => {
     }
   };
 
+  const addKeyboardListener = () => {
+    on(document, 'keydown', onKeyInnerPress);
+  };
+
+  const removeKeyboardListener = () => {
+    off(document, 'keydown', onKeyInnerPress);
+  };
+
+  useImperativeHandle(ref, () => ({
+    addKeyboardListener,
+    removeKeyboardListener,
+  }));
+
   useEffect(() => {
     if (popupVisible) {
-      document.addEventListener('keydown', onKeyInnerPress);
+      addKeyboardListener();
     } else {
-      document.removeEventListener('keydown', onKeyInnerPress);
+      removeKeyboardListener();
     }
     return () => {
-      document.removeEventListener('keydown', onKeyInnerPress);
+      removeKeyboardListener();
     };
     // eslint-disable-next-line
   }, [popupVisible]);
@@ -130,7 +149,7 @@ const OptionsList = (props: OptionsListProps) => {
       })}
     </ul>
   );
-};
+});
 
 OptionsList.displayName = 'OptionsList';
 

@@ -29,7 +29,7 @@ triggerElement | TNode | - | 触发显示联想词下拉框的元素，默认为
 value | String | - | 输入框的值，即当前指定的联想词 | N
 defaultValue | String | - | 输入框的值，即当前指定的联想词。非受控属性 | N
 onBlur | Function |  | TS 类型：`(context: { e: FocusEvent; value: string }) => void`<br/>失去焦点时触发 | N
-onChange | Function |  | TS 类型：`(value: string, context?: { e?: InputEvent \| MouseEvent \| KeyboardEvent }) => void`<br/>输入框值发生变化时触发 | N
+onChange | Function |  | TS 类型：`(value: string, context?: { e?: InputEvent \| MouseEvent \| CompositionEvent \| KeyboardEvent }) => void`<br/>输入框值发生变化时触发 | N
 onClear | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>清空按钮点击时触发 | N
 onCompositionend | Function |  | TS 类型：`(context: { e: CompositionEvent; value: string }) => void`<br/>中文输入结束时触发 | N
 onCompositionstart | Function |  | TS 类型：`(context: { e: CompositionEvent; value: string }) => void`<br/>中文输入开始时触发 | N

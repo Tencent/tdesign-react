@@ -26,7 +26,7 @@ readonly | Boolean | false | \- | N
 showClearIconOnEmpty | Boolean | false | \- | N
 showLimitNumber | Boolean | false | show limit number text on the right | N
 size | String | medium | options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-status | String | default | options：default/success/warning/error | N
+status | String | undefined | options：default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 tips | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -34,7 +34,7 @@ type | String | text | options：text/number/url/tel/password/search/submit/hidd
 value | String / Number | - | Typescript：`InputValue` `type InputValue = string`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/input/type.ts) | N
 defaultValue | String / Number | - | uncontrolled property。Typescript：`InputValue` `type InputValue = string`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/input/type.ts) | N
 onBlur | Function |  | Typescript：`(value: InputValue, context: { e: FocusEvent }) => void`<br/> | N
-onChange | Function |  | Typescript：`(value: InputValue, context?: { e?: InputEvent \| MouseEvent; trigger: 'input' \| 'initial' \| 'clear' }) => void`<br/> | N
+onChange | Function |  | Typescript：`(value: InputValue, context?: { e?: InputEvent \| MouseEvent \| CompositionEvent; trigger: 'input' \| 'initial' \| 'clear' }) => void`<br/> | N
 onClear | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onCompositionend | Function |  | Typescript：`(value: InputValue, context: { e: CompositionEvent }) => void`<br/>trigger on compositionend | N

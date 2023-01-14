@@ -95,8 +95,7 @@ export interface TdInputProps {
    */
   size?: SizeEnum;
   /**
-   * 输入框状态
-   * @default default
+   * 输入框状态。默认情况会由组件内部根据实际情况呈现，如果文本过长引起的状态变化
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -133,7 +132,10 @@ export interface TdInputProps {
    */
   onChange?: (
     value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>; trigger: 'input' | 'initial' | 'clear' },
+    context?: {
+      e?: FormEvent<HTMLInputElement> | MouseEvent<any> | CompositionEvent<HTMLDivElement>;
+      trigger: 'input' | 'initial' | 'clear';
+    },
   ) => void;
   /**
    * 清空按钮点击时触发
@@ -154,7 +156,7 @@ export interface TdInputProps {
   /**
    * 回车键按下时触发
    */
-  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 获得焦点时触发
    */

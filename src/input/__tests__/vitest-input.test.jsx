@@ -74,6 +74,13 @@ describe('Input Component', () => {
     expect(onChangeFn1.mock.calls[0][1].e.stopPropagation).toBeTruthy();
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
   });
+  it('props.clearable: type=password, browseIcon and clearableIcon works fine', async () => {
+    const { container } = render(<Input type="password" value="this is my password" clearable={true}></Input>);
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay(300);
+    expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
+  });
 
   it('props.disabled works fine', () => {
     // disabled default value is
@@ -347,7 +354,7 @@ describe('Input Component', () => {
     const { container } = render(<Input onFocus={onFocusFn}></Input>);
     fireEvent.focus(container.querySelector('input'));
     expect(onFocusFn).toHaveBeenCalled(1);
-    expect(onFocusFn.mock.calls[0][0]).toBe(undefined);
+    expect(onFocusFn.mock.calls[0][0]).toBe('');
     expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
   });
 

@@ -50,7 +50,6 @@ const AutoCompleteBase = () => {
         highlightKeyword
         filterable={false}
         clearable
-        autofocus={true}
         placeholder="请输入关键词搜索"
         onBlur={() => {
           console.log('blur');
