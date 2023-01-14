@@ -32,6 +32,8 @@ export interface InputRef extends React.RefObject<unknown> {
   select: () => void;
 }
 
+type InputContextTrigger = 'input' | 'clear' | 'initial';
+
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode | TElement) => {
   const result = parseTNode(icon);
 
@@ -258,7 +260,7 @@ const Input = forwardRefWithStatics(
 
     function handleChange(
       e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>,
-      trigger = 'input',
+      trigger: InputContextTrigger = 'input',
     ) {
       let { value: newStr } = e.currentTarget;
       if (composingRef.current) {
