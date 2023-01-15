@@ -92,7 +92,9 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
-    (tagInputRef.current as any).inputElement?.focus?.();
+    if (!props.disabled && !props.readonly) {
+      (tagInputRef.current as any).inputElement?.focus?.();
+    }
     onClick?.(context);
   };
 

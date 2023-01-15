@@ -5,3 +5,151 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
+import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
+import { TagInput } from '..';
+import { getTagInputValueMount, getTagInputDefaultMount } from './mount';
+
+describe('TagInput Component', () => {
+  it('props.clearable: empty TagInput does not need clearIcon', async () => {
+    const { container } = render(<TagInput clearable={true}></TagInput>);
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
+  });
+  it('props.clearable: show clearIcon on mouse enter', async () => {
+    const { container } = getTagInputValueMount(TagInput, { clearable: true });
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
+  });
+  it('props.clearable: clear all tags on click clearIcon', async () => {
+    const onClearFn1 = vi.fn();
+    const onChangeFn1 = vi.fn();
+    const { container } = getTagInputValueMount(
+      TagInput,
+      { clearable: true },
+      { onClear: onClearFn1, onChange: onChangeFn1 },
+    );
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
+    expect(onClearFn1).toHaveBeenCalled(1);
+    expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
+    expect(onChangeFn1).toHaveBeenCalled(1);
+    expect(onChangeFn1.mock.calls[0][0]).toEqual([]);
+    expect(onChangeFn1.mock.calls[0][1].trigger).toBe('clear');
+    expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
+  });
+
+  it('props.collapsedItems works fine', () => {
+    const { container } = getTagInputValueMount(TagInput, {
+      collapsedItems: <span className="custom-node">TNode</span>,
+      minCollapsedNum: 3,
+    });
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.disabled works fine', () => {
+    // disabled default value is
+    const wrapper1 = render(<TagInput></TagInput>);
+    const container1 = wrapper1.container.querySelector('.t-input');
+    expect(container1.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
+    // disabled = true
+    const wrapper2 = render(<TagInput disabled={true}></TagInput>);
+    const container2 = wrapper2.container.querySelector('.t-input');
+    expect(container2).toHaveClass('t-is-disabled');
+    // disabled = false
+    const wrapper3 = render(<TagInput disabled={false}></TagInput>);
+    const container3 = wrapper3.container.querySelector('.t-input');
+    expect(container3.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
+  });
+
+  it('props.disabled: disabled TagInput does not need clearIcon', async () => {
+    const { container } = getTagInputValueMount(TagInput, { disabled: true });
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(container.querySelector('.t-tag-input__suffix-clear')).toBeFalsy();
+  });
+  it('props.disabled: disabled TagInput can not trigger focus event', () => {
+    const onFocusFn = vi.fn();
+    const { container } = render(<TagInput disabled={true} onFocus={onFocusFn}></TagInput>);
+    fireEvent.click(container.querySelector('.t-input'));
+    expect(onFocusFn).not.toHaveBeenCalled();
+  });
+
+  const excessTagsDisplayTypeClassNameList = [{ 't-tag-input--break-line': false }, 't-tag-input--break-line'];
+  ['scroll', 'break-line'].forEach((item, index) => {
+    it(`props.excessTagsDisplayType is equal to ${item}`, () => {
+      const { container } = getTagInputValueMount(TagInput, { excessTagsDisplayType: item });
+      if (typeof excessTagsDisplayTypeClassNameList[index] === 'string') {
+        expect(container.firstChild).toHaveClass(excessTagsDisplayTypeClassNameList[index]);
+      } else if (typeof excessTagsDisplayTypeClassNameList[index] === 'object') {
+        const classNameKey = Object.keys(excessTagsDisplayTypeClassNameList[index])[0];
+        expect(container.querySelector(`.${classNameKey}`)).toBeFalsy();
+      }
+    });
+  });
+
+  it(`props.inputProps is equal to {size: 'small'}`, () => {
+    const { container } = render(<TagInput inputProps={{ size: 'small' }}></TagInput>);
+    const domWrapper = container.querySelector('.t-input');
+    expect(domWrapper).toHaveClass('t-size-s');
+  });
+
+  it(`props.inputValue is equal to input value text`, () => {
+    const { container } = render(<TagInput inputValue="input value text"></TagInput>);
+    const domWrapper = container.querySelector('input');
+    expect(domWrapper.value).toBe('input value text');
+  });
+
+  it('props.label works fine', () => {
+    const { container } = render(<TagInput label={<span className="custom-node">TNode</span>}></TagInput>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.max: could type only three tags', () => {
+    const { container } = getTagInputDefaultMount(TagInput, { max: 1 });
+    fireEvent.focus(container.querySelector('input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'Tag3');
+    fireEvent.keyDown(container.querySelector('input'), { key: 'Enter', code: 'Enter', charCode: 13 });
+    expect(container.querySelectorAll('.t-tag').length).toBe(1);
+    const inputDom2 = container.querySelector('input');
+    simulateInputChange(inputDom2, 'Tag5');
+    fireEvent.keyDown(container.querySelector('input'), { key: 'Enter', code: 'Enter', charCode: 13 });
+    expect(container.querySelectorAll('.t-tag').length).toBe(1);
+  });
+
+  it('props.minCollapsedNum is equal 3', () => {
+    const { container } = getTagInputValueMount(TagInput, { minCollapsedNum: 3 });
+    expect(container.querySelectorAll('.t-tag').length).toBe(4);
+  });
+
+  it('props.readonly works fine', () => {
+    // readonly default value is false
+    const wrapper1 = render(<TagInput></TagInput>);
+    const container1 = wrapper1.container.querySelector('.t-input');
+    expect(container1.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
+    // readonly = true
+    const wrapper2 = render(<TagInput readonly={true}></TagInput>);
+    const container2 = wrapper2.container.querySelector('.t-input');
+    expect(container2).toHaveClass('t-is-readonly');
+    // readonly = false
+    const wrapper3 = render(<TagInput readonly={false}></TagInput>);
+    const container3 = wrapper3.container.querySelector('.t-input');
+    expect(container3.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
+  });
+
+  it('props.readonly: readonly TagInput does not need clearIcon', async () => {
+    const on0Fn = vi.fn();
+    const { container } = getTagInputValueMount(TagInput, { readonly: true }, { on0: on0Fn });
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+  });
+  it('props.readonly: readonly TagInput can not trigger focus event', () => {
+    const onFocusFn = vi.fn();
+    const { container } = render(<TagInput readonly={true} onFocus={onFocusFn}></TagInput>);
+    fireEvent.click(container.querySelector('.t-input'));
+    expect(onFocusFn).not.toHaveBeenCalled();
+  });
+});
