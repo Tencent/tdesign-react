@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
+import { createEvent, fireEvent } from '@testing-library/react';
 import _userEvent from '@testing-library/user-event';
-import { fireEvent, createEvent } from '@testing-library/react';
 
 export * from '@testing-library/react';
 export * from 'vitest';
@@ -59,4 +59,9 @@ export function simulateKeydownEvent(dom, type) {
       break;
   }
   dom.dispatchEvent(event);
+}
+
+// event 可选值：load/error
+export function simulateImageEvent(dom, event) {
+  fireEvent(dom, createEvent(event, dom));
 }

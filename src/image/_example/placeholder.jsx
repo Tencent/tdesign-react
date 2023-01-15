@@ -49,6 +49,9 @@ export default function PlaceholderImage() {
               src=""
               key={errorCount}
               style={{width: 284, height: 160}}
+              onError={(e) => {
+                console.log(e)
+              }}
             />
             <Button variant="outline" icon={<RefreshIcon />} onClick={handleReplayError}>
               重演 error
