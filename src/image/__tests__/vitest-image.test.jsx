@@ -114,6 +114,8 @@ describe('Image Component', () => {
     const { container } = render(<Image src="https://load-failed-img.png" onError={onErrorFn}></Image>);
     const imgDom = container.querySelector('img');
     simulateImageEvent(imgDom, 'error');
+    expect(container.querySelector('.t-image__error')).toBeTruthy();
+    expect(container.querySelector('.t-icon-image-error')).toBeTruthy();
     expect(onErrorFn).toHaveBeenCalled(1);
     expect(onErrorFn.mock.calls[0][0].e.type).toBe('error');
   });
