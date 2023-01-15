@@ -9,7 +9,7 @@ import { pxCompat } from '../_util/helper';
 import parseTNode from '../_util/parseTNode';
 import { skeletonDefaultProps } from './defaultProps';
 
-export type SkeletonProps = TdSkeletonProps & StyledProps & { children: React.ReactNode };
+export type SkeletonProps = TdSkeletonProps & StyledProps;
 
 const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   text: [1],
@@ -101,7 +101,7 @@ const Skeleton = (props: SkeletonProps) => {
   }, [delay, loading]);
 
   if (!ctrlLoading) {
-    return <>{children}</>;
+    return <>{children || props.content}</>;
   }
 
   const childrenContent = [];
