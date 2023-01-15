@@ -57,7 +57,7 @@ export interface TdTagProps {
   /**
    * 如果关闭按钮存在，点击关闭按钮时触发
    */
-  onClose?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClose?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
 }
 
 export interface TdCheckTagProps {

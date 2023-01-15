@@ -96,7 +96,7 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
     onClick?.(context);
   };
 
-  const onClearClick = (e: MouseEvent<SVGElement>) => {
+  const onClearClick = (e: MouseEvent<SVGSVGElement>) => {
     clearAll({ e });
     setTInputValue('', { e, trigger: 'clear' });
     props.onClear?.({ e });

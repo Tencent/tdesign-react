@@ -8,7 +8,7 @@ import { InputProps } from '../input';
 import { InputValue } from '../input';
 import { TagProps } from '../tag';
 import { TNode, TElement } from '../common';
-import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdTagInputProps {
   /**
@@ -174,7 +174,7 @@ export interface TagInputChangeContext {
   trigger: TagInputTriggerSource;
   index?: number;
   item?: string | number;
-  e?: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
@@ -188,7 +188,11 @@ export interface TagInputDragSortContext {
 }
 
 export interface InputValueChangeContext {
-  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?:
+    | FormEvent<HTMLDivElement>
+    | MouseEvent<HTMLElement | SVGElement>
+    | CompositionEvent<HTMLDivElement>
+    | KeyboardEvent<HTMLDivElement>;
   trigger: 'input' | 'clear' | 'enter';
 }
 
@@ -196,7 +200,7 @@ export interface TagInputRemoveContext {
   value: TagInputValue;
   index: number;
   item: string | number;
-  e?: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
   trigger: TagInputRemoveTrigger;
 }
 
