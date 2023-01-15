@@ -53,6 +53,61 @@ describe('Skeleton Component', () => {
     expect(container.querySelectorAll('.t-skeleton__row').length).toBe(0);
   });
 
+  it('props.rowCol is equal [1,1,2]', () => {
+    const { container } = getSkeletonDefaultMount(Skeleton, { rowCol: [1, 1, 2] });
+    expect(container.querySelectorAll('.t-skeleton__row').length).toBe(3);
+    expect(container.querySelectorAll('.t-skeleton__row:first-child .t-skeleton__col').length).toBe(1);
+    expect(container.querySelectorAll('.t-skeleton__row:nth-child(2) .t-skeleton__col').length).toBe(1);
+    expect(container.querySelectorAll('.t-skeleton__row:nth-child(3) .t-skeleton__col').length).toBe(2);
+  });
+
+  it('props.rowCol is equal [1, 1, { width: 100px }]', () => {
+    const { container } = getSkeletonDefaultMount(Skeleton, { rowCol: [1, 1, { width: '100px' }] });
+    expect(container.querySelectorAll('.t-skeleton__row').length).toBe(3);
+    expect(container.querySelectorAll('.t-skeleton__row:first-child .t-skeleton__col').length).toBe(1);
+    expect(container.querySelectorAll('.t-skeleton__row:nth-child(3) .t-skeleton__col').length).toBe(1);
+  });
+
+  it('props.rowCol is equal [1, 2, [{ width, height }, { width, height, marginLeft }]]', () => {
+    const { container } = getSkeletonDefaultMount(Skeleton, {
+      rowCol: [
+        1,
+        2,
+        [
+          { width, height },
+          { width, height, marginLeft },
+        ],
+      ],
+    });
+    expect(container.querySelectorAll('.t-skeleton__row:first-child .t-skeleton__col').length).toBe(1);
+    expect(container.querySelectorAll('.t-skeleton__row:nth-child(2) .t-skeleton__col').length).toBe(2);
+    expect(container.querySelectorAll('.t-skeleton__row:nth-child(3) .t-skeleton__col').length).toBe(2);
+  });
+
+  it(`props.rowCol is equal to [1, 1, { width: '100px' }]`, () => {
+    const { container } = getSkeletonDefaultMount(Skeleton, { rowCol: [1, 1, { width: '100px' }] });
+    const domWrapper = container.querySelector('.t-skeleton__row:nth-child(3)');
+    expect(domWrapper.style.width).toBe('100px');
+  });
+  it(`props.rowCol is equal to [1, 2, [{ width: '100px', height: '35px' }, { width: '101px', height: '36px', marginLeft: '16px' }]]`, () => {
+    const { container } = getSkeletonDefaultMount(Skeleton, {
+      rowCol: [
+        1,
+        2,
+        [
+          { width: '100px', height: '35px' },
+          { width: '101px', height: '36px', marginLeft: '16px' },
+        ],
+      ],
+    });
+    const domWrapper = container.querySelector('.t-skeleton__row:nth-child(3) .t-skeleton__col:first-child');
+    expect(domWrapper.style.width).toBe('100px');
+    const domWrapper1 = container.querySelector('.t-skeleton__row:nth-child(3) .t-skeleton__col:nth-child(2)');
+    expect(domWrapper1.style.width).toBe('101px');
+    expect(domWrapper1.style.height).toBe('36px');
+    expect(domWrapper1.style.marginLeft).toBe('16px');
+  });
+
   it('props.theme is equal text', () => {
     const { container } = getSkeletonDefaultMount(Skeleton, { theme: 'text' });
     expect(container.querySelectorAll('.t-skeleton__row').length).toBe(1);
