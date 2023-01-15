@@ -5,7 +5,6 @@
 import { TdImageProps } from './type';
 
 export const imageDefaultProps: TdImageProps = {
-  disabled: false,
   fit: 'fill',
   gallery: false,
   lazy: false,

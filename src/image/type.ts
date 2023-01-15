@@ -13,11 +13,6 @@ export interface TdImageProps {
    */
   alt?: string;
   /**
-   * 禁用状态，图片不响应鼠标事件
-   * @default false
-   */
-  disabled?: boolean;
-  /**
    * 自定义图片加载失败状态下的显示内容
    */
   error?: TNode;

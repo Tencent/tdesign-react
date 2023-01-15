@@ -16,13 +16,6 @@ describe('Image Component', () => {
     expect(container.getAttribute('alt')).toBe('text image load failed');
   });
 
-  it('props.disabled works fine', () => {
-    const fn = vi.fn();
-    const { container } = render(<Image disabled={true} onClick={fn}></Image>);
-    fireEvent.click(container.firstChild);
-    expect(fn).not.toHaveBeenCalled();
-  });
-
   it('props.error works fine', () => {
     const { container } = render(
       <Image error={<span className="custom-node">TNode</span>} src="https://this.is.an.error.img.com"></Image>,

@@ -8,7 +8,6 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 alt | String | - | \- | N
-disabled | Boolean | false | \- | N
 error | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 fit | String | fill | options：contain/cover/fill/none/scale-down | N
 gallery | Boolean | false | \- | N

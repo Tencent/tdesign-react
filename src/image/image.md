@@ -8,7 +8,6 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 alt | String | - | 图片描述 | N
-disabled | Boolean | false | 禁用状态，图片不响应鼠标事件 | N
 error | TNode | - | 自定义图片加载失败状态下的显示内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 fit | String | fill | 图片填充模式。可选项：contain/cover/fill/none/scale-down | N
 gallery | Boolean | false | 是否展示为图集样式 | N
