@@ -118,7 +118,7 @@ describe('Image Component', () => {
     expect(onErrorFn.mock.calls[0][0].e.type).toBe('error');
   });
 
-  it('events.load works fine', async () => {
+  it('events.load works fine', () => {
     const onLoadFn1 = vi.fn();
     const { container } = render(
       <Image src="https://tdesign.gtimg.com/demo/demo-image-1.png" onLoad={onLoadFn1}></Image>,
@@ -126,7 +126,6 @@ describe('Image Component', () => {
 
     const imgDom = container.querySelector('img');
     simulateImageEvent(imgDom, 'load');
-    await mockDelay(300);
     expect(onLoadFn1).toHaveBeenCalled(1);
     expect(onLoadFn1.mock.calls[0][0].e.type).toBe('load');
   });
