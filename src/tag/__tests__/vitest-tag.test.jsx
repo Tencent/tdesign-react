@@ -43,7 +43,7 @@ describe('Tag Component', () => {
     const { container } = render(<Tag maxWidth="150px" content="This is a long long long long long tag"></Tag>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.maxWidth).toBe('150px');
-    const domWrapper1 = container.querySelector('t-tag--text');
+    const domWrapper1 = container.querySelector('.t-tag--text');
     expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
   });
 

@@ -53,7 +53,7 @@ export interface TdTagProps {
   /**
    * 点击时触发
    */
-  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClick?: (context: { e: MouseEvent<HTMLSpanElement> }) => void;
   /**
    * 如果关闭按钮存在，点击关闭按钮时触发
    */
