@@ -5,7 +5,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateInputChange, simulateInputEnter } from '@test/utils';
 import { TagInput } from '..';
 import { getTagInputValueMount, getTagInputDefaultMount } from './mount';
 
@@ -110,19 +110,27 @@ describe('TagInput Component', () => {
   it('props.max: could type only three tags', () => {
     const { container } = getTagInputDefaultMount(TagInput, { max: 1 });
     fireEvent.focus(container.querySelector('input'));
+    const inputDom = container.querySelector('input');
+    simulateInputChange(inputDom, 'Tag3');
     const inputDom1 = container.querySelector('input');
-    simulateInputChange(inputDom1, 'Tag3');
-    fireEvent.keyDown(container.querySelector('input'), { key: 'Enter', code: 'Enter', charCode: 13 });
+    simulateInputEnter(inputDom1);
     expect(container.querySelectorAll('.t-tag').length).toBe(1);
     const inputDom2 = container.querySelector('input');
     simulateInputChange(inputDom2, 'Tag5');
-    fireEvent.keyDown(container.querySelector('input'), { key: 'Enter', code: 'Enter', charCode: 13 });
+    const inputDom3 = container.querySelector('input');
+    simulateInputEnter(inputDom3);
     expect(container.querySelectorAll('.t-tag').length).toBe(1);
   });
 
   it('props.minCollapsedNum is equal 3', () => {
     const { container } = getTagInputValueMount(TagInput, { minCollapsedNum: 3 });
     expect(container.querySelectorAll('.t-tag').length).toBe(4);
+  });
+
+  it('props.placeholder works fine', () => {
+    const wrapper = render(<TagInput placeholder="This is TagInput placeholder"></TagInput>);
+    const container = wrapper.container.querySelector('input');
+    expect(container.getAttribute('placeholder')).toBe('This is TagInput placeholder');
   });
 
   it('props.readonly works fine', () => {
@@ -151,5 +159,48 @@ describe('TagInput Component', () => {
     const { container } = render(<TagInput readonly={true} onFocus={onFocusFn}></TagInput>);
     fireEvent.click(container.querySelector('.t-input'));
     expect(onFocusFn).not.toHaveBeenCalled();
+  });
+
+  const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
+  ['small', 'medium', 'large'].forEach((item, index) => {
+    it(`props.size is equal to ${item}`, () => {
+      const wrapper = render(<TagInput size={item}></TagInput>);
+      const container = wrapper.container.querySelector('.t-input');
+      if (typeof sizeClassNameList[index] === 'string') {
+        expect(container).toHaveClass(sizeClassNameList[index]);
+      } else if (typeof sizeClassNameList[index] === 'object') {
+        const classNameKey = Object.keys(sizeClassNameList[index])[0];
+        expect(container.querySelector(`.${classNameKey}`)).toBeFalsy();
+      }
+    });
+  });
+
+  const statusClassNameList = [{ 't-is-default': false }, 't-is-success', 't-is-warning', 't-is-error'];
+  ['default', 'success', 'warning', 'error'].forEach((item, index) => {
+    it(`props.status is equal to ${item}`, () => {
+      const wrapper = render(<TagInput status={item}></TagInput>);
+      const container = wrapper.container.querySelector('.t-input');
+      if (typeof statusClassNameList[index] === 'string') {
+        expect(container).toHaveClass(statusClassNameList[index]);
+      } else if (typeof statusClassNameList[index] === 'object') {
+        const classNameKey = Object.keys(statusClassNameList[index])[0];
+        expect(container.querySelector(`.${classNameKey}`)).toBeFalsy();
+      }
+    });
+  });
+
+  it('props.suffix works fine', () => {
+    const { container } = render(<TagInput suffix={<span className="custom-node">TNode</span>}></TagInput>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.suffixIcon works fine', () => {
+    const { container } = render(<TagInput suffixIcon={<span className="custom-node">TNode</span>}></TagInput>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.tips is equal this is a tip', () => {
+    const { container } = render(<TagInput tips="this is a tip"></TagInput>);
+    expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
   });
 });
