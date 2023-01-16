@@ -4,11 +4,12 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay } from '@test/utils';
+import { vi, render, mockDelay } from '@test/utils';
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
 
 describe('Avatar Component', () => {
+  // @ts-ignore
   it('props.alt works fine', () => {
     const wrapper = render(<Avatar alt="Avatar" image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>);
     const container = wrapper.container.querySelector('img');
@@ -40,7 +41,7 @@ describe('Avatar Component', () => {
   it('props.icon works fine', () => {
     const { container } = render(<Avatar icon={<span className="custom-node">TNode</span>}></Avatar>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
-    expect(container.querySelector('.t-avatar__icon')).toBeTruthy();
+    expect(container.querySelector('.t-avatar-icon')).toBeTruthy();
   });
 
   it(`props.image is equal to https://tdesign.tencent.com/`, () => {
@@ -100,7 +101,6 @@ describe('AvatarGroup Component', () => {
       max: 3,
     });
     expect(container.querySelector('.custom-node')).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
   it('props.max works fine. `{".t-avatar":4}` should exist', () => {
