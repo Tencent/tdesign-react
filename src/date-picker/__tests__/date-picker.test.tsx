@@ -271,4 +271,12 @@ describe('DatePicker', () => {
     fireEvent.mouseEnter(tbodyEle.firstChild.firstChild);
     fireEvent.mouseLeave(tbodyEle.firstChild.firstChild);
   });
+
+  test('cell handleClick', async () => {
+    const { container } = render(<DatePicker />);
+    fireEvent.mouseDown(container.querySelector('input'));
+
+    const tbodyEle = await waitFor(() => document.querySelector('tbody'));
+    fireEvent.click(tbodyEle.firstChild.firstChild);
+  });
 });
