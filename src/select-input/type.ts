@@ -147,7 +147,7 @@ export interface TdSelectInputProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 按键按下 Enter 时触发
    */

@@ -35,17 +35,18 @@ export default function useTagList(props: TagInputProps) {
   // 按下 Enter 键，新增标签
   const onInnerEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     const valueStr = value ? String(value).trim() : '';
-    if (!valueStr) return;
-    const isLimitExceeded = max && tagValue?.length >= max;
     let newValue: TagInputValue = tagValue;
-    if (!isLimitExceeded) {
-      newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
-      setTagValue(newValue, {
-        trigger: 'enter',
-        index: newValue.length - 1,
-        item: valueStr,
-        e: context.e,
-      });
+    if (valueStr) {
+      const isLimitExceeded = max && tagValue?.length >= max;
+      if (!isLimitExceeded) {
+        newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
+        setTagValue(newValue, {
+          trigger: 'enter',
+          index: newValue.length - 1,
+          item: valueStr,
+          e: context.e,
+        });
+      }
     }
     props?.onEnter?.(newValue, { ...context, inputValue: value });
   };

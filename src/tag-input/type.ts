@@ -129,7 +129,7 @@ export interface TdTagInputProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 点击组件时触发
    */
@@ -161,7 +161,7 @@ export interface TdTagInputProps {
   /**
    * 粘贴事件，`pasteValue` 表示粘贴板的内容
    */
-  onPaste?: (context: { e: ClipboardEvent<HTMLInputElement>; pasteValue: string }) => void;
+  onPaste?: (context: { e: ClipboardEvent<HTMLDivElement>; pasteValue: string }) => void;
   /**
    * 移除单个标签时触发
    */

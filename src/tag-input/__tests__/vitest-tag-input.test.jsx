@@ -40,6 +40,18 @@ describe('TagInput Component', () => {
     expect(onChangeFn1.mock.calls[0][1].trigger).toBe('clear');
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
   });
+  it('props.clearable: disabled TagInput can not show clear icon', async () => {
+    const { container } = getTagInputValueMount(TagInput, { disabled: true, clearable: true });
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
+  });
+  it('props.clearable: readonly TagInput can not show clear icon', async () => {
+    const { container } = getTagInputValueMount(TagInput, { readonly: true, clearable: true });
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
+  });
 
   it('props.collapsedItems works fine', () => {
     const { container } = getTagInputValueMount(TagInput, {
@@ -278,6 +290,52 @@ describe('TagInput Component', () => {
     expect(onInputChangeFn2.mock.calls[1][1].trigger).toBe('blur');
   });
 
+  it('events.clear: click clear icon, then clear all tags', async () => {
+    const onClearFn1 = vi.fn();
+    const onChangeFn1 = vi.fn();
+    const { container } = getTagInputValueMount(
+      TagInput,
+      { clearable: true },
+      { onClear: onClearFn1, onChange: onChangeFn1 },
+    );
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
+    expect(onClearFn1).toHaveBeenCalled(1);
+    expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
+    expect(onChangeFn1).toHaveBeenCalled(1);
+    expect(onChangeFn1.mock.calls[0][0]).toEqual([]);
+    expect(onChangeFn1.mock.calls[0][1].trigger).toBe('clear');
+  });
+
+  it('events.click works fine', () => {
+    const fn = vi.fn();
+    const { container } = render(<TagInput onClick={fn}></TagInput>);
+    fireEvent.click(container.querySelector('.t-input'));
+    expect(fn).toHaveBeenCalled(1);
+    expect(fn.mock.calls[0][0].e.type).toBe('click');
+  });
+
+  it('events.enter works fine', () => {
+    const onEnterFn = vi.fn();
+    const { container } = getTagInputDefaultMount(TagInput, { value: ['tag'] }, { onEnter: onEnterFn });
+    const inputDom = container.querySelector('input');
+    simulateInputEnter(inputDom);
+    expect(onEnterFn).toHaveBeenCalled(1);
+    expect(onEnterFn.mock.calls[0][0]).toEqual(['tag']);
+    expect(onEnterFn.mock.calls[0][1].e.type).toBe('keydown');
+    expect(onEnterFn.mock.calls[0][1].inputValue).toBe('');
+  });
+  it('events.enter works fine', () => {
+    const { container } = render(<TagInput></TagInput>);
+    fireEvent.focus(container.querySelector('input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'Tag');
+    const inputDom2 = container.querySelector('input');
+    simulateInputEnter(inputDom2);
+    expect(container.querySelectorAll('.t-tag').length).toBe(1);
+  });
+
   it('events.focus works fine', () => {
     const onFocusFn = vi.fn();
     const { container } = getTagInputDefaultMount(TagInput, {}, { onFocus: onFocusFn });
@@ -295,5 +353,64 @@ describe('TagInput Component', () => {
     expect(onFocusFn.mock.calls[0][0]).toEqual([]);
     expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
     expect(onFocusFn.mock.calls[0][1].inputValue).toBe('tag');
+  });
+
+  it('events.mouseenter works fine', async () => {
+    const onMouseenterFn = vi.fn();
+    const { container } = render(<TagInput onMouseenter={onMouseenterFn}></TagInput>);
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(onMouseenterFn).toHaveBeenCalled(1);
+    expect(onMouseenterFn.mock.calls[0][0].e.type).toBe('mouseenter');
+  });
+
+  it('events.mouseleave works fine', async () => {
+    const onMouseleaveFn = vi.fn();
+    const { container } = render(<TagInput onMouseleave={onMouseleaveFn}></TagInput>);
+    fireEvent.mouseLeave(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(onMouseleaveFn).toHaveBeenCalled(1);
+    expect(onMouseleaveFn.mock.calls[0][0].e.type).toBe('mouseleave');
+  });
+
+  it('events.paste works fine', () => {
+    const onPasteFn = vi.fn();
+    const { container } = render(<TagInput onPaste={onPasteFn}></TagInput>);
+    fireEvent.paste(container.querySelector('input'));
+    expect(onPasteFn).toHaveBeenCalled(1);
+    expect(onPasteFn.mock.calls[0][0].e.type).toBe('paste');
+  });
+
+  it('events.remove: remove last tag on keydown Backspace', () => {
+    const onRemoveFn = vi.fn();
+    const { container } = getTagInputValueMount(TagInput, {}, { onRemove: onRemoveFn });
+    fireEvent.keyDown(container.querySelector('input'), { key: 'Backspace', code: 'Backspace', charCode: 8 });
+    expect(onRemoveFn).toHaveBeenCalled(1);
+    expect(onRemoveFn.mock.calls[0][0].value).toEqual([
+      'tdesign-vue',
+      'tdesign-react',
+      'tdesign-miniprogram',
+      'tdesign-mobile-vue',
+    ]);
+    expect(onRemoveFn.mock.calls[0][0].index).toBe(4);
+    expect(onRemoveFn.mock.calls[0][0].trigger).toBe('backspace');
+    expect(onRemoveFn.mock.calls[0][0].item).toBe('tdesign-mobile-react');
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('keydown');
+  });
+  it('events.remove: remove any tag on click tag close icon', () => {
+    const onRemoveFn = vi.fn();
+    const { container } = getTagInputValueMount(TagInput, {}, { onRemove: onRemoveFn });
+    fireEvent.click(container.querySelector('.t-tag__icon-close'));
+    expect(onRemoveFn).toHaveBeenCalled(1);
+    expect(onRemoveFn.mock.calls[0][0].value).toEqual([
+      'tdesign-react',
+      'tdesign-miniprogram',
+      'tdesign-mobile-vue',
+      'tdesign-mobile-react',
+    ]);
+    expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+    expect(onRemoveFn.mock.calls[0][0].trigger).toBe('tag-remove');
+    expect(onRemoveFn.mock.calls[0][0].item).toBe('tdesign-vue');
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
   });
 });

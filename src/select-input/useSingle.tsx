@@ -52,7 +52,7 @@ export default function useSingle(props: TdSelectInputProps) {
     suffixIcon: showLoading ? <Loading loading size="small" /> : props.suffixIcon,
   };
 
-  const onInnerClear = (context: { e: MouseEvent<SVGElement> }) => {
+  const onInnerClear = (context: { e: MouseEvent<SVGSVGElement> }) => {
     context?.e?.stopPropagation();
     props.onClear?.(context);
     setInputValue('', { trigger: 'clear' });
