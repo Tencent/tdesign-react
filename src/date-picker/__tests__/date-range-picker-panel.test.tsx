@@ -10,7 +10,7 @@ MockDate.set('2023-09-01');
 
 describe('DateRangePickerPanel', () => {
   beforeEach(() => {
-    MockDate.set('2022-09-01');
+    MockDate.set('2023-09-01');
   });
 
   afterEach(() => {
@@ -54,7 +54,7 @@ describe('DateRangePickerPanel', () => {
       />,
     );
     expect(container3.querySelector('.t-date-picker__cell--disabled')).toBeInTheDocument();
-    expect(container3.querySelector('.t-date-picker__cell--disabled').firstChild).toHaveTextContent('29');
+    expect(container3.querySelector('.t-date-picker__cell--disabled').firstChild).toHaveTextContent('28');
   });
 
   test('enableTimePicker props', async () => {
