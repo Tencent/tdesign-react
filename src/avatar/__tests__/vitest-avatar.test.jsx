@@ -4,7 +4,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay } from '@test/utils';
+import { vi, render, mockDelay } from '@test/utils';
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
 
