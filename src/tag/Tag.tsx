@@ -85,6 +85,7 @@ const Tag = forwardRefWithStatics(
       if (children && typeof children === 'string') return children;
       if (content && typeof content === 'string') return content;
     })();
+    const titleAttribute = title ? { title } : undefined;
 
     const tag = (
       <span
@@ -99,7 +100,7 @@ const Tag = forwardRefWithStatics(
       >
         <>
           {icon}
-          <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} title={maxWidth && title ? title : ''}>
+          <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} {...titleAttribute}>
             {children || content}
           </span>
           {closable && !disabled && deleteIcon}

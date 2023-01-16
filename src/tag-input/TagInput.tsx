@@ -168,7 +168,10 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
         onFocus?.(tagValue, { e: context.e, inputValue });
       }}
       onBlur={(inputValue, context) => {
-        onBlur?.(tagValue, { e: context.e, inputValue });
+        if (tInputValue) {
+          setTInputValue('', { e: context.e, trigger: 'blur' });
+        }
+        onBlur?.(tagValue, { e: context.e, inputValue: '' });
       }}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}

@@ -121,7 +121,7 @@ export interface TdTagInputProps {
   /**
    * 失去焦点时触发
    */
-  onBlur?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLInputElement> }) => void;
+  onBlur?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLDivElement> }) => void;
   /**
    * 值变化时触发，参数 `context.trigger` 表示数据变化的触发来源；`context.index` 指当前变化项的下标；`context.item` 指当前变化项；`context.e` 表示事件参数
    */
@@ -145,7 +145,7 @@ export interface TdTagInputProps {
   /**
    * 聚焦时触发
    */
-  onFocus?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLInputElement> }) => void;
+  onFocus?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLDivElement> }) => void;
   /**
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、回车键触发等
    */
@@ -193,7 +193,7 @@ export interface InputValueChangeContext {
     | MouseEvent<HTMLElement | SVGElement>
     | CompositionEvent<HTMLDivElement>
     | KeyboardEvent<HTMLDivElement>;
-  trigger: 'input' | 'clear' | 'enter';
+  trigger: 'input' | 'clear' | 'enter' | 'blur';
 }
 
 export interface TagInputRemoveContext {

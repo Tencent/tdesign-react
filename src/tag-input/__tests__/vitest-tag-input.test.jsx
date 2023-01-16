@@ -110,15 +110,15 @@ describe('TagInput Component', () => {
   it('props.max: could type only three tags', () => {
     const { container } = getTagInputDefaultMount(TagInput, { max: 1 });
     fireEvent.focus(container.querySelector('input'));
-    const inputDom = container.querySelector('input');
-    simulateInputChange(inputDom, 'Tag3');
     const inputDom1 = container.querySelector('input');
-    simulateInputEnter(inputDom1);
-    expect(container.querySelectorAll('.t-tag').length).toBe(1);
+    simulateInputChange(inputDom1, 'Tag3');
     const inputDom2 = container.querySelector('input');
-    simulateInputChange(inputDom2, 'Tag5');
+    simulateInputEnter(inputDom2);
+    expect(container.querySelectorAll('.t-tag').length).toBe(1);
     const inputDom3 = container.querySelector('input');
-    simulateInputEnter(inputDom3);
+    simulateInputChange(inputDom3, 'Tag5');
+    const inputDom4 = container.querySelector('input');
+    simulateInputEnter(inputDom4);
     expect(container.querySelectorAll('.t-tag').length).toBe(1);
   });
 
@@ -199,8 +199,101 @@ describe('TagInput Component', () => {
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
+  it('props.tag works fine', () => {
+    const { container } = getTagInputValueMount(TagInput, { tag: <span className="custom-node">TNode</span> });
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.tag is a function with params', () => {
+    const fn = vi.fn();
+    getTagInputValueMount(TagInput, { tag: fn });
+    expect(fn).toHaveBeenCalled(1);
+    expect(fn.mock.calls[0][0].value).toBe('tdesign-vue');
+  });
+
+  it('props.tagProps is equal { theme: warning }', () => {
+    const { container } = getTagInputValueMount(TagInput, { tagProps: { theme: 'warning' } });
+    expect(container.querySelectorAll('.t-tag--warning').length).toBe(5);
+  });
+
   it('props.tips is equal this is a tip', () => {
     const { container } = render(<TagInput tips="this is a tip"></TagInput>);
     expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
+  });
+
+  it('props.value: controlled value test: only props can change count of tags', () => {
+    const { container } = getTagInputDefaultMount(TagInput, { value: [] });
+    fireEvent.focus(container.querySelector('input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'Tag1');
+    const inputDom2 = container.querySelector('input');
+    simulateInputEnter(inputDom2);
+    expect(container.querySelector('.t-tag')).toBeFalsy();
+  });
+  it('props.value: uncontrolled value test: count of tags can be changed inner TagInput', () => {
+    const { container } = getTagInputDefaultMount(TagInput);
+    fireEvent.focus(container.querySelector('input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'Tag2');
+    const inputDom2 = container.querySelector('input');
+    simulateInputEnter(inputDom2);
+    expect(container.querySelectorAll('.t-tag').length).toBe(1);
+  });
+
+  it('props.valueDisplay works fine', () => {
+    const { container } = getTagInputValueMount(TagInput, { valueDisplay: <span className="custom-node">TNode</span> });
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.valueDisplay is a function with params', () => {
+    const fn = vi.fn();
+    getTagInputValueMount(TagInput, { valueDisplay: fn });
+    expect(fn).toHaveBeenCalled(1);
+    expect(fn.mock.calls[0][0].value).toEqual([
+      'tdesign-vue',
+      'tdesign-react',
+      'tdesign-miniprogram',
+      'tdesign-mobile-vue',
+      'tdesign-mobile-react',
+    ]);
+  });
+
+  it('events.blur: trigger blur event and clear inputValue on blur', () => {
+    const onBlurFn2 = vi.fn();
+    const onInputChangeFn2 = vi.fn();
+    const { container } = render(<TagInput onBlur={onBlurFn2} onInputChange={onInputChangeFn2}></TagInput>);
+    fireEvent.focus(container.querySelector('input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tag1');
+    fireEvent.blur(container.querySelector('input'));
+    const attrDom2 = container.querySelector('input');
+    expect(attrDom2.value).toBe('');
+    expect(onBlurFn2).toHaveBeenCalled(1);
+    expect(onBlurFn2.mock.calls[0][0]).toEqual([]);
+    expect(onBlurFn2.mock.calls[0][1].e.type).toBe('blur');
+    expect(onBlurFn2.mock.calls[0][1].inputValue).toBe('');
+    expect(onInputChangeFn2).toHaveBeenCalled(1);
+    expect(onInputChangeFn2.mock.calls[1][0]).toBe('');
+    expect(onInputChangeFn2.mock.calls[1][1].e.type).toBe('blur');
+    expect(onInputChangeFn2.mock.calls[1][1].trigger).toBe('blur');
+  });
+
+  it('events.focus works fine', () => {
+    const onFocusFn = vi.fn();
+    const { container } = getTagInputDefaultMount(TagInput, {}, { onFocus: onFocusFn });
+    fireEvent.focus(container.querySelector('input'));
+    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn.mock.calls[0][0]).toEqual([]);
+    expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
+    expect(onFocusFn.mock.calls[0][1].inputValue).toBe('');
+  });
+  it('events.focus: expect focus not change inputValue', () => {
+    const onFocusFn = vi.fn();
+    const { container } = getTagInputDefaultMount(TagInput, { inputValue: 'tag' }, { onFocus: onFocusFn });
+    fireEvent.focus(container.querySelector('input'));
+    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn.mock.calls[0][0]).toEqual([]);
+    expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
+    expect(onFocusFn.mock.calls[0][1].inputValue).toBe('tag');
   });
 });

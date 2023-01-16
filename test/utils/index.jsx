@@ -19,6 +19,7 @@ export function mockDelay(timeout = 300) {
   });
 }
 
+// dom 输入文本 text
 export function simulateInputChange(dom, text) {
   fireEvent.change(dom, { target: { value: text } });
 }
