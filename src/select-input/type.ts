@@ -25,7 +25,7 @@ export interface TdSelectInputProps {
    */
   autoWidth?: boolean;
   /**
-   * 【开发中】无边框模式
+   * 无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -40,7 +40,6 @@ export interface TdSelectInputProps {
   collapsedItems?: TNode<{ value: SelectInputValue; collapsedTags: SelectInputValue; count: number }>;
   /**
    * 是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -95,6 +94,10 @@ export interface TdSelectInputProps {
    * 是否显示下拉框
    */
   popupVisible?: boolean;
+  /**
+   * 是否显示下拉框，非受控属性
+   */
+  defaultPopupVisible?: boolean;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
@@ -199,7 +202,7 @@ export interface SelectInputValueChangeContext {
     | MouseEvent<HTMLElement | SVGElement>
     | FocusEvent<HTMLInputElement>
     | KeyboardEvent<HTMLInputElement>;
-  trigger: 'input' | 'clear';
+  trigger: 'input' | 'clear' | 'blur' | 'initial';
 }
 
 export type SelectInputChangeContext = TagInputChangeContext;
