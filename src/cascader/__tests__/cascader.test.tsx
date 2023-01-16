@@ -1,6 +1,6 @@
 import { render, fireEvent, mockTimeout, vi, userEvent } from '@test/utils';
 import React, { useState } from 'react';
-import Cascader from '../index';
+import Cascader, { CascaderPanel } from '../index';
 
 const options = [
   {
@@ -215,5 +215,39 @@ describe('Cascader 组件测试', () => {
     expect(document.querySelector(popupSelector)).toHaveTextContent(labelText);
     await mockTimeout(() => fireEvent.click(getByText(labelText)));
     expect(document.querySelector('.t-input__inner')).toHaveValue(labelText);
+  });
+});
+
+describe('CascaderPanel 组件测试', () => {
+  test('CascaderPanel 基础测试', () => {
+    const btnText = 'change';
+    const TestComponent = () => {
+      const [value, setValue] = useState();
+      const [multiple, setMultiple] = useState(false);
+      const onChange = (value) => {
+        setValue(value);
+      };
+      const onClick = () => {
+        setMultiple(!multiple);
+      };
+      return (
+        <>
+          <button onClick={onClick}>{btnText}</button>
+          <CascaderPanel options={options} value={value} onChange={onChange} multiple={multiple} />
+        </>
+      );
+    };
+
+    const { container, getByText } = render(<TestComponent />);
+    expect(getByText('选项一')).toBeInTheDocument();
+    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(1);
+    // 首次展开子选项会插入新的 ul
+    fireEvent.click(getByText('选项一'));
+    expect(getByText('子选项一')).toBeInTheDocument();
+    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
+    // multiple 测试
+    expect(container.querySelector('input')).toBeNull();
+    fireEvent.click(getByText(btnText));
+    expect(container.querySelector('input')).toBeInTheDocument();
   });
 });
