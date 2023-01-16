@@ -47,6 +47,7 @@
     "lint:fix": "eslint --ext .ts,.tsx ./src --ignore-pattern src/__tests__ --max-warnings 0 --fix",
     "lint:tsc": "tsc --emitDeclarationOnly -p ./tsconfig.build.json",
     "generate:usage": "node script/generate-usage/index.js",
+    "update:coverage-badge": "node script/generate-coverage.js",
     "test": "vitest run && npm run test:snap",
     "test:ui": "vitest run --ui",
     "test:snap": "cross-env NODE_ENV=test-snap vitest run",
@@ -62,8 +63,7 @@
     "changelog": "node script/generate-changelog.js",
     "init": "node script/init-component",
     "robot": "publish-cli robot-msg",
-    "prepare": "husky install",
-    "update:coverage-badge": "node test/scripts/generate-coverage.js"
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {
