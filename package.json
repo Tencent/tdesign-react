@@ -61,7 +61,7 @@
     "init": "node script/init-component",
     "robot": "publish-cli robot-msg",
     "prepare": "husky install",
-    "update:coverage-badge": "node test/scripts/generate-coverage.js"
+    "update:coverage-badge": "node script/generate-coverage.js"
   },
   "config": {
     "commitizen": {
@@ -209,7 +209,6 @@
     "tdesign-icons-react": "^0.1.7",
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
-    "use-resize-observer": "^9.0.2",
     "validator": "~13.7.0"
   }
 }

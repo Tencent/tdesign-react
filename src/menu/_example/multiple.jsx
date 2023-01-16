@@ -15,7 +15,7 @@ function Multiple() {
         value={active}
         expandType="popup"
         onChange={(v) => setActive(v)}
-        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-light.png" height="28" alt="logo" />}
         style={{ marginBottom: 20 }}
       >
         <SubMenu value="0" title="电器">
@@ -45,7 +45,7 @@ function Multiple() {
         value={darkActive}
         expandType="popup"
         onChange={(v) => setDarkActive(v)}
-        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" width="136" alt="logo" />}
+        logo={<img src="https://tdesign.gtimg.com/site/baseLogo-dark.png" height="28" alt="logo" />}
         style={{ marginBottom: 20 }}
       >
         <SubMenu value="0" title="电器">

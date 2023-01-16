@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect, useContext, Ref } from 'react';
-import useResizeObserver from 'use-resize-observer';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -10,6 +9,7 @@ import { StyledProps } from '../common';
 import AvatarContext from './AvatarContext';
 import AvatarGroup from './AvatarGroup';
 import { avatarDefaultProps } from './defaultProps';
+import useResizeObserver from '../hooks/useResizeObserver';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;
@@ -51,9 +51,7 @@ const Avatar = forwardRefWithStatics(
         }
       }
     };
-    const { ref: observerRef } = useResizeObserver<HTMLDivElement>({
-      onResize: handleScale,
-    });
+    useResizeObserver(avatarChildrenRef.current, handleScale);
 
     const handleImgLoadError = () => {
       onError && onError();
@@ -104,7 +102,7 @@ const Avatar = forwardRefWithStatics(
         transform: `scale(${scale})`,
       };
       content = (
-        <span ref={composeRefs(ref, avatarChildrenRef, observerRef) as any} style={childrenStyle}>
+        <span ref={composeRefs(ref, avatarChildrenRef)} style={childrenStyle}>
           {children}
         </span>
       );
