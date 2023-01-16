@@ -60,8 +60,7 @@
     "changelog": "node script/generate-changelog.js",
     "init": "node script/init-component",
     "robot": "publish-cli robot-msg",
-    "prepare": "husky install",
-    "update:coverage-badge": "node script/generate-coverage.js"
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {

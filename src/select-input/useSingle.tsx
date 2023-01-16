@@ -1,9 +1,9 @@
-import React, { useRef, MouseEvent, FormEvent, useMemo } from 'react';
+import React, { useRef, MouseEvent, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
-import Input, { InputValue } from '../input';
+import Input, { TdInputProps } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
 import useConfig from '../hooks/useConfig';
@@ -58,10 +58,7 @@ export default function useSingle(props: TdSelectInputProps) {
     setInputValue('', { trigger: 'clear' });
   };
 
-  const onInnerInputChange = (
-    value: InputValue,
-    context: { e: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
-  ) => {
+  const onInnerInputChange: TdInputProps['onChange'] = (value, context) => {
     if (props.allowInput) {
       setInputValue(value, { ...context, trigger: 'input' });
     }

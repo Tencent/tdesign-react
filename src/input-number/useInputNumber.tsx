@@ -117,14 +117,14 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   // 1.2 -> 1. -> 1
-  const onInnerInputChange = (val: string, { e }: { e: any }) => {
+  const onInnerInputChange: InputProps['onChange'] = (val, { e }) => {
     if (!canInputNumber(val, largeNumber)) return;
     if (props.largeNumber) {
       onChange(val as T, { type: 'input', e });
       return;
     }
     // specialCode 新增或删除这些字符时不触发 change 事件
-    const isDelete = e.nativeEvent.inputType === 'deleteContentBackward';
+    const isDelete = (e as any).nativeEvent.inputType === 'deleteContentBackward';
     const inputSpecialCode = specialCode.includes(val.slice(-1)) || val.slice(-2) === '.0';
     const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
     if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {

@@ -1,4 +1,4 @@
-import React, { FormEvent, forwardRef, useRef, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, useRef, useState, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import useControlled from '../hooks/useControlled';
 import { ClassName, StyledProps } from '../common';
@@ -6,7 +6,7 @@ import { AutoCompleteOption, TdAutoCompleteProps } from './type';
 import { autoCompleteDefaultProps } from './defaultProps';
 import useCommonClassName from '../hooks/useCommonClassName';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Input, { InputProps, InputRef } from '../input';
+import Input, { InputProps, InputRef, TdInputProps } from '../input';
 import Popup, { PopupProps, PopupRef } from '../popup';
 import AutoCompleteOptionList, { OptionsListProps } from './OptionList';
 
@@ -27,6 +27,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
   const [global] = useLocaleReceiver('input');
 
   const [popupVisible, setPopupVisible] = useState(false);
+  const optionListRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     inputRef: inputRef.current,
@@ -59,7 +60,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     return classNames(classes);
   })();
 
-  const onInputChange = (value: string, context: { e: FormEvent<HTMLInputElement> }) => {
+  const onInputChange: TdInputProps['onChange'] = (value, context) => {
     setTValue(value, context);
   };
 
@@ -75,6 +76,10 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
   const onInnerFocus: InputProps['onFocus'] = (value, context) => {
     setPopupVisible(true);
     props.onFocus?.({ ...context, value });
+    const timer = setTimeout(() => {
+      optionListRef.current?.addKeyboardListener();
+      clearTimeout(timer);
+    }, 0);
   };
 
   const onInnerBlur: InputProps['onBlur'] = (value, context) => {
@@ -128,8 +133,9 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
     />
   );
   // 联想词列表
-  const listContent = (
+  const listContent = Array.isArray(props.options) && (
     <AutoCompleteOptionList
+      ref={optionListRef}
       value={tValue}
       options={props.options}
       size={props.size}
@@ -151,6 +157,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
         {bottomContent}
       </div>
     ) : null;
+
   const popupProps = {
     ...props.popupProps,
     overlayInnerStyle: getOverlayStyle,
