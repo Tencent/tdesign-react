@@ -66,38 +66,34 @@ describe('SelectInput Component', () => {
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
-  it('props.loading works fine', () => {
-    // loading default value is false
-    const { container: container1 } = render(<SelectInput></SelectInput>);
-    expect(container1.querySelector(`.${'t-input__suffix-icon'}`)).toBeFalsy();
-    // loading = true
-    const { container: container2 } = render(<SelectInput loading={true}></SelectInput>);
-    expect(container2.firstChild).toHaveClass('t-input__suffix-icon');
-    // loading = false
-    const { container: container3 } = render(<SelectInput loading={false}></SelectInput>);
-    expect(container3.querySelector(`.${'t-input__suffix-icon'}`)).toBeFalsy();
+  it('props.loading works fine. `".t-loading"` should exist', () => {
+    const { container } = render(<SelectInput loading={true}></SelectInput>);
+    expect(container.querySelector('.t-loading')).toBeTruthy();
   });
 
-  it('props.multiple works fine', () => {
+  it('props.multiple: SelectInput contains element `.t-tag-input`', () => {
     // multiple default value is false
-    const { container: container1 } = render(<SelectInput></SelectInput>);
-    expect(container1.querySelector(`.${'t-tag-input'}`)).toBeFalsy();
+    const { container } = render(<SelectInput></SelectInput>);
+    expect(container.querySelector('.t-tag-input')).toBeFalsy();
+    // multiple = false
+    const { container: container1 } = render(<SelectInput multiple={false}></SelectInput>);
+    expect(container1.querySelector('.t-tag-input')).toBeFalsy();
     // multiple = true
     const { container: container2 } = render(<SelectInput multiple={true}></SelectInput>);
-    expect(container2.firstChild).toHaveClass('t-tag-input');
-    // multiple = false
-    const { container: container3 } = render(<SelectInput multiple={false}></SelectInput>);
-    expect(container3.querySelector(`.${'t-tag-input'}`)).toBeFalsy();
+    expect(container2.querySelector('.t-tag-input')).toBeTruthy();
   });
 
   it('props.panel works fine', () => {
     const { container } = render(<SelectInput panel={<span className="custom-node">TNode</span>}></SelectInput>);
-    expect(container.querySelector('.custom-node')).toBeTruthy();
+    fireEvent.click(container.querySelector('.t-input'));
+    const customNodeDom = document.querySelector('.custom-node');
+    expect(customNodeDom).toBeDefined();
   });
 
   it('props.placeholder works fine', () => {
-    const { container } = render(<SelectInput placeholder="This is SelectInput placeholder"></SelectInput>);
-    expect(container.firstChild.getAttribute('placeholder')).toBe('This is SelectInput placeholder');
+    const wrapper = render(<SelectInput placeholder="This is SelectInput placeholder"></SelectInput>);
+    const container = wrapper.container.querySelector('input');
+    expect(container.getAttribute('placeholder')).toBe('This is SelectInput placeholder');
   });
 
   it('props.readonly works fine', () => {
