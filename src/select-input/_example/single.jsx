@@ -69,8 +69,6 @@ export default function SelectInputSingle() {
 
   return (
     <div>
-      {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
-      <SelectInput panel={<span className="custom-node">TNode</span>}></SelectInput>
       <SelectInput
         value={selectValue}
         popupVisible={popupVisible}
