@@ -253,13 +253,7 @@ describe('TagInput Component', () => {
   });
 
   it('props.valueDisplay works fine', () => {
-    const { container } = getTagInputValueMount(TagInput, {
-      valueDisplay: (
-        <span key={Math.random() * 100} className="custom-node">
-          TNode
-        </span>
-      ),
-    });
+    const { container } = getTagInputValueMount(TagInput, { valueDisplay: <span className="custom-node">TNode</span> });
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
