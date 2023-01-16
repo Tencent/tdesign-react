@@ -14,7 +14,7 @@ describe('TagInput Component', () => {
     const { container } = render(<TagInput clearable={true}></TagInput>);
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
-    expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
+    expect(container.querySelector('.t-tag-input__suffix-clear')).toBeFalsy();
   });
   it('props.clearable: show clearIcon on mouse enter', async () => {
     const { container } = getTagInputValueMount(TagInput, { clearable: true });
