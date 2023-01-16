@@ -32,6 +32,8 @@ export interface InputRef extends React.RefObject<unknown> {
   select: () => void;
 }
 
+type InputContextTrigger = 'input' | 'clear' | 'initial';
+
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode | TElement) => {
   const result = parseTNode(icon);
 
@@ -76,6 +78,7 @@ const Input = forwardRefWithStatics(
       keepWrapperWidth,
       showLimitNumber,
       allowInputOverMax,
+      name,
       format,
       onClick,
       onClear,
@@ -97,7 +100,6 @@ const Input = forwardRefWithStatics(
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
-
     const { limitNumber, getValueByLimitNumber, tStatus } = useLengthLimit({
       value: value === undefined ? undefined : String(value),
       status,
@@ -141,17 +143,51 @@ const Input = forwardRefWithStatics(
     const limitNumberNode =
       limitNumber && showLimitNumber ? <div className={`${classPrefix}-input__limit-number`}>{limitNumber}</div> : null;
 
+    const updateInputWidth = () => {
+      if (!autoWidth || !inputRef.current) return;
+      const { width } = inputPreRef.current.getBoundingClientRect();
+      inputRef.current.style.width = `${width}px`;
+    };
+
     useLayoutEffect(() => {
       // 推迟到下一帧处理防止异步渲染 input 场景宽度计算为 0
       requestAnimationFrame(() => {
-        if (!autoWidth || !inputRef.current) return;
-        inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
+        updateInputWidth();
       });
+      // eslint-disable-next-line
     }, [autoWidth, value, placeholder, inputRef]);
+
+    // 当元素默认为 display: none 状态，无法提前准确计算宽度，因此需要监听元素宽度变化。比如：Tabs 场景切换。
+    useEffect(() => {
+      let resizeObserver: ResizeObserver = null;
+      // IE 11 以下使用设置 minWidth 兼容；IE 11 以上使用 ResizeObserver
+      if (typeof window.ResizeObserver === 'undefined' || !inputRef.current) return;
+      resizeObserver = new window.ResizeObserver(() => {
+        updateInputWidth();
+      });
+      resizeObserver.observe(inputRef.current);
+      return () => {
+        // resizeObserver.unobserve?.(inputRef.current);
+        resizeObserver.disconnect?.();
+        resizeObserver = null;
+      };
+      // eslint-disable-next-line
+    }, [inputRef]);
 
     useEffect(() => {
       setRenderType(type);
     }, [type]);
+
+    // 初始判断长度，如超限自动截断并触发onchange
+    useEffect(() => {
+      if (value) {
+        const limitedValue = getValueByLimitNumber(value);
+        if (limitedValue.length !== value.length && !allowInputOverMax) {
+          onChange?.(limitedValue, { trigger: 'initial' });
+        }
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const innerValue = composingRef.current ? composingValue : value ?? '';
     const formatDisplayValue = format && !isFocused ? format(innerValue) : innerValue;
@@ -176,6 +212,7 @@ const Input = forwardRefWithStatics(
         onFocus={handleFocus}
         onBlur={handleBlur}
         onPaste={handlePaste}
+        name={name}
       />
     );
 
@@ -187,9 +224,8 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-size-m`]: size === 'medium',
           [`${classPrefix}-align-${align}`]: align,
-          [`${classPrefix}-is-${tStatus}`]: tStatus,
+          [`${classPrefix}-is-${tStatus}`]: tStatus && tStatus !== 'default',
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
@@ -222,7 +258,10 @@ const Input = forwardRefWithStatics(
       setRenderType(toggleType);
     }
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
+    function handleChange(
+      e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>,
+      trigger: InputContextTrigger = 'input',
+    ) {
       let { value: newStr } = e.currentTarget;
       if (composingRef.current) {
         setComposingValue(newStr);
@@ -232,11 +271,11 @@ const Input = forwardRefWithStatics(
         }
         // 完成中文输入时同步一次 composingValue
         setComposingValue(newStr);
-        onChange(newStr, { e });
+        onChange(newStr, { e, trigger });
       }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-      onChange?.('', { e });
+      onChange?.('', { e, trigger: 'clear' });
       onClear?.({ e });
     }
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {

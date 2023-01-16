@@ -30,16 +30,12 @@ zIndex | Number | 6000 | 消息通知层级 | N
 
 ### notification 或 NotificationPlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 theme | String | info | 必需。消息类型。可选项：info/success/warning/error。TS 类型：`NotificationThemeList`
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationOptions`
 
 ### notification.info 或 NotificationPlugin.info
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -49,8 +45,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.warning 或 NotificationPlugin.warning
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationInfoOptions`
@@ -58,8 +52,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 插件返回值：`Promise<NotificationInstance>`
 
 ### notification.error 或 NotificationPlugin.error
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -69,8 +61,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.success 或 NotificationPlugin.success
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationInfoOptions`
@@ -79,23 +69,17 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.close 或 NotificationPlugin.close
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 options | Object | - | 必需。该插件参数为 NotificationPlugin.info() 等插件执行后的返回值。示例：`const msg = NotificationPlugin.info({}); NotificationPlugin.close(msg)`。TS 类型：`Promise<NotificationInstance>`
 
 ### notification.closeAll 或 NotificationPlugin.closeAll
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
-
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
 -- | \- | - | \-
 
 ### notification.config 或 NotificationPlugin.config
-
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --

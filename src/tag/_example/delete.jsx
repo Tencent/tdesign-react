@@ -62,8 +62,7 @@ export default function ClosableTagExample() {
         {inputVisible ? (
           <Input onBlur={handleInputEnter} onEnter={handleInputEnter} style={{ width: '94px' }} />
         ) : (
-          <Tag onClick={handleClickAdd}>
-            <AddIcon />
+          <Tag onClick={handleClickAdd} icon={<AddIcon />}>
             可添加标签
           </Tag>
         )}

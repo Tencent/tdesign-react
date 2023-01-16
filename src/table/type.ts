@@ -12,12 +12,22 @@ import { CheckboxGroupValue } from '../checkbox';
 import { SortableEvent, SortableOptions } from 'sortablejs';
 import { CheckboxProps } from '../checkbox';
 import { RadioProps } from '../radio';
+import { PopupProps } from '../popup';
 import { InputProps } from '../input';
 import { ButtonProps } from '../button';
 import { CheckboxGroupProps } from '../checkbox';
 import { DialogProps } from '../dialog';
 import { FormRule, AllValidateResult } from '../form';
-import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes, ComponentType } from '../common';
+import {
+  TNode,
+  TElement,
+  OptionData,
+  SizeEnum,
+  ClassName,
+  HTMLElementAttributes,
+  ComponentType,
+  InfinityScroll,
+} from '../common';
 import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
@@ -55,7 +65,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   empty?: TNode;
   /**
-   * 首行内容
+   * 首行内容，横跨所有列
    */
   firstFullRow?: TNode;
   /**
@@ -105,7 +115,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   hover?: boolean;
   /**
-   * 尾行内容
+   * 尾行内容，横跨所有列
    */
   lastFullRow?: TNode;
   /**
@@ -115,7 +125,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
    * 透传加载组件全部属性
    */
-  loadingProps?: LoadingProps;
+  loadingProps?: Partial<LoadingProps>;
   /**
    * 表格最大高度，超出后会出现滚动条。示例：100, '30%', '300'。值为数字类型，会自动加上单位 px
    */
@@ -157,7 +167,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
    * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
    */
-  scroll?: TableScroll;
+  scroll?: InfinityScroll;
   /**
    * 是否显示表头
    * @default true
@@ -319,6 +329,10 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    */
   resize?: TableColumnResizeConfig;
   /**
+   * 是否阻止当列单元格点击事件冒泡
+   */
+  stopPropagation?: boolean;
+  /**
    * 自定义表头渲染，优先级高于 render
    */
   title?: string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>;
@@ -428,6 +442,15 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   multipleSort?: boolean;
   /**
+   * 行选中功能，是否在分页时保留上一页选中结果不清空，本地数据分页场景下，会全选所有页数据。值为 `false` 则表示全部选中操作停留在当前页，不跨分页；本地数据分页场景下，全选仅选中当前页
+   * @default true
+   */
+  reserveSelectedRowOnPaginate?: boolean;
+  /**
+   * 是否在点击整行时选中
+   */
+  selectOnRowClick?: boolean;
+  /**
    * 选中行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制
    * @default []
    */
@@ -489,7 +512,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   onDisplayColumnsChange?: (value: CheckboxGroupValue) => void;
   /**
-   * 拖拽排序时触发，`data` 表示排序前的数据，`newData` 表示拖拽排序结束后的新数据，`sort=row` 表示行拖拽事件触发，`sort=col` 表示列拖拽事件触发
+   * 拖拽排序时触发，`data` 表示排序前的数据，`newData` 表示拖拽排序结束后的新数据，`sort=row` 表示行拖拽事件触发，`sort=col` 表示列拖拽事件触发。⚠️ 事件是在回调函数中触发的，需注意数据更新相关问题
    */
   onDragSort?: (context: DragSortContext<T>) => void;
   /**
@@ -724,6 +747,10 @@ export interface TableColumnFilter {
    */
   list?: Array<OptionData>;
   /**
+   * 透传 Popup 组件全部属性到筛选器浮层
+   */
+  popupProps?: PopupProps;
+  /**
    * 用于透传筛选器属性，可以对筛选器进行任何原组件支持的属性配置
    */
   props?: FilterProps;
@@ -741,32 +768,6 @@ export interface TableColumnFilter {
    * @default ''
    */
   type?: FilterType;
-}
-
-export interface TableScroll {
-  /**
-   * 表示除可视区域外，额外渲染的行数，避免快速滚动过程中，新出现的内容来不及渲染从而出现空白
-   * @default 20
-   */
-  bufferSize?: number;
-  /**
-   * 表示每行内容是否同一个固定高度，仅在 `scroll.type` 为 `virtual` 时有效，该属性设置为 `true` 时，可用于简化虚拟滚动内部计算逻辑，提升性能，此时则需要明确指定 `scroll.rowHeight` 属性的值
-   * @default false
-   */
-  isFixedRowHeight?: boolean;
-  /**
-   * 行高，不会给`<tr>`元素添加样式高度，仅作为滚动时的行高参考。一般情况不需要设置该属性。如果设置，可尽量将该属性设置为每行平均高度，从而使得滚动过程更加平滑
-   */
-  rowHeight?: number;
-  /**
-   * 启动虚拟滚动的阈值。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动
-   * @default 100
-   */
-  threshold?: number;
-  /**
-   * 滚动加载类型，有两种：懒加载和虚拟滚动。<br />值为 `lazy` ，表示滚动时会进行懒加载，非可视区域内的内容将不会默认渲染，直到该内容可见时，才会进行渲染，并且已渲染的内容滚动到不可见时，不会被销毁；<br />值为`virtual`时，表示会进行虚拟滚动，无论滚动条滚动到哪个位置，同一时刻，仅渲染该可视区域内的内容，当需要展示的数据量较大时，建议开启该特性
-   */
-  type: 'lazy' | 'virtual';
 }
 
 export interface TableColumnController {
@@ -852,6 +853,11 @@ export interface TableTreeConfig {
    * @default false
    */
   defaultExpandAll?: boolean;
+  /**
+   * 是否在点击行时展开树形结构节点
+   * @default false
+   */
+  expandTreeNodeOnClick?: boolean;
   /**
    * 树结点缩进距离，单位：px
    * @default 24
@@ -1060,7 +1066,7 @@ export interface TableTreeExpandChangeContext<T> {
   row: T;
   rowIndex: number;
   rowState: TableRowState<T>;
-  trigger?: 'expand-fold-icon';
+  trigger?: 'expand-fold-icon' | 'row-click';
 }
 
 export type TableRowValue = string | number;

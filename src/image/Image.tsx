@@ -1,18 +1,17 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState, SyntheticEvent } from 'react';
 import classNames from 'classnames';
-
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
 import observe from '../_common/js/utils/observe';
 import useConfig from '../hooks/useConfig';
 import { TdImageProps } from './type';
 import { imageDefaultProps } from './defaultProps';
 import Space from '../space';
-
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { StyledProps } from '../common';
 
-export type ImageProps = TdImageProps;
+export type ImageProps = TdImageProps & StyledProps;
 
-const Image = (props: TdImageProps) => {
+const Image = (props: ImageProps) => {
   const {
     className,
     src,
@@ -47,9 +46,9 @@ const Image = (props: TdImageProps) => {
   };
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const handleLoad = () => {
+  const handleLoad = (e: SyntheticEvent<HTMLImageElement>) => {
     setIsLoaded(true);
-    onLoad?.();
+    onLoad?.({ e });
   };
 
   useEffect(() => {
@@ -67,9 +66,9 @@ const Image = (props: TdImageProps) => {
   }, [lazy, imageRef]);
 
   const [hasError, setHasError] = useState(false);
-  const handleError = () => {
+  const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
     setHasError(true);
-    onError?.();
+    onError?.({ e });
   };
 
   const hasMouseEvent = overlayTrigger === 'hover';

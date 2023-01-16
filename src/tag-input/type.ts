@@ -8,7 +8,7 @@ import { InputProps } from '../input';
 import { InputValue } from '../input';
 import { TagProps } from '../tag';
 import { TNode, TElement } from '../common';
-import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdTagInputProps {
   /**
@@ -188,7 +188,11 @@ export interface TagInputDragSortContext {
 }
 
 export interface InputValueChangeContext {
-  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?:
+    | FormEvent<HTMLDivElement>
+    | MouseEvent<HTMLElement | SVGElement>
+    | CompositionEvent<HTMLDivElement>
+    | KeyboardEvent<HTMLDivElement>;
   trigger: 'input' | 'clear' | 'enter';
 }
 

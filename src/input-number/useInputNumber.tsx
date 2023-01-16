@@ -13,6 +13,9 @@ import {
   getMaxOrMinValidateResult,
   getStepValue,
 } from '../_common/js/input-number/number';
+import { InputProps } from '../input';
+
+export const specialCode = ['-', '.', 'e', 'E'];
 
 /**
  * 独立一个组件 Hook 方便用户直接使用相关逻辑 自定义任何样式的数字输入框
@@ -20,17 +23,17 @@ import {
 export default function useInputNumber<T extends InputNumberValue = InputNumberValue>(props: TdInputNumberProps<T>) {
   const { SIZE, STATUS } = useCommonClassName();
   const { classPrefix } = useConfig();
-  const [value, onChange] = useControlled(props, 'value', props.onChange);
+  const [tValue, onChange] = useControlled(props, 'value', props.onChange);
   const [userInput, setUserInput] = useState('');
   const [displayValue, setDisplayValue] = useState('');
   const [isError, setIsError] = useState<'exceed-maximum' | 'below-minimum'>();
 
   const inputRef = useRef(null);
 
-  const { max, min, largeNumber, onValidate } = props;
+  const { max, min, largeNumber, decimalPlaces, allowInputOverLimit, onValidate } = props;
 
-  const disabledReduce = props.disabled || !canReduceNumber(value, props.min, props.largeNumber);
-  const disabledAdd = props.disabled || !canAddNumber(value, props.max, props.largeNumber);
+  const disabledReduce = props.disabled || !canReduceNumber(tValue, props.min, props.largeNumber);
+  const disabledAdd = props.disabled || !canAddNumber(tValue, props.max, props.largeNumber);
 
   const wrapClasses = classNames(`${classPrefix}-input-number`, SIZE[props.size], {
     [STATUS.disabled]: props.disabled,
@@ -47,8 +50,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     let inputStr = value || value === 0 ? String(value) : '';
     if (!inputRef.current.currentElement.contains?.(document.activeElement)) {
       const num = formatToNumber(inputStr, {
-        decimalPlaces: props.decimalPlaces,
-        largeNumber: props.largeNumber,
+        decimalPlaces,
+        largeNumber,
       });
       inputStr = num || num === 0 ? String(num) : '';
       if (props.format) {
@@ -59,64 +62,102 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   useEffect(() => {
-    const inputValue = [undefined, null].includes(value) ? '' : String(value);
+    const inputValue = [undefined, null].includes(tValue) ? '' : String(tValue);
     setUserInput(getUserInput(inputValue));
     // eslint-disable-next-line
-  }, [value]);
+  }, [tValue]);
 
   useEffect(() => {
     // @ts-ignore
-    if ([undefined, '', null].includes(value)) return;
+    if ([undefined, '', null].includes(tValue)) return;
     const error = getMaxOrMinValidateResult({
-      value: value as InputNumberValue,
+      value: tValue as InputNumberValue,
       max,
       min,
       largeNumber,
     });
     setIsError(error);
     onValidate?.({ error });
-  }, [value, max, min, largeNumber, onValidate]);
+  }, [tValue, max, min, largeNumber, onValidate]);
 
-  const handleStepValue = (op: 'add' | 'reduce') =>
-    getStepValue({
+  const handleStepValue = (op: 'add' | 'reduce') => {
+    const newValue = getStepValue({
       op,
       step: props.step,
       max: props.max,
       min: props.min,
-      lastValue: value as InputNumberValue,
+      lastValue: tValue,
       largeNumber: props.largeNumber,
-    }) as T;
+    });
+    const { largeNumber, max, min } = props;
+    const overLimit = getMaxOrMinValidateResult({
+      value: newValue,
+      largeNumber,
+      max,
+      min,
+    });
+    return {
+      overLimit,
+      newValue,
+    };
+  };
 
   const handleReduce = (e: any) => {
     if (disabledReduce || props.readonly) return;
-    const newValue = handleStepValue('reduce');
-    onChange(newValue, { type: 'reduce', e });
+    const r = handleStepValue('reduce');
+    if (r.overLimit && !allowInputOverLimit) return;
+    onChange(r.newValue, { type: 'reduce', e });
   };
 
   const handleAdd = (e: any) => {
     if (disabledAdd || props.readonly) return;
-    const newValue = handleStepValue('add');
-    onChange(newValue, { type: 'add', e });
+    const r = handleStepValue('add');
+    if (r.overLimit && !allowInputOverLimit) return;
+    onChange(r.newValue, { type: 'add', e });
   };
 
-  const onInnerInputChange = (val: string, ctx: { e: any }) => {
-    if (!canInputNumber(val, props.largeNumber)) return;
-    setUserInput(val);
-    const isDelete = ctx.e.inputType === 'deleteContentBackward';
-    // 大数-字符串；普通数-数字。此处是了将 2e3，2.1e3 等内容转换为数字
-    const newVal = isDelete || props.largeNumber || !val ? val : Number(val);
-    if (newVal !== value && !['-', '.', 'e', 'E'].includes(val.slice(-1))) {
-      onChange(newVal as T, { type: 'input', e: ctx.e });
+  // 1.2 -> 1. -> 1
+  const onInnerInputChange: InputProps['onChange'] = (val, { e }) => {
+    if (!canInputNumber(val, largeNumber)) return;
+    if (props.largeNumber) {
+      onChange(val as T, { type: 'input', e });
+      return;
+    }
+    // specialCode 新增或删除这些字符时不触发 change 事件
+    const isDelete = (e as any).nativeEvent.inputType === 'deleteContentBackward';
+    const inputSpecialCode = specialCode.includes(val.slice(-1)) || val.slice(-2) === '.0';
+    const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
+    if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {
+      const newVal = val === '' ? undefined : Number(val);
+      onChange(newVal as T, { type: 'input', e });
+    }
+    if (inputSpecialCode || deleteSpecialCode) {
+      setUserInput(val);
     }
   };
 
   const handleBlur = (value: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
+    if (!props.allowInputOverLimit && value) {
+      const r = getMaxOrMinValidateResult({
+        value: tValue,
+        largeNumber,
+        max,
+        min,
+      });
+      if (r === 'below-minimum') {
+        onChange(min as T, { type: 'blur', e: ctx.e });
+        return;
+      }
+      if (r === 'exceed-maximum') {
+        onChange(max as T, { type: 'blur', e: ctx.e });
+        return;
+      }
+    }
     setUserInput(getUserInput(value));
     const newValue = formatToNumber(value, {
-      decimalPlaces: props.decimalPlaces,
-      largeNumber: props.largeNumber,
+      decimalPlaces,
+      largeNumber,
     });
-    console.log(getUserInput(value), newValue);
     if (newValue !== value && String(newValue) !== value) {
       onChange(newValue as T, { type: 'blur', e: ctx.e });
     }
@@ -124,8 +165,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   const handleFocus = (_: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
-    setUserInput(value as string);
-    props.onFocus?.(value as string, ctx);
+    setUserInput(tValue as string);
+    props.onFocus?.(tValue as string, ctx);
   };
 
   const handleKeydown = (value: string, ctx: { e: React.KeyboardEvent<HTMLDivElement> }) => {
@@ -161,6 +202,11 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     props.onEnter?.(newValue, ctx);
   };
 
+  const handleClear: InputProps['onClear'] = ({ e }) => {
+    onChange(undefined, { type: 'clear', e });
+    setUserInput('');
+  };
+
   const focus = () => {
     inputRef.current.focus();
   };
@@ -177,6 +223,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     onKeypress: handleKeypress,
     onEnter: handleEnter,
     onClick: focus,
+    onClear: handleClear,
   };
 
   return {
@@ -192,7 +239,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     setIsError,
     userInput,
     setUserInput,
-    value,
+    tValue,
     focus,
     blur,
     onChange,

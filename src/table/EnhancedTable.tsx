@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import PrimaryTable from './PrimaryTable';
-import { PrimaryTableCol, TableRowData, DragSortContext } from './type';
+import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
 import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
@@ -44,6 +44,19 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     return isTreeData ? columns : getColumns(columns);
   })();
 
+  const onEnhancedTableRowClick: TdPrimaryTableProps['onRowClick'] = (p) => {
+    if (props.tree?.expandTreeNodeOnClick) {
+      treeInstanceFunctions.toggleExpandData(
+        {
+          row: p.row,
+          rowIndex: p.index,
+        },
+        'row-click',
+      );
+    }
+    props.onRowClick?.(p);
+  };
+
   useImperativeHandle(ref, () => ({
     treeDataMap,
     ...treeInstanceFunctions,
@@ -75,6 +88,9 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     style,
     className,
   };
+  if (props.tree?.expandTreeNodeOnClick) {
+    primaryTableProps.onRowClick = onEnhancedTableRowClick;
+  }
   return <PrimaryTable {...primaryTableProps} ref={primaryTableRef} />;
 });
 

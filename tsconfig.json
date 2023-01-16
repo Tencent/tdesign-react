@@ -25,7 +25,7 @@
     "esModuleInterop": true
   },
   "include": ["./src", "./globals.d.ts","./test/config/index.d.ts"],
-  "exclude": ["**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
+  "exclude": ["**/**/_usage/*", "**/**/__tests__/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
   "types": [
     "node",
     "jest",

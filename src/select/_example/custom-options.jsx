@@ -25,7 +25,7 @@ export default function CustomOptions() {
   };
 
   return (
-    <Select value={value} onChange={onChange} style={{ width: '80%' }} clearable>
+    <Select value={value} onChange={onChange} style={{ width: '300px' }} clearable>
       {options.map((option, idx) => (
         <Option style={{ height: '60px' }} key={idx} value={option.value} label={option.label}>
           <div style={{ display: 'flex' }}>

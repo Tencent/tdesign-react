@@ -54,7 +54,7 @@ const VALIDATE_MAP = {
   validator: (val: ValueType, validate: CustomValidator): ReturnType<CustomValidator> => validate(val),
 };
 
-export type ValidateFuncType = typeof VALIDATE_MAP[keyof typeof VALIDATE_MAP];
+export type ValidateFuncType = (typeof VALIDATE_MAP)[keyof typeof VALIDATE_MAP];
 
 /**
  * 校验某一条数据的某一条规则，一种校验规则不满足则不再进行校验。
@@ -101,4 +101,15 @@ export async function validate(value: ValueType, rules: Array<FormRule>): Promis
   const all = rules.map((rule) => validateOneRule(value, rule));
   const r = await Promise.all(all);
   return r;
+}
+
+/**
+ * Replace with template.
+ * `${name} is wrong` + { name: 'password' } = password is wrong
+ */
+export function parseMessage(template: string, options: Record<string, string>): string {
+  return template.replace(/\$\{\w+\}/g, (str: string) => {
+    const key = str.slice(2, -1);
+    return options[key];
+  });
 }

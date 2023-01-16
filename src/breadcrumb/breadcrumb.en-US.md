@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Breadcrumb Props
 
 name | type | default | description | required
@@ -22,6 +21,7 @@ children | TNode | - | Typescript：`string \| TNode`。[see more ts definition]
 content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 disabled | Boolean | - | \- | N
 href | String | - | \- | N
+icon | TElement | - | prefix icon in breadcrumb item。Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 maxWidth | String | undefined | \- | N
 replace | Boolean | false | \- | N
 router | Object | - | Typescript：`any` | N

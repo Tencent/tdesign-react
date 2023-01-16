@@ -7,6 +7,7 @@
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { RangeInputProps } from '../range-input';
+import { TNode } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTimePickerProps {
@@ -21,11 +22,6 @@ export interface TdTimePickerProps {
    */
   clearable?: boolean;
   /**
-   * 是否禁用组件
-   * @default false
-   */
-  disabled?: boolean;
-  /**
    * 禁用时间项
    */
   disableTime?: (
@@ -33,6 +29,11 @@ export interface TdTimePickerProps {
     m: number,
     s: number,
   ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
+  /**
+   * 是否禁用组件
+   * @default false
+   */
+  disabled?: boolean;
   /**
    * 用于格式化时间，[详细文档](https://day.js.org/docs/en/display/format)
    * @default HH:mm:ss
@@ -56,15 +57,27 @@ export interface TdTimePickerProps {
    */
   popupProps?: PopupProps;
   /**
+   * 预设快捷时间选择，示例：`{ '前一小时': '11:00:00' }`
+   */
+  presets?: PresetTime;
+  /**
    * 尺寸
    * @default medium
    */
   size?: 'small' | 'medium' | 'large';
   /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
    * 时间间隔步数，数组排列 [小时, 分钟, 秒]，示例：[2, 1, 1] 或者 ['2', '1', '1']
-   * @default () => [1, 1, 1]
+   * @default [1, 1, 1]
    */
   steps?: Array<string | number>;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 选中值
    * @default ''
@@ -99,6 +112,10 @@ export interface TdTimePickerProps {
    * 面板打开时触发
    */
   onOpen?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 面板选中值后触发
+   */
+  onPick?: (value: TimePickerValue, context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
 export interface TdTimeRangePickerProps {
@@ -113,11 +130,6 @@ export interface TdTimeRangePickerProps {
    */
   clearable?: boolean;
   /**
-   * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
-   * @default false
-   */
-  disabled?: boolean;
-  /**
    * 禁用时间项
    */
   disableTime?: (
@@ -126,6 +138,11 @@ export interface TdTimeRangePickerProps {
     s: number,
     context: { partial: TimeRangePickerPartial },
   ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
+  /**
+   * 是否禁用组件
+   * @default false
+   */
+  disabled?: boolean;
   /**
    * 用于格式化时间，[详细文档](https://day.js.org/docs/en/display/format)
    * @default HH:mm:ss
@@ -145,6 +162,10 @@ export interface TdTimeRangePickerProps {
    */
   popupProps?: PopupProps;
   /**
+   * 预设快捷时间范围选择，示例：{ '下午': ['13:00:00', '18:00:00'] }
+   */
+  presets?: PresetTimeRange;
+  /**
    * 透传给范围输入框 RangeInput 组件的参数
    */
   rangeInputProps?: RangeInputProps;
@@ -154,10 +175,18 @@ export interface TdTimeRangePickerProps {
    */
   size?: 'small' | 'medium' | 'large';
   /**
+   * 输入框状态
+   */
+  status?: 'default' | 'success' | 'warning' | 'error';
+  /**
    * 时间间隔步数，数组排列 [小时, 分钟, 秒]，示例：[2, 1, 1] 或者 ['2', '1', '1']
-   * @default () => [1, 1, 1]
+   * @default [1, 1, 1]
    */
   steps?: Array<string | number>;
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 选中值
    */
@@ -194,10 +223,25 @@ export interface TdTimeRangePickerProps {
     e?: FormEvent<HTMLDivElement>;
     position?: TimeRangePickerPartial;
   }) => void;
+  /**
+   * 面板选中值后触发
+   */
+  onPick?: (
+    value: TimeRangeValue,
+    context: { e: MouseEvent<HTMLDivElement>; position?: TimeRangePickerPartial },
+  ) => void;
+}
+
+export interface PresetTime {
+  [presetName: string]: TimePickerValue | (() => TimePickerValue);
 }
 
 export type TimePickerValue = string;
 
 export type TimeRangePickerPartial = 'start' | 'end';
+
+export interface PresetTimeRange {
+  [presetRageName: string]: TimeRangeValue | (() => TimeRangeValue);
+}
 
 export type TimeRangeValue = Array<string>;

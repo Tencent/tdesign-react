@@ -142,12 +142,6 @@ export default {
           component: () => import('tdesign-react/dropdown/dropdown.md'),
         },
         {
-          title: 'Jumper 跳转',
-          name: 'jumper',
-          path: '/react/components/jumper',
-          component: () => import('tdesign-react/jumper/jumper.md'),
-        },
-        {
           title: 'Menu 导航',
           name: 'menu',
           path: '/react/components/menu',
@@ -178,6 +172,13 @@ export default {
       name: 'Forms',
       type: 'component', // 组件文档
       children: [
+        {
+          title: 'AutoComplete 自动完成',
+          name: 'auto-complete',
+          meta: {},
+          path: '/react/components/auto-complete',
+          component: () => import('tdesign-react/auto-complete/auto-complete.md'),
+        },
         {
           title: 'Cascader 级联组件',
           name: 'cascader',
@@ -451,6 +452,12 @@ export default {
           name: 'drawer',
           path: '/react/components/drawer',
           component: () => import('tdesign-react/drawer/drawer.md'),
+        },
+        {
+          title: 'Guide 引导',
+          name: 'guide',
+          path: '/react/components/guide',
+          component: () => import('tdesign-react/guide/guide.md'),
         },
         {
           title: 'Message 全局提醒',

@@ -303,8 +303,10 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     if (shadowLastScrollLeft === scrollLeft && (!extra || !extra.skipScrollLimit)) return;
     shadowLastScrollLeft = scrollLeft;
     const isShowRight = target.clientWidth + scrollLeft < target.scrollWidth;
+    const isShowLeft = scrollLeft > 0;
+    if (showColumnShadow.left === isShowLeft && showColumnShadow.right === isShowRight) return;
     setShowColumnShadow({
-      left: scrollLeft > 0,
+      left: isShowLeft,
       right: isShowRight,
     });
   };
@@ -495,8 +497,8 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     });
     resizeObserver.observe(tableElement);
     return () => {
-      resizeObserver.unobserve(tableElement);
-      resizeObserver.disconnect();
+      resizeObserver?.unobserve?.(tableElement);
+      resizeObserver?.disconnect?.();
     };
   }
 

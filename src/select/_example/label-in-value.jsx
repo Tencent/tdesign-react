@@ -23,7 +23,7 @@ const LabelInValueSelect = () => {
   };
 
   return (
-    <Space breakLine style={{ width: '100%' }}>
+    <Space style={{ width: '100%' }}>
       <Select value={value} onChange={onChange} valueType="object">
         <Option key="apple" label="Apple" value="apple" />
         <Option key="orange" label="Orange" value="orange" />

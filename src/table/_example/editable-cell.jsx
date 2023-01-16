@@ -2,18 +2,11 @@ import React, { useState, useMemo } from 'react';
 import { Table, Input, Select, DatePicker, MessagePlugin } from 'tdesign-react';
 import dayjs from 'dayjs';
 
-const FRAMEWORK_OPTIONS = [
-  { label: 'Vue Framework', value: 'Vue' },
-  { label: 'React Framework', value: 'React' },
-  { label: 'Miniprogram Framework', value: 'Miniprogram' },
-  { label: 'Flutter Framework', value: 'Flutter' },
-];
-
 export default function EditableCellTable() {
   const initData = new Array(5).fill(null).map((_, i) => ({
     key: String(i + 1),
-    firstName: ['Eric', 'Gilberta', 'Heriberto', 'Lazarus', 'Zandra'][i % 4],
-    framework: ['Vue', 'React', 'Miniprogram', 'Flutter'][i % 4],
+    firstName: ['贾明', '张三', '王芳'][i % 3],
+    status: i % 3,
     email: [
       'espinke0@apache.org',
       'gpurves1@issuu.com',
@@ -21,22 +14,31 @@ export default function EditableCellTable() {
       'lskures3@apache.org',
       'zcroson5@virginia.edu',
     ][i % 4],
-    letters: [['A'], ['B', 'E'], ['C'], ['D', 'G', 'H']][i % 4],
-    createTime: ['2021-11-01', '2021-12-01', '2022-01-01', '2022-02-01', '2022-03-01'][i % 4],
+    letters: [
+      ['宣传物料制作费用'],
+      ['宣传物料制作费用'],
+      ['宣传物料制作费用'],
+      ['宣传物料制作费用', 'algolia 服务报销'],
+    ][i % 4],
+    createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
   }));
+  const STATUS_OPTIONS = [
+    { label: '审批通过', value: 0 },
+    { label: '审批过期', value: 1 },
+    { label: '审批失败', value: 2 },
+  ];
 
   const [data, setData] = useState([...initData]);
   const [relationSelect, setRelationSelect] = useState({});
 
-  const editableCellState = (cellParams) => {
+  const editableCellState = (cellParams) =>
     // 第一行不允许编辑
-    return cellParams.rowIndex !== 0;
-  };
+    cellParams.status !== 2;
 
   const columns = useMemo(
     () => [
       {
-        title: 'FirstName',
+        title: '申请人',
         colKey: 'firstName',
         align: 'left',
         // 编辑状态相关配置，全部集中在 edit
@@ -68,15 +70,15 @@ export default function EditableCellTable() {
         defaultEditable: true,
       },
       {
-        title: 'Framework',
-        colKey: 'framework',
-        cell: ({ row }) => FRAMEWORK_OPTIONS.find((t) => t.value === row.framework)?.label,
+        title: '申请状态',
+        colKey: 'status',
+        cell: ({ row }) => STATUS_OPTIONS.find((t) => t.value === row.status)?.label,
         edit: {
           component: Select,
           // props, 透传全部属性到 Select 组件
           props: {
             clearable: true,
-            options: FRAMEWORK_OPTIONS,
+            options: STATUS_OPTIONS,
           },
           // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
           abortEditOnEvent: ['onChange'],
@@ -96,7 +98,7 @@ export default function EditableCellTable() {
         },
       },
       {
-        title: 'Letters',
+        title: '申请事项',
         colKey: 'letters',
         cell: ({ row }) => row?.letters?.join('、'),
         edit: {
@@ -107,15 +109,12 @@ export default function EditableCellTable() {
             multiple: true,
             minCollapsedNum: 1,
             options: [
-              { label: 'A', value: 'A' },
-              { label: 'B', value: 'B' },
-              { label: 'C', value: 'C' },
-              { label: 'D', value: 'D' },
-              { label: 'E', value: 'E' },
-              // 如果框架选择了 React，则 Letters 隐藏 G 和 H
-              { label: 'G', value: 'G', show: () => editedRow.framework !== 'React' },
-              { label: 'H', value: 'H', show: () => editedRow.framework !== 'React' },
-            ].filter(t => (t.show === undefined ? true : t.show())),
+              { label: '宣传物料制作费用', value: '宣传物料制作费用' },
+              { label: 'algolia 服务报销', value: 'algolia 服务报销' },
+              // 如果状态选择了 已过期，则 Letters 隐藏 G 和 H
+              { label: '相关周边制作费', value: '相关周边制作费', show: () => editedRow.status !== 0 },
+              { label: '激励奖品快递费', value: '激励奖品快递费', show: () => editedRow.status !== 0 },
+            ].filter((t) => (t.show === undefined ? true : t.show())),
           }),
           // abortEditOnEvent: ['onChange'],
           onEdited: (context) => {
@@ -127,7 +126,7 @@ export default function EditableCellTable() {
         },
       },
       {
-        title: 'Date',
+        title: '创建日期',
         colKey: 'createTime',
         // props, 透传全部属性到 DatePicker 组件
         edit: {

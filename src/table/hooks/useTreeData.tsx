@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
 import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import TableTreeStore, { SwapParams } from '../../_common/js/table/tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
-import { renderCell } from '../TR';
+import { renderCell } from '../Cell';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 
@@ -96,17 +96,22 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * 对外暴露的组件实例方法，展开或收起某一行
    * @param p 行数据
    */
-  function toggleExpandData(p: { row: TableRowData; rowIndex: number; trigger?: 'inner' }) {
-    const newData = store.toggleExpandData(p, dataSource, rowDataKeys);
-    setDataSource([...newData]);
-    if (p.trigger === 'inner') {
-      const rowValue = get(p.row, rowDataKeys.rowKey);
-      props.onTreeExpandChange?.({
-        row: p.row,
-        rowIndex: p.rowIndex,
-        rowState: store?.treeDataMap?.get(rowValue),
-      });
+  function toggleExpandData(p: { row: TableRowData; rowIndex: number }, trigger?: 'expand-fold-icon' | 'row-click') {
+    const currentData = { ...p };
+    // eslint-disable-next-line
+    if (p.row.__VIRTUAL_SCROLL_INDEX !== undefined) {
+      // eslint-disable-next-line
+      currentData.rowIndex = p.row.__VIRTUAL_SCROLL_INDEX;
     }
+    const newData = store.toggleExpandData(currentData, dataSource, rowDataKeys);
+    setDataSource([...newData]);
+    const rowValue = get(p.row, rowDataKeys.rowKey);
+    props.onTreeExpandChange?.({
+      row: p.row,
+      rowIndex: p.rowIndex,
+      rowState: store?.treeDataMap?.get(rowValue),
+      trigger,
+    });
   }
 
   function getTreeNodeColumnCol() {
@@ -146,7 +151,13 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!(childrenNodes.length || childrenNodes === true) && (
-              <span className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}>
+              <span
+                className={tableTreeClasses.icon}
+                onClick={(e: MouseEvent<HTMLSpanElement>) => {
+                  toggleExpandData({ ...p }, 'expand-fold-icon');
+                  e.stopPropagation();
+                }}
+              >
                 {iconNode}
               </span>
             )}

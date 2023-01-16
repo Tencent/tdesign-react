@@ -1,12 +1,12 @@
 import React from 'react';
-import { Select, Calendar } from 'tdesign-react';
+import { Select, Calendar, Space } from 'tdesign-react';
 
 export default function CalendarExample() {
   const [mode, setMode] = React.useState('year');
 
   return (
     <div>
-      <div style={{ margin: '12px 0' }}>
+      <Space align="center" style={{ margin: '12px 0' }}>
         <label>可以在组件外切换成：</label>
         <Select
           style={{
@@ -21,7 +21,7 @@ export default function CalendarExample() {
           ]}
           onChange={(value) => setMode(value)}
         />
-      </div>
+      </Space>
       <Calendar mode={mode} />
     </div>
   );

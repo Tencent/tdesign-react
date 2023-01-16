@@ -4,7 +4,7 @@ import _TooltipLite from './TooltipLite';
 import './style/index.js';
 
 export type { TooltipLiteProps } from './TooltipLite';
-export type { TooltipProps, TooltipRef } from './Tooltip';
+export type { TooltipProps } from './Tooltip';
 export * from './type';
 
 export const Tooltip = _Tooltip;

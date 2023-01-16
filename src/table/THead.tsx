@@ -5,7 +5,7 @@ import { getColumnFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
 import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
 import useClassName from './hooks/useClassName';
-import { BaseTableCol, TableRowData } from './type';
+import { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './Ellipsis';
 import { formatClassNames } from './utils';
@@ -15,6 +15,8 @@ export interface TheadProps {
   ellipsisOverlayClassName: string;
   // 是否固定表头
   isFixedHeader: boolean;
+  maxHeight?: TdBaseTableProps['maxHeight'];
+  height?: TdBaseTableProps['height'];
   // 固定列 left/right 具体值
   rowAndColFixedPosition: RowAndColFixedPosition;
   // 虚拟滚动单独渲染表头；表头吸顶单独渲染表头
@@ -43,7 +45,7 @@ export default function THead(props: TheadProps) {
   const theadClasses = [
     tableHeaderClasses.header,
     {
-      [tableHeaderClasses.fixed]: props.isFixedHeader,
+      [tableHeaderClasses.fixed]: Boolean(props.maxHeight || props.height),
       [tableBaseClass.bordered]: props.bordered && props.isMultipleHeader,
       [tableHeaderClasses.multipleHeader]: props.isMultipleHeader,
     },

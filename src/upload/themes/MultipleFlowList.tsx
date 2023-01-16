@@ -28,6 +28,7 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
+  const { draggable = true } = props;
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
@@ -47,8 +48,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return locale.triggerUploadText.normal;
   }, [locale, uploading]);
 
-  const draggable = props.draggable ?? true;
-  const dragEvents = draggable
+  const innerDragEvents = draggable
     ? {
         onDrop: drag.handleDrop,
         onDragEnter: drag.handleDragenter,
@@ -173,50 +173,59 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       </td>
     ) : null;
 
-  const renderFileList = () => (
-    <table className={`${uploadPrefix}__flow-table`} {...dragEvents}>
-      <thead>
-        <tr>
-          <th>{locale.file?.fileNameText}</th>
-          <th>{locale.file?.fileSizeText}</th>
-          <th>{locale.file?.fileStatusText}</th>
-          {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
-        </tr>
-      </thead>
-      <tbody>
-        {!displayFiles.length && (
+  const renderFileList = () => {
+    if (props.fileListDisplay) {
+      const list = props.fileListDisplay({
+        files: displayFiles,
+        dragEvents: innerDragEvents,
+      });
+      return list;
+    }
+    return (
+      <table className={`${uploadPrefix}__flow-table`} {...innerDragEvents}>
+        <thead>
           <tr>
-            <td colSpan={4}>{renderEmpty()}</td>
+            <th>{locale.file?.fileNameText}</th>
+            <th>{locale.file?.fileSizeText}</th>
+            <th>{locale.file?.fileStatusText}</th>
+            {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
           </tr>
-        )}
-        {displayFiles.map((file, index) => {
-          // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
-          const showBatchUploadAction = props.isBatchUpload;
-          const deleteNode =
-            showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
-              ? renderBatchActionCol(index)
-              : renderNormalActionCol(file, index);
-          const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
-          return (
-            <tr key={file.name + index}>
-              <td>
-                {file.url ? (
-                  <Link href={file.url} target="_blank" hover="color">
-                    {fileName}
-                  </Link>
-                ) : (
-                  fileName
-                )}
-              </td>
-              <td>{returnFileSize(file.size)}</td>
-              <td>{renderStatus(file)}</td>
-              {disabled ? null : deleteNode}
+        </thead>
+        <tbody>
+          {!displayFiles.length && (
+            <tr>
+              <td colSpan={4}>{renderEmpty()}</td>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+          )}
+          {displayFiles.map((file, index) => {
+            // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
+            const showBatchUploadAction = props.isBatchUpload;
+            const deleteNode =
+              showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
+                ? renderBatchActionCol(index)
+                : renderNormalActionCol(file, index);
+            const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
+            return (
+              <tr key={file.name + index}>
+                <td>
+                  {file.url ? (
+                    <Link href={file.url} target="_blank" hover="color">
+                      {fileName}
+                    </Link>
+                  ) : (
+                    fileName
+                  )}
+                </td>
+                <td>{returnFileSize(file.size)}</td>
+                <td>{renderStatus(file)}</td>
+                {disabled ? null : deleteNode}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  };
 
   const cardClassName = `${uploadPrefix}__flow-card-area`;
   return (
@@ -231,7 +240,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       </div>
 
       {props.theme === 'image-flow' && (
-        <div className={cardClassName} {...dragEvents}>
+        <div className={cardClassName} {...innerDragEvents}>
           {displayFiles.length ? (
             <ul className={`${uploadPrefix}__card clearfix`}>
               {displayFiles.map((file, index) => renderImgItem(file, index))}
@@ -246,7 +255,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         (displayFiles.length ? (
           renderFileList()
         ) : (
-          <div className={cardClassName} {...dragEvents}>
+          <div className={cardClassName} {...innerDragEvents}>
             {renderEmpty()}
           </div>
         ))}

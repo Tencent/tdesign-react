@@ -32,7 +32,6 @@ export interface TdPopupProps {
   destroyOnClose?: boolean;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -74,19 +73,17 @@ export interface TdPopupProps {
    * 触发浮层出现的方式
    * @default hover
    */
-  trigger?: 'hover' | 'click' | 'focus' | 'context-menu';
+  trigger?: 'hover' | 'click' | 'focus' | 'mousedown' | 'context-menu';
   /**
-   * 触发元素
+   * 触发元素。值类型为字符串表示元素选择器
    */
   triggerElement?: TNode;
   /**
    * 是否显示浮层
-   * @default false
    */
   visible?: boolean;
   /**
    * 是否显示浮层，非受控属性
-   * @default false
    */
   defaultVisible?: boolean;
   /**

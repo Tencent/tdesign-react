@@ -37,7 +37,13 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
-  const { formatToRowSelectColumn, selectedRowClassNames } = useRowSelect(props, tableSelectedClasses);
+  const {
+    selectedRowClassNames,
+    setCurrentPaginateData,
+    formatToRowSelectColumn,
+    setTSelectedRowKeys,
+    onInnerSelectRowClick,
+  } = useRowSelect(props, tableSelectedClasses);
   // 过滤功能
   const { hasEmptyCondition, isTableOverflowHidden, renderFilterIcon, renderFirstFilterRow } = useFilter(
     props,
@@ -166,12 +172,26 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   })();
 
   const onInnerPageChange = (pageInfo: PageInfo, newData: Array<TableRowData>) => {
+    setCurrentPaginateData(newData);
     props.onPageChange?.(pageInfo, newData);
     const changeParams: Parameters<TdPrimaryTableProps['onChange']> = [
       { pagination: pageInfo },
       { trigger: 'pagination', currentData: newData },
     ];
     props.onChange?.(...changeParams);
+    // 是否在分页时保留选中结果，如果不保留则需清空
+    if (!props.reserveSelectedRowOnPaginate) {
+      setTSelectedRowKeys([], {
+        selectedRowData: [],
+        type: 'uncheck',
+        currentRowKey: 'CLEAR_ON_PAGINATE',
+      });
+    }
+  };
+
+  const onInnerRowClick: TdPrimaryTableProps['onRowClick'] = (context) => {
+    onInnerExpandRowClick(context);
+    onInnerSelectRowClick(context);
   };
 
   function formatNode(api: string, renderInnerNode: Function, condition: boolean, extra?: { reverse?: boolean }) {
@@ -220,8 +240,8 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;
 
-  if (props.expandOnRowClick) {
-    baseTableProps.onRowClick = onInnerExpandRowClick;
+  if (props.expandOnRowClick || props.selectOnRowClick) {
+    baseTableProps.onRowClick = onInnerRowClick;
   }
 
   return (

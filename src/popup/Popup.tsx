@@ -1,11 +1,13 @@
 import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import useControlled from '../hooks/useControlled';
 import useAnimation from '../_util/useAnimation';
 import useConfig from '../hooks/useConfig';
+import usePrevious from '../hooks/usePrevious';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
@@ -60,6 +62,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
+  const prevVisible = usePrevious(visible);
 
   const [popupElement, setPopupElement] = useState(null);
   const triggerRef = useRef(null); // 记录 trigger 元素
@@ -70,12 +73,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;
-
-  // 解析 delay 数据类型
-  const [appearDelay = 0, exitDelay = 0] = useMemo(() => {
-    if (Array.isArray(delay)) return delay;
-    return [delay, delay];
-  }, [delay]);
 
   // 判断展示浮层
   const showOverlay = useMemo(() => {
@@ -95,15 +92,19 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     disabled,
     trigger,
     visible,
+    delay,
     onVisibleChange,
   });
 
-  const triggerNode = getTriggerNode(children);
+  const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
 
+  const updateTimeRef = useRef(null);
   // 监听 trigger 节点或内容变化动态更新 popup 定位
   useMutationObserver(getRefDom(triggerRef), () => {
-    popperRef.current?.update?.();
+    clearTimeout(updateTimeRef.current);
+    updateTimeRef.current = setTimeout(() => popperRef.current?.update?.(), 0);
   });
+  useEffect(() => () => clearTimeout(updateTimeRef.current), []);
 
   // 窗口尺寸变化时调整位置
   useEffect(() => {
@@ -113,8 +114,10 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   // 下拉展开时更新内部滚动条
   useEffect(() => {
     if (!triggerRef.current) triggerRef.current = getTriggerDom();
-    visible && updateScrollTop?.(contentRef.current);
-  }, [visible, updateScrollTop, getTriggerDom]);
+    if (prevVisible !== visible && visible) {
+      updateScrollTop?.(contentRef.current);
+    }
+  }, [visible, prevVisible, updateScrollTop, getTriggerDom]);
 
   function handleExited() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
@@ -141,11 +144,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     <CSSTransition
       appear
       in={visible}
-      timeout={{
-        appear: DEFAULT_TRANSITION_TIMEOUT + appearDelay,
-        enter: DEFAULT_TRANSITION_TIMEOUT + appearDelay,
-        exit: DEFAULT_TRANSITION_TIMEOUT + exitDelay,
-      }}
+      timeout={DEFAULT_TRANSITION_TIMEOUT}
       nodeRef={portalRef}
       unmountOnExit={destroyOnClose}
       onEnter={handleEnter}
@@ -154,11 +153,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
       <Portal triggerNode={getRefDom(triggerRef)} attach={attach} ref={portalRef}>
         <CSSTransition
           appear
-          timeout={{
-            appear: appearDelay,
-            enter: appearDelay,
-            exit: exitDelay,
-          }}
+          timeout={0}
           in={visible}
           nodeRef={popupRef}
           {...getTransitionParams({
@@ -204,6 +199,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     getPopper: () => popperRef.current,
     getPopupElement: () => popupRef.current,
     getPortalElement: () => portalRef.current,
+    setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
   }));
 
   return (

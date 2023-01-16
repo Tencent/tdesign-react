@@ -1,15 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Menu } from 'tdesign-react';
-import {
-  AppIcon,
-  CodeIcon,
-  FileIcon,
-  UserIcon,
-  ViewListIcon,
-  MailIcon,
-  RollbackIcon,
-} from 'tdesign-icons-react';
+import { Menu, Button } from 'tdesign-react';
+import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
 
 const { SubMenu, MenuItem } = Menu;
 
@@ -23,7 +15,9 @@ function ClosableSide() {
       collapsed={collapsed}
       expandMutex={false}
       onChange={(v) => setActive(v)}
-      operations={<ViewListIcon className="t-menu__operations-icon" onClick={() => setCollapsed(!collapsed)} />}
+      operations={
+        <Button variant="text" shape="square" icon={<ViewListIcon />} onClick={() => setCollapsed(!collapsed)} />
+      }
       logo={<span>LOGO</span>}
     >
       <MenuItem value="0" icon={<AppIcon />}>

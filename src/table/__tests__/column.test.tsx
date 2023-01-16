@@ -26,7 +26,7 @@ TABLES.forEach((TTable) => {
       const { container } = render(<TTable rowKey="index" data={data} columns={columns}></TTable>);
       const firstTrWrapper = container.querySelector('tbody > tr');
       const tdList = firstTrWrapper.querySelectorAll('td');
-      expect(tdList[0].getAttribute('class')).toBe('t-align-center');
+      expect(tdList[0].classList.contains('t-align-center')).toBeTruthy();
       expect(tdList[1].getAttribute('class')).toBe('');
       expect(tdList[2].getAttribute('class')).toBe('');
       expect(tdList[3].getAttribute('class')).toBe('t-align-right');
@@ -59,7 +59,7 @@ TABLES.forEach((TTable) => {
       expect(tdList[1].getAttribute('class')).toBe('tdesign-class');
       expect(tdList[2].getAttribute('class')).toBe('tdesign-class');
       expect(tdList[3].getAttribute('class')).toBe('tdesign-class');
-      expect(tdList[3].getAttribute('class')).toBe('tdesign-class');
+      expect(tdList[3].classList.contains('tdesign-class1')).toBeFalsy();
     });
   });
 });

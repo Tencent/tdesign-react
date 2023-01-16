@@ -9,6 +9,8 @@ export interface InternalHooks {
   registerWatch: (callback: WatchCallBack) => () => void;
   getPrevStore: () => Store;
   setPrevStore: (store: Store) => void;
+  flashQueue: () => void;
+  setForm: (form) => void;
 }
 
 export interface InternalFormInstance extends FormInstanceFunctions {

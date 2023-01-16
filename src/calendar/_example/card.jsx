@@ -11,7 +11,7 @@ export default function CalendarExample() {
 
   return (
     <Space direction="vertical" size="large">
-      <div>
+      <Space align="center">
         <label>请选择风格：</label>
         <Select
           style={{
@@ -29,11 +29,11 @@ export default function CalendarExample() {
         <Button theme="primary" style={{ marginLeft: '12px' }} onClick={toCurrent}>
           回到今天
         </Button>
-      </div>
-      <div>
+      </Space>
+      <Space align="center">
         <label>日期补零：</label>
         <Switch size="large" value={fillWithZero} onChange={(val) => setFillWithZero(val)}></Switch>
-      </div>
+      </Space>
       <Calendar ref={ref} theme={theme} isShowWeekendDefault={true} fillWithZero={fillWithZero} />
     </Space>
   );

@@ -27,7 +27,7 @@ horizontalScrollAffixedBottom | Boolean / Object | - | affix props。Typescript�
 hover | Boolean | false | show hover style | N
 lastFullRow | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 loading | TNode | undefined | loading state table。Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-loadingProps | Object | - | Typescript：`LoadingProps`，[Loading API Documents](./loading?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+loadingProps | Object | - | Typescript：`Partial<LoadingProps>`，[Loading API Documents](./loading?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 maxHeight | String / Number | - | table max height | N
 pagination | Object | - | you can use all props of pagination component with paginationProps。Typescript：`PaginationProps`，[Pagination API Documents](./pagination?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 paginationAffixedBottom | Boolean / Object | - | affix props。Typescript：`boolean \| Partial<AffixProps>` | N
@@ -37,7 +37,7 @@ rowClassName | String / Object / Array / Function | - | table `th` classname。T
 rowKey | String | 'id' | required。unique key for each row data | Y
 rowspanAndColspan | Function | - | rowspan and colspan。Typescript：`TableRowspanAndColspanFunc<T>` `type TableRowspanAndColspanFunc<T> = (params: BaseTableCellParams<T>) => RowspanColspan` `interface RowspanColspan { colspan?: number; rowspan?: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 rowspanAndColspanInFooter | Function | - | rowspan and colspan for footer。Typescript：`TableRowspanAndColspanFunc<T>` | N
-scroll | Object | - | lazy load and virtual scroll。Typescript：`TableScroll` | N
+scroll | Object | - | lazy load and virtual scroll。Typescript：`InfinityScroll`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 showHeader | Boolean | true | show table header | N
 size | String | medium | options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 stripe | Boolean | false | show stripe style | N
@@ -77,6 +77,7 @@ minWidth | String / Number | - | add CSS property `min-width` to HTML Element `<
 render | Function | - | render function can be used to render cell or head。Typescript：`TNode<BaseTableRenderParams<T>>` `interface BaseTableRenderParams<T> extends BaseTableCellParams<T> { type: RenderType }` `type RenderType = 'cell' \| 'title'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 resizable | Boolean | true | resize current column width | N
 resize | Object | - | Typescript：`TableColumnResizeConfig` `interface TableColumnResizeConfig { minWidth: number; maxWidth: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
+stopPropagation | Boolean | - | stop cells of current col to propagation | N
 title | String / Function | - | th content。Typescript：`string \| TNode \| TNode<{ col: BaseTableCol; colIndex: number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 width | String / Number | - | column width | N
 
@@ -109,6 +110,8 @@ defaultFilterValue | Object | - | filter value。uncontrolled property。Typescr
 hideSortTips | Boolean | - | hide sort tips | N
 indeterminateSelectedRowKeys | Array | - | indeterminate selected row keys, row key is from data[rowKey]。Typescript：`Array<string \| number>` | N
 multipleSort | Boolean | false | support multiple column fields sort | N
+reserveSelectedRowOnPaginate | Boolean | true | \- | N
+selectOnRowClick | Boolean | - | select row data on row click | N
 selectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。Typescript：`Array<string \| number>` | N
 defaultSelectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。uncontrolled property。Typescript：`Array<string \| number>` | N
 showSortColumnBgColor | Boolean | false | column shows sort bg color | N
@@ -171,7 +174,7 @@ tree | Object | - | tree data configs。Typescript：`TableTreeConfig` | N
 treeExpandAndFoldIcon | Function | - | sort icon。Typescript：`TNode<{ type: 'expand' \| 'fold' }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 `PrimaryTableProps<T>` | \- | - | \- | N
 onAbnormalDragSort | Function |  | Typescript：`(context: TableAbnormalDragSortContext<T>) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface TableAbnormalDragSortContext<T> { code: number; reason: string }`<br/> | N
-onTreeExpandChange | Function |  | Typescript：`(context: TableTreeExpandChangeContext<T>) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface TableTreeExpandChangeContext<T> { row: T; rowIndex: number; rowState: TableRowState<T>; trigger?: 'expand-fold-icon' }`<br/> | N
+onTreeExpandChange | Function |  | Typescript：`(context: TableTreeExpandChangeContext<T>) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface TableTreeExpandChangeContext<T> { row: T; rowIndex: number; rowState: TableRowState<T>; trigger?: 'expand-fold-icon' \| 'row-click' }`<br/> | N
 
 ### EnhancedTableInstanceFunctions 组件实例方法
 
@@ -214,20 +217,11 @@ name | type | default | description | required
 component | TElement | - | Typescript：`ComponentType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 confirmEvents | Array | - | Typescript：`string[]` | N
 list | Array | - | Typescript：`Array<OptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 props | Array | - | Typescript：`FilterProps` `type FilterProps = RadioProps \| CheckboxProps \| InputProps \| { [key: string]: any }`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 resetValue | \- | - | Typescript：`any` | N
 showConfirmAndReset | Boolean | false | \- | N
 type | String | - | Typescript：`FilterType` `type FilterType = 'input' \| 'single' \| 'multiple'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
-
-### TableScroll
-
-name | type | default | description | required
--- | -- | -- | -- | --
-bufferSize | Number | 20 | \- | N
-isFixedRowHeight | Boolean | false | \- | N
-rowHeight | Number | - | \- | N
-threshold | Number | 100 | \- | N
-type | String | - | required。options：lazy/virtual | Y
 
 ### TableColumnController
 
@@ -260,5 +254,16 @@ name | type | default | description | required
 checkStrictly | Boolean | true | \- | N
 childrenKey | String | children | \- | N
 defaultExpandAll | Boolean | false | \- | N
+expandTreeNodeOnClick | Boolean | false | \- | N
 indent | Number | 24 | \- | N
 treeNodeColumnIndex | Number | 0 | \- | N
+
+### InfinityScroll
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+bufferSize | Number | 20 | \- | N
+isFixedRowHeight | Boolean | false | \- | N
+rowHeight | Number | - | \- | N
+threshold | Number | 100 | \- | N
+type | String | - | required。options：lazy/virtual | Y

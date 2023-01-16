@@ -1,23 +1,17 @@
 import React from 'react';
 import { Comment } from 'tdesign-react';
-import { IconFont } from 'tdesign-icons-react';
+import { ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 export default function OperationComment() {
-  const actionTextStyle = {
-    display: 'inline-block',
-    marginLeft: '6px',
-    lineHeight: '15px',
-  };
-
   const actions = [
-    <span key="thumbUp">
-      <IconFont name="thumb-up" />
-      <span style={actionTextStyle}>6</span>
-    </span>,
-    <span key="chat">
-      <IconFont name="chat" />
-      <span style={actionTextStyle}>回复</span>
-    </span>,
+    <React.Fragment key="ThumbUp">
+      <ThumbUpIcon size="16px" />
+      <span>6</span>
+    </React.Fragment>,
+    <React.Fragment key="Chat">
+      <ChatIcon size="16px" />
+      <span>回复</span>
+    </React.Fragment>,
   ];
 
   return (

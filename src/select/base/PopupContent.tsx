@@ -42,6 +42,7 @@ interface SelectPopupProps
    */
   setShowPopup: (show: boolean) => void;
   children?: React.ReactNode;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
@@ -62,6 +63,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     keys,
     panelTopContent,
     panelBottomContent,
+    onCheckAllChange,
   } = props;
 
   // 国际化文本初始化
@@ -118,11 +120,12 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
           uniqueOptions.push(option);
         }
       });
+      const selectableOption = uniqueOptions.filter((v) => !v.disabled && !v.checkAll);
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
           {(uniqueOptions as OptionsType).map(
-            ({ value: optionValue, label, disabled, content, ...restData }, index) => (
+            ({ value: optionValue, label, disabled, content, children, ...restData }, index) => (
               <Option
                 key={index}
                 max={max}
@@ -130,13 +133,18 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
+                optionLength={selectableOption.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
                 content={content}
-              />
+                onCheckAllChange={onCheckAllChange}
+                {...restData}
+              >
+                {children}
+              </Option>
             ),
           )}
         </ul>

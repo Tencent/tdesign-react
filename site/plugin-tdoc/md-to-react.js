@@ -3,23 +3,23 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import camelCase from 'camelcase';
-import { compileUsage } from '../../src/_common/docs/compile';
+import { compileUsage, getGitTimestamp } from '../../src/_common/docs/compile';
 
 import testCoverage from '../test-coverage';
 
 import { transformSync } from '@babel/core';
 
-export default function mdToReact(options) {
-  const mdSegment = customRender(options);
+export default async function mdToReact(options) {
+  const mdSegment = await customRender(options);
   const { demoDefsStr, demoCodesDefsStr } = options;
 
-  let unitCoverage = '';
+  let coverage = {};
   if (mdSegment.isComponent) {
-    unitCoverage = testCoverage.unit[camelCase(mdSegment.componentName)] || '0%';
+    coverage = testCoverage[camelCase(mdSegment.componentName)] || {};
   }
 
   const reactSource = `
-    import React, { useEffect, useRef, useState } from 'react';\n
+    import React, { useEffect, useRef, useState, useMemo } from 'react';\n
     import { useLocation, useNavigate } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
@@ -37,13 +37,18 @@ export default function mdToReact(options) {
       const tdDocHeader = useRef();
       const tdDocTabs = useRef();
 
-      const isComponent  = ${mdSegment.isComponent};
+      const isComponent = ${mdSegment.isComponent};
 
       const location = useLocation();
       const navigate = useNavigate();
 
       const query = useQuery();
       const [tab, setTab] = useState(query.get('tab') || 'demo');
+
+      const lastUpdated = useMemo(() => {
+        if (tab === 'design') return ${mdSegment.designDocLastUpdated};
+        return ${mdSegment.lastUpdated};
+      }, [tab]);
 
       useEffect(() => {
         tdDocHeader.current.docInfo = {
@@ -92,7 +97,19 @@ export default function mdToReact(options) {
               >
                 ${
                   mdSegment.isComponent
-                    ? `<td-doc-badge slot="badge" label="coverage" message="${unitCoverage}" />`
+                    ? `
+                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: lines" message="${
+                      coverage.lines || '0%'
+                    }" />
+                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: functions" message="${
+                      coverage.functions || '0%'
+                    }" />
+                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: statements" message="${
+                      coverage.statements || '0%'
+                    }" />
+                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: branches" message="${
+                      coverage.branches || '0%'
+                    }" />`
                     : ''
                 }
               </td-doc-header>`
@@ -121,7 +138,7 @@ export default function mdToReact(options) {
   )}</div>
           }
           <div style={{ marginTop: 48 }}>
-            <td-doc-history time="${mdSegment.lastUpdated}"></td-doc-history>
+            <td-doc-history time={lastUpdated} key={lastUpdated}></td-doc-history>
           </div>
         </>
       )
@@ -142,15 +159,16 @@ export default function mdToReact(options) {
   return { code: result.code, map: result.map };
 }
 
-const DEAULT_TABS = [
+const DEFAULT_TABS = [
   { tab: 'demo', name: '示例' },
   { tab: 'api', name: 'API' },
   { tab: 'design', name: '指南' },
 ];
 
 // 解析 markdown 内容
-function customRender({ source, file, md }) {
+async function customRender({ source, file, md }) {
   let { content, data } = matter(source);
+  const lastUpdated = await getGitTimestamp(file) || Math.round(fs.statSync(file).mtimeMs);
   // console.log('data', data);
 
   // md top data
@@ -161,10 +179,11 @@ function customRender({ source, file, md }) {
     description: '',
     isComponent: false,
     tdDocHeader: true,
-    tdDocTabs: DEAULT_TABS,
+    tdDocTabs: DEFAULT_TABS,
     apiFlag: /#+\s*API/,
     docClass: '',
-    lastUpdated: Math.round(fs.statSync(file).mtimeMs),
+    lastUpdated,
+    designDocLastUpdated: lastUpdated,
     ...data,
   };
 
@@ -225,6 +244,9 @@ function customRender({ source, file, md }) {
     const designDocPath = path.resolve(__dirname, `../../src/_common/docs/web/design/${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
+      const designDocLastUpdated = await getGitTimestamp(designDocPath) || Math.round(fs.statSync(designDocPath).mtimeMs);
+      mdSegment.designDocLastUpdated = designDocLastUpdated;
+
       const designMd = fs.readFileSync(designDocPath, 'utf-8');
       mdSegment.designMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${designMd}`).html;
     } else {

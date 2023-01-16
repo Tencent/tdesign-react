@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo, useCallback, ReactElement } from 'react';
+import React, { useEffect, Ref, useMemo, KeyboardEvent } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -6,7 +6,7 @@ import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getSelectValueArr, getValueToOption, getSelectedOptions } from '../util/helper';
+import { getSelectValueArr, getSelectedOptions } from '../util/helper';
 import noop from '../../_util/noop';
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
@@ -19,6 +19,7 @@ import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } 
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 import { PopupVisibleChangeContext } from '../../popup';
+import useOptions from '../hooks/useOptions';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -87,66 +88,14 @@ const Select = forwardRefWithStatics(
 
     const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
-    const [currentOptions, setCurrentOptions] = useState([]);
-    const [tmpPropOptions, setTmpPropOptions] = useState([]);
-    const [valueToOption, setValueToOption] = useState({});
-    const [selectedOptions, setSelectedOptions] = useState([]);
 
-    // 处理设置 option 的逻辑
-    useEffect(() => {
-      if (keys) {
-        // 如果有定制 keys 先做转换
-        const transformedOptions = options?.map((option) => ({
-          ...option,
-          value: get(option, keys?.value || 'value'),
-          label: get(option, keys?.label || 'label'),
-        }));
-        setCurrentOptions(transformedOptions);
-        setTmpPropOptions(transformedOptions);
-      } else {
-        setCurrentOptions(options);
-        setTmpPropOptions(options);
-      }
-      setValueToOption(getValueToOption(children as ReactElement, options, keys) || {});
-    }, [options, keys, children]);
-
-    // 同步 value 对应的 options
-    useEffect(() => {
-      setSelectedOptions((oldSelectedOptions) => {
-        const valueKey = keys?.value || 'value';
-        const labelKey = keys?.label || 'label';
-        if (Array.isArray(value)) {
-          return value
-            .map((item) => {
-              if (valueType === 'value') {
-                return (
-                  valueToOption[item as string | number] ||
-                  oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
-                    [valueKey]: item,
-                    [labelKey]: item,
-                  }
-                );
-              }
-              return item;
-            })
-            .filter(Boolean);
-        }
-
-        if (value !== undefined && value !== null) {
-          if (valueType === 'value') {
-            return [
-              valueToOption[value as string | number] ||
-                oldSelectedOptions.find((option) => get(option, valueKey) === value) || {
-                  [valueKey]: value,
-                  [labelKey]: value,
-                },
-            ].filter(Boolean);
-          }
-          return [value];
-        }
-        return [];
-      });
-    }, [value, keys, valueType, valueToOption]);
+    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions } = useOptions(
+      keys,
+      options,
+      children,
+      valueType,
+      value,
+    );
 
     const selectedLabel = useMemo(() => {
       if (multiple) {
@@ -212,6 +161,16 @@ const Select = forwardRefWithStatics(
           });
         }
       }
+    };
+    const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
+      if (!props.multiple) return;
+      const selectableOptions = currentOptions
+        .filter((option) => !option.checkAll && !option.disabled)
+        .map((option) => option.value);
+
+      const checkAllValue =
+        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>).length ? selectableOptions : [];
+      onChange?.(checkAllValue, { e, trigger: checkAll ? 'check' : 'uncheck', selectedOptions: checkAllValue });
     };
 
     // 选中 Popup 某项
@@ -296,9 +255,7 @@ const Select = forwardRefWithStatics(
         );
       }
 
-      return (
-        showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
-      );
+      return showArrow && <FakeArrow className={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
     };
 
     // 渲染主体内容
@@ -321,6 +278,7 @@ const Select = forwardRefWithStatics(
         keys,
         panelBottomContent,
         panelTopContent,
+        onCheckAllChange,
       };
       return <PopupContent {...popupContentProps}>{children}</PopupContent>;
     };
@@ -339,7 +297,7 @@ const Select = forwardRefWithStatics(
             return (
               <Tag
                 key={key}
-                closable={!filterOption?.disabled && !disabled}
+                closable={!filterOption?.disabled && !disabled && !readonly}
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
@@ -361,7 +319,7 @@ const Select = forwardRefWithStatics(
       if (multiple) {
         return ({ onClose }) => valueDisplay({ value: selectedLabel, onClose });
       }
-      return selectedLabel.length ? (valueDisplay({ value: selectedLabel[0], onClose: noop }) as string) : '';
+      return valueDisplay({ value: selectedLabel, onClose: noop });
     };
 
     const renderCollapsedItems = useMemo(
@@ -378,28 +336,29 @@ const Select = forwardRefWithStatics(
     );
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
-    const updateScrollTop = useCallback(
-      (content: HTMLDivElement) => {
-        const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
-        if (firstSelectedNode && content) {
-          const { paddingBottom } = getComputedStyle(firstSelectedNode);
-          const { marginBottom } = getComputedStyle(content);
-          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
-          // 小于0时不需要特殊处理，会被设为0
-          const updateValue =
-            firstSelectedNode.offsetTop -
-            content.offsetTop -
-            (content.clientHeight - firstSelectedNode.clientHeight) +
-            elementBottomHeight;
-          // eslint-disable-next-line no-param-reassign
-          content.scrollTop = updateValue;
-        }
-      },
-      [classPrefix],
-    );
+    const updateScrollTop = (content: HTMLDivElement) => {
+      if (!content) return;
+      const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
+      if (firstSelectedNode) {
+        const { paddingBottom } = getComputedStyle(firstSelectedNode);
+        const { marginBottom } = getComputedStyle(content);
+        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+        // 小于0时不需要特殊处理，会被设为0
+        const updateValue =
+          firstSelectedNode.offsetTop -
+          content.offsetTop -
+          (content.clientHeight - firstSelectedNode.clientHeight) +
+          elementBottomHeight;
+        // eslint-disable-next-line no-param-reassign
+        content.scrollTop = updateValue;
+      }
+    };
 
     const { onMouseEnter, onMouseLeave } = props;
 
+    const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
+      onEnter?.({ ...context, value });
+    };
     return (
       <div
         className={classNames(`${name}__wrap`, className)}
@@ -446,7 +405,7 @@ const Select = forwardRefWithStatics(
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}
-          onEnter={onEnter}
+          onEnter={handleEnter}
           onBlur={onBlur}
           onClear={(context) => {
             onClearValue(context);
