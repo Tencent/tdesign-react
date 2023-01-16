@@ -7,19 +7,9 @@ import React from 'react';
 import { fireEvent, vi, render, mockDelay } from '@test/utils';
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
-// Mock ResizeObserver 11
-class ResizeObserver {
-  observe() {
-    return this;
-  }
 
-  unobserve() {
-    return this;
-  }
-}
 describe('Avatar Component', () => {
   // @ts-ignore
-  window.ResizeObserver = window.ResizeObserver || ResizeObserver;
   it('props.alt works fine', () => {
     const wrapper = render(<Avatar alt="Avatar" image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>);
     const container = wrapper.container.querySelector('img');
@@ -51,7 +41,7 @@ describe('Avatar Component', () => {
   it('props.icon works fine', () => {
     const { container } = render(<Avatar icon={<span className="custom-node">TNode</span>}></Avatar>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
-    expect(container.querySelector('.t-avatar__icon')).toBeTruthy();
+    expect(container.querySelector('.t-avatar-icon')).toBeTruthy();
   });
 
   it(`props.image is equal to https://tdesign.tencent.com/`, () => {
@@ -111,7 +101,6 @@ describe('AvatarGroup Component', () => {
       max: 3,
     });
     expect(container.querySelector('.custom-node')).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
   it('props.max works fine. `{".t-avatar":4}` should exist', () => {

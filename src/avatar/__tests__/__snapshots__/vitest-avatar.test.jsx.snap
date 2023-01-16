@@ -18,6 +18,24 @@ exports[`Avatar Component > props.children works fine 1`] = `
 </div>
 `;
 
+exports[`Avatar Component > props.content works fine 1`] = `
+<div>
+  <div
+    class="t-avatar t-avatar--circle"
+  >
+    <span
+      style="transform: scale(1);"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
 exports[`Avatar Component > props.shape is equal to circle 1`] = `
 <div>
   <div

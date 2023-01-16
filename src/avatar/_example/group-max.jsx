@@ -7,7 +7,7 @@ const { Group: AvatarGroup } = Avatar;
 export default function GroupMaxAvatar() {
   return (
     <Space direction="vertical">
-      <AvatarGroup size="large" max={2}>
+      <AvatarGroup size="large" max={2} collapseAvatar={<span className="custom-node">TNode</span>}>
         <Avatar image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>
         <Avatar>Avatar</Avatar>
         <Avatar image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>
