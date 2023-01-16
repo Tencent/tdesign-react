@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect, useImperativeHandle } from 'react';
-
+import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
-import type { StyledProps } from '../common';
+import type { StyledProps, TreeOptionData } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
@@ -19,7 +19,9 @@ import { useTreeSelectLocale } from './useTreeSelectLocale';
 import { treeSelectDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 
-export interface TreeSelectProps extends TdTreeSelectProps, StyledProps {}
+export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
+  extends TdTreeSelectProps<DataOption>,
+    StyledProps {}
 
 export interface NodeOptions {
   label: string;
@@ -253,11 +255,13 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     () =>
       props.collapsedItems
         ? () =>
-            props.collapsedItems({
-              value: normalizedValue,
-              collapsedSelectedItems: normalizedValue.slice(props.minCollapsedNum, normalizedValue.length),
-              count: normalizedValue.length - props.minCollapsedNum,
-            })
+            isFunction(props.collapsedItems)
+              ? props.collapsedItems({
+                  value: normalizedValue,
+                  collapsedSelectedItems: normalizedValue.slice(props.minCollapsedNum, normalizedValue.length),
+                  count: normalizedValue.length,
+                })
+              : props.collapsedItems
         : null,
     [normalizedValue, props],
   );

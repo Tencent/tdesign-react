@@ -18,5 +18,6 @@ export const treeSelectDefaultProps: TdTreeSelectProps = {
   placeholder: undefined,
   readonly: false,
   size: 'medium',
+  status: 'default',
   valueType: 'value',
 };

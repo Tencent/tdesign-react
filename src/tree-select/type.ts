@@ -22,7 +22,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   autoWidth?: boolean;
   /**
-   * 【开发中】无边框模式
+   * 无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -32,7 +32,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   clearable?: boolean;
   /**
-   * 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义
+   * 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedTags` 表示折叠的标签，`count` 表示选中的标签数量
    */
   collapsedItems?: TNode<{ value: DataOption[]; collapsedSelectedItems: DataOption[]; count: number }>;
   /**
@@ -109,7 +109,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 组件前置图标
    */
-  prefixIcon?: TNode;
+  prefixIcon?: TElement;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
@@ -126,10 +126,11 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
-   * 【开发中】透传 Tag 标签组件全部属性
+   * 透传 Tag 标签组件全部属性
    */
   tagProps?: TagProps;
   /**
@@ -175,7 +176,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 点击清除按钮时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -187,7 +188,13 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 下拉框显示或隐藏时触发
    */
-  onPopupVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
+  onPopupVisibleChange?: (
+    visible: boolean,
+    context: PopupVisibleChangeContext & {
+      node?: TreeNodeModel<DataOption>;
+      e?: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>;
+    },
+  ) => void;
   /**
    * 多选模式下，选中数据被移除时触发
    */
@@ -198,7 +205,11 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   onSearch?: (filterWords: string) => void;
 }
 
-export type TreeSelectValue = string | number | object | Array<TreeSelectValue>;
+export type TreeSelectValue<T extends TreeOptionData = TreeOptionData> =
+  | string
+  | number
+  | T
+  | Array<TreeSelectValue<T>>;
 
 export type TreeSelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck';
 
