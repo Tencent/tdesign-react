@@ -9,7 +9,7 @@ export default function useResizeObserver(container: HTMLElement, callback: (dat
       containerObserver?.unobserve(container);
       containerObserver?.disconnect();
     } else {
-      containerObserver = new ResizeObserver(callback);
+      containerObserver = new window.ResizeObserver(callback);
       containerObserver.observe(container);
     }
   };
