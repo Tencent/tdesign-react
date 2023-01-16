@@ -29,7 +29,7 @@ triggerElement | TNode | - | Typescript：`string \| TNode`。[see more ts defin
 value | String | - | \- | N
 defaultValue | String | - | uncontrolled property | N
 onBlur | Function |  | Typescript：`(context: { e: FocusEvent; value: string }) => void`<br/> | N
-onChange | Function |  | Typescript：`(value: string, context?: { e?: InputEvent \| MouseEvent \| KeyboardEvent }) => void`<br/> | N
+onChange | Function |  | Typescript：`(value: string, context?: { e?: InputEvent \| MouseEvent \| CompositionEvent \| KeyboardEvent }) => void`<br/> | N
 onClear | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onCompositionend | Function |  | Typescript：`(context: { e: CompositionEvent; value: string }) => void`<br/>trigger on compositionend | N
 onCompositionstart | Function |  | Typescript：`(context: { e: CompositionEvent; value: string }) => void`<br/>trigger on compositionstart | N

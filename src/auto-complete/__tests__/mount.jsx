@@ -11,6 +11,17 @@ export function getNormalAutoCompleteMount(AutoComplete, props, events) {
       text: 'SecondKeyword',
     },
     'ThirdKeyword',
+    {
+      label: 'READONLY_KEYWORD',
+    },
+    {
+      text: 'DISABLED_KEYWORD',
+    },
   ];
+  return render(<AutoComplete value="" options={options} {...props} {...events} />);
+}
+
+export function getOptionSlotAutoCompleteMount(AutoComplete, props, events) {
+  const options = ['First', { label: <div className="custom-slot-option">First Keyword</div>, text: 'First Keyword' }];
   return render(<AutoComplete value="" options={options} {...props} {...events} />);
 }

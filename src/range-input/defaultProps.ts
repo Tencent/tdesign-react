@@ -10,7 +10,12 @@ export const rangeInputDefaultProps: TdRangeInputProps = {
   separator: '-',
   showClearIconOnEmpty: false,
   size: 'medium',
+  status: 'default',
   defaultValue: [],
 };
 
-export const rangeInputPopupDefaultProps: TdRangeInputPopupProps = { autoWidth: false, readonly: false };
+export const rangeInputPopupDefaultProps: TdRangeInputPopupProps = {
+  autoWidth: false,
+  readonly: false,
+  status: 'default',
+};
