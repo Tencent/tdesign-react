@@ -55,8 +55,8 @@ const Avatar = forwardRefWithStatics(
     };
     useResizeObserver(avatarChildrenRef.current, handleScale);
 
-    const handleImgLoadError = () => {
-      onError && onError();
+    const handleImgLoadError = (e) => {
+      onError && onError(e);
       !hideOnLoadFailed && setIsImgExist(false);
     };
 
