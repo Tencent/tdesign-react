@@ -193,6 +193,28 @@ describe('Cascader 组件测试', () => {
     expect(spy).toHaveBeenCalledTimes(2);
   });
 
+  test('filterable 测试', async () => {
+    const placeholder = 'filter';
+    const filterContent = '子选项一';
+    const { getByPlaceholderText, getByText } = render(
+      <Cascader placeholder={placeholder} options={options} filterable />,
+    );
+    // 搜索 子选项一 ，共有两个结果，成功匹配的内容应该高亮
+    fireEvent.focus(getByPlaceholderText(placeholder));
+    userEvent.type(getByPlaceholderText(placeholder), filterContent);
+    await mockTimeout(() =>
+      expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(2),
+    );
+    // 清空搜索项，无匹配任何高亮内容
+    userEvent.type(getByPlaceholderText(placeholder), '{backspace}{backspace}{backspace}{backspace}');
+    await mockTimeout(() =>
+      expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(0),
+    );
+    // 匹配不到任何内容
+    userEvent.type(getByPlaceholderText(placeholder), 'null');
+    await mockTimeout(() => expect(getByText('暂无数据')).toBeInTheDocument());
+  });
+
   test('value is zero should be selected', async () => {
     const popupSelector = '.t-popup';
     const labelText = 'my value is 0 that typeof number';
@@ -218,7 +240,7 @@ describe('Cascader 组件测试', () => {
   });
 });
 
-describe('CascaderPanel 组件测试', () => {
+describe('Cascader Panel 组件测试', () => {
   test('CascaderPanel 基础测试', () => {
     const btnText = 'change';
     const TestComponent = () => {
@@ -245,9 +267,62 @@ describe('CascaderPanel 组件测试', () => {
     fireEvent.click(getByText('选项一'));
     expect(getByText('子选项一')).toBeInTheDocument();
     expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
-    // multiple 测试
+    // multiple 测试，存在 checkbox
     expect(container.querySelector('input')).toBeNull();
     fireEvent.click(getByText(btnText));
     expect(container.querySelector('input')).toBeInTheDocument();
+  });
+
+  test('Panel组件 trigger 为 hover 时，应该正确展开下一层级', () => {
+    const { container, getByText } = render(<CascaderPanel options={options} trigger="hover" />);
+    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(1);
+    fireEvent.mouseEnter(getByText('选项一'));
+    expect(getByText('子选项一')).toBeInTheDocument();
+    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
+  });
+
+  test('Panel组件 multiple 测试', () => {
+    const { getByText, getByTitle } = render(<CascaderPanel options={options} multiple />);
+    fireEvent.click(getByText('选项一'));
+    expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
+    // 选中一个子选项，父级应为 indeterminate 状态
+    fireEvent.click(getByText('子选项一'));
+    expect(getByTitle('选项一')).toHaveClass('t-is-indeterminate');
+    expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
+    // 选中全部子选项，父级应该为 checked 状态
+    fireEvent.click(getByText('子选项二'));
+    expect(getByTitle('选项一')).toHaveClass('t-is-checked');
+    expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
+  });
+
+  test('Panel组件 multiple 时设置 max 测试', async () => {
+    const btnText = 'set max 1';
+    const TestComponent = () => {
+      const [max, setMax] = useState(3);
+      return (
+        <>
+          <button onClick={() => setMax(1)}>{btnText}</button>
+          <CascaderPanel options={options} multiple max={max} />
+        </>
+      );
+    };
+    const { getByText, getByTitle } = render(<TestComponent />);
+    // 所选内容不超过 max ，都可选中
+    fireEvent.click(getByTitle('选项一').querySelector('input'));
+    expect(getByTitle('选项一')).toHaveClass('t-is-checked');
+    expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
+    expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
+    // 清空所有选中
+    fireEvent.click(getByTitle('选项一').querySelector('input'));
+    // 设置 max 为 1，点击父级无法选中任何节点
+    fireEvent.click(getByText(btnText));
+    fireEvent.click(getByTitle('选项一'));
+    fireEvent.click(getByTitle('选项一').querySelector('input'));
+    expect(getByTitle('选项一')).not.toHaveClass('t-is-checked');
+    expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
+    // 选中一个子节点后所有节点为 disabled
+    fireEvent.click(getByTitle('子选项一'));
+    expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
+    expect(getByTitle('选项二')).toHaveClass('t-is-disabled');
   });
 });
