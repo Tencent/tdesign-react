@@ -99,6 +99,56 @@ describe('TreeSelect Component', () => {
     expect(tTreeItemDom.length).toBe(1);
   });
 
+  it('props.filterable works fine', async () => {
+    const { container } = getTreeDefaultMount(TreeSelect, { inputValue: 'tdesign-vue', filterable: true });
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay(100);
+    const tTreeItemDom = document.querySelectorAll('.t-tree__item');
+    expect(tTreeItemDom.length).toBe(1);
+  });
+
+  it(`props.inputProps is equal to {name:'tree-select-input-name'}`, () => {
+    const { container } = render(<TreeSelect inputProps={{ name: 'tree-select-input-name' }}></TreeSelect>);
+    const domWrapper = container.querySelector('input');
+    expect(domWrapper.getAttribute('name')).toBe('tree-select-input-name');
+  });
+
+  it(`props.inputValue is equal to tdesign-vue`, () => {
+    const { container } = render(<TreeSelect inputValue="tdesign-vue"></TreeSelect>);
+    const domWrapper = container.querySelector('input');
+    expect(domWrapper.value).toBe('tdesign-vue');
+  });
+
+  it('props.loading: TreeSelect contains element `.t-loading`', () => {
+    // loading default value is false
+    const { container } = render(<TreeSelect></TreeSelect>);
+    expect(container.querySelector('.t-loading')).toBeFalsy();
+    // loading = false
+    const { container: container1 } = render(<TreeSelect loading={false}></TreeSelect>);
+    expect(container1.querySelector('.t-loading')).toBeFalsy();
+    // loading = true
+    const { container: container2 } = render(<TreeSelect loading={true}></TreeSelect>);
+    expect(container2.querySelector('.t-loading')).toBeTruthy();
+  });
+
+  it('props.loadingText works fine', () => {
+    const { container } = render(
+      <TreeSelect loadingText={<span className="custom-node">TNode</span>} loading={true}></TreeSelect>,
+    );
+    fireEvent.click(container.querySelector('.t-input'));
+    const customNodeDom = document.querySelector('.custom-node');
+    expect(customNodeDom).toBeTruthy();
+    const tSelectLoadingTipsDom = document.querySelector('.t-select__loading-tips');
+    expect(tSelectLoadingTipsDom).toBeTruthy();
+  });
+
+  it('props.loadingText: loading status show loading text in panel', () => {
+    const { container } = render(<TreeSelect loading={true}></TreeSelect>);
+    fireEvent.click(container.querySelector('.t-input'));
+    const tSelectLoadingTipsDom = document.querySelector('.t-select__loading-tips');
+    expect(tSelectLoadingTipsDom).toBeTruthy();
+  });
+
   it('props.prefixIcon works fine', () => {
     const { container } = render(<TreeSelect prefixIcon={<span className="custom-node">TNode</span>}></TreeSelect>);
     expect(container.querySelector('.custom-node')).toBeTruthy();

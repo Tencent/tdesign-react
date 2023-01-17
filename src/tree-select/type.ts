@@ -22,6 +22,11 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   autoWidth?: boolean;
   /**
+   * 自动聚焦
+   * @default false
+   */
+  autofocus?: boolean;
+  /**
    * 无边框模式
    * @default false
    */
