@@ -127,12 +127,6 @@ describe('TreeSelect Component', () => {
     expect(domWrapper.getAttribute('name')).toBe('tree-select-input-name');
   });
 
-  it(`props.inputValue is equal to tdesign-vue`, () => {
-    const { container } = render(<TreeSelect inputValue="tdesign-vue"></TreeSelect>);
-    const domWrapper = container.querySelector('input');
-    expect(domWrapper.value).toBe('tdesign-vue');
-  });
-
   it('props.loading: TreeSelect contains element `.t-loading`', () => {
     // loading default value is false
     const { container } = render(<TreeSelect></TreeSelect>);
@@ -265,6 +259,12 @@ describe('TreeSelect Component', () => {
   it('props.tips is equal this is a tip', () => {
     const { container } = render(<TreeSelect tips="this is a tip"></TreeSelect>);
     expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
+  });
+
+  it(`props.value is equal to tdesign-vue`, () => {
+    const { container } = render(<TreeSelect value="tdesign-vue"></TreeSelect>);
+    const domWrapper = container.querySelector('input');
+    expect(domWrapper.value).toBe('tdesign-vue');
   });
 
   it('props.valueDisplay works fine', () => {
