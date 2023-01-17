@@ -81,7 +81,13 @@ const Tag = forwardRefWithStatics(
       />
     );
 
-    const tag: JSX.Element = (
+    const title = (() => {
+      if (children && typeof children === 'string') return children;
+      if (content && typeof content === 'string') return content;
+    })();
+    const titleAttribute = title ? { title } : undefined;
+
+    const tag = (
       <span
         ref={ref}
         className={tagClassNames}
@@ -92,9 +98,13 @@ const Tag = forwardRefWithStatics(
         style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
         {...otherTagProps}
       >
-        {icon}
-        <span className={maxWidth ? `${tagClassPrefix}--text` : undefined}>{children || content}</span>
-        {closable && deleteIcon}
+        <>
+          {icon}
+          <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} {...titleAttribute}>
+            {children || content}
+          </span>
+          {closable && !disabled && deleteIcon}
+        </>
       </span>
     );
 

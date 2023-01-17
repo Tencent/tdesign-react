@@ -22,7 +22,7 @@ export interface TdTagInputProps {
    */
   clearable?: boolean;
   /**
-   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示标签值，`collapsedTags` 表示折叠标签值，`count` 表示总标签数量
+   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedTags` 表示折叠的标签，`count` 表示总标签数量
    */
   collapsedItems?: TNode<{ value: TagInputValue; collapsedTags: TagInputValue; count: number }>;
   /**
@@ -129,7 +129,7 @@ export interface TdTagInputProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 点击组件时触发
    */
@@ -161,7 +161,7 @@ export interface TdTagInputProps {
   /**
    * 粘贴事件，`pasteValue` 表示粘贴板的内容
    */
-  onPaste?: (context: { e: ClipboardEvent<HTMLInputElement>; pasteValue: string }) => void;
+  onPaste?: (context: { e: ClipboardEvent<HTMLDivElement>; pasteValue: string }) => void;
   /**
    * 移除单个标签时触发
    */
@@ -174,7 +174,7 @@ export interface TagInputChangeContext {
   trigger: TagInputTriggerSource;
   index?: number;
   item?: string | number;
-  e?: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
@@ -193,14 +193,14 @@ export interface InputValueChangeContext {
     | MouseEvent<HTMLElement | SVGElement>
     | CompositionEvent<HTMLDivElement>
     | KeyboardEvent<HTMLDivElement>;
-  trigger: 'input' | 'clear' | 'enter';
+  trigger: 'input' | 'clear' | 'enter' | 'blur';
 }
 
 export interface TagInputRemoveContext {
   value: TagInputValue;
   index: number;
   item: string | number;
-  e?: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
   trigger: TagInputRemoveTrigger;
 }
 

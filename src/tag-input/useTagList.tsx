@@ -21,31 +21,32 @@ export default function useTagList(props: TagInputProps) {
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
-  const onClose = (p: { e?: MouseEvent<SVGElement>; index: number; item: string | number }) => {
+  const onClose = (p: { e?: MouseEvent<SVGSVGElement>; index: number; item: string | number }) => {
     const arr = [...tagValue];
     arr.splice(p.index, 1);
     setTagValue(arr, { trigger: 'tag-remove', ...p });
     onRemove?.({ ...p, trigger: 'tag-remove', value: arr });
   };
 
-  const clearAll = (context: { e: MouseEvent<SVGElement> }) => {
+  const clearAll = (context: { e: MouseEvent<SVGSVGElement> }) => {
     setTagValue([], { trigger: 'clear', e: context.e });
   };
 
   // 按下 Enter 键，新增标签
   const onInnerEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     const valueStr = value ? String(value).trim() : '';
-    if (!valueStr) return;
-    const isLimitExceeded = max && tagValue?.length >= max;
     let newValue: TagInputValue = tagValue;
-    if (!isLimitExceeded) {
-      newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
-      setTagValue(newValue, {
-        trigger: 'enter',
-        index: newValue.length - 1,
-        item: valueStr,
-        e: context.e,
-      });
+    if (valueStr) {
+      const isLimitExceeded = max && tagValue?.length >= max;
+      if (!isLimitExceeded) {
+        newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
+        setTagValue(newValue, {
+          trigger: 'enter',
+          index: newValue.length - 1,
+          item: valueStr,
+          e: context.e,
+        });
+      }
     }
     props?.onEnter?.(newValue, { ...context, inputValue: value });
   };
@@ -69,7 +70,7 @@ export default function useTagList(props: TagInputProps) {
   const renderLabel = ({ displayNode, label }: { displayNode: ReactNode; label: ReactNode }) => {
     const newList = minCollapsedNum ? tagValue.slice(0, minCollapsedNum) : tagValue;
     const list = displayNode
-      ? [displayNode]
+      ? [<Fragment key="display-node">{displayNode}</Fragment>]
       : newList?.map((item, index) => {
           const tagContent = isFunction(tag) ? tag({ value: item }) : tag;
           return (

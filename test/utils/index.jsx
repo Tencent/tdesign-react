@@ -20,8 +20,14 @@ export function mockDelay(timeout = 300) {
   });
 }
 
+// dom 输入文本 text
 export function simulateInputChange(dom, text) {
   fireEvent.change(dom, { target: { value: text } });
+}
+
+
+export function simulateInputEnter(dom) {
+  fireEvent.keyDown(dom, { key: 'Enter', code: 'Enter', charCode: 13 });
 }
 
 export function simulateClipboardPaste(dom, text) {
@@ -31,6 +37,11 @@ export function simulateClipboardPaste(dom, text) {
     },
   });
   fireEvent(dom, paste);
+}
+
+// event 可选值：load/error
+export function simulateImageEvent(dom, event) {
+  fireEvent(dom, createEvent(event, dom));
 }
 
 export function simulateKeydownEvent(dom, type) {
@@ -59,9 +70,4 @@ export function simulateKeydownEvent(dom, type) {
       break;
   }
   dom.dispatchEvent(event);
-}
-
-// event 可选值：load/error
-export function simulateImageEvent(dom, event) {
-  fireEvent(dom, createEvent(event, dom));
 }

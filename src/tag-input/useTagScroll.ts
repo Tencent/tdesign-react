@@ -3,6 +3,7 @@
  * 如果标签过多时的处理方式，是标签省略，则不需要此功能
  */
 
+import isFunction from 'lodash/isFunction';
 import { useRef, useEffect, RefObject, useState, WheelEvent } from 'react';
 import { TdTagInputProps } from './type';
 
@@ -25,7 +26,9 @@ export default function useTagScroll(props: TdTagInputProps) {
   };
 
   const scrollTo = (distance: number) => {
-    scrollElement?.scroll({ left: distance, behavior: 'smooth' });
+    if (isFunction(scrollElement?.scroll)) {
+      scrollElement.scroll({ left: distance, behavior: 'smooth' });
+    }
   };
 
   const scrollToRight = () => {
