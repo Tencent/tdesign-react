@@ -7,12 +7,7 @@
 import React from 'react';
 import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
 import { TreeSelect } from '..';
-import {
-  getTreeDefaultMount,
-  getTreeMultipleMount,
-  getTreeSelectMultipleMount,
-  getTreeSelectDefaultMount,
-} from './mount';
+import { getTreeSelectDefaultMount, getTreeSelectMultipleMount } from './mount';
 
 describe('TreeSelect Component', () => {
   it(`props.autofocus is equal to false`, () => {
@@ -45,20 +40,20 @@ describe('TreeSelect Component', () => {
     expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
   });
   it('props.clearable: show clear icon on mouse enter in single tree select', async () => {
-    const { container } = getTreeDefaultMount(TreeSelect, { value: 1, clearable: true });
+    const { container } = getTreeSelectDefaultMount(TreeSelect, { value: 1, clearable: true });
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
   });
   it('props.clearable: show clear icon on mouse enter in multiple tree select', async () => {
-    const { container } = getTreeMultipleMount(TreeSelect, { value: [1], clearable: true });
+    const { container } = getTreeSelectMultipleMount(TreeSelect, { value: [1], clearable: true });
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
   });
 
   it('props.collapsedItems works fine', () => {
-    const { container } = getTreeMultipleMount(TreeSelect, {
+    const { container } = getTreeSelectMultipleMount(TreeSelect, {
       collapsedItems: <span className="custom-node">TNode</span>,
       minCollapsedNum: 3,
     });
@@ -67,7 +62,7 @@ describe('TreeSelect Component', () => {
 
   it('props.collapsedItems is a function with params', () => {
     const fn = vi.fn();
-    getTreeMultipleMount(TreeSelect, { collapsedItems: fn, minCollapsedNum: 3 });
+    getTreeSelectMultipleMount(TreeSelect, { collapsedItems: fn, minCollapsedNum: 3 });
     expect(fn).toHaveBeenCalled(1);
     expect(fn.mock.calls[0][0].count).toBe(5);
   });
@@ -102,7 +97,7 @@ describe('TreeSelect Component', () => {
   });
 
   it('props.filter works fine', async () => {
-    const { container } = getTreeMultipleMount(TreeSelect, {
+    const { container } = getTreeSelectMultipleMount(TreeSelect, {
       filter: (filterWord, option) => !filterWord || option.label === filterWord,
     });
     fireEvent.click(container.querySelector('.t-input'));
@@ -113,8 +108,8 @@ describe('TreeSelect Component', () => {
     expect(tTreeItemDom.length).toBe(1);
   });
 
-  it.skip('props.filterable works fine', async () => {
-    const { container } = getTreeDefaultMount(TreeSelect, { inputValue: 'tdesign-vue', filterable: true });
+  it('props.filterable works fine', async () => {
+    const { container } = getTreeSelectDefaultMount(TreeSelect, { inputValue: 'tdesign-vue', filterable: true });
     fireEvent.click(container.querySelector('.t-input'));
     await mockDelay(100);
     const tTreeItemDom = document.querySelectorAll('.t-tree__item');
@@ -140,7 +135,7 @@ describe('TreeSelect Component', () => {
     expect(onInputChangeFn1).toHaveBeenCalled(1);
     expect(onInputChangeFn1.mock.calls[0][0]).toBe('tdesign');
     expect(onInputChangeFn1.mock.calls[0][1].e.type).toBe('change');
-    expect(onInputChangeFn1.mock.calls[0][1].trigger).toBe('change');
+    expect(onInputChangeFn1.mock.calls[0][1].trigger).toBe('input');
   });
 
   it('props.loading: TreeSelect contains element `.t-loading`', () => {
@@ -175,7 +170,7 @@ describe('TreeSelect Component', () => {
 
   it('props.max works fine', async () => {
     const onChangeFn1 = vi.fn();
-    const { container } = getTreeDefaultMount(
+    const { container } = getTreeSelectDefaultMount(
       TreeSelect,
       { max: 2, multiple: true, value: [1, '4'] },
       { onChange: onChangeFn1 },
@@ -187,7 +182,7 @@ describe('TreeSelect Component', () => {
   });
 
   it('props.minCollapsedNum works fine. `{".t-tag":3,".t-tag:last-child":{"text":"+3"}}` should exist', () => {
-    const { container } = getTreeMultipleMount(TreeSelect, { minCollapsedNum: 2 });
+    const { container } = getTreeSelectMultipleMount(TreeSelect, { minCollapsedNum: 2 });
     expect(container.querySelectorAll('.t-tag').length).toBe(3);
     expect(container.querySelector('.t-tag:last-child').textContent).toBe('+3');
   });
@@ -284,7 +279,7 @@ describe('TreeSelect Component', () => {
   });
 
   it('props.valueDisplay works fine', () => {
-    const { container } = getTreeSelectDefaultMount(TreeSelect, {
+    const { container } = getTreeSelectMultipleMount(TreeSelect, {
       valueDisplay: <span className="custom-node">TNode</span>,
       value: 1,
       data: [{ label: 'tdesign-vue', value: 1 }],
@@ -294,7 +289,7 @@ describe('TreeSelect Component', () => {
 
   it('props.valueDisplay is a function with params', () => {
     const fn = vi.fn();
-    getTreeSelectDefaultMount(TreeSelect, { valueDisplay: fn, value: 1, data: [{ label: 'tdesign-vue', value: 1 }] });
+    getTreeSelectMultipleMount(TreeSelect, { valueDisplay: fn, value: 1, data: [{ label: 'tdesign-vue', value: 1 }] });
     expect(fn).toHaveBeenCalled(1);
     expect(fn.mock.calls[0][0].value).toEqual([{ label: 'tdesign-vue', value: 1 }]);
   });

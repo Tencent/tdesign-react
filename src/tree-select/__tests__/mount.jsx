@@ -17,7 +17,7 @@ const OPTIONS = [
   { label: <span>tdesign-mobile-react</span>, value: '6' },
 ];
 
-export function getTreeDefaultMount(TreeSelect, props, events) {
+export function getTreeSelectDefaultMount(TreeSelect, props, events) {
   return render(
     <TreeSelect
       data={OPTIONS}
@@ -28,7 +28,7 @@ export function getTreeDefaultMount(TreeSelect, props, events) {
 }
 
 // single select
-export function getTreeMultipleMount(TreeSelect, props, events) {
+export function getTreeSelectMultipleMount(TreeSelect, props, events) {
   const value = [1, 2, 3, '4', '5'];
   return render(
     <TreeSelect
@@ -40,6 +40,3 @@ export function getTreeMultipleMount(TreeSelect, props, events) {
     ></TreeSelect>
   );
 }
-
-export const getTreeSelectDefaultMount = getTreeMultipleMount;
-export const getTreeSelectMultipleMount = getTreeMultipleMount;

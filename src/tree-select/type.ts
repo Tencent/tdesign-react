@@ -188,7 +188,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
    */
-  onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
+  onInputChange?: (value: InputValue, context: SelectInputValueChangeContext) => void;
   /**
    * 下拉框显示或隐藏时触发
    */

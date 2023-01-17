@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
+import { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree/types';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData } from '../common';
 import { usePersistFn } from '../_util/usePersistFn';
@@ -9,7 +9,6 @@ import { TreeInstanceFunctions, TdTreeProps } from './type';
 import { useTreeConfig } from './useTreeConfig';
 import useControllable from './useControllable';
 import { TreeItemProps } from './interface';
-
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
 import { TreeDraggableContext } from './TreeDraggableContext';
@@ -58,12 +57,14 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       onActive,
       actived,
     },
-    () => {
-      const nodes = store.getNodes();
-      const newVisibleNodes = nodes.filter((node) => node.visible);
-      setVisibleNodes(newVisibleNodes);
-    },
+    initial,
   );
+
+  function initial() {
+    const nodes = store?.getNodes();
+    const newVisibleNodes = nodes?.filter((node) => node.visible);
+    setVisibleNodes(newVisibleNodes);
+  }
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean, e?: React.MouseEvent<HTMLDivElement>) => {
@@ -158,10 +159,10 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         return pathNodes;
       },
       insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
-        return store.insertAfter(value, newData);
+        return store.insertAfter(value, newData as TypeTreeNodeData);
       },
       insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
-        return store.insertBefore(value, newData);
+        return store.insertBefore(value, newData as TypeTreeNodeData);
       },
       remove(value: TreeNodeValue): void {
         return store.remove(value);

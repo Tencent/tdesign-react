@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect, useImperativeHandle } from 'react';
+import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useImperativeHandle } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
@@ -52,7 +52,15 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     size,
     max,
     data,
-    filter = (text, option) => option.label.includes(text),
+    filter = (text, option) => {
+      if (typeof option.label === 'string') {
+        return option.label.includes(text);
+      }
+      if (typeof option.text === 'string') {
+        return option.text.includes(text);
+      }
+      return true;
+    },
     filterable: rawFilterable,
     onClear,
     valueDisplay,
@@ -101,10 +109,12 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     return filterable && popupVisible ? filterInput : normalizedValue[0] || '';
   }, [multiple, normalizedValue, filterable, popupVisible, filterInput]);
 
-  const normalizedValueDisplay = useMemo(() => {
+  // @ts-ignore TODO: remove it
+  const normalizedValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
     if (!valueDisplay) {
       return;
     }
+    if (typeof valueDisplay === 'number') return String(valueDisplay);
     if (typeof valueDisplay === 'string') return valueDisplay;
     if (multiple) {
       return ({ onClose }) =>
@@ -116,7 +126,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     return normalizedValue.length ? displayNode : '';
   }, [valueDisplay, multiple, normalizedValue]);
 
-  const internalInputValueDisplay = useMemo(() => {
+  const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
     // 只有单选且下拉展开时需要隐藏 valueDisplay
     if (filterable && !multiple && popupVisible) {
       return undefined;
@@ -155,12 +165,18 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
-    (max === 0 || value.length <= max) &&
+    if (max === 0 || value.length <= max) {
       onChange(
         value.map((value) => formatValue(value, getNodeItem(value)?.label)),
         { ...context, trigger: value.length > normalizedValue.length ? 'check' : 'uncheck' },
       );
+      filterInput && setFilterInput('', { trigger: 'clear' });
+    }
   });
+
+  const onInnerPopupVisibleChange = (visible) => {
+    !visible && filterInput && setFilterInput('', { trigger: 'clear' });
+  };
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
     ctx.e.stopPropagation();
@@ -208,21 +224,26 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     onSearch?.(text as string);
   });
 
-  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value) => setFilterInput(value));
+  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, context) =>
+    setFilterInput(value, context),
+  );
 
   /* ---------------------------------effect---------------------------------------- */
 
-  useEffect(() => {
-    // 显示时清空过滤，隐藏时清空有动画会导致闪动
-    popupVisible && setFilterInput('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [popupVisible]);
+  // written by sheep at 2023-01-17: 此处逻辑非常不正确。初次渲染，用户没有进行任何操作也会触发事件，不符合预期。所有的组件内部事件只能由用户操作引起，故而删除。
+  // 请更为在具体的 visible change 和 value change 中处理。这个说明，仅停留 0.3 年。
 
-  useEffect(() => {
-    // 选中值时清空过滤项
-    setFilterInput('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  // useEffect(() => {
+  //   // 显示时清空过滤，隐藏时清空有动画会导致闪动
+  //   popupVisible && filterInput && setFilterInput('', { trigger: 'clear' });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [popupVisible]);
+
+  // useEffect(() => {
+  //   // 选中值时清空过滤项
+  //   filterInput && setFilterInput('', { trigger: 'clear' });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   /* ---------------------------------render---------------------------------------- */
 
@@ -289,7 +310,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
       placeholder={inputPlaceholder}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
-      onPopupVisibleChange={useMergeFn(setPopupVisible)}
+      onPopupVisibleChange={onInnerPopupVisibleChange}
       onFocus={useMergeFn(handleFocus)}
       onBlur={useMergeFn(handleBlur)}
       onClear={handleClear}
