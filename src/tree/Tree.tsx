@@ -267,7 +267,6 @@ Tree.displayName = 'Tree';
 
 Tree.defaultProps = {
   data: [],
-  empty: '',
   expandLevel: 0,
   icon: true,
   line: false,

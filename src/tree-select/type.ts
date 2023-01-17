@@ -46,7 +46,6 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   disabled?: boolean;
   /**
    * 当下拉列表为空时显示的内容
-   * @default ''
    */
   empty?: TNode;
   /**

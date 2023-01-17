@@ -156,7 +156,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
     ctx.e.stopPropagation();
-    onChange(multiple ? [] : formatValue(null), {
+    onChange(multiple ? [] : formatValue(undefined), {
       node: null,
       trigger: 'clear',
       e: ctx.e as React.MouseEvent<any, any>,

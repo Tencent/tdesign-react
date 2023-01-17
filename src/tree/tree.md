@@ -19,7 +19,7 @@ data | Array | [] | 树数据，泛型 `T` 表示树节点 TS 类型。TS 类型
 disableCheck | Boolean / Function | false | 禁用复选框，可支持禁用不同的行。TS 类型：`boolean \| ((node: TreeNodeModel<T>) => boolean)` | N
 disabled | Boolean | - | 是否禁用树操作 | N
 draggable | Boolean | - | [开发中]节点是否可拖拽 | N
-empty | TNode | '' | 数据为空时展示的文本。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+empty | TNode | '暂无数据' | 数据为空时展示的文本。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 expandAll | Boolean | false | 是否展开全部节点 | N
 expandLevel | Number | 0 | 默认展开的级别，第一层为 0 | N
 expandMutex | Boolean | false | 同级别展开互斥，手风琴效果 | N
