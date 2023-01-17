@@ -11,7 +11,7 @@ import { SelectInputProps } from '../select-input';
 import { TagProps } from '../tag';
 import { TreeProps, TreeNodeModel } from '../tree';
 import { SelectInputValueChangeContext } from '../select-input';
-import { PopupVisibleChangeContext } from '../popup';
+import { PopupVisibleChangeContext, PopupTriggerEvent } from '../popup';
 import { TNode, TElement, TreeOptionData } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
@@ -194,10 +194,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   onPopupVisibleChange?: (
     visible: boolean,
-    context: PopupVisibleChangeContext & {
-      node?: TreeNodeModel<DataOption>;
-      e?: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>;
-    },
+    context: PopupVisibleChangeContext & { node?: TreeNodeModel<DataOption>; e?: PopupTriggerEvent },
   ) => void;
   /**
    * 多选模式下，选中数据被移除时触发

@@ -172,8 +172,9 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     }
   });
 
-  const onInnerPopupVisibleChange = (visible) => {
+  const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
     !visible && filterInput && setFilterInput('', { trigger: 'clear' });
+    setPopupVisible(visible, { e: ctx.e });
   };
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {

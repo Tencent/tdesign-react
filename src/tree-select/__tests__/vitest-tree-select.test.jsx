@@ -108,7 +108,7 @@ describe('TreeSelect Component', () => {
     expect(tTreeItemDom.length).toBe(1);
   });
 
-  it.skip('props.filterable works fine', async () => {
+  it('props.filterable works fine', async () => {
     const { container } = getTreeSelectDefaultMount(TreeSelect, { inputValue: 'tdesign-vue', filterable: true });
     fireEvent.click(container.querySelector('.t-input'));
     await mockDelay(100);
@@ -350,6 +350,15 @@ describe('TreeSelect Component', () => {
     expect(onFocusFn).toHaveBeenCalled(1);
     expect(onFocusFn.mock.calls[0][0].value).toEqual([{ label: 'tdesign-vue', value: 1 }]);
     expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
+  });
+
+  it('events.popupVisibleChange works fine', async () => {
+    const onPopupVisibleChangeFn = vi.fn();
+    const { container } = getTreeSelectMultipleMount(TreeSelect, {}, { onPopupVisibleChange: onPopupVisibleChangeFn });
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay(200);
+    expect(onPopupVisibleChangeFn).toHaveBeenCalled(1);
+    expect(onPopupVisibleChangeFn.mock.calls[0][0]).toBe(true);
   });
 
   it('events.remove: remove first value on click close icon', () => {
