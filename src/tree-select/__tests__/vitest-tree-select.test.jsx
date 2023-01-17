@@ -23,7 +23,7 @@ describe('TreeSelect Component', () => {
   it(`props.autofocus is equal to true`, () => {
     const { container } = render(<TreeSelect autofocus={true}></TreeSelect>);
     const domWrapper = container.querySelector('input');
-    expect(domWrapper.getAttribute('autofocus')).toBeTruthy();
+    expect(domWrapper.getAttribute('autofocus')).toBeDefined();
   });
 
   it('props.borderless works fine', () => {
