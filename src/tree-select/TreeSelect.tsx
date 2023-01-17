@@ -106,8 +106,14 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
       return;
     }
     if (typeof valueDisplay === 'string') return valueDisplay;
-    if (multiple) return ({ onClose }) => valueDisplay({ value: normalizedValue, onClose });
-    return normalizedValue.length ? (valueDisplay({ value: normalizedValue[0], onClose: noop }) as string) : '';
+    if (multiple) {
+      return ({ onClose }) =>
+        isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
+    }
+    const displayNode = isFunction(valueDisplay)
+      ? valueDisplay({ value: normalizedValue[0], onClose: noop })
+      : valueDisplay;
+    return normalizedValue.length ? displayNode : '';
   }, [valueDisplay, multiple, normalizedValue]);
 
   const internalInputValueDisplay = useMemo(() => {

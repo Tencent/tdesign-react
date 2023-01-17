@@ -17,15 +17,29 @@ const OPTIONS = [
   { label: <span>tdesign-mobile-react</span>, value: '6' },
 ];
 
-// single select
 export function getTreeDefaultMount(TreeSelect, props, events) {
-  const value = [1, 2, 3, '4', '5'];
   return render(
     <TreeSelect
-      value={value}
       data={OPTIONS}
       {...props}
       {...events}
     ></TreeSelect>
   );
 }
+
+// single select
+export function getTreeMultipleMount(TreeSelect, props, events) {
+  const value = [1, 2, 3, '4', '5'];
+  return render(
+    <TreeSelect
+      value={value}
+      data={OPTIONS}
+      multiple={true}
+      {...props}
+      {...events}
+    ></TreeSelect>
+  );
+}
+
+export const getTreeSelectDefaultMount = getTreeMultipleMount;
+export const getTreeSelectMultipleMount = getTreeMultipleMount;
