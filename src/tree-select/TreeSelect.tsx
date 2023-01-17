@@ -5,10 +5,8 @@ import type { TdTreeSelectProps, TreeSelectValue } from './type';
 import type { StyledProps, TreeOptionData } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-
 import Tree, { TreeProps } from '../tree';
 import SelectInput, { SelectInputProps } from '../select-input/SelectInput';
-
 import { usePersistFn } from '../_util/usePersistFn';
 import useSwitch from '../_util/useSwitch';
 import noop from '../_util/noop';
@@ -190,25 +188,21 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     setPopupVisible(false, { trigger: 'trigger-element-click' });
   });
 
-  const handleRemove = usePersistFn((index: number, e?: React.MouseEvent<any, any>) => {
-    const node = getNodeItem(normalizedValue[index].value);
-    onChange(
-      normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
-      { node, trigger: 'tag-remove', e },
-    );
-    onRemove?.({ value: node.value, data: { value: node.value, label: node.label }, e });
-  });
-
   const handleTagChange = usePersistFn<SelectInputProps['onTagChange']>((tags, ctx) => {
-    switch (ctx.trigger) {
-      case 'clear':
-        handleClear({ e: ctx.e as React.MouseEvent<SVGSVGElement> });
-        break;
-      case 'tag-remove':
-        handleRemove(ctx.index, ctx.e as React.MouseEvent<SVGSVGElement>);
-        break;
-      case 'backspace':
-        handleRemove(ctx.index);
+    if (ctx.trigger === 'tag-remove' || ctx.trigger === 'backspace') {
+      const { index, e, trigger } = ctx;
+      const node = getNodeItem(normalizedValue[index].value);
+      onChange(
+        normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
+        { node, trigger, e },
+      );
+      onRemove?.({
+        value: node.value,
+        index,
+        data: { value: node.value, label: node.label, ...node.data },
+        e,
+        trigger,
+      });
     }
   });
 

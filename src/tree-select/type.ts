@@ -174,7 +174,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
     context: {
       node: TreeNodeModel<DataOption>;
       trigger: TreeSelectValueChangeTrigger;
-      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**
@@ -190,7 +190,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   onInputChange?: (value: InputValue, context: SelectInputValueChangeContext) => void;
   /**
-   * 下拉框显示或隐藏时触发
+   * 下拉框显示或隐藏时触发。单选场景，选中某个选项时触发关闭，此时需要添加参数 `node`
    */
   onPopupVisibleChange?: (
     visible: boolean,
@@ -218,7 +218,9 @@ export type TreeSelectValue<T extends TreeOptionData = TreeOptionData> =
 export type TreeSelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck';
 
 export interface RemoveOptions<T> {
-  value: string | number | object;
+  value: string | number | { [key: string]: any };
   data: T;
-  e?: MouseEvent<SVGElement | HTMLDivElement>;
+  index: number;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
+  trigger: 'tag-remove' | 'backspace';
 }

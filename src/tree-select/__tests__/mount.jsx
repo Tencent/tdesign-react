@@ -12,9 +12,9 @@ const OPTIONS = [
     ],
   },
   { label: 'tdesign-miniprogram', value: 3 },
-  { label: 'tdesign-angular', value: '4' },
-  { label: 'tdesign-mobile-vue', value: '5' },
-  { label: <span>tdesign-mobile-react</span>, value: '6' },
+  { label: <span>tdesign-mobile-react</span>, text: 'tdesign-mobile-react', value: '4' },
+  { label: 'tdesign-angular', value: '5' },
+  { label: 'tdesign-mobile-vue', value: '6' },
 ];
 
 export function getTreeSelectDefaultMount(TreeSelect, props, events) {
