@@ -57,7 +57,7 @@ export interface TdTimelineItemProps {
    */
   label?: TNode;
   /**
-   * 标签信息相对于时间轴的位置，在 `mode='alternate'` 时生效，优先级高于 `TimeLine.labelAlign`
+   * 标签信息相对于时间轴的位置，在 `mode='alternate'` 时生效，优先级高于 `Timeline.labelAlign`
    */
   labelAlign?: 'left' | 'right' | 'top' | 'bottom';
   /**

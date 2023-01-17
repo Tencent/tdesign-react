@@ -110,8 +110,7 @@ describe('TimelineItem Component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  // TODO: remove skip
-  it.skip('props.labelAlign is equal left', () => {
+  it('props.labelAlign is equal left', () => {
     const { container } = getTimelineItemMount(TimelineItem, { labelAlign: 'left' });
     expect(container.querySelectorAll('.t-timeline-item:first-child .t-timeline-item-left').length).toBe(1);
   });
