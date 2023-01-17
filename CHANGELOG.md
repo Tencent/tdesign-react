@@ -5,6 +5,33 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.4 `2023-01-17` 
+### 🚀 Features
+- `Image`: `onLoad` 和 `onError` 事件新增 `Event` 参数 @chaishi ([#1890](https://github.com/Tencent/tdesign-react/pull/1890))
+### 🐞 Bug Fixes
+- `Cascader`: 修复 checkbox 样式丢失 @honkinglin ([#1893](https://github.com/Tencent/tdesign-react/pull/1893))
+- `AutoComplete`:
+    - 修复键盘操作时，上下箭头切换失效问题 @chaishi ([#1889](https://github.com/Tencent/tdesign-react/pull/1889))
+    - 没有 `options` 的情况，不显示下拉框所有元素 @chaishi ([#1889](https://github.com/Tencent/tdesign-react/pull/1889))
+- `Avatar`:
+    - 修复 `icon` `content` 自定义节点无效问题 @chaishi ([#1887](https://github.com/Tencent/tdesign-react/pull/1887))
+    - 修复 AvatarGroup.size 设置无效问题 @chaishi ([#1887](https://github.com/Tencent/tdesign-react/pull/1887))
+- `Tag`:
+    - 修复文本超出省略时缺少 `title` 属性问题 @chaishi ([#1892](https://github.com/Tencent/tdesign-react/pull/1892))
+    - 修复禁用状态依然显示关闭图标问题 @chaishi ([#1892](https://github.com/Tencent/tdesign-react/pull/1892))
+- `Watermark`: 修复水印默认可删除问题 @haishancai ([#1885](https://github.com/Tencent/tdesign-react/pull/1885))
+- `Cascader`: value is zero can be selected @MrWeilian ([#1884](https://github.com/Tencent/tdesign-react/pull/1884))
+
+### 🚧 Others
+- `package`: 移除 use-resize-observer 依赖 @honkinglin ([#1888](https://github.com/Tencent/tdesign-react/pull/1888))
+- `Image`: 输出完整的测试用例 @chaishi ([#1890](https://github.com/Tencent/tdesign-react/pull/1890))
+- `Input`: 输出完整的测试用例 @chaishi ([#1889](https://github.com/Tencent/tdesign-react/pull/1889))
+- `AutoComplete`: 输出完整的测试用例 @chaishi ([#1889](https://github.com/Tencent/tdesign-react/pull/1889))
+- `Message`: 添加完整的测试用例 @MrWeilian ([#1879](https://github.com/Tencent/tdesign-react/pull/1879))
+- `Tag`: 添加完整的测试用例 @chaishi ([#1892](https://github.com/Tencent/tdesign-react/pull/1892))
+- `TagInput`: 添加完整的测试用例 @chaishi ([#1892](https://github.com/Tencent/tdesign-react/pull/1892))
+- `SelectInput`: 添加部分测试用例 @chaishi ([#1892](https://github.com/Tencent/tdesign-react/pull/1892))
+
 ## 🌈 0.45.3 `2023-01-11` 
 ### 🚀 Features
 - `Radio`:
