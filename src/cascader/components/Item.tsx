@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
 import TLoading from '../../loading';
-import Checkbox from '../../checkbox/Checkbox';
+import Checkbox from '../../checkbox';
 
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';

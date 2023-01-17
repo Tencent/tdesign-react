@@ -25,7 +25,7 @@ export interface TdSelectInputProps {
    */
   autoWidth?: boolean;
   /**
-   * 【开发中】无边框模式
+   * 无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -40,7 +40,6 @@ export interface TdSelectInputProps {
   collapsedItems?: TNode<{ value: SelectInputValue; collapsedTags: SelectInputValue; count: number }>;
   /**
    * 是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -96,6 +95,10 @@ export interface TdSelectInputProps {
    */
   popupVisible?: boolean;
   /**
+   * 是否显示下拉框，非受控属性
+   */
+  defaultPopupVisible?: boolean;
+  /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
    */
@@ -114,7 +117,7 @@ export interface TdSelectInputProps {
    */
   suffixIcon?: TElement;
   /**
-   * 自定义标签的内部内容，每一个标签的当前值。注意和 `valueDisplay` 区分，`valueDisplay`  是用来定义全部标签内容，而非某一个标签
+   * 多选场景下，自定义选中标签的内部内容。注意和 `valueDisplay` 区分，`valueDisplay`  是用来定义全部标签内容，而非某一个标签
    */
   tag?: string | TNode<{ value: string | number }>;
   /**
@@ -144,7 +147,7 @@ export interface TdSelectInputProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 按键按下 Enter 时触发
    */
@@ -199,7 +202,7 @@ export interface SelectInputValueChangeContext {
     | MouseEvent<HTMLElement | SVGElement>
     | FocusEvent<HTMLInputElement>
     | KeyboardEvent<HTMLInputElement>;
-  trigger: 'input' | 'clear';
+  trigger: 'input' | 'clear' | 'blur' | 'initial';
 }
 
 export type SelectInputChangeContext = TagInputChangeContext;

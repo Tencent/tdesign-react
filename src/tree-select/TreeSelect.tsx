@@ -178,10 +178,10 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   const handleTagChange = usePersistFn<SelectInputProps['onTagChange']>((tags, ctx) => {
     switch (ctx.trigger) {
       case 'clear':
-        handleClear({ e: ctx.e as React.MouseEvent<SVGElement, MouseEvent> });
+        handleClear({ e: ctx.e as React.MouseEvent<SVGSVGElement> });
         break;
       case 'tag-remove':
-        handleRemove(ctx.index, ctx.e as React.MouseEvent<SVGElement, MouseEvent>);
+        handleRemove(ctx.index, ctx.e as React.MouseEvent<SVGSVGElement>);
         break;
       case 'backspace':
         handleRemove(ctx.index);

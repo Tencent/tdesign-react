@@ -1,6 +1,6 @@
 /** React 特有全局类型 */
 
-import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent } from 'react';
+import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, SyntheticEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
 export type TElement = ReactElement | (() => ReactElement);
@@ -33,6 +33,8 @@ export interface UploadDisplayDragEvents {
   onDragOver?: (event: DragEvent<HTMLDivElement>) => void;
   onDragLeave?: (event: DragEvent<HTMLDivElement>) => void;
 }
+
+export type ImageEvent<T = any> = SyntheticEvent<T>;
 /** 通用全局类型 */
 
 export type OptionData = {

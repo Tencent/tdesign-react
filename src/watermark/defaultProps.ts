@@ -10,6 +10,6 @@ export const watermarkDefaultProps: TdWatermarkProps = {
   lineSpace: 16,
   movable: false,
   moveInterval: 3000,
-  removable: true,
+  removable: false,
   rotate: -22,
 };

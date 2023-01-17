@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### SelectInput Props
 
 name | type | default | description | required
@@ -25,7 +24,8 @@ multiple | Boolean | false | \- | N
 panel | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 placeholder | String | - | placeholder description | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts) | N
-popupVisible | Boolean | undefined | \- | N
+popupVisible | Boolean | - | \- | N
+defaultPopupVisible | Boolean | - | uncontrolled property | N
 readonly | Boolean | false | \- | N
 status | String | default | options：default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -40,7 +40,7 @@ onBlur | Function |  | Typescript：`(value: SelectInputValue, context: SelectIn
 onClear | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onEnter | Function |  | Typescript：`(value: SelectInputValue, context: { e: KeyboardEvent; inputValue: InputValue }) => void`<br/> | N
 onFocus | Function |  | Typescript：`(value: SelectInputValue, context: SelectInputFocusContext) => void`<br/>trigger on focus。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts)。<br/>`interface SelectInputFocusContext { inputValue: InputValue; tagInputValue?: TagInputValue; e: FocusEvent }`<br/> | N
-onInputChange | Function |  | Typescript：`(value: InputValue, context?: SelectInputValueChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts)。<br/>`interface SelectInputValueChangeContext { e?: InputEvent \| MouseEvent \| FocusEvent \| KeyboardEvent; trigger: 'input' \| 'clear' \| 'blur' }`<br/> | N
+onInputChange | Function |  | Typescript：`(value: InputValue, context?: SelectInputValueChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts)。<br/>`interface SelectInputValueChangeContext { e?: InputEvent \| MouseEvent \| FocusEvent \| KeyboardEvent; trigger: 'input' \| 'clear' \| 'blur' \| 'initial' }`<br/> | N
 onMouseenter | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/>trigger on mouseenter | N
 onMouseleave | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/>trigger on mouseleave | N
 onPaste | Function |  | Typescript：`(context: { e: ClipboardEvent; pasteValue: string }) => void`<br/> | N
