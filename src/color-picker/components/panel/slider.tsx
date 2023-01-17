@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '../../const';
 import useDrag, { Coordinate } from '../../../_util/useDrag';
 import { TdColorBaseProps } from '../../interface';
+import useStyles from '../../hooks/useStyles';
 
 export interface TdColorSliderProps extends TdColorBaseProps {
   className?: string;
@@ -30,18 +31,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
   const panelRectRef = useRef({
     width: SLIDER_DEFAULT_WIDTH,
   });
-
-  const styles = () => {
-    const { width } = panelRectRef.current;
-    if (!width) {
-      return;
-    }
-    const left = Math.round((Number(value) / Number(maxValue)) * width);
-    return {
-      left: `${left}px`,
-      color: color.rgb,
-    };
-  };
+  const { styles } = useStyles({ color, value, maxValue }, panelRectRef);
 
   const handleDrag = (coordinate: Coordinate, isEnded?: boolean) => {
     if (disabled) {
@@ -91,13 +81,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
       {type === 'alpha' && <div className={`${baseClassName}__slider-padding`} style={paddingStyle} />}
       <div className={classnames(`${baseClassName}__slider`, className)} ref={panelRef}>
         <div className={`${baseClassName}__rail`} style={railStyle}></div>
-        <span
-          className={`${baseClassName}__thumb`}
-          role="slider"
-          tabIndex={0}
-          ref={thumbRef}
-          style={{ ...styles() }}
-        ></span>
+        <span className={`${baseClassName}__thumb`} role="slider" tabIndex={0} ref={thumbRef} style={styles}></span>
       </div>
     </div>
   );
