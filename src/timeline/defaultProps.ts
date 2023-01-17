@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdTimelineProps } from './type';
+import { TdTimelineProps, TdTimelineItemProps } from './type';
 
 export const timelineDefaultProps: TdTimelineProps = {
   labelAlign: 'left',
@@ -11,3 +11,5 @@ export const timelineDefaultProps: TdTimelineProps = {
   reverse: false,
   theme: 'default',
 };
+
+export const timelineItemDefaultProps: TdTimelineItemProps = { dotColor: 'primary' };

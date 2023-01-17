@@ -5,9 +5,9 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { render } from '@test/utils';
-import { Timeline } from '..';
-import { getTimelineDefaultMount } from './mount';
+import { fireEvent, vi, render } from '@test/utils';
+import { Timeline, TimelineItem } from '..';
+import { getTimelineDefaultMount, getTimelineItemMount } from './mount';
 
 describe('Timeline Component', () => {
   const labelAlignClassNameMap = {
@@ -57,5 +57,74 @@ describe('Timeline Component', () => {
   it('props.theme is equal dot', () => {
     const { container } = getTimelineDefaultMount(Timeline, { theme: 'dot' });
     expect(container.querySelectorAll('.t-timeline-item__tail--theme-dot').length).toBe(4);
+  });
+});
+
+describe('TimelineItem Component', () => {
+  it('props.children works fine', () => {
+    const { container } = render(
+      <TimelineItem>
+        <span className="custom-node">TNode</span>
+      </TimelineItem>,
+    );
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+    expect(container).toMatchSnapshot();
+  });
+
+  it('props.content works fine', () => {
+    const { container } = render(<TimelineItem content={<span className="custom-node">TNode</span>}></TimelineItem>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+    expect(container).toMatchSnapshot();
+  });
+
+  it('props.dot works fine', () => {
+    const { container } = render(<TimelineItem dot={<span className="custom-node">TNode</span>}></TimelineItem>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  const dotColorClassNameMap = {
+    primary: 't-timeline-item__dot--primary',
+    warning: 't-timeline-item__dot--warning',
+    error: 't-timeline-item__dot--error',
+    default: 't-timeline-item__dot--default',
+  };
+  Object.entries(dotColorClassNameMap).forEach(([enumValue, expectedClassName]) => {
+    it(`props.dotColor is equal to ${enumValue}`, () => {
+      let propValue = { true: true, false: false }[enumValue];
+      propValue = propValue === undefined ? enumValue : propValue;
+      const wrapper = render(<TimelineItem dotColor={propValue}></TimelineItem>);
+      const container = wrapper.container.querySelector('.t-timeline-item__dot');
+      expect(container).toHaveClass(expectedClassName);
+    });
+  });
+
+  it(`props.dotColor is equal to yellowgreen`, () => {
+    const { container } = render(<TimelineItem dotColor="yellowgreen"></TimelineItem>);
+    const domWrapper = container.querySelector('.t-timeline-item__dot');
+    expect(domWrapper.style.borderColor).toBe('yellowgreen');
+  });
+
+  it('props.label works fine', () => {
+    const { container } = render(<TimelineItem label={<span className="custom-node">TNode</span>}></TimelineItem>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+    expect(container).toMatchSnapshot();
+  });
+
+  // TODO: remove skip
+  it.skip('props.labelAlign is equal left', () => {
+    const { container } = getTimelineItemMount(TimelineItem, { labelAlign: 'left' });
+    expect(container.querySelectorAll('.t-timeline-item:first-child .t-timeline-item-left').length).toBe(1);
+  });
+
+  it('props.loading: TimelineItem contains element `.t-timeline-item__dot .t-loading`', () => {
+    // loading default value is
+    const { container } = render(<TimelineItem></TimelineItem>);
+    expect(container.querySelector('.t-timeline-item__dot .t-loading')).toBeFalsy();
+    // loading = false
+    const { container: container1 } = render(<TimelineItem loading={false}></TimelineItem>);
+    expect(container1.querySelector('.t-timeline-item__dot .t-loading')).toBeFalsy();
+    // loading = true
+    const { container: container2 } = render(<TimelineItem loading={true}></TimelineItem>);
+    expect(container2.querySelector('.t-timeline-item__dot .t-loading')).toBeTruthy();
   });
 });
