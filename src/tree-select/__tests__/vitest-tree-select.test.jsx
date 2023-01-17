@@ -127,6 +127,22 @@ describe('TreeSelect Component', () => {
     expect(domWrapper.getAttribute('name')).toBe('tree-select-input-name');
   });
 
+  it('props.inputValue: controlled inputValue works fine', () => {
+    const onInputChangeFn1 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(
+      TreeSelect,
+      { filterable: true },
+      { onInputChange: onInputChangeFn1 },
+    );
+    fireEvent.click(container.querySelector('.t-input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tdesign');
+    expect(onInputChangeFn1).toHaveBeenCalled(1);
+    expect(onInputChangeFn1.mock.calls[0][0]).toBe('tdesign');
+    expect(onInputChangeFn1.mock.calls[0][1].e.type).toBe('change');
+    expect(onInputChangeFn1.mock.calls[0][1].trigger).toBe('change');
+  });
+
   it('props.loading: TreeSelect contains element `.t-loading`', () => {
     // loading default value is false
     const { container } = render(<TreeSelect></TreeSelect>);
@@ -281,5 +297,14 @@ describe('TreeSelect Component', () => {
     getTreeSelectDefaultMount(TreeSelect, { valueDisplay: fn, value: 1, data: [{ label: 'tdesign-vue', value: 1 }] });
     expect(fn).toHaveBeenCalled(1);
     expect(fn.mock.calls[0][0].value).toEqual([{ label: 'tdesign-vue', value: 1 }]);
+  });
+
+  it('props.valueType is equal object', () => {
+    const { container } = getTreeSelectDefaultMount(TreeSelect, {
+      valueType: 'object',
+      multiple: true,
+      value: [{ label: 'tdesign-vue', value: 1 }],
+    });
+    expect(container.querySelectorAll('.t-tag').length).toBe(1);
   });
 });
