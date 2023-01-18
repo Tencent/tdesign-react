@@ -298,6 +298,15 @@ name | type | default | description | required
 errorText | String | - | loading text, default value is "Error" | N
 loadingText | String | - | loading text, default value is "loading" | N
 
+### ImageViewerConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorText | String | - | \- | N
+mirrorTipText | String | - | mirror operation text | N
+originsizeTipText | String | - | orignal size tips | N
+rotateTipText | String | - | roate operation text | N
+
 ### GuideConfig
 
 name | type | default | description | required

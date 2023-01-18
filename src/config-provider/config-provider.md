@@ -328,6 +328,15 @@ copyText | String | - | 语言配置，“复制链接” 描述文本 | N
 errorText | String | - | 图片加载失败显示的文本，中文默认为“图片无法显示” | N
 loadingText | String | - | 图片加载中显示的文本，中文默认为“图片加载中” | N
 
+### ImageViewerConfig
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+errorText | String | - | 全局语言配置，默认为 “图片加载失败，可尝试重新加载” | N
+mirrorTipText | String | - | 全局语言配置，默认为 “镜像” | N
+originsizeTipText | String | - | 全局语言配置，默认为 “原始大小” | N
+rotateTipText | String | - | 全局语言配置，默认为 “旋转” | N
+
 ### GuideConfig
 
 名称 | 类型 | 默认值 | 说明 | 必传

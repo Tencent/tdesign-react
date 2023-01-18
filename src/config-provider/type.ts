@@ -822,6 +822,29 @@ export interface ImageConfig {
   loadingText?: string;
 }
 
+export interface ImageViewerConfig {
+  /**
+   * 全局语言配置，默认为 “图片加载失败，可尝试重新加载”
+   * @default ''
+   */
+  errorText?: string;
+  /**
+   * 全局语言配置，默认为 “镜像”
+   * @default ''
+   */
+  mirrorTipText?: string;
+  /**
+   * 全局语言配置，默认为 “原始大小”
+   * @default ''
+   */
+  originsizeTipText?: string;
+  /**
+   * 全局语言配置，默认为 “旋转”
+   * @default ''
+   */
+  rotateTipText?: string;
+}
+
 export interface GuideConfig {
   /**
    * 最后一步中的完成按钮，示例：`{ content: '完成', theme: 'primary' }`
