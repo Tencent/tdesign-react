@@ -358,6 +358,12 @@ export const ImageModal = (props: ImageModalProps) => {
   if (!isArray(images) || images.length < 1) return null;
 
   const currentImage: ImageInfo = images[index];
+  const tipText = {
+    mirror: t(locale.mirrorTipText),
+    rotate: t(locale.rotateTipText),
+    originsize: t(locale.originsizeTipText),
+  };
+  const errorText = t(locale.errorText);
 
   if (isMini) {
     return (
@@ -383,6 +389,8 @@ export const ImageModal = (props: ImageModalProps) => {
         onScroll={onScroll}
         onReset={onReset}
         onRotate={onRotate}
+        errorText={errorText}
+        tipText={tipText}
       />
     );
   }
@@ -445,11 +453,7 @@ export const ImageModal = (props: ImageModalProps) => {
         onRotate={onRotate}
         onMirror={onMirror}
         onReset={onReset}
-        tipText={{
-          mirror: t(locale.mirrorTipText),
-          rotate: t(locale.rotateTipText),
-          originsize: t(locale.originsizeTipText),
-        }}
+        tipText={tipText}
       />
       {closeNode}
       <ImageModelItem
@@ -458,7 +462,7 @@ export const ImageModal = (props: ImageModalProps) => {
         mirror={mirror}
         preSrc={currentImage.thumbnail}
         src={currentImage.mainImage}
-        errorText={t(locale.errorText)}
+        errorText={errorText}
       />
     </div>
   );

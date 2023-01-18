@@ -35,7 +35,8 @@ const StepItem = (props: StepItemProps) => {
 
     if (theme !== 'default') return null;
 
-    if (status === 'error') return <span className={iconCls}>{globalStepsConfig.errorIcon || <CloseIcon />}</span>;
+    if (status === 'error')
+      return <span className={iconCls}>{(globalStepsConfig.errorIcon || <CloseIcon />) as React.ReactNode}</span>;
 
     if (status === 'finish')
       return (
