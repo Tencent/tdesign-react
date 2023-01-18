@@ -778,7 +778,7 @@ export interface StepsConfig {
   /**
    * 错误步骤图标，【注意】使用渲染函数输出图标组件
    */
-  errorIcon?: TNode;
+  errorIcon?: TElement;
 }
 
 export interface AlertConfig {
@@ -808,6 +808,19 @@ export interface AnchorConfig {
 }
 
 export interface MessageConfig extends MessageOptions {}
+
+export interface ImageConfig {
+  /**
+   * 图片加载失败显示的文本，中文默认为“图片无法显示”
+   * @default ''
+   */
+  errorText?: string;
+  /**
+   * 图片加载中显示的文本，中文默认为“图片加载中”
+   * @default ''
+   */
+  loadingText?: string;
+}
 
 export interface GuideConfig {
   /**

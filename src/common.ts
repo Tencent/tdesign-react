@@ -42,9 +42,15 @@ export type OptionData = {
   value?: string | number;
 } & { [key: string]: any };
 
-export type TreeOptionData = {
-  children?: Array<TreeOptionData>;
-} & OptionData;
+export type TreeOptionData<T = string | number> = {
+  children?: Array<TreeOptionData<T>>;
+  /** option label content */
+  label?: TNode;
+  /** option search text */
+  text?: string;
+  /** option value */
+  value?: T;
+} & { [key: string]: any };
 
 export type SizeEnum = 'small' | 'medium' | 'large';
 

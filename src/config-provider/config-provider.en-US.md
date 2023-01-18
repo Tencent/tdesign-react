@@ -291,6 +291,13 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 `MessageOptions` | \- | - | \- | N
 
+### ImageConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorText | String | - | loading text, default value is "Error" | N
+loadingText | String | - | loading text, default value is "loading" | N
+
 ### GuideConfig
 
 name | type | default | description | required

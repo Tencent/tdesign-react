@@ -321,6 +321,13 @@ copyText | String | - | 语言配置，“复制链接” 描述文本 | N
 -- | -- | -- | -- | --
 `MessageOptions` | \- | - | 继承 `MessageOptions` 中的全部 API | N
 
+### ImageConfig
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+errorText | String | - | 图片加载失败显示的文本，中文默认为“图片无法显示” | N
+loadingText | String | - | 图片加载中显示的文本，中文默认为“图片加载中” | N
+
 ### GuideConfig
 
 名称 | 类型 | 默认值 | 说明 | 必传
