@@ -222,7 +222,12 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       );
     }
     return (
-      <span ref={setRefCurrent} date-target="label" className={labelClasses} title={node.label}>
+      <span
+        ref={setRefCurrent}
+        date-target="label"
+        className={labelClasses}
+        title={String(node.data?.text || node.label)}
+      >
         <span style={{ position: 'relative' }}>{labelText}</span>
       </span>
     );

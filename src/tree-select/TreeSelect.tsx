@@ -51,11 +51,12 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     max,
     data,
     filter = (text, option) => {
+      if (!text) return true;
       if (option.label && typeof option.label === 'string') {
         return option.label.includes(text);
       }
-      if (option.text && typeof option.text === 'string') {
-        return option.text.includes(text);
+      if (option.data.text && typeof option.data.text === 'string') {
+        return option.data.text.includes(text);
       }
       return true;
     },
@@ -219,27 +220,9 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   });
 
   const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, context) => {
-    console.log('????????', value);
     setFilterInput(value, context);
     onSearch?.(value);
   });
-
-  /* ---------------------------------effect---------------------------------------- */
-
-  // written by sheep at 2023-01-17: 此处逻辑非常不正确。初次渲染，用户没有进行任何操作也会触发事件，不符合预期。所有的组件内部事件只能由用户操作引起，故而删除。
-  // 请更为在具体的 visible change 和 value change 中处理。这个说明，仅停留 0.3 年。
-
-  // useEffect(() => {
-  //   // 显示时清空过滤，隐藏时清空有动画会导致闪动
-  //   popupVisible && filterInput && setFilterInput('', { trigger: 'clear' });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [popupVisible]);
-
-  // useEffect(() => {
-  //   // 选中值时清空过滤项
-  //   filterInput && setFilterInput('', { trigger: 'clear' });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [value]);
 
   /* ---------------------------------render---------------------------------------- */
 
