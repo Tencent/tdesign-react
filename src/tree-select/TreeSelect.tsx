@@ -163,14 +163,17 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     const $value = value.length ? value[0] : null;
     onChange(formatValue($value, context.node.label), { ...context, trigger: $value === null ? 'uncheck' : 'check' });
     // 单选选择后收起弹框
-    setPopupVisible(false, { trigger: 'trigger-element-click' });
+    setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
     if (max === 0 || value.length <= max) {
       onChange(
         value.map((value) => formatValue(value, getNodeItem(value)?.label)),
-        { ...context, trigger: value.length > normalizedValue.length ? 'check' : 'uncheck' },
+        {
+          ...context,
+          trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
+        },
       );
       filterInput && setFilterInput('', { trigger: 'clear' });
     }

@@ -174,13 +174,13 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
     context: {
       node: TreeNodeModel<DataOption>;
       trigger: TreeSelectValueChangeTrigger;
-      e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent<any> | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**
    * 点击清除按钮时触发
    */
-  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 输入框获得焦点时触发
    */

@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject } from 'react';
+import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject, MouseEvent } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree/types';
@@ -75,17 +75,17 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     return expanded;
   });
 
-  const setActived = usePersistFn((node: TreeNode, isActived: boolean) => {
+  const setActived = usePersistFn((node: TreeNode, isActived: boolean, e?: MouseEvent<any>) => {
     const actived = node.setActived(isActived);
     const treeNodeModel = node?.getModel();
-    onActive?.(actived, { node: treeNodeModel });
+    onActive?.(actived, { node: treeNodeModel, e });
     return actived;
   });
 
-  const setChecked = usePersistFn((node: TreeNode, isChecked: boolean) => {
+  const setChecked = usePersistFn((node: TreeNode, isChecked: boolean, ctx?: { e: any }) => {
     const checked = node.setChecked(isChecked);
     const treeNodeModel = node?.getModel();
-    onChange?.(checked, { node: treeNodeModel });
+    onChange?.(checked, { node: treeNodeModel, e: ctx?.e });
     return checked;
   });
 
@@ -94,25 +94,22 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       return;
     }
     const isDisabled = disabled || node.disabled;
-    const { expand, active, event } = options;
+    const { expand, active, e } = options;
 
-    if (expand) setExpanded(node, !node.isExpanded(), event);
+    if (expand) setExpanded(node, !node.isExpanded(), e);
 
     if (active && !isDisabled) {
-      setActived(node, !node.isActived());
+      setActived(node, !node.isActived(), e);
       const treeNodeModel = node?.getModel();
-      onClick?.({
-        node: treeNodeModel,
-        e: event,
-      });
+      onClick?.({ node: treeNodeModel, e });
     }
   };
 
-  const handleChange: TreeItemProps['onChange'] = (node) => {
+  const handleChange: TreeItemProps['onChange'] = (node, ctx) => {
     if (!node || disabled || node.disabled) {
       return;
     }
-    setChecked(node, !node.isChecked());
+    setChecked(node, !node.isChecked(), ctx);
   };
 
   /** 对外暴露的公共方法 * */

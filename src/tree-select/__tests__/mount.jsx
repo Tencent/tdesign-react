@@ -7,8 +7,8 @@ const OPTIONS = [
     label: 'tdesign-react',
     value: 2,
     children: [
-      { label: 'tdesign-web-react', value: 2.1 },
-      { label: 'tdesign-mobile-react', value: 2.2 },
+      { label: 'tdesign-web-react', value: '2.1' },
+      { label: 'tdesign-mobile-react', value: '2.2' },
     ],
   },
   { label: 'tdesign-miniprogram', value: 3 },
