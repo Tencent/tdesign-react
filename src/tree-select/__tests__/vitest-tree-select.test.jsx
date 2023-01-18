@@ -5,7 +5,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateInputChange, simulateInputEnter } from '@test/utils';
 import { TreeSelect } from '..';
 import { getTreeSelectDefaultMount, getTreeSelectMultipleMount } from './mount';
 
@@ -321,7 +321,7 @@ describe('TreeSelect Component', () => {
     expect(container.querySelectorAll('.t-tag').length).toBe(1);
   });
 
-  it('events.blur works fine', () => {
+  it('events.blur: single select blur works fine', async () => {
     const onFocusFn = vi.fn();
     const onBlurFn1 = vi.fn();
     const { container } = getTreeSelectDefaultMount(
@@ -330,6 +330,7 @@ describe('TreeSelect Component', () => {
       { onFocus: onFocusFn, onBlur: onBlurFn1 },
     );
     fireEvent.focus(container.querySelector('input'));
+    await mockDelay(100);
     expect(onFocusFn).toHaveBeenCalled(1);
     expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
     expect(onFocusFn.mock.calls[0][0].value).toEqual({ label: 'tdesign-vue', value: 1 });
@@ -337,6 +338,44 @@ describe('TreeSelect Component', () => {
     expect(onBlurFn1).toHaveBeenCalled(1);
     expect(onBlurFn1.mock.calls[0][0].e.type).toBe('blur');
     expect(onBlurFn1.mock.calls[0][0].value).toEqual({ label: 'tdesign-vue', value: 1 });
+  });
+  it('events.blur: multiple select blur works fine', () => {
+    const onFocusFn = vi.fn();
+    const onBlurFn1 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(
+      TreeSelect,
+      { filterable: true, value: 1 },
+      { onFocus: onFocusFn, onBlur: onBlurFn1 },
+    );
+    fireEvent.click(container.querySelector('.t-input'));
+    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
+    fireEvent.blur(container.querySelector('input'));
+    expect(onBlurFn1).toHaveBeenCalled(1);
+    expect(onBlurFn1.mock.calls[0][0].e.type).toBe('blur');
+    expect(onBlurFn1.mock.calls[0][0].value).toEqual([{ label: 'tdesign-vue', value: 1 }]);
+  });
+
+  it('events.clear: clear all value on click clear icon', async () => {
+    const onClearFn1 = vi.fn();
+    const onInputChangeFn1 = vi.fn();
+    const onPopupVisibleChangeFn1 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(
+      TreeSelect,
+      { clearable: true },
+      { onClear: onClearFn1, onInputChange: onInputChangeFn1, onPopupVisibleChange: onPopupVisibleChangeFn1 },
+    );
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
+    expect(onClearFn1).toHaveBeenCalled(1);
+    expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
+    expect(onInputChangeFn1).toHaveBeenCalled(1);
+    expect(onInputChangeFn1.mock.calls[0][0]).toBe('');
+    expect(onInputChangeFn1.mock.calls[0][1].trigger).toBe('clear');
+    expect(onPopupVisibleChangeFn1).toHaveBeenCalled(1);
+    expect(onPopupVisibleChangeFn1.mock.calls[0][0]).toBe(false);
+    expect(onPopupVisibleChangeFn1.mock.calls[0][1].trigger).toBe('trigger-element-click');
   });
 
   it('events.focus works fine', () => {
@@ -346,7 +385,7 @@ describe('TreeSelect Component', () => {
       { filterable: true, value: 1 },
       { onFocus: onFocusFn },
     );
-    fireEvent.click(container.querySelector('.t-input'));
+    fireEvent.focus(container.querySelector('input'));
     expect(onFocusFn).toHaveBeenCalled(1);
     expect(onFocusFn.mock.calls[0][0].value).toEqual([{ label: 'tdesign-vue', value: 1 }]);
     expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
@@ -383,5 +422,46 @@ describe('TreeSelect Component', () => {
     expect(onRemoveFn1.mock.calls[0][0].trigger).toBe('backspace');
     expect(onRemoveFn1.mock.calls[0][0].data).toEqual({ label: 'tdesign-angular', value: '5' });
     expect(onRemoveFn1.mock.calls[0][0].e.type).toBe('keydown');
+  });
+
+  it('events.search: Single TreeSelect, trigger search event on input text', () => {
+    const onSearchFn1 = vi.fn();
+    const { container } = getTreeSelectDefaultMount(TreeSelect, { filterable: true }, { onSearch: onSearchFn1 });
+    fireEvent.click(container.querySelector('.t-input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tdesign-vue');
+    expect(onSearchFn1).toHaveBeenCalled(1);
+    expect(onSearchFn1.mock.calls[0][0]).toBe('tdesign-vue');
+  });
+  it('events.search: Single TreeSelect, trigger search event on input enter', () => {
+    const onSearchFn2 = vi.fn();
+    const { container } = getTreeSelectDefaultMount(TreeSelect, { filterable: true }, { onSearch: onSearchFn2 });
+    fireEvent.click(container.querySelector('.t-input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tdesign-vue');
+    const selfDom2 = container.firstChild;
+    simulateInputEnter(selfDom2);
+    expect(onSearchFn2).toHaveBeenCalled(1);
+    expect(onSearchFn2.mock.calls[0][0]).toBe('tdesign-vue');
+  });
+  it('events.search: Multiple TreeSelect, trigger search event on input text', () => {
+    const onSearchFn1 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(TreeSelect, { filterable: true }, { onSearch: onSearchFn1 });
+    fireEvent.click(container.querySelector('.t-input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tdesign-vue');
+    expect(onSearchFn1).toHaveBeenCalled(1);
+    expect(onSearchFn1.mock.calls[0][0]).toBe('tdesign-vue');
+  });
+  it('events.search: Multiple TreeSelect, trigger search event on input enter', () => {
+    const onSearchFn2 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(TreeSelect, { filterable: true }, { onSearch: onSearchFn2 });
+    fireEvent.click(container.querySelector('.t-input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tdesign-vue');
+    const selfDom2 = container.firstChild;
+    simulateInputEnter(selfDom2);
+    expect(onSearchFn2).toHaveBeenCalled(1);
+    expect(onSearchFn2.mock.calls[0][0]).toBe('tdesign-vue');
   });
 });

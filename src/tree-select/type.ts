@@ -180,7 +180,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 点击清除按钮时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -201,7 +201,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   onRemove?: (options: RemoveOptions<DataOption>) => void;
   /**
-   * 输入值变化时，触发搜索事件。主要用于远程搜索新数据
+   * 输入值变化时，触发搜索事件。主要用于远程搜索新数据。设置 `filterable=true` 开启此功能
    */
   onSearch?: (filterWords: string) => void;
 }

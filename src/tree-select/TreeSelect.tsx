@@ -51,10 +51,10 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     max,
     data,
     filter = (text, option) => {
-      if (typeof option.label === 'string') {
+      if (option.label && typeof option.label === 'string') {
         return option.label.includes(text);
       }
-      if (typeof option.text === 'string') {
+      if (option.text && typeof option.text === 'string') {
         return option.text.includes(text);
       }
       return true;
@@ -218,9 +218,11 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     onSearch?.(text as string);
   });
 
-  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, context) =>
-    setFilterInput(value, context),
-  );
+  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, context) => {
+    console.log('????????', value);
+    setFilterInput(value, context);
+    onSearch?.(value);
+  });
 
   /* ---------------------------------effect---------------------------------------- */
 
