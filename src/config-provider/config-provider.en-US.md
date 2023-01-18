@@ -306,8 +306,8 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 errorText | String | - | \- | N
 mirrorTipText | String | - | mirror operation text | N
-originsizeTipText | String | - | orignal size tips | N
-rotateTipText | String | - | roate operation text | N
+originsizeTipText | String | - | original size tips | N
+rotateTipText | String | - | rotate operation text | N
 
 ### GuideConfig
 
