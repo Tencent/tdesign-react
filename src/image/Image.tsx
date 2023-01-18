@@ -159,7 +159,7 @@ const Image = (props: ImageProps) => {
           {error || (
             <Space direction="vertical" size={8} align="center">
               <ImageErrorIcon size={24} />
-              图片无法显示
+              {t(local.errorText)}
             </Space>
           )}
         </div>
