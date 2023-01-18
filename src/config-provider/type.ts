@@ -66,6 +66,14 @@ export interface GlobalConfigProvider {
    */
   icon?: IconConfig;
   /**
+   * 图片全局配置
+   */
+  image?: ImageConfig;
+  /**
+   * 图片查看全局配置
+   */
+  imageViewer?: ImageViewerConfig;
+  /**
    * 输入框组件全局配置
    */
   input?: InputConfig;

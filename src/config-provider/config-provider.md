@@ -48,6 +48,8 @@ drawer | Object | - | 抽屉全局配置。TS 类型：`DrawerConfig` | N
 form | Object | - | 表单组件全局配置。TS 类型：`FormConfig` | N
 guide | Object | - | 引导全局配置。TS 类型：`GuideConfig` | N
 icon | Object | - | 图标全局配置。TS 类型：`IconConfig` `type IconConfig = GlobalIconConfig` `import { GlobalIconConfig } from '@icon'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+image | Object | - | 图片全局配置。TS 类型：`ImageConfig` | N
+imageViewer | Object | - | 图片查看全局配置。TS 类型：`ImageViewerConfig` | N
 input | Object | - | 输入框组件全局配置。TS 类型：`InputConfig` | N
 list | Object | - | 列表组件全局配置。TS 类型：`ListConfig` | N
 message | Object | - | 消息组件全局配置。TS 类型：`MessageConfig` | N

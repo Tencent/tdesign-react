@@ -30,7 +30,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
   } = props;
   const { theme, reverse, itemsStatus, layout, globalAlign, mode } = useContext(TimelineContext);
   const { classPrefix } = useConfig();
-  const renderAlign = useAlign(labelAlign || globalAlign, layout);
+  const renderAlign = useAlign(globalAlign, layout);
 
   // 计算节点模式 CSS 类名
   const getPositionClassName = (index: number) => {

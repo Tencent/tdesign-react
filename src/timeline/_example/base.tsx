@@ -13,10 +13,8 @@ export default function BasicTimeLine() {
           <Radio.Button value="horizontal">水平时间轴</Radio.Button>
         </Radio.Group>
       </Space>
-      <Timeline layout={direction} mode="same" labelAlign="alternate">
-        <Timeline.Item label="2022-01-01" labelAlign="top">
-          事件一
-        </Timeline.Item>
+      <Timeline layout={direction} mode="same">
+        <Timeline.Item label="2022-01-01">事件一</Timeline.Item>
         <Timeline.Item label="2022-02-01">事件二</Timeline.Item>
         <Timeline.Item label="2022-03-01">事件三</Timeline.Item>
         <Timeline.Item label="2022-04-01">事件四</Timeline.Item>
