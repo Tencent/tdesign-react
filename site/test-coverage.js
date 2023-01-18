@@ -144,10 +144,10 @@ module.exports = {
     "lines": "47.94%"
   },
   "grid": {
-    "statements": "61.05%",
-    "branches": "28.79%",
-    "functions": "80%",
-    "lines": "61.05%"
+    "statements": "83.16%",
+    "branches": "72.73%",
+    "functions": "90%",
+    "lines": "83.16%"
   },
   "hooks": {
     "statements": "51.3%",
