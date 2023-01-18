@@ -11,7 +11,7 @@ import { SelectInputProps } from '../select-input';
 import { TagProps } from '../tag';
 import { TreeProps, TreeNodeModel } from '../tree';
 import { SelectInputValueChangeContext } from '../select-input';
-import { PopupVisibleChangeContext } from '../popup';
+import { PopupVisibleChangeContext, PopupTriggerEvent } from '../popup';
 import { TNode, TElement, TreeOptionData } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
@@ -22,7 +22,12 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   autoWidth?: boolean;
   /**
-   * 【开发中】无边框模式
+   * 自动聚焦
+   * @default false
+   */
+  autofocus?: boolean;
+  /**
+   * 无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -32,11 +37,11 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   clearable?: boolean;
   /**
-   * 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义
+   * 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedTags` 表示折叠的标签，`count` 表示选中的标签数量
    */
   collapsedItems?: TNode<{ value: DataOption[]; collapsedSelectedItems: DataOption[]; count: number }>;
   /**
-   * 数据
+   * 树选择的数据列表。结构：`[{ label: TNode, value: string | number, text: string, ... }]`，其中 `label` 表示选项呈现的内容，可自定义；`value` 表示选项的唯一值；表示当 `label` 用于选项复杂内容呈现时，`text` 用于搜索功能。<br />其中 `label` 和 `value` 可以使用 `keys` 属性定义别名
    * @default []
    */
   data?: Array<DataOption>;
@@ -108,7 +113,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 组件前置图标
    */
-  prefixIcon?: TNode;
+  prefixIcon?: TElement;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
@@ -125,10 +130,11 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
-   * 【开发中】透传 Tag 标签组件全部属性
+   * 透传 Tag 标签组件全部属性
    */
   tagProps?: TagProps;
   /**
@@ -168,13 +174,13 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
     context: {
       node: TreeNodeModel<DataOption>;
       trigger: TreeSelectValueChangeTrigger;
-      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent<any> | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**
    * 点击清除按钮时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -182,27 +188,36 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
    */
-  onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
+  onInputChange?: (value: InputValue, context: SelectInputValueChangeContext) => void;
   /**
-   * 下拉框显示或隐藏时触发
+   * 下拉框显示或隐藏时触发。单选场景，选中某个选项时触发关闭，此时需要添加参数 `node`
    */
-  onPopupVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
+  onPopupVisibleChange?: (
+    visible: boolean,
+    context: PopupVisibleChangeContext & { node?: TreeNodeModel<DataOption>; e?: PopupTriggerEvent },
+  ) => void;
   /**
    * 多选模式下，选中数据被移除时触发
    */
   onRemove?: (options: RemoveOptions<DataOption>) => void;
   /**
-   * 输入值变化时，触发搜索事件。主要用于远程搜索新数据
+   * 输入值变化时，触发搜索事件。主要用于远程搜索新数据。设置 `filterable=true` 开启此功能。优先级高于本地数据搜索 `filter`，即一旦存在这个远程搜索事件 `filter` 失效
    */
   onSearch?: (filterWords: string) => void;
 }
 
-export type TreeSelectValue = string | number | object | Array<TreeSelectValue>;
+export type TreeSelectValue<T extends TreeOptionData = TreeOptionData> =
+  | string
+  | number
+  | T
+  | Array<TreeSelectValue<T>>;
 
 export type TreeSelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck';
 
 export interface RemoveOptions<T> {
-  value: string | number | object;
+  value: string | number | { [key: string]: any };
   data: T;
-  e?: MouseEvent<SVGElement | HTMLDivElement>;
+  index: number;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
+  trigger: 'tag-remove' | 'backspace';
 }

@@ -224,7 +224,7 @@ describe('TagInput Component', () => {
   });
 
   it('props.tagProps is equal { theme: warning }', () => {
-    const { container } = getTagInputValueMount(TagInput, { tagProps: { theme: 'warning' } });
+    const { container } = getTagInputValueMount(TagInput, { tagProps: { theme: 'warning' }, multiple: true });
     expect(container.querySelectorAll('.t-tag--warning').length).toBe(5);
   });
 
@@ -278,7 +278,7 @@ describe('TagInput Component', () => {
     const inputDom1 = container.querySelector('input');
     simulateInputChange(inputDom1, 'tag1');
     fireEvent.blur(container.querySelector('input'));
-    const attrDom2 = container.querySelector('input');
+    const attrDom2 = document.querySelector('input');
     expect(attrDom2.value).toBe('');
     expect(onBlurFn2).toHaveBeenCalled(1);
     expect(onBlurFn2.mock.calls[0][0]).toEqual([]);
