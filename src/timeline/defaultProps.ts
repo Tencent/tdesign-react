@@ -4,12 +4,12 @@
 
 import { TdTimelineProps, TdTimelineItemProps } from './type';
 
-export const timeLineDefaultProps: TdTimelineProps = {
-  labelAlign: 'right',
+export const timelineDefaultProps: TdTimelineProps = {
+  labelAlign: 'left',
   layout: 'vertical',
   mode: 'alternate',
   reverse: false,
   theme: 'default',
 };
 
-export const timeLineItemDefaultProps: TdTimelineItemProps = { dotColor: 'default' };
+export const timelineItemDefaultProps: TdTimelineItemProps = { dotColor: 'primary' };
