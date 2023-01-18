@@ -198,14 +198,14 @@ describe('TreeSelect Component', () => {
 
   it('props.max works fine', async () => {
     const onChangeFn1 = vi.fn();
-    const { container } = getTreeSelectDefaultMount(
+    const { container } = getTreeSelectMultipleMount(
       TreeSelect,
-      { max: 2, multiple: true, value: [1, '4'] },
+      { max: 2, value: [1, '4'] },
       { onChange: onChangeFn1 },
     );
     fireEvent.click(container.querySelector('.t-input'));
     await mockDelay(300);
-    fireEvent.click(document.querySelector('.t-popup .t-tree__item:first-child'));
+    fireEvent.click(document.querySelector('.t-popup .t-tree__item:last-child .t-checkbox__label'));
     expect(onChangeFn1).not.toHaveBeenCalled();
   });
 
@@ -385,8 +385,21 @@ describe('TreeSelect Component', () => {
     fireEvent.click(document.querySelector('.t-tree__item:last-child .t-checkbox__label'));
     expect(onChangeFn1).toHaveBeenCalled(1);
     expect(onChangeFn1.mock.calls[0][0]).toEqual([1, '2.1', '2.2', 3, '4', '5', '6']);
+    expect(onChangeFn1.mock.calls[0][1].trigger).toBe('check');
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('change');
     expect(onChangeFn1.mock.calls[0][1].node.label).toBe('tdesign-mobile-vue');
+  });
+  it('events.change: Multiple TreeSelect, click one tree item to delete', async () => {
+    const onChangeFn1 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(TreeSelect, {}, { onChange: onChangeFn1 });
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay(200);
+    fireEvent.click(document.querySelector('.t-tree__item:first-child .t-checkbox__label'));
+    expect(onChangeFn1).toHaveBeenCalled(1);
+    expect(onChangeFn1.mock.calls[0][0]).toEqual(['2.1', '2.2', 3, '4', '5']);
+    expect(onChangeFn1.mock.calls[0][1].trigger).toBe('uncheck');
+    expect(onChangeFn1.mock.calls[0][1].e.type).toBe('change');
+    expect(onChangeFn1.mock.calls[0][1].node.label).toBe('tdesign-vue');
   });
 
   it('events.clear: Multiple TreeSelect, clear all value on click clear icon', async () => {
@@ -445,9 +458,28 @@ describe('TreeSelect Component', () => {
     expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
   });
 
+  it('events.inputChange: clear filter words on change', async () => {
+    const onInputChangeFn1 = vi.fn();
+    const { container } = getTreeSelectMultipleMount(
+      TreeSelect,
+      { inputValue: 'tdesign-vue' },
+      { onInputChange: onInputChangeFn1 },
+    );
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay(200);
+    fireEvent.click(document.querySelector('.t-tree__item:first-child .t-checkbox__label'));
+    expect(onInputChangeFn1).toHaveBeenCalled(1);
+    expect(onInputChangeFn1.mock.calls[0][0]).toBe('');
+    expect(onInputChangeFn1.mock.calls[0][1].trigger).toBe('clear');
+  });
+
   it('events.popupVisibleChange works fine', async () => {
     const onPopupVisibleChangeFn = vi.fn();
-    const { container } = getTreeSelectMultipleMount(TreeSelect, {}, { onPopupVisibleChange: onPopupVisibleChangeFn });
+    const { container } = getTreeSelectMultipleMount(
+      TreeSelect,
+      { inputValue: 'tdesign' },
+      { onPopupVisibleChange: onPopupVisibleChangeFn },
+    );
     fireEvent.click(container.querySelector('.t-input'));
     await mockDelay(200);
     expect(onPopupVisibleChangeFn).toHaveBeenCalled(1);

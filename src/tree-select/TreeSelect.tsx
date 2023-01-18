@@ -117,7 +117,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     if (!valueDisplay) {
       return;
     }
-    if (typeof valueDisplay === 'string') return valueDisplay;
     if (multiple) {
       return ({ onClose }) =>
         isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
@@ -160,8 +159,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
-    const $value = value.length ? value[0] : null;
-    onChange(formatValue($value, context.node.label), { ...context, trigger: $value === null ? 'uncheck' : 'check' });
+    const $value = Array.isArray(value) && value.length ? value[0] : undefined;
+    onChange(formatValue($value, context.node.label), { ...context, trigger: 'check' });
     // 单选选择后收起弹框
     setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
   });
