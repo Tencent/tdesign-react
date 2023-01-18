@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "41.74%",
-    "branches": "28.57%",
+    "statements": "41.97%",
+    "branches": "29.16%",
     "functions": "50.83%",
-    "lines": "43.03%"
+    "lines": "43.27%"
   },
   "affix": {
     "statements": "87.3%",
@@ -114,10 +114,10 @@ module.exports = {
     "lines": "28.64%"
   },
   "dialog": {
-    "statements": "85.9%",
-    "branches": "72.91%",
+    "statements": "85.43%",
+    "branches": "70.21%",
     "functions": "84.21%",
-    "lines": "88.32%"
+    "lines": "88.4%"
   },
   "divider": {
     "statements": "100%",
@@ -271,7 +271,7 @@ module.exports = {
   },
   "selectInput": {
     "statements": "83.83%",
-    "branches": "72.83%",
+    "branches": "74.07%",
     "functions": "69.56%",
     "lines": "86.95%"
   },
@@ -341,6 +341,12 @@ module.exports = {
     "functions": "0%",
     "lines": "14.94%"
   },
+  "timeline": {
+    "statements": "98.38%",
+    "branches": "88.13%",
+    "functions": "100%",
+    "lines": "98.33%"
+  },
   "tooltip": {
     "statements": "88.88%",
     "branches": "58.82%",
@@ -360,10 +366,10 @@ module.exports = {
     "lines": "22.9%"
   },
   "upload": {
-    "statements": "14.28%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.81%"
+    "statements": "72.41%",
+    "branches": "57.89%",
+    "functions": "33.33%",
+    "lines": "75%"
   },
   "watermark": {
     "statements": "54.76%",
