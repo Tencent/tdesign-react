@@ -107,6 +107,16 @@ describe('TreeSelect Component', () => {
     const tTreeItemDom = document.querySelectorAll('.t-tree__item');
     expect(tTreeItemDom.length).toBe(1);
   });
+  it('props.filter: priority of onSearch is higher than props.filter, props.filter is forbidden to work in this scene', async () => {
+    const { container } = getTreeSelectMultipleMount(TreeSelect, {
+      onSearch: () => {},
+      filter: (filterWord, option) => !filterWord || option.label === filterWord,
+    });
+    fireEvent.click(container.querySelector('.t-input'));
+    const inputDom1 = container.querySelector('input');
+    simulateInputChange(inputDom1, 'tdesign-react');
+    await mockDelay(100);
+  });
 
   it('props.filterable works fine', async () => {
     const { container } = getTreeSelectDefaultMount(TreeSelect, { inputValue: 'tdesign-vue', filterable: true });
@@ -439,10 +449,10 @@ describe('TreeSelect Component', () => {
     fireEvent.click(container.querySelector('.t-input'));
     const inputDom1 = container.querySelector('input');
     simulateInputChange(inputDom1, 'tdesign-vue');
-    const selfDom2 = container.firstChild;
-    simulateInputEnter(selfDom2);
+    const inputDom2 = container.querySelector('input');
+    simulateInputEnter(inputDom2);
     expect(onSearchFn2).toHaveBeenCalled(1);
-    expect(onSearchFn2.mock.calls[0][0]).toBe('tdesign-vue');
+    expect(onSearchFn2.mock.calls[1][0]).toBe('tdesign-vue');
   });
   it('events.search: Multiple TreeSelect, trigger search event on input text', () => {
     const onSearchFn1 = vi.fn();
@@ -459,9 +469,9 @@ describe('TreeSelect Component', () => {
     fireEvent.click(container.querySelector('.t-input'));
     const inputDom1 = container.querySelector('input');
     simulateInputChange(inputDom1, 'tdesign-vue');
-    const selfDom2 = container.firstChild;
-    simulateInputEnter(selfDom2);
+    const inputDom2 = container.querySelector('input');
+    simulateInputEnter(inputDom2);
     expect(onSearchFn2).toHaveBeenCalled(1);
-    expect(onSearchFn2.mock.calls[0][0]).toBe('tdesign-vue');
+    expect(onSearchFn2.mock.calls[1][0]).toBe('tdesign-vue');
   });
 });

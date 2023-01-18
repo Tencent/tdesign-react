@@ -201,7 +201,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   onRemove?: (options: RemoveOptions<DataOption>) => void;
   /**
-   * 输入值变化时，触发搜索事件。主要用于远程搜索新数据。设置 `filterable=true` 开启此功能
+   * 输入值变化时，触发搜索事件。主要用于远程搜索新数据。设置 `filterable=true` 开启此功能。优先级高于本地数据搜索 `filter`，即一旦存在这个远程搜索事件 `filter` 失效
    */
   onSearch?: (filterWords: string) => void;
 }

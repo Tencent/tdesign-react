@@ -50,16 +50,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     size,
     max,
     data,
-    filter = (text, option) => {
-      if (!text) return true;
-      if (option.label && typeof option.label === 'string') {
-        return option.label.includes(text);
-      }
-      if (option.data.text && typeof option.data.text === 'string') {
-        return option.data.text.includes(text);
-      }
-      return true;
-    },
+    filter: rawFilter,
     filterable: rawFilterable,
     onClear,
     valueDisplay,
@@ -89,6 +80,19 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   /* ---------------------------------computed value---------------------------------------- */
 
+  const defaultFilter = (text, option) => {
+    if (!text) return true;
+    if (option.label && typeof option.label === 'string') {
+      return option.label.includes(text);
+    }
+    if (option.data.text && typeof option.data.text === 'string') {
+      return option.data.text.includes(text);
+    }
+    return true;
+  };
+
+  // priority of onSearch is higher than props.filter
+  const filter = onSearch ? undefined : rawFilter || defaultFilter;
   const filterable = rawFilterable || !!props.filter;
 
   const normalizedValue = useMemo(() => {
@@ -151,7 +155,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   /* ---------------------------------handler---------------------------------------- */
 
   const handleFilter = useCallback<TreeProps['filter']>(
-    (node) => (filterable ? filter(filterInput as string, node) : true),
+    (node) => (filterable && filter ? filter(filterInput as string, node) : true),
     [filter, filterInput, filterable],
   );
 
@@ -215,8 +219,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     onFocus?.({ value: multiple ? normalizedValue : normalizedValue[0], e: ctx.e });
   });
 
-  const handleEnter = usePersistFn<SelectInputProps['onEnter']>((text) => {
-    onSearch?.(text as string);
+  const handleEnter = usePersistFn<SelectInputProps['onEnter']>((text, ctx) => {
+    onSearch?.(ctx.inputValue);
   });
 
   const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, context) => {
