@@ -32,12 +32,12 @@ export interface TreeItemProps
   /**
    * 树节点点击回调事件
    */
-  onClick?: (node: TreeNode, options: { event: MouseEvent<HTMLDivElement>; expand: boolean; active: boolean }) => void;
+  onClick?: (node: TreeNode, options: { e: MouseEvent<HTMLDivElement>; expand: boolean; active: boolean }) => void;
 
   /**
    * 树节点状态变更事件
    */
-  onChange?: (node: TreeNode) => void;
+  onChange?: (node: TreeNode, ctx: { e: any }) => void;
 }
 
 export type DropPosition = -1 | 0 | 1;

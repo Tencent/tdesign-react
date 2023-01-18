@@ -85,7 +85,7 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
     inputProps?.onCompositionend?.(value, context);
   };
 
-  const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
+  const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     setTInputValue('', { e: context.e, trigger: 'enter' });
     !isCompositionRef.current && onInnerEnter(value, context);
     scrollToRight();

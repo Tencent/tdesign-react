@@ -1,14 +1,12 @@
-import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect, useImperativeHandle } from 'react';
-
+import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useImperativeHandle } from 'react';
+import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
-import type { StyledProps } from '../common';
+import type { StyledProps, TreeOptionData } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-
 import Tree, { TreeProps } from '../tree';
 import SelectInput, { SelectInputProps } from '../select-input/SelectInput';
-
 import { usePersistFn } from '../_util/usePersistFn';
 import useSwitch from '../_util/useSwitch';
 import noop from '../_util/noop';
@@ -19,7 +17,9 @@ import { useTreeSelectLocale } from './useTreeSelectLocale';
 import { treeSelectDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 
-export interface TreeSelectProps extends TdTreeSelectProps, StyledProps {}
+export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
+  extends TdTreeSelectProps<DataOption>,
+    StyledProps {}
 
 export interface NodeOptions {
   label: string;
@@ -50,7 +50,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     size,
     max,
     data,
-    filter = (text, option) => option.label.includes(text),
+    filter: rawFilter,
     filterable: rawFilterable,
     onClear,
     valueDisplay,
@@ -80,6 +80,19 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   /* ---------------------------------computed value---------------------------------------- */
 
+  const defaultFilter = (text, option) => {
+    if (!text) return true;
+    if (option.label && typeof option.label === 'string') {
+      return option.label.includes(text);
+    }
+    if (option.data.text && typeof option.data.text === 'string') {
+      return option.data.text.includes(text);
+    }
+    return true;
+  };
+
+  // priority of onSearch is higher than props.filter
+  const filter = onSearch ? undefined : rawFilter || defaultFilter;
   const filterable = rawFilterable || !!props.filter;
 
   const normalizedValue = useMemo(() => {
@@ -99,16 +112,22 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     return filterable && popupVisible ? filterInput : normalizedValue[0] || '';
   }, [multiple, normalizedValue, filterable, popupVisible, filterInput]);
 
-  const normalizedValueDisplay = useMemo(() => {
+  // @ts-ignore TODO: remove it
+  const normalizedValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
     if (!valueDisplay) {
       return;
     }
-    if (typeof valueDisplay === 'string') return valueDisplay;
-    if (multiple) return ({ onClose }) => valueDisplay({ value: normalizedValue, onClose });
-    return normalizedValue.length ? (valueDisplay({ value: normalizedValue[0], onClose: noop }) as string) : '';
+    if (multiple) {
+      return ({ onClose }) =>
+        isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
+    }
+    const displayNode = isFunction(valueDisplay)
+      ? valueDisplay({ value: normalizedValue[0], onClose: noop })
+      : valueDisplay;
+    return normalizedValue.length ? displayNode : '';
   }, [valueDisplay, multiple, normalizedValue]);
 
-  const internalInputValueDisplay = useMemo(() => {
+  const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
     // 只有单选且下拉展开时需要隐藏 valueDisplay
     if (filterable && !multiple && popupVisible) {
       return undefined;
@@ -135,24 +154,34 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   /* ---------------------------------handler---------------------------------------- */
 
   const handleFilter = useCallback<TreeProps['filter']>(
-    (node) => (filterable ? filter(filterInput as string, node) : true),
+    (node) => (filterable && filter ? filter(filterInput as string, node) : true),
     [filter, filterInput, filterable],
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
-    const $value = value.length ? value[0] : null;
-    onChange(formatValue($value, context.node.label), { ...context, trigger: $value === null ? 'uncheck' : 'check' });
+    const $value = Array.isArray(value) && value.length ? value[0] : undefined;
+    onChange(formatValue($value, context.node.label), { ...context, trigger: 'check' });
     // 单选选择后收起弹框
-    setPopupVisible(false, { trigger: 'trigger-element-click' });
+    setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
-    (max === 0 || value.length <= max) &&
+    if (max === 0 || value.length <= max) {
       onChange(
         value.map((value) => formatValue(value, getNodeItem(value)?.label)),
-        { ...context, trigger: value.length > normalizedValue.length ? 'check' : 'uncheck' },
+        {
+          ...context,
+          trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
+        },
       );
+      filterInput && setFilterInput('', { trigger: 'clear' });
+    }
   });
+
+  const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
+    !visible && filterInput && setFilterInput('', { trigger: 'clear' });
+    setPopupVisible(visible, { e: ctx.e });
+  };
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
     ctx.e.stopPropagation();
@@ -166,25 +195,21 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     setPopupVisible(false, { trigger: 'trigger-element-click' });
   });
 
-  const handleRemove = usePersistFn((index: number, e?: React.MouseEvent<any, any>) => {
-    const node = getNodeItem(normalizedValue[index].value);
-    onChange(
-      normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
-      { node, trigger: 'tag-remove', e },
-    );
-    onRemove?.({ value: node.value, data: { value: node.value, label: node.label }, e });
-  });
-
   const handleTagChange = usePersistFn<SelectInputProps['onTagChange']>((tags, ctx) => {
-    switch (ctx.trigger) {
-      case 'clear':
-        handleClear({ e: ctx.e as React.MouseEvent<SVGSVGElement> });
-        break;
-      case 'tag-remove':
-        handleRemove(ctx.index, ctx.e as React.MouseEvent<SVGSVGElement>);
-        break;
-      case 'backspace':
-        handleRemove(ctx.index);
+    if (ctx.trigger === 'tag-remove' || ctx.trigger === 'backspace') {
+      const { index, e, trigger } = ctx;
+      const node = getNodeItem(normalizedValue[index].value);
+      onChange(
+        normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
+        { node, trigger, e },
+      );
+      onRemove?.({
+        value: node.value,
+        index,
+        data: { value: node.value, label: node.label, ...node.data },
+        e,
+        trigger,
+      });
     }
   });
 
@@ -196,25 +221,14 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     onFocus?.({ value: multiple ? normalizedValue : normalizedValue[0], e: ctx.e });
   });
 
-  const handleEnter = usePersistFn<SelectInputProps['onEnter']>((text) => {
-    onSearch?.(text as string);
+  const handleEnter = usePersistFn<SelectInputProps['onEnter']>((text, ctx) => {
+    onSearch?.(ctx.inputValue);
   });
 
-  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value) => setFilterInput(value));
-
-  /* ---------------------------------effect---------------------------------------- */
-
-  useEffect(() => {
-    // 显示时清空过滤，隐藏时清空有动画会导致闪动
-    popupVisible && setFilterInput('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [popupVisible]);
-
-  useEffect(() => {
-    // 选中值时清空过滤项
-    setFilterInput('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, context) => {
+    setFilterInput(value, context);
+    onSearch?.(value);
+  });
 
   /* ---------------------------------render---------------------------------------- */
 
@@ -253,11 +267,13 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     () =>
       props.collapsedItems
         ? () =>
-            props.collapsedItems({
-              value: normalizedValue,
-              collapsedSelectedItems: normalizedValue.slice(props.minCollapsedNum, normalizedValue.length),
-              count: normalizedValue.length - props.minCollapsedNum,
-            })
+            isFunction(props.collapsedItems)
+              ? props.collapsedItems({
+                  value: normalizedValue,
+                  collapsedSelectedItems: normalizedValue.slice(props.minCollapsedNum, normalizedValue.length),
+                  count: normalizedValue.length,
+                })
+              : props.collapsedItems
         : null,
     [normalizedValue, props],
   );
@@ -279,7 +295,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
       placeholder={inputPlaceholder}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
-      onPopupVisibleChange={useMergeFn(setPopupVisible)}
+      onPopupVisibleChange={onInnerPopupVisibleChange}
       onFocus={useMergeFn(handleFocus)}
       onBlur={useMergeFn(handleBlur)}
       onClear={handleClear}

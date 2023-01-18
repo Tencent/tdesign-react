@@ -174,7 +174,7 @@ export interface TagInputChangeContext {
   trigger: TagInputTriggerSource;
   index?: number;
   item?: string | number;
-  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
 }
 
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
@@ -200,7 +200,7 @@ export interface TagInputRemoveContext {
   value: TagInputValue;
   index: number;
   item: string | number;
-  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
   trigger: TagInputRemoveTrigger;
 }
 

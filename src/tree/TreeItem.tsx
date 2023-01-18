@@ -1,5 +1,6 @@
 import React, { CSSProperties, DragEventHandler, forwardRef, MouseEvent, ReactNode, useRef, DragEvent } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
 import useRipple from '../_util/useRipple';
@@ -53,7 +54,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       evt.preventDefault();
 
     onClick?.(node, {
-      event: evt,
+      e: evt,
       expand: expandOnClickNode,
       active: activable,
     });
@@ -64,7 +65,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       return;
     }
     onClick?.(node, {
-      event: evt,
+      e: evt,
       expand: true,
       active: false,
     });
@@ -129,7 +130,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       return null;
     }
 
-    if (line instanceof Function) {
+    if (isFunction(line)) {
       return line(node.getModel());
     }
 
@@ -212,7 +213,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
           indeterminate={node.indeterminate}
           disabled={checkboxDisabled}
           name={String(node.value)}
-          onChange={() => onChange(node)}
+          onChange={(checked, ctx) => onChange(node, ctx)}
           className={labelClasses}
           stopLabelTrigger={!!node.children}
           {...checkProps}
@@ -222,7 +223,12 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       );
     }
     return (
-      <span ref={setRefCurrent} date-target="label" className={labelClasses} title={node.label}>
+      <span
+        ref={setRefCurrent}
+        date-target="label"
+        className={labelClasses}
+        title={String(node.data?.text || node.label)}
+      >
         <span style={{ position: 'relative' }}>{labelText}</span>
       </span>
     );
@@ -280,20 +286,20 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     evt.stopPropagation();
     setDragStatus('dragEnd', evt);
   };
-  const handleDragOver: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+  const handleDragOver: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
     const { node } = props;
     if (!node.isDraggable()) return;
     evt.stopPropagation();
     evt.preventDefault();
     setDragStatus('dragOver', evt);
   };
-  const handleDragLeave: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+  const handleDragLeave: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
     const { node } = props;
     if (!node.isDraggable()) return;
     evt.stopPropagation();
     setDragStatus('dragLeave', evt);
   };
-  const handleDrop: DragEventHandler<HTMLDivElement> = (evt: DragEvent) => {
+  const handleDrop: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
     const { node } = props;
     if (!node.isDraggable()) return;
     evt.stopPropagation();
