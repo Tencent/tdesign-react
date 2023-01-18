@@ -4,6 +4,7 @@ import Dialog from '../dialog';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
 import useConfig from '../hooks/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface ImageModelMiniProps {
   visible: boolean;
@@ -27,6 +28,7 @@ export interface ImageModelMiniProps {
   onReset: () => void;
   onRotate: (red: number) => void;
   zIndex: number;
+  errorText: string;
 }
 
 export const ImageModelMiniContent = (props: ImageModelMiniProps) => {
@@ -40,6 +42,7 @@ export const ImageModelMiniContent = (props: ImageModelMiniProps) => {
         mirror={props.mirror}
         src={props.currentImage.mainImage}
         preSrc={props.currentImage.thumbnail}
+        errorText={props.errorText}
       />
     </div>
   );
@@ -50,6 +53,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
     props;
 
   const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('imageViewer');
 
   const footer = (
     <div className={`${classPrefix}-image-viewer-mini__footer`}>
@@ -61,6 +65,11 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
         onRotate={onRotate}
         onMirror={onMirror}
         onReset={onReset}
+        tipText={{
+          mirror: t(locale.mirrorTipText),
+          rotate: t(locale.rotateTipText),
+          originsize: t(locale.originsizeTipText),
+        }}
       />
     </div>
   );
@@ -80,7 +89,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
       footer={footer}
       onClose={onClose}
     >
-      <ImageModelMiniContent {...props} />
+      <ImageModelMiniContent {...props} errorText={t(locale.errorText)} />
     </Dialog>
   );
 };
