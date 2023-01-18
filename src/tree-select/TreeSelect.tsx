@@ -112,7 +112,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     if (!valueDisplay) {
       return;
     }
-    if (typeof valueDisplay === 'number') return String(valueDisplay);
     if (typeof valueDisplay === 'string') return valueDisplay;
     if (multiple) {
       return ({ onClose }) =>
