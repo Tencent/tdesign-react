@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@test/utils';
+import { render } from '@test/utils';
 import Row from '../Row';
 import Col from '../Col';
 
@@ -106,7 +106,6 @@ describe('Grid 组件测试', () => {
         </Col>
       </Row>,
     );
-    screen.debug();
     expect(container1.firstChild.firstChild).toHaveStyle({ flex: '2 2 auto' });
     expect(container2.firstChild.firstChild).toHaveStyle({ flex: '0 0 100px' });
     expect(container3.firstChild.firstChild).toHaveStyle({ flexBasis: 'auto' });
