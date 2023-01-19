@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, fireEvent, userEvent, mockTimeout } from '@test/utils';
+import { render, fireEvent, userEvent, mockTimeout, vi } from '@test/utils';
 import ColorPickerPanel from '../ColorPickerPanel';
 import ColorPicker from '../ColorPicker';
 
@@ -33,6 +33,24 @@ describe('ColorPicker 组件测试', () => {
     expect(container.querySelector('.t-input__inner')).toHaveValue(
       'linear-gradient(45deg,rgba(236, 242, 254, 1) 0%,rgb(0, 242, 254) 100%)',
     );
+  });
+
+  test(':disabled 测试', () => {
+    const { container } = render(<ColorPicker disabled />);
+    expect(container.querySelector('.t-input__inner')).toBeDisabled();
+  });
+
+  test('饱和度选择测试', () => {
+    const defaultValue = '#fff';
+    const { container } = render(<ColorPicker defaultValue={defaultValue} />);
+    fireEvent.click(container.querySelector('.t-input__inner'));
+    expect(container.querySelector('.t-input__inner')).toHaveValue(defaultValue);
+    const wrapper = document.querySelector('.t-color-picker__saturation');
+    fireEvent.mouseDown(wrapper);
+    fireEvent.mouseMove(wrapper, { deltaX: 232, deltaY: 160 });
+    expect(container.querySelector('.t-input__inner')).toHaveValue('rgb(0, 0, 0)');
+    fireEvent.mouseMove(wrapper, { deltaX: -232, deltaY: -160 });
+    expect(container.querySelector('.t-input__inner')).toHaveValue('rgb(255, 255, 255)');
   });
 });
 
@@ -89,10 +107,11 @@ describe('ColorPickerPanel 组件测试', () => {
     expect(container.querySelector('.t-color-picker__sliders-preview-inner')).toHaveStyle({ background: changeValue });
   });
 
-  test('最近使用颜色测试', async () => {
+  test('最近使用颜色 recentColors 测试', async () => {
+    const onRecentColorsChange = vi.fn();
     const TestComponent = () => {
       const value = '#0052d9';
-      return <ColorPickerPanel value={value} />;
+      return <ColorPickerPanel value={value} onRecentColorsChange={onRecentColorsChange} />;
     };
     const { container } = render(<TestComponent />);
 
@@ -102,10 +121,17 @@ describe('ColorPickerPanel 组件测试', () => {
     expect(container.querySelector('.t-color-picker__swatches--item__inner')).toHaveStyle({
       background: 'rgb(0, 82, 217)',
     });
+    // 不能重复添加同个颜色值
+    fireEvent.click(container.querySelector('.t-icon-add'));
+    expect(
+      container.querySelector('.t-color-picker__swatches--items').querySelectorAll('.t-color-picker__swatches--item')
+        .length,
+    ).toBe(1);
     expect(container.querySelector('.t-icon-delete')).toBeInTheDocument();
     // 删除当前激活的颜色
     fireEvent.click(container.querySelector('.t-icon-delete'));
     expect(container.querySelector('.t-icon-delete')).toBeNull();
     expect(container.querySelector('.t-is-active')).toBeNull();
+    expect(onRecentColorsChange).toBeCalled();
   });
 });
