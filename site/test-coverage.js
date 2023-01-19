@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "41.74%",
-    "branches": "28.57%",
-    "functions": "50.83%",
-    "lines": "43.03%"
+    "statements": "42.35%",
+    "branches": "29.16%",
+    "functions": "52.5%",
+    "lines": "43.68%"
   },
   "affix": {
     "statements": "87.3%",
@@ -114,10 +114,10 @@ module.exports = {
     "lines": "28.64%"
   },
   "dialog": {
-    "statements": "85.9%",
-    "branches": "72.91%",
+    "statements": "85.43%",
+    "branches": "70.21%",
     "functions": "84.21%",
-    "lines": "88.32%"
+    "lines": "88.4%"
   },
   "divider": {
     "statements": "100%",
@@ -156,16 +156,16 @@ module.exports = {
     "lines": "52.14%"
   },
   "image": {
-    "statements": "87.23%",
+    "statements": "87.5%",
     "branches": "86.2%",
     "functions": "83.33%",
-    "lines": "86.36%"
+    "lines": "86.66%"
   },
   "imageViewer": {
-    "statements": "75%",
+    "statements": "75.53%",
     "branches": "77.19%",
     "functions": "65.71%",
-    "lines": "75.38%"
+    "lines": "75.93%"
   },
   "input": {
     "statements": "93.63%",
@@ -270,10 +270,10 @@ module.exports = {
     "lines": "100%"
   },
   "selectInput": {
-    "statements": "83.83%",
-    "branches": "72.83%",
-    "functions": "69.56%",
-    "lines": "86.95%"
+    "statements": "97%",
+    "branches": "89.28%",
+    "functions": "100%",
+    "lines": "98.92%"
   },
   "slider": {
     "statements": "89.47%",
@@ -325,7 +325,7 @@ module.exports = {
   },
   "tagInput": {
     "statements": "85.97%",
-    "branches": "81.69%",
+    "branches": "83.09%",
     "functions": "83.78%",
     "lines": "87.74%"
   },
@@ -336,10 +336,16 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "14.28%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.94%"
+    "statements": "39.56%",
+    "branches": "32.3%",
+    "functions": "22.22%",
+    "lines": "40.22%"
+  },
+  "timeline": {
+    "statements": "98.38%",
+    "branches": "88.13%",
+    "functions": "100%",
+    "lines": "98.33%"
   },
   "tooltip": {
     "statements": "88.88%",
@@ -354,10 +360,16 @@ module.exports = {
     "lines": "87.77%"
   },
   "tree": {
-    "statements": "22.45%",
-    "branches": "4.23%",
-    "functions": "20.51%",
-    "lines": "22.9%"
+    "statements": "51.87%",
+    "branches": "34.16%",
+    "functions": "51.28%",
+    "lines": "52.79%"
+  },
+  "treeSelect": {
+    "statements": "95.17%",
+    "branches": "86.44%",
+    "functions": "97.43%",
+    "lines": "95.62%"
   },
   "upload": {
     "statements": "14.28%",
