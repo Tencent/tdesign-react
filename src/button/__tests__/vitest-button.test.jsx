@@ -180,7 +180,7 @@ describe('Button Component', () => {
     const fn = vi.fn();
     const { container } = render(<Button onClick={fn}></Button>);
     fireEvent.click(container.firstChild);
-    expect(fn).toHaveBeenCalled(1);
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].stopPropagation).toBeTruthy();
     expect(fn.mock.calls[0][0].type).toBe('click');
   });
