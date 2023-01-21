@@ -1,0 +1,2487 @@
+// Vitest Snapshot v1
+
+exports[`Guide Component > GuideStep.body works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            <span
+              class="custom-node"
+            >
+              TNode
+            </span>
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > GuideStep.children works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-guide__popup--content"
+      >
+        <span
+          class="custom-node"
+          current="0"
+          total="1"
+        >
+          TNode
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > GuideStep.content works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-guide__popup--content"
+      >
+        <span
+          class="custom-node"
+          current="0"
+          total="1"
+        >
+          TNode
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight t-guide__highlight--popup t-guide--absolute"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  >
+    <span
+      class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask custom-node"
+      style="z-index: 999998;"
+    >
+      TNode
+    </span>
+  </div>
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > GuideStep.mode is equal to dialog 1`] = `
+<div>
+  <div>
+    <div
+      class="guide-container"
+    >
+      <div
+        class="main-title-base"
+      >
+        <div
+          class="title-major"
+        >
+          Guide 用户引导
+        </div>
+        <div
+          class="title-sub"
+        >
+          按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+        </div>
+      </div>
+      <div
+        class="field label-field-base"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-row action action-base t-row--start t-row--top"
+        style="margin-left: 0px; margin-right: 0px;"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            确定
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-default t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            取消
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Guide Component > GuideStep.mode is equal to popup 1`] = `
+<div>
+  <div>
+    <div
+      class="guide-container"
+    >
+      <div
+        class="main-title-base"
+      >
+        <div
+          class="title-major"
+        >
+          Guide 用户引导
+        </div>
+        <div
+          class="title-sub"
+        >
+          按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+        </div>
+      </div>
+      <div
+        class="field label-field-base"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-row action action-base t-row--start t-row--top"
+        style="margin-left: 0px; margin-right: 0px;"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            确定
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-default t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            取消
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-start"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-step-overlay 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-test-guide-step-overlay t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > GuideStep.title works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            <span
+              class="custom-node"
+            >
+              TNode
+            </span>
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > props.body works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            <span
+              class="custom-node"
+            >
+              TNode
+            </span>
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > props.children works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-guide__popup--content"
+      >
+        <span
+          class="custom-node"
+          current="0"
+          total="1"
+        >
+          TNode
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > props.content works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-guide__popup--content"
+      >
+        <span
+          class="custom-node"
+          current="0"
+          total="1"
+        >
+          TNode
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > props.mode is equal to dialog 1`] = `
+<div>
+  <div>
+    <div
+      class="guide-container"
+    >
+      <div
+        class="main-title-base"
+      >
+        <div
+          class="title-major"
+        >
+          Guide 用户引导
+        </div>
+        <div
+          class="title-sub"
+        >
+          按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+        </div>
+      </div>
+      <div
+        class="field label-field-base"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-row action action-base t-row--start t-row--top"
+        style="margin-left: 0px; margin-right: 0px;"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            确定
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-default t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            取消
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Guide Component > props.mode is equal to popup 1`] = `
+<div>
+  <div>
+    <div
+      class="guide-container"
+    >
+      <div
+        class="main-title-base"
+      >
+        <div
+          class="title-major"
+        >
+          Guide 用户引导
+        </div>
+        <div
+          class="title-sub"
+        >
+          按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+        </div>
+      </div>
+      <div
+        class="field label-field-base"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <div
+          class="label"
+        >
+          Label
+        </div>
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-align-left"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入内容"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-row action action-base t-row--start t-row--top"
+        style="margin-left: 0px; margin-right: 0px;"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            确定
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-default t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            取消
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Guide Component > props.placement is equal to bottom-left 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-start"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > props.stepOverlayClass is equal to t-test-guide-step-overlay 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-test-guide-step-overlay t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            新手引导标题
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Guide Component > props.title works fine 1`] = `
+<body
+  class="t-guide--lock"
+>
+  <div>
+    <div>
+      <div
+        class="guide-container"
+      >
+        <div
+          class="main-title-base"
+        >
+          <div
+            class="title-major"
+          >
+            Guide 用户引导
+          </div>
+          <div
+            class="title-sub"
+          >
+            按钮用于开启一个闭环的操作任务，如“删除”对象、“购买”商品等。
+          </div>
+        </div>
+        <div
+          class="field label-field-base"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="field"
+        >
+          <div
+            class="label"
+          >
+            Label
+          </div>
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-align-left"
+            >
+              <input
+                class="t-input__inner"
+                placeholder="请输入内容"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-row action action-base t-row--start t-row--top"
+          style="margin-left: 0px; margin-right: 0px;"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              确定
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-guide__overlay"
+    style="z-index: 999997;"
+  />
+  <div
+    class="t-guide__highlight t-guide__highlight--popup t-guide--absolute t-guide__highlight--mask"
+    style="z-index: 999998; width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-guide__reference t-guide--absolute t-popup-open"
+    style="width: 16px; height: 16px; top: -8px; left: -8px;"
+  />
+  <div
+    class="t-portal-wrapper appear appear-active"
+  >
+    <div
+      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      data-popper-escaped="true"
+      data-popper-placement="bottom-end"
+      data-popper-reference-hidden="true"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+    >
+      <div
+        class="t-popup__content t-popup__content--arrow"
+      >
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
+        <div
+          class="t-guide__tooltip"
+        >
+          <div
+            class="t-guide__title"
+          >
+            <span
+              class="custom-node"
+            >
+              TNode
+            </span>
+          </div>
+          <div
+            class="t-guide__desc"
+          >
+            新手引导的说明文案
+          </div>
+          <div
+            class="t-guide__footer t-guide__footer--popup"
+          >
+            <div
+              class="t-guide__counter"
+            >
+              1
+              /
+              1
+            </div>
+            <div
+              class="t-guide__action"
+            >
+              <button
+                class="t-guide__finish t-button t-button--theme-primary t-button--variant-base t-size-s"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  完成
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
