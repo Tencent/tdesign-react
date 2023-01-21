@@ -28,7 +28,7 @@ export interface TdRadioProps<T = RadioValue> {
    */
   children?: TNode;
   /**
-   * 是否为禁用态
+   * 是否为禁用态。如果存在父组件 RadioGroup，默认值由 RadioGroup.disabled 控制。Radio.disabled 优先级高于 RadioGroup.disabled
    */
   disabled?: boolean;
   /**
@@ -51,7 +51,7 @@ export interface TdRadioProps<T = RadioValue> {
   /**
    * 点击时出发，一般用于外层阻止冒泡场景
    */
-  onClick?: (context: { e: MouseEvent<HTMLLabelElement> }) => void;
+  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
 export interface TdRadioGroupProps<T = RadioValue> {
@@ -61,7 +61,8 @@ export interface TdRadioGroupProps<T = RadioValue> {
    */
   allowUncheck?: boolean;
   /**
-   * 是否禁用全部子单选框
+   * 是否禁用全部子单选框。默认为 false。RadioGroup.disabled 优先级低于 Radio.disabled
+   * @default false
    */
   disabled?: boolean;
   /**
@@ -94,7 +95,7 @@ export interface TdRadioGroupProps<T = RadioValue> {
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: T, context: { e: ChangeEvent<HTMLInputElement> }) => void;
+  onChange?: (value: T, context: { e: ChangeEvent<HTMLDivElement> }) => void;
 }
 
 export type RadioValue = string | number | boolean;
