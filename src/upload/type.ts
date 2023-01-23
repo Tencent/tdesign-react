@@ -6,7 +6,7 @@
 
 import { UploadConfig } from '../config-provider/type';
 import { ButtonProps } from '../button';
-import { TNode, UploadDisplayDragEvents } from '../common';
+import { PlainObject, TNode, UploadDisplayDragEvents } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps<T extends UploadFile = UploadFile> {
@@ -20,7 +20,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   accept?: string;
   /**
-   * 上传接口。设接口响应数据为字段 `response`，那么 `response.error` 存在时会判断此次上传失败，并显示错误文本信息；`response.url` 会作为文件上传成功后的地址，并使用该地址显示图片
+   * 上传接口。设接口响应数据为字段 `response`，那么 `response.error` 存在时会判断此次上传失败，并显示错误文本信息；`response.url` 会作为文件上传成功后的地址，并使用该地址显示图片或文件
    * @default ''
    */
   action?: string;
@@ -30,16 +30,16 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   allowUploadDuplicateFile?: boolean;
   /**
-   * 是否选取文件后自动上传
+   * 是否在选择文件后自动发起请求上传文件
    * @default true
    */
   autoUpload?: boolean;
   /**
-   * 全部文件上传之前的钩子，参数为上传的文件，返回值决定是否继续上传，若返回值为 `false` 则终止上传
+   * 如果是自动上传模式 `autoUpload=true`，表示全部文件上传之前的钩子函数，函数参数为上传的文件，函数返回值决定是否继续上传，若返回值为 `false` 则终止上传。<br/>如果是非自动上传模式 `autoUpload=false`，则函数返回值为 `false` 时表示不触发文件变化
    */
   beforeAllFilesUpload?: (file: UploadFile[]) => boolean | Promise<boolean>;
   /**
-   * 单文件上传之前的钩子，参数为上传的文件，返回值决定是否继续上传，若返回值为 `false` 则终止上传
+   * 如果是自动上传模式 `autoUpload=true`，表示单个文件上传之前的钩子函数，若函数返回值为 `false` 则表示不上传当前文件。<br/>如果是非自动上传模式 `autoUpload=false`，函数返回值为 `false` 时表示从上传文件中剔除当前文件
    */
   beforeUpload?: (file: UploadFile) => boolean | Promise<boolean>;
   /**
@@ -47,15 +47,15 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   children?: TNode;
   /**
-   * 上传文件时所需的额外数据
+   * 上传请求所需的额外字段，默认字段有 `file`，表示文件信息。可以添加额外的文件名字段，如：`{file_name: "custom-file-name.txt"}`。`autoUpload=true` 时有效。也可以使用 `formatRequest` 完全自定义上传请求的字段
    */
-  data?: Record<string, any> | ((file: File) => Record<string, any>);
+  data?: Record<string, any> | ((files: UploadFile[]) => Record<string, any>);
   /**
    * 是否禁用
    */
   disabled?: boolean;
   /**
-   * 用于自定义拖拽区域
+   * 用于自定义拖拽区域，`theme=custom` 时有效
    */
   dragContent?: TNode | TNode<TriggerContext>;
   /**
@@ -67,21 +67,21 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   fileListDisplay?: TNode<{ files: UploadFile[]; dragEvents?: UploadDisplayDragEvents }>;
   /**
-   * 已上传文件列表，同 `value`
+   * 已上传文件列表，同 `value`。TS 类型：`UploadFile`
    * @default []
    */
   files?: Array<T>;
   /**
-   * 已上传文件列表，同 `value`，非受控属性
+   * 已上传文件列表，同 `value`。TS 类型：`UploadFile`，非受控属性
    * @default []
    */
   defaultFiles?: Array<T>;
   /**
-   * 文件上传前转换文件的数据结构，可新增或修改文件对象的属性
+   * 转换文件的数据结构，可新增或修改文件对象的属性
    */
   format?: (file: File) => UploadFile;
   /**
-   * 用于新增或修改文件上传请求参数
+   * 用于新增或修改文件上传请求参数。一个请求上传一个文件时，默认请求字段有 `file`；一个请求上传多个文件时，默认字段有 `file[0]/file[1]/file[2]/.../length`，其中 `length` 表示本次上传的文件数量。<br/>⚠️非常注意，此处的 `file[0]/file[1]` 仅仅是一个字段名，并非表示 `file` 数组，接口获取字段时注意区分。<br/>可以使用 `name` 定义 `file` 字段的别名，也可以使用 `formatRequest` 自定义任意字段
    */
   formatRequest?: (requestData: { [key: string]: any }) => { [key: string]: any };
   /**
@@ -112,6 +112,10 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   method?: 'POST' | 'GET' | 'PUT' | 'OPTION' | 'PATCH' | 'post' | 'get' | 'put' | 'option' | 'patch';
   /**
+   * 模拟进度间隔时间，单位：毫秒，默认：300。由于原始的上传请求，小文件上传进度只有 0 和 100，故而新增模拟进度，每间隔 `mockProgressDuration` 毫秒刷新一次模拟进度。小文件设置小一点，大文件设置大一点。注意：当 `useMockProgress` 为真时，当前设置有效
+   */
+  mockProgressDuration?: number;
+  /**
    * 是否支持多选文件
    * @default false
    */
@@ -127,7 +131,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   placeholder?: string;
   /**
-   * 自定义上传方法。返回值 `status` 表示上传成功或失败，`error` 或 `response.error` 表示上传失败的原因，`response` 表示请求上传成功后的返回数据，`response.url` 表示上传成功后的图片地址。示例一：`{ status: 'fail', error: '上传失败', response }`。示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`
+   * 自定义上传方法。返回值 `status` 表示上传成功或失败，`error` 或 `response.error` 表示上传失败的原因，`response` 表示请求上传成功后的返回数据，`response.url` 表示上传成功后的图片地址。<br/>示例一：`{ status: 'fail', error: '上传失败', response }`。<br/>示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`
    */
   requestMethod?: (files: UploadFile | UploadFile[]) => Promise<RequestMethodResponse>;
   /**
@@ -150,9 +154,8 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
   theme?: 'custom' | 'file' | 'file-input' | 'file-flow' | 'image' | 'image-flow';
   /**
    * 组件下方文本提示，可以使用 `status` 定义文本
-   * @default ''
    */
-  tips?: string;
+  tips?: TNode;
   /**
    * 触发上传的元素，`files` 指本次显示的全部文件
    */
@@ -171,16 +174,6 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    * @default true
    */
   useMockProgress?: boolean;
-  /**
-   * 已上传文件列表，同 `files`
-   * @default []
-   */
-  value?: Array<T>;
-  /**
-   * 已上传文件列表，同 `files`，非受控属性
-   * @default []
-   */
-  defaultValue?: Array<T>;
   /**
    * 上传请求时是否携带 cookie
    * @default false
@@ -217,7 +210,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
   /**
    * 单个文件上传成功后触发，在多文件场景下会触发多次。`context.file` 表示当前上传成功的单个文件，`context.response` 表示上传请求的返回数据
    */
-  onOneFileSuccess?: (context: Pick<SuccessContext, 'e' | 'file' | 'response'>) => void;
+  onOneFileSuccess?: (context: Pick<SuccessContext, 'e' | 'file' | 'response' | 'XMLHttpRequest'>) => void;
   /**
    * 点击图片预览时触发，文件没有预览
    */
@@ -239,7 +232,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   onSuccess?: (context: SuccessContext) => void;
   /**
-   * 文件上传校验结束事件，有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
+   * 文件上传校验结束事件，文件数量超出、文件大小超出限制、文件同名、`beforeAllFilesUpload` 返回值为假、`beforeUpload` 返回值为假等场景会触发。<br/>注意：如果设置允许上传同名文件，即 `allowUploadDuplicateFile=true`，则不会因为文件重名触发该事件。<br/>结合 `status` 和 `tips` 可以在组件中呈现不同类型的错误（或告警）提示
    */
   onValidate?: (context: { type: UploadValidateType; files: UploadFile[] }) => void;
   /**
@@ -263,7 +256,7 @@ export interface UploadInstanceFunctions<T extends UploadFile = UploadFile> {
   uploadFiles: (files?: UploadFile[]) => void;
 }
 
-export interface UploadFile {
+export interface UploadFile extends PlainObject {
   /**
    * 上一次变更的时间
    */
@@ -355,6 +348,7 @@ export interface UploadFailContext {
   currentFiles: UploadFile[];
   response?: any;
   file: UploadFile;
+  XMLHttpRequest?: XMLHttpRequest;
 }
 
 export interface ProgressContext {
@@ -371,7 +365,7 @@ export type UploadProgressType = 'real' | 'mock';
 export interface UploadRemoveContext {
   index?: number;
   file?: UploadFile;
-  e: MouseEvent<any>;
+  e: MouseEvent<HTMLDivElement>;
 }
 
 export interface UploadSelectChangeContext {
@@ -385,6 +379,12 @@ export interface SuccessContext {
   currentFiles?: UploadFile[];
   response?: any;
   results?: SuccessContext[];
+  XMLHttpRequest?: XMLHttpRequest;
 }
 
-export type UploadValidateType = 'FILE_OVER_SIZE_LIMIT' | 'FILES_OVER_LENGTH_LIMIT' | 'FILTER_FILE_SAME_NAME';
+export type UploadValidateType =
+  | 'FILE_OVER_SIZE_LIMIT'
+  | 'FILES_OVER_LENGTH_LIMIT'
+  | 'FILTER_FILE_SAME_NAME'
+  | 'BEFORE_ALL_FILES_UPLOAD'
+  | 'CUSTOM_BEFORE_UPLOAD';

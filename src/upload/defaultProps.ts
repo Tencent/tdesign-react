@@ -18,6 +18,5 @@ export const uploadDefaultProps: TdUploadProps = {
   theme: 'file',
   uploadAllFilesInOneRequest: false,
   useMockProgress: true,
-  defaultValue: [],
   withCredentials: false,
 };

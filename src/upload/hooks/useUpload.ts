@@ -7,6 +7,7 @@ import {
   upload,
   getTriggerTextField,
   getDisplayFiles,
+  formatToUploadFile,
 } from '../../_common/js/upload/main';
 import { getFileUrlByFileRaw } from '../../_common/js/upload/utils';
 import useControlled from '../../hooks/useControlled';
@@ -123,8 +124,9 @@ export default function useUpload(props: TdUploadProps) {
       : `${t(locale.sizeLimitMessage, { sizeLimit: limit.size })} ${limit.unit}`;
   }
 
-  const handleNonAutoUpload = (toFiles: UploadFile[]) => {
+  const handleNotAutoUpload = (toFiles: UploadFile[]) => {
     const tmpFiles = props.multiple && !isBatchUpload ? uploadValue.concat(toFiles) : toFiles;
+    if (!tmpFiles.length) return;
     // 图片需要本地预览
     if (['image', 'image-flow'].includes(props.theme)) {
       const list = tmpFiles.map(
@@ -156,7 +158,7 @@ export default function useUpload(props: TdUploadProps) {
   const onFileChange = (files: FileList) => {
     if (disabled) return;
     // @ts-ignore
-    props.onSelectChange?.([...files], { currentSelectedFiles: toUploadFiles });
+    props.onSelectChange?.([...files], { currentSelectedFiles: formatToUploadFile([...files], props.format) });
     validateFile({
       uploadValue,
       // @ts-ignore
@@ -171,7 +173,10 @@ export default function useUpload(props: TdUploadProps) {
       beforeAllFilesUpload: props.beforeAllFilesUpload,
     }).then((args) => {
       // 自定义全文件校验不通过
-      if (args.validateResult?.type === 'BEFORE_ALL_FILES_UPLOAD') return;
+      if (args.validateResult?.type === 'BEFORE_ALL_FILES_UPLOAD') {
+        props.onValidate?.({ type: 'BEFORE_ALL_FILES_UPLOAD', files: args.files });
+        return;
+      }
       // 文件数量校验不通过
       if (args.lengthOverLimit) {
         props.onValidate?.({ type: 'FILES_OVER_LENGTH_LIMIT', files: args.files });
@@ -182,23 +187,29 @@ export default function useUpload(props: TdUploadProps) {
       }
       // 文件大小校验结果处理
       if (args.fileValidateList instanceof Array) {
-        const { sizeLimitErrors, toFiles } = getFilesAndErrors(args.fileValidateList, getSizeLimitError);
+        const { sizeLimitErrors, beforeUploadErrorFiles, toFiles } = getFilesAndErrors(
+          args.fileValidateList,
+          getSizeLimitError,
+        );
         const tmpWaitingFiles = autoUpload ? toFiles : toUploadFiles.concat(toFiles);
         props.onWaitingUploadFilesChange?.({ files: tmpWaitingFiles, trigger: 'validate' });
-        // 错误信息处理
+        // 文件大小处理
         if (sizeLimitErrors[0]) {
           setSizeOverLimitMessage(sizeLimitErrors[0].file.response.error);
           props.onValidate?.({ type: 'FILE_OVER_SIZE_LIMIT', files: sizeLimitErrors.map((t) => t.file) });
         } else {
           setSizeOverLimitMessage('');
+          // 自定义方法 beforeUpload 拦截的文件
+          if (beforeUploadErrorFiles.length) {
+            props.onValidate?.({ type: 'CUSTOM_BEFORE_UPLOAD', files: beforeUploadErrorFiles });
+          }
         }
         // 如果是自动上传
         if (autoUpload) {
-          // toUploadFiles.current = tmpWaitingFiles;
           setToUploadFiles(tmpWaitingFiles);
           uploadFiles(tmpWaitingFiles);
         } else {
-          handleNonAutoUpload(tmpWaitingFiles);
+          handleNotAutoUpload(tmpWaitingFiles);
         }
       }
     });
@@ -216,8 +227,8 @@ export default function useUpload(props: TdUploadProps) {
   }
 
   /**
-   * 上传文件
-   * 对外暴露方法，修改时需谨慎
+   * 上传文件。对外暴露方法，修改时需谨慎
+   * @param toFiles 本地上传的文件列表
    */
   function uploadFiles(toFiles?: UploadFile[]) {
     const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success');
@@ -267,6 +278,7 @@ export default function useUpload(props: TdUploadProps) {
             results: list?.map((t) => t.data),
             // 单文件单请求有一个 response，多文件多请求有多个 response
             response: data.response || list.map((t) => t.data.response),
+            XMLHttpRequest: data.XMLHttpRequest,
           });
           xhrReq.current = [];
         } else if (failedFiles?.[0]) {
@@ -276,6 +288,7 @@ export default function useUpload(props: TdUploadProps) {
             failedFiles,
             currentFiles: files,
             response: data.response,
+            XMLHttpRequest: data.XMLHttpRequest,
           });
         }
 
@@ -304,7 +317,6 @@ export default function useUpload(props: TdUploadProps) {
     if (isBatchUpload || !props.multiple) {
       props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
       setUploadValue([], changePrams);
-      // toUploadFiles.current = [];
       setToUploadFiles([]);
       xhrReq.current = [];
     } else if (!props.autoUpload) {
