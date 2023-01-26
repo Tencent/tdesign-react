@@ -55,7 +55,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   disabled?: boolean;
   /**
-   * 用于自定义拖拽区域，`theme=custom` 时有效
+   * 用于自定义拖拽区域，`theme=custom` 且 `draggable=true` 时有效
    */
   dragContent?: TNode | TNode<TriggerContext>;
   /**
@@ -77,28 +77,28 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   defaultFiles?: Array<T>;
   /**
-   * 转换文件的数据结构，可新增或修改文件对象的属性
+   * 转换文件 `UploadFile` 的数据结构，可新增或修改 `UploadFile` 的属性，注意不能删除 `UploadFile` 属性。`action` 存在时有效
    */
   format?: (file: File) => UploadFile;
   /**
-   * 用于新增或修改文件上传请求参数。一个请求上传一个文件时，默认请求字段有 `file`；一个请求上传多个文件时，默认字段有 `file[0]/file[1]/file[2]/.../length`，其中 `length` 表示本次上传的文件数量。<br/>⚠️非常注意，此处的 `file[0]/file[1]` 仅仅是一个字段名，并非表示 `file` 数组，接口获取字段时注意区分。<br/>可以使用 `name` 定义 `file` 字段的别名，也可以使用 `formatRequest` 自定义任意字段
+   * 用于新增或修改文件上传请求参数。`action` 存在时有效。一个请求上传一个文件时，默认请求字段有 `file`；<br/>一个请求上传多个文件时，默认字段有 `file[0]/file[1]/file[2]/.../length`，其中 `length` 表示本次上传的文件数量。<br/>⚠️非常注意，此处的 `file[0]/file[1]` 仅仅是一个字段名，并非表示 `file` 是一个数组，接口获取字段时注意区分。<br/>可以使用 `name` 定义 `file` 字段的别名，也可以使用 `formatRequest` 自定义任意字段
    */
   formatRequest?: (requestData: { [key: string]: any }) => { [key: string]: any };
   /**
-   * 用于格式化文件上传后的接口响应数据，`response` 便是接口响应的原始数据。<br/> 此函数的返回值 `error` 或 `response.error` 会作为错误文本提醒，如果存在会判定为本次上传失败。<br/> 此函数的返回值 `url` 或 `response.url` 会作为上传成功后的链接
+   * 用于格式化文件上传后的接口响应数据，`response` 便是接口响应的原始数据。`action` 存在时有效。<br/> 此函数的返回值 `error` 或 `response.error` 会作为错误文本提醒，如果存在会判定为本次上传失败。<br/> 此函数的返回值 `url` 或 `response.url` 会作为上传成功后的链接
    */
   formatResponse?: (response: any, context: FormatResponseContext) => ResponseType;
   /**
-   * 设置上传的请求头部
+   * 设置上传的请求头部，`action` 存在时有效
    */
   headers?: { [key: string]: string };
   /**
-   * 文件是否作为一个独立文件包，整体替换，整体删除。不允许追加文件，只允许替换文件
+   * 多个文件是否作为一个独立文件包，整体替换，整体删除。不允许追加文件，只允许替换文件
    * @default false
    */
   isBatchUpload?: boolean;
   /**
-   * 上传组件文本语言配置，支持自定义配置组件中的全部文本
+   * 上传组件文本语言配置，支持自定义配置组件中的全部文本。优先级高于全局配置中语言
    */
   locale?: UploadConfig;
   /**
@@ -116,7 +116,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   mockProgressDuration?: number;
   /**
-   * 是否支持多选文件
+   * 支持多文件上传
    * @default false
    */
   multiple?: boolean;
@@ -140,7 +140,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   showUploadProgress?: boolean;
   /**
-   * 图片文件大小限制，单位 KB。可选单位有：`'B' | 'KB' | 'MB' | 'GB'`。示例一：`1000`。示例二：`{ size: 2, unit: 'MB', message: '图片大小不超过 {sizeLimit} MB' }`
+   * 图片文件大小限制，默认单位 KB。可选单位有：`'B' | 'KB' | 'MB' | 'GB'`。示例一：`1000`。示例二：`{ size: 2, unit: 'MB', message: '图片大小不超过 {sizeLimit} MB' }`
    */
   sizeLimit?: number | SizeLimitObj;
   /**
@@ -165,7 +165,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   triggerButtonProps?: ButtonProps;
   /**
-   * 是否在同一个请求中上传全部文件，默认一个请求上传一个文件
+   * 是否在同一个请求中上传全部文件，默认一个请求上传一个文件。多文件上传时有效
    * @default false
    */
   uploadAllFilesInOneRequest?: boolean;
@@ -251,7 +251,7 @@ export interface UploadInstanceFunctions<T extends UploadFile = UploadFile> {
    */
   triggerUpload: () => void;
   /**
-   * 组件实例方法，执行后默认上传未成功上传过的所有文件，也可以上传指定文件
+   * 组件实例方法，默认上传未成功上传过的所有文件。带参数时，表示上传指定文件
    */
   uploadFiles: (files?: UploadFile[]) => void;
 }
@@ -343,7 +343,7 @@ export interface UploadChangeContext {
 export type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'progress-success' | 'progress' | 'progress-fail';
 
 export interface UploadFailContext {
-  e: ProgressEvent;
+  e?: ProgressEvent;
   failedFiles: UploadFile[];
   currentFiles: UploadFile[];
   response?: any;

@@ -34,6 +34,7 @@ export default function useUpload(props: TdUploadProps) {
 
   const tipsClasses = `${classPrefix}-upload__tips ${classPrefix}-size-s`;
   const errorClasses = [tipsClasses].concat(`${classPrefix}-upload__tips-error`);
+  const placeholderClass = `${classPrefix}-upload__placeholder`;
 
   // 单文件场景：触发元素文本
   const triggerUploadText = useMemo(() => {
@@ -180,12 +181,13 @@ export default function useUpload(props: TdUploadProps) {
       // 文件数量校验不通过
       if (args.lengthOverLimit) {
         props.onValidate?.({ type: 'FILES_OVER_LENGTH_LIMIT', files: args.files });
+        if (!args.files.length) return;
       }
       // 过滤相同的文件名
       if (args.hasSameNameFile) {
         props.onValidate?.({ type: 'FILTER_FILE_SAME_NAME', files: args.files });
       }
-      // 文件大小校验结果处理
+      // 文件大小校验结果处理（已过滤超出限制的文件）
       if (args.fileValidateList instanceof Array) {
         const { sizeLimitErrors, beforeUploadErrorFiles, toFiles } = getFilesAndErrors(
           args.fileValidateList,
@@ -249,6 +251,7 @@ export default function useUpload(props: TdUploadProps) {
       uploadAllFilesInOneRequest: props.uploadAllFilesInOneRequest,
       useMockProgress: props.useMockProgress,
       data: props.data,
+      mockProgressDuration: props.mockProgressDuration,
       requestMethod: props.requestMethod,
       formatRequest: props.formatRequest,
       formatResponse: props.formatResponse,
@@ -336,7 +339,7 @@ export default function useUpload(props: TdUploadProps) {
   }
 
   const triggerUpload = () => {
-    if (disabled) return;
+    if (disabled || !inputRef.current) return;
     (inputRef.current as HTMLInputElement).click();
   };
 
@@ -378,6 +381,7 @@ export default function useUpload(props: TdUploadProps) {
     uploading,
     tipsClasses,
     errorClasses,
+    placeholderClass,
     inputRef,
     disabled,
     xhrReq,

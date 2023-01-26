@@ -48,15 +48,17 @@ export function simulateImageEvent(dom, event) {
   fireEvent(dom, createEvent(event, dom));
 }
 
-function getFakeFileList(type = 'file', count = 1) {
+export function getFakeFileList(type = 'file', count = 1) {
   if (type === 'image') {
     return new Array(count).fill(null).map((_, index) => {
-      return new File(['this is file text bits'], `image-name${index || ''}.png`, { type: 'text/plain', lastModified: 1674355700444 })
+      const letters = new Array(index).fill('A').join('');
+      return new File([`image bits${letters}`], `image-name${index || ''}.png`, { type: 'text/plain', lastModified: 1674355700444 })
     });
   }
   if (type === 'file') {
     return new Array(count).fill(null).map((_, index) => {
-      return new File(['image bits'], `file-name${index || ''}.txt`, { type: 'image/png', lastModified: 1674355700444 });
+      const letters = new Array(index).fill('B').join('');
+      return new File([`this is file text bits${letters}`], `file-name${index || ''}.txt`, { type: 'image/png', lastModified: 1674355700444 });
     });
   }
   return [];

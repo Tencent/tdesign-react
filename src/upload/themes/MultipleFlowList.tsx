@@ -1,5 +1,6 @@
 import React, { MouseEvent, useMemo } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import {
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,
@@ -84,6 +85,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderImgItem = (file: UploadFile, index: number) => {
     const { iconMap, textMap } = getStatusMap();
+    const fileName = props.abridgeName && file.name ? abridgeName(file.name, ...props.abridgeName) : file.name;
     return (
       <li className={`${uploadPrefix}__card-item`} key={file.name + index + file.percent + file.status}>
         <div
@@ -93,7 +95,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           ])}
         >
           {['fail', 'progress'].includes(file.status) && (
-            <div className={`${uploadPrefix}__card-status-wrap`}>
+            <div
+              className={classNames([
+                `${uploadPrefix}__card-status-wrap`,
+                `${uploadPrefix}__${props.theme}-${file.status}`,
+              ])}
+            >
               {iconMap[file.status as 'fail' | 'progress']}
               <p>{textMap[file.status as 'fail' | 'progress']}</p>
             </div>
@@ -123,16 +130,13 @@ const ImageFlowList = (props: ImageFlowListProps) => {
               </span>
             )}
             {!disabled && (
-              <span
-                className={`${uploadPrefix}__card-mask-item`}
-                onClick={(e: MouseEvent) => props.onRemove({ e, index, file })}
-              >
+              <span className={`${uploadPrefix}__card-mask-item`} onClick={(e) => props.onRemove({ e, index, file })}>
                 <DeleteIcon />
               </span>
             )}
           </div>
         </div>
-        <p className={`${uploadPrefix}__card-name`}>{abridgeName(file.name)}</p>
+        <p className={`${uploadPrefix}__card-name`}>{fileName}</p>
       </li>
     );
   };
@@ -142,9 +146,9 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return (
       <div className={`${uploadPrefix}__flow-status`}>
         {iconMap[file.status]}
-        <span>
+        <span className={`${uploadPrefix}__${props.theme}-${file.status}`}>
           {textMap[file.status]}
-          {file.status === 'progress' ? ` ${file.percent}%` : ''}
+          {props.showUploadProgress && file.status === 'progress' ? ` ${file.percent || 0}%` : ''}
         </span>
       </div>
     );
@@ -152,7 +156,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderNormalActionCol = (file: UploadFile, index: number) => (
     <td>
-      <TButton theme="primary" variant="text" onClick={(e: MouseEvent) => props.onRemove({ e, index, file })}>
+      <TButton theme="primary" variant="text" onClick={(e) => props.onRemove({ e, index, file })}>
         {locale?.triggerUploadText?.delete}
       </TButton>
     </td>
@@ -163,11 +167,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     // 第一行数据才需要合并单元格
     index === 0 ? (
       <td rowSpan={displayFiles.length} className={`${uploadPrefix}__flow-table__batch-row`}>
-        <TButton
-          theme="primary"
-          variant="text"
-          onClick={(e: MouseEvent) => props.onRemove({ e, index: -1, file: null })}
-        >
+        <TButton theme="primary" variant="text" onClick={(e) => props.onRemove({ e, index: -1, file: null })}>
           {locale?.triggerUploadText?.delete}
         </TButton>
       </td>
@@ -175,10 +175,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderFileList = () => {
     if (props.fileListDisplay) {
-      const list = props.fileListDisplay({
-        files: displayFiles,
-        dragEvents: innerDragEvents,
-      });
+      const list = isFunction(props.fileListDisplay)
+        ? props.fileListDisplay({
+            files: displayFiles,
+            dragEvents: innerDragEvents,
+          })
+        : props.fileListDisplay;
       return list;
     }
     return (
@@ -207,7 +209,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
             return (
               <tr key={file.name + index}>
-                <td>
+                <td className={`${uploadPrefix}__file-name`}>
                   {file.url ? (
                     <Link href={file.url} target="_blank" hover="color">
                       {fileName}
@@ -227,6 +229,23 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     );
   };
 
+  const renderImageList = () => {
+    if (props.fileListDisplay) {
+      const list = isFunction(props.fileListDisplay)
+        ? props.fileListDisplay({
+            files: displayFiles,
+            dragEvents: innerDragEvents,
+          })
+        : props.fileListDisplay;
+      return list;
+    }
+    return (
+      <ul className={`${uploadPrefix}__card clearfix`}>
+        {displayFiles.map((file, index) => renderImgItem(file, index))}
+      </ul>
+    );
+  };
+
   const cardClassName = `${uploadPrefix}__flow-card-area`;
   return (
     <div className={`${uploadPrefix}__flow ${uploadPrefix}__flow-${props.theme}`}>
@@ -241,13 +260,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
       {props.theme === 'image-flow' && (
         <div className={cardClassName} {...innerDragEvents}>
-          {displayFiles.length ? (
-            <ul className={`${uploadPrefix}__card clearfix`}>
-              {displayFiles.map((file, index) => renderImgItem(file, index))}
-            </ul>
-          ) : (
-            renderEmpty()
-          )}
+          {displayFiles.length ? renderImageList() : renderEmpty()}
         </div>
       )}
 

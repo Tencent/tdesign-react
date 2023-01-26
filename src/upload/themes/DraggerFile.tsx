@@ -160,7 +160,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
 
   const getContent = () => {
     const file = displayFiles[0];
-    if (file && ['progress', 'success', 'fail', 'waiting'].includes(file.status)) {
+    if (file && (['progress', 'success', 'fail', 'waiting'].includes(file.status) || !file.status)) {
       return renderMainPreview();
     }
     return (
