@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { render, fireEvent, mockDelay } from '@test/utils';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import Form from '../index';
+import Form, { TdFormProps } from '../index';
 import Input from '../../input';
 import Button from '../../button';
 import { HelpCircleIcon } from 'tdesign-icons-react';
@@ -52,25 +52,44 @@ describe('Form 组件测试', () => {
   });
 
   test('Form.reset works fine', async () => {
+    const initialVal = 'test input';
+
     const TestForm = () => {
+      const [resetType, setResetType] = useState<TdFormProps['resetType']>('initial');
       return (
-        <Form>
-          <FormItem name="input1">
-            <Input placeholder="input1" />
-          </FormItem>
-          <FormItem>
-            <Button type="reset">reset</Button>
-          </FormItem>
-        </Form>
+        <div>
+          <div>
+            <Button onClick={() => setResetType('empty')}>reset-empty</Button>
+            <Button onClick={() => setResetType('initial')}>reset-initial</Button>
+          </div>
+          <Form resetType={resetType}>
+            <FormItem initialData={initialVal} name="input1">
+              <Input placeholder="input1" />
+            </FormItem>
+            <FormItem>
+              <Button type="reset">reset</Button>
+            </FormItem>
+          </Form>
+        </div>
       );
     };
 
     const { getByPlaceholderText, getByText } = render(<TestForm />);
-    fireEvent.change(getByPlaceholderText('input1'), { target: { value: 'value1' } });
-    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('value1');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
 
-    fireEvent.click(getByText('reset'));
+    const inputThenReset = () => {
+      fireEvent.change(getByPlaceholderText('input1'), { target: { value: 'value1' } });
+      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('value1');
+      fireEvent.click(getByText('reset'));
+    };
 
+    // test initial value
+    inputThenReset();
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
+
+    // test empty value
+    fireEvent.click(getByText('reset-empty'));
+    inputThenReset();
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
   });
 
@@ -129,16 +148,23 @@ describe('Form 组件测试', () => {
   test('Form disabled `input` keydown enter submit form', async () => {
     const TestForm = () => {
       return (
-        <Form statusIcon={false}>
+        <Form>
           <FormItem name="username" rules={[{ required: true, message: 'please input username' }]}>
             <Input placeholder="username" />
+          </FormItem>
+          <FormItem>
+            <Button type="submit">submit</Button>
           </FormItem>
         </Form>
       );
     };
 
-    const { container, getByPlaceholderText } = render(<TestForm />);
+    const { container, getByPlaceholderText, getByText } = render(<TestForm />);
     fireEvent.keyDown(getByPlaceholderText('username'), { key: 'Enter' });
+    await mockDelay();
+    expect(container.querySelector('.t-input__extra')).toBeNull();
+
+    fireEvent.keyDown(getByText('submit'), { key: 'Enter' });
     await mockDelay();
     expect(container.querySelector('.t-input__extra')).toBeNull();
   });
@@ -240,5 +266,21 @@ describe('Form 组件测试', () => {
     const { getByPlaceholderText } = render(<TestForm />);
     expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName);
     expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirtyday);
+  });
+
+  test('FormItem blur validate works fine', async () => {
+    const TestForm = () => {
+      return (
+        <Form>
+          <FormItem name="username" rules={[{ required: true, trigger: 'blur', message: 'please input username' }]}>
+            <Input placeholder="username" />
+          </FormItem>
+        </Form>
+      );
+    };
+    const { container, getByPlaceholderText } = render(<TestForm />);
+    fireEvent.blur(getByPlaceholderText('username'));
+    await mockDelay();
+    expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
   });
 });
