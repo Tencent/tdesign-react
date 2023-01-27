@@ -130,7 +130,10 @@ const ImageFlowList = (props: ImageFlowListProps) => {
               </span>
             )}
             {!disabled && (
-              <span className={`${uploadPrefix}__card-mask-item`} onClick={(e) => props.onRemove({ e, index, file })}>
+              <span
+                className={`${uploadPrefix}__card-mask-item ${uploadPrefix}__delete`}
+                onClick={(e) => props.onRemove({ e, index, file })}
+              >
                 <DeleteIcon />
               </span>
             )}
@@ -156,7 +159,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderNormalActionCol = (file: UploadFile, index: number) => (
     <td>
-      <TButton theme="primary" variant="text" onClick={(e) => props.onRemove({ e, index, file })}>
+      <TButton
+        theme="primary"
+        variant="text"
+        className={`${uploadPrefix}__delete`}
+        onClick={(e) => props.onRemove({ e, index, file })}
+      >
         {locale?.triggerUploadText?.delete}
       </TButton>
     </td>
@@ -167,7 +175,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     // 第一行数据才需要合并单元格
     index === 0 ? (
       <td rowSpan={displayFiles.length} className={`${uploadPrefix}__flow-table__batch-row`}>
-        <TButton theme="primary" variant="text" onClick={(e) => props.onRemove({ e, index: -1, file: null })}>
+        <TButton
+          theme="primary"
+          variant="text"
+          className={`${uploadPrefix}__delete`}
+          onClick={(e) => props.onRemove({ e, index: -1, file: undefined })}
+        >
           {locale?.triggerUploadText?.delete}
         </TButton>
       </td>
@@ -203,7 +216,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
             const showBatchUploadAction = props.isBatchUpload;
             const deleteNode =
-              showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
+              showBatchUploadAction && displayFiles.every((item) => item.status === 'success' || !item.status)
                 ? renderBatchActionCol(index)
                 : renderNormalActionCol(file, index);
             const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
@@ -275,13 +288,20 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
       {!props.autoUpload && (
         <div className={`${uploadPrefix}__flow-bottom`}>
-          <TButton theme="default" onClick={(e) => props.cancelUpload?.({ e })} disabled={disabled || !uploading}>
+          <TButton
+            theme="default"
+            disabled={disabled || !uploading}
+            className={`${uploadPrefix}__cancel`}
+            onClick={(e) => props.cancelUpload?.({ e })}
+          >
             {locale?.cancelUploadText}
           </TButton>
+
           <TButton
             disabled={disabled || uploading || !displayFiles.length}
             theme="primary"
             loading={uploading}
+            className={`${uploadPrefix}__continue`}
             onClick={() => props.uploadFiles?.()}
           >
             {uploadText}

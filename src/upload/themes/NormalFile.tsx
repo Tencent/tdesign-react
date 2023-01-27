@@ -43,7 +43,7 @@ export default function NormalFile(props: NormalFileProps) {
   // 文本型预览
   const renderFilePreviewAsText = (files: UploadFile[]) => {
     if (theme !== 'file') return null;
-    if (!props.multiple && files[0]?.status === 'fail') {
+    if (!props.multiple && files[0]?.status === 'fail' && props.autoUpload) {
       return null;
     }
     return files.map((file, index) => {
@@ -61,12 +61,12 @@ export default function NormalFile(props: NormalFileProps) {
             <span className={`${uploadPrefix}__single-name`}>{fileName}</span>
           )}
           {file.status === 'fail' && (
-            <div className={`${uploadPrefix}__flow-status`}>
+            <div className={`${uploadPrefix}__flow-status ${uploadPrefix}__file-fail`}>
               <ErrorCircleFilledIcon />
             </div>
           )}
           {file.status === 'waiting' && (
-            <div className={`${uploadPrefix}__flow-status`}>
+            <div className={`${uploadPrefix}__flow-status ${uploadPrefix}__file-waiting`}>
               <TimeFilledIcon />
             </div>
           )}
@@ -81,7 +81,6 @@ export default function NormalFile(props: NormalFileProps) {
 
   // 输入框型预览
   const renderFilePreviewAsInput = () => {
-    if (theme !== 'file-input') return;
     const file = props.displayFiles[0];
     const inputTextClass = [
       `${classPrefix}-input__inner`,
@@ -101,11 +100,15 @@ export default function NormalFile(props: NormalFileProps) {
             {file?.name ? fileName : props.placeholder}
           </span>
           {file?.status === 'progress' && renderProgress(file.percent)}
-          {file?.status === 'waiting' && <TimeFilledIcon className={`${uploadPrefix}__status-icon`} />}
-          {file?.url && file.status === 'success' && (
+          {file?.status === 'waiting' && (
+            <TimeFilledIcon className={`${uploadPrefix}__status-icon ${uploadPrefix}__file-waiting`} />
+          )}
+          {file?.name && file.status === 'success' && (
             <CheckCircleFilledIcon className={`${uploadPrefix}__status-icon`} />
           )}
-          {file?.name && file.status === 'fail' && <ErrorCircleFilledIcon className={`${uploadPrefix}__status-icon`} />}
+          {file?.name && file.status === 'fail' && (
+            <ErrorCircleFilledIcon className={`${uploadPrefix}__status-icon ${uploadPrefix}__file-fail`} />
+          )}
           {!disabled && (
             <CloseCircleFilledIcon
               className={`${uploadPrefix}__single-input-clear`}

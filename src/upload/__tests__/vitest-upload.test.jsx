@@ -9,14 +9,14 @@ import { fireEvent, vi, render, mockDelay, simulateFileChange, getFakeFileList }
 import { Upload } from '..';
 
 describe('Upload Component', () => {
-  it('props.abridgeName works fine if theme=file-input', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=file-input', () => {
     const { container } = render(
       <Upload theme="file-input" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
     );
     expect(container.querySelector('.t-upload__single-input-text').textContent).toBe('this_is_…me.png');
   });
 
-  it('props.abridgeName works fine if theme=file and file url exists', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=file and file url exists', () => {
     const { container } = render(
       <Upload
         theme="file"
@@ -27,21 +27,21 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
   });
 
-  it('props.abridgeName works fine if theme=file and file url does not exist', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=file and file url does not exist', () => {
     const { container } = render(
       <Upload theme="file" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
     );
     expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
   });
 
-  it('props.abridgeName works fine if theme=image', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=image', () => {
     const { container } = render(
       <Upload theme="image" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
     );
     expect(container.querySelector('.t-upload__card-name').textContent).toBe('this_is_…me.png');
   });
 
-  it('props.abridgeName works fine if theme=file&draggable=true', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=file&draggable=true', () => {
     const { container } = render(
       <Upload
         theme="file"
@@ -53,7 +53,7 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
   });
 
-  it('props.abridgeName works fine if theme=image&draggable=true', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=image&draggable=true', () => {
     const { container } = render(
       <Upload
         theme="image"
@@ -66,7 +66,7 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
   });
 
-  it('props.abridgeName works fine if theme=image-flow', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=image-flow', () => {
     const { container } = render(
       <Upload
         theme="image-flow"
@@ -77,7 +77,7 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__card-name').textContent).toBe('this_is_…me.jpg');
   });
 
-  it('props.abridgeName works fine if theme=file-flow and file url exists', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=file-flow and file url exists', () => {
     const { container } = render(
       <Upload
         theme="file-flow"
@@ -88,7 +88,7 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__file-name > a').textContent).toBe('this_is_…me.jpg');
   });
 
-  it('props.abridgeName works fine if theme=file-flow and file url does not exist', () => {
+  it('props.abridgeName: props.abridgeName works fine if theme=file-flow and file url does not exist', () => {
     const { container } = render(
       <Upload theme="file-flow" files={[{ name: 'this_is_a_long_name.jpg' }]} abridgeName={[8, 6]}></Upload>,
     );
@@ -193,6 +193,34 @@ describe('Upload Component', () => {
     expect(onChangeFn.mock.calls[0][0][0].status).toBe('waiting');
     expect(onChangeFn.mock.calls[0][0][0].percent).toBe(0);
   });
+  it('props.autoUpload: autoUpload=false & theme=file-flow, cancel upload works fine', () => {
+    const onChangeFn1 = vi.fn();
+    const onRemoveFn1 = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="file-flow"
+        autoUpload={false}
+        files={[
+          { name: 'file1.txt', status: 'waiting', uploadTime: '2023-01-27', lastModified: 1674830942522 },
+          { name: 'file2.txt', status: 'success', uploadTime: '2023-01-27', lastModified: 1674831204354 },
+          { name: 'file3.txt', status: 'fail', uploadTime: '2023-01-27', lastModified: 1674831204354 },
+        ]}
+        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        onChange={onChangeFn1}
+        onRemove={onRemoveFn1}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__continue'));
+    fireEvent.click(container.querySelector('.t-upload__cancel'));
+    expect(onChangeFn1).toHaveBeenCalled();
+    expect(onChangeFn1.mock.calls[0][0]).toEqual([
+      { name: 'file1.txt', status: 'waiting', uploadTime: '2023-01-27', lastModified: 1674830942522 },
+      { name: 'file2.txt', status: 'success', uploadTime: '2023-01-27', lastModified: 1674831204354 },
+      { name: 'file3.txt', status: 'waiting', uploadTime: '2023-01-27', lastModified: 1674831204354 },
+    ]);
+    expect(onChangeFn1.mock.calls[0][1].trigger).toBe('abort');
+    expect(onRemoveFn1).not.toHaveBeenCalled();
+  });
 
   it('props.beforeAllFilesUpload: beforeAllFilesUpload can stop uploading', async () => {
     const onChangeFn = vi.fn();
@@ -284,6 +312,40 @@ describe('Upload Component', () => {
       file: fileList[0],
       length: 1,
     });
+  });
+
+  it('props.disabled works fine. `".t-input.t-is-disabled"` should exist', () => {
+    const { container } = render(<Upload theme="file-input" disabled={true}></Upload>);
+    expect(container.querySelector('.t-input.t-is-disabled')).toBeTruthy();
+  });
+
+  it('props.disabled works fine. `".t-upload__trigger .t-button.t-is-disabled"` should exist', () => {
+    const { container } = render(<Upload theme="file-input" disabled={true}></Upload>);
+    expect(container.querySelector('.t-upload__trigger .t-button.t-is-disabled')).toBeTruthy();
+  });
+
+  it('props.disabled works fine. `{".t-upload__delete":false}` should exist', () => {
+    const { container } = render(
+      <Upload
+        theme="file-flow"
+        disabled={true}
+        multiple={true}
+        files={[{ name: 'file1.txt', status: 'success' }]}
+      ></Upload>,
+    );
+    expect(container.querySelector('.t-upload__delete')).toBeFalsy();
+  });
+
+  it('props.disabled works fine. `{".t-upload__delete":false}` should exist', () => {
+    const { container } = render(
+      <Upload
+        theme="image-flow"
+        disabled={true}
+        multiple={true}
+        files={[{ name: 'file1.txt', status: 'success' }]}
+      ></Upload>,
+    );
+    expect(container.querySelector('.t-upload__delete')).toBeFalsy();
   });
 
   it('props.disabled: disabled upload can not trigger onSelectChange', () => {
@@ -498,7 +560,7 @@ describe('Upload Component', () => {
     expect(onChangeFn.mock.calls[0][0].length).toBe(3);
   });
 
-  it('props.locale works fine if theme=file-flow', () => {
+  it('props.locale: props.locale works fine if theme=file-flow', () => {
     const { container } = render(
       <Upload
         locale={{ progress: { uploadingText: 'uploading' } }}
@@ -510,7 +572,7 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__file-flow-progress').textContent).toBe('uploading 80%');
   });
 
-  it('props.locale works fine if theme=image', () => {
+  it('props.locale: props.locale works fine if theme=image', () => {
     const { container } = render(
       <Upload
         locale={{ progress: { uploadingText: 'uploading' } }}
@@ -522,7 +584,7 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__image-progress').textContent).toBe('uploading 80%');
   });
 
-  it('can not show image add trigger if count of image is over than max', () => {
+  it('props.max: can not show image add trigger if count of image is over than max', () => {
     const { container } = render(
       <Upload
         theme="image"
@@ -583,9 +645,24 @@ describe('Upload Component', () => {
     });
   });
 
-  it('props.placeholder is equal this is placeholder', () => {
-    const { container } = render(<Upload placeholder="this is placeholder"></Upload>);
-    expect(container.querySelectorAll('.t-upload__placeholder').length).toBe(1);
+  it('props.placeholder: theme=file works fine', () => {
+    const { container } = render(<Upload theme="file" placeholder="this is placeholder"></Upload>);
+    expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
+  });
+
+  it('props.placeholder: theme=file-input works fine', () => {
+    const { container } = render(<Upload theme="file-input" placeholder="this is placeholder"></Upload>);
+    expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
+  });
+
+  it('props.placeholder: theme=image-flow works fine', () => {
+    const { container } = render(<Upload theme="image-flow" placeholder="this is placeholder"></Upload>);
+    expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
+  });
+
+  it('props.placeholder: theme=file-flow works fine', () => {
+    const { container } = render(<Upload theme="file-flow" placeholder="this is placeholder"></Upload>);
+    expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
   });
 
   it('props.requestMethod works fine', async () => {
@@ -714,6 +791,72 @@ describe('Upload Component', () => {
     expect(container.querySelector('.t-upload__image-add')).toBeTruthy();
   });
 
+  it('props.theme: theme=file and file status is fail works fine', () => {
+    const { container } = render(
+      <Upload theme="file" autoUpload={false} files={[{ name: 'file1.txt', status: 'fail' }]}></Upload>,
+    );
+    expect(container.querySelector('.t-icon-error-circle-filled')).toBeTruthy();
+  });
+
+  it('props.theme: theme=file-input and file status is progress works fine', () => {
+    const { container } = render(
+      <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'progress' }]}></Upload>,
+    );
+    expect(container.querySelector('.t-upload__single-progress')).toBeTruthy();
+  });
+
+  it('props.theme: theme=file-input and file status is waiting works fine', () => {
+    const { container } = render(
+      <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'waiting' }]}></Upload>,
+    );
+    expect(container.querySelector('.t-upload__file-waiting.t-icon-time-filled')).toBeTruthy();
+  });
+
+  it('props.theme: theme=file-input and file status is fail works fine', () => {
+    const { container } = render(<Upload theme="file-input" files={[{ name: 'file1.txt', status: 'fail' }]}></Upload>);
+    expect(container.querySelector('.t-icon-error-circle-filled')).toBeTruthy();
+  });
+
+  it('props.theme: theme=file-input and file status is success works fine', () => {
+    const { container } = render(
+      <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'success' }]}></Upload>,
+    );
+    expect(container.querySelector('.t-icon-check-circle-filled')).toBeTruthy();
+  });
+
+  it('props.theme: theme=file-flow works fine', () => {
+    const { container } = render(
+      <Upload
+        theme="file-flow"
+        files={[
+          { name: 'file1.txt', status: 'success' },
+          { name: 'file2.txt', status: 'waiting' },
+          { name: 'file3.txt', status: 'fail' },
+          { name: 'file4.txt', status: 'progress', percent: 90 },
+        ]}
+      ></Upload>,
+    );
+    expect(container.querySelectorAll('.t-upload__flow-table tbody > tr').length).toBe(4);
+    expect(container).toMatchSnapshot();
+  });
+
+  it('props.theme: theme=image-flow works fine', () => {
+    const { container } = render(
+      <Upload
+        theme="image-flow"
+        files={[
+          { url: '', status: 'success', name: 'img.txt' },
+          { url: 'https://img1.txt', status: 'success', name: 'img1.txt' },
+          { url: 'https://img2.txt', status: 'waiting', name: 'img2.txt' },
+          { url: 'https://img3.txt', status: 'fail', name: 'img3.txt' },
+          { url: 'https://img4.txt', status: 'progress', percent: 90, name: 'img4.txt' },
+        ]}
+      ></Upload>,
+    );
+    expect(container.querySelectorAll('.t-upload__card-item').length).toBe(5);
+    expect(container).toMatchSnapshot();
+  });
+
   it('props.tips works fine', () => {
     const { container } = render(
       <Upload
@@ -815,6 +958,33 @@ describe('Upload Component', () => {
     expect(onPreviewFn1.mock.calls[0][0].index).toBe(1);
     expect(onPreviewFn1.mock.calls[0][0].e.type).toBe('click');
   });
+  it('events.preview: theme=image-flow, image preview works fine', async () => {
+    const onPreviewFn1 = vi.fn();
+    const { container } = render(
+      <Upload
+        files={[
+          { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', name: 'demo-image-1.png' },
+          { url: 'https://tdesign.gtimg.com/site/avatar.jpg', name: 'avatar.jpg' },
+        ]}
+        theme="image-flow"
+        multiple={true}
+        onPreview={onPreviewFn1}
+      ></Upload>,
+    );
+    fireEvent.mouseEnter(container.querySelector('.t-upload__card-item:nth-child(2)'));
+    await mockDelay();
+    fireEvent.click(container.querySelector('.t-upload__card-item:nth-child(2) .t-icon-browse'));
+    await mockDelay(300);
+    const attrDom1 = document.querySelector('.t-image-viewer__modal-image');
+    expect(attrDom1.getAttribute('src')).toBe('https://tdesign.gtimg.com/site/avatar.jpg');
+    expect(onPreviewFn1).toHaveBeenCalled();
+    expect(onPreviewFn1.mock.calls[0][0].file).toEqual({
+      url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+      name: 'avatar.jpg',
+    });
+    expect(onPreviewFn1.mock.calls[0][0].index).toBe(1);
+    expect(onPreviewFn1.mock.calls[0][0].e.type).toBe('click');
+  });
 
   it('events.remove: remove single file, trigger remove event', () => {
     const onChangeFn = vi.fn();
@@ -864,7 +1034,7 @@ describe('Upload Component', () => {
     expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
     expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
   });
-  it('events.remove: failed status file can be removed', () => {
+  it('events.remove: failed image file can be removed', () => {
     const onChangeFn = vi.fn();
     const onRemoveFn = vi.fn();
     const { container } = render(
@@ -885,6 +1055,113 @@ describe('Upload Component', () => {
     expect(onRemoveFn).toHaveBeenCalled();
     expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
     expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+  });
+  it('events.remove: success status image can be removed', () => {
+    const onChangeFn = vi.fn();
+    const onRemoveFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="image"
+        multiple={true}
+        files={[{ url: 'https://image1.png', status: 'success' }]}
+        onChange={onChangeFn}
+        onRemove={onRemoveFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__card-mask-item .t-icon-delete'));
+    expect(onChangeFn).toHaveBeenCalled();
+    expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+    expect(onChangeFn.mock.calls[0][1].index).toBe(0);
+    expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
+    expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+    expect(onRemoveFn).toHaveBeenCalled();
+    expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+    expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+  });
+  it('events.remove: theme=file-input, file can be removed to be empty', () => {
+    const onChangeFn = vi.fn();
+    const onRemoveFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="file-input"
+        files={[{ name: 'file.txt', status: 'success' }]}
+        onChange={onChangeFn}
+        onRemove={onRemoveFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__single-input-clear'));
+    expect(onChangeFn).toHaveBeenCalled();
+    expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+    expect(onRemoveFn).toHaveBeenCalled();
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+  });
+  it('events.remove: theme=file-flow, remove file, trigger remove event', () => {
+    const onChangeFn = vi.fn();
+    const onRemoveFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="file-flow"
+        multiple={true}
+        files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
+        onChange={onChangeFn}
+        onRemove={onRemoveFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__delete'));
+    expect(onChangeFn).toHaveBeenCalled();
+    expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+    expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+    expect(onRemoveFn).toHaveBeenCalled();
+    expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+    expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+  });
+  it('events.remove: theme=image-flow, remove file, trigger remove event', () => {
+    const onChangeFn = vi.fn();
+    const onRemoveFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="image-flow"
+        multiple={true}
+        files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
+        onChange={onChangeFn}
+        onRemove={onRemoveFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__delete'));
+    expect(onChangeFn).toHaveBeenCalled();
+    expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+    expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+    expect(onRemoveFn).toHaveBeenCalled();
+    expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+    expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+  });
+  it('events.remove: theme=file-flow & isBatchUpload=true, remove all files if click delete node', () => {
+    const onChangeFn = vi.fn();
+    const onRemoveFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="file-flow"
+        multiple={true}
+        isBatchUpload={true}
+        files={[
+          { name: 'file1.txt', url: 'https://xxx1.txt' },
+          { name: 'file2.txt', url: 'https://xxx2.txt' },
+        ]}
+        onChange={onChangeFn}
+        onRemove={onRemoveFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__delete'));
+    expect(onChangeFn).toHaveBeenCalled();
+    expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+    expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+    expect(onRemoveFn).toHaveBeenCalled();
+    expect(onRemoveFn.mock.calls[0][0].index).toBe(-1);
+    expect(onRemoveFn.mock.calls[0][0].file).toBe(undefined);
     expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
   });
 });

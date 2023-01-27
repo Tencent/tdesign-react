@@ -93,7 +93,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   headers?: { [key: string]: string };
   /**
-   * 多个文件是否作为一个独立文件包，整体替换，整体删除。不允许追加文件，只允许替换文件
+   * 多个文件是否作为一个独立文件包，整体替换，整体删除。不允许追加文件，只允许替换文件。`theme=file-flow` 时有效
    * @default false
    */
   isBatchUpload?: boolean;
@@ -333,7 +333,7 @@ export interface TriggerContext {
 }
 
 export interface UploadChangeContext {
-  e?: MouseEvent<HTMLDivElement> | ProgressEvent;
+  e?: MouseEvent<HTMLElement> | ProgressEvent;
   response?: any;
   trigger: UploadChangeTrigger;
   index?: number;
@@ -365,7 +365,7 @@ export type UploadProgressType = 'real' | 'mock';
 export interface UploadRemoveContext {
   index?: number;
   file?: UploadFile;
-  e: MouseEvent<HTMLDivElement>;
+  e: MouseEvent<HTMLElement>;
 }
 
 export interface UploadSelectChangeContext {
