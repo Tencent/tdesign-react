@@ -86,7 +86,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
       <p>{file.response?.error || locale?.progress?.failText}</p>
       <div className={`${classPrefix}-upload__card-mask`}>
         <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
-          <DeleteIcon onClick={({ e }) => props?.onRemove?.({ e, file, index })} />
+          <DeleteIcon onClick={(e) => props.onRemove?.({ e, file, index })} />
         </span>
       </div>
     </div>
@@ -110,7 +110,9 @@ const ImageCard = (props: ImageCardUploadProps) => {
         })}
         {showTrigger && (
           <li className={cardItemClasses} onClick={props.triggerUpload}>
-            <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
+            <div
+              className={`${classPrefix}-upload__image-add ${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}
+            >
               <AddIcon />
               <p className={`${classPrefix}-size-s`}>{locale?.triggerUploadText?.image}</p>
             </div>
