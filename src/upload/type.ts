@@ -59,7 +59,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   dragContent?: TNode | TNode<TriggerContext>;
   /**
-   * 是否启用拖拽上传，不同的组件风格默认值不同
+   * 是否启用拖拽上传，不同的组件风格默认值不同。`theme=file` 或 `theme=image` 时有效
    */
   draggable?: boolean;
   /**

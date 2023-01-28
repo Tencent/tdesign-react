@@ -18,7 +18,7 @@ children | TNode | - | 非拖拽场景，指触发上传的元素，如：“选
 data | Object | - | 上传请求所需的额外字段，默认字段有 `file`，表示文件信息。可以添加额外的文件名字段，如：`{file_name: "custom-file-name.txt"}`。`autoUpload=true` 时有效。也可以使用 `formatRequest` 完全自定义上传请求的字段。TS 类型：`Record<string, any> \| ((files: UploadFile[]) => Record<string, any>)` | N
 disabled | Boolean | - | 是否禁用 | N
 dragContent | TNode | - | 用于自定义拖拽区域，`theme=custom` 且 `draggable=true` 时有效。TS 类型：`TNode \| TNode<TriggerContext>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-draggable | Boolean | undefined | 是否启用拖拽上传，不同的组件风格默认值不同 | N
+draggable | Boolean | undefined | 是否启用拖拽上传，不同的组件风格默认值不同。`theme=file` 或 `theme=image` 时有效 | N
 fileListDisplay | TElement | - | 用于完全自定义文件列表内容。TS 类型：`TNode<{ files: UploadFile[]; dragEvents?: UploadDisplayDragEvents }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 files | Array | [] | 已上传文件列表，同 `value`。TS 类型：`UploadFile`。TS 类型：`Array<T>` | N
 defaultFiles | Array | [] | 已上传文件列表，同 `value`。TS 类型：`UploadFile`。非受控属性。TS 类型：`Array<T>` | N

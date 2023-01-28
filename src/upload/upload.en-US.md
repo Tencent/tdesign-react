@@ -18,7 +18,7 @@ children | TNode | - | Typescript：`string \| TNode`。[see more ts definition]
 data | Object | - | Typescript：`Record<string, any> \| ((files: UploadFile[]) => Record<string, any>)` | N
 disabled | Boolean | - | \- | N
 dragContent | TNode | - | define drag content nodes, it works on `theme=custom`。Typescript：`TNode \| TNode<TriggerContext>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-draggable | Boolean | undefined | \- | N
+draggable | Boolean | undefined | if drag uploading allowed, works on `theme=file` or `theme=image` | N
 fileListDisplay | TElement | - | Typescript：`TNode<{ files: UploadFile[]; dragEvents?: UploadDisplayDragEvents }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 files | Array | [] | Typescript：`Array<T>` | N
 defaultFiles | Array | [] | uncontrolled property。Typescript：`Array<T>` | N

@@ -1,5 +1,456 @@
 // Vitest Snapshot v1
 
+exports[`Upload Component > props.draggable: theme=image & draggable=true, fail file render fine 1`] = `
+<div>
+  <div
+    class="t-upload"
+  >
+    <input
+      hidden=""
+      type="file"
+    />
+    <div
+      class="t-upload__dragger t-upload__dragger-error"
+    >
+      <div
+        class="t-upload__dragger-progress"
+      >
+        <div
+          class="t-upload__dragger-img-wrap"
+        >
+          <img
+            src="https://image4.png"
+          />
+        </div>
+        <div
+          class="t-upload__dragger-progress-info"
+        >
+          <div
+            class="t-upload__dragger-text"
+          >
+            <span
+              class="t-upload__single-name"
+            >
+              image4.png
+            </span>
+            <svg
+              class="t-icon t-icon-error-circle-filled"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </div>
+          <small
+            class="t-size-s"
+          >
+            文件大小
+            ：
+          </small>
+          <small
+            class="t-size-s"
+          >
+            上传日期
+            ：
+            -
+          </small>
+          <div
+            class="t-upload__dragger-btns"
+          />
+          <div
+            class="t-upload__dragger-btns"
+          >
+            <button
+              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                重新选择
+              </span>
+            </button>
+            <button
+              class="t-upload__dragger-delete-btn t-button t-button--theme-danger t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                删除
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload Component > props.draggable: theme=image & draggable=true, progress file render fine 1`] = `
+<div>
+  <div
+    class="t-upload"
+  >
+    <input
+      hidden=""
+      type="file"
+    />
+    <div
+      class="t-upload__dragger"
+    >
+      <div
+        class="t-upload__dragger-progress"
+      >
+        <div
+          class="t-upload__dragger-img-wrap"
+        >
+          <img
+            src="https://image2.png"
+          />
+        </div>
+        <div
+          class="t-upload__dragger-progress-info"
+        >
+          <div
+            class="t-upload__dragger-text"
+          >
+            <span
+              class="t-upload__single-name"
+            >
+              image2.png
+            </span>
+            <div
+              class="t-upload__single-progress"
+            >
+              <div
+                class="t-loading t-loading--center t-size-m"
+              >
+                <svg
+                  class="t-loading__gradient t-icon-loading"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 14 14"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <foreignobject
+                    height="12"
+                    width="12"
+                    x="1"
+                    y="1"
+                  >
+                    <div
+                      class="t-loading__gradient-conic"
+                    />
+                  </foreignobject>
+                </svg>
+              </div>
+              <span
+                class="t-upload__single-percent"
+              >
+                80
+                %
+              </span>
+            </div>
+          </div>
+          <small
+            class="t-size-s"
+          >
+            文件大小
+            ：
+          </small>
+          <small
+            class="t-size-s"
+          >
+            上传日期
+            ：
+            -
+          </small>
+          <div
+            class="t-upload__dragger-btns"
+          >
+            <button
+              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                取消上传
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload Component > props.draggable: theme=image & draggable=true, success file render fine 1`] = `
+<div>
+  <div
+    class="t-upload"
+  >
+    <input
+      hidden=""
+      type="file"
+    />
+    <div
+      class="t-upload__dragger"
+    >
+      <div
+        class="t-upload__dragger-progress"
+      >
+        <div
+          class="t-upload__dragger-img-wrap"
+        >
+          <img
+            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          />
+        </div>
+        <div
+          class="t-upload__dragger-progress-info"
+        >
+          <div
+            class="t-upload__dragger-text"
+          >
+            <span
+              class="t-upload__single-name"
+            >
+              image1.png
+            </span>
+            <svg
+              class="t-icon t-icon-check-circle-filled"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </div>
+          <small
+            class="t-size-s"
+          >
+            文件大小
+            ：
+          </small>
+          <small
+            class="t-size-s"
+          >
+            上传日期
+            ：
+            -
+          </small>
+          <div
+            class="t-upload__dragger-btns"
+          />
+          <div
+            class="t-upload__dragger-btns"
+          >
+            <button
+              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                重新选择
+              </span>
+            </button>
+            <button
+              class="t-upload__dragger-delete-btn t-button t-button--theme-danger t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                删除
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload Component > props.draggable: theme=image & draggable=true, success file render fine with file.response.url 1`] = `
+<div>
+  <div
+    class="t-upload"
+  >
+    <input
+      hidden=""
+      type="file"
+    />
+    <div
+      class="t-upload__dragger"
+    >
+      <div
+        class="t-upload__dragger-progress"
+      >
+        <div
+          class="t-upload__dragger-img-wrap"
+        >
+          <img
+            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          />
+        </div>
+        <div
+          class="t-upload__dragger-progress-info"
+        >
+          <div
+            class="t-upload__dragger-text"
+          >
+            <span
+              class="t-upload__single-name"
+            >
+              image1.png
+            </span>
+            <svg
+              class="t-icon t-icon-check-circle-filled"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </div>
+          <small
+            class="t-size-s"
+          >
+            文件大小
+            ：
+          </small>
+          <small
+            class="t-size-s"
+          >
+            上传日期
+            ：
+            -
+          </small>
+          <div
+            class="t-upload__dragger-btns"
+          />
+          <div
+            class="t-upload__dragger-btns"
+          >
+            <button
+              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                重新选择
+              </span>
+            </button>
+            <button
+              class="t-upload__dragger-delete-btn t-button t-button--theme-danger t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                删除
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload Component > props.draggable: theme=image & draggable=true, waiting file render fine 1`] = `
+<div>
+  <div
+    class="t-upload"
+  >
+    <input
+      hidden=""
+      type="file"
+    />
+    <div
+      class="t-upload__dragger"
+    >
+      <div
+        class="t-upload__dragger-progress"
+      >
+        <div
+          class="t-upload__dragger-img-wrap"
+        >
+          <img
+            src="https://image3.png"
+          />
+        </div>
+        <div
+          class="t-upload__dragger-progress-info"
+        >
+          <div
+            class="t-upload__dragger-text"
+          >
+            <span
+              class="t-upload__single-name"
+            >
+              image3.png
+            </span>
+          </div>
+          <small
+            class="t-size-s"
+          >
+            文件大小
+            ：
+          </small>
+          <small
+            class="t-size-s"
+          >
+            上传日期
+            ：
+            -
+          </small>
+          <div
+            class="t-upload__dragger-btns"
+          >
+            <button
+              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                取消上传
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
 <div>
   <div
