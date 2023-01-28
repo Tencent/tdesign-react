@@ -24,7 +24,6 @@ export default function useUpload(props: TdUploadProps) {
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();
   const [globalLocale, t] = useLocaleReceiver('upload');
-  // TODO: 兼容 value，和 files 等效（待扩展实现 useControlled
   const [uploadValue, setUploadValue] = useControlled(props, 'files', props.onChange);
   const xhrReq = useRef<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
@@ -134,7 +133,7 @@ export default function useUpload(props: TdUploadProps) {
         (file) =>
           new Promise((resolve) => {
             getFileUrlByFileRaw(file.raw).then((url) => {
-              resolve({ ...file, url });
+              resolve({ ...file, url: file.url || url });
             });
           }),
       );
@@ -142,14 +141,16 @@ export default function useUpload(props: TdUploadProps) {
         setUploadValue(files, {
           trigger: 'add',
           index: uploadValue.length,
-          file: files[0],
+          file: toFiles[0],
+          files: toFiles,
         });
       });
     } else {
       setUploadValue(tmpFiles, {
         trigger: 'add',
         index: uploadValue.length,
-        file: tmpFiles[0],
+        file: toFiles[0],
+        files: toFiles,
       });
     }
     // toUploadFiles.current = [];
@@ -326,15 +327,16 @@ export default function useUpload(props: TdUploadProps) {
       uploadValue.splice(p.index, 1);
       setUploadValue([...uploadValue], changePrams);
     } else if (p.index < uploadValue.length) {
-      uploadValue.splice(p.index, 1);
-      setUploadValue([...uploadValue], changePrams);
-    } else {
-      const tmpFiles = [...toUploadFiles];
-      tmpFiles.splice(p.index - uploadValue.length, 1);
-      // toUploadFiles.current = [...tmpFiles];
-      setToUploadFiles([...tmpFiles]);
-      props.onWaitingUploadFilesChange?.({ files: [...tmpFiles], trigger: 'remove' });
-    }
+        // autoUpload 场景下， p.index < uploadValue.length 表示移除已经上传成功的文件；反之表示移除待上传列表文件
+        uploadValue.splice(p.index, 1);
+        setUploadValue([...uploadValue], changePrams);
+      } else {
+        const tmpFiles = [...toUploadFiles];
+        tmpFiles.splice(p.index - uploadValue.length, 1);
+        // toUploadFiles.current = [...tmpFiles];
+        setToUploadFiles([...tmpFiles]);
+        props.onWaitingUploadFilesChange?.({ files: [...tmpFiles], trigger: 'remove' });
+      }
     props.onRemove?.(p);
   }
 
@@ -367,6 +369,8 @@ export default function useUpload(props: TdUploadProps) {
     if (context?.file) {
       onRemove?.({ file: context.file, e: context.e, index: 0 });
     }
+
+    props.onCancelUpload?.();
   };
 
   return {

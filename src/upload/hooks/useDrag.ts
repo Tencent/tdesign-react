@@ -20,6 +20,7 @@ export default function useDrag(props: UploadDragEvents) {
   };
 
   const handleDragenter: DragEventHandler<HTMLDivElement> = (event) => {
+    console.log(event);
     event.preventDefault();
     setTarget(event.target);
     props.onDragenter?.({ e: event });
@@ -28,6 +29,7 @@ export default function useDrag(props: UploadDragEvents) {
 
   const handleDragleave: DragEventHandler<HTMLDivElement> = (event) => {
     if (event.target !== target) return;
+    console.log(event);
     event.preventDefault();
     props.onDragleave?.({ e: event });
     setDragActive(false);

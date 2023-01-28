@@ -67,7 +67,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, fail 
             class="t-upload__dragger-btns"
           >
             <button
-              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              class="t-upload__dragger-progress-reupload t-button t-button--theme-primary t-button--variant-text"
               type="button"
             >
               <span
@@ -262,7 +262,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
             class="t-upload__dragger-btns"
           >
             <button
-              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              class="t-upload__dragger-progress-reupload t-button t-button--theme-primary t-button--variant-text"
               type="button"
             >
               <span
@@ -356,7 +356,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
             class="t-upload__dragger-btns"
           >
             <button
-              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
+              class="t-upload__dragger-progress-reupload t-button t-button--theme-primary t-button--variant-text"
               type="button"
             >
               <span

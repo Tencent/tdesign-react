@@ -46,7 +46,7 @@ uploadAllFilesInOneRequest | Boolean | false | \- | N
 useMockProgress | Boolean | true | \- | N
 withCredentials | Boolean | false | \- | N
 onCancelUpload | Function |  | Typescript：`() => void`<br/> | N
-onChange | Function |  | Typescript：`(value: Array<T>, context: UploadChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadChangeContext { e?: MouseEvent \| ProgressEvent; response?: any; trigger: UploadChangeTrigger; index?: number; file?: UploadFile }`<br/><br/>`type UploadChangeTrigger = 'add' \| 'remove' \| 'abort' \| 'progress-success' \| 'progress' \| 'progress-fail'`<br/> | N
+onChange | Function |  | Typescript：`(value: Array<T>, context: UploadChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadChangeContext { e?: MouseEvent \| ProgressEvent; response?: any; trigger: UploadChangeTrigger; index?: number; file?: UploadFile; files?: UploadFile[] }`<br/><br/>`type UploadChangeTrigger = 'add' \| 'remove' \| 'abort' \| 'progress-success' \| 'progress' \| 'progress-fail'`<br/> | N
 onDragenter | Function |  | Typescript：`(context: { e: DragEvent }) => void`<br/> | N
 onDragleave | Function |  | Typescript：`(context: { e: DragEvent }) => void`<br/> | N
 onDrop | Function |  | Typescript：`(context: { e: DragEvent }) => void`<br/> | N

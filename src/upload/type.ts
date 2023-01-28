@@ -338,6 +338,7 @@ export interface UploadChangeContext {
   trigger: UploadChangeTrigger;
   index?: number;
   file?: UploadFile;
+  files?: UploadFile[];
 }
 
 export type UploadChangeTrigger = 'add' | 'remove' | 'abort' | 'progress-success' | 'progress' | 'progress-fail';

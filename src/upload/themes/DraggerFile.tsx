@@ -13,6 +13,7 @@ import TLoading from '../../loading';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
+import parseTNode from '../../_util/parseTNode';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -72,22 +73,27 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const renderMainPreview = () => {
     const file = displayFiles[0];
     const fileName = props.abridgeName ? abridgeName(file.name, ...props.abridgeName) : file.name;
+    const fileInfo = (
+      <>
+        <div className={`${uploadPrefix}__dragger-text`}>
+          <span className={`${uploadPrefix}__single-name`}>{fileName}</span>
+          {file.status === 'progress' && renderUploading()}
+          {file.status === 'success' && <CheckCircleFilledIcon />}
+          {file.status === 'fail' && <ErrorCircleFilledIcon />}
+        </div>
+        <small className={`${SIZE.small}`}>
+          {locale.file.fileSizeText}：{getFileSizeText(file.size)}
+        </small>
+        <small className={`${SIZE.small}`}>
+          {locale.file.fileOperationDateText}：{file.uploadTime || '-'}
+        </small>
+      </>
+    );
     return (
       <div className={`${uploadPrefix}__dragger-progress`}>
         {props.theme === 'image' && renderImage()}
         <div className={`${uploadPrefix}__dragger-progress-info`}>
-          <div className={`${uploadPrefix}__dragger-text`}>
-            <span className={`${uploadPrefix}__single-name`}>{fileName}</span>
-            {file.status === 'progress' && renderUploading()}
-            {file.status === 'success' && <CheckCircleFilledIcon />}
-            {file.status === 'fail' && <ErrorCircleFilledIcon />}
-          </div>
-          <small className={`${SIZE.small}`}>
-            {locale.file.fileSizeText}：{getFileSizeText(file.size)}
-          </small>
-          <small className={`${SIZE.small}`}>
-            {locale.file.fileOperationDateText}：{file.uploadTime || '-'}
-          </small>
+          {props.fileListDisplay ? parseTNode(props.fileListDisplay, { files: displayFiles }) : fileInfo}
           <div className={`${uploadPrefix}__dragger-btns`}>
             {['progress', 'waiting'].includes(file.status) && !disabled && (
               <Button
@@ -123,7 +129,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
                 theme="primary"
                 variant="text"
                 disabled={disabled}
-                className={`${uploadPrefix}__dragger-progress-cancel`}
+                className={`${uploadPrefix}__dragger-progress-reupload`}
                 onClick={props.triggerUpload}
               >
                 {locale.triggerUploadText.reupload}

@@ -69,11 +69,28 @@ export function getFakeFileList(type = 'file', count = 1) {
  * @param {String} dom 发生变化的元素
  * @param {String} type 类型，可选值: file/image。
  * @param {Number} count 文件数量
+ * @returns File[]
  */
 export function simulateFileChange(dom, type = 'file', count = 1) {
   const fakeFileList = getFakeFileList(type, count);
   fireEvent.change(dom, {
     target: { files: fakeFileList },
+  });
+  return fakeFileList;
+}
+
+/**
+ * 模拟拖拽上传文件
+ * @param {String} dom 触发节点
+ * @param {String} trigger 可选值：dragEnter/dragLeave/dragOver/drop
+ * @param {String} type 可选值：file/image
+ * @param {Number} count 数量
+ * @returns File[]
+ */
+export function simulateDragFileChange(dom, trigger, type = 'file', count = 1) {
+  const fakeFileList = getFakeFileList(type, count);
+  fireEvent[trigger](dom, {
+    dataTransfer: { files: fakeFileList },
   });
   return fakeFileList;
 }

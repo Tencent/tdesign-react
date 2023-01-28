@@ -1,6 +1,5 @@
 import React, { MouseEvent, useMemo } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash/isFunction';
 import {
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,
@@ -17,6 +16,7 @@ import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
 import Link from '../../link';
+import parseTNode from '../../_util/parseTNode';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;
@@ -188,13 +188,10 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderFileList = () => {
     if (props.fileListDisplay) {
-      const list = isFunction(props.fileListDisplay)
-        ? props.fileListDisplay({
-            files: displayFiles,
-            dragEvents: innerDragEvents,
-          })
-        : props.fileListDisplay;
-      return list;
+      return parseTNode(props.fileListDisplay, {
+        files: displayFiles,
+        dragEvents: innerDragEvents,
+      });
     }
     return (
       <table className={`${uploadPrefix}__flow-table`} {...innerDragEvents}>
@@ -244,13 +241,10 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderImageList = () => {
     if (props.fileListDisplay) {
-      const list = isFunction(props.fileListDisplay)
-        ? props.fileListDisplay({
-            files: displayFiles,
-            dragEvents: innerDragEvents,
-          })
-        : props.fileListDisplay;
-      return list;
+      return parseTNode(props.fileListDisplay, {
+        files: displayFiles,
+        dragEvents: innerDragEvents,
+      });
     }
     return (
       <ul className={`${uploadPrefix}__card clearfix`}>

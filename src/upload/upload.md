@@ -46,7 +46,7 @@ uploadAllFilesInOneRequest | Boolean | false | 是否在同一个请求中上传
 useMockProgress | Boolean | true | 是否在请求时间超过 300ms 后显示模拟进度。上传进度有模拟进度和真实进度两种。一般大小的文件上传，真实的上传进度只有 0 和 100，不利于交互呈现，因此组件内置模拟上传进度。真实上传进度一般用于大文件上传。 | N
 withCredentials | Boolean | false | 上传请求时是否携带 cookie | N
 onCancelUpload | Function |  | TS 类型：`() => void`<br/>点击「取消上传」时触发 | N
-onChange | Function |  | TS 类型：`(value: Array<T>, context: UploadChangeContext) => void`<br/>已上传文件列表发生变化时触发，`trigger` 表示触发本次的来源。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadChangeContext { e?: MouseEvent \| ProgressEvent; response?: any; trigger: UploadChangeTrigger; index?: number; file?: UploadFile }`<br/><br/>`type UploadChangeTrigger = 'add' \| 'remove' \| 'abort' \| 'progress-success' \| 'progress' \| 'progress-fail'`<br/> | N
+onChange | Function |  | TS 类型：`(value: Array<T>, context: UploadChangeContext) => void`<br/>已上传文件列表发生变化时触发，`trigger` 表示触发本次的来源。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts)。<br/>`interface UploadChangeContext { e?: MouseEvent \| ProgressEvent; response?: any; trigger: UploadChangeTrigger; index?: number; file?: UploadFile; files?: UploadFile[] }`<br/><br/>`type UploadChangeTrigger = 'add' \| 'remove' \| 'abort' \| 'progress-success' \| 'progress' \| 'progress-fail'`<br/> | N
 onDragenter | Function |  | TS 类型：`(context: { e: DragEvent }) => void`<br/>进入拖拽区域时触发 | N
 onDragleave | Function |  | TS 类型：`(context: { e: DragEvent }) => void`<br/>离开拖拽区域时触发 | N
 onDrop | Function |  | TS 类型：`(context: { e: DragEvent }) => void`<br/>拖拽结束时触发 | N
