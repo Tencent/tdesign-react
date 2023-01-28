@@ -15,8 +15,23 @@ import {
   simulateDragFileChange,
 } from '@test/utils';
 import { Upload } from '..';
+import { getUploadServer } from './request';
 
 describe('Upload Component', () => {
+  const server = getUploadServer();
+
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: 'error' });
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
   it('props.abridgeName: props.abridgeName works fine if theme=file-input', () => {
     const { container } = render(
       <Upload theme="file-input" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
@@ -114,14 +129,14 @@ describe('Upload Component', () => {
     const onChangeFn = vi.fn();
     const { container } = render(
       <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        action="https://tdesign.test.com/upload/image_success"
         onSelectChange={onSelectChangeFn}
         onChange={onChangeFn}
       ></Upload>,
     );
     const inputDom = container.querySelector('input');
     const fileList = simulateFileChange(inputDom);
-    await mockDelay(3000);
+    await mockDelay();
     expect(onSelectChangeFn).toHaveBeenCalled();
     expect(onSelectChangeFn.mock.calls[0][0]).toEqual(fileList);
     expect(onSelectChangeFn.mock.calls[0][1].currentSelectedFiles).toEqual([
@@ -145,9 +160,7 @@ describe('Upload Component', () => {
     expect(onChangeFn.mock.calls[0][0][0].uploadTime).toBeTruthy();
     expect(onChangeFn.mock.calls[0][1].trigger).toBe('add');
     expect(onChangeFn.mock.calls[0][1].file.raw).toEqual(fileList[0]);
-    expect(onChangeFn.mock.calls[0][1].file.url).toBe(
-      'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    );
+    expect(onChangeFn.mock.calls[0][1].file.url).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
     expect(onChangeFn.mock.calls[0][1].file.name).toBe('file-name.txt');
     expect(onChangeFn.mock.calls[0][1].file.uploadTime).toBeTruthy();
     expect(onChangeFn.mock.calls[0][1].file.response).toBeTruthy();
@@ -158,7 +171,7 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         files={[{ name: 'file-name.txt', url: 'https://tdesign.gtimg.com/site/source/figma-pc.png' }]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         allowUploadDuplicateFile={false}
         onValidate={onValidateFn}
       ></Upload>,
@@ -175,7 +188,7 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         files={[{ name: 'file-name.txt', url: 'https://tdesign.gtimg.com/site/source/figma-pc.png' }]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         allowUploadDuplicateFile={true}
         onValidate={onValidateFn}
       ></Upload>,
@@ -189,7 +202,7 @@ describe('Upload Component', () => {
   it('props.autoUpload: autoUpload is equal false', async () => {
     const onChangeFn = vi.fn();
     const { container } = render(
-      <Upload autoUpload={false} action="https://cdc.cdn-go.cn/tdc/latest/menu.json" onChange={onChangeFn}></Upload>,
+      <Upload autoUpload={false} action="https://tdesign.test.com/upload/file_success" onChange={onChangeFn}></Upload>,
     );
     const inputDom = container.querySelector('input');
     const fileList = simulateFileChange(inputDom);
@@ -213,7 +226,7 @@ describe('Upload Component', () => {
           { name: 'file2.txt', status: 'success', uploadTime: '2023-01-27', lastModified: 1674831204354 },
           { name: 'file3.txt', status: 'fail', uploadTime: '2023-01-27', lastModified: 1674831204354 },
         ]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onChange={onChangeFn1}
         onRemove={onRemoveFn1}
       ></Upload>,
@@ -229,6 +242,28 @@ describe('Upload Component', () => {
     expect(onChangeFn1.mock.calls[0][1].trigger).toBe('abort');
     expect(onRemoveFn1).not.toHaveBeenCalled();
   });
+  it('props.autoUpload: autoUpload=false & theme=image & draggable = true, cancel upload works fine', async () => {
+    const onSuccessFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="image"
+        autoUpload={false}
+        draggable={true}
+        action="https://tdesign.test.com/upload/image_success"
+        files={[{ url: 'https://image.png', status: 'waiting' }]}
+        onSuccess={onSuccessFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__dragger-upload-btn'));
+    await mockDelay();
+    expect(onSuccessFn).toHaveBeenCalled();
+    expect(onSuccessFn.mock.calls[0][0].fileList[0].url).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
+    expect(onSuccessFn.mock.calls[0][0].currentFiles[0].url).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
+    expect(onSuccessFn.mock.calls[0][0].file.url).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
+    expect(onSuccessFn.mock.calls[0][0].results).toBe(undefined);
+    expect(onSuccessFn.mock.calls[0][0].response).toBeTruthy();
+    expect(onSuccessFn.mock.calls[0][0].XMLHttpRequest).toBeTruthy();
+  });
 
   it('props.beforeAllFilesUpload: beforeAllFilesUpload can stop uploading', async () => {
     const onChangeFn = vi.fn();
@@ -237,7 +272,7 @@ describe('Upload Component', () => {
       <Upload
         autoUpload={false}
         beforeAllFilesUpload={() => false}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onChange={onChangeFn}
         onValidate={onValidateFn}
       ></Upload>,
@@ -258,7 +293,7 @@ describe('Upload Component', () => {
       <Upload
         autoUpload={false}
         beforeUpload={() => false}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onChange={onChangeFn}
         onValidate={onValidateFn}
       ></Upload>,
@@ -278,7 +313,7 @@ describe('Upload Component', () => {
       <Upload
         autoUpload={false}
         beforeUpload={(file) => file.name === 'file-name1.txt'}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onChange={onChangeFn}
         onValidate={onValidateFn}
       ></Upload>,
@@ -295,7 +330,7 @@ describe('Upload Component', () => {
 
   it('props.children: children works fine if theme = file', () => {
     const { container } = render(
-      <Upload theme="file" action="https://cdc.cdn-go.cn/tdc/latest/menu.json">
+      <Upload theme="file" action="https://tdesign.test.com/upload/file_success">
         <span className="custom-node">TNode</span>
       </Upload>,
     );
@@ -304,7 +339,7 @@ describe('Upload Component', () => {
 
   it('props.children: children works fine if theme = custom', () => {
     const { container } = render(
-      <Upload theme="custom" action="https://cdc.cdn-go.cn/tdc/latest/menu.json">
+      <Upload theme="custom" action="https://tdesign.test.com/upload/file_success">
         <span className="custom-node">TNode</span>
       </Upload>,
     );
@@ -313,7 +348,7 @@ describe('Upload Component', () => {
 
   it('props.children: children works fine if theme = custom & draggable=true', () => {
     const { container } = render(
-      <Upload theme="custom" draggable={true} action="https://cdc.cdn-go.cn/tdc/latest/menu.json">
+      <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
         <span className="custom-node">TNode</span>
       </Upload>,
     );
@@ -327,7 +362,7 @@ describe('Upload Component', () => {
         children={fn}
         theme="custom"
         draggable={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(fn).toHaveBeenCalled();
@@ -340,7 +375,7 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         data={{ file_name: 'custom-file-name.excel' }}
-        action="https://cdc.cdn-go.cn/tdc/latest/mock-fail.json"
+        action="https://tdesign.test.com/upload/fail/status_error"
         onFail={onFailFn}
       ></Upload>,
     );
@@ -413,7 +448,7 @@ describe('Upload Component', () => {
         dragContent={<span className="custom-node">TNode</span>}
         theme="custom"
         draggable={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -533,7 +568,7 @@ describe('Upload Component', () => {
         fileListDisplay={<span className="custom-node">TNode</span>}
         files={fileList}
         theme="file"
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -547,7 +582,7 @@ describe('Upload Component', () => {
         fileListDisplay={fn}
         files={fileList}
         theme="file"
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(fn).toHaveBeenCalled();
@@ -563,7 +598,7 @@ describe('Upload Component', () => {
         theme="image-flow"
         multiple={true}
         draggable={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -579,7 +614,7 @@ describe('Upload Component', () => {
         theme="image-flow"
         multiple={true}
         draggable={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(fn).toHaveBeenCalled();
@@ -595,7 +630,7 @@ describe('Upload Component', () => {
         theme="file-flow"
         multiple={true}
         draggable={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -611,7 +646,7 @@ describe('Upload Component', () => {
         theme="file-flow"
         multiple={true}
         draggable={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(fn).toHaveBeenCalled();
@@ -677,7 +712,7 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         format={(fileRaw) => ({ field_custom: 'a new file field', name: 'another name', raw: fileRaw })}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onSelectChange={onSelectChangeFn}
       ></Upload>,
     );
@@ -695,7 +730,7 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         formatRequest={(requestData) => ({ requestData, more_field: 'more custom field' })}
-        action="https://cdc.cdn-go.cn/tdc/latest/mock-fail.json"
+        action="https://tdesign.test.com/upload/fail/status_error"
         onFail={onFailFn}
       ></Upload>,
     );
@@ -710,21 +745,51 @@ describe('Upload Component', () => {
     expect(onFailFn.mock.calls[0][0].XMLHttpRequest.upload.requestParams.more_field).toBe('more custom field');
   });
 
-  it('props.formatResponse works fine', async () => {
+  it('props.formatResponse: format upload success response', async () => {
     const onChangeFn = vi.fn();
     const { container } = render(
       <Upload
-        formatResponse={(response) => ({ responseData: response, extra_field: 'extra value' })}
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        formatResponse={(response) => ({
+          responseData: { ret: response.ret, data: response.data },
+          url: response.data.url,
+          extra_field: 'extra value',
+        })}
+        action="https://tdesign.test.com/upload/file_success"
         onChange={onChangeFn}
       ></Upload>,
     );
     const inputDom = container.querySelector('input');
     simulateFileChange(inputDom);
-    await mockDelay(3000);
+    await mockDelay();
     expect(onChangeFn).toHaveBeenCalled();
-    expect(onChangeFn.mock.calls[0][0][0].response.responseData.url).toBeTruthy();
+    expect(onChangeFn.mock.calls[0][0][0].response.responseData).toEqual({
+      ret: 0,
+      data: { name: 'tdesign.min.js', url: 'https://tdesign.gtimg.com/site/spline/script/tdesign.min.js' },
+    });
+    expect(onChangeFn.mock.calls[0][0][0].response.url).toBe(
+      'https://tdesign.gtimg.com/site/spline/script/tdesign.min.js',
+    );
     expect(onChangeFn.mock.calls[0][0][0].response.extra_field).toBe('extra value');
+  });
+  it('props.formatResponse: format upload fail response', async () => {
+    const onFailFn = vi.fn();
+    const { container } = render(
+      <Upload
+        action="https://tdesign.test.com/upload/fail/response_error"
+        formatResponse={(response) => ({ error: response.error, name: response.name })}
+        onFail={onFailFn}
+      ></Upload>,
+    );
+    const inputDom = container.querySelector('input');
+    const fileList = simulateFileChange(inputDom);
+    await mockDelay();
+    expect(onFailFn).toHaveBeenCalled();
+    expect(onFailFn.mock.calls[0][0].failedFiles[0].raw).toEqual(fileList[0]);
+    expect(onFailFn.mock.calls[0][0].currentFiles[0].raw).toEqual(fileList[0]);
+    expect(onFailFn.mock.calls[0][0].file.raw).toEqual(fileList[0]);
+    expect(onFailFn.mock.calls[0][0].e.type).toBe('load');
+    expect(onFailFn.mock.calls[0][0].XMLHttpRequest).toBeTruthy();
+    expect(onFailFn.mock.calls[0][0].response).toEqual({ error: 'upload failed', name: 'file-name.txt' });
   });
 
   it('props.headers works fine', async () => {
@@ -732,13 +797,13 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         headers={{ 'XML-HTTP-REQUEST': 'tdesign_token' }}
-        action="https://cdc.cdn-go.cn/tdc/latest/mock-fail.json"
+        action="https://tdesign.test.com/upload/fail/status_error"
         onFail={onFailFn}
       ></Upload>,
     );
     const inputDom = container.querySelector('input');
     simulateFileChange(inputDom);
-    await mockDelay(700);
+    await mockDelay();
     expect(onFailFn).toHaveBeenCalled();
     expect(onFailFn.mock.calls[0][0].XMLHttpRequest.upload.requestHeaders['XML-HTTP-REQUEST']).toBe('tdesign_token');
   });
@@ -750,7 +815,7 @@ describe('Upload Component', () => {
         isBatchUpload={true}
         autoUpload={false}
         multiple={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         files={[{ url: 'https://file.txt', name: 'file.txt' }]}
         onChange={onChangeFn}
       ></Upload>,
@@ -768,7 +833,7 @@ describe('Upload Component', () => {
         locale={{ progress: { uploadingText: 'uploading' } }}
         theme="file-flow"
         files={[{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'progress', percent: 80 }]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.t-upload__file-flow-progress').textContent).toBe('uploading 80%');
@@ -780,7 +845,7 @@ describe('Upload Component', () => {
         locale={{ progress: { uploadingText: 'uploading' } }}
         theme="image"
         files={[{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'progress', percent: 80 }]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.t-upload__image-progress').textContent).toBe('uploading 80%');
@@ -835,7 +900,7 @@ describe('Upload Component', () => {
   it('props.name: rename file in request data to be file_name', async () => {
     const onFailFn = vi.fn();
     const { container } = render(
-      <Upload name="file_name" action="https://cdc.cdn-go.cn/tdc/latest/mock-fail.json" onFail={onFailFn}></Upload>,
+      <Upload name="file_name" action="https://tdesign.test.com/upload/fail/status_error" onFail={onFailFn}></Upload>,
     );
     const inputDom = container.querySelector('input');
     const fileList = simulateFileChange(inputDom);
@@ -919,7 +984,7 @@ describe('Upload Component', () => {
             url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
           },
         ]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.t-upload__file-flow-progress').textContent).toBe('上传中');
@@ -938,7 +1003,7 @@ describe('Upload Component', () => {
             url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
           },
         ]}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.t-upload__image-progress').textContent).toBe('上传中');
@@ -950,7 +1015,7 @@ describe('Upload Component', () => {
       <Upload
         sizeLimit={{ size: 23, unit: 'B' }}
         multiple={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onValidate={onValidateFn}
       ></Upload>,
     );
@@ -967,7 +1032,7 @@ describe('Upload Component', () => {
       <Upload
         sizeLimit={{ size: 23, unit: 'B', message: 'image size can not over than {sizeLimit}' }}
         multiple={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onValidate={onValidateFn}
       ></Upload>,
     );
@@ -984,7 +1049,7 @@ describe('Upload Component', () => {
       <Upload
         sizeLimit={0.023}
         multiple={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
         onValidate={onValidateFn}
       ></Upload>,
     );
@@ -1080,7 +1145,7 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         tips={<span className="custom-node">TNode</span>}
-        action="https://cdc.cdn-go.cn/tdc/latest/menu.json"
+        action="https://tdesign.test.com/upload/file_success"
       ></Upload>,
     );
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -1141,7 +1206,7 @@ describe('Upload Component', () => {
 
   it('props.triggerButtonProps is equal { theme: warning }', () => {
     const { container } = render(
-      <Upload triggerButtonProps={{ theme: 'warning' }} action="https://cdc.cdn-go.cn/tdc/latest/menu.json"></Upload>,
+      <Upload triggerButtonProps={{ theme: 'warning' }} action="https://tdesign.test.com/upload/file_success"></Upload>,
     );
     expect(container.querySelectorAll('.t-button--theme-warning').length).toBe(1);
   });
@@ -1151,15 +1216,35 @@ describe('Upload Component', () => {
     const { container } = render(
       <Upload
         withCredentials={true}
-        action="https://cdc.cdn-go.cn/tdc/latest/mock-fail.json"
+        action="https://tdesign.test.com/upload/fail/status_error"
         onFail={onFailFn}
       ></Upload>,
     );
     const inputDom = container.querySelector('input');
     simulateFileChange(inputDom);
-    await mockDelay(700);
+    await mockDelay();
     expect(onFailFn).toHaveBeenCalled();
     expect(onFailFn.mock.calls[0][0].XMLHttpRequest.withCredentials).toBeTruthy();
+  });
+
+  it('events.cancelUpload works fine', async () => {
+    const onChangeFn = vi.fn();
+    const onCancelUploadFn = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="file"
+        draggable={true}
+        autoUpload={true}
+        action="https://tdesign.test.com/upload/file_success"
+        files={[{ name: 'xxx.txt', status: 'progress' }]}
+        onChange={onChangeFn}
+        onCancelUpload={onCancelUploadFn}
+      ></Upload>,
+    );
+    fireEvent.click(container.querySelector('.t-upload__dragger-progress-cancel'));
+    await mockDelay();
+    expect(onChangeFn).not.toHaveBeenCalled();
+    expect(onCancelUploadFn).toHaveBeenCalled();
   });
 
   it('events.change: can trigger change if autoUpload is false for image', async () => {
@@ -1239,9 +1324,33 @@ describe('Upload Component', () => {
     expect(onDragleaveFn2.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
   });
 
+  it('events.dragleave: can not trigger dragleave event if drag leave other dom', () => {
+    const onDragleaveFn1 = vi.fn();
+    const { container } = render(
+      <Upload
+        theme="image"
+        draggable={true}
+        action="https://tdesign.test.com/upload/file_success"
+        onDragleave={onDragleaveFn1}
+      ></Upload>,
+    );
+    const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
+    simulateDragFileChange(tUploadDraggerDom, 'dragEnter');
+    const tUploadTriggerDom1 = container.querySelector('.t-upload__trigger');
+    simulateDragFileChange(tUploadTriggerDom1, 'dragLeave');
+    expect(onDragleaveFn1).not.toHaveBeenCalled();
+  });
+
   it('events.drop: drag image drop, trigger onDrop event', () => {
     const onDropFn = vi.fn();
-    const { container } = render(<Upload theme="image" draggable={true} onDrop={onDropFn}></Upload>);
+    const { container } = render(
+      <Upload
+        theme="image"
+        draggable={true}
+        action="https://tdesign.test.com/upload/file_success"
+        onDrop={onDropFn}
+      ></Upload>,
+    );
     const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
     const files = simulateDragFileChange(tUploadDraggerDom, 'drop', 'image');
     expect(onDropFn).toHaveBeenCalled();
@@ -1250,7 +1359,14 @@ describe('Upload Component', () => {
   });
   it('events.drop: drag file drop, trigger onDrop event', () => {
     const onDropFn = vi.fn();
-    const { container } = render(<Upload theme="file" draggable={true} onDrop={onDropFn}></Upload>);
+    const { container } = render(
+      <Upload
+        theme="file"
+        draggable={true}
+        action="https://tdesign.test.com/upload/file_success"
+        onDrop={onDropFn}
+      ></Upload>,
+    );
     const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
     const files = simulateDragFileChange(tUploadDraggerDom, 'drop');
     expect(onDropFn).toHaveBeenCalled();
@@ -1261,7 +1377,7 @@ describe('Upload Component', () => {
   it('events.fail works fine', async () => {
     const onFailFn = vi.fn();
     const { container } = render(
-      <Upload action="https://cdc.cdn-go.cn/tdc/latest/mock-fail.json" onFail={onFailFn}></Upload>,
+      <Upload action="https://tdesign.test.com/upload/fail/status_error" onFail={onFailFn}></Upload>,
     );
     const inputDom = container.querySelector('input');
     const fileList = simulateFileChange(inputDom);
@@ -1590,7 +1706,7 @@ describe('Upload Component', () => {
         onRemove={onRemoveFn}
       ></Upload>,
     );
-    fireEvent.click(container.querySelector('.t-upload__flow-table tr:nth-child(2) .t-upload__delete'));
+    fireEvent.click(container.querySelector('.t-upload__flow-table tbody tr:nth-child(2) .t-upload__delete'));
     expect(onChangeFn).toHaveBeenCalled();
     expect(onChangeFn.mock.calls[0][0]).toEqual([
       { name: 'file1.txt' },
@@ -1602,34 +1718,29 @@ describe('Upload Component', () => {
     expect(onRemoveFn.mock.calls[0][0].file).toEqual({ name: 'file2.txt', status: 'success' });
     expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
   });
-  it('events.remove: theme=file-flow & multiple=true & autoUpload=true, remove waiting file', () => {
-    const onChangeFn = vi.fn();
-    const onRemoveFn = vi.fn();
+  it('events.remove: theme=file-flow & multiple=true & autoUpload=true, remove fail file', async () => {
+    const onChangeFn1 = vi.fn();
+    const onRemoveFn1 = vi.fn();
     const { container } = render(
       <Upload
         theme="file-flow"
         multiple={true}
         autoUpload={true}
-        files={[
-          { name: 'file1.txt' },
-          { name: 'file2.txt', status: 'success' },
-          { name: 'file3.txt', status: 'waiting' },
-          { name: 'file4.txt', status: 'fail' },
-        ]}
-        onChange={onChangeFn}
-        onRemove={onRemoveFn}
+        files={[{ name: 'file1.txt' }, { name: 'file2.txt', status: 'success' }]}
+        action="https://tdesign.test.com/upload/fail/status_error"
+        onChange={onChangeFn1}
+        onRemove={onRemoveFn1}
       ></Upload>,
     );
-    fireEvent.click(container.querySelector('.t-upload__flow-table tr:nth-child(3) .t-upload__delete'));
-    expect(onChangeFn).toHaveBeenCalled();
-    expect(onChangeFn.mock.calls[0][0]).toEqual([
-      { name: 'file1.txt' },
-      { name: 'file2.txt', status: 'success' },
-      { name: 'file4.txt', status: 'fail' },
-    ]);
-    expect(onRemoveFn).toHaveBeenCalled();
-    expect(onRemoveFn.mock.calls[0][0].index).toBe(2);
-    expect(onRemoveFn.mock.calls[0][0].file).toEqual({ name: 'file3.txt', status: 'waiting' });
-    expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+    const inputDom = container.querySelector('input');
+    simulateFileChange(inputDom);
+    await mockDelay();
+    fireEvent.click(container.querySelector('.t-upload__flow-table tbody tr:last-child .t-upload__delete'));
+    expect(onChangeFn1).not.toHaveBeenCalled();
+    expect(onRemoveFn1).toHaveBeenCalled();
+    expect(onRemoveFn1.mock.calls[0][0].index).toBe(2);
+    expect(onRemoveFn1.mock.calls[0][0].file.name).toBe('file-name.txt');
+    expect(onRemoveFn1.mock.calls[0][0].file.status).toBe('fail');
+    expect(onRemoveFn1.mock.calls[0][0].e.type).toBe('click');
   });
 });

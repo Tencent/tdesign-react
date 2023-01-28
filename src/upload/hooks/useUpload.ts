@@ -263,50 +263,44 @@ export default function useUpload(props: TdUploadProps) {
         if (xhr.files[0]?.raw && xhrReq.current.find((item) => item.files[0].raw === xhr.files[0].raw)) return;
         xhrReq.current = xhrReq.current.concat(xhr);
       },
-    }).then(
-      ({ status, data, list, failedFiles }) => {
-        setUploading(false);
-        if (status === 'success') {
-          // 全部上传成功后，一次性添加（非自动上传已在上一步添加）
-          if (props.autoUpload) {
-            setUploadValue([...data.files], {
-              trigger: 'add',
-              file: data.files[0],
-            });
-          }
-          props.onSuccess?.({
-            fileList: data.files,
-            currentFiles: files,
-            file: files[0],
-            // 只有全部请求完成后，才会存在该字段
-            results: list?.map((t) => t.data),
-            // 单文件单请求有一个 response，多文件多请求有多个 response
-            response: data.response || list.map((t) => t.data.response),
-            XMLHttpRequest: data.XMLHttpRequest,
-          });
-          xhrReq.current = [];
-        } else if (failedFiles?.[0]) {
-          props.onFail?.({
-            e: data.event,
-            file: failedFiles[0],
-            failedFiles,
-            currentFiles: files,
-            response: data.response,
-            XMLHttpRequest: data.XMLHttpRequest,
+    }).then(({ status, data, list, failedFiles }) => {
+      setUploading(false);
+      if (status === 'success') {
+        // 全部上传成功后，一次性添加（非自动上传已在上一步添加）
+        if (props.autoUpload) {
+          setUploadValue([...data.files], {
+            trigger: 'add',
+            file: data.files[0],
           });
         }
+        props.onSuccess?.({
+          fileList: data.files,
+          currentFiles: files,
+          file: files[0],
+          // 只有全部请求完成后，才会存在该字段
+          results: list?.map((t) => t.data),
+          // 单文件单请求有一个 response，多文件多请求有多个 response
+          response: data.response || list.map((t) => t.data.response),
+          XMLHttpRequest: data.XMLHttpRequest,
+        });
+        xhrReq.current = [];
+      } else if (failedFiles?.[0]) {
+        props.onFail?.({
+          e: data.event,
+          file: failedFiles[0],
+          failedFiles,
+          currentFiles: files,
+          response: data.response,
+          XMLHttpRequest: data.XMLHttpRequest,
+        });
+      }
 
-        // 非自动上传，文件都在 uploadValue，不涉及 toUploadFiles
-        if (autoUpload) {
-          setToUploadFiles(failedFiles);
-          props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
-        }
-      },
-      (p) => {
-        onResponseError(p);
-        setUploading(false);
-      },
-    );
+      // 非自动上传，文件都在 uploadValue，不涉及 toUploadFiles
+      if (autoUpload) {
+        setToUploadFiles(failedFiles);
+        props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
+      }
+    });
   }
 
   function onRemove(p: UploadRemoveContext) {
@@ -327,16 +321,16 @@ export default function useUpload(props: TdUploadProps) {
       uploadValue.splice(p.index, 1);
       setUploadValue([...uploadValue], changePrams);
     } else if (p.index < uploadValue.length) {
-        // autoUpload 场景下， p.index < uploadValue.length 表示移除已经上传成功的文件；反之表示移除待上传列表文件
-        uploadValue.splice(p.index, 1);
-        setUploadValue([...uploadValue], changePrams);
-      } else {
-        const tmpFiles = [...toUploadFiles];
-        tmpFiles.splice(p.index - uploadValue.length, 1);
-        // toUploadFiles.current = [...tmpFiles];
-        setToUploadFiles([...tmpFiles]);
-        props.onWaitingUploadFilesChange?.({ files: [...tmpFiles], trigger: 'remove' });
-      }
+      // autoUpload 场景下， p.index < uploadValue.length 表示移除已经上传成功的文件；反之表示移除待上传列表文件
+      uploadValue.splice(p.index, 1);
+      setUploadValue([...uploadValue], changePrams);
+    } else {
+      const tmpFiles = [...toUploadFiles];
+      tmpFiles.splice(p.index - uploadValue.length, 1);
+      // toUploadFiles.current = [...tmpFiles];
+      setToUploadFiles([...tmpFiles]);
+      props.onWaitingUploadFilesChange?.({ files: [...tmpFiles], trigger: 'remove' });
+    }
     props.onRemove?.(p);
   }
 
@@ -366,7 +360,7 @@ export default function useUpload(props: TdUploadProps) {
       );
     }
 
-    if (context?.file) {
+    if (context?.file && !autoUpload) {
       onRemove?.({ file: context.file, e: context.e, index: 0 });
     }
 

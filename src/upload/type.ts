@@ -228,7 +228,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   onSelectChange?: (files: File[], context: UploadSelectChangeContext) => void;
   /**
-   * 上传成功后触发。<br/>`context.currentFiles` 表示当次请求上传的文件，`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br/>`context.results` 表示单次选择全部文件上传成功后的响应结果，可以在这个字段存在时提醒用户上传成功或失败。<br />
+   * 上传成功后触发。<br/>`context.currentFiles` 表示当次请求上传的文件（无论成功或失败），`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br/>`context.results` 表示单次选择全部文件上传成功后的响应结果，可以在这个字段存在时提醒用户上传成功或失败。<br />
    */
   onSuccess?: (context: SuccessContext) => void;
   /**
