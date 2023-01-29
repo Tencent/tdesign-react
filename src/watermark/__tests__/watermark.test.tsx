@@ -16,7 +16,6 @@ describe('Watermark 组件测试', () => {
         <div style={{ height: 300 }}></div>
       </Watermark>,
     );
-
     expect(watermark).toHaveClass('t-watermark');
     expect(watermark.lastChild).toHaveStyle({ 'background-repeat': 'repeat' });
   });
@@ -27,7 +26,6 @@ describe('Watermark 组件测试', () => {
         <div style={{ height: 300 }}></div>
       </Watermark>,
     );
-
     expect(watermark.lastChild).toHaveStyle({ 'background-repeat': 'no-repeat' });
   });
 
