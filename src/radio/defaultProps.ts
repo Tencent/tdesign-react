@@ -13,7 +13,7 @@ export const radioDefaultProps: TdRadioProps = {
 
 export const radioGroupDefaultProps: TdRadioGroupProps = {
   allowUncheck: false,
-  disabled: undefined,
+  disabled: false,
   size: 'medium',
   variant: 'outline',
 };

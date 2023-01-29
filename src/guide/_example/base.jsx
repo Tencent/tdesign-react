@@ -55,9 +55,9 @@ export default function BasicGuide() {
   const steps = [
     {
       element: '.main-title-base',
-      title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom-right',
+      stepOverlayClass: 't-test-guide-step-overlay'
     },
     {
       element: '.label-field-base',
@@ -142,6 +142,7 @@ export default function BasicGuide() {
         <Guide
           current={current}
           steps={steps}
+          zIndex={5000}
           onChange={handleChange}
           onPrevStepClick={handlePrevStepClick}
           onNextStepClick={handleNextStepClick}
