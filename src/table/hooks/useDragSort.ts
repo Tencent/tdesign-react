@@ -5,19 +5,11 @@ import get from 'lodash/get';
 import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
+import useLatest from '../../_util/useLatest';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
 
-/**
- * TODO:
- * 1. 同时支持行拖拽和列拖拽，此时 dragSort 扩展为支持数组即可
- * 2. 多极表头场景下的列拖拽排序
- * 3. 优化列拖拽排序样式（优先级不高，可以慢慢来）
- * @param props
- * @param primaryTableRef
- * @returns
- */
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
   const { tableDraggableClasses, tableBaseClass, tableFullRowClasses } = useClassName();
@@ -27,9 +19,12 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   // 行拖拽判断条件
   const isRowDraggable = useMemo(() => sortOnRowDraggable || dragSort === 'row', [dragSort, sortOnRowDraggable]);
   // 行拖拽判断条件-手柄列
-  const isRowHandlerDraggable = useMemo(() => dragSort === 'row-handler' && !!dragCol, [dragSort, dragCol]);
+  const isRowHandlerDraggable = useMemo(
+    () => ['row-handler', 'row-handler-col'].includes(dragSort) && !!dragCol,
+    [dragSort, dragCol],
+  );
   // 列拖拽判断条件
-  const isColDraggable = useMemo(() => dragSort === 'col', [dragSort]);
+  const isColDraggable = useMemo(() => ['col', 'row-handler-col'].includes(dragSort), [dragSort]);
   // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
@@ -57,6 +52,19 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     originalColumns.current = props.columns;
   }, [props.columns]);
 
+  // fix: https://github.com/Tencent/tdesign/issues/294 修正 onDragSort 会使用旧的变量问题
+  const onDragSortRef = useLatest(onDragSort);
+
+  // 本地分页的表格，index 不同，需加上分页计数
+  function getDataPageIndex(index: number) {
+    const { pagination } = props;
+    // 开启本地分页的场景
+    if (!props.disableDataPage && pagination && data.length > pagination.pageSize) {
+      return pagination.pageSize * (pagination.current - 1) + index;
+    }
+    return index;
+  }
+
   const registerRowDragEvent = (element: HTMLElement) => {
     if (!isRowHandlerDraggable && !isRowDraggable) return;
     // 拖拽实例
@@ -68,7 +76,6 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     }
     const baseOptions: SortableOptions = {
       animation: 150,
-      ...props.dragSortOptions,
       ghostClass: tableDraggableClasses.ghost,
       chosenClass: tableDraggableClasses.chosen,
       dragClass: tableDraggableClasses.dragging,
@@ -89,17 +96,23 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
           targetIndex,
           target: tData.current[targetIndex],
           data: tData.current,
-          newData: swapDragArrayElement([...tData.current], currentIndex, targetIndex),
+          newData: swapDragArrayElement(
+            [...tData.current],
+            getDataPageIndex(currentIndex),
+            getDataPageIndex(targetIndex),
+          ),
           e: evt,
           sort: 'row',
         };
         // currentData is going to be deprecated.
         params.currentData = params.newData;
 
-        onDragSort?.(params);
+        onDragSortRef.current?.(params);
       },
+      ...props.dragSortOptions,
     };
 
+    if (!dragContainer) return;
     if (isRowDraggable) {
       dragInstanceTmp = new Sortable(dragContainer, { ...baseOptions });
     } else if (isRowHandlerDraggable) {
@@ -111,7 +124,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     lastRowList.current = dragInstanceTmp?.toArray();
   };
 
-  // TODO: 优化效果
+  // TODO: 待和 Vue 保持相同逻辑
   const registerColDragEvent = (tableElement: HTMLElement) => {
     if (!isColDraggable || !tableElement) return;
     // 拖拽实例
@@ -152,10 +165,11 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         };
         // currentData is going to be deprecated.
         params.currentData = params.newData;
-        onDragSort?.(params);
+        onDragSortRef.current?.(params);
       },
     };
     const container = tableElement.querySelector('thead > tr') as HTMLDivElement;
+    if (!container) return;
     dragInstanceTmp = new Sortable(container, options);
     lastColList.current = dragInstanceTmp?.toArray();
   };
@@ -172,6 +186,9 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       }
       clearTimeout(timer);
     });
+    return () => {
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primaryTableRef, columns, dragSort]);
 

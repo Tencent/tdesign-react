@@ -1,10 +1,8 @@
 import React, { useState, useRef, ReactNode } from 'react';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
-
 import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames';
-
-import Popup from '../popup';
+import Popup, { PopupProps } from '../popup';
 import Checkbox from '../checkbox';
 import Radio from '../radio';
 import Input from '../input';
@@ -34,6 +32,7 @@ export interface TableFilterControllerProps {
   isFocusClass: string;
   column: PrimaryTableCol;
   primaryTableElement: HTMLElement;
+  popupProps: PopupProps;
   onVisibleChange: (val: boolean) => void;
   onReset: (column: PrimaryTableCol<TableRowData>) => void;
   onConfirm: (column: PrimaryTableCol<TableRowData>) => void;
@@ -122,8 +121,11 @@ export default function TableFilterController(props: TableFilterControllerProps)
 
   if (!column.filter || (column.filter && !Object.keys(column.filter).length)) return null;
   const defaultFilterIcon = t(locale.filterIcon) || <FilterIcon />;
+  const filterValue = tFilterValue?.[column.colKey];
+  const isObjectTrue = typeof filterValue === 'object' && !isEmpty(filterValue);
+  const isValueTrue = filterValue && typeof filterValue !== 'object';
   return (
-    <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: !isEmpty(tFilterValue?.[column.colKey]) }])}>
+    <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: isObjectTrue || isValueTrue }])}>
       <Popup
         // attach={primaryTableElement ? () => primaryTableElement : undefined}
         visible={filterPopupVisible}
@@ -139,6 +141,7 @@ export default function TableFilterController(props: TableFilterControllerProps)
             {getBottomButtons(column)}
           </div>
         }
+        {...props.popupProps}
       >
         <div ref={triggerElementRef}>{props.filterIcon || defaultFilterIcon}</div>
       </Popup>

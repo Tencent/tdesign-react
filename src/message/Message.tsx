@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { CSSProperties, useEffect } from 'react';
 import classNames from 'classnames';
+import { render, unmount } from '../_util/react-render';
 
 import {
   MessageCloseAllMethod,
@@ -15,13 +15,15 @@ import {
   MessageWarningMethod,
   MessageThemeList,
   MessageConfigMethod,
+  MessagePlacementList,
 } from './type';
 import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
 import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 
-import { getMessageConfig, getMessageDefaultConfig, globalConfig, setGlobalConfig } from './config';
+import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
+import { useMessageClass } from './useMessageClass';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
@@ -40,56 +42,92 @@ export interface MessagePlugin {
   config: MessageConfigMethod;
 }
 
+interface MessageContainerProps {
+  placement?: MessagePlacementList;
+  zIndex?: number;
+  id?: string;
+  children?: React.ReactNode;
+  renderCallback?: Function;
+}
+
+const MessageContainer: React.FC<MessageContainerProps> = (props) => {
+  const { placement, children, zIndex, id, renderCallback } = props;
+
+  const style: CSSProperties = {
+    zIndex,
+  };
+
+  Object.keys(PlacementOffset[placement]).forEach((key) => {
+    style[key] = PlacementOffset[placement][key];
+  });
+
+  if (placement.includes('top')) {
+    style.top = `${globalConfig.top}px`;
+  }
+
+  useEffect(() => {
+    renderCallback();
+    // eslint-disable-next-line
+  }, []);
+
+  const { tdMessagePlacementClassGenerator, tdMessageListClass } = useMessageClass();
+
+  return (
+    <div className={classNames(tdMessageListClass, tdMessagePlacementClassGenerator(placement))} style={style} id={id}>
+      {children}
+    </div>
+  );
+};
+
 /**
  * @desc 创建容器，所有的 message 会填充到容器中
  */
-function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
-  // 默认注入到 body 中，如果用户有指定，以用户指定的为准
-  let mountedDom: AttachNodeReturnValue = document.body;
+function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions): Promise<Element> {
+  return new Promise((resolve) => {
+    // 默认注入到 body 中，如果用户有指定，以用户指定的为准
+    let mountedDom: AttachNodeReturnValue = document.body;
 
-  const messageDefaultConfig = getMessageDefaultConfig();
-
-  // attach 为字符串时认为是选择器
-  if (typeof attach === 'string') {
-    const result = document.querySelectorAll(attach);
-    if (result.length >= 1) {
-      // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable
-      // eslint-disable-next-line prefer-destructuring
-      mountedDom = result[0];
+    // attach 为字符串时认为是选择器
+    if (typeof attach === 'string') {
+      const result = document.querySelectorAll(attach);
+      if (result.length >= 1) {
+        // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable
+        // eslint-disable-next-line prefer-destructuring
+        mountedDom = result[0];
+      }
+    } else if (typeof attach === 'function') {
+      mountedDom = attach();
     }
-  } else if (typeof attach === 'function') {
-    mountedDom = attach();
-  }
 
-  // :todo 暂时写死，需要 pmc 确定如何在非组件中拿到动态配置的样式前缀
-  const tdMessageListClass = 't-message__list';
-  const tdMessagePlacementClass = `t-message-placement--${placement}`;
-
-  // 选择器找到一个挂载 message 的容器，不存在则创建
-  const container = Array.from(mountedDom.querySelectorAll(`.${tdMessageListClass}.${tdMessagePlacementClass}`));
-  if (container.length < 1) {
-    const div = document.createElement('div');
-    div.className = classNames(tdMessageListClass, tdMessagePlacementClass);
-    div.style.zIndex = String(zIndex || messageDefaultConfig.zIndex);
-
-    Object.keys(PlacementOffset[placement]).forEach((key) => {
-      div.style[key] = PlacementOffset[placement][key];
-    });
-
-    if (placement.includes('top')) {
-      div.style.top = `${globalConfig.top}px`;
+    // 选择器找到一个挂载 message 的容器，不存在则创建
+    const containerId = `tdesign-message-container--${placement}`;
+    const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+    if (container.length < 1) {
+      const div = document.createElement('div');
+      render(
+        <MessageContainer
+          id={containerId}
+          placement={placement}
+          zIndex={zIndex}
+          renderCallback={() => {
+            mountedDom.appendChild(div);
+            const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+            resolve(container[0]);
+          }}
+        />,
+        div,
+      );
+    } else {
+      resolve(container[0]);
     }
-    mountedDom.appendChild(div);
-    return div;
-  }
-  return container[0];
+  });
 }
 
 /**
  * @desc 函数式调用时的 message 渲染函数
  */
-function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
-  const container = createContainer(config) as HTMLElement;
+async function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
+  const container = (await createContainer(config)) as HTMLElement;
 
   const { content, offset, onDurationEnd = noop, onCloseBtnClick = noop } = config;
   const div = document.createElement('div');
@@ -98,7 +136,7 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
 
   const message = {
     close: () => {
-      ReactDOM.unmountComponentAtNode(div);
+      unmount(div);
       div.remove();
       message.closed = true;
     },
@@ -115,24 +153,24 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
     }, config.duration);
   }
 
-  let style: React.CSSProperties = {};
+  let style: React.CSSProperties = { ...config.style };
   if (Array.isArray(offset) && offset.length === 2) {
     const [left, top] = offset;
     style = {
-      ...config.style,
       left,
       top,
+      ...style,
       position: 'relative',
     };
   }
 
   return new Promise((resolve) => {
     // 渲染组件
-    ReactDOM.render(
+    render(
       <MessageComponent
-        theme={theme}
         key={keyIndex}
         {...config}
+        theme={theme}
         style={style}
         onCloseBtnClick={(ctx) => {
           onCloseBtnClick(ctx);

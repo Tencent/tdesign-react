@@ -76,6 +76,7 @@ export default function useMultiple(props: TdSelectInputProps) {
         readonly: !props.allowInput || props.readonly,
         inputClass: classNames(props.tagInputProps?.className, {
           [`${classPrefix}-input--focused`]: p.popupVisible,
+          [`${classPrefix}-is-focused`]: p.popupVisible,
         }),
       }}
     />

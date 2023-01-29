@@ -5,7 +5,7 @@ import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'lodash/isEmpty';
 import isURL from 'validator/lib/isURL';
 import isNumber from 'lodash/isNumber';
-import { getCharacterLength } from '../_util/helper';
+import { getCharacterLength } from '../_common/js/utils/helper';
 import {
   CustomValidator,
   FormRule,
@@ -101,4 +101,15 @@ export async function validate(value: ValueType, rules: Array<FormRule>): Promis
   const all = rules.map((rule) => validateOneRule(value, rule));
   const r = await Promise.all(all);
   return r;
+}
+
+/**
+ * Replace with template.
+ * `${name} is wrong` + { name: 'password' } = password is wrong
+ */
+export function parseMessage(template: string, options: Record<string, string>): string {
+  return template.replace(/\$\{\w+\}/g, (str: string) => {
+    const key = str.slice(2, -1);
+    return options[key];
+  });
 }

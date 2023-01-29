@@ -1,7 +1,14 @@
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-import { PrimaryTableCol, RowClassNameParams, TableRowData, TdBaseTableProps } from './type';
+import {
+  CellData,
+  PrimaryTableCol,
+  RowClassNameParams,
+  TableColumnClassName,
+  TableRowData,
+  TdBaseTableProps,
+} from './type';
 import { ClassName, HTMLElementAttributes } from '../common';
 import { AffixProps } from '../affix';
 
@@ -67,6 +74,23 @@ export function formatRowClassNames(
     customClasses = customClasses.concat(tClass);
   }
   return customClasses;
+}
+
+export function formatClassNames(
+  classNames: TableColumnClassName<TableRowData> | TableColumnClassName<TableRowData>[],
+  params: CellData<TableRowData>,
+) {
+  const classes = classNames instanceof Array ? classNames : [classNames];
+  const arr: any[] = [];
+  for (let i = 0, len = classes.length; i < len; i++) {
+    const cls = classes[i];
+    if (isFunction(cls)) {
+      arr.push(cls(params));
+    } else {
+      arr.push(cls);
+    }
+  }
+  return arr;
 }
 
 export function filterDataByIds(
@@ -151,7 +175,7 @@ export function getCurrentRowByKey<T extends { colKey?: string; children?: any[]
 }
 
 /** 透传 Affix 组件全部特性 */
-export function getAffixProps(mainAffixProps: boolean | AffixProps, subAffixProps?: AffixProps) {
+export function getAffixProps(mainAffixProps: boolean | Partial<AffixProps>, subAffixProps?: Partial<AffixProps>) {
   if (typeof mainAffixProps === 'object') return mainAffixProps;
   if (typeof subAffixProps === 'object') return subAffixProps;
   return {};

@@ -5,8 +5,15 @@ import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { TdDatePickerProps } from '../type';
-import { isValidDate, formatDate, formatTime, getDefaultFormat } from './useFormat';
+import {
+  isValidDate,
+  formatDate,
+  formatTime,
+  getDefaultFormat,
+  parseToDayjs,
+} from '../../_common/js/date-picker/format';
 import useSingleValue from './useSingleValue';
+import type { TdPopupProps } from '../../popup/type';
 
 export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
@@ -28,7 +35,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value, { format, targetFormat: format }));
+  const [inputValue, setInputValue] = useState(formatDate(value, { format }));
 
   // input 设置
   const inputProps = {
@@ -45,7 +52,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange('', { dayjsValue: dayjs(''), trigger: 'clear' });
+      onChange('', { dayjsValue: dayjs(), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
       props.onBlur?.({ value: val, e });
@@ -59,21 +66,31 @@ export default function useSingleInput(props: TdDatePickerProps) {
 
       // 跳过不符合格式化的输入框内容
       if (!isValidDate(val, format)) return;
-      const newMonth = dayjs(val).month();
-      const newYear = dayjs(val).year();
+      setCacheValue(val);
+      const newMonth = parseToDayjs(val, format).month();
+      const newYear = parseToDayjs(val, format).year();
       const newTime = formatTime(val, timeFormat);
       !Number.isNaN(newYear) && setYear(newYear);
       !Number.isNaN(newMonth) && setMonth(newMonth);
       !Number.isNaN(newTime) && setTime(newTime);
     },
     onEnter: (val: string) => {
+      if (!val) {
+        onChange('', { dayjsValue: dayjs(), trigger: 'enter' });
+        setPopupVisible(false);
+        return;
+      }
+
       if (!isValidDate(val, format) && !isValidDate(value, format)) return;
 
       setPopupVisible(false);
       if (isValidDate(val, format)) {
-        onChange(formatDate(val, { format, targetFormat: valueType }), { dayjsValue: dayjs(val), trigger: 'enter' });
+        onChange(formatDate(val, { format, targetFormat: valueType }), {
+          dayjsValue: parseToDayjs(val, format),
+          trigger: 'enter',
+        });
       } else if (isValidDate(value, format)) {
-        setInputValue(formatDate(value, { format, targetFormat: format }));
+        setInputValue(formatDate(value, { format }));
       } else {
         setInputValue('');
       }
@@ -84,14 +101,14 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const popupProps = {
     expandAnimation: true,
     ...props.popupProps,
+    trigger: 'mousedown' as TdPopupProps['trigger'],
     overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean, context: any) => {
-      if (context.trigger === 'trigger-element-click') {
+      // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
+      props.popupProps?.onVisibleChange?.(visible, context);
+      if (context.trigger === 'trigger-element-mousedown') {
         return setPopupVisible(true);
-      }
-      if (!visible) {
-        setIsHoverCell(false);
       }
       setPopupVisible(visible);
     },
@@ -103,9 +120,9 @@ export default function useSingleInput(props: TdDatePickerProps) {
       setInputValue('');
       return;
     }
-    if (!isValidDate(value, valueType)) return;
+    if (!isValidDate(value, format)) return;
 
-    setInputValue(formatDate(value, { format, targetFormat: format }));
+    setInputValue(formatDate(value, { format }));
     // eslint-disable-next-line
   }, [value]);
 

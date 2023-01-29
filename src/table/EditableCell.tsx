@@ -10,10 +10,11 @@ import {
   PrimaryTableRowEditContext,
   PrimaryTableRowValidateContext,
   TdBaseTableProps,
+  PrimaryTableCellParams,
 } from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TableClassName } from './hooks/useClassName';
-import { renderCell } from './TR';
+import { renderCell } from './Cell';
 import { validate } from '../form/formModel';
 import log from '../_common/js/log';
 import { AllValidateResult } from '../form/type';
@@ -27,6 +28,7 @@ export interface EditableCellProps {
   tableBaseClass?: TableClassName['tableBaseClass'];
   /** 行编辑需要使用 editable。单元格编辑则无需使用，设置为 undefined */
   editable?: boolean;
+  readonly?: boolean;
   errors?: AllValidateResult[];
   cellEmptyContent?: TdBaseTableProps['cellEmptyContent'];
   onChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
@@ -35,10 +37,10 @@ export interface EditableCellProps {
 }
 
 const EditableCell = (props: EditableCellProps) => {
-  const { row, col, rowIndex, colIndex, errors, editable, tableBaseClass } = props;
+  const { row, col, colIndex, rowIndex, errors, editable, tableBaseClass } = props;
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
 
@@ -47,6 +49,16 @@ const EditableCell = (props: EditableCellProps) => {
     set(newRow, colKey, value);
     return newRow;
   };
+
+  const cellParams: PrimaryTableCellParams<TableRowData> = useMemo(
+    () => ({
+      col,
+      row,
+      colIndex,
+      rowIndex,
+    }),
+    [col, row, colIndex, rowIndex],
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
@@ -67,9 +79,7 @@ const EditableCell = (props: EditableCellProps) => {
   const componentProps = useMemo(() => {
     const { edit } = col;
     if (!edit) return {};
-    const editProps = isFunction(edit.props)
-      ? edit.props({ col, row, rowIndex, colIndex, editedRow: currentRow })
-      : { ...edit.props };
+    const editProps = isFunction(edit.props) ? edit.props({ ...cellParams, editedRow: currentRow }) : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
     delete editProps.value;
@@ -77,7 +87,7 @@ const EditableCell = (props: EditableCellProps) => {
       delete editProps[item];
     });
     return editProps;
-  }, [col, colIndex, currentRow, row, rowIndex]);
+  }, [currentRow, cellParams, col]);
 
   const isAbortEditOnChange = useMemo(() => {
     const { edit } = col;
@@ -90,22 +100,20 @@ const EditableCell = (props: EditableCellProps) => {
       const params: PrimaryTableRowValidateContext<TableRowData> = {
         result: [
           {
-            col: props.col,
-            row: props.row,
-            colIndex: props.colIndex,
-            rowIndex: props.rowIndex,
+            ...cellParams,
             errorList: [],
             value: editValue,
           },
         ],
         trigger,
       };
-      if (!col.edit?.rules) {
+      const rules = isFunction(col.edit.rules) ? col.edit.rules(cellParams) : col.edit.rules;
+      if (!col.edit || !rules || !rules.length) {
         props.onValidate?.(params);
         resolve(true);
         return;
       }
-      validate(editValue, col.edit?.rules).then((result) => {
+      validate(editValue, rules).then((result) => {
         const list = result?.filter((t) => !t.result);
         params.result[0].errorList = list;
         props.onValidate?.(params);
@@ -158,10 +166,10 @@ const EditableCell = (props: EditableCellProps) => {
         updateAndSaveAbort(
           outsideAbortEvent,
           {
+            ...cellParams,
             value: editValue,
             trigger: itemEvent,
             newRowData: currentRow,
-            rowIndex: props.rowIndex,
           },
           ...args,
         );
@@ -174,11 +182,9 @@ const EditableCell = (props: EditableCellProps) => {
   const onEditChange = (val: any, ...args: any) => {
     setEditValue(val);
     const params = {
-      row: props.row,
-      rowIndex: props.rowIndex,
+      ...cellParams,
       value: val,
-      col: props.col,
-      colIndex: props.colIndex,
+      editedRow: { ...props.row, [props.col.colKey]: val },
     };
     props.onChange?.(params);
     props.onRuleChange?.(params);
@@ -199,11 +205,9 @@ const EditableCell = (props: EditableCellProps) => {
     }
   };
 
-  const documentClickHandler = (e: PointerEvent) => {
+  const documentClickHandler = () => {
     if (!col.edit || !col.edit.component) return;
     if (!isEdit) return;
-    // @ts-ignore
-    if (e.path?.includes(tableEditableCellRef?.current?.currentElement)) return;
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, {
       value: editValue,
@@ -248,19 +252,21 @@ const EditableCell = (props: EditableCellProps) => {
   useEffect(() => {
     if (props.editable === true) {
       props.onRuleChange?.({
-        col,
-        row,
-        rowIndex,
-        colIndex,
+        ...cellParams,
         value: cellValue,
+        editedRow: currentRow || row,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cellValue, col, colIndex, row, rowIndex]);
+  }, [props.editable, cellValue, row, col, cellParams, currentRow]);
 
   useEffect(() => {
     setErrorList(errors);
   }, [errors]);
+
+  if (props.readonly) {
+    return cellNode || null;
+  }
 
   // 这是非编辑态
   if ((props.editable === undefined && !isEdit) || editable === false) {
@@ -273,7 +279,7 @@ const EditableCell = (props: EditableCellProps) => {
         }}
       >
         {cellNode}
-        {col.edit?.showEditIcon !== false && <Edit1Icon size="12px" />}
+        {col.edit?.showEditIcon !== false && <Edit1Icon />}
       </div>
     );
   }

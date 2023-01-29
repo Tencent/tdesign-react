@@ -1,13 +1,16 @@
 import React from 'react';
-import { TdFormProps, TdFormListProps } from './type';
+import { TdFormProps, TdFormListProps, NamePath } from './type';
 import { FormItemInstance } from './FormItem';
+import { InternalFormInstance } from './hooks/interface';
 
 const FormContext = React.createContext<{
+  form?: InternalFormInstance;
   labelWidth?: TdFormProps['labelWidth'];
   statusIcon?: TdFormProps['statusIcon'];
   labelAlign: TdFormProps['labelAlign'];
   layout: TdFormProps['layout'];
   colon: TdFormProps['colon'];
+  initialData: TdFormProps['initialData'];
   requiredMark: TdFormProps['requiredMark'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
@@ -18,18 +21,20 @@ const FormContext = React.createContext<{
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
+  form: undefined,
   labelWidth: '100px',
   labelAlign: 'right',
   layout: 'vertical',
   colon: false,
-  requiredMark: true,
+  initialData: {},
+  requiredMark: undefined,
   scrollToFirstError: undefined,
-  showErrorMessage: true,
+  showErrorMessage: undefined,
   resetType: 'empty',
-  disabled: false,
+  disabled: undefined,
   rules: undefined,
   errorMessage: undefined,
-  statusIcon: false,
+  statusIcon: undefined,
   onFormItemValueChange: undefined,
   formMapRef: undefined,
 });
@@ -39,7 +44,7 @@ export const useFormContext = () => React.useContext(FormContext);
 export default FormContext;
 
 export const FormListContext = React.createContext<{
-  name: string | number;
+  name: NamePath;
   rules: TdFormListProps['rules'];
   formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
 }>({

@@ -6,6 +6,7 @@ import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 import { StyledProps, Styles } from '../common';
 import useConfig from '../hooks/useConfig';
 import { pxCompat } from '../_util/helper';
+import parseTNode from '../_util/parseTNode';
 import { skeletonDefaultProps } from './defaultProps';
 
 export type SkeletonProps = TdSkeletonProps & StyledProps & { children: React.ReactNode };
@@ -71,7 +72,7 @@ const Skeleton = (props: SkeletonProps) => {
 
     return cols.map((item, index) => (
       <div key={index} className={getColItemClass(item)} style={getColItemStyle(item)}>
-        {typeof item.content === 'function' ? item.content(React.createElement) : item.content}
+        {parseTNode(item.content)}
       </div>
     ));
   };

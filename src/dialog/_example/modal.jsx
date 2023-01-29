@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from 'tdesign-react';
+import { Dialog, DialogCard, Button, Select } from 'tdesign-react';
 
 export default function NotModalExample() {
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
-  const [visible3, setVisible3] = useState(false);
+  const [value, setValue] = useState('');
 
   const handleClick = () => {
     setVisible(true);
@@ -19,8 +19,8 @@ export default function NotModalExample() {
   const handleClose2 = () => {
     setVisible2(false);
   };
-  const handleClose3 = () => {
-    setVisible3(false);
+  const onChange = (value) => {
+    setValue(value);
   };
   return (
     <>
@@ -45,14 +45,6 @@ export default function NotModalExample() {
       >
         非模态对话框2
       </Button>
-      <Button
-        theme="primary"
-        onClick={() => {
-          setVisible3(true);
-        }}
-      >
-        普通对话框
-      </Button>
 
       <Dialog
         width="800"
@@ -75,7 +67,19 @@ export default function NotModalExample() {
           console.log('dialog is open');
         }}
       >
-        <p>This is a dialog</p>
+        <Select
+          value={value}
+          onChange={onChange}
+          style={{ width: '40%' }}
+          clearable
+          options={[
+            { label: '架构云', value: '1' },
+            { label: '大数据', value: '2' },
+            { label: '区块链', value: '3' },
+            { label: '物联网', value: '4', disabled: true },
+            { label: '人工智能', value: '5' },
+          ]}
+        ></Select>
       </Dialog>
       <Dialog
         mode="modeless"
@@ -89,17 +93,9 @@ export default function NotModalExample() {
       >
         <p>This is a dialog</p>
       </Dialog>
-      <Dialog
-        mode="normal"
-        header="普通对话框"
-        visible={visible3}
-        onClose={handleClose3}
-        onOpened={() => {
-          console.log('dialog is open');
-        }}
-      >
+      <DialogCard header="普通对话框">
         <p>This is a dialog</p>
-      </Dialog>
+      </DialogCard>
     </>
   );
 }

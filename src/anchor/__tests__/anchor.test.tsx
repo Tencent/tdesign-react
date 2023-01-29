@@ -1,24 +1,15 @@
 import React from 'react';
-import { testExamples, render } from '@test/utils';
+import { render } from '@test/utils';
 import Anchor from '../Anchor';
 import { getScroll, scrollTo } from '../_util/dom';
 
 const { AnchorItem } = Anchor;
 
-// 测试组件代码 Example 快照
-testExamples(__dirname);
+describe('Anchor 组件测试', () => {
+  const distance = 0;
+  const childTestID = 'childTestID';
 
-jest.resetModules();
-
-describe('Anchor', () => {
-  it('util/dom', () => {
-    const distance = 0;
-    const childTestID = 'childTestID';
-    jest.mock('../_util/dom', () => ({
-      getScroll: () => 0,
-      scrollTo: (args) => args,
-    }));
-
+  test('Anchor 工具函数', () => {
     const wrapper = render(
       <Anchor targetOffset={150}>
         <AnchorItem href="#基础锚点" title="基础锚点" data-testid={childTestID} />
@@ -28,10 +19,6 @@ describe('Anchor', () => {
     // target is element
     const domDistance = getScroll(wrapper.getByTestId(childTestID), true);
     expect(domDistance).toEqual(distance);
-
-    // target is null
-    const nullDistance = getScroll(null, true);
-    expect(nullDistance).toEqual(distance);
 
     // target is document
     const documentDistance = getScroll(document, true);
@@ -43,5 +30,17 @@ describe('Anchor', () => {
 
     const scrollToPromise = scrollTo(10, {});
     expect(scrollToPromise).toBeInstanceOf(Promise);
+  });
+
+  test('render links', async () => {
+    render(
+      <Anchor>
+        <AnchorItem href="#test-a" />
+        <AnchorItem href="#test-b" />
+      </Anchor>,
+    );
+    expect(document.querySelector('.t-is-active')).toBe(null);
+    expect(document.querySelector('a[href="#test-a"]')).not.toBe(null);
+    expect(document.querySelector('a[href="#test-b"]')).not.toBe(null);
   });
 });

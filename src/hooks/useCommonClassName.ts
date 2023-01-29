@@ -37,6 +37,9 @@ export default function useCommonClassName() {
       STATUS: names.STATUS,
       sizeClassNames: names.SIZE,
       statusClassNames: names.STATUS,
+      classPrefix,
     };
   }, [classPrefix]);
 }
+
+export type CommonClassNameType = ReturnType<typeof useCommonClassName>;

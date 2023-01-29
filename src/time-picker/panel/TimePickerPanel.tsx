@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState, MouseEvent } from 'react';
 import dayjs from 'dayjs';
 import SinglePanel, { SinglePanelProps } from './SinglePanel';
 
@@ -22,7 +22,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     isFooterDisplay,
     onChange,
     value,
-    isShowPanel,
+    isShowPanel = true,
   } = props;
   const [triggerScroll, toggleTriggerScroll] = useState(false); // 触发滚动
   const { classPrefix } = useConfig();
@@ -47,15 +47,22 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     if (isShowPanel) toggleTriggerScroll(true);
   }, [isShowPanel]);
 
+  const handleOnChange = (v: string, e: MouseEvent<HTMLDivElement>) => {
+    props.onChange(v);
+    props.onPick?.(v, { e });
+  };
+
   return (
     <div className={panelClassName}>
       <div className={`${panelClassName}-section-body`}>
         <SinglePanel
           {...props}
+          onChange={handleOnChange}
           format={format}
           steps={steps}
           value={value}
           triggerScroll={triggerScroll}
+          isVisible={isShowPanel}
           resetTriggerScroll={() => toggleTriggerScroll(false)}
         />
       </div>

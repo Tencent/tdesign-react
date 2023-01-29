@@ -1,9 +1,9 @@
-import React, { useRef, MouseEvent, FormEvent, useMemo } from 'react';
+import React, { useRef, MouseEvent, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
-import Input, { InputValue } from '../input';
+import Input, { TdInputProps } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
 import useConfig from '../hooks/useConfig';
@@ -52,16 +52,13 @@ export default function useSingle(props: TdSelectInputProps) {
     suffixIcon: showLoading ? <Loading loading size="small" /> : props.suffixIcon,
   };
 
-  const onInnerClear = (context: { e: MouseEvent<SVGElement> }) => {
+  const onInnerClear = (context: { e: MouseEvent<SVGSVGElement> }) => {
     context?.e?.stopPropagation();
     props.onClear?.(context);
     setInputValue('', { trigger: 'clear' });
   };
 
-  const onInnerInputChange = (
-    value: InputValue,
-    context: { e: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
-  ) => {
+  const onInnerInputChange: TdInputProps['onChange'] = (value, context) => {
     if (props.allowInput) {
       setInputValue(value, { ...context, trigger: 'input' });
     }
@@ -77,7 +74,7 @@ export default function useSingle(props: TdSelectInputProps) {
         {...commonInputProps}
         autoWidth={props.autoWidth}
         placeholder={singleValueDisplay ? '' : props.placeholder}
-        value={singleValueDisplay ? undefined : displayedValue}
+        value={singleValueDisplay ? ' ' : displayedValue}
         label={
           <>
             {props.label}
@@ -100,6 +97,7 @@ export default function useSingle(props: TdSelectInputProps) {
         {...props.inputProps}
         inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
+          [`${classPrefix}-is-focused`]: popupVisible,
         })}
       />
     );

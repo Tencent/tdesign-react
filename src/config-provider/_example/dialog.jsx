@@ -1,6 +1,6 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import { ConfigProvider, Dialog, Space } from 'tdesign-react';
+import { ConfigProvider, DialogCard, Space } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 export default function configDemo() {
@@ -22,15 +22,15 @@ export default function configDemo() {
   return (
     <ConfigProvider globalConfig={globalConfig}>
       <Space direction="vertical">
-        <Dialog header="Title" body="Would you like to be my friends？" mode="normal" theme="default" visible />
+        <DialogCard header="Title" body="Would you like to be my friends？" theme="default" />
 
-        <Dialog header="confirm" body="Would you like to be my friends？" mode="normal" theme="info" visible />
+        <DialogCard header="confirm" body="Would you like to be my friends？" theme="info" />
 
-        <Dialog header="confirm" body="Would you like to be my friends？" mode="normal" theme="warning" visible />
+        <DialogCard header="confirm" body="Would you like to be my friends？" theme="warning" />
 
-        <Dialog header="confirm" body="Would you like to be my friends？" mode="normal" theme="danger" visible />
+        <DialogCard header="confirm" body="Would you like to be my friends？" theme="danger" />
 
-        <Dialog header="confirm" body="Would you like to be my friends？" mode="normal" theme="success" visible />
+        <DialogCard header="confirm" body="Would you like to be my friends？" theme="success" />
       </Space>
     </ConfigProvider>
   );

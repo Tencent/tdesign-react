@@ -5,9 +5,10 @@
  * */
 
 import { PopupPlacement } from '../popup';
-import { PopupProps } from '../popup';
+import { TdPopupProps } from '../popup';
+import { TNode } from '../common';
 
-export interface TdTooltipProps extends Omit<PopupProps, 'placement'> {
+export interface TdTooltipProps extends TdPopupProps {
   /**
    * 【议案讨论中】延迟出现提示，用于异步加载提示信息需要延迟显示的业务场景下
    */
@@ -25,7 +26,7 @@ export interface TdTooltipProps extends Omit<PopupProps, 'placement'> {
    * 浮层出现位置
    * @default top
    */
-  placement?: 'mouse' | PopupPlacement;
+  placement?: PopupPlacement;
   /**
    * 是否显示浮层箭头
    * @default true
@@ -36,4 +37,39 @@ export interface TdTooltipProps extends Omit<PopupProps, 'placement'> {
    * @default default
    */
   theme?: 'default' | 'primary' | 'success' | 'danger' | 'warning' | 'light';
+}
+
+export interface TdTooltipLiteProps {
+  /**
+   * 触发元素，同 triggerElement
+   */
+  children?: TNode;
+  /**
+   * 文字提示内容
+   */
+  content?: TNode;
+  /**
+   * 提示浮层出现的位置
+   * @default top
+   */
+  placement?: 'top' | 'bottom' | 'mouse';
+  /**
+   * 是否显示箭头
+   * @default true
+   */
+  showArrow?: boolean;
+  /**
+   * 文字提示浮层是否需要阴影
+   * @default true
+   */
+  showShadow?: boolean;
+  /**
+   * 组件风格，有亮色模式和暗色模式两种
+   * @default default
+   */
+  theme?: 'light' | 'default';
+  /**
+   * 触发元素
+   */
+  triggerElement?: TNode;
 }

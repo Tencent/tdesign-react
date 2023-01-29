@@ -74,7 +74,7 @@ export default {
           component: () => import('tdesign-react/icon/icon.md'),
         },
         {
-          title: 'Link 文字',
+          title: 'Link 链接',
           name: 'link',
           path: '/react/components/link',
           component: () => import('tdesign-react/link/link.md'),
@@ -142,12 +142,6 @@ export default {
           component: () => import('tdesign-react/dropdown/dropdown.md'),
         },
         {
-          title: 'Jumper 跳转',
-          name: 'jumper',
-          path: '/react/components/jumper',
-          component: () => import('tdesign-react/jumper/jumper.md'),
-        },
-        {
           title: 'Menu 导航',
           name: 'menu',
           path: '/react/components/menu',
@@ -178,6 +172,13 @@ export default {
       name: 'Forms',
       type: 'component', // 组件文档
       children: [
+        {
+          title: 'AutoComplete 自动完成',
+          name: 'auto-complete',
+          meta: {},
+          path: '/react/components/auto-complete',
+          component: () => import('tdesign-react/auto-complete/auto-complete.md'),
+        },
         {
           title: 'Cascader 级联组件',
           name: 'cascader',
@@ -374,6 +375,12 @@ export default {
           component: () => import('tdesign-react/progress/progress.md'),
         },
         {
+          title: 'Rate 评分',
+          name: 'rate',
+          path: '/react/components/rate',
+          component: () => import('tdesign-react/rate/rate.md'),
+        },
+        {
           title: 'Swiper 轮播框',
           name: 'swiper',
           path: '/react/components/swiper',
@@ -398,6 +405,12 @@ export default {
           component: () => import('tdesign-react/tag/tag.md'),
         },
         {
+          title: 'Timeline 时间轴',
+          name: 'timeline',
+          path: '/react/components/timeline',
+          component: () => import('tdesign-react/timeline/timeline.md'),
+        },
+        {
           title: 'Tooltip 文字提示',
           name: 'tooltip',
           path: '/react/components/tooltip',
@@ -414,12 +427,6 @@ export default {
           name: 'watermark',
           path: '/react/components/watermark',
           component: () => import('tdesign-react/watermark/watermark.md'),
-        },
-        {
-          title: 'Rate 评分',
-          name: 'rate',
-          path: '/react/components/rate',
-          component: () => import('tdesign-react/rate/rate.md'),
         },
       ],
     },
@@ -445,6 +452,12 @@ export default {
           name: 'drawer',
           path: '/react/components/drawer',
           component: () => import('tdesign-react/drawer/drawer.md'),
+        },
+        {
+          title: 'Guide 引导',
+          name: 'guide',
+          path: '/react/components/guide',
+          component: () => import('tdesign-react/guide/guide.md'),
         },
         {
           title: 'Message 全局提醒',

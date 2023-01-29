@@ -1,10 +1,15 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker, Tooltip, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const formRef = useRef();
+  const [form] = Form.useForm();
+
+  const name = Form.useWatch('name', form);
+  const gender = Form.useWatch('gender', form);
+  console.log('name', name);
+  console.log('gender', gender);
 
   const onSubmit = (e) => {
     console.log(e);
@@ -19,14 +24,15 @@ export default function BaseForm() {
   };
 
   const setMessage = () => {
-    formRef.current.setFields([
+    console.log(form);
+    form.setFields([
       { name: 'name', status: 'error', validateMessage: { type: 'error', message: '输入有误' } },
       { name: 'birthday', status: 'warning', validateMessage: { type: 'warning', message: '时间有误' } },
     ]);
   };
 
   return (
-    <Form ref={formRef} onSubmit={onSubmit} onReset={onReset} colon labelWidth={100}>
+    <Form form={form} onSubmit={onSubmit} onReset={onReset} colon labelWidth={100}>
       <FormItem label="姓名" name="name">
         <Input />
       </FormItem>
@@ -38,6 +44,28 @@ export default function BaseForm() {
           <Radio value="male">男性</Radio>
           <Radio value="female">女性</Radio>
         </Radio.Group>
+      </FormItem>
+      <FormItem shouldUpdate={(prev, next) => prev.gender !== next.gender}>
+        {({ getFieldValue }) => {
+          if (getFieldValue('gender') === 'female') {
+            return (
+              <FormItem label="动态选项2" name="bar">
+                <Radio.Group>
+                  <Radio value="2">选项三</Radio>
+                  <Radio value="3">选项四</Radio>
+                </Radio.Group>
+              </FormItem>
+            );
+          }
+          return (
+            <FormItem label="动态选项1" name="foo">
+              <Radio.Group>
+                <Radio value="0">选项一</Radio>
+                <Radio value="1">选项二</Radio>
+              </Radio.Group>
+            </FormItem>
+          );
+        }}
       </FormItem>
       <FormItem label="课程" name="course">
         <Checkbox.Group>

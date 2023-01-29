@@ -6,7 +6,6 @@ import { TdSelectProps, TdOptionProps, TdOptionGroupProps } from './type';
 
 export const selectDefaultProps: TdSelectProps = {
   autoWidth: false,
-  bordered: true,
   borderless: false,
   clearable: false,
   creatable: false,
@@ -22,6 +21,6 @@ export const selectDefaultProps: TdSelectProps = {
   valueType: 'value',
 };
 
-export const optionDefaultProps: TdOptionProps = { disabled: false };
+export const optionDefaultProps: TdOptionProps = {};
 
 export const optionGroupDefaultProps: TdOptionGroupProps = { divider: true };

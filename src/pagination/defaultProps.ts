@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdPaginationProps } from './type';
+import { TdPaginationProps, TdPaginationMiniProps } from './type';
 
 export const paginationDefaultProps: TdPaginationProps = {
   defaultCurrent: 1,
@@ -20,4 +20,11 @@ export const paginationDefaultProps: TdPaginationProps = {
   theme: 'default',
   total: 0,
   totalContent: true,
+};
+
+export const paginationMiniDefaultProps: TdPaginationMiniProps = {
+  layout: 'horizontal',
+  showCurrent: true,
+  size: 'medium',
+  variant: 'text',
 };

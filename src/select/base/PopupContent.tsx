@@ -42,6 +42,7 @@ interface SelectPopupProps
    */
   setShowPopup: (show: boolean) => void;
   children?: React.ReactNode;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
@@ -62,6 +63,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     keys,
     panelTopContent,
     panelBottomContent,
+    onCheckAllChange,
   } = props;
 
   // 国际化文本初始化
@@ -111,24 +113,40 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   // 渲染 options
   const renderOptions = () => {
     if (options) {
+      const uniqueOptions = [];
+      options.forEach((option: SelectOptionProps) => {
+        const index = uniqueOptions.findIndex((item) => item.label === option.label && item.value === option.value);
+        if (index === -1) {
+          uniqueOptions.push(option);
+        }
+      });
+      const selectableOption = uniqueOptions.filter((v) => !v.disabled && !v.checkAll);
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
-          {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (
-            <Option
-              key={index}
-              max={max}
-              label={label}
-              value={optionValue}
-              onSelect={onSelect}
-              selectedValue={value}
-              multiple={multiple}
-              size={size}
-              disabled={disabled}
-              restData={restData}
-              keys={keys}
-            />
-          ))}
+          {(uniqueOptions as OptionsType).map(
+            ({ value: optionValue, label, disabled, content, children, ...restData }, index) => (
+              <Option
+                key={index}
+                max={max}
+                label={label}
+                value={optionValue}
+                onSelect={onSelect}
+                selectedValue={value}
+                optionLength={selectableOption.length}
+                multiple={multiple}
+                size={size}
+                disabled={disabled}
+                restData={restData}
+                keys={keys}
+                content={content}
+                onCheckAllChange={onCheckAllChange}
+                {...restData}
+              >
+                {children}
+              </Option>
+            ),
+          )}
         </ul>
       );
     }
@@ -147,9 +165,11 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       })}
     >
       {panelTopContent}
-      {isEmpty && <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>}
-      {!isEmpty && loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
-      {!isEmpty && !loading && renderOptions()}
+      {loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
+      {!loading && isEmpty && (
+        <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>
+      )}
+      {!loading && !isEmpty && renderOptions()}
       {panelBottomContent}
     </div>
   );

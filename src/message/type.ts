@@ -4,10 +4,10 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, AttachNode, StyledProps } from '../common';
-import { MouseEvent } from 'react';
+import { TNode, AttachNode } from '../common';
+import { CSSProperties, MouseEvent } from 'react';
 
-export interface TdMessageProps extends StyledProps {
+export interface TdMessageProps {
   /**
    * 关闭按钮，可以自定义。值为 true 显示默认关闭按钮，值为 false 不显示关闭按钮。值类型为 string 则直接显示值，如：“关闭”。也可以完全自定义按钮
    */
@@ -32,6 +32,10 @@ export interface TdMessageProps extends StyledProps {
    */
   theme?: MessageThemeList;
   /**
+   * 关闭消息时触发
+   */
+  onClose?: (context: { trigger: 'close-click' | 'duration-end'; e?: MouseEvent<HTMLDivElement> }) => void;
+  /**
    * 当关闭按钮存在时，用户点击关闭按钮触发
    */
   onCloseBtnClick?: (context: { e: MouseEvent<SVGElement | HTMLElement> }) => void;
@@ -48,6 +52,11 @@ export interface MessageOptions extends TdMessageProps {
    */
   attach?: AttachNode;
   /**
+   * 类名
+   * @default ''
+   */
+  className?: string;
+  /**
    * 相对于 placement 的偏移量，示例：[-10, 20] 或 ['10em', '8rem']
    */
   offset?: Array<string | number>;
@@ -56,6 +65,10 @@ export interface MessageOptions extends TdMessageProps {
    * @default top
    */
   placement?: MessagePlacementList;
+  /**
+   * 内敛样式
+   */
+  style?: CSSProperties;
   /**
    * 消息层级
    * @default 5000

@@ -51,11 +51,11 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
         content={props.panel}
         hideEmptyPopup={true}
         onVisibleChange={onInnerPopupVisibleChange}
+        updateScrollTop={props.updateScrollTop}
         {...visibleProps}
         {...popupProps}
         disabled={disabled}
         overlayInnerStyle={tOverlayInnerStyle}
-        updateScrollTop={props.updateScrollTop}
       >
         {multiple
           ? renderSelectMultiple({
@@ -73,7 +73,9 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   return (
     <div ref={selectInputWrapRef} className={`${prefix}-select-input__wrap`}>
       {mainContent}
-      <div className={`${prefix}-input__tips ${prefix}-input__tips--${props.status || 'normal'}`}>{props.tips}</div>
+      {props.tips && (
+        <div className={`${prefix}-input__tips ${prefix}-input__tips--${props.status || 'normal'}`}>{props.tips}</div>
+      )}
     </div>
   );
 });

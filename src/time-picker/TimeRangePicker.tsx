@@ -129,6 +129,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
         popupProps={{
           overlayInnerStyle: {
             width: 'auto',
+            padding: 0,
           },
           ...props.popupProps,
         }}
@@ -149,6 +150,8 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
           activeIndex: currentPanelIdx,
           ...props.rangeInputProps,
         }}
+        tips={props.tips}
+        status={props.status}
         panel={
           <TimePickerPanel
             steps={steps}

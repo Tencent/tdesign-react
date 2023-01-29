@@ -42,6 +42,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     index !== -1 ? newKeys.splice(index, 1) : newKeys.push(currentId);
     setTExpandedRowKeys(newKeys, {
       expandedRowData: props.data.filter((t) => newKeys.includes(get(t, props.rowKey || 'id'))),
+      currentRowData: row,
     });
   };
 
@@ -49,11 +50,13 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     const { row, rowIndex } = p;
     const currentId = get(row, props.rowKey || 'id');
     const expanded = tExpandedRowKeys.includes(currentId);
+    // @ts-ignore TODO 待类型完善后移除
     const defaultIcon: ReactNode = locale.expandIcon || <ChevronRightCircleIcon />;
     let icon = defaultIcon;
     if (expandIcon === false || expandIcon === null) {
       icon = null;
     } else if (isFunction(expandIcon)) {
+      // @ts-ignore TODO 待类型完善后移除
       icon = expandIcon({ row, index: rowIndex });
     }
     const classes = [
@@ -75,6 +78,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
       className: tableExpandClasses.iconCell,
       fixed: isFirstColumnFixed ? 'left' : undefined,
       cell: (p) => renderExpandIcon(p, expandIcon),
+      stopPropagation: true,
     };
     return expandCol;
   };
@@ -83,7 +87,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     p: TableExpandedRowParams<TableRowData> & { tableWidth: number; isWidthOverflow: boolean },
   ) => {
     const rowId = get(p.row, props.rowKey || 'id');
-    if (!tExpandedRowKeys.includes(rowId)) return null;
+    if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
     return (
       <tr

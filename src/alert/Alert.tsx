@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import {
   CloseIcon as TdCloseIcon,
@@ -6,12 +6,18 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { CSSTransition } from 'react-transition-group';
+import noop from '../_util/noop';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
 import { alertDefaultProps } from './defaultProps';
+import composeRefs from '../_util/composeRefs';
+
+const transitionTime = 200;
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
@@ -25,7 +31,19 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
-  const { message, title, operation, theme, icon, close, maxLine, onClose, className, ...alertProps } = props;
+  const {
+    message,
+    title,
+    operation,
+    theme,
+    icon,
+    close,
+    maxLine,
+    onClose,
+    className,
+    onClosed = noop,
+    ...alertProps
+  } = props;
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -47,13 +65,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   };
 
   const renderIconNode = () => {
-    if (React.isValidElement(icon)) {
-      return React.cloneElement(icon as React.ReactElement, {
-        className: classNames({
-          [icon.props.className]: icon.props.className,
-        }),
-      });
-    }
+    if (React.isValidElement(icon)) return icon;
     return React.createElement(iconMap[theme] || iconMap.info);
   };
 
@@ -84,26 +96,39 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 
   const renderClose = () => (
     <div className={`${classPrefix}-alert__close`} onClick={handleClose}>
-      {typeof close === 'boolean' ? <CloseIcon /> : close}
+      {typeof close === 'boolean' ? <CloseIcon /> : parseTNode(close)}
     </div>
   );
 
-  return closed ? null : (
-    <div
-      ref={ref}
-      className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
-      {...alertProps}
+  const nodeRef = useRef<HTMLDivElement>();
+
+  return (
+    <CSSTransition
+      in={!closed}
+      unmountOnExit
+      classNames={{
+        exitActive: `${classPrefix}-alert--closing`,
+      }}
+      nodeRef={nodeRef}
+      timeout={transitionTime}
+      onExited={onClosed}
     >
-      <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
-      <div className={`${classPrefix}-alert__content`}>
-        {title ? <div className={`${classPrefix}-alert__title`}>{title}</div> : null}
-        <div className={`${classPrefix}-alert__message`}>
-          {renderMessage()}
-          {operation ? <div className={`${classPrefix}-alert__operation`}>{operation}</div> : null}
+      <div
+        ref={composeRefs(ref, nodeRef)}
+        className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
+        {...alertProps}
+      >
+        <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
+        <div className={`${classPrefix}-alert__content`}>
+          {title ? <div className={`${classPrefix}-alert__title`}>{title}</div> : null}
+          <div className={`${classPrefix}-alert__message`}>
+            {renderMessage()}
+            {operation ? <div className={`${classPrefix}-alert__operation`}>{parseTNode(operation)}</div> : null}
+          </div>
         </div>
+        {close ? renderClose() : null}
       </div>
-      {close ? renderClose() : null}
-    </div>
+    </CSSTransition>
   );
 });
 

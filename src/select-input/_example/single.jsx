@@ -69,7 +69,6 @@ export default function SelectInputSingle() {
 
   return (
     <div>
-      {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
         value={selectValue}
         popupVisible={popupVisible}

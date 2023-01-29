@@ -1,4 +1,4 @@
-import { testExamples, render } from '@test/utils';
+import { render } from '@test/utils';
 import React from 'react';
 import Card from '../Card';
 import Avatar from '../../avatar';
@@ -6,9 +6,6 @@ import Loading from '../../loading';
 
 const cover = 'https://tdesign.gtimg.com/site/source/card-demo.png';
 const avatar = 'https://tdesign.gtimg.com/site/avatar.jpg';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Card', () => {
   test('title', () => {

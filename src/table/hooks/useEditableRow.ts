@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
 import { PrimaryTableProps } from '../interface';
 import { validate } from '../../form/formModel';
 import { AllValidateResult } from '../../form';
@@ -45,12 +46,13 @@ export function useEditableRow(props: PrimaryTableProps) {
     const list = rowRules.map(
       (item) =>
         new Promise<ErrorListObjectType>((resolve) => {
-          const { value, col } = item;
-          if (!col.edit || !col.edit.rules || !col.edit.rules.length) {
+          const { editedRow, col } = item;
+          const rules = isFunction(col.edit.rules) ? col.edit.rules(item) : col.edit.rules;
+          if (!col.edit || !rules || !rules) {
             resolve({ ...item, errorList: [] });
             return;
           }
-          validate(value, col.edit.rules).then((r) => {
+          validate(editedRow[col.colKey], rules).then((r) => {
             resolve({ ...item, errorList: r.filter((t) => !t.result) });
           });
         }),
@@ -113,7 +115,7 @@ export function useEditableRow(props: PrimaryTableProps) {
         if (index === -1) {
           rules.push(context);
         } else {
-          rules[index].value = context.value;
+          rules[index] = context;
         }
         cellRuleMap.set(rowValue, rules);
       } else {

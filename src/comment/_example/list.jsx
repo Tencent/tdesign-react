@@ -1,31 +1,25 @@
 import React from 'react';
 import { Comment, List } from 'tdesign-react';
-import { IconFont } from 'tdesign-icons-react';
+import { ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 const { ListItem } = List;
 
 export default function ListComment() {
-  const actionTextStyle = {
-    display: 'inline-block',
-    marginLeft: '6px',
-    lineHeight: '15px',
-  };
-
   const actions = [
-    <span key="thumbUp">
-      <IconFont name="thumb-up" />
-      <span style={actionTextStyle}>6</span>
-    </span>,
-    <span key="chat">
-      <IconFont name="chat" />
-      <span style={actionTextStyle}>回复</span>
-    </span>,
+    <React.Fragment key="ThumbUp">
+      <ThumbUpIcon size="16px" />
+      <span>6</span>
+    </React.Fragment>,
+    <React.Fragment key="Chat">
+      <ChatIcon size="16px" />
+      <span>回复</span>
+    </React.Fragment>,
   ];
 
   const commentsData = [
     {
       id: 'A',
-      avatar: 'https://tdesign.gtimg.com/list-icon.png',
+      avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
       author: '评论作者名A',
       datetime: '今天16:38',
       content:
@@ -34,7 +28,7 @@ export default function ListComment() {
     },
     {
       id: 'B',
-      avatar: 'https://tdesign.gtimg.com/list-icon.png',
+      avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
       author: '评论作者名B',
       datetime: '今天16:38',
       content:
@@ -43,7 +37,7 @@ export default function ListComment() {
     },
     {
       id: 'C',
-      avatar: 'https://tdesign.gtimg.com/list-icon.png',
+      avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
       author: '评论作者名C',
       datetime: '今天16:38',
       content:
@@ -53,7 +47,7 @@ export default function ListComment() {
   ];
 
   return (
-    <List>
+    <List split={true}>
       {commentsData.map((item) => (
         <ListItem key={item.id}>
           <Comment

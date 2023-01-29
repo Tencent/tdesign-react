@@ -57,16 +57,16 @@ export default function Status() {
         {type === 'align-input' && (
           <>
             <FormItem label="正常提示">
-              <InputNumber style={{ width: 300 }} inputProps={{ tips: '这是普通文本提示' }} />
+              <InputNumber style={{ width: 300 }} tips="这是普通文本提示" />
             </FormItem>
             <FormItem label="成功提示">
-              <InputNumber style={{ width: 300 }} status="success" inputProps={{ tips: '校验通过文本提示' }} />
+              <InputNumber style={{ width: 300 }} status="success" tips="校验通过文本提示" />
             </FormItem>
             <FormItem label="警告提示">
-              <InputNumber style={{ width: 300 }} status="warning" inputProps={{ tips: '校验不通过文本提示' }} />
+              <InputNumber style={{ width: 300 }} status="warning" tips="校验不通过文本提示" />
             </FormItem>
             <FormItem label="错误提示">
-              <InputNumber style={{ width: 300 }} status="error" inputProps={{ tips: '校验存在严重问题文本提示' }} />
+              <InputNumber style={{ width: 300 }} status="error" tips="校验存在严重问题文本提示" />
             </FormItem>
           </>
         )}

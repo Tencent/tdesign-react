@@ -1,5 +1,380 @@
-export default {
-      "unit": {"util":"44.90%","affix":"90.16%","affix/Example":"83.33%","alert":"72.73%","alert/Example":"100.00%","anchor":"72.67%","anchor/Example":"81.82%","avatar":"82.72%","avatar/Example":"100.00%","badge":"69.23%","badge/Example":"100.00%","breadcrumb":"94.74%","breadcrumb/Example":"93.75%","button":"65.63%","button/Example":"100.00%","calendar":"83.76%","calendar/Example":"78.76%","card":"96.97%","card/Example":"78.79%","cascader":"44.23%","cascader/Example":"74.75%","checkbox":"80.25%","checkbox/Example":"71.43%","collapse":"77.27%","collapse/Example":"77.27%","colorPicker":"53.15%","colorPicker/Example":"84.62%","comment":"100.00%","comment/Example":"92.31%","common":"93.88%","configProvider":"58.33%","configProvider/Example":"0.00%","datePicker":"35.46%","datePicker/Example":"54.05%","dialog":"55.33%","dialog/Example":"41.18%","divider":"50.00%","divider/Example":"100.00%","drawer":"71.43%","drawer/Example":"64.06%","dropdown":"25.89%","dropdown/Example":"72.73%","form":"70.00%","form/Example":"47.27%","grid":"85.86%","grid/Example":"100.00%","hooks":"7.19%","icon/Example":"0.00%","input":"77.68%","inputAdornment":"90.00%","inputAdornment/Example":"100.00%","inputNumber":"77.46%","inputNumber/Example":"78.95%","input/Example":"60.98%","jumper":"53.33%","jumper/Example":"80.00%","layout":"91.49%","layout/Example":"100.00%","list":"69.39%","list/Example":"78.67%","loading":"65.52%","loading/Example":"57.89%","locale":"82.61%","menu":"71.88%","menu/Example":"62.34%","message":"17.65%","message/Example":"0.00%","notification":"81.25%","notification/Example":"48.78%","pagination":"88.65%","pagination/Example":"52.27%","popconfirm":"72.73%","popconfirm/Example":"66.67%","popup":"84.09%","popup/Example":"75.00%","progress":"78.82%","progress/Example":"100.00%","radio":"72.73%","radio/Example":"65.52%","rangeInput":"61.04%","rangeInput/Example":"0.00%","rate":"0.00%","select":"68.11%","selectInput":"75.00%","selectInput/Example":"0.00%","select/Example":"71.75%","skeleton":"74.60%","skeleton/Example":"83.33%","slider":"39.26%","slider/Example":"0.00%","space":"66.67%","space/Example":"100.00%","steps":"65.38%","steps/Example":"86.36%","stickyTool":"0.00%","swiper":"66.67%","swiper/Example":"94.44%","switch":"70.73%","switch/Example":"80.00%","table":"51.38%","table/Example":"69.77%","tabs":"77.11%","tabs/Example":"69.39%","tag":"74.42%","tagInput":"52.20%","tagInput/Example":"0.00%","tag/Example":"87.50%","textarea":"63.77%","textarea/Example":"32.26%","timePicker":"58.23%","timePicker/Example":"70.37%","tooltip":"56.00%","tooltip/Example":"64.52%","transfer":"59.69%","transfer/Example":"91.89%","tree":"29.73%","treeSelect":"67.94%","treeSelect/Example":"56.67%","tree/Example":"40.63%","upload":"38.27%","upload/Example":"53.52%","watermark":"68.29%","watermark/Example":"100.00%","all":"56.45%"}, 
-      "e2e": {"util":"30.94%","addon":"92.86%","addon/Example":"100.00%","affix":"22.03%","affix/Example":"66.67%","alert":"82.76%","alert/Example":"100.00%","anchor":"32.85%","anchor/Example":"89.47%","avatar":"81.25%","avatar/Example":"100.00%","badge":"100.00%","badge/Example":"100.00%","breadcrumb":"93.94%","breadcrumb/Example":"93.75%","button":"94.74%","button/Example":"100.00%","calendar":"79.13%","calendar/Example":"74.77%","card":"0.00%","cascader":"35.16%","cascader/Example":"77.45%","checkbox":"60.94%","checkbox/Example":"71.43%","comment":"100.00%","comment/Example":"92.31%","common":"46.81%","configProvider":"61.54%","datePicker":"13.89%","datePicker/Example":"65.38%","dialog":"45.64%","dialog/Example":"42.66%","divider":"91.67%","divider/Example":"100.00%","drawer":"55.32%","drawer/Example":"64.06%","dropdown":"26.04%","dropdown/Example":"72.73%","form":"31.88%","form/Example":"45.45%","grid":"73.33%","grid/Example":"100.00%","icon/Example":"100.00%","input":"51.14%","inputNumber":"55.56%","inputNumber/Example":"75.00%","input/Example":"57.89%","layout":"93.02%","layout/Example":"100.00%","list":"77.42%","list/Example":"72.00%","loading":"59.15%","loading/Example":"48.72%","locale":"56.52%","menu":"73.38%","menu/Example":"62.34%","message":"43.00%","message/Example":"44.12%","notification":"39.20%","notification/Example":"48.78%","pagination":"44.21%","pagination/Example":"54.76%","popconfirm":"21.57%","popconfirm/Example":"66.67%","popup":"58.18%","popup/Example":"78.57%","progress":"95.45%","progress/Example":"100.00%","radio":"71.05%","radio/Example":"66.67%","rate":"0.00%","select":"22.84%","selectInput":"67.03%","selectInput/Example":"52.42%","select/Example":"72.15%","skeleton":"97.67%","skeleton/Example":"88.89%","slider":"50.86%","slider/Example":"100.00%","steps":"91.67%","steps/Example":"81.82%","stickyTool":"0.00%","swiper":"62.90%","swiper/Example":"88.89%","switch":"74.07%","switch/Example":"80.00%","table":"64.47%","table/Example":"64.12%","tabs":"54.61%","tabs/Example":"67.39%","tag":"71.43%","tagInput":"49.64%","tagInput/Example":"74.19%","tag/Example":"73.08%","textarea":"58.33%","textarea/Example":"32.26%","timePicker":"19.86%","timePicker/Example":"78.95%","tooltip":"60.71%","tooltip/Example":"50.00%","transfer":"59.20%","transfer/Example":"91.89%","tree":"30.89%","treeSelect":"71.43%","treeSelect/Example":"60.00%","tree/Example":"39.90%","upload":"39.20%","upload/Example":"55.22%"}, 
-      "ssr": {"util":"30.94%","addon":"92.86%","addon/Example":"100.00%","affix":"22.03%","affix/Example":"66.67%","alert":"82.76%","alert/Example":"100.00%","anchor":"32.85%","anchor/Example":"89.47%","avatar":"81.25%","avatar/Example":"100.00%","badge":"100.00%","badge/Example":"100.00%","breadcrumb":"93.94%","breadcrumb/Example":"93.75%","button":"94.74%","button/Example":"100.00%","calendar":"79.13%","calendar/Example":"74.77%","card":"0.00%","cascader":"35.16%","cascader/Example":"77.45%","checkbox":"60.94%","checkbox/Example":"71.43%","comment":"100.00%","comment/Example":"92.31%","common":"46.81%","configProvider":"61.54%","datePicker":"13.89%","datePicker/Example":"65.38%","dialog":"45.64%","dialog/Example":"42.66%","divider":"91.67%","divider/Example":"100.00%","drawer":"55.32%","drawer/Example":"64.06%","dropdown":"26.04%","dropdown/Example":"72.73%","form":"31.88%","form/Example":"45.45%","grid":"73.33%","grid/Example":"100.00%","icon/Example":"100.00%","input":"51.14%","inputNumber":"55.56%","inputNumber/Example":"75.00%","input/Example":"57.89%","layout":"93.02%","layout/Example":"100.00%","list":"77.42%","list/Example":"72.00%","loading":"59.15%","loading/Example":"48.72%","locale":"56.52%","menu":"73.38%","menu/Example":"62.34%","message":"43.00%","message/Example":"44.12%","notification":"39.20%","notification/Example":"48.78%","pagination":"44.21%","pagination/Example":"54.76%","popconfirm":"21.57%","popconfirm/Example":"66.67%","popup":"58.18%","popup/Example":"78.57%","progress":"95.45%","progress/Example":"100.00%","radio":"71.05%","radio/Example":"66.67%","rate":"0.00%","select":"22.84%","selectInput":"67.03%","selectInput/Example":"52.42%","select/Example":"72.15%","skeleton":"97.67%","skeleton/Example":"88.89%","slider":"50.86%","slider/Example":"100.00%","steps":"91.67%","steps/Example":"81.82%","stickyTool":"0.00%","swiper":"62.90%","swiper/Example":"88.89%","switch":"74.07%","switch/Example":"80.00%","table":"64.47%","table/Example":"64.12%","tabs":"54.61%","tabs/Example":"67.39%","tag":"71.43%","tagInput":"49.64%","tagInput/Example":"74.19%","tag/Example":"73.08%","textarea":"58.33%","textarea/Example":"32.26%","timePicker":"19.86%","timePicker/Example":"78.95%","tooltip":"60.71%","tooltip/Example":"50.00%","transfer":"59.20%","transfer/Example":"91.89%","tree":"30.89%","treeSelect":"71.43%","treeSelect/Example":"60.00%","tree/Example":"39.90%","upload":"39.20%","upload/Example":"55.22%"}
-    }
+module.exports = {
+  "Util": {
+    "statements": "41.74%",
+    "branches": "28.57%",
+    "functions": "50.83%",
+    "lines": "43.03%"
+  },
+  "affix": {
+    "statements": "87.3%",
+    "branches": "56.66%",
+    "functions": "87.5%",
+    "lines": "88.52%"
+  },
+  "alert": {
+    "statements": "97.05%",
+    "branches": "72.72%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "anchor": {
+    "statements": "63.24%",
+    "branches": "47.61%",
+    "functions": "60%",
+    "lines": "64.15%"
+  },
+  "autoComplete": {
+    "statements": "95.39%",
+    "branches": "89.33%",
+    "functions": "97.05%",
+    "lines": "97.88%"
+  },
+  "avatar": {
+    "statements": "97.01%",
+    "branches": "83.78%",
+    "functions": "100%",
+    "lines": "97.01%"
+  },
+  "badge": {
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "breadcrumb": {
+    "statements": "86.95%",
+    "branches": "57.69%",
+    "functions": "83.33%",
+    "lines": "90.9%"
+  },
+  "button": {
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "calendar": {
+    "statements": "75.98%",
+    "branches": "50.32%",
+    "functions": "70%",
+    "lines": "78.57%"
+  },
+  "card": {
+    "statements": "100%",
+    "branches": "82.05%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "cascader": {
+    "statements": "77.57%",
+    "branches": "60.86%",
+    "functions": "69.23%",
+    "lines": "80.41%"
+  },
+  "checkbox": {
+    "statements": "90.54%",
+    "branches": "83.01%",
+    "functions": "100%",
+    "lines": "92.85%"
+  },
+  "collapse": {
+    "statements": "96.1%",
+    "branches": "78.94%",
+    "functions": "93.75%",
+    "lines": "96.05%"
+  },
+  "colorPicker": {
+    "statements": "93.33%",
+    "branches": "100%",
+    "functions": "60%",
+    "lines": "93.1%"
+  },
+  "comment": {
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "common": {
+    "statements": "92.45%",
+    "branches": "82.05%",
+    "functions": "100%",
+    "lines": "97.91%"
+  },
+  "configProvider": {
+    "statements": "70.58%",
+    "branches": "66.66%",
+    "functions": "25%",
+    "lines": "68.75%"
+  },
+  "datePicker": {
+    "statements": "27.29%",
+    "branches": "19.9%",
+    "functions": "26.15%",
+    "lines": "28.64%"
+  },
+  "dialog": {
+    "statements": "85.9%",
+    "branches": "72.91%",
+    "functions": "84.21%",
+    "lines": "88.32%"
+  },
+  "divider": {
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "drawer": {
+    "statements": "86.44%",
+    "branches": "82.75%",
+    "functions": "61.53%",
+    "lines": "89.09%"
+  },
+  "dropdown": {
+    "statements": "94.44%",
+    "branches": "61.29%",
+    "functions": "84.61%",
+    "lines": "97.14%"
+  },
+  "form": {
+    "statements": "45.57%",
+    "branches": "25%",
+    "functions": "39.82%",
+    "lines": "47.94%"
+  },
+  "grid": {
+    "statements": "61.05%",
+    "branches": "28.78%",
+    "functions": "80%",
+    "lines": "61.05%"
+  },
+  "hooks": {
+    "statements": "51.29%",
+    "branches": "27.41%",
+    "functions": "62.16%",
+    "lines": "52.14%"
+  },
+  "image": {
+    "statements": "87.23%",
+    "branches": "86.2%",
+    "functions": "83.33%",
+    "lines": "86.36%"
+  },
+  "imageViewer": {
+    "statements": "75%",
+    "branches": "77.19%",
+    "functions": "65.71%",
+    "lines": "75.38%"
+  },
+  "input": {
+    "statements": "93.63%",
+    "branches": "92.72%",
+    "functions": "89.18%",
+    "lines": "93.95%"
+  },
+  "inputAdornment": {
+    "statements": "86.95%",
+    "branches": "54.54%",
+    "functions": "100%",
+    "lines": "90.47%"
+  },
+  "inputNumber": {
+    "statements": "78.68%",
+    "branches": "66.23%",
+    "functions": "78.94%",
+    "lines": "82.45%"
+  },
+  "link": {
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "list": {
+    "statements": "79.41%",
+    "branches": "58.33%",
+    "functions": "66.66%",
+    "lines": "79.41%"
+  },
+  "loading": {
+    "statements": "86.25%",
+    "branches": "66.66%",
+    "functions": "78.57%",
+    "lines": "89.47%"
+  },
+  "locale": {
+    "statements": "73.07%",
+    "branches": "72.22%",
+    "functions": "83.33%",
+    "lines": "73.91%"
+  },
+  "message": {
+    "statements": "88.43%",
+    "branches": "87.8%",
+    "functions": "64.1%",
+    "lines": "94.73%"
+  },
+  "notification": {
+    "statements": "89.47%",
+    "branches": "75%",
+    "functions": "86.95%",
+    "lines": "93.7%"
+  },
+  "pagination": {
+    "statements": "88.75%",
+    "branches": "71.11%",
+    "functions": "75%",
+    "lines": "93.15%"
+  },
+  "popconfirm": {
+    "statements": "75%",
+    "branches": "53.84%",
+    "functions": "81.81%",
+    "lines": "75%"
+  },
+  "popup": {
+    "statements": "95%",
+    "branches": "93.1%",
+    "functions": "84.21%",
+    "lines": "94.44%"
+  },
+  "progress": {
+    "statements": "88.23%",
+    "branches": "64.7%",
+    "functions": "100%",
+    "lines": "88.23%"
+  },
+  "radio": {
+    "statements": "82.53%",
+    "branches": "45.45%",
+    "functions": "92.85%",
+    "lines": "81.66%"
+  },
+  "rangeInput": {
+    "statements": "74.02%",
+    "branches": "61.9%",
+    "functions": "46.15%",
+    "lines": "73.68%"
+  },
+  "rate": {
+    "statements": "64.15%",
+    "branches": "45.83%",
+    "functions": "70%",
+    "lines": "68.88%"
+  },
+  "select": {
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "selectInput": {
+    "statements": "83.83%",
+    "branches": "72.83%",
+    "functions": "69.56%",
+    "lines": "86.95%"
+  },
+  "slider": {
+    "statements": "89.47%",
+    "branches": "67.79%",
+    "functions": "92.85%",
+    "lines": "91.05%"
+  },
+  "space": {
+    "statements": "92.3%",
+    "branches": "92.3%",
+    "functions": "100%",
+    "lines": "91.89%"
+  },
+  "steps": {
+    "statements": "87.65%",
+    "branches": "65.38%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "swiper": {
+    "statements": "72.13%",
+    "branches": "42.6%",
+    "functions": "85.71%",
+    "lines": "71.5%"
+  },
+  "switch": {
+    "statements": "92.59%",
+    "branches": "84%",
+    "functions": "100%",
+    "lines": "96.15%"
+  },
+  "table": {
+    "statements": "48.69%",
+    "branches": "34.26%",
+    "functions": "45.56%",
+    "lines": "49.6%"
+  },
+  "tabs": {
+    "statements": "90.85%",
+    "branches": "79.79%",
+    "functions": "86.36%",
+    "lines": "91.07%"
+  },
+  "tag": {
+    "statements": "97.56%",
+    "branches": "96.29%",
+    "functions": "100%",
+    "lines": "100%"
+  },
+  "tagInput": {
+    "statements": "85.97%",
+    "branches": "81.69%",
+    "functions": "83.78%",
+    "lines": "87.74%"
+  },
+  "textarea": {
+    "statements": "82.43%",
+    "branches": "58.53%",
+    "functions": "80.95%",
+    "lines": "86.36%"
+  },
+  "timePicker": {
+    "statements": "14.28%",
+    "branches": "0%",
+    "functions": "0%",
+    "lines": "14.94%"
+  },
+  "tooltip": {
+    "statements": "88.88%",
+    "branches": "58.82%",
+    "functions": "75%",
+    "lines": "88.67%"
+  },
+  "transfer": {
+    "statements": "86.06%",
+    "branches": "67.02%",
+    "functions": "84.28%",
+    "lines": "87.77%"
+  },
+  "tree": {
+    "statements": "22.45%",
+    "branches": "4.23%",
+    "functions": "20.51%",
+    "lines": "22.9%"
+  },
+  "upload": {
+    "statements": "14.28%",
+    "branches": "0%",
+    "functions": "0%",
+    "lines": "14.81%"
+  },
+  "watermark": {
+    "statements": "54.76%",
+    "branches": "65.62%",
+    "functions": "40%",
+    "lines": "57.5%"
+  },
+  "utils": {
+    "statements": "72.41%",
+    "branches": "63.63%",
+    "functions": "100%",
+    "lines": "70.37%"
+  }
+};

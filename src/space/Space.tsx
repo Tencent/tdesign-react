@@ -6,6 +6,9 @@ import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';
 
+// export for test
+export const SizeMap = { small: '8px', medium: '16px', large: '24px' };
+
 export interface SpaceProps extends TdSpaceProps, StyledProps {
   children?: React.ReactNode;
 }
@@ -35,19 +38,17 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
   const { classPrefix } = useConfig();
 
   const renderStyle = useMemo(() => {
-    const sizeMap = { small: '8px', medium: '16px', large: '24px' };
-
     let renderGap = '';
     if (Array.isArray(size)) {
       renderGap = size
         .map((s) => {
           if (typeof s === 'number') return `${s}px`;
-          if (typeof s === 'string') return sizeMap[s] || s;
+          if (typeof s === 'string') return SizeMap[s] || s;
           return s;
         })
         .join(' ');
     } else if (typeof size === 'string') {
-      renderGap = sizeMap[size] || size;
+      renderGap = SizeMap[size] || size;
     } else if (typeof size === 'number') {
       renderGap = `${size}px`;
     }

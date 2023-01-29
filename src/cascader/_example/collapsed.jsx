@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 
 export default function Example() {
   const [value, setValue] = useState(['1.1', '1.2', '1.3']);
@@ -43,7 +43,7 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
       <Cascader options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
       <Cascader
         options={options}
@@ -63,6 +63,6 @@ export default function Example() {
           )
         }
       />
-    </div>
+    </Space>
   );
 }

@@ -5,17 +5,17 @@ const buttonStyle = { marginRight: 16 };
 
 export default function PluginModalExample() {
   const showDialog = () => {
-    const mydialog = DialogPlugin({
+    const myDialog = DialogPlugin({
       header: 'Dialog-Plugin',
       body: 'Hi, darling! Do you want to be my lover?',
       onConfirm: ({ e }) => {
         console.log('confirm clicked', e);
-        mydialog.hide();
+        myDialog.hide();
       },
       onClose: ({ e, trigger }) => {
         console.log('e: ', e);
         console.log('trigger: ', trigger);
-        mydialog.hide();
+        myDialog.hide();
       },
     });
   };

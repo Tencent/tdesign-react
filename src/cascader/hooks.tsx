@@ -21,7 +21,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
   const [innerPopupVisible, setPopupVisible] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
 
-  const [inputVal, setInputVal] = useState<number | string>('');
+  const [inputVal, setInputVal] = useState('');
   const [treeStore, setTreeStore] = useState(null);
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
@@ -82,8 +82,8 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
   useEffect(() => {
-    if (!options.length) return;
     if (!treeStore) {
+      if (!options.length) return;
       const store = new TreeStore({
         keys: {
           ...keys,
@@ -99,7 +99,6 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       store.append(options);
       setTreeStore(store);
     } else {
-      if (isEqual(treeStore.config.options, options)) return;
       treeStore.reload(options);
       treeStore.refreshNodes();
       treeStoreExpendEffect(treeStore, scopeVal, []);
@@ -123,10 +122,9 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       load,
       lazy,
       valueMode,
-      options,
     };
     treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
+  }, [checkStrictly, disabled, keys, lazy, load, valueMode, treeStore]);
 
   // value 校验逻辑
   useEffect(() => {

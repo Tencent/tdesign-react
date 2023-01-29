@@ -1,9 +1,6 @@
 import React from 'react';
-import { testExamples, render } from '@test/utils';
+import { render } from '@test/utils';
 import Badge from '../Badge';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 describe('Badge 组件测试', () => {
   function renderBadge(badge) {

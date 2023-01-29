@@ -1,4 +1,4 @@
-import React, { useState, useMemo, forwardRef } from 'react';
+import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import noop from '../_util/noop';
@@ -46,6 +46,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     onPageSizeChange,
     style,
     className,
+    selectProps,
     ...otherProps
   } = props;
   // 原生 html 属性透传
@@ -68,7 +69,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
 
   // 处理改变当前页的逻辑
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
-    if (disabled) return;
+    if (disabled || current === _nextCurrent) return;
 
     let nextCurrent = _nextCurrent;
     let nextPageSize = _nextPageSize;
@@ -83,7 +84,6 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     if (nextCurrent > pageCount) nextCurrent = pageCount;
 
     setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
-    setJumpValue(nextCurrent);
 
     onChange({
       current: nextCurrent,
@@ -139,10 +139,21 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     pageEllipsisMode,
   });
 
+  useEffect(() => {
+    setJumpValue(current);
+  }, [current]);
+
   const pageSizeContrl =
     showPageSize && pageSizeOptions.length ? (
       <div className={`${name}__select`}>
-        <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+        <Select
+          autoWidth={true}
+          size={size}
+          value={pageSize}
+          disabled={disabled}
+          onChange={changePageSize}
+          {...selectProps}
+        >
           {pageSizeOptions.map((item) =>
             typeof item === 'number' ? (
               <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />

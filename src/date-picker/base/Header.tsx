@@ -1,16 +1,16 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import Select from '../../select';
 import { TdDatePickerProps } from '../type';
-import Jumper, { TdJumperProps } from '../../jumper';
+import { PaginationMini, TdPaginationMiniProps } from '../../pagination';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;
   month?: number;
   onMonthChange?: Function;
   onYearChange?: Function;
-  onJumperClick?: TdJumperProps['onChange'];
+  onJumperClick?: TdPaginationMiniProps['onChange'];
 }
 
 const useDatePickerLocalConfig = () => {
@@ -35,6 +35,8 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
+  const scrollAnchorRef = useRef('default');
+
   const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
 
   const initOptions = useCallback(
@@ -46,7 +48,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         const maxYear = year - extraYear + 100;
 
         for (let i = minYear; i <= maxYear; i += 10) {
-          options.push({ label: `${i} - ${i + 9}`, value: i + extraYear });
+          options.push({ label: `${i} - ${i + 9}`, value: i + 9 });
         }
       } else {
         options.push({ label: `${year}`, value: year });
@@ -144,8 +146,36 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   function handleScroll({ e }) {
     if (e.target.scrollTop === 0) {
       handlePanelTopClick();
+      scrollAnchorRef.current = 'top';
     } else if (e.target.scrollTop === e.target.scrollHeight - e.target.clientHeight) {
       handlePanelBottomClick();
+      scrollAnchorRef.current = 'bottom';
+    }
+  }
+
+  function handleUpdateScrollTop(content: HTMLElement) {
+    if (scrollAnchorRef.current === 'top') {
+      // eslint-disable-next-line no-param-reassign
+      content.scrollTop = 30 * 10;
+    } else if (scrollAnchorRef.current === 'bottom') {
+      // eslint-disable-next-line no-param-reassign
+      content.scrollTop = content.scrollHeight - 30 * 10;
+    } else {
+      const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
+
+      if (firstSelectedNode) {
+        const { paddingBottom } = getComputedStyle(firstSelectedNode);
+        const { marginBottom } = getComputedStyle(content);
+        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+        // 小于0时不需要特殊处理，会被设为0
+        const updateValue =
+          firstSelectedNode.offsetTop -
+          content.offsetTop -
+          (content.clientHeight - firstSelectedNode.clientHeight) +
+          elementBottomHeight;
+        // eslint-disable-next-line no-param-reassign
+        content.scrollTop = updateValue;
+      }
     }
   }
 
@@ -158,7 +188,10 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             value={month}
             options={monthOptions}
             onChange={(val) => onMonthChange(val)}
-            popupProps={{ overlayClassName: `${headerClassName}-controller-month-popup` }}
+            popupProps={{
+              attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
+              overlayClassName: `${headerClassName}-controller-month-popup`,
+            }}
           />
         )}
         <Select
@@ -166,7 +199,15 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
           onChange={(val) => onYearChange(val)}
-          popupProps={{ overlayClassName: `${headerClassName}-controller-year-popup`, onScroll: handleScroll }}
+          onPopupVisibleChange={(visible) => {
+            if (!visible) scrollAnchorRef.current = 'default';
+          }}
+          popupProps={{
+            onScroll: handleScroll,
+            updateScrollTop: handleUpdateScrollTop,
+            attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
+            overlayClassName: `${headerClassName}-controller-year-popup`,
+          }}
           panelTopContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
               ...
@@ -180,7 +221,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         />
       </div>
 
-      <Jumper tips={labelMap[mode]} size="small" onChange={onJumperClick} />
+      <PaginationMini tips={labelMap[mode]} size="small" onChange={onJumperClick} />
     </div>
   );
 };

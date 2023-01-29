@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
 import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
@@ -6,10 +6,10 @@ import {
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import classNames from 'classnames';
-import TableTreeStore, { SwapParams } from './tree-store';
+import TableTreeStore, { SwapParams } from '../../_common/js/table/tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
-import { renderCell } from '../TR';
+import { renderCell } from '../Cell';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 
@@ -20,7 +20,7 @@ export interface UseSwapParams<T> extends SwapParams<T> {
 export default function useTreeData(props: TdEnhancedTableProps) {
   const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
   const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
-  const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>();
+  const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>(() => getTreeNodeColumnCol());
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
   const [locale, t] = useLocaleReceiver('table');
@@ -73,7 +73,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       setTreeNodeCol(treeNodeColTmp);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [columns],
+    [columns, props.tree?.treeNodeColumnIndex],
   );
 
   function resetData(data: TableRowData[]) {
@@ -93,20 +93,25 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 组件实例方法，展开或收起某一行
+   * 对外暴露的组件实例方法，展开或收起某一行
    * @param p 行数据
    */
-  function toggleExpandData(p: { row: TableRowData; rowIndex: number; trigger?: 'inner' }) {
-    const newData = store.toggleExpandData(p, dataSource, rowDataKeys);
-    setDataSource([...newData]);
-    if (p.trigger === 'inner') {
-      const rowValue = get(p.row, rowDataKeys.rowKey);
-      props.onTreeExpandChange?.({
-        row: p.row,
-        rowIndex: p.rowIndex,
-        rowState: store?.treeDataMap?.get(rowValue),
-      });
+  function toggleExpandData(p: { row: TableRowData; rowIndex: number }, trigger?: 'expand-fold-icon' | 'row-click') {
+    const currentData = { ...p };
+    // eslint-disable-next-line
+    if (p.row.__VIRTUAL_SCROLL_INDEX !== undefined) {
+      // eslint-disable-next-line
+      currentData.rowIndex = p.row.__VIRTUAL_SCROLL_INDEX;
     }
+    const newData = store.toggleExpandData(currentData, dataSource, rowDataKeys);
+    setDataSource([...newData]);
+    const rowValue = get(p.row, rowDataKeys.rowKey);
+    props.onTreeExpandChange?.({
+      row: p.row,
+      rowIndex: p.rowIndex,
+      rowState: store?.treeDataMap?.get(rowValue),
+      trigger,
+    });
   }
 
   function getTreeNodeColumnCol() {
@@ -146,7 +151,13 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!(childrenNodes.length || childrenNodes === true) && (
-              <span className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}>
+              <span
+                className={tableTreeClasses.icon}
+                onClick={(e: MouseEvent<HTMLSpanElement>) => {
+                  toggleExpandData({ ...p }, 'expand-fold-icon');
+                  e.stopPropagation();
+                }}
+              >
                 {iconNode}
               </span>
             )}
@@ -155,7 +166,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         );
       }
       return (
-        <div style={colStyle} className={classNames(classes)}>
+        <div style={colStyle} className={classNames([classes, tableTreeClasses.leafNode])}>
+          <span className={tableTreeClasses.icon}></span>
           {cellInfo}
         </div>
       );
@@ -168,7 +180,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 组件实例方法，设置行数据，自动刷新界面
+   * 对外暴露的组件实例方法，设置行数据，自动刷新界面
    * @param key 当前行唯一标识值
    * @param newRowData 新行数据
    */
@@ -180,7 +192,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 组件实例方法，获取当前行全部数据
+   * 对外暴露的组件实例方法，获取当前行全部数据
    * @param key 行唯一标识
    * @returns {TableRowState} 当前行数据
    */
@@ -189,7 +201,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 组件实例方法，移除指定节点
+   * 对外暴露的组件实例方法，对外暴露的组件实例方法，移除指定节点
    * @param key 行唯一标识
    */
   function remove(key: TableRowValue) {
@@ -199,7 +211,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 为当前节点添加子节点，默认添加到最后一个节点
+   * 对外暴露的组件实例方法，为当前节点添加子节点，默认添加到最后一个节点
    * @param key 当前节点唯一标识
    * @param newData 待添加的新节点
    */
@@ -213,35 +225,35 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 当前节点之后，插入节点
+   * 对外暴露的组件实例方法，当前节点之后，插入节点
    */
   function insertAfter<T>(rowValue: TableRowValue, newData: T) {
     setDataSource([...store.insertAfter(rowValue, newData, dataSource, rowDataKeys)]);
   }
 
   /**
-   * 当前节点之后，插入节点
+   * 对外暴露的组件实例方法，当前节点之后，插入节点
    */
   function insertBefore<T>(rowValue: TableRowValue, newData: T) {
     setDataSource([...store.insertBefore(rowValue, newData, dataSource, rowDataKeys)]);
   }
 
   /**
-   * 展开所有节点
+   * 对外暴露的组件实例方法，展开所有节点
    */
   function expandAll() {
     setDataSource([...store.expandAll(dataSource, rowDataKeys)]);
   }
 
   /**
-   * 收起所有节点
+   * 对外暴露的组件实例方法，收起所有节点
    */
   function foldAll() {
     setDataSource([...store.foldAll(dataSource, rowDataKeys)]);
   }
 
   /**
-   * 交换行数据，React 在回掉函数函数中无法获取最新的 state 信息，因此需要参数 params.data
+   * 对外暴露的组件实例方法，交换行数据，React 在回掉函数函数中无法获取最新的 state 信息，因此需要参数 params.data
    */
   function swapData(params: UseSwapParams<TableRowData>) {
     const r = store.swapData(params.data, params, rowDataKeys);
@@ -257,11 +269,18 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 获取全部数据的树形结构
+   * 对外暴露的组件实例方法，获取全部数据的树形结构
    * @param key 节点唯一标识
    */
   function getTreeNode() {
     return store.getTreeNode(dataSource, rowDataKeys);
+  }
+
+  /**
+   * 对外暴露的组件实例方法，获取树形结构展开的节点
+   */
+  function getTreeExpandedRow(type: 'unique' | 'data' | 'all' = 'data') {
+    return store.getTreeExpandedRow(dataSource, rowDataKeys, type);
   }
 
   return {
@@ -281,5 +300,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     foldAll,
     getTreeNode,
     resetData,
+    getTreeExpandedRow,
   };
 }
+
+export type UseTreeDataReturnType = ReturnType<typeof useTreeData>;

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { fireEvent, render, testExamples } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
 import Drawer from '../index';
-
-// 测试组件代码 Example 快照
-testExamples(__dirname);
 
 function DrawerDemo(props) {
   const [visible, setVisible] = useState(false);
@@ -22,6 +19,7 @@ function DrawerDemo(props) {
         footer={props.footer}
         visible={visible}
         onClose={handleClose}
+        closeBtn={props.closeBtn}
         confirmBtn={props.confirmBtn}
         cancelBtn={props.cancelBtn}
         showOverlay={props.notShowOverlay ? false : true}
@@ -39,44 +37,42 @@ function DrawerDemo(props) {
 }
 
 describe('test Drawer', () => {
-  test('Drawer render', () => {
-    const { container, getByText } = render(<DrawerDemo />);
-    expect(container.querySelector('.t-drawer--open')).not.toBeInTheDocument();
+  test('Drawer render', async () => {
+    const { getByText } = render(<DrawerDemo />);
     fireEvent.click(getByText('Open'));
-    expect(container.querySelector('.t-drawer--open')).toBeInTheDocument();
-    expect(container.querySelector('.t-drawer__mask')).toBeInTheDocument();
-    expect(container.querySelector('.t-drawer__content-wrapper--right')).toBeInTheDocument();
-    expect(container.querySelector('.t-drawer__content-wrapper--top')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
+    expect(document.querySelector('.t-drawer__mask')).toBeInTheDocument();
+    expect(document.querySelector('.t-drawer__content-wrapper--right')).toBeInTheDocument();
   });
-  test('Drawer close', () => {
-    const { container, getByText } = render(<DrawerDemo />);
+  test('Drawer close', async () => {
+    const { getByText } = render(<DrawerDemo closeBtn={true} />);
     fireEvent.click(getByText('Open'));
-    fireEvent.click(container.querySelector('.t-drawer__close-btn'));
-    expect(container.querySelector('.t-drawer--open')).not.toBeInTheDocument();
-    expect(container.querySelector('.t-drawer')).toBeInTheDocument();
+    fireEvent.click(document.querySelector('.t-drawer__close-btn'));
+    expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-drawer')).toBeInTheDocument();
   });
-  test('Drawer mask close', () => {
-    const { container, getByText } = render(<DrawerDemo />);
+  test('Drawer mask close', async () => {
+    const { getByText } = render(<DrawerDemo />);
     fireEvent.click(getByText('Open'));
-    expect(container.querySelector('.t-drawer--open')).toBeInTheDocument();
-    fireEvent.click(container.querySelector('.t-drawer--open').children[0]);
-    expect(container.querySelector('.t-drawer--open')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
+    fireEvent.click(document.querySelector('.t-drawer--open').children[0]);
+    expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();
   });
-  test('Drawer placement', () => {
-    const { container, getByText } = render(<DrawerDemo placement="top" />);
+  test('Drawer placement', async () => {
+    const { getByText } = render(<DrawerDemo placement="top" />);
     fireEvent.click(getByText('Open'));
-    expect(container.querySelector('.t-drawer__content-wrapper--right')).not.toBeInTheDocument();
-    expect(container.querySelector('.t-drawer__content-wrapper--top')).toBeInTheDocument();
+    expect(document.querySelector('.t-drawer__content-wrapper--right')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-drawer__content-wrapper--top')).toBeInTheDocument();
   });
-  test('Drawer size', () => {
-    const { container, getByText } = render(<DrawerDemo size="50%" />);
+  test('Drawer size', async () => {
+    const { getByText } = render(<DrawerDemo size="50%" />);
     fireEvent.click(getByText('Open'));
-    expect(container.querySelector('.t-drawer__content-wrapper--right')).toHaveStyle({ width: '50%' });
+    expect(document.querySelector('.t-drawer__content-wrapper--right')).toHaveStyle({ width: '50%' });
   });
   test('Drawer showOverlay', () => {
-    const { container, getByText } = render(<DrawerDemo notShowOverlay />);
+    const { getByText } = render(<DrawerDemo notShowOverlay />);
     fireEvent.click(getByText('Open'));
-    expect(container.querySelector('.t-drawer__mask')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-drawer__mask')).not.toBeInTheDocument();
   });
   test('Drawer header and footer', () => {
     const { getByText } = render(<DrawerDemo header={<div>自定义头部</div>} footer={<div>自定义底部</div>} />);
@@ -98,7 +94,7 @@ describe('test Drawer', () => {
     });
   });
   test('Drawer onCancel', () => {
-    const onCancelFn = jest.fn();
+    const onCancelFn = vi.fn();
     const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
     fireEvent.click(getByText('Open'));
     expect(onCancelFn).not.toBeCalled();

@@ -1,5 +1,7 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
 import useConfig from '../hooks/useConfig';
 import { TdInputAdornmentProps } from './type';
 import { StyledProps } from '../common';
@@ -13,39 +15,39 @@ const InputAdornment = forwardRef((props: InputAdornmentProps, ref: React.Ref<HT
   const { prepend, append, children, className, style, ...wrapperProps } = props;
 
   const renderAddon = (type: string, classPrefix: string, Content) => {
-    let result: React.ReactNode;
+    if (typeof Content === 'undefined') return null;
+
+    let addonNode: React.ReactNode;
+    const isContentNode = isString(Content) || isNumber(Content);
 
     if (typeof Content === 'function') {
-      result = <Content />;
-    } else if (typeof Content !== 'undefined') {
-      result = Content;
+      addonNode = <Content />;
+    } else {
+      addonNode = isContentNode ? <span className={`${classPrefix}-input-adornment__text`}>{Content}</span> : Content;
     }
 
-    if (result || typeof result === 'number') {
-      result = <span className={`${classPrefix}-input-adornment__${type}`}>{result}</span>;
-    }
-
-    return result;
+    return addonNode ? <span className={`${classPrefix}-input-adornment__${type}`}>{addonNode}</span> : addonNode;
   };
 
   const renderChildren = () =>
     React.Children.map(children, (child) => {
       if (!child) return null;
       if (React.isValidElement(child)) {
-        return React.cloneElement(child, { ...wrapperProps });
+        return React.cloneElement(child, {
+          ...wrapperProps,
+          ...child.props,
+          onChange: (...args) => {
+            // @ts-ignore
+            wrapperProps?.onChange?.call?.(null, ...args);
+            child.props?.onChange?.call?.(null, ...args);
+          },
+        });
       }
       return child;
     });
 
   return (
-    <div
-      ref={ref}
-      style={style}
-      className={classNames(`${classPrefix}-input-adornment`, className, {
-        [`${classPrefix}-input-adornment--prepend`]: !!prepend,
-        [`${classPrefix}-input-adornment--append`]: !!append,
-      })}
-    >
+    <div ref={ref} style={style} className={classNames(`${classPrefix}-input-adornment`, className)}>
       {renderAddon('prepend', classPrefix, prepend)}
       {renderChildren()}
       {renderAddon('append', classPrefix, append)}

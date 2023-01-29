@@ -1,14 +1,13 @@
 :: BASE_DOC ::
 
 ## API
-
 ### GlobalConfigProvider
 
 name | type | default | description | required
 -- | -- | -- | -- | --
 alert | Object | - | Alert global configs。Typescript：`AlertConfig` | N
 anchor | Object | - | Anchor global configs。Typescript：`AnchorConfig` | N
-animation | Object | - | Typescript：`Partial<Record<'include'|'exclude', Array<AnimationType>>>` `type AnimationType = 'ripple' | 'expand' | 'fade'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+animation | Object | - | Typescript：`Partial<Record<'include'\|'exclude', Array<AnimationType>>>` `type AnimationType = 'ripple' \| 'expand' \| 'fade'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 calendar | Object | - | Calendar global configs。Typescript：`CalendarConfig` | N
 cascader | Object | - | Cascader global configs。Typescript：`CascaderConfig` | N
 classPrefix | String | t | \- | N
@@ -17,8 +16,13 @@ datePicker | Object | - | DatePicker global configs。Typescript：`DatePickerCo
 dialog | Object | - | Dialog global configs。Typescript：`DialogConfig` | N
 drawer | Object | - | Drawer global configs。Typescript：`DrawerConfig` | N
 form | Object | - | Form global configs。Typescript：`FormConfig` | N
+guide | Object | - | Guide global configs。Typescript：`GuideConfig` | N
+icon | Object | - | icon config。Typescript：`IconConfig` `type IconConfig = GlobalIconConfig` `import { GlobalIconConfig } from '@icon'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+image | Object | - | Image global configs。Typescript：`ImageConfig` | N
+imageViewer | Object | - | ImageViewer global configs。Typescript：`ImageViewerConfig` | N
 input | Object | - | Input global configs。Typescript：`InputConfig` | N
 list | Object | - | List global configs。Typescript：`ListConfig` | N
+message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript：`PaginationConfig` | N
 popconfirm | Object | - | Popconfirm global configs。Typescript：`PopconfirmConfig` | N
 select | Object | - | Select global configs。Typescript：`SelectConfig` | N
@@ -118,7 +122,7 @@ placeholder | Object | - | Typescript：`{ date?: string; month?: string; year?:
 preDecade | String | - | pre decade text | N
 preMonth | String | - | pre month text | N
 preYear | String | - | pre year text | N
-presets | Object | - | Typescript：`ConfigPresetDate` `interface ConfigPresetDate { [name: string]: DateConfigValue | (() => DateConfigValue) }` `type DateConfigValue = string | Date | Array<DateConfigValue>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+presets | Object | - | Typescript：`ConfigPresetDate` `interface ConfigPresetDate { [name: string]: DateConfigValue \| (() => DateConfigValue) }` `type DateConfigValue = string \| Date \| Array<DateConfigValue>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 quarters | Array | - | Typescript：`string[]` | N
 rangeSeparator | String | - | range separator text | N
 selectDate | String | - | select date text | N
@@ -131,28 +135,28 @@ yearAriaLabel | String | - | year text | N
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-cancel | Object | - | Typescript：`string | ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+cancel | Object | - | Typescript：`string \| ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 closeOnEscKeydown | Boolean | true | \- | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirm | Object | - | Typescript：`string | ButtonProps` | N
+confirm | Object | - | Typescript：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript：`{ default: string; info: string; warning: string; danger: string; success: string; }` | N
 
 ### DrawerConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-cancel | String | - | Typescript：`string | ButtonProps` | N
+cancel | String | - | Typescript：`string \| ButtonProps` | N
 closeOnEscKeydown | Boolean | true | \- | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirm | String | - | Typescript：`string | ButtonProps` | N
-size | String | small | \- | N
+confirm | String | - | Typescript：`string \| ButtonProps` | N
+size | String | 'small' | \- | N
 
 ### PopconfirmConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-cancel | String / Object | - | Typescript：`string | ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
-confirm | String / Object | - | Typescript：`string | ButtonProps` | N
+cancel | String / Object | - | Typescript：`string \| ButtonProps`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+confirm | String / Object | - | Typescript：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript：`{ default: string; warning: string; danger: string; }` | N
 
 ### TableConfig
@@ -165,7 +169,7 @@ columnConfigButtonText | String | - | \- | N
 columnConfigDescriptionText | String | - | \- | N
 columnConfigTitleText | String | - | \- | N
 confirmText | String | - | \- | N
-empty | TNode | - | Typescript：`string | TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+empty | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 expandIcon | TElement | undefined | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filterIcon | TElement | undefined | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 hideSortTips | Boolean | false | hide sort tips | N
@@ -178,7 +182,7 @@ sortAscendingOperationText | String | - | \- | N
 sortCancelOperationText | String | - | \- | N
 sortDescendingOperationText | String | - | \- | N
 sortIcon | TElement | undefined | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-treeExpandAndFoldIcon | Function | undefined | Typescript：`TNode<{ type: 'expand' | 'fold' }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+treeExpandAndFoldIcon | Function | undefined | Typescript：`TNode<{ type: 'expand' \| 'fold' }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 
 ### SelectConfig
 
@@ -221,7 +225,7 @@ dragger | Object | - | Typescript：`UploadConfigDragger` | N
 file | Object | - | Typescript：`UploadConfigFileList` | N
 progress | Object | - | Typescript：`UploadConfigProgress` | N
 sizeLimitMessage | String | - | \- | N
-triggerUploadText | Object | - | Typescript：`UploadTriggerUploadText` `interface UploadTriggerUploadText { image?: string, normal?: string,  fileInput?: string,  reupload?: string, continueUpload: string, delete?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+triggerUploadText | Object | - | Typescript：`UploadTriggerUploadText` `interface UploadTriggerUploadText { image?: string, normal?: string,  fileInput?: string,  reupload?: string, continueUpload?: string, delete?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 
 ### UploadConfigProgress
 
@@ -282,3 +286,34 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 copySuccessText | String | - | \- | N
 copyText | String | - | \- | N
+
+### MessageConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+`MessageOptions` | \- | - | \- | N
+
+### ImageConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorText | String | - | loading text, default value is "Error" | N
+loadingText | String | - | loading text, default value is "loading" | N
+
+### ImageViewerConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorText | String | - | \- | N
+mirrorTipText | String | - | mirror operation text | N
+originsizeTipText | String | - | original size tips | N
+rotateTipText | String | - | rotate operation text | N
+
+### GuideConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+finishButtonProps | Object | - | finish button in last step. `{ content: 'Finish', theme: 'primary' }`。Typescript：`ButtonProps` | N
+nextButtonProps | Object | - | next step button. `{ content: 'Next Button', theme: 'primary' }`。Typescript：`ButtonProps` | N
+prevButtonProps | Object | - | previous step button. `{ content: 'Previous Step', theme: 'default' }`。Typescript：`ButtonProps` | N
+skipButtonProps | Object | - | skip button. `{ content: 'Skip', theme: 'default' }`。Typescript：`ButtonProps` | N

@@ -1,8 +1,6 @@
 import React from 'react';
-import { testExamples, render, fireEvent } from '@test/utils';
-import { Pagination } from 'tdesign-react';
-
-testExamples(__dirname);
+import { render, fireEvent, vi } from '@test/utils';
+import Pagination from '../index';
 
 describe('Pagination test', () => {
   test('mount and unmount', () => {
@@ -25,8 +23,8 @@ describe('Pagination test', () => {
   });
 
   test('pageSize', async () => {
-    const changeFn = jest.fn();
-    const pageSizeChangeFn = jest.fn();
+    const changeFn = vi.fn();
+    const pageSizeChangeFn = vi.fn();
     const { getByText, container, getByDisplayValue } = render(
       <Pagination total={100} defaultPageSize={5} onChange={changeFn} onPageSizeChange={pageSizeChangeFn} />,
     );
@@ -46,16 +44,16 @@ describe('Pagination test', () => {
     expect(document.querySelector('.t-is-current')).toHaveTextContent('5');
   });
   test('folded', () => {
-    const changeFn = jest.fn();
-    const pageSizeChangeFn = jest.fn();
+    const changeFn = vi.fn();
+    const pageSizeChangeFn = vi.fn();
     const { getByText, container } = render(
       <Pagination total={100} defaultPageSize={5} onChange={changeFn} onPageSizeChange={pageSizeChangeFn} />,
     );
     expect(container.querySelector('.t-icon-ellipsis')).toBeInTheDocument();
 
-    fireEvent.click(getByText('1'));
+    fireEvent.click(getByText('2'));
     expect(changeFn.mock.calls[0][0]).toEqual({
-      current: 1,
+      current: 2,
       previous: 1,
       pageSize: 5,
     });
@@ -66,8 +64,8 @@ describe('Pagination test', () => {
 
     fireEvent.click(container.querySelector('.t-pagination__number--more'));
     expect(changeFn.mock.calls[1][0]).toEqual({
-      current: 6,
-      previous: 1,
+      current: 7,
+      previous: 2,
       pageSize: 5,
     });
     fireEvent.mouseOver(container.querySelector('.t-pagination__number--more'));
@@ -76,10 +74,10 @@ describe('Pagination test', () => {
     expect(container.querySelector('.t-icon-chevron-left-double')).not.toBeInTheDocument();
 
     fireEvent.click(container.querySelector('.t-pagination__number--more'));
-    expect(document.querySelector('.t-is-current')).toHaveTextContent('1');
+    expect(document.querySelector('.t-is-current')).toHaveTextContent('2');
   });
   test('theme', () => {
-    const changeFn = jest.fn();
+    const changeFn = vi.fn();
     render(<Pagination total={100} defaultPageSize={5} theme="simple" onChange={changeFn} />);
 
     fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5' } });
@@ -87,14 +85,14 @@ describe('Pagination test', () => {
     expect(document.querySelector('.t-pagination__jump .t-input__inner').value).toEqual('5');
   });
   test('totalContent', () => {
-    const changeFn = jest.fn();
+    const changeFn = vi.fn();
     const { getByText, rerender } = render(
       <Pagination total={100} defaultPageSize={5} totalContent="总条数" onChange={changeFn} />,
     );
 
     expect(getByText('总条数')).toBeInTheDocument();
 
-    const totalContentFn = jest.fn();
+    const totalContentFn = vi.fn();
     rerender(<Pagination total={100} defaultPageSize={5} totalContent={totalContentFn} onChange={changeFn} />);
     expect(totalContentFn).toBeCalled();
   });

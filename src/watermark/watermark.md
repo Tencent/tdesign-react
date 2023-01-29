@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Watermark Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -9,17 +8,17 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 alpha | Number | 1 | 水印整体透明度，取值范围 [0-1] | N
-children | TNode | - | 水印所覆盖的内容节点，同 `content`。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-content | TNode | - | 水印所覆盖的内容节点。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+children | TNode | - | 水印所覆盖的内容节点，同 `content`。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+content | TNode | - | 水印所覆盖的内容节点。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 height | Number | - | 水印高度 | N
 isRepeat | Boolean | true | 水印是否重复出现 | N
 lineSpace | Number | 16 | 行间距，只作用在多行（`content` 配置为数组）情况下 | N
 movable | Boolean | false | 水印是否可移动 | N
 moveInterval | Number | 3000 | 水印发生运动位移的间隙，单位：毫秒 | N
 offset | Array | - | 水印在画布上绘制的水平和垂直偏移量，正常情况下水印绘制在中间位置，即 `offset = [gapX / 2, gapY / 2]`。TS 类型：`Array<number>` | N
-removable | Boolean | true | 水印是否可被删除，默认会开启水印节点防删 | N
+removable | Boolean | false | 水印是否可被删除，默认会开启水印节点防删 | N
 rotate | Number | -22 | 水印旋转的角度，单位 ° | N
-watermarkContent | Object / Array | - | 水印内容，需要显示多行情况下可配置为数组。TS 类型：`WatermarkText|WatermarkImage|Array<WatermarkText|WatermarkImage>` | N
+watermarkContent | Object / Array | - | 水印内容，需要显示多行情况下可配置为数组。TS 类型：`WatermarkText\|WatermarkImage\|Array<WatermarkText\|WatermarkImage>` | N
 width | Number | - | 水印宽度 | N
 x | Number | - | 水印之间的水平间距 | N
 y | Number | - | 水印之间的垂直间距 | N

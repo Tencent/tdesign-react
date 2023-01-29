@@ -11,7 +11,9 @@ import { TdAnchorTargetProps } from './type';
 import { StyledProps } from '../common';
 import { anchorTargetDefaultProps } from './defaultProps';
 
-export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {}
+export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {
+  children?: React.ReactNode;
+}
 
 const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
   const { classPrefix } = useConfig();

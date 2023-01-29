@@ -9,6 +9,7 @@ import { CheckContext, CheckContextValue } from '../common/Check';
 import Radio from './Radio';
 import useMutationObservable from '../_util/useMutationObserver';
 import { radioGroupDefaultProps } from './defaultProps';
+import useKeyboard from './useKeyboard';
 
 /**
  * RadioGroup 组件所接收的属性
@@ -26,7 +27,9 @@ const RadioGroup = (props: RadioGroupProps) => {
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState({});
-  const groupRef = useRef(null);
+  const radioGroupRef = useRef<HTMLDivElement>(null);
+
+  useKeyboard(radioGroupRef, setInternalValue);
 
   const checkedRadioCls = `.${classPrefix}-radio-button.${classPrefix}-is-checked`;
   const { SIZE: sizeMap } = useCommonClassName();
@@ -42,6 +45,9 @@ const RadioGroup = (props: RadioGroupProps) => {
 
       return {
         ...checkProps,
+        name: props.name,
+        // 有一个允许取消，就可以取消选中
+        allowUncheck: checkProps.allowUncheck || props.allowUncheck,
         checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
         onChange(checked, { e }) {
@@ -56,7 +62,7 @@ const RadioGroup = (props: RadioGroupProps) => {
 
   const calcBarStyle = () => {
     if (!variant.includes('filled')) return;
-    const checkedRadio = groupRef.current.querySelector?.(checkedRadioCls);
+    const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
     if (!checkedRadio) return setBarStyle({ width: 0 });
 
     const { offsetWidth, offsetLeft } = checkedRadio;
@@ -65,9 +71,9 @@ const RadioGroup = (props: RadioGroupProps) => {
 
   useEffect(() => {
     calcBarStyle();
-  }, [groupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useMutationObservable(groupRef.current, calcBarStyle);
+  useMutationObservable(radioGroupRef.current, calcBarStyle);
 
   const renderBlock = () => {
     if (!variant.includes('filled')) return null;
@@ -93,7 +99,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   return (
     <CheckContext.Provider value={context}>
       <div
-        ref={groupRef}
+        ref={radioGroupRef}
         style={style}
         className={classNames(`${classPrefix}-radio-group`, sizeMap[size], className, {
           [`${classPrefix}-radio-group__outline`]: variant === 'outline',

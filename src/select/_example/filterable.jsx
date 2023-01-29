@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 
 import { Select, Space } from 'tdesign-react';
 
+const { Option } = Select;
+
 const FilterableSelect = () => {
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState(['1']);
 
   const onChange = (value) => {
     setValue(value);
+  };
+
+  const onMultipleChange = (value) => {
+    setValue2(value);
   };
 
   const options = [
@@ -21,12 +27,16 @@ const FilterableSelect = () => {
     return option.label.indexOf(search) !== -1;
   };
 
-  const handleBlur = ({ value, e }) => {
+  const handleBlur = (value, e) => {
     console.log('handleBlur: ', value, e);
   };
 
-  const handleFocus = ({ value, e }) => {
+  const handleFocus = (value, e) => {
     console.log('handleFocus: ', value, e);
+  };
+
+  const handleEnter = (context) => {
+    console.log('handleEnter: ', context);
   };
 
   return (
@@ -35,15 +45,19 @@ const FilterableSelect = () => {
         value={value}
         onChange={onChange}
         placeholder="-请选择-"
-        options={options}
         filterable
         style={{ width: '400px', display: 'inline-block' }}
         onBlur={handleBlur}
         onFocus={handleFocus}
-      />
+        onEnter={handleEnter}
+      >
+        {options.map((option, index) => (
+          <Option key={index} value={option.value} label={option.label}></Option>
+        ))}
+      </Select>
       <Select
         value={value2}
-        onChange={setValue2}
+        onChange={onMultipleChange}
         multiple
         placeholder="-请选择-"
         options={options}

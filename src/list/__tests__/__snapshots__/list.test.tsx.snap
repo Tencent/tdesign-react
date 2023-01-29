@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`List 组件测试 Base create 1`] = `
-Object {
+exports[`List 组件测试 > Base > create 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -151,8 +151,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props asyncLoading is node 1`] = `
-Object {
+exports[`List 组件测试 > List Props > asyncLoading is node 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -312,8 +312,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props footer is node 1`] = `
-Object {
+exports[`List 组件测试 > List Props > footer is node 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -477,8 +477,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props footer is string 1`] = `
-Object {
+exports[`List 组件测试 > List Props > footer is string 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -638,8 +638,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props header is node 1`] = `
-Object {
+exports[`List 组件测试 > List Props > header is node 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -803,8 +803,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props header is string 1`] = `
-Object {
+exports[`List 组件测试 > List Props > header is string 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -964,8 +964,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props layout 1`] = `
-Object {
+exports[`List 组件测试 > List Props > layout 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1115,8 +1115,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props size 1`] = `
-Object {
+exports[`List 组件测试 > List Props > size 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1266,8 +1266,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props split 1`] = `
-Object {
+exports[`List 组件测试 > List Props > split 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1417,8 +1417,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 List Props stripe 1`] = `
-Object {
+exports[`List 组件测试 > List Props > stripe 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1568,8 +1568,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 ListItem Props action & children 1`] = `
-Object {
+exports[`List 组件测试 > ListItem Props > action & children 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1671,8 +1671,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 ListItem Props content 1`] = `
-Object {
+exports[`List 组件测试 > ListItem Props > content 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1752,8 +1752,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 ListItemMeta Props description 1`] = `
-Object {
+exports[`List 组件测试 > ListItemMeta Props > description 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1851,8 +1851,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 ListItemMeta Props image 1`] = `
-Object {
+exports[`List 组件测试 > ListItemMeta Props > image 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -1962,8 +1962,8 @@ Object {
 }
 `;
 
-exports[`List 组件测试 ListItemMeta Props title 1`] = `
-Object {
+exports[`List 组件测试 > ListItemMeta Props > title 1`] = `
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -2059,948 +2059,4 @@ Object {
   "rerender": [Function],
   "unmount": [Function],
 }
-`;
-
-exports[`asyncLoading.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-radio-group t-size-l t-radio-group__outline"
-  >
-    <label
-      class="t-radio-button"
-    >
-      <input
-        class="t-radio-button__former"
-        type="radio"
-        value="load-more"
-      />
-      <span
-        class="t-radio-button__input"
-      />
-      <span
-        class="t-radio-button__label"
-      >
-        加载更多
-      </span>
-    </label>
-    <label
-      class="t-radio-button"
-    >
-      <input
-        class="t-radio-button__former"
-        type="radio"
-        value="loading"
-      />
-      <span
-        class="t-radio-button__input"
-      />
-      <span
-        class="t-radio-button__label"
-      >
-        加载中
-      </span>
-    </label>
-    <label
-      class="t-radio-button"
-    >
-      <input
-        class="t-radio-button__former"
-        type="radio"
-        value="loading-custom"
-      />
-      <span
-        class="t-radio-button__input"
-      />
-      <span
-        class="t-radio-button__label"
-      >
-        自定义加载更多
-      </span>
-    </label>
-    <label
-      class="t-radio-button"
-    >
-      <input
-        class="t-radio-button__former"
-        type="radio"
-        value=""
-      />
-      <span
-        class="t-radio-button__input"
-      />
-      <span
-        class="t-radio-button__label"
-      >
-        加载完成
-      </span>
-    </label>
-  </div>
-  <div
-    style="margin-bottom: 16px;"
-  />
-  <div
-    class="t-list"
-  >
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-    </ul>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`base.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list"
-  >
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-    </ul>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`header-footer.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list"
-  >
-    <div
-      class="t-list__header"
-    >
-      这里是 Header
-    </div>
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-    </ul>
-    <div
-      class="t-list__footer"
-    >
-      这里是 Footer
-    </div>
-  </div>
-  <div
-    style="margin-bottom: 16px;"
-  />
-  <div
-    class="t-list"
-  >
-    <div
-      class="t-list__header"
-    >
-      <p>
-        通过 TNode 插入的 Header
-      </p>
-    </div>
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-    </ul>
-    <div
-      class="t-list__footer"
-    >
-      <p>
-        通过 TNode 插入的 Footer
-      </p>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`image-text.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list t-size-s"
-  >
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`multiline.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list"
-  >
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`operation.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list"
-  >
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-          <ul
-            class="t-list-item__action"
-          >
-            <li>
-              <a
-                href=""
-              >
-                操作1
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-              >
-                操作2
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-          <ul
-            class="t-list-item__action"
-          >
-            <li>
-              <a
-                href=""
-              >
-                操作1
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-              >
-                操作2
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-          <ul
-            class="t-list-item__action"
-          >
-            <li>
-              <a
-                href=""
-              >
-                操作1
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-              >
-                操作2
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-          <ul
-            class="t-list-item__action"
-          >
-            <li>
-              <a
-                href=""
-              >
-                操作1
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-              >
-                操作2
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`scroll.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list t-size-s"
-    style="height: 300px; overflow: auto;"
-  >
-    <ul
-      class="t-list__inner"
-    />
-    <div
-      class="t-list__load t-list__load--loading"
-    >
-      <div>
-        <div
-          class="t-loading t-loading--center t-size-m"
-        >
-          <svg
-            class="t-loading__gradient t-icon-loading"
-            height="1em"
-            version="1.1"
-            viewBox="0 0 14 14"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <foreignobject
-              height="12"
-              width="12"
-              x="1"
-              y="1"
-            >
-              <div
-                class="t-loading__gradient-conic"
-              />
-            </foreignobject>
-          </svg>
-        </div>
-        <span>
-          正在加载中，请稍等
-        </span>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`size.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-item__body tdesign-demo-item__body--list"
-  >
-    <h4>
-      尺寸-小
-    </h4>
-    <div
-      class="t-list t-size-s"
-    >
-      <ul
-        class="t-list__inner"
-      >
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-      </ul>
-    </div>
-    <h4
-      style="margin-top: 32px;"
-    >
-      尺寸-中（默认）
-    </h4>
-    <div
-      class="t-list"
-    >
-      <ul
-        class="t-list__inner"
-      >
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-      </ul>
-    </div>
-    <h4
-      style="margin-top: 32px;"
-    >
-      尺寸-大
-    </h4>
-    <div
-      class="t-list t-size-l"
-    >
-      <ul
-        class="t-list__inner"
-      >
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-        <li
-          class="t-list-item"
-        >
-          <div
-            class="t-list-item-main"
-          >
-            列表内容列表内容列表内容
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`stripe.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-list t-list--stripe"
-  >
-    <ul
-      class="t-list__inner"
-    >
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          列表内容列表内容列表内容
-        </div>
-      </li>
-    </ul>
-  </div>
-</DocumentFragment>
 `;

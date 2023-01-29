@@ -16,6 +16,7 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   let relCloseBtn = closeBtn;
   // 函数类型先执行并解出具体的内容，然后进行判断
   if (typeof closeBtn === 'function') {
+    // @ts-ignore TODO 待类型完善后移除
     relCloseBtn = closeBtn();
   }
 
@@ -36,7 +37,7 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   // 组件或者 dom 节点 加上 close 样式
   if (React.isValidElement(relCloseBtn)) {
     const { onClick } = relCloseBtn.props;
-    return React.cloneElement(relCloseBtn, {
+    return React.cloneElement<any>(relCloseBtn, {
       className: classNames(relCloseBtn.props.className, tdMessageClassGenerator('close')),
       onClick: (e) => {
         onClick?.(e);

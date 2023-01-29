@@ -1,18 +1,15 @@
 import React from 'react';
-import { testExamples, render } from '@test/utils';
+import { vi, render } from '@test/utils';
 import Breadcrumb from '../Breadcrumb';
 
 const { BreadcrumbItem } = Breadcrumb;
-
-// unit test for component in examples.
-testExamples(__dirname);
 
 describe('Breadcrumb', () => {
   const rootTestID = 'breadcrumbRoot';
   const childTestID = 'breadcrumbChild';
 
-  it('trigger events on breadcrumbItem', () => {
-    const mockFn = jest.fn();
+  test('trigger events on breadcrumbItem', () => {
+    const mockFn = vi.fn();
     const el = (
       <Breadcrumb>
         <BreadcrumbItem onClick={mockFn} data-testid={childTestID}>
@@ -28,7 +25,7 @@ describe('Breadcrumb', () => {
     expect(mockFn).toHaveBeenCalled();
   });
 
-  it('use custom separator', () => {
+  test('use custom separator', () => {
     const el = (
       <Breadcrumb data-testid={rootTestID}>
         <BreadcrumbItem separator={<span role="separator"> xxx </span>} data-testid={childTestID} />
@@ -42,7 +39,7 @@ describe('Breadcrumb', () => {
     expect(root).toContainElement(separator);
   });
 
-  it('render options breadCrumbItem correctly', () => {
+  test('render options breadCrumbItem correctly', () => {
     const contentShouldNotBeExist = 'hello';
     const options = [{ content: '页面1' }, { content: '页面2' }, { content: '页面3' }];
     const el = (

@@ -9,7 +9,7 @@ import { PopupProps } from '../popup';
 import { RangeInputProps } from '../range-input';
 import { PopupVisibleChangeContext } from '../popup';
 import { TNode, TElement } from '../common';
-import { MouseEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdRangeInputProps {
   /**
@@ -22,7 +22,7 @@ export interface TdRangeInputProps {
    */
   clearable?: boolean;
   /**
-   * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
+   * 是否禁用范围输入框
    */
   disabled?: boolean;
   /**
@@ -67,6 +67,7 @@ export interface TdRangeInputProps {
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -104,9 +105,9 @@ export interface TdRangeInputProps {
   onChange?: (
     value: RangeInputValue,
     context?: {
-      e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement>;
+      e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> | CompositionEvent<HTMLDivElement>;
       position?: RangeInputPosition;
-      trigger?: 'input' | 'clear';
+      trigger?: 'input' | 'initial' | 'clear';
     },
   ) => void;
   /**
@@ -178,7 +179,7 @@ export interface TdRangeInputPopupProps {
   /**
    * 下拉框内容，可完全自定义
    */
-  panel?: TElement;
+  panel?: TNode;
   /**
    * 透传 Popup 浮层组件全部属性
    */
@@ -198,6 +199,7 @@ export interface TdRangeInputPopupProps {
   readonly?: boolean;
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**

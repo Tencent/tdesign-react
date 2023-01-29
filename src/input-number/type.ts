@@ -14,6 +14,11 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    */
   align?: 'left' | 'center' | 'right';
   /**
+   * 是否允许输入超过 `max` `min` 范围外的数字。为保障用户体验，仅在失去焦点时进行数字范围矫正。默认允许超出，数字超出范围时，输入框变红提醒
+   * @default true
+   */
+  allowInputOverLimit?: boolean;
+  /**
    * 宽度随内容自适应
    * @default false
    */
@@ -69,6 +74,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   size?: 'small' | 'medium' | 'large';
   /**
    * 文本框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -102,7 +108,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    */
   onBlur?: (value: InputNumberValue, context: { e: FocusEvent<HTMLDivElement> }) => void;
   /**
-   * 值变化时触发
+   * 值变化时触发，`type` 表示触发本次变化的来源
    */
   onChange?: (value: T, context: ChangeContext) => void;
   /**
@@ -137,9 +143,9 @@ export interface ChangeContext {
   type: ChangeSource;
   e:
     | FormEvent<HTMLDivElement>
-    | MouseEvent<HTMLDivElement>
+    | MouseEvent<HTMLDivElement | SVGElement>
     | FocusEvent<HTMLDivElement>
     | KeyboardEvent<HTMLDivElement>;
 }
 
-export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | '';
+export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | 'clear';

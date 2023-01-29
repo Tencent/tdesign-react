@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { upperCase } from 'lodash';
+import upperCase from 'lodash/upperCase';
 import Select from '../../../../select';
 import FormatInput from './inputs';
 import Color from '../../../../_common/js/color-picker/color';

@@ -4,17 +4,14 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { GlobalIconConfig } from 'tdesign-icons-react';
 import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
+import { MessageOptions } from '../message';
 import { TNode, TElement } from '../common';
-import { GlobalIconConfig } from 'tdesign-icons-react';
 
 export interface GlobalConfigProvider {
-  /**
-   * icon 全局配置，用来覆盖内置 tdesign-icons
-   */
-  icon?: IconConfig;
   /**
    * 警告全局配置
    */
@@ -61,6 +58,22 @@ export interface GlobalConfigProvider {
    */
   form?: FormConfig;
   /**
+   * 引导全局配置
+   */
+  guide?: GuideConfig;
+  /**
+   * 图标全局配置
+   */
+  icon?: IconConfig;
+  /**
+   * 图片全局配置
+   */
+  image?: ImageConfig;
+  /**
+   * 图片查看全局配置
+   */
+  imageViewer?: ImageViewerConfig;
+  /**
    * 输入框组件全局配置
    */
   input?: InputConfig;
@@ -68,6 +81,10 @@ export interface GlobalConfigProvider {
    * 列表组件全局配置
    */
   list?: ListConfig;
+  /**
+   * 消息组件全局配置
+   */
+  message?: MessageConfig;
   /**
    * 分页组件全局配置
    */
@@ -460,7 +477,7 @@ export interface DrawerConfig {
   confirm?: string | ButtonProps;
   /**
    * 尺寸配置，配置Drawer尺寸
-   * @default small
+   * @default 'small'
    */
   size?: string;
 }
@@ -672,7 +689,7 @@ export interface UploadConfig {
    */
   sizeLimitMessage?: string;
   /**
-   * 语言配置，上传功能触发文案。示例：{ image: '点击上传图片', normal: '点击上传',  fileInput: '选择文件',reupload: '重新上传',fileInput: '删除' }
+   * 语言配置，上传功能触发文案。示例：{ image: '点击上传图片', normal: '点击上传',  fileInput: '选择文件', reupload: '重新上传', delete: '删除', continueUpload?: '继续选择' }
    */
   triggerUploadText?: UploadTriggerUploadText;
 }
@@ -798,7 +815,66 @@ export interface AnchorConfig {
   copyText?: string;
 }
 
+export interface MessageConfig extends MessageOptions {}
+
+export interface ImageConfig {
+  /**
+   * 图片加载失败显示的文本，中文默认为“图片无法显示”
+   * @default ''
+   */
+  errorText?: string;
+  /**
+   * 图片加载中显示的文本，中文默认为“图片加载中”
+   * @default ''
+   */
+  loadingText?: string;
+}
+
+export interface ImageViewerConfig {
+  /**
+   * 全局语言配置，默认为 “图片加载失败，可尝试重新加载”
+   * @default ''
+   */
+  errorText?: string;
+  /**
+   * 全局语言配置，默认为 “镜像”
+   * @default ''
+   */
+  mirrorTipText?: string;
+  /**
+   * 全局语言配置，默认为 “原始大小”
+   * @default ''
+   */
+  originsizeTipText?: string;
+  /**
+   * 全局语言配置，默认为 “旋转”
+   * @default ''
+   */
+  rotateTipText?: string;
+}
+
+export interface GuideConfig {
+  /**
+   * 最后一步中的完成按钮，示例：`{ content: '完成', theme: 'primary' }`
+   */
+  finishButtonProps?: ButtonProps;
+  /**
+   * 下一步按钮，示例：`{ content: '下一步', theme: 'primary' }`
+   */
+  nextButtonProps?: ButtonProps;
+  /**
+   * 上一步按钮，示例：`{ content: '上一步', theme: 'default' }`
+   */
+  prevButtonProps?: ButtonProps;
+  /**
+   * 跳过按钮，示例：`{ content: '跳过', theme: 'default' }`
+   */
+  skipButtonProps?: ButtonProps;
+}
+
 export type AnimationType = 'ripple' | 'expand' | 'fade';
+
+export type IconConfig = GlobalIconConfig;
 
 export interface ConfigPresetDate {
   [name: string]: DateConfigValue | (() => DateConfigValue);
@@ -811,8 +887,6 @@ export interface UploadTriggerUploadText {
   normal?: string;
   fileInput?: string;
   reupload?: string;
-  continueUpload: string;
+  continueUpload?: string;
   delete?: string;
 }
-
-export type IconConfig = GlobalIconConfig;

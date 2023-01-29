@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
-import renderTNode from '../../_util/renderTNode';
+import parseTNode from '../../_util/parseTNode';
 import { ValidateStatus } from '../const';
 
 export default function useFormItemStyle(props) {
@@ -11,7 +11,7 @@ export default function useFormItemStyle(props) {
     className,
     help,
     tips,
-    name,
+    snakeName,
     status,
     successBorder,
     errorList,
@@ -27,14 +27,14 @@ export default function useFormItemStyle(props) {
     innerRules,
   } = props;
 
-  // formList 下 name 为数组
-  const renderName = Array.isArray(name) ? name.join('-') : name;
-
   // 传入 status 时受控
   const renderStatus = status || verifyStatus;
 
   // help 文本
-  const helpNode = help && <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
+  const helpNode = help && <div className={`${classPrefix}-input__help`}>{parseTNode(help)}</div>;
+
+  // 判断是否有星号
+  const needRequiredMark = requiredMark || (requiredMark ?? innerRules.filter((rule: any) => rule.required).length > 0);
 
   // 提示文本
   const extraNode = useMemo(() => {
@@ -62,14 +62,13 @@ export default function useFormItemStyle(props) {
   }, [showErrorMessage, errorList, successList, tips, classPrefix]);
 
   const formItemClass = classNames(`${classPrefix}-form__item`, className, {
-    [`${classPrefix}-form-item__${renderName}`]: renderName,
+    [`${classPrefix}-form-item__${snakeName}`]: snakeName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
   });
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
-    [`${classPrefix}-form__label--required`]:
-      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
+    [`${classPrefix}-form__label--required`]: needRequiredMark,
     [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
     [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
@@ -90,6 +89,8 @@ export default function useFormItemStyle(props) {
     return classNames(controlCls, {
       [`${classPrefix}-is-warning`]: renderStatus === 'warning',
       [`${classPrefix}-is-error`]: ['fail', 'error'].includes(renderStatus),
+      [`${classPrefix}-form--has-error`]:
+        renderStatus === ValidateStatus.ERROR || renderStatus === ValidateStatus.WARNING,
     });
   };
 

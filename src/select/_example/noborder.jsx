@@ -11,7 +11,7 @@ const SelectNoborder = () => {
     <Select
       value={value}
       onChange={onChange}
-      bordered={false}
+      borderless
       clearable={true}
       style={{ width: '40%' }}
       options={[
