@@ -35,12 +35,16 @@ export interface UploadDisplayDragEvents {
 }
 
 export type ImageEvent<T = any> = SyntheticEvent<T>;
-/** 通用全局类型 */
+
+/**
+ * 通用全局类型
+ * */
+export type PlainObject = { [key: string]: any };
 
 export type OptionData = {
   label?: string;
   value?: string | number;
-} & { [key: string]: any };
+} & PlainObject;
 
 export type TreeOptionData<T = string | number> = {
   children?: Array<TreeOptionData<T>>;
@@ -50,7 +54,7 @@ export type TreeOptionData<T = string | number> = {
   text?: string;
   /** option value */
   value?: T;
-} & { [key: string]: any };
+} & PlainObject;
 
 export type SizeEnum = 'small' | 'medium' | 'large';
 

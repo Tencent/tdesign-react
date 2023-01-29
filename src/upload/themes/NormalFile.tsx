@@ -1,4 +1,5 @@
 import React from 'react';
+import isFunction from 'lodash/isFunction';
 import {
   CloseIcon as TdCloseIcon,
   TimeFilledIcon as TdTimeFilledIcon,
@@ -42,42 +43,44 @@ export default function NormalFile(props: NormalFileProps) {
   // 文本型预览
   const renderFilePreviewAsText = (files: UploadFile[]) => {
     if (theme !== 'file') return null;
-    if (!props.multiple && files[0]?.status === 'fail') {
+    if (!props.multiple && files[0]?.status === 'fail' && props.autoUpload) {
       return null;
     }
-    return files.map((file, index) => (
-      <div
-        className={`${uploadPrefix}__single-display-text ${uploadPrefix}__display-text--margin`}
-        key={file.name + index + file.percent + file.status}
-      >
-        {file.url ? (
-          <Link href={file.url} target="_blank" hover="color" size="small" className={`${uploadPrefix}__single-name`}>
-            {file.name}
-          </Link>
-        ) : (
-          <span className={`${uploadPrefix}__single-name`}>{file.name}</span>
-        )}
-        {file.status === 'fail' && (
-          <div className={`${uploadPrefix}__flow-status`}>
-            <ErrorCircleFilledIcon />
-          </div>
-        )}
-        {file.status === 'waiting' && (
-          <div className={`${uploadPrefix}__flow-status`}>
-            <TimeFilledIcon />
-          </div>
-        )}
-        {file.status === 'progress' && renderProgress(file.percent)}
-        {!disabled && file.status !== 'progress' && (
-          <CloseIcon className={`${uploadPrefix}__icon-delete`} onClick={(e) => props.onRemove({ e, file, index })} />
-        )}
-      </div>
-    ));
+    return files.map((file, index) => {
+      const fileName = props.abridgeName && file.name ? abridgeName(file.name, ...props.abridgeName) : file.name;
+      return (
+        <div
+          className={`${uploadPrefix}__single-display-text ${uploadPrefix}__display-text--margin`}
+          key={file.name + index + file.percent + file.status}
+        >
+          {file.url ? (
+            <Link href={file.url} target="_blank" hover="color" size="small" className={`${uploadPrefix}__single-name`}>
+              {fileName}
+            </Link>
+          ) : (
+            <span className={`${uploadPrefix}__single-name`}>{fileName}</span>
+          )}
+          {file.status === 'fail' && (
+            <div className={`${uploadPrefix}__flow-status ${uploadPrefix}__file-fail`}>
+              <ErrorCircleFilledIcon />
+            </div>
+          )}
+          {file.status === 'waiting' && (
+            <div className={`${uploadPrefix}__flow-status ${uploadPrefix}__file-waiting`}>
+              <TimeFilledIcon />
+            </div>
+          )}
+          {file.status === 'progress' && renderProgress(file.percent)}
+          {!disabled && file.status !== 'progress' && (
+            <CloseIcon className={`${uploadPrefix}__icon-delete`} onClick={(e) => props.onRemove({ e, file, index })} />
+          )}
+        </div>
+      );
+    });
   };
 
   // 输入框型预览
   const renderFilePreviewAsInput = () => {
-    if (theme !== 'file-input') return;
     const file = props.displayFiles[0];
     const inputTextClass = [
       `${classPrefix}-input__inner`,
@@ -89,13 +92,23 @@ export default function NormalFile(props: NormalFileProps) {
     return (
       <div className={`${uploadPrefix}__single-input-preview ${classPrefix}-input ${disabledClass}`}>
         <div className={classNames(inputTextClass)}>
-          <span className={`${uploadPrefix}__single-input-text`}>{file?.name ? fileName : props.placeholder}</span>
+          <span
+            className={classNames(`${uploadPrefix}__single-input-text`, {
+              [props.placeholderClass]: props.placeholder,
+            })}
+          >
+            {file?.name ? fileName : props.placeholder}
+          </span>
           {file?.status === 'progress' && renderProgress(file.percent)}
-          {file?.status === 'waiting' && <TimeFilledIcon className={`${uploadPrefix}__status-icon`} />}
-          {file?.url && file.status === 'success' && (
+          {file?.status === 'waiting' && (
+            <TimeFilledIcon className={`${uploadPrefix}__status-icon ${uploadPrefix}__file-waiting`} />
+          )}
+          {file?.name && file.status === 'success' && (
             <CheckCircleFilledIcon className={`${uploadPrefix}__status-icon`} />
           )}
-          {file?.name && file.status === 'fail' && <ErrorCircleFilledIcon className={`${uploadPrefix}__status-icon`} />}
+          {file?.name && file.status === 'fail' && (
+            <ErrorCircleFilledIcon className={`${uploadPrefix}__status-icon ${uploadPrefix}__file-fail`} />
+          )}
           {!disabled && (
             <CloseCircleFilledIcon
               className={`${uploadPrefix}__single-input-clear`}
@@ -108,7 +121,9 @@ export default function NormalFile(props: NormalFileProps) {
   };
 
   const { displayFiles } = props;
-  const fileListDisplay = props.fileListDisplay?.({ files: displayFiles });
+  const fileListDisplay = isFunction(props.fileListDisplay)
+    ? props.fileListDisplay({ files: displayFiles })
+    : props.fileListDisplay;
 
   const classes = [`${uploadPrefix}__single`, `${uploadPrefix}__single-${theme}`];
   return (
@@ -118,7 +133,7 @@ export default function NormalFile(props: NormalFileProps) {
       {props.children}
 
       {theme === 'file' && props.placeholder && !displayFiles[0] && (
-        <small className={classNames(props.tipsClasses)}>{props.placeholder}</small>
+        <small className={classNames([props.tipsClasses, props.placeholderClass])}>{props.placeholder}</small>
       )}
 
       {fileListDisplay || renderFilePreviewAsText(displayFiles)}
