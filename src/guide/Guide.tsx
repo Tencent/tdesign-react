@@ -336,7 +336,7 @@ const Guide = (props: GuideProps) => {
         current: innerCurrent,
         total: stepsTotal,
       };
-      renderBody = React.cloneElement(content as any, contentProps);
+      renderBody = isFunction(content) ? content(contentProps) : content;
     } else {
       renderBody = renderPopupContent();
     }

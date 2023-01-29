@@ -19,6 +19,8 @@ export interface CommonDisplayFileProps {
   uploading?: boolean;
   tipsClasses?: string;
   errorClasses?: string[];
+  placeholderClass?: string;
+  showUploadProgress?: boolean;
   children?: ReactNode;
   fileListDisplay?: TdUploadProps['fileListDisplay'];
   onRemove?: (p: UploadRemoveContext) => void;
