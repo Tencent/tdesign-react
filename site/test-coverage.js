@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "41.97%",
-    "branches": "29.17%",
-    "functions": "50.83%",
-    "lines": "43.27%"
+    "statements": "52.82%",
+    "branches": "38.3%",
+    "functions": "61.06%",
+    "lines": "54.33%"
   },
   "affix": {
     "statements": "87.3%",
@@ -18,10 +18,10 @@ module.exports = {
     "lines": "100%"
   },
   "anchor": {
-    "statements": "63.25%",
-    "branches": "47.62%",
-    "functions": "60%",
-    "lines": "64.15%"
+    "statements": "93.16%",
+    "branches": "66.67%",
+    "functions": "88%",
+    "lines": "97.17%"
   },
   "autoComplete": {
     "statements": "95.39%",
@@ -84,10 +84,10 @@ module.exports = {
     "lines": "96.05%"
   },
   "colorPicker": {
-    "statements": "93.33%",
+    "statements": "100%",
     "branches": "100%",
-    "functions": "60%",
-    "lines": "93.1%"
+    "functions": "100%",
+    "lines": "100%"
   },
   "comment": {
     "statements": "100%",
@@ -159,13 +159,13 @@ module.exports = {
     "statements": "87.23%",
     "branches": "86.21%",
     "functions": "83.33%",
-    "lines": "86.36%"
+    "lines": "86.67%"
   },
   "imageViewer": {
-    "statements": "75%",
+    "statements": "75.54%",
     "branches": "77.19%",
     "functions": "65.71%",
-    "lines": "75.38%"
+    "lines": "75.94%"
   },
   "input": {
     "statements": "93.63%",
@@ -210,10 +210,10 @@ module.exports = {
     "lines": "89.47%"
   },
   "locale": {
-    "statements": "73.08%",
-    "branches": "72.22%",
+    "statements": "80.77%",
+    "branches": "77.78%",
     "functions": "83.33%",
-    "lines": "73.91%"
+    "lines": "82.61%"
   },
   "message": {
     "statements": "88.44%",
@@ -258,10 +258,10 @@ module.exports = {
     "lines": "81.67%"
   },
   "rangeInput": {
-    "statements": "74.03%",
-    "branches": "61.9%",
-    "functions": "46.15%",
-    "lines": "73.68%"
+    "statements": "76.62%",
+    "branches": "66.66%",
+    "functions": "50%",
+    "lines": "76.31%"
   },
   "rate": {
     "statements": "64.15%",
@@ -276,10 +276,10 @@ module.exports = {
     "lines": "100%"
   },
   "selectInput": {
-    "statements": "83.84%",
-    "branches": "74.07%",
-    "functions": "69.57%",
-    "lines": "86.96%"
+    "statements": "97%",
+    "branches": "89.29%",
+    "functions": "100%",
+    "lines": "98.92%"
   },
   "slider": {
     "statements": "89.47%",
@@ -312,10 +312,10 @@ module.exports = {
     "lines": "96.15%"
   },
   "table": {
-    "statements": "48.69%",
-    "branches": "34.26%",
+    "statements": "48.81%",
+    "branches": "34.33%",
     "functions": "45.57%",
-    "lines": "49.61%"
+    "lines": "49.67%"
   },
   "tabs": {
     "statements": "90.86%",
@@ -331,7 +331,7 @@ module.exports = {
   },
   "tagInput": {
     "statements": "85.98%",
-    "branches": "81.69%",
+    "branches": "83.1%",
     "functions": "83.78%",
     "lines": "87.74%"
   },
@@ -342,10 +342,10 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "14.29%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.94%"
+    "statements": "80.64%",
+    "branches": "67.16%",
+    "functions": "72.22%",
+    "lines": "82.02%"
   },
   "timeline": {
     "statements": "98.39%",
@@ -366,16 +366,22 @@ module.exports = {
     "lines": "87.78%"
   },
   "tree": {
-    "statements": "22.46%",
-    "branches": "4.24%",
-    "functions": "20.51%",
-    "lines": "22.91%"
+    "statements": "51.87%",
+    "branches": "34.17%",
+    "functions": "51.28%",
+    "lines": "52.79%"
+  },
+  "treeSelect": {
+    "statements": "95.17%",
+    "branches": "86.44%",
+    "functions": "97.44%",
+    "lines": "95.62%"
   },
   "upload": {
-    "statements": "14.29%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.81%"
+    "statements": "96.55%",
+    "branches": "100%",
+    "functions": "88.89%",
+    "lines": "100%"
   },
   "watermark": {
     "statements": "54.76%",
@@ -384,9 +390,9 @@ module.exports = {
     "lines": "57.5%"
   },
   "utils": {
-    "statements": "72.41%",
-    "branches": "63.64%",
+    "statements": "80%",
+    "branches": "75%",
     "functions": "100%",
-    "lines": "70.37%"
+    "lines": "79.55%"
   }
 };

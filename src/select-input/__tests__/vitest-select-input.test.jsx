@@ -87,7 +87,7 @@ describe('SelectInput Component', () => {
     const { container } = render(<SelectInput panel={<span className="custom-node">TNode</span>}></SelectInput>);
     fireEvent.click(container.querySelector('.t-input'));
     const customNodeDom = document.querySelector('.custom-node');
-    expect(customNodeDom).toBeDefined();
+    expect(customNodeDom).toBeTruthy();
   });
 
   it('props.placeholder works fine', () => {

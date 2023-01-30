@@ -25,6 +25,11 @@ export interface TdSelectInputProps {
    */
   autoWidth?: boolean;
   /**
+   * 自动聚焦
+   * @default false
+   */
+  autofocus?: boolean;
+  /**
    * 无边框模式
    * @default false
    */
@@ -35,7 +40,7 @@ export interface TdSelectInputProps {
    */
   clearable?: boolean;
   /**
-   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 `collapsedItems` 自定义。`value` 表示所有标签值，`collapsedTags` 表示折叠标签值，`count` 表示总标签数量
+   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 `collapsedItems` 自定义。`value` 表示所有标签值，`collapsedTags` 表示折叠标签值，`count` 表示选中的标签数量
    */
   collapsedItems?: TNode<{ value: SelectInputValue; collapsedTags: SelectInputValue; count: number }>;
   /**

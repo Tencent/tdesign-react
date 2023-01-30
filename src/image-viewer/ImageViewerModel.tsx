@@ -10,6 +10,7 @@ import {
 import classNames from 'classnames';
 import { TooltipLite } from '../tooltip';
 import useConfig from '../hooks/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TNode } from '../common';
 import { downloadFile } from './utils';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
@@ -22,15 +23,16 @@ import useScale from './hooks/useScale';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIconMap from './hooks/useIconMap';
 
-const ImageError = () => {
+const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
   const { ImageErrorIcon } = useGlobalIcon({ ImageErrorIcon: TdImageErrorIcon });
+
   return (
     <div className={`${classPrefix}-image-viewer__img-error`}>
       {/* 脱离文档流 */}
       <div className={`${classPrefix}-image-viewer__img-error-content`}>
         <ImageErrorIcon size="4em" />
-        <div className={`${classPrefix}-image-viewer__img-error-text`}>图片加载失败，可尝试重新加载</div>
+        <div className={`${classPrefix}-image-viewer__img-error-text`}>{errorText}</div>
       </div>
     </div>
   );
@@ -42,10 +44,11 @@ interface ImageModelItemProps {
   mirror: number;
   src: string;
   preSrc?: string;
+  errorText: string;
 }
 
 // 单个弹窗实例
-export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageModelItemProps) => {
+export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror, errorText }: ImageModelItemProps) => {
   const { classPrefix } = useConfig();
 
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
@@ -66,7 +69,7 @@ export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror }: ImageMod
   return (
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
-        {error && <ImageError />}
+        {error && <ImageError errorText={errorText} />}
         {!error && !!preSrc && (
           <img
             className={`${classPrefix}-image-viewer__modal-image`}
@@ -142,6 +145,11 @@ interface ImageViewerUtilsProps {
   onZoomOut: () => void;
   onMirror: () => void;
   onReset: () => void;
+  tipText: {
+    mirror: string;
+    rotate: string;
+    originsize: string;
+  };
 }
 
 export const ImageViewerUtils = ({
@@ -152,6 +160,7 @@ export const ImageViewerUtils = ({
   onRotate,
   onMirror,
   onReset,
+  tipText,
 }: ImageViewerUtilsProps) => {
   const { classPrefix } = useConfig();
   const { MirrorIcon, RotationIcon, ImageIcon } = useGlobalIcon({
@@ -163,12 +172,12 @@ export const ImageViewerUtils = ({
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils-content`}>
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="镜像" showShadow={false}>
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content={tipText.mirror} showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <MirrorIcon size="medium" onClick={onMirror} />
           </div>
         </TooltipLite>
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="旋转" showShadow={false}>
+        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content={tipText.rotate} showShadow={false}>
           <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
           </div>
@@ -180,7 +189,11 @@ export const ImageViewerUtils = ({
           label={`${scale * 100}%`}
         />
         <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content="原始大小" showShadow={false}>
+        <TooltipLite
+          className={`${classPrefix}-image-viewer__utils--tip`}
+          content={tipText.originsize}
+          showShadow={false}
+        >
           <div className={`${classPrefix}-image-viewer__modal-icon`}>
             <ImageIcon
               size="medium"
@@ -293,6 +306,8 @@ export const ImageModal = (props: ImageModalProps) => {
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('imageViewer');
+
   if (resProps.index === undefined) delete resProps.index;
   const { index, next, prev, setIndex } = useIndex(resProps, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
@@ -343,6 +358,12 @@ export const ImageModal = (props: ImageModalProps) => {
   if (!isArray(images) || images.length < 1) return null;
 
   const currentImage: ImageInfo = images[index];
+  const tipText = {
+    mirror: t(locale.mirrorTipText),
+    rotate: t(locale.rotateTipText),
+    originsize: t(locale.originsizeTipText),
+  };
+  const errorText = t(locale.errorText);
 
   if (isMini) {
     return (
@@ -368,6 +389,8 @@ export const ImageModal = (props: ImageModalProps) => {
         onScroll={onScroll}
         onReset={onReset}
         onRotate={onRotate}
+        errorText={errorText}
+        tipText={tipText}
       />
     );
   }
@@ -430,6 +453,7 @@ export const ImageModal = (props: ImageModalProps) => {
         onRotate={onRotate}
         onMirror={onMirror}
         onReset={onReset}
+        tipText={tipText}
       />
       {closeNode}
       <ImageModelItem
@@ -438,6 +462,7 @@ export const ImageModal = (props: ImageModalProps) => {
         mirror={mirror}
         preSrc={currentImage.thumbnail}
         src={currentImage.mainImage}
+        errorText={errorText}
       />
     </div>
   );

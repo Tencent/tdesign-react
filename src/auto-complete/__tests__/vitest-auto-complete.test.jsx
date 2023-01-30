@@ -99,7 +99,7 @@ describe('AutoComplete Component', () => {
     const { container } = getNormalAutoCompleteMount(AutoComplete);
     fireEvent.focus(container.querySelector('input'));
     const customNodeDom = document.querySelector('.custom-node');
-    expect(customNodeDom).toBeDefined();
+    expect(customNodeDom).toBeTruthy();
   });
   it('props.options: 5 options should exist', () => {
     const { container } = getNormalAutoCompleteMount(AutoComplete);
@@ -108,10 +108,14 @@ describe('AutoComplete Component', () => {
     expect(tSelectOptionDom.length).toBe(5);
   });
   it('props.options: expect empty options with no panel', () => {
-    const { container } = render(<AutoComplete></AutoComplete>);
+    const { container } = render(
+      <AutoComplete popupProps={{ overlayClassName: 'empty-options-class-name' }}></AutoComplete>,
+    );
     fireEvent.focus(container.querySelector('input'));
-    const tAutocompletePanelDom = document.querySelectorAll('.t-autocomplete__panel');
-    expect(tAutocompletePanelDom.length).toBe(0);
+    const emptyOptionsClassNameTAutocompletePanelDom = document.querySelectorAll(
+      '.empty-options-class-name .t-autocomplete__panel',
+    );
+    expect(emptyOptionsClassNameTAutocompletePanelDom.length).toBe(0);
   });
   it('props.options: define one option', () => {
     const { container } = getOptionSlotAutoCompleteMount(AutoComplete, {
@@ -130,9 +134,9 @@ describe('AutoComplete Component', () => {
     );
     fireEvent.focus(container.querySelector('input'));
     const customNodeDom = document.querySelector('.custom-node');
-    expect(customNodeDom).toBeDefined();
+    expect(customNodeDom).toBeTruthy();
     const tPopupDom = document.querySelector('.t-popup');
-    expect(tPopupDom).toBeDefined();
+    expect(tPopupDom).toBeTruthy();
   });
 
   it('props.panelTopContent works fine', () => {
@@ -141,9 +145,9 @@ describe('AutoComplete Component', () => {
     );
     fireEvent.focus(container.querySelector('input'));
     const customNodeDom = document.querySelector('.custom-node');
-    expect(customNodeDom).toBeDefined();
+    expect(customNodeDom).toBeTruthy();
     const tPopupDom = document.querySelector('.t-popup');
-    expect(tPopupDom).toBeDefined();
+    expect(tPopupDom).toBeTruthy();
   });
 
   it(`props.placeholder is equal to 'type keyword to search'`, () => {
@@ -158,7 +162,7 @@ describe('AutoComplete Component', () => {
     });
     fireEvent.focus(container.querySelector('input'));
     const customClassNameDom = document.querySelector('.custom-class-name');
-    expect(customClassNameDom).toBeDefined();
+    expect(customClassNameDom).toBeTruthy();
   });
   it('props.popupProps works fine', () => {
     const { container } = getNormalAutoCompleteMount(AutoComplete, {
@@ -166,7 +170,7 @@ describe('AutoComplete Component', () => {
     });
     fireEvent.focus(container.querySelector('input'));
     const customClassNameDom = document.querySelector('.custom-class-name');
-    expect(customClassNameDom).toBeDefined();
+    expect(customClassNameDom).toBeTruthy();
   });
 
   it('props.readonly works fine', () => {

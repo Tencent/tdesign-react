@@ -4,21 +4,27 @@ import isFunction from 'lodash/isFunction';
 export default function useResizeObserver(container: HTMLElement, callback: (data: [ResizeObserverEntry]) => void) {
   let containerObserver: ResizeObserver = null;
 
-  const observeContainer = () => {
-    if (!container || !container || !window || !window.ResizeObserver) {
-      containerObserver?.unobserve(container);
-      containerObserver?.disconnect();
-    } else {
-      containerObserver = new window.ResizeObserver(callback);
-      containerObserver.observe(container);
-    }
+  const cleanupObserver = () => {
+    if (!containerObserver) return;
+    containerObserver.unobserve(container);
+    isFunction(containerObserver.disconnect) && containerObserver.disconnect();
+    containerObserver = null;
+  };
+
+  const addObserver = (el: HTMLElement) => {
+    containerObserver = new ResizeObserver(callback);
+    containerObserver.observe(el);
   };
 
   useLayoutEffect(() => {
-    observeContainer();
+    const isSupport = window && window.ResizeObserver;
+    if (!isSupport) return;
+
+    cleanupObserver();
+    container && addObserver(container);
+
     return () => {
-      containerObserver?.unobserve(container);
-      isFunction(containerObserver?.disconnect) && containerObserver.disconnect();
+      cleanupObserver();
     };
     // eslint-disable-next-line
   }, [container, containerObserver]);

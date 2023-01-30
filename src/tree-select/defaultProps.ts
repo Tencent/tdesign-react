@@ -6,6 +6,7 @@ import { TdTreeSelectProps } from './type';
 
 export const treeSelectDefaultProps: TdTreeSelectProps = {
   autoWidth: false,
+  autofocus: false,
   borderless: false,
   clearable: false,
   data: [],
@@ -17,5 +18,6 @@ export const treeSelectDefaultProps: TdTreeSelectProps = {
   placeholder: undefined,
   readonly: false,
   size: 'medium',
+  status: 'default',
   valueType: 'value',
 };

@@ -28,6 +28,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     uploading,
     tipsClasses,
     errorClasses,
+    placeholderClass,
     inputRef,
     disabled,
     onRemove,
@@ -82,8 +83,10 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     classPrefix,
     tipsClasses,
     errorClasses,
+    placeholderClass,
     locale,
     autoUpload: props.autoUpload,
+    showUploadProgress: props.showUploadProgress,
     fileListDisplay: props.fileListDisplay,
     onRemove,
   };

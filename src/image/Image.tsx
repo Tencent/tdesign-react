@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
 import observe from '../_common/js/utils/observe';
 import useConfig from '../hooks/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdImageProps } from './type';
 import { imageDefaultProps } from './defaultProps';
 import Space from '../space';
@@ -34,7 +35,7 @@ const Image = (props: ImageProps) => {
 
   const { classPrefix } = useConfig();
   const imageRef = useRef<HTMLDivElement>(null);
-
+  const [local, t] = useLocaleReceiver('image');
   const { ImageErrorIcon, ImageIcon } = useGlobalIcon({
     ImageErrorIcon: TdImageErrorIcon,
     ImageIcon: TdImageIcon,
@@ -145,7 +146,7 @@ const Image = (props: ImageProps) => {
               {loading || (
                 <Space direction="vertical" size={8} align="center">
                   <ImageIcon size={24} />
-                  图片加载中
+                  {t(local.loadingText)}
                 </Space>
               )}
             </div>
@@ -158,7 +159,7 @@ const Image = (props: ImageProps) => {
           {error || (
             <Space direction="vertical" size={8} align="center">
               <ImageErrorIcon size={24} />
-              图片无法显示
+              {t(local.errorText)}
             </Space>
           )}
         </div>
