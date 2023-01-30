@@ -81,7 +81,6 @@ const Anchor = forwardRefWithStatics(
 
     const handleScrollTo = (link: string) => {
       const anchor = getAnchorTarget(link);
-      console.log('--link--', link, anchor);
       if (!anchor) return;
       onChange?.(link, activeItem);
       setActiveItem(link);

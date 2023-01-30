@@ -27,9 +27,6 @@ describe('Anchor 组件测试', () => {
     // target is window
     const windowDistance = getScroll(window, true);
     expect(windowDistance).toEqual(distance);
-
-    // const scrollToPromise = scrollTo(10, {});
-    // expect(scrollToPromise).toBeInstanceOf(Promise);
   });
 
   test('render AnchorItem links', async () => {
