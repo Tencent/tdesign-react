@@ -77,7 +77,7 @@ const TimePicker = forwardRefWithStatics(
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
       setCurrentValue(value);
       if (allowInput) {
-        onInput({ value, e: context.e as React.FormEvent<HTMLDivElement> });
+        onInput({ value, e: context.e as React.FocusEvent<HTMLInputElement> });
       }
     };
 

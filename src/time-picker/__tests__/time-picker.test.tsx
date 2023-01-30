@@ -86,7 +86,7 @@ describe('Timepicker 组件测试', () => {
     expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
   });
 
-  it('props.allowInput for TimePicker works fine', async () => {
+  it('props.allowInput works fine', async () => {
     const handleBlur = vi.fn();
     const handleInput = vi.fn();
     const handleFocus = vi.fn();
@@ -101,8 +101,25 @@ describe('Timepicker 组件测试', () => {
     expect(handleBlur).toBeCalledTimes(1);
   });
 
+  it('props.onInput&onBlur&onForus works fine', async () => {
+    const handleBlur = vi.fn();
+    const handleInput = vi.fn();
+    const handleFocus = vi.fn();
+    const { container } = render(
+      <TimePicker.TimeRangePicker allowInput onInput={handleInput} onBlur={handleBlur} onFocus={handleFocus} />,
+    );
+    const inputs = container.querySelectorAll('input');
+    fireEvent.focus(inputs[0]);
+    expect(handleFocus).toBeCalledTimes(1);
+    fireEvent.change(inputs[0], { target: { value: '00:10:20' } });
+    expect(handleInput).toBeCalledTimes(1);
+    fireEvent.blur(inputs[0]);
+    expect(handleBlur).toBeCalledTimes(1);
+  });
+
   it('click to pick', async () => {
-    const { container } = render(<TimePicker defaultValue="00:00:00"></TimePicker>);
+    const handleChange = vi.fn();
+    const { container } = render(<TimePicker defaultValue="00:00:00" onChange={handleChange}></TimePicker>);
     fireEvent.click(document.querySelector('input'));
     await waitFor(async () => {
       const confirmBtn = document.querySelectorAll('.t-time-picker__panel button').item(0);
@@ -112,6 +129,7 @@ describe('Timepicker 组件测试', () => {
       fireEvent.click(panelItem1.querySelectorAll('.t-time-picker__panel-body-scroll-item').item(1));
       fireEvent.click(confirmBtn);
       expect(container.querySelectorAll('input').item(0)).toHaveValue('01:00:00');
+      expect(handleChange).toHaveBeenCalled(1);
     });
   });
 });
