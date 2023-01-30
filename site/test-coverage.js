@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "42.35%",
-    "branches": "29.16%",
-    "functions": "52.5%",
-    "lines": "43.68%"
+    "statements": "41.58%",
+    "branches": "28.75%",
+    "functions": "51.66%",
+    "lines": "42.85%"
   },
   "affix": {
     "statements": "87.3%",
@@ -252,10 +252,10 @@ module.exports = {
     "lines": "81.66%"
   },
   "rangeInput": {
-    "statements": "74.02%",
-    "branches": "61.9%",
-    "functions": "46.15%",
-    "lines": "73.68%"
+    "statements": "76.62%",
+    "branches": "64.28%",
+    "functions": "50%",
+    "lines": "76.31%"
   },
   "rate": {
     "statements": "64.15%",
@@ -336,10 +336,10 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "39.56%",
-    "branches": "32.3%",
-    "functions": "22.22%",
-    "lines": "40.22%"
+    "statements": "73.11%",
+    "branches": "62.68%",
+    "functions": "55.55%",
+    "lines": "74.15%"
   },
   "timeline": {
     "statements": "98.38%",

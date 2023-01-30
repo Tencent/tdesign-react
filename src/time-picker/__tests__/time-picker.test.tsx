@@ -1,5 +1,5 @@
 import MockDate from 'mockdate';
-import { fireEvent, render, waitFor } from '@test/utils';
+import { fireEvent, render, waitFor, vi } from '@test/utils';
 import React from 'react';
 import TimePicker from '../index';
 
@@ -47,6 +47,58 @@ describe('Timepicker 组件测试', () => {
       expect(scrollPanels.item(1).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('10');
       expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
     });
+  });
+
+  it('props.defaultValue for TimePicker works fine', async () => {
+    const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
+    expect(container.querySelectorAll('input').length).toBe(1);
+    expect(container.querySelectorAll('input').item(0)).toHaveValue('00:10:20');
+    fireEvent.click(document.querySelector('input'));
+    await waitFor(() => {
+      const scrollPanels = document.querySelectorAll('.t-time-picker__panel-body-scroll');
+      expect(scrollPanels.item(0).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('00');
+      expect(scrollPanels.item(1).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('10');
+      expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
+    });
+  });
+
+  it('props.defaultValue for TimeRangePicker works fine', async () => {
+    const { container } = render(<TimePicker.TimeRangePicker defaultValue={['00:00:00', '00:10:20']} />);
+    const inputs = container.querySelectorAll('input');
+    expect(inputs.length).toBe(2);
+    expect(inputs.item(0)).toHaveValue('00:00:00');
+    expect(inputs.item(1)).toHaveValue('00:10:20');
+    fireEvent.click(inputs.item(1));
+    await waitFor(() => {
+      const scrollPanels = document.querySelectorAll('.t-time-picker__panel-body-scroll');
+      expect(scrollPanels.item(0).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('00');
+      expect(scrollPanels.item(1).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('10');
+      expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
+    });
+  });
+
+  it('props.value for TimePickerPanel works fine', () => {
+    const onChange = vi.fn();
+    const { container } = render(<TimePicker.TimePickerPanel value={'00:10:20'} onChange={onChange} />);
+    const scrollPanels = container.querySelectorAll('.t-time-picker__panel-body-scroll');
+    expect(scrollPanels.item(0).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('00');
+    expect(scrollPanels.item(1).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('10');
+    expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
+  });
+
+  it('props.allowInput for TimePicker works fine', async () => {
+    const handleBlur = vi.fn();
+    const handleInput = vi.fn();
+    const handleFocus = vi.fn();
+    const { container } = render(
+      <TimePicker onBlur={handleBlur} onFocus={handleFocus} onInput={handleInput} allowInput />,
+    );
+    const InputDom = container.querySelector('.t-input__inner');
+    fireEvent.focus(InputDom);
+    expect(handleFocus).toBeCalledTimes(1);
+    expect(handleInput).toBeCalledTimes(1);
+    fireEvent.blur(InputDom);
+    expect(handleBlur).toBeCalledTimes(1);
   });
 
   it('click to pick', async () => {
