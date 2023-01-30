@@ -47,5 +47,8 @@ export default ({ mode }) =>
         strict: false,
       },
     },
+    test: {
+      environment: 'jsdom',
+    },
     plugins: [react(), tdocPlugin(), VitePWA(pwaConfig)],
   });
