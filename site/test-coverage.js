@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "52.82%",
+    "statements": "50.4%",
     "branches": "38.3%",
-    "functions": "61.06%",
-    "lines": "54.33%"
+    "functions": "60.18%",
+    "lines": "51.73%"
   },
   "affix": {
     "statements": "87.3%",
@@ -18,10 +18,10 @@ module.exports = {
     "lines": "100%"
   },
   "anchor": {
-    "statements": "93.16%",
-    "branches": "66.67%",
-    "functions": "88%",
-    "lines": "97.17%"
+    "statements": "63.25%",
+    "branches": "47.62%",
+    "functions": "60%",
+    "lines": "64.15%"
   },
   "autoComplete": {
     "statements": "95.39%",
@@ -144,19 +144,25 @@ module.exports = {
     "lines": "47.94%"
   },
   "grid": {
-    "statements": "83.16%",
-    "branches": "72.73%",
-    "functions": "90%",
-    "lines": "83.16%"
+    "statements": "61.86%",
+    "branches": "28.79%",
+    "functions": "80%",
+    "lines": "61.86%"
+  },
+  "guide": {
+    "statements": "100%",
+    "branches": "94.12%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "hooks": {
-    "statements": "51.3%",
+    "statements": "47.5%",
     "branches": "27.42%",
-    "functions": "62.16%",
-    "lines": "52.14%"
+    "functions": "55.26%",
+    "lines": "47.92%"
   },
   "image": {
-    "statements": "87.23%",
+    "statements": "87.5%",
     "branches": "86.21%",
     "functions": "83.33%",
     "lines": "86.67%"
@@ -184,12 +190,6 @@ module.exports = {
     "branches": "66.23%",
     "functions": "78.95%",
     "lines": "82.46%"
-  },
-  "layout": {
-    "statements": "91.49%",
-    "branches": "41.67%",
-    "functions": "85.71%",
-    "lines": "95.56%"
   },
   "link": {
     "statements": "100%",
@@ -258,10 +258,10 @@ module.exports = {
     "lines": "81.67%"
   },
   "rangeInput": {
-    "statements": "76.62%",
-    "branches": "66.66%",
-    "functions": "50%",
-    "lines": "76.31%"
+    "statements": "74.03%",
+    "branches": "61.9%",
+    "functions": "46.15%",
+    "lines": "73.68%"
   },
   "rate": {
     "statements": "64.15%",
@@ -342,10 +342,10 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "80.64%",
-    "branches": "67.16%",
-    "functions": "72.22%",
-    "lines": "82.02%"
+    "statements": "14.29%",
+    "branches": "0%",
+    "functions": "0%",
+    "lines": "14.94%"
   },
   "timeline": {
     "statements": "98.39%",
@@ -384,10 +384,10 @@ module.exports = {
     "lines": "100%"
   },
   "watermark": {
-    "statements": "54.76%",
-    "branches": "65.63%",
-    "functions": "40%",
-    "lines": "57.5%"
+    "statements": "95.24%",
+    "branches": "84.38%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "utils": {
     "statements": "80%",
