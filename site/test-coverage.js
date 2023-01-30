@@ -258,10 +258,10 @@ module.exports = {
     "lines": "81.67%"
   },
   "rangeInput": {
-    "statements": "74.03%",
-    "branches": "61.9%",
-    "functions": "46.15%",
-    "lines": "73.68%"
+    "statements": "76.62%",
+    "branches": "66.66%",
+    "functions": "50%",
+    "lines": "76.31%"
   },
   "rate": {
     "statements": "64.15%",
@@ -342,10 +342,10 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "14.29%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.94%"
+    "statements": "80.64%",
+    "branches": "67.16%",
+    "functions": "72.22%",
+    "lines": "82.02%"
   },
   "timeline": {
     "statements": "98.39%",

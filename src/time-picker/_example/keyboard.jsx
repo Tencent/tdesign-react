@@ -9,12 +9,18 @@ export default function KeyboardTimePicker() {
   const handleInput = (param) => {
     console.log(param, 'onInput');
   };
+
+  const handleFocus = (param) => {
+    console.log(param, 'onFocus');
+  };
+
   return (
     <TimePicker
       defaultValue="12:08:00"
       format="HH:mm:ss"
       onBlur={handleBlur}
       onInput={handleInput}
+      onFocus={handleFocus}
       allowInput
       clearable
     />
