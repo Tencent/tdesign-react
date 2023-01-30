@@ -5,11 +5,10 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateImageEvent, screen } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateImageEvent } from '@test/utils';
 import { Image } from '..';
 import { getOverlayImageMount } from './mount';
 import Space from '../../space';
-import Button from '../../button';
 
 describe('Image Component', () => {
   
@@ -35,7 +34,7 @@ describe('Image Component', () => {
       });
     });
   });
-  
+
   it('props.alt works fine', () => {
     const wrapper = render(<Image alt="text image load failed" src="https://www.error.img.com"></Image>);
     const container = wrapper.container.querySelector('img');
