@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "50.4%",
+    "statements": "52.82%",
     "branches": "38.3%",
-    "functions": "60.18%",
-    "lines": "51.73%"
+    "functions": "61.06%",
+    "lines": "54.33%"
   },
   "affix": {
     "statements": "87.3%",
@@ -18,10 +18,10 @@ module.exports = {
     "lines": "100%"
   },
   "anchor": {
-    "statements": "63.25%",
-    "branches": "47.62%",
-    "functions": "60%",
-    "lines": "64.15%"
+    "statements": "93.16%",
+    "branches": "66.67%",
+    "functions": "88%",
+    "lines": "97.17%"
   },
   "autoComplete": {
     "statements": "95.39%",
@@ -144,10 +144,10 @@ module.exports = {
     "lines": "47.94%"
   },
   "grid": {
-    "statements": "61.86%",
-    "branches": "28.79%",
-    "functions": "80%",
-    "lines": "61.86%"
+    "statements": "84.54%",
+    "branches": "74.24%",
+    "functions": "90%",
+    "lines": "84.54%"
   },
   "guide": {
     "statements": "100%",
@@ -162,10 +162,10 @@ module.exports = {
     "lines": "47.92%"
   },
   "image": {
-    "statements": "87.5%",
-    "branches": "86.21%",
-    "functions": "83.33%",
-    "lines": "86.67%"
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "imageViewer": {
     "statements": "75.54%",
@@ -190,6 +190,12 @@ module.exports = {
     "branches": "66.23%",
     "functions": "78.95%",
     "lines": "82.46%"
+  },
+  "layout": {
+    "statements": "91.49%",
+    "branches": "41.67%",
+    "functions": "85.71%",
+    "lines": "95.56%"
   },
   "link": {
     "statements": "100%",
@@ -258,10 +264,10 @@ module.exports = {
     "lines": "81.67%"
   },
   "rangeInput": {
-    "statements": "74.03%",
-    "branches": "61.9%",
-    "functions": "46.15%",
-    "lines": "73.68%"
+    "statements": "76.62%",
+    "branches": "66.67%",
+    "functions": "50%",
+    "lines": "76.32%"
   },
   "rate": {
     "statements": "64.15%",
@@ -342,10 +348,10 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "14.29%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.94%"
+    "statements": "80.65%",
+    "branches": "67.16%",
+    "functions": "72.22%",
+    "lines": "82.02%"
   },
   "timeline": {
     "statements": "98.39%",
