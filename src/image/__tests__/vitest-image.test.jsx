@@ -5,11 +5,37 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateImageEvent } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateImageEvent, screen } from '@test/utils';
 import { Image } from '..';
 import { getOverlayImageMount } from './mount';
+import Space from '../../space';
+import Button from '../../button';
 
 describe('Image Component', () => {
+  
+  beforeAll(() => {
+    // 用于判断是否已经触发回调
+    let hasCalled = false;
+    window.IntersectionObserver = vi.fn((callback, { root }) => {
+      return ({
+        takeRecords: vi.fn(),
+        observe: (element) => {
+          // 监控图片容器的滚动事件，后面会触发容器的滚动。
+          element.parentNode.parentNode.addEventListener('scroll', () => {
+            if (hasCalled) {
+              callback([{ isIntersecting: false }])
+            } else {
+              hasCalled = true;
+              callback([{ isIntersecting: true }])
+            }
+          });
+        },
+        unobserve: vi.fn(),
+        takeRecords: () => records
+      });
+    });
+  });
+  
   it('props.alt works fine', () => {
     const wrapper = render(<Image alt="text image load failed" src="https://www.error.img.com"></Image>);
     const container = wrapper.container.querySelector('img');
@@ -131,4 +157,32 @@ describe('Image Component', () => {
     expect(onLoadFn1).toHaveBeenCalled(1);
     expect(onLoadFn1.mock.calls[0][0].e.type).toBe('load');
   });
+
+  it('props.lazy works fine', () => {
+    document.body.height = 250;
+
+    const { container } = render(
+      <Space style={{height: 240, width: 240, overflow: 'hidden', overflowY: 'scroll', paddingTop: 500}}>
+        {
+          Array.from({length: 16}).map((_, index) => (
+            <Image
+              key={index}
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+              style={{width: 230, height: 120}}
+              lazy
+            />
+          ))
+        }
+      </Space>
+    );
+    
+    const spaceElement = container.querySelector('.t-space');
+    spaceElement.style.scrollY = 400;
+    fireEvent.scroll(spaceElement, { target: { scrollY: 400 } });
+    // 滚动后，第一张图片会加载，但后面的图片不会加载
+    expect(spaceElement.firstChild.querySelector('img')).not.toBeNull()
+    expect(spaceElement.lastChild.querySelector('img')).toBeNull()
+    
+  });
+
 });
