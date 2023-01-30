@@ -205,11 +205,9 @@ const EditableCell = (props: EditableCellProps) => {
     }
   };
 
-  const documentClickHandler = (e: PointerEvent) => {
+  const documentClickHandler = () => {
     if (!col.edit || !col.edit.component) return;
     if (!isEdit) return;
-    // @ts-ignore
-    if (e.path?.includes(tableEditableCellRef?.current?.currentElement)) return;
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, {
       value: editValue,

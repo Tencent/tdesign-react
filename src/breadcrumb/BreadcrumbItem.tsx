@@ -1,10 +1,10 @@
 import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useCommonClassName from '../_util/useCommonClassName';
-
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 import parseTNode from '../_util/parseTNode';
@@ -61,7 +61,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   const textContent = (
     <span className={textWrapperClassName} style={maxWidthForItem}>
-      {typeof icon === 'function' ? icon() : icon}
+      {isFunction(icon) ? icon() : icon}
       <span ref={breadcrumbText} className={textClassName}>
         {children}
       </span>
