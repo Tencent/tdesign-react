@@ -29,19 +29,21 @@ const CustomFile = (props: CustomFileProps) => {
       }
     : {};
 
-  const renderDragContent = () => (
-    <div
-      className={`${classPrefix}-upload__dragger ${classPrefix}-upload__dragger-center`}
-      {...dragEvents}
-      onClick={props.triggerUpload}
-    >
-      <div className={`${classPrefix}-upload__trigger`}>
-        {parseTNode(props.dragContent, { dragActive, files: displayFiles }) ||
-          props.trigger?.({ dragActive, files: displayFiles }) ||
-          props.childrenNode}
+  const renderDragContent = () => {
+    const childrenContent = parseTNode(props.childrenNode, { dragActive, files: displayFiles });
+    const triggerContent = parseTNode(props.trigger, { dragActive, files: displayFiles });
+    return (
+      <div
+        className={`${classPrefix}-upload__dragger ${classPrefix}-upload__dragger-center`}
+        {...dragEvents}
+        onClick={props.triggerUpload}
+      >
+        <div className={`${classPrefix}-upload__trigger`}>
+          {parseTNode(props.dragContent, { dragActive, files: displayFiles }) || triggerContent || childrenContent}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>

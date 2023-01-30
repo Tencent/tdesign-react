@@ -22,4 +22,4 @@ tag | String | - | HTML Tag Element。options：button/a/div | N
 theme | String | - | button theme。options：default/primary/danger/warning/success | N
 type | String | button | type of button element in html。options：submit/reset/button | N
 variant | String | base | variant of button。options：base/outline/dashed/text | N
-onClick | Function |  | Typescript：`(e: MouseEvent) => void`<br/> | N
+onClick | Function |  | Typescript：`(e: MouseEvent) => void`<br/>trigger on click | N
