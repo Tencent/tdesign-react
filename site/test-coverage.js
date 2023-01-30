@@ -396,10 +396,10 @@ module.exports = {
     "lines": "100%"
   },
   "watermark": {
-    "statements": "54.76%",
-    "branches": "65.62%",
-    "functions": "40%",
-    "lines": "57.5%"
+    "statements": "95.23%",
+    "branches": "84.37%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "utils": {
     "statements": "80%",
