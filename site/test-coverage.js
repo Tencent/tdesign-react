@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "42.35%",
-    "branches": "29.16%",
-    "functions": "52.5%",
-    "lines": "43.68%"
+    "statements": "50.4%",
+    "branches": "38.29%",
+    "functions": "60.17%",
+    "lines": "51.73%"
   },
   "affix": {
     "statements": "87.3%",
@@ -84,10 +84,10 @@ module.exports = {
     "lines": "96.05%"
   },
   "colorPicker": {
-    "statements": "93.33%",
+    "statements": "100%",
     "branches": "100%",
-    "functions": "60%",
-    "lines": "93.1%"
+    "functions": "100%",
+    "lines": "100%"
   },
   "comment": {
     "statements": "100%",
@@ -144,16 +144,22 @@ module.exports = {
     "lines": "47.94%"
   },
   "grid": {
-    "statements": "61.05%",
+    "statements": "61.85%",
     "branches": "28.78%",
     "functions": "80%",
-    "lines": "61.05%"
+    "lines": "61.85%"
+  },
+  "guide": {
+    "statements": "100%",
+    "branches": "94.11%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "hooks": {
-    "statements": "51.29%",
+    "statements": "47.5%",
     "branches": "27.41%",
-    "functions": "62.16%",
-    "lines": "52.14%"
+    "functions": "55.26%",
+    "lines": "47.91%"
   },
   "image": {
     "statements": "87.5%",
@@ -204,10 +210,10 @@ module.exports = {
     "lines": "89.47%"
   },
   "locale": {
-    "statements": "73.07%",
-    "branches": "72.22%",
+    "statements": "80.76%",
+    "branches": "77.77%",
     "functions": "83.33%",
-    "lines": "73.91%"
+    "lines": "82.6%"
   },
   "message": {
     "statements": "88.43%",
@@ -306,10 +312,10 @@ module.exports = {
     "lines": "96.15%"
   },
   "table": {
-    "statements": "48.69%",
-    "branches": "34.26%",
+    "statements": "48.8%",
+    "branches": "34.32%",
     "functions": "45.56%",
-    "lines": "49.6%"
+    "lines": "49.67%"
   },
   "tabs": {
     "statements": "90.85%",
@@ -372,10 +378,10 @@ module.exports = {
     "lines": "95.62%"
   },
   "upload": {
-    "statements": "14.28%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.81%"
+    "statements": "96.55%",
+    "branches": "100%",
+    "functions": "88.88%",
+    "lines": "100%"
   },
   "watermark": {
     "statements": "54.76%",
@@ -384,9 +390,9 @@ module.exports = {
     "lines": "57.5%"
   },
   "utils": {
-    "statements": "72.41%",
-    "branches": "63.63%",
+    "statements": "80%",
+    "branches": "75%",
     "functions": "100%",
-    "lines": "70.37%"
+    "lines": "79.54%"
   }
 };
