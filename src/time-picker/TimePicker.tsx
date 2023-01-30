@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
 
-import SelectInput from '../select-input';
+import SelectInput, { SelectInputValueChangeContext } from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
 
@@ -45,6 +45,7 @@ const TimePicker = forwardRefWithStatics(
       onClose = noop,
       onFocus = noop,
       onOpen = noop,
+      onInput = noop,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -73,8 +74,11 @@ const TimePicker = forwardRefWithStatics(
       onChange(null);
     };
 
-    const handleInputChange = (value: string) => {
+    const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
       setCurrentValue(value);
+      if (allowInput) {
+        onInput({ value, e: context.e as React.FocusEvent<HTMLInputElement> });
+      }
     };
 
     const handleInputBlur = (value: string, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
