@@ -176,7 +176,6 @@ describe('Image Component', () => {
     );
     
     const spaceElement = container.querySelector('.t-space');
-    spaceElement.style.scrollY = 400;
     fireEvent.scroll(spaceElement, { target: { scrollY: 400 } });
     // 滚动后，第一张图片会加载，但后面的图片不会加载
     expect(spaceElement.firstChild.querySelector('img')).not.toBeNull()
