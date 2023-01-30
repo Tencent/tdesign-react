@@ -144,25 +144,19 @@ module.exports = {
     "lines": "47.94%"
   },
   "grid": {
-    "statements": "61.86%",
-    "branches": "28.79%",
-    "functions": "80%",
-    "lines": "61.86%"
-  },
-  "guide": {
-    "statements": "100%",
-    "branches": "94.12%",
-    "functions": "100%",
-    "lines": "100%"
+    "statements": "83.16%",
+    "branches": "72.73%",
+    "functions": "90%",
+    "lines": "83.16%"
   },
   "hooks": {
-    "statements": "47.5%",
+    "statements": "51.3%",
     "branches": "27.42%",
-    "functions": "55.26%",
-    "lines": "47.92%"
+    "functions": "62.16%",
+    "lines": "52.14%"
   },
   "image": {
-    "statements": "87.5%",
+    "statements": "87.23%",
     "branches": "86.21%",
     "functions": "83.33%",
     "lines": "86.67%"
@@ -190,6 +184,12 @@ module.exports = {
     "branches": "66.23%",
     "functions": "78.95%",
     "lines": "82.46%"
+  },
+  "layout": {
+    "statements": "91.49%",
+    "branches": "41.67%",
+    "functions": "85.71%",
+    "lines": "95.56%"
   },
   "link": {
     "statements": "100%",
