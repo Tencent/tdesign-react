@@ -146,6 +146,7 @@
     "gray-matter": "^4.0.3",
     "happy-dom": "^7.5.7",
     "husky": "^7.0.4",
+    "jest-canvas-mock": "^2.4.0",
     "jsdom": "^20.0.1",
     "less": "^4.1.2",
     "lint-staged": "^12.1.6",
