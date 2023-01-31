@@ -5,11 +5,10 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateImageEvent } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateImageEvent, mockIntersectionObserver } from '@test/utils';
 import { Image } from '..';
 import { getOverlayImageMount } from './mount';
 import Space from '../../space';
-import mockIntersectionObserver from '../../_util/mockIntersectionObserver';
 
 describe('Image Component', () => {
   
