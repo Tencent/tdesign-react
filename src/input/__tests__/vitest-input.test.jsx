@@ -191,6 +191,11 @@ describe('Input Component', () => {
     expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
   });
 
+  it('props.showLimitNumber works fine. `{".t-input__limit-number":{"text":"2/5"}}` should exist', () => {
+    const { container } = render(<Input showLimitNumber={true} maxlength={5} value="TD"></Input>);
+    expect(container.querySelector('.t-input__limit-number').textContent).toBe('2/5');
+  });
+
   const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
   ['small', 'medium', 'large'].forEach((item, index) => {
     it(`props.size is equal to ${item}`, () => {
