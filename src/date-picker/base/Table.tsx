@@ -38,15 +38,15 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
   // 高亮周区间
   const weekRowClass = (value, format, targetValue) => {
-    if (mode !== 'week') return {};
+    if (mode !== 'week' || !value) return {};
 
     if (Array.isArray(value)) {
       if (!value.length) return {};
       const [startObj, endObj] = value.map((v) => v && parseToDayjs(v, format));
       const startYear = startObj?.year?.();
-      const startWeek = startObj?.week?.();
+      const startWeek = startObj?.locale?.(local.dayjsLocale)?.week?.();
       const endYear = endObj?.year?.();
-      const endWeek = endObj?.week?.();
+      const endWeek = endObj?.locale?.(local.dayjsLocale)?.week?.();
 
       const targetObj = parseToDayjs(targetValue, format);
       const targetYear = targetObj.year();
@@ -64,7 +64,8 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
     return {
       [`${classPrefix}-date-picker__table-${mode}-row--active`]:
-        parseToDayjs(value, format).week() === parseToDayjs(targetValue, format).week(),
+        parseToDayjs(value, format).locale(local.dayjsLocale).week() ===
+        parseToDayjs(targetValue, format).locale(local.dayjsLocale).week(),
     };
   };
 

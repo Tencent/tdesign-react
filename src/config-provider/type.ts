@@ -70,7 +70,7 @@ export interface GlobalConfigProvider {
    */
   image?: ImageConfig;
   /**
-   * 图片查看全局配置
+   * 图片预览器全局配置
    */
   imageViewer?: ImageViewerConfig;
   /**
@@ -327,6 +327,11 @@ export interface DatePickerConfig {
    * @default ''
    */
   dayAriaLabel?: string;
+  /**
+   * dayjs 语言国际化配置
+   * @default ''
+   */
+  dayjsLocale?: string;
   /**
    * 日期方向，'ltr' 表示从左往右
    * @default 'ltr'
@@ -845,7 +850,7 @@ export interface ImageViewerConfig {
    * 全局语言配置，默认为 “原始大小”
    * @default ''
    */
-  originsizeTipText?: string;
+  originalSizeTipText?: string;
   /**
    * 全局语言配置，默认为 “旋转”
    * @default ''

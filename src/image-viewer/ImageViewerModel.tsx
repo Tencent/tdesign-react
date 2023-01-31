@@ -361,7 +361,7 @@ export const ImageModal = (props: ImageModalProps) => {
   const tipText = {
     mirror: t(locale.mirrorTipText),
     rotate: t(locale.rotateTipText),
-    originsize: t(locale.originsizeTipText),
+    originsize: t(locale.originalSizeTipText),
   };
   const errorText = t(locale.errorText);
 

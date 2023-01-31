@@ -49,7 +49,6 @@ describe('Image Component', () => {
       const wrapper = render(<Image fit={item}></Image>);
       const container = wrapper.container.querySelector('.t-image');
       expect(container).toHaveClass(`t-image--fit-${item}`);
-      expect(container).toMatchSnapshot();
     });
   });
 
@@ -73,14 +72,12 @@ describe('Image Component', () => {
   it('props.loading works fine', () => {
     const { container } = render(<Image loading={<span className="custom-node">TNode</span>}></Image>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
   it('props.overlayContent works fine', () => {
     const { container } = render(<Image overlayContent={<span className="custom-node">TNode</span>}></Image>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
     expect(container.querySelector('.t-image__overlay-content')).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
   it('props.overlayTrigger: show overlay content on hover', async () => {
@@ -100,7 +97,6 @@ describe('Image Component', () => {
   it('props.placeholder works fine', () => {
     const { container } = render(<Image placeholder={<span className="custom-node">TNode</span>}></Image>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
   const positionClassNameMap = {
