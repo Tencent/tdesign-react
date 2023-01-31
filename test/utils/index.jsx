@@ -66,7 +66,7 @@ export function getFakeFileList(type = 'file', count = 1) {
 
 /**
  * 模拟文件变化
- * @param {String} dom 发生变化的元素
+ * @param {Document | Node | Element | Window} dom 发生变化的元素
  * @param {String} type 类型，可选值: file/image。
  * @param {Number} count 文件数量
  * @returns File[]
