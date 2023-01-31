@@ -221,6 +221,12 @@ module.exports = {
     "functions": "83.33%",
     "lines": "82.61%"
   },
+  "menu": {
+    "statements": "85.82%",
+    "branches": "69.14%",
+    "functions": "83.33%",
+    "lines": "90.52%"
+  },
   "message": {
     "statements": "88.44%",
     "branches": "87.8%",
@@ -324,10 +330,10 @@ module.exports = {
     "lines": "49.67%"
   },
   "tabs": {
-    "statements": "90.86%",
+    "statements": "90.91%",
     "branches": "79.8%",
     "functions": "86.36%",
-    "lines": "91.07%"
+    "lines": "91.12%"
   },
   "tag": {
     "statements": "97.56%",

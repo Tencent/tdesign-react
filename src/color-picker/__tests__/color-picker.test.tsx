@@ -4,12 +4,13 @@ import ColorPickerPanel from '../ColorPickerPanel';
 import ColorPicker from '../ColorPicker';
 
 describe('ColorPicker 组件测试', () => {
+  const user = userEvent.setup();
   test('ColorPicker Trigger 测试', async () => {
     const { container } = render(<ColorPicker defaultValue="#0052d9" />);
     expect(container.querySelector('.t-input__inner')).toHaveValue('#0052d9');
     // 测试 input 改变值失焦时触发 onChange 改变颜色值
     fireEvent.focus(container.querySelector('.t-input__inner'));
-    userEvent.type(container.querySelector('.t-input__inner'), '{end}{backspace}8');
+    await user.type(container.querySelector('.t-input__inner'), '{end}{backspace}8');
     fireEvent.blur(container.querySelector('.t-input__inner'));
     await mockTimeout(() => expect(container.querySelector('.t-input__inner')).toHaveValue('#0052d8'));
     // 测试颜色格式正确展示（不传入 format 时默认为 RGB）

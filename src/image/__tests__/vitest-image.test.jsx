@@ -9,30 +9,25 @@ import { fireEvent, vi, render, mockDelay, simulateImageEvent } from '@test/util
 import { Image } from '..';
 import { getOverlayImageMount } from './mount';
 import Space from '../../space';
+import mockIntersectionObserver from '../../_util/mockIntersectionObserver';
 
 describe('Image Component', () => {
   
   beforeAll(() => {
     // 用于判断是否已经触发回调
-    let hasCalled = false;
-    window.IntersectionObserver = vi.fn((callback, { root }) => {
-      return ({
-        takeRecords: vi.fn(),
-        observe: (element) => {
-          // 监控图片容器的滚动事件，后面会触发容器的滚动。
-          element.parentNode.parentNode.addEventListener('scroll', () => {
-            if (hasCalled) {
-              callback([{ isIntersecting: false }])
-            } else {
-              hasCalled = true;
-              callback([{ isIntersecting: true }])
-            }
-          });
-        },
-        unobserve: vi.fn(),
-        takeRecords: () => records
+    window.observeCallbackhasCalled = false;
+    const observe = (element, callback) => {
+      // 监控图片容器的滚动事件，后面会触发容器的滚动。
+      element.parentNode.parentNode.addEventListener('scroll', () => {
+        if (window.observeCallbackhasCalled) {
+          callback([{ isIntersecting: false }]);
+        } else {
+          window.observeCallbackhasCalled= true;
+          callback([{ isIntersecting: true }]);
+        }
       });
-    });
+    }
+    mockIntersectionObserver({}, { observe });
   });
 
   it('props.alt works fine', () => {
