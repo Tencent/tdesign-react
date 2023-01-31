@@ -18,4 +18,5 @@ export const inputDefaultProps: TdInputProps = {
   size: 'medium',
   status: undefined,
   type: 'text',
+  defaultValue: '',
 };
