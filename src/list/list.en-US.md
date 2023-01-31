@@ -33,7 +33,6 @@ content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](
 name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 description | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 image | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 title | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
