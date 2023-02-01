@@ -82,14 +82,14 @@ exports[`AvatarGroup Component > props.collapseAvatar works fine 1`] = `
     class="t-avatar-group t-avatar--offset-right"
   >
     <div
-      class="t-avatar t-avatar--circle"
+      class="t-avatar t-size-m t-avatar--circle"
     >
       <img
         src="https://tdesign.gtimg.com/site/avatar.jpg"
       />
     </div>
     <div
-      class="t-avatar t-avatar--circle"
+      class="t-avatar t-size-m t-avatar--circle"
     >
       <span
         style="transform: scale(1);"
@@ -98,7 +98,7 @@ exports[`AvatarGroup Component > props.collapseAvatar works fine 1`] = `
       </span>
     </div>
     <div
-      class="t-avatar t-avatar--circle t-avatar-icon"
+      class="t-avatar t-size-m t-avatar--circle t-avatar__icon"
     />
     <div
       class="t-avatar t-avatar__collapse t-size-m t-avatar--circle"
