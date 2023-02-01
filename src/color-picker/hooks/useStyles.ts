@@ -22,7 +22,7 @@ const useStyles = (params: TdColorSliderStyleParams, panelRectRef) => {
       color: color.rgb,
     });
     // eslint-disable-next-line
-  }, [value]);
+  }, [color.rgb, value]);
 
   return {
     styles,
