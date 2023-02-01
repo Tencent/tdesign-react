@@ -108,10 +108,10 @@ module.exports = {
     "lines": "68.75%"
   },
   "datePicker": {
-    "statements": "33.17%",
-    "branches": "22.22%",
-    "functions": "32.3%",
-    "lines": "34.89%"
+    "statements": "68%",
+    "branches": "46.75%",
+    "functions": "63.07%",
+    "lines": "72.39%"
   },
   "dialog": {
     "statements": "85.43%",
@@ -240,10 +240,10 @@ module.exports = {
     "lines": "93.7%"
   },
   "pagination": {
-    "statements": "90%",
+    "statements": "92.5%",
     "branches": "71.11%",
-    "functions": "81.25%",
-    "lines": "94.52%"
+    "functions": "93.75%",
+    "lines": "97.26%"
   },
   "popconfirm": {
     "statements": "75%",
