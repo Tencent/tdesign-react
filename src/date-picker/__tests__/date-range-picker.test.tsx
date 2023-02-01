@@ -77,7 +77,7 @@ describe('DateRangePicker', () => {
   });
 
   it('mode', async () => {
-    const { container } = render(<DateRangePicker mode={'week'} value={['2022-37th', '2022-38th']} />);
+    const { container } = render(<DateRangePicker mode={'week'} value={['2022-37周', '2022-38周']} />);
     act(() => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
