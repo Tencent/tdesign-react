@@ -76,7 +76,7 @@ describe('DatePickerPanel', () => {
     const { container: container1 } = render(<DatePickerPanel mode="date" defaultValue="2023-09-03" />);
     expect(container1.querySelector('.t-date-picker__cell--active').firstChild).toHaveTextContent('3');
 
-    const { container: container2 } = render(<DatePickerPanel mode="week" defaultValue="2023-36th" />);
+    const { container: container2 } = render(<DatePickerPanel mode="week" defaultValue="2023-36周" />);
     expect(container2.querySelector('.t-date-picker__table-week-row--active')).toBeInTheDocument();
     expect(container2.querySelector('.t-date-picker__table-week-row--active td').firstChild).toHaveTextContent('36');
 

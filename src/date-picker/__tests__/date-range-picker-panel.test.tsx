@@ -81,7 +81,7 @@ describe('DateRangePickerPanel', () => {
     expect(container1.querySelector('.t-date-picker__cell--active').firstChild).toHaveTextContent('3');
 
     const { container: container2 } = render(
-      <DateRangePickerPanel mode="week" defaultValue={['2023-36th', '2023-36th']} />,
+      <DateRangePickerPanel mode="week" defaultValue={['2023-36周', '2023-36周']} />,
     );
     expect(container2.querySelector('.t-date-picker__table-week-row--active')).toBeInTheDocument();
     expect(container2.querySelector('.t-date-picker__table-week-row--active td').firstChild).toHaveTextContent('36');

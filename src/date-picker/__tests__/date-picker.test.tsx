@@ -279,4 +279,22 @@ describe('DatePicker', () => {
     const tbodyEle = await waitFor(() => document.querySelector('tbody'));
     fireEvent.click(tbodyEle.firstChild.firstChild);
   });
+
+  test('onJumperClick', async () => {
+    const { container } = render(<DatePicker />);
+    fireEvent.mouseDown(container.querySelector('input'));
+
+    const jumperPrev = await waitFor(() => document.querySelector('.t-pagination-mini__prev'));
+    fireEvent.click(jumperPrev);
+  });
+
+  test('onTimePickerChange & onConfirmClick', async () => {
+    const { container, getByText } = render(<DatePicker enableTimePicker />);
+    fireEvent.mouseDown(container.querySelector('input'));
+
+    const timePickerItem = await waitFor(() => document.querySelector('.t-time-picker__panel-body-scroll-item'));
+    fireEvent.click(timePickerItem);
+    const confirmBtn = getByText('确定');
+    fireEvent.click(confirmBtn);
+  });
 });
