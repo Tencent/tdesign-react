@@ -11,6 +11,7 @@ import {
 import Button, { ButtonProps } from '../button';
 import { TdDialogCardProps } from './type';
 import { StyledProps } from '../common';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -98,6 +99,8 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
   };
 
   const renderFooter = () => {
+    if (footer === false) return null;
+
     const defaultFooter = () => {
       const renderCancelBtn = renderDialogButton(cancelBtn, {
         variant: 'outline',
@@ -109,14 +112,14 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
       });
 
       return (
-        <div className={`${componentCls}__footer`}>
+        <>
           {renderCancelBtn}
           {renderConfirmBtn}
-        </div>
+        </>
       );
     };
 
-    return footer === true ? defaultFooter() : footer;
+    return <div className={`${componentCls}__footer`}>{parseTNode(footer, null, defaultFooter())}</div>;
   };
 
   return (

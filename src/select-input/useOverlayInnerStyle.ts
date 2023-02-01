@@ -6,14 +6,14 @@ import { TdPopupProps, PopupVisibleChangeContext } from '../popup';
 
 export type overlayStyleProps = Pick<
   TdSelectInputProps,
-  'popupProps' | 'autoWidth' | 'readonly' | 'onPopupVisibleChange' | 'allowInput'
+  'popupProps' | 'autoWidth' | 'readonly' | 'onPopupVisibleChange' | 'disabled' | 'allowInput' | 'popupVisible'
 >;
 
 // 单位：px
 const MAX_POPUP_WIDTH = 1000;
 
 export default function useOverlayInnerStyle(props: overlayStyleProps) {
-  const { popupProps, autoWidth, readonly, onPopupVisibleChange, allowInput } = props;
+  const { popupProps, autoWidth, readonly, disabled, onPopupVisibleChange, allowInput } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
@@ -35,11 +35,13 @@ export default function useOverlayInnerStyle(props: overlayStyleProps) {
   };
 
   const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
-    if (readonly) return;
+    if (disabled || readonly) return;
     // 如果点击触发元素（输入框）且为可输入状态，则继续显示下拉框
     const newVisible = context.trigger === 'trigger-element-click' && allowInput ? true : visible;
-    setInnerPopupVisible(newVisible);
-    onPopupVisibleChange?.(newVisible, context);
+    if (props.popupVisible !== newVisible) {
+      setInnerPopupVisible(newVisible);
+      onPopupVisibleChange?.(newVisible, context);
+    }
   };
 
   const tOverlayInnerStyle = useMemo(() => {

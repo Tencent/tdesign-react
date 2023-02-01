@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "41.74%",
-    "branches": "28.57%",
-    "functions": "50.83%",
-    "lines": "43.03%"
+    "statements": "52.82%",
+    "branches": "38.29%",
+    "functions": "61.06%",
+    "lines": "54.32%"
   },
   "affix": {
     "statements": "87.3%",
@@ -18,10 +18,10 @@ module.exports = {
     "lines": "100%"
   },
   "anchor": {
-    "statements": "63.24%",
-    "branches": "47.61%",
-    "functions": "60%",
-    "lines": "64.15%"
+    "statements": "93.16%",
+    "branches": "66.66%",
+    "functions": "88%",
+    "lines": "97.16%"
   },
   "autoComplete": {
     "statements": "95.39%",
@@ -66,10 +66,10 @@ module.exports = {
     "lines": "100%"
   },
   "cascader": {
-    "statements": "77.57%",
-    "branches": "60.86%",
-    "functions": "69.23%",
-    "lines": "80.41%"
+    "statements": "93.45%",
+    "branches": "71.73%",
+    "functions": "92.3%",
+    "lines": "95.87%"
   },
   "checkbox": {
     "statements": "90.54%",
@@ -84,10 +84,10 @@ module.exports = {
     "lines": "96.05%"
   },
   "colorPicker": {
-    "statements": "93.33%",
+    "statements": "100%",
     "branches": "100%",
-    "functions": "60%",
-    "lines": "93.1%"
+    "functions": "100%",
+    "lines": "100%"
   },
   "comment": {
     "statements": "100%",
@@ -96,8 +96,8 @@ module.exports = {
     "lines": "100%"
   },
   "common": {
-    "statements": "92.45%",
-    "branches": "82.05%",
+    "statements": "94.33%",
+    "branches": "84.61%",
     "functions": "100%",
     "lines": "97.91%"
   },
@@ -108,16 +108,16 @@ module.exports = {
     "lines": "68.75%"
   },
   "datePicker": {
-    "statements": "27.29%",
-    "branches": "19.9%",
-    "functions": "26.15%",
-    "lines": "28.64%"
+    "statements": "68%",
+    "branches": "46.75%",
+    "functions": "63.07%",
+    "lines": "72.39%"
   },
   "dialog": {
-    "statements": "85.9%",
-    "branches": "72.91%",
+    "statements": "85.43%",
+    "branches": "70.21%",
     "functions": "84.21%",
-    "lines": "88.32%"
+    "lines": "88.4%"
   },
   "divider": {
     "statements": "100%",
@@ -144,28 +144,34 @@ module.exports = {
     "lines": "47.94%"
   },
   "grid": {
-    "statements": "61.05%",
-    "branches": "28.78%",
-    "functions": "80%",
-    "lines": "61.05%"
+    "statements": "84.53%",
+    "branches": "74.24%",
+    "functions": "90%",
+    "lines": "84.53%"
+  },
+  "guide": {
+    "statements": "100%",
+    "branches": "94.11%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "hooks": {
-    "statements": "51.29%",
+    "statements": "47.5%",
     "branches": "27.41%",
-    "functions": "62.16%",
-    "lines": "52.14%"
+    "functions": "55.26%",
+    "lines": "47.91%"
   },
   "image": {
-    "statements": "87.23%",
-    "branches": "86.2%",
-    "functions": "83.33%",
-    "lines": "86.36%"
+    "statements": "100%",
+    "branches": "100%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "imageViewer": {
-    "statements": "75%",
+    "statements": "75.53%",
     "branches": "77.19%",
     "functions": "65.71%",
-    "lines": "75.38%"
+    "lines": "75.93%"
   },
   "input": {
     "statements": "93.63%",
@@ -184,6 +190,12 @@ module.exports = {
     "branches": "66.23%",
     "functions": "78.94%",
     "lines": "82.45%"
+  },
+  "layout": {
+    "statements": "91.48%",
+    "branches": "41.66%",
+    "functions": "85.71%",
+    "lines": "95.55%"
   },
   "link": {
     "statements": "100%",
@@ -209,6 +221,12 @@ module.exports = {
     "functions": "83.33%",
     "lines": "73.91%"
   },
+  "menu": {
+    "statements": "85.82%",
+    "branches": "69.13%",
+    "functions": "83.33%",
+    "lines": "90.51%"
+  },
   "message": {
     "statements": "88.43%",
     "branches": "87.8%",
@@ -222,10 +240,10 @@ module.exports = {
     "lines": "93.7%"
   },
   "pagination": {
-    "statements": "88.75%",
+    "statements": "92.5%",
     "branches": "71.11%",
-    "functions": "75%",
-    "lines": "93.15%"
+    "functions": "93.75%",
+    "lines": "97.26%"
   },
   "popconfirm": {
     "statements": "75%",
@@ -252,16 +270,16 @@ module.exports = {
     "lines": "81.66%"
   },
   "rangeInput": {
-    "statements": "74.02%",
-    "branches": "61.9%",
-    "functions": "46.15%",
-    "lines": "73.68%"
+    "statements": "76.62%",
+    "branches": "66.66%",
+    "functions": "50%",
+    "lines": "76.31%"
   },
   "rate": {
-    "statements": "64.15%",
-    "branches": "45.83%",
-    "functions": "70%",
-    "lines": "68.88%"
+    "statements": "96.22%",
+    "branches": "79.16%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "select": {
     "statements": "100%",
@@ -270,10 +288,10 @@ module.exports = {
     "lines": "100%"
   },
   "selectInput": {
-    "statements": "83.83%",
-    "branches": "72.83%",
-    "functions": "69.56%",
-    "lines": "86.95%"
+    "statements": "98%",
+    "branches": "91.66%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "slider": {
     "statements": "89.47%",
@@ -306,16 +324,16 @@ module.exports = {
     "lines": "96.15%"
   },
   "table": {
-    "statements": "48.69%",
-    "branches": "34.26%",
+    "statements": "48.8%",
+    "branches": "34.32%",
     "functions": "45.56%",
-    "lines": "49.6%"
+    "lines": "49.67%"
   },
   "tabs": {
-    "statements": "90.85%",
+    "statements": "90.9%",
     "branches": "79.79%",
     "functions": "86.36%",
-    "lines": "91.07%"
+    "lines": "91.12%"
   },
   "tag": {
     "statements": "97.56%",
@@ -325,7 +343,7 @@ module.exports = {
   },
   "tagInput": {
     "statements": "85.97%",
-    "branches": "81.69%",
+    "branches": "83.09%",
     "functions": "83.78%",
     "lines": "87.74%"
   },
@@ -336,16 +354,22 @@ module.exports = {
     "lines": "86.36%"
   },
   "timePicker": {
-    "statements": "14.28%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.94%"
+    "statements": "80.64%",
+    "branches": "67.16%",
+    "functions": "72.22%",
+    "lines": "82.02%"
+  },
+  "timeline": {
+    "statements": "98.38%",
+    "branches": "88.13%",
+    "functions": "100%",
+    "lines": "98.33%"
   },
   "tooltip": {
-    "statements": "88.88%",
-    "branches": "58.82%",
+    "statements": "90.74%",
+    "branches": "64.7%",
     "functions": "75%",
-    "lines": "88.67%"
+    "lines": "90.56%"
   },
   "transfer": {
     "statements": "86.06%",
@@ -354,27 +378,33 @@ module.exports = {
     "lines": "87.77%"
   },
   "tree": {
-    "statements": "22.45%",
-    "branches": "4.23%",
-    "functions": "20.51%",
-    "lines": "22.9%"
+    "statements": "51.87%",
+    "branches": "34.16%",
+    "functions": "51.28%",
+    "lines": "52.79%"
+  },
+  "treeSelect": {
+    "statements": "95.17%",
+    "branches": "86.44%",
+    "functions": "97.43%",
+    "lines": "95.62%"
   },
   "upload": {
-    "statements": "14.28%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "14.81%"
+    "statements": "96.55%",
+    "branches": "100%",
+    "functions": "88.88%",
+    "lines": "100%"
   },
   "watermark": {
-    "statements": "54.76%",
-    "branches": "65.62%",
-    "functions": "40%",
-    "lines": "57.5%"
+    "statements": "95.23%",
+    "branches": "84.37%",
+    "functions": "100%",
+    "lines": "100%"
   },
   "utils": {
-    "statements": "72.41%",
-    "branches": "63.63%",
-    "functions": "100%",
-    "lines": "70.37%"
+    "statements": "74.07%",
+    "branches": "79.41%",
+    "functions": "82.6%",
+    "lines": "73.07%"
   }
 };

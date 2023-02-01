@@ -11,6 +11,8 @@ export default function parseTNode(
 
   if (typeof renderNode === 'function') {
     node = renderNode(renderParams);
+  } else if (renderNode === true) {
+    node = defaultNode;
   } else {
     node = renderNode ?? defaultNode;
   }

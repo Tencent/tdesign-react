@@ -5,7 +5,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateInputChange, simulateClipboardPaste } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
 import { Input, InputGroup } from '..';
 import { getInputGroupDefaultMount } from './mount';
 
@@ -56,6 +56,7 @@ describe('Input Component', () => {
     await mockDelay();
     expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
   });
+
   it('props.clearable: click clear icon could clear input value to be empty', async () => {
     const onClearFn1 = vi.fn();
     const onChangeFn1 = vi.fn();
@@ -66,14 +67,15 @@ describe('Input Component', () => {
     await mockDelay(300);
     expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
     fireEvent.click(container.querySelector('.t-input__suffix-clear'));
-    expect(onClearFn1).toHaveBeenCalled(1);
+    expect(onClearFn1).toHaveBeenCalled();
     expect(onClearFn1.mock.calls[0][0].e.stopPropagation).toBeTruthy();
     expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
-    expect(onChangeFn1).toHaveBeenCalled(1);
+    expect(onChangeFn1).toHaveBeenCalled();
     expect(onChangeFn1.mock.calls[0][0]).toBe('');
     expect(onChangeFn1.mock.calls[0][1].e.stopPropagation).toBeTruthy();
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
   });
+
   it('props.clearable: type=password, browseIcon and clearableIcon works fine', async () => {
     const { container } = render(<Input type="password" value="this is my password" clearable={true}></Input>);
     expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
@@ -136,7 +138,7 @@ describe('Input Component', () => {
   it('props.maxcharacter: length of value is over than maxcharacter', () => {
     const onChangeFn = vi.fn();
     const { container } = render(<Input value="你好 TDesign" maxcharacter={4} onChange={onChangeFn}></Input>);
-    expect(onChangeFn).toHaveBeenCalled(1);
+    expect(onChangeFn).toHaveBeenCalled();
     expect(onChangeFn.mock.calls[0][0]).toBe('你好');
     expect(onChangeFn.mock.calls[0][1].trigger).toBe('initial');
   });
@@ -144,7 +146,7 @@ describe('Input Component', () => {
   it('props.maxlength: length of value is over than maxlength', () => {
     const onChangeFn = vi.fn();
     const { container } = render(<Input value="Hello TDesign" maxlength={5} onChange={onChangeFn}></Input>);
-    expect(onChangeFn).toHaveBeenCalled(1);
+    expect(onChangeFn).toHaveBeenCalled();
     expect(onChangeFn.mock.calls[0][0]).toBe('Hello');
     expect(onChangeFn.mock.calls[0][1].trigger).toBe('initial');
   });
@@ -273,12 +275,12 @@ describe('Input Component', () => {
     const onBlurFn1 = vi.fn();
     const { container } = render(<Input value="initial-input-value" onFocus={onFocusFn} onBlur={onBlurFn1}></Input>);
     fireEvent.focus(container.querySelector('input'));
-    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn).toHaveBeenCalled();
     expect(onFocusFn.mock.calls[0][0]).toBe('initial-input-value');
     expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
     fireEvent.blur(container.querySelector('input'));
     await mockDelay(300);
-    expect(onBlurFn1).toHaveBeenCalled(1);
+    expect(onBlurFn1).toHaveBeenCalled();
     expect(onBlurFn1.mock.calls[0][0]).toBe('initial-input-value');
     expect(onBlurFn1.mock.calls[0][1].e.type).toBe('blur');
   });
@@ -288,10 +290,11 @@ describe('Input Component', () => {
     const { container } = render(<Input onChange={onChangeFn}></Input>);
     const inputDom = container.querySelector('input');
     simulateInputChange(inputDom, 'initial value');
-    expect(onChangeFn).toHaveBeenCalled(1);
+    expect(onChangeFn).toHaveBeenCalled();
     expect(onChangeFn.mock.calls[0][0]).toBe('initial value');
     expect(onChangeFn.mock.calls[0][1].e.type).toBe('change');
   });
+
   it('events.change: controlled value test', () => {
     const onChangeFn = vi.fn();
     const { container } = render(<Input value="TDesign" onChange={onChangeFn}></Input>);
@@ -299,16 +302,19 @@ describe('Input Component', () => {
     simulateInputChange(inputDom, 'Hello TDesign');
     const attrDom = container.querySelector('input');
     expect(attrDom.value).toBe('TDesign');
-    expect(onChangeFn).toHaveBeenCalled(1);
+    expect(onChangeFn).toHaveBeenCalled();
     expect(onChangeFn.mock.calls[0][0]).toBe('Hello TDesign');
     expect(onChangeFn.mock.calls[0][1].e.type).toBe('change');
   });
+
   it('events.change: uncontrolled value test', () => {
     const onChangeFn = vi.fn();
     const { container } = render(<Input defaultValue="Hello" onChange={onChangeFn}></Input>);
     const inputDom = container.querySelector('input');
     simulateInputChange(inputDom, 'Hello TDesign');
-    expect(onChangeFn).toHaveBeenCalled(1);
+    const attrDom = container.querySelector('input');
+    expect(attrDom.value).toBe('Hello TDesign');
+    expect(onChangeFn).toHaveBeenCalled();
     expect(onChangeFn.mock.calls[0][0]).toBe('Hello TDesign');
     expect(onChangeFn.mock.calls[0][1].e.type).toBe('change');
   });
@@ -317,7 +323,7 @@ describe('Input Component', () => {
     const fn = vi.fn();
     const { container } = render(<Input onClick={fn}></Input>);
     fireEvent.click(container.querySelector('.t-input'));
-    expect(fn).toHaveBeenCalled(1);
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].e.type).toBe('click');
   });
 
@@ -325,7 +331,7 @@ describe('Input Component', () => {
     const onCompositionendFn = vi.fn();
     const { container } = render(<Input value="输入结束" onCompositionend={onCompositionendFn}></Input>);
     fireEvent.compositionEnd(container.querySelector('input'));
-    expect(onCompositionendFn).toHaveBeenCalled(1);
+    expect(onCompositionendFn).toHaveBeenCalled();
     expect(onCompositionendFn.mock.calls[0][0]).toBe('输入结束');
     expect(onCompositionendFn.mock.calls[0][1].e.type).toBe('compositionend');
   });
@@ -334,7 +340,7 @@ describe('Input Component', () => {
     const onCompositionstartFn = vi.fn();
     const { container } = render(<Input value="输入开始" onCompositionstart={onCompositionstartFn}></Input>);
     fireEvent.compositionStart(container.querySelector('input'));
-    expect(onCompositionstartFn).toHaveBeenCalled(1);
+    expect(onCompositionstartFn).toHaveBeenCalled();
     expect(onCompositionstartFn.mock.calls[0][0]).toBe('输入开始');
     expect(onCompositionstartFn.mock.calls[0][1].e.type).toBe('compositionstart');
   });
@@ -344,7 +350,7 @@ describe('Input Component', () => {
     const { container } = render(<Input value="text" onEnter={onEnterFn1}></Input>);
     fireEvent.focus(container.querySelector('input'));
     fireEvent.keyDown(container.querySelector('input'), { key: 'Enter', code: 'Enter', charCode: 13 });
-    expect(onEnterFn1).toHaveBeenCalled(1);
+    expect(onEnterFn1).toHaveBeenCalled();
     expect(onEnterFn1.mock.calls[0][0]).toBe('text');
     expect(onEnterFn1.mock.calls[0][1].e.type).toBe('keydown');
   });
@@ -353,7 +359,7 @@ describe('Input Component', () => {
     const onFocusFn = vi.fn();
     const { container } = render(<Input onFocus={onFocusFn}></Input>);
     fireEvent.focus(container.querySelector('input'));
-    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn).toHaveBeenCalled();
     expect(onFocusFn.mock.calls[0][0]).toBe('');
     expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
   });
@@ -362,7 +368,7 @@ describe('Input Component', () => {
     const onKeydownFn = vi.fn();
     const { container } = render(<Input value="text" onKeydown={onKeydownFn}></Input>);
     fireEvent.keyDown(container.querySelector('input'));
-    expect(onKeydownFn).toHaveBeenCalled(1);
+    expect(onKeydownFn).toHaveBeenCalled();
     expect(onKeydownFn.mock.calls[0][0]).toBe('text');
     expect(onKeydownFn.mock.calls[0][1].e.type).toBe('keydown');
   });
@@ -371,7 +377,7 @@ describe('Input Component', () => {
     const onKeydownFn = vi.fn();
     const { container } = render(<Input value="text" onKeydown={onKeydownFn}></Input>);
     fireEvent.keyDown(container.querySelector('input'));
-    expect(onKeydownFn).toHaveBeenCalled(1);
+    expect(onKeydownFn).toHaveBeenCalled();
     expect(onKeydownFn.mock.calls[0][0]).toBe('text');
     expect(onKeydownFn.mock.calls[0][1].e.type).toBe('keydown');
   });
@@ -380,7 +386,7 @@ describe('Input Component', () => {
     const onKeyupFn = vi.fn();
     const { container } = render(<Input value="text" onKeyup={onKeyupFn}></Input>);
     fireEvent.keyUp(container.querySelector('input'));
-    expect(onKeyupFn).toHaveBeenCalled(1);
+    expect(onKeyupFn).toHaveBeenCalled();
     expect(onKeyupFn.mock.calls[0][0]).toBe('text');
     expect(onKeyupFn.mock.calls[0][1].e.type).toBe('keyup');
   });
@@ -390,7 +396,7 @@ describe('Input Component', () => {
     const { container } = render(<Input onMouseenter={onMouseenterFn}></Input>);
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
-    expect(onMouseenterFn).toHaveBeenCalled(1);
+    expect(onMouseenterFn).toHaveBeenCalled();
     expect(onMouseenterFn.mock.calls[0][0].e.type).toBe('mouseenter');
   });
 
@@ -399,14 +405,14 @@ describe('Input Component', () => {
     const { container } = render(<Input onMouseleave={onMouseleaveFn}></Input>);
     fireEvent.mouseLeave(container.querySelector('.t-input'));
     await mockDelay();
-    expect(onMouseleaveFn).toHaveBeenCalled(1);
+    expect(onMouseleaveFn).toHaveBeenCalled();
     expect(onMouseleaveFn.mock.calls[0][0].e.type).toBe('mouseleave');
   });
 
   it('events.paste works fine', () => {
     const onPasteFn = vi.fn();
-    const { getByDisplayValue } = render(<Input onPaste={onPasteFn}></Input>);
-    simulateClipboardPaste(getByDisplayValue(''), 'hello');
+    const { container } = render(<Input onPaste={onPasteFn}></Input>);
+    fireEvent.paste(container.querySelector('input'));
     expect(onPasteFn).toHaveBeenCalled();
     expect(onPasteFn.mock.calls[0][0].e.type).toBe('paste');
   });
@@ -414,15 +420,15 @@ describe('Input Component', () => {
   it('events.validate works fine', () => {
     const onValidateFn = vi.fn();
     const { container } = render(<Input value="Hello World" maxlength={5} onValidate={onValidateFn}></Input>);
-    expect(onValidateFn).toHaveBeenCalled(1);
+    expect(onValidateFn).toHaveBeenCalled();
     expect(onValidateFn.mock.calls[0][0].error).toBe('exceed-maximum');
   });
 
   it('events.wheel works fine', () => {
     const onWheelFn = vi.fn();
-    const { getByDisplayValue } = render(<Input onWheel={onWheelFn}></Input>);
-    fireEvent.wheel(getByDisplayValue(''));
-    expect(onWheelFn).toHaveBeenCalled(1);
+    const { container } = render(<Input onWheel={onWheelFn}></Input>);
+    fireEvent.wheel(container.querySelector('input'));
+    expect(onWheelFn).toHaveBeenCalled();
     expect(onWheelFn.mock.calls[0][0].e.type).toBe('wheel');
   });
 });

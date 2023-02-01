@@ -135,6 +135,34 @@ exports[`Radio Component > props.disabled works fine 2`] = `
 </div>
 `;
 
+exports[`Radio Component > props.label works fine 1`] = `
+<div>
+  <label
+    class="t-radio"
+    tabindex="0"
+  >
+    <input
+      class="t-radio__former"
+      tabindex="-1"
+      type="radio"
+      value=""
+    />
+    <span
+      class="t-radio__input"
+    />
+    <span
+      class="t-radio__label"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </label>
+</div>
+`;
+
 exports[`RadioGroup Component > props.disabled is equal true 1`] = `
 <div>
   <div

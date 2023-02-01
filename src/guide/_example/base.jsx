@@ -58,6 +58,7 @@ export default function BasicGuide() {
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom-right',
+      stepOverlayClass: 't-test-guide-step-overlay'
     },
     {
       element: '.label-field-base',

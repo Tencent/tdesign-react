@@ -5,6 +5,55 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.5 `2023-02-01` 
+### 🚀 Features
+- `Timeline`: 
+    - `labelAlign` 默认值由 `left` 更为  `right` @chaishi ([#1905](https://github.com/Tencent/tdesign-react/pull/1905))
+    - `dotColor` 默认值由 `default` 更为 `primary` @chaishi ([#1905](https://github.com/Tencent/tdesign-react/pull/1905))
+- `TreeSelect`: `data` 中的 `label` 属性，支持 `ReactNode`，修复使用 label 定义下拉选项报错问题 @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+- `Guide`: 
+    - 新增 `GuideStep.popupProps` 透传全部属性到 Popup 组件 @chaishi ([#1915](https://github.com/Tencent/tdesign-react/pull/1915))
+    - 去除步骤数非必要的包裹元素 `span` @chaishi ([#1915](https://github.com/Tencent/tdesign-react/pull/1915))
+    - 支持 `children`，含义同 `content` @chaishi ([#1915](https://github.com/Tencent/tdesign-react/pull/1915))
+- `Upload`:
+    - 可拖拽的单图片/单文件上传，支持自定义文件信息内容 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 一个请求上传多个文件时，去除重复参数 `file`，保留 `file[0]` `file[1]` 即可，同时新增参数 `length` 表示本次上传文件的数量 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - `onError/onSuccess/onProgress` 添加关键事件参数 `XMLHttpRequest`，用于获取上传请求更详细的信息 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - `tips` 支持 `ReactNode` @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 新增上传请求超时也会执行 `onError` @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 支持事件 `onCancelUpload` @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 支持 `mockProgressDuration`，用于设置模拟上传进度间隔时间，大文件大一点，小文件小一点 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+- `Avatar`: 图标类名由 `.t-avatar-icon` 更为 `.t-avatar__icon` @chaishi ([#1931](https://github.com/Tencent/tdesign-react/pull/1931))
+
+### 🐞 Bug Fixes
+- `dialog`:
+    - 修复 dialog footer 渲染丢失包裹块问题 @honkinglin ([#1904](https://github.com/Tencent/tdesign-react/pull/1904))
+- `TreeSelect`:
+    - 多选场景，修复搜索功能点击输入框报错问题 @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+    - 没有触发事件 `onPopupVisibleChange` @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+    - 修复 onInputChange 触发时机不正确问题，不应该在初始渲染且用户没有进行任何操作时就触发 @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+    - 修复过滤功能中，输入关键词发生变化时，没有触发 `onSearch` 问题 @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+    - 期望远程搜索事件 onSearch 优先级比本地搜索 filter 高，当前组件表现不符合预期 @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+    - 修复 onSearch 事件第一个参数不正确问题，第一个参数期望是输入的关键词，而非当前选中的值 @chaishi ([#1899](https://github.com/Tencent/tdesign-react/pull/1899))
+    - 修复 empty text 显示异常 & onClear 后 value 重置问题 @genyuMPj ([#1903](https://github.com/Tencent/tdesign-react/pull/1903))
+- `Image`:  组件内中文改为 `localeProvider` 提供配置 @carolin913 ([#1909](https://github.com/Tencent/tdesign-react/pull/1909))
+- `imageViewer`:  组件内中文改为 localeprovider 提供配置 @carolin913 ([#1909](https://github.com/Tencent/tdesign-react/pull/1909))
+- `SelectInput`: 修复下拉弹窗状态未改变时，重复触发 `onPopupVisibleChange` 事件的问题 @xiaosansiji ([#1902](https://github.com/Tencent/tdesign-react/pull/1902))
+- `Guide`: 修复自定义 `highlightContent` 节点中的类名消失问题 @chaishi ([#1915](https://github.com/Tencent/tdesign-react/pull/1915))
+- `ColorPicker`: 修复打开Mode选择器状态下关闭面板没有正确隐藏Mode选择器的问题 @MrWeilian ([#1914](https://github.com/Tencent/tdesign-react/pull/1914))
+- `Upload`:
+    - 修复 `onSelectChange` 事件第二个参数 `currentSelectedFiles` 不正确问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复 `autoUpload=false` 场景下，即使 `beforeUpload` 函数全部返回 `false` 依然会触发 `onChange` 事件问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复 `data` 为函数时，参数为空问题，补充参数 `files` @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复 `theme=image-flow` 时，无法使用 `fileListDisplay` 自定义图片列表问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复文件数量超出 `max` 时，且没有可继续上传的文件，依然触发 change 事件问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复 `theme=file` 或者 `theme=image-flow` 时，`abridgeName` 无效问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复 `theme=image-flow` 且 `autoUpload=false` 时，change 事件第一个参数丢失 file.url 问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+    - 修复非自动上传场景 `change` 事件第二个参数 `file` 值并非当前文件问题 @chaishi ([#1918](https://github.com/Tencent/tdesign-react/pull/1918))
+- `TimePicker`: 修复自定义 onInput 未触发问题 @carolin913 ([#1912](https://github.com/Tencent/tdesign-react/pull/1912))
+- `DatePicker`: 修复 dayjs 国际化设置问题 @honkinglin ([#1925](https://github.com/Tencent/tdesign-react/pull/1925))
+- `Table`: 修复拖拽滚动条回到顶部白屏问题 @MrWeilian ([#1921](https://github.com/Tencent/tdesign-react/pull/1921))
+
 ## 🌈 0.45.4 `2023-01-17` 
 ### 🚀 Features
 - `Image`: `onLoad` 和 `onError` 事件新增 `Event` 参数 @chaishi ([#1890](https://github.com/Tencent/tdesign-react/pull/1890))
