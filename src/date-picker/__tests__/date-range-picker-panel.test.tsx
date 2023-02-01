@@ -2,7 +2,7 @@ import MockDate from 'mockdate';
 import React from 'react';
 import dayjs from 'dayjs';
 
-import { render } from '@test/utils';
+import { render, vi, fireEvent, waitFor } from '@test/utils';
 
 import { DateRangePickerPanel } from '..';
 // 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
@@ -111,5 +111,118 @@ describe('DateRangePickerPanel', () => {
     expect(container.querySelector('.t-date-picker__presets')).toBeInTheDocument();
     expect(container.querySelector('.t-date-picker__presets').firstChild.firstChild).toHaveTextContent('今天');
     expect(container.querySelector('.t-date-picker__presets').parentNode).toHaveClass('t-date-picker__footer--left');
+  });
+
+  test('cell handleClick', async () => {
+    const fn = vi.fn();
+    const { container } = render(<DateRangePickerPanel onChange={fn} />);
+
+    fireEvent.click(container.querySelector('.t-date-picker__cell'));
+    fireEvent.click(container.querySelector('.t-date-picker__cell'));
+    expect(fn).toBeCalledTimes(1);
+  });
+
+  test('onJumperClick', async () => {
+    const fn = vi.fn();
+    const { container } = render(<DateRangePickerPanel onMonthChange={fn} />);
+
+    const jumperPrev = container.querySelector('.t-pagination-mini__prev');
+    fireEvent.click(jumperPrev);
+    expect(fn).toBeCalledTimes(1);
+  });
+
+  test('onTimePickerChange & onConfirmClick', async () => {
+    const { container, getByText } = render(<DateRangePickerPanel enableTimePicker />);
+
+    expect(container.querySelector('.t-date-picker__panel-time')).toBeTruthy();
+    expect(getByText('确定')).toBeTruthy();
+  });
+
+  test('onPresetClick', async () => {
+    const fn = vi.fn();
+    const { getByText } = render(
+      <DateRangePickerPanel
+        onChange={fn}
+        presets={{ 圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()] }}
+      />,
+    );
+
+    const christmasBtn = getByText('圣诞节');
+    fireEvent.click(christmasBtn);
+    expect(fn).toBeCalledTimes(1);
+  });
+
+  test('onYearChange & onMonthChange', async () => {
+    const { container } = render(<DateRangePickerPanel />);
+
+    const yearSelect = container.querySelector('.t-date-picker__header-controller-year');
+    fireEvent.click(yearSelect);
+    const monthSelect = container.querySelector('.t-date-picker__header-controller-month');
+    fireEvent.click(monthSelect);
+  });
+
+  test('cell handleMouseEnter', async () => {
+    const { container } = render(<DateRangePickerPanel />);
+    const inputEle = container.querySelector('.t-input__inner');
+    fireEvent.mouseDown(inputEle);
+
+    fireEvent.mouseEnter(document.querySelector('.t-date-picker__cell-inner'));
+    fireEvent.mouseLeave(document.querySelector('.t-date-picker__cell-inner'));
+  });
+
+  test('cell handleClick', async () => {
+    const { container } = render(<DateRangePickerPanel />);
+    const inputEle = container.querySelector('.t-input__inner');
+    fireEvent.mouseDown(inputEle);
+
+    fireEvent.click(document.querySelector('.t-date-picker__cell-inner'));
+    fireEvent.click(document.querySelector('.t-date-picker__cell-inner'));
+  });
+
+  test('onJumperClick', async () => {
+    const { container } = render(<DateRangePickerPanel />);
+    const inputEle = container.querySelector('.t-input__inner');
+    fireEvent.mouseDown(inputEle);
+
+    const jumperPrev = await waitFor(() => document.querySelector('.t-pagination-mini__prev'));
+    fireEvent.click(jumperPrev);
+    const jumperNext = await waitFor(() => document.querySelector('.t-pagination-mini__next'));
+    fireEvent.click(jumperNext);
+    const jumperCurrent = await waitFor(() => document.querySelector('.t-pagination-mini__current'));
+    fireEvent.click(jumperCurrent);
+  });
+
+  test('onTimePickerChange & onConfirmClick', async () => {
+    const { container, getByText } = render(<DateRangePickerPanel enableTimePicker />);
+    fireEvent.mouseDown(container.querySelector('input'));
+
+    const timePickerItem = await waitFor(() => document.querySelector('.t-time-picker__panel-body-scroll-item'));
+    fireEvent.click(timePickerItem);
+    const confirmBtn = getByText('确定');
+    fireEvent.click(confirmBtn);
+  });
+
+  test('onPresetClick', async () => {
+    const { container, getByText } = render(
+      <DateRangePickerPanel presets={{ 圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()] }} />,
+    );
+    const inputEle = container.querySelector('.t-input__inner');
+    fireEvent.mouseDown(inputEle);
+
+    const christmasBtn = await waitFor(() => getByText('圣诞节'));
+    expect(christmasBtn).toBeTruthy();
+    fireEvent.click(christmasBtn);
+  });
+
+  test('onYearChange', async () => {
+    const { container } = render(<DateRangePickerPanel />);
+    const inputEle = container.querySelector('.t-input__inner');
+    fireEvent.mouseDown(inputEle);
+
+    const yearSelect = await waitFor(() => document.querySelector('.t-date-picker__header-controller-year'));
+    fireEvent.click(yearSelect);
+
+    const monthSelect = await waitFor(() => document.querySelector('.t-date-picker__header-controller-month'));
+    fireEvent.click(monthSelect);
   });
 });
