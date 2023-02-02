@@ -41,18 +41,18 @@ const Skeleton = (props: SkeletonProps) => {
   const [ctrlLoading, setCtrlLoading] = useState(loading);
   const { classPrefix } = useConfig();
 
-  const aChange = (currentTime) => {
+  const countupChange = (currentTime) => {
     loadingTime.current = currentTime;
     if (currentTime > delay) {
       setCtrlLoading(true);
     }
   };
-  const aFinish = () => {
+  const countupFinish = () => {
     setCtrlLoading(false);
   };
   const { start, stop } = useCountUp({
-    onChange: aChange,
-    onFinish: aFinish,
+    onChange: countupChange,
+    onFinish: countupFinish,
   });
   const name = `${classPrefix}-skeleton`; // t-skeleton
 
