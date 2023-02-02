@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { createEvent, fireEvent, act } from '@testing-library/react';
 import _userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 
 export * from '@testing-library/react';
 export * from 'vitest';
@@ -66,7 +67,7 @@ export function getFakeFileList(type = 'file', count = 1) {
 
 /**
  * 模拟文件变化
- * @param {String} dom 发生变化的元素
+ * @param {Document | Node | Element | Window} dom 发生变化的元素
  * @param {String} type 类型，可选值: file/image。
  * @param {Number} count 文件数量
  * @returns File[]
@@ -123,3 +124,51 @@ export function simulateKeydownEvent(dom, type) {
   }
   dom.dispatchEvent(event);
 }
+
+/**
+ * mock window 上的 IntersectionObserver 方法
+ * @param mockData 可选，默认的一些配置数据，比如boundingClientRect、intersectionRect等值
+ * @param mockFunc 可选，mock IntersectionObserver 中的一些方法，比如observe、unobserve等
+ * @returns void
+ */
+export function mockIntersectionObserver (mockData, mockFunc) {
+  const { boundingClientRect = {}, intersectionRect = {}, rootBounds = {}, thresholds = 0.5 } = mockData;
+  const { observe, unobserve, disconnect } = mockFunc;
+
+  const defaultValue = {
+    bottom: 0,
+    height: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+    toJSON: () => '',
+  };
+  const records = [
+    {
+      isIntersecting: true,
+      boundingClientRect: { ...defaultValue, ...boundingClientRect },
+      intersectionRatio: 0.5,
+      intersectionRect: { ...defaultValue, ...intersectionRect },
+      rootBounds: { ...defaultValue, ...rootBounds },
+      target: document.createElement('div'),
+      time: 0,
+    },
+  ];
+
+  window.IntersectionObserver = vi.fn((callback, { root, rootMargin }) => ({
+    root,
+    rootMargin,
+    thresholds,
+    observe: observe
+      ? (element) => {
+          observe(element, callback);
+        }
+      : vi.fn(),
+    unobserve: unobserve || vi.fn(),
+    disconnect: disconnect || vi.fn(),
+    takeRecords: () => records,
+  }));
+};

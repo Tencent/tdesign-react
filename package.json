@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "0.45.4",
+  "version": "0.45.5",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -146,6 +146,7 @@
     "gray-matter": "^4.0.3",
     "happy-dom": "^7.5.7",
     "husky": "^7.0.4",
+    "jest-canvas-mock": "^2.4.0",
     "jsdom": "^20.0.1",
     "less": "^4.1.2",
     "lint-staged": "^12.1.6",

@@ -8,7 +8,7 @@ MockDate.set('2022-08-27');
 
 // TODO
 describe('Timepicker 组件测试', () => {
-  it('props.disabled works fine', () => {
+  test('props.disabled works fine', () => {
     // disabled default value is
     const wrapper1 = render(<TimePicker></TimePicker>);
     const container1 = wrapper1.container.querySelector('.t-time-picker');
@@ -23,7 +23,7 @@ describe('Timepicker 组件测试', () => {
     expect(container3.querySelector('.t-is-disabled')).toBeFalsy();
   });
 
-  it('trigger panel works fine', async () => {
+  test('trigger panel works fine', async () => {
     const { container } = render(<TimePicker></TimePicker>);
     expect(container.querySelectorAll('input').length).toBe(1);
     fireEvent.click(document.querySelector('input'));
@@ -36,7 +36,7 @@ describe('Timepicker 组件测试', () => {
     });
   });
 
-  it('props.defaultValue works fine', async () => {
+  test('props.defaultValue works fine', async () => {
     const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
     expect(container.querySelectorAll('input').length).toBe(1);
     expect(container.querySelectorAll('input').item(0)).toHaveValue('00:10:20');
@@ -49,7 +49,7 @@ describe('Timepicker 组件测试', () => {
     });
   });
 
-  it('props.defaultValue for TimePicker works fine', async () => {
+  test('props.defaultValue for TimePicker works fine', async () => {
     const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
     expect(container.querySelectorAll('input').length).toBe(1);
     expect(container.querySelectorAll('input').item(0)).toHaveValue('00:10:20');
@@ -62,7 +62,7 @@ describe('Timepicker 组件测试', () => {
     });
   });
 
-  it('props.defaultValue for TimeRangePicker works fine', async () => {
+  test('props.defaultValue for TimeRangePicker works fine', async () => {
     const { container } = render(<TimePicker.TimeRangePicker defaultValue={['00:00:00', '00:10:20']} />);
     const inputs = container.querySelectorAll('input');
     expect(inputs.length).toBe(2);
@@ -77,7 +77,7 @@ describe('Timepicker 组件测试', () => {
     });
   });
 
-  it('props.value for TimePickerPanel works fine', () => {
+  test('props.value for TimePickerPanel works fine', () => {
     const onChange = vi.fn();
     const { container } = render(<TimePicker.TimePickerPanel value={'00:10:20'} onChange={onChange} />);
     const scrollPanels = container.querySelectorAll('.t-time-picker__panel-body-scroll');
@@ -86,7 +86,7 @@ describe('Timepicker 组件测试', () => {
     expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
   });
 
-  it('props.allowInput works fine', async () => {
+  test('props.allowInput works fine', async () => {
     const handleBlur = vi.fn();
     const handleInput = vi.fn();
     const handleFocus = vi.fn();
@@ -101,7 +101,7 @@ describe('Timepicker 组件测试', () => {
     expect(handleBlur).toBeCalledTimes(1);
   });
 
-  it('props.onInput&onBlur&onForus works fine', async () => {
+  test('props.onInput&onBlur&onForus works fine', async () => {
     const handleBlur = vi.fn();
     const handleInput = vi.fn();
     const handleFocus = vi.fn();
@@ -117,16 +117,22 @@ describe('Timepicker 组件测试', () => {
     expect(handleBlur).toBeCalledTimes(1);
   });
 
-  it('click to pick', async () => {
+  test('click to pick', async () => {
     const handleChange = vi.fn();
-    const { container } = render(<TimePicker defaultValue="00:00:00" onChange={handleChange}></TimePicker>);
+    const handleOpen = vi.fn();
+    const handlePick = vi.fn();
+    const { container } = render(
+      <TimePicker defaultValue="00:00:00" onChange={handleChange} onOpen={handleOpen} onPick={handlePick}></TimePicker>,
+    );
     fireEvent.click(document.querySelector('input'));
+    expect(handleOpen).toBeCalledTimes(1);
     await waitFor(async () => {
       const confirmBtn = document.querySelectorAll('.t-time-picker__panel button').item(0);
       expect(confirmBtn).toBeInTheDocument();
       const panelItem1 = document.querySelectorAll('.t-time-picker__panel-body-scroll').item(0);
       // await fireEvent.scroll(panelItem1, { target: { scrollY: 24 } });
       fireEvent.click(panelItem1.querySelectorAll('.t-time-picker__panel-body-scroll-item').item(1));
+      expect(handlePick).toHaveBeenCalled(1);
       fireEvent.click(confirmBtn);
       expect(container.querySelectorAll('input').item(0)).toHaveValue('01:00:00');
       expect(handleChange).toHaveBeenCalled(1);
