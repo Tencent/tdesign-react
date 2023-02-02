@@ -28,6 +28,7 @@ export default function useLockStyle(props) {
   );
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
     const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
@@ -43,6 +44,7 @@ export default function useLockStyle(props) {
   }, [mode, marginString, clearStyleFunc]);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     if (!preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {
