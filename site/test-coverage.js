@@ -108,10 +108,10 @@ module.exports = {
     "lines": "68.75%"
   },
   "datePicker": {
-    "statements": "64.47%",
-    "branches": "45.37%",
-    "functions": "61.53%",
-    "lines": "68.48%"
+    "statements": "68%",
+    "branches": "46.75%",
+    "functions": "63.07%",
+    "lines": "72.39%"
   },
   "dialog": {
     "statements": "85.43%",
@@ -138,10 +138,10 @@ module.exports = {
     "lines": "97.14%"
   },
   "form": {
-    "statements": "74.29%",
-    "branches": "52.6%",
-    "functions": "74.33%",
-    "lines": "78.45%"
+    "statements": "83.58%",
+    "branches": "70.83%",
+    "functions": "80.53%",
+    "lines": "87.16%"
   },
   "grid": {
     "statements": "84.53%",

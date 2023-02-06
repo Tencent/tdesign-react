@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { render, fireEvent, mockDelay } from '@test/utils';
+import { render, fireEvent, mockDelay, mockTimeout } from '@test/utils';
 import React, { useEffect, useState } from 'react';
 
 import Form, { TdFormProps } from '../index';
