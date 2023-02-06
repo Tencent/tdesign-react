@@ -189,7 +189,7 @@ export interface TagInputDragSortContext {
 
 export interface InputValueChangeContext {
   e?:
-    | FormEvent<HTMLDivElement>
+    | FormEvent<HTMLInputElement>
     | MouseEvent<HTMLElement | SVGElement>
     | CompositionEvent<HTMLDivElement>
     | KeyboardEvent<HTMLDivElement>;
