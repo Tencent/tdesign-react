@@ -26,17 +26,19 @@ const Avatar = forwardRefWithStatics(
       size: avatarSize,
       onError,
       children,
+      content,
       style,
       className,
       ...avatarProps
     } = props;
     const groupSize = useContext(AvatarContext);
+
     const { classPrefix } = useConfig();
     const [scale, setScale] = useState(1);
     const [isImgExist, setIsImgExist] = useState(true);
     const avatarRef = useRef<HTMLElement>(null);
     const avatarChildrenRef = useRef<HTMLElement>(null);
-    const size = avatarSize === 'default' ? groupSize : avatarSize;
+    const size = avatarSize === undefined ? groupSize : avatarSize;
     const gap = 4;
     const handleScale = () => {
       if (!avatarChildrenRef.current || !avatarRef.current) {
@@ -53,8 +55,8 @@ const Avatar = forwardRefWithStatics(
     };
     useResizeObserver(avatarChildrenRef.current, handleScale);
 
-    const handleImgLoadError = () => {
-      onError && onError();
+    const handleImgLoadError = (e) => {
+      onError?.({ e });
       !hideOnLoadFailed && setIsImgExist(false);
     };
 
@@ -89,21 +91,20 @@ const Avatar = forwardRefWithStatics(
     const avatarClass = classNames(preClass, className, {
       [SIZE[size]]: !!SIZE[size],
       [`${preClass}--${shape}`]: !!shape,
-      [`${preClass}-icon`]: !!icon,
+      [`${preClass}__icon`]: !!icon,
     });
-
-    let content;
+    let renderChildren;
     if (image && isImgExist) {
-      content = <img src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} />;
+      renderChildren = <img src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} />;
     } else if (icon) {
-      content = icon;
+      renderChildren = icon;
     } else {
       const childrenStyle: React.CSSProperties = {
         transform: `scale(${scale})`,
       };
-      content = (
+      renderChildren = (
         <span ref={composeRefs(ref, avatarChildrenRef)} style={childrenStyle}>
-          {children}
+          {children || content}
         </span>
       );
     }
@@ -114,7 +115,7 @@ const Avatar = forwardRefWithStatics(
         style={{ ...numSizeStyle, ...style }}
         {...avatarProps}
       >
-        {content}
+        {renderChildren}
       </div>
     );
   },

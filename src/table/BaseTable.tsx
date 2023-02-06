@@ -156,7 +156,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
   const virtualConfig = useVirtualScroll(tableContentRef, { data, scroll: props.scroll });
 
-  let lastScrollY = 0;
+  let lastScrollY = -1;
   const onInnerVirtualScroll = (e: WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
@@ -164,7 +164,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     if (lastScrollY !== top) {
       virtualConfig.isVirtualScroll && virtualConfig.handleScroll();
     } else {
-      lastScrollY = 0;
+      lastScrollY = -1;
       updateColumnFixedShadow(target);
     }
     lastScrollY = top;

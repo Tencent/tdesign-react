@@ -20,13 +20,13 @@ const GradientLoading: FC = () => {
   return (
     <svg
       className={classnames(gradientClass, `${classPrefix}-icon-loading`)}
-      viewBox="0 0 14 14"
+      viewBox="0 0 12 12"
       version="1.1"
       width="1em"
       height="1em"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <foreignObject x="1" y="1" width="12" height="12">
+      <foreignObject x="0" y="0" width="12" height="12">
         <div className={`${gradientClass}-conic`} ref={setConicRef} />
       </foreignObject>
     </svg>

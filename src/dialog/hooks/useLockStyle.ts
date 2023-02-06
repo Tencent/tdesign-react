@@ -16,6 +16,7 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
   }, []);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
     const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
 
@@ -31,6 +32,7 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
   }, [clearStyleFunc]);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     if (mode !== 'modal' || !preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {

@@ -9,7 +9,7 @@ import { PopupProps } from '../popup';
 import { RangeInputProps } from '../range-input';
 import { PopupVisibleChangeContext } from '../popup';
 import { TNode, TElement } from '../common';
-import { MouseEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdRangeInputProps {
   /**
@@ -67,6 +67,7 @@ export interface TdRangeInputProps {
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -104,9 +105,9 @@ export interface TdRangeInputProps {
   onChange?: (
     value: RangeInputValue,
     context?: {
-      e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement>;
+      e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> | CompositionEvent<HTMLDivElement>;
       position?: RangeInputPosition;
-      trigger?: 'input' | 'clear';
+      trigger?: 'input' | 'initial' | 'clear';
     },
   ) => void;
   /**
@@ -198,6 +199,7 @@ export interface TdRangeInputPopupProps {
   readonly?: boolean;
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**

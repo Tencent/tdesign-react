@@ -3,7 +3,7 @@
 import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, SyntheticEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
-export type TElement = ReactElement | (() => ReactElement);
+export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
 export type TNode<T = undefined> = T extends undefined ? ReactNode : (props: T) => ReactNode;
 
@@ -35,16 +35,26 @@ export interface UploadDisplayDragEvents {
 }
 
 export type ImageEvent<T = any> = SyntheticEvent<T>;
-/** 通用全局类型 */
+
+/**
+ * 通用全局类型
+ * */
+export type PlainObject = { [key: string]: any };
 
 export type OptionData = {
   label?: string;
   value?: string | number;
-} & { [key: string]: any };
+} & PlainObject;
 
-export type TreeOptionData = {
-  children?: Array<TreeOptionData>;
-} & OptionData;
+export type TreeOptionData<T = string | number> = {
+  children?: Array<TreeOptionData<T>>;
+  /** option label content */
+  label?: string | TNode;
+  /** option search text */
+  text?: string;
+  /** option value */
+  value?: T;
+} & PlainObject;
 
 export type SizeEnum = 'small' | 'medium' | 'large';
 

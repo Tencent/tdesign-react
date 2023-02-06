@@ -32,6 +32,8 @@ export interface InputRef extends React.RefObject<unknown> {
   select: () => void;
 }
 
+type InputContextTrigger = 'input' | 'clear' | 'initial';
+
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode | TElement) => {
   const result = parseTNode(icon);
 
@@ -76,6 +78,7 @@ const Input = forwardRefWithStatics(
       keepWrapperWidth,
       showLimitNumber,
       allowInputOverMax,
+      name,
       format,
       onClick,
       onClear,
@@ -97,7 +100,6 @@ const Input = forwardRefWithStatics(
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
-
     const { limitNumber, getValueByLimitNumber, tStatus } = useLengthLimit({
       value: value === undefined ? undefined : String(value),
       status,
@@ -176,6 +178,17 @@ const Input = forwardRefWithStatics(
       setRenderType(type);
     }, [type]);
 
+    // 初始判断长度，如超限自动截断并触发onchange
+    useEffect(() => {
+      if (value) {
+        const limitedValue = getValueByLimitNumber(value);
+        if (limitedValue.length !== value.length && !allowInputOverMax) {
+          onChange?.(limitedValue, { trigger: 'initial' });
+        }
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const innerValue = composingRef.current ? composingValue : value ?? '';
     const formatDisplayValue = format && !isFocused ? format(innerValue) : innerValue;
 
@@ -199,6 +212,7 @@ const Input = forwardRefWithStatics(
         onFocus={handleFocus}
         onBlur={handleBlur}
         onPaste={handlePaste}
+        name={name}
       />
     );
 
@@ -211,7 +225,7 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
           [`${classPrefix}-align-${align}`]: align,
-          [`${classPrefix}-is-${tStatus}`]: tStatus,
+          [`${classPrefix}-is-${tStatus}`]: tStatus && tStatus !== 'default',
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
@@ -244,7 +258,10 @@ const Input = forwardRefWithStatics(
       setRenderType(toggleType);
     }
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
+    function handleChange(
+      e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>,
+      trigger: InputContextTrigger = 'input',
+    ) {
       let { value: newStr } = e.currentTarget;
       if (composingRef.current) {
         setComposingValue(newStr);
@@ -254,11 +271,11 @@ const Input = forwardRefWithStatics(
         }
         // 完成中文输入时同步一次 composingValue
         setComposingValue(newStr);
-        onChange(newStr, { e });
+        onChange(newStr, { e, trigger });
       }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-      onChange?.('', { e });
+      onChange?.('', { e, trigger: 'clear' });
       onClear?.({ e });
     }
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {

@@ -27,11 +27,7 @@ const AutoCompleteBase = () => {
     timer = setTimeout(() => {
       const text = '搜索联想词';
       const pureValue = val.replace(`第一个${text}`, '').replace(`第二个${text}`, '').replace(`第三个${text}`, '');
-      setOptions([
-        `${pureValue}第一个${text}`,
-        `${pureValue}第二个${text}`,
-        `${pureValue}第三个${text}`
-      ]);
+      setOptions([`${pureValue}第一个${text}`, `${pureValue}第二个${text}`, `${pureValue}第三个${text}`]);
       clearTimeout(timer);
     }, 100);
   };
@@ -50,7 +46,6 @@ const AutoCompleteBase = () => {
         highlightKeyword
         filterable={false}
         clearable
-        autofocus={true}
         placeholder="请输入关键词搜索"
         onBlur={() => {
           console.log('blur');
@@ -67,7 +62,11 @@ const AutoCompleteBase = () => {
         placeholder="请输入关键词搜索（自定义右侧图标）"
         className="t-demo-autocomplete__search"
         inputProps={{
-          suffix: <Button shape="square"><SearchIcon /></Button>,
+          suffix: (
+            <Button shape="square">
+              <SearchIcon />
+            </Button>
+          ),
         }}
       />
     </Space>

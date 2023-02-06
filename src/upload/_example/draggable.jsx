@@ -68,6 +68,8 @@ export default function UploadExample() {
           onChange={setFiles}
           onFail={onFail}
           onSuccess={onSuccess}
+          // use fileListDisplay to define any file info
+          // fileListDisplay={({ files }) => <div>{JSON.stringify(files)}</div>}
         />
 
         <Upload

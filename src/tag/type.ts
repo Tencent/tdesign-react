@@ -5,7 +5,7 @@
  * */
 
 import { TNode, TElement, SizeEnum } from '../common';
-import { CSSProperties, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 export interface TdTagProps {
   /**
@@ -25,11 +25,11 @@ export interface TdTagProps {
   /**
    * 标签中的图标，可自定义图标呈现
    */
-  icon?: TNode;
+  icon?: TElement;
   /**
    * 标签最大宽度，宽度超出后会出现省略号。示例：'50px' / 80
    */
-  maxWidth?: CSSProperties['maxWidth'] | number;
+  maxWidth?: string | number;
   /**
    * 标签类型，有三种：方形、圆角方形、标记型
    * @default square
@@ -57,7 +57,7 @@ export interface TdTagProps {
   /**
    * 如果关闭按钮存在，点击关闭按钮时触发
    */
-  onClose?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClose?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
 }
 
 export interface TdCheckTagProps {
@@ -70,9 +70,9 @@ export interface TdCheckTagProps {
    */
   defaultChecked?: boolean;
   /**
-   * 组件子元素
+   * 组件子元素；传入数组时：[选中内容，非选中内容]
    */
-  content?: TNode;
+  content?: [];
   /**
    * 标签禁用态，失效标签不能触发事件。默认风格（theme=default）才有禁用态
    * @default false
@@ -84,7 +84,7 @@ export interface TdCheckTagProps {
    */
   size?: SizeEnum;
   /**
-   * 组件子元素
+   * 状态切换时触发
    */
   onChange?: (checked: boolean) => void;
   /**

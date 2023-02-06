@@ -27,6 +27,12 @@ export interface ImageModelMiniProps {
   onReset: () => void;
   onRotate: (red: number) => void;
   zIndex: number;
+  errorText: string;
+  tipText: {
+    mirror: string;
+    rotate: string;
+    originsize: string;
+  };
 }
 
 export const ImageModelMiniContent = (props: ImageModelMiniProps) => {
@@ -40,14 +46,27 @@ export const ImageModelMiniContent = (props: ImageModelMiniProps) => {
         mirror={props.mirror}
         src={props.currentImage.mainImage}
         preSrc={props.currentImage.thumbnail}
+        errorText={props.errorText}
       />
     </div>
   );
 };
 
 export const ImageModelMini = (props: ImageModelMiniProps) => {
-  const { visible, title, scale, currentImage, draggable, onZoomOut, onZoom, onClose, onRotate, onMirror, onReset } =
-    props;
+  const {
+    visible,
+    title,
+    scale,
+    currentImage,
+    draggable,
+    onZoomOut,
+    onZoom,
+    onClose,
+    onRotate,
+    onMirror,
+    onReset,
+    tipText,
+  } = props;
 
   const { classPrefix } = useConfig();
 
@@ -61,6 +80,7 @@ export const ImageModelMini = (props: ImageModelMiniProps) => {
         onRotate={onRotate}
         onMirror={onMirror}
         onReset={onReset}
+        tipText={tipText}
       />
     </div>
   );
