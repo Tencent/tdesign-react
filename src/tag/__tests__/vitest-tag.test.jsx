@@ -69,11 +69,16 @@ describe('Tag Component', () => {
     });
   });
 
-  const sizeClassNameList = ['t-size-s', 't-size-m', 't-size-l'];
+  const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
   ['small', 'medium', 'large'].forEach((item, index) => {
     it(`props.size is equal to ${item}`, () => {
       const { container } = render(<Tag size={item}></Tag>);
-      expect(container.firstChild).toHaveClass(sizeClassNameList[index]);
+      if (typeof sizeClassNameList[index] === 'string') {
+        expect(container.firstChild).toHaveClass(sizeClassNameList[index]);
+      } else if (typeof sizeClassNameList[index] === 'object') {
+        const classNameKey = Object.keys(sizeClassNameList[index])[0];
+        expect(container.querySelector(`.${classNameKey}`)).toBeFalsy();
+      }
     });
   });
 

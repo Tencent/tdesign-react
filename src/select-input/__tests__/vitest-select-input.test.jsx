@@ -61,7 +61,7 @@ describe('SelectInput Component', () => {
     const fn = vi.fn();
     getSelectInputMultipleMount(SelectInput, { collapsedItems: fn, minCollapsedNum: 3 });
     expect(fn).toHaveBeenCalled();
-    expect(fn.mock.calls[0][0].count).toBe(5);
+    expect(fn.mock.calls[0][0].count).toBe(2);
   });
 
   it('props.disabled works fine', () => {

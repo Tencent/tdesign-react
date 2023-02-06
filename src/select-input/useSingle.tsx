@@ -84,12 +84,11 @@ export default function useSingle(props: TdSelectInputProps) {
         onChange={onInnerInputChange}
         readonly={!props.allowInput}
         onClear={onInnerClear}
-        onBlur={(val, context) => {
-          props.onBlur?.(value, { ...context, inputValue: val });
-        }}
+        // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
         onFocus={(val, context) => {
           props.onFocus?.(value, { ...context, inputValue: val });
-          !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
+          // focus might not need to change input value. it will caught some curious errors in tree-select
+          // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
         }}
         onEnter={(val, context) => {
           props.onEnter?.(value, { ...context, inputValue: val });
@@ -106,6 +105,7 @@ export default function useSingle(props: TdSelectInputProps) {
   return {
     inputRef,
     commonInputProps,
+    singleInputValue: inputValue,
     onInnerClear,
     renderSelectSingle,
   };

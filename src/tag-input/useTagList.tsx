@@ -97,7 +97,7 @@ export default function useTagList(props: TagInputProps) {
       const len = tagValue.length - newList.length;
       const params = {
         value: tagValue,
-        count: tagValue.length,
+        count: tagValue.length - minCollapsedNum,
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;

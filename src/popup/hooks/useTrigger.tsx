@@ -3,6 +3,7 @@ import { isFragment } from 'react-is';
 import classNames from 'classnames';
 import { supportRef, getRefDom } from '../utils/ref';
 import composeRefs from '../../_util/composeRefs';
+import { on, off } from '../../_util/dom';
 
 const ESC_KEY = 'Escape';
 
@@ -38,13 +39,14 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       if (getRefDom(triggerRef)?.contains?.(e.target) || hasPopupMouseDown.current) {
         return;
       }
+      console.log('>---->>>', visible);
       visible && onVisibleChange(false, { e, trigger: 'document' });
     };
-    document.addEventListener('mousedown', handleDocumentClick);
-    document.addEventListener('touchend', handleDocumentClick);
+    on(document, 'mousedown', handleDocumentClick);
+    on(document, 'touchend', handleDocumentClick);
     return () => {
-      document.removeEventListener('mousedown', handleDocumentClick);
-      document.removeEventListener('touchend', handleDocumentClick);
+      off(document, 'mousedown', handleDocumentClick);
+      off(document, 'touchend', handleDocumentClick);
     };
   }, [shouldToggle, visible, onVisibleChange, triggerRef]);
 
