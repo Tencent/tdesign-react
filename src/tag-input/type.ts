@@ -192,7 +192,7 @@ export interface InputValueChangeContext {
     | FormEvent<HTMLInputElement>
     | MouseEvent<HTMLElement | SVGElement>
     | CompositionEvent<HTMLDivElement>
-    | KeyboardEvent<HTMLDivElement>;
+    | KeyboardEvent<HTMLInputElement>;
   trigger: 'input' | 'clear' | 'enter' | 'blur';
 }
 
