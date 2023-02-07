@@ -1,0 +1,21 @@
+// Vitest Snapshot v1
+
+exports[`Skeleton Component > props.children works fine 1`] = `
+<div>
+  <span
+    class="custom-node"
+  >
+    TNode
+  </span>
+</div>
+`;
+
+exports[`Skeleton Component > props.content works fine 1`] = `
+<div>
+  <span
+    class="custom-node"
+  >
+    TNode
+  </span>
+</div>
+`;
