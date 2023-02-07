@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { render, fireEvent, mockDelay } from '@test/utils';
+import { render, fireEvent, mockDelay, mockTimeout, vi } from '@test/utils';
 import React, { useEffect, useState } from 'react';
 
 import Form, { TdFormProps } from '../index';
@@ -10,45 +10,103 @@ import { HelpCircleIcon } from 'tdesign-icons-react';
 const { FormItem } = Form;
 
 describe('Form 组件测试', () => {
-  test('setFieldsValue测试', async () => {
+  const submitFn = vi.fn();
+  const resetFn = vi.fn();
+  test('reset & submit', async () => {
+    const { container } = render(
+      <Form onSubmit={submitFn} onReset={resetFn} layout="vertical">
+        <FormItem label="input1" name="input1" initialData={'test'}>
+          <Input placeholder="input1" />
+        </FormItem>
+        <FormItem labelWidth={100}>
+          <Input placeholder="no label" />
+        </FormItem>
+        <FormItem>
+          <Button type="submit" id="test-submit">
+            提交表单
+          </Button>
+          <Button type="reset" id="test-reset">
+            重置表单
+          </Button>
+        </FormItem>
+      </Form>,
+    );
+
+    fireEvent.click(container.querySelector('#test-reset'));
+    expect(resetFn).toHaveBeenCalledTimes(1);
+    fireEvent.click(container.querySelector('#test-submit'));
+    await mockTimeout(() => true);
+    expect(submitFn).toHaveBeenCalledTimes(1);
+  });
+
+  test('form instance', async () => {
     const TestForm = () => {
       const [form] = Form.useForm();
 
       function setFields() {
-        form.setFieldsValue({
-          input1: 'value1',
-          input2: 'value2',
-        });
+        form.getFieldsValue(true);
+        form.setFields([{ name: 'input1', value: 'setFields' }]);
+      }
+
+      function setFieldsValue() {
+        form.getFieldValue('input1');
+        form.setFieldsValue({ input1: 'setFieldsValue' });
+      }
+
+      function setValidateMessage() {
+        form.setValidateMessage({ input1: [{ type: 'error', message: 'message: setValidateMessage' }] });
+      }
+
+      function validate() {
+        form.validate();
+      }
+
+      function validateOnly() {
+        form.validateOnly();
+      }
+
+      function clearValidate() {
+        form.clearValidate();
       }
 
       return (
-        <Form form={form}>
-          <FormItem label="input1" name="input1">
+        <Form form={form} labelWidth={100} colon>
+          <FormItem label="input1" name="input1" rules={[{ required: true, message: 'input1 未填写', type: 'error' }]}>
             <Input placeholder="input1" />
           </FormItem>
-          <FormItem label="input2" name="input2">
-            <Input placeholder="input2" />
-          </FormItem>
           <FormItem>
-            <Button onClick={setFields}>设置信息</Button>
+            <Button type="reset">reset</Button>
+            <Button onClick={setFields}>setFields</Button>
+            <Button onClick={setFieldsValue}>setFieldsValue</Button>
+            <Button onClick={setValidateMessage}>setValidateMessage</Button>
+            <Button onClick={validate}>validate</Button>
+            <Button onClick={validateOnly}>validateOnly</Button>
+            <Button onClick={clearValidate}>clearValidate</Button>
           </FormItem>
         </Form>
       );
     };
-    const res = render(<TestForm />);
-    const { getByPlaceholderText, getByText } = res;
+    const { getByPlaceholderText, getByText, queryByText } = render(<TestForm />);
 
-    // @ts-ignore
+    // setFields setFieldsValue setValidateMessage test
     expect(getByPlaceholderText('input1').value).toEqual('');
-    // @ts-ignore
-    expect(getByPlaceholderText('input2').value).toEqual('');
+    fireEvent.click(getByText('setFields'));
+    expect(getByPlaceholderText('input1').value).toEqual('setFields');
+    fireEvent.click(getByText('setFieldsValue'));
+    expect(getByPlaceholderText('input1').value).toEqual('setFieldsValue');
+    fireEvent.click(getByText('setValidateMessage'));
+    expect(queryByText('message: setValidateMessage')).toBeTruthy();
 
-    fireEvent.click(getByText('设置信息'));
-
-    // @ts-ignore
-    expect(getByPlaceholderText('input1').value).toEqual('value1');
-    // @ts-ignore
-    expect(getByPlaceholderText('input2').value).toEqual('value2');
+    // validate validateOnly test
+    fireEvent.click(getByText('validateOnly'));
+    await mockTimeout(() => true);
+    expect(queryByText('input1 未填写')).not.toBeTruthy();
+    fireEvent.click(getByText('reset'));
+    fireEvent.click(getByText('validate'));
+    await mockTimeout(() => true);
+    expect(queryByText('input1 未填写')).toBeTruthy();
+    fireEvent.click(getByText('clearValidate'));
+    expect(queryByText('input1 未填写')).not.toBeTruthy();
   });
 
   test('Form.reset works fine', async () => {
