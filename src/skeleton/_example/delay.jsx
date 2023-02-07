@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Skeleton, Switch } from 'tdesign-react';
 
 const style = {
@@ -10,12 +10,20 @@ const style = {
   },
 };
 
+const CONTENT = <div style={style['t-skeleton-demo-paragraph']}>
+  <p>设置最短延迟响应时间，低于响应时间的操作不显示加载状态。</p>
+</div>;
+
 export default function BasicSkeleton() {
   const [checked, setChecked] = useState(true);
+  const [content, setContent] = useState(null);
+  const loadingTimeChecked = useRef(0);
+  const loadingTimeUnChecked = useRef(0);
 
   const onChange = (value) => {
-    console.log('value', value);
+    console.log('checked：', value, '勾选：', loadingTimeChecked.current, '取消勾选：', loadingTimeUnChecked.current);
     setChecked(value);
+    setContent(value ? null : CONTENT);
   };
 
   return (
@@ -25,9 +33,7 @@ export default function BasicSkeleton() {
       </div>
       <div>
         <Skeleton loading={checked} delay={1500} animation="flashed">
-          <div style={style['t-skeleton-demo-paragraph']}>
-            <p>设置最短延迟响应时间，低于响应时间的操作不显示加载状态。</p>
-          </div>
+          {content}
         </Skeleton>
       </div>
     </div>
