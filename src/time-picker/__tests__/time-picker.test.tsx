@@ -88,16 +88,13 @@ describe('Timepicker 组件测试', () => {
 
   test('props.allowInput works fine', async () => {
     const handleBlur = vi.fn();
-    const handleInput = vi.fn();
     const handleFocus = vi.fn();
-    const { container } = render(
-      <TimePicker onBlur={handleBlur} onFocus={handleFocus} onInput={handleInput} allowInput />,
-    );
+    const { container } = render(<TimePicker onBlur={handleBlur} onFocus={handleFocus} allowInput />);
     const InputDom = container.querySelector('.t-input__inner');
-    fireEvent.focus(InputDom);
+    fireEvent.click(InputDom);
     expect(handleFocus).toBeCalledTimes(1);
-    expect(handleInput).toBeCalledTimes(1);
-    fireEvent.blur(InputDom);
+    // input blur is not equal to TimePicker.blur
+    fireEvent.mouseDown(document);
     expect(handleBlur).toBeCalledTimes(1);
   });
 

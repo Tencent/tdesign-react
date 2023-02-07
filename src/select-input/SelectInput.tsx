@@ -53,6 +53,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
     props.onBlur?.(props.value, params);
   }
 
+  // TODO: Popup trigger need to support array. both click and focus can open panel
   const mainContent = (
     <div className={popupClasses} style={props.style}>
       <Popup

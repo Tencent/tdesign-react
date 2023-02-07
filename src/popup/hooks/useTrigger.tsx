@@ -39,7 +39,6 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       if (getRefDom(triggerRef)?.contains?.(e.target) || hasPopupMouseDown.current) {
         return;
       }
-      console.log('>---->>>', visible);
       visible && onVisibleChange(false, { e, trigger: 'document' });
     };
     on(document, 'mousedown', handleDocumentClick);
