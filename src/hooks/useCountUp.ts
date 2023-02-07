@@ -7,7 +7,7 @@ type CountUpProps = {
   // 计时器计时上限
   maxTime?: number;
   // 浏览器每次重绘前的回调
-  onChange?: (curentTime?: number) => void;
+  onChange?: (currentTime?: number) => void;
   // 计时结束回调行为
   onFinish?: () => void;
 };
@@ -21,7 +21,7 @@ const useCountUp = (options: CountUpProps) => {
   // 计时器暂停时间
   let stopTime;
   // 计时器启动后历经时长
-  let curentTime;
+  let currentTime;
   // 是否计时中
   let counting = false;
 
@@ -53,10 +53,10 @@ const useCountUp = (options: CountUpProps) => {
    */
   const step = () => {
     // performance.now(): requestAnimationFrame()开始去执行回调函数的时刻
-    curentTime = performance.now() - startTime;
-    onChange?.(curentTime);
+    currentTime = performance.now() - startTime;
+    onChange?.(currentTime);
 
-    if (maxTime && Math.floor(curentTime) >= maxTime) {
+    if (maxTime && Math.floor(currentTime) >= maxTime) {
       stop();
       return;
     }
@@ -68,7 +68,7 @@ const useCountUp = (options: CountUpProps) => {
    */
   const start = () => {
     // 计时中 或者 曾经计时过想要重新开始计时，应该先点击一下 重置 再开始计时
-    if (counting || curentTime) return;
+    if (counting || currentTime) return;
 
     counting = true;
     startTime = performance.now();
@@ -92,7 +92,7 @@ const useCountUp = (options: CountUpProps) => {
    */
   const reset = () => {
     stop();
-    curentTime = 0;
+    currentTime = 0;
     startTime = 0;
     stopTime = 0;
   };
