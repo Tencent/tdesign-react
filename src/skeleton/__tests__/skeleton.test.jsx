@@ -14,18 +14,6 @@ describe('Skeleton Component', () => {
     const props = { delay: 10 };
     const { mountedContent, getContent } = getSkeletonInfo(Skeleton, props);
     expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
-    // await mockDelay(10);
-    // mountedContent.rerender(getContent(Skeleton, {...props, loading: false}));
-    // expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
-    // await mockDelay(20);
-    // expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
-
-    // mountedContent.rerender(getContent(Skeleton, { ...props, loading: true }));
-    // // <34 都不会有骨架屏
-    // await mockDelay(35);
-    // mountedContent.rerender(getContent(Skeleton, { ...props, loading: false }));
-    // expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeTruthy();
-
     setTimeout(() => { 
       mountedContent.rerender(getContent(Skeleton, {...props, loading: false}));
       expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
@@ -34,7 +22,6 @@ describe('Skeleton Component', () => {
       expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
       mountedContent.rerender(getContent(Skeleton, { ...props, loading: true }));
     }, 20);
-    
     // <34 都不会有骨架屏
     await mockDelay(35);
     mountedContent.rerender(getContent(Skeleton, { ...props, loading: false }));
