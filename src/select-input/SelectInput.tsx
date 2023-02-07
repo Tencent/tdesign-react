@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
-import Popup from '../popup';
+import Popup, { PopupVisibleChangeContext } from '../popup';
 import useSingle from './useSingle';
 import useMultiple from './useMultiple';
 import useOverlayInnerStyle from './useOverlayInnerStyle';
@@ -18,9 +18,12 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const selectInputWrapRef = useRef();
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
-  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props);
-  const { commonInputProps, inputRef, onInnerClear, renderSelectSingle } = useSingle(props);
-  const { tagInputRef, renderSelectMultiple } = useMultiple(props);
+  const { commonInputProps, inputRef, singleInputValue, onInnerClear, renderSelectSingle } = useSingle(props);
+  const { tagInputRef, multipleInputValue, renderSelectMultiple } = useMultiple(props);
+
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props, {
+    afterHidePopup: onInnerBlur,
+  });
 
   const popupClasses = classNames([
     props.className,
@@ -42,6 +45,15 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   // 浮层显示的受控与非受控
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
 
+  // SelectInput.blur is not equal to Input or TagInput, example: click popup panel.
+  // if trigger blur on click popup panel, filter data of tree select can not be checked.
+  function onInnerBlur(ctx: PopupVisibleChangeContext) {
+    const inputValue = props.multiple ? multipleInputValue : singleInputValue;
+    const params: Parameters<TdSelectInputProps['onBlur']>[1] = { e: ctx.e, inputValue };
+    props.onBlur?.(props.value, params);
+  }
+
+  // TODO: Popup trigger need to support array. both click and focus can open panel
   const mainContent = (
     <div className={popupClasses} style={props.style}>
       <Popup

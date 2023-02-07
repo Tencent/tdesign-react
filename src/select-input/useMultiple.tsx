@@ -65,9 +65,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       }}
       tagProps={props.tagProps}
       onClear={p.onInnerClear}
-      onBlur={(val, context) => {
-        props.onBlur?.(props.value, { ...context, tagInputValue: val });
-      }}
+      // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
@@ -86,6 +84,7 @@ export default function useMultiple(props: TdSelectInputProps) {
     tags,
     tPlaceholder,
     tagInputRef,
+    multipleInputValue: tInputValue,
     renderSelectMultiple,
   };
 }

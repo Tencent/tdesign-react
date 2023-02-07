@@ -23,10 +23,20 @@ function Panel() {
   );
 }
 
+const value = [
+  { label: 'tdesign-vue', value: 1 },
+  { label: 'tdesign-react', value: 2 },
+  { label: 'tdesign-miniprogram', value: 3 },
+  { label: 'tdesign-mobile-vue', value: 4 },
+  { label: 'tdesign-react-vue', value: 5 },
+];
+
 // single select
-export function getSelectInputDefaultMount(SelectInput, props, events) {
+export function getSelectInputMultipleMount(SelectInput, props, events) {
   return render(
     <SelectInput
+      value={value}
+      multiple={true}
       panel={(
         <Panel />
       )}

@@ -14,4 +14,4 @@ export const tagDefaultProps: TdTagProps = {
   variant: 'dark',
 };
 
-export const checkTagDefaultProps: TdCheckTagProps = { defaultChecked: undefined, disabled: false, size: 'medium' };
+export const checkTagDefaultProps: TdCheckTagProps = { disabled: false, size: 'medium' };

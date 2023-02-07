@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { createEvent, fireEvent, act } from '@testing-library/react';
 import _userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+import { EVENTS_MAP } from './events';
 
 export * from '@testing-library/react';
 export * from 'vitest';
@@ -33,6 +34,11 @@ export function simulateInputChange(dom, text) {
 // input enter
 export function simulateInputEnter(dom) {
   fireEvent.keyDown(dom, { key: 'Enter', code: 'Enter', charCode: 13 });
+}
+
+export function simulateDocumentMouseEvent(dom = document, trigger = 'click') {
+  const triggerName = EVENTS_MAP[trigger] || trigger;
+  fireEvent[triggerName](dom);
 }
 
 export function simulateClipboardPaste(dom, text) {
