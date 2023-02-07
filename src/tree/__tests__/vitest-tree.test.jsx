@@ -54,17 +54,10 @@ describe('Tree Component', () => {
     const onDragEndFn2 = vi.fn();
     const onDragStartFn3 = vi.fn();
     const onDragLeaveFn4 = vi.fn();
-    const onDropFn5 = vi.fn();
     const { container } = getTreeDefaultMount(
       Tree,
       { checkable: true, disableCheck: true, draggable: true },
-      {
-        onDragOver: onDragOverFn1,
-        onDragEnd: onDragEndFn2,
-        onDragStart: onDragStartFn3,
-        onDragLeave: onDragLeaveFn4,
-        onDrop: onDropFn5,
-      },
+      { onDragOver: onDragOverFn1, onDragEnd: onDragEndFn2, onDragStart: onDragStartFn3, onDragLeave: onDragLeaveFn4 },
     );
     await mockDelay(300);
     fireEvent.dragOver(container.querySelector('.t-tree__item'));
@@ -79,8 +72,23 @@ describe('Tree Component', () => {
     fireEvent.dragLeave(container.querySelector('.t-tree__item'));
     await mockDelay();
     expect(onDragLeaveFn4).toHaveBeenCalled();
+  });
+
+  it('props.draggable works fine', async () => {
+    const onDragEndFn1 = vi.fn();
+    const onDropFn2 = vi.fn();
+    const { container } = getTreeDefaultMount(
+      Tree,
+      { draggable: true },
+      { onDragEnd: onDragEndFn1, onDrop: onDropFn2 },
+    );
+    await mockDelay(300);
+    fireEvent.dragEnd(container.querySelector('.t-tree__item:nth-child(2)'));
     await mockDelay();
-    expect(onDropFn5).not.toHaveBeenCalled();
+    expect(onDragEndFn1).toHaveBeenCalled();
+    fireEvent.drop(container.querySelector('.t-tree__item'));
+    await mockDelay();
+    expect(onDropFn2).toHaveBeenCalled();
   });
 
   it('props.icon works fine', async () => {

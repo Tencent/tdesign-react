@@ -181,24 +181,6 @@ describe('Tree test', () => {
     });
   });
 
-  it('props.draggable works fine', async () => {
-    const onDropFn1 = vi.fn();
-    const onDragEndFn2 = vi.fn();
-    const { container } = await renderTreeWithProps({
-      draggable: true,
-      onDrop: onDropFn1,
-      onDragEnd: onDragEndFn2,
-    });
-    await mockDelay(300);
-    fireEvent.dragEnd(container.querySelector('.t-tree__item:nth-child(2)'));
-    await mockDelay();
-    expect(onDragEndFn2).toHaveBeenCalled();
-
-    fireEvent.drop(container.querySelector('.t-tree__item'));
-    await mockDelay();
-    expect(onDropFn1).toHaveBeenCalled();
-  });
-
   it('when props.disableCheck is a function , it works fine', async () => {
     const onChangeFn1 = vi.fn();
     const { container } = await renderTreeWithProps({
