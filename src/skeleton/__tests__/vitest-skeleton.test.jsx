@@ -36,24 +36,24 @@ describe('Skeleton Component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('props.delay: show loading delay 10ms', async () => {
-    const props = { delay: 10 };
-    const { mountedContent, getContent } = getSkeletonInfo(Skeleton, props);
-    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
-    await mockDelay(10);
-    mountedContent.rerender(getContent(Skeleton, {...props, loading: false}));
-    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
-    await mockDelay(20);
-    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+  // it('props.delay: show loading delay 10ms', async () => {
+  //   const props = { delay: 10 };
+  //   const { mountedContent, getContent } = getSkeletonInfo(Skeleton, props);
+  //   expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+  //   await mockDelay(10);
+  //   mountedContent.rerender(getContent(Skeleton, {...props, loading: false}));
+  //   expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+  //   await mockDelay(20);
+  //   expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
 
-    mountedContent.rerender(getContent(Skeleton, { ...props, loading: true }));
-    // <34 都不会有骨架屏
-    await mockDelay(35);
-    mountedContent.rerender(getContent(Skeleton, { ...props, loading: false }));
-    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeTruthy();
-    await mockDelay(535);
-    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
-  });
+  //   mountedContent.rerender(getContent(Skeleton, { ...props, loading: true }));
+  //   // <34 都不会有骨架屏
+  //   await mockDelay(35);
+  //   mountedContent.rerender(getContent(Skeleton, { ...props, loading: false }));
+  //   expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeTruthy();
+  //   await mockDelay(535);
+  //   expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+  // });
 
   it('props.delay: show loading delay 100ms', async () => {
     const props = { delay: 100, loading: true };

@@ -25,7 +25,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   ],
 };
 
-// 超过delay时长，loading仍为true时，为解决骨架屏一闪而过问题，默认骨架屏存在时长50ms
+// 超过delay时长，loading仍为true时，为解决骨架屏一闪而过问题，默认骨架屏存在时长500ms
 const DEFAULT_DURATION = 500;
 // 统计loading时长的最小时间间隔
 const DEFAULT_MIN_INTERVAL = 16.7;
