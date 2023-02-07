@@ -5,9 +5,9 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, screen } from '@test/utils';
 import { Skeleton } from '..';
-import { getSkeletonDefaultMount } from './mount';
+import { getSkeletonDefaultMount, getSkeletonInfo } from './mount';
 
 describe('Skeleton Component', () => {
   ['gradient', 'flashed', 'none'].forEach((item) => {
@@ -36,11 +36,24 @@ describe('Skeleton Component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('props.delay: show loading delay 300ms', async () => {
-    const { container } = getSkeletonDefaultMount(Skeleton, { delay: 1000, loading: true });
-    expect(container.querySelector('.t-skeleton__row')).toBeFalsy();
-    await mockDelay(1000);
-    expect(container.querySelector('.t-skeleton__row')).toBeTruthy();
+  it('props.delay: show loading delay 100ms', async () => {
+    const props = { delay: 100, loading: true };
+    const { mountedContent, getContent } = getSkeletonInfo(Skeleton, props);
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+    await mockDelay(50);
+    mountedContent.rerender(getContent(Skeleton, {...props, loading: false}));
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+    await mockDelay(80);
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+
+    mountedContent.rerender(getContent(Skeleton, {...props, loading: true}));
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
+    await mockDelay(150);
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeTruthy();
+    mountedContent.rerender(getContent(Skeleton, {...props, loading: false}));
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeTruthy();
+    await mockDelay(650);
+    expect(mountedContent.container.querySelector('.t-skeleton__row')).toBeFalsy();
   });
 
   it('props.loading is equal true', () => {
@@ -68,14 +81,14 @@ describe('Skeleton Component', () => {
     expect(container.querySelectorAll('.t-skeleton__row:nth-child(3) .t-skeleton__col').length).toBe(1);
   });
 
-  it('props.rowCol is equal [1, 2, [{ width, height }, { width, height, marginLeft }]]', () => {
+  it('props.rowCol is equal [1, 2, [{ width: 100, height: 35 }, { width: 101, height: 36, marginLeft: 16 }]]', () => {
     const { container } = getSkeletonDefaultMount(Skeleton, {
       rowCol: [
         1,
         2,
         [
-          { width, height },
-          { width, height, marginLeft },
+          { width: 100, height: 35 },
+          { width: 101, height: 36, marginLeft: 16 },
         ],
       ],
     });
@@ -86,7 +99,7 @@ describe('Skeleton Component', () => {
 
   it(`props.rowCol is equal to [1, 1, { width: '100px' }]`, () => {
     const { container } = getSkeletonDefaultMount(Skeleton, { rowCol: [1, 1, { width: '100px' }] });
-    const domWrapper = container.querySelector('.t-skeleton__row:nth-child(3)');
+    const domWrapper = container.querySelector('.t-skeleton__row:nth-child(3) .t-skeleton__col');
     expect(domWrapper.style.width).toBe('100px');
   });
   it(`props.rowCol is equal to [1, 2, [{ width: '100px', height: '35px' }, { width: '101px', height: '36px', marginLeft: '16px' }]]`, () => {
