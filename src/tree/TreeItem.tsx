@@ -57,6 +57,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       e: evt,
       expand: expandOnClickNode,
       active: activable,
+      trigger: 'node-click',
     });
   };
 
@@ -68,6 +69,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       e: evt,
       expand: true,
       active: false,
+      trigger: 'icon-click',
     });
   };
 

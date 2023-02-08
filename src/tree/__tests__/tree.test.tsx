@@ -142,8 +142,7 @@ describe('Tree test', () => {
     await mockDelay(300);
     expect(ref.current.getItem(1).label).toBe('t-1-new');
     expect(ref.current.getItem(1).checked).toBe(true);
-    // TODO: expected 设置后未生效
-    // expect(ref.current.getItem(1).expanded).toBe(true);
+    expect(ref.current.getItem(1).expanded).toBe(true);
   });
 
   test('test render Tree operations, props.operations is a function', async () => {
