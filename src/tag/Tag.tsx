@@ -58,9 +58,8 @@ const Tag = forwardRefWithStatics(
       tagClassPrefix,
       `${tagClassPrefix}--${theme}`,
       `${tagClassPrefix}--${variant}`,
-      `${tagClassPrefix}--${size}`,
-      `${tagClassPrefix}--${shape}`,
       {
+        [`${tagClassPrefix}--${shape}`]: shape !== 'square',
         [`${tagClassPrefix}--ellipsis`]: !!maxWidth,
         [`${tagClassPrefix}--disabled`]: disabled,
       },

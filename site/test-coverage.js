@@ -1,9 +1,9 @@
 module.exports = {
   "Util": {
-    "statements": "52.82%",
-    "branches": "38.29%",
-    "functions": "61.06%",
-    "lines": "54.32%"
+    "statements": "57.94%",
+    "branches": "43.09%",
+    "functions": "65.48%",
+    "lines": "59.82%"
   },
   "affix": {
     "statements": "87.3%",
@@ -138,10 +138,10 @@ module.exports = {
     "lines": "97.14%"
   },
   "form": {
-    "statements": "45.57%",
-    "branches": "25%",
-    "functions": "39.82%",
-    "lines": "47.94%"
+    "statements": "83.58%",
+    "branches": "70.83%",
+    "functions": "80.53%",
+    "lines": "87.16%"
   },
   "grid": {
     "statements": "84.53%",

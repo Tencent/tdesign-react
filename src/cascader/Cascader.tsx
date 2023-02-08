@@ -5,12 +5,11 @@ import omit from 'lodash/omit';
 import Panel from './components/Panel';
 import SelectInput from '../select-input';
 import FakeArrow from '../common/FakeArrow';
-
 import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-
-import { CascaderValue, TdCascaderProps } from './interface';
+import { TagInputValue } from '../tag-input';
+import { TdCascaderProps } from './interface';
 import { closeIconClickEffect, handleRemoveTagEffect } from './core/effect';
 import { getPanels, getSingleContent, getMultipleContent } from './core/helper';
 import { getFakeArrowIconClass } from './core/className';
@@ -94,7 +93,7 @@ const Cascader = (props: CascaderProps) => {
         setInputVal(`${value}`);
         props?.selectInputProps?.onInputChange?.(value, ctx);
       }}
-      onTagChange={(val: CascaderValue, ctx) => {
+      onTagChange={(val: TagInputValue, ctx) => {
         if (ctx.trigger === 'enter') return;
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
         props?.selectInputProps?.onTagChange?.(val, ctx);

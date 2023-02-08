@@ -1,4 +1,4 @@
-import { render, fireEvent, mockTimeout, vi, userEvent } from '@test/utils';
+import { render, fireEvent, mockTimeout, vi, userEvent, mockDelay } from '@test/utils';
 import React, { useState } from 'react';
 import Cascader, { CascaderPanel } from '../index';
 
@@ -62,14 +62,13 @@ describe('Cascader 组件测试', () => {
   });
 
   test('onBlur 测试，应该正确触发', async () => {
-    const option = {
-      onBlur: () => 1,
-    };
-    const spy = vi.spyOn(option, 'onBlur');
-    render(<Cascader options={options} onBlur={option.onBlur} filterable />);
+    const onBlur = vi.fn();
+    const { container } = render(<Cascader options={options} onBlur={onBlur} filterable />);
     // 模拟 blur 时触发 onBlur
-    fireEvent.blur(document.querySelector('input'));
-    await mockTimeout(() => expect(spy).toHaveBeenCalled());
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay(100);
+    fireEvent.mouseDown(document);
+    expect(onBlur).toHaveBeenCalled();
   });
 
   test('selectInputProps.onInputChange 测试，应该正确触发', async () => {
