@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.45.6 `2023-02-08` 
+### 🚀 Features
+- `Input`: 点击 Input 输入框中的任意元素，自动触发聚焦 @chaishi ([#1950](https://github.com/Tencent/tdesign-react/pull/1950))
+- `TagInput`: `collapsedItems` 的参数 `count` 含义更为折叠的数量 @chaishi ([#1950](https://github.com/Tencent/tdesign-react/pull/1950))
+### 🐞 Bug Fixes
+- `Loading`: 修复loading在部分windows设备中晃动的问题 @uyarn ([#1943](https://github.com/Tencent/tdesign-react/pull/1943))
+- `InputNumber`: 修复小数点后面不能连续输入两个 0 的问题 @chaishi ([#1950](https://github.com/Tencent/tdesign-react/pull/1950))
+- `TreeSelect`:
+    - `onBlur` 和 `onFocus` 的事件参数 `value` 调整为和文档保持一致，始终等于组件选中的值 @chaishi ([#1950](https://github.com/Tencent/tdesign-react/pull/1950))
+    - 修复 `collapsedItems` 的第一个参数缺少 label 信息问题（可能存在 Breaking Change) @chaishi ([#1950](https://github.com/Tencent/tdesign-react/pull/1950))
+- `Dialog & Drawer`: 修复在 next 中 document 报错问题 @honkinglin ([#1944](https://github.com/Tencent/tdesign-react/pull/1944))
+- `ColorPicker`: 修复 slider 初始化 thumb 位置计算问题 @MrWeilian ([#1907](https://github.com/Tencent/tdesign-react/pull/1907))
+
 ## 🌈 0.45.5 `2023-02-01` 
 ### 🚀 Features
 - `Timeline`: 
