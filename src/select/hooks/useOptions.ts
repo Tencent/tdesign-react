@@ -53,21 +53,11 @@ export default function UseOptions(
 
   // 同步 value 对应的 options
   useEffect(() => {
-    setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
-      const valueKey = keys?.value || 'value';
-      const labelKey = keys?.label || 'label';
+    setSelectedOptions(() => {
       if (Array.isArray(value)) {
         return value
           .map((item) => {
-            if (valueType === 'value') {
-              return (
-                valueToOption[item as string | number] ||
-                oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
-                  [valueKey]: item,
-                  [labelKey]: item,
-                }
-              );
-            }
+            if (valueType === 'value') return valueToOption[item as string | number];
             return item;
           })
           .filter(Boolean);
@@ -75,13 +65,7 @@ export default function UseOptions(
 
       if (value !== undefined && value !== null) {
         if (valueType === 'value') {
-          return [
-            valueToOption[value as string | number] ||
-              oldSelectedOptions.find((option) => get(option, valueKey) === value) || {
-                [valueKey]: value,
-                [labelKey]: value,
-              },
-          ].filter(Boolean);
+          return [valueToOption[value as string | number]].filter(Boolean);
         }
         return [value];
       }
