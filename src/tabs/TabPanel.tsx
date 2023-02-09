@@ -16,7 +16,7 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
 
   return (
     <div className={classNames(tdTabPanelClassPrefix, className)} style={style}>
-      {props.children}
+      {props.children || props.panel}
     </div>
   );
 };
