@@ -8,7 +8,7 @@ export default function BasicAvatar() {
       <Avatar icon={<UserIcon />} style={{ marginRight: '40px' }} />
       <Avatar
         image="https://tdesign.gtimg.com/site/avatar.jpg"
-        hideOnLoadFailed="false"
+        hideOnLoadFailed={false}
         style={{ marginRight: '40px' }}
       />
       <Avatar style={{ marginRight: '40px' }}>W</Avatar>
