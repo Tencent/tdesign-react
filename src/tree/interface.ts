@@ -32,7 +32,10 @@ export interface TreeItemProps
   /**
    * 树节点点击回调事件
    */
-  onClick?: (node: TreeNode, options: { e: MouseEvent<HTMLDivElement>; expand: boolean; active: boolean }) => void;
+  onClick?: (
+    node: TreeNode,
+    options: { e: MouseEvent<HTMLDivElement>; expand: boolean; active: boolean; trigger: 'node-click' | 'icon-click' },
+  ) => void;
 
   /**
    * 树节点状态变更事件

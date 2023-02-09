@@ -67,39 +67,52 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   }
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
-  const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean, e?: React.MouseEvent<HTMLDivElement>) => {
-    const expanded = node.setExpanded(isExpanded);
-    const treeNodeModel = node?.getModel();
+  const setExpanded = usePersistFn(
+    (
+      node: TreeNode,
+      isExpanded: boolean,
+      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+    ) => {
+      const { e, trigger } = ctx;
+      const expanded = node.setExpanded(isExpanded);
+      const treeNodeModel = node?.getModel();
+      (e || trigger) && onExpand?.(expanded, { node: treeNodeModel, e, trigger });
+      return expanded;
+    },
+  );
 
-    e && onExpand?.(expanded, { node: treeNodeModel, e });
-    return expanded;
-  });
+  const setActived = usePersistFn(
+    (
+      node: TreeNode,
+      isActived: boolean,
+      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
+    ) => {
+      const actived = node.setActived(isActived);
+      const treeNodeModel = node?.getModel();
+      onActive?.(actived, { node: treeNodeModel, ...ctx });
+      return actived;
+    },
+  );
 
-  const setActived = usePersistFn((node: TreeNode, isActived: boolean, e?: MouseEvent<any>) => {
-    const actived = node.setActived(isActived);
-    const treeNodeModel = node?.getModel();
-    onActive?.(actived, { node: treeNodeModel, e });
-    return actived;
-  });
-
-  const setChecked = usePersistFn((node: TreeNode, isChecked: boolean, ctx?: { e: any }) => {
-    const checked = node.setChecked(isChecked);
-    const treeNodeModel = node?.getModel();
-    onChange?.(checked, { node: treeNodeModel, e: ctx?.e });
-    return checked;
-  });
+  const setChecked = usePersistFn(
+    (node: TreeNode, isChecked: boolean, ctx: { e?: any; trigger: 'node-click' | 'setItem' }) => {
+      const checked = node.setChecked(isChecked);
+      const treeNodeModel = node?.getModel();
+      onChange?.(checked, { node: treeNodeModel, ...ctx });
+      return checked;
+    },
+  );
 
   const handleItemClick: TreeItemProps['onClick'] = (node, options) => {
     if (!node) {
       return;
     }
     const isDisabled = disabled || node.disabled;
-    const { expand, active, e } = options;
-
-    if (expand) setExpanded(node, !node.isExpanded(), e);
+    const { expand, active, e, trigger } = options;
+    if (expand) setExpanded(node, !node.isExpanded(), { e, trigger });
 
     if (active && !isDisabled) {
-      setActived(node, !node.isActived(), e);
+      setActived(node, !node.isActived(), { e, trigger: 'node-click' });
       const treeNodeModel = node?.getModel();
       onClick?.({ node: treeNodeModel, e });
     }
@@ -109,7 +122,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     if (!node || disabled || node.disabled) {
       return;
     }
-    setChecked(node, !node.isChecked(), ctx);
+    setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
   };
 
   /** 对外暴露的公共方法 * */
@@ -169,15 +182,15 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         const spec = options;
         if (node && spec) {
           if ('expanded' in options) {
-            setExpanded(node, spec.expanded);
+            setExpanded(node, spec.expanded, { trigger: 'setItem' });
             delete spec.expanded;
           }
           if ('actived' in options) {
-            setActived(node, spec.actived);
+            setActived(node, spec.actived, { trigger: 'setItem' });
             delete spec.actived;
           }
           if ('checked' in options) {
-            setChecked(node, spec.checked);
+            setChecked(node, spec.checked, { trigger: 'setItem' });
             delete spec.checked;
           }
           node.set(spec);
