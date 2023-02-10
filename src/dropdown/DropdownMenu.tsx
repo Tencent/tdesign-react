@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState, MouseEvent } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
@@ -33,13 +33,16 @@ const DropdownMenu = (props: DropdownProps) => {
     }
   }, [maxHeight]);
 
-  const handleItemClick = (options: { data: DropdownOption; context: { e: React.MouseEvent<HTMLDivElement> } }) => {
+  const handleItemClick = (options: {
+    data: DropdownOption;
+    context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
+  }) => {
     const { data, context } = options;
     data?.onClick?.(data, context);
     props.onClick?.(data, context);
   };
 
-  const handleScroll = (e: MouseEvent<HTMLDivElement>, deep = 0) => {
+  const handleScroll = (e: React.MouseEvent<HTMLDivElement>, deep = 0) => {
     const { scrollTop } = e.target as HTMLElement;
     setScrollTopMap({ ...calcScrollTopMap, [deep]: scrollTop });
   };
@@ -100,7 +103,7 @@ const DropdownMenu = (props: DropdownProps) => {
                     position: 'static',
                     maxHeight: `${props.maxHeight}px`,
                   }}
-                  onScroll={(e: MouseEvent<HTMLDivElement>) => handleScroll(e, deep + 1)}
+                  onScroll={(e: React.MouseEvent<HTMLDivElement>) => handleScroll(e, deep + 1)}
                 >
                   <ul>{optionItem.children as React.ReactNode}</ul>
                 </div>
