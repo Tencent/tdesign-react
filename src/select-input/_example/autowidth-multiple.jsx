@@ -4,29 +4,31 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__panel-options-borderless-multiple {
+.tdesign-demo__panel-options-autowidth-multiple {
   width: 100%;
-  display: block;
-  padding: 4px 0;
+  padding: 2px 0;
+  margin: 0 -2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.tdesign-demo__panel-options-borderless-multiple .t-checkbox {
-  display: block;
+
+.tdesign-demo__panel-options-autowidth-multiple .t-checkbox {
+  display: flex;
   border-radius: 3px;
-  height: 40px;
   line-height: 22px;
   cursor: pointer;
-  padding: 9px 8px;
+  padding: 3px 8px;
   color: var(--td-text-color-primary);
-  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  transition: background-color 0.2s linear;
   white-space: nowrap;
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  margin-bottom: 4px;
 }
 
-.tdesign-demo__panel-options-borderless-multiple .t-checkbox:hover {
+.tdesign-demo__panel-options-autowidth-multiple .t-checkbox:hover {
   background-color: var(--td-bg-color-container-hover);
 }
 </style>
@@ -101,7 +103,7 @@ export default function SelectInputAutocomplete() {
 
   // 如果需要输入框宽度自适应，可以使用 autoWidth
   return (
-    <div className="tdesign-demo__select-input-borderless-multiple" style={{ width: '100%' }}>
+    <div className="tdesign-demo__select-input-autowidth-multiple" style={{ width: '100%' }}>
       <SelectInput
         value={value}
         minCollapsedNum={1}
@@ -116,7 +118,7 @@ export default function SelectInputAutocomplete() {
           <Checkbox.Group
             value={checkboxValue}
             options={options}
-            className="tdesign-demo__panel-options-borderless-multiple"
+            className="tdesign-demo__panel-options-autowidth-multiple"
             onChange={onCheckedChange}
           />
         }

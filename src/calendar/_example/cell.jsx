@@ -1,10 +1,8 @@
 import React from 'react';
-import { Calendar } from 'tdesign-react';
+import { Calendar, Tag, Space } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 export default function CalendarExample() {
-  const defaultValue = React.useMemo(() => new Date(), []);
-
   const displayNum = React.useCallback((date) => {
     if (date.mode === 'month') {
       return date.date.getDate();
@@ -17,7 +15,7 @@ export default function CalendarExample() {
 
   const dataList = [
     {
-      value: 'error',
+      value: 'danger',
       label: '错误事件',
     },
     {
@@ -32,26 +30,19 @@ export default function CalendarExample() {
 
   return (
     <Calendar
-      defaultValue={defaultValue}
       cell={(cellData) => (
-        <>
-          <div className="outerWarper">
-            <div className="number">{displayNum(cellData)}</div>
-            {isShow(cellData) && (
-              <>
-                <div className="slotWarper">
-                  {dataList.map((item, index) => (
-                    <div className="item" key={index}>
-                      <span className={item.value} />
-                      {item.label}
-                    </div>
-                  ))}
-                </div>
-                <div className="shadow" />
-              </>
-            )}
-          </div>
-        </>
+        <div style={{ width: '100%' }}>
+          <div>{displayNum(cellData)}</div>
+          {isShow(cellData) && (
+            <Space direction="vertical" size={2}>
+              {dataList.map((item, index) => (
+                <Tag key={index} theme={item.value}>
+                  {item.label}
+                </Tag>
+              ))}
+            </Space>
+          )}
+        </div>
       )}
     />
   );
