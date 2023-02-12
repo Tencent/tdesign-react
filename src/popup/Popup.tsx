@@ -154,7 +154,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
         <CSSTransition
           appear
           timeout={0}
-          in={visible}
           nodeRef={popupRef}
           {...getTransitionParams({
             classPrefix,
