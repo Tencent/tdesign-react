@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
 
-import SelectInput, { SelectInputValueChangeContext } from '../select-input';
+import SelectInput, { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
 
@@ -81,14 +81,14 @@ const TimePicker = forwardRefWithStatics(
       }
     };
 
-    const handleInputBlur = (value: string, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
+    const handleInputBlur: SelectInputProps['onBlur'] = (value, ctx) => {
       if (allowInput) {
         const isValidTime = validateInputValue(currentValue, format);
         if (isValidTime) {
           onChange(formatInputValue(currentValue, format));
         }
       }
-      onBlur({ value, e });
+      onBlur({ value: String(value), ...ctx });
     };
 
     const handleClickConfirm = () => {

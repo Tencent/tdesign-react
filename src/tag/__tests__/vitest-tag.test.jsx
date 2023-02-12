@@ -6,9 +6,18 @@
  */
 import React from 'react';
 import { fireEvent, vi, render } from '@test/utils';
-import { Tag } from '..';
+import { Tag, CheckTag } from '..';
 
 describe('Tag Component', () => {
+  it('props.children works fine', () => {
+    const { container } = render(
+      <Tag>
+        <span className="custom-node">TNode</span>
+      </Tag>,
+    );
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
   it('props.closable: Tag contains element `.t-tag__icon-close`', () => {
     // closable default value is false
     const { container } = render(<Tag></Tag>);
@@ -40,24 +49,36 @@ describe('Tag Component', () => {
   });
 
   it(`props.maxWidth is equal to 150px`, () => {
-    const { container } = render(<Tag maxWidth="150px" content="This is a long long long long long tag"></Tag>);
+    const { container } = render(<Tag maxWidth={'150px'} content={'This is a long long long long long tag'}></Tag>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.maxWidth).toBe('150px');
     const domWrapper1 = container.querySelector('.t-tag--text');
     expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
   });
 
-  ['square', 'round', 'mark'].forEach((item) => {
+  const shapeClassNameList = [{ 't-tag--square': false }, 't-tag--round', 't-tag--mark'];
+  ['square', 'round', 'mark'].forEach((item, index) => {
     it(`props.shape is equal to ${item}`, () => {
       const { container } = render(<Tag shape={item}></Tag>);
-      expect(container.firstChild).toHaveClass(`t-tag--${item}`);
+      if (typeof shapeClassNameList[index] === 'string') {
+        expect(container.firstChild).toHaveClass(shapeClassNameList[index]);
+      } else if (typeof shapeClassNameList[index] === 'object') {
+        const classNameKey = Object.keys(shapeClassNameList[index])[0];
+        expect(container.querySelector(`.${classNameKey}`)).toBeFalsy();
+      }
     });
   });
 
-  ['small', 'medium', 'large'].forEach((item) => {
+  const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
+  ['small', 'medium', 'large'].forEach((item, index) => {
     it(`props.size is equal to ${item}`, () => {
       const { container } = render(<Tag size={item}></Tag>);
-      expect(container.firstChild).toHaveClass(`t-tag--${item}`);
+      if (typeof sizeClassNameList[index] === 'string') {
+        expect(container.firstChild).toHaveClass(sizeClassNameList[index]);
+      } else if (typeof sizeClassNameList[index] === 'object') {
+        const classNameKey = Object.keys(sizeClassNameList[index])[0];
+        expect(container.querySelector(`.${classNameKey}`)).toBeFalsy();
+      }
     });
   });
 
@@ -79,7 +100,7 @@ describe('Tag Component', () => {
     const fn = vi.fn();
     const { container } = render(<Tag onClick={fn}></Tag>);
     fireEvent.click(container.firstChild);
-    expect(fn).toHaveBeenCalled(1);
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].e.type).toBe('click');
   });
 
@@ -87,7 +108,23 @@ describe('Tag Component', () => {
     const onCloseFn = vi.fn();
     const { container } = render(<Tag closable={true} onClose={onCloseFn}></Tag>);
     fireEvent.click(container.querySelector('.t-tag__icon-close'));
-    expect(onCloseFn).toHaveBeenCalled(1);
+    expect(onCloseFn).toHaveBeenCalled();
     expect(onCloseFn.mock.calls[0][0].e.type).toBe('click');
+  });
+});
+
+describe('CheckTag Component', () => {
+  it('props.children works fine', () => {
+    const { container } = render(
+      <CheckTag>
+        <span className="custom-node">TNode</span>
+      </CheckTag>,
+    );
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.content works fine', () => {
+    const { container } = render(<CheckTag content={<span className="custom-node">TNode</span>}></CheckTag>);
+    expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 });

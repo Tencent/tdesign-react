@@ -91,7 +91,7 @@ const Avatar = forwardRefWithStatics(
     const avatarClass = classNames(preClass, className, {
       [SIZE[size]]: !!SIZE[size],
       [`${preClass}--${shape}`]: !!shape,
-      [`${preClass}-icon`]: !!icon,
+      [`${preClass}__icon`]: !!icon,
     });
     let renderChildren;
     if (image && isImgExist) {

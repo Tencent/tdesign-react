@@ -7,6 +7,7 @@
 import React from 'react';
 import { fireEvent, vi, render, mockDelay } from '@test/utils';
 import { SelectInput } from '..';
+import { getSelectInputMultipleMount } from './mount';
 
 describe('SelectInput Component', () => {
   it(`props.allowInput is equal to true`, () => {
@@ -33,17 +34,34 @@ describe('SelectInput Component', () => {
     await mockDelay();
     expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
   });
+
   it('props.clearable: show clear icon on mouse enter in single select input', async () => {
-    const { container } = render(<SelectInput value="tdesign" clearable={true}></SelectInput>);
+    const { container } = render(<SelectInput value={'tdesign'} clearable={true}></SelectInput>);
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
   });
+
   it('props.clearable: show clear icon on mouse enter in multiple select input', async () => {
     const { container } = render(<SelectInput value={['tdesign']} multiple={true} clearable={true}></SelectInput>);
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
+  });
+
+  it('props.collapsedItems works fine', () => {
+    const { container } = getSelectInputMultipleMount(SelectInput, {
+      collapsedItems: <span className="custom-node">TNode</span>,
+      minCollapsedNum: 3,
+    });
+    expect(container.querySelector('.custom-node')).toBeTruthy();
+  });
+
+  it('props.collapsedItems is a function with params', () => {
+    const fn = vi.fn();
+    getSelectInputMultipleMount(SelectInput, { collapsedItems: fn, minCollapsedNum: 3 });
+    expect(fn).toHaveBeenCalled();
+    expect(fn.mock.calls[0][0].count).toBe(2);
   });
 
   it('props.disabled works fine', () => {
@@ -91,24 +109,9 @@ describe('SelectInput Component', () => {
   });
 
   it('props.placeholder works fine', () => {
-    const wrapper = render(<SelectInput placeholder="This is SelectInput placeholder"></SelectInput>);
+    const wrapper = render(<SelectInput placeholder={'This is SelectInput placeholder'}></SelectInput>);
     const container = wrapper.container.querySelector('input');
     expect(container.getAttribute('placeholder')).toBe('This is SelectInput placeholder');
-  });
-
-  it('props.readonly works fine', () => {
-    // readonly default value is false
-    const wrapper1 = render(<SelectInput></SelectInput>);
-    const container1 = wrapper1.container.querySelector('.t-input');
-    expect(container1.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
-    // readonly = true
-    const wrapper2 = render(<SelectInput readonly={true}></SelectInput>);
-    const container2 = wrapper2.container.querySelector('.t-input');
-    expect(container2).toHaveClass('t-is-readonly');
-    // readonly = false
-    const wrapper3 = render(<SelectInput readonly={false}></SelectInput>);
-    const container3 = wrapper3.container.querySelector('.t-input');
-    expect(container3.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
   });
 
   const statusClassNameList = [{ 't-is-default': false }, 't-is-success', 't-is-warning', 't-is-error'];
@@ -140,7 +143,7 @@ describe('SelectInput Component', () => {
       <SelectInput
         tag={<span className="custom-node">TNode</span>}
         multiple={true}
-        value={['tdesign-vue', 'tdesign-react']}
+        value={['tdesign-vue']}
       ></SelectInput>,
     );
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -148,13 +151,13 @@ describe('SelectInput Component', () => {
 
   it('props.tag is a function with params', () => {
     const fn = vi.fn();
-    render(<SelectInput tag={fn} multiple={true} value={['tdesign-vue', 'tdesign-react']}></SelectInput>);
-    expect(fn).toHaveBeenCalled(1);
+    render(<SelectInput tag={fn} multiple={true} value={['tdesign-vue']}></SelectInput>);
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].value).toBe('tdesign-vue');
   });
 
   it('props.tips is equal this is a tip', () => {
-    const { container } = render(<SelectInput tips="this is a tip"></SelectInput>);
+    const { container } = render(<SelectInput tips={'this is a tip'}></SelectInput>);
     expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
   });
 });

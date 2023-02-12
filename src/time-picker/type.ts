@@ -9,6 +9,7 @@ import { PopupProps } from '../popup';
 import { RangeInputProps } from '../range-input';
 import { TNode } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
+import { SelectInputBlurContext } from '../select-input';
 
 export interface TdTimePickerProps {
   /**
@@ -91,7 +92,7 @@ export interface TdTimePickerProps {
   /**
    * 当输入框失去焦点时触发，value 表示组件当前有效值
    */
-  onBlur?: (context: { value: TimePickerValue; e: FocusEvent<HTMLDivElement> }) => void;
+  onBlur?: (context: { value: TimePickerValue } & SelectInputBlurContext) => void;
   /**
    * 选中值发生变化时触发
    */

@@ -36,17 +36,15 @@ export default function useTagList(props: TagInputProps) {
   const onInnerEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const valueStr = value ? String(value).trim() : '';
     let newValue: TagInputValue = tagValue;
-    if (valueStr) {
-      const isLimitExceeded = max && tagValue?.length >= max;
-      if (!isLimitExceeded) {
-        newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
-        setTagValue(newValue, {
-          trigger: 'enter',
-          index: newValue.length - 1,
-          item: valueStr,
-          e: context.e,
-        });
-      }
+    const isLimitExceeded = max && tagValue?.length >= max;
+    if (valueStr && !isLimitExceeded) {
+      newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
+      setTagValue(newValue, {
+        trigger: 'enter',
+        index: newValue.length - 1,
+        item: valueStr,
+        e: context.e,
+      });
     }
     props?.onEnter?.(newValue, { ...context, inputValue: value });
   };
@@ -99,7 +97,7 @@ export default function useTagList(props: TagInputProps) {
       const len = tagValue.length - newList.length;
       const params = {
         value: tagValue,
-        count: tagValue.length,
+        count: tagValue.length - minCollapsedNum,
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;
