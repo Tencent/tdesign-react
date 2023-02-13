@@ -199,6 +199,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     getPopper: () => popperRef.current,
     getPopupElement: () => popupRef.current,
     getPortalElement: () => portalRef.current,
+    getPopupContentElement: () => contentRef.current,
     setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
   }));
 

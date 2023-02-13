@@ -1,4 +1,4 @@
-import React, { useEffect, Ref, useMemo, KeyboardEvent } from 'react';
+import React, { useEffect, Ref, useMemo, KeyboardEvent, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -20,6 +20,7 @@ import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 import { PopupVisibleChangeContext } from '../../popup';
 import useOptions from '../hooks/useOptions';
+import composeRefs from '../../_util/composeRefs';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -78,9 +79,11 @@ const Select = forwardRefWithStatics(
       selectInputProps,
       tagInputProps,
       tagProps,
+      scroll,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
+    const selectInputRef = useRef(null);
     const { classPrefix } = useConfig();
     const { overlayClassName, ...restPopupProps } = popupProps || {};
 
@@ -107,7 +110,7 @@ const Select = forwardRefWithStatics(
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
       setShowPopup(visible, ctx);
-      visible && onInputChange('');
+      visible && filterable && onInputChange('');
     };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
@@ -257,6 +260,7 @@ const Select = forwardRefWithStatics(
 
       return showArrow && <FakeArrow className={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
     };
+    const getPopupInstance = useCallback(() => (selectInputRef as any).current.getPopupContentElement(), []);
 
     // 渲染主体内容
     const renderContent = () => {
@@ -279,6 +283,8 @@ const Select = forwardRefWithStatics(
         panelBottomContent,
         panelTopContent,
         onCheckAllChange,
+        getPopupInstance,
+        scroll,
       };
       return <PopupContent {...popupContentProps}>{children}</PopupContent>;
     };
@@ -368,7 +374,7 @@ const Select = forwardRefWithStatics(
       >
         <SelectInput
           autoWidth={!style?.width && autoWidth}
-          ref={ref}
+          ref={composeRefs(ref, selectInputRef)}
           className={name}
           readonly={readonly}
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
@@ -381,6 +387,7 @@ const Select = forwardRefWithStatics(
           tips={props.tips}
           borderless={borderless}
           label={prefixIcon}
+          suffix={props.suffix}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
