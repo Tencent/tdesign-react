@@ -13,9 +13,9 @@ export default function BasicComment() {
   }
 
   const replyForm = (
-    <Space direction="vertical" align="end">
+    <Space direction="vertical" align="end" style={{ width: '100%' }}>
       <Textarea placeholder="请输入内容" value={replyData} onChange={setReplayData} />
-      <Button onClick={submitReply}>回复</Button>
+      <Button style={{ float: 'right' }} onClick={submitReply}>回复</Button>
     </Space>
   );
 

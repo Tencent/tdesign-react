@@ -4,28 +4,28 @@ import { SearchIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__selet-input-ul-autocomplete,
-.tdesign-demo__selet-input-ul-autocomplete > li {
-  list-style: none;
+.tdesign-demo__select-input-ul-autocomplete {
   padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tdesign-demo__select-input-ul-autocomplete > li {
+  display: block;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.tdesign-demo__selet-input-ul-autocomplete > li {
-  line-height: 40px;
-  min-width: 200px;
-  padding: 0 8px;
-}
-
-.tdesign-demo__selet-input-ul-autocomplete > li:hover {
+.tdesign-demo__select-input-ul-autocomplete > li:hover {
   background-color: var(--td-bg-color-container-hover);
-}
-
-.tdesign-demo__selet-input-ul-autocomplete > li > img {
-  max-width: 20px;
-  max-height: 20px;
-  vertical-align: middle;
-  margin-right: 8px;
 }
 </style>
 `;
@@ -70,16 +70,16 @@ export default function SelectInputAutocomplete() {
         onInputChange={onInputChange}
         onPopupVisibleChange={onPopupVisibleChange}
         panel={
-          <ul className="tdesign-demo__selet-input-ul-autocomplete">
-            {options.map(item => (
+          <ul className="tdesign-demo__select-input-ul-autocomplete">
+            {options.map((item) => (
               <li key={item} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> { item }
+                {item}
               </li>
             ))}
           </ul>
         }
         suffixIcon={<SearchIcon />}
-      ></SelectInput>
+      />
     </div>
-  )
+  );
 }

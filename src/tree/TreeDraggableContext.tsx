@@ -47,11 +47,11 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
   const onDrop = (context: { node: TreeNode; dropPosition: number; e: DragEvent<HTMLDivElement> }) => {
     const { node, dropPosition } = context;
     if (
-      node.value === dragNode.current.value ||
-      node.getParents().some((_node) => _node.value === dragNode.current.value)
-    )
+      node.value === dragNode.current?.value ||
+      node.getParents().some((_node) => _node.value === dragNode.current?.value)
+    ) {
       return;
-
+    }
     const nodes = store.getNodes() as TreeNode[];
     nodes.some((_node) => {
       if (_node.value === node.value) {
@@ -68,7 +68,7 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
     });
     props.onDrop?.({
       ...context,
-      dragNode: dragNode.current.model,
+      dragNode: dragNode.current?.model,
       dropNode: node.model,
     });
   };
