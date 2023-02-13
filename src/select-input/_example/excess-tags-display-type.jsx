@@ -3,14 +3,30 @@ import { SelectInput, Checkbox } from 'tdesign-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__panel-options-excess {
+.tdesign-demo__panel-options-excess-tags-display-type {
   width: 100%;
-  display: block;
-  padding: 12px
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.tdesign-demo__panel-options-excess .t-checkbox {
-  display: block;
-  width: 100%
+.tdesign-demo__panel-options-excess-tags-display-type .t-checkbox {
+  display: flex;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 0;
+}
+
+.tdesign-demo__panel-options-excess-tags-display-type .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
 }
 </style>
 `;
@@ -84,7 +100,7 @@ export default function SelectInputExcessTagsDisplayType() {
   }, []);
 
   return (
-    <div className="tdesign-demo__select-input-multiple" style={{ width: 'width: 100%' }}>
+    <div className="tdesign-demo__select-input-excess-tags-display-type" style={{ width: 'width: 100%' }}>
       {/* <!-- excessTagsDisplayType: 'scroll'，超出时，滚动显示 --> */}
       <p>第一种呈现方式：超出时滚动显示</p>
       <br />
@@ -100,11 +116,11 @@ export default function SelectInputExcessTagsDisplayType() {
           <Checkbox.Group
             value={checkboxValue}
             options={options}
-            className="tdesign-demo__panel-options-excess"
+            className="tdesign-demo__panel-options-excess-tags-display-type"
             onChange={onCheckedChange}
           />
         }
-      ></SelectInput>
+      />
 
       <br />
       <br />
@@ -125,11 +141,11 @@ export default function SelectInputExcessTagsDisplayType() {
           <Checkbox.Group
             value={checkboxValue}
             options={options}
-            className="tdesign-demo__panel-options-excess"
+            className="tdesign-demo__panel-options-excess-tags-display-type"
             onChange={onCheckedChange}
           />
         }
-      ></SelectInput>
+      />
     </div>
   );
 }

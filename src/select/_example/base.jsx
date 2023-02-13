@@ -20,6 +20,6 @@ export default function SingleSelect() {
         { label: '物联网', value: '4', disabled: true },
         { label: '人工智能', value: '5', content: <span>人工智能（新）</span> },
       ]}
-    ></Select>
+    />
   );
 }

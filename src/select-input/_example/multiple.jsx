@@ -5,18 +5,28 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 const classStyles = `
 <style>
 .tdesign-demo__panel-options-multiple {
-  display: block;
   width: 100%;
-  padding: 12px
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .tdesign-demo__panel-options-multiple .t-checkbox {
-  display: block;
-  width: 100%
+  display: flex;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
-.tdesign-demo__select-empty-multiple {
-  text-align: center;
-  color: var(--td-text-color-disabled);
-  line-height: 32px;
+.tdesign-demo__panel-options-multiple .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
 }
 </style>
 `;
@@ -165,7 +175,7 @@ export default function SelectInputMultiple() {
         onTagChange={onTagChange}
         onInputChange={onInputChange}
         onEnter={onInputEnter}
-      ></SelectInput>
+      />
     </div>
   );
 }

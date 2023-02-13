@@ -66,26 +66,16 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, fail 
           <div
             class="t-upload__dragger-btns"
           >
-            <button
-              class="t-upload__dragger-progress-reupload t-button t-button--theme-primary t-button--variant-text"
-              type="button"
+            <a
+              class="t-upload__dragger-progress-reupload t-link t-link--theme-primary t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                重新选择
-              </span>
-            </button>
-            <button
-              class="t-upload__dragger-delete-btn t-button t-button--theme-danger t-button--variant-text"
-              type="button"
+              重新选择
+            </a>
+            <a
+              class="t-upload__dragger-delete-btn t-link t-link--theme-danger t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                删除
-              </span>
-            </button>
+              删除
+            </a>
           </div>
         </div>
       </div>
@@ -177,16 +167,11 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, progr
           <div
             class="t-upload__dragger-btns"
           >
-            <button
-              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
-              type="button"
+            <a
+              class="t-upload__dragger-progress-cancel t-link t-link--theme-primary t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                取消上传
-              </span>
-            </button>
+              取消上传
+            </a>
           </div>
         </div>
       </div>
@@ -261,26 +246,16 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
           <div
             class="t-upload__dragger-btns"
           >
-            <button
-              class="t-upload__dragger-progress-reupload t-button t-button--theme-primary t-button--variant-text"
-              type="button"
+            <a
+              class="t-upload__dragger-progress-reupload t-link t-link--theme-primary t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                重新选择
-              </span>
-            </button>
-            <button
-              class="t-upload__dragger-delete-btn t-button t-button--theme-danger t-button--variant-text"
-              type="button"
+              重新选择
+            </a>
+            <a
+              class="t-upload__dragger-delete-btn t-link t-link--theme-danger t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                删除
-              </span>
-            </button>
+              删除
+            </a>
           </div>
         </div>
       </div>
@@ -355,26 +330,16 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
           <div
             class="t-upload__dragger-btns"
           >
-            <button
-              class="t-upload__dragger-progress-reupload t-button t-button--theme-primary t-button--variant-text"
-              type="button"
+            <a
+              class="t-upload__dragger-progress-reupload t-link t-link--theme-primary t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                重新选择
-              </span>
-            </button>
-            <button
-              class="t-upload__dragger-delete-btn t-button t-button--theme-danger t-button--variant-text"
-              type="button"
+              重新选择
+            </a>
+            <a
+              class="t-upload__dragger-delete-btn t-link t-link--theme-danger t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                删除
-              </span>
-            </button>
+              删除
+            </a>
           </div>
         </div>
       </div>
@@ -433,16 +398,11 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, waiti
           <div
             class="t-upload__dragger-btns"
           >
-            <button
-              class="t-upload__dragger-progress-cancel t-button t-button--theme-primary t-button--variant-text"
-              type="button"
+            <a
+              class="t-upload__dragger-progress-cancel t-link t-link--theme-primary t-link--hover-color"
             >
-              <span
-                class="t-button__text"
-              >
-                取消上传
-              </span>
-            </button>
+              取消上传
+            </a>
           </div>
         </div>
       </div>
@@ -551,16 +511,11 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
               </div>
             </td>
             <td>
-              <button
-                class="t-upload__delete t-button t-button--theme-primary t-button--variant-text"
-                type="button"
+              <a
+                class="t-upload__delete t-link t-link--theme-primary t-link--hover-color"
               >
-                <span
-                  class="t-button__text"
-                >
-                  删除
-                </span>
-              </button>
+                删除
+              </a>
             </td>
           </tr>
           <tr>
@@ -595,16 +550,11 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
               </div>
             </td>
             <td>
-              <button
-                class="t-upload__delete t-button t-button--theme-primary t-button--variant-text"
-                type="button"
+              <a
+                class="t-upload__delete t-link t-link--theme-primary t-link--hover-color"
               >
-                <span
-                  class="t-button__text"
-                >
-                  删除
-                </span>
-              </button>
+                删除
+              </a>
             </td>
           </tr>
           <tr>
@@ -639,16 +589,11 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
               </div>
             </td>
             <td>
-              <button
-                class="t-upload__delete t-button t-button--theme-primary t-button--variant-text"
-                type="button"
+              <a
+                class="t-upload__delete t-link t-link--theme-primary t-link--hover-color"
               >
-                <span
-                  class="t-button__text"
-                >
-                  删除
-                </span>
-              </button>
+                删除
+              </a>
             </td>
           </tr>
           <tr>
@@ -694,16 +639,11 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
               </div>
             </td>
             <td>
-              <button
-                class="t-upload__delete t-button t-button--theme-primary t-button--variant-text"
-                type="button"
+              <a
+                class="t-upload__delete t-link t-link--theme-primary t-link--hover-color"
               >
-                <span
-                  class="t-button__text"
-                >
-                  删除
-                </span>
-              </button>
+                删除
+              </a>
             </td>
           </tr>
         </tbody>

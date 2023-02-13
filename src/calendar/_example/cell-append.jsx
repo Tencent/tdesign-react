@@ -9,18 +9,19 @@ export default function CalendarExample() {
       : data.date.getMonth() === new Date().getMonth();
 
   return (
-    <>
-      <Calendar
-        cellAppend={(cellData) =>
-          getShow(cellData) && (
-            <div className="cell-append-demo-outer">
-              <Tag theme="primary" size="small">
-                {cellData.mode === 'month' ? '今天' : '本月'}
-              </Tag>
-            </div>
-          )
-        }
-      />
-    </>
+    <Calendar
+      cellAppend={(cellData) =>
+        getShow(cellData) && (
+          <div className="cell-append-demo-outer">
+            <Tag theme="success" variant="light" size="small" className="activeTag" style={{ width: '100%' }}>
+              {cellData.mode == 'month' ? '我们的纪念日' : '我们的纪念月'}
+            </Tag>
+            <Tag theme="warning" variant="light" size="small" className="activeTag" style={{ width: '100%' }}>
+              {cellData.mode == 'month' ? '家庭聚会' : '家庭聚会'}
+            </Tag>
+          </div>
+        )
+      }
+    />
   );
 }
