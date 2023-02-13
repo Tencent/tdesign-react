@@ -2,7 +2,20 @@ import React from 'react';
 import { Comment } from 'tdesign-react';
 import { CaretRightSmallIcon, ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
+const classStyles = `
+<style>
+.comment-reply > .t-comment__inner > .t-comment__content > .t-comment__actions {
+  margin-right: 24px;
+}
+</style>
+`;
+
 export default function replyComment() {
+  React.useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   const actions = [
     <React.Fragment key="ThumbUp">
       <ThumbUpIcon size="16px" />
