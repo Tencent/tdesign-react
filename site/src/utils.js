@@ -9,17 +9,16 @@ export function getRoute(list, docRoutes) {
 }
 
 // 过滤小版本号
-export function filterVersions(versions = [], deep = 1) {
-  const versionMap = Object.create(null);
+export function filterVersions(versions = []) {
+  const versionMap = new Map();
 
   versions.forEach((v) => {
+    if (v.includes('alpha') || v.includes('patch')) return false;
     const nums = v.split('.');
-    versionMap[nums[deep]] = v;
+    versionMap.set(`${nums[0]}.${nums[1]}`, v);
   });
 
-  return Object.values(versionMap)
-    .sort((a, b) => {
-      return Number(a.split('.').slice(0, 2).join('.')) - Number(b.split('.').slice(0, 2).join('.'));
-    })
-    .filter((v) => !v.includes('alpha') && !v.includes('patch'));
+  return [...versionMap.values()].sort((a, b) => {
+    return Number(a.split('.').slice(0, 2).join('.')) - Number(b.split('.').slice(0, 2).join('.'));
+  });
 }
