@@ -17,20 +17,20 @@ export default function FooterCard() {
       footer={
         <Row align="middle" justify="center">
           <Col flex="auto" align="middle">
-            <Button block variant="text">
-              <ThumbUpIcon size={24}></ThumbUpIcon>
+            <Button variant="text">
+              <ThumbUpIcon></ThumbUpIcon>
             </Button>
           </Col>
           <Divider layout="vertical"></Divider>
           <Col flex="auto" align="middle">
-            <Button block variant="text">
-              <ChatIcon size={24}></ChatIcon>
+            <Button variant="text">
+              <ChatIcon></ChatIcon>
             </Button>
           </Col>
           <Divider layout="vertical"></Divider>
           <Col flex="auto" align="middle">
-            <Button block variant="text">
-              <ShareIcon size={24}></ShareIcon>
+            <Button variant="text">
+              <ShareIcon></ShareIcon>
             </Button>
           </Col>
         </Row>

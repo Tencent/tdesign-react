@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar } from 'tdesign-react';
+import { Calendar, Space, Tag } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 export default function CalendarExample() {
@@ -15,7 +15,7 @@ export default function CalendarExample() {
 
   const dataList = [
     {
-      value: 'error',
+      value: 'danger',
       label: '错误事件',
     },
     {
@@ -42,20 +42,16 @@ export default function CalendarExample() {
       head={renderHead}
       cell={(cellData) => (
         <>
-          <div className="outerWarper">
-            <div className="number">{displayNum(cellData)}</div>
+          <div style={{ width: '100%' }}>
+            <div>{displayNum(cellData)}</div>
             {isShow(cellData) && (
-              <>
-                <div className="slotWarper">
-                  {dataList.map((item, index) => (
-                    <div className="item" key={index}>
-                      <span className={item.value} />
-                      {item.label}
-                    </div>
-                  ))}
-                </div>
-                <div className="shadow" />
-              </>
+              <Space direction="vertical" size={2}>
+                {dataList.map((item, index) => (
+                  <Tag key={index} theme={item.value}>
+                    {item.label}
+                  </Tag>
+                ))}
+              </Space>
             )}
           </div>
         </>

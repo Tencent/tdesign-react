@@ -159,14 +159,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderNormalActionCol = (file: UploadFile, index: number) => (
     <td>
-      <TButton
+      <Link
         theme="primary"
-        variant="text"
+        hover="color"
         className={`${uploadPrefix}__delete`}
         onClick={(e) => props.onRemove({ e, index, file })}
       >
         {locale?.triggerUploadText?.delete}
-      </TButton>
+      </Link>
     </td>
   );
 
@@ -175,14 +175,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     // 第一行数据才需要合并单元格
     index === 0 ? (
       <td rowSpan={displayFiles.length} className={`${uploadPrefix}__flow-table__batch-row`}>
-        <TButton
+        <Link
           theme="primary"
-          variant="text"
+          hover="color"
           className={`${uploadPrefix}__delete`}
           onClick={(e) => props.onRemove({ e, index: -1, file: undefined })}
         >
           {locale?.triggerUploadText?.delete}
-        </TButton>
+        </Link>
       </td>
     ) : null;
 
