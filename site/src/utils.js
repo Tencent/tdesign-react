@@ -9,13 +9,17 @@ export function getRoute(list, docRoutes) {
 }
 
 // 过滤小版本号
-export function filterVersions(versions = [], deep = 1) {
+export function filterVersions(versions = []) {
   const versionMap = Object.create(null);
 
-  versions.forEach(v => {
+  versions.forEach((v) => {
     const nums = v.split('.');
     versionMap[nums[deep]] = v;
   });
 
-  return Object.values(versionMap);
+  return Object.values(versionMap)
+    .sort((a, b) => {
+      return semver.gt(b, a) ? -1 : 1;
+    })
+    .filter((v) => !v.includes('alpha') && !v.includes('patch'));
 }
