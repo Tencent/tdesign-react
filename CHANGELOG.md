@@ -5,6 +5,15 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.0 `2023-02-13` 
+### 🚀 Features
+- `Dropdown`: submenu层级结构调整，增加一层`t-dropdown__submenu-wrapper` @uyarn ([#1964](https://github.com/Tencent/tdesign-react/pull/1964))
+
+### 🐞 Bug Fixes
+- `Tree`: 修复使用 setItem 设置节点expanded 时，不触发 onExpand 的问题 @genyuMPj ([#1956](https://github.com/Tencent/tdesign-react/pull/1956))
+- `Dropdown`: 修复多层超长菜单的位置异常问题 @uyarn ([#1964](https://github.com/Tencent/tdesign-react/pull/1964))
+
+
 ## 🌈 0.45.6 `2023-02-08` 
 ### 🚀 Features
 - `Input`: 点击 Input 输入框中的任意元素，自动触发聚焦 @chaishi ([#1950](https://github.com/Tencent/tdesign-react/pull/1950))
