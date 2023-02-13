@@ -50,7 +50,7 @@ function Components() {
       .then((res) => res.json())
       .then((res) => {
         const options = [];
-        const versions = filterVersions(res.versions);
+        const versions = filterVersions(Object.keys(res.versions));
 
         versions.forEach((v) => {
           const nums = v.split('.');
