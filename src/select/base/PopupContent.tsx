@@ -7,7 +7,7 @@ import useConfig from '../../hooks/useConfig';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import Option, { SelectOptionProps } from './Option';
 
-type OptionsType = Array<TdOptionProps & { $index?: number }>;
+type OptionsType = TdOptionProps[];
 
 interface SelectPopupProps
   extends Pick<
