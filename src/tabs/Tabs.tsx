@@ -17,7 +17,6 @@ const Tabs = forwardRefWithStatics(
   (props: TabsProps, ref) => {
     const { children, list, placement, onRemove, value: tabValue, onChange, className, style } = props;
     let { defaultValue } = props;
-
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
     const targetClassNameRegExpStr = `^${tdTabsClassPrefix}(__nav-item|__nav-item-wrapper|__nav-item-text-wrapper)`;
