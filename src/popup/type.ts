@@ -95,6 +95,10 @@ export interface TdPopupProps {
    */
   onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
   /**
+   * 下拉滚动触底事件，常用于滚动到底执行具体业务逻辑
+   */
+  onScrollToBottom?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
+  /**
    * 当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=context-menu` 表示右击触发
    */
   onVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
@@ -127,5 +131,6 @@ export type PopupTriggerSource =
   | 'trigger-element-hover'
   | 'trigger-element-blur'
   | 'trigger-element-focus'
+  | 'trigger-element-mousedown'
   | 'context-menu'
   | 'keydown-esc';

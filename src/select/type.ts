@@ -12,7 +12,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
 import { PopupVisibleChangeContext } from '../popup';
-import { TNode, TElement, SizeEnum, TScroll } from '../common';
+import { PlainObject, TNode, TElement, SizeEnum, InfinityScroll } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
@@ -21,6 +21,11 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * @default false
    */
   autoWidth?: boolean;
+  /**
+   * 自动聚焦
+   * @default false
+   */
+  autofocus?: boolean;
   /**
    * 无边框模式
    * @default false
@@ -32,7 +37,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   clearable?: boolean;
   /**
-   * 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义
+   * 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedTags` 表示折叠的标签，泛型 `T` 继承 `SelectOption`，表示选项数据；`count` 表示折叠的数量
    */
   collapsedItems?: TNode<{ value: T[]; collapsedSelectedItems: T[]; count: number }>;
   /**
@@ -49,11 +54,11 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   empty?: TNode;
   /**
-   * 自定义过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据
+   * 自定义搜索规则，用于对现有数据进行搜索，判断是否过滤某一项数据。参数 `filterWords` 表示搜索词，`option`表示单个选项内容，返回值为 `true` 保留该选项，返回值为 `false` 则隐藏该选项。使用该方法时无需设置 `filterable`
    */
   filter?: (filterWords: string, option: T) => boolean | Promise<boolean>;
   /**
-   * 是否可搜索
+   * 是否可搜索，默认搜索规则不区分大小写，全文本任意位置匹配。如果默认搜索规则不符合业务需求，可以更为使用 `filter` 自定义过滤规则
    */
   filterable?: boolean;
   /**
@@ -72,6 +77,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * 用来定义 value / label 在 `options` 中对应的字段别名
    */
   keys?: SelectKeysType;
+  /**
+   * 左侧文本
+   */
+  label?: TNode;
   /**
    * 是否为加载状态
    * @default false
@@ -98,7 +107,6 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   multiple?: boolean;
   /**
    * 数据化配置选项内容
-   * @default []
    */
   options?: Array<T>;
   /**
@@ -128,7 +136,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 组件前置图标
    */
-  prefixIcon?: TNode;
+  prefixIcon?: TElement;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
@@ -142,7 +150,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
    */
-  scroll?: TScroll;
+  scroll?: InfinityScroll;
   /**
    * 透传 SelectInput 筛选器输入框组件的全部属性
    */
@@ -159,8 +167,17 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   size?: SizeEnum;
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
+  /**
+   * 后置图标前的后置内容
+   */
+  suffix?: TNode;
+  /**
+   * 组件后置图标
+   */
+  suffixIcon?: TElement;
   /**
    * 透传 TagInput 标签输入框组件的全部属性
    */
@@ -182,9 +199,9 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   defaultValue?: SelectValue;
   /**
-   * 自定义选中项呈现方式
+   * 自定义选中项呈现的内容
    */
-  valueDisplay?: string | TNode<{ value: SelectValue; onClose: (index: number, item?: any) => void }>;
+  valueDisplay?: string | TNode<{ value: SelectValue; onClose: (index: number) => void; displayValue?: SelectValue }>;
   /**
    * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。
    * @default value
@@ -237,7 +254,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 输入值变化时，触发搜索事件。主要用于远程搜索新数据
    */
-  onSearch?: (filterWords: string) => void;
+  onSearch?: (filterWords: string, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
 }
 
 export interface TdOptionProps {
@@ -264,6 +281,11 @@ export interface TdOptionProps {
    * @default ''
    */
   label?: string;
+  /**
+   * 选项标题，在选项过长时hover选项展示
+   * @default ''
+   */
+  title?: string;
   /**
    * 选项值
    */
@@ -298,7 +320,7 @@ export interface SelectRemoveContext<T> {
   e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>;
 }
 
-export type SelectOption = TdOptionProps | SelectOptionGroup;
+export type SelectOption = TdOptionProps | SelectOptionGroup | PlainObject;
 
 export interface SelectOptionGroup extends TdOptionGroupProps {
   group: string;
