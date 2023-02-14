@@ -10,7 +10,7 @@ import { getSelectValueArr, getSelectedOptions } from '../util/helper';
 import noop from '../../_util/noop';
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
-import SelectInput, { SelectInputValue } from '../../select-input';
+import SelectInput, { SelectInputValue, SelectInputValueChangeContext } from '../../select-input';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
@@ -222,12 +222,12 @@ const Select = forwardRefWithStatics(
     };
 
     // 处理输入框逻辑
-    const handleInputChange = (value: string) => {
+    const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
       onInputChange(value);
       if (value === undefined) return;
 
       if (isFunction(onSearch)) {
-        onSearch(value);
+        onSearch(value, { e: context.e });
         return;
       }
     };
@@ -252,6 +252,8 @@ const Select = forwardRefWithStatics(
 
     // 渲染后置图标
     const renderSuffixIcon = () => {
+      if (props.suffixIcon) return props.suffixIcon;
+
       if (loading) {
         return (
           <Loading className={classNames(`${name}__right-icon`, `${name}__active-icon`)} loading={true} size="small" />
@@ -377,6 +379,7 @@ const Select = forwardRefWithStatics(
           ref={composeRefs(ref, selectInputRef)}
           className={name}
           readonly={readonly}
+          autofocus={props.autofocus}
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
           value={selectedLabel}

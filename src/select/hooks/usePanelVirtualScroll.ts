@@ -37,7 +37,7 @@ const usePanelVirtualScroll = ({
     translateY = null,
     handleRowMounted = null,
   } = useVirtualScroll(popupContentRef, {
-    data: options,
+    data: options || [],
     scroll: scrollParams,
   });
 
