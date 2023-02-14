@@ -42,7 +42,7 @@ const Option = (props: SelectOptionProps) => {
   const {
     disabled: propDisabled,
     label: propLabel,
-    title: proTitle,
+    title: propTitle,
     selectedValue,
     checkAll,
     multiple,
@@ -131,7 +131,7 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <span title={proTitle || (label as string)}>{children || content || label}</span>;
+    return <span title={propTitle || (label as string)}>{children || content || label}</span>;
   };
 
   return (

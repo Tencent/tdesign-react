@@ -158,7 +158,6 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
                 {...(isVirtual
                   ? {
                       rowIndex: $index,
-                      // trs,
                       scrollType: props.scroll?.type,
                       isVirtual,
                       bufferSize: props.scroll?.bufferSize,
