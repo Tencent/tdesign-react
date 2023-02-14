@@ -50,6 +50,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     disabled,
     zIndex,
     onScroll,
+    onScrollToBottom,
     expandAnimation,
     delay,
     hideEmptyPopup,
@@ -126,6 +127,13 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
 
+  function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
+    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+    if (scrollHeight - scrollTop === clientHeight) {
+      onScrollToBottom?.({ e: e as React.WheelEvent<HTMLDivElement> });
+    }
+    onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> });
+  }
   popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
     placement: popperPlacement,
     ...popperOptions,
@@ -184,7 +192,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
                 overlayInnerClassName,
               )}
               style={getOverlayStyle(overlayInnerStyle)}
-              onScroll={(e) => onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> })}
+              onScroll={handleScroll}
             >
               {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
               {content}
