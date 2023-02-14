@@ -54,6 +54,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   return (
     <div
+      {...props}
       ref={innerRef}
       onClick={disabled ? noop : onClick}
       className={classNames(
