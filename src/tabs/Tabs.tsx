@@ -8,7 +8,6 @@ import TabPanel from './TabPanel';
 import { StyledProps } from '../common';
 import { tabsDefaultProps } from './defaultProps';
 import useDragSorter from '../_util/useDragSorter';
-// import useConfig from '../hooks/useConfig';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
@@ -21,9 +20,6 @@ const Tabs = forwardRefWithStatics(
 
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
-    console.log('--tdTabsClassPrefix--', tdTabsClassPrefix);
-
-    // const targetClassNameRegExpStr = `^${tdTabsClassPrefix}__nav-item|${tdTabsClassPrefix}__nav-item-wrapper|${tdTabsClassPrefix}__nav-item-text-wrapper`;
     const targetClassNameRegExpStr = `^${tdTabsClassPrefix}(__nav-item|__nav-item-wrapper|__nav-item-text-wrapper)`;
 
     const { getDragProps } = useDragSorter({
