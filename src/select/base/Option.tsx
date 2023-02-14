@@ -8,7 +8,7 @@ import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../common';
-import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';
+import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType, SelectOption } from '../type';
 
 /**
  * Option 组件属性
@@ -33,7 +33,7 @@ export interface SelectOptionProps
   keys?: SelectKeysType;
   optionLength?: number;
   isVirtual?: boolean;
-  onRowMounted?: (rowData: any) => void;
+  onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
 }
 
 const componentType = 'select';

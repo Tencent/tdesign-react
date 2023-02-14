@@ -130,9 +130,10 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
     const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
     if (scrollHeight - scrollTop === clientHeight) {
-      onScrollToBottom?.({ e: e as React.WheelEvent<HTMLDivElement> });
+      // touch bottom
+      onScrollToBottom?.({ e });
     }
-    onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> });
+    onScroll?.({ e });
   }
   popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
     placement: popperPlacement,

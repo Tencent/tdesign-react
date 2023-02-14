@@ -138,9 +138,9 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       return (
         <ul className={`${classPrefix}-select__list`}>
           {(uniqueOptions as OptionsType).map(
-            ({ value: optionValue, label, disabled, content, children, $index, ...restData }, index) => (
+            ({ value: optionValue, label, disabled, content, children, ...restData }, index) => (
               <Option
-                key={isVirtual ? `${$index || ''}_${index}` : index}
+                key={index}
                 max={max}
                 label={label}
                 value={optionValue}
@@ -157,10 +157,9 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
                 onRowMounted={handleRowMounted}
                 {...(isVirtual
                   ? {
-                      rowIndex: $index,
-                      scrollType: props.scroll?.type,
                       isVirtual,
                       bufferSize: props.scroll?.bufferSize,
+                      scrollType: props.scroll?.type,
                     }
                   : {})}
                 {...restData}

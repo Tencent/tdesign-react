@@ -13,14 +13,12 @@ function VirtualScroll() {
       {/* 开启虚拟滚动 请为select的panel设定好height 通过popupProps进行透传  */}
       <Select
         options={options}
-        placeholder="请选择"
         style={{ width: '300px' }}
         scroll={{ type: 'virtual' }}
         popupProps={{ overlayInnerStyle: { height: '300px' } }}
       />
       <Select
         options={options}
-        placeholder="请选择"
         style={{ width: '300px' }}
         scroll={{ type: 'virtual' }}
         popupProps={{ overlayInnerStyle: { height: '300px' } }}
