@@ -1,4 +1,4 @@
-import { useEffect, useMemo, MutableRefObject, useCallback } from 'react';
+import { useEffect, useMemo, MutableRefObject, useCallback, CSSProperties } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import { TdSelectProps } from '../type';
 
@@ -18,6 +18,18 @@ const usePanelVirtualScroll = ({
     () => scrollType === 'virtual' && options?.length > scrollThreshold,
     [scrollType, scrollThreshold, options],
   );
+
+  const scrollParams = useMemo(
+    () =>
+      ({
+        type: 'virtual',
+        isFixedRowHeight: scroll?.isFixedRowHeight || false,
+        rowHeight: scroll?.rowHeight || 28, // 默认每行高度28
+        bufferSize: scroll?.bufferSize || 20,
+        threshold: scrollThreshold,
+      } as const),
+    [scroll, scrollThreshold],
+  );
   const {
     visibleData = null,
     handleScroll: handleVirtualScroll = null,
@@ -26,13 +38,7 @@ const usePanelVirtualScroll = ({
     handleRowMounted = null,
   } = useVirtualScroll(popupContentRef, {
     data: options,
-    scroll: {
-      type: 'virtual',
-      isFixedRowHeight: scroll?.isFixedRowHeight || false,
-      rowHeight: scroll?.rowHeight || 28, // 默认每行高度28
-      bufferSize: scroll?.bufferSize || 20,
-      threshold: scrollThreshold || 100,
-    },
+    scroll: scrollParams,
   });
 
   let lastScrollY = -1;
@@ -55,19 +61,18 @@ const usePanelVirtualScroll = ({
 
   // 监听popup滚动 处理虚拟滚动时的virtualData变化
   useEffect(() => {
+    const popupContentDom = popupContentRef?.current;
     if (isVirtual) {
-      console.log(popupContentRef, 'popupContentRef');
-      popupContentRef?.current?.addEventListener?.('scroll', onInnerVirtualScroll);
+      popupContentDom?.addEventListener?.('scroll', onInnerVirtualScroll);
     }
     return () => {
       // 卸载时取消监听
-
       if (isVirtual) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        popupContentRef.current?.removeEventListener?.('scroll', onInnerVirtualScroll);
+        popupContentDom?.removeEventListener?.('scroll', onInnerVirtualScroll);
       }
     };
-  }, [isVirtual, onInnerVirtualScroll, popupContentRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVirtual, onInnerVirtualScroll, popupContentRef.current]);
 
   const cursorStyle = {
     position: 'absolute',
@@ -75,17 +80,17 @@ const usePanelVirtualScroll = ({
     height: '1px',
     transition: 'transform 0.2s',
     transform: `translate(0, ${scrollHeight}px)`,
-    msTransform: `translate(0, ${scrollHeight}px)`,
-    mozTransform: `translate(0, ${scrollHeight}px)`,
-    webkitTransform: `translate(0, ${scrollHeight}px)`,
-  };
+    MsTransform: `translate(0, ${scrollHeight}px)`,
+    MozTransform: `translate(0, ${scrollHeight}px)`,
+    WebkitTransform: `translate(0, ${scrollHeight}px)`,
+  } as CSSProperties;
 
   const panelStyle = {
     transform: `translate(0, ${translateY}px)`,
-    msTransform: `translate(0, ${translateY}px)`,
-    mozTransform: `translate(0, ${translateY}px)`,
-    webkitTransform: `translate(0, ${translateY}px)`,
-  };
+    MsTransform: `translate(0, ${translateY}px)`,
+    MozTransform: `translate(0, ${translateY}px)`,
+    WebkitTransform: `translate(0, ${translateY}px)`,
+  } as CSSProperties;
 
   return {
     scrollHeight,

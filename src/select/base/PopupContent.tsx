@@ -50,14 +50,12 @@ interface SelectPopupProps
 
 const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
   const {
-    onChange,
     value,
     size,
     max,
     multiple,
     showPopup,
     setShowPopup,
-    options: propsOptions,
     empty,
     loadingText,
     loading,
@@ -66,7 +64,10 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     keys,
     panelTopContent,
     panelBottomContent,
+    onChange,
     onCheckAllChange,
+    options: propsOptions,
+    scroll: propsScroll,
   } = props;
 
   // 国际化文本初始化
@@ -75,10 +76,10 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   const popupContentRef = useRef<HTMLElement>(null);
 
   popupContentRef.current = props.getPopupInstance();
-  console.log(popupContentRef.current, '1');
+
   const { visibleData, handleRowMounted, isVirtual, panelStyle, cursorStyle } = usePanelVirtualScroll({
     popupContentRef,
-    scroll: props.scroll,
+    scroll: propsScroll,
     options: propsOptions,
   });
 
