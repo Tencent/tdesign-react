@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
@@ -8,7 +8,7 @@ import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../common';
-import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';
+import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType, SelectOption } from '../type';
 
 /**
  * Option 组件属性
@@ -32,6 +32,8 @@ export interface SelectOptionProps
   restData?: Record<string, any>;
   keys?: SelectKeysType;
   optionLength?: number;
+  isVirtual?: boolean;
+  onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
 }
 
 const componentType = 'select';
@@ -40,6 +42,7 @@ const Option = (props: SelectOptionProps) => {
   const {
     disabled: propDisabled,
     label: propLabel,
+    title: propTitle,
     selectedValue,
     checkAll,
     multiple,
@@ -53,6 +56,7 @@ const Option = (props: SelectOptionProps) => {
     restData,
     style,
     className,
+    isVirtual,
   } = props;
 
   let selected: boolean;
@@ -62,9 +66,19 @@ const Option = (props: SelectOptionProps) => {
   const { classPrefix } = useConfig();
 
   // 使用斜八角动画
-  const [subMenuDom, setRefCurrent] = useDomRefCallback();
+  const [optionRef, setRefCurrent] = useDomRefCallback();
 
-  useRipple(subMenuDom);
+  useEffect(() => {
+    if (isVirtual && optionRef) {
+      props.onRowMounted?.({
+        ref: optionRef,
+        data: props,
+      });
+    }
+    // eslint-disable-next-line
+  }, [isVirtual, optionRef]);
+
+  useRipple(optionRef);
 
   // 处理单选场景
   if (!multiple) {
@@ -117,7 +131,7 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <span title={label as string}>{children || content || label}</span>;
+    return <span title={propTitle || (label as string)}>{children || content || label}</span>;
   };
 
   return (
