@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, fireEvent, act, vi } from '@test/utils';
+import { render, waitFor, fireEvent, act, vi, screen } from '@test/utils';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
 import TabNav from '../TabNav';
@@ -155,6 +155,9 @@ describe('Tabs 组件测试', () => {
     const tabInstance = await waitFor(() => getByTestId(testId));
 
     positions.forEach((position) => {
+      if (!position) {
+        return;
+      }
       expect(() => tabInstance.querySelector(`.t-is-${position}`)).not.toBe(null);
 
       if (['left', 'right'].includes(position)) {
@@ -283,12 +286,59 @@ describe('Tabs 组件测试', () => {
               value: 0,
             },
           ]}
-          tabClick={undefined}
+          tabClick={() => ''}
         ></TabNav>
       </div>,
     );
 
     const tabInstance = await waitFor(() => getByTestId(testId));
     expect(tabInstance.querySelector('.t-tabs__nav-item-wrapper')).not.toBe(null);
+  });
+
+  const mockFn = vi.spyOn(HTMLDivElement.prototype, 'getBoundingClientRect');
+  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }));
+
+  test('test drag', async () => {
+    const onDragSort = vi.fn(() => {
+      console.log('888---999');
+      // 模拟顺序交换
+      const tagBox = document.querySelectorAll('.t-tabs__nav-wrap').item(0);
+      const vueTag = document.querySelectorAll('.t-tabs__nav-item').item(0);
+      const reactTag = document.querySelectorAll('.t-tabs__nav-item').item(1);
+      const cloneReact = reactTag.cloneNode(true);
+      tagBox.insertBefore(cloneReact, vueTag);
+      tagBox.removeChild(reactTag);
+    });
+
+    const { container } = render(
+      <div>
+        <Tabs dragSort onDragSort={onDragSort}>
+          <TabPanel value={'vue'} label={'vue'}>
+            <div>vueContent</div>
+          </TabPanel>
+          <TabPanel value={'react'} label={'react'}>
+            <div>reactContent</div>
+          </TabPanel>
+        </Tabs>
+      </div>,
+    );
+
+    fireEvent.dragStart(container.querySelectorAll('.t-tabs__nav-item').item(1), {
+      dataTransfer: {
+        currentIndex: 1,
+        targetIndex: 0,
+      },
+    });
+
+    fireEvent.dragOver(container.querySelectorAll('.t-tabs__nav-item').item(0), {
+      dataTransfer: {
+        currentIndex: 1,
+        targetIndex: 0,
+      },
+    });
+    screen.debug();
+    expect(onDragSort).toHaveBeenCalled(1);
+    expect(onDragSort.mock.calls[0][0].target.value).toEqual('vue');
+    expect(container.querySelectorAll('.t-tabs__nav-item-text-wrapper').item(0).firstChild.nodeValue).toEqual('react');
   });
 });
