@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, fireEvent, act, vi, screen } from '@test/utils';
+import { render, waitFor, fireEvent, act, vi } from '@test/utils';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
 import TabNav from '../TabNav';
@@ -336,7 +336,6 @@ describe('Tabs 组件测试', () => {
         targetIndex: 0,
       },
     });
-    screen.debug();
     expect(onDragSort).toHaveBeenCalled(1);
     expect(onDragSort.mock.calls[0][0].target.value).toEqual('vue');
     expect(container.querySelectorAll('.t-tabs__nav-item-text-wrapper').item(0).firstChild.nodeValue).toEqual('react');

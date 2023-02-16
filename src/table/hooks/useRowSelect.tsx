@@ -177,7 +177,7 @@ export default function useRowSelect(
     if (!isSelection) return col;
     return {
       ...col,
-      width: col.width || 46,
+      width: col.width || 64,
       className: tableSelectedClasses.checkCell,
       cell: (p: PrimaryTableCellParams<TableRowData>) => renderSelectCell(p),
       title: col.type === 'multiple' ? getSelectedHeader() : col.title,
