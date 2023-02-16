@@ -276,6 +276,7 @@ const EditableCell = (props: EditableCellProps) => {
         onClick={(e: MouseEvent<HTMLDivElement>) => {
           setIsEdit(true);
           e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
         }}
       >
         {cellNode}
@@ -294,6 +295,7 @@ const EditableCell = (props: EditableCellProps) => {
       className={tableBaseClass.cellEditWrap}
       onClick={(e) => {
         e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
       }}
     >
       <Component
