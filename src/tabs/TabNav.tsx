@@ -13,10 +13,11 @@ import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
 import tabBase from '../_common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import type { DragSortInnerProps } from '../_util/useDragSorter';
 
 const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =
   tabBase;
-export interface TabNavProps extends TdTabsProps {
+export interface TabNavProps extends TdTabsProps, DragSortInnerProps {
   itemList: TdTabPanelProps[];
   tabClick: (s: TabValue) => void;
   activeValue: TabValue;
@@ -38,6 +39,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     onChange = noop,
     activeValue,
     children,
+    getDragProps,
   } = props;
 
   const { AddIcon, ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
@@ -300,6 +302,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
               <TabNavItem
                 {...props}
                 {...v}
+                dragProps={{ ...getDragProps?.(index, v) }}
                 // 显式给 onRemove 赋值，防止 props 的 onRemove 事件透传
                 onRemove={v.onRemove}
                 key={v.value}
