@@ -89,7 +89,7 @@ const Cascader = (props: CascaderProps) => {
       }}
       tagProps={{ ...(props.tagProps as TdCascaderProps['tagProps']) }}
       onInputChange={(value, ctx) => {
-        if (!visible) return;
+        if (!visible || ['clear', 'blur'].includes(ctx.trigger)) return;
         setInputVal(`${value}`);
         props?.selectInputProps?.onInputChange?.(value, ctx);
       }}

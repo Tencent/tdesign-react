@@ -223,8 +223,7 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
-      if (context.trigger !== 'clear') onInputChange(value);
-
+      if (!['clear', 'blur'].includes(context.trigger)) onInputChange(value);
       if (value === undefined) return;
 
       if (isFunction(onSearch)) {
