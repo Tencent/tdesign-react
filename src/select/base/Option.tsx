@@ -124,7 +124,10 @@ const Option = (props: SelectOptionProps) => {
             className={classNames(`${classPrefix}-checkbox__former`)}
             value=""
             disabled={disabled && !selected}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+            }}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
           <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || content || label}</span>
