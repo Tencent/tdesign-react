@@ -6,4 +6,4 @@ import { TdAvatarProps, TdAvatarGroupProps } from './type';
 
 export const avatarDefaultProps: TdAvatarProps = { hideOnLoadFailed: false, shape: 'circle' };
 
-export const avatarGroupDefaultProps: TdAvatarGroupProps = { cascading: 'right-up', size: 'medium' };
+export const avatarGroupDefaultProps: TdAvatarGroupProps = { cascading: 'right-up' };

@@ -5,13 +5,13 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay } from '@test/utils';
+import { fireEvent, vi, render, mockDelay, simulateImageEvent } from '@test/utils';
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
 
 describe('Avatar Component', () => {
   it('props.alt works fine', () => {
-    const wrapper = render(<Avatar alt="Avatar" image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>);
+    const wrapper = render(<Avatar alt={'Avatar'} image={'https://tdesign.gtimg.com/site/avatar.jpg'}></Avatar>);
     const container = wrapper.container.querySelector('img');
     expect(container.getAttribute('alt')).toBe('Avatar');
   });
@@ -32,8 +32,10 @@ describe('Avatar Component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it.skip('props.hideOnLoadFailed works fine', async () => {
-    const { container } = render(<Avatar image="https://this.is.an.error.path.jpg" hideOnLoadFailed={true}></Avatar>);
+  it('props.hideOnLoadFailed works fine', async () => {
+    const { container } = render(<Avatar image={'https://this.is.an.error.path.jpg'} hideOnLoadFailed={true}></Avatar>);
+    const imgDom = container.querySelector('img');
+    simulateImageEvent(imgDom, 'error');
     await mockDelay(300);
     expect(container.querySelector('.t-image')).toBeFalsy();
   });
@@ -45,7 +47,7 @@ describe('Avatar Component', () => {
   });
 
   it(`props.image is equal to https://tdesign.tencent.com/`, () => {
-    const { container } = render(<Avatar image="https://tdesign.tencent.com/"></Avatar>);
+    const { container } = render(<Avatar image={'https://tdesign.tencent.com/'}></Avatar>);
     const domWrapper = container.querySelector('img');
     expect(domWrapper.getAttribute('src')).toBe('https://tdesign.tencent.com/');
   });
@@ -69,16 +71,18 @@ describe('Avatar Component', () => {
   });
 
   it(`props.size is equal to 120px`, () => {
-    const { container } = render(<Avatar size="120px"></Avatar>);
+    const { container } = render(<Avatar size={'120px'}></Avatar>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.width).toBe('120px');
     expect(domWrapper.style.height).toBe('120px');
     expect(domWrapper.style.fontSize).toBe('60px');
   });
 
-  it.skip('events.error works fine', async () => {
+  it('events.error works fine', async () => {
     const onErrorFn = vi.fn();
-    const { container } = render(<Avatar image="https://this.is.an.error.path.jpg" onError={onErrorFn}></Avatar>);
+    const { container } = render(<Avatar image={'https://this.is.an.error.path.jpg'} onError={onErrorFn}></Avatar>);
+    const imgDom = container.querySelector('img');
+    simulateImageEvent(imgDom, 'error');
     await mockDelay(300);
     expect(onErrorFn).toHaveBeenCalled();
     expect(onErrorFn.mock.calls[0][0].e.type).toBe('error');

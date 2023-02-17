@@ -126,9 +126,7 @@ const Image = (props: ImageProps) => {
 
       {renderGalleryShadow()}
 
-      {hasError || !shouldLoad ? (
-        <div className={`${classPrefix}-image`} />
-      ) : (
+      {hasError || !shouldLoad ? null : (
         <Fragment>
           <img
             src={src}
