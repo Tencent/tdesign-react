@@ -157,8 +157,24 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
       {closeIcon}
     </div>
   );
+
+  // 第一次执行做判断，主要是用于解决组件没有展开，body 中的无法获取节点的问题
+  const initRef = useRef(false);
+  useEffect(() => {
+    if (!initRef.current) {
+      initRef.current = visible;
+    }
+
+    // 对节点销毁做个特殊处理
+    if (destroyOnClose) {
+      return () => {
+        initRef.current = false;
+      };
+    }
+  }, [visible, destroyOnClose]);
+
   const renderHeader = header && <div className={`${prefixCls}__header`}>{header}</div>;
-  const renderBody = <div className={`${prefixCls}__body`}>{body || children}</div>;
+  const renderBody = <div className={`${prefixCls}__body`}>{initRef.current && (body || children)}</div>;
   const renderFooter = footer && <div className={`${prefixCls}__footer`}>{getFooter()}</div>;
 
   return (

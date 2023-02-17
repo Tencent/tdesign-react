@@ -143,13 +143,13 @@ const Anchor = forwardRefWithStatics(
     }, [activeItem, bounds, onChange, targetOffset]);
 
     useEffect(() => {
-      intervalRef.current.scrollContainer = getScrollContainer(container);
-      const { scrollContainer } = intervalRef.current;
+      const scrollContainer = getScrollContainer(container);
+      intervalRef.current.scrollContainer = scrollContainer;
 
       handleScroll();
-      scrollContainer.addEventListener('scroll', handleScroll);
+      scrollContainer?.addEventListener('scroll', handleScroll);
       return () => {
-        scrollContainer.removeEventListener('scroll', handleScroll);
+        scrollContainer?.removeEventListener('scroll', handleScroll);
       };
     }, [container, handleScroll]);
 
