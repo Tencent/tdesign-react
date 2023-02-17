@@ -21,7 +21,7 @@ describe('Image Component', () => {
       <Image error={<span className="custom-node">TNode</span>} src={'https://this.is.an.error.img.com'}></Image>,
     );
     const imgDom = container.querySelector('img');
-    simulateImageEvent('img', 'error')(imgDom, 'error');
+    simulateImageEvent(imgDom, 'error');
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
