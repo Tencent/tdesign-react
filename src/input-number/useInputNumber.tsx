@@ -13,6 +13,7 @@ import {
   getMaxOrMinValidateResult,
   getStepValue,
 } from '../_common/js/input-number/number';
+import { InputProps } from '../input';
 
 export const specialCode = ['-', '.', 'e', 'E'];
 
@@ -116,15 +117,15 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   // 1.2 -> 1. -> 1
-  const onInnerInputChange = (val: string, { e }: { e: any }) => {
+  const onInnerInputChange: InputProps['onChange'] = (val, { e }) => {
     if (!canInputNumber(val, largeNumber)) return;
     if (props.largeNumber) {
       onChange(val as T, { type: 'input', e });
       return;
     }
     // specialCode 新增或删除这些字符时不触发 change 事件
-    const isDelete = e.nativeEvent.inputType === 'deleteContentBackward';
-    const inputSpecialCode = specialCode.includes(val.slice(-1));
+    const isDelete = (e as any).nativeEvent.inputType === 'deleteContentBackward';
+    const inputSpecialCode = specialCode.includes(val.slice(-1)) || /\.0+$/.test(val);
     const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
     if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {
       const newVal = val === '' ? undefined : Number(val);
@@ -136,7 +137,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   const handleBlur = (value: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
-    if (!props.allowInputOverLimit) {
+    if (!props.allowInputOverLimit && value) {
       const r = getMaxOrMinValidateResult({
         value: tValue,
         largeNumber,
@@ -145,10 +146,12 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
       });
       if (r === 'below-minimum') {
         onChange(min as T, { type: 'blur', e: ctx.e });
-      } else if (r === 'exceed-maximum') {
-        onChange(max as T, { type: 'blur', e: ctx.e });
+        return;
       }
-      return;
+      if (r === 'exceed-maximum') {
+        onChange(max as T, { type: 'blur', e: ctx.e });
+        return;
+      }
     }
     setUserInput(getUserInput(value));
     const newValue = formatToNumber(value, {
@@ -199,6 +202,11 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     props.onEnter?.(newValue, ctx);
   };
 
+  const handleClear: InputProps['onClear'] = ({ e }) => {
+    onChange(undefined, { type: 'clear', e });
+    setUserInput('');
+  };
+
   const focus = () => {
     inputRef.current.focus();
   };
@@ -215,6 +223,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     onKeypress: handleKeypress,
     onEnter: handleEnter,
     onClick: focus,
+    onClear: handleClear,
   };
 
   return {

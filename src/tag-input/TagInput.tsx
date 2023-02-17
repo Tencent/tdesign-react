@@ -85,18 +85,20 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
     inputProps?.onCompositionend?.(value, context);
   };
 
-  const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
+  const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     setTInputValue('', { e: context.e, trigger: 'enter' });
     !isCompositionRef.current && onInnerEnter(value, context);
     scrollToRight();
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
-    (tagInputRef.current as any).inputElement?.focus?.();
+    if (!props.disabled && !props.readonly) {
+      (tagInputRef.current as any).inputElement?.focus?.();
+    }
     onClick?.(context);
   };
 
-  const onClearClick = (e: MouseEvent<SVGElement>) => {
+  const onClearClick = (e: MouseEvent<SVGSVGElement>) => {
     clearAll({ e });
     setTInputValue('', { e, trigger: 'clear' });
     props.onClear?.({ e });
@@ -153,7 +155,7 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}
-      onKeyup={onInputBackspaceKeyUp}
+      onKeydown={onInputBackspaceKeyUp}
       onMouseenter={(context) => {
         addHover(context);
         scrollToRightOnEnter();
@@ -166,7 +168,10 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
         onFocus?.(tagValue, { e: context.e, inputValue });
       }}
       onBlur={(inputValue, context) => {
-        onBlur?.(tagValue, { e: context.e, inputValue });
+        if (tInputValue) {
+          setTInputValue('', { e: context.e, trigger: 'blur' });
+        }
+        onBlur?.(tagValue, { e: context.e, inputValue: '' });
       }}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}

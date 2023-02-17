@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import throttle from 'lodash/throttle';
 import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
 import { DropdownProps } from './Dropdown';
@@ -20,6 +21,18 @@ const DropdownMenu = (props: DropdownProps) => {
     ChevronLeftIcon: TdIconChevronLeft,
   });
 
+  const menuRef = useRef<HTMLDivElement>();
+  const [isOverMaxHeight, setIsOverMaxHeight] = useState(false);
+  const [calcScrollTopMap, setScrollTopMap] = useState({});
+
+  useEffect(() => {
+    if (menuRef.current) {
+      const menuHeight = menuRef.current.childNodes?.length * 30;
+
+      if (menuHeight >= maxHeight) setIsOverMaxHeight(true);
+    }
+  }, [maxHeight]);
+
   const handleItemClick = (options: {
     data: DropdownOption;
     context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
@@ -29,14 +42,23 @@ const DropdownMenu = (props: DropdownProps) => {
     props.onClick?.(data, context);
   };
 
+  const handleScroll = (e: React.MouseEvent<HTMLDivElement>, deep = 0) => {
+    const { scrollTop } = e.target as HTMLElement;
+    setScrollTopMap({ ...calcScrollTopMap, [deep]: scrollTop });
+  };
+
+  const throttleUpdate = throttle(handleScroll, 100);
+
   // 处理options渲染的场景
-  const renderOptions = (data: Array<DropdownOption | React.ReactChild>) => {
+  const renderOptions = (data: Array<DropdownOption | React.ReactChild>, deep: number) => {
     const arr = [];
     let renderContent: ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
+      const onViewIdx = Math.ceil(calcScrollTopMap[deep] / 30);
+      const itemIdx = idx >= onViewIdx ? idx - onViewIdx : idx;
       if (optionItem.children) {
-        optionItem.children = renderOptions(optionItem.children);
+        optionItem.children = renderOptions(optionItem.children, deep + 1);
         renderContent = (
           <div key={idx}>
             <DropdownItem
@@ -65,15 +87,26 @@ const DropdownMenu = (props: DropdownProps) => {
                 )}
               </div>
               <div
-                className={classNames(`${dropdownClass}__submenu`, {
-                  [`${dropdownClass}__submenu--disabled`]: optionItem.disabled,
-                  [`${dropdownClass}__submenu--${direction}`]: direction,
+                className={classNames(`${dropdownClass}__submenu-wrapper`, {
+                  [`${dropdownClass}__submenu-wrapper--${props.direction}`]: props.direction,
                 })}
                 style={{
-                  top: `${idx * 30}px`,
+                  position: 'absolute',
+                  top: `${itemIdx * 30}px`,
                 }}
               >
-                <ul>{optionItem.children as React.ReactNode}</ul>
+                <div
+                  className={classNames(`${dropdownClass}__submenu`, {
+                    [`${dropdownClass}__submenu--disabled`]: optionItem.disabled,
+                  })}
+                  style={{
+                    position: 'static',
+                    maxHeight: `${props.maxHeight}px`,
+                  }}
+                  onScroll={(e: React.MouseEvent<HTMLDivElement>) => handleScroll(e, deep + 1)}
+                >
+                  <ul>{optionItem.children as React.ReactNode}</ul>
+                </div>
               </div>
             </DropdownItem>
             {optionItem.divider ? <TDivider /> : null}
@@ -114,12 +147,16 @@ const DropdownMenu = (props: DropdownProps) => {
 
   return (
     <div
-      className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`)}
+      className={classNames(dropdownMenuClass, `${dropdownMenuClass}--${direction}`, {
+        [`${dropdownMenuClass}--overflow`]: isOverMaxHeight,
+      })}
       style={{
         maxHeight: `${maxHeight}px`,
       }}
+      ref={menuRef}
+      onScroll={throttleUpdate}
     >
-      {renderOptions(options)}
+      {renderOptions(options, 0)}
     </div>
   );
 };

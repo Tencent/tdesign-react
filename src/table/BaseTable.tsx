@@ -18,9 +18,10 @@ import useClassName from './hooks/useClassName';
 import { getAffixProps } from './utils';
 import log from '../_common/js/log';
 import { baseTableDefaultProps } from './defaultProps';
-
 import { Styles } from '../common';
 import { TableRowData } from './type';
+import useVirtualScroll from '../hooks/useVirtualScroll';
+import { getIEVersion } from '../_common/js/utils/helper';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -106,11 +107,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     { [tableBaseClass.fullHeight]: height },
   ]);
 
-  const isVirtual = useMemo(
-    () => props.scroll?.type === 'virtual' && props.data?.length > (props.scroll?.threshold || 100),
-    [props.data?.length, props.scroll?.threshold, props.scroll?.type],
-  );
-
   const showRightDivider = useMemo(
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
     [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
@@ -150,14 +146,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [thList]);
 
-  useImperativeHandle(ref, () => ({
-    tableElement: tableRef.current,
-    tableHtmlElement: tableElmRef.current,
-    tableContentElement: tableContentRef.current,
-    affixHeaderElement: affixHeaderRef.current,
-    refreshTable,
-  }));
-
   const onFixedChange = () => {
     const timer = setTimeout(() => {
       onHorizontalScroll();
@@ -166,21 +154,31 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     }, 0);
   };
 
-  let lastScrollY = 0;
+  const virtualConfig = useVirtualScroll(tableContentRef, { data, scroll: props.scroll });
+
+  let lastScrollY = -1;
   const onInnerVirtualScroll = (e: WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
     // 排除横向滚动出发的纵向虚拟滚动计算
     if (lastScrollY !== top) {
-      // TODO
-      // isVirtual.value && handleVirtualScroll();
+      virtualConfig.isVirtualScroll && virtualConfig.handleScroll();
     } else {
-      lastScrollY = 0;
+      lastScrollY = -1;
       updateColumnFixedShadow(target);
     }
     lastScrollY = top;
     emitScrollEvent(e);
   };
+
+  useImperativeHandle(ref, () => ({
+    tableElement: tableRef.current,
+    tableHtmlElement: tableElmRef.current,
+    tableContentElement: tableContentRef.current,
+    affixHeaderElement: affixHeaderRef.current,
+    refreshTable,
+    scrollToElement: virtualConfig.scrollToElement,
+  }));
 
   // used for top margin
   const getTFootHeight = () => {
@@ -226,6 +224,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
         }
+        // 没有设置任何宽度的场景下，需要保留表格正常显示的最小宽度，否则会出现因宽度过小的抖动问题
+        if (!style.width && !col.minWidth && props.tableLayout === 'fixed') {
+          style.minWidth = '80px';
+        }
         return <col key={col.colKey} style={style} />;
       })}
     </colgroup>
@@ -235,6 +237,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     rowAndColFixedPosition,
     isMultipleHeader,
     bordered: props.bordered,
+    maxHeight: props.maxHeight,
+    height: props.height,
     spansAndLeafNodes,
     thList,
     thWidthList: thWidthList.current,
@@ -266,27 +270,27 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
    * Affixed Header
    */
   const renderFixedHeader = () => {
-    // onlyVirtualScrollBordered 用于浏览器兼容性处理，只有 chrome 需要调整 bordered，FireFox 和 Safari 不需要
-    const onlyVirtualScrollBordered =
-      !!(isVirtual && !headerAffixedTop && bordered) && /Chrome/.test(navigator?.userAgent);
-    const borderWidth = bordered && onlyVirtualScrollBordered ? 1 : 0;
-    const affixHeaderWrapHeight =
-      (affixHeaderRef.current?.getBoundingClientRect().height || 0) - scrollbarWidth - borderWidth;
+    // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
+    const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
+    const barWidth = isWidthOverflow ? scrollbarWidth : 0;
+    const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
+    const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
     const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
     const affixHeaderWrapHeightStyle = {
       width: `${tableWidth.current}px`,
       height: `${affixHeaderWrapHeight}px`,
       opacity: headerOpacity,
-      marginTop: onlyVirtualScrollBordered ? `${borderWidth}px` : 0,
     };
-    const affixedHeader = Boolean(props.headerAffixedTop && tableWidth.current) && (
+    const affixedHeader = Boolean((props.headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
         style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
-          { [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual },
+          {
+            [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || virtualConfig.isVirtualScroll,
+          },
         ])}
       >
         <table
@@ -312,7 +316,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const renderAffixedHeader = () => {
     if (!props.showHeader) return null;
     return (
-      !!(isVirtual || props.headerAffixedTop) &&
+      !!(virtualConfig.isVirtualScroll || props.headerAffixedTop) &&
       (props.headerAffixedTop ? (
         <Affix
           offsetTop={0}
@@ -349,7 +353,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
           style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
           className={classNames([
             'scrollbar',
-            { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || isVirtual },
+            { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
           ])}
         >
           <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}>
@@ -373,39 +377,33 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     return affixedFooter;
   };
 
-  const translate = `translate(0, ${0}px)`;
-  const virtualStyle = {
-    transform: translate,
-    '-ms-transform': translate,
-    '-moz-transform': translate,
-    '-webkit-transform': translate,
-  };
   const tableBodyProps = {
     classPrefix,
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     rowAndColFixedPosition,
     showColumnShadow,
-    // data: isVirtual ? visibleData : data,
-    data: newData,
+    data: virtualConfig.isVirtualScroll ? virtualConfig.visibleData : newData,
+    virtualConfig,
+    handleRowMounted: virtualConfig.handleRowMounted,
     columns: spansAndLeafNodes?.leafColumns || columns,
     tableElm: tableRef.current,
     tableContentElm: tableContentRef.current,
     tableWidth: tableWidth.current,
     isWidthOverflow,
     rowKey: props.rowKey || 'id',
-    // 虚拟滚动相关属性
-    // isVirtual,
-    // translateY: translateY,
-    // scrollType: scrollType,
-    // rowHeight: rowHeight,
-    // trs: trs,
-    // bufferSize: bufferSize,
     scroll: props.scroll,
-    // handleRowMounted: handleRowMounted,
     cellEmptyContent: props.cellEmptyContent,
     renderExpandedRow: props.renderExpandedRow,
     ...pick(props, extendTableProps),
     pagination: innerPagination,
+  };
+
+  const translate = `translate(0, ${virtualConfig.scrollHeight}px)`;
+  const virtualStyle = {
+    transform: translate,
+    msTransform: translate,
+    MozTransform: translate,
+    WebkitTransform: translate,
   };
   const tableContent = (
     <div
@@ -414,7 +412,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       style={tableContentStyles}
       onScroll={onInnerVirtualScroll}
     >
-      {isVirtual && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
+      {virtualConfig.isVirtualScroll && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
+
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
         {renderColGroup(false)}
         {useMemo(() => {

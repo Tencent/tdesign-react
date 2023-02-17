@@ -1,18 +1,18 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState, SyntheticEvent } from 'react';
 import classNames from 'classnames';
-
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
 import observe from '../_common/js/utils/observe';
 import useConfig from '../hooks/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdImageProps } from './type';
 import { imageDefaultProps } from './defaultProps';
 import Space from '../space';
-
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { StyledProps } from '../common';
 
-export type ImageProps = TdImageProps;
+export type ImageProps = TdImageProps & StyledProps;
 
-const Image = (props: TdImageProps) => {
+const Image = (props: ImageProps) => {
   const {
     className,
     src,
@@ -35,7 +35,7 @@ const Image = (props: TdImageProps) => {
 
   const { classPrefix } = useConfig();
   const imageRef = useRef<HTMLDivElement>(null);
-
+  const [local, t] = useLocaleReceiver('image');
   const { ImageErrorIcon, ImageIcon } = useGlobalIcon({
     ImageErrorIcon: TdImageErrorIcon,
     ImageIcon: TdImageIcon,
@@ -47,9 +47,9 @@ const Image = (props: TdImageProps) => {
   };
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const handleLoad = () => {
+  const handleLoad = (e: SyntheticEvent<HTMLImageElement>) => {
     setIsLoaded(true);
-    onLoad?.();
+    onLoad?.({ e });
   };
 
   useEffect(() => {
@@ -67,9 +67,9 @@ const Image = (props: TdImageProps) => {
   }, [lazy, imageRef]);
 
   const [hasError, setHasError] = useState(false);
-  const handleError = () => {
+  const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
     setHasError(true);
-    onError?.();
+    onError?.({ e });
   };
 
   const hasMouseEvent = overlayTrigger === 'hover';
@@ -126,9 +126,7 @@ const Image = (props: TdImageProps) => {
 
       {renderGalleryShadow()}
 
-      {hasError || !shouldLoad ? (
-        <div className={`${classPrefix}-image`} />
-      ) : (
+      {!(hasError || !shouldLoad) && (
         <Fragment>
           <img
             src={src}
@@ -141,12 +139,12 @@ const Image = (props: TdImageProps) => {
             )}
             alt={alt}
           />
-          {!isLoaded && (
+          {!(hasError || !shouldLoad) && !isLoaded && (
             <div className={`${classPrefix}-image__loading`}>
               {loading || (
                 <Space direction="vertical" size={8} align="center">
                   <ImageIcon size={24} />
-                  图片加载中
+                  {t(local.loadingText)}
                 </Space>
               )}
             </div>
@@ -159,7 +157,7 @@ const Image = (props: TdImageProps) => {
           {error || (
             <Space direction="vertical" size={8} align="center">
               <ImageErrorIcon size={24} />
-              图片无法显示
+              {t(local.errorText)}
             </Space>
           )}
         </div>

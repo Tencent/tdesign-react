@@ -1,9 +1,10 @@
-import React, { Children, Ref, forwardRef, isValidElement, cloneElement } from 'react';
+import React, { Children, Ref, forwardRef, isValidElement, cloneElement, useRef, CSSProperties } from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
-import { TdSelectProps, SelectValue, TdOptionProps, SelectValueChangeTrigger } from '../type';
+import { TdSelectProps, SelectValue, TdOptionProps, SelectValueChangeTrigger, SelectOption } from '../type';
 import useConfig from '../../hooks/useConfig';
+import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import Option, { SelectOptionProps } from './Option';
 
 type OptionsType = TdOptionProps[];
@@ -23,6 +24,7 @@ interface SelectPopupProps
     | 'keys'
     | 'panelTopContent'
     | 'panelBottomContent'
+    | 'scroll'
   > {
   onChange?: (
     value: SelectValue,
@@ -42,18 +44,18 @@ interface SelectPopupProps
    */
   setShowPopup: (show: boolean) => void;
   children?: React.ReactNode;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
+  getPopupInstance?: () => HTMLDivElement;
 }
 
 const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
   const {
-    onChange,
     value,
     size,
     max,
     multiple,
     showPopup,
     setShowPopup,
-    options,
     empty,
     loadingText,
     loading,
@@ -62,14 +64,27 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     keys,
     panelTopContent,
     panelBottomContent,
+    onChange,
+    onCheckAllChange,
+    options: propsOptions,
+    scroll: propsScroll,
   } = props;
 
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('select');
   const emptyText = t(local.empty);
+  const popupContentRef = useRef<HTMLElement>(null);
+
+  popupContentRef.current = props.getPopupInstance();
+
+  const { visibleData, handleRowMounted, isVirtual, panelStyle, cursorStyle } = usePanelVirtualScroll({
+    popupContentRef,
+    scroll: propsScroll,
+    options: propsOptions,
+  });
 
   const { classPrefix } = useConfig();
-  if (!children && !props.options) return null;
+  if (!children && !propsOptions) return null;
 
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
     const isValObj = valueType === 'object';
@@ -109,7 +124,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   });
 
   // 渲染 options
-  const renderOptions = () => {
+  const renderOptions = (options: SelectOption[]) => {
     if (options) {
       const uniqueOptions = [];
       options.forEach((option: SelectOptionProps) => {
@@ -118,6 +133,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
           uniqueOptions.push(option);
         }
       });
+      const selectableOption = uniqueOptions.filter((v) => !v.disabled && !v.checkAll);
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
@@ -130,12 +146,22 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
+                optionLength={selectableOption.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
                 content={content}
+                onCheckAllChange={onCheckAllChange}
+                onRowMounted={handleRowMounted}
+                {...(isVirtual
+                  ? {
+                      isVirtual,
+                      bufferSize: props.scroll?.bufferSize,
+                      scrollType: props.scroll?.type,
+                    }
+                  : {})}
                 {...restData}
               >
                 {children}
@@ -148,9 +174,10 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     return <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>;
   };
 
-  const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
+  const isEmpty =
+    (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
 
-  return (
+  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: CSSProperties) => (
     <div
       ref={ref}
       className={classNames(`${classPrefix}-select__dropdown-inner`, {
@@ -158,16 +185,27 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
         [`${classPrefix}-select__dropdown-inner--size-l`]: size === 'large',
         [`${classPrefix}-select__dropdown-inner--size-m`]: size === 'medium',
       })}
+      style={extraStyle}
     >
       {panelTopContent}
       {loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
       {!loading && isEmpty && (
         <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>
       )}
-      {!loading && !isEmpty && renderOptions()}
+      {!loading && !isEmpty && renderOptions(renderedOptions)}
       {panelBottomContent}
     </div>
   );
+  if (isVirtual) {
+    return (
+      <div>
+        <div style={cursorStyle}></div>
+        {renderPanel(visibleData, panelStyle)}
+      </div>
+    );
+  }
+
+  return renderPanel(propsOptions);
 });
 
 export default PopupContent;

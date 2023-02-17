@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
@@ -8,7 +8,7 @@ import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../common';
-import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';
+import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType, SelectOption } from '../type';
 
 /**
  * Option 组件属性
@@ -28,8 +28,12 @@ export interface SelectOptionProps
       restData?: Record<string, any>;
     },
   ) => void;
+  onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   restData?: Record<string, any>;
   keys?: SelectKeysType;
+  optionLength?: number;
+  isVirtual?: boolean;
+  onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
 }
 
 const componentType = 'select';
@@ -38,7 +42,9 @@ const Option = (props: SelectOptionProps) => {
   const {
     disabled: propDisabled,
     label: propLabel,
+    title: propTitle,
     selectedValue,
+    checkAll,
     multiple,
     size,
     max,
@@ -50,6 +56,7 @@ const Option = (props: SelectOptionProps) => {
     restData,
     style,
     className,
+    isVirtual,
   } = props;
 
   let selected: boolean;
@@ -59,9 +66,19 @@ const Option = (props: SelectOptionProps) => {
   const { classPrefix } = useConfig();
 
   // 使用斜八角动画
-  const [subMenuDom, setRefCurrent] = useDomRefCallback();
+  const [optionRef, setRefCurrent] = useDomRefCallback();
 
-  useRipple(subMenuDom);
+  useEffect(() => {
+    if (isVirtual && optionRef) {
+      props.onRowMounted?.({
+        ref: optionRef,
+        data: props,
+      });
+    }
+    // eslint-disable-next-line
+  }, [isVirtual, optionRef]);
+
+  useRipple(optionRef);
 
   // 处理单选场景
   if (!multiple) {
@@ -70,7 +87,6 @@ const Option = (props: SelectOptionProps) => {
         ? value === selectedValue
         : value === get(selectedValue, keys?.value || 'value');
   }
-
   // 处理多选场景
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
@@ -80,11 +96,17 @@ const Option = (props: SelectOptionProps) => {
       }
       return get(item, keys?.value || 'value') === value;
     });
+    if (props.checkAll) {
+      selected = selectedValue.length === props.optionLength;
+    }
   }
 
   const handleSelect = (event: React.MouseEvent<HTMLLIElement>) => {
-    if (!disabled) {
+    if (!disabled && !checkAll) {
       onSelect(value, { label: String(label), selected, event, restData });
+    }
+    if (checkAll) {
+      props.onCheckAllChange?.(selected, event);
     }
   };
 
@@ -102,14 +124,17 @@ const Option = (props: SelectOptionProps) => {
             className={classNames(`${classPrefix}-checkbox__former`)}
             value=""
             disabled={disabled && !selected}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+            }}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
           <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || content || label}</span>
         </label>
       );
     }
-    return <span title={label as string}>{children || content || label}</span>;
+    return <span title={propTitle || (label as string)}>{children || content || label}</span>;
   };
 
   return (

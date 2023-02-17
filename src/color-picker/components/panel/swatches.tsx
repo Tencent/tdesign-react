@@ -15,16 +15,7 @@ export interface TdColorSwathcesProps extends TdColorBaseProps {
 }
 
 const Swatches = (props: TdColorSwathcesProps) => {
-  const {
-    baseClassName,
-    colors = [],
-    title = '系统色彩',
-    editable = false,
-    onChange,
-    disabled,
-    onSetColor,
-    handleAddColor,
-  } = props;
+  const { baseClassName, colors = [], editable = false, title, onChange, disabled, onSetColor, handleAddColor } = props;
   const { DeleteIcon, AddIcon } = useGlobalIcon({ DeleteIcon: TdDeleteIcon, AddIcon: TdAddIcon });
   const swatchesClass = `${baseClassName}__swatches`;
   const { STATUS: statusClassNames } = useCommonClassName();
@@ -44,21 +35,25 @@ const Swatches = (props: TdColorSwathcesProps) => {
 
   return (
     <div className={swatchesClass}>
-      <h3 className={`${swatchesClass}--title`}>
-        <span>{title}</span>
-        {editable && (
-          <div className={`${swatchesClass}--actions`}>
-            <span role="button" className={`${baseClassName}__icon`} onClick={() => handleAddColor()}>
-              <AddIcon />
-            </span>
-            {colors.length > 0 ? (
-              <span role="button" className={`${baseClassName}__icon`} onClick={() => handleRemoveColor()}>
-                <DeleteIcon />
+      {title ? (
+        <h3 className={`${swatchesClass}--title`}>
+          <span>{title}</span>
+          {editable && (
+            <div className={`${swatchesClass}--actions`}>
+              <span role="button" className={`${baseClassName}__icon`} onClick={() => handleAddColor()}>
+                <AddIcon />
               </span>
-            ) : null}
-          </div>
-        )}
-      </h3>
+              {colors.length > 0 ? (
+                <span role="button" className={`${baseClassName}__icon`} onClick={() => handleRemoveColor()}>
+                  <DeleteIcon />
+                </span>
+              ) : null}
+            </div>
+          )}
+        </h3>
+      ) : (
+        <></>
+      )}
       <ul className={classnames(`${swatchesClass}--items`, 'narrow-scrollbar')}>
         {colors.map((color) => (
           <li

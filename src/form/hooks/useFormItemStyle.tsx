@@ -11,7 +11,7 @@ export default function useFormItemStyle(props) {
     className,
     help,
     tips,
-    name,
+    snakeName,
     status,
     successBorder,
     errorList,
@@ -26,9 +26,6 @@ export default function useFormItemStyle(props) {
     showErrorMessage,
     innerRules,
   } = props;
-
-  // formList 下 name 为数组
-  const renderName = Array.isArray(name) ? name.join('-') : name;
 
   // 传入 status 时受控
   const renderStatus = status || verifyStatus;
@@ -65,7 +62,7 @@ export default function useFormItemStyle(props) {
   }, [showErrorMessage, errorList, successList, tips, classPrefix]);
 
   const formItemClass = classNames(`${classPrefix}-form__item`, className, {
-    [`${classPrefix}-form-item__${renderName}`]: renderName,
+    [`${classPrefix}-form-item__${snakeName}`]: snakeName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
   });
@@ -92,6 +89,8 @@ export default function useFormItemStyle(props) {
     return classNames(controlCls, {
       [`${classPrefix}-is-warning`]: renderStatus === 'warning',
       [`${classPrefix}-is-error`]: ['fail', 'error'].includes(renderStatus),
+      [`${classPrefix}-form--has-error`]:
+        renderStatus === ValidateStatus.ERROR || renderStatus === ValidateStatus.WARNING,
     });
   };
 

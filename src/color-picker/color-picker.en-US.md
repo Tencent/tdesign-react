@@ -18,6 +18,7 @@ popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./po
 recentColors | Array | [] | used color recently。Typescript：`boolean \| Array<string>` | N
 defaultRecentColors | Array | [] | used color recently。uncontrolled property。Typescript：`boolean \| Array<string>` | N
 selectInputProps | Object | - | Typescript：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/color-picker/type.ts) | N
+showPrimaryColorPreview | Boolean | true | \- | N
 swatchColors | Array | - | swatch colors。Typescript：`Array<string>` | N
 value | String | - | color value | N
 defaultValue | String | - | color value。uncontrolled property | N

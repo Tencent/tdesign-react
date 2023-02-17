@@ -7,7 +7,7 @@
 import { CheckboxProps } from '../checkbox';
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
-import { SelectInputProps } from '../select-input';
+import { SelectInputProps, SelectInputBlurContext } from '../select-input';
 import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { TreeNodeModel } from '../tree';
@@ -172,7 +172,7 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   /**
    * 当输入框失去焦点时触发
    */
-  onBlur?: (context: { value: CascaderValue<CascaderOption>; e: FocusEvent<HTMLDivElement> }) => void;
+  onBlur?: (context: { value: CascaderValue<CascaderOption>; e: SelectInputBlurContext['e'] }) => void;
   /**
    * 选中值发生变化时触发。TreeNodeModel 从树组件中导出。`context.node` 表示触发事件的节点，`context.source` 表示触发事件的来源
    */

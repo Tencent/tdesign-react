@@ -20,6 +20,7 @@ export interface SubMenuWithCustomizeProps extends SubMenuProps {
 
 const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const { content, children = content, disabled, icon, title, value, className, style, level = 1 } = props;
+
   const { classPrefix } = useConfig();
 
   // popup 状态下控制开关
@@ -87,7 +88,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         })}
       >
         {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
-        <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
+        <FakeArrow style={fakeArrowStyle} isActive={level === 1 && isOpen} disabled={disabled} />
       </div>
       {isPopUp ? (
         <div
@@ -119,7 +120,8 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 };
 
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
-  const { className, style, children, title, value, level } = props;
+  const { className, style, children, title, value, level = 1 } = props;
+
   const { active, onChange, expandType } = useContext(MenuContext);
   const { classPrefix } = useConfig();
   const [open, setOpen] = useState(false);
@@ -167,7 +169,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
         style={style}
       >
         <span>{title}</span>
-        {showPopup && <FakeArrow style={fakeArrowStyle} isActive={open} />}
+        {showPopup && <FakeArrow style={fakeArrowStyle} isActive={level === 1 && open} />}
       </div>
       {showPopup && (
         <div

@@ -3,6 +3,7 @@ import { isFragment } from 'react-is';
 import classNames from 'classnames';
 import { supportRef, getRefDom } from '../utils/ref';
 import composeRefs from '../../_util/composeRefs';
+import { on, off } from '../../_util/dom';
 
 const ESC_KEY = 'Escape';
 
@@ -11,6 +12,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   const mouseDownTimer = useRef(0);
   const visibleTimer = useRef(null);
   const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
+  const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
   const shouldToggle = !disabled && content;
@@ -40,11 +42,11 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       }
       visible && onVisibleChange(false, { e, trigger: 'document' });
     };
-    document.addEventListener('mousedown', handleDocumentClick);
-    document.addEventListener('touchend', handleDocumentClick);
+    on(document, 'mousedown', handleDocumentClick);
+    on(document, 'touchend', handleDocumentClick);
     return () => {
-      document.removeEventListener('mousedown', handleDocumentClick);
-      document.removeEventListener('touchend', handleDocumentClick);
+      off(document, 'mousedown', handleDocumentClick);
+      off(document, 'touchend', handleDocumentClick);
     };
   }, [shouldToggle, visible, onVisibleChange, triggerRef]);
 
@@ -54,13 +56,14 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
     return {
       onMouseEnter: (e: MouseEvent) => {
-        if (trigger === 'hover') {
+        if (trigger === 'hover' && !leaveFlag.current) {
           clearTimeout(visibleTimer.current);
           onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
         }
       },
       onMouseLeave: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          leaveFlag.current = true;
           clearTimeout(visibleTimer.current);
           onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
         }
@@ -88,6 +91,15 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
     const triggerProps: any = {
       className: visible ? classNames(triggerNode.props.className, `t-popup-open`) : triggerNode.props.className,
+      onMouseDown: (e: MouseEvent) => {
+        if (trigger === 'mousedown') {
+          callFuncWithDelay({
+            delay: visible ? appearDelay : exitDelay,
+            callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          });
+        }
+        triggerNode.props.onMouseDown?.(e);
+      },
       onClick: (e: MouseEvent) => {
         if (trigger === 'click') {
           callFuncWithDelay({
@@ -98,7 +110,8 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
         triggerNode.props.onClick?.(e);
       },
       onTouchStart: (e: TouchEvent) => {
-        if (trigger === 'hover') {
+        if (trigger === 'hover' || trigger === 'mousedown') {
+          leaveFlag.current = false;
           callFuncWithDelay({
             delay: appearDelay,
             callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
@@ -108,6 +121,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onMouseEnter: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          leaveFlag.current = false;
           callFuncWithDelay({
             delay: appearDelay,
             callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
@@ -117,6 +131,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onMouseLeave: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          leaveFlag.current = false;
           callFuncWithDelay({
             delay: exitDelay,
             callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),

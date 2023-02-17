@@ -32,7 +32,6 @@ export interface TdPopupProps {
   destroyOnClose?: boolean;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -74,19 +73,17 @@ export interface TdPopupProps {
    * 触发浮层出现的方式
    * @default hover
    */
-  trigger?: 'hover' | 'click' | 'focus' | 'context-menu';
+  trigger?: 'hover' | 'click' | 'focus' | 'mousedown' | 'context-menu';
   /**
-   * 触发元素
+   * 触发元素。值类型为字符串表示元素选择器
    */
   triggerElement?: TNode;
   /**
    * 是否显示浮层
-   * @default false
    */
   visible?: boolean;
   /**
    * 是否显示浮层，非受控属性
-   * @default false
    */
   defaultVisible?: boolean;
   /**
@@ -97,6 +94,10 @@ export interface TdPopupProps {
    * 下拉选项滚动事件
    */
   onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
+  /**
+   * 下拉滚动触底事件，常用于滚动到底执行具体业务逻辑
+   */
+  onScrollToBottom?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
   /**
    * 当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=context-menu` 表示右击触发
    */
@@ -130,5 +131,6 @@ export type PopupTriggerSource =
   | 'trigger-element-hover'
   | 'trigger-element-blur'
   | 'trigger-element-focus'
+  | 'trigger-element-mousedown'
   | 'context-menu'
   | 'keydown-esc';

@@ -44,6 +44,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     togglePopup,
     closeBtn,
     colorModes = ['linear-gradient', 'monochrome'],
+    showPrimaryColorPreview = true,
   } = props;
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
   const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
@@ -319,14 +320,16 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
             <HUESlider {...baseProps} onChange={handleHUEChange} />
             {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}
           </div>
-          <div className={classNames([`${baseClassName}__sliders-preview`, `${baseClassName}--bg-alpha`])}>
-            <span
-              className={`${baseClassName}__sliders-preview-inner`}
-              style={{
-                background: isGradient ? colorInstanceRef.current.linearGradient : colorInstanceRef.current.rgba,
-              }}
-            />
-          </div>
+          {showPrimaryColorPreview ? (
+            <div className={classNames([`${baseClassName}__sliders-preview`, `${baseClassName}--bg-alpha`])}>
+              <span
+                className={`${baseClassName}__sliders-preview-inner`}
+                style={{
+                  background: isGradient ? colorInstanceRef.current.linearGradient : colorInstanceRef.current.rgba,
+                }}
+              />
+            </div>
+          ) : null}
         </div>
 
         <FormatPanel

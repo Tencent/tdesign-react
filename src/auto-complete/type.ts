@@ -14,7 +14,7 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
   /**
    * 自动获取焦点
    */
-  autoFocus?: boolean;
+  autofocus?: boolean;
   /**
    * 触发显示联想词下拉框的元素，同 `triggerElement`
    */
@@ -76,6 +76,7 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
   size?: SizeEnum;
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -109,7 +110,9 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
    */
   onChange?: (
     value: string,
-    context?: { e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLLIElement> | KeyboardEvent },
+    context?: {
+      e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLLIElement> | CompositionEvent<HTMLDivElement> | KeyboardEvent;
+    },
   ) => void;
   /**
    * 清空按钮点击时触发
@@ -118,11 +121,11 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
   /**
    * 中文输入结束时触发
    */
-  onCompositionend?: (context: { e: CompositionEvent<HTMLInputElement>; value: string }) => void;
+  onCompositionend?: (context: { e: CompositionEvent<HTMLDivElement>; value: string }) => void;
   /**
    * 中文输入开始时触发
    */
-  onCompositionstart?: (context: { e: CompositionEvent<HTMLInputElement>; value: string }) => void;
+  onCompositionstart?: (context: { e: CompositionEvent<HTMLDivElement>; value: string }) => void;
   /**
    * 回车键按下时触发
    */
@@ -134,7 +137,7 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
   /**
    * 选中联想词时触发
    */
-  onSelect?: (value: string, context: { e: MouseEvent<HTMLLIElement> | KeyboardEvent }) => void;
+  onSelect?: (value: string, context: { e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> }) => void;
 }
 
 export type AutoCompleteOption = string | AutoCompleteOptionObj;

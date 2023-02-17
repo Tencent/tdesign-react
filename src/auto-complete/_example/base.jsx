@@ -4,7 +4,7 @@ import { SearchIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.t-demo-auto-complete__base .t-input {
+.t-demo-autocomplete__search .t-input {
   padding-right: 0;
 }
 .t-demo-auto-complete__base .t-button svg {
@@ -27,11 +27,7 @@ const AutoCompleteBase = () => {
     timer = setTimeout(() => {
       const text = '搜索联想词';
       const pureValue = val.replace(`第一个${text}`, '').replace(`第二个${text}`, '').replace(`第三个${text}`, '');
-      setOptions([
-        `${pureValue}第一个${text}`,
-        `${pureValue}第二个${text}`,
-        `${pureValue}第三个${text}`
-      ]);
+      setOptions([`${pureValue}第一个${text}`, `${pureValue}第二个${text}`, `${pureValue}第三个${text}`]);
       clearTimeout(timer);
     }, 100);
   };
@@ -49,7 +45,11 @@ const AutoCompleteBase = () => {
         onChange={onChange}
         highlightKeyword
         filterable={false}
+        clearable
         placeholder="请输入关键词搜索"
+        onBlur={() => {
+          console.log('blur');
+        }}
       />
 
       {/* 左侧图标可以使用 label，同 input */}
@@ -60,8 +60,13 @@ const AutoCompleteBase = () => {
         highlightKeyword
         filterable
         placeholder="请输入关键词搜索（自定义右侧图标）"
+        className="t-demo-autocomplete__search"
         inputProps={{
-          suffix: <Button shape="square"><SearchIcon /></Button>,
+          suffix: (
+            <Button shape="square">
+              <SearchIcon />
+            </Button>
+          ),
         }}
       />
     </Space>

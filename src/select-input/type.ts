@@ -11,7 +11,7 @@ import { TagInputProps, TagInputValue, TagInputChangeContext } from '../tag-inpu
 import { TagProps } from '../tag';
 import { PopupVisibleChangeContext } from '../popup';
 import { TNode, TElement } from '../common';
-import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdSelectInputProps {
   /**
@@ -25,7 +25,12 @@ export interface TdSelectInputProps {
    */
   autoWidth?: boolean;
   /**
-   * 【开发中】无边框模式
+   * 自动聚焦
+   * @default false
+   */
+  autofocus?: boolean;
+  /**
+   * 无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -35,12 +40,11 @@ export interface TdSelectInputProps {
    */
   clearable?: boolean;
   /**
-   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 `collapsedItems` 自定义。`value` 表示所有标签值，`collapsedTags` 表示折叠标签值，`count` 表示总标签数量
+   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 `collapsedItems` 自定义。`value` 表示所有标签值，`collapsedTags` 表示折叠标签值，`count` 表示折叠的数量
    */
   collapsedItems?: TNode<{ value: SelectInputValue; collapsedTags: SelectInputValue; count: number }>;
   /**
    * 是否禁用
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -96,6 +100,10 @@ export interface TdSelectInputProps {
    */
   popupVisible?: boolean;
   /**
+   * 是否显示下拉框，非受控属性
+   */
+  defaultPopupVisible?: boolean;
+  /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
    */
@@ -114,7 +122,7 @@ export interface TdSelectInputProps {
    */
   suffixIcon?: TElement;
   /**
-   * 自定义标签的内部内容，每一个标签的当前值。注意和 `valueDisplay` 区分，`valueDisplay`  是用来定义全部标签内容，而非某一个标签
+   * 多选场景下，自定义选中标签的内部内容。注意和 `valueDisplay` 区分，`valueDisplay`  是用来定义全部标签内容，而非某一个标签
    */
   tag?: string | TNode<{ value: string | number }>;
   /**
@@ -136,19 +144,22 @@ export interface TdSelectInputProps {
   /**
    * 自定义值呈现的全部内容，参数为所有标签的值
    */
-  valueDisplay?: string | TNode<{ value: SelectInputValue; onClose: (index: number, item?: any) => void }>;
+  valueDisplay?: string | TNode<{ value: TagInputValue; onClose: (index: number, item?: any) => void }>;
   /**
    * 失去焦点时触发，`context.inputValue` 表示输入框的值；`context.tagInputValue` 表示标签输入框的值
    */
-  onBlur?: (value: SelectInputValue, context: SelectInputFocusContext) => void;
+  onBlur?: (value: SelectInputValue, context: SelectInputBlurContext) => void;
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 按键按下 Enter 时触发
    */
-  onEnter?: (value: SelectInputValue, context: { e: KeyboardEvent<HTMLDivElement>; inputValue: InputValue }) => void;
+  onEnter?: (
+    value: SelectInputValue,
+    context: { e: KeyboardEvent<HTMLDivElement>; inputValue: InputValue; tagInputValue?: TagInputValue },
+  ) => void;
   /**
    * 聚焦时触发
    */
@@ -176,7 +187,7 @@ export interface TdSelectInputProps {
   /**
    * 值变化时触发，参数 `context.trigger` 表示数据变化的触发来源；`context.index` 指当前变化项的下标；`context.item` 指当前变化项；`context.e` 表示事件参数
    */
-  onTagChange?: (value: SelectInputValue, context: SelectInputChangeContext) => void;
+  onTagChange?: (value: TagInputValue, context: SelectInputChangeContext) => void;
 }
 
 export interface SelectInputKeys {
@@ -187,6 +198,8 @@ export interface SelectInputKeys {
 
 export type SelectInputValue = string | number | boolean | Date | Object | Array<any> | Array<SelectInputValue>;
 
+export type SelectInputBlurContext = PopupVisibleChangeContext & { inputValue: string; tagInputValue?: TagInputValue };
+
 export interface SelectInputFocusContext {
   inputValue: InputValue;
   tagInputValue?: TagInputValue;
@@ -195,11 +208,13 @@ export interface SelectInputFocusContext {
 
 export interface SelectInputValueChangeContext {
   e?:
-    | FormEvent<HTMLDivElement>
+    | Event
+    | FormEvent<HTMLInputElement>
     | MouseEvent<HTMLElement | SVGElement>
     | FocusEvent<HTMLInputElement>
-    | KeyboardEvent<HTMLInputElement>;
-  trigger: 'input' | 'clear';
+    | KeyboardEvent<HTMLInputElement>
+    | CompositionEvent<HTMLDivElement>;
+  trigger: 'input' | 'clear' | 'blur' | 'focus' | 'initial' | 'change';
 }
 
 export type SelectInputChangeContext = TagInputChangeContext;

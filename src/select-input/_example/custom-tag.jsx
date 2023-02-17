@@ -1,37 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { SelectInput, Tag } from 'tdesign-react';
+import { ControlPlatformIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__selet-input-ul-custom,
-.tdesign-demo__selet-input-ul-custom > li {
-  list-style: none;
+.tdesign-demo__select-input-ul-single {
   padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tdesign-demo__select-input-ul-single > li {
+  display: block;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.tdesign-demo__selet-input-ul-custom > li {
-  line-height: 40px;
-  min-width: 200px;
-  padding: 0 8px;
-}
-
-.tdesign-demo__selet-input-ul-custom > li:hover {
+.tdesign-demo__select-input-ul-single > li:hover {
   background-color: var(--td-bg-color-container-hover);
 }
 
-.tdesign-demo__selet-input-ul-custom > li > img {
-  max-width: 20px;
-  max-height: 20px;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-
-.tdesign-demo-select-input-custom-tag img.tdesign-demo-select-input__img {
-  max-width: 18px;
-  max-height: 18px;
-  margin: 0;
-  vertical-align: -4px;
+.tdesign-demo-select-input-custom-tag .tdesign-demo-select-input__img {
+  font-size: 16px;
   margin-right: 4px;
 }
 
@@ -39,6 +37,9 @@ const classStyles = `
   text-align: center;
   color: var(--td-text-color-disabled);
   line-height: 32px;
+}
+.displaySpan {
+  line-height: 24px;
 }
 </style>
 `;
@@ -85,25 +86,28 @@ const SelectInputCustomTag = () => {
         value={selectValue1}
         placeholder="Please Select"
         clearable
-        valueDisplay={(
-          <span>
-            <img src="/favicon.ico" className="tdesign-demo-select-input__img" />
-            {selectValue1.label}
-          </span>
-        )}
-        panel={(
-          <ul className="tdesign-demo__selet-input-ul-custom">
-            {OPTIONS.map(item => (
+        valueDisplay={
+          selectValue1 && (
+            <span className="displaySpan">
+              <ControlPlatformIcon className="tdesign-demo-select-input__img" />
+              {selectValue1.label}
+            </span>
+          )
+        }
+        panel={
+          <ul className="tdesign-demo__select-input-ul-single">
+            {OPTIONS.map((item) => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> {item.label}
+                {item.label}
               </li>
             ))}
           </ul>
-        )}
+        }
         onClear={onClear}
-      ></SelectInput>
+      />
 
-      <br /><br />
+      <br />
+      <br />
 
       {/* <!-- 多选，第一种方式：使用 tag 定义选中的某一项的内容 --> */}
       <SelectInput
@@ -111,39 +115,37 @@ const SelectInputCustomTag = () => {
         placeholder="Please Select"
         multiple
         tag={({ value }) => (
-          <span key={value}>
-            <img src="https://tdesign.gtimg.com/site/avatar.jpg" className="tdesign-demo-select-input__img" />
-            {value}
+          <span className="displaySpan">
+            <ControlPlatformIcon /> {value}
           </span>
         )}
         panel={<div className="tdesign-demo__select-empty-custom">暂无示意数据</div>}
         onTagChange={onTagChange2}
-      ></SelectInput>
+      />
 
-      <br /><br />
+      <br />
+      <br />
 
       {/* <!-- 多选，第二种方式：使用 valueDisplay 定义全部选中项的内容 --> */}
       <SelectInput
         value={selectValue3}
         placeholder="Please Select"
         multiple
-        valueDisplay={({ value, onClose }) => value.map((item, index) => (
-          <Tag
-            key={item}
-            closable
-            style={{ marginRight: '4px' }}
-            onClose={() => onClose(index)}
-          >
-            <img src="https://tdesign.gtimg.com/site/avatar.jpg" className="tdesign-demo-select-input__img" />
-            <span>{item}</span>
-          </Tag>
-        ))}
+        valueDisplay={({ value, onClose }) =>
+          value.map((item, index) => (
+            <Tag key={item} closable style={{ marginRight: '4px' }} onClose={() => onClose(index)}>
+              <span className="displaySpan">
+                <ControlPlatformIcon /> {value}
+              </span>
+            </Tag>
+          ))
+        }
         panel={<div className="tdesign-demo__select-empty-custom">暂无示意数据</div>}
         onTagChange={onTagChange3}
-      ></SelectInput>
+      />
     </div>
-  )
-}
+  );
+};
 
 SelectInputCustomTag.displayName = 'SelectInputCustomTag';
 

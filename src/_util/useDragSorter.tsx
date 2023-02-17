@@ -12,6 +12,7 @@ interface DragSortProps<T> {
 type DragFnType = (e?: React.DragEvent<HTMLTableRowElement>, index?: number, record?: any) => void;
 interface DragSortInnerData {
   dragging?: boolean;
+  draggable?: boolean;
   onDragStart?: DragFnType;
   onDragOver?: DragFnType;
   onDrop?: DragFnType;
@@ -50,7 +51,8 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
 
         const { x, width } = e.target.getBoundingClientRect();
         const targetNodeMiddleX = x + width / 2;
-        const draggingNodeLeft = e.clientX - (startInfo.mouseX - startInfo.nodeX);
+        const clientX = e.clientX || 0;
+        const draggingNodeLeft = clientX - (startInfo.mouseX - startInfo.nodeX);
         const draggingNodeRight = draggingNodeLeft + startInfo.nodeWidth;
 
         let overlap = false;
@@ -59,7 +61,6 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
         } else {
           overlap = draggingNodeRight > targetNodeMiddleX;
         }
-
         if (!overlap) return;
       }
 
@@ -94,7 +95,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
       setStartInfo({
         nodeX: x,
         nodeWidth: width,
-        mouseX: e.clientX,
+        mouseX: e.clientX || 0,
       });
     }
   }

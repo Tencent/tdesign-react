@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Checkbox, Tag } from 'tdesign-react';
+import { SelectInput, Checkbox, Tag, Space } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__panel-options-collapsed {
+.tdesign-demo__panel-options-collapsed-items {
   width: 100%;
-  display: block;
-  padding: 12px
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.tdesign-demo__panel-options-collapsed .t-checkbox {
-  display: block;
-  width: 100%
+.tdesign-demo__panel-options-collapsed-items .t-checkbox {
+  display: flex;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.tdesign-demo__panel-options-collapsed-items .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
 }
 </style>
 `;
@@ -85,7 +101,7 @@ export default function SelectInputCollapsedItems() {
     <Checkbox.Group
       value={checkboxValue}
       options={options}
-      className="tdesign-demo__panel-options-collapsed"
+      className="tdesign-demo__panel-options-collapsed-items"
       onChange={onCheckedChange}
     />
   );
@@ -96,7 +112,7 @@ export default function SelectInputCollapsedItems() {
   }, []);
 
   return (
-    <div className="tdesign-demo__select-input-multiple" style={{ width: '100%' }}>
+    <Space direction="vertical" className="tdesign-demo__select-input-collapsed-items">
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
         value={value}
@@ -106,7 +122,7 @@ export default function SelectInputCollapsedItems() {
         clearable
         multiple
         onTagChange={onTagChange}
-      ></SelectInput>
+      />
       <br /> <br />
       {/* 使用 collapsedItems 自定义折叠标签 */}
       <SelectInput
@@ -118,16 +134,7 @@ export default function SelectInputCollapsedItems() {
         clearable
         multiple
         onTagChange={onTagChange}
-      ></SelectInput>
-    </div>
+      />
+    </Space>
   );
 }
-
-// 下拉选项样式
-// .tdesign-demo__panel-options-collapsed {
-//   width: 100%;
-// }
-// .tdesign-demo__panel-options-collapsed .t-checkbox {
-//   display: block;
-//   margin: 12px;
-// }

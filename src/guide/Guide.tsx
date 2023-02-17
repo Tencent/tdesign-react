@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import isFunction from 'lodash/isFunction';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
 import Button from '../button';
 import useConfig from '../hooks/useConfig';
-import Popup from '../popup';
-import { GuideCrossProps, StepPopupPlacement, TdGuideProps } from './type';
+import Popup, { PopupProps } from '../popup';
+import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
 import { addClass, removeClass, isFixed, getWindowScroll } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
 import setStyle from '../_common/js/utils/set-style';
@@ -13,10 +14,20 @@ import { guideDefaultProps } from './defaultProps';
 
 export type GuideProps = TdGuideProps;
 
+export type GuideCrossProps = Pick<
+  GuideStep,
+  'mode' | 'skipButtonProps' | 'prevButtonProps' | 'nextButtonProps' | 'showOverlay' | 'highlightPadding'
+>;
+
+/**
+ * @deprecated use GuideStep instead.
+ * */
+export type TdGuideStepProps = GuideStep;
+
 const Guide = (props: GuideProps) => {
   const { counter, hideCounter, hidePrev, hideSkip, steps, zIndex } = props;
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, guide: guideGlobalConfig } = useConfig();
   const prefixCls = `${classPrefix}-guide`;
   const lockCls = `${prefixCls}--lock`;
 
@@ -30,14 +41,12 @@ const Guide = (props: GuideProps) => {
   const referenceLayerRef = useRef<HTMLDivElement>(null);
   // 当前高亮的元素
   const currentHighlightLayerElm = useRef<HTMLElement>(null);
-  // 下一个高亮的元素
-  const nextHighlightLayerElm = useRef<HTMLElement>(null);
   // dialog wrapper ref
   const dialogWrapperRef = useRef<HTMLDivElement>(null);
   // dialog ref
   const dialogTooltipRef = useRef<HTMLDivElement>(null);
   // 是否开始展示
-  const [actived, setActive] = useState(false);
+  const [active, setActive] = useState(false);
   // 步骤总数
   const stepsTotal = steps.length;
   // 当前步骤的信息
@@ -52,8 +61,8 @@ const Guide = (props: GuideProps) => {
 
   // 设置高亮层的位置
   const setHighlightLayerPosition = (highlighLayer: HTMLElement) => {
-    let { top, left } = getRelativePosition(nextHighlightLayerElm.current, currentHighlightLayerElm.current);
-    let { width, height } = nextHighlightLayerElm.current.getBoundingClientRect();
+    let { top, left } = getRelativePosition(currentHighlightLayerElm.current);
+    let { width, height } = currentHighlightLayerElm.current.getBoundingClientRect();
     const highlightPadding = getCurrentCrossProps('highlightPadding');
 
     if (isPopup) {
@@ -76,15 +85,13 @@ const Guide = (props: GuideProps) => {
   };
 
   const showPopupGuide = () => {
-    const currentElement = getTargetElm(currentStepInfo.element);
-    nextHighlightLayerElm.current = currentElement;
-    currentHighlightLayerElm.current = currentElement;
+    currentHighlightLayerElm.current = getTargetElm(currentStepInfo.element);
 
     setTimeout(() => {
-      scrollToParentVisibleArea(nextHighlightLayerElm.current);
+      scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
       setHighlightLayerPosition(referenceLayerRef.current);
-      scrollToElm(nextHighlightLayerElm.current);
+      scrollToElm(currentHighlightLayerElm.current);
     });
   };
 
@@ -94,12 +101,10 @@ const Guide = (props: GuideProps) => {
 
   const showDialogGuide = () => {
     setTimeout(() => {
-      const currentElement = dialogTooltipRef.current;
-      nextHighlightLayerElm.current = currentElement;
-      currentHighlightLayerElm.current = currentElement;
-      scrollToParentVisibleArea(nextHighlightLayerElm.current);
+      currentHighlightLayerElm.current = dialogTooltipRef.current;
+      scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
-      scrollToElm(nextHighlightLayerElm.current);
+      scrollToElm(currentHighlightLayerElm.current);
     });
   };
 
@@ -130,7 +135,7 @@ const Guide = (props: GuideProps) => {
     const total = stepsTotal;
     setActive(false);
     setInnerCurrent(-1, { e, total });
-    props.onSkip?.({ e, current: -1, total });
+    props.onSkip?.({ e, current: innerCurrent, total });
   };
 
   const handlePrev = (e) => {
@@ -159,14 +164,13 @@ const Guide = (props: GuideProps) => {
     const total = stepsTotal;
     setActive(false);
     setInnerCurrent(-1, { e, total });
-    props.onFinish?.({ e, current: -1, total });
+    props.onFinish?.({ e, current: innerCurrent, total });
   };
 
   const initGuide = () => {
     if (innerCurrent >= 0 && innerCurrent < steps.length) {
-      if (!actived) {
+      if (!active) {
         setActive(true);
-
         addClass(document.body, lockCls);
       }
       showGuide();
@@ -207,7 +211,6 @@ const Guide = (props: GuideProps) => {
     const maskClass = [`${prefixCls}__highlight--${showOverlay ? 'mask' : 'nomask'}`];
     const { highlightContent } = currentStepInfo;
     const showHighlightContent = highlightContent && isPopup;
-
     return createPortal(
       <div
         ref={highlightLayerRef}
@@ -215,9 +218,9 @@ const Guide = (props: GuideProps) => {
         style={style}
       >
         {showHighlightContent &&
-          React.cloneElement(highlightContent as any, {
-            className: cx(highlightClass.concat(maskClass)),
-            style,
+          React.cloneElement(highlightContent, {
+            className: cx(highlightClass.concat(maskClass, highlightContent.props.className)),
+            style: { ...style, ...highlightContent.props.style },
           })}
       </div>,
       document.body,
@@ -225,18 +228,14 @@ const Guide = (props: GuideProps) => {
   };
 
   const renderCounter = () => {
-    let popupSlotCounter;
-
-    if (React.isValidElement(counter)) {
-      popupSlotCounter = React.cloneElement(counter, { total: stepsTotal, current: innerCurrent } as any);
-    }
+    const popupSlotCounter = isFunction(counter) ? counter({ total: stepsTotal, current: innerCurrent }) : counter;
 
     const popupDefaultCounter = (
       <div className={`${prefixCls}__counter`}>
         {popupSlotCounter || (
-          <span>
+          <>
             {innerCurrent + 1}/{stepsTotal}
-          </span>
+          </>
         )}
       </div>
     );
@@ -257,7 +256,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handleSkip}
-            {...getCurrentCrossProps('skipButtonProps')}
+            {...(getCurrentCrossProps('skipButtonProps') ?? guideGlobalConfig.skipButtonProps)}
           />
         )}
         {!hidePrev && !isFirst && (
@@ -267,7 +266,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handlePrev}
-            {...getCurrentCrossProps('prevButtonProps')}
+            {...(getCurrentCrossProps('prevButtonProps') ?? guideGlobalConfig.prevButtonProps)}
           />
         )}
         {!isLast && (
@@ -277,7 +276,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handleNext}
-            {...getCurrentCrossProps('nextButtonProps')}
+            {...(getCurrentCrossProps('nextButtonProps') ?? guideGlobalConfig.nextButtonProps)}
           />
         )}
         {isLast && (
@@ -287,7 +286,7 @@ const Guide = (props: GuideProps) => {
             size={buttonSize}
             variant="base"
             onClick={handleFinish}
-            {...props.finishButtonProps}
+            {...(props.finishButtonProps ?? guideGlobalConfig.finishButtonProps)}
           />
         )}
       </div>
@@ -326,7 +325,7 @@ const Guide = (props: GuideProps) => {
   };
 
   const renderPopupGuide = () => {
-    const { content } = currentStepInfo;
+    const content = currentStepInfo.children ?? currentStepInfo.content;
     let renderBody;
     if (React.isValidElement(content)) {
       const contentProps = {
@@ -337,22 +336,24 @@ const Guide = (props: GuideProps) => {
         current: innerCurrent,
         total: stepsTotal,
       };
-      renderBody = React.cloneElement(content as any, contentProps);
+      renderBody = isFunction(content) ? content(contentProps) : content;
     } else {
       renderBody = renderPopupContent();
     }
 
     const classes = [`${prefixCls}__reference`, `${prefixCls}--${currentElmIsFixed ? 'fixed' : 'absolute'}`];
 
+    const innerClassName: PopupProps['overlayInnerClassName'] = [{ [`${prefixCls}__popup--content`]: !!content }];
     return createPortal(
       <Popup
         visible={true}
         content={renderBody}
         showArrow={!content}
         zIndex={zIndex}
-        overlayClassName={currentStepInfo.stepOverlayClass}
-        overlayInnerClassName={{ [`${prefixCls}__popup--content`]: !!content }}
         placement={currentStepInfo.placement as StepPopupPlacement}
+        {...currentStepInfo.popupProps}
+        overlayClassName={currentStepInfo.stepOverlayClass}
+        overlayInnerClassName={innerClassName.concat(currentStepInfo.popupProps?.overlayInnerClassName)}
       >
         <div ref={referenceLayerRef} className={cx(classes)} />
       </Popup>,
@@ -402,7 +403,7 @@ const Guide = (props: GuideProps) => {
     </>
   );
 
-  return <>{actived && renderGuide()}</>;
+  return <>{active && renderGuide()}</>;
 };
 
 Guide.displayName = 'Guide';

@@ -16,9 +16,13 @@ datePicker | Object | - | DatePicker global configs。Typescript：`DatePickerCo
 dialog | Object | - | Dialog global configs。Typescript：`DialogConfig` | N
 drawer | Object | - | Drawer global configs。Typescript：`DrawerConfig` | N
 form | Object | - | Form global configs。Typescript：`FormConfig` | N
+guide | Object | - | Guide global configs。Typescript：`GuideConfig` | N
 icon | Object | - | icon config。Typescript：`IconConfig` `type IconConfig = GlobalIconConfig` `import { GlobalIconConfig } from '@icon'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
+image | Object | - | image global configs。Typescript：`ImageConfig` | N
+imageViewer | Object | - | imageViewer global configs。Typescript：`ImageViewerConfig` | N
 input | Object | - | Input global configs。Typescript：`InputConfig` | N
 list | Object | - | List global configs。Typescript：`ListConfig` | N
+message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript：`PaginationConfig` | N
 popconfirm | Object | - | Popconfirm global configs。Typescript：`PopconfirmConfig` | N
 select | Object | - | Select global configs。Typescript：`SelectConfig` | N
@@ -105,6 +109,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 confirm | String | - | confirm text | N
 dayAriaLabel | String | - | date text | N
+dayjsLocale | String | - | dayjs language international configuration | N
 direction | String | 'ltr' | range separator text | N
 firstDayOfWeek | Number | 7 | options：1/2/3/4/5/6/7 | N
 format | String | 'YYYY-MM-DD' | date format rules | N
@@ -282,3 +287,34 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 copySuccessText | String | - | \- | N
 copyText | String | - | \- | N
+
+### MessageConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+`MessageOptions` | \- | - | \- | N
+
+### ImageConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorText | String | - | loading text, default value is "Error" | N
+loadingText | String | - | loading text, default value is "loading" | N
+
+### ImageViewerConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+errorText | String | - | \- | N
+mirrorTipText | String | - | mirror operation text | N
+originalSizeTipText | String | - | original size tips | N
+rotateTipText | String | - | rotate operation text | N
+
+### GuideConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+finishButtonProps | Object | - | finish button in last step. `{ content: 'Finish', theme: 'primary' }`。Typescript：`ButtonProps` | N
+nextButtonProps | Object | - | next step button. `{ content: 'Next Button', theme: 'primary' }`。Typescript：`ButtonProps` | N
+prevButtonProps | Object | - | previous step button. `{ content: 'Previous Step', theme: 'default' }`。Typescript：`ButtonProps` | N
+skipButtonProps | Object | - | skip button. `{ content: 'Skip', theme: 'default' }`。Typescript：`ButtonProps` | N

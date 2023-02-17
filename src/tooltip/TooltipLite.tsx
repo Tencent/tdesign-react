@@ -81,6 +81,11 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
                 },
                 className,
               )}
+              style={{
+                position: 'absolute',
+                left: position?.left,
+                top: position?.top,
+              }}
               data-popper-placement={placement}
               ref={popupRef}
             >
@@ -88,13 +93,8 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
                 className={classnames(`${classPrefix}-popup__content`, {
                   [`${classPrefix}-popup__content--arrow`]: showTipArrow,
                 })}
-                style={{
-                  position: 'absolute',
-                  left: position?.left,
-                  top: position?.top,
-                  ...style,
-                }}
                 ref={contentRef}
+                style={style}
               >
                 {content}
                 {showTipArrow && <div className={`${classPrefix}-popup__arrow`} />}

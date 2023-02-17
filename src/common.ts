@@ -1,9 +1,9 @@
 /** React 特有全局类型 */
 
-import { ReactElement, ReactNode, CSSProperties, FormEvent } from 'react';
+import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, SyntheticEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
-export type TElement = ReactElement | (() => ReactElement);
+export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
 export type TNode<T = undefined> = T extends undefined ? ReactNode : (props: T) => ReactNode;
 
@@ -26,16 +26,35 @@ export interface StyledProps {
   className?: string;
   style?: CSSProperties;
 }
-/** 通用全局类型 */
+
+export interface UploadDisplayDragEvents {
+  onDrop?: (event: DragEvent<HTMLDivElement>) => void;
+  onDragEnter?: (event: DragEvent<HTMLDivElement>) => void;
+  onDragOver?: (event: DragEvent<HTMLDivElement>) => void;
+  onDragLeave?: (event: DragEvent<HTMLDivElement>) => void;
+}
+
+export type ImageEvent<T = any> = SyntheticEvent<T>;
+
+/**
+ * 通用全局类型
+ * */
+export type PlainObject = { [key: string]: any };
 
 export type OptionData = {
   label?: string;
   value?: string | number;
-} & { [key: string]: any };
+} & PlainObject;
 
-export type TreeOptionData = {
-  children?: Array<TreeOptionData>;
-} & OptionData;
+export type TreeOptionData<T = string | number> = {
+  children?: Array<TreeOptionData<T>>;
+  /** option label content */
+  label?: string | TNode;
+  /** option search text */
+  text?: string;
+  /** option value */
+  value?: T;
+} & PlainObject;
 
 export type SizeEnum = 'small' | 'medium' | 'large';
 
@@ -56,7 +75,7 @@ export interface HTMLElementAttributes {
   [css: string]: string;
 }
 
-export interface TScroll {
+export interface InfinityScroll {
   /**
    * 表示除可视区域外，额外渲染的行数，避免快速滚动过程中，新出现的内容来不及渲染从而出现空白
    * @default 20
@@ -81,3 +100,5 @@ export interface TScroll {
    */
   type: 'lazy' | 'virtual';
 }
+
+export type TScroll = InfinityScroll;

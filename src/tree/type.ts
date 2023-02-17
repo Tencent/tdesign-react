@@ -15,6 +15,11 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   activable?: boolean;
   /**
+   * 是否允许多个节点同时高亮
+   * @default false
+   */
+  activeMultiple?: boolean;
+  /**
    * 高亮的节点值
    */
   actived?: Array<TreeNodeValue>;
@@ -23,20 +28,10 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   defaultActived?: Array<TreeNodeValue>;
   /**
-   * 是否允许多个节点同时高亮
-   * @default false
-   */
-  activeMultiple?: boolean;
-  /**
    * 是否允许在过滤时节点折叠节点
    * @default false
    */
   allowFoldNodeOnFilter?: boolean;
-  /**
-   * 隐藏节点复选框
-   * @default false
-   */
-  checkable?: boolean;
   /**
    * 透传属性到 checkbox 组件。参考 checkbox 组件 API
    */
@@ -46,6 +41,11 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * @default false
    */
   checkStrictly?: boolean;
+  /**
+   * 隐藏节点复选框
+   * @default false
+   */
+  checkable?: boolean;
   /**
    * 树数据，泛型 `T` 表示树节点 TS 类型
    * @default []
@@ -61,8 +61,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   disabled?: boolean;
   /**
-   * 节点是否可拖拽
-   * @default false
+   * [开发中]节点是否可拖拽
    */
   draggable?: boolean;
   /**
@@ -75,16 +74,6 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * @default false
    */
   expandAll?: boolean;
-  /**
-   * 展开的节点值
-   * @default []
-   */
-  expanded?: Array<TreeNodeValue>;
-  /**
-   * 展开的节点值，非受控属性
-   * @default []
-   */
-  defaultExpanded?: Array<TreeNodeValue>;
   /**
    * 默认展开的级别，第一层为 0
    * @default 0
@@ -106,6 +95,16 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   expandParent?: boolean;
   /**
+   * 展开的节点值
+   * @default []
+   */
+  expanded?: Array<TreeNodeValue>;
+  /**
+   * 展开的节点值，非受控属性
+   * @default []
+   */
+  defaultExpanded?: Array<TreeNodeValue>;
+  /**
    * 节点过滤方法，只呈现返回值为 true 的节点，泛型 `T` 表示树节点 TS 类型
    */
   filter?: (node: TreeNodeModel<T>) => boolean;
@@ -123,7 +122,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   keys?: TreeKeysType;
   /**
-   * 自定义节点内容，值为 false 不显示，值为 true 显示默认 label，值为字符串直接输出该字符串。泛型 `T` 表示树节点 TS 类型
+   * 自定义节点内容，值为 `false` 不显示，值为 `true` 显示默认 label，值为字符串直接输出该字符串。泛型 `T` 表示树节点 TS 类型。<br/>如果期望只有点击复选框才选中，而点击节点不选中，可以使用 `label` 自定义节点，然后加上点击事件 `e.preventDefault()`，通过调整自定义节点的宽度和高度决定禁止点击选中的范围
    * @default true
    */
   label?: string | boolean | TNode<TreeNodeModel<T>>;
@@ -136,7 +135,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 连接线。值为 false 不显示连接线；值为 true 显示默认连接线；值类型为 Function 表示自定义连接线
    * @default false
    */
-  line?: TNode | TNode<TreeNodeModel>;
+  line?: TNode;
   /**
    * 加载子数据的方法，在展开节点时调用（仅当节点 children 为 true 时生效），泛型 `T` 表示树节点 TS 类型
    */
@@ -168,48 +167,61 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
    * 节点激活时触发，泛型 `T` 表示树节点 TS 类型
    */
-  onActive?: (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T> }) => void;
+  onActive?: (
+    value: Array<TreeNodeValue>,
+    context: { node: TreeNodeModel<T>; e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
+  ) => void;
   /**
    * 节点选中状态变化时触发，context.node 表示当前变化的选项，泛型 `T` 表示树节点 TS 类型
    */
-  onChange?: (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T> }) => void;
+  onChange?: (
+    value: Array<TreeNodeValue>,
+    context: { node: TreeNodeModel<T>; e?: any; trigger: 'node-click' | 'setItem' },
+  ) => void;
   /**
    * 节点点击时触发，泛型 `T` 表示树节点 TS 类型
    */
   onClick?: (context: { node: TreeNodeModel<T>; e: MouseEvent<HTMLDivElement> }) => void;
   /**
-   * 节点展开或收起时触发，泛型 `T` 表示树节点 TS 类型
-   */
-  onExpand?: (value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e: MouseEvent<HTMLDivElement> }) => void;
-  /**
-   * 异步加载后触发，泛型 `T` 表示树节点 TS 类型
-   */
-  onLoad?: (context: { node: TreeNodeModel<T> }) => void;
-  /**
-   * 节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型
-   */
-  onDragStart?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
-  /**
    * 节点结束拖拽时触发，泛型 `T` 表示树节点 TS 类型
    */
-  onDragEnd?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
-  /**
-   * 节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型
-   */
-  onDragOver?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  onDragEnd?: (context: { e: DragEvent<HTMLDivElement>; node: TreeNodeModel<T> }) => void;
   /**
    * 节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型
    */
-  onDragLeave?: (context: { e: DragEvent; node: TreeNodeModel<T> }) => void;
+  onDragLeave?: (context: { e: DragEvent<HTMLDivElement>; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragOver?: (context: { e: DragEvent<HTMLDivElement>; node: TreeNodeModel<T> }) => void;
+  /**
+   * 节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onDragStart?: (context: { e: DragEvent<HTMLDivElement>; node: TreeNodeModel<T> }) => void;
   /**
    * 节点在目标元素上释放时触发，泛型 `T` 表示树节点 TS 类型
    */
   onDrop?: (context: {
-    e: DragEvent;
+    e: DragEvent<HTMLDivElement>;
     dragNode: TreeNodeModel<T>;
     dropNode: TreeNodeModel<T>;
     dropPosition: number;
   }) => void;
+  /**
+   * 节点展开或收起时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onExpand?: (
+    value: Array<TreeNodeValue>,
+    context: {
+      node: TreeNodeModel<T>;
+      e?: MouseEvent<HTMLDivElement>;
+      trigger: 'node-click' | 'icon-click' | 'setItem';
+    },
+  ) => void;
+  /**
+   * 异步加载后触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onLoad?: (context: { node: TreeNodeModel<T> }) => void;
 }
 
 /** 组件实例方法 */
@@ -217,47 +229,47 @@ export interface TreeInstanceFunctions<T extends TreeOptionData = TreeOptionData
   /**
    * 为指定节点添加子节点，默认添加到根节点，泛型 `T` 表示树节点 TS 类型
    */
-  appendTo?: (value: TreeNodeValue, newData: T | Array<T>) => void;
+  appendTo: (value: TreeNodeValue, newData: T | Array<T>) => void;
   /**
    * 获取指定节点下标
    */
-  getIndex?: (value: TreeNodeValue) => number;
+  getIndex: (value: TreeNodeValue) => number;
   /**
    * 获取指定节点所有信息，泛型 `T` 表示树节点 TS 类型
    */
-  getItem?: (value: TreeNodeValue) => TreeNodeModel<T>;
+  getItem: (value: TreeNodeValue) => TreeNodeModel<T>;
   /**
    * 获取某节点的全部子孙节点；参数为空，则表示获取整棵树的全部节点，泛型 `T` 表示树节点 TS 类型
    */
-  getItems?: (value?: TreeNodeValue) => Array<TreeNodeModel<T>>;
+  getItems: (value?: TreeNodeValue) => Array<TreeNodeModel<T>>;
   /**
    * 获取指定节点的直属父节点，泛型 `T` 表示树节点 TS 类型
    */
-  getParent?: (value: TreeNodeValue) => TreeNodeModel<T>;
+  getParent: (value: TreeNodeValue) => TreeNodeModel<T>;
   /**
    * 获取指定节点的全部父节点，泛型 `T` 表示树节点 TS 类型
    */
-  getParents?: (value: TreeNodeValue) => TreeNodeModel<T>[];
+  getParents: (value: TreeNodeValue) => TreeNodeModel<T>[];
   /**
    * 自下而上获取全路径数据，泛型 `T` 表示树节点 TS 类型
    */
-  getPath?: (value: TreeNodeValue) => TreeNodeModel<T>[];
+  getPath: (value: TreeNodeValue) => TreeNodeModel<T>[];
   /**
    * 插入新节点到指定节点后面，泛型 `T` 表示树节点 TS 类型
    */
-  insertAfter?: (value: TreeNodeValue, newData: T) => void;
+  insertAfter: (value: TreeNodeValue, newData: T) => void;
   /**
    * 插入新节点到指定节点前面，泛型 `T` 表示树节点 TS 类型
    */
-  insertBefore?: (value: TreeNodeValue, newData: T) => void;
+  insertBefore: (value: TreeNodeValue, newData: T) => void;
   /**
    * 移除指定节点
    */
-  remove?: (value: TreeNodeValue) => void;
+  remove: (value: TreeNodeValue) => void;
   /**
    * 设置节点状态
    */
-  setItem?: (value: TreeNodeValue, options: TreeNodeState) => void;
+  setItem: (value: TreeNodeValue, options: TreeNodeState) => void;
 }
 
 export interface TreeNodeState {
@@ -287,15 +299,15 @@ export interface TreeNodeState {
    */
   disabled?: boolean;
   /**
-   * 节点是否已展开
-   * @default false
-   */
-  expanded?: boolean;
-  /**
    * 子节点是否互斥展开
    * @default false
    */
   expandMutex?: boolean;
+  /**
+   * 节点是否已展开
+   * @default false
+   */
+  expanded?: boolean;
   /**
    * 节点是否为半选中状态
    * @default false
@@ -332,7 +344,7 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
    */
   checked: boolean;
   /**
-   * 节点数据，泛型 `T` 表示树节点 TS 类型
+   * 节点数据，泛型 `T` 表示树节点 TS 类型，继承 `TreeOptionData`
    */
   data: T;
   /**
@@ -348,7 +360,7 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
    */
   loading: boolean;
   /**
-   * 追加子节点数据，泛型 `T` 表示树节点 TS 类型
+   * 追加子节点数据，泛型 `T` 表示树节点 TS 类型，继承 `TreeOptionData`
    */
   appendData: (data: T | Array<T>) => void;
   /**
@@ -408,7 +420,7 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
    */
   remove: (value?: TreeNodeValue) => void;
   /**
-   * 设置当前节点数据，数据变化可自动刷新页面，泛型 `T` 表示树节点 TS 类型
+   * 设置节点数据，数据变化可自动刷新页面，泛型 `T` 表示树节点 TS 类型，继承 `TreeOptionData`
    */
   setData: (data: T) => void;
 }

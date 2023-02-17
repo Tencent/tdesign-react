@@ -1,7 +1,7 @@
-import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject } from 'react';
+import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject, MouseEvent } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
+import { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree/types';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData } from '../common';
 import { usePersistFn } from '../_util/usePersistFn';
@@ -9,7 +9,6 @@ import { TreeInstanceFunctions, TdTreeProps } from './type';
 import { useTreeConfig } from './useTreeConfig';
 import useControllable from './useControllable';
 import { TreeItemProps } from './interface';
-
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
 import { TreeDraggableContext } from './TreeDraggableContext';
@@ -58,60 +57,72 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       onActive,
       actived,
     },
-    () => {
-      const nodes = store.getNodes();
-      const newVisibleNodes = nodes.filter((node) => node.visible);
-      setVisibleNodes(newVisibleNodes);
+    initial,
+  );
+
+  function initial() {
+    const nodes = store?.getNodes();
+    const newVisibleNodes = nodes?.filter((node) => node.visible);
+    setVisibleNodes(newVisibleNodes);
+  }
+
+  // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
+  const setExpanded = usePersistFn(
+    (
+      node: TreeNode,
+      isExpanded: boolean,
+      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+    ) => {
+      const { e, trigger } = ctx;
+      const expanded = node.setExpanded(isExpanded);
+      const treeNodeModel = node?.getModel();
+      (e || trigger) && onExpand?.(expanded, { node: treeNodeModel, e, trigger });
+      return expanded;
     },
   );
 
-  // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
-  const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean, e?: React.MouseEvent<HTMLDivElement>) => {
-    const expanded = node.setExpanded(isExpanded);
-    const treeNodeModel = node?.getModel();
+  const setActived = usePersistFn(
+    (
+      node: TreeNode,
+      isActived: boolean,
+      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
+    ) => {
+      const actived = node.setActived(isActived);
+      const treeNodeModel = node?.getModel();
+      onActive?.(actived, { node: treeNodeModel, ...ctx });
+      return actived;
+    },
+  );
 
-    e && onExpand?.(expanded, { node: treeNodeModel, e });
-    return expanded;
-  });
-
-  const setActived = usePersistFn((node: TreeNode, isActived: boolean) => {
-    const actived = node.setActived(isActived);
-    const treeNodeModel = node?.getModel();
-    onActive?.(actived, { node: treeNodeModel });
-    return actived;
-  });
-
-  const setChecked = usePersistFn((node: TreeNode, isChecked: boolean) => {
-    const checked = node.setChecked(isChecked);
-    const treeNodeModel = node?.getModel();
-    onChange?.(checked, { node: treeNodeModel });
-    return checked;
-  });
+  const setChecked = usePersistFn(
+    (node: TreeNode, isChecked: boolean, ctx: { e?: any; trigger: 'node-click' | 'setItem' }) => {
+      const checked = node.setChecked(isChecked);
+      const treeNodeModel = node?.getModel();
+      onChange?.(checked, { node: treeNodeModel, ...ctx });
+      return checked;
+    },
+  );
 
   const handleItemClick: TreeItemProps['onClick'] = (node, options) => {
     if (!node) {
       return;
     }
     const isDisabled = disabled || node.disabled;
-    const { expand, active, event } = options;
-
-    if (expand) setExpanded(node, !node.isExpanded(), event);
+    const { expand, active, e, trigger } = options;
+    if (expand) setExpanded(node, !node.isExpanded(), { e, trigger });
 
     if (active && !isDisabled) {
-      setActived(node, !node.isActived());
+      setActived(node, !node.isActived(), { e, trigger: 'node-click' });
       const treeNodeModel = node?.getModel();
-      onClick?.({
-        node: treeNodeModel,
-        e: event,
-      });
+      onClick?.({ node: treeNodeModel, e });
     }
   };
 
-  const handleChange: TreeItemProps['onChange'] = (node) => {
+  const handleChange: TreeItemProps['onChange'] = (node, ctx) => {
     if (!node || disabled || node.disabled) {
       return;
     }
-    setChecked(node, !node.isChecked());
+    setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
   };
 
   /** 对外暴露的公共方法 * */
@@ -158,10 +169,10 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         return pathNodes;
       },
       insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
-        return store.insertAfter(value, newData);
+        return store.insertAfter(value, newData as TypeTreeNodeData);
       },
       insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
-        return store.insertBefore(value, newData);
+        return store.insertBefore(value, newData as TypeTreeNodeData);
       },
       remove(value: TreeNodeValue): void {
         return store.remove(value);
@@ -171,15 +182,15 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         const spec = options;
         if (node && spec) {
           if ('expanded' in options) {
-            setExpanded(node, spec.expanded);
+            setExpanded(node, spec.expanded, { trigger: 'setItem' });
             delete spec.expanded;
           }
           if ('actived' in options) {
-            setActived(node, spec.actived);
+            setActived(node, spec.actived, { trigger: 'setItem' });
             delete spec.actived;
           }
           if ('checked' in options) {
-            setChecked(node, spec.checked);
+            setChecked(node, spec.checked, { trigger: 'setItem' });
             delete spec.checked;
           }
           node.set(spec);
@@ -267,7 +278,6 @@ Tree.displayName = 'Tree';
 
 Tree.defaultProps = {
   data: [],
-  empty: '',
   expandLevel: 0,
   icon: true,
   line: false,

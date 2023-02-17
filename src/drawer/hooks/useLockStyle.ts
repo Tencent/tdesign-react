@@ -1,6 +1,6 @@
 import { useRef, useCallback, useMemo } from 'react';
-import getScrollbarWidth from '../../_util/getScrollbarWidth';
 import useLayoutEffect from '../../_util/useLayoutEffect';
+import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
 
 let key = 1;
 
@@ -16,15 +16,21 @@ export default function useLockStyle(props) {
     }, 150);
   }, []);
 
-  const marginString = useMemo(() => ({
-      top: `margin: ${sizeValue} 0 0 0`,
-      left: `margin: 0 0 0 ${sizeValue}`,
-      right: `margin: 0 0 0 -${sizeValue}`,
-      bottom: `margin: -${sizeValue} 0 0 0`,
-    }[placement]), [placement, sizeValue]);
+  const marginString = useMemo(
+    () =>
+      ({
+        top: `margin: ${sizeValue} 0 0 0`,
+        left: `margin: 0 0 0 ${sizeValue}`,
+        right: `margin: 0 0 0 -${sizeValue}`,
+        bottom: `margin: -${sizeValue} 0 0 0`,
+      }[placement]),
+    [placement, sizeValue],
+  );
 
   useLayoutEffect(() => {
-    const scrollbarWidth = getScrollbarWidth();
+    if (typeof document === 'undefined') return;
+    const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
+    const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
     lockStyleRef.current.innerHTML = `
       html body {
@@ -38,6 +44,7 @@ export default function useLockStyle(props) {
   }, [mode, marginString, clearStyleFunc]);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     if (!preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {

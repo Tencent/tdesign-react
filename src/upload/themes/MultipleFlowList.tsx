@@ -16,6 +16,7 @@ import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
 import Link from '../../link';
+import parseTNode from '../../_util/parseTNode';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;
@@ -28,6 +29,7 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
+  const { draggable = true } = props;
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
@@ -47,8 +49,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return locale.triggerUploadText.normal;
   }, [locale, uploading]);
 
-  const draggable = props.draggable ?? true;
-  const dragEvents = draggable
+  const innerDragEvents = draggable
     ? {
         onDrop: drag.handleDrop,
         onDragEnter: drag.handleDragenter,
@@ -84,6 +85,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderImgItem = (file: UploadFile, index: number) => {
     const { iconMap, textMap } = getStatusMap();
+    const fileName = props.abridgeName && file.name ? abridgeName(file.name, ...props.abridgeName) : file.name;
     return (
       <li className={`${uploadPrefix}__card-item`} key={file.name + index + file.percent + file.status}>
         <div
@@ -93,7 +95,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           ])}
         >
           {['fail', 'progress'].includes(file.status) && (
-            <div className={`${uploadPrefix}__card-status-wrap`}>
+            <div
+              className={classNames([
+                `${uploadPrefix}__card-status-wrap`,
+                `${uploadPrefix}__${props.theme}-${file.status}`,
+              ])}
+            >
               {iconMap[file.status as 'fail' | 'progress']}
               <p>{textMap[file.status as 'fail' | 'progress']}</p>
             </div>
@@ -124,15 +131,15 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             )}
             {!disabled && (
               <span
-                className={`${uploadPrefix}__card-mask-item`}
-                onClick={(e: MouseEvent) => props.onRemove({ e, index, file })}
+                className={`${uploadPrefix}__card-mask-item ${uploadPrefix}__delete`}
+                onClick={(e) => props.onRemove({ e, index, file })}
               >
                 <DeleteIcon />
               </span>
             )}
           </div>
         </div>
-        <p className={`${uploadPrefix}__card-name`}>{abridgeName(file.name)}</p>
+        <p className={`${uploadPrefix}__card-name`}>{fileName}</p>
       </li>
     );
   };
@@ -142,9 +149,9 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     return (
       <div className={`${uploadPrefix}__flow-status`}>
         {iconMap[file.status]}
-        <span>
+        <span className={`${uploadPrefix}__${props.theme}-${file.status}`}>
           {textMap[file.status]}
-          {file.status === 'progress' ? ` ${file.percent}%` : ''}
+          {props.showUploadProgress && file.status === 'progress' ? ` ${file.percent || 0}%` : ''}
         </span>
       </div>
     );
@@ -152,9 +159,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
   const renderNormalActionCol = (file: UploadFile, index: number) => (
     <td>
-      <TButton theme="primary" variant="text" onClick={(e: MouseEvent) => props.onRemove({ e, index, file })}>
+      <Link
+        theme="primary"
+        hover="color"
+        className={`${uploadPrefix}__delete`}
+        onClick={(e) => props.onRemove({ e, index, file })}
+      >
         {locale?.triggerUploadText?.delete}
-      </TButton>
+      </Link>
     </td>
   );
 
@@ -163,60 +175,83 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     // 第一行数据才需要合并单元格
     index === 0 ? (
       <td rowSpan={displayFiles.length} className={`${uploadPrefix}__flow-table__batch-row`}>
-        <TButton
+        <Link
           theme="primary"
-          variant="text"
-          onClick={(e: MouseEvent) => props.onRemove({ e, index: -1, file: null })}
+          hover="color"
+          className={`${uploadPrefix}__delete`}
+          onClick={(e) => props.onRemove({ e, index: -1, file: undefined })}
         >
           {locale?.triggerUploadText?.delete}
-        </TButton>
+        </Link>
       </td>
     ) : null;
 
-  const renderFileList = () => (
-    <table className={`${uploadPrefix}__flow-table`} {...dragEvents}>
-      <thead>
-        <tr>
-          <th>{locale.file?.fileNameText}</th>
-          <th>{locale.file?.fileSizeText}</th>
-          <th>{locale.file?.fileStatusText}</th>
-          {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
-        </tr>
-      </thead>
-      <tbody>
-        {!displayFiles.length && (
+  const renderFileList = () => {
+    if (props.fileListDisplay) {
+      return parseTNode(props.fileListDisplay, {
+        files: displayFiles,
+        dragEvents: innerDragEvents,
+      });
+    }
+    return (
+      <table className={`${uploadPrefix}__flow-table`} {...innerDragEvents}>
+        <thead>
           <tr>
-            <td colSpan={4}>{renderEmpty()}</td>
+            <th>{locale.file?.fileNameText}</th>
+            <th>{locale.file?.fileSizeText}</th>
+            <th>{locale.file?.fileStatusText}</th>
+            {disabled ? null : <th>{locale.file?.fileOperationText}</th>}
           </tr>
-        )}
-        {displayFiles.map((file, index) => {
-          // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
-          const showBatchUploadAction = props.isBatchUpload;
-          const deleteNode =
-            showBatchUploadAction && !displayFiles.find((item) => item.status !== 'success')
-              ? renderBatchActionCol(index)
-              : renderNormalActionCol(file, index);
-          const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
-          return (
-            <tr key={file.name + index}>
-              <td>
-                {file.url ? (
-                  <Link href={file.url} target="_blank" hover="color">
-                    {fileName}
-                  </Link>
-                ) : (
-                  fileName
-                )}
-              </td>
-              <td>{returnFileSize(file.size)}</td>
-              <td>{renderStatus(file)}</td>
-              {disabled ? null : deleteNode}
+        </thead>
+        <tbody>
+          {!displayFiles.length && (
+            <tr>
+              <td colSpan={4}>{renderEmpty()}</td>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+          )}
+          {displayFiles.map((file, index) => {
+            // 合并操作出现条件为：当前为合并上传模式且列表内没有待上传文件
+            const showBatchUploadAction = props.isBatchUpload;
+            const deleteNode =
+              showBatchUploadAction && displayFiles.every((item) => item.status === 'success' || !item.status)
+                ? renderBatchActionCol(index)
+                : renderNormalActionCol(file, index);
+            const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
+            return (
+              <tr key={file.name + index}>
+                <td className={`${uploadPrefix}__file-name`}>
+                  {file.url ? (
+                    <Link href={file.url} target="_blank" hover="color">
+                      {fileName}
+                    </Link>
+                  ) : (
+                    fileName
+                  )}
+                </td>
+                <td>{returnFileSize(file.size)}</td>
+                <td>{renderStatus(file)}</td>
+                {disabled ? null : deleteNode}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  };
+
+  const renderImageList = () => {
+    if (props.fileListDisplay) {
+      return parseTNode(props.fileListDisplay, {
+        files: displayFiles,
+        dragEvents: innerDragEvents,
+      });
+    }
+    return (
+      <ul className={`${uploadPrefix}__card clearfix`}>
+        {displayFiles.map((file, index) => renderImgItem(file, index))}
+      </ul>
+    );
+  };
 
   const cardClassName = `${uploadPrefix}__flow-card-area`;
   return (
@@ -231,14 +266,8 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       </div>
 
       {props.theme === 'image-flow' && (
-        <div className={cardClassName} {...dragEvents}>
-          {displayFiles.length ? (
-            <ul className={`${uploadPrefix}__card clearfix`}>
-              {displayFiles.map((file, index) => renderImgItem(file, index))}
-            </ul>
-          ) : (
-            renderEmpty()
-          )}
+        <div className={cardClassName} {...innerDragEvents}>
+          {displayFiles.length ? renderImageList() : renderEmpty()}
         </div>
       )}
 
@@ -246,20 +275,27 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         (displayFiles.length ? (
           renderFileList()
         ) : (
-          <div className={cardClassName} {...dragEvents}>
+          <div className={cardClassName} {...innerDragEvents}>
             {renderEmpty()}
           </div>
         ))}
 
       {!props.autoUpload && (
         <div className={`${uploadPrefix}__flow-bottom`}>
-          <TButton theme="default" onClick={(e) => props.cancelUpload?.({ e })} disabled={disabled || !uploading}>
+          <TButton
+            theme="default"
+            disabled={disabled || !uploading}
+            className={`${uploadPrefix}__cancel`}
+            onClick={(e) => props.cancelUpload?.({ e })}
+          >
             {locale?.cancelUploadText}
           </TButton>
+
           <TButton
             disabled={disabled || uploading || !displayFiles.length}
             theme="primary"
             loading={uploading}
+            className={`${uploadPrefix}__continue`}
             onClick={() => props.uploadFiles?.()}
           >
             {uploadText}

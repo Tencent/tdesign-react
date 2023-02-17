@@ -1,10 +1,12 @@
-import React, { useMemo, useState, MouseEvent, useEffect } from 'react';
+import React, { useMemo, useState, useRef, MouseEvent, useEffect, useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
 import log from '../_common/js/log';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
 import { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import HighlightOption from './HighlightOption';
+import { on, off } from '../_util/dom';
 
 export interface OptionsListProps {
   sizeClassNames: CommonClassNameType['sizeClassNames'];
@@ -18,10 +20,16 @@ export interface OptionsListProps {
   onSelect?: (keyword: string, context: { e: MouseEvent<HTMLLIElement> | KeyboardEvent | any }) => void;
 }
 
-const OptionsList = (props: OptionsListProps) => {
+export interface OptionsListRef {
+  addKeyboardListener: () => void;
+  removeKeyboardListener: () => void;
+}
+
+const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: OptionsListProps, ref) => {
   const { value, onSelect, popupVisible } = props;
-  const [active, setActive] = useState('');
   const { classPrefix } = useConfig();
+  const [active, setActive] = useState('');
+  const activeIndexRef = useRef(-1);
 
   const classes = `${classPrefix}-select__list`;
   const optionClasses = [
@@ -32,7 +40,7 @@ const OptionsList = (props: OptionsListProps) => {
   ];
 
   const tOptions = useMemo(() => {
-    let options = props.options.map((item) => {
+    let options = (props.options || []).map((item) => {
       let option: AutoCompleteOptionObj = {};
       if (typeof item === 'string') {
         option = { text: item, label: item };
@@ -77,27 +85,41 @@ const OptionsList = (props: OptionsListProps) => {
 
   // 键盘事件，上下选择
   const onKeyInnerPress = (e: KeyboardEvent) => {
-    if (e.code === 'ArrowUp' || e.key === 'ArrowUp') {
-      const index = tOptions.findIndex((item) => item.text === active);
-      const newIndex = index - 1 < 0 ? tOptions.length - 1 : index - 1;
+    if (e.code === 'Enter' || e.key === 'Enter') {
+      onSelect?.(tOptions[activeIndexRef.current].text, { e });
+    } else {
+      const index = activeIndexRef.current;
+      let newIndex;
+      if (e.code === 'ArrowUp' || e.key === 'ArrowUp') {
+        newIndex = index - 1 < 0 ? tOptions.length - 1 : index - 1;
+      } else if (e.code === 'ArrowDown' || e.key === 'ArrowDown') {
+        newIndex = index + 1 >= tOptions.length ? 0 : index + 1;
+      }
       setActive(tOptions[newIndex].text);
-    } else if (e.code === 'ArrowDown' || e.key === 'ArrowDown') {
-      const index = tOptions.findIndex((item) => item.text === active);
-      const newIndex = index + 1 >= tOptions.length ? 0 : index + 1;
-      setActive(tOptions[newIndex].text);
-    } else if (e.code === 'Enter' || e.key === 'Enter') {
-      onSelect?.(active, { e });
     }
   };
 
+  const addKeyboardListener = () => {
+    on(document, 'keydown', onKeyInnerPress);
+  };
+
+  const removeKeyboardListener = () => {
+    off(document, 'keydown', onKeyInnerPress);
+  };
+
+  useImperativeHandle(ref, () => ({
+    addKeyboardListener,
+    removeKeyboardListener,
+  }));
+
   useEffect(() => {
     if (popupVisible) {
-      document.addEventListener('keydown', onKeyInnerPress);
+      addKeyboardListener();
     } else {
-      document.removeEventListener('keydown', onKeyInnerPress);
+      removeKeyboardListener();
     }
     return () => {
-      document.removeEventListener('keydown', onKeyInnerPress);
+      removeKeyboardListener();
     };
     // eslint-disable-next-line
   }, [popupVisible]);
@@ -108,6 +130,10 @@ const OptionsList = (props: OptionsListProps) => {
     }
   }, [value]);
 
+  useEffect(() => {
+    activeIndexRef.current = tOptions.findIndex((item) => item.text === active);
+  }, [active, tOptions]);
+
   if (!tOptions.length) return null;
   return (
     <ul className={classes}>
@@ -116,7 +142,7 @@ const OptionsList = (props: OptionsListProps) => {
         if (item.text === active) {
           cls.push(`${classPrefix}-select-option--hover`);
         }
-        const content = item.label || item.text;
+        const content = (isFunction(item.label) ? item.label() : item.label) || item.text;
         return (
           <li key={item.text} className={classNames(cls)} title={item.text} onClick={onOptionClick}>
             {typeof content === 'string' && props.highlightKeyword ? (
@@ -129,7 +155,7 @@ const OptionsList = (props: OptionsListProps) => {
       })}
     </ul>
   );
-};
+});
 
 OptionsList.displayName = 'OptionsList';
 

@@ -1,12 +1,10 @@
 import { useRef, useCallback } from 'react';
-import getScrollbarWidth from '../../_util/getScrollbarWidth';
 import useLayoutEffect from '../../_util/useLayoutEffect';
-import { DialogProps } from '../Dialog';
+import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
 
 let key = 1;
 
-export default function useDialogLockStyle(props: DialogProps) {
-  const { preventScrollThrough, visible, mode, showInAttachedElement } = props;
+export default function useDialogLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement }) {
   const lockStyleRef = useRef(document.createElement('style'));
   const timerRef = useRef(null);
 
@@ -18,7 +16,10 @@ export default function useDialogLockStyle(props: DialogProps) {
   }, []);
 
   useLayoutEffect(() => {
-    const scrollbarWidth = getScrollbarWidth();
+    if (typeof document === 'undefined') return;
+    const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
+    const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
+
     lockStyleRef.current.dataset.id = `td_dialog_${+new Date()}_${(key += 1)}`;
     lockStyleRef.current.innerHTML = `
       html body {
@@ -31,6 +32,7 @@ export default function useDialogLockStyle(props: DialogProps) {
   }, [clearStyleFunc]);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     if (mode !== 'modal' || !preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {

@@ -23,6 +23,7 @@ export interface TdButtonProps {
   content?: TNode;
   /**
    * 禁用状态
+   * @default false
    */
   disabled?: boolean;
   /**

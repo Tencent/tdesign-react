@@ -16,6 +16,7 @@ const testConfig: InlineConfig = {
   },
   coverage: {
     provider: 'istanbul',
+    exclude: ['src/_common'],
     reporter: ['text', 'json', 'html'],
     reportsDirectory: 'test/coverage',
   },

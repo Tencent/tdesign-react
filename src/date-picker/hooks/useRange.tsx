@@ -8,6 +8,7 @@ import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useRangeValue from './useRangeValue';
+import type { TdPopupProps } from '../../popup/type';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
@@ -84,6 +85,7 @@ export default function useRange(props: TdDateRangePickerProps) {
 
       // 跳过不符合格式化的输入框内容
       if (!isValidDate(newVal, format)) return;
+      setCacheValue(newVal);
       const newYear = [];
       const newMonth = [];
       const newTime = [];
@@ -117,13 +119,14 @@ export default function useRange(props: TdDateRangePickerProps) {
   const popupProps = {
     expandAnimation: true,
     ...props.popupProps,
+    trigger: 'mousedown' as TdPopupProps['trigger'],
     overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean, context) => {
       // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
       props.popupProps?.onVisibleChange?.(visible, context);
       // 输入框点击不关闭面板
-      if (context.trigger === 'trigger-element-click') {
+      if (context.trigger === 'trigger-element-mousedown') {
         const indexMap = { 0: 'first', 1: 'second' };
         inputRef.current.focus({ position: indexMap[activeIndex] });
         return setPopupVisible(true);

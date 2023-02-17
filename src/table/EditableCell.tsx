@@ -205,11 +205,9 @@ const EditableCell = (props: EditableCellProps) => {
     }
   };
 
-  const documentClickHandler = (e: PointerEvent) => {
+  const documentClickHandler = () => {
     if (!col.edit || !col.edit.component) return;
     if (!isEdit) return;
-    // @ts-ignore
-    if (e.path?.includes(tableEditableCellRef?.current?.currentElement)) return;
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, {
       value: editValue,
@@ -278,10 +276,11 @@ const EditableCell = (props: EditableCellProps) => {
         onClick={(e: MouseEvent<HTMLDivElement>) => {
           setIsEdit(true);
           e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
         }}
       >
         {cellNode}
-        {col.edit?.showEditIcon !== false && <Edit1Icon size="12px" />}
+        {col.edit?.showEditIcon !== false && <Edit1Icon />}
       </div>
     );
   }
@@ -296,6 +295,7 @@ const EditableCell = (props: EditableCellProps) => {
       className={tableBaseClass.cellEditWrap}
       onClick={(e) => {
         e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
       }}
     >
       <Component

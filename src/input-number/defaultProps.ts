@@ -14,6 +14,7 @@ export const inputNumberDefaultProps: TdInputNumberProps = {
   placeholder: undefined,
   readonly: false,
   size: 'medium',
+  status: 'default',
   step: 1,
   theme: 'row',
 };

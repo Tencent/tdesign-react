@@ -46,7 +46,10 @@ export default function useDraggable(props: { nodeRef: RefObject<HTMLElement | u
     }),
   ).current;
 
-  const setDragStatus = (status: 'dragStart' | 'dragOver' | 'dragLeave' | 'dragEnd' | 'drop', e: DragEvent) => {
+  const setDragStatus = (
+    status: 'dragStart' | 'dragOver' | 'dragLeave' | 'dragEnd' | 'drop',
+    e: DragEvent<HTMLDivElement>,
+  ) => {
     switch (status) {
       case 'dragStart':
         setPartialState({

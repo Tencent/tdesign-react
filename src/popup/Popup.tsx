@@ -7,6 +7,7 @@ import { Placement } from '@popperjs/core';
 import useControlled from '../hooks/useControlled';
 import useAnimation from '../_util/useAnimation';
 import useConfig from '../hooks/useConfig';
+import usePrevious from '../hooks/usePrevious';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
@@ -49,6 +50,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     disabled,
     zIndex,
     onScroll,
+    onScrollToBottom,
     expandAnimation,
     delay,
     hideEmptyPopup,
@@ -61,6 +63,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
+  const prevVisible = usePrevious(visible);
 
   const [popupElement, setPopupElement] = useState(null);
   const triggerRef = useRef(null); // 记录 trigger 元素
@@ -112,8 +115,10 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   // 下拉展开时更新内部滚动条
   useEffect(() => {
     if (!triggerRef.current) triggerRef.current = getTriggerDom();
-    visible && updateScrollTop?.(contentRef.current);
-  }, [visible, updateScrollTop, getTriggerDom]);
+    if (prevVisible !== visible && visible) {
+      updateScrollTop?.(contentRef.current);
+    }
+  }, [visible, prevVisible, updateScrollTop, getTriggerDom]);
 
   function handleExited() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
@@ -122,6 +127,14 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
 
+  function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
+    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+    if (scrollHeight - scrollTop === clientHeight) {
+      // touch bottom
+      onScrollToBottom?.({ e });
+    }
+    onScroll?.({ e });
+  }
   popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
     placement: popperPlacement,
     ...popperOptions,
@@ -180,7 +193,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
                 overlayInnerClassName,
               )}
               style={getOverlayStyle(overlayInnerStyle)}
-              onScroll={(e) => onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> })}
+              onScroll={handleScroll}
             >
               {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
               {content}
@@ -195,6 +208,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     getPopper: () => popperRef.current,
     getPopupElement: () => popupRef.current,
     getPortalElement: () => portalRef.current,
+    getPopupContentElement: () => contentRef.current,
     setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
   }));
 

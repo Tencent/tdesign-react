@@ -1,9 +1,9 @@
-import React, { useRef, MouseEvent, FormEvent, useMemo } from 'react';
+import React, { useRef, MouseEvent, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
-import Input, { InputValue } from '../input';
+import Input, { TdInputProps } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
 import useConfig from '../hooks/useConfig';
@@ -52,16 +52,13 @@ export default function useSingle(props: TdSelectInputProps) {
     suffixIcon: showLoading ? <Loading loading size="small" /> : props.suffixIcon,
   };
 
-  const onInnerClear = (context: { e: MouseEvent<SVGElement> }) => {
+  const onInnerClear = (context: { e: MouseEvent<SVGSVGElement> }) => {
     context?.e?.stopPropagation();
     props.onClear?.(context);
     setInputValue('', { trigger: 'clear' });
   };
 
-  const onInnerInputChange = (
-    value: InputValue,
-    context: { e: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
-  ) => {
+  const onInnerInputChange: TdInputProps['onChange'] = (value, context) => {
     if (props.allowInput) {
       setInputValue(value, { ...context, trigger: 'input' });
     }
@@ -87,12 +84,11 @@ export default function useSingle(props: TdSelectInputProps) {
         onChange={onInnerInputChange}
         readonly={!props.allowInput}
         onClear={onInnerClear}
-        onBlur={(val, context) => {
-          props.onBlur?.(value, { ...context, inputValue: val });
-        }}
+        // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
         onFocus={(val, context) => {
           props.onFocus?.(value, { ...context, inputValue: val });
-          !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
+          // focus might not need to change input value. it will caught some curious errors in tree-select
+          // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
         }}
         onEnter={(val, context) => {
           props.onEnter?.(value, { ...context, inputValue: val });
@@ -109,6 +105,7 @@ export default function useSingle(props: TdSelectInputProps) {
   return {
     inputRef,
     commonInputProps,
+    singleInputValue: inputValue,
     onInnerClear,
     renderSelectSingle,
   };

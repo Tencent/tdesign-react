@@ -11,7 +11,6 @@ export const timePickerDefaultProps: TdTimePickerProps = {
   hideDisabledTime: true,
   size: 'medium',
   steps: [1, 1, 1],
-  defaultValue: '',
 };
 
 export const timeRangePickerDefaultProps: TdTimeRangePickerProps = {
@@ -21,5 +20,4 @@ export const timeRangePickerDefaultProps: TdTimeRangePickerProps = {
   hideDisabledTime: true,
   size: 'medium',
   steps: [1, 1, 1],
-  defaultValue: [],
 };
