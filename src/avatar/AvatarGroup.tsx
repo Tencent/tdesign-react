@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import Avatar from './Avatar';
 import useConfig from '../hooks/useConfig';
@@ -6,6 +6,7 @@ import { AvatarContextProvider } from './AvatarContext';
 import { TdAvatarGroupProps } from './type';
 import { StyledProps } from '../common';
 import { avatarGroupDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
 
 export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {
   children?: React.ReactNode;
@@ -31,9 +32,9 @@ const AvatarGroup = (props: AvatarGroupProps) => {
   if (max && childrenCount > max) {
     const showList = allChildrenList.slice(0, max);
     const ellipsisAvatar = (
-      <Avatar className={`${preClass}__collapse`}>{collapseAvatar || `+${childrenCount - max}`}</Avatar>
+      <Avatar className={`${preClass}__collapse`}>{parseTNode(collapseAvatar) || `+${childrenCount - max}`}</Avatar>
     );
-    showList.push(ellipsisAvatar);
+    showList.push(<Fragment key="t-avatar__collapse">{ellipsisAvatar}</Fragment>);
     return (
       <AvatarContextProvider size={size}>
         <div className={groupClass}>{showList}</div>

@@ -126,9 +126,7 @@ const Image = (props: ImageProps) => {
 
       {renderGalleryShadow()}
 
-      {hasError || !shouldLoad ? (
-        <div className={`${classPrefix}-image`} />
-      ) : (
+      {!(hasError || !shouldLoad) && (
         <Fragment>
           <img
             src={src}
@@ -141,7 +139,7 @@ const Image = (props: ImageProps) => {
             )}
             alt={alt}
           />
-          {!isLoaded && (
+          {!(hasError || !shouldLoad) && !isLoaded && (
             <div className={`${classPrefix}-image__loading`}>
               {loading || (
                 <Space direction="vertical" size={8} align="center">
