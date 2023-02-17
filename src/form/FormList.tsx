@@ -49,7 +49,9 @@ const FormList = (props: TdFormListProps) => {
         setFormListValue(nextFormListValue);
       }
       const fieldValue = calcFieldValue(name, nextFormListValue);
-      onFormItemValueChange?.({ ...fieldValue });
+      Promise.resolve().then(() => {
+        onFormItemValueChange?.({ ...fieldValue });
+      });
     },
     remove(index: number | number[]) {
       const nextFields = fields
@@ -64,7 +66,9 @@ const FormList = (props: TdFormListProps) => {
       setFormListValue(nextFormListValue);
 
       const fieldValue = calcFieldValue(name, nextFormListValue);
-      onFormItemValueChange?.({ ...fieldValue });
+      Promise.resolve().then(() => {
+        onFormItemValueChange?.({ ...fieldValue });
+      });
     },
     move(from: number, to: number) {
       const cloneFields = [...fields];
