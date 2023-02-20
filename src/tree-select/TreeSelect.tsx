@@ -99,7 +99,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     if (option.data.text && typeof option.data.text === 'string') {
       return option.data.text.includes(text);
     }
-    return true;
+    return false;
   };
 
   // priority of onSearch is higher than props.filter
@@ -271,7 +271,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
         data={data}
         disabled={disabled}
         empty={empty}
-        allowFoldNodeOnFilter={true}
         expandOnClickNode={true}
         {...(multiple
           ? {
