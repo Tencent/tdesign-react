@@ -93,6 +93,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   const defaultFilter = (text, option) => {
     if (!text) return true;
+    // 过滤时会有空节点影响判断
+    if (!option.label && !option.value) return false;
     if (option.label && typeof option.label === 'string') {
       return option.label.includes(text);
     }
@@ -271,7 +273,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
         data={data}
         disabled={disabled}
         empty={empty}
-        allowFoldNodeOnFilter={true}
         expandOnClickNode={true}
         {...(multiple
           ? {
