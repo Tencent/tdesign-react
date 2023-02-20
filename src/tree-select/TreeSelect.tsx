@@ -93,13 +93,15 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   const defaultFilter = (text, option) => {
     if (!text) return true;
+    // 过滤时会有空节点影响判断
+    if (!option.label && !option.value) return false;
     if (option.label && typeof option.label === 'string') {
       return option.label.includes(text);
     }
     if (option.data.text && typeof option.data.text === 'string') {
       return option.data.text.includes(text);
     }
-    return false;
+    return true;
   };
 
   // priority of onSearch is higher than props.filter
