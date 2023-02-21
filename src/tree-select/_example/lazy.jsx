@@ -15,7 +15,7 @@ const options = [
 ];
 
 export default function Example() {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
 
   function loadFunc(node) {
     return new Promise((resolve) => {
