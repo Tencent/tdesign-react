@@ -5,6 +5,31 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.1 `2023-02-21` 
+### 🚀 Features
+- `Popup`: 新增`onScrollToBottom` 事件 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+- `Select`:
+    - 支持虚拟滚动的使用 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+    - 支持`autofocus`、`suffix`，`suffixIcon`等API，`onSearch`新增回调参数 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+    - Option子组件支持自定义`title`API @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+- `Icon`:  加载时注入样式，避免在 next 环境中报错的问题 @uyarn ([#1990](https://github.com/Tencent/tdesign-react/pull/1990))
+- `Avatar`: 组件内部图片，使用 Image 组件渲染，支持透传 `imageProps` 到 Image 图片组件 @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
+- `Dialog`: plugin 调用支持自定义 visbile @moecasts ([#1998](https://github.com/Tencent/tdesign-react/pull/1998))
+- `Tabs`:  支持拖拽能力 @duanbaosheng ([#1979](https://github.com/Tencent/tdesign-react/pull/1979))
+
+### 🐞 Bug Fixes
+- `Select`: 修复`onInputchange`触发时机的问题 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+- `Radio`: 修复 radio disabled 默认值问题  @honkinglin ([#1977](https://github.com/Tencent/tdesign-react/pull/1977))
+- `Table`: editable cell keep edit state @moecasts ([#1988](https://github.com/Tencent/tdesign-react/pull/1988))
+- `TagInput`: 修复0.45.4版本后TagInput增加blur行为导致Select/Cascader/TreeSelect无法过滤多选的问题 @uyarn ([#1989](https://github.com/Tencent/tdesign-react/pull/1989))
+- `Avatar`: 修复图片无法显示问题 @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
+- `Image`: 修复事件类型问题 @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
+- `Tree`: 修复子节点被折叠后无法被搜索问题 @honkinglin ([#1999](https://github.com/Tencent/tdesign-react/pull/1999))
+- `Popup`:  修复浮层显隐死循环问题 @honkinglin ([#1991](https://github.com/Tencent/tdesign-react/pull/1991))
+- `Form`:  修复 formList onValuesChange 获取不到最新数据问题 @honkinglin ([#1992](https://github.com/Tencent/tdesign-react/pull/1992))
+- `Drawer`:  修复 `drawer`、`Dialog` 滚动条检测问题 @honkinglin ([#2001](https://github.com/Tencent/tdesign-react/pull/2001))
+
+
 ## 🌈 1.0.0 `2023-02-13` 
 ### 🚀 Features
 - `Dropdown`: submenu层级结构调整，增加一层`t-dropdown__submenu-wrapper` @uyarn ([#1964](https://github.com/Tencent/tdesign-react/pull/1964))
