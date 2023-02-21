@@ -196,7 +196,10 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   }
 
   // ref 透传失败时使用 dom 查找
-  const getTriggerDom = useCallback(() => document.querySelector(`[data-popup="${triggerDataKey.current}"]`), []);
+  const getTriggerDom = useCallback(() => {
+    if (typeof document === 'undefined') return {};
+    return document.querySelector(`[data-popup="${triggerDataKey.current}"]`);
+  }, []);
 
   return {
     getTriggerNode,
