@@ -12,6 +12,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   const mouseDownTimer = useRef(0);
   const visibleTimer = useRef(null);
   const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
+  const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
   const shouldToggle = !disabled && content;
@@ -55,13 +56,14 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
     return {
       onMouseEnter: (e: MouseEvent) => {
-        if (trigger === 'hover') {
+        if (trigger === 'hover' && !leaveFlag.current) {
           clearTimeout(visibleTimer.current);
           onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
         }
       },
       onMouseLeave: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          leaveFlag.current = true;
           clearTimeout(visibleTimer.current);
           onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
         }
@@ -109,6 +111,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onTouchStart: (e: TouchEvent) => {
         if (trigger === 'hover' || trigger === 'mousedown') {
+          leaveFlag.current = false;
           callFuncWithDelay({
             delay: appearDelay,
             callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
@@ -118,6 +121,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onMouseEnter: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          leaveFlag.current = false;
           callFuncWithDelay({
             delay: appearDelay,
             callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
@@ -127,6 +131,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onMouseLeave: (e: MouseEvent) => {
         if (trigger === 'hover') {
+          leaveFlag.current = false;
           callFuncWithDelay({
             delay: exitDelay,
             callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),

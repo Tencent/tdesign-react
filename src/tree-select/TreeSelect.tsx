@@ -93,6 +93,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   const defaultFilter = (text, option) => {
     if (!text) return true;
+    // 过滤时会有空节点影响判断
+    if (!option.label && !option.value) return false;
     if (option.label && typeof option.label === 'string') {
       return option.label.includes(text);
     }
@@ -251,6 +253,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   });
 
   const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, ctx) => {
+    if (ctx.trigger === 'clear') return;
+
     setFilterInput(value, ctx);
     onSearch?.(value, { e: ctx.e });
   });
@@ -269,7 +273,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
         data={data}
         disabled={disabled}
         empty={empty}
-        allowFoldNodeOnFilter={true}
         expandOnClickNode={true}
         {...(multiple
           ? {

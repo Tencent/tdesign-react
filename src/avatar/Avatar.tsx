@@ -10,6 +10,7 @@ import AvatarContext from './AvatarContext';
 import AvatarGroup from './AvatarGroup';
 import { avatarDefaultProps } from './defaultProps';
 import useResizeObserver from '../hooks/useResizeObserver';
+import Image, { ImageProps } from '../image';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;
@@ -55,8 +56,8 @@ const Avatar = forwardRefWithStatics(
     };
     useResizeObserver(avatarChildrenRef.current, handleScale);
 
-    const handleImgLoadError = (e) => {
-      onError?.({ e });
+    const handleImgLoadError: ImageProps['onError'] = (ctx) => {
+      onError?.(ctx);
       !hideOnLoadFailed && setIsImgExist(false);
     };
 
@@ -95,7 +96,9 @@ const Avatar = forwardRefWithStatics(
     });
     let renderChildren;
     if (image && isImgExist) {
-      renderChildren = <img src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} />;
+      renderChildren = (
+        <Image src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} {...props.imageProps} />
+      );
     } else if (icon) {
       renderChildren = icon;
     } else {
