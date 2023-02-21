@@ -91,6 +91,9 @@
   "bugs": {
     "url": "https://github.com/Tencent/tdesign-react/issues"
   },
+  "resolutions": {
+    "react-popper": "~2.3.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/plugin-transform-runtime": "^7.16.5",
