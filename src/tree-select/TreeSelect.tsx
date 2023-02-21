@@ -253,7 +253,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   });
 
   const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, ctx) => {
-    if (['clear', 'blur'].includes(ctx.trigger)) return;
+    if (ctx.trigger === 'clear') return;
 
     setFilterInput(value, ctx);
     onSearch?.(value, { e: ctx.e });

@@ -60,7 +60,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       onChange={onTagInputChange}
       onInputChange={(val, context) => {
         // 筛选器统一特性：筛选器按下回车时不清空输入框
-        if (context?.trigger === 'enter') return;
+        if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
         setTInputValue(val, { trigger: context.trigger, e: context.e });
       }}
       tagProps={props.tagProps}
