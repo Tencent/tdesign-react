@@ -193,7 +193,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
           trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
         },
       );
-      filterInput && setFilterInput('', { trigger: 'change' });
     }
   });
 
