@@ -39,6 +39,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     allowInputOverMax,
     ...otherProps
   } = props;
+  const tipsRef = useRef<HTMLDivElement>(null);
 
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
   const [isFocused, setIsFocused] = useState(false);
@@ -119,8 +120,19 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     }
   }
 
+  const tipsHeight = tipsRef.current ? getComputedStyle(tipsRef.current).height : '0px';
+
   const renderLimitText = (current: number, max: number) => (
-    <span className={`${classPrefix}-textarea__limit`}>
+    <span
+      className={`${classPrefix}-textarea__limit`}
+      style={
+        tips && maxlength
+          ? {
+              bottom: parseFloat(tipsHeight) + 8,
+            }
+          : {}
+      }
+    >
       {isOvermax && allowInputOverMax ? (
         <span className={`${classPrefix}-textarea__tips--warning`}> {current}</span>
       ) : (
@@ -175,6 +187,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
       {!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength)}
       {tips ? (
         <div
+          ref={tipsRef}
           className={classNames(`${classPrefix}-textarea__tips`, {
             [`${classPrefix}-textarea__tips--normal`]: !status,
             [`${classPrefix}-textarea__tips--${status}`]: status,
