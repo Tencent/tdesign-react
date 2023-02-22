@@ -1,4 +1,4 @@
-import { useRef, useCallback, useMemo } from 'react';
+import { useRef, useCallback, useMemo, useEffect } from 'react';
 import useLayoutEffect from '../../_util/useLayoutEffect';
 import { getScrollbarWidth } from '../../_common/js/utils/getScrollbarWidth';
 
@@ -39,8 +39,6 @@ export default function useLockStyle(props) {
         ${mode === 'push' ? marginString : `width: calc(100% - ${scrollbarWidth}px);`}
       }
     `;
-
-    return clearStyleFunc;
   }, [mode, marginString, clearStyleFunc]);
 
   useLayoutEffect(() => {
@@ -53,4 +51,6 @@ export default function useLockStyle(props) {
       clearStyleFunc();
     }
   }, [preventScrollThrough, visible, showInAttachedElement, clearStyleFunc]);
+
+  useEffect(() => clearStyleFunc, [clearStyleFunc]);
 }
