@@ -39,7 +39,7 @@ export default function useLockStyle(props) {
         ${mode === 'push' ? marginString : `width: calc(100% - ${scrollbarWidth}px);`}
       }
     `;
-  }, [mode, marginString, clearStyleFunc]);
+  }, [mode, marginString]);
 
   useLayoutEffect(() => {
     if (typeof document === 'undefined') return;
