@@ -256,6 +256,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     } else {
       errorListMapRef.current.delete(trigger);
     }
+
+    // all 校验无错误信息时清空所有错误缓存
+    if (!innerErrorList.length && trigger === 'all') {
+      errorListMapRef.current.clear();
+    }
+
     const cacheErrorList = [...errorListMapRef.current.values()].flat();
 
     if (allowSetValue) {
