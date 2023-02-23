@@ -66,9 +66,9 @@ export interface TdImageProps {
   /**
    * 图片加载失败时触发
    */
-  onError?: (context: { e: ImageEvent<HTMLDivElement> }) => void;
+  onError?: (context: { e: ImageEvent<HTMLImageElement> }) => void;
   /**
    * 图片加载完成时触发
    */
-  onLoad?: (context: { e: ImageEvent<HTMLDivElement> }) => void;
+  onLoad?: (context: { e: ImageEvent<HTMLImageElement> }) => void;
 }

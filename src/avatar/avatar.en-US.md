@@ -16,7 +16,7 @@ image | String | - | images url | N
 imageProps | Object | - | Typescript：`ImageProps`，[Image API Documents](./image?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/avatar/type.ts) | N
 shape | String | circle | shape。options：circle/round。Typescript：`ShapeEnum ` `type ShapeEnum = 'circle' \| 'round'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/avatar/type.ts) | N
 size | String | - | size | N
-onError | Function |  | Typescript：`(context: { e: Event }) => void`<br/>trigger on image load failed | N
+onError | Function |  | Typescript：`(context: { e: ImageEvent }) => void`<br/>trigger on image load failed | N
 
 ### AvatarGroup Props
 
@@ -28,4 +28,4 @@ cascading | String | 'right-up' | multiple images cascading。options：left-up/
 collapseAvatar | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | - | \- | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/avatar/type.ts) | N
-size | String | medium | size | N
+size | String | - | size | N

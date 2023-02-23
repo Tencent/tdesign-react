@@ -13,7 +13,7 @@ describe('Avatar 组件测试', () => {
   test('Avatar 初始化 Size', async () => {
     const imageSrc = 'https://tdesign.gtimg.com/site/avatar.jpg';
     const wrapper = render(<Avatar image={imageSrc} alt="test-avatar" size={'50px'}></Avatar>);
-    const image = wrapper.getByAltText('test-avatar');
+    const image = wrapper.container.querySelector('.t-image__wrapper');
     expect(image).toHaveStyle('width: 50px');
   });
 

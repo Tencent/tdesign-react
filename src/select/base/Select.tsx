@@ -224,7 +224,6 @@ const Select = forwardRefWithStatics(
     // 处理输入框逻辑
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
       if (context.trigger !== 'clear') onInputChange(value);
-
       if (value === undefined) return;
 
       if (isFunction(onSearch)) {
@@ -262,7 +261,7 @@ const Select = forwardRefWithStatics(
 
       return showArrow && <FakeArrow className={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
     };
-    const getPopupInstance = useCallback(() => (selectInputRef as any).current.getPopupContentElement(), []);
+    const getPopupInstance = useCallback(() => (selectInputRef as any).current?.getPopupContentElement(), []);
 
     // 渲染主体内容
     const renderContent = () => {

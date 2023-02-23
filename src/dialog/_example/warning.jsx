@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { Dialog, Button, Space } from 'tdesign-react';
+import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 export default function WarningExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);
@@ -33,51 +33,30 @@ export default function WarningExample() {
     setVisibleError(false);
   };
   return (
-    <>
-      <Button theme="primary" onClick={onClickConfirm} style={{ marginRight: 16 }}>
+    <Space breakLine>
+      <Button theme="primary" onClick={onClickConfirm}>
         提示反馈
       </Button>
-      <Button theme="primary" onClick={onSuccess} style={{ marginRight: 16 }}>
+      <Button theme="primary" onClick={onSuccess}>
         成功反馈
       </Button>
-      <Button theme="primary" onClick={onWarning} style={{ marginRight: 16 }}>
+      <Button theme="primary" onClick={onWarning}>
         警示反馈
       </Button>
-      <Button theme="primary" onClick={onError} style={{ marginRight: 16 }}>
+      <Button theme="primary" onClick={onError}>
         错误反馈
       </Button>
 
-      <Dialog
-        header={
-          <>
-            <ErrorCircleFilledIcon style={{ color: '#3881E8' }} />
-            <span>我是主要信息，我是主要信息</span>
-          </>
-        }
-        visible={visibleConfirm}
-        onClose={onCloseConfirm}
-      ></Dialog>
+      <Dialog header="提示" theme="info" cancelBtn={false} visible={visibleConfirm} onClose={onCloseConfirm}></Dialog>
 
       <Dialog
-        header={
-          <>
-            <CheckCircleFilledIcon style={{ color: '#00A870' }} />
-            <span>我是主要信息，我是主要信息</span>
-          </>
-        }
+        theme="success"
+        header="成功"
+        cancelBtn={false}
         visible={visibleSuccess}
         onClose={onCloseSuccess}
       ></Dialog>
-      <Dialog
-        header={
-          <>
-            <ErrorCircleFilledIcon style={{ color: '#ED7B2F' }} />
-            <span>我是主要信息，我是主要信息</span>
-          </>
-        }
-        visible={visibleWarning}
-        onClose={onCloseWraing}
-      ></Dialog>
+      <Dialog theme="warning" header="警示" cancelBtn={false} visible={visibleWarning} onClose={onCloseWraing}></Dialog>
       <Dialog
         header={
           <>
@@ -85,9 +64,10 @@ export default function WarningExample() {
             <span>我是主要信息，我是主要信息</span>
           </>
         }
+        cancelBtn={false}
         visible={visibleError}
         onClose={onCloseError}
       ></Dialog>
-    </>
+    </Space>
   );
 }

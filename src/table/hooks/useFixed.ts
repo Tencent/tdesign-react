@@ -4,7 +4,7 @@ import { getIEVersion } from '../../_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
+import { getScrollbarWidthWithCSS } from '../../_common/js/utils/getScrollbarWidth';
 import { on, off } from '../../_util/dom';
 import {
   FixedColumnInfo,
@@ -503,7 +503,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
   }
 
   useEffect(() => {
-    const scrollWidth = getScrollbarWidth();
+    const scrollWidth = getScrollbarWidthWithCSS();
     setScrollbarWidth(scrollWidth);
     const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
     const timer = setTimeout(() => {

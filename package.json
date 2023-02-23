@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -90,6 +90,9 @@
   "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
   "bugs": {
     "url": "https://github.com/Tencent/tdesign-react/issues"
+  },
+  "resolutions": {
+    "react-popper": "~2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -207,7 +210,7 @@
     "react-popper": "~2.3.0",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
-    "tdesign-icons-react": "^0.1.7",
+    "tdesign-icons-react": "^0.2.0",
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "validator": "~13.7.0"
