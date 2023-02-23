@@ -16,7 +16,6 @@ export interface TextareaProps
     >,
     TdTextareaProps,
     StyledProps {}
-
 export interface TextareaRefInterface extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
