@@ -171,18 +171,24 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
-      {hasMaxcharacter && renderLimitText(characterLength, maxcharacter)}
-      {!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength)}
-      {tips ? (
-        <div
-          className={classNames(`${classPrefix}-textarea__tips`, {
-            [`${classPrefix}-textarea__tips--normal`]: !status,
-            [`${classPrefix}-textarea__tips--${status}`]: status,
-          })}
-        >
-          {tips}
-        </div>
-      ) : null}
+      <div
+        className={classNames({
+          [`${classPrefix}-textarea__tips_wrapper`]: tips,
+        })}
+      >
+        {tips ? (
+          <div
+            className={classNames(`${classPrefix}-textarea__tips`, {
+              [`${classPrefix}-textarea__tips--normal`]: !status,
+              [`${classPrefix}-textarea__tips--${status}`]: status,
+            })}
+          >
+            {tips}
+          </div>
+        ) : null}
+        {hasMaxcharacter && renderLimitText(characterLength, maxcharacter)}
+        {!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength)}
+      </div>
     </div>
   );
 });
