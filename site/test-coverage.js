@@ -18,10 +18,10 @@ module.exports = {
     "lines": "100%"
   },
   "anchor": {
-    "statements": "94.02%",
+    "statements": "93.16%",
     "branches": "66.67%",
-    "functions": "92%",
-    "lines": "98.11%"
+    "functions": "88%",
+    "lines": "97.17%"
   },
   "autoComplete": {
     "statements": "96.05%",
@@ -31,7 +31,7 @@ module.exports = {
   },
   "avatar": {
     "statements": "97.01%",
-    "branches": "83.78%",
+    "branches": "86.49%",
     "functions": "100%",
     "lines": "97.01%"
   },
@@ -67,7 +67,7 @@ module.exports = {
   },
   "cascader": {
     "statements": "93.46%",
-    "branches": "71.74%",
+    "branches": "72.92%",
     "functions": "92.31%",
     "lines": "95.88%"
   },
@@ -114,10 +114,10 @@ module.exports = {
     "lines": "72.4%"
   },
   "dialog": {
-    "statements": "85.43%",
-    "branches": "70.21%",
+    "statements": "85.53%",
+    "branches": "70.83%",
     "functions": "84.21%",
-    "lines": "88.41%"
+    "lines": "88.49%"
   },
   "divider": {
     "statements": "100%",
@@ -138,10 +138,10 @@ module.exports = {
     "lines": "94.44%"
   },
   "form": {
-    "statements": "83.59%",
-    "branches": "70.83%",
-    "functions": "80.53%",
-    "lines": "87.17%"
+    "statements": "83.73%",
+    "branches": "71.28%",
+    "functions": "80.87%",
+    "lines": "87.29%"
   },
   "grid": {
     "statements": "84.54%",
@@ -174,10 +174,10 @@ module.exports = {
     "lines": "75.94%"
   },
   "input": {
-    "statements": "93.67%",
-    "branches": "92.73%",
+    "statements": "93.75%",
+    "branches": "91.96%",
     "functions": "89.19%",
-    "lines": "94%"
+    "lines": "94.08%"
   },
   "inputAdornment": {
     "statements": "86.96%",
@@ -289,7 +289,7 @@ module.exports = {
   },
   "selectInput": {
     "statements": "99.02%",
-    "branches": "92.94%",
+    "branches": "93.1%",
     "functions": "100%",
     "lines": "100%"
   },
@@ -324,10 +324,10 @@ module.exports = {
     "lines": "100%"
   },
   "table": {
-    "statements": "48.81%",
+    "statements": "48.69%",
     "branches": "34.33%",
     "functions": "45.57%",
-    "lines": "49.67%"
+    "lines": "49.54%"
   },
   "tabs": {
     "statements": "91.01%",
@@ -384,10 +384,10 @@ module.exports = {
     "lines": "88.3%"
   },
   "treeSelect": {
-    "statements": "97.39%",
-    "branches": "87.7%",
+    "statements": "96.82%",
+    "branches": "88.1%",
     "functions": "97.62%",
-    "lines": "97.92%"
+    "lines": "97.26%"
   },
   "upload": {
     "statements": "96.55%",
