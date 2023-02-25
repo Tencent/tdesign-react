@@ -1,5 +1,6 @@
-import React, { Fragment, useEffect, useRef, useState, SyntheticEvent } from 'react';
+import React, { Fragment, useEffect, useRef, useState, SyntheticEvent, useMemo } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
 import observe from '../_common/js/utils/observe';
 import useConfig from '../hooks/useConfig';
@@ -28,6 +29,7 @@ const Image = (props: ImageProps) => {
     overlayContent,
     lazy,
     gallery,
+    srcset,
     onLoad,
     onError,
     ...rest
@@ -40,6 +42,12 @@ const Image = (props: ImageProps) => {
     ImageErrorIcon: TdImageErrorIcon,
     ImageIcon: TdImageIcon,
   });
+
+  // replace image url
+  const imageSrc = useMemo(
+    () => (isFunction(local.replaceImageSrc) ? local.replaceImageSrc(props) : src),
+    [src, local, props],
+  );
 
   const [shouldLoad, setShouldLoad] = useState(!lazy);
   const handleLoadImage = () => {
@@ -103,6 +111,29 @@ const Image = (props: ImageProps) => {
     return <div className={`${classPrefix}-image__gallery-shadow`} />;
   };
 
+  const renderImage = (url: string) => (
+      <img
+        src={url}
+        onError={handleError}
+        onLoad={handleLoad}
+        className={classNames(
+          `${classPrefix}-image`,
+          `${classPrefix}-image--fit-${fit}`,
+          `${classPrefix}-image--position-${position}`,
+        )}
+        alt={alt}
+      />
+    );
+
+  const renderImageSrcset = () => (
+      <picture>
+        {Object.entries(props.srcset).map(([type, url]) => (
+          <source key={url} type={type} srcSet={url} />
+        ))}
+        {props.src && renderImage(props.src)}
+      </picture>
+    );
+
   return (
     <div
       ref={imageRef}
@@ -128,17 +159,7 @@ const Image = (props: ImageProps) => {
 
       {!(hasError || !shouldLoad) && (
         <Fragment>
-          <img
-            src={src}
-            onError={handleError}
-            onLoad={handleLoad}
-            className={classNames(
-              `${classPrefix}-image`,
-              `${classPrefix}-image--fit-${fit}`,
-              `${classPrefix}-image--position-${position}`,
-            )}
-            alt={alt}
-          />
+          {srcset && Object.keys(srcset).length ? renderImageSrcset() : renderImage(imageSrc)}
           {!(hasError || !shouldLoad) && !isLoaded && (
             <div className={`${classPrefix}-image__loading`}>
               {loading || (
