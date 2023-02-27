@@ -2,14 +2,16 @@ import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import useConfig from '../hooks/useConfig';
-import { CheckContext, CheckContextValue } from '../common/Check';
-import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps, TdCheckboxProps } from './type';
+import { CheckContext, CheckContextValue, CheckProps } from '../common/Check';
+import { CheckboxGroupValue, CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps, TdCheckboxProps } from './type';
 import { StyledProps } from '../common';
 import useControlled from '../hooks/useControlled';
 import Checkbox from './Checkbox';
 import { checkboxGroupDefaultProps } from './defaultProps';
 
-export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
+export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
+  extends TdCheckboxGroupProps<T>,
+    StyledProps {
   children?: React.ReactNode;
 }
 
@@ -32,7 +34,8 @@ const getCheckboxValue = (v: CheckboxOption): string | number => {
 /**
  * 多选选项组，里面可以嵌套 <Checkbox />
  */
-const CheckboxGroup = (props: CheckboxGroupProps) => {
+const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props: CheckboxGroupProps<T>) => {
+  type ItemType = T[number];
   const { classPrefix } = useConfig();
   const { onChange, disabled, className, style, children, max, options = [] } = props;
 
@@ -53,8 +56,8 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   const [localMax, setLocalMax] = useState(max);
 
   const checkedSet = useMemo(() => {
-    if (!Array.isArray(internalValue)) return new Set([]);
-    return new Set([].concat(internalValue));
+    if (!Array.isArray(internalValue)) return new Set<ItemType>([]);
+    return new Set<ItemType>([].concat(internalValue));
   }, [internalValue]);
 
   // 用于决定全选状态的属性
@@ -78,7 +81,13 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   }, [max, checkedSet]);
 
   const context: CheckContextValue = {
-    inject: (checkProps) => {
+    inject: (
+      checkProps: CheckProps & {
+        // check 组件不关心 value 的类型，只关心是否存在，所以为了兼容 checkbox group 的类型
+        // 此处覆盖 checkbox 默认 value 的类型，使用 checkbox group 的 generic type 代替
+        value: ItemType;
+      },
+    ) => {
       // 如果已经受控，则不注入
       if (typeof checkProps.checked !== 'undefined') {
         return checkProps;
@@ -111,7 +120,8 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
             checkedSet.delete(checkValue);
           }
 
-          setInternalValue(Array.from(checkedSet), {
+          // 此处 `as` 是因为 `Array.from` 会导致 `checkSet` 的 generic type 丢失
+          setInternalValue(Array.from(checkedSet) as T, {
             e,
             current: checkProps.checkAll ? undefined : (checkValue as TdCheckboxProps),
             type: checked ? 'check' : 'uncheck',
