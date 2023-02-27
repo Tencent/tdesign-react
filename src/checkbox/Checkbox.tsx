@@ -6,8 +6,8 @@ import { checkboxDefaultProps } from './defaultProps';
 
 export type CheckboxProps = Omit<CheckProps, 'type'>;
 
-const Checkbox = forwardRefWithStatics<CheckboxProps, HTMLLabelElement>(
-  (props, ref) => <Check ref={ref} type="checkbox" {...props} />,
+const Checkbox = forwardRefWithStatics(
+  (props: CheckboxProps, ref: React.Ref<HTMLLabelElement>) => <Check ref={ref} type="checkbox" {...props} />,
   { Group: CheckboxGroup },
 );
 
