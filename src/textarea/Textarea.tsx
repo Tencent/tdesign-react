@@ -187,7 +187,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         ref={textareaRef}
       />
       {tips && limitText ? (
-        <div className={`${classPrefix}-textarea__tips_wrapper`}>
+        <div className={`${classPrefix}-textarea__info_wrapper`}>
           {textTips}
           {limitText}
         </div>
