@@ -186,14 +186,16 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
-      {tips && limitText ? (
-        <div className={`${classPrefix}-textarea__info_wrapper`}>
-          {textTips}
+      {tips || limitText ? (
+        <div
+          className={classNames(`${classPrefix}-textarea__info_wrapper`, {
+            [`${classPrefix}-textarea__info_wrapper_align`]: !tips,
+          })}
+        >
+          {tips && textTips}
           {limitText}
         </div>
-      ) : (
-        (tips && textTips) || limitText
-      )}
+      ) : null}
     </div>
   );
 });
