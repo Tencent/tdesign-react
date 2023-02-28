@@ -152,7 +152,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     textareaElement: textareaRef.current,
   }));
 
-  const textTips = (
+  const textTips = tips && (
     <div
       className={classNames(`${classPrefix}-textarea__tips`, {
         [`${classPrefix}-textarea__tips--normal`]: !status,
@@ -186,13 +186,13 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
-      {tips || limitText ? (
+      {textTips || limitText ? (
         <div
           className={classNames(`${classPrefix}-textarea__info_wrapper`, {
-            [`${classPrefix}-textarea__info_wrapper_align`]: !tips,
+            [`${classPrefix}-textarea__info_wrapper_align`]: !textTips,
           })}
         >
-          {tips && textTips}
+          {textTips}
           {limitText}
         </div>
       ) : null}
