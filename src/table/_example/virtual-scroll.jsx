@@ -53,7 +53,7 @@ const TableVirtualScroll = () => {
   };
 
   const columns = [
-    { colKey: 'serial-number', width: 80, title: '序号' },
+    { colKey: 'serial-number', width: 46, title: '序号' },
     { colKey: 'applicant', title: '申请人', width: '100' },
     {
       colKey: 'status',
