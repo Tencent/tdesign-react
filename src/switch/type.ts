@@ -9,12 +9,10 @@ import { TNode } from '../common';
 export interface TdSwitchProps<T = SwitchValue> {
   /**
    * 用于自定义开关的值，[打开时的值，关闭时的值]。默认为 [true, false]。示例：[1, 0]、['open', 'close']
-   * @default [true, false]
    */
   customValue?: Array<SwitchValue>;
   /**
-   * 是否禁用组件
-   * @default false
+   * 是否禁用组件，默认为 false
    */
   disabled?: boolean;
   /**
