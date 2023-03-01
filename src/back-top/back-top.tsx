@@ -12,7 +12,7 @@ export const defaultProps = {
   icon: 'backtop',
   target: (() => window) as any,
   text: 'TOP',
-  theme: 'default',
+  theme: '',
   size: 'medium',
   shape: 'square',
 };
@@ -29,7 +29,7 @@ export const BackTop = (props: TdBackTopProps) => {
   const handleScroll = () => {
     if (isWindow(backTopDom.current)) {
       // 当滚动条滚动到超过锚点二分之一个屏幕后，显示回到顶部按钮
-      if (window.innerHeight + window.screenY >= document.body.offsetHeight / 2) {
+      if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight / 2) {
         setShow(true);
       } else {
         setShow(false);
