@@ -128,7 +128,7 @@
     "@typescript-eslint/parser": "^5.13.0",
     "@vitejs/plugin-react": "^1.3.2",
     "@vitest/coverage-c8": "^0.24.1",
-    "@vitest/coverage-istanbul": "^0.24.1",
+    "@vitest/coverage-istanbul": "^0.28.5",
     "@vitest/ui": "^0.24.1",
     "autoprefixer": "^10.4.0",
     "babel-polyfill": "^6.26.0",
