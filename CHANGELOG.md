@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.2 `2023-03-01` 
+### 🚀 Features
+- `Image`:
+    - 图片组件支持特殊格式的地址 `.avif` 和 `.webp` @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
+    - 新增图片全局配置 `globalConfig.image.replaceImageSrc`，用于统一替换图片地址 @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
+- `List`: `listItemMeta` 支持 `className`、`style` 属性 @honkinglin ([#2005](https://github.com/Tencent/tdesign-react/pull/2005))
+
+### 🐞 Bug Fixes
+- `Form`:
+    - 修复校验信息沿用错误缓存问题 @honkinglin ([#2014](https://github.com/Tencent/tdesign-react/pull/2014))
+    - 移除 formItem 多余事件通知逻辑 @honkinglin ([#2024](https://github.com/Tencent/tdesign-react/pull/2024))
+- `Drawer`: 修复 drawer 拖拽后页面出现滚动条问题 @honkinglin ([#2012](https://github.com/Tencent/tdesign-react/pull/2012))
+- `Input`: 修复异步渲染宽度计算问题 @honkinglin ([#2010](https://github.com/Tencent/tdesign-react/pull/2010))
+- `Textarea`: 调整 limit 展示位置，修复与tips 共存时样式问题 @duanbaosheng ([#2015](https://github.com/Tencent/tdesign-react/pull/2015))
+- `Checkbox`: 修复 ts 类型问题 @NWYLZW ([#2023](https://github.com/Tencent/tdesign-react/pull/2023))
+
+
 ## 🌈 1.0.1 `2023-02-21` 
 ### 🚀 Features
 - `Popup`: 新增`onScrollToBottom` 事件 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
