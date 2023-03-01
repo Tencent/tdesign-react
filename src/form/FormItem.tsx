@@ -108,6 +108,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
+  const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
   const isUpdatedRef = useRef(false); // 校验开关
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
@@ -147,10 +148,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     });
 
   // 更新 form 表单字段
-  const updateFormValue = (newVal: any, validate = true) => {
+  const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
 
+    shouldEmitChangeRef.current = shouldEmitChange;
     isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
@@ -488,7 +490,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
-                  updateFormValue(value);
+                  updateFormValue(value, true, true);
                   child.props.onChange?.call?.(null, value, ...args);
                 },
                 onBlur: (value: any, ...args: any[]) => {
