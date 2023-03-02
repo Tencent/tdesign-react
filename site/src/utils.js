@@ -13,7 +13,7 @@ export function filterVersions(versions = []) {
   const versionMap = new Map();
 
   versions.forEach((v) => {
-    if (v.includes('alpha') || v.includes('patch')) return false;
+    if (v.includes('-')) return false;
     const nums = v.split('.');
     versionMap.set(`${nums[0]}.${nums[1]}`, v);
   });
