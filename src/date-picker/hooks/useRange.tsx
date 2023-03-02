@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
-import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
@@ -89,10 +88,10 @@ export default function useRange(props: TdDateRangePickerProps) {
       const newYear = [];
       const newMonth = [];
       const newTime = [];
-      newVal.forEach((v, i) => {
-        newYear.push(dayjs(v).year() || year[i]);
-        newMonth.push(dayjs(v).month() || month[i]);
-        newTime.push(dayjs(v).format(timeFormat) || time[i]);
+      newVal.forEach((v) => {
+        newYear.push(parseToDayjs(v, format).year());
+        newMonth.push(parseToDayjs(v, format).month());
+        newTime.push(parseToDayjs(v, format).format(timeFormat));
       });
       setYear(newYear);
       setMonth(newMonth);
