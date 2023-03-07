@@ -38,7 +38,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
-  const [time, setTime] = useState(initYearMonthTime({ value, mode: props.mode, format, timeFormat }).time);
+  const [time, setTime] = useState(formatTime(value, timeFormat, props.defaultTime));
   const [month, setMonth] = useState<Array<number>>(
     initYearMonthTime({ value, mode: props.mode, format, enableTimePicker: props.enableTimePicker }).month,
   );
@@ -54,7 +54,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     if (!isValidDate(value, format)) return;
 
     setCacheValue(formatDate(value, { format }));
-    setTime(formatTime(value, timeFormat));
+    setTime(formatTime(value, timeFormat, props.defaultTime));
     // eslint-disable-next-line
   }, [value]);
 
