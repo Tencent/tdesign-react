@@ -189,7 +189,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     nextInputValue[activeIndex] = nextDate;
 
-    const nextTime = [...time];
+    const nextTime = [...(time as string[])];
     nextTime[activeIndex] = val;
     setTime(nextTime);
 
