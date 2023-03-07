@@ -79,12 +79,6 @@ export default {
           path: '/react/components/link',
           component: () => import('tdesign-react/link/link.md'),
         },
-        {
-          title: 'BackTop 返回顶部',
-          name: 'back-top',
-          path: '/react/components/back-top',
-          component: () => import('tdesign-react/back-top/back-top.md'),
-        },
       ],
     },
     {
@@ -134,6 +128,12 @@ export default {
           name: 'anchor',
           path: '/react/components/anchor',
           component: () => import('tdesign-react/anchor/anchor.md'),
+        },
+        {
+          title: 'BackTop 返回顶部',
+          name: 'back-top',
+          path: '/react/components/back-top',
+          component: () => import('tdesign-react/back-top/back-top.md'),
         },
         {
           title: 'Breadcrumb 面包屑',
