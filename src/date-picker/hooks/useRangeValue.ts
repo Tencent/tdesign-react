@@ -38,7 +38,9 @@ export default function useRange(props: TdDateRangePickerProps) {
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
-  const [time, setTime] = useState(formatTime(value, timeFormat, props.defaultTime));
+  const [time, setTime] = useState(
+    initYearMonthTime({ value, mode: props.mode, format, enableTimePicker: props.enableTimePicker }).time,
+  );
   const [month, setMonth] = useState<Array<number>>(
     initYearMonthTime({ value, mode: props.mode, format, enableTimePicker: props.enableTimePicker }).month,
   );
