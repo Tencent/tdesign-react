@@ -100,13 +100,3 @@ export interface FixedColumnInfo<T extends TableRowData = TableRowData> {
 
 // 固定表头和固定列 具体的固定位置（left/top/right/bottom）
 export type RowAndColFixedPosition<T extends TableRowData = TableRowData> = Map<string | number, FixedColumnInfo<T>>;
-
-// 允许修改列宽时，重新计算各列宽度的函数声明
-export interface RecalculateColumnWidthFunc<T extends TableRowData = TableRowData> {
-  (
-    columns: BaseTableCol<T>[],
-    thWidthList: { [colKey: string]: number },
-    tableLayout: string,
-    tableElmWidth: number,
-  ): void;
-}

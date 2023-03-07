@@ -63,6 +63,11 @@ const EditableCell = (props: EditableCellProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
+  const editOnListeners = useMemo(() => 
+     col.edit?.on?.({ ...cellParams, editedRow: currentRow }) || {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  , [cellParams, currentRow]);
+
   const cellNode = useMemo(() => {
     const node = renderCell(
       {
@@ -118,6 +123,7 @@ const EditableCell = (props: EditableCellProps) => {
         params.result[0].errorList = list;
         props.onValidate?.(params);
         if (!list || !list.length) {
+          setErrorList([]);
           resolve(true);
         } else {
           setErrorList(list);
@@ -143,6 +149,7 @@ const EditableCell = (props: EditableCellProps) => {
         setEditValue(oldValue);
         outsideAbortEvent?.(...args);
       }
+      editOnListeners.onEnter?.(args[2]);
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
         setIsEdit(false);
@@ -188,6 +195,7 @@ const EditableCell = (props: EditableCellProps) => {
     };
     props.onChange?.(params);
     props.onRuleChange?.(params);
+    editOnListeners.onChange?.(params);
     const isCellEditable = props.editable === undefined;
     if (isCellEditable && isAbortEditOnChange) {
       const outsideAbortEvent = col.edit?.onEdited;
@@ -202,6 +210,10 @@ const EditableCell = (props: EditableCellProps) => {
         },
         ...args,
       );
+    }
+    // 数据变化时，实时校验
+    if (col.edit?.validateTrigger === 'change') {
+      validateEdit('self');
     }
   };
 
@@ -290,6 +302,12 @@ const EditableCell = (props: EditableCellProps) => {
     return null;
   }
   const errorMessage = errorList?.[0]?.message;
+
+  const tmpEditOnListeners = { ...editOnListeners };
+  delete tmpEditOnListeners.onChange;
+  if (col.edit?.abortEditOnEvent?.includes('onEnter') && tmpEditOnListeners.onEnter) {
+    delete tmpEditOnListeners.onEnter;
+  }
   return (
     <div
       className={tableBaseClass.cellEditWrap}
@@ -304,6 +322,7 @@ const EditableCell = (props: EditableCellProps) => {
         tips={errorMessage}
         {...componentProps}
         {...listeners}
+        {...tmpEditOnListeners}
         value={editValue}
         onChange={onEditChange}
       />

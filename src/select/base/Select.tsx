@@ -22,7 +22,7 @@ import { PopupVisibleChangeContext } from '../../popup';
 import useOptions from '../hooks/useOptions';
 import composeRefs from '../../_util/composeRefs';
 
-export interface SelectProps extends TdSelectProps, StyledProps {
+export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
   children?: React.ReactNode;
   onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;

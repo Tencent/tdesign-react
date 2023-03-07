@@ -9,6 +9,7 @@ import { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './Ellipsis';
 import { formatClassNames } from './utils';
+import { AttachNode } from '../common';
 
 export interface TheadProps {
   classPrefix: string;
@@ -29,16 +30,18 @@ export interface TheadProps {
   };
   thList: BaseTableCol<TableRowData>[][];
   resizable?: boolean;
+  attach?: AttachNode;
+  showColumnShadow?: { left: boolean; right: boolean };
   columnResizeParams?: {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
     onColumnMouseover: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
-    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
+    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => void;
   };
 }
 
 export default function THead(props: TheadProps) {
-  const { columnResizeParams, classPrefix } = props;
+  const { columnResizeParams, classPrefix, showColumnShadow } = props;
   const theadRef = useRef<HTMLTableSectionElement>(null);
   const classnames = useClassName();
   const { tableHeaderClasses, tableBaseClass } = classnames;
@@ -100,6 +103,8 @@ export default function THead(props: TheadProps) {
           row: {},
           rowIndex: -1,
         };
+        const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
+        const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
         const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
         const thClasses = [
           thStyles.classes,
@@ -109,6 +114,8 @@ export default function THead(props: TheadProps) {
             [tableHeaderClasses.thBordered]: thBorderMap.get(col),
             [`${classPrefix}-table__th-${col.colKey}`]: col.colKey,
             [classnames.tdAlignClasses[col.align]]: col.align && col.align !== 'left',
+            // 允许拖拽的列类名
+            [classnames.tableDraggableClasses.dragSortTh]: !(isLeftFixedActive || isRightFixedActive),
           },
         ];
         const withoutChildren = !col.children?.length;
@@ -118,7 +125,7 @@ export default function THead(props: TheadProps) {
         if (!col.colKey) return null;
         const resizeColumnListener = props.resizable
           ? {
-              onMouseDown: (e) => columnResizeParams?.onColumnMousedown?.(e, col),
+              onMouseDown: (e) => columnResizeParams?.onColumnMousedown?.(e, col, index),
               onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
             }
           : {};
