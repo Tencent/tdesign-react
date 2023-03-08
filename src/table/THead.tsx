@@ -24,6 +24,7 @@ export interface TheadProps {
   thWidthList?: { [colKey: string]: number };
   bordered: boolean;
   isMultipleHeader: boolean;
+  thDraggable: boolean;
   spansAndLeafNodes: {
     rowspanAndColspanMap: ThRowspanAndColspan;
     leafColumns: BaseTableCol<TableRowData>[];
@@ -106,16 +107,19 @@ export default function THead(props: TheadProps) {
         const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
         const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
         const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
+        const thCustomClasses = formatClassNames(col.thClassName, colParams);
         const thClasses = [
           thStyles.classes,
           customClasses,
+          thCustomClasses,
           {
             // 受 rowspan 影响，部分 tr > th:first-child 需要补足左边框
             [tableHeaderClasses.thBordered]: thBorderMap.get(col),
             [`${classPrefix}-table__th-${col.colKey}`]: col.colKey,
             [classnames.tdAlignClasses[col.align]]: col.align && col.align !== 'left',
             // 允许拖拽的列类名
-            [classnames.tableDraggableClasses.dragSortTh]: !(isLeftFixedActive || isRightFixedActive),
+            [classnames.tableDraggableClasses.dragSortTh]:
+              props.thDraggable && !(isLeftFixedActive || isRightFixedActive),
           },
         ];
         const withoutChildren = !col.children?.length;

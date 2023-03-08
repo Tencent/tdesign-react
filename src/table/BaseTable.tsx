@@ -145,8 +145,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setLastLeafColumns(spansAndLeafNodes.leafColumns);
-      setEffectColMap(spansAndLeafNodes.leafColumns, null);
     }
+    setEffectColMap(spansAndLeafNodes.leafColumns, null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);
 
@@ -176,6 +176,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   };
 
   useImperativeHandle(ref, () => ({
+    showColumnShadow,
     tableElement: tableRef.current,
     tableHtmlElement: tableElmRef.current,
     tableContentElement: tableContentRef.current,
@@ -247,6 +248,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     classPrefix,
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     attach: props.attach,
+    thDraggable: props.thDraggable,
     showColumnShadow,
   };
 
@@ -421,7 +423,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width: resizable && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
+          width:
+            resizable && isWidthOverflow && tableElmWidth.current
+              ? `${tableElmWidth.current}px`
+              : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}

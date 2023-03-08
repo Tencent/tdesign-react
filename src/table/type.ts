@@ -338,6 +338,10 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    */
   stopPropagation?: boolean;
   /**
+   * 列表头类名，值类型是函数时使用返回值作为列类名。泛型 T 指表格数据类型
+   */
+  thClassName?: TableColumnClassName<T> | TableColumnClassName<T>[];
+  /**
    * 自定义表头渲染，优先级高于 render
    */
   title?: string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>;
