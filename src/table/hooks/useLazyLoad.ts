@@ -2,6 +2,7 @@
  * 原作者 @louiszhai 思路
  */
 import { useState, useMemo, useEffect } from 'react';
+import type React from 'react';
 import observe from '../../_common/js/utils/observe';
 
 export type UseLazyLoadParams = {
@@ -13,12 +14,12 @@ export type UseLazyLoadParams = {
 
 export default function useLazyLoad(
   containerRef: HTMLElement,
-  childRef: HTMLTableRowElement,
+  childRef: React.MutableRefObject<HTMLTableRowElement>,
   params: UseLazyLoadParams,
 ) {
   // useMemo 用意：1. 为了实时响应数据；2. 表格的计算量容易过大，提前存储
   const tRowHeight = useMemo(() => Math.max(params.rowHeight || 48, 48), [params.rowHeight]);
-  const [isInit, setIsInit] = useState(params.rowIndex === 0);
+  const [isInit, setIsInit] = useState(params.rowIndex === -1);
   const hasLazyLoadHolder = useMemo(() => params?.type === 'lazy' && !isInit, [isInit, params?.type]);
 
   const requestAnimationFrame =
@@ -37,7 +38,7 @@ export default function useLazyLoad(
     const timer = setTimeout(() => {
       const bufferSize = Math.max(10, params.bufferSize || 10);
       const height = tRowHeight * bufferSize;
-      childRef && observe(childRef, containerRef, init, height);
+      childRef && observe(childRef.current, containerRef, init, height);
       clearTimeout(timer);
     });
     return () => {
