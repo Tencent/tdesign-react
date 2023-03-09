@@ -5,6 +5,17 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.3 `2023-03-09` 
+### 🚀 Features
+- `Message`: 鼠标悬停时不自动关闭 @HelKyle ([#2036](https://github.com/Tencent/tdesign-react/pull/2036))
+- `DatePicker`:  支持defaultTime @honkinglin ([#2038](https://github.com/Tencent/tdesign-react/pull/2038))
+
+### 🐞 Bug Fixes
+- `DatePicker`: 修复月份为0时展示当前月份问题 @honkinglin ([#2032](https://github.com/Tencent/tdesign-react/pull/2032))
+- `Upload`: 修复 upload method 无效问题 @i-tengfei ([#2034](https://github.com/Tencent/tdesign-react/pull/2034))
+- `Select`: 修复多选全选初始值为空时选中报错的问题 @uyarn ([#2042](https://github.com/Tencent/tdesign-react/pull/2042))
+- `Dialog`: 修复弹窗垂直居中问题 @KMethod ([#2043](https://github.com/Tencent/tdesign-react/pull/2043))
+
 ## 🌈 1.0.2 `2023-03-01` 
 ### 🚀 Features
 - `Image`:
