@@ -172,7 +172,7 @@ const Select = forwardRefWithStatics(
         .map((option) => option.value);
 
       const checkAllValue =
-        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>).length ? selectableOptions : [];
+        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>)?.length ? selectableOptions : [];
       onChange?.(checkAllValue, { e, trigger: checkAll ? 'check' : 'uncheck', selectedOptions: checkAllValue });
     };
 
