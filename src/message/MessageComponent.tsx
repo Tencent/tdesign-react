@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 import { TdMessageProps } from './type';
@@ -8,6 +8,8 @@ import MessageClose from './MessageClose';
 import MessageIcon from './MessageIcon';
 import { useMessageClass } from './useMessageClass';
 import { StyledProps } from '../common';
+import { usePersistFn } from '../_util/usePersistFn';
+import noop from '../_util/noop';
 
 // Message 组件参数，需在 api 定义上做部分扩展
 export interface MessageComponentProps extends TdMessageProps, StyledProps {
@@ -19,12 +21,45 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
   // 样式相关变量和函数
   const { tdMessagePrefix, tdClassIsGenerator } = useMessageClass();
 
-  const { theme = 'info', className, children, style, icon = true, content, ...otherProps } = props;
+  const {
+    theme = 'info',
+    className,
+    children,
+    style,
+    icon = true,
+    content,
+    closeBtn,
+    onCloseBtnClick = noop,
+    onDurationEnd = noop,
+    onClose = noop,
+    duration,
+  } = props;
 
-  let iconNode = icon;
-  if (icon === true) {
-    iconNode = <MessageIcon theme={theme} />;
+  const [isHovering, setIsHovering] = useState(false);
+  const onCloseFn = usePersistFn(onClose);
+  const onDurationEndFn = usePersistFn(onDurationEnd);
+  const onCloseBtnClickFn = usePersistFn(onCloseBtnClick);
+
+  function handleCloseBtnClick(e) {
+    onCloseBtnClickFn(e);
+    onCloseFn({
+      trigger: 'close-click',
+    });
   }
+
+  useEffect(() => {
+    if (!isHovering && duration > 0) {
+      const timer = setTimeout(() => {
+        onDurationEndFn();
+        onCloseFn({
+          trigger: 'duration-end',
+        });
+      }, duration);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [duration, isHovering, onCloseFn, onDurationEndFn]);
 
   return (
     <div
@@ -34,12 +69,14 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
         className,
         `${tdMessagePrefix}`,
         tdClassIsGenerator(theme),
-        otherProps.closeBtn ? tdClassIsGenerator('closable') : '',
+        closeBtn ? tdClassIsGenerator('closable') : '',
       )}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
-      {iconNode}
+      {icon === true ? <MessageIcon theme={theme} /> : icon}
       {content ? content : children}
-      <MessageClose {...otherProps} />
+      <MessageClose closeBtn={closeBtn} onCloseBtnClick={handleCloseBtnClick} />
     </div>
   );
 };

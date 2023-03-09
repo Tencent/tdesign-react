@@ -9,6 +9,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许输入日期 | N
 clearable | Boolean | false | 是否显示清除按钮 | N
+defaultTime | String | '00:00:00' | 时间选择器默认值，当 value/defaultValue 未设置值时有效 | N
 disableDate | Object / Array / Function | - | 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。`{ from: 'A', to: 'B' }` 表示在 A 到 B 之间的日期会被禁用。`{ before: 'A', after: 'B' }` 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用。TS 类型：`DisableDate` `type DisableDate = Array<DateValue> \| DisableDateObj \| ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 disabled | Boolean | - | 是否禁用组件 | N
 enableTimePicker | Boolean | false | 是否显示时间选择 | N
@@ -27,7 +28,7 @@ timePickerProps | Object | - | 透传 TimePicker 组件属性。TS 类型：`Tim
 tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 value | String / Number / Array / Date | '' | 选中值。TS 类型：`DateValue` `type DateValue = string \| number \| Date`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 defaultValue | String / Number / Array / Date | '' | 选中值。非受控属性。TS 类型：`DateValue` `type DateValue = string \| number \| Date`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-valueType | String | - | 用于格式化日期的值，仅支持部分格式，时间戳、日期等。⚠️ `YYYYMMDD` 这种格式不支持，请勿使用，如果希望支持可以给 `dayjs` 提个 PR。注意和 `format` 的区别，`format` 仅用于处理日期在页面中呈现的格式。TS 类型：`ValueTypeEnum` `type ValueTypeEnum = 'time-stamp' \| 'Date' \| 'YYYY' \| 'YYYY-MM' \| 'YYYY-MM-DD' \| 'YYYY-MM-DD HH' \| 'YYYY-MM-DD HH:mm' \| 'YYYY-MM-DD HH:mm:ss' \| 'YYYY-MM-DD HH:mm:ss:SSS'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
+valueType | String | - | 用于格式化日期的值，仅支持部分格式，时间戳、日期等。⚠️ `YYYYMMDD` 这种格式不支持，请勿使用，如果希望支持可以给 `dayjs` 提个 PR。注意和 `format` 的区别，`format` 仅用于处理日期在页面中呈现的格式。`ValueTypeEnum` 即将废弃，请更为使用 `DatePickerValueType`。TS 类型：`DatePickerValueType` `type DatePickerValueType = 'time-stamp' \| 'Date' \| 'YYYY' \| 'YYYY-MM' \| 'YYYY-MM-DD' \| 'YYYY-MM-DD HH' \| 'YYYY-MM-DD HH:mm' \| 'YYYY-MM-DD HH:mm:ss' \| 'YYYY-MM-DD HH:mm:ss:SSS'` `type ValueTypeEnum = DatePickerValueType`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 onBlur | Function |  | TS 类型：`(context: { value: DateValue; e: FocusEvent }) => void`<br/>当输入框失去焦点时触发 | N
 onChange | Function |  | TS 类型：`(value: DateValue, context: { dayjsValue?: Dayjs, trigger?: DatePickerTriggerSource }) => void`<br/>选中值发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`import { Dayjs } from 'dayjs'`<br/><br/>`type DatePickerTriggerSource = 'confirm' \| 'pick' \| 'enter' \| 'preset' \| 'clear'`<br/> | N
 onFocus | Function |  | TS 类型：`(context: { value: DateValue; e: FocusEvent }) => void`<br/>输入框获得焦点时触发 | N
@@ -41,6 +42,7 @@ className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许输入日期 | N
 clearable | Boolean | false | 是否显示清楚按钮 | N
+defaultTime | Array | ["00:00:00", "23:59:59"] | 时间选择器默认值，当 value/defaultValue 未设置值时有效。TS 类型：`string[]` | N
 disableDate | Object / Array / Function | - | 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用。TS 类型：`DisableRangeDate` `type DisableRangeDate = Array<DateValue> \| DisableDateObj \| ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' \| 'end'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 disabled | Boolean | - | 是否禁用组件 | N
 enableTimePicker | Boolean | false | 是否显示时间选择 | N
@@ -74,7 +76,16 @@ onPick | Function |  | TS 类型：`(value: DateValue, context: PickContext) => 
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-`Pick<DatePickerProps, 'value' \| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'timePickerProps'>` | \- | - | 继承 `Pick<DatePickerProps, 'value' \| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'timePickerProps'>` 中的全部 API | N
+defaultTime | String | '00:00:00' | 时间选择器默认值，当 value/defaultValue 未设置值时有效 | N
+`Pick<DatePickerProps, 'value' \| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'timePickerProps'>` | \- | - | 继承 `Pick<DatePickerProps, 'value' \| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'timePickerProps'>` 中的全部属性 | N
+onCellClick | Function |  | TS 类型：`(context: { date: Date, e: MouseEvent }) => void`<br/>点击日期单元格时触发 | N
+onChange | Function |  | TS 类型：`(value: DateValue, context: { dayjsValue?: Dayjs, e?: MouseEvent, trigger?: DatePickerTriggerSource }) => void`<br/>选中值发生变化时触发。参数 `context.trigger` 表示触发当前事件的来源，不同的模式触发来源也会不同 | N
+onConfirm | Function |  | TS 类型：`(context: { date: Date, e: MouseEvent }) => void`<br/>如果存在“确认”按钮，则点击“确认”按钮时触发 | N
+onMonthChange | Function |  | TS 类型：`(context: { month: number, date: Date, e?: MouseEvent, trigger: DatePickerMonthChangeTrigger }) => void`<br/>月份切换发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerMonthChangeTrigger = 'month-select' \| 'month-arrow-next' \| 'month-arrow-previous' \| 'today'`<br/> | N
+onPanelClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击面板时触发 | N
+onPresetClick | Function |  | TS 类型：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/>如果存在“确认”按钮，则点击“确认”按钮时触发 | N
+onTimeChange | Function |  | TS 类型：`(context: { time: string, date: Date, trigger: DatePickerTimeChangeTrigger, e?: MouseEvent }) => void`<br/>时间切换发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerTimeChangeTrigger = 'time-hour' \| 'time-minute' \| 'time-second'`<br/> | N
+onYearChange | Function |  | TS 类型：`(context: { year: number, date: Date, trigger: DatePickerYearChangeTrigger, e?: MouseEvent }) => void`<br/>年份切换发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerYearChangeTrigger = 'year-select' \| 'year-arrow-next' \| 'year-arrow-previous' \| 'today'`<br/> | N
 
 ### DateRangePickerPanel Props
 
@@ -82,4 +93,13 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-`Pick<DateRangePickerProps, 'value'\| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'panelPreselection' \| 'timePickerProps'>` | \- | - | 继承 `Pick<DateRangePickerProps, 'value'\| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'panelPreselection' \| 'timePickerProps'>` 中的全部 API | N
+defaultTime | Array | ["00:00:00", "23:59:59"] | 时间选择器默认值，当 value/defaultValue 未设置值时有效。TS 类型：`string[]` | N
+`Pick<DateRangePickerProps, 'value'\| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'panelPreselection' \| 'timePickerProps'>` | \- | - | 继承 `Pick<DateRangePickerProps, 'value'\| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'panelPreselection' \| 'timePickerProps'>` 中的全部属性 | N
+onCellClick | Function |  | TS 类型：`(context: { date: Date[], partial: DateRangePickerPartial, e: MouseEvent }) => void`<br/>点击日期单元格时触发 | N
+onChange | Function |  | TS 类型：`(value: DateRangeValue, context: { dayjsValue?: Dayjs[], partial: DateRangePickerPartial, e?: MouseEvent, trigger?: DatePickerTriggerSource }) => void`<br/>选中值发生变化时触发。参数 `context.trigger` 表示触发当前事件的来源，不同的模式触发来源也会不同 | N
+onConfirm | Function |  | TS 类型：`(context: { date: Date[], e: MouseEvent }) => void`<br/>如果存在“确认”按钮，则点击“确认”按钮时触发 | N
+onMonthChange | Function |  | TS 类型：`(context: { month: number, date: Date[], partial: DateRangePickerPartial, e?: MouseEvent, trigger: DatePickerMonthChangeTrigger }) => void`<br/>月份切换发生变化时触发 | N
+onPanelClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击面板时触发 | N
+onPresetClick | Function |  | TS 类型：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/>如果存在“确认”按钮，则点击“确认”按钮时触发 | N
+onTimeChange | Function |  | TS 类型：`(context: { time: string, date: Date[], partial: DateRangePickerPartial, trigger: DatePickerTimeChangeTrigger, e?: MouseEvent }) => void`<br/>时间切换发生变化时触发 | N
+onYearChange | Function |  | TS 类型：`(context: { year: number, date: Date[], partial: DateRangePickerPartial, trigger: DatePickerYearChangeTrigger, e?: MouseEvent }) => void`<br/>年份切换发生变化时触发 | N

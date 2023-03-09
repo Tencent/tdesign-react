@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
-import dayjs from 'dayjs';
-import { formatDate, formatTime, isValidDate, getDefaultFormat } from '../../_common/js/date-picker/format';
+import {
+  formatDate,
+  formatTime,
+  isValidDate,
+  getDefaultFormat,
+  parseToDayjs,
+} from '../../_common/js/date-picker/format';
 import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps } from '../type';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils';
@@ -20,9 +25,9 @@ export default function useSingleValue(props: TdDatePickerProps) {
       log.error('DatePicker', `format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
 
-  const [time, setTime] = useState(formatTime(value, timeFormat));
-  const [month, setMonth] = useState<number>(dayjs(value).month() || new Date().getMonth());
-  const [year, setYear] = useState<number>(dayjs(value).year() || new Date().getFullYear());
+  const [time, setTime] = useState(formatTime(value, timeFormat, props.defaultTime));
+  const [month, setMonth] = useState<number>(parseToDayjs(value, format).month());
+  const [year, setYear] = useState<number>(parseToDayjs(value, format).year());
   const [cacheValue, setCacheValue] = useState(formatDate(value, { format })); // 缓存选中值，panel 点击时更改
 
   // 输入框响应 value 变化
@@ -34,7 +39,7 @@ export default function useSingleValue(props: TdDatePickerProps) {
     if (!isValidDate(value, format)) return;
 
     setCacheValue(formatDate(value, { format }));
-    setTime(formatTime(value, timeFormat));
+    setTime(formatTime(value, timeFormat, props.defaultTime));
     // eslint-disable-next-line
   }, [value]);
 
