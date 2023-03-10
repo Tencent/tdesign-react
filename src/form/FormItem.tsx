@@ -317,12 +317,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       });
     }
 
-    let emptyValue: ValueType = '';
+    let emptyValue: ValueType;
     if (Array.isArray(formValue)) {
       emptyValue = [];
     } else if (isObject(formValue)) {
       emptyValue = {};
+    } else if (isString(formValue)) {
+      emptyValue = '';
     }
+
     return emptyValue;
   }
 
