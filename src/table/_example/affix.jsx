@@ -15,7 +15,7 @@ const classStyles = `
  * 如果不设置，列多了之后会挤在一起
  * **/
 .tdesign-demo__table-affix table {
-  min-width: 1200px;
+  width: 1200px;
 }
 
 .tdesign-demo__table-affix .t-table {

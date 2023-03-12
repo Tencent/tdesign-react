@@ -213,14 +213,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
   const newData = isPaginateData ? dataSource : data;
 
-  const defaultColWidth = props.tableLayout === 'fixed' && isWidthOverflow ? '100px' : undefined;
   const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
       {finalColumns.map((col) => {
         const style: Styles = {
-          width:
-            formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width) ||
-            defaultColWidth,
+          width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
         };
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
