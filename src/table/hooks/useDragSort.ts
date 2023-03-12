@@ -82,6 +82,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       filter: `.${tableFullRowClasses.base}`, // 过滤首行尾行固定
       onMove: (evt: MoveEvent) => !hasClass(evt.related, tableFullRowClasses.base),
       onEnd: (evt: SortableEvent) => {
+        if (evt.newIndex === evt.oldIndex) return;
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
 
@@ -136,9 +137,10 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       chosenClass: tableDraggableClasses.chosen,
       dragClass: tableDraggableClasses.dragging,
       handle: `.${tableBaseClass.thCellInner}`,
-      // 存在类名：t-table__th--drag-sort 的列才允许拖拽调整顺序
-      draggable: `th.${tableDraggableClasses.dragSortTh}`,
+      // 存在类名：t-table__th--drag-sort 的列才允许拖拽调整顺序（注意：添加 draggable 之后，固定列的表头 和 吸顶表头 位置顺序会错位，暂时注释）
+      // draggable: `th.${tableDraggableClasses.dragSortTh}`,
       onEnd: (evt: SortableEvent) => {
+        if (evt.newIndex === evt.oldIndex) return;
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         dragInstanceTmp?.sort([...lastColList.current]);
         let { oldIndex: currentIndex, newIndex: targetIndex } = evt;

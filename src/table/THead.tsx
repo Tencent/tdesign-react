@@ -106,6 +106,7 @@ export default function THead(props: TheadProps) {
         };
         const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
         const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
+        const canDragSort = props.thDraggable && !(isLeftFixedActive || isRightFixedActive);
         const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
         const thCustomClasses = formatClassNames(col.thClassName, colParams);
         const thClasses = [
@@ -118,8 +119,7 @@ export default function THead(props: TheadProps) {
             [`${classPrefix}-table__th-${col.colKey}`]: col.colKey,
             [classnames.tdAlignClasses[col.align]]: col.align && col.align !== 'left',
             // 允许拖拽的列类名
-            [classnames.tableDraggableClasses.dragSortTh]:
-              props.thDraggable && !(isLeftFixedActive || isRightFixedActive),
+            [classnames.tableDraggableClasses.dragSortTh]: canDragSort,
           },
         ];
         const withoutChildren = !col.children?.length;
@@ -127,12 +127,22 @@ export default function THead(props: TheadProps) {
         const styles = { ...(thStyles.style || {}), width };
         const innerTh = renderTitle(col, index);
         if (!col.colKey) return null;
-        const resizeColumnListener = props.resizable
-          ? {
-              onMouseDown: (e) => columnResizeParams?.onColumnMousedown?.(e, col, index),
-              onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
-            }
-          : {};
+        const resizeColumnListener =
+          props.resizable || !canDragSort
+            ? {
+                onMouseDown: (e) => {
+                  columnResizeParams?.onColumnMousedown?.(e, col, index);
+                  if (!canDragSort) {
+                    const timer = setTimeout(() => {
+                      const thList = theadRef.current.querySelectorAll('th');
+                      thList[index]?.removeAttribute('draggable');
+                      clearTimeout(timer);
+                    }, 10);
+                  }
+                },
+                onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
+              }
+            : {};
         const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle({ col, colIndex: index }) : undefined;
         const isEllipsis = col.ellipsisTitle !== undefined ? Boolean(col.ellipsisTitle) : Boolean(col.ellipsis);
         const attrs = (isFunction(col.attrs) ? col.attrs({ ...colParams, type: 'th' }) : col.attrs) || {};

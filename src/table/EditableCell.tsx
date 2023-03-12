@@ -18,6 +18,7 @@ import { renderCell } from './Cell';
 import { validate } from '../form/formModel';
 import log from '../_common/js/log';
 import { AllValidateResult } from '../form/type';
+import useConfig from '../hooks/useConfig';
 
 export interface EditableCellProps {
   row: TableRowData;
@@ -43,6 +44,7 @@ const EditableCell = (props: EditableCellProps) => {
   const [isEdit, setIsEdit] = useState(props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
+  const { classPrefix } = useConfig();
 
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
     const newRow = { ...row };
@@ -63,10 +65,11 @@ const EditableCell = (props: EditableCellProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
-  const editOnListeners = useMemo(() => 
-     col.edit?.on?.({ ...cellParams, editedRow: currentRow }) || {}
+  const editOnListeners = useMemo(
+    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow }) || {},
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  , [cellParams, currentRow]);
+    [cellParams, currentRow],
+  );
 
   const cellNode = useMemo(() => {
     const node = renderCell(
@@ -139,7 +142,7 @@ const EditableCell = (props: EditableCellProps) => {
     return a === b;
   };
 
-  const updateAndSaveAbort = (outsideAbortEvent: Function, ...args: any) => {
+  const updateAndSaveAbort = (outsideAbortEvent: Function, eventName: string, ...args: any) => {
     validateEdit('self').then((result) => {
       if (result !== true) return;
       const oldValue = get(row, col.colKey);
@@ -149,7 +152,7 @@ const EditableCell = (props: EditableCellProps) => {
         setEditValue(oldValue);
         outsideAbortEvent?.(...args);
       }
-      editOnListeners.onEnter?.(args[2]);
+      editOnListeners[eventName]?.(args[2]);
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
         setIsEdit(false);
@@ -172,6 +175,7 @@ const EditableCell = (props: EditableCellProps) => {
       tListeners[itemEvent] = (...args: any) => {
         updateAndSaveAbort(
           outsideAbortEvent,
+          itemEvent,
           {
             ...cellParams,
             value: editValue,
@@ -202,6 +206,7 @@ const EditableCell = (props: EditableCellProps) => {
       // editValue 和 currentRow 更新完成后再执行这个函数
       updateAndSaveAbort(
         outsideAbortEvent,
+        'change',
         {
           value: val,
           trigger: 'onChange',
@@ -217,11 +222,15 @@ const EditableCell = (props: EditableCellProps) => {
     }
   };
 
-  const documentClickHandler = () => {
+  const documentClickHandler: EventListener = (e) => {
     if (!col.edit || !col.edit.component) return;
     if (!isEdit) return;
+    // @ts-ignore some browser is also only support e.path
+    const path = e.composedPath?.() || e.path || [];
+    const node = path.find((node: HTMLElement) => node.classList?.contains(`${classPrefix}-popup__content`));
+    if (node) return;
     const outsideAbortEvent = col.edit.onEdited;
-    updateAndSaveAbort(outsideAbortEvent, {
+    updateAndSaveAbort(outsideAbortEvent, '', {
       value: editValue,
       trigger: 'document',
       newRowData: currentRow,
@@ -305,8 +314,13 @@ const EditableCell = (props: EditableCellProps) => {
 
   const tmpEditOnListeners = { ...editOnListeners };
   delete tmpEditOnListeners.onChange;
-  if (col.edit?.abortEditOnEvent?.includes('onEnter') && tmpEditOnListeners.onEnter) {
-    delete tmpEditOnListeners.onEnter;
+  // remove conflict events
+  if (col.edit?.abortEditOnEvent?.length) {
+    col.edit.abortEditOnEvent.forEach((onEventName) => {
+      if (tmpEditOnListeners[onEventName]) {
+        delete tmpEditOnListeners[onEventName];
+      }
+    });
   }
   return (
     <div
