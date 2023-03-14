@@ -9,7 +9,7 @@ import { PopupProps } from '../popup';
 import { TimePickerProps } from '../time-picker';
 import { Dayjs } from 'dayjs';
 import { RangeInputProps } from '../range-input';
-import { TNode, TElement } from '../common';
+import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdDatePickerProps {
@@ -79,6 +79,11 @@ export interface TdDatePickerProps {
    * @default bottom
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
+   * 输入框尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
   /**
    * 输入框状态
    * @default default
@@ -207,6 +212,11 @@ export interface TdDateRangePickerProps {
    * @default ''
    */
   separator?: string;
+  /**
+   * 输入框尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
   /**
    * 输入框状态
    * @default default
