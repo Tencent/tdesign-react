@@ -33,16 +33,15 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
     className,
   } = props;
   const { classPrefix } = useConfig();
-  const popupPlacement = useMemo(() => placement.indexOf('right') !== -1 ? 'left' : 'right', [placement]);
+  const popupPlacement = useMemo(() => (placement.indexOf('right') !== -1 ? 'left' : 'right'), [placement]);
   const styles = useMemo(() => {
     const styles: Styles = { ...style };
     if (baseWidth) {
-      const size = `calc(${baseWidth} - 8px)`;
-      styles.width = size;
-      styles.height = size;
+      const selfWidth = type === 'normal' ? '56px' : '40px';
+      styles.margin = `calc((${baseWidth} - ${selfWidth})/2)`;
     }
     return styles;
-  }, [baseWidth, style]);
+  }, [baseWidth, style, type]);
   const handleClickItem = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       // const item: TdStickyItemProps = {};
