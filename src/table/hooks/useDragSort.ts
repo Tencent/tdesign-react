@@ -82,6 +82,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       filter: `.${tableFullRowClasses.base}`, // 过滤首行尾行固定
       onMove: (evt: MoveEvent) => !hasClass(evt.related, tableFullRowClasses.base),
       onEnd: (evt: SortableEvent) => {
+        if (evt.newIndex === evt.oldIndex) return;
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
 
@@ -124,21 +125,22 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     lastRowList.current = dragInstanceTmp?.toArray();
   };
 
-  // TODO: 待和 Vue 保持相同逻辑
   const registerColDragEvent = (tableElement: HTMLElement) => {
     if (!isColDraggable || !tableElement) return;
     // 拖拽实例
     let dragInstanceTmp: Sortable = null;
     const options: SortableOptions = {
       animation: 150,
-      ...props.dragSortOptions,
       dataIdAttr: 'data-colkey',
       direction: 'vertical',
       ghostClass: tableDraggableClasses.ghost,
       chosenClass: tableDraggableClasses.chosen,
       dragClass: tableDraggableClasses.dragging,
       handle: `.${tableBaseClass.thCellInner}`,
+      // 存在类名：t-table__th--drag-sort 的列才允许拖拽调整顺序（注意：添加 draggable 之后，固定列的表头 和 吸顶表头 位置顺序会错位，暂时注释）
+      // draggable: `th.${tableDraggableClasses.dragSortTh}`,
       onEnd: (evt: SortableEvent) => {
+        if (evt.newIndex === evt.oldIndex) return;
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         dragInstanceTmp?.sort([...lastColList.current]);
         let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
@@ -167,6 +169,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         params.currentData = params.newData;
         onDragSortRef.current?.(params);
       },
+      ...props.dragSortOptions,
     };
     const container = tableElement.querySelector('thead > tr') as HTMLDivElement;
     if (!container) return;

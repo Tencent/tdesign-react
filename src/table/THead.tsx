@@ -9,6 +9,7 @@ import { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './Ellipsis';
 import { formatClassNames } from './utils';
+import { AttachNode } from '../common';
 
 export interface TheadProps {
   classPrefix: string;
@@ -23,22 +24,25 @@ export interface TheadProps {
   thWidthList?: { [colKey: string]: number };
   bordered: boolean;
   isMultipleHeader: boolean;
+  thDraggable: boolean;
   spansAndLeafNodes: {
     rowspanAndColspanMap: ThRowspanAndColspan;
     leafColumns: BaseTableCol<TableRowData>[];
   };
   thList: BaseTableCol<TableRowData>[][];
   resizable?: boolean;
+  attach?: AttachNode;
+  showColumnShadow?: { left: boolean; right: boolean };
   columnResizeParams?: {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
     onColumnMouseover: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
-    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
+    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => void;
   };
 }
 
 export default function THead(props: TheadProps) {
-  const { columnResizeParams, classPrefix } = props;
+  const { columnResizeParams, classPrefix, showColumnShadow } = props;
   const theadRef = useRef<HTMLTableSectionElement>(null);
   const classnames = useClassName();
   const { tableHeaderClasses, tableBaseClass } = classnames;
@@ -100,15 +104,22 @@ export default function THead(props: TheadProps) {
           row: {},
           rowIndex: -1,
         };
+        const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
+        const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
+        const canDragSort = props.thDraggable && !(isLeftFixedActive || isRightFixedActive);
         const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
+        const thCustomClasses = formatClassNames(col.thClassName, colParams);
         const thClasses = [
           thStyles.classes,
           customClasses,
+          thCustomClasses,
           {
             // 受 rowspan 影响，部分 tr > th:first-child 需要补足左边框
             [tableHeaderClasses.thBordered]: thBorderMap.get(col),
             [`${classPrefix}-table__th-${col.colKey}`]: col.colKey,
             [classnames.tdAlignClasses[col.align]]: col.align && col.align !== 'left',
+            // 允许拖拽的列类名
+            [classnames.tableDraggableClasses.dragSortTh]: canDragSort,
           },
         ];
         const withoutChildren = !col.children?.length;
@@ -116,12 +127,22 @@ export default function THead(props: TheadProps) {
         const styles = { ...(thStyles.style || {}), width };
         const innerTh = renderTitle(col, index);
         if (!col.colKey) return null;
-        const resizeColumnListener = props.resizable
-          ? {
-              onMouseDown: (e) => columnResizeParams?.onColumnMousedown?.(e, col),
-              onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
-            }
-          : {};
+        const resizeColumnListener =
+          props.resizable || !canDragSort
+            ? {
+                onMouseDown: (e) => {
+                  columnResizeParams?.onColumnMousedown?.(e, col, index);
+                  if (!canDragSort) {
+                    const timer = setTimeout(() => {
+                      const thList = theadRef.current.querySelectorAll('th');
+                      thList[index]?.removeAttribute('draggable');
+                      clearTimeout(timer);
+                    }, 10);
+                  }
+                },
+                onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
+              }
+            : {};
         const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle({ col, colIndex: index }) : undefined;
         const isEllipsis = col.ellipsisTitle !== undefined ? Boolean(col.ellipsisTitle) : Boolean(col.ellipsis);
         const attrs = (isFunction(col.attrs) ? col.attrs({ ...colParams, type: 'th' }) : col.attrs) || {};
