@@ -2,6 +2,7 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import {
+  BaseTableCellParams,
   CellData,
   PrimaryTableCol,
   RowClassNameParams,
@@ -78,7 +79,7 @@ export function formatRowClassNames(
 
 export function formatClassNames(
   classNames: TableColumnClassName<TableRowData> | TableColumnClassName<TableRowData>[],
-  params: CellData<TableRowData>,
+  params: CellData<TableRowData> | BaseTableCellParams<TableRowData>,
 ) {
   const classes = classNames instanceof Array ? classNames : [classNames];
   const arr: any[] = [];

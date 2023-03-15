@@ -171,6 +171,7 @@ export default function useClassName() {
       ghost: `${classPrefix}-table__ele--draggable-ghost`,
       chosen: `${classPrefix}-table__ele--draggable-chosen`,
       dragging: `${classPrefix}-table__ele--draggable-dragging`,
+      dragSortTh: `${classPrefix}-table__th--drag-sort`,
     },
 
     virtualScrollClasses: {
