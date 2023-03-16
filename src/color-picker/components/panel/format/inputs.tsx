@@ -69,9 +69,10 @@ const FormatInputs = (props) => {
   };
 
   const handleInputChange = (key: string, v: number | string) => {
-    if (v === lastModelValue[key]) {
+    if (v === lastModelValue.current[key]) {
       return;
     }
+
     formatValue.current[key] = v;
     lastModelValue.current[key] = v;
     const value = getFormatColorMap('decode')[format];
@@ -92,7 +93,7 @@ const FormatInputs = (props) => {
           align: 'center',
           disabled,
           size: 'small',
-          onChange: (v: string) => handleInputChange(config.key, v),
+          onChange: (v: string) => handleInputChange(config.key, v || config.min),
           onBlur: (v: string) => handleInputChange(config.key, v),
           onEnter: (v: string) => handleInputChange(config.key, v),
         };
