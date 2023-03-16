@@ -69,13 +69,16 @@ const FormatInputs = (props) => {
   };
 
   const handleInputChange = (key: string, v: number | string) => {
-    if (v === lastModelValue[key]) {
+    const validValue = v || 0; // undefined -> 0
+
+    if (validValue === lastModelValue.current[key]) {
       return;
     }
-    formatValue.current[key] = v;
-    lastModelValue.current[key] = v;
+
+    formatValue.current[key] = validValue;
+    lastModelValue.current[key] = validValue;
     const value = getFormatColorMap('decode')[format];
-    onInputChange(value, formatValue.current.a / 100, key, v);
+    onInputChange(value, formatValue.current.a / 100, key, validValue);
   };
 
   useEffect(() => {
