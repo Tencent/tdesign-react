@@ -106,6 +106,28 @@ module.exports = {
 }
 ```
 
+### 如何在 next.js 中使用
+
+在 `next.js` 中并不支持引入 `css` 样式文件，而默认导入的 `es` 产物中会自动引入相应 `css` 文件导致项目报错，我们提供了一套无样式的组件库代码存放在 `lib` 目录下。
+
+所以在 `next.js` 中需要调整下使用方式：
+```js
+import { Button } from 'tdesign-react/lib/'; // 按需引入无样式组件代码
+import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
+```
+
+此外 `lib` 包导出的是 `es6` 的代码且在 `node_modules` 中，会被 `webpack` 在编译时跳过，还需配置下 `next.config.js`。
+```js
+const nextConfig = {
+  experimental: {
+    transpilePackages: ['tdesign-react']
+  }
+}
+
+module.exports = nextConfig
+```
+
+
 ### 浏览器兼容性
 
 | [<img src="https://tdesign.gtimg.com/docs/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/> IE / Edge | [<img src="https://tdesign.gtimg.com/docs/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://tdesign.gtimg.com/docs/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://tdesign.gtimg.com/docs/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |

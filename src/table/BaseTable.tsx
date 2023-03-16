@@ -16,7 +16,6 @@ import { BaseTableProps, BaseTableRef } from './interface';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
 import { getAffixProps } from './utils';
-import log from '../_common/js/log';
 import { baseTableDefaultProps } from './defaultProps';
 import { Styles } from '../common';
 import { TableRowData } from './type';
@@ -60,13 +59,14 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     rowAndColFixedPosition,
     setData,
     refreshTable,
+    setTableElmWidth,
     emitScrollEvent,
     setUseFixedTableElmRef,
     updateColumnFixedShadow,
     getThWidthList,
     updateThWidthList,
-    setRecalculateColWidthFuncRef,
     addTableResizeObserver,
+    updateTableAfterColumnResize,
   } = useFixed(props, finalColumns);
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
@@ -86,9 +86,16 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
 
   // 列宽拖拽逻辑
-  const columnResizeParams = useColumnResize(tableContentRef, refreshTable, getThWidthList, updateThWidthList);
-  const { resizeLineRef, resizeLineStyle, recalculateColWidth, setEffectColMap } = columnResizeParams;
-  setRecalculateColWidthFuncRef(recalculateColWidth);
+  const columnResizeParams = useColumnResize({
+    isWidthOverflow,
+    tableContentRef,
+    showColumnShadow,
+    getThWidthList,
+    updateThWidthList,
+    setTableElmWidth,
+    updateTableAfterColumnResize,
+  });
+  const { resizeLineRef, resizeLineStyle, setEffectColMap } = columnResizeParams;
 
   const dynamicBaseTableClasses = classNames(
     tableClasses.concat({
@@ -132,19 +139,16 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   }, [props.data, dataSource, isPaginateData]);
 
   const [lastLeafColumns, setLastLeafColumns] = useState(props.columns || []);
+
   useEffect(() => {
     if (lastLeafColumns.map((t) => t.colKey).join() !== spansAndLeafNodes.leafColumns.map((t) => t.colKey).join()) {
       props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setLastLeafColumns(spansAndLeafNodes.leafColumns);
     }
+    setEffectColMap(spansAndLeafNodes.leafColumns, null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);
-
-  useEffect(() => {
-    setEffectColMap(thList[0], null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [thList]);
 
   const onFixedChange = () => {
     const timer = setTimeout(() => {
@@ -172,6 +176,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   };
 
   useImperativeHandle(ref, () => ({
+    showColumnShadow,
     tableElement: tableRef.current,
     tableHtmlElement: tableElmRef.current,
     tableContentElement: tableContentRef.current,
@@ -208,18 +213,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
   const newData = isPaginateData ? dataSource : data;
 
-  if (resizable && tableLayout === 'auto') {
-    log.warn('Table', 'table-layout can not be `auto` for resizable column table, set `table-layout: fixed` please.');
-  }
-
-  const defaultColWidth = props.tableLayout === 'fixed' && isWidthOverflow ? '100px' : undefined;
   const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
       {finalColumns.map((col) => {
         const style: Styles = {
-          width:
-            formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width) ||
-            defaultColWidth,
+          width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
         };
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
@@ -246,6 +244,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     columnResizeParams,
     classPrefix,
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
+    attach: props.attach,
+    thDraggable: props.thDraggable,
+    showColumnShadow,
   };
 
   const headUseMemoDependencies = [
@@ -414,7 +415,17 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     >
       {virtualConfig.isVirtualScroll && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
 
-      <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
+      <table
+        ref={tableElmRef}
+        className={classNames(tableElmClasses)}
+        style={{
+          ...tableElementStyles,
+          width:
+            resizable && isWidthOverflow && tableElmWidth.current
+              ? `${tableElmWidth.current}px`
+              : tableElementStyles.width,
+        }}
+      >
         {renderColGroup(false)}
         {useMemo(() => {
           if (!props.showHeader) return null;

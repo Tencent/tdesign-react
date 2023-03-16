@@ -24,13 +24,18 @@ import {
   OptionData,
   SizeEnum,
   ClassName,
+  AttachNode,
   HTMLElementAttributes,
   ComponentType,
-  InfinityScroll,
+  TScroll,
 } from '../common';
 import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
+  /**
+   * 超出省略等所有浮层元素统一绑定到 `attach`，可根据实际情况调整挂载元素
+   */
+  attach?: AttachNode;
   /**
    * 是否显示表格边框
    * @default false
@@ -139,7 +144,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   paginationAffixedBottom?: boolean | Partial<AffixProps>;
   /**
-   * 是否允许调整列宽。如果想要配置宽度可调整的最小值和最大值，请使用 `column.resize`，示例：`columns: [{ resize: { minWidth: 120, maxWidth: 300 } }]`
+   * 是否允许调整列宽。如果想要配置宽度可调整的最小值和最大值，请使用 `column.resize`，示例：`columns: [{ resize: { minWidth: 120, maxWidth: 300 } }]`。<br/> 默认规则：因列宽超出存在横向滚动条时，列宽调整仅影响当前列宽和总列宽；表格列较少没有横向滚动条时，列宽调整表现为自身宽度和相邻宽度变化
    * @default false
    */
   resizable?: boolean;
@@ -148,11 +153,11 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   rowAttributes?: TableRowAttributes<T>;
   /**
-   * 行类名，泛型 T 指表格数据类型。`params.row` 表示行数据；`params.rowIndex` 表示行下标；`params.type=body`  表示类名作用于 `tbody` 中的元素；`params.type=body` 表示类名作用于 `tfoot` 中的元素
+   * 行类名，泛型 T 指表格数据类型。`params.row` 表示行数据；`params.rowIndex` 表示行下标；`params.type=body`  表示类名作用于 `tbody` 中的元素；`params.type= tfoot` 表示类名作用于 `tfoot` 中的元素
    */
   rowClassName?: ClassName | ((params: RowClassNameParams<T>) => ClassName);
   /**
-   * 使用 rowKey 唯一标识一行数据
+   * 唯一标识一行数据的字段名，来源于 `data` 中的字段。如果是字段嵌套多层，可以设置形如 `item.a.id` 的方法
    * @default 'id'
    */
   rowKey: string;
@@ -167,7 +172,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
    * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
    */
-  scroll?: InfinityScroll;
+  scroll?: TScroll;
   /**
    * 是否显示表头
    * @default true
@@ -332,6 +337,10 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    * 是否阻止当列单元格点击事件冒泡
    */
   stopPropagation?: boolean;
+  /**
+   * 列表头类名，值类型是函数时使用返回值作为列类名。泛型 T 指表格数据类型
+   */
+  thClassName?: TableColumnClassName<T> | TableColumnClassName<T>[];
   /**
    * 自定义表头渲染，优先级高于 render
    */
@@ -512,7 +521,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   onDisplayColumnsChange?: (value: CheckboxGroupValue) => void;
   /**
-   * 拖拽排序时触发，`data` 表示排序前的数据，`newData` 表示拖拽排序结束后的新数据，`sort=row` 表示行拖拽事件触发，`sort=col` 表示列拖拽事件触发。⚠️ 事件是在回调函数中触发的，需注意数据更新相关问题
+   * 拖拽排序时触发，`data` 表示排序前的数据，`newData` 表示拖拽排序结束后的新数据，`sort=row` 表示行拖拽事件触发，`sort=col` 表示列拖拽事件触发
    */
   onDragSort?: (context: DragSortContext<T>) => void;
   /**
@@ -819,6 +828,10 @@ export interface TableEditableCellConfig<T extends TableRowData = TableRowData> 
    */
   defaultEditable?: boolean;
   /**
+   * 透传给编辑组件的事件
+   */
+  on?: (context: TableEditableCellPropsParams<T>) => { [eventName: string]: Function };
+  /**
    * 编辑完成后，退出编辑模式时触发
    */
   onEdited?: (context: PrimaryTableOnEditedContext<T>) => void;
@@ -835,6 +848,11 @@ export interface TableEditableCellConfig<T extends TableRowData = TableRowData> 
    * @default true
    */
   showEditIcon?: boolean;
+  /**
+   * 触发校验的时机，有 2 种：退出编辑时和数据变化时
+   * @default 'exit'
+   */
+  validateTrigger?: 'exit' | 'change';
 }
 
 export interface TableTreeConfig {

@@ -58,7 +58,7 @@ const columns = [
     // 自由调整宽度，如果发现元素看不见，请加大宽度
     width: 50,
   },
-  { colKey: 'serial-number', title: '序号', width: 46 },
+  { colKey: 'serial-number', title: '序号' },
   { colKey: 'applicant', title: '申请人' },
   {
     colKey: 'status',

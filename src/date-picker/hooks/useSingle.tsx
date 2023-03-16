@@ -41,6 +41,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const inputProps = {
     ...props.inputProps,
     ref: inputRef,
+    size: props.size,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
     readonly: !props.allowInput,
