@@ -92,6 +92,7 @@ const FormatInputs = (props) => {
           align: 'center',
           disabled,
           size: 'small',
+          onChange: (v: string) => handleInputChange(config.key, v),
           onBlur: (v: string) => handleInputChange(config.key, v),
           onEnter: (v: string) => handleInputChange(config.key, v),
         };
