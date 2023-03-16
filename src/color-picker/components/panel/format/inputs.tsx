@@ -69,16 +69,14 @@ const FormatInputs = (props) => {
   };
 
   const handleInputChange = (key: string, v: number | string) => {
-    const validValue = v || 0; // undefined -> 0
-
-    if (validValue === lastModelValue.current[key]) {
+    if (v === lastModelValue.current[key]) {
       return;
     }
 
-    formatValue.current[key] = validValue;
-    lastModelValue.current[key] = validValue;
+    formatValue.current[key] = v;
+    lastModelValue.current[key] = v;
     const value = getFormatColorMap('decode')[format];
-    onInputChange(value, formatValue.current.a / 100, key, validValue);
+    onInputChange(value, formatValue.current.a / 100, key, v);
   };
 
   useEffect(() => {
@@ -95,7 +93,7 @@ const FormatInputs = (props) => {
           align: 'center',
           disabled,
           size: 'small',
-          onChange: (v: string) => handleInputChange(config.key, v),
+          onChange: (v: string) => handleInputChange(config.key, v || config.min),
           onBlur: (v: string) => handleInputChange(config.key, v),
           onEnter: (v: string) => handleInputChange(config.key, v),
         };
