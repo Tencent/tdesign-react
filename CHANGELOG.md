@@ -5,6 +5,27 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.4 `2023-03-16` 
+### 🚀 Features
+- `Table`:
+    - 列宽调整功能，更新列宽调整规则为：列宽较小没有超出时，列宽调整表现为当前列和相邻列的变化；列宽超出存在横向滚动条时，列宽调整仅影响当前列和列总宽。 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 可编辑单元格(行)功能，支持编辑模式下，数据变化时实时校验，`col.edit.validateTrigger`， [issue#2445](https://github.com/Tencent/tdesign-vue-next/issues/2445) @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 只有固定列存在时，才会出现类名 `.t-table__content--scrollable-to-left` 和 `.t-table__content--scrollable-to-right` @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 拖拽功能，支持禁用固定列不可拖拽调整顺序，[tdesign-vue-next#2333](https://github.com/Tencent/tdesign-vue-next/issues/2333) @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+- `Upload`: `theme=file-input` 文件为空时，悬浮时不显示清除按钮 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+- `InputNumber`: 支持千分位粘贴 @uyarn ([#2058](https://github.com/Tencent/tdesign-react/pull/2058))
+- `DatePicker`: 支持 size 属性 @honkinglin ([#2055](https://github.com/Tencent/tdesign-react/pull/2055))
+### 🐞 Bug Fixes
+- `Form`: 修复重置默认值数据类型错误 @honkinglin ([#2046](https://github.com/Tencent/tdesign-react/pull/2046))
+- `Timeline`: 导出TimelineItem类型 @southorange0929 ([#2053](https://github.com/Tencent/tdesign-react/pull/2053))
+- `Table`:
+    - 修复表格宽度抖动问题 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 列宽调整功能，修复 Dialog 中列宽调整问题，[tdesign-vue-next#2359](https://github.com/Tencent/tdesign-vue-next/issues/2359) @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 可编辑单元格，修复下拉选择类组件 `abortEditOnEvent` 没有包含 `onChange` 时，依然会在数据变化时触发退出编辑态问题 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 修复 lazy-load reset bug @MrWeilian ([#2041](https://github.com/Tencent/tdesign-react/pull/2041))
+- `ColorPicker`:  修复输入框无法输入的问题 @insekkei ([#2061](https://github.com/Tencent/tdesign-react/pull/2061))
+- `Affix`: 修复 fixed 判断问题 @lio-mengxiang ([#2048](https://github.com/Tencent/tdesign-react/pull/2048))
+
 ## 🌈 1.0.3 `2023-03-09` 
 ### 🚀 Features
 - `Message`: 鼠标悬停时不自动关闭 @HelKyle ([#2036](https://github.com/Tencent/tdesign-react/pull/2036))
