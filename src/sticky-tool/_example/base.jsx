@@ -18,32 +18,74 @@ export default function SingleSelect() {
   };
 
   return (
-    <StickyTool
-      offset={[10, 10]}
-      placement="right-center"
-      popup-props={{ placement: 'right' }}
-      width="60"
-      onClick={handleClick}
-      onHover={handleHover}
-    >
-      <StickyItem label="添加" popup="666">
-        <div slot="icon">
-          <AddIcon />
-        </div>
-      </StickyItem>
-      <StickyItem
-        label={<div style={{ color: 'red' }}>搜索</div>}
-        icon={<SearchIcon />}
-        trigger="click"
-        popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png"></img>}
-        popup-props={{ placement: 'bottom' }}
-      ></StickyItem>
-      <StickyItem icon={<SearchIcon />}>
-        <div slot="label">搜索</div>
-        <div slot="popup">
-          <img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />
-        </div>
-      </StickyItem>
-    </StickyTool>
+    <>
+      <StickyTool
+        shape="round"
+        offset={[10, 10]}
+        placement="right-center"
+        popupProps={{ placement: 'right' }}
+        width={60}
+        onClick={handleClick}
+        onHover={handleHover}
+      >
+        <StickyItem label="添加" icon={<AddIcon />} popup="666"></StickyItem>
+        <StickyItem
+          label={<div style={{ color: 'red' }}>搜索</div>}
+          icon={<SearchIcon />}
+          trigger="click"
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png"></img>}
+          popupProps={{ placement: 'bottom' }}
+        ></StickyItem>
+        <StickyItem
+          label={<div>搜索</div>}
+          icon={<SearchIcon />}
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
+        ></StickyItem>
+      </StickyTool>
+      <StickyTool
+        offset={[90, 10]}
+        placement="right-center"
+        popupProps={{ placement: 'right' }}
+        width={90}
+        onClick={handleClick}
+        onHover={handleHover}
+      >
+        <StickyItem label="添加" icon={<AddIcon />} popup="666"></StickyItem>
+        <StickyItem
+          label={<div style={{ color: 'red' }}>搜索</div>}
+          icon={<SearchIcon />}
+          trigger="click"
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png"></img>}
+          popupProps={{ placement: 'bottom' }}
+        ></StickyItem>
+        <StickyItem
+          label={<div>搜索</div>}
+          icon={<SearchIcon />}
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
+        ></StickyItem>
+      </StickyTool>
+      <StickyTool
+        type="compact"
+        offset={[200, 10]}
+        placement="right-center"
+        popupProps={{ placement: 'right' }}
+        onClick={handleClick}
+        onHover={handleHover}
+      >
+        <StickyItem label="添加" icon={<AddIcon />} popup="666"></StickyItem>
+        <StickyItem
+          label={<div style={{ color: 'red' }}>搜索</div>}
+          icon={<SearchIcon />}
+          trigger="click"
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png"></img>}
+          popupProps={{ placement: 'bottom' }}
+        ></StickyItem>
+        <StickyItem
+          label={<div>搜索</div>}
+          icon={<SearchIcon />}
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
+        ></StickyItem>
+      </StickyTool>
+    </>
   );
 }

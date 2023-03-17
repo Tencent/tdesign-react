@@ -22,6 +22,7 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
     label,
     popup,
     popupProps,
+    trigger,
     type,
     shape,
     placement,
@@ -44,36 +45,46 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
   }, [baseWidth, style, type]);
   const handleClickItem = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      // const item: TdStickyItemProps = {};
-      // Object.keys(props).forEach((i) => (item[i] = props[i]));
-      // onClick(e, item);
-      onClick(e);
+      const item = {
+        icon,
+        label,
+        popup,
+        popupProps,
+        trigger,
+      };
+      onClick(e, item);
     },
-    [onClick],
+    [icon, label, popup, popupProps, trigger, onClick],
   );
   const handleHoverItem = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      // const item: TdStickyItemProps = {};
-      // Object.keys(props).forEach((i) => (item[i] = props[i]));
-      // onHover(e, item);
-      onHover(e);
+      const item = {
+        icon,
+        label,
+        popup,
+        popupProps,
+        trigger,
+      };
+      onHover(e, item);
     },
-    [onHover],
+    [icon, label, popup, popupProps, trigger, onHover],
   );
+  const finalPopupProps = { hideEmptyPopup: true, ...basePopupProps, ...popupProps };
+
   return (
     <Popup
       trigger={props.trigger}
       hideEmptyPopup={true}
       placement={popupPlacement}
       content={popup}
-      {...(popupProps || basePopupProps)}
+      {...finalPopupProps}
     >
       <div
         ref={ref}
         className={classNames(
-          `${classPrefix}`,
-          `${classPrefix}--${shape}`,
-          `${classPrefix}--${shape}--${type}`,
+          `${classPrefix}-sticky-item`,
+          `${classPrefix}-sticky-item--${shape}`,
+          `${classPrefix}-sticky-item--${type}`,
           className,
         )}
         style={styles}
@@ -81,7 +92,7 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
         onMouseEnter={handleHoverItem}
       >
         {icon}
-        {props.type === 'normal' ? <div className={classNames(`${classPrefix}--label`)}>{label}</div> : null}
+        {props.type === 'normal' ? <div className={classNames(`${classPrefix}-sticky-itemlabel`)}>{label}</div> : null}
       </div>
     </Popup>
   );

@@ -24,7 +24,7 @@ const StickyTool = forwardRefWithStatics(
           ? `calc( ${position[index]}px + ${item})`
           : `${(position[index] as number) + (item as number)}px`;
       });
-      const styles: Styles = {};
+      const styles: Styles = { ...style };
       placement.split('-').forEach((item, index) => {
         if (item !== 'center') {
           styles[item] = position[index];
@@ -35,7 +35,7 @@ const StickyTool = forwardRefWithStatics(
       });
       if (width) styles.width = typeof width === 'number' ? `${width}px` : width;
       return styles;
-    }, [offset, placement, width]);
+    }, [offset, placement, width, style]);
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLDivElement>, item: TdStickyItemProps) => {
@@ -51,7 +51,7 @@ const StickyTool = forwardRefWithStatics(
     );
 
     const stickyItemList = useMemo(() => {
-      if (list) {
+      if (list?.length) {
         return list.map((item, index: number) => {
           const itemProps = {
             ...item,
@@ -87,14 +87,8 @@ const StickyTool = forwardRefWithStatics(
     return (
       <div
         ref={ref}
-        style={style}
-        className={classnames(
-          `${classPrefix}-stickyTool`,
-          `${classPrefix}-stickyTool--${shape}`,
-          `${classPrefix}-stickyTool--${shape}--${type}`,
-          `${classPrefix}-stickyTool--${placement}`,
-          className,
-        )}
+        style={styles}
+        className={classnames(`${classPrefix}-sticky-tool`, `${classPrefix}-sticky-tool--${shape}`, className)}
       >
         {stickyItemList}
       </div>
