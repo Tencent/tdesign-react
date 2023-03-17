@@ -92,7 +92,9 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
         onMouseEnter={handleHoverItem}
       >
         {icon}
-        {props.type === 'normal' ? <div className={classNames(`${classPrefix}-sticky-itemlabel`)}>{label}</div> : null}
+        {props.type === 'normal' ? (
+          <div className={classNames(`${classPrefix}-sticky-item__label`)}>{label}</div>
+        ) : null}
       </div>
     </Popup>
   );
