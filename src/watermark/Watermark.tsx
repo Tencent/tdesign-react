@@ -86,7 +86,7 @@ const Watermark: React.FC<WatermarkProps> = ({
     injectStyle(keyframesStyle);
   }, []);
 
-  useMutationObserver(document ? document.body : null, (mutations) => {
+  useMutationObserver(typeof document !== 'undefined' ? document.body : null, (mutations) => {
     if (removable) return;
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
