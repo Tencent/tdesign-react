@@ -11,8 +11,10 @@ import log from '../_common/js/log';
 let key = 0;
 
 const FormList = (props: TdFormListProps) => {
-  const { formMapRef, form, onFormItemValueChange } = useFormContext();
-  const { name, initialData = [], rules, children } = props;
+  const { formMapRef, form, onFormItemValueChange, initialData: initialDataFromForm } = useFormContext();
+  const { name, rules, children } = props;
+
+  const initialData = props.initialData || get(initialDataFromForm, name) || [];
 
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(
