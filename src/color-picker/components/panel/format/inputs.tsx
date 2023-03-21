@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import throttle from 'lodash/throttle';
 import Color from '../../../../_common/js/color-picker/color';
 import Input from '../../../../input';
@@ -7,16 +7,13 @@ import { FORMAT_INPUT_CONFIG } from './config';
 
 const FormatInputs = (props) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;
-  const [formatValue, setFormatValue] = useState<any>({});
   const lastModelValue = useRef({});
+  const formatValueRef = useRef<any>({});
 
-  const object2color = (f: string, newFormatValue: any) => {
-    console.log('-----object2color', newFormatValue, f, Color.object2color(newFormatValue, f));
-    return Color.object2color(newFormatValue, f);
-  };
+  const object2color = (f: string) => Color.object2color(formatValueRef.current, f);
 
   // 获取不同格式的输入输出值
-  const getFormatColorMap = (type: 'encode' | 'decode', newFormatValue) => {
+  const getFormatColorMap = (type: 'encode' | 'decode') => {
     if (type === 'encode') {
       return {
         HSV: color.getHsva(),
@@ -33,39 +30,34 @@ const FormatInputs = (props) => {
     }
     // decode
     return {
-      HSV: object2color('HSV', newFormatValue),
-      HSL: object2color('HSL', newFormatValue),
-      RGB: object2color('RGB', newFormatValue),
-      CMYK: object2color('CMYK', newFormatValue),
-      CSS: newFormatValue.css,
-      HEX: newFormatValue.hex,
+      HSV: object2color('HSV'),
+      HSL: object2color('HSL'),
+      RGB: object2color('RGB'),
+      CMYK: object2color('CMYK'),
+      CSS: formatValueRef.current.css,
+      HEX: formatValueRef.current.hex,
     };
   };
 
   // 更新 modelValue
   const updateModelValue = () => {
-    const values: any = getFormatColorMap('encode', formatValue)[format];
+    const values: any = getFormatColorMap('encode')[format];
     values.a = Math.round(color.alpha * 100);
 
     const changedFormatValue = {};
     Object.keys(values).forEach((key) => {
-      if (values[key] !== formatValue[key]) {
+      if (values[key] !== formatValueRef.current[key]) {
         changedFormatValue[key] = values[key];
       }
       lastModelValue.current[key] = values[key];
     });
 
     if (Object.keys(changedFormatValue).length > 0) {
-      setFormatValue({
-        ...values,
-      });
+      formatValueRef.current = values;
     }
   };
 
-  useEffect(() => {
-    updateModelValue();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  updateModelValue();
 
   const throttleUpdate = throttle(updateModelValue, 100);
 
@@ -85,33 +77,32 @@ const FormatInputs = (props) => {
   };
 
   const handleInputChange = (key: string, v: number | string) => {
-    console.log('-----inputchange', key, v);
     if (v === lastModelValue.current[key]) {
       return;
     }
 
     const newFormatValue = {
-      ...formatValue,
+      ...formatValueRef.current,
       [key]: v,
     };
-    setFormatValue(newFormatValue);
+    formatValueRef.current = newFormatValue;
     lastModelValue.current[key] = v;
-    const value = getFormatColorMap('decode', newFormatValue)[format];
-    onInputChange(value, formatValue.a / 100, key, v);
+    const value = getFormatColorMap('decode')[format];
+    onInputChange(value, formatValueRef.current.a / 100, key, v);
   };
 
   useEffect(() => {
     throttleUpdate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [color.saturation, color.hue, color.value, color.alpha, format, formatValue]);
+  }, [color.saturation, color.hue, color.value, color.alpha, format]);
 
   return (
     <div className="input-group">
       {inputConfigs().map((config) => {
         const commonProps = {
           ...inputProps,
-          title: formatValue[config.key],
-          [config.type === 'input' ? 'defaultValue' : 'value']: formatValue[config.key],
+          title: formatValueRef.current[config.key],
+          [config.type === 'input' ? 'defaultValue' : 'value']: formatValueRef.current[config.key],
           align: 'center',
           disabled,
           size: 'small',
