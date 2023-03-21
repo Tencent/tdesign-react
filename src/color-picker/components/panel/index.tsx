@@ -228,6 +228,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   // format输入变化
   const handleInputChange = (input: string, alpha?: number) => {
     update(input);
+    console.log('-------input change', input);
     colorInstanceRef.current.alpha = alpha;
     emitColorChange('input');
   };
