@@ -10,12 +10,12 @@ export default function BasicBackTop() {
   };
 
   return (
-    <Space direction="vertical">
-      <Space>
+    <Space direction="vertical" size={32}>
+      <Space size={24}>
         <BackTop style={style} visibleHeight={0} size="small" offset={['24px', '300px']} container={() => document} />
         <BackTop style={style} visibleHeight={0} size="medium" offset={['124px', '300px']} container={() => document} />
       </Space>
-      <Space>
+      <Space size={24}>
         <BackTop
           style={style}
           visibleHeight={0}
@@ -33,7 +33,7 @@ export default function BasicBackTop() {
           container={() => document}
         />
       </Space>
-      <Space>
+      <Space size={24}>
         <BackTop
           style={style}
           visibleHeight={0}

@@ -10,7 +10,7 @@ export default function BasicBackTop() {
   };
 
   return (
-    <Space>
+    <Space size={24}>
       <BackTop style={style} visibleHeight={0} offset={['24px', '500px']} container={() => document}>
         <span className="custom-node">返回</span>
       </BackTop>
