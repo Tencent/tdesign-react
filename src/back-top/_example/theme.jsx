@@ -10,23 +10,23 @@ export default function BasicBackTop() {
   };
 
   return (
-    <Space direction="vertical">
-      <Space>
+    <Space direction="vertical" size={32}>
+      <Space size={24}>
         <BackTop style={style} visibleHeight={0} container={() => document} />
         <BackTop style={style} visibleHeight={0} theme="primary" container={() => document} />
         <BackTop style={style} visibleHeight={0} theme="dark" container={() => document} />
       </Space>
-      <Space>
+      <Space size={24}>
         <BackTop style={style} shape="circle" visibleHeight={0} container={() => document} />
         <BackTop style={style} shape="circle" visibleHeight={0} theme="primary" container={() => document} />
         <BackTop style={style} shape="circle" visibleHeight={0} theme="dark" container={() => document} />
       </Space>
-      <Space>
+      <Space size={24}>
         <BackTop style={style} size="small" visibleHeight={0} container={() => document} />
         <BackTop style={style} size="small" visibleHeight={0} theme="primary" container={() => document} />
         <BackTop style={style} size="small" visibleHeight={0} theme="dark" container={() => document} />
       </Space>
-      <Space>
+      <Space size={24}>
         <BackTop style={style} shape="circle" size="small" visibleHeight={0} container={() => document} />
         <BackTop
           style={style}
