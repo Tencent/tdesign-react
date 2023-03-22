@@ -162,7 +162,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       </CSSTransition>
     ) : null;
   };
-
   return (
     <CSSTransition
       in={visible}
@@ -190,8 +189,8 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
             <div
               ref={dialogPosition}
               className={classNames(`${componentCls}__position`, {
-                [`${componentCls}--top`]: !!props.top,
-                [`${componentCls}--${props.placement}`]: props.placement && !props.top,
+                [`${componentCls}--top`]: !!props.top || props.placement === 'top',
+                [`${componentCls}--center`]: props.placement === 'center' && !props.top,
               })}
               style={{ paddingTop: parseValueToPx(props.top) }}
               onClick={onMaskClick}

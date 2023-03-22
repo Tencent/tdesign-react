@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, mockTimeout, vi } from '@test/utils';
+import { render, fireEvent, mockTimeout, vi, act } from '@test/utils';
 import {
   InfoCircleFilledIcon,
   CheckCircleFilledIcon,
@@ -75,10 +75,14 @@ describe('Message Component test', () => {
   });
 
   test(':style', () => {
-    const style = { backgroundColor: 'rgb(51, 51, 51)' }
+    const style = { backgroundColor: 'rgb(51, 51, 51)' };
     THEME_LIST.forEach((t) => {
-      const { container } = render(<Message theme={t} style={style}>{defaultMessage}</Message>);
-      expect(container.firstChild).toHaveStyle(`background-color: ${style.backgroundColor};` );
+      const { container } = render(
+        <Message theme={t} style={style}>
+          {defaultMessage}
+        </Message>,
+      );
+      expect(container.firstChild).toHaveStyle(`background-color: ${style.backgroundColor};`);
     });
   });
 
@@ -90,34 +94,53 @@ describe('Message Component test', () => {
   });
 
   test(':content as ReactNode', () => {
-    const ReactNode = <p className="wrapper">{defaultMessage}</p>
+    const ReactNode = <p className="wrapper">{defaultMessage}</p>;
     THEME_LIST.forEach((t) => {
       const { container } = render(<Message theme={t} content={ReactNode} />);
       expect(container.querySelector('.wrapper')).not.toBe(null);
       expect(container.querySelector('.wrapper')).toHaveTextContent(defaultMessage);
     });
   });
+
+  test(':duration props', async () => {
+    const onClose = vi.fn();
+    const duration = 300;
+    render(
+      <Message duration={300} onClose={onClose}>
+        {defaultMessage}
+      </Message>,
+    );
+    expect(onClose).not.toHaveBeenCalled();
+    await mockTimeout(() => expect(onClose).toHaveBeenCalledTimes(1), duration);
+    expect(onClose).toHaveBeenCalledWith({
+      trigger: 'duration-end',
+    });
+  });
 });
 
 describe('Message Functional test', () => {
+  afterEach(() => {
+    document.getElementsByTagName('html')[0].innerHTML = '';
+  });
+
   test('Message 基础函数式调用，消息应该正常展示、隐藏', async () => {
     const openText = 'open';
     const closeText = 'close';
     const TestComponent = () => {
-      let message
+      let message;
       const handleOpen = () => {
-        message = MessagePlugin.info(defaultMessage)
-      }
+        message = MessagePlugin.info(defaultMessage);
+      };
       const handleClose = () => {
-        MessagePlugin.close(message)
-      }
+        MessagePlugin.close(message);
+      };
 
       return (
         <>
           <button onClick={handleOpen}>{openText}</button>
           <button onClick={handleClose}>{closeText}</button>
         </>
-      )
+      );
     };
 
     const { getByText } = render(<TestComponent />);
@@ -135,19 +158,19 @@ describe('Message Functional test', () => {
       content: defaultMessage,
       duration: 0,
       closeBtn: <div id="testId">关闭</div>,
-      onCloseBtnClick: () => 1
+      onCloseBtnClick: () => 1,
     };
     const spy = vi.spyOn(option, 'onCloseBtnClick');
     const TestComponent = () => {
       const handleOpen = () => {
-        MessagePlugin.info(option)
-      }
+        MessagePlugin.info(option);
+      };
 
       return (
         <>
           <button onClick={handleOpen}>{openText}</button>
         </>
-      )
+      );
     };
 
     const { getByText } = render(<TestComponent />);
@@ -155,13 +178,15 @@ describe('Message Functional test', () => {
     await mockTimeout(() => expect(document.querySelector('#testId')).not.toBeNull());
     fireEvent.click(document.querySelector('#testId'));
     await mockTimeout(() => expect(spy).toHaveBeenCalled());
-    expect(document.querySelector('#testId')).toBeNull()
+    expect(document.querySelector('#testId')).toBeNull();
   });
 
   test('传入 duration 大于0，倒计时结束后消息应该隐藏', async () => {
     const duration = 2000;
     const openText = 'open';
-    const { getByText } = render(<button onClick={() => MessagePlugin.info(defaultMessage, duration)}>{openText}</button>);
+    const { getByText } = render(
+      <button onClick={() => MessagePlugin.info(defaultMessage, duration)}>{openText}</button>,
+    );
     expect(document.querySelector('.t-message')).toBe(null);
     fireEvent.click(getByText(openText));
     await mockTimeout(() => expect(document.querySelector('.t-message')).not.toBeNull());
@@ -173,7 +198,7 @@ describe('Message Functional test', () => {
     const openText = 'open';
     const option = {
       content: defaultMessage,
-      onDurationEnd: () => 1
+      onDurationEnd: () => 1,
     };
     const spy = vi.spyOn(option, 'onDurationEnd');
     const { getByText } = render(<button onClick={() => MessagePlugin.info(option, duration)}>{openText}</button>);
@@ -185,7 +210,7 @@ describe('Message Functional test', () => {
     const openText = 'open';
     const option = {
       content: defaultMessage,
-      attach: '#testId'
+      attach: '#testId',
     };
     const TestComponent = () => {
       const handleOpen = () => MessagePlugin.info(option);
@@ -195,7 +220,7 @@ describe('Message Functional test', () => {
           <div id="testId" />
           <button onClick={handleOpen}>{openText}</button>
         </>
-      )
+      );
     };
 
     const { getByText } = render(<TestComponent />);
@@ -207,7 +232,7 @@ describe('Message Functional test', () => {
     const openText = 'open';
     const option = {
       content: defaultMessage,
-      attach: () => document.querySelector('#testId')
+      attach: () => document.querySelector('#testId'),
     };
     const TestComponent = () => {
       const handleOpen = () => MessagePlugin.info(option);
@@ -217,7 +242,7 @@ describe('Message Functional test', () => {
           <div id="testId" />
           <button onClick={handleOpen}>{openText}</button>
         </>
-      )
+      );
     };
 
     const { getByText } = render(<TestComponent />);
@@ -227,10 +252,10 @@ describe('Message Functional test', () => {
 
   test('设置 offset，应该相对于 placement 正确偏移', async () => {
     const openText = 'open';
-    const [offsetX, offsetY] = [-10, 20]
+    const [offsetX, offsetY] = [-10, 20];
     const option = {
       content: defaultMessage,
-      offset: [offsetX, offsetY]
+      offset: [offsetX, offsetY],
     };
     const TestComponent = () => {
       const handleOpen = () => MessagePlugin.info(option);
@@ -239,44 +264,62 @@ describe('Message Functional test', () => {
         <>
           <button onClick={handleOpen}>{openText}</button>
         </>
-      )
+      );
     };
-    const expectStyle = `left: ${offsetX}px; top: ${offsetY}px;`
+    const expectStyle = `left: ${offsetX}px; top: ${offsetY}px;`;
     const { getByText } = render(<TestComponent />);
     fireEvent.click(getByText(openText));
     await mockTimeout(() => expect(document.querySelector('.t-message')).toHaveStyle(expectStyle));
   });
 
-  test.concurrent.each([
-    'center',
-    'top',
-    'left',
-    'right',
-    'bottom',
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right'
-  ])('不同的 placement 值，弹出消息应该出现在对应位置', async placement => {
+  test.each(['center', 'top', 'left', 'right', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right'])(
+    '不同的 placement 值，弹出消息应该出现在对应位置',
+    async (placement) => {
+      const option = {
+        content: defaultMessage,
+        duration: 0,
+        placement,
+      };
+      const openText = `open${placement}`;
+      const TestComponent = () => {
+        const handleOpen = () => MessagePlugin.info(option);
+
+        return (
+          <>
+            <button onClick={handleOpen}>{openText}</button>
+          </>
+        );
+      };
+
+      const { getByText } = render(<TestComponent />);
+      fireEvent.click(getByText(openText));
+      await mockTimeout(() => expect(document.querySelector(`.t-message-placement--${placement}`)).not.toBeNull());
+      await mockTimeout(() =>
+        expect(document.querySelector(`.t-message-placement--${placement}`).querySelector('.t-message')).not.toBeNull(),
+      );
+    },
+  );
+
+  test('鼠标悬停时不自动关闭', async () => {
+    const openText = 'open';
     const option = {
       content: defaultMessage,
-      duration: 0,
-      placement
+      duration: 300,
     };
-    const openText = `open${placement}`;
     const TestComponent = () => {
-      const handleOpen = () => MessagePlugin.info(option);
+      const handleOpen = () => {
+        MessagePlugin.info(option);
+      };
 
-      return (
-        <>
-          <button onClick={handleOpen}>{openText}</button>
-        </>
-      )
+      return <button onClick={handleOpen}>{openText}</button>;
     };
 
-    const { getByText } = render(<TestComponent />);
+    const { getByText, queryByText } = render(<TestComponent />);
     fireEvent.click(getByText(openText));
-    await mockTimeout(() => expect(document.querySelector(`.t-message-placement--${placement}`)).not.toBeNull());
-    await mockTimeout(() => expect(document.querySelector(`.t-message-placement--${placement}`).querySelector('.t-message')).not.toBeNull());
+    await mockTimeout(() => expect(queryByText(option.content)).toBeInTheDocument());
+    fireEvent.mouseEnter(getByText(option.content));
+    await mockTimeout(() => expect(queryByText(option.content)).toBeInTheDocument(), option.duration);
+    fireEvent.mouseLeave(getByText(option.content));
+    await mockTimeout(() => expect(queryByText(option.content)).not.toBeInTheDocument(), option.duration);
   });
 });

@@ -22,7 +22,7 @@ import { PopupVisibleChangeContext } from '../../popup';
 import useOptions from '../hooks/useOptions';
 import composeRefs from '../../_util/composeRefs';
 
-export interface SelectProps extends TdSelectProps, StyledProps {
+export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
   children?: React.ReactNode;
   onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -172,7 +172,7 @@ const Select = forwardRefWithStatics(
         .map((option) => option.value);
 
       const checkAllValue =
-        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>).length ? selectableOptions : [];
+        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>)?.length ? selectableOptions : [];
       onChange?.(checkAllValue, { e, trigger: checkAll ? 'check' : 'uncheck', selectedOptions: checkAllValue });
     };
 

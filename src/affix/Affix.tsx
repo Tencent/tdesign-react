@@ -60,7 +60,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
         if (affixRef.current) {
           const affixed = fixedTop !== false;
-          const placeholderStatus = affixWrapRef.current.contains(placeholderEL.current);
+          let placeholderStatus = affixWrapRef.current.contains(placeholderEL.current);
+          const prePlaceholderStatus = placeholderStatus;
 
           if (affixed) {
             // 定位
@@ -78,16 +79,19 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
               placeholderEL.current.style.width = `${wrapWidth}px`;
               placeholderEL.current.style.height = `${wrapHeight}px`;
               affixWrapRef.current.appendChild(placeholderEL.current);
+              placeholderStatus = true;
             }
           } else {
             affixRef.current.removeAttribute('class');
             affixRef.current.removeAttribute('style');
 
             // 删除占位节点
-            placeholderStatus && placeholderEL.current.remove();
+            if (placeholderStatus) {
+              placeholderEL.current.remove();
+              placeholderStatus = false;
+            }
           }
-
-          if (isFunction(onFixedChange)) {
+          if (prePlaceholderStatus !== placeholderStatus && isFunction(onFixedChange)) {
             onFixedChange(affixed, { top: +fixedTop });
           }
         }

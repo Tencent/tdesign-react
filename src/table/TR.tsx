@@ -35,7 +35,7 @@ export const TABLE_PROPS = [
   'onRowMouseup',
 ] as const;
 
-export type TrPropsKeys = typeof TABLE_PROPS[number];
+export type TrPropsKeys = (typeof TABLE_PROPS)[number];
 
 export interface TrProps extends TrCommonProps {
   rowKey: string;
@@ -102,7 +102,7 @@ export default function TR(props: TrProps) {
   }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes]);
 
   const useLazyLoadParams = useMemo(() => ({ ...scroll, rowIndex }), [scroll, rowIndex]);
-  const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentElm, trRef.current, useLazyLoadParams);
+  const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentElm, trRef, useLazyLoadParams);
 
   useEffect(() => {
     if (virtualConfig.isVirtualScroll && trRef.current) {

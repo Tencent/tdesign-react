@@ -6,13 +6,7 @@ import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { getScrollbarWidthWithCSS } from '../../_common/js/utils/getScrollbarWidth';
 import { on, off } from '../../_util/dom';
-import {
-  FixedColumnInfo,
-  TableRowFixedClasses,
-  RowAndColFixedPosition,
-  TableColFixedClasses,
-  RecalculateColumnWidthFunc,
-} from '../interface';
+import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
 
 // 固定列相关类名处理
@@ -107,12 +101,10 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
   const thWidthList = useRef<{ [colKey: string]: number }>({});
 
   const [isFixedColumn, setIsFixedColumn] = useState(false);
-  // const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
-  // const [isFixedLeftColumn, setIsFixedLeftColumn] = useState(false);
+  const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
+  const [isFixedLeftColumn, setIsFixedLeftColumn] = useState(false);
 
-  // const displayNoneElementRefresh = inject(TDisplayNoneElementRefresh, ref(0));
-
-  const columnResizable = useMemo(() => props.resizable || false, [props.resizable]);
+  const columnResizable = props.resizable;
 
   // 没有表头吸顶，没有虚拟滚动，则不需要表头宽度计算
   const notNeedThWidthList = useMemo(
@@ -126,14 +118,8 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     [props.footerAffixedBottom, props.headerAffixedTop, props.horizontalScrollAffixedBottom, props.scroll?.type],
   );
 
-  const recalculateColWidth = useRef<RecalculateColumnWidthFunc>(null);
-
   function setUseFixedTableElmRef(val: HTMLTableElement) {
     tableElmRef.current = val;
-  }
-
-  function setRecalculateColWidthFuncRef(val: RecalculateColumnWidthFunc) {
-    recalculateColWidth.current = val;
   }
 
   function getColumnMap(
@@ -148,12 +134,12 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
       if (['left', 'right'].includes(col.fixed)) {
         setIsFixedColumn(true);
       }
-      // if (col.fixed === 'right') {
-      //   setIsFixedRightColumn(true);
-      // }
-      // if (col.fixed === 'left') {
-      //   setIsFixedLeftColumn(true);
-      // }
+      if (col.fixed === 'right') {
+        setIsFixedRightColumn(true);
+      }
+      if (col.fixed === 'left') {
+        setIsFixedLeftColumn(true);
+      }
       const key = col.colKey || i;
       const columnInfo: FixedColumnInfo = { col, parent, index: i };
       map.set(key, columnInfo);
@@ -306,8 +292,8 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     const isShowLeft = scrollLeft > 0;
     if (showColumnShadow.left === isShowLeft && showColumnShadow.right === isShowRight) return;
     setShowColumnShadow({
-      left: isShowLeft,
-      right: isShowRight,
+      left: isShowLeft && isFixedLeftColumn,
+      right: isShowRight && isFixedRightColumn,
     });
   };
 
@@ -372,30 +358,34 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     tableElmWidth.current = elmRect?.width;
   };
 
+  const calculateThWidthList = (trList: HTMLCollection) => {
+    const widthMap: { [colKey: string]: number } = {};
+    for (let i = 0, len = trList.length; i < len; i++) {
+      const thList = trList[i].children;
+      // second for used for multiple row header
+      for (let j = 0, thLen = thList.length; j < thLen; j++) {
+        const th = thList[j] as HTMLElement;
+        const colKey = th.dataset.colkey;
+        widthMap[colKey] = th.getBoundingClientRect().width;
+      }
+    }
+    return widthMap;
+  };
+
   const updateThWidthList = (trList: HTMLCollection | { [colKey: string]: number }) => {
     if (trList instanceof HTMLCollection) {
       if (columnResizable) return;
-      const widthMap: { [colKey: string]: number } = {};
-      for (let i = 0, len = trList.length; i < len; i++) {
-        const thList = trList[i].children;
-        for (let j = 0, thLen = thList.length; j < thLen; j++) {
-          const th = thList[j] as HTMLElement;
-          const colKey = th.dataset.colkey;
-          widthMap[colKey] = th?.getBoundingClientRect?.().width;
-        }
-      }
-      thWidthList.current = widthMap;
+      thWidthList.current = calculateThWidthList(trList);
     } else {
+      thWidthList.current = thWidthList.current || {};
       Object.entries(trList).forEach(([colKey, width]) => {
         thWidthList.current[colKey] = width;
       });
     }
+    return thWidthList.current;
   };
 
   const updateThWidthListHandler = () => {
-    if (columnResizable && recalculateColWidth.current) {
-      recalculateColWidth.current(finalColumns, thWidthList.current, tableLayout, tableElmWidth.current);
-    }
     if (notNeedThWidthList) return;
     const timer = setTimeout(() => {
       updateTableWidth();
@@ -416,7 +406,13 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     props.onScroll?.({ e });
   };
 
-  const getThWidthList = () => thWidthList.current || {};
+  const getThWidthList = (type?: 'default' | 'calculate') => {
+    if (type === 'calculate') {
+      const trList = tableContentRef.current?.querySelector('thead')?.children;
+      return calculateThWidthList(trList);
+    }
+    return thWidthList.current || {};
+  };
 
   useEffect(
     updateFixedStatus,
@@ -452,9 +448,6 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   useEffect(() => {
     resetThWidthList();
-    if (columnResizable) {
-      recalculateColWidth.current(finalColumns, thWidthList.current, tableLayout, tableElmWidth.current);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalColumns]);
 
@@ -476,7 +469,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     ],
   );
 
-  const refreshTable = useDebounce(() => {
+  const refreshTable = () => {
     updateTableWidth();
     updateFixedHeader();
     updateThWidthListHandler();
@@ -484,9 +477,11 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
       updateFixedStatus();
       updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
     }
-  }, 30);
+  };
 
-  const onResize = refreshTable;
+  const onResize = useDebounce(() => {
+    refreshTable();
+  }, 30);
 
   function addTableResizeObserver(tableElement: HTMLDivElement) {
     // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
@@ -494,6 +489,10 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     off(window, 'resize', onResize);
     const resizeObserver = new window.ResizeObserver(() => {
       refreshTable();
+      const timer = setTimeout(() => {
+        refreshTable();
+        clearTimeout(timer);
+      }, 250);
     });
     resizeObserver.observe(tableElement);
     return () => {
@@ -508,9 +507,6 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
     const timer = setTimeout(() => {
       updateTableWidth();
-      if (columnResizable && recalculateColWidth.current) {
-        recalculateColWidth.current(finalColumns, thWidthList.current, tableLayout, tableElmWidth.current);
-      }
       // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
       if ((isWatchResize && getIEVersion() < 11) || typeof window.ResizeObserver === 'undefined') {
         on(window, 'resize', onResize);
@@ -526,6 +522,16 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn]);
 
+  const setTableElmWidth = (width: number) => {
+    if (tableElmWidth.current === width) return;
+    tableElmWidth.current = width;
+  };
+
+  const updateTableAfterColumnResize = () => {
+    updateFixedStatus();
+    updateFixedHeader();
+  };
+
   return {
     tableWidth,
     tableElmWidth,
@@ -540,13 +546,14 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     scrollbarWidth,
     setData,
     refreshTable,
+    setTableElmWidth,
     emitScrollEvent,
     updateThWidthListHandler,
     updateColumnFixedShadow,
     setUseFixedTableElmRef,
     getThWidthList,
     updateThWidthList,
-    setRecalculateColWidthFuncRef,
     addTableResizeObserver,
+    updateTableAfterColumnResize,
   };
 }

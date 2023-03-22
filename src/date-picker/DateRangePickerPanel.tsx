@@ -34,7 +34,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     value,
     year,
     month,
-    time,
+    time = [],
     onChange,
     setTime,
     setYear,
