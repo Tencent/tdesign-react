@@ -56,6 +56,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
     closeOnOverlayClick,
     destroyOnClose,
     preventScrollThrough,
+    onCloseBtnClick,
     ...restState
   } = state;
 
@@ -113,6 +114,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const handleClose = ({ e }) => {
+    onCloseBtnClick?.({ e });
     onClose?.({ e, trigger: 'close-btn' });
   };
 
