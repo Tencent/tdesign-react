@@ -32,7 +32,7 @@ describe('ColorPicker 组件测试', () => {
     // 渐变直接输出对应的 css
     fireEvent.click(document.querySelector('.t-color-picker__swatches--item'));
     expect(container.querySelector('.t-input__inner')).toHaveValue(
-      'linear-gradient(45deg,rgba(236, 242, 254, 1) 0%,rgb(0, 242, 254) 100%)',
+      'linear-gradient(45deg,rgb(79, 172, 254) 0%,rgb(0, 242, 254) 100%)',
     );
   });
 
