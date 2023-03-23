@@ -26,6 +26,7 @@ const Breadcrumb = forwardRefWithStatics(
           replace={option.replace}
           separator={separator}
           maxItemWidth={maxItemWidth}
+          icon={option.icon}
         >
           {option.content || option.children}
         </BreadcrumbItem>

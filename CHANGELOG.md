@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.5 `2023-03-23` 
+### 🚀 Features
+- `TimePicker`: 新增 size API , 用于控制时间输入框大小 @uyarn ([#2081](https://github.com/Tencent/tdesign-react/pull/2081))
+
+### 🐞 Bug Fixes
+- `Form`: 修复 formList 初始数据获取问题 @honkinglin ([#2067](https://github.com/Tencent/tdesign-react/pull/2067))
+- `Watermark`: fix document undefined in nextjs @carolin913 ([#2073](https://github.com/Tencent/tdesign-react/pull/2073))
+- `ColorPicker`:
+    - 修复HEX色值无法手动输入的问题 @insekkei ([#2074](https://github.com/Tencent/tdesign-react/pull/2074))
+    - 修复最近使用颜色无法删除的问题 @insekkei ([#2074](https://github.com/Tencent/tdesign-react/pull/2074))
+- `Dialog`: 修复`onCloseBtnClick`事件无效的问题 @ArthurYung ([#2080](https://github.com/Tencent/tdesign-react/pull/2080))
+- `BreadCrumb`: 修复通过 options 属性无法配置 Icon 的问题 @uyarn ([#2081](https://github.com/Tencent/tdesign-react/pull/2081))
+- `Dialog`: 修复`onCloseBtnClick`事件无效的问题 @ArthurYung ([#2080](https://github.com/Tencent/tdesign-react/pull/2080))
+
+
+
 ## 🌈 1.0.4 `2023-03-16` 
 ### 🚀 Features
 - `Table`:

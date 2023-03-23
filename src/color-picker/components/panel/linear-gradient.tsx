@@ -289,6 +289,7 @@ const LinearGradient = (props) => {
           value={degree.current}
           onBlur={handleDegreeChange}
           onEnter={handleDegreeChange}
+          onChange={handleDegreeChange}
           disabled={props.disabled}
         />
       </div>
