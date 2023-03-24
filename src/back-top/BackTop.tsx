@@ -11,7 +11,7 @@ export type BackTopProps = TdBackTopProps;
 
 const getContainer = (container: string | Function) => {
   if (typeof container === 'string') {
-    return document.querySelector(container);
+    return document?.querySelector(container);
   }
   if (typeof container === 'function') {
     return container();
@@ -39,7 +39,6 @@ const BackTop = (props: BackTopProps) => {
   const { classPrefix } = useConfig();
   const scrollContainer = useMemo(() => getContainer(container), [container]);
   const { scrollTop } = useScroll({ target: scrollContainer });
-
   const defaultContent = (
     <>
       <BacktopIcon className={`${classPrefix}-back-top__icon`} size={24} />

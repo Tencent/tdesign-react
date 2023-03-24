@@ -20,7 +20,7 @@ const useScroll = (props: UseScrollProps) => {
         setScrollTop(target.documentElement.scrollTop);
       } else {
         setScrollLeft((target as HTMLElement).scrollLeft);
-        setScrollLeft((target as HTMLElement).scrollTop);
+        setScrollTop((target as HTMLElement).scrollTop);
       }
     };
     target.addEventListener('scroll', setPosition);

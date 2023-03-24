@@ -15,7 +15,8 @@ export default function BasicBackTop() {
     width: '100%',
     height: '280px',
     position: 'relative',
-    overflow: 'scroll',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
     border: '1px solid #dcdcdcff',
   };
 
@@ -26,7 +27,7 @@ export default function BasicBackTop() {
           {Array.from(Array(50), () => '列表内容').map((item, index) => <List.ListItem key={index}>{item}</List.ListItem>) }
         </List>
       </div>
-      <BackTop container={() => container} visibleHeight={0} style={style}></BackTop>
+      <BackTop container={() => container} visibleHeight={46} style={style}></BackTop>
     </div>
   );
 }
