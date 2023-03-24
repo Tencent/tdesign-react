@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StickyTool } from 'tdesign-react';
 import { ChatIcon, AddIcon, SearchIcon } from 'tdesign-icons-react';
 import Space from 'tdesign-react/space/Space';
 
 const { StickyItem } = StickyTool;
 
-export default function Base() {
+export default function Compact() {
   const handleClick = (context) => {
     console.log('click', context);
   };
   const handleHover = (context) => {
     console.log('hover', context);
-    console.log(window.getComputedStyle(document.querySelector('.t-backtop')).getPropertyValue('height'));
   };
-  const temp = window.getComputedStyle(document.querySelector('.t-backtop')).getPropertyValue('height');
 
   return (
     <Space>
       <StickyTool
-        style={{ position: 'relative', overflow: 'hidden', bottom: temp }}
+        style={{ position: 'relative', overflow: 'hidden' }}
+        type="compact"
         offset={[-500, -24]}
         onClick={handleClick}
         onHover={handleHover}
@@ -37,7 +36,6 @@ export default function Base() {
           popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
         ></StickyItem>
       </StickyTool>
-      <div className="t-backtop" style={{ height: '20px', position: 'fixed', bottom: '10px' }}></div>
     </Space>
   );
 }

@@ -5,20 +5,18 @@ import Space from 'tdesign-react/space/Space';
 
 const { StickyItem } = StickyTool;
 
-export default function Base() {
+export default function Shape() {
   const handleClick = (context) => {
     console.log('click', context);
   };
   const handleHover = (context) => {
     console.log('hover', context);
-    console.log(window.getComputedStyle(document.querySelector('.t-backtop')).getPropertyValue('height'));
   };
-  const temp = window.getComputedStyle(document.querySelector('.t-backtop')).getPropertyValue('height');
 
   return (
     <Space>
       <StickyTool
-        style={{ position: 'relative', overflow: 'hidden', bottom: temp }}
+        style={{ position: 'relative', overflow: 'hidden' }}
         offset={[-500, -24]}
         onClick={handleClick}
         onHover={handleHover}
@@ -37,7 +35,27 @@ export default function Base() {
           popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
         ></StickyItem>
       </StickyTool>
-      <div className="t-backtop" style={{ height: '20px', position: 'fixed', bottom: '10px' }}></div>
+      <StickyTool
+        style={{ position: 'relative', overflow: 'hidden' }}
+        shape="round"
+        offset={[-300, -24]}
+        onClick={handleClick}
+        onHover={handleHover}
+      >
+        <StickyItem label="chat" icon={<ChatIcon />} popup="chat"></StickyItem>
+        <StickyItem
+          label={<div>add</div>}
+          icon={<AddIcon />}
+          trigger="click"
+          popup="add"
+          popupProps={{ placement: 'bottom' }}
+        ></StickyItem>
+        <StickyItem
+          label={<div>search</div>}
+          icon={<SearchIcon />}
+          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
+        ></StickyItem>
+      </StickyTool>
     </Space>
   );
 }
