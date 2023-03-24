@@ -51,6 +51,9 @@ export default function NotModalExample() {
         header="模态对话框"
         visible={visible}
         onClose={handleClose}
+        onCloseBtnClick={() => {
+          console.log('on click close btn')
+        }}
         onOpened={() => {
           console.log('dialog is open');
         }}
