@@ -40,8 +40,9 @@ export default function useColumnResize(params: {
   const resizeLineRef = useRef<HTMLDivElement>();
   const effectColMap = useRef<{ [colKey: string]: any }>({});
   const [leafColumns, setLeafColumns] = useState([]);
-  const originalSelectStart = document.onselectstart;
-  const originalDragStart = document.ondragstart;
+  const hasDocument = typeof document !== 'undefined';
+  const originalSelectStart = hasDocument ? document.onselectstart : null;
+  const originalDragStart = hasDocument ? document.ondragstart : null;
 
   const getSiblingResizableCol = (nodes: BaseTableCol<TableRowData>[], index: number, type: 'prev' | 'next') => {
     let i = index;
