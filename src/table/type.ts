@@ -28,6 +28,7 @@ import {
   HTMLElementAttributes,
   ComponentType,
   TScroll,
+  ScrollToElementParams,
 } from '../common';
 import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
