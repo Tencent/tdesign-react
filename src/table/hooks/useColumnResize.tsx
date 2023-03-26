@@ -110,6 +110,7 @@ export default function useColumnResize(params: {
     // calculate mouse cursor before drag start
     if (!resizeLineRef.current || resizeLineParams.isDragging) return;
     const target = (e.target as HTMLElement).closest('th');
+    if (!target) return;
     // 判断是否为叶子阶段，仅叶子结点允许拖拽
     const colKey = target.getAttribute('data-colkey');
     if (!leafColumns.find((t) => t.colKey === colKey)) return;

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { ReactElement, ReactNode } from 'react';
+import isFunction from 'lodash/isFunction';
 import { TNode } from '../common';
 
 // 解析 TNode 数据结构
 export default function parseTNode(
   renderNode: TNode | TNode<any> | undefined,
   renderParams?: any,
-  defaultNode?: React.ReactNode,
-): React.ReactNode {
-  let node: React.ReactNode = null;
+  defaultNode?: ReactNode,
+): ReactNode {
+  let node: ReactNode = null;
 
   if (typeof renderNode === 'function') {
     node = renderNode(renderParams);
@@ -16,6 +17,17 @@ export default function parseTNode(
   } else {
     node = renderNode ?? defaultNode;
   }
+  return node as ReactNode;
+}
 
-  return node as React.ReactNode;
+/**
+ * 解析各种数据类型的 TNode
+ * 函数类型：content={(props) => <Icon></Icon>}
+ * 组件类型：content={<Button>click me</Button>} 这种方式可以避免函数重复渲染，对应的 props 已经注入
+ * 字符类型
+ */
+export function parseContentTNode<T>(tnode: TNode<T>, props: T) {
+  if (isFunction(tnode)) return tnode(props);
+  if (!tnode || ['string', 'number', 'boolean'].includes(typeof tnode)) return tnode;
+  return React.cloneElement(tnode as ReactElement, { ...props });
 }
