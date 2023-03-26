@@ -5,7 +5,7 @@
  * - 当表格内容没有超出时，即没有出现横向滚动条时，此时认为表格有足够的列宽呈现内容，修改宽度为相邻宽度调整
  * - 当表格内容超出，出现横向滚动条时，会自动调整当前列宽和表格总列宽，不影响相邻列宽
  */
-import { useState, useRef, MutableRefObject, CSSProperties } from 'react';
+import { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
 import isNumber from 'lodash/isNumber';
 import { BaseTableCol, TableRowData } from '../type';
 import { on, off } from '../../_util/dom';
@@ -14,6 +14,9 @@ const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;
 // 当离右边框的距离不超过 8 时，显示拖拽图标
 const distance = 8;
+
+let originalSelectStart: (this: GlobalEventHandlers, ev: Event) => any;
+let originalDragStart: (this: GlobalEventHandlers, ev: Event) => any;
 
 export default function useColumnResize(params: {
   isWidthOverflow: boolean;
@@ -40,9 +43,12 @@ export default function useColumnResize(params: {
   const resizeLineRef = useRef<HTMLDivElement>();
   const effectColMap = useRef<{ [colKey: string]: any }>({});
   const [leafColumns, setLeafColumns] = useState([]);
-  const hasDocument = typeof document !== 'undefined';
-  const originalSelectStart = hasDocument ? document.onselectstart : null;
-  const originalDragStart = hasDocument ? document.ondragstart : null;
+
+  useEffect(() => {
+    const hasDocument = typeof document !== 'undefined';
+    originalSelectStart = hasDocument ? document.onselectstart : null;
+    originalDragStart = hasDocument ? document.ondragstart : null;
+  }, []);
 
   const getSiblingResizableCol = (nodes: BaseTableCol<TableRowData>[], index: number, type: 'prev' | 'next') => {
     let i = index;
