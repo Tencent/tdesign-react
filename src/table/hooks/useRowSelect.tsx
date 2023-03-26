@@ -138,6 +138,13 @@ export default function useRowSelect(
     return null;
   }
 
+  const allowUncheck = useMemo(() => {
+    const singleSelectCol = columns.find((col) => col.type === 'single');
+    if (!singleSelectCol || !singleSelectCol.checkProps || !('allowUncheck' in singleSelectCol.checkProps))
+      return false;
+    return singleSelectCol.checkProps.allowUncheck;
+  }, [columns]);
+
   function handleSelectChange(row: TableRowData = {}) {
     let selectedRowKeys = [...tSelectedRowKeys];
     const reRowKey = rowKey || 'id';
@@ -147,7 +154,7 @@ export default function useRowSelect(
     if (selectColumn.type === 'multiple') {
       isExisted ? selectedRowKeys.splice(selectedRowIndex, 1) : selectedRowKeys.push(id);
     } else if (selectColumn.type === 'single') {
-      selectedRowKeys = !isExisted ? [id] : [];
+      selectedRowKeys = isExisted && allowUncheck ? [] : [id];
     } else {
       log.warn('Table', '`column.type` must be one of `multiple` and `single`');
       return;
