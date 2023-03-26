@@ -93,6 +93,11 @@ const columns = [
   },
 ];
 
+function IconText(props) {
+  console.log(props);
+  return <div>Icon</div>;
+}
+
 const initData = new Array(5).fill(null).map((_, i) => ({
   key: String(i + 1),
   applicant: ['贾明', '张三', '王芳'][i % 3],
@@ -194,7 +199,7 @@ export default function TableSingleSort() {
         rowKey="key"
         data={data}
         columns={columns}
-        // filterIcon={<IconFont name="add-circle" size="1em" />}
+        filterIcon={<IconText />}
         filterValue={filterValue}
         // defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
