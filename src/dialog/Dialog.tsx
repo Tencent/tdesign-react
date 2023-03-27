@@ -141,8 +141,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const onAnimateStart = () => {
-    onOpened?.();
-
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'block';
   };
@@ -173,6 +171,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}
+      onEntered={onOpened}
       onExited={onAnimateLeave}
     >
       <Portal attach={attach} ref={portalRef}>
