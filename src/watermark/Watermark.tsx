@@ -67,18 +67,6 @@ const Watermark: React.FC<WatermarkProps> = ({
     );
   }, [width, height, rotate, zIndex, lineSpace, alpha, offsetLeft, offsetTop, gapX, gapY, watermarkContent]);
 
-  useMutationObserver(watermarkRef.current, (mutations) => {
-    if (removable) return;
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        const removeNodes = mutation.removedNodes;
-        removeNodes.forEach((node) => {
-          watermarkRef.current.appendChild(node);
-        });
-      }
-    });
-  });
-
   const parent = useRef<HTMLElement>();
   useEffect(() => {
     parent.current = watermarkRef.current.parentElement;
