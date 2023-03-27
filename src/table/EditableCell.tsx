@@ -249,6 +249,7 @@ const EditableCell = (props: EditableCellProps) => {
   }, [cellValue]);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
     const isCellEditable = props.editable === undefined;
     if (!col.edit || !col.edit.component || !isCellEditable) return;
     if (isEdit) {

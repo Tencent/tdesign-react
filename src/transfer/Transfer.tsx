@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import difference from 'lodash/difference';
 import classnames from 'classnames';
-
+import isFunction from 'lodash/isFunction';
 import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
 import useConfig from '../hooks/useConfig';
@@ -92,7 +92,9 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     () => <ChevronLeftIcon />,
   ]).map((item) => getJSX(item));
   const [sourceFooter, targetFooter] = getDefaultValue(footer as any).map((item) => getJSX(item));
-  const [sourceTransferItem, targetTransferItem] = getDefaultValue(transferItem);
+  const [sourceTransferItem, targetTransferItem] = getDefaultValue(
+    isFunction(transferItem) ? transferItem({ data, index: undefined, type: undefined }) : transferItem,
+  );
   const [sourceContent, targetContent] = getDefaultValue(content);
 
   const [showCheckAllSource, showCheckAllTarget] = useMemo(

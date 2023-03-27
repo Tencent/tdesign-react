@@ -59,6 +59,16 @@ onScroll | Function |  | TS 类型：`(params: { e: WheelEvent }) => void`<br/>�
 onScrollX | Function |  | TS 类型：`(params: { e: WheelEvent }) => void`<br/>已废弃。表格内容横向滚动时触发。请更为使用 `onScroll` 事件 | N
 onScrollY | Function |  | TS 类型：`(params: { e: WheelEvent }) => void`<br/>已废弃。表格内容纵向滚动时触发。当内容超出高度(height)或最大高度(max-height)时，会出现纵向滚动条。请更为使用 `onScroll` 事件 | N
 
+### BaseTableInstanceFunctions 组件实例方法
+
+名称 | 参数 | 返回值 | 描述
+-- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
+refreshTable | \- | \- | 必需。全部重新渲染表格
+scrollColumnIntoView | `(colKey: string)` | \- | 必需。横向滚动到指定列，呈现在可视范围内
+scrollToElement | `(params: ScrollToElementParams)` | \- | 必需。虚拟滚动场景，纵向滚动到指定行。示例：`scrollToElement({ index: 100, top: 80, time: 200, behavior: 'smooth' })`
+
 ### BaseTableCol
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -105,7 +115,7 @@ expandOnRowClick | Boolean | - | 是否允许点击行展开 | N
 expandedRow | TNode | - | 展开行内容，泛型 T 指表格数据类型。TS 类型：`TNode<TableExpandedRowParams<T>>` `interface TableExpandedRowParams<T> { row: T; index: number; columns: PrimaryTableCol<T>[] \| BaseTableCol<T>[] }`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 expandedRowKeys | Array | [] | 展开行。TS 类型：`Array<string \| number>` | N
 defaultExpandedRowKeys | Array | [] | 展开行。非受控属性。TS 类型：`Array<string \| number>` | N
-filterIcon | TElement | - | 自定义过滤图标，支持全局配置 `GlobalConfigProvider`。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+filterIcon | TElement | - | 自定义过滤图标，支持全局配置 `GlobalConfigProvider`。TS 类型：`TNode<{ col: PrimaryTableCol<T>; colIndex: number }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filterRow | TNode | - | 自定义过滤状态行及清空筛选等。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filterValue | Object | - | 过滤数据的值。TS 类型：`FilterValue` `type FilterValue = { [key: string]: any }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 defaultFilterValue | Object | - | 过滤数据的值。非受控属性。TS 类型：`FilterValue` `type FilterValue = { [key: string]: any }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N

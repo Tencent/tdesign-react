@@ -21,6 +21,7 @@ import { selectDefaultProps } from '../defaultProps';
 import { PopupVisibleChangeContext } from '../../popup';
 import useOptions from '../hooks/useOptions';
 import composeRefs from '../../_util/composeRefs';
+import { parseContentTNode } from '../../_util/parseTNode';
 
 export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
@@ -324,20 +325,19 @@ const Select = forwardRefWithStatics(
         return valueDisplay;
       }
       if (multiple) {
-        return ({ onClose }) => valueDisplay({ value: selectedLabel, onClose });
+        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedLabel, onClose });
       }
-      return valueDisplay({ value: selectedLabel, onClose: noop });
+      return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
 
     const renderCollapsedItems = useMemo(
       () =>
         collapsedItems
-          ? () =>
-              collapsedItems({
-                value: selectedLabel,
-                collapsedSelectedItems: selectedLabel.slice(minCollapsedNum, selectedLabel.length),
-                count: selectedLabel.length - minCollapsedNum,
-              })
+          ? parseContentTNode(collapsedItems, {
+              value: selectedLabel,
+              collapsedSelectedItems: selectedLabel.slice(minCollapsedNum, selectedLabel.length),
+              count: selectedLabel.length - minCollapsedNum,
+            })
           : null,
       [selectedLabel, collapsedItems, minCollapsedNum],
     );

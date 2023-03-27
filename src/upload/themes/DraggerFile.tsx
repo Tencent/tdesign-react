@@ -13,7 +13,7 @@ import TLoading from '../../loading';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
-import parseTNode from '../../_util/parseTNode';
+import { parseContentTNode } from '../../_util/parseTNode';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -24,7 +24,7 @@ export interface DraggerProps extends CommonDisplayFileProps {
 }
 
 const DraggerFile: FC<DraggerProps> = (props) => {
-  const { displayFiles, locale, disabled } = props;
+  const { displayFiles, locale, disabled, trigger } = props;
 
   const { SIZE } = useCommonClassName();
   const uploadPrefix = `${props.classPrefix}-upload`;
@@ -93,7 +93,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       <div className={`${uploadPrefix}__dragger-progress`}>
         {props.theme === 'image' && renderImage()}
         <div className={`${uploadPrefix}__dragger-progress-info`}>
-          {props.fileListDisplay ? parseTNode(props.fileListDisplay, { files: displayFiles }) : fileInfo}
+          {props.fileListDisplay ? parseContentTNode(props.fileListDisplay, { files: displayFiles }) : fileInfo}
           <div className={`${uploadPrefix}__dragger-btns`}>
             {['progress', 'waiting'].includes(file.status) && !disabled && (
               <Link
@@ -182,7 +182,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       onDragOver={drag.handleDragover}
       onDragLeave={drag.handleDragleave}
     >
-      {props.trigger?.({ files: displayFiles, dragActive }) || getContent()}
+      {parseContentTNode?.(trigger, { files: displayFiles, dragActive }) || getContent()}
     </div>
   );
 };

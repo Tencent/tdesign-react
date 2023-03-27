@@ -15,9 +15,10 @@ import useClassName from './useClassName';
 import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { parseContentTNode } from '../../_util/parseTNode';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
-  const { expandIcon } = props;
+  const { expandIcon, expandedRow } = props;
   const { ChevronRightCircleIcon } = useGlobalIcon({
     ChevronRightCircleIcon: TdChevronRightCircleIcon,
   });
@@ -28,7 +29,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     defaultExpandedRowKeys: props.defaultExpandedRowKeys || [],
   });
 
-  const showExpandedRow = Boolean(props.expandedRow);
+  const showExpandedRow = Boolean(expandedRow);
 
   const showExpandIconColumn = props.expandIcon !== false && showExpandedRow;
 
@@ -99,7 +100,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
             className={classNames([tableExpandClasses.rowInner, { [tableFullRowClasses.innerFullRow]: isFixedLeft }])}
             style={isFixedLeft ? { width: `${p.tableWidth}px` } : {}}
           >
-            <div className={tableFullRowClasses.innerFullElement}>{props.expandedRow(p)}</div>
+            <div className={tableFullRowClasses.innerFullElement}>{parseContentTNode(expandedRow, p)}</div>
           </div>
         </td>
       </tr>

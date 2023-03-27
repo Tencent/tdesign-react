@@ -175,6 +175,26 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     emitScrollEvent(e);
   };
 
+  /**
+   * 横向滚动到指定列
+   * 对外暴露方法，修改时需谨慎（expose）
+   * @param colKey
+   * @returns
+   */
+  const scrollColumnIntoView = (colKey: string) => {
+    if (!tableContentRef.current) return;
+    const thDom = tableContentRef.current.querySelector(`th[data-colkey="${colKey}"]`);
+    const fixedThDom = tableContentRef.current.querySelectorAll('th.t-table__cell--fixed-left');
+    let totalWidth = 0;
+    for (let i = 0, len = fixedThDom.length; i < len; i++) {
+      totalWidth += fixedThDom[i].getBoundingClientRect().width;
+    }
+    const domRect = thDom.getBoundingClientRect();
+    const contentRect = tableContentRef.current.getBoundingClientRect();
+    const distance = domRect.left - contentRect.left - totalWidth;
+    tableContentRef.current.scrollTo({ left: distance, behavior: 'smooth' });
+  };
+
   useImperativeHandle(ref, () => ({
     showColumnShadow,
     tableElement: tableRef.current,
@@ -183,6 +203,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     affixHeaderElement: affixHeaderRef.current,
     refreshTable,
     scrollToElement: virtualConfig.scrollToElement,
+    scrollColumnIntoView,
   }));
 
   // used for top margin

@@ -93,6 +93,15 @@ const columns = [
   },
 ];
 
+// eslint-disable-next-line
+function IconText(props = {}) {
+  // 根据不同的 Props，允许定义不同的筛选图标（col, colIndex 在 Table 组件内部已经注入）
+  const { col, colIndx } = props;
+  console.log(col, colIndx);
+  if (col.colKey === 'email') return <div>EmailIcon</div>;
+  return <i>Icon</i>;
+}
+
 const initData = new Array(5).fill(null).map((_, i) => ({
   key: String(i + 1),
   applicant: ['贾明', '张三', '王芳'][i % 3],
@@ -194,7 +203,7 @@ export default function TableSingleSort() {
         rowKey="key"
         data={data}
         columns={columns}
-        // filterIcon={<IconFont name="add-circle" size="1em" />}
+        // filterIcon={<IconText />}
         filterValue={filterValue}
         // defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
