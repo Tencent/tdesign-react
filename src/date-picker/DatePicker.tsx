@@ -25,6 +25,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     disableDate,
     firstDayOfWeek,
     presets,
+    defaultTime,
     timePickerProps,
     presetsPlacement,
     onPick,
@@ -66,7 +67,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (popupVisible) {
       setYear(parseToDayjs(value, format).year());
       setMonth(parseToDayjs(value, format).month());
-      setTime(formatTime(value, timeFormat));
+      setTime(formatTime(value, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
     }

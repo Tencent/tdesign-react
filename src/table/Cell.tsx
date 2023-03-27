@@ -70,7 +70,7 @@ function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, param
   const { cellNode, tableElm, columnLength, classPrefix, overlayClassName } = params;
   const { col, colIndex } = cellParams;
   let content = isFunction(col.ellipsis) ? col.ellipsis(cellParams) : undefined;
-  if (typeof col.ellipsis === 'object' && isFunction(col.ellipsis.content)) {
+  if (typeof col.ellipsis === 'object' && 'content' in col.ellipsis && isFunction(col.ellipsis.content)) {
     content = col.ellipsis.content(cellParams);
   }
   let tooltipProps = {};

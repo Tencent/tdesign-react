@@ -152,6 +152,21 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     textareaElement: textareaRef.current,
   }));
 
+  const textTips = tips && (
+    <div
+      className={classNames(`${classPrefix}-textarea__tips`, {
+        [`${classPrefix}-textarea__tips--normal`]: !status,
+        [`${classPrefix}-textarea__tips--${status}`]: status,
+      })}
+    >
+      {tips}
+    </div>
+  );
+
+  const limitText =
+    (hasMaxcharacter && renderLimitText(characterLength, maxcharacter)) ||
+    (!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength));
+
   return (
     <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
       <textarea
@@ -171,16 +186,14 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
-      {hasMaxcharacter && renderLimitText(characterLength, maxcharacter)}
-      {!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength)}
-      {tips ? (
+      {textTips || limitText ? (
         <div
-          className={classNames(`${classPrefix}-textarea__tips`, {
-            [`${classPrefix}-textarea__tips--normal`]: !status,
-            [`${classPrefix}-textarea__tips--${status}`]: status,
+          className={classNames(`${classPrefix}-textarea__info_wrapper`, {
+            [`${classPrefix}-textarea__info_wrapper_align`]: !textTips,
           })}
         >
-          {tips}
+          {textTips}
+          {limitText}
         </div>
       ) : null}
     </div>

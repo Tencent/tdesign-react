@@ -1,13 +1,15 @@
 import React, { forwardRef } from 'react';
+import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import { TdListItemMetaProps } from './type';
+import { StyledProps } from '../common';
 
-export type ListItemMetaProps = TdListItemMetaProps;
+export interface ListItemMetaProps extends TdListItemMetaProps, StyledProps {}
 /**
  * 列表组件
  */
 const ListItemMeta = forwardRef((props: ListItemMetaProps, ref: React.Ref<HTMLDivElement>) => {
-  const { title, image, description } = props;
+  const { title, image, description, className, style } = props;
   const { classPrefix } = useConfig();
 
   const renderAvatar = () => {
@@ -21,7 +23,7 @@ const ListItemMeta = forwardRef((props: ListItemMetaProps, ref: React.Ref<HTMLDi
     return <div className={`${classPrefix}-list-item__meta-avatar`}>{image}</div>;
   };
   return (
-    <div ref={ref} className={`${classPrefix}-list-item__meta`}>
+    <div ref={ref} className={classNames(`${classPrefix}-list-item__meta`, className)} style={style}>
       {image && renderAvatar()}
       <div className={`${classPrefix}-list-item__meta-content`}>
         <h3 className={`${classPrefix}-list-item__meta-title`}>{title}</h3>

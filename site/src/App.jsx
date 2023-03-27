@@ -50,7 +50,7 @@ function Components() {
       .then((res) => res.json())
       .then((res) => {
         const options = [];
-        const versions = filterVersions(Object.keys(res.versions).filter((v) => !v.includes('-')));
+        const versions = filterVersions(Object.keys(res.versions));
 
         versions.forEach((v) => {
           const nums = v.split('.');
@@ -70,9 +70,7 @@ function Components() {
     tdDocAsideRef.current.onchange = ({ detail }) => {
       if (window.location.pathname === detail) return;
       tdDocContentRef.current.pageStatus = 'hidden';
-      requestAnimationFrame(() => {
-        navigate(detail);
-      });
+      navigate(detail);
       requestAnimationFrame(() => {
         tdDocContentRef.current.pageStatus = 'show';
         window.scrollTo(0, 0);

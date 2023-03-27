@@ -12,6 +12,7 @@ interface DragSortProps<T> {
 type DragFnType = (e?: React.DragEvent<HTMLTableRowElement>, index?: number, record?: any) => void;
 interface DragSortInnerData {
   dragging?: boolean;
+  draggable?: boolean;
   onDragStart?: DragFnType;
   onDragOver?: DragFnType;
   onDrop?: DragFnType;

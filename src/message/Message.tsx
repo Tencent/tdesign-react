@@ -129,7 +129,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions):
 async function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
   const container = (await createContainer(config)) as HTMLElement;
 
-  const { content, offset, onDurationEnd = noop, onCloseBtnClick = noop } = config;
+  const { content, offset, onClose = noop } = config;
   const div = document.createElement('div');
 
   keyIndex += 1;
@@ -143,15 +143,6 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
     key: keyIndex,
     closed: false,
   };
-
-  if (config.duration !== 0) {
-    setTimeout(() => {
-      if (!message.closed) {
-        message.close();
-        onDurationEnd();
-      }
-    }, config.duration);
-  }
 
   let style: React.CSSProperties = { ...config.style };
   if (Array.isArray(offset) && offset.length === 2) {
@@ -172,8 +163,8 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
         {...config}
         theme={theme}
         style={style}
-        onCloseBtnClick={(ctx) => {
-          onCloseBtnClick(ctx);
+        onClose={(ctx) => {
+          onClose(ctx);
           message.close();
         }}
       >

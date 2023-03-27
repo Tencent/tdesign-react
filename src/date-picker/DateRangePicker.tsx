@@ -79,7 +79,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (popupVisible) {
       setIsSelected(false);
       setCacheValue(formatDate(value || [], { format }));
-      setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat));
+      setTime(
+        formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)], timeFormat, props.defaultTime),
+      );
 
       // 空数据重置为当前年月
       if (!value.length) {

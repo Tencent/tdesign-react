@@ -236,6 +236,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     bottomContent,
     firstFullRow,
     lastFullRow,
+    thDraggable: props.dragSort === 'col',
     onPageChange: onInnerPageChange,
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;

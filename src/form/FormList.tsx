@@ -11,8 +11,10 @@ import log from '../_common/js/log';
 let key = 0;
 
 const FormList = (props: TdFormListProps) => {
-  const { formMapRef, form, onFormItemValueChange } = useFormContext();
-  const { name, initialData = [], rules, children } = props;
+  const { formMapRef, form, onFormItemValueChange, initialData: initialDataFromForm } = useFormContext();
+  const { name, rules, children } = props;
+
+  const initialData = props.initialData || get(initialDataFromForm, name) || [];
 
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(
@@ -49,7 +51,9 @@ const FormList = (props: TdFormListProps) => {
         setFormListValue(nextFormListValue);
       }
       const fieldValue = calcFieldValue(name, nextFormListValue);
-      onFormItemValueChange?.({ ...fieldValue });
+      Promise.resolve().then(() => {
+        onFormItemValueChange?.({ ...fieldValue });
+      });
     },
     remove(index: number | number[]) {
       const nextFields = fields
@@ -64,7 +68,9 @@ const FormList = (props: TdFormListProps) => {
       setFormListValue(nextFormListValue);
 
       const fieldValue = calcFieldValue(name, nextFormListValue);
-      onFormItemValueChange?.({ ...fieldValue });
+      Promise.resolve().then(() => {
+        onFormItemValueChange?.({ ...fieldValue });
+      });
     },
     move(from: number, to: number) {
       const cloneFields = [...fields];
