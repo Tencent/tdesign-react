@@ -5,28 +5,28 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__selet-input-ul-single,
-.tdesign-demo__selet-input-ul-single > li {
-  list-style: none;
+.tdesign-demo__select-input-ul-single {
+  display: flex;
+  flex-direction: column;
   padding: 0;
-  margin: 0;
+  gap: 2px;
+}
+.tdesign-demo__select-input-ul-single > li {
+  display: block;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.tdesign-demo__selet-input-ul-single > li {
-  line-height: 40px;
-  min-width: 200px;
-  padding: 0 8px;
-}
-
-.tdesign-demo__selet-input-ul-single > li:hover {
+.tdesign-demo__select-input-ul-single > li:hover {
   background-color: var(--td-bg-color-container-hover);
-}
-
-.tdesign-demo__selet-input-ul-single > li > img {
-  max-width: 20px;
-  max-height: 20px;
-  vertical-align: middle;
-  margin-right: 8px;
 }
 </style>
 `;
@@ -76,19 +76,20 @@ export default function SelectInputSingle() {
         placeholder="Please Select"
         clearable
         allowInput
+        popupProps={{ overlayInnerStyle: { padding: 6 } }}
         onPopupVisibleChange={onPopupVisibleChange}
         onClear={onClear}
         panel={
-          <ul className="tdesign-demo__selet-input-ul-single">
+          <ul className="tdesign-demo__select-input-ul-single">
             {OPTIONS.map(item => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> {item.label}
+                {item.label}
               </li>
             ))}
           </ul>
         }
         suffixIcon={<ChevronDownIcon />}
-      ></SelectInput>
+      />
     </div>
   )
 }

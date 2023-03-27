@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
@@ -6,28 +5,28 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 const classStyles = `
 
 <style>
-.tdesign-demo__selet-input-ul-label-suffix,
-.tdesign-demo__selet-input-ul-label-suffix > li {
-  list-style: none;
+.tdesign-demo__select-input-ul-label-suffix {
   padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tdesign-demo__select-input-ul-label-suffix > li {
+  display: block;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.tdesign-demo__selet-input-ul-label-suffix > li {
-  line-height: 40px;
-  min-width: 200px;
-  padding: 0 8px;
-}
-
-.tdesign-demo__selet-input-ul-label-suffix > li:hover {
+.tdesign-demo__select-input-ul-label-suffix > li:hover {
   background-color: var(--td-bg-color-container-hover);
-}
-
-.tdesign-demo__selet-input-ul-label-suffix > li > img {
-  max-width: 20px;
-  max-height: 20px;
-  vertical-align: middle;
-  margin-right: 8px;
 }
 </style>
 `;
@@ -84,21 +83,21 @@ export default function SelectInputSingle() {
         label={<span>前置内容：</span>}
         placeholder="Please Select"
         clearable
+        popupProps={{ overlayInnerStyle: { padding: 6 } }}
         onPopupVisibleChange={onPopupVisibleChange}
         onClear={onClear}
         panel={
-          <ul className="tdesign-demo__selet-input-ul-label-suffix">
-            {OPTIONS.map(item => (
+          <ul className="tdesign-demo__select-input-ul-label-suffix">
+            {OPTIONS.map((item) => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> { item.label }
+                {item.label}
               </li>
             ))}
           </ul>
         }
         suffixIcon={<ChevronDownIcon />}
-      ></SelectInput>
+      />
       <br /> <br />
-
       <SelectInput
         value={selectValue}
         popupVisible={popupVisible2}
@@ -106,19 +105,20 @@ export default function SelectInputSingle() {
         suffix={<span>单位：元</span>}
         placeholder="Please Select"
         clearable
+        popupProps={{ overlayInnerStyle: { padding: 6 } }}
         onPopupVisibleChange={onPopupVisibleChange2}
-        clear={onClear}
+        onClear={onClear}
         panel={
-          <ul className="tdesign-demo__selet-input-ul-label-suffix">
-            {OPTIONS.map(item => (
+          <ul className="tdesign-demo__select-input-ul-label-suffix">
+            {OPTIONS.map((item) => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> { item.label }
+                {item.label}
               </li>
             ))}
           </ul>
         }
         suffixIcon={<ChevronDownIcon />}
-      ></SelectInput>
+      />
     </div>
-  )
+  );
 }

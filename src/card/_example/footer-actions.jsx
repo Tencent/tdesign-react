@@ -30,20 +30,20 @@ export default function FooterActionsCard() {
         footer={
           <Row align="middle" justify="center">
             <Col flex="auto" align="middle">
-              <Button block variant="text" shape="square">
-                <ThumbUpIcon size={24}></ThumbUpIcon>
+              <Button variant="text" shape="square">
+                <ThumbUpIcon></ThumbUpIcon>
               </Button>
             </Col>
             <Divider layout="vertical"></Divider>
             <Col flex="auto" align="middle">
-              <Button block variant="text" shape="square">
-                <ChatIcon size={24}></ChatIcon>
+              <Button variant="text" shape="square">
+                <ChatIcon></ChatIcon>
               </Button>
             </Col>
             <Divider layout="vertical"></Divider>
             <Col flex="auto" align="middle">
-              <Button block variant="text" shape="square">
-                <ShareIcon size={24}></ShareIcon>
+              <Button variant="text" shape="square">
+                <ShareIcon></ShareIcon>
               </Button>
             </Col>
           </Row>
@@ -58,7 +58,7 @@ export default function FooterActionsCard() {
           <Col flex="auto" align="middle">
             <Dropdown options={options} onClick={clickHandler}>
               <Button variant="text" shape="square">
-                <MoreIcon size={24}></MoreIcon>
+                <MoreIcon></MoreIcon>
               </Button>
             </Dropdown>
           </Col>
@@ -85,7 +85,7 @@ export default function FooterActionsCard() {
           <Col flex="auto" align="middle">
             <Dropdown options={options} onClick={clickHandler}>
               <Button variant="text" shape="square">
-                <MoreIcon size={24}></MoreIcon>
+                <MoreIcon></MoreIcon>
               </Button>
             </Dropdown>
           </Col>

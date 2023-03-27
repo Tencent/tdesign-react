@@ -14,9 +14,11 @@ export interface DialogPluginType extends DialogMethod {
 const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
+  const { visible = true } = options;
+
   const fragment = document.createDocumentFragment();
 
-  render(<DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />, fragment);
+  render(<DialogComponent {...(options as DialogProps)} visible={visible} ref={dialogRef} isPlugin />, fragment);
 
   const container = getAttach(options.attach);
   if (container) {

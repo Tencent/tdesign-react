@@ -17,6 +17,9 @@ export default function PluginModalExample() {
         console.log('trigger: ', trigger);
         myDialog.hide();
       },
+      onCloseBtnClick: ({ e }) => {
+        console.log('close btn: ', e);
+      }
     });
   };
   const handleDN = () => {

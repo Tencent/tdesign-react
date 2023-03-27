@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
 
-import SelectInput from '../select-input';
+import SelectInput, { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
 
@@ -45,6 +45,7 @@ const TimePicker = forwardRefWithStatics(
       onClose = noop,
       onFocus = noop,
       onOpen = noop,
+      onInput = noop,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -73,18 +74,21 @@ const TimePicker = forwardRefWithStatics(
       onChange(null);
     };
 
-    const handleInputChange = (value: string) => {
+    const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
       setCurrentValue(value);
+      if (allowInput) {
+        onInput({ value, e: context.e as React.FocusEvent<HTMLInputElement> });
+      }
     };
 
-    const handleInputBlur = (value: string, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
+    const handleInputBlur: SelectInputProps['onBlur'] = (value, ctx) => {
       if (allowInput) {
         const isValidTime = validateInputValue(currentValue, format);
         if (isValidTime) {
           onChange(formatInputValue(currentValue, format));
         }
       }
-      onBlur({ value, e });
+      onBlur({ value: String(value), ...ctx });
     };
 
     const handleClickConfirm = () => {
@@ -114,7 +118,7 @@ const TimePicker = forwardRefWithStatics(
           placeholder={!value ? placeholder : undefined}
           value={isPanelShowed ? currentValue : value ?? undefined}
           inputValue={isPanelShowed ? currentValue : value ?? undefined}
-          inputProps={props.inputProps}
+          inputProps={{ ...props.inputProps, size: props.size }}
           popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
           tips={props.tips}
           status={props.status}

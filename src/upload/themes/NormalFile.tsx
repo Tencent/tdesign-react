@@ -94,7 +94,7 @@ export default function NormalFile(props: NormalFileProps) {
         <div className={classNames(inputTextClass)}>
           <span
             className={classNames(`${uploadPrefix}__single-input-text`, {
-              [props.placeholderClass]: props.placeholder,
+              [props.placeholderClass]: props.placeholder && !file?.name,
             })}
           >
             {file?.name ? fileName : props.placeholder}

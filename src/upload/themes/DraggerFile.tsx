@@ -6,14 +6,14 @@ import {
 } from 'tdesign-icons-react';
 import { abridgeName, getFileSizeText } from '../../_common/js/upload/utils';
 import { TdUploadProps, UploadFile } from '../type';
-import Button from '../../button';
+import Link from '../../link';
 import { CommonDisplayFileProps } from '../interface';
 import useCommonClassName from '../../hooks/useCommonClassName';
 import TLoading from '../../loading';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
-import parseTNode from '../../_util/parseTNode';
+import { parseContentTNode } from '../../_util/parseTNode';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -24,7 +24,7 @@ export interface DraggerProps extends CommonDisplayFileProps {
 }
 
 const DraggerFile: FC<DraggerProps> = (props) => {
-  const { displayFiles, locale, disabled } = props;
+  const { displayFiles, locale, disabled, trigger } = props;
 
   const { SIZE } = useCommonClassName();
   const uploadPrefix = `${props.classPrefix}-upload`;
@@ -93,12 +93,12 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       <div className={`${uploadPrefix}__dragger-progress`}>
         {props.theme === 'image' && renderImage()}
         <div className={`${uploadPrefix}__dragger-progress-info`}>
-          {props.fileListDisplay ? parseTNode(props.fileListDisplay, { files: displayFiles }) : fileInfo}
+          {props.fileListDisplay ? parseContentTNode(props.fileListDisplay, { files: displayFiles }) : fileInfo}
           <div className={`${uploadPrefix}__dragger-btns`}>
             {['progress', 'waiting'].includes(file.status) && !disabled && (
-              <Button
+              <Link
                 theme="primary"
-                variant="text"
+                hover="color"
                 disabled={disabled}
                 className={`${uploadPrefix}__dragger-progress-cancel`}
                 onClick={(e) =>
@@ -109,40 +109,40 @@ const DraggerFile: FC<DraggerProps> = (props) => {
                 }
               >
                 {locale?.cancelUploadText}
-              </Button>
+              </Link>
             )}
             {!props.autoUpload && file.status === 'waiting' && (
-              <Button
+              <Link
                 theme="primary"
-                variant="text"
+                hover="color"
                 disabled={disabled}
                 onClick={() => props.uploadFiles?.()}
                 className={`${uploadPrefix}__dragger-upload-btn`}
               >
                 {locale.triggerUploadText.normal}
-              </Button>
+              </Link>
             )}
           </div>
           {['fail', 'success'].includes(file?.status) && !disabled && (
             <div className={`${uploadPrefix}__dragger-btns`}>
-              <Button
+              <Link
                 theme="primary"
-                variant="text"
+                hover="color"
                 disabled={disabled}
                 className={`${uploadPrefix}__dragger-progress-reupload`}
                 onClick={props.triggerUpload}
               >
                 {locale.triggerUploadText.reupload}
-              </Button>
-              <Button
+              </Link>
+              <Link
                 theme="danger"
-                variant="text"
+                hover="color"
                 disabled={disabled}
                 className={`${uploadPrefix}__dragger-delete-btn`}
                 onClick={(e) => props.onRemove({ e, index: 0, file })}
               >
                 {locale.triggerUploadText.delete}
-              </Button>
+              </Link>
             </div>
           )}
         </div>
@@ -182,7 +182,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       onDragOver={drag.handleDragover}
       onDragLeave={drag.handleDragleave}
     >
-      {props.trigger?.({ files: displayFiles, dragActive }) || getContent()}
+      {parseContentTNode?.(trigger, { files: displayFiles, dragActive }) || getContent()}
     </div>
   );
 };

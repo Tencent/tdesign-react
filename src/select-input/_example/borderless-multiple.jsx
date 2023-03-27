@@ -4,13 +4,31 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__panel-options-multiple-borderless {
+.tdesign-demo__panel-options-borderless-multiple {
   width: 100%;
-  display: block;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.tdesign-demo__panel-options-multiple-borderless .t-checkbox {
-  display: block;
-  margin: 12px;
+
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox {
+  display: flex;
+  border-radius: 3px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 3px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s linear;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
 }
 </style>
 `;
@@ -91,25 +109,25 @@ export default function SelectInputMultiple() {
 
   return (
     <div style={{ width: '60%' }}>
-      {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
-        value={value}
-        minCollapsedNum={1}
-        placeholder="select frameworks"
-        // label={<span>多选：</span>}
-        panel={<Checkbox.Group
-          value={checkboxValue}
-          options={options}
-          className="tdesign-demo__panel-options-multiple-borderless"
-          onChange={onCheckedChange}
-        />}
-        suffixIcon={<ChevronDownIcon />}
         allowInput
         borderless
         clearable
         multiple
+        value={value}
+        minCollapsedNum={1}
+        placeholder="select frameworks"
+        suffixIcon={<ChevronDownIcon />}
         onTagChange={onTagChange}
-      ></SelectInput>
+        panel={
+          <Checkbox.Group
+            value={checkboxValue}
+            options={options}
+            className="tdesign-demo__panel-options-borderless-multiple"
+            onChange={onCheckedChange}
+          />
+        }
+      />
     </div>
   );
 }

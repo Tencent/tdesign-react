@@ -11,14 +11,14 @@ import { getOverlayImageMount } from './mount';
 
 describe('Image Component', () => {
   it('props.alt works fine', () => {
-    const wrapper = render(<Image alt="text image load failed" src="https://www.error.img.com"></Image>);
+    const wrapper = render(<Image alt={'text image load failed'} src={'https://www.error.img.com'}></Image>);
     const container = wrapper.container.querySelector('img');
     expect(container.getAttribute('alt')).toBe('text image load failed');
   });
 
   it('props.error works fine', () => {
     const { container } = render(
-      <Image error={<span className="custom-node">TNode</span>} src="https://this.is.an.error.img.com"></Image>,
+      <Image error={<span className="custom-node">TNode</span>} src={'https://this.is.an.error.img.com'}></Image>,
     );
     const imgDom = container.querySelector('img');
     simulateImageEvent(imgDom, 'error');
@@ -72,7 +72,7 @@ describe('Image Component', () => {
     fireEvent.mouseEnter(container.querySelector('.t-image__wrapper'));
     await mockDelay();
     expect(container.querySelector('.t-image__overlay-content')).toBeTruthy();
-    expect(container.querySelectorAll('.t-image__overlay-content--hidden').length).toBe(0);
+    expect(container.querySelector('.t-image__overlay-content--hidden')).toBeFalsy();
     fireEvent.mouseLeave(container.querySelector('.t-image__wrapper'));
     await mockDelay();
     expect(container.querySelector('.t-image__overlay-content--hidden')).toBeTruthy();
@@ -109,26 +109,41 @@ describe('Image Component', () => {
     });
   });
 
+  it(`props.srcset is equal to {'image/avif': 'https://tdesign.gtimg.com/img/tdesign-image.avif','image/webp': 'https://tdesign.gtimg.com/img/tdesign-image.webp'}`, () => {
+    const { container } = render(
+      <Image
+        srcset={{
+          'image/avif': 'https://tdesign.gtimg.com/img/tdesign-image.avif',
+          'image/webp': 'https://tdesign.gtimg.com/img/tdesign-image.webp',
+        }}
+      ></Image>,
+    );
+    const domWrapper = container.querySelector('picture > source');
+    expect(domWrapper.getAttribute('srcset')).toBe('https://tdesign.gtimg.com/img/tdesign-image.avif');
+    const domWrapper1 = container.querySelector('picture > source:nth-child(2)');
+    expect(domWrapper1.getAttribute('srcset')).toBe('https://tdesign.gtimg.com/img/tdesign-image.webp');
+  });
+
   it('events.error works fine', () => {
     const onErrorFn = vi.fn();
-    const { container } = render(<Image src="https://load-failed-img.png" onError={onErrorFn}></Image>);
+    const { container } = render(<Image src={'https://load-failed-img.png'} onError={onErrorFn}></Image>);
     const imgDom = container.querySelector('img');
     simulateImageEvent(imgDom, 'error');
     expect(container.querySelector('.t-image__error')).toBeTruthy();
     expect(container.querySelector('.t-icon-image-error')).toBeTruthy();
-    expect(onErrorFn).toHaveBeenCalled(1);
+    expect(onErrorFn).toHaveBeenCalled();
     expect(onErrorFn.mock.calls[0][0].e.type).toBe('error');
   });
 
   it('events.load works fine', () => {
     const onLoadFn1 = vi.fn();
     const { container } = render(
-      <Image src="https://tdesign.gtimg.com/demo/demo-image-1.png" onLoad={onLoadFn1}></Image>,
+      <Image src={'https://tdesign.gtimg.com/demo/demo-image-1.png'} onLoad={onLoadFn1}></Image>,
     );
 
-    const imgDom = container.querySelector('img');
-    simulateImageEvent(imgDom, 'load');
-    expect(onLoadFn1).toHaveBeenCalled(1);
+    const imgDom1 = container.querySelector('img');
+    simulateImageEvent(imgDom1, 'load');
+    expect(onLoadFn1).toHaveBeenCalled();
     expect(onLoadFn1.mock.calls[0][0].e.type).toBe('load');
   });
 });

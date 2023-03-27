@@ -134,10 +134,11 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
   }
 
   // 图标：内置图标，组件自定义图标，全局配置图标
-  function renderFilterIcon({ col }: { col: PrimaryTableCol<TableRowData>; colIndex: number }) {
+  function renderFilterIcon({ col, colIndex }: { col: PrimaryTableCol<TableRowData>; colIndex: number }) {
     return (
       <TableFilterController
         column={col}
+        colIndex={colIndex}
         // @ts-ignore TODO 待类型完善后移除
         filterIcon={props.filterIcon}
         tFilterValue={tFilterValue}

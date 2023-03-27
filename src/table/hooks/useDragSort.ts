@@ -2,13 +2,14 @@
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import get from 'lodash/get';
-import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
+import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
 import useLatest from '../../_util/useLatest';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
+import { getColumnDataByKey, getColumnIndexByKey } from '../utils';
 
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
@@ -29,12 +30,12 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const tData = useRef<TableRowData[]>();
-  // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastColList = useRef([]);
-  // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const dragColumns = useRef([]);
-  // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const originalColumns = useRef([]);
+
+  // 拖拽实例
+  let dragColInstanceTmp: Sortable = null;
 
   if (props.sortOnRowDraggable) {
     log.warn('Table', "`sortOnRowDraggable` is going to be deprecated, use dragSort='row' instead.");
@@ -82,6 +83,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       filter: `.${tableFullRowClasses.base}`, // 过滤首行尾行固定
       onMove: (evt: MoveEvent) => !hasClass(evt.related, tableFullRowClasses.base),
       onEnd: (evt: SortableEvent) => {
+        if (evt.newIndex === evt.oldIndex) return;
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
 
@@ -124,26 +126,30 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     lastRowList.current = dragInstanceTmp?.toArray();
   };
 
-  // TODO: 待和 Vue 保持相同逻辑
-  const registerColDragEvent = (tableElement: HTMLElement) => {
-    if (!isColDraggable || !tableElement) return;
-    // 拖拽实例
-    let dragInstanceTmp: Sortable = null;
+  const registerOneLevelColDragEvent = (container: HTMLElement, recover: boolean) => {
     const options: SortableOptions = {
       animation: 150,
-      ...props.dragSortOptions,
       dataIdAttr: 'data-colkey',
       direction: 'vertical',
       ghostClass: tableDraggableClasses.ghost,
       chosenClass: tableDraggableClasses.chosen,
       dragClass: tableDraggableClasses.dragging,
       handle: `.${tableBaseClass.thCellInner}`,
+      // 存在类名：t-table__th--drag-sort 的列才允许拖拽调整顺序（注意：添加 draggable 之后，固定列的表头 和 吸顶表头 位置顺序会错位，暂时注释）
+      // draggable: `th.${tableDraggableClasses.dragSortTh}`,
       onEnd: (evt: SortableEvent) => {
-        // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
-        dragInstanceTmp?.sort([...lastColList.current]);
-        let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
-        const current = dragColumns.current[currentIndex];
-        const target = dragColumns.current[targetIndex];
+        if (evt.newIndex === evt.oldIndex) return;
+        if (recover) {
+          // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
+          dragColInstanceTmp?.sort([...lastColList.current]);
+        }
+        const { oldIndex, newIndex, target: targetElement } = evt;
+        let currentIndex = recover ? oldIndex : newIndex;
+        let targetIndex = recover ? newIndex : oldIndex;
+        const oldElement = targetElement.children[currentIndex] as HTMLElement;
+        const newElement = targetElement.children[targetIndex] as HTMLElement;
+        const current = getColumnDataByKey(originalColumns.current, oldElement.dataset.colkey);
+        const target = getColumnDataByKey(originalColumns.current, newElement.dataset.colkey);
         if (!current || !current.colKey) {
           log.error('Table', `colKey is missing in ${JSON.stringify(current)}`);
         }
@@ -151,9 +157,9 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
           log.error('Table', `colKey is missing in ${JSON.stringify(target)}`);
         }
         // 寻找外部数据 props.columns 中的真正下标
-        currentIndex = originalColumns.current.findIndex((t) => t.colKey === current.colKey);
-        targetIndex = originalColumns.current.findIndex((t) => t.colKey === target.colKey);
-        const params: DragSortContext<PrimaryTableCol> = {
+        currentIndex = getColumnIndexByKey(originalColumns.current, current.colKey);
+        targetIndex = getColumnIndexByKey(originalColumns.current, target.colKey);
+        const params: DragSortContext<TableRowData> = {
           data: dragColumns.current,
           currentIndex,
           current,
@@ -163,15 +169,30 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
           e: evt,
           sort: 'col',
         };
-        // currentData is going to be deprecated.
+        // currentData is going to be deprecated
         params.currentData = params.newData;
         onDragSortRef.current?.(params);
       },
+      ...props.dragSortOptions,
     };
-    const container = tableElement.querySelector('thead > tr') as HTMLDivElement;
     if (!container) return;
-    dragInstanceTmp = new Sortable(container, options);
-    lastColList.current = dragInstanceTmp?.toArray();
+    dragColInstanceTmp = new Sortable(container, options);
+    return dragColInstanceTmp;
+  };
+
+  const registerColDragEvent = (tableElement: HTMLElement) => {
+    if (!isColDraggable || !tableElement) return;
+    const trList = tableElement.querySelectorAll('thead > tr');
+    if (trList.length <= 1) {
+      const container = trList[0];
+      const dragInstanceTmp = registerOneLevelColDragEvent(container as HTMLElement, true);
+      lastColList.current = dragInstanceTmp?.toArray();
+    } else {
+      // 多级表头只抛出事件，不处理其他未知逻辑（如多层表头之间具体如何交换）
+      trList?.forEach((container) => {
+        registerOneLevelColDragEvent(container as HTMLElement, false);
+      });
+    }
   };
 
   // 注册拖拽事件

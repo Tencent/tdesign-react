@@ -25,7 +25,7 @@ export default function HeaderFooterActionsCard() {
       actions={
         <Dropdown options={options} onClick={clickHandler} minColumnWidth="112">
           <Button variant="text" shape="square">
-            <Icon name="more" size="24" />
+            <Icon name="more" />
           </Button>
         </Dropdown>
       }
@@ -36,20 +36,20 @@ export default function HeaderFooterActionsCard() {
       footer={
         <Row align="middle" justify="center">
           <Col flex="auto" align="middle">
-            <Button block variant="text">
-              <ThumbUpIcon size={24}></ThumbUpIcon>
+            <Button variant="text">
+              <ThumbUpIcon></ThumbUpIcon>
             </Button>
           </Col>
           <Divider layout="vertical"></Divider>
           <Col flex="auto" align="middle">
-            <Button block variant="text">
-              <ChatIcon size={24}></ChatIcon>
+            <Button variant="text">
+              <ChatIcon></ChatIcon>
             </Button>
           </Col>
           <Divider layout="vertical"></Divider>
           <Col flex="auto" align="middle">
-            <Button block variant="text">
-              <ShareIcon size={24}></ShareIcon>
+            <Button variant="text">
+              <ShareIcon></ShareIcon>
             </Button>
           </Col>
         </Row>

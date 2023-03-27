@@ -12,6 +12,7 @@ import {
   formatToNumber,
   getMaxOrMinValidateResult,
   getStepValue,
+  formatThousandths,
 } from '../_common/js/input-number/number';
 import { InputProps } from '../input';
 
@@ -118,6 +119,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   // 1.2 -> 1. -> 1
   const onInnerInputChange: InputProps['onChange'] = (val, { e }) => {
+    // eslint-disable-next-line no-param-reassign
+    val = formatThousandths(val); // 处理千分位
     if (!canInputNumber(val, largeNumber)) return;
     if (props.largeNumber) {
       onChange(val as T, { type: 'input', e });
@@ -125,7 +128,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     }
     // specialCode 新增或删除这些字符时不触发 change 事件
     const isDelete = (e as any).nativeEvent.inputType === 'deleteContentBackward';
-    const inputSpecialCode = specialCode.includes(val.slice(-1)) || val.slice(-2) === '.0';
+    const inputSpecialCode = specialCode.includes(val.slice(-1)) || /\.0+$/.test(val);
     const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
     if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {
       const newVal = val === '' ? undefined : Number(val);

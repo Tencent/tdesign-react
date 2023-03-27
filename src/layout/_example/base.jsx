@@ -56,7 +56,7 @@ export default function BasicDivider() {
       <Layout>
         <Header>Header</Header>
         <Layout>
-          <Aside width={80}>Aside</Aside>
+          <Aside width={'80px'}>Aside</Aside>
           <Layout>
             <Content>Content</Content>
             <Footer>Copyright @ 2019-2021 Tencent. All Rights Reserved</Footer>

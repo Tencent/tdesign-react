@@ -18,8 +18,8 @@ drawer | Object | - | Drawer global configs。Typescript：`DrawerConfig` | N
 form | Object | - | Form global configs。Typescript：`FormConfig` | N
 guide | Object | - | Guide global configs。Typescript：`GuideConfig` | N
 icon | Object | - | icon config。Typescript：`IconConfig` `type IconConfig = GlobalIconConfig` `import { GlobalIconConfig } from '@icon'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
-image | Object | - | Image global configs。Typescript：`ImageConfig` | N
-imageViewer | Object | - | ImageViewer global configs。Typescript：`ImageViewerConfig` | N
+image | Object | - | image global configs。Typescript：`ImageConfig` | N
+imageViewer | Object | - | imageViewer global configs。Typescript：`ImageViewerConfig` | N
 input | Object | - | Input global configs。Typescript：`InputConfig` | N
 list | Object | - | List global configs。Typescript：`ListConfig` | N
 message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
@@ -109,6 +109,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 confirm | String | - | confirm text | N
 dayAriaLabel | String | - | date text | N
+dayjsLocale | String | - | dayjs language international configuration | N
 direction | String | 'ltr' | range separator text | N
 firstDayOfWeek | Number | 7 | options：1/2/3/4/5/6/7 | N
 format | String | 'YYYY-MM-DD' | date format rules | N
@@ -291,7 +292,7 @@ copyText | String | - | \- | N
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-`MessageOptions` | \- | - | \- | N
+`MessageOptions` | \- | - | extends `MessageOptions` | N
 
 ### ImageConfig
 
@@ -299,6 +300,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 errorText | String | - | loading text, default value is "Error" | N
 loadingText | String | - | loading text, default value is "loading" | N
+replaceImageSrc | Function | - | replace all `src` attribute of images。Typescript：`(params: ImageProps) => string`，[Image API Documents](./image?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 
 ### ImageViewerConfig
 
@@ -306,7 +308,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 errorText | String | - | \- | N
 mirrorTipText | String | - | mirror operation text | N
-originsizeTipText | String | - | original size tips | N
+originalSizeTipText | String | - | original size tips | N
 rotateTipText | String | - | rotate operation text | N
 
 ### GuideConfig

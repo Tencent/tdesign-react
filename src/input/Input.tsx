@@ -145,8 +145,11 @@ const Input = forwardRefWithStatics(
 
     const updateInputWidth = () => {
       if (!autoWidth || !inputRef.current) return;
+      const { offsetWidth } = inputPreRef.current;
       const { width } = inputPreRef.current.getBoundingClientRect();
-      inputRef.current.style.width = `${width}px`;
+      // 异步渲染场景下 getBoundingClientRect 宽度为 0，需要使用 offsetWidth
+      const calcWidth = width < offsetWidth ? offsetWidth + 1 : width;
+      inputRef.current.style.width = `${calcWidth}px`;
     };
 
     useLayoutEffect(() => {
@@ -233,7 +236,10 @@ const Input = forwardRefWithStatics(
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onWheel={(e) => onWheel?.({ e })}
-        onClick={(e) => onClick?.({ e })}
+        onClick={(e) => {
+          inputRef.current?.focus();
+          onClick?.({ e });
+        }}
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}

@@ -12,7 +12,12 @@ export type overlayStyleProps = Pick<
 // 单位：px
 const MAX_POPUP_WIDTH = 1000;
 
-export default function useOverlayInnerStyle(props: overlayStyleProps) {
+export default function useOverlayInnerStyle(
+  props: overlayStyleProps,
+  extra?: {
+    afterHidePopup?: (ctx: PopupVisibleChangeContext) => void;
+  },
+) {
   const { popupProps, autoWidth, readonly, disabled, onPopupVisibleChange, allowInput } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
@@ -41,6 +46,9 @@ export default function useOverlayInnerStyle(props: overlayStyleProps) {
     if (props.popupVisible !== newVisible) {
       setInnerPopupVisible(newVisible);
       onPopupVisibleChange?.(newVisible, context);
+      if (!newVisible) {
+        extra?.afterHidePopup?.(context);
+      }
     }
   };
 

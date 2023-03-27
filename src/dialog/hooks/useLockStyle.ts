@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react';
 import useLayoutEffect from '../../_util/useLayoutEffect';
-import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
+import { getScrollbarWidth } from '../../_common/js/utils/getScrollbarWidth';
 
 let key = 1;
 
@@ -16,7 +16,8 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
   }, []);
 
   useLayoutEffect(() => {
-    const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
+    if (typeof document === 'undefined') return;
+    const hasScrollBar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
     const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
 
     lockStyleRef.current.dataset.id = `td_dialog_${+new Date()}_${(key += 1)}`;
@@ -31,6 +32,7 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
   }, [clearStyleFunc]);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     if (mode !== 'modal' || !preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {

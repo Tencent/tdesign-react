@@ -174,7 +174,7 @@ export default function TableTree() {
       colKey: 'drag',
       title: '排序',
       cell: () => <MoveIcon />,
-      width: 80,
+      width: 46,
       align: 'center',
     },
     {
