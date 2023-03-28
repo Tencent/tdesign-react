@@ -1,18 +1,18 @@
-import React, { forwardRef, useCallback, useMemo } from 'react';
+import React, { forwardRef, useCallback, useMemo, MouseEvent } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
-import { TdStickyItemProps } from './type';
-import Popup from '../popup';
-import { StyledProps, Styles } from '../common';
+import type { TdStickyItemProps, TdStickyToolProps } from './type';
+import Popup, { PopupProps } from '../popup';
+import type { StyledProps, Styles } from '../common';
 
 export interface StickyItemProps extends TdStickyItemProps, StyledProps {
-  type?: String;
-  shape?: String;
-  placement?: String;
-  basePopupProps?: Object;
-  baseWidth?: String | Number;
-  onClick?: Function;
-  onHover?: Function;
+  type?: TdStickyToolProps['type'];
+  shape?: TdStickyToolProps['shape'];
+  placement?: TdStickyToolProps['placement'];
+  basePopupProps?: PopupProps;
+  baseWidth?: TdStickyToolProps['width'];
+  onClick?: TdStickyToolProps['onClick'];
+  onHover?: TdStickyToolProps['onHover'];
   children?: React.ReactNode;
 }
 
@@ -44,7 +44,7 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
     return styles;
   }, [baseWidth, style, type]);
   const handleClickItem = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: MouseEvent<HTMLDivElement>) => {
       const item = {
         icon,
         label,
@@ -52,12 +52,12 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
         popupProps,
         trigger,
       };
-      onClick(e, item);
+      onClick({ e, item });
     },
     [icon, label, popup, popupProps, trigger, onClick],
   );
   const handleHoverItem = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: MouseEvent<HTMLDivElement>) => {
       const item = {
         icon,
         label,
@@ -65,7 +65,7 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
         popupProps,
         trigger,
       };
-      onHover(e, item);
+      onHover({ e, item });
     },
     [icon, label, popup, popupProps, trigger, onHover],
   );

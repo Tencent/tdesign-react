@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, MouseEvent } from 'react';
 import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdStickyToolProps, TdStickyItemProps } from './type';
-import { StyledProps, Styles } from '../common';
+import type { TdStickyToolProps, TdStickyItemProps } from './type';
+import type { StyledProps, Styles } from '../common';
 import StickyItem from './StickyItem';
 import { stickyToolDefaultProps } from './defaultProps';
 
@@ -38,14 +38,14 @@ const StickyTool = forwardRefWithStatics(
     }, [offset, placement, width, style]);
 
     const handleClick = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>, item: TdStickyItemProps) => {
-        onClick?.({ e, item });
+      (context: { e: MouseEvent<HTMLDivElement>; item: TdStickyItemProps }) => {
+        onClick?.(context);
       },
       [onClick],
     );
     const handleHover = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>, item: TdStickyItemProps) => {
-        onHover?.({ e, item });
+      (context: { e: MouseEvent<HTMLDivElement>; item: TdStickyItemProps }) => {
+        onHover?.(context);
       },
       [onHover],
     );

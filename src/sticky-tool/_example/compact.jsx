@@ -1,7 +1,6 @@
 import React from 'react';
-import { StickyTool } from 'tdesign-react';
+import { StickyTool, Space } from 'tdesign-react';
 import { ChatIcon, AddIcon, SearchIcon } from 'tdesign-icons-react';
-import Space from 'tdesign-react/space/Space';
 
 const { StickyItem } = StickyTool;
 
