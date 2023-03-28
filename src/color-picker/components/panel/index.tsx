@@ -260,8 +260,8 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
           console.warn('该模式不支持渐变色');
         }
       } else if (mode === 'linear-gradient') {
-        color.updateStates(value);
-        color.updateCurrentGradientColor();
+        setMode('monochrome');
+        color.update(value);
       } else {
         color.update(value);
       }

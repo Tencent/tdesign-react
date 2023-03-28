@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -30,8 +30,16 @@ export default function TableFixedColumn() {
   const [leftFixedColumn, setLeftFixedColumn] = useState(2);
   const [rightFixedColumn, setReftFixedColumn] = useState(1);
 
+  const tableRef = useRef(null);
+   // eslint-disable-next-line
+  const scrollToCreateTime = () => {
+    // 横向滚动到指定列，一般用于列数量较多的场景
+    tableRef.current.scrollColumnIntoView('createTime');
+  };
+
   const table = (
     <Table
+      ref={tableRef}
       bordered
       rowKey="index"
       data={emptyData ? [] : data}
@@ -97,6 +105,7 @@ export default function TableFixedColumn() {
       </div>
 
       {table}
+
     </Space>
   );
 }

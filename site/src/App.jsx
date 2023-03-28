@@ -70,9 +70,7 @@ function Components() {
     tdDocAsideRef.current.onchange = ({ detail }) => {
       if (window.location.pathname === detail) return;
       tdDocContentRef.current.pageStatus = 'hidden';
-      requestAnimationFrame(() => {
-        navigate(detail);
-      });
+      navigate(detail);
       requestAnimationFrame(() => {
         tdDocContentRef.current.pageStatus = 'show';
         window.scrollTo(0, 0);

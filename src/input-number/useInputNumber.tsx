@@ -12,6 +12,7 @@ import {
   formatToNumber,
   getMaxOrMinValidateResult,
   getStepValue,
+  formatThousandths,
 } from '../_common/js/input-number/number';
 import { InputProps } from '../input';
 
@@ -118,6 +119,8 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   // 1.2 -> 1. -> 1
   const onInnerInputChange: InputProps['onChange'] = (val, { e }) => {
+    // eslint-disable-next-line no-param-reassign
+    val = formatThousandths(val); // 处理千分位
     if (!canInputNumber(val, largeNumber)) return;
     if (props.largeNumber) {
       onChange(val as T, { type: 'input', e });

@@ -53,7 +53,7 @@ const Button = forwardRef((props: ButtonProps, ref: React.RefObject<HTMLElement>
   }, [theme, variant]);
 
   const renderTag = useMemo(() => {
-    if (!tag && href) return 'a';
+    if (!tag && href && !disabled) return 'a';
     if (!tag && disabled) return 'div';
     return tag || 'button';
   }, [tag, href, disabled]);

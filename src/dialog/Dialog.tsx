@@ -56,6 +56,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
     closeOnOverlayClick,
     destroyOnClose,
     preventScrollThrough,
+    onCloseBtnClick,
     ...restState
   } = state;
 
@@ -113,6 +114,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const handleClose = ({ e }) => {
+    onCloseBtnClick?.({ e });
     onClose?.({ e, trigger: 'close-btn' });
   };
 
@@ -139,8 +141,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const onAnimateStart = () => {
-    onOpened?.();
-
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'block';
   };
@@ -171,6 +171,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}
+      onEntered={onOpened}
       onExited={onAnimateLeave}
     >
       <Portal attach={attach} ref={portalRef}>

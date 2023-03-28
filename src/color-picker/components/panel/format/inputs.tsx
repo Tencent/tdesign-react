@@ -7,10 +7,10 @@ import { FORMAT_INPUT_CONFIG } from './config';
 
 const FormatInputs = (props) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;
-  const formatValue = useRef<any>({});
   const lastModelValue = useRef({});
+  const formatValueRef = useRef<any>({});
 
-  const object2color = (f: string) => Color.object2color(formatValue.current, f);
+  const object2color = (f: string) => Color.object2color(formatValueRef.current, f);
 
   // 获取不同格式的输入输出值
   const getFormatColorMap = (type: 'encode' | 'decode') => {
@@ -34,8 +34,8 @@ const FormatInputs = (props) => {
       HSL: object2color('HSL'),
       RGB: object2color('RGB'),
       CMYK: object2color('CMYK'),
-      CSS: formatValue.current.css,
-      HEX: formatValue.current.hex,
+      CSS: formatValueRef.current.css,
+      HEX: formatValueRef.current.hex,
     };
   };
 
@@ -43,10 +43,18 @@ const FormatInputs = (props) => {
   const updateModelValue = () => {
     const values: any = getFormatColorMap('encode')[format];
     values.a = Math.round(color.alpha * 100);
+
+    const changedFormatValue = {};
     Object.keys(values).forEach((key) => {
-      formatValue.current[key] = values[key];
+      if (values[key] !== formatValueRef.current[key]) {
+        changedFormatValue[key] = values[key];
+      }
       lastModelValue.current[key] = values[key];
     });
+
+    if (Object.keys(changedFormatValue).length > 0) {
+      formatValueRef.current = values;
+    }
   };
 
   updateModelValue();
@@ -69,32 +77,43 @@ const FormatInputs = (props) => {
   };
 
   const handleInputChange = (key: string, v: number | string) => {
-    if (v === lastModelValue[key]) {
+    if (v === lastModelValue.current[key]) {
       return;
     }
-    formatValue.current[key] = v;
+
+    const newFormatValue = {
+      ...formatValueRef.current,
+      [key]: v,
+    };
+    formatValueRef.current = newFormatValue;
     lastModelValue.current[key] = v;
     const value = getFormatColorMap('decode')[format];
-    onInputChange(value, formatValue.current.a / 100, key, v);
+    onInputChange(value, formatValueRef.current.a / 100, key, v);
   };
 
   useEffect(() => {
     throttleUpdate();
-  }, [color.saturation, color.hue, color.value, color.alpha, format, throttleUpdate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [color.saturation, color.hue, color.value, color.alpha, format]);
 
   return (
     <div className="input-group">
       {inputConfigs().map((config) => {
         const commonProps = {
           ...inputProps,
-          title: formatValue.current[config.key],
-          value: formatValue.current[config.key],
+          title: formatValueRef.current[config.key],
+          [config.type === 'input' ? 'defaultValue' : 'value']: formatValueRef.current[config.key],
           align: 'center',
           disabled,
           size: 'small',
+          onChange:
+            config.type === 'input'
+              ? Function.prototype
+              : (v: string) => handleInputChange(config.key, v || config.min),
           onBlur: (v: string) => handleInputChange(config.key, v),
           onEnter: (v: string) => handleInputChange(config.key, v),
         };
+
         return (
           <div
             className="input-group__item"
@@ -104,7 +123,7 @@ const FormatInputs = (props) => {
             }}
           >
             {config.type === 'input' ? (
-              <Input {...commonProps} maxlength={format === 'HEX' ? 9 : undefined} />
+              <Input {...commonProps} key={commonProps.defaultValue} maxlength={format === 'HEX' ? 9 : undefined} />
             ) : (
               <InputNumber
                 {...commonProps}

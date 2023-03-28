@@ -44,6 +44,7 @@ const Watermark: React.FC<WatermarkProps> = ({
   const clsName = `${classPrefix}-watermark`;
   const [base64Url, setBase64Url] = useState('');
   const watermarkRef = useRef<HTMLDivElement>();
+  const watermarkImgRef = useRef<HTMLDivElement>();
   const offsetLeft = offset[0] || gapX / 2;
   const offsetTop = offset[1] || gapY / 2;
 
@@ -73,7 +74,10 @@ const Watermark: React.FC<WatermarkProps> = ({
       if (mutation.type === 'childList') {
         const removeNodes = mutation.removedNodes;
         removeNodes.forEach((node) => {
-          watermarkRef.current.appendChild(node);
+          const element = node as HTMLElement;
+          if (element === watermarkImgRef.current) {
+            watermarkRef.current.appendChild(element);
+          }
         });
       }
     });
@@ -86,7 +90,7 @@ const Watermark: React.FC<WatermarkProps> = ({
     injectStyle(keyframesStyle);
   }, []);
 
-  useMutationObserver(document.body, (mutations) => {
+  useMutationObserver(typeof document !== 'undefined' ? document.body : null, (mutations) => {
     if (removable) return;
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
@@ -105,6 +109,7 @@ const Watermark: React.FC<WatermarkProps> = ({
     <div style={{ position: 'relative', overflow: 'hidden' }} className={clsName} ref={watermarkRef}>
       {children || content}
       <div
+        ref={watermarkImgRef}
         className={className}
         style={{
           zIndex,

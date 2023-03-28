@@ -5,7 +5,7 @@ import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, Synthetic
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
-export type TNode<T = undefined> = T extends undefined ? ReactNode : (props: T) => ReactNode;
+export type TNode<T = undefined> = T extends undefined ? ReactNode : ReactNode | ((props: T) => ReactNode);
 
 export type AttachNodeReturnValue = HTMLElement | Element | Document;
 export type AttachNode = CSSSelector | ((triggerNode?: HTMLElement) => AttachNodeReturnValue);
@@ -105,3 +105,13 @@ export interface TScroll {
  * @deprecated use TScroll instead
  */
 export type InfinityScroll = TScroll;
+
+export interface ScrollToElementParams {
+  /** 跳转元素下标 */
+  index: number;
+  /** 跳转元素距离顶部的距离 */
+  top?: number;
+  /** 单个元素高度非固定场景下，即 isFixedRowHeight = false。延迟设置元素位置，一般用于依赖不同高度异步渲染等场景，单位：毫秒 */
+  time?: number;
+  behavior?: 'auto' | 'smooth';
+}
