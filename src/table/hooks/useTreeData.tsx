@@ -12,6 +12,7 @@ import useClassName from './useClassName';
 import { renderCell } from '../Cell';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { parseContentTNode } from '../../_util/parseTNode';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];
@@ -147,7 +148,9 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         const type = expanded ? 'fold' : 'expand';
         const defaultIconNode =
           t(locale.treeExpandAndFoldIcon, { type }) || (expanded ? <MinusRectangleIcon /> : <AddRectangleIcon />);
-        const iconNode = treeExpandAndFoldIcon ? treeExpandAndFoldIcon({ type, ...p }) : defaultIconNode;
+        const iconNode = treeExpandAndFoldIcon
+          ? parseContentTNode(treeExpandAndFoldIcon, { type, ...p })
+          : defaultIconNode;
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!(childrenNodes.length || childrenNodes === true) && (

@@ -198,6 +198,7 @@ export default function useAffix(props: TdBaseTableProps) {
   };
 
   const addVerticalScrollListener = () => {
+    if (typeof document === 'undefined') return;
     if (!isAffixed && !props.paginationAffixedBottom) return;
     const timer = setTimeout(() => {
       if (isAffixed || props.paginationAffixedBottom) {
