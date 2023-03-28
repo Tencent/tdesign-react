@@ -11,14 +11,12 @@ export default function Base() {
   };
   const handleHover = (context) => {
     console.log('hover', context);
-    console.log(window.getComputedStyle(document.querySelector('.t-backtop')).getPropertyValue('height'));
   };
-  const temp = window.getComputedStyle(document.querySelector('.t-backtop')).getPropertyValue('height');
 
   return (
     <Space>
       <StickyTool
-        style={{ position: 'relative', overflow: 'hidden', bottom: temp }}
+        style={{ position: 'relative', overflow: 'hidden' }}
         offset={[-500, -24]}
         onClick={handleClick}
         onHover={handleHover}
