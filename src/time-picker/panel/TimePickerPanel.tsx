@@ -11,7 +11,7 @@ import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../_common/js/time-picker/cons
 export interface TimePickerPanelProps extends SinglePanelProps {
   isShowPanel?: boolean;
   isFooterDisplay?: boolean; // 是否展示footer
-  handleConfirmClick?: (defaultValue: dayjs.Dayjs) => void;
+  handleConfirmClick?: (defaultValue: dayjs.Dayjs | string) => void;
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
@@ -33,15 +33,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   const showNowTimeBtn = !!steps.filter((v) => v > 1).length;
 
   const defaultValue = useMemo(() => {
-    const isStepsSet = !!steps.filter((v) => v > 1).length;
-    if (value) {
-      return dayjs(value, format);
+    const formattedValue = dayjs(value, format);
+    if (value && formattedValue.isValid()) {
+      return formattedValue.format(format);
     }
-    if (isStepsSet) {
-      return dayjs().hour(0).minute(0).second(0);
-    }
-    return dayjs();
-  }, [value, format, steps]);
+
+    return dayjs().hour(0).minute(0).second(0).format(format);
+  }, [value, format]);
 
   useEffect(() => {
     if (isShowPanel) toggleTriggerScroll(true);
@@ -60,7 +58,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
           onChange={handleOnChange}
           format={format}
           steps={steps}
-          value={value}
+          value={dayjs(value, format).isValid() ? value : defaultValue}
           triggerScroll={triggerScroll}
           isVisible={isShowPanel}
           resetTriggerScroll={() => toggleTriggerScroll(false)}

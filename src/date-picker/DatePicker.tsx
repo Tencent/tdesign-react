@@ -67,7 +67,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (popupVisible) {
       setYear(parseToDayjs(value, format).year());
       setMonth(parseToDayjs(value, format).month());
-      setTime(formatTime(value, timeFormat, defaultTime));
+      setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
     }
