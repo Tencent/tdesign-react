@@ -56,7 +56,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     if (!isValidDate(value, format)) return;
 
     setCacheValue(formatDate(value, { format }));
-    setTime(formatTime(value, timeFormat, props.defaultTime));
+    setTime(formatTime(value, format, timeFormat, props.defaultTime));
     // eslint-disable-next-line
   }, [value]);
 
