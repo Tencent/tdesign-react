@@ -70,7 +70,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
       setCacheValue(val);
       const newMonth = parseToDayjs(val, format).month();
       const newYear = parseToDayjs(val, format).year();
-      const newTime = formatTime(val, timeFormat, props.defaultTime);
+      const newTime = formatTime(val, format, timeFormat, props.defaultTime);
       !Number.isNaN(newYear) && setYear(newYear);
       !Number.isNaN(newMonth) && setMonth(newMonth);
       !Number.isNaN(newTime) && setTime(newTime);
