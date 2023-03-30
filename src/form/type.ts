@@ -66,7 +66,7 @@ export interface TdFormProps<FormData extends Data = Data> {
   /**
    * 表单字段校验规则
    */
-  rules?: { [field in keyof FormData]: Array<FormRule> };
+  rules?: FormRules<FormData>;
   /**
    * 表单校验不通过时，是否自动滚动到第一个校验不通过的字段，平滑滚动或是瞬间直达。值为空则表示不滚动
    */
@@ -167,6 +167,7 @@ export interface TdFormItemProps {
   initialData?: InitialData;
   /**
    * 字段标签名称
+   * @default ''
    */
   label?: TNode;
   /**
@@ -288,7 +289,7 @@ export interface FormRule {
    */
   required?: boolean;
   /**
-   * 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }`
+   * 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }`
    */
   telnumber?: boolean;
   /**
@@ -383,10 +384,13 @@ export interface FormErrorMessage {
   validator?: string;
 }
 
+export type FormRules<T extends Data> = { [field in keyof T]?: Array<FormRule> };
+
 export interface SubmitContext<T extends Data = Data> {
   e?: FormSubmitEvent;
   validateResult: FormValidateResult<T>;
   firstError?: string;
+  fields?: any;
 }
 
 export type FormValidateResult<T> = boolean | ValidateResultObj<T>;
