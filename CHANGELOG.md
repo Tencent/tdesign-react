@@ -5,7 +5,7 @@ toc: false
 spline: explain
 ---
 
-## 🌈 1.0.6 `2023-03-30` 
+## 🌈 1.1.0 `2023-03-30` 
 ### 🚀 Features
 - `Table`:
     - 支持使用 `filterIcon` 支持不同列显示不同的筛选图标，[tdesign-vue#2088](https://github.com/Tencent/tdesign-vue/issues/2088) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
