@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
+import React, { MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
 import isFunction from 'lodash/isFunction';
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
@@ -18,7 +18,6 @@ export default function useTagList(props: TagInputProps) {
     props;
   // handle controlled property and uncontrolled property
   const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
-  const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
   const onClose = (p: { e?: MouseEvent<SVGSVGElement>; index: number; item: string | number }) => {
@@ -54,7 +53,7 @@ export default function useTagList(props: TagInputProps) {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
-    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.key)) {
+    if (!value && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
       const item = tagValue[index];
       const trigger = 'backspace';
@@ -62,7 +61,6 @@ export default function useTagList(props: TagInputProps) {
       setTagValue(newValue, { e, index, item, trigger });
       onRemove?.({ e, index, item, trigger, value: newValue });
     }
-    setOldInputValue(value);
   };
 
   const renderLabel = ({ displayNode, label }: { displayNode: ReactNode; label: ReactNode }) => {
