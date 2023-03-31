@@ -70,7 +70,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     }
     validate().then((r) => {
       const firstError = getFirstError(r);
-      onSubmit?.({ validateResult: r, firstError, e });
+      const fields = getFieldsValue(true);
+      onSubmit?.({ validateResult: r, firstError, e, fields });
     });
   }
 

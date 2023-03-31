@@ -142,12 +142,10 @@ export const fetchListInstance = (
           zIndex={Number(zIndex)}
           renderCallback={(instance) => {
             listMap.set(placement, instance);
+            resolve(instance);
           }}
         />,
         attach,
       );
-      requestAnimationFrame(() => {
-        resolve(listMap.get(placement));
-      });
     }
   });
