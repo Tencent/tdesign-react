@@ -18,7 +18,12 @@ const DEFAULT_KEYS = {
   key: 'key',
   children: 'children',
 };
-
+interface TagValueItem {
+  [x: string]: any;
+  $$typeof: {
+    toString: () => string;
+  };
+}
 export default function useMultiple(props: TdSelectInputProps) {
   const { value } = props;
   const { classPrefix } = useConfig();
@@ -30,7 +35,10 @@ export default function useMultiple(props: TdSelectInputProps) {
     if (!(value instanceof Array)) {
       return isObject(value) ? [value[iKeys.label]] : [value];
     }
-    return value.map((item) => (isObject(item) ? item[iKeys.label] : item));
+    // 添加条件如果label是dom节点，那么直接返回该节点
+    return value.map((item: TagValueItem) =>
+      isObject(item) && !(item?.$$typeof?.toString() === 'Symbol(react.element)') ? item[iKeys.label] : item,
+    );
   };
   const tags = getTags();
 

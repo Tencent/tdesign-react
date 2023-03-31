@@ -5,7 +5,7 @@ const { Option } = Select;
 
 const options1 = [
   { label: '全选', checkAll: true },
-  { label: '架构云', value: '1' },
+  { label: <>111</>, value: '1' },
   { label: '大数据', value: '2' },
   { label: '区块链', value: '3' },
   { label: '物联网', value: '4', disabled: true },

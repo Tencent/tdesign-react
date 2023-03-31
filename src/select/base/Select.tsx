@@ -213,7 +213,9 @@ const Select = forwardRefWithStatics(
         }
       } else if (Array.isArray(tmpPropOptions)) {
         const upperValue = value.toUpperCase();
-        filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
+        filteredOptions = tmpPropOptions.filter(
+          (option) => typeof option?.label === 'string' && (option?.label || '').toUpperCase().includes(upperValue),
+        ); // 不区分大小写
       }
 
       if (creatable) {
