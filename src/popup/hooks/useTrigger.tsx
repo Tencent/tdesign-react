@@ -159,6 +159,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
       },
       onContextMenu: (e: MouseEvent) => {
         if (trigger === 'context-menu') {
+          e.preventDefault();
           callFuncWithDelay({
             delay: appearDelay,
             callback: () => onVisibleChange(true, { e, trigger: 'context-menu' }),
