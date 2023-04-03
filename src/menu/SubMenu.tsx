@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../common';
+import Popup from '../popup';
 import { TdSubmenuProps } from './type';
 import useConfig from '../hooks/useConfig';
 import { MenuContext } from './MenuContext';
@@ -31,6 +32,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
+  const triggerRef = useRef<HTMLLIElement>();
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation();
@@ -72,6 +74,10 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   return (
     <li
+      ref={(e) => {
+        console.log('item', e);
+        triggerRef.current = e;
+      }}
       className={classNames(`${classPrefix}-submenu`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-opened`]: isOpen,
@@ -81,32 +87,34 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
       onMouseEnter={() => handleMouseEvent('enter')}
       onMouseLeave={() => handleMouseEvent('leave')}
     >
-      <div
-        className={classNames(`${classPrefix}-menu__item`, {
-          [`${classPrefix}-is-opened`]: isOpen,
-          [`${classPrefix}-is-active`]: checkSubMenuChildrenActive(children, active),
-        })}
-      >
-        {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
-        <FakeArrow style={fakeArrowStyle} isActive={level === 1 && isOpen} disabled={disabled} />
-      </div>
-      {isPopUp ? (
-        <div
-          className={classNames(`${classPrefix}-menu__popup`, `${classPrefix}-is-vertical`, {
-            [`${classPrefix}-is-opened`]: isOpen,
-          })}
-        >
+      <Popup
+        disabled={!isPopUp}
+        overlayInnerClassName={[`${classPrefix}-menu__popup`, `${classPrefix}-is-vertical`, `${classPrefix}-is-opened`]}
+        placement="top-right"
+        overlayInnerStyle={{ left: 10 }}
+        visible={open}
+        content={
           <ul
-            className={classNames(`${classPrefix}-menu__popup-wrapper`, {
-              [`${classPrefix}-is-opened`]: isOpen,
-            })}
+            className={classNames(`${classPrefix}-menu__popup-wrapper`, `${classPrefix}-is-opened`)}
             key="popup"
             style={childStyle}
           >
             {childrens}
           </ul>
+        }
+      >
+        <div
+          className={classNames(`${classPrefix}-menu__item`, {
+            [`${classPrefix}-is-opened`]: isOpen,
+            [`${classPrefix}-is-active`]: checkSubMenuChildrenActive(children, active),
+          })}
+        >
+          {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
+          <FakeArrow style={fakeArrowStyle} isActive={level === 1 && isOpen} disabled={disabled} />
         </div>
-      ) : (
+      </Popup>
+
+      {!isPopUp && (
         <ul
           key="normal"
           style={{ ...childStyle, '--padding-left': `${menuPaddingLeft}px` } as React.CSSProperties}
