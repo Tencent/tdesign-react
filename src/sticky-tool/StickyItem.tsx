@@ -73,6 +73,7 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
 
   return (
     <Popup
+      overlayInnerClassName={classNames(`${classPrefix}-sticky-tool-popup-content`)}
       trigger={props.trigger}
       hideEmptyPopup={true}
       placement={popupPlacement}

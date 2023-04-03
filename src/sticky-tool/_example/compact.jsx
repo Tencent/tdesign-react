@@ -1,6 +1,6 @@
 import React from 'react';
 import { StickyTool, Space } from 'tdesign-react';
-import { ChatIcon, AddIcon, SearchIcon } from 'tdesign-icons-react';
+import { ChatIcon, AddIcon, QrcodeIcon } from 'tdesign-icons-react';
 
 const { StickyItem } = StickyTool;
 
@@ -21,18 +21,12 @@ export default function Compact() {
         onClick={handleClick}
         onHover={handleHover}
       >
-        <StickyItem label="chat" icon={<ChatIcon />} popup="chat"></StickyItem>
+        <StickyItem icon={<ChatIcon />} popup="chat"></StickyItem>
+        <StickyItem icon={<AddIcon />} popup="add"></StickyItem>
         <StickyItem
-          label={<div>add</div>}
-          icon={<AddIcon />}
-          trigger="click"
-          popup="add"
-          popupProps={{ placement: 'bottom' }}
-        ></StickyItem>
-        <StickyItem
-          label={<div>search</div>}
-          icon={<SearchIcon />}
-          popup={<img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/site/TDesign.png" />}
+          icon={<QrcodeIcon />}
+          popup={<img alt="TDesign Logo" width="120" height="120" src="https://tdesign.gtimg.com/site/site.jpg" />}
+          popupProps={{ overlayInnerStyle: { padding: '4px', height: '128px' } }}
         ></StickyItem>
       </StickyTool>
     </Space>
