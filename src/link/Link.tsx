@@ -3,8 +3,9 @@ import React from 'react';
 import useConfig from '../hooks/useConfig';
 import { TdLinkProps } from './type';
 import parseTNode from '../_util/parseTNode';
+import { StyledProps } from '../common';
 
-export interface LinkProps extends TdLinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'children'> {}
+export interface LinkProps extends TdLinkProps, StyledProps {}
 
 const Link = React.forwardRef(
   (
