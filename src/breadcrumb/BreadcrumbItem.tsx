@@ -30,6 +30,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     router,
     replace,
     className,
+    content,
     ...restProps
   } = props;
 
@@ -63,7 +64,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     <span className={textWrapperClassName} style={maxWidthForItem}>
       {isFunction(icon) ? icon() : icon}
       <span ref={breadcrumbText} className={textClassName}>
-        {children}
+        {children || content}
       </span>
     </span>
   );
@@ -89,7 +90,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   return (
     <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
-      {isCutOff ? <TooltipLite content={children}>{itemContent}</TooltipLite> : itemContent}
+      {isCutOff ? <TooltipLite content={children || content}>{itemContent}</TooltipLite> : itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
   );
