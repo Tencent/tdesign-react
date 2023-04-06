@@ -66,7 +66,6 @@ const BackTop = (props: BackTopProps) => {
   );
 
   const cls = classNames(
-    className,
     `${classPrefix}-back-top`,
     `${classPrefix}-back-top--theme-${theme}`,
     `${classPrefix}-back-top--${shape}`,
@@ -75,6 +74,7 @@ const BackTop = (props: BackTopProps) => {
       [`${classPrefix}-size-s`]: size === 'small',
       [`${classPrefix}-size-m`]: size === 'medium',
     },
+    className,
   );
 
   const getBackTo = useCallback(() => {
