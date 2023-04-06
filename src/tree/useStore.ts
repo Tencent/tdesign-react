@@ -205,7 +205,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
     }
-  }, [store, value]);
+  }, [store, value, data]);
 
   useUpdateEffect(() => {
     if (Array.isArray(expanded)) {
