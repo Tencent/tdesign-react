@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.1 `2023-04-06` 
+### 🚀 Features
+- `StickyTool`: 新增`sticky-tool`组件 @ZekunWu ([#2065](https://github.com/Tencent/tdesign-react/pull/2065))
+
+### 🐞 Bug Fixes
+- `TagInput`: 修复基于`TagInput`的组件使用筛选时删除关键词时会删除已选值的问题 @2513483494 ([#2113](https://github.com/Tencent/tdesign-react/pull/2113))
+- `InputNumber`: 修复输入小数以0结尾时的功能异常问题 @uyarn ([#2127](https://github.com/Tencent/tdesign-react/pull/2127))
+- `tree`: 修复 tree 组件 data 属性不受控问题 @PBK-B ([#2119](https://github.com/Tencent/tdesign-react/pull/2119))
+- `TagInput`: 修复基于`TagInput`的组件使用筛选时删除关键词时会删除已选值的问题 @2513483494 ([#2113](https://github.com/Tencent/tdesign-react/pull/2113))
+- `Form`: 修复初始数据设置问题 @honkinglin ([#2124](https://github.com/Tencent/tdesign-react/pull/2124))
+- `TreeSelect`: 修复过滤后无法展开问题 @honkinglin ([#2128](https://github.com/Tencent/tdesign-react/pull/2128))
+- `Popup`: 修复右键展示浮层触发浏览器默认事件 @honkinglin ([#2120](https://github.com/Tencent/tdesign-react/pull/2120))
+
 ## 🌈 1.1.0 `2023-03-30` 
 ### 🚀 Features
 - `Table`:

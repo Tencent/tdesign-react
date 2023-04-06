@@ -166,6 +166,12 @@ export default {
           component: () => import('tdesign-react/steps/steps.md'),
         },
         {
+          title: 'StickyTool 侧边栏',
+          name: 'StickyTool',
+          path: '/react/components/sticky-tool',
+          component: () => import('tdesign-react/sticky-tool/sticky-tool.md'),
+        },
+        {
           title: 'Tabs 选项卡',
           name: 'tabs',
           path: '/react/components/tabs',
