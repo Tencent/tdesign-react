@@ -156,8 +156,8 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}
-      onKeydown={onInputBackspaceKeyUp}
-      onKeyup={onInputBackspaceKeyDown}
+      onKeydown={onInputBackspaceKeyDown}
+      onKeyup={onInputBackspaceKeyUp}
       onMouseenter={(context) => {
         addHover(context);
         scrollToRightOnEnter();
