@@ -176,7 +176,7 @@ describe('TreeSelect Component', () => {
     simulateInputChange(inputDom1, 'tdesign-react');
     await mockDelay(100);
     const tTreeItemNotTTreeItemHiddenDom = document.querySelectorAll('.t-tree__item:not(.t-tree__item--hidden)');
-    expect(tTreeItemNotTTreeItemHiddenDom.length).toBe(8);
+    expect(tTreeItemNotTTreeItemHiddenDom.length).toBe(6);
   });
 
   it('props.filter: multiple tree select, check filter nodes', async () => {
