@@ -49,8 +49,12 @@ export default function useTagList(props: TagInputProps) {
     props?.onEnter?.(newValue, { ...context, inputValue: value });
   };
 
+  const onInputBackspaceKeyUp = (value: InputValue) => {
+    if (!tagValue || !tagValue.length) return;
+    setOldInputValue(value);
+  };
   // 按下回退键，删除标签
-  const onInputBackspaceKeyUp = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
+  const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
@@ -62,7 +66,6 @@ export default function useTagList(props: TagInputProps) {
       setTagValue(newValue, { e, index, item, trigger });
       onRemove?.({ e, index, item, trigger, value: newValue });
     }
-    setOldInputValue(value);
   };
 
   const renderLabel = ({ displayNode, label }: { displayNode: ReactNode; label: ReactNode }) => {
@@ -111,6 +114,7 @@ export default function useTagList(props: TagInputProps) {
     clearAll,
     onClose,
     onInnerEnter,
+    onInputBackspaceKeyDown,
     onInputBackspaceKeyUp,
     renderLabel,
   };
