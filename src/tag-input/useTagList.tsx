@@ -1,4 +1,4 @@
-import React, { MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
+import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
 import isFunction from 'lodash/isFunction';
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
@@ -18,6 +18,7 @@ export default function useTagList(props: TagInputProps) {
     props;
   // handle controlled property and uncontrolled property
   const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
+  const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
   const onClose = (p: { e?: MouseEvent<SVGSVGElement>; index: number; item: string | number }) => {
@@ -48,12 +49,16 @@ export default function useTagList(props: TagInputProps) {
     props?.onEnter?.(newValue, { ...context, inputValue: value });
   };
 
+  const onInputBackspaceKeyUp = (value: InputValue) => {
+    if (!tagValue || !tagValue.length) return;
+    setOldInputValue(value);
+  };
   // 按下回退键，删除标签
-  const onInputBackspaceKeyUp = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
+  const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
-    if (!value && ['Backspace', 'NumpadDelete'].includes(e.key)) {
+    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
       const item = tagValue[index];
       const trigger = 'backspace';
@@ -109,6 +114,7 @@ export default function useTagList(props: TagInputProps) {
     clearAll,
     onClose,
     onInnerEnter,
+    onInputBackspaceKeyDown,
     onInputBackspaceKeyUp,
     renderLabel,
   };
