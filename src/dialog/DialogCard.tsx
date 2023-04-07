@@ -99,7 +99,7 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
   };
 
   const renderFooter = () => {
-    if (footer === false) return null;
+    if (footer === false || footer === null) return null;
 
     const defaultFooter = () => {
       const renderCancelBtn = renderDialogButton(cancelBtn, {
