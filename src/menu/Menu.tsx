@@ -27,7 +27,7 @@ const Menu = forwardRefWithStatics(
     // 菜单宽度
     const menuWidthArr = Array.isArray(width) ? width : [width, DEFAULT_MENU_WIDTH[1]];
 
-    const { collapsed } = value;
+    const { collapsed, expandType } = value;
 
     return (
       <MenuContext.Provider value={value}>
@@ -41,7 +41,13 @@ const Menu = forwardRefWithStatics(
         >
           <div className={`${classPrefix}-default-menu__inner`}>
             {logo && <div className={`${classPrefix}-menu__logo`}>{logo}</div>}
-            <ul className={classNames(`${classPrefix}-menu`, { [`${classPrefix}-menu--scroll`]: !collapsed })}>
+            <ul
+              className={classNames(
+                `${classPrefix}-menu`,
+                { [`${classPrefix}-menu--scroll`]: expandType !== 'popup' },
+                'narrow-scrollbar',
+              )}
+            >
               {children}
             </ul>
             {operations && <div className={`${classPrefix}-menu__operations`}>{operations}</div>}
