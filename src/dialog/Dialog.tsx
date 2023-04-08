@@ -207,7 +207,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
                 <DialogCard
                   ref={dialogCardRef}
                   {...restState}
-                  style={{ ...style, width: parseValueToPx(width) }}
+                  style={{ ...style, width: parseValueToPx(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}
