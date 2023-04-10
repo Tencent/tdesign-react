@@ -144,8 +144,8 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 
   // Popper样式变化时强刷组件
   useEffect(() => {
-    setStyleState(!styleState);
-  }, [styleState, styles]);
+    !styleState && setStyleState(!styleState);
+  }, [styleState]);
 
   // 整理浮层样式
   function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
