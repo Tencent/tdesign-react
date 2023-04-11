@@ -97,6 +97,12 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     onVisibleChange,
   });
 
+  popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
+    placement: popperPlacement,
+    ...popperOptions,
+  });
+  const { styles, attributes } = popperRef.current;
+
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
 
   const updateTimeRef = useRef(null);
@@ -109,7 +115,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 
   // 窗口尺寸变化时调整位置
   useEffect(() => {
-    popperRef.current?.update?.();
+    requestAnimationFrame(() => popperRef.current?.update?.());
   }, [visible, content, windowHeight, windowWidth]);
 
   // 下拉展开时更新内部滚动条
@@ -135,11 +141,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     }
     onScroll?.({ e });
   }
-  popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
-    placement: popperPlacement,
-    ...popperOptions,
-  });
-  const { styles, attributes } = popperRef.current;
 
   // 整理浮层样式
   function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
