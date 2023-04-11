@@ -66,7 +66,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   const prevVisible = usePrevious(visible);
 
   const [popupElement, setPopupElement] = useState(null);
-  const [styleState, setStyleState] = useState<boolean>(false);
+  const [, forceUpdate] = useState({});
   const triggerRef = useRef(null); // 记录 trigger 元素
   const popupRef = useRef(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
@@ -142,10 +142,9 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   });
   const { styles, attributes } = popperRef.current;
 
-  // Popper样式变化时强刷组件
   useEffect(() => {
-    !styleState && setStyleState(!styleState);
-  }, [styleState]);
+    forceUpdate({});
+  }, []);
 
   // 整理浮层样式
   function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
