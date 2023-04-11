@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
@@ -36,8 +36,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
   const showThead = mode === 'date' || mode === 'week';
 
-  // 高亮周区间
-  const weekRowClass = (value, format, targetValue) => {
+  const valueYearWeek = useMemo(() => {
     if (mode !== 'week' || !value) return {};
 
     if (Array.isArray(value)) {
@@ -48,13 +47,31 @@ const DatePickerTable = (props: DatePickerTableProps) => {
       const endYear = endObj?.year?.();
       const endWeek = endObj?.locale?.(local.dayjsLocale)?.week?.();
 
-      const targetObj = parseToDayjs(targetValue, format);
-      const targetYear = targetObj.year();
-      const targetWeek = targetObj.week();
+      return { startYear, startWeek, endYear, endWeek };
+    }
+
+    const valueObj = parseToDayjs(value, format).locale(local.dayjsLocale);
+    return { year: valueObj.year(), week: valueObj.week() };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, value, format]);
+
+  // 高亮周区间
+  const weekRowClass = (value, targetDayjs) => {
+    if (mode !== 'week' || !value) return {};
+
+    if (Array.isArray(value)) {
+      if (!value.length) return {};
+
+      const targetYear = targetDayjs.year();
+      const targetWeek = targetDayjs.week();
       const isActive =
-        (targetYear === startYear && targetWeek === startWeek) || (targetYear === endYear && targetWeek === endWeek);
+        (targetYear === valueYearWeek.startYear && targetWeek === valueYearWeek.startWeek) ||
+        (targetYear === valueYearWeek.endYear && targetWeek === valueYearWeek.endWeek);
       const isRange =
-        targetYear >= startYear && targetYear <= endYear && targetWeek > startWeek && targetWeek < endWeek;
+        targetYear >= valueYearWeek.startYear &&
+        targetYear <= valueYearWeek.endYear &&
+        targetWeek > valueYearWeek.startWeek &&
+        targetWeek < valueYearWeek.endWeek;
       return {
         // 同年同周
         [`${classPrefix}-date-picker__table-${mode}-row--active`]: isActive,
@@ -64,8 +81,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
     return {
       [`${classPrefix}-date-picker__table-${mode}-row--active`]:
-        parseToDayjs(value, format).locale(local.dayjsLocale).week() ===
-        parseToDayjs(targetValue, format).locale(local.dayjsLocale).week(),
+        valueYearWeek.year === targetDayjs.year() && valueYearWeek.week === targetDayjs.week(),
     };
   };
 
@@ -86,7 +102,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
             <tr
               key={i}
               className={classNames(`${classPrefix}-date-picker__table-${mode}-row`, {
-                ...weekRowClass(value, format, row[0].value),
+                ...weekRowClass(value, row[0].dayjsObj),
               })}
             >
               {row.map((col: any, j: number) => (
