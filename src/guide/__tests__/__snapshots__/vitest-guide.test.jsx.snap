@@ -123,10 +123,6 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
         class="t-popup__content t-popup__content--arrow"
       >
         <div
-          class="t-popup__arrow"
-          style=""
-        />
-        <div
           class="t-guide__tooltip"
         >
           <div
@@ -169,6 +165,10 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
       </div>
     </div>
   </div>
@@ -571,10 +571,6 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
         class="t-popup__content t-popup__content--arrow"
       >
         <div
-          class="t-popup__arrow"
-          style=""
-        />
-        <div
           class="t-guide__tooltip"
         >
           <div
@@ -613,6 +609,10 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
       </div>
     </div>
   </div>
@@ -934,10 +934,6 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
         class="t-popup__content t-popup__content--arrow"
       >
         <div
-          class="t-popup__arrow"
-          style=""
-        />
-        <div
           class="t-guide__tooltip"
         >
           <div
@@ -976,6 +972,10 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
       </div>
     </div>
   </div>
@@ -1105,10 +1105,6 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
         class="t-popup__content t-popup__content--arrow"
       >
         <div
-          class="t-popup__arrow"
-          style=""
-        />
-        <div
           class="t-guide__tooltip"
         >
           <div
@@ -1147,6 +1143,10 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
             </div>
           </div>
         </div>
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
       </div>
     </div>
   </div>
@@ -1276,10 +1276,6 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
         class="t-popup__content t-popup__content--arrow"
       >
         <div
-          class="t-popup__arrow"
-          style=""
-        />
-        <div
           class="t-guide__tooltip"
         >
           <div
@@ -1322,6 +1318,10 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="t-popup__arrow"
+          style=""
+        />
       </div>
     </div>
   </div>
