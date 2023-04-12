@@ -44,15 +44,17 @@ const useDrag = (ref, options: DraggableProps) => {
   const handlePointerUp = (e: MouseEvent) => {
     isDraggingRef.current = false;
     end(getCoordinate(e), e);
-    window.removeEventListener('mouseup', handlePointerUp);
-    window.removeEventListener('mousemove', handlePointerMove);
+    const element = ref.current;
+    element.removeEventListener('mouseup', handlePointerUp);
+    element.removeEventListener('mousemove', handlePointerMove);
   };
 
   const handlePointerDown = (e: MouseEvent) => {
     isDraggingRef.current = true;
     start(getCoordinate(e), e);
-    window.addEventListener('mouseup', handlePointerUp);
-    window.addEventListener('mousemove', handlePointerMove);
+    const element = ref.current;
+    element.addEventListener('mouseup', handlePointerUp);
+    element.addEventListener('mousemove', handlePointerMove);
   };
 
   useEffect(() => {
@@ -64,8 +66,6 @@ const useDrag = (ref, options: DraggableProps) => {
       if (element) {
         element.removeEventListener('mousedown', handlePointerDown);
       }
-      window.removeEventListener('mouseup', handlePointerUp);
-      window.removeEventListener('mousemove', handlePointerMove);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
