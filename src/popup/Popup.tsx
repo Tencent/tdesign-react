@@ -196,8 +196,8 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
               style={getOverlayStyle(overlayInnerStyle)}
               onScroll={handleScroll}
             >
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
               {content}
+              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
             </div>
           </div>
         </CSSTransition>
