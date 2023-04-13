@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import isFunction from 'lodash/isFunction';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
@@ -134,12 +135,17 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
   }
 
   function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
-    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
-    if (scrollHeight - scrollTop === clientHeight) {
-      // touch bottom
-      onScrollToBottom?.({ e });
-    }
     onScroll?.({ e });
+
+    // 防止多次触发添加截流
+    const debounceOnScrollBottom = debounce((e) => onScrollToBottom?.({ e }), 100);
+
+    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+    // windows 下滚动会出现小数，所以这里取整
+    if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+      // touch bottom
+      debounceOnScrollBottom(e);
+    }
   }
 
   // 整理浮层样式
