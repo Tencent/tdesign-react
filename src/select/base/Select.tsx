@@ -1,4 +1,14 @@
-import React, { useEffect, Ref, useMemo, KeyboardEvent, useRef, useCallback } from 'react';
+import React, {
+  useEffect,
+  Ref,
+  useMemo,
+  KeyboardEvent,
+  useRef,
+  useCallback,
+  Children,
+  cloneElement,
+  isValidElement,
+} from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -264,6 +274,13 @@ const Select = forwardRefWithStatics(
     };
     const getPopupInstance = useCallback(() => (selectInputRef as any).current?.getPopupContentElement(), []);
 
+    const childrenWithProps = Children.map(children, (child) => {
+      if (isValidElement(child)) {
+        const addedProps = { multiple };
+        return cloneElement(child, { ...addedProps });
+      }
+      return child;
+    });
     // 渲染主体内容
     const renderContent = () => {
       const popupContentProps = {
@@ -288,7 +305,7 @@ const Select = forwardRefWithStatics(
         getPopupInstance,
         scroll,
       };
-      return <PopupContent {...popupContentProps}>{children}</PopupContent>;
+      return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };
 
     const renderValueDisplay = () => {
