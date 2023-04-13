@@ -7,7 +7,7 @@ spline: explain
 
 ## 🌈 1.1.2 `2023-04-13` 
 ### 🚀 Features
-- `datepicker`: 优化周选择器高亮判断逻辑性能问题 @honkinglin ([#2136](https://github.com/Tencent/tdesign-react/pull/2136))
+- `DatePicker`: 优化周选择器高亮判断逻辑性能问题 @honkinglin ([#2136](https://github.com/Tencent/tdesign-react/pull/2136))
 ### 🐞 Bug Fixes
 - `Dialog`: 
     - 修复设置style width 不生效问题 @honkinglin ([#2132](https://github.com/Tencent/tdesign-react/pull/2132))
