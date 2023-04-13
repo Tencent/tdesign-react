@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.2 `2023-04-13` 
+### 🚀 Features
+- `datepicker`: 优化周选择器高亮判断逻辑性能问题 @honkinglin ([#2136](https://github.com/Tencent/tdesign-react/pull/2136))
+### 🐞 Bug Fixes
+- `Dialog`: 
+    - 修复设置style width 不生效问题 @honkinglin ([#2132](https://github.com/Tencent/tdesign-react/pull/2132))
+    - 修复 footer 渲染 null 问题 @honkinglin ([#2131](https://github.com/Tencent/tdesign-react/pull/2131))
+- `Select`: 修复多选分组展示样式异常的问题 @uyarn ([#2138](https://github.com/Tencent/tdesign-react/pull/2138))
+- `Popup`: 
+    - 修复 windows 下 scrollTop 出现小数导致判断滚动底部失效 @honkinglin ([#2142](https://github.com/Tencent/tdesign-react/pull/2142))
+    - 修复临界点初次定位问题 @honkinglin ([#2134](https://github.com/Tencent/tdesign-react/pull/2134))
+- `ColorPicker`: 修复 Frame 中无法拖拽饱和度和 slider 的问题 @insekkei ([#2140](https://github.com/Tencent/tdesign-react/pull/2140))
+
 ## 🌈 1.1.1 `2023-04-06` 
 ### 🚀 Features
 - `StickyTool`: 新增`sticky-tool`组件 @ZekunWu ([#2065](https://github.com/Tencent/tdesign-react/pull/2065))
