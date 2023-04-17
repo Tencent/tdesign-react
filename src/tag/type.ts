@@ -9,6 +9,10 @@ import { MouseEvent } from 'react';
 
 export interface TdTagProps {
   /**
+   * 组件子元素，同 `content`
+   */
+  children?: TNode;
+  /**
    * 标签是否可关闭
    * @default false
    */
@@ -70,9 +74,13 @@ export interface TdCheckTagProps {
    */
   defaultChecked?: boolean;
   /**
+   * 组件子元素
+   */
+  children?: TNode;
+  /**
    * 组件子元素；传入数组时：[选中内容，非选中内容]
    */
-  content?: [];
+  content?: [] | TNode;
   /**
    * 标签禁用态，失效标签不能触发事件。默认风格（theme=default）才有禁用态
    * @default false

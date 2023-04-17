@@ -16,12 +16,14 @@ describe('TagInput Component', () => {
     await mockDelay();
     expect(container.querySelector('.t-tag-input__suffix-clear')).toBeFalsy();
   });
+
   it('props.clearable: show clearIcon on mouse enter', async () => {
     const { container } = getTagInputValueMount(TagInput, { clearable: true });
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
   });
+
   it('props.clearable: clear all tags on click clearIcon', async () => {
     const onClearFn1 = vi.fn();
     const onChangeFn1 = vi.fn();
@@ -33,19 +35,21 @@ describe('TagInput Component', () => {
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
-    expect(onClearFn1).toHaveBeenCalled(1);
+    expect(onClearFn1).toHaveBeenCalled();
     expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
-    expect(onChangeFn1).toHaveBeenCalled(1);
+    expect(onChangeFn1).toHaveBeenCalled();
     expect(onChangeFn1.mock.calls[0][0]).toEqual([]);
     expect(onChangeFn1.mock.calls[0][1].trigger).toBe('clear');
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
   });
+
   it('props.clearable: disabled TagInput can not show clear icon', async () => {
     const { container } = getTagInputValueMount(TagInput, { disabled: true, clearable: true });
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
   });
+
   it('props.clearable: readonly TagInput can not show clear icon', async () => {
     const { container } = getTagInputValueMount(TagInput, { readonly: true, clearable: true });
     fireEvent.mouseEnter(container.querySelector('.t-input'));
@@ -82,6 +86,7 @@ describe('TagInput Component', () => {
     await mockDelay();
     expect(container.querySelector('.t-tag-input__suffix-clear')).toBeFalsy();
   });
+
   it('props.disabled: disabled TagInput can not trigger focus event', () => {
     const onFocusFn = vi.fn();
     const { container } = render(<TagInput disabled={true} onFocus={onFocusFn}></TagInput>);
@@ -109,7 +114,7 @@ describe('TagInput Component', () => {
   });
 
   it(`props.inputValue is equal to input value text`, () => {
-    const { container } = render(<TagInput inputValue="input value text"></TagInput>);
+    const { container } = render(<TagInput inputValue={'input value text'}></TagInput>);
     const domWrapper = container.querySelector('input');
     expect(domWrapper.value).toBe('input value text');
   });
@@ -134,13 +139,13 @@ describe('TagInput Component', () => {
     expect(container.querySelectorAll('.t-tag').length).toBe(1);
   });
 
-  it('props.minCollapsedNum is equal 3', () => {
+  it('props.minCollapsedNum works fine. `{".t-tag":4}` should exist', () => {
     const { container } = getTagInputValueMount(TagInput, { minCollapsedNum: 3 });
     expect(container.querySelectorAll('.t-tag').length).toBe(4);
   });
 
   it('props.placeholder works fine', () => {
-    const wrapper = render(<TagInput placeholder="This is TagInput placeholder"></TagInput>);
+    const wrapper = render(<TagInput placeholder={'This is TagInput placeholder'}></TagInput>);
     const container = wrapper.container.querySelector('input');
     expect(container.getAttribute('placeholder')).toBe('This is TagInput placeholder');
   });
@@ -166,6 +171,7 @@ describe('TagInput Component', () => {
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
   });
+
   it('props.readonly: readonly TagInput can not trigger focus event', () => {
     const onFocusFn = vi.fn();
     const { container } = render(<TagInput readonly={true} onFocus={onFocusFn}></TagInput>);
@@ -212,14 +218,17 @@ describe('TagInput Component', () => {
   });
 
   it('props.tag works fine', () => {
-    const { container } = getTagInputValueMount(TagInput, { tag: <span className="custom-node">TNode</span> });
+    const { container } = getTagInputValueMount(TagInput, {
+      tag: <span className="custom-node">TNode</span>,
+      value: ['tdesign-vue'],
+    });
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
   it('props.tag is a function with params', () => {
     const fn = vi.fn();
-    getTagInputValueMount(TagInput, { tag: fn });
-    expect(fn).toHaveBeenCalled(1);
+    getTagInputValueMount(TagInput, { tag: fn, value: ['tdesign-vue'] });
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].value).toBe('tdesign-vue');
   });
 
@@ -229,7 +238,7 @@ describe('TagInput Component', () => {
   });
 
   it('props.tips is equal this is a tip', () => {
-    const { container } = render(<TagInput tips="this is a tip"></TagInput>);
+    const { container } = render(<TagInput tips={'this is a tip'}></TagInput>);
     expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
   });
 
@@ -242,6 +251,7 @@ describe('TagInput Component', () => {
     simulateInputEnter(inputDom2);
     expect(container.querySelector('.t-tag')).toBeFalsy();
   });
+
   it('props.value: uncontrolled value test: count of tags can be changed inner TagInput', () => {
     const { container } = getTagInputDefaultMount(TagInput);
     fireEvent.focus(container.querySelector('input'));
@@ -260,7 +270,7 @@ describe('TagInput Component', () => {
   it('props.valueDisplay is a function with params', () => {
     const fn = vi.fn();
     getTagInputValueMount(TagInput, { valueDisplay: fn });
-    expect(fn).toHaveBeenCalled(1);
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].value).toEqual([
       'tdesign-vue',
       'tdesign-react',
@@ -278,13 +288,13 @@ describe('TagInput Component', () => {
     const inputDom1 = container.querySelector('input');
     simulateInputChange(inputDom1, 'tag1');
     fireEvent.blur(container.querySelector('input'));
-    const attrDom2 = document.querySelector('input');
+    const attrDom2 = container.querySelector('input');
     expect(attrDom2.value).toBe('');
-    expect(onBlurFn2).toHaveBeenCalled(1);
+    expect(onBlurFn2).toHaveBeenCalled();
     expect(onBlurFn2.mock.calls[0][0]).toEqual([]);
     expect(onBlurFn2.mock.calls[0][1].e.type).toBe('blur');
     expect(onBlurFn2.mock.calls[0][1].inputValue).toBe('');
-    expect(onInputChangeFn2).toHaveBeenCalled(1);
+    expect(onInputChangeFn2).toHaveBeenCalled();
     expect(onInputChangeFn2.mock.calls[1][0]).toBe('');
     expect(onInputChangeFn2.mock.calls[1][1].e.type).toBe('blur');
     expect(onInputChangeFn2.mock.calls[1][1].trigger).toBe('blur');
@@ -301,9 +311,9 @@ describe('TagInput Component', () => {
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
-    expect(onClearFn1).toHaveBeenCalled(1);
+    expect(onClearFn1).toHaveBeenCalled();
     expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
-    expect(onChangeFn1).toHaveBeenCalled(1);
+    expect(onChangeFn1).toHaveBeenCalled();
     expect(onChangeFn1.mock.calls[0][0]).toEqual([]);
     expect(onChangeFn1.mock.calls[0][1].trigger).toBe('clear');
   });
@@ -312,7 +322,7 @@ describe('TagInput Component', () => {
     const fn = vi.fn();
     const { container } = render(<TagInput onClick={fn}></TagInput>);
     fireEvent.click(container.querySelector('.t-input'));
-    expect(fn).toHaveBeenCalled(1);
+    expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].e.type).toBe('click');
   });
 
@@ -321,11 +331,12 @@ describe('TagInput Component', () => {
     const { container } = getTagInputDefaultMount(TagInput, { value: ['tag'] }, { onEnter: onEnterFn });
     const inputDom = container.querySelector('input');
     simulateInputEnter(inputDom);
-    expect(onEnterFn).toHaveBeenCalled(1);
+    expect(onEnterFn).toHaveBeenCalled();
     expect(onEnterFn.mock.calls[0][0]).toEqual(['tag']);
     expect(onEnterFn.mock.calls[0][1].e.type).toBe('keydown');
     expect(onEnterFn.mock.calls[0][1].inputValue).toBe('');
   });
+
   it('events.enter works fine', () => {
     const { container } = render(<TagInput></TagInput>);
     fireEvent.focus(container.querySelector('input'));
@@ -340,16 +351,17 @@ describe('TagInput Component', () => {
     const onFocusFn = vi.fn();
     const { container } = getTagInputDefaultMount(TagInput, {}, { onFocus: onFocusFn });
     fireEvent.focus(container.querySelector('input'));
-    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn).toHaveBeenCalled();
     expect(onFocusFn.mock.calls[0][0]).toEqual([]);
     expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
     expect(onFocusFn.mock.calls[0][1].inputValue).toBe('');
   });
+
   it('events.focus: expect focus not change inputValue', () => {
     const onFocusFn = vi.fn();
     const { container } = getTagInputDefaultMount(TagInput, { inputValue: 'tag' }, { onFocus: onFocusFn });
     fireEvent.focus(container.querySelector('input'));
-    expect(onFocusFn).toHaveBeenCalled(1);
+    expect(onFocusFn).toHaveBeenCalled();
     expect(onFocusFn.mock.calls[0][0]).toEqual([]);
     expect(onFocusFn.mock.calls[0][1].e.type).toBe('focus');
     expect(onFocusFn.mock.calls[0][1].inputValue).toBe('tag');
@@ -360,7 +372,7 @@ describe('TagInput Component', () => {
     const { container } = render(<TagInput onMouseenter={onMouseenterFn}></TagInput>);
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
-    expect(onMouseenterFn).toHaveBeenCalled(1);
+    expect(onMouseenterFn).toHaveBeenCalled();
     expect(onMouseenterFn.mock.calls[0][0].e.type).toBe('mouseenter');
   });
 
@@ -369,7 +381,7 @@ describe('TagInput Component', () => {
     const { container } = render(<TagInput onMouseleave={onMouseleaveFn}></TagInput>);
     fireEvent.mouseLeave(container.querySelector('.t-input'));
     await mockDelay();
-    expect(onMouseleaveFn).toHaveBeenCalled(1);
+    expect(onMouseleaveFn).toHaveBeenCalled();
     expect(onMouseleaveFn.mock.calls[0][0].e.type).toBe('mouseleave');
   });
 
@@ -377,7 +389,7 @@ describe('TagInput Component', () => {
     const onPasteFn = vi.fn();
     const { container } = render(<TagInput onPaste={onPasteFn}></TagInput>);
     fireEvent.paste(container.querySelector('input'));
-    expect(onPasteFn).toHaveBeenCalled(1);
+    expect(onPasteFn).toHaveBeenCalled();
     expect(onPasteFn.mock.calls[0][0].e.type).toBe('paste');
   });
 
@@ -385,7 +397,7 @@ describe('TagInput Component', () => {
     const onRemoveFn = vi.fn();
     const { container } = getTagInputValueMount(TagInput, {}, { onRemove: onRemoveFn });
     fireEvent.keyDown(container.querySelector('input'), { key: 'Backspace', code: 'Backspace', charCode: 8 });
-    expect(onRemoveFn).toHaveBeenCalled(1);
+    expect(onRemoveFn).toHaveBeenCalled();
     expect(onRemoveFn.mock.calls[0][0].value).toEqual([
       'tdesign-vue',
       'tdesign-react',
@@ -397,11 +409,12 @@ describe('TagInput Component', () => {
     expect(onRemoveFn.mock.calls[0][0].item).toBe('tdesign-mobile-react');
     expect(onRemoveFn.mock.calls[0][0].e.type).toBe('keydown');
   });
+
   it('events.remove: remove any tag on click tag close icon', () => {
     const onRemoveFn = vi.fn();
     const { container } = getTagInputValueMount(TagInput, {}, { onRemove: onRemoveFn });
     fireEvent.click(container.querySelector('.t-tag__icon-close'));
-    expect(onRemoveFn).toHaveBeenCalled(1);
+    expect(onRemoveFn).toHaveBeenCalled();
     expect(onRemoveFn.mock.calls[0][0].value).toEqual([
       'tdesign-react',
       'tdesign-miniprogram',

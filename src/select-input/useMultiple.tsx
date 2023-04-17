@@ -60,14 +60,12 @@ export default function useMultiple(props: TdSelectInputProps) {
       onChange={onTagInputChange}
       onInputChange={(val, context) => {
         // 筛选器统一特性：筛选器按下回车时不清空输入框
-        if (context?.trigger === 'enter') return;
+        if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
         setTInputValue(val, { trigger: context.trigger, e: context.e });
       }}
       tagProps={props.tagProps}
       onClear={p.onInnerClear}
-      onBlur={(val, context) => {
-        props.onBlur?.(props.value, { ...context, tagInputValue: val });
-      }}
+      // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
@@ -86,6 +84,7 @@ export default function useMultiple(props: TdSelectInputProps) {
     tags,
     tPlaceholder,
     tagInputRef,
+    multipleInputValue: tInputValue,
     renderSelectMultiple,
   };
 }

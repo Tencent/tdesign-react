@@ -18,6 +18,7 @@ export const cascaderDefaultProps: TdCascaderProps = {
   readonly: false,
   showAllLevels: true,
   size: 'medium',
+  status: 'default',
   trigger: 'click',
   defaultValue: [],
   valueMode: 'onlyLeaf',

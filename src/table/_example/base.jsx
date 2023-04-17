@@ -69,6 +69,8 @@ export default function TableBasic() {
       tableLayout={tableLayout ? 'auto' : 'fixed'}
       rowClassName={({ rowIndex }) => `${rowIndex}-class`}
       cellEmptyContent={'-'}
+      resizable
+      bordered
       // 与pagination对齐
       pagination={{
         defaultCurrent: 2,

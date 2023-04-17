@@ -4,7 +4,7 @@ import Loading from '../loading';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import useCommonClassName from '../_util/useCommonClassName';
-import { TdSwitchProps } from './type';
+import { SwitchValue, TdSwitchProps } from './type';
 import { switchDefaultProps } from './defaultProps';
 import log from '../_common/js/log';
 import parseTNode from '../_util/parseTNode';
@@ -12,9 +12,9 @@ import parseTNode from '../_util/parseTNode';
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
 
-export interface SwitchProps extends TdSwitchProps, StyledProps {}
+export interface SwitchProps<T extends SwitchValue = SwitchValue> extends TdSwitchProps<T>, StyledProps {}
 
-const Switch = forwardRef((props: SwitchProps, ref: React.Ref<HTMLButtonElement>) => {
+const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const { className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps } = props;
   const [activeValue = true, inactiveValue = false] = customValue || [];
@@ -80,4 +80,8 @@ const Switch = forwardRef((props: SwitchProps, ref: React.Ref<HTMLButtonElement>
 Switch.displayName = 'Switch';
 Switch.defaultProps = switchDefaultProps;
 
-export default Switch;
+export default Switch as <T extends SwitchValue = SwitchValue>(
+  props: SwitchProps<T> & {
+    ref?: React.Ref<HTMLButtonElement>;
+  },
+) => React.ReactElement;

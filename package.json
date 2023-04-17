@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "0.45.4",
+  "version": "1.1.2",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -48,7 +48,8 @@
     "test": "vitest run && npm run test:snap",
     "test:ui": "vitest run --ui",
     "test:snap": "cross-env NODE_ENV=test-snap vitest run",
-    "test:update": "cross-env NODE_ENV=test-snap vitest run -u",
+    "test:snap-update": "cross-env NODE_ENV=test-snap vitest run -u",
+    "test:update": "vitest run -u && npm run test:snap-update",
     "test:coverage": "vitest run --coverage",
     "prebuild": "rimraf es/* lib/* dist/* esm/*",
     "build": "cross-env NODE_ENV=production rollup -c script/rollup.config.js && npm run build:tsc",
@@ -90,6 +91,9 @@
   "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
   "bugs": {
     "url": "https://github.com/Tencent/tdesign-react/issues"
+  },
+  "resolutions": {
+    "react-popper": "~2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -146,6 +150,7 @@
     "gray-matter": "^4.0.3",
     "happy-dom": "^7.5.7",
     "husky": "^7.0.4",
+    "jest-canvas-mock": "^2.4.0",
     "jsdom": "^20.0.1",
     "less": "^4.1.2",
     "lint-staged": "^12.1.6",
@@ -178,7 +183,7 @@
     "start-server-and-test": "^1.14.0",
     "tdesign-icons-view": "^0.1.5",
     "tdesign-publish-cli": "^0.0.10",
-    "tdesign-site-components": "^0.11.3",
+    "tdesign-site-components": "^0.12.2",
     "tdesign-theme-generator": "^0.5.0",
     "ts-morph": "^13.0.02",
     "ts-node": "^10.4.0",
@@ -206,7 +211,7 @@
     "react-popper": "~2.3.0",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
-    "tdesign-icons-react": "^0.1.7",
+    "tdesign-icons-react": "^0.2.0",
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "validator": "~13.7.0"

@@ -93,7 +93,9 @@ exports[`Image Component > props.overlayContent works fine 1`] = `
         </div>
         <div
           class="t-space-item"
-        />
+        >
+          图片加载中
+        </div>
       </div>
     </div>
     <div
@@ -160,7 +162,9 @@ exports[`Image Component > props.placeholder works fine 1`] = `
         </div>
         <div
           class="t-space-item"
-        />
+        >
+          图片加载中
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
-import { useRef, useCallback, useMemo } from 'react';
+import { useRef, useCallback, useMemo, useEffect } from 'react';
 import useLayoutEffect from '../../_util/useLayoutEffect';
-import getScrollbarWidth from '../../_common/js/utils/getScrollbarWidth';
+import { getScrollbarWidth } from '../../_common/js/utils/getScrollbarWidth';
 
 let key = 1;
 
@@ -28,7 +28,8 @@ export default function useLockStyle(props) {
   );
 
   useLayoutEffect(() => {
-    const hasScrollBar = document.body.scrollHeight > document.body.clientHeight;
+    if (typeof document === 'undefined') return;
+    const hasScrollBar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
     const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
     lockStyleRef.current.innerHTML = `
@@ -38,11 +39,10 @@ export default function useLockStyle(props) {
         ${mode === 'push' ? marginString : `width: calc(100% - ${scrollbarWidth}px);`}
       }
     `;
-
-    return clearStyleFunc;
-  }, [mode, marginString, clearStyleFunc]);
+  }, [mode, marginString]);
 
   useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
     if (!preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {
@@ -51,4 +51,6 @@ export default function useLockStyle(props) {
       clearStyleFunc();
     }
   }, [preventScrollThrough, visible, showInAttachedElement, clearStyleFunc]);
+
+  useEffect(() => clearStyleFunc, [clearStyleFunc]);
 }

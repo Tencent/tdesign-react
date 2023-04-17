@@ -40,15 +40,15 @@ transition | Boolean | true | \- | N
 value | Array | [] | Typescript：`Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree/type.ts) | N
 defaultValue | Array | [] | uncontrolled property。Typescript：`Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree/type.ts) | N
 valueMode | String | onlyLeaf | options：onlyLeaf/parentFirst/all | N
-onActive | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/> | N
-onChange | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: any }) => void`<br/> | N
+onActive | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'setItem' }) => void`<br/> | N
+onChange | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: any; trigger: 'node-click' \| 'setItem' }) => void`<br/> | N
 onClick | Function |  | Typescript：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/> | N
 onDragEnd | Function |  | Typescript：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/> | N
 onDragLeave | Function |  | Typescript：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/> | N
 onDragOver | Function |  | Typescript：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/> | N
 onDragStart | Function |  | Typescript：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/> | N
 onDrop | Function |  | Typescript：`(context: {     e: DragEvent;     dragNode: TreeNodeModel<T>;     dropNode: TreeNodeModel<T>;     dropPosition: number;   }) => void`<br/> | N
-onExpand | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/> | N
+onExpand | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'icon-click' \| 'setItem' }) => void`<br/> | N
 onLoad | Function |  | Typescript：`(context: { node: TreeNodeModel<T> }) => void`<br/> | N
 
 ### TreeInstanceFunctions 组件实例方法
@@ -57,17 +57,17 @@ name | params | return | description
 -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-appendTo | `(value: TreeNodeValue, newData: T \| Array<T>)` | \- | \-
-getIndex | `(value: TreeNodeValue)` | `number` | \-
-getItem | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | \-
-getItems | `(value?: TreeNodeValue)` | `Array<TreeNodeModel<T>>` | \-
-getParent | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | \-
-getParents | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | \-
-getPath | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | \-
-insertAfter | `(value: TreeNodeValue, newData: T)` | \- | \-
-insertBefore | `(value: TreeNodeValue, newData: T)` | \- | \-
-remove | `(value: TreeNodeValue)` | \- | \-
-setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | \-
+appendTo | `(value: TreeNodeValue, newData: T \| Array<T>)` | \- | required
+getIndex | `(value: TreeNodeValue)` | `number` | required
+getItem | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | required
+getItems | `(value?: TreeNodeValue)` | `Array<TreeNodeModel<T>>` | required
+getParent | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | required
+getParents | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | required
+getPath | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | required
+insertAfter | `(value: TreeNodeValue, newData: T)` | \- | required
+insertBefore | `(value: TreeNodeValue, newData: T)` | \- | required
+remove | `(value: TreeNodeValue)` | \- | required
+setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | required
 
 ### TreeNodeState
 
@@ -92,16 +92,16 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 actived | Boolean | - | required | Y
 checked | Boolean | - | required | Y
-data | Object | - | required。Typescript：`T` | Y
+data | Object | - | required。node data, extends `TreeOptionData`。Typescript：`T` | Y
 expanded | Boolean | - | required | Y
 indeterminate | Boolean | - | required | Y
 loading | Boolean | - | required | Y
-`TreeNodeState` | \- | - | \- | N
+`TreeNodeState` | \- | - | extends `TreeNodeState` | N
 ### TreeNodeModel
 
 name | params | return | description
 -- | -- | -- | --
-appendData | `(data: T \| Array<T>)` | \- | required
+appendData | `(data: T \| Array<T>)` | \- | required。add node data, `T` extends `TreeOptionData`
 getChildren | `(deep: boolean)` | `Array<TreeNodeModel<T>> \| boolean` | required
 getIndex | \- | `number` | required
 getLevel | \- | `number` | required
@@ -116,4 +116,4 @@ isFirst | \- | `boolean` | required
 isLast | \- | `boolean` | required
 isLeaf | \- | `boolean` | required
 remove | `(value?: TreeNodeValue)` | \- | required
-setData | `(data: T)` | \- | required
+setData | `(data: T)` | \- | required。set node data, `T` extends `TreeOptionData`

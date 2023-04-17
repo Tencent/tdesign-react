@@ -1,4 +1,4 @@
-import React, { useState, useRef, ReactNode } from 'react';
+import React, { useState, useRef } from 'react';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
 import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames';
@@ -7,15 +7,16 @@ import Checkbox from '../checkbox';
 import Radio from '../radio';
 import Input from '../input';
 import TButton from '../button';
-import { PrimaryTableCol, FilterValue, TableRowData } from './type';
+import { PrimaryTableCol, FilterValue, TableRowData, TdPrimaryTableProps } from './type';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import log from '../_common/js/log';
+import { parseContentTNode } from '../_util/parseTNode';
 
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
 export interface TableFilterControllerProps {
-  filterIcon: ReactNode;
+  filterIcon: TdPrimaryTableProps['filterIcon'];
   tFilterValue: FilterValue;
   innerFilterValue: FilterValue;
   tableFilterClasses: {
@@ -31,6 +32,7 @@ export interface TableFilterControllerProps {
   };
   isFocusClass: string;
   column: PrimaryTableCol;
+  colIndex: number;
   primaryTableElement: HTMLElement;
   popupProps: PopupProps;
   onVisibleChange: (val: boolean) => void;
@@ -143,7 +145,9 @@ export default function TableFilterController(props: TableFilterControllerProps)
         }
         {...props.popupProps}
       >
-        <div ref={triggerElementRef}>{props.filterIcon || defaultFilterIcon}</div>
+        <div ref={triggerElementRef}>
+          {parseContentTNode(props.filterIcon, { col: column, colIndex: props.colIndex }) || defaultFilterIcon}
+        </div>
       </Popup>
     </div>
   );

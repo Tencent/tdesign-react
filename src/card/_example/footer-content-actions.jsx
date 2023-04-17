@@ -23,7 +23,7 @@ export default function FooterContentActionsCard() {
       actions={
         <Dropdown options={options} onClick={clickHandler} minColumnWidth="112">
           <Button variant="text" shape="square">
-            <Icon name="more" size="24" />
+            <Icon name="more" />
           </Button>
         </Dropdown>
       }

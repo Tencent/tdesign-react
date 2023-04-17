@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import useRipple from '../_util/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
+import type { DragSortInnerProps } from '../_util/useDragSorter';
 
 import { TdTabPanelProps, TdTabsProps } from './type';
 import noop from '../_util/noop';
@@ -20,6 +21,7 @@ export interface TabNavItemProps extends TdTabPanelProps {
   index: number;
   innerRef(ref: HTMLElement): void;
   onTabRemove: TdTabsProps['onRemove'];
+  dragProps?: DragSortInnerProps;
 }
 
 const TabNavItem: React.FC<TabNavItemProps> = (props) => {
@@ -37,6 +39,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     index,
     onTabRemove = noop,
     innerRef,
+    dragProps,
   } = props;
 
   const { CloseIcon } = useGlobalIcon({
@@ -54,6 +57,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   return (
     <div
+      {...dragProps}
       ref={innerRef}
       onClick={disabled ? noop : onClick}
       className={classNames(

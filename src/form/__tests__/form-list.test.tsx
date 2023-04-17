@@ -1,44 +1,131 @@
-import { render, mockTimeout } from '@test/utils';
+import { render, fireEvent, mockTimeout } from '@test/utils';
 import React from 'react';
 
+import { MinusCircleIcon } from 'tdesign-icons-react';
 import Input from '../../input';
 import Form from '../index';
 import FormList from '../FormList';
-import { FormListFieldOperation } from '../type';
+import Button from '../../button';
 
 const { FormItem } = Form;
 
 describe('Form List 组件测试', () => {
   test('form list 测试', async () => {
-    const TestView = (props: { operationRef: (ref: FormListFieldOperation) => void }) => (
-      <Form>
-        <FormList name="data">
-          {(fields, operation) => {
-            if (props.operationRef) {
-              props.operationRef(operation);
-            }
-            return fields.map(({ key, name, ...restField }) => (
-              <FormItem key={key}>
-                <FormItem {...restField} name={[name, 'name']} label="姓名" rules={[{ required: true, type: 'error' }]}>
-                  <Input />
-                </FormItem>
-              </FormItem>
-            ));
-          }}
-        </FormList>
-      </Form>
-    );
-    let listOperation: FormListFieldOperation = null;
-    const { getByDisplayValue, queryByDisplayValue } = render(
-      <TestView operationRef={(ref) => (listOperation = ref)} />,
-    );
-    // 测试 FormList add
-    listOperation?.add?.({ name: 'value1' });
-    // @ts-ignore
-    await mockTimeout(() => expect(getByDisplayValue('value1').value).toBe('value1'));
+    const TestView = () => {
+      const [form] = Form.useForm();
 
-    // 测试 FormList remove
-    listOperation?.remove?.(0);
-    await mockTimeout(() => expect(queryByDisplayValue('value1')).toBe(null));
+      function setFields() {
+        form.getFieldsValue(true);
+        form.setFields([{ name: 'address', value: [{ province: 'setFields' }] }]);
+      }
+
+      function setFieldsValue() {
+        form.getFieldValue('address');
+        form.setFieldsValue({ address: [{ province: 'setFieldsValue' }] });
+      }
+
+      function setValidateMessage() {
+        form.setValidateMessage({ address: [{ type: 'error', message: 'message: setValidateMessage' }] });
+      }
+
+      function validate() {
+        form.validate();
+      }
+
+      function validateOnly() {
+        form.validateOnly();
+      }
+
+      function clearValidate() {
+        form.clearValidate();
+      }
+
+      return (
+        <Form form={form}>
+          <FormList name="address">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <FormItem key={key}>
+                    <FormItem
+                      {...restField}
+                      name={[name, 'province']}
+                      label="省份"
+                      rules={[{ required: true, type: 'error' }]}
+                    >
+                      <Input />
+                    </FormItem>
+                    <FormItem
+                      {...restField}
+                      name={[name, 'area']}
+                      label="地区"
+                      rules={[{ required: true, type: 'error' }]}
+                    >
+                      <Input />
+                    </FormItem>
+
+                    <FormItem>
+                      <MinusCircleIcon className="test-remove" onClick={() => remove(name)} />
+                    </FormItem>
+                  </FormItem>
+                ))}
+                <FormItem style={{ marginLeft: 100 }}>
+                  <Button id="test-add" onClick={() => add({ province: 'guangdong', area: 'shenzhen' })}>
+                    Add field
+                  </Button>
+                </FormItem>
+              </>
+            )}
+          </FormList>
+          <FormItem>
+            <Button type="submit">submit</Button>
+            <Button type="reset">reset</Button>
+            <Button onClick={setFields}>setFields</Button>
+            <Button onClick={setFieldsValue}>setFieldsValue</Button>
+            <Button onClick={setValidateMessage}>setValidateMessage</Button>
+            <Button onClick={validate}>validate</Button>
+            <Button onClick={validateOnly}>validateOnly</Button>
+            <Button onClick={clearValidate}>clearValidate</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+
+    const { container, queryByDisplayValue, queryByText } = render(<TestView />);
+    const addBtn = container.querySelector('#test-add');
+    const submitBtn = queryByText('submit');
+    const resetBtn = queryByText('reset');
+
+    fireEvent.click(addBtn);
+    expect(queryByDisplayValue('guangdong')).toBeTruthy();
+    expect(queryByDisplayValue('shenzhen')).toBeTruthy();
+    fireEvent.click(resetBtn);
+    fireEvent.click(submitBtn);
+    await mockTimeout(() => true);
+    expect(queryByText('省份必填')).toBeTruthy();
+    expect(queryByText('地区必填')).toBeTruthy();
+
+    const removeBtn = container.querySelector('.test-remove');
+    fireEvent.click(removeBtn);
+    expect(queryByDisplayValue('guangdong')).not.toBeTruthy();
+    expect(queryByDisplayValue('shenzhen')).not.toBeTruthy();
+
+    fireEvent.click(queryByText('setFields'));
+    await mockTimeout(() => true);
+    expect(queryByDisplayValue('setFields')).toBeTruthy();
+    fireEvent.click(queryByText('setFieldsValue'));
+    await mockTimeout(() => true);
+    expect(queryByDisplayValue('setFieldsValue')).toBeTruthy();
+
+    // validate validateOnly test
+    fireEvent.click(queryByText('validateOnly'));
+    await mockTimeout(() => true);
+    expect(queryByText('省份必填')).not.toBeTruthy();
+    fireEvent.click(queryByText('reset'));
+    fireEvent.click(queryByText('validate'));
+    await mockTimeout(() => true);
+    expect(queryByText('省份必填')).toBeTruthy();
+    fireEvent.click(queryByText('clearValidate'));
+    expect(queryByText('省份必填')).not.toBeTruthy();
   });
 });

@@ -44,6 +44,7 @@ export default function useTableData(props: TableDataProps) {
     monthLocal,
     quarterLocal,
     showWeekOfYear: mode === 'week',
+    dayjsLocale: local.dayjsLocale,
   };
 
   if (mode === 'date') {

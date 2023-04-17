@@ -8,6 +8,16 @@ const classStyles = `
   color: var(--td-text-color-disabled);
   line-height: 32px;
 }
+.tdesign-demo-select-input-status > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tdesign-demo-select-input-status .t-select-input__wrap {
+  width: 300px;
+  height: 32px;
+}
 </style>
 `;
 

@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import isFunction from 'lodash/isFunction';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
@@ -50,6 +51,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     disabled,
     zIndex,
     onScroll,
+    onScrollToBottom,
     expandAnimation,
     delay,
     hideEmptyPopup,
@@ -96,6 +98,12 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     onVisibleChange,
   });
 
+  popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
+    placement: popperPlacement,
+    ...popperOptions,
+  });
+  const { styles, attributes } = popperRef.current;
+
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
 
   const updateTimeRef = useRef(null);
@@ -108,7 +116,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 
   // 窗口尺寸变化时调整位置
   useEffect(() => {
-    popperRef.current?.update?.();
+    requestAnimationFrame(() => popperRef.current?.update?.());
   }, [visible, content, windowHeight, windowWidth]);
 
   // 下拉展开时更新内部滚动条
@@ -126,11 +134,19 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
 
-  popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
-    placement: popperPlacement,
-    ...popperOptions,
-  });
-  const { styles, attributes } = popperRef.current;
+  function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
+    onScroll?.({ e });
+
+    // 防止多次触发添加截流
+    const debounceOnScrollBottom = debounce((e) => onScrollToBottom?.({ e }), 100);
+
+    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+    // windows 下滚动会出现小数，所以这里取整
+    if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+      // touch bottom
+      debounceOnScrollBottom(e);
+    }
+  }
 
   // 整理浮层样式
   function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
@@ -184,10 +200,10 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
                 overlayInnerClassName,
               )}
               style={getOverlayStyle(overlayInnerStyle)}
-              onScroll={(e) => onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> })}
+              onScroll={handleScroll}
             >
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
               {content}
+              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
             </div>
           </div>
         </CSSTransition>
@@ -199,6 +215,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
     getPopper: () => popperRef.current,
     getPopupElement: () => popupRef.current,
     getPortalElement: () => portalRef.current,
+    getPopupContentElement: () => contentRef.current,
     setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
   }));
 

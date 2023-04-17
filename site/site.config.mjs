@@ -130,6 +130,12 @@ export default {
           component: () => import('tdesign-react/anchor/anchor.md'),
         },
         {
+          title: 'BackTop 返回顶部',
+          name: 'back-top',
+          path: '/react/components/back-top',
+          component: () => import('tdesign-react/back-top/back-top.md'),
+        },
+        {
           title: 'Breadcrumb 面包屑',
           name: 'breadcrumb',
           path: '/react/components/breadcrumb',
@@ -158,6 +164,12 @@ export default {
           name: 'steps',
           path: '/react/components/steps',
           component: () => import('tdesign-react/steps/steps.md'),
+        },
+        {
+          title: 'StickyTool 侧边栏',
+          name: 'StickyTool',
+          path: '/react/components/sticky-tool',
+          component: () => import('tdesign-react/sticky-tool/sticky-tool.md'),
         },
         {
           title: 'Tabs 选项卡',

@@ -4,21 +4,6 @@ description: TDesign 适配桌面端的组件库，适合在 React 技术栈项�
 spline: explain
 ---
 
-<div style={{
-  'background': 'rgba(0, 168, 112, .1)',
-  'display': 'flex',
-  'alignItems': 'center',
-  'lineHeight': '20px',
-  'padding': '14px 24px',
-  'borderRadius': '3px',
-  'color': '#555a65'
-}}>
-  <svg fill="none" viewBox="0 0 16 16" width="16px" height="16px" style={{'marginRight': '5px'}}>
-    <path fill="#00a870" d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z" fillOpacity="0.9"></path>
-  </svg>
-  <p>目前组件库处于 Beta 阶段，快速迭代中，请留意版本变化。</p>
-</div>
-
 ### 安装
 
 #### 使用 npm 安装
@@ -120,6 +105,28 @@ module.exports = {
   }],
 }
 ```
+
+### 如何在 next.js 中使用
+
+在 `next.js` 中并不支持引入 `css` 样式文件，而默认导入的 `es` 产物中会自动引入相应 `css` 文件导致项目报错，我们提供了一套无样式的组件库代码存放在 `lib` 目录下。
+
+所以在 `next.js` 中需要调整下使用方式：
+```js
+import { Button } from 'tdesign-react/lib/'; // 按需引入无样式组件代码
+import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
+```
+
+此外 `lib` 包导出的是 `es6` 的代码且在 `node_modules` 中，会被 `webpack` 在编译时跳过，还需配置下 `next.config.js`。
+```js
+const nextConfig = {
+  experimental: {
+    transpilePackages: ['tdesign-react']
+  }
+}
+
+module.exports = nextConfig
+```
+
 
 ### 浏览器兼容性
 

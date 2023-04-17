@@ -56,6 +56,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
     closeOnOverlayClick,
     destroyOnClose,
     preventScrollThrough,
+    onCloseBtnClick,
     ...restState
   } = state;
 
@@ -113,6 +114,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const handleClose = ({ e }) => {
+    onCloseBtnClick?.({ e });
     onClose?.({ e, trigger: 'close-btn' });
   };
 
@@ -139,8 +141,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const onAnimateStart = () => {
-    onOpened?.();
-
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'block';
   };
@@ -162,7 +162,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       </CSSTransition>
     ) : null;
   };
-
   return (
     <CSSTransition
       in={visible}
@@ -172,6 +171,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}
+      onEntered={onOpened}
       onExited={onAnimateLeave}
     >
       <Portal attach={attach} ref={portalRef}>
@@ -190,8 +190,8 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
             <div
               ref={dialogPosition}
               className={classNames(`${componentCls}__position`, {
-                [`${componentCls}--top`]: !!props.top,
-                [`${componentCls}--${props.placement}`]: props.placement && !props.top,
+                [`${componentCls}--top`]: !!props.top || props.placement === 'top',
+                [`${componentCls}--center`]: props.placement === 'center' && !props.top,
               })}
               style={{ paddingTop: parseValueToPx(props.top) }}
               onClick={onMaskClick}
@@ -207,7 +207,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
                 <DialogCard
                   ref={dialogCardRef}
                   {...restState}
-                  style={{ ...style, width: parseValueToPx(width) }}
+                  style={{ ...style, width: parseValueToPx(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}

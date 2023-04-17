@@ -36,23 +36,25 @@ export default function useTagList(props: TagInputProps) {
   const onInnerEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const valueStr = value ? String(value).trim() : '';
     let newValue: TagInputValue = tagValue;
-    if (valueStr) {
-      const isLimitExceeded = max && tagValue?.length >= max;
-      if (!isLimitExceeded) {
-        newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
-        setTagValue(newValue, {
-          trigger: 'enter',
-          index: newValue.length - 1,
-          item: valueStr,
-          e: context.e,
-        });
-      }
+    const isLimitExceeded = max && tagValue?.length >= max;
+    if (valueStr && !isLimitExceeded) {
+      newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr];
+      setTagValue(newValue, {
+        trigger: 'enter',
+        index: newValue.length - 1,
+        item: valueStr,
+        e: context.e,
+      });
     }
     props?.onEnter?.(newValue, { ...context, inputValue: value });
   };
 
+  const onInputBackspaceKeyUp = (value: InputValue) => {
+    if (!tagValue || !tagValue.length) return;
+    setOldInputValue(value);
+  };
   // 按下回退键，删除标签
-  const onInputBackspaceKeyUp = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
+  const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
@@ -64,7 +66,6 @@ export default function useTagList(props: TagInputProps) {
       setTagValue(newValue, { e, index, item, trigger });
       onRemove?.({ e, index, item, trigger, value: newValue });
     }
-    setOldInputValue(value);
   };
 
   const renderLabel = ({ displayNode, label }: { displayNode: ReactNode; label: ReactNode }) => {
@@ -99,7 +100,7 @@ export default function useTagList(props: TagInputProps) {
       const len = tagValue.length - newList.length;
       const params = {
         value: tagValue,
-        count: tagValue.length,
+        count: tagValue.length - minCollapsedNum,
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;
@@ -113,6 +114,7 @@ export default function useTagList(props: TagInputProps) {
     clearAll,
     onClose,
     onInnerEnter,
+    onInputBackspaceKeyDown,
     onInputBackspaceKeyUp,
     renderLabel,
   };

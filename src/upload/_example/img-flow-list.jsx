@@ -5,6 +5,35 @@ export default function TUploadImageFlow() {
   const [autoUpload, setAutoUpload] = useState(false);
   const [files3, setFiles3] = useState([]);
 
+  // 示例代码：自定义上传方法，一个请求上传一个文件
+  // eslint-disable-next-line
+  const requestMethod1 = () => {
+    return new Promise((resolve) => {
+      resolve({
+        status: 'success',
+        response: {
+          url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+        },
+      });
+    });
+  };
+
+  // 示例代码：自定义上传方法，一个请求上传多个文件
+  // eslint-disable-next-line
+  const requestMethod2 = () => {
+    return new Promise((resolve) => {
+      resolve({
+        status: 'success',
+        response: {
+          files: [
+            { name: 'avatar1.jpg', url: 'https://tdesign.gtimg.com/site/avatar.jpg' },
+            { name: 'avatar2.jpg', url: 'https://avatars.githubusercontent.com/u/11605702?v=4' },
+          ],
+        },
+      });
+    });
+  };
+
   // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
   const onValidate = (params) => {
     const { files, type } = params;

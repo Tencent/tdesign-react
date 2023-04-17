@@ -2,7 +2,7 @@
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
 import { useState, useMemo, useEffect, MutableRefObject, useRef } from 'react';
-import { TScroll } from '../common';
+import { TScroll, ScrollToElementParams } from '../common';
 import useResizeObserver from './useResizeObserver';
 
 export type UseVirtualScrollParams = {
@@ -10,16 +10,6 @@ export type UseVirtualScrollParams = {
   data: { [key: string]: any }[];
   scroll: TScroll;
 };
-
-export interface ScrollToElementParams {
-  /** 跳转元素下标 */
-  index: number;
-  /** 跳转元素距离顶部的距离 */
-  top?: number;
-  /** 单个元素高度非固定场景下，即 isFixedRowHeight = false。延迟设置元素位置，一般用于依赖不同高度异步渲染等场景，单位：毫秒 */
-  time?: number;
-  behavior?: 'auto' | 'smooth';
-}
 
 const requestAnimationFrame =
   (typeof window === 'undefined' ? false : window.requestAnimationFrame) || ((cb) => setTimeout(cb, 16.6));

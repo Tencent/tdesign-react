@@ -10,20 +10,6 @@ import { MouseEvent } from 'react';
 
 export interface TdStickyToolProps {
   /**
-   * 默认是否折叠
-   * @default false
-   */
-  collapsed?: boolean;
-  /**
-   * 是否可拖拽
-   * @default false
-   */
-  draggable?: boolean;
-  /**
-   * 自定义折叠入口，collapsed 值为 true 有效
-   */
-  entrance?: TElement;
-  /**
    * 列表
    * @default []
    */
@@ -37,6 +23,20 @@ export interface TdStickyToolProps {
    * @default right-bottom
    */
   placement?: 'right-top' | 'right-center' | 'right-bottom' | 'left-top' | 'left-center' | 'left-bottom';
+  /**
+   * 透传 Popup 组件全部特性，优先级低于 StickyItem.popupProps
+   */
+  popupProps?: PopupProps;
+  /**
+   * 侧边栏菜单形状，有 2 种：方形、圆形
+   * @default square
+   */
+  shape?: 'square' | 'round';
+  /**
+   * 侧边栏菜单类型，有 2 种：常规型和紧凑型
+   * @default normal
+   */
+  type?: 'normal' | 'compact';
   /**
    * 宽度
    */
@@ -55,7 +55,7 @@ export interface TdStickyItemProps {
   /**
    * 图标
    */
-  icon?: TNode;
+  icon?: TElement;
   /**
    * 名称
    */

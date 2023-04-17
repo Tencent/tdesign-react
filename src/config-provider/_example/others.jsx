@@ -12,6 +12,7 @@ import {
   Input,
   Steps,
   Space,
+  Image,
 } from 'tdesign-react';
 import { ChevronRightIcon, CloseIcon, CloseCircleIcon, ErrorIcon } from 'tdesign-icons-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
@@ -19,6 +20,13 @@ import enConfig from 'tdesign-react/es/locale/en_US';
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置
   const globalConfig = merge(enConfig, {
+    image: {
+      // 全局替换图片地址
+      replaceImageSrc(params) {
+        console.log(params);
+        return 'https://tdesign.gtimg.com/demo/demo-image-1.png';
+      },
+    },
     form: {
       requiredMark: false,
     },
@@ -109,6 +117,8 @@ export default function configDemo() {
           ></Steps.StepItem>
           <Steps.StepItem title="Last Step" content="You haven't finish this step."></Steps.StepItem>
         </Steps>
+
+        <Image src="1.jpg" fit="scale-down" style={{ width: '300px' }}></Image>
       </Space>
     </ConfigProvider>
   );

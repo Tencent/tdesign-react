@@ -9,6 +9,7 @@ import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
 import { MessageOptions } from '../message';
+import { ImageProps } from '../image';
 import { TNode, TElement } from '../common';
 
 export interface GlobalConfigProvider {
@@ -70,7 +71,7 @@ export interface GlobalConfigProvider {
    */
   image?: ImageConfig;
   /**
-   * 图片查看全局配置
+   * 图片预览器全局配置
    */
   imageViewer?: ImageViewerConfig;
   /**
@@ -327,6 +328,11 @@ export interface DatePickerConfig {
    * @default ''
    */
   dayAriaLabel?: string;
+  /**
+   * dayjs 语言国际化配置
+   * @default ''
+   */
+  dayjsLocale?: string;
   /**
    * 日期方向，'ltr' 表示从左往右
    * @default 'ltr'
@@ -828,6 +834,10 @@ export interface ImageConfig {
    * @default ''
    */
   loadingText?: string;
+  /**
+   * 统一替换图片 `src` 地址，参数为组件的全部属性，返回值为新的图片地址
+   */
+  replaceImageSrc?: (params: ImageProps) => string;
 }
 
 export interface ImageViewerConfig {
@@ -845,7 +855,7 @@ export interface ImageViewerConfig {
    * 全局语言配置，默认为 “原始大小”
    * @default ''
    */
-  originsizeTipText?: string;
+  originalSizeTipText?: string;
   /**
    * 全局语言配置，默认为 “旋转”
    * @default ''

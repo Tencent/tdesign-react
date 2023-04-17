@@ -7,6 +7,7 @@ import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
 import { StyledProps } from '../common';
 import { tabsDefaultProps } from './defaultProps';
+import useDragSorter from '../_util/useDragSorter';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
@@ -19,6 +20,16 @@ const Tabs = forwardRefWithStatics(
 
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
+    const targetClassNameRegExpStr = `^${tdTabsClassPrefix}(__nav-item|__nav-item-wrapper|__nav-item-text-wrapper)`;
+
+    const { getDragProps } = useDragSorter({
+      ...props,
+      sortOnDraggable: props.dragSort,
+      onDragOverCheck: {
+        x: true,
+        targetClassNameRegExp: new RegExp(targetClassNameRegExpStr),
+      },
+    });
 
     const memoChildren = useMemo(() => {
       if (!list || list.length === 0) {
@@ -62,6 +73,7 @@ const Tabs = forwardRefWithStatics(
       <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
         <TabNav
           {...props}
+          getDragProps={getDragProps}
           activeValue={value}
           onRemove={onRemove}
           itemList={itemList}

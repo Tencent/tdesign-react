@@ -64,11 +64,20 @@ export interface TdImageProps {
    */
   src?: string;
   /**
+   * 图片地址，支持特殊格式的图片，如 `.avif` 和 `.webp`
+   */
+  srcset?: ImageSrcset;
+  /**
    * 图片加载失败时触发
    */
-  onError?: (context: { e: ImageEvent<HTMLDivElement> }) => void;
+  onError?: (context: { e: ImageEvent<HTMLImageElement> }) => void;
   /**
    * 图片加载完成时触发
    */
-  onLoad?: (context: { e: ImageEvent<HTMLDivElement> }) => void;
+  onLoad?: (context: { e: ImageEvent<HTMLImageElement> }) => void;
+}
+
+export interface ImageSrcset {
+  'image/avif': string;
+  'image/webp': string;
 }
