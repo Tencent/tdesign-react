@@ -1,4 +1,4 @@
-import { render, fireEvent, vi, waitFor } from '@test/utils';
+import { act, render, fireEvent, vi, waitFor } from '@test/utils';
 import React from 'react';
 import Menu from '../index';
 
@@ -32,17 +32,27 @@ describe('Menu 组件测试', () => {
       </Menu>,
     );
 
-  test('menu collapsed works fine', () => {
-    const { container } = renderSubmenu({ collapsed: true });
+  test('menu collapsed works fine', async () => {
+    const { container, getByText } = renderSubmenu({ collapsed: true });
     expect(container.firstChild).toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(0);
     const submenu = container.querySelectorAll('.t-submenu').item(1);
-    expect(submenu.querySelectorAll('.t-menu__popup-wrapper').length).toBe(2);
-    const popup = submenu.querySelectorAll('.t-menu__popup-wrapper').item(0);
+    // 模拟鼠标移入，用于触发 submenuPopup
+    act(() => {
+      fireEvent.mouseEnter(submenu);
+    });
+    const popupElement = await waitFor(() => getByText('二级菜单-1'));
+    // 模拟鼠标移出
+    act(() => {
+      fireEvent.mouseLeave(submenu);
+    });
+    const submenuPopup = popupElement.parentElement.parentElement.parentElement.parentElement;
+    expect(submenuPopup.querySelectorAll('.t-menu__popup-wrapper').length).toBe(1);
+    const popup = submenuPopup.querySelectorAll('.t-menu__popup-wrapper').item(0);
     expect(popup.style.maxHeight).toBe('0');
-    fireEvent.mouseEnter(submenu);
+    fireEvent.mouseEnter(submenuPopup);
     expect(popup.style.maxHeight).not.toBe('0');
-    fireEvent.mouseLeave(submenu);
+    fireEvent.mouseLeave(submenuPopup);
     expect(popup.style.maxHeight).toBe('0');
   });
 

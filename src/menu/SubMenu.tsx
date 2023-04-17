@@ -26,7 +26,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   // popup 状态下控制开关
   const [open, setOpen] = useState(false);
-  const { expanded = [], onExpand, active, expandType } = useContext(MenuContext);
+  const { expanded = [], onExpand, active, expandType, theme } = useContext(MenuContext);
 
   const isPopUp = expandType === 'popup';
 
@@ -75,7 +75,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   return (
     <li
       ref={(e) => {
-        console.log('item', e);
         triggerRef.current = e;
       }}
       className={classNames(`${classPrefix}-submenu`, className, {
@@ -88,6 +87,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
       onMouseLeave={() => handleMouseEvent('leave')}
     >
       <Popup
+        overlayClassName={`${classPrefix}-menu--${theme}`}
         disabled={!isPopUp}
         overlayInnerClassName={[`${classPrefix}-menu__popup`, `${classPrefix}-is-vertical`, `${classPrefix}-is-opened`]}
         placement="top-right"
