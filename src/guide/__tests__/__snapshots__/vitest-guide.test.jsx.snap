@@ -921,7 +921,7 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
     style="width: 16px; height: 16px; top: -8px; left: -8px;"
   />
   <div
-    class="t-portal-wrapper appear appear-active"
+    class="t-portal-wrapper appear-done enter-done"
   >
     <div
       class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -1263,7 +1263,7 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
     style="width: 16px; height: 16px; top: -8px; left: -8px;"
   />
   <div
-    class="t-portal-wrapper appear appear-active"
+    class="t-portal-wrapper appear-done enter-done"
   >
     <div
       class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
