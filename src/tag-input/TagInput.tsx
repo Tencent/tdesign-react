@@ -59,10 +59,11 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
 
   // handle tag add and remove
-  const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel } = useTagList({
-    ...props,
-    getDragProps,
-  });
+  const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel, onInputBackspaceKeyDown } =
+    useTagList({
+      ...props,
+      getDragProps,
+    });
 
   const NAME_CLASS = `${prefix}-tag-input`;
   const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
@@ -155,7 +156,8 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}
-      onKeydown={onInputBackspaceKeyUp}
+      onKeydown={onInputBackspaceKeyDown}
+      onKeyup={onInputBackspaceKeyUp}
       onMouseenter={(context) => {
         addHover(context);
         scrollToRightOnEnter();

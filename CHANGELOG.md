@@ -5,6 +5,54 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.2 `2023-04-13` 
+### 🚀 Features
+- `DatePicker`: 优化周选择器高亮判断逻辑性能问题 @honkinglin ([#2136](https://github.com/Tencent/tdesign-react/pull/2136))
+### 🐞 Bug Fixes
+- `Dialog`: 
+    - 修复设置style width 不生效问题 @honkinglin ([#2132](https://github.com/Tencent/tdesign-react/pull/2132))
+    - 修复 footer 渲染 null 问题 @honkinglin ([#2131](https://github.com/Tencent/tdesign-react/pull/2131))
+- `Select`: 修复多选分组展示样式异常的问题 @uyarn ([#2138](https://github.com/Tencent/tdesign-react/pull/2138))
+- `Popup`: 
+    - 修复 windows 下 scrollTop 出现小数导致判断滚动底部失效 @honkinglin ([#2142](https://github.com/Tencent/tdesign-react/pull/2142))
+    - 修复临界点初次定位问题 @honkinglin ([#2134](https://github.com/Tencent/tdesign-react/pull/2134))
+- `ColorPicker`: 修复 Frame 中无法拖拽饱和度和 slider 的问题 @insekkei ([#2140](https://github.com/Tencent/tdesign-react/pull/2140))
+
+## 🌈 1.1.1 `2023-04-06` 
+### 🚀 Features
+- `StickyTool`: 新增`sticky-tool`组件 @ZekunWu ([#2065](https://github.com/Tencent/tdesign-react/pull/2065))
+
+### 🐞 Bug Fixes
+- `TagInput`: 修复基于`TagInput`的组件使用筛选时删除关键词时会删除已选值的问题 @2513483494 ([#2113](https://github.com/Tencent/tdesign-react/pull/2113))
+- `InputNumber`: 修复输入小数以0结尾时的功能异常问题 @uyarn ([#2127](https://github.com/Tencent/tdesign-react/pull/2127))
+- `tree`: 修复 tree 组件 data 属性不受控问题 @PBK-B ([#2119](https://github.com/Tencent/tdesign-react/pull/2119))
+- `TagInput`: 修复基于`TagInput`的组件使用筛选时删除关键词时会删除已选值的问题 @2513483494 ([#2113](https://github.com/Tencent/tdesign-react/pull/2113))
+- `Form`: 修复初始数据设置问题 @honkinglin ([#2124](https://github.com/Tencent/tdesign-react/pull/2124))
+- `TreeSelect`: 修复过滤后无法展开问题 @honkinglin ([#2128](https://github.com/Tencent/tdesign-react/pull/2128))
+- `Popup`: 修复右键展示浮层触发浏览器默认事件 @honkinglin ([#2120](https://github.com/Tencent/tdesign-react/pull/2120))
+
+## 🌈 1.1.0 `2023-03-30` 
+### 🚀 Features
+- `Table`:
+    - 支持使用 `filterIcon` 支持不同列显示不同的筛选图标，[tdesign-vue#2088](https://github.com/Tencent/tdesign-vue/issues/2088) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+    - 支持横向滚动到固定列，[tdesign-vue#1992](https://github.com/Tencent/tdesign-vue/issues/1992) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+- `Button`: 支持禁用态不触发 href 跳转逻辑 @honkinglin ([#2095](https://github.com/Tencent/tdesign-react/pull/2095))
+- `BackTop`: 新增 BackTop 组件  @meiqi502 ([#2037](https://github.com/Tencent/tdesign-react/pull/2037))
+- `Form`: submit 支持返回数据 @honkinglin ([#2096](https://github.com/Tencent/tdesign-react/pull/2096))
+
+### 🐞 Bug Fixes
+- `Table`:
+    - 修复 SSR 环境中，document is not undefined 问题 @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+    - 修复在列显示控制场景中，无法拖拽交换列顺序问题 @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+    - 单行选中功能，修复 `allowUncheck: false` 无效问题，[tdesign-vue-next#2561](https://github.com/Tencent/tdesign-vue-next/issues/2561) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+- `Dialog`: 修复 Dialog onOpen 事件调用时机问题 @honkinglin ([#2090](https://github.com/Tencent/tdesign-react/pull/2090))
+- `DatePicker`: 修复format为12小时制时功能异常的问题 @uyarn ([#2100](https://github.com/Tencent/tdesign-react/pull/2100))
+- `Alert`: 修复关闭按钮为文字时的居中和字体大小问题 @Wen1kang  @uyarn ([#2100](https://github.com/Tencent/tdesign-react/pull/2100))
+- `Watermark`: 修复 loading 组合使用问题 @duanbaosheng ([#2094](https://github.com/Tencent/tdesign-react/pull/2094))
+- `Notification`: 修复获取实例问题 @honkinglin ([#2103](https://github.com/Tencent/tdesign-react/pull/2103))
+- `Radio`:  修复 ts 类型问题 @honkinglin ([#2102](https://github.com/Tencent/tdesign-react/pull/2102))
+
+
 ## 🌈 1.0.5 `2023-03-23` 
 ### 🚀 Features
 - `TimePicker`: 新增 size API , 用于控制时间输入框大小 @uyarn ([#2081](https://github.com/Tencent/tdesign-react/pull/2081))

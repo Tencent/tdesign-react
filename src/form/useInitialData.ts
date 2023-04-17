@@ -59,7 +59,9 @@ export function getDefaultInitialData({ name, formListName, children, initialDat
   if (typeof initialData !== 'undefined') defaultInitialData = initialData;
   React.Children.forEach(children, (child) => {
     if (child && React.isValidElement(child) && typeof defaultInitialData === 'undefined') {
-      defaultInitialData = initialDataMap.get(child.type);
+      // @ts-ignore
+      const isMultiple = child?.props?.multiple;
+      defaultInitialData = isMultiple ? [] : initialDataMap.get(child.type);
     }
   });
   return defaultInitialData;

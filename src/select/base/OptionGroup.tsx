@@ -13,16 +13,17 @@ export interface SelectGOptionGroupProps extends TdOptionGroupProps {
   ) => void;
   divider?: boolean;
   children?: React.ReactNode;
+  multiple?: boolean;
 }
 
 const OptionGroup = (props: SelectGOptionGroupProps) => {
-  const { children, label, selectedValue, onSelect, divider } = props;
+  const { children, label, selectedValue, onSelect, divider, multiple } = props;
 
   const { classPrefix } = useConfig();
 
   const childrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {
-      const addedProps = { selectedValue, onSelect };
+      const addedProps = { selectedValue, onSelect, multiple };
       return cloneElement(child, { ...addedProps });
     }
     return child;
@@ -38,6 +39,7 @@ const OptionGroup = (props: SelectGOptionGroupProps) => {
       <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>
     </li>
   );
+  return;
 };
 
 OptionGroup.defaultProps = optionGroupDefaultProps;
