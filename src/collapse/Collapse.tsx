@@ -24,7 +24,6 @@ const Collapse = forwardRefWithStatics(
     const collapseValues = useRef(collapseValue);
 
     useEffect(() => {
-      console.log(12);
       collapseValues.current = collapseValue;
     }, [collapseValue]);
 
