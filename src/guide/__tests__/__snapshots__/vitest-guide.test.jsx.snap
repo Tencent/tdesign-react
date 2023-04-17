@@ -1092,7 +1092,7 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
     style="width: 16px; height: 16px; top: -8px; left: -8px;"
   />
   <div
-    class="t-portal-wrapper appear-done enter-done"
+    class="t-portal-wrapper appear appear-active"
   >
     <div
       class="t-popup t-test-guide-step-overlay t-popup--animation-enter-active t-popup--animation-enter-to"
