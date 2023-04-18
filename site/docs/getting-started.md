@@ -111,12 +111,14 @@ module.exports = {
 在 `next.js` 中并不支持引入 `css` 样式文件，而默认导入的 `es` 产物中会自动引入相应 `css` 文件导致项目报错，我们提供了一套无样式的组件库代码存放在 `lib` 目录下。
 
 所以在 `next.js` 中需要调整下使用方式：
+
 ```js
 import { Button } from 'tdesign-react/lib/'; // 按需引入无样式组件代码
 import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
 ```
 
 此外 `lib` 包导出的是 `es6` 的代码且在 `node_modules` 中，会被 `webpack` 在编译时跳过，还需配置下 `next.config.js`。
+
 ```js
 const nextConfig = {
   experimental: {
