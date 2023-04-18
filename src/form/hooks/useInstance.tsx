@@ -43,7 +43,7 @@ function formatValidateResult(validateResultList) {
 export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
   const { classPrefix } = useConfig();
 
-  const { scrollToFirstError, preventSubmitDefault = true, onSubmit } = props;
+  const { scrollToFirstError, preventSubmitDefault = true, onSubmit, onReset } = props;
 
   // 获取第一个错误表单
   function getFirstError(r: FormValidateResult<FormData>) {
@@ -170,6 +170,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
         formItemRef?.current?.resetField(type);
       });
     }
+    onReset?.({});
   }
 
   // 对外方法，重置对应 formItem 的状态
