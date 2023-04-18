@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { TdCollapseProps, CollapsePanelValue, CollapseValue } from './type';
 import { StyledProps } from '../common';
@@ -23,6 +23,10 @@ const Collapse = forwardRefWithStatics(
     const [collapseValue, setCollapseValue] = useControlled(props, 'value', onChange);
     const collapseValues = useRef(collapseValue);
 
+    useEffect(() => {
+      collapseValues.current = collapseValue;
+    }, [collapseValue]);
+
     const updateCollapseValue = (value: CollapsePanelValue) => {
       let newValue: CollapseValue = [].concat(collapseValues.current || []);
       const index = newValue.indexOf(value);
@@ -33,7 +37,6 @@ const Collapse = forwardRefWithStatics(
       } else {
         newValue.push(value);
       }
-      collapseValues.current = [...newValue];
       setCollapseValue(newValue);
     };
 
