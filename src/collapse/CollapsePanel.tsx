@@ -65,6 +65,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 
   const handleClick = (e: MouseEvent) => {
     const canExpand = (expandOnRowClick && e.currentTarget === headRef.current) || e.currentTarget === iconRef.current;
+
     if (canExpand && !isDisabled) {
       updateCollapseValue(innerValue, { e });
     }
