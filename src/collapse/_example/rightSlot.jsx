@@ -18,9 +18,9 @@ export default function CollapseExample() {
           <Space>
             <Checkbox
               checked={disable}
-              onClick={({ e }) => {
+              onClick={(ctx) => {
                 setDisable(!disable);
-                e.stopPropagation();
+                ctx.e.stopPropagation();
               }}
             >
               是否禁止

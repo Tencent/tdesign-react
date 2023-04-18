@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Select } from 'tdesign-react';
-import { Icon } from 'tdesign-icons-react';
-import { manifest } from 'tdesign-icons-react/lib/manifest';
+import { Icon, manifest } from 'tdesign-icons-react';
 
 const { Option } = Select;
 function IconSelect() {

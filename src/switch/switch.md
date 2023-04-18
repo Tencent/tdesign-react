@@ -14,4 +14,4 @@ loading | Boolean | false | 是否处于加载中状态 | N
 size | String | medium | 开关尺寸。可选项：small/medium/large | N
 value | String / Number / Boolean | - | 开关值。TS 类型：`T` `type SwitchValue = string \| number \| boolean`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/switch/type.ts) | N
 defaultValue | String / Number / Boolean | - | 开关值。非受控属性。TS 类型：`T` `type SwitchValue = string \| number \| boolean`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/switch/type.ts) | N
-onChange | Function |  | TS 类型：`(value: T) => void`<br/>数据发生变化时触发 | N
+onChange | Function |  | TS 类型：`(value: T, context: { e: MouseEvent }) => void`<br/>数据发生变化时触发 | N
