@@ -26,10 +26,6 @@ const Collapse = forwardRefWithStatics(
       collapseValues.current = collapseValue;
     }, [collapseValue]);
 
-    useEffect(() => {
-      collapseValues.current = collapseValue;
-    }, [collapseValue]);
-
     const updateCollapseValue = (value: CollapsePanelValue, context?: { e: MouseEvent }) => {
       let newValue: CollapseValue = [].concat(collapseValues.current || []);
       const index = newValue.indexOf(value);
