@@ -40,6 +40,7 @@ const Collapse = forwardRefWithStatics(
       } else {
         newValue.push(value);
       }
+      collapseValues.current = [...newValue];
       setCollapseValue(newValue, context);
     };
 
