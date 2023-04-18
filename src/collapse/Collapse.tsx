@@ -22,6 +22,9 @@ const Collapse = forwardRefWithStatics(
     const { children, className, style, expandMutex, borderless, onChange } = rest;
     const [collapseValue, setCollapseValue] = useControlled(props, 'value', onChange);
     const collapseValues = useRef(collapseValue);
+    useEffect(() => {
+      collapseValues.current = collapseValue;
+    }, [collapseValue]);
 
     useEffect(() => {
       collapseValues.current = collapseValue;
