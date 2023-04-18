@@ -7,7 +7,7 @@ const CollapseContext = React.createContext<{
   expandIconPlacement?: TdCollapseProps['expandIconPlacement'];
   expandOnRowClick?: TdCollapseProps['expandOnRowClick'];
   expandIcon?: TdCollapseProps['expandIcon'];
-  updateCollapseValue?: (v?: CollapsePanelValue) => void;
+  updateCollapseValue?: (v: CollapsePanelValue, context?: { e: React.MouseEvent }) => void;
   collapseValue?: CollapseValue;
 }>({
   defaultExpandAll: false,

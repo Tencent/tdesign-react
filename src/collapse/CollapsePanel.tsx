@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, MouseEvent } from 'react';
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
@@ -63,11 +63,11 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     className,
   );
 
-  const handleClick = (e) => {
+  const handleClick = (e: MouseEvent) => {
     const canExpand = (expandOnRowClick && e.currentTarget === headRef.current) || e.currentTarget === iconRef.current;
 
     if (canExpand && !isDisabled) {
-      updateCollapseValue(innerValue);
+      updateCollapseValue(innerValue, { e });
     }
     e.stopPropagation();
   };

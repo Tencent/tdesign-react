@@ -14,4 +14,4 @@ loading | Boolean | false | \- | N
 size | String | medium | options：small/medium/large | N
 value | String / Number / Boolean | - | Typescript：`T` `type SwitchValue = string \| number \| boolean`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/switch/type.ts) | N
 defaultValue | String / Number / Boolean | - | uncontrolled property。Typescript：`T` `type SwitchValue = string \| number \| boolean`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/switch/type.ts) | N
-onChange | Function |  | Typescript：`(value: T) => void`<br/> | N
+onChange | Function |  | Typescript：`(value: T, context: { e: MouseEvent }) => void`<br/> | N
