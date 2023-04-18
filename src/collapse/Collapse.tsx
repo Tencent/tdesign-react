@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, MouseEvent } from 'react';
 import classnames from 'classnames';
 import { TdCollapseProps, CollapsePanelValue, CollapseValue } from './type';
 import { StyledProps } from '../common';
@@ -30,7 +30,7 @@ const Collapse = forwardRefWithStatics(
       collapseValues.current = collapseValue;
     }, [collapseValue]);
 
-    const updateCollapseValue = (value: CollapsePanelValue) => {
+    const updateCollapseValue = (value: CollapsePanelValue, context?: { e: MouseEvent }) => {
       let newValue: CollapseValue = [].concat(collapseValues.current || []);
       const index = newValue.indexOf(value);
       if (index >= 0) {
@@ -40,7 +40,7 @@ const Collapse = forwardRefWithStatics(
       } else {
         newValue.push(value);
       }
-      setCollapseValue(newValue);
+      setCollapseValue(newValue, context);
     };
 
     const classes = [

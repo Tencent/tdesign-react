@@ -5,6 +5,7 @@
  * */
 
 import { TNode } from '../common';
+import { MouseEvent } from 'react';
 
 export interface TdCollapseProps {
   /**
