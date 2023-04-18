@@ -286,7 +286,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   }
 
   // 预设
-  function onPresetClick(preset: any) {
+  function onPresetClick(preset: any, context: any) {
     let presetValue = preset;
     if (typeof preset === 'function') {
       presetValue = preset();
@@ -298,6 +298,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         dayjsValue: presetValue.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
+      props.onPresetClick?.(context);
       setPopupVisible(false);
     }
   }

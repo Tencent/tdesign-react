@@ -120,14 +120,14 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   }
 
   // 预设
-  function onPresetClick(presetValue: DateValue | (() => DateValue), { e, preset }) {
+  function onPresetClick(presetValue: DateValue | (() => DateValue), context: any) {
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
     onChange(formatDate(presetVal, { format }), {
       dayjsValue: parseToDayjs(presetVal, format),
       trigger: 'preset',
     });
 
-    props.onPresetClick?.({ e, preset });
+    props.onPresetClick?.(context);
   }
 
   function onYearChange(year: number) {

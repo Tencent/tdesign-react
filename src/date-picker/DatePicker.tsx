@@ -162,7 +162,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   }
 
   // 预设
-  function onPresetClick(preset: any) {
+  function onPresetClick(preset: any, context: any) {
     let presetValue = preset;
     if (typeof preset === 'function') {
       presetValue = preset();
@@ -171,6 +171,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
       dayjsValue: parseToDayjs(presetValue, format),
       trigger: 'preset',
     });
+    props.onPresetClick?.(context);
     setPopupVisible(false);
   }
 
