@@ -44,7 +44,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const iconRef = useRef();
   const contentRef = useRef<HTMLDivElement>();
   const bodyRef = useRef<HTMLDivElement>();
-  const isDisabled = disabled || disableAll;
+  const isDisabled = disabled || !!disableAll;
 
   useEffect(() => {
     if (defaultExpandAll) {

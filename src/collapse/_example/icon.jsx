@@ -34,7 +34,7 @@ export default function CollapseExample() {
         </Panel>
       </Collapse>
       <Space direction="vertical">
-        <Radio.Group value={radio} options={options} onChange={setRadio} />
+        <Radio.Group value={radio} options={options} onChange={(value) => setRadio(Number(value))} />
         <div>
           <Checkbox
             checked={checked}
