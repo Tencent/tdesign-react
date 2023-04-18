@@ -44,7 +44,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const iconRef = useRef();
   const contentRef = useRef<HTMLDivElement>();
   const bodyRef = useRef<HTMLDivElement>();
-  const isDisabled = disabled || disableAll;
+  const isDisabled = disabled || !!disableAll;
 
   useEffect(() => {
     if (defaultExpandAll) {
@@ -65,7 +65,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 
   const handleClick = (e) => {
     const canExpand = (expandOnRowClick && e.currentTarget === headRef.current) || e.currentTarget === iconRef.current;
-
     if (canExpand && !isDisabled) {
       updateCollapseValue(innerValue);
     }
