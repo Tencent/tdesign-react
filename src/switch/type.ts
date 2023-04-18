@@ -41,7 +41,7 @@ export interface TdSwitchProps<T = SwitchValue> {
   /**
    * 数据发生变化时触发
    */
-  onChange?: (value: T) => void;
+  onChange?: (value: T, context: { e: MouseEvent }) => void;
 }
 
 export type SwitchValue = string | number | boolean;
