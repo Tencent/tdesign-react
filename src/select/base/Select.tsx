@@ -323,6 +323,7 @@ const Select = forwardRefWithStatics(
               <Tag
                 key={key}
                 closable={!filterOption?.disabled && !disabled && !readonly}
+                size={size}
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
@@ -412,9 +413,10 @@ const Select = forwardRefWithStatics(
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
           inputValue={inputValue}
           tagInputProps={{
+            size,
             ...tagInputProps,
           }}
-          tagProps={tagProps}
+          tagProps={{ size, ...tagProps }}
           inputProps={{
             size,
             ...inputProps,
