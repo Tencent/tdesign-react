@@ -51,7 +51,7 @@ const FormList = (props: TdFormListProps) => {
         setFormListValue(nextFormListValue);
       }
       const fieldValue = calcFieldValue(name, nextFormListValue);
-      Promise.resolve().then(() => {
+      requestAnimationFrame(() => {
         onFormItemValueChange?.({ ...fieldValue });
       });
     },
@@ -68,7 +68,7 @@ const FormList = (props: TdFormListProps) => {
       setFormListValue(nextFormListValue);
 
       const fieldValue = calcFieldValue(name, nextFormListValue);
-      Promise.resolve().then(() => {
+      requestAnimationFrame(() => {
         onFormItemValueChange?.({ ...fieldValue });
       });
     },
