@@ -4,7 +4,7 @@ import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
-import { TdDateRangePickerProps, DateValue } from '../type';
+import { TdDateRangePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
@@ -25,10 +25,7 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onJumperClick?: (context: { e?: MouseEvent; trigger: string; partial: 'start' | 'end' }) => void;
   onConfirmClick?: (context: { e: React.MouseEvent<HTMLButtonElement> }) => void;
-  onPresetClick?: (
-    preset: DateValue | (() => DateValue),
-    context: { e: React.MouseEventHandler<HTMLButtonElement> },
-  ) => void;
+  onPresetClick?: any;
   onYearChange?: (year: number, context: { partial: 'start' | 'end' }) => void;
   onMonthChange?: (month: number, context: { partial: 'start' | 'end' }) => void;
   onTimePickerChange?: TdTimePickerProps['onChange'];

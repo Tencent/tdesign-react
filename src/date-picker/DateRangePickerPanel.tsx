@@ -6,6 +6,7 @@ import {
   DatePickerYearChangeTrigger,
   DatePickerMonthChangeTrigger,
   DatePickerTimeChangeTrigger,
+  PresetDate,
 } from './type';
 import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
@@ -225,7 +226,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   }
 
   // 预设
-  function onPresetClick(presetValue: any, { e, preset }) {
+  function onPresetClick(presetValue, context: { preset: PresetDate; e: React.MouseEvent<HTMLDivElement> }) {
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
 
     if (!Array.isArray(presetVal)) {
@@ -237,7 +238,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       });
     }
 
-    props.onPresetClick?.({ e, preset });
+    props.onPresetClick?.(context);
   }
 
   function onYearChange(nextVal: number, { partial }) {
