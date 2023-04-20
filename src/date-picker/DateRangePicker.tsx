@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
-import { TdDateRangePickerProps } from './type';
+import { TdDateRangePickerProps, PresetDate } from './type';
 import { RangeInputPopup } from '../range-input';
 import RangePanel from './panel/RangePanel';
 import useRange from './hooks/useRange';
@@ -286,7 +286,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   }
 
   // 预设
-  function onPresetClick(preset: any, context: any) {
+  function onPresetClick(preset, context: { preset: PresetDate; e: React.MouseEvent<HTMLDivElement> }) {
     let presetValue = preset;
     if (typeof preset === 'function') {
       presetValue = preset();
