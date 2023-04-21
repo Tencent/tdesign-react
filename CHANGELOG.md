@@ -5,6 +5,21 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.3 `2023-04-21` 
+### 🚀 Features
+- `DatePicker`: 支持 `onPresetClick` 事件 @honkinglin ([#2165](https://github.com/Tencent/tdesign-react/pull/2165))
+- `Switch`: `onChange` 支持返回 `event` 参数 @carolin913 ([#2162](https://github.com/Tencent/tdesign-react/pull/2162))
+- `Collapse`: `onChange` 支持返回 `event` 参数 @carolin913 ([#2162](https://github.com/Tencent/tdesign-react/pull/2162))
+### 🐞 Bug Fixes
+- `Form`: 
+    - 修复主动 reset 不触发 `onReset` 逻辑 @honkinglin ([#2150](https://github.com/Tencent/tdesign-react/pull/2150))
+    - 修复 `onValuesChange` 事件返回参数问题 @honkinglin ([#2169](https://github.com/Tencent/tdesign-react/pull/2169))
+- `Select`: 修复多选模式 `size` 属性未生效的问题 @uyarn ([#2163](https://github.com/Tencent/tdesign-react/pull/2163))
+- `Collapse`:
+    - 修复 radio 禁用判断 @duanbaosheng ([#2161](https://github.com/Tencent/tdesign-react/pull/2161))
+    - 修复 `value` 有默认值时受控问题 @moecasts ([#2152](https://github.com/Tencent/tdesign-react/pull/2152))
+- `Icon`: 修复 manifest 统一入口导出 esm 模块，文档为及时更新的问题 @Layouwen ([#2160](https://github.com/Tencent/tdesign-react/pull/2160))
+
 ## 🌈 1.1.2 `2023-04-13` 
 ### 🚀 Features
 - `DatePicker`: 优化周选择器高亮判断逻辑性能问题 @honkinglin ([#2136](https://github.com/Tencent/tdesign-react/pull/2136))
