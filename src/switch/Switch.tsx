@@ -33,13 +33,13 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
     return parseTNode(label, { value });
   }
 
-  function onInternalClick() {
+  function onInternalClick(e: React.MouseEvent) {
     if (disabled) return;
 
     !isControlled && setInnerChecked(!innerChecked);
 
     const changedValue = !innerChecked ? activeValue : inactiveValue;
-    onChange?.(changedValue);
+    onChange?.(changedValue, { e });
   }
 
   useEffect(() => {

@@ -5,6 +5,7 @@
  * */
 
 import { TNode } from '../common';
+import { MouseEvent } from 'react';
 
 export interface TdCollapseProps {
   /**
@@ -52,7 +53,7 @@ export interface TdCollapseProps {
   /**
    * 切换面板时触发，返回变化的值
    */
-  onChange?: (value: CollapseValue) => void;
+  onChange?: (value: CollapseValue, context: { e: MouseEvent }) => void;
 }
 
 export interface TdCollapsePanelProps {

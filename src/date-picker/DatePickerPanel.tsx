@@ -1,7 +1,13 @@
 import React, { forwardRef } from 'react';
 import dayjs from 'dayjs';
 import { StyledProps } from '../common';
-import { TdDatePickerPanelProps, DateValue, DatePickerYearChangeTrigger, DatePickerMonthChangeTrigger } from './type';
+import {
+  TdDatePickerPanelProps,
+  DateValue,
+  DatePickerYearChangeTrigger,
+  DatePickerMonthChangeTrigger,
+  PresetDate,
+} from './type';
 import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
 import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
@@ -120,14 +126,17 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   }
 
   // 预设
-  function onPresetClick(presetValue: DateValue | (() => DateValue), { e, preset }) {
+  function onPresetClick(
+    presetValue: DateValue | (() => DateValue),
+    context: { preset: PresetDate; e: React.MouseEvent<HTMLDivElement> },
+  ) {
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
     onChange(formatDate(presetVal, { format }), {
       dayjsValue: parseToDayjs(presetVal, format),
       trigger: 'preset',
     });
 
-    props.onPresetClick?.({ e, preset });
+    props.onPresetClick?.(context);
   }
 
   function onYearChange(year: number) {

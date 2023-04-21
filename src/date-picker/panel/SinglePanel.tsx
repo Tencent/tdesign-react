@@ -4,7 +4,7 @@ import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
-import { TdDatePickerProps, DateValue } from '../type';
+import { TdDatePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
@@ -21,10 +21,7 @@ export interface SinglePanelProps extends TdDatePickerProps, StyledProps {
   onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onJumperClick?: (context: { e?: MouseEvent; trigger: string }) => void;
   onConfirmClick?: (context: { e: React.MouseEvent<HTMLButtonElement> }) => void;
-  onPresetClick?: (
-    preset: DateValue | (() => DateValue),
-    context: { e: React.MouseEventHandler<HTMLButtonElement> },
-  ) => void;
+  onPresetClick?: any;
   onYearChange?: (year: number) => void;
   onMonthChange?: (month: number) => void;
   onTimePickerChange?: TdTimePickerProps['onChange'];

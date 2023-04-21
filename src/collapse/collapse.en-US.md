@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Collapse Props
 
 name | type | default | description | required
@@ -17,7 +16,7 @@ expandMutex | Boolean | false | \- | N
 expandOnRowClick | Boolean | true | \- | N
 value | Array | [] | Typescript：`CollapseValue` `type CollapseValue = Array<string \| number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/collapse/type.ts) | N
 defaultValue | Array | [] | uncontrolled property。Typescript：`CollapseValue` `type CollapseValue = Array<string \| number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/collapse/type.ts) | N
-onChange | Function |  | Typescript：`(value: CollapseValue) => void`<br/> | N
+onChange | Function |  | Typescript：`(value: CollapseValue, context: { e: MouseEvent }) => void`<br/> | N
 
 ### CollapsePanel Props
 
@@ -32,4 +31,4 @@ disabled | Boolean | undefined | \- | N
 expandIcon | TNode | undefined | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 header | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 headerRightContent | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-value | String / Number | - | required | Y
+value | String / Number | - | \- | N
