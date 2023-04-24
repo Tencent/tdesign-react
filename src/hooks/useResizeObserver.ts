@@ -17,7 +17,7 @@ export default function useResizeObserver(container: HTMLElement, callback: (dat
   };
 
   useLayoutEffect(() => {
-    const isSupport = window && window.ResizeObserver;
+    const isSupport = typeof window !== 'undefined' && window.ResizeObserver;
     if (!isSupport) return;
 
     cleanupObserver();
