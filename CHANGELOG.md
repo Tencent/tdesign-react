@@ -5,6 +5,14 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.4 `2023-04-27` 
+### 🚀 Features
+- `Select`: 支持panelTopContent在虚拟滚动等需要滚动下拉框场景的使用 具体使用方式请看示例 @uyarn ([#2184](https://github.com/Tencent/tdesign-react/pull/2184))
+
+### 🐞 Bug Fixes
+- `DatePicker`: 修复第二次点击面板关闭异常问题 @honkinglin ([#2183](https://github.com/Tencent/tdesign-react/pull/2183))
+- `Table`:  修复 `useResizeObserver` ssr error @chaishi ([#2175](https://github.com/Tencent/tdesign-react/pull/2175))
+
 ## 🌈 1.1.3 `2023-04-21` 
 ### 🚀 Features
 - `DatePicker`: 支持 `onPresetClick` 事件 @honkinglin ([#2165](https://github.com/Tencent/tdesign-react/pull/2165))
