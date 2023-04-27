@@ -187,25 +187,33 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
       })}
       style={extraStyle}
     >
-      {panelTopContent}
       {loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
       {!loading && isEmpty && (
         <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>
       )}
       {!loading && !isEmpty && renderOptions(renderedOptions)}
-      {panelBottomContent}
     </div>
   );
   if (isVirtual) {
     return (
-      <div>
-        <div style={cursorStyle}></div>
-        {renderPanel(visibleData, panelStyle)}
-      </div>
+      <>
+        {panelTopContent}
+        <div>
+          <div style={cursorStyle}></div>
+          {renderPanel(visibleData, panelStyle)}
+        </div>
+        {panelBottomContent}
+      </>
     );
   }
 
-  return renderPanel(propsOptions);
+  return (
+    <>
+      {panelTopContent}
+      {renderPanel(propsOptions)}
+      {panelBottomContent}
+    </>
+  );
 });
 
 export default PopupContent;
