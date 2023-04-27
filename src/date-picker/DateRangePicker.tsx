@@ -275,12 +275,12 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (!isFirstValueSelected) {
+    if (!isFirstValueSelected || nextValue.length === 1) {
       let nextIndex = notValidIndex;
       if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
       setActiveIndex(nextIndex);
       setIsFirstValueSelected(true);
-    } else {
+    } else if (nextValue.length === 2) {
       setPopupVisible(false);
     }
   }
