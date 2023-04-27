@@ -60,7 +60,15 @@ export default function PanelExample() {
         options={bottomOptions}
         clearable
         panelBottomContent={
-          <div className="select-panel-footer">
+          <div
+            className="select-panel-footer"
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              backgroundColor: 'var(--td-bg-color-container)',
+              zIndex: 2,
+            }}
+          >
             {editOrCreate === 'edit' ? (
               <div
                 style={{
