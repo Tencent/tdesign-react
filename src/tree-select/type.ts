@@ -77,7 +77,7 @@ export interface TdTreeSelectProps<
    */
   defaultInputValue?: InputValue;
   /**
-   * 用来定义 value / label 在 `data` 数据中对应的字段别名
+   * 用来定义 `value / label / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`
    */
   keys?: TreeKeysType;
   /**
@@ -109,6 +109,14 @@ export interface TdTreeSelectProps<
    */
   multiple?: boolean;
   /**
+   * 面板内的底部内容
+   */
+  panelBottomContent?: TNode;
+  /**
+   * 面板内的顶部内容
+   */
+  panelTopContent?: TNode;
+  /**
    * 占位符
    */
   placeholder?: string;
@@ -133,6 +141,11 @@ export interface TdTreeSelectProps<
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词
+   * @default false
+   */
+  reserveKeyword?: boolean;
   /**
    * 【开发中】透传 SelectInput 筛选器输入框组件的全部属性
    */
