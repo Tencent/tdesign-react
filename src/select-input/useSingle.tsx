@@ -1,4 +1,4 @@
-import React, { useRef, MouseEvent, useMemo } from 'react';
+import React, { useRef, MouseEvent } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
@@ -40,16 +40,14 @@ function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputPr
 }
 
 export default function useSingle(props: TdSelectInputProps) {
-  const { value, keys, loading, disabled } = props;
+  const { value, keys, loading } = props;
   const { classPrefix } = useConfig();
   const inputRef = useRef();
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
-  const showLoading = useMemo(() => !disabled && loading, [loading, disabled]);
-
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
-    suffixIcon: showLoading ? <Loading loading size="small" /> : props.suffixIcon,
+    suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
   };
 
   const onInnerClear = (context: { e: MouseEvent<SVGSVGElement> }) => {
