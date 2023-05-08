@@ -47,6 +47,8 @@ const Cascader = (props: CascaderProps) => {
   );
 
   const renderSuffixIcon = () => {
+    if (props.suffixIcon) return props.suffixIcon;
+
     const { visible, disabled } = cascaderContext;
     return (
       <FakeArrow
@@ -76,6 +78,7 @@ const Cascader = (props: CascaderProps) => {
       disabled={props.disabled}
       status={props.status}
       tips={props.tips}
+      suffix={props.suffix}
       suffixIcon={renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
@@ -107,6 +110,7 @@ const Cascader = (props: CascaderProps) => {
         props.onBlur?.({
           value: cascaderContext.value,
           e: context.e,
+          inputValue: inputVal,
         });
         props?.selectInputProps?.onBlur?.(val, context);
       }}
