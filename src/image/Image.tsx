@@ -13,22 +13,22 @@ import { StyledProps } from '../common';
 
 export type ImageProps = TdImageProps & StyledProps;
 
-const Image = (props: ImageProps) => {
+const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> = (props, ref) => {
   const {
     className,
     src,
     style,
     alt,
-    fit,
-    position,
-    shape,
+    fit = imageDefaultProps.fit,
+    position = imageDefaultProps.position,
+    shape = imageDefaultProps.shape,
     placeholder,
     loading,
     error,
-    overlayTrigger,
+    overlayTrigger = imageDefaultProps.overlayTrigger,
+    lazy = imageDefaultProps.lazy,
+    gallery = imageDefaultProps.gallery,
     overlayContent,
-    lazy,
-    gallery,
     srcset,
     onLoad,
     onError,
@@ -42,6 +42,8 @@ const Image = (props: ImageProps) => {
     ImageErrorIcon: TdImageErrorIcon,
     ImageIcon: TdImageIcon,
   });
+
+  React.useImperativeHandle(ref, () => imageRef.current);
 
   // replace image url
   const imageSrc = useMemo(
@@ -61,7 +63,9 @@ const Image = (props: ImageProps) => {
   };
 
   useEffect(() => {
-    if (!lazy || !imageRef?.current) return;
+    if (!lazy || !imageRef?.current) {
+      return;
+    }
 
     // https://stackoverflow.com/questions/67069827/cleanup-ref-issues-in-react
     let observerRefValue = null;
@@ -86,7 +90,9 @@ const Image = (props: ImageProps) => {
     setShouldShowOverlay(overlay);
   };
   const renderOverlay = () => {
-    if (!overlayContent) return null;
+    if (!overlayContent) {
+      return null;
+    }
     return (
       <div
         className={classNames(
@@ -107,32 +113,34 @@ const Image = (props: ImageProps) => {
   };
 
   const renderGalleryShadow = () => {
-    if (!gallery) return null;
+    if (!gallery) {
+      return null;
+    }
     return <div className={`${classPrefix}-image__gallery-shadow`} />;
   };
 
   const renderImage = (url: string) => (
-      <img
-        src={url}
-        onError={handleError}
-        onLoad={handleLoad}
-        className={classNames(
-          `${classPrefix}-image`,
-          `${classPrefix}-image--fit-${fit}`,
-          `${classPrefix}-image--position-${position}`,
-        )}
-        alt={alt}
-      />
-    );
+    <img
+      src={url}
+      onError={handleError}
+      onLoad={handleLoad}
+      className={classNames(
+        `${classPrefix}-image`,
+        `${classPrefix}-image--fit-${fit}`,
+        `${classPrefix}-image--position-${position}`,
+      )}
+      alt={alt}
+    />
+  );
 
   const renderImageSrcset = () => (
-      <picture>
-        {Object.entries(props.srcset).map(([type, url]) => (
-          <source key={url} type={type} srcSet={url} />
-        ))}
-        {props.src && renderImage(props.src)}
-      </picture>
-    );
+    <picture>
+      {Object.entries(props.srcset).map(([type, url]) => (
+        <source key={url} type={type} srcSet={url} />
+      ))}
+      {props.src && renderImage(props.src)}
+    </picture>
+  );
 
   return (
     <div
@@ -183,13 +191,13 @@ const Image = (props: ImageProps) => {
           )}
         </div>
       )}
-
       {renderOverlay()}
     </div>
   );
 };
 
+const Image = React.forwardRef<HTMLDivElement, ImageProps>(InternalImage);
+
 Image.displayName = 'Image';
-Image.defaultProps = imageDefaultProps;
 
 export default Image;
