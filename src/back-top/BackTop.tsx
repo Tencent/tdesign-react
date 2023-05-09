@@ -22,7 +22,7 @@ const getContainer = (container: string | Function) => {
   return null;
 };
 
-const BackTop: React.FC<BackTopProps> = (props) => {
+const InternalBackTop: React.ForwardRefRenderFunction<HTMLButtonElement, BackTopProps> = (props, ref) => {
   const {
     theme,
     size,
@@ -49,6 +49,10 @@ const BackTop: React.FC<BackTopProps> = (props) => {
     </>
   );
   const renderChildren = children || content || cusContent || defaultContent;
+
+  const backTopRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useImperativeHandle(ref, () => backTopRef.current);
 
   const visible = useMemo(() => {
     if (typeof visibleHeight === 'string') {
@@ -98,11 +102,13 @@ const BackTop: React.FC<BackTopProps> = (props) => {
   );
 
   return (
-    <button type="button" className={cls} style={backTopStyle} onClick={handleClick}>
+    <button type="button" ref={backTopRef} className={cls} style={backTopStyle} onClick={handleClick}>
       {renderChildren}
     </button>
   );
 };
+
+const BackTop = React.forwardRef<HTMLButtonElement, TdBackTopProps>(InternalBackTop);
 
 BackTop.displayName = 'BackTop';
 
