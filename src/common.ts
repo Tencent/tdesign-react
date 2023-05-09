@@ -54,6 +54,8 @@ export type TreeOptionData<T = string | number> = {
   text?: string;
   /** option value */
   value?: T;
+  /** option node content */
+  content?: string | TNode;
 } & PlainObject;
 
 export type SizeEnum = 'small' | 'medium' | 'large';

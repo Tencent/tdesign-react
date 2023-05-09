@@ -16,6 +16,7 @@ export const cascaderDefaultProps: TdCascaderProps = {
   options: [],
   placeholder: undefined,
   readonly: false,
+  reserveKeyword: false,
   showAllLevels: true,
   size: 'medium',
   status: 'default',
