@@ -6,6 +6,7 @@ import { TdBackTopProps } from './type';
 import { backTopDefaultProps } from './defaultProps';
 import useScroll from './useScroll';
 import { scrollTo } from '../_util/dom';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type BackTopProps = TdBackTopProps;
 
@@ -21,7 +22,7 @@ const getContainer = (container: string | Function) => {
   return null;
 };
 
-const BackTop = (props: BackTopProps) => {
+const BackTop: React.FC<BackTopProps> = (props) => {
   const {
     theme,
     size,
@@ -37,7 +38,7 @@ const BackTop = (props: BackTopProps) => {
     className,
     style,
     onClick,
-  } = props;
+  } = useDefaultProps(props, backTopDefaultProps);
   const { classPrefix } = useConfig();
   const scrollContainer = useMemo(() => getContainer(container), [container]);
   const { scrollTop } = useScroll({ target: scrollContainer });
@@ -104,5 +105,5 @@ const BackTop = (props: BackTopProps) => {
 };
 
 BackTop.displayName = 'BackTop';
-BackTop.defaultProps = backTopDefaultProps;
+
 export default BackTop;
