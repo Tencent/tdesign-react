@@ -49,8 +49,8 @@ export const createDateList = (
   };
 
   const monthFirstDay = dayjs(`${year}-${month}`);
-  const rowList = [] as CalendarCell[][];
-  let list = [] as CalendarCell[];
+  const rowList: CalendarCell[][] = [];
+  let list: CalendarCell[] = [];
   let weekCount = 1;
 
   // 添加上个月中会在本月显示的最后几天日期

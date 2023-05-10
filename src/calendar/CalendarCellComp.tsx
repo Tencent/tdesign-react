@@ -65,7 +65,7 @@ const CalendarCellComp: React.FC<CalendarCellProps> = (props) => {
       {(() => {
         if (cell && typeof cell === 'function') return cell(mode === 'month' ? createCalendarCell(cellData) : cellData);
         if (cell && typeof cell !== 'function') return cell;
-        let cellCtx;
+        let cellCtx: React.ReactNode;
         if (mode === 'year') {
           // year mode：输出月
           const mIndex = cellData.date.getMonth();
@@ -77,7 +77,7 @@ const CalendarCellComp: React.FC<CalendarCellProps> = (props) => {
         return <div className={prefixCls([blockName, 'table-body-cell-display'])}>{cellCtx}</div>;
       })()}
       {(() => {
-        let cellCtx;
+        let cellCtx: React.ReactNode;
         if (cellAppend && typeof cellAppend === 'function') {
           cellCtx = cellAppend(mode === 'month' ? createCalendarCell(cellData) : cellData);
         }
