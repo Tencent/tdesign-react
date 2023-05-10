@@ -5,6 +5,15 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.5 `2023-05-10` 
+### 🚀 Features
+- `Cascader`: 支持 `suffix`、`suffixIcon` @honkinglin ([#2200](https://github.com/Tencent/tdesign-react/pull/2200))
+
+### 🐞 Bug Fixes
+- `SelectInput`: 修复 `loading` 在 `disabled` 状态下隐藏问题  @honkinglin ([#2196](https://github.com/Tencent/tdesign-react/pull/2196))
+- `Image`: 修复 Image 组件不支持 ref 的问题 @li-jia-nan ([#2198](https://github.com/Tencent/tdesign-react/pull/2198))
+- `BackTop`:  支持 ref 透传 @li-jia-nan ([#2202](https://github.com/Tencent/tdesign-react/pull/2202))
+
 ## 🌈 1.1.4 `2023-04-27` 
 ### 🚀 Features
 - `Select`: 支持panelTopContent在虚拟滚动等需要滚动下拉框场景的使用 具体使用方式请看示例 @uyarn ([#2184](https://github.com/Tencent/tdesign-react/pull/2184))

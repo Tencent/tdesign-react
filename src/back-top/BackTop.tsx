@@ -6,6 +6,7 @@ import { TdBackTopProps } from './type';
 import { backTopDefaultProps } from './defaultProps';
 import useScroll from './useScroll';
 import { scrollTo } from '../_util/dom';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type BackTopProps = TdBackTopProps;
 
@@ -21,7 +22,7 @@ const getContainer = (container: string | Function) => {
   return null;
 };
 
-const BackTop = (props: BackTopProps) => {
+const InternalBackTop: React.ForwardRefRenderFunction<HTMLButtonElement, BackTopProps> = (props, ref) => {
   const {
     theme,
     size,
@@ -37,7 +38,7 @@ const BackTop = (props: BackTopProps) => {
     className,
     style,
     onClick,
-  } = props;
+  } = useDefaultProps(props, backTopDefaultProps);
   const { classPrefix } = useConfig();
   const scrollContainer = useMemo(() => getContainer(container), [container]);
   const { scrollTop } = useScroll({ target: scrollContainer });
@@ -48,6 +49,10 @@ const BackTop = (props: BackTopProps) => {
     </>
   );
   const renderChildren = children || content || cusContent || defaultContent;
+
+  const backTopRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useImperativeHandle(ref, () => backTopRef.current);
 
   const visible = useMemo(() => {
     if (typeof visibleHeight === 'string') {
@@ -97,12 +102,14 @@ const BackTop = (props: BackTopProps) => {
   );
 
   return (
-    <button type="button" className={cls} style={backTopStyle} onClick={handleClick}>
+    <button type="button" ref={backTopRef} className={cls} style={backTopStyle} onClick={handleClick}>
       {renderChildren}
     </button>
   );
 };
 
+const BackTop = React.forwardRef<HTMLButtonElement, TdBackTopProps>(InternalBackTop);
+
 BackTop.displayName = 'BackTop';
-BackTop.defaultProps = backTopDefaultProps;
+
 export default BackTop;
