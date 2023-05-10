@@ -6,10 +6,14 @@ import BreadcrumbItem from './BreadcrumbItem';
 import { BreadcrumbProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 import { breadcrumbDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 const Breadcrumb = forwardRefWithStatics(
-  (props: BreadcrumbProps, ref) => {
-    const { children, options, separator, maxItemWidth, className, ...restProps } = props;
+  (props: BreadcrumbProps, ref: React.Ref<HTMLDivElement>) => {
+    const { children, options, separator, maxItemWidth, className, ...restProps } = useDefaultProps(
+      props,
+      breadcrumbDefaultProps,
+    );
     const { classPrefix } = useConfig();
 
     let content = children;
@@ -50,6 +54,5 @@ const Breadcrumb = forwardRefWithStatics(
 );
 
 Breadcrumb.displayName = 'Breadcrumb';
-Breadcrumb.defaultProps = breadcrumbDefaultProps;
 
 export default Breadcrumb;
