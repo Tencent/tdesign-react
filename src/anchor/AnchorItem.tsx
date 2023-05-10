@@ -5,6 +5,7 @@ import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { AnchorContext } from './AnchorContext';
 import { anchorItemDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
   children?: React.ReactNode;
@@ -12,7 +13,7 @@ export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
 
 const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
-  const { href, title, target, children, className, ...rest } = props;
+  const { href, title, target, children, className, ...rest } = useDefaultProps(props, anchorItemDefaultProps);
 
   const { classPrefix } = useConfig();
 
@@ -51,6 +52,5 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
 };
 
 AnchorItem.displayName = 'AnchorItem';
-AnchorItem.defaultProps = anchorItemDefaultProps;
 
 export default AnchorItem;

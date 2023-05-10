@@ -10,6 +10,7 @@ import copyText from '../_util/copyText';
 import { TdAnchorTargetProps } from './type';
 import { StyledProps } from '../common';
 import { anchorTargetDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {
   children?: React.ReactNode;
@@ -19,7 +20,7 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
   const { classPrefix } = useConfig();
   const { FileCopyIcon } = useGlobalIcon({ FileCopyIcon: TdFileCopyIcon });
 
-  const { id, tag, children, className, style } = props;
+  const { id, tag, children, className, style } = useDefaultProps(props, anchorTargetDefaultProps);
 
   const tagClassName = classNames(`${classPrefix}-anchor__target`, className);
   const iconClassName = `${classPrefix}-anchor__copy`;
@@ -44,6 +45,5 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
 };
 
 AnchorTarget.displayName = 'AnchorTarget';
-AnchorTarget.defaultProps = anchorTargetDefaultProps;
 
 export default AnchorTarget;
