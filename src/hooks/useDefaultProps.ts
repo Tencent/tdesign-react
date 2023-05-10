@@ -8,7 +8,7 @@ export default function useDefaultProps<T>(originalProps: T, defaultProps: Recor
     // eslint-disable-next-line
     const props = cloneDeep(originalProps);
     Object.keys(defaultProps).forEach((key) => {
-      if (!Reflect.has(props as object, key)) {
+      if (!Reflect.has(props as unknown as object, key)) {
         props[key] = defaultProps[key];
       }
     });
