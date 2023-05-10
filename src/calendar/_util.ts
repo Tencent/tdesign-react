@@ -121,5 +121,6 @@ export const createMonthList = (
       tmpArr = [];
     }
   }
+
   return monthsArr;
 };
