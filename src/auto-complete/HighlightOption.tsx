@@ -8,7 +8,7 @@ export interface TdHighlightOptionProps {
   keyword: string;
 }
 
-const HighlightOption = (props: TdHighlightOptionProps) => {
+const HighlightOption: React.FC<TdHighlightOptionProps> = (props) => {
   const { classPrefix } = useConfig();
   const { content, keyword } = props;
 
