@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
 import { useMemo } from 'react';
 
 // defaultProps 将于 18.3.0 废弃，故需实现 hook 在组件内部兼容
@@ -6,9 +5,9 @@ import { useMemo } from 'react';
 export default function useDefaultProps<T>(originalProps: T, defaultProps: Record<PropertyKey, any>): T {
   return useMemo<T>(() => {
     // eslint-disable-next-line
-    const props = cloneDeep(originalProps);
+    const props = Object.assign({}, originalProps);
     Object.keys(defaultProps).forEach((key) => {
-      if (!Reflect.has(props as unknown as object, key)) {
+      if (!Reflect.has(props, key)) {
         props[key] = defaultProps[key];
       }
     });
