@@ -1,17 +1,16 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-
 import { TdCardProps } from './type';
 import Loading from '../loading';
 import { StyledProps } from '../common';
-
 import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 import { cardDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CardProps extends TdCardProps, StyledProps {}
 
-const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
+const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   const {
     actions,
     avatar,
@@ -32,7 +31,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
     title,
     theme,
     status,
-  } = props;
+  } = useDefaultProps<CardProps>(props, cardDefaultProps);
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
@@ -100,7 +99,9 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   const renderStatus = status && isPoster2 && <div className={actionClass}>{status}</div>;
 
   const renderHeader = () => {
-    if (header) return <div className={headerClass}>{header}</div>;
+    if (header) {
+      return <div className={headerClass}>{header}</div>;
+    }
     return (
       <div className={headerClass}>
         <div className={`${classPrefix}-card__header-wrapper`}>
@@ -143,6 +144,5 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
 });
 
 Card.displayName = 'Card';
-Card.defaultProps = cardDefaultProps;
 
 export default Card;
