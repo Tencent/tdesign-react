@@ -13,6 +13,7 @@ import { getOffsetTop, getScroll, scrollTo, AnchorContainer } from './_util/dom'
 import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
 import { anchorDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AnchorProps extends TdAnchorProps, StyledProps {
   children?: React.ReactNode;
@@ -43,7 +44,7 @@ const Anchor = forwardRefWithStatics(
       onChange,
       className,
       ...rest
-    } = props;
+    } = useDefaultProps(props, anchorDefaultProps);
 
     const { classPrefix } = useConfig();
 
@@ -198,6 +199,5 @@ const Anchor = forwardRefWithStatics(
 );
 
 Anchor.displayName = 'Anchor';
-Anchor.defaultProps = anchorDefaultProps;
 
 export default Anchor;
