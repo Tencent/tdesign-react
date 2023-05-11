@@ -7,7 +7,7 @@ export default function useDefaultProps<T>(originalProps: T, defaultProps: Recor
     // eslint-disable-next-line
     const props = Object.assign({}, originalProps);
     Object.keys(defaultProps).forEach((key) => {
-      if (props[key] === undefined) {
+      if (!Reflect.has(props, key)) {
         props[key] = defaultProps[key];
       }
     });
