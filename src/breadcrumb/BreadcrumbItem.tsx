@@ -11,6 +11,7 @@ import parseTNode from '../_util/parseTNode';
 import { breadcrumbItemDefaultProps } from './defaultProps';
 import { isNodeOverflow } from '../_util/dom';
 import { TooltipLite } from '../tooltip';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -32,7 +33,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     className,
     content,
     ...restProps
-  } = props;
+  } = useDefaultProps<BreadcrumbItemProps>(props, breadcrumbItemDefaultProps);
 
   const { maxItemWidthInContext, separator: separatorInContext } = useContext(BreadcrumbContext);
   const breadcrumbText = useRef<HTMLSpanElement>(null);
@@ -97,6 +98,5 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 });
 
 BreadcrumbItem.displayName = 'BreadcrumbItem';
-BreadcrumbItem.defaultProps = breadcrumbItemDefaultProps;
 
 export default BreadcrumbItem;
