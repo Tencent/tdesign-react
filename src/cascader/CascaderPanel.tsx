@@ -2,15 +2,16 @@ import React from 'react';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import Panel from './components/Panel';
-
 import { TdCascaderProps } from './interface';
 import { useCascaderContext } from './hooks';
 import { cascaderDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
-const CascaderPanel = (props: CascaderProps) => {
+const CascaderPanel: React.FC<CascaderProps> = (originalProps) => {
+  const props = useDefaultProps<CascaderProps>(originalProps, cascaderDefaultProps);
   const { cascaderContext } = useCascaderContext(props);
   return (
     <Panel
@@ -23,6 +24,5 @@ const CascaderPanel = (props: CascaderProps) => {
 };
 
 CascaderPanel.displayName = 'CascaderPanel';
-CascaderPanel.defaultProps = cascaderDefaultProps;
 
 export default CascaderPanel;
