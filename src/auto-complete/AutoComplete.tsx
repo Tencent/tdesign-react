@@ -9,6 +9,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Input, { InputProps, InputRef, TdInputProps } from '../input';
 import Popup, { PopupProps, PopupRef } from '../popup';
 import AutoCompleteOptionList, { OptionsListProps } from './OptionList';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AutoCompleteProps<T extends AutoCompleteOption = AutoCompleteOption>
   extends TdAutoCompleteProps<T>,
@@ -19,7 +20,8 @@ export interface AutoCompleteRef {
   popupRef: PopupRef;
 }
 
-const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref) => {
+const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalProps, ref) => {
+  const props = useDefaultProps(originalProps, autoCompleteDefaultProps);
   const inputRef = useRef();
   const popupRef = useRef();
   const [tValue, setTValue] = useControlled(props, 'value', props.onChange);
@@ -183,7 +185,6 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((props, ref)
 });
 
 AutoComplete.displayName = 'AutoComplete';
-AutoComplete.defaultProps = autoCompleteDefaultProps;
 
 export default AutoComplete as <T extends AutoCompleteOption = AutoCompleteOption>(
   props: AutoCompleteProps<T> & {
