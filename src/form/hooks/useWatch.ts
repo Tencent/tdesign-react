@@ -3,6 +3,7 @@ import get from 'lodash/get';
 import type { NamePath } from '../type';
 import type { InternalFormInstance } from './interface';
 import { HOOK_MARK } from './useForm';
+import noop from '../../_util/noop';
 
 export default function useWatch(name: NamePath, form: InternalFormInstance) {
   const [value, setValue] = useState<any>();
@@ -15,11 +16,10 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
   useEffect(() => {
     if (!isValidForm) return;
 
-    const { getFieldsValue, getInternalHooks } = form;
-    const { registerWatch } = getInternalHooks(HOOK_MARK);
+    const { registerWatch = noop } = form.getInternalHooks?.(HOOK_MARK);
 
     const cancelRegister = registerWatch(() => {
-      const allFieldsValue = getFieldsValue(true);
+      const allFieldsValue = form.getFieldsValue?.(true);
       const newValue = get(allFieldsValue, name);
       const nextValueStr = JSON.stringify(newValue);
 
@@ -30,7 +30,7 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
       }
     });
 
-    const allFieldsValue = getFieldsValue(true);
+    const allFieldsValue = form.getFieldsValue?.(true);
     const initialValue = get(allFieldsValue, name);
     setValue(initialValue);
 
