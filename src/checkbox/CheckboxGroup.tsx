@@ -8,6 +8,7 @@ import { StyledProps } from '../common';
 import useControlled from '../hooks/useControlled';
 import Checkbox from './Checkbox';
 import { checkboxGroupDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
   extends TdCheckboxGroupProps<T>,
@@ -37,7 +38,15 @@ const getCheckboxValue = (v: CheckboxOption): string | number => {
 const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props: CheckboxGroupProps<T>) => {
   type ItemType = T[number];
   const { classPrefix } = useConfig();
-  const { onChange, disabled, className, style, children, max, options = [] } = props;
+  const {
+    onChange,
+    disabled,
+    className,
+    style,
+    children,
+    max,
+    options = [],
+  } = useDefaultProps<CheckboxGroupProps<T>>(props, checkboxGroupDefaultProps);
 
   // 去掉所有 checkAll 之后的 options
   const intervalOptions =
@@ -56,7 +65,9 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   const [localMax, setLocalMax] = useState(max);
 
   const checkedSet = useMemo(() => {
-    if (!Array.isArray(internalValue)) return new Set<ItemType>([]);
+    if (!Array.isArray(internalValue)) {
+      return new Set<ItemType>([]);
+    }
     return new Set<ItemType>([].concat(internalValue));
   }, [internalValue]);
 
@@ -72,7 +83,9 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   }, [checkedSet, optionsWithoutCheckAll]);
 
   useEffect(() => {
-    if (!isNumber(max)) return;
+    if (!isNumber(max)) {
+      return;
+    }
     if (max < checkedSet.size) {
       console.warn('[TDesign] max should be less than the length of value, change is invalid');
     } else {
@@ -177,6 +190,5 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
 };
 
 CheckboxGroup.displayName = 'CheckboxGroup';
-CheckboxGroup.defaultProps = checkboxGroupDefaultProps;
 
 export default CheckboxGroup;
