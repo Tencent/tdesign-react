@@ -13,6 +13,7 @@ import { StyledProps } from '../common';
 import { blockName, minYear, createDateList, createMonthList } from './_util';
 import CalendarCellComp from './CalendarCellComp';
 import { calendarDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -60,7 +61,7 @@ const getDefaultControllerConfigData = (visible = true): InternalCalendarControl
   },
 });
 
-const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableRefObject<CalendarMethods>) => {
+const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
   const {
     className,
     style,
@@ -85,7 +86,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     onCellRightClick = noop,
     onMonthChange = noop,
     fillWithZero,
-  } = props;
+  } = useDefaultProps<CalendarProps>(props, calendarDefaultProps);
 
   // 组装配置信息
   const controllerConfigData: InternalCalendarController =
@@ -326,7 +327,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const prefixCls = usePrefixClass();
   const currentDate = dayjs().format('YYYY-MM-DD');
   const currentMonth = dayjs().format('YYYY-MM');
-  const controlSectionSize = props.theme === 'card' ? 'small' : 'medium';
+  const controlSectionSize = theme === 'card' ? 'small' : 'medium';
 
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
@@ -511,6 +512,5 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
 });
 
 Calendar.displayName = 'Calendar';
-Calendar.defaultProps = calendarDefaultProps;
 
 export default Calendar;
