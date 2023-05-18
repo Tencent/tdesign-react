@@ -5,6 +5,17 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.6 `2023-05-18` 
+### 🚀 Features
+- `TreeSelect`:  支持 `panelConent` API @ArthurYung ([#2182](https://github.com/Tencent/tdesign-react/pull/2182))
+
+### 🐞 Bug Fixes
+- `Select`: 修复可创建重复 label 的选项的缺陷 @uyarn ([#2221](https://github.com/Tencent/tdesign-react/pull/2221))
+- `Skeleton`: 修复使用`rowCol`时额外多渲染一行theme的缺陷 @uyarn ([#2223](https://github.com/Tencent/tdesign-react/pull/2223))
+- `Form`:
+    - 修复异步渲染使用 `useWatch` 报错问题 @honkinglin ([#2220](https://github.com/Tencent/tdesign-react/pull/2220))
+    - 修复 `FormList` 初始值赋值失效问题 @honkinglin ([#2222](https://github.com/Tencent/tdesign-react/pull/2222))
+
 ## 🌈 1.1.5 `2023-05-10` 
 ### 🚀 Features
 - `Cascader`: 支持 `suffix`、`suffixIcon` @honkinglin ([#2200](https://github.com/Tencent/tdesign-react/pull/2200))
