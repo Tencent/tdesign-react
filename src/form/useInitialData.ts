@@ -37,8 +37,6 @@ export function getDefaultInitialData({
   FromContextInitialData,
   FormListInitialData,
 }) {
-  if (typeof name === 'undefined') return;
-
   let defaultInitialData;
   if (FromContextInitialData) {
     if (typeof name === 'string') defaultInitialData = get(FromContextInitialData, name);
