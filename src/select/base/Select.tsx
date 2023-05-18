@@ -197,7 +197,7 @@ const Select = forwardRefWithStatics(
       }
       if (creatable && isFunction(onCreate)) {
         if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
-          onCreate(value);
+          onCreate(value as string); // 手动输入 此时为string
         }
       }
       // 处理onChange回调中的selectedOptions参数
@@ -225,8 +225,8 @@ const Select = forwardRefWithStatics(
         const upperValue = value.toUpperCase();
         filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
       }
-
-      if (creatable) {
+      const isSameLabelOptionExist = filteredOptions.find((option) => option.label === value);
+      if (creatable && !isSameLabelOptionExist) {
         filteredOptions = filteredOptions.concat([{ label: value, value }]);
       }
       setCurrentOptions(filteredOptions);
