@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState, forwardRef, MutableRefObject, useCallback } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import classNames from 'classnames';
 import tinyColor from 'tinycolor2';
-
 import useCommonClassName from '../../../_util/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
@@ -27,7 +26,7 @@ import SwatchesPanel from './swatches';
 
 const mathRound = Math.round;
 
-const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDivElement>) => {
+const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const baseClassName = useClassName();
   const { STATUS } = useCommonClassName();
   const [local, t] = useLocaleReceiver('colorPicker');
