@@ -135,8 +135,8 @@ const FormList = (props: TdFormListProps) => {
         const { name: itemName } = formItemRef.current;
         const data = get(fieldData, itemName);
         callback(formItemRef, data);
-        fieldsTaskQueueRef.current.pop();
       });
+      fieldsTaskQueueRef.current.pop();
 
       // formList 嵌套 formList
       if (!formMapRef || !formMapRef.current) return;
