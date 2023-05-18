@@ -16,12 +16,13 @@ import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
 import { alertDefaultProps } from './defaultProps';
 import composeRefs from '../_util/composeRefs';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 const transitionTime = 200;
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
-const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => {
+const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const [local, t] = useLocaleReceiver('alert');
   const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
@@ -43,7 +44,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     className,
     onClosed = noop,
     ...alertProps
-  } = props;
+  } = useDefaultProps(props, alertDefaultProps);
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -133,6 +134,5 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 });
 
 Alert.displayName = 'Alert';
-Alert.defaultProps = alertDefaultProps;
 
 export default Alert;

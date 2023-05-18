@@ -54,7 +54,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     form,
     colon,
     layout,
-    initialData: initialDataFromContext,
+    initialData: FromContextInitialData,
     requiredMark: requiredMarkFromContext,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
@@ -68,7 +68,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     onFormItemValueChange,
   } = useFormContext();
 
-  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
+  const {
+    name: formListName,
+    rules: formListRules,
+    formListMapRef,
+    initialData: FormListInitialData,
+  } = useFormListContext();
 
   const {
     children,
@@ -102,7 +107,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       formListName,
       children,
       initialData,
-      initialDataFromContext,
+      FromContextInitialData,
+      FormListInitialData,
     }),
   );
 
@@ -313,7 +319,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
         formListName,
         children,
         initialData,
-        initialDataFromContext,
+        FromContextInitialData,
+        FormListInitialData,
       });
     }
 

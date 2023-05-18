@@ -11,6 +11,7 @@ import AvatarGroup from './AvatarGroup';
 import { avatarDefaultProps } from './defaultProps';
 import useResizeObserver from '../hooks/useResizeObserver';
 import Image, { ImageProps } from '../image';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;
@@ -29,9 +30,10 @@ const Avatar = forwardRefWithStatics(
       children,
       content,
       style,
+      imageProps,
       className,
       ...avatarProps
-    } = props;
+    } = useDefaultProps<AvatarProps>(props, avatarDefaultProps);
     const groupSize = useContext(AvatarContext);
 
     const { classPrefix } = useConfig();
@@ -64,7 +66,7 @@ const Avatar = forwardRefWithStatics(
     useEffect(() => {
       setIsImgExist(true);
       setScale(1);
-    }, [props.image]);
+    }, [image]);
 
     useEffect(() => {
       handleScale();
@@ -94,11 +96,9 @@ const Avatar = forwardRefWithStatics(
       [`${preClass}--${shape}`]: !!shape,
       [`${preClass}__icon`]: !!icon,
     });
-    let renderChildren;
+    let renderChildren: React.ReactNode;
     if (image && isImgExist) {
-      renderChildren = (
-        <Image src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} {...props.imageProps} />
-      );
+      renderChildren = <Image src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} {...imageProps} />;
     } else if (icon) {
       renderChildren = icon;
     } else {
@@ -126,6 +126,5 @@ const Avatar = forwardRefWithStatics(
 );
 
 Avatar.displayName = 'Avatar';
-Avatar.defaultProps = avatarDefaultProps;
 
 export default Avatar;

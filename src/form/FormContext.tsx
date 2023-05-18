@@ -47,10 +47,12 @@ export const FormListContext = React.createContext<{
   name: NamePath;
   rules: TdFormListProps['rules'];
   formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
+  initialData: TdFormProps['initialData'];
 }>({
   name: undefined,
   rules: undefined,
   formListMapRef: undefined,
+  initialData: [],
 });
 
 export const useFormListContext = () => React.useContext(FormListContext);

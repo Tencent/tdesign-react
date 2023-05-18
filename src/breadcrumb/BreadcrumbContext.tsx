@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { TdBreadcrumbProps } from './type';
 
 export interface BreadcrumbContextType {
-  maxItemWidthInContext;
+  maxItemWidthInContext: string;
   separator: TdBreadcrumbProps['separator'];
 }
 
