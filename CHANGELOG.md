@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.7 `2023-05-19` 
+### 🐞 Bug Fixes
+- `Tooltip`: 修复箭头偏移问题 @uyarn ([#1347](https://github.com/Tencent/tdesign-common/pull/1347))
+
 ## 🌈 1.1.6 `2023-05-18` 
 ### 🚀 Features
 - `TreeSelect`:  支持 `panelConent` API @ArthurYung ([#2182](https://github.com/Tencent/tdesign-react/pull/2182))
