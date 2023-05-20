@@ -8,13 +8,15 @@ import useControlled from '../hooks/useControlled';
 import CollapsePanel from './CollapsePanel';
 import CollapseContext from './CollapseContext';
 import { collapseDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CollapseProps extends TdCollapseProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Collapse = forwardRefWithStatics(
-  (props: CollapseProps, ref: React.Ref<HTMLDivElement>) => {
+  (originalProps: CollapseProps, ref: React.Ref<HTMLDivElement>) => {
+    const props = useDefaultProps<CollapseProps>(originalProps, collapseDefaultProps);
     const { classPrefix } = useConfig();
     const componentName = `${classPrefix}-collapse`;
     const borderlessClass = `${classPrefix}--border-less`;
@@ -87,6 +89,5 @@ const Collapse = forwardRefWithStatics(
 );
 
 Collapse.displayName = 'Collapse';
-Collapse.defaultProps = collapseDefaultProps;
 
 export default Collapse;

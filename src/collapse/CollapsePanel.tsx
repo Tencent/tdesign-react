@@ -7,13 +7,14 @@ import useConfig from '../hooks/useConfig';
 import { TdCollapsePanelProps } from './type';
 import { StyledProps } from '../common';
 import { collapsePanelDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;
   index?: number;
 }
 
-const CollapsePanel = (props: CollapsePanelProps) => {
+const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
   const {
     value,
     disabled,
@@ -25,7 +26,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     headerRightContent,
     children,
     index,
-  } = props;
+  } = useDefaultProps<CollapsePanelProps>(props, collapsePanelDefaultProps);
   const {
     disabled: disableAll,
     defaultExpandAll,
@@ -162,6 +163,5 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 };
 
 CollapsePanel.displayName = 'CollapsePanel';
-CollapsePanel.defaultProps = collapsePanelDefaultProps;
 
 export default CollapsePanel;
