@@ -17,7 +17,9 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
-const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProps>((props, ref) => {
+const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProps>((originalProps, ref) => {
+  const props = useDefaultProps(originalProps, { mode: 'date', defaultValue: [], panelPreselection: true });
+
   const {
     className,
     style,
@@ -30,11 +32,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     presetsPlacement,
     panelPreselection,
     onPanelClick,
-  } = useDefaultProps<DateRangePickerPanelProps>(props, {
-    mode: 'date',
-    defaultValue: [],
-    panelPreselection: true,
-  });
+  } = props;
 
   const {
     value,

@@ -16,10 +16,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 
-const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props, ref) => {
-  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } = useSingleValue(
-    useDefaultProps<DatePickerPanelProps>(props, { mode: 'date', defaultValue: '' }),
-  );
+const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((originalProps, ref) => {
+  const props = useDefaultProps<DatePickerPanelProps>(originalProps, { mode: 'date', defaultValue: '' });
+  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
+    useSingleValue(props);
 
   const {
     className,
@@ -35,9 +35,9 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   } = props;
 
   const { format } = getDefaultFormat({
-    mode: props.mode,
+    mode,
     format: props.format,
-    enableTimePicker: props.enableTimePicker,
+    enableTimePicker,
   });
 
   // 日期点击

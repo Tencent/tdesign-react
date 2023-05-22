@@ -22,8 +22,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DateRangePickerProps extends TdDateRangePickerProps, StyledProps {}
 
-const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
+const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((originalProps, ref) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+
+  const props = useDefaultProps<DateRangePickerProps>(originalProps, dateRangePickerDefaultProps);
 
   const {
     className,
@@ -38,7 +40,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     presetsPlacement,
     panelPreselection,
     onPick,
-  } = useDefaultProps<DateRangePickerProps>(props, dateRangePickerDefaultProps);
+  } = props;
 
   const {
     inputValue,
