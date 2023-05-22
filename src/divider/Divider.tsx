@@ -4,6 +4,7 @@ import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDividerProps } from './type';
 import { dividerDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 /**
  * Divider 组件支持的属性。
@@ -18,8 +19,11 @@ export interface DividerProps extends TdDividerProps, StyledProps {
 /**
  * 分割线组件
  */
-const Divider = (props: DividerProps) => {
-  const { layout, dashed, align, className, style, children, content, ...otherDividerProps } = props;
+const Divider: React.FC<DividerProps> = (props) => {
+  const { layout, dashed, align, className, style, children, content, ...otherDividerProps } = useDefaultProps(
+    props,
+    dividerDefaultProps,
+  );
 
   const { classPrefix } = useConfig();
   const childrenNode = content || children;
@@ -41,6 +45,5 @@ const Divider = (props: DividerProps) => {
 };
 
 Divider.displayName = 'Divider';
-Divider.defaultProps = dividerDefaultProps;
 
 export default Divider;
