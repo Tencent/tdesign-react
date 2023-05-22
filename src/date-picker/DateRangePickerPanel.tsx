@@ -13,6 +13,7 @@ import useRangeValue from './hooks/useRangeValue';
 import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import log from '../_common/js/log';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
@@ -29,7 +30,11 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     presetsPlacement,
     panelPreselection,
     onPanelClick,
-  } = props;
+  } = useDefaultProps<DateRangePickerPanelProps>(props, {
+    mode: 'date',
+    defaultValue: [],
+    panelPreselection: true,
+  });
 
   const {
     value,
@@ -315,10 +320,5 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 });
 
 DateRangePickerPanel.displayName = 'DateRangePickerPanel';
-DateRangePickerPanel.defaultProps = {
-  mode: 'date',
-  defaultValue: [],
-  panelPreselection: true,
-};
 
 export default DateRangePickerPanel;

@@ -12,12 +12,14 @@ import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
 import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 
 const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props, ref) => {
-  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
-    useSingleValue(props);
+  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } = useSingleValue(
+    useDefaultProps<DatePickerPanelProps>(props, { mode: 'date', defaultValue: '' }),
+  );
 
   const {
     className,
@@ -186,9 +188,5 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 });
 
 DatePickerPanel.displayName = 'DatePickerPanel';
-DatePickerPanel.defaultProps = {
-  mode: 'date',
-  defaultValue: '',
-};
 
 export default DatePickerPanel;
