@@ -46,7 +46,7 @@ describe('test Drawer', () => {
     const { getByText } = render(<DrawerDemo />);
     fireEvent.click(getByText('Open'));
     expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
-    fireEvent.click(document.querySelector('.t-drawer--open').children[0]);
+    fireEvent.click(document.querySelector('.t-drawer--open')?.children[0]);
     expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();
   });
   test('Drawer placement', async () => {

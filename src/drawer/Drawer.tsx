@@ -24,7 +24,8 @@ export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
 
 export interface DrawerProps extends TdDrawerProps, StyledProps {}
 
-const Drawer = forwardRef<HTMLDivElement, DrawerProps>((props, ref) => {
+const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
+  const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
   const {
     className,
     style,
@@ -52,7 +53,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((props, ref) => {
     zIndex,
     destroyOnClose,
     sizeDraggable,
-  } = useDefaultProps<DrawerProps>(props, drawerDefaultProps);
+  } = props;
 
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
