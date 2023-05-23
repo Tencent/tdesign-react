@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import type { RefObject } from 'react';
 import classNames from 'classnames';
 import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
 import useConfig from '../hooks/useConfig';
@@ -7,6 +8,7 @@ import useRipple from '../_util/useRipple';
 import { dropdownItemDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
 import { pxCompat } from '../_util/helper';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 type DropdownItemProps = Pick<DropdownOption, 'value'> &
   Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> &
@@ -20,7 +22,7 @@ type DropdownItemProps = Pick<DropdownOption, 'value'> &
     isSubmenu?: boolean;
   };
 
-const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLLIElement>) => {
+const DropdownItem = forwardRef<HTMLLIElement, DropdownItemProps>((props, ref: RefObject<HTMLLIElement>) => {
   const {
     children,
     className,
@@ -34,7 +36,7 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     onClick,
     style,
     isSubmenu,
-  } = props;
+  } = useDefaultProps<DropdownItemProps>(props, dropdownItemDefaultProps);
   const { classPrefix } = useConfig();
   const [dropdownItemDom, setRefCurrent] = useDomRefCallback();
 
@@ -66,6 +68,5 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
 });
 
 DropdownItem.displayName = 'DropdownItem';
-DropdownItem.defaultProps = dropdownItemDefaultProps;
 
 export default DropdownItem;
