@@ -10,11 +10,14 @@ import useSingle from './hooks/useSingle';
 import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
-const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
+const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
+
+  const props = useDefaultProps<DatePickerProps>(originalProps, datePickerDefaultProps);
 
   const {
     className,
@@ -53,10 +56,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   } = useSingle(props);
 
   const { format, timeFormat, valueType } = getDefaultFormat({
-    mode: props.mode,
+    mode,
     format: props.format,
     valueType: props.valueType,
-    enableTimePicker: props.enableTimePicker,
+    enableTimePicker,
   });
 
   useEffect(() => {
@@ -226,6 +229,5 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
 });
 
 DatePicker.displayName = 'DatePicker';
-DatePicker.defaultProps = datePickerDefaultProps;
 
 export default DatePicker;
