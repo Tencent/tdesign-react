@@ -15,12 +15,10 @@ export interface DropdownProps extends TdDropdownProps, StyledProps {
   children?: React.ReactNode;
 }
 
-interface CompoundedComponent {
+const Dropdown: React.FC<DropdownProps> & {
   DropdownItem: typeof DropdownItem;
   DropdownMenu: typeof DropdownMenu;
-}
-
-const Dropdown: React.FC<DropdownProps> & CompoundedComponent = (originalProps) => {
+} = (originalProps) => {
   const props = useDefaultProps<DropdownProps>(originalProps, dropdownDefaultProps);
   const {
     popupProps = {},
@@ -32,7 +30,6 @@ const Dropdown: React.FC<DropdownProps> & CompoundedComponent = (originalProps) 
     hideAfterItemClick,
     options: propsOptions,
     style,
-    onClick,
   } = props;
 
   const arrayChildren = React.Children.toArray(children);
@@ -47,7 +44,7 @@ const Dropdown: React.FC<DropdownProps> & CompoundedComponent = (originalProps) 
       togglePopupVisible(false);
       popupProps?.onVisibleChange?.(false, context);
     }
-    onClick?.(data, context);
+    props.onClick?.(data, context);
   };
 
   const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
