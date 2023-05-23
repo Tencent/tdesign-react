@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { fireEvent, render, vi } from '@test/utils';
-import Drawer from '../index';
+import Drawer, { DrawerProps } from '../index';
 
 function DrawerDemo(props) {
   const [visible, setVisible] = useState(false);
@@ -11,25 +11,16 @@ function DrawerDemo(props) {
   const handleClose = () => {
     setVisible(false);
   };
+  const drawerProps: DrawerProps = {};
+  Object.keys(props).forEach((key) => {
+    if (props[key] !== undefined) {
+      drawerProps[key] = props[key];
+    }
+  });
   return (
     <>
       <div onClick={handleClick}>Open</div>
-      <Drawer
-        header={props.header || '这是标题'}
-        footer={props.footer}
-        visible={visible}
-        onClose={handleClose}
-        closeBtn={props.closeBtn}
-        confirmBtn={props.confirmBtn}
-        cancelBtn={props.cancelBtn}
-        showOverlay={props.notShowOverlay ? false : true}
-        mode={props.mode || 'overlay'}
-        placement={props.placement || 'right'}
-        attach={props.attach}
-        destroyOnClose={props.destroyOnClose || false}
-        size={props.size || 'small'}
-        onCancel={props.onCancel}
-      >
+      <Drawer visible={visible} onClose={handleClose} showOverlay={!props.notShowOverlay} {...drawerProps}>
         <p>This is a drawer</p>
       </Drawer>
     </>
@@ -55,7 +46,7 @@ describe('test Drawer', () => {
     const { getByText } = render(<DrawerDemo />);
     fireEvent.click(getByText('Open'));
     expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
-    fireEvent.click(document.querySelector('.t-drawer--open').children[0]);
+    fireEvent.click(document.querySelector('.t-drawer--open')?.children[0]);
     expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();
   });
   test('Drawer placement', async () => {
