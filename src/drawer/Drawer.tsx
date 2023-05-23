@@ -13,6 +13,7 @@ import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
 import Portal from '../common/Portal';
 import useLockStyle from './hooks/useLockStyle';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -23,7 +24,8 @@ export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
 
 export interface DrawerProps extends TdDrawerProps, StyledProps {}
 
-const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) => {
+const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
+  const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
   const {
     className,
     style,
@@ -200,6 +202,5 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 });
 
 Drawer.displayName = 'Drawer';
-Drawer.defaultProps = drawerDefaultProps;
 
 export default Drawer;
