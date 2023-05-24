@@ -23,7 +23,7 @@ export default function useRowspanAndColspan(
   rowKey: string,
   rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
 ) {
-  const [skipSpansMap] = useState(new Map<string, SkipSpansValue>());
+  const [skipSpansMap, setSpansMap] = useState(new Map<string, SkipSpansValue>());
 
   // 计算单元格是否跳过渲染
   const onTrRowspanOrColspan = (params: BaseTableCellParams<TableRowData>, skipSpansValue: SkipSpansValue) => {
@@ -78,7 +78,8 @@ export default function useRowspanAndColspan(
   useEffect(() => {
     updateSkipSpansMap(data, columns, rowspanAndColspan);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, columns, rowspanAndColspan]);
+    setSpansMap(pre => new Map<string, SkipSpansValue>([...pre.entries()]))
+  }, [data, columns, rowspanAndColspan, setSpansMap]);
 
-  return { skipSpansMap, updateSkipSpansMap };
+  return { skipSpansMap };
 }
