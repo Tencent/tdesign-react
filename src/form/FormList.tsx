@@ -19,7 +19,7 @@ const FormList = (props: TdFormListProps) => {
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(
     initialData.map((data, index) => ({
-      ...data,
+      data: { ...data },
       key: (key += 1),
       name: index,
       isListField: true,
