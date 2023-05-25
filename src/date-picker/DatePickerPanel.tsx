@@ -12,10 +12,12 @@ import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
 import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 
-const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props, ref) => {
+const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((originalProps, ref) => {
+  const props = useDefaultProps<DatePickerPanelProps>(originalProps, { mode: 'date', defaultValue: '' });
   const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
     useSingleValue(props);
 
@@ -33,9 +35,9 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   } = props;
 
   const { format } = getDefaultFormat({
-    mode: props.mode,
+    mode,
     format: props.format,
-    enableTimePicker: props.enableTimePicker,
+    enableTimePicker,
   });
 
   // 日期点击
@@ -186,9 +188,5 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 });
 
 DatePickerPanel.displayName = 'DatePickerPanel';
-DatePickerPanel.defaultProps = {
-  mode: 'date',
-  defaultValue: '',
-};
 
 export default DatePickerPanel;

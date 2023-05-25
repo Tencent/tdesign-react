@@ -7,15 +7,19 @@ import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
 import { dropdownDefaultProps } from './defaultProps';
-
 import useConfig from '../hooks/useConfig';
 import useDropdownOptions from './hooks/useDropdownOptions';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DropdownProps extends TdDropdownProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const Dropdown = (props: DropdownProps) => {
+const Dropdown: React.FC<DropdownProps> & {
+  DropdownItem: typeof DropdownItem;
+  DropdownMenu: typeof DropdownMenu;
+} = (originalProps) => {
+  const props = useDefaultProps<DropdownProps>(originalProps, dropdownDefaultProps);
   const {
     popupProps = {},
     disabled,
@@ -40,7 +44,7 @@ const Dropdown = (props: DropdownProps) => {
       togglePopupVisible(false);
       popupProps?.onVisibleChange?.(false, context);
     }
-    props?.onClick?.(data, context);
+    props.onClick?.(data, context);
   };
 
   const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
@@ -78,6 +82,5 @@ Dropdown.DropdownItem = DropdownItem;
 Dropdown.DropdownMenu = DropdownMenu;
 
 Dropdown.displayName = 'Dropdown';
-Dropdown.defaultProps = dropdownDefaultProps;
 
 export default Dropdown;
