@@ -69,6 +69,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
           <Button
             theme="primary"
             variant="base"
+            disabled={!props.value}
             onClick={() => {
               handleConfirmClick(defaultValue);
             }}
