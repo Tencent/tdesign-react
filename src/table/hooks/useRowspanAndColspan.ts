@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import get from 'lodash/get';
 import log from '../../_common/js/log';
 import { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
@@ -23,7 +22,7 @@ export default function useRowspanAndColspan(
   rowKey: string,
   rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
 ) {
-  const [skipSpansMap, setSpansMap] = useState(new Map<string, SkipSpansValue>());
+  const skipSpansMap = new Map<string, SkipSpansValue>();
 
   // 计算单元格是否跳过渲染
   const onTrRowspanOrColspan = (params: BaseTableCellParams<TableRowData>, skipSpansValue: SkipSpansValue) => {
@@ -45,12 +44,7 @@ export default function useRowspanAndColspan(
   };
 
   // 计算单元格是否需要设置 rowspan 和 colspan
-  const updateSkipSpansMap = (
-    data: TableRowData[],
-    columns: BaseTableCol<TableRowData>[],
-    rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
-  ) => {
-    skipSpansMap.clear();
+  (() => {
     if (!data || !rowspanAndColspan) return;
     for (let i = 0, len = data.length; i < len; i++) {
       const row = data[i];
@@ -73,13 +67,7 @@ export default function useRowspanAndColspan(
         onTrRowspanOrColspan?.(params, state);
       }
     }
-  };
-
-  useEffect(() => {
-    updateSkipSpansMap(data, columns, rowspanAndColspan);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    setSpansMap(pre => new Map<string, SkipSpansValue>([...pre.entries()]))
-  }, [data, columns, rowspanAndColspan, setSpansMap]);
+  })();
 
   return { skipSpansMap };
 }
