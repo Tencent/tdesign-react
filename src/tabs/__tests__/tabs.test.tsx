@@ -310,9 +310,16 @@ describe('Tabs 组件测试', () => {
       tagBox.removeChild(reactTag);
     });
 
+    const onDragStart = vi.fn(() => {
+      console.log('888---999');
+    });
+    const onDragEnd = vi.fn(() => {
+      console.log('888---999');
+    });
+
     const { container } = render(
       <div>
-        <Tabs dragSort onDragSort={onDragSort}>
+        <Tabs dragSort onDragSort={onDragSort} onDragStart={onDragStart} onDragEnd={onDragEnd}>
           <TabPanel value={'vue'} label={'vue'}>
             <div>vueContent</div>
           </TabPanel>
@@ -336,7 +343,10 @@ describe('Tabs 组件测试', () => {
         targetIndex: 0,
       },
     });
-    expect(onDragSort).toHaveBeenCalled(1);
+    expect(onDragSort).toHaveBeenCalled();
+    expect(onDragStart).toHaveBeenCalled();
+    waitFor(() => expect(onDragEnd).toHaveBeenCalled());
+
     expect(onDragSort.mock.calls[0][0].target.value).toEqual('vue');
     expect(container.querySelectorAll('.t-tabs__nav-item-text-wrapper').item(0).firstChild.nodeValue).toEqual('react');
   });
