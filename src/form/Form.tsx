@@ -12,15 +12,16 @@ import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
 import { formDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Form = forwardRefWithStatics(
-  (props: FormProps, ref) => {
+  (originalProps: FormProps, ref) => {
     const { classPrefix, form: globalFormConfig } = useConfig();
-
+    const props = useDefaultProps<FormProps>(originalProps, formDefaultProps);
     const {
       style,
       className,
@@ -48,7 +49,7 @@ const Form = forwardRefWithStatics(
     });
 
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
-    const formRef: React.RefObject<HTMLFormElement> = useRef();
+    const formRef = useRef<HTMLFormElement>();
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
     const formInstance = useInstance(props, formRef, formMapRef);
 
@@ -121,6 +122,5 @@ const Form = forwardRefWithStatics(
 );
 
 Form.displayName = 'Form';
-Form.defaultProps = formDefaultProps;
 
 export default Form;
