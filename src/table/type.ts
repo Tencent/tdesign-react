@@ -213,7 +213,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   onCellClick?: (context: BaseTableCellEventContext<T>) => void;
   /**
-   * 列调整大小之后触发。`context.column` 表示操作的列；`context.index` 表示操作的列的序号；
+   * 列调整大小之后触发。`context.columnsWidth` 表示操作后各个列的宽度；
    */
   onColumnResizeChange?: (context: { columnsWidth: { [colKey: string]: number } }) => void;
   /**
