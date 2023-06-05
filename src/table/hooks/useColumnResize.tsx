@@ -300,7 +300,7 @@ export default function useColumnResize(params: {
       off(document, 'mousemove', onDragOver);
       document.onselectstart = originalSelectStart;
       document.ondragstart = originalDragStart;
-      onColumnResizeChange?.({ index, columnsWidth: newThWidthList });
+      onColumnResizeChange?.({ columnsWidth: newThWidthList });
     };
 
     on(document, 'mouseup', onDragEnd);

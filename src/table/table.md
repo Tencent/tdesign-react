@@ -47,7 +47,7 @@ tableLayout | String | fixed | 表格布局方式。可选项：auto/fixed | N
 topContent | TNode | - | 表格顶部内容，可以用于自定义列设置、顶部查询条件等。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 verticalAlign | String | middle | 行内容上下方向对齐。可选项：top/middle/bottom | N
 onCellClick | Function |  | TS 类型：`(context: BaseTableCellEventContext<T>) => void`<br/>单元格点击时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface BaseTableCellEventContext<T> { row: T; col: BaseTableCol; rowIndex: number; colIndex: number; e: MouseEvent }`<br/> | N
-onColumnResizeChange | Function |  | TS 类型：`(context: { index: number; columnsWidth: Record<string, number>; }) => void`<br/>列调整大小之后触发。`context.column` 表示操作的列；`context.index` 表示操作的列的序号； | N
+onColumnResizeChange | Function |  | TS 类型：`(context: { columnsWidth: { [colKey: string]: number }; }) => void`<br/>列调整大小之后触发。`context.column` 表示操作的列；`context.index` 表示操作的列的序号； | N
 onPageChange | Function |  | TS 类型：`(pageInfo: PageInfo, newDataSource: Array<T>) => void`<br/>分页发生变化时触发。参数 newDataSource 表示分页后的数据。本地数据进行分页时，newDataSource 和源数据 data 会不一样。泛型 T 指表格数据类型 | N
 onRowClick | Function |  | TS 类型：`(context: RowEventContext<T>) => void`<br/>行点击时触发，泛型 T 指表格数据类型。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface RowEventContext<T> { row: T; index: number; e: MouseEvent }`<br/> | N
 onRowDblclick | Function |  | TS 类型：`(context: RowEventContext<T>) => void`<br/>行双击时触发，泛型 T 指表格数据类型 | N

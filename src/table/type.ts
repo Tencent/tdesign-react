@@ -215,7 +215,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
    * 列调整大小之后触发。`context.column` 表示操作的列；`context.index` 表示操作的列的序号；
    */
-  onColumnResizeChange?: (context: { index: number; columnsWidth: Record<string, number> }) => void;
+  onColumnResizeChange?: (context: { columnsWidth: { [colKey: string]: number } }) => void;
   /**
    * 分页发生变化时触发。参数 newDataSource 表示分页后的数据。本地数据进行分页时，newDataSource 和源数据 data 会不一样。泛型 T 指表格数据类型
    */

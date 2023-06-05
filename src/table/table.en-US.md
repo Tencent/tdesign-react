@@ -47,7 +47,7 @@ tableLayout | String | fixed | table-layout css properties。options：auto/fixe
 topContent | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 verticalAlign | String | middle | vertical align。options：top/middle/bottom | N
 onCellClick | Function |  | Typescript：`(context: BaseTableCellEventContext<T>) => void`<br/>trigger on cell clicked。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface BaseTableCellEventContext<T> { row: T; col: BaseTableCol; rowIndex: number; colIndex: number; e: MouseEvent }`<br/> | N
-onColumnResizeChange | Function |  | Typescript：`(context: { index: number; columnsWidth: Record<string, number>; }) => void`<br/> | N
+onColumnResizeChange | Function |  | Typescript：`(context: { columnsWidth: { [colKey: string]: number }; }) => void`<br/> | N
 onPageChange | Function |  | Typescript：`(pageInfo: PageInfo, newDataSource: Array<T>) => void`<br/>trigger on pagination changing | N
 onRowClick | Function |  | Typescript：`(context: RowEventContext<T>) => void`<br/>trigger on row click。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface RowEventContext<T> { row: T; index: number; e: MouseEvent }`<br/> | N
 onRowDblclick | Function |  | Typescript：`(context: RowEventContext<T>) => void`<br/>trigger on double click | N
