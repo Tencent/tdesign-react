@@ -13,7 +13,7 @@ export type SetMenuState = React.Dispatch<React.SetStateAction<MenuState>>;
 export type MenuMode = 'title' | 'accordion' | 'popup';
 
 interface MenuContextType
-  extends Pick<TdMenuProps, 'onChange' | 'value' | 'expanded' | 'expandMutex' | 'expandType' | 'theme'> {
+  extends Pick<TdMenuProps, 'onChange' | 'value' | 'expanded' | 'expandMutex' | 'expandType' | 'theme' | 'collapsed'> {
   /**
    * 修改非受控组件状态
    */
