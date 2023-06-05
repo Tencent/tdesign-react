@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, WheelEventHandler, MouseEvent, KeyboardEvent } from 'react';
+import React, { useState, useEffect, useCallback, MouseEvent, KeyboardEvent } from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import {
@@ -320,13 +320,24 @@ export const ImageModal = (props: ImageModalProps) => {
     onResetMirror();
   }, [onResetMirror, onResetScale, onResetRotate]);
 
-  const onScroll: WheelEventHandler<HTMLDivElement> = useCallback(
+  const onWheel = useCallback(
     (e) => {
-      const { deltaY } = e;
-      deltaY > 0 ? onZoom() : onZoomOut();
+      e.preventDefault();
+      e.deltaY < 0 ? onZoom() : onZoomOut();
     },
     [onZoom, onZoomOut],
   );
+
+  useEffect(() => {
+    if (visible) {
+      document.addEventListener('wheel', onWheel, { passive: false });
+    } else {
+      document.removeEventListener('wheel', onWheel);
+    }
+    return () => {
+      document.removeEventListener('wheel', onWheel);
+    };
+  }, [visible, onWheel]);
 
   const onKeyDown = useCallback(
     (event) => {
@@ -386,7 +397,6 @@ export const ImageModal = (props: ImageModalProps) => {
         onZoom={onZoom}
         onClose={onClose}
         onZoomOut={onZoomOut}
-        onScroll={onScroll}
         onReset={onReset}
         onRotate={onRotate}
         errorText={errorText}
@@ -413,7 +423,6 @@ export const ImageModal = (props: ImageModalProps) => {
       className={classNames(`${classPrefix}-image-viewer-preview-image`, {
         [`${classPrefix}-is-hide`]: !visible,
       })}
-      onWheel={onScroll}
       style={{ zIndex }}
     >
       {!!showOverlay && (
