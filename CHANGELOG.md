@@ -5,6 +5,45 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.8 `2023-05-25` 
+### 🚀 Features
+- `TimePicker`: 没有选中值时不允许点击确认按钮 @uyarn ([#2240](https://github.com/Tencent/tdesign-react/pull/2240))
+
+### 🐞 Bug Fixes
+- `Form`: 修复 `FormList` 数据透传问题 @honkinglin ([#2239](https://github.com/Tencent/tdesign-react/pull/2239))
+
+## 🌈 1.1.7 `2023-05-19` 
+### 🐞 Bug Fixes
+- `Tooltip`: 修复箭头偏移问题 @uyarn ([#1347](https://github.com/Tencent/tdesign-common/pull/1347))
+
+## 🌈 1.1.6 `2023-05-18` 
+### 🚀 Features
+- `TreeSelect`:  支持 `panelConent` API @ArthurYung ([#2182](https://github.com/Tencent/tdesign-react/pull/2182))
+
+### 🐞 Bug Fixes
+- `Select`: 修复可创建重复 label 的选项的缺陷 @uyarn ([#2221](https://github.com/Tencent/tdesign-react/pull/2221))
+- `Skeleton`: 修复使用`rowCol`时额外多渲染一行theme的缺陷 @uyarn ([#2223](https://github.com/Tencent/tdesign-react/pull/2223))
+- `Form`:
+    - 修复异步渲染使用 `useWatch` 报错问题 @honkinglin ([#2220](https://github.com/Tencent/tdesign-react/pull/2220))
+    - 修复 `FormList` 初始值赋值失效问题 @honkinglin ([#2222](https://github.com/Tencent/tdesign-react/pull/2222))
+
+## 🌈 1.1.5 `2023-05-10` 
+### 🚀 Features
+- `Cascader`: 支持 `suffix`、`suffixIcon` @honkinglin ([#2200](https://github.com/Tencent/tdesign-react/pull/2200))
+
+### 🐞 Bug Fixes
+- `SelectInput`: 修复 `loading` 在 `disabled` 状态下隐藏问题  @honkinglin ([#2196](https://github.com/Tencent/tdesign-react/pull/2196))
+- `Image`: 修复 Image 组件不支持 ref 的问题 @li-jia-nan ([#2198](https://github.com/Tencent/tdesign-react/pull/2198))
+- `BackTop`:  支持 ref 透传 @li-jia-nan ([#2202](https://github.com/Tencent/tdesign-react/pull/2202))
+
+## 🌈 1.1.4 `2023-04-27` 
+### 🚀 Features
+- `Select`: 支持panelTopContent在虚拟滚动等需要滚动下拉框场景的使用 具体使用方式请看示例 @uyarn ([#2184](https://github.com/Tencent/tdesign-react/pull/2184))
+
+### 🐞 Bug Fixes
+- `DatePicker`: 修复第二次点击面板关闭异常问题 @honkinglin ([#2183](https://github.com/Tencent/tdesign-react/pull/2183))
+- `Table`:  修复 `useResizeObserver` ssr error @chaishi ([#2175](https://github.com/Tencent/tdesign-react/pull/2175))
+
 ## 🌈 1.1.3 `2023-04-21` 
 ### 🚀 Features
 - `DatePicker`: 支持 `onPresetClick` 事件 @honkinglin ([#2165](https://github.com/Tencent/tdesign-react/pull/2165))

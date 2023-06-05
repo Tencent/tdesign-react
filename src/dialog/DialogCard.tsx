@@ -16,6 +16,7 @@ import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogCardDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DialogCardProps extends TdDialogCardProps, StyledProps, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -37,7 +38,7 @@ const renderDialogButton = (btn: DialogCardProps['cancelBtn'], defaultProps: But
   return result;
 };
 
-const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivElement>) => {
+const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const componentCls = `${classPrefix}-dialog`;
   const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
@@ -63,10 +64,12 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
     cancelBtn = cancelText,
     confirmBtn = confirmText,
     ...otherProps
-  } = props;
+  } = useDefaultProps<DialogCardProps>(props, dialogCardDefaultProps);
 
   const renderHeader = () => {
-    if (!header) return null;
+    if (!header) {
+      return null;
+    }
 
     const iconMap = {
       info: <InfoCircleFilledIcon className={`${classPrefix}-is-info`} />,
@@ -84,7 +87,9 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
   };
 
   const renderCloseBtn = () => {
-    if (!closeBtn) return null;
+    if (!closeBtn) {
+      return null;
+    }
 
     const closeIcon = () => (closeBtn === true ? <CloseIcon /> : closeBtn);
 
@@ -99,7 +104,9 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
   };
 
   const renderFooter = () => {
-    if (footer === false || footer === null) return null;
+    if (footer === false || footer === null) {
+      return null;
+    }
 
     const defaultFooter = () => {
       const renderCancelBtn = renderDialogButton(cancelBtn, {
@@ -135,6 +142,5 @@ const DialogCard = forwardRef((props: DialogCardProps, ref: React.Ref<HTMLDivEle
 });
 
 DialogCard.displayName = 'DialogCard';
-DialogCard.defaultProps = dialogCardDefaultProps;
 
 export default DialogCard;

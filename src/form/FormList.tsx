@@ -10,7 +10,7 @@ import log from '../_common/js/log';
 
 let key = 0;
 
-const FormList = (props: TdFormListProps) => {
+const FormList: React.FC<TdFormListProps> = (props) => {
   const { formMapRef, form, onFormItemValueChange, initialData: initialDataFromForm } = useFormContext();
   const { name, rules, children } = props;
 
@@ -19,10 +19,10 @@ const FormList = (props: TdFormListProps) => {
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(
     initialData.map((data, index) => ({
+      data: { ...data },
       key: (key += 1),
       name: index,
       isListField: true,
-      ...data,
     })),
   );
   const formListMapRef = useRef(new Map()); // 收集 formItem 实例
@@ -135,8 +135,8 @@ const FormList = (props: TdFormListProps) => {
         const { name: itemName } = formItemRef.current;
         const data = get(fieldData, itemName);
         callback(formItemRef, data);
-        fieldsTaskQueueRef.current.pop();
       });
+      fieldsTaskQueueRef.current.pop();
 
       // formList 嵌套 formList
       if (!formMapRef || !formMapRef.current) return;
@@ -237,7 +237,7 @@ const FormList = (props: TdFormListProps) => {
   }
 
   return (
-    <FormListContext.Provider value={{ name, rules, formListMapRef }}>
+    <FormListContext.Provider value={{ name, rules, formListMapRef, initialData }}>
       {children(fields, operation)}
     </FormListContext.Provider>
   );

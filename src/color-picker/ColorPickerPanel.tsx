@@ -2,7 +2,9 @@ import React from 'react';
 import ColorPanel from './components/panel';
 import { ColorPickerProps } from './interface';
 
-const ColorPickerPanel = (props: ColorPickerProps) => <ColorPanel {...props} popupProps={null} closeBtn={false} />;
+const ColorPickerPanel: React.FC<ColorPickerProps> = (props) => (
+  <ColorPanel {...props} popupProps={null} closeBtn={false} />
+);
 
 ColorPickerPanel.displayName = 'ColorPickerPanel';
 

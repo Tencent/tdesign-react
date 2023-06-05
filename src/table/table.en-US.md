@@ -47,6 +47,7 @@ tableLayout | String | fixed | table-layout css properties。options：auto/fixe
 topContent | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 verticalAlign | String | middle | vertical align。options：top/middle/bottom | N
 onCellClick | Function |  | Typescript：`(context: BaseTableCellEventContext<T>) => void`<br/>trigger on cell clicked。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface BaseTableCellEventContext<T> { row: T; col: BaseTableCol; rowIndex: number; colIndex: number; e: MouseEvent }`<br/> | N
+onColumnResizeChange | Function |  | Typescript：`(context: { columnsWidth: { [colKey: string]: number }; }) => void`<br/> | N
 onPageChange | Function |  | Typescript：`(pageInfo: PageInfo, newDataSource: Array<T>) => void`<br/>trigger on pagination changing | N
 onRowClick | Function |  | Typescript：`(context: RowEventContext<T>) => void`<br/>trigger on row click。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface RowEventContext<T> { row: T; index: number; e: MouseEvent }`<br/> | N
 onRowDblclick | Function |  | Typescript：`(context: RowEventContext<T>) => void`<br/>trigger on double click | N
@@ -102,7 +103,6 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 asyncLoading | TNode | - | async loading state。Typescript：`'loading' \| 'load-more' \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 columnController | Object | - | Typescript：`TableColumnController` | N
 columnControllerVisible | Boolean | undefined | \- | N
-defaultColumnControllerVisible | Boolean | undefined | uncontrolled property | N
 columns | Array | [] | table column configs。Typescript：`Array<PrimaryTableCol<T>>` | N
 displayColumns | Array | - | Typescript：`CheckboxGroupValue` | N
 defaultDisplayColumns | Array | - | uncontrolled property。Typescript：`CheckboxGroupValue` | N
@@ -154,8 +154,8 @@ name | params | return | description
 -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-validateRowData | `(rowValue: any)` | \- | required
-validateTableData | \- | \- | required
+validateRowData | `(rowValue: any)` | `Promise<{ trigger: TableValidateTrigger, result: ErrorListObjectType<T>[] }>` | required。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`type ErrorListObjectType<T> = PrimaryTableRowEditContext<T> & { errorList: AllValidateResult[] }`<br/>
+validateTableData | \- | `Promise<{ result: TableErrorListMap }>` | required
 
 ### PrimaryTableCol
 

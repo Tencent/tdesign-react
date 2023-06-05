@@ -5,6 +5,7 @@ import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import { affixDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
 
@@ -13,7 +14,8 @@ export interface AffixRef {
 }
 
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
-  const { children, content, zIndex, container, offsetBottom, offsetTop, className, style, onFixedChange } = props;
+  const { children, content, zIndex, container, offsetBottom, offsetTop, className, style, onFixedChange } =
+    useDefaultProps(props, affixDefaultProps);
 
   const { classPrefix } = useConfig();
 
@@ -133,6 +135,5 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 });
 
 Affix.displayName = 'Affix';
-Affix.defaultProps = affixDefaultProps;
 
 export default Affix;

@@ -14,13 +14,14 @@ import { closeIconClickEffect, handleRemoveTagEffect } from './core/effect';
 import { getPanels, getSingleContent, getMultipleContent } from './core/helper';
 import { getFakeArrowIconClass } from './core/className';
 import { useCascaderContext } from './hooks';
-
 import { cascaderDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
-const Cascader = (props: CascaderProps) => {
+const Cascader: React.FC<CascaderProps> = (originalProps) => {
+  const props = useDefaultProps<CascaderProps>(originalProps, cascaderDefaultProps);
   /**
    * global user props, config, data
    */
@@ -47,6 +48,10 @@ const Cascader = (props: CascaderProps) => {
   );
 
   const renderSuffixIcon = () => {
+    if (props.suffixIcon) {
+      return props.suffixIcon;
+    }
+
     const { visible, disabled } = cascaderContext;
     return (
       <FakeArrow
@@ -76,6 +81,7 @@ const Cascader = (props: CascaderProps) => {
       disabled={props.disabled}
       status={props.status}
       tips={props.tips}
+      suffix={props.suffix}
       suffixIcon={renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
@@ -89,17 +95,23 @@ const Cascader = (props: CascaderProps) => {
       }}
       tagProps={{ ...(props.tagProps as TdCascaderProps['tagProps']) }}
       onInputChange={(value, ctx) => {
-        if (!visible || ctx?.trigger === 'clear') return;
+        if (!visible || ctx?.trigger === 'clear') {
+          return;
+        }
         setInputVal(`${value}`);
         props?.selectInputProps?.onInputChange?.(value, ctx);
       }}
       onTagChange={(val: TagInputValue, ctx) => {
-        if (ctx.trigger === 'enter') return;
+        if (ctx.trigger === 'enter') {
+          return;
+        }
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
         props?.selectInputProps?.onTagChange?.(val, ctx);
       }}
       onPopupVisibleChange={(val: boolean, context) => {
-        if (props.disabled) return;
+        if (props.disabled) {
+          return;
+        }
         setVisible(val, context);
         props?.selectInputProps?.onPopupVisibleChange?.(val, context);
       }}
@@ -107,6 +119,7 @@ const Cascader = (props: CascaderProps) => {
         props.onBlur?.({
           value: cascaderContext.value,
           e: context.e,
+          inputValue: inputVal,
         });
         props?.selectInputProps?.onBlur?.(val, context);
       }}
@@ -140,6 +153,5 @@ const Cascader = (props: CascaderProps) => {
 };
 
 Cascader.displayName = 'Cascader';
-Cascader.defaultProps = cascaderDefaultProps;
 
 export default Cascader;

@@ -6,10 +6,14 @@ import useControlled from '../hooks/useControlled';
 import ColorTrigger from './components/trigger';
 import ColorPanel from './components/panel/index';
 import { colorPickerDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassName();
-  const { popupProps, disabled, inputProps, onChange, colorModes, ...rest } = props;
+  const { popupProps, disabled, inputProps, onChange, colorModes, ...rest } = useDefaultProps<ColorPickerProps>(
+    props,
+    colorPickerDefaultProps,
+  );
   const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
@@ -52,6 +56,5 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 };
 
 ColorPicker.displayName = 'ColorPicker';
-ColorPicker.defaultProps = colorPickerDefaultProps;
 
 export default React.memo(ColorPicker);

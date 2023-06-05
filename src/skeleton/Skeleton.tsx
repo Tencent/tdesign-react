@@ -105,7 +105,7 @@ const Skeleton = (props: SkeletonProps) => {
   }
 
   const childrenContent = [];
-  if (theme) {
+  if (theme && !rowCol) {
     childrenContent.push(renderRowCol(ThemeMap[theme]));
   }
   if (rowCol) {

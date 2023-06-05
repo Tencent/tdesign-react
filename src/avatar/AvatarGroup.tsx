@@ -7,17 +7,20 @@ import { TdAvatarGroupProps } from './type';
 import { StyledProps } from '../common';
 import { avatarGroupDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {
   children?: React.ReactNode;
 }
-const AvatarGroup = (props: AvatarGroupProps) => {
+
+const AvatarGroup: React.FC<AvatarGroupProps> = (props) => {
   const { classPrefix } = useConfig();
   const preClass = `${classPrefix}-avatar`;
-  const { className, cascading, collapseAvatar, max, size, children, ...avatarGroupProps } = props;
+  const { className, cascading, collapseAvatar, max, size, children, ...avatarGroupProps } =
+    useDefaultProps<AvatarGroupProps>(props, avatarGroupDefaultProps);
 
   const childrenList = React.Children.toArray(children);
-  let allChildrenList;
+  let allChildrenList: React.ReactElement[];
   if (childrenList.length > 0) {
     allChildrenList = childrenList.map((child: JSX.Element, index: number) =>
       React.cloneElement(child, { key: `avatar-group-item-${index}`, ...child.props }),
@@ -51,6 +54,5 @@ const AvatarGroup = (props: AvatarGroupProps) => {
 };
 
 AvatarGroup.displayName = 'AvatarGroup';
-AvatarGroup.defaultProps = avatarGroupDefaultProps;
 
 export default AvatarGroup;

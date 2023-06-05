@@ -32,6 +32,7 @@ defaultValue | String / Number / Array / Date | '' | uncontrolled property。Typ
 valueType | String | - | Typescript：`DatePickerValueType` `type DatePickerValueType = 'time-stamp' \| 'Date' \| 'YYYY' \| 'YYYY-MM' \| 'YYYY-MM-DD' \| 'YYYY-MM-DD HH' \| 'YYYY-MM-DD HH:mm' \| 'YYYY-MM-DD HH:mm:ss' \| 'YYYY-MM-DD HH:mm:ss:SSS'` `type ValueTypeEnum = DatePickerValueType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 onBlur | Function |  | Typescript：`(context: { value: DateValue; e: FocusEvent }) => void`<br/> | N
 onChange | Function |  | Typescript：`(value: DateValue, context: { dayjsValue?: Dayjs, trigger?: DatePickerTriggerSource }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`import { Dayjs } from 'dayjs'`<br/><br/>`type DatePickerTriggerSource = 'confirm' \| 'pick' \| 'enter' \| 'preset' \| 'clear'`<br/> | N
+onConfirm | Function |  | Typescript：`(context: { date: Date, e: MouseEvent }) => void`<br/> | N
 onFocus | Function |  | Typescript：`(context: { value: DateValue; e: FocusEvent }) => void`<br/> | N
 onPick | Function |  | Typescript：`(value: DateValue) => void`<br/> | N
 onPresetClick | Function |  | Typescript：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/> | N
@@ -69,6 +70,7 @@ defaultValue | Array | [] | uncontrolled property。Typescript：`DateRangeValue
 valueType | String | - | options：'time-stamp' | 'Date' | 'YYYY' | 'YYYY-MM' | 'YYYY-MM-DD' | 'YYYY-MM-DD HH' | 'YYYY-MM-DD HH:mm' | 'YYYY-MM-DD HH:mm:ss' | 'YYYY-MM-DD HH:mm:ss:SSS' | N
 onBlur | Function |  | Typescript：`(context: { value: DateRangeValue; partial: DateRangePickerPartial; e: FocusEvent }) => void`<br/> | N
 onChange | Function |  | Typescript：`(value: DateRangeValue, context: { dayjsValue?: Dayjs[], trigger?: DatePickerTriggerSource }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`import { Dayjs } from 'dayjs'`<br/> | N
+onConfirm | Function |  | Typescript：`(context: { date: Date[], e: MouseEvent, partial: DateRangePickerPartial }) => void`<br/> | N
 onFocus | Function |  | Typescript：`(context: { value: DateRangeValue; partial: DateRangePickerPartial; e: FocusEvent }) => void`<br/> | N
 onInput | Function |  | Typescript：`(context: { input: string; value: DateRangeValue; partial: DateRangePickerPartial; e: InputEvent }) => void`<br/> | N
 onPick | Function |  | Typescript：`(value: DateValue, context: PickContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`interface PickContext { e: MouseEvent; partial: DateRangePickerPartial }`<br/> | N

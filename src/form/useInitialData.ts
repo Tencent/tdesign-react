@@ -1,4 +1,5 @@
 import React from 'react';
+import get from 'lodash/get';
 
 // 兼容特殊数据结构和受控 key
 import Tree from '../tree/Tree';
@@ -27,34 +28,25 @@ export const initialDataMap = new Map();
   initialDataMap.set(component, false);
 });
 
-// 整理初始值 优先级：Form.initialData < FormItem.initialData
-export function getDefaultInitialData({ name, formListName, children, initialData, initialDataFromContext }) {
+// 整理初始值 优先级：Form.initialData < FormList.initialData < FormItem.initialData
+export function getDefaultInitialData({
+  name,
+  formListName,
+  children,
+  initialData,
+  FromContextInitialData,
+  FormListInitialData,
+}) {
   let defaultInitialData;
-  if (initialDataFromContext) {
-    if (typeof name === 'string') defaultInitialData = initialDataFromContext[name];
+  if (FromContextInitialData) {
+    if (typeof name === 'string') defaultInitialData = get(FromContextInitialData, name);
     if (Array.isArray(name)) {
       const nameList = formListName ? [formListName, ...name] : name;
-
-      // 创建唯一临时变量 symbol
-      const symbol = Symbol('initialData');
-      let fieldValue = null;
-
-      for (let i = 0; i < nameList.length; i++) {
-        const item = nameList[i];
-        if (Reflect.has(fieldValue || initialDataFromContext, item)) {
-          fieldValue = Reflect.get(fieldValue || initialDataFromContext, item);
-        } else {
-          // 当反射无法获取到值则重置为 symbol
-          fieldValue = symbol;
-          break;
-        }
-      }
-
-      // 说明设置了值
-      if (fieldValue !== symbol) {
-        defaultInitialData = fieldValue;
-      }
+      defaultInitialData = get(FromContextInitialData, nameList);
     }
+  }
+  if (FormListInitialData.length) {
+    defaultInitialData = get(FormListInitialData, name);
   }
   if (typeof initialData !== 'undefined') defaultInitialData = initialData;
   React.Children.forEach(children, (child) => {

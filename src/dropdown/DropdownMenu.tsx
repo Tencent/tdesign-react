@@ -9,7 +9,7 @@ import DropdownItem from './DropdownItem';
 import { DropdownOption } from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 
-const DropdownMenu = (props: DropdownProps) => {
+const DropdownMenu: React.FC<DropdownProps> = (props) => {
   const { options = [], maxHeight = 300, minColumnWidth = 10, maxColumnWidth = 160, direction } = props;
 
   const { classPrefix } = useConfig();

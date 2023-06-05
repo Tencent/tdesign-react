@@ -5,11 +5,15 @@ import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdCommentProps } from './type';
 import { commentDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
 
-const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>) => {
-  const { actions, author, avatar, content, datetime, reply, quote, className, style } = props;
+const Comment = forwardRef<HTMLDivElement, CommentProps>((props, ref) => {
+  const { actions, author, avatar, content, datetime, reply, quote, className, style } = useDefaultProps(
+    props,
+    commentDefaultProps,
+  );
 
   const { classPrefix } = useConfig();
 
@@ -66,6 +70,5 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
 });
 
 Comment.displayName = 'Comment';
-Comment.defaultProps = commentDefaultProps;
 
 export default Comment;

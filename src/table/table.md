@@ -47,6 +47,7 @@ tableLayout | String | fixed | 表格布局方式。可选项：auto/fixed | N
 topContent | TNode | - | 表格顶部内容，可以用于自定义列设置、顶部查询条件等。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 verticalAlign | String | middle | 行内容上下方向对齐。可选项：top/middle/bottom | N
 onCellClick | Function |  | TS 类型：`(context: BaseTableCellEventContext<T>) => void`<br/>单元格点击时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface BaseTableCellEventContext<T> { row: T; col: BaseTableCol; rowIndex: number; colIndex: number; e: MouseEvent }`<br/> | N
+onColumnResizeChange | Function |  | TS 类型：`(context: { columnsWidth: { [colKey: string]: number }; }) => void`<br/>列调整大小之后触发。`context.columnsWidth` 表示操作后各个列的宽度； | N
 onPageChange | Function |  | TS 类型：`(pageInfo: PageInfo, newDataSource: Array<T>) => void`<br/>分页发生变化时触发。参数 newDataSource 表示分页后的数据。本地数据进行分页时，newDataSource 和源数据 data 会不一样。泛型 T 指表格数据类型 | N
 onRowClick | Function |  | TS 类型：`(context: RowEventContext<T>) => void`<br/>行点击时触发，泛型 T 指表格数据类型。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`interface RowEventContext<T> { row: T; index: number; e: MouseEvent }`<br/> | N
 onRowDblclick | Function |  | TS 类型：`(context: RowEventContext<T>) => void`<br/>行双击时触发，泛型 T 指表格数据类型 | N
@@ -102,7 +103,6 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 asyncLoading | TNode | - | 异步加载状态。值为 `loading` 显示默认文字 “正在加载中，请稍后”，值为 `loading-more` 显示“点击加载更多”，值为其他，表示完全自定义异步加载区域内容。TS 类型：`'loading' \| 'load-more' \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 columnController | Object | - | 自定义显示列控制器，值为空不会显示。具体属性请看下方 `TableColumnController` 文档。TS 类型：`TableColumnController` | N
 columnControllerVisible | Boolean | undefined | 是否显示列配置弹框控制器，只要该属性值不为 `undefined`，弹框的显示/隐藏完全由该属性控制 | N
-defaultColumnControllerVisible | Boolean | undefined | 是否显示列配置弹框控制器，只要该属性值不为 `undefined`，弹框的显示/隐藏完全由该属性控制。非受控属性 | N
 columns | Array | [] | 列配置，泛型 T 指表格数据类型。TS 类型：`Array<PrimaryTableCol<T>>` | N
 displayColumns | Array | - | 列配置功能中，当前显示的列。TS 类型：`CheckboxGroupValue` | N
 defaultDisplayColumns | Array | - | 列配置功能中，当前显示的列。非受控属性。TS 类型：`CheckboxGroupValue` | N
@@ -154,8 +154,8 @@ onValidate | Function |  | TS 类型：`(context: PrimaryTableValidateContext) =
 -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-validateRowData | `(rowValue: any)` | \- | 必需。校验行信息，校验完成后，会触发事件 `onRowValidate`。参数 `rowValue` 表示行唯一标识的值
-validateTableData | \- | \- | 必需。校验表格全部数据，校验完成后，会触发事件 `onValidate`
+validateRowData | `(rowValue: any)` | `Promise<{ trigger: TableValidateTrigger, result: ErrorListObjectType<T>[] }>` | 必需。校验行信息，校验完成后，会触发事件 `onRowValidate`。参数 `rowValue` 表示行唯一标识的值。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts)。<br/>`type ErrorListObjectType<T> = PrimaryTableRowEditContext<T> & { errorList: AllValidateResult[] }`<br/>
+validateTableData | \- | `Promise<{ result: TableErrorListMap }>` | 必需。校验表格全部数据，校验完成后，会触发事件 `onValidate`
 
 ### PrimaryTableCol
 
