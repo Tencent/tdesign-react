@@ -45,7 +45,7 @@ export default function InputNumberExample() {
       <InputNumber
         value={decimalValue}
         onChange={setDecimalValue}
-        decimalPlaces={0}
+        // decimalPlaces={0}
         max={5}
         autoWidth
       />

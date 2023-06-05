@@ -9,10 +9,12 @@ import {
   canAddNumber,
   canInputNumber,
   canReduceNumber,
-  formatToNumber,
+  formatUnCompleteNumber,
+  canSetValue,
   getMaxOrMinValidateResult,
   getStepValue,
   formatThousandths,
+  largeNumberToFixed,
 } from '../_common/js/input-number/number';
 import { InputProps } from '../input';
 
@@ -50,9 +52,10 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     if (!value && value !== 0) return '';
     let inputStr = value || value === 0 ? String(value) : '';
     if (!inputRef.current.currentElement.contains?.(document.activeElement)) {
-      const num = formatToNumber(inputStr, {
+      const num = formatUnCompleteNumber(inputStr, {
         decimalPlaces,
         largeNumber,
+        isToFixed: true,
       });
       inputStr = num || num === 0 ? String(num) : '';
       if (props.format) {
@@ -64,7 +67,23 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   useEffect(() => {
     const inputValue = [undefined, null].includes(tValue) ? '' : String(tValue);
-    setUserInput(getUserInput(inputValue));
+    // userInput.value 为非合法数字，则表示用户正在输入，此时无需处理
+    if (!largeNumber && !Number.isNaN(userInput)) {
+      if (parseFloat(userInput) !== tValue) {
+        setUserInput(getUserInput(inputValue));
+      }
+      const fixedNumber = Number(largeNumberToFixed(inputValue, decimalPlaces, largeNumber));
+      if (decimalPlaces !== undefined && fixedNumber !== tValue) {
+        onChange(fixedNumber as T, { type: 'props', e: undefined });
+      }
+    }
+    if (largeNumber) {
+      const tmpUserInput = getUserInput(inputValue);
+      setUserInput(tmpUserInput);
+      if (decimalPlaces !== undefined && largeNumberToFixed(inputValue, decimalPlaces, largeNumber) !== tValue) {
+        onChange(tmpUserInput as T, { type: 'props', e: undefined });
+      }
+    }
     // eslint-disable-next-line
   }, [tValue]);
 
@@ -118,24 +137,21 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   // 1.2 -> 1. -> 1
-  const onInnerInputChange: InputProps['onChange'] = (val, { e }) => {
-    // eslint-disable-next-line no-param-reassign
-    val = formatThousandths(val); // 处理千分位
+  const onInnerInputChange: InputProps['onChange'] = (inputValue, { e }) => {
+    // 处理千分位
+    const val = formatThousandths(inputValue);
     if (!canInputNumber(val, largeNumber)) return;
-    if (props.largeNumber) {
+
+    setUserInput(val);
+
+    if (largeNumber) {
       onChange(val as T, { type: 'input', e });
       return;
     }
-    // specialCode 新增或删除这些字符时不触发 change 事件
-    const isDelete = (e as any).nativeEvent.inputType === 'deleteContentBackward';
-    const inputSpecialCode = specialCode.includes(val.slice(-1)) || /\.\d*0+$/.test(val);
-    const deleteSpecialCode = isDelete && specialCode.includes(String(userInput).slice(-1));
-    if ((!isNaN(Number(val)) && !inputSpecialCode) || deleteSpecialCode) {
+
+    if (canSetValue(String(val), Number(tValue))) {
       const newVal = val === '' ? undefined : Number(val);
       onChange(newVal as T, { type: 'input', e });
-    }
-    if (inputSpecialCode || deleteSpecialCode) {
-      setUserInput(val);
     }
   };
 
@@ -156,12 +172,12 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
         return;
       }
     }
-    setUserInput(getUserInput(value));
-    const newValue = formatToNumber(value, {
+    const newValue = formatUnCompleteNumber(value, {
       decimalPlaces,
       largeNumber,
     });
-    if ((newValue !== value && String(newValue) !== value) || Number(newValue) !== Number(tValue)) {
+    setUserInput(getUserInput(newValue));
+    if (newValue !== tValue) {
       onChange(newValue as T, { type: 'blur', e: ctx.e });
     }
     props.onBlur?.(newValue, ctx);
@@ -195,7 +211,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const handleEnter = (value: string, ctx: { e: React.KeyboardEvent<HTMLDivElement> }) => {
     setUserInput(getUserInput(value));
-    const newValue = formatToNumber(value, {
+    const newValue = formatUnCompleteNumber(value, {
       decimalPlaces: props.decimalPlaces,
       largeNumber: props.largeNumber,
     });

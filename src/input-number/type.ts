@@ -6,7 +6,7 @@
 
 import { InputProps } from '../input';
 import { TNode } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdInputNumberProps<T = InputNumberValue> {
   /**
@@ -142,10 +142,11 @@ export type InputNumberValue = number | string;
 export interface ChangeContext {
   type: ChangeSource;
   e:
-    | FormEvent<HTMLDivElement>
+    | FormEvent<HTMLInputElement>
     | MouseEvent<HTMLDivElement | SVGElement>
     | FocusEvent<HTMLDivElement>
-    | KeyboardEvent<HTMLDivElement>;
+    | KeyboardEvent<HTMLDivElement>
+    | CompositionEvent<HTMLDivElement>;
 }
 
-export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | 'clear';
+export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | 'clear' | 'props';
