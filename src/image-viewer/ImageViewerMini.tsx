@@ -14,7 +14,6 @@ export interface ImageModelMiniProps {
   mirror: number;
   images: ImageInfo[];
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
-  onScroll: (e: any) => void;
   imageScale: ImageScale;
   viewerScale: ImageViewerScale;
   rotateZ: number;
