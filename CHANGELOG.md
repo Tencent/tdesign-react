@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.9 `2023-06-06` 
+### 🚀 Features
+- `DatePicker`: 支持 onConfirm 事件 @honkinglin ([#2260](https://github.com/Tencent/tdesign-react/pull/2260))
+- `Menu`: 优化侧边导航菜单收起时，`Tooltip` 展示菜单内容 @xiaosansiji ([#2263](https://github.com/Tencent/tdesign-react/pull/2263))
+- `Swiper`: navigation 类型支持 `dots` `dots-bar` @carolin913 ([#2246](https://github.com/Tencent/tdesign-react/pull/2246))
+- `Table`: 新增 `onColumnResizeChange` 事件 @honkinglin ([#2262](https://github.com/Tencent/tdesign-react/pull/2262))
+
+### 🐞 Bug Fixes
+- `TreeSelect`: 修复`keys`属性没有透传给 Tree 的问题 @uyarn ([#2267](https://github.com/Tencent/tdesign-react/pull/2267))
+- `InputNumber`:  修复部分小数点数字无法输入问题 @chaishi ([#2264](https://github.com/Tencent/tdesign-react/pull/2264))
+- `ImageViewer`: 修复触控板缩放操作异常问题 @honkinglin ([#2265](https://github.com/Tencent/tdesign-react/pull/2265))
+- `TreeSelect`: 修复当 label 是 reactNode 场景下展示问题 @Ali-ovo ([#2258](https://github.com/Tencent/tdesign-react/pull/2258))
+
 ## 🌈 1.1.8 `2023-05-25` 
 ### 🚀 Features
 - `TimePicker`: 没有选中值时不允许点击确认按钮 @uyarn ([#2240](https://github.com/Tencent/tdesign-react/pull/2240))

@@ -151,8 +151,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }
 
   // 确定
-  function onConfirmClick() {
+  function onConfirmClick({ e }) {
     const nextValue = formatDate(inputValue, { format });
+    props?.onConfirm?.({ e, date: nextValue });
+
     if (nextValue) {
       onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(inputValue, format),

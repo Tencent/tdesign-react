@@ -10,7 +10,7 @@ import log from '../_common/js/log';
 
 let key = 0;
 
-const FormList = (props: TdFormListProps) => {
+const FormList: React.FC<TdFormListProps> = (props) => {
   const { formMapRef, form, onFormItemValueChange, initialData: initialDataFromForm } = useFormContext();
   const { name, rules, children } = props;
 

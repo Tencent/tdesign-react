@@ -257,8 +257,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   }
 
   // 确定
-  function onConfirmClick() {
+  function onConfirmClick({ e }) {
     const nextValue = [...inputValue];
+    props?.onConfirm?.({ e, date: nextValue, partial: activeIndex ? 'end' : 'start' });
 
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
 

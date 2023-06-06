@@ -284,9 +284,10 @@ const Swiper = (props: SwiperProps) => {
       <>{navigationNode}</>
     ) : (
       <ul
-        className={classnames(`${classPrefix}-swiper__navigation`, {
-          [`${classPrefix}-swiper__navigation-bars`]: navigationConfig.type === 'bars',
-        })}
+        className={classnames(
+          `${classPrefix}-swiper__navigation`,
+          `${classPrefix}-swiper__navigation-${navigationConfig.type}`,
+        )}
       >
         {childrenList.map((_: JSX.Element, i: number) => (
           <li
