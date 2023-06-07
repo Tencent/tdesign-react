@@ -14,12 +14,14 @@ export default function InputNumberExample() {
         format={(value) => `${value} %`}
         value={value}
         onChange={setValue}
+        style={{ width: 250 }}
       />
       <InputNumber
         decimalPlaces={2}
         format={(_, { fixedNumber }) => `${fixedNumber} %`}
         value={value1}
         onChange={setValue1}
+        style={{ width: 250 }}
       />
     </Space>
   );

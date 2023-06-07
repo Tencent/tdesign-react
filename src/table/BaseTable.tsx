@@ -94,6 +94,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     updateThWidthList,
     setTableElmWidth,
     updateTableAfterColumnResize,
+    onColumnResizeChange: props.onColumnResizeChange,
   });
   const { resizeLineRef, resizeLineStyle, setEffectColMap } = columnResizeParams;
 

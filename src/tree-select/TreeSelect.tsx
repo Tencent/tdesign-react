@@ -279,6 +279,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
           empty={empty}
           expandOnClickNode={true}
           allowFoldNodeOnFilter
+          keys={tKeys}
           {...(multiple
             ? {
                 checkable: true,

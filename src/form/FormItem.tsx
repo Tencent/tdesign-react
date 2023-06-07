@@ -9,20 +9,26 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-
 import { calcFieldValue } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import type { TdFormItemProps, ValueType, FormItemValidateMessage, NamePath, FormInstanceFunctions } from './type';
+import type {
+  TdFormItemProps,
+  ValueType,
+  FormItemValidateMessage,
+  NamePath,
+  FormInstanceFunctions,
+  FormRule,
+} from './type';
 import { StyledProps } from '../common';
 import { HOOK_MARK } from './hooks/useForm';
 import { validate as validateModal, parseMessage } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { formItemDefaultProps } from './defaultProps';
-
 import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 import { ValidateStatus } from './const';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | ((form: FormInstanceFunctions) => React.ReactElement);
@@ -43,7 +49,7 @@ export interface FormItemInstance {
   isFormList?: boolean;
 }
 
-const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
+const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref) => {
   const { classPrefix, form: globalFormConfig } = useConfig();
   const { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     CheckCircleFilledIcon: TdCheckCircleFilledIcon,
@@ -74,6 +80,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     formListMapRef,
     initialData: FormListInitialData,
   } = useFormListContext();
+
+  const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
     children,
@@ -166,7 +174,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   };
 
   // 初始化 rules，最终以 formItem 上优先级最高
-  function getInnerRules(name, formRules, formListName, formListRules) {
+  function getInnerRules(name, formRules, formListName, formListRules): FormRule[] {
     if (Array.isArray(name)) {
       return get(formRules?.[formListName], name) || get(formListRules, name) || [];
     }
@@ -521,6 +529,5 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 });
 
 FormItem.displayName = 'FormItem';
-FormItem.defaultProps = formItemDefaultProps;
 
 export default FormItem;

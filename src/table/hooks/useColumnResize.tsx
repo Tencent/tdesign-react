@@ -7,7 +7,7 @@
  */
 import { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
 import isNumber from 'lodash/isNumber';
-import { BaseTableCol, TableRowData } from '../type';
+import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { on, off } from '../../_util/dom';
 
 const DEFAULT_MIN_WIDTH = 80;
@@ -29,6 +29,7 @@ export default function useColumnResize(params: {
   updateThWidthList: (data: { [colKeys: string]: number }) => void;
   setTableElmWidth: (width: number) => void;
   updateTableAfterColumnResize: () => void;
+  onColumnResizeChange: TdBaseTableProps['onColumnResizeChange'];
 }) {
   const {
     isWidthOverflow,
@@ -38,6 +39,7 @@ export default function useColumnResize(params: {
     updateThWidthList,
     setTableElmWidth,
     updateTableAfterColumnResize,
+    onColumnResizeChange,
   } = params;
 
   const resizeLineRef = useRef<HTMLDivElement>();
@@ -298,6 +300,7 @@ export default function useColumnResize(params: {
       off(document, 'mousemove', onDragOver);
       document.onselectstart = originalSelectStart;
       document.ondragstart = originalDragStart;
+      onColumnResizeChange?.({ columnsWidth: newThWidthList });
     };
 
     on(document, 'mouseup', onDragEnd);
