@@ -73,7 +73,11 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
         setUserInput(getUserInput(inputValue));
       }
       const fixedNumber = Number(largeNumberToFixed(inputValue, decimalPlaces, largeNumber));
-      if (decimalPlaces !== undefined && fixedNumber !== tValue) {
+      if (
+        decimalPlaces !== undefined &&
+        ![undefined, null].includes(tValue) &&
+        Number(fixedNumber) !== Number(tValue)
+      ) {
         onChange(fixedNumber as T, { type: 'props', e: undefined });
       }
     }
