@@ -103,6 +103,10 @@ export default function useRowSelect(
 
   function getRowSelectDisabledData(p: PrimaryTableCellParams<TableRowData>) {
     const { col, row, rowIndex } = p;
+    if(!col) return {
+      disabled: false,
+      checkProps: {}
+    };
     const disabled: boolean = typeof col.disabled === 'function' ? col.disabled({ row, rowIndex }) : col.disabled;
     const checkProps = isFunction(col.checkProps) ? col.checkProps({ row, rowIndex }) : col.checkProps;
     return {
