@@ -26,7 +26,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   // popup 状态下控制开关
   const [open, setOpen] = useState(false);
-  const { expanded = [], onExpand, active, expandType, theme } = useContext(MenuContext);
+  const { expanded = [], onExpand, active, expandType, theme = 'light' } = useContext(MenuContext);
 
   const isPopUp = expandType === 'popup';
 
@@ -96,8 +96,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     </ul>
   );
 
-  const overlayInnerStyle = level > 1 ? { marginTop: '-6px' } : null;
-
   const submenu = (
     <li
       className={classNames(`${classPrefix}-submenu`, className, {
@@ -134,10 +132,9 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     return (
       <Popup
         overlayInnerClassName={[...popupClass]}
-        overlayClassName={[`${classPrefix}-menu--${theme}`]}
+        overlayClassName={[`${classPrefix}-menu--${theme}`, { [`${classPrefix}-menu-is-nested`]: level > 1 }]}
         visible={open}
         placement="right-top"
-        overlayInnerStyle={overlayInnerStyle}
         content={pupContent}
         onVisibleChange={handleVisibleChange}
       >
@@ -152,7 +149,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { className, style, children, disabled, title, value, level = 1 } = props;
 
-  const { active, onChange, expandType, theme } = useContext(MenuContext);
+  const { active, onChange, expandType, theme = 'light' } = useContext(MenuContext);
   const { classPrefix } = useConfig();
   const [open, setOpen] = useState(false);
 
@@ -200,13 +197,11 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
       className={classNames(`${classPrefix}-menu__popup-wrapper`, {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
-      // style={childStyle}
     >
       {children}
     </ul>
   );
 
-  const overlayInnerStyle = level > 1 ? { marginTop: '-6px' } : { marginTop: '12px' };
   let placement = 'right-top';
   if (level < 2) {
     placement = 'bottom-left';
@@ -239,10 +234,13 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
     return (
       <Popup
         overlayInnerClassName={[...popupClass]}
-        overlayClassName={[`${classPrefix}-menu--${theme}`, `${classPrefix}-is-head`]}
+        overlayClassName={[
+          `${classPrefix}-menu--${theme}`,
+          `${classPrefix}-is-head-menu`,
+          { [`${classPrefix}-menu-is-nested`]: level > 1 },
+        ]}
         visible={open}
         placement={placement as PopupPlacement}
-        overlayInnerStyle={overlayInnerStyle}
         content={pupContent}
         onVisibleChange={handleVisibleChange}
       >
