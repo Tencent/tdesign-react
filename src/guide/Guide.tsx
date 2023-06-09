@@ -60,7 +60,7 @@ const Guide = (props: GuideProps) => {
   const currentElmIsFixed = isFixed(currentHighlightLayerElm.current || document.body);
 
   // 设置高亮层的位置
-  const setHighlightLayerPosition = (highlighLayer: HTMLElement) => {
+  const setHighlightLayerPosition = (highlightLayer: HTMLElement) => {
     let { top, left } = getRelativePosition(currentHighlightLayerElm.current);
     let { width, height } = currentHighlightLayerElm.current.getBoundingClientRect();
     const highlightPadding = getCurrentCrossProps('highlightPadding');
@@ -76,7 +76,7 @@ const Guide = (props: GuideProps) => {
       left += scrollLeft;
     }
 
-    setStyle(highlighLayer, {
+    setStyle(highlightLayer, {
       width: `${width}px`,
       height: `${height}px`,
       top: `${top}px`,
