@@ -434,7 +434,9 @@ const Select = forwardRefWithStatics(
           onInputChange={handleInputChange}
           onFocus={onFocus}
           onEnter={handleEnter}
-          onBlur={onBlur}
+          onBlur={(_, context) => {
+            onBlur?.(value, context);
+          }}
           onClear={(context) => {
             onClearValue(context);
           }}
