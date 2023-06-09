@@ -103,10 +103,6 @@ export default function useRowSelect(
 
   function getRowSelectDisabledData(p: PrimaryTableCellParams<TableRowData>) {
     const { col, row, rowIndex } = p;
-    if(!col) return {
-      disabled: false,
-      checkProps: {}
-    };
     const disabled: boolean = typeof col.disabled === 'function' ? col.disabled({ row, rowIndex }) : col.disabled;
     const checkProps = isFunction(col.checkProps) ? col.checkProps({ row, rowIndex }) : col.checkProps;
     return {
@@ -197,6 +193,7 @@ export default function useRowSelect(
 
   const onInnerSelectRowClick: TdPrimaryTableProps['onRowClick'] = ({ row, index }) => {
     const selectedColIndex = props.columns.findIndex((item) => item.colKey === 'row-select');
+    if (selectedColIndex === -1) return;
     const { disabled } = getRowSelectDisabledData({
       row,
       rowIndex: index,
