@@ -59,7 +59,12 @@ function Multiple() {
         <MenuItem value="7" disabled>
           女装
         </MenuItem>
-        <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
+        <SubMenu
+          value="sub-2"
+          title="水果蔬菜"
+          icon={<UserIcon />}
+          popupProps={{ overlayClassName: 'custom-popup-class' }}
+        >
           <MenuItem value="5">
             <span>苹果</span>
           </MenuItem>
