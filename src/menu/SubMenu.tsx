@@ -20,7 +20,9 @@ export interface SubMenuWithCustomizeProps extends SubMenuProps {
 }
 
 const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
-  const { content, children = content, disabled, icon, title, value, className, style, level = 1 } = props;
+  const { content, children = content, disabled, icon, title, value, className, style, level = 1, popupProps } = props;
+
+  const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
   const { classPrefix } = useConfig();
 
@@ -76,14 +78,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
-  const popupClass = [
-    `${classPrefix}-menu__popup`,
-    `${classPrefix}-is-vertical`,
-    {
-      [`${classPrefix}-is-opened`]: isOpen,
-    },
-  ];
-
   const pupContent = (
     <ul
       className={classNames(`${classPrefix}-menu__popup-wrapper`, {
@@ -131,8 +125,20 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   if (isPopUp) {
     return (
       <Popup
-        overlayInnerClassName={[...popupClass]}
-        overlayClassName={[`${classPrefix}-menu--${theme}`, { [`${classPrefix}-menu-is-nested`]: level > 1 }]}
+        {...restPopupProps}
+        overlayInnerClassName={[
+          `${classPrefix}-menu__popup`,
+          `${classPrefix}-is-vertical`,
+          {
+            [`${classPrefix}-is-opened`]: isOpen,
+          },
+          overlayInnerClassName,
+        ]}
+        overlayClassName={[
+          `${classPrefix}-menu--${theme}`,
+          { [`${classPrefix}-menu-is-nested`]: level > 1 },
+          overlayClassName,
+        ]}
         visible={open}
         placement="right-top"
         content={pupContent}
@@ -147,7 +153,9 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 };
 
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
-  const { className, style, children, disabled, title, value, level = 1 } = props;
+  const { className, style, children, disabled, title, value, level = 1, popupProps } = props;
+
+  const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
   const { active, onChange, expandType, theme = 'light' } = useContext(MenuContext);
   const { classPrefix } = useConfig();
@@ -183,14 +191,6 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   }, [disabled, isPopUp, open]);
 
   const fakeArrowStyle = level > 1 ? { transform: 'rotate(-90deg)' } : {};
-
-  const popupClass = [
-    `${classPrefix}-menu__popup`,
-    `${classPrefix}-is-vertical`,
-    {
-      [`${classPrefix}-is-opened`]: isOpen,
-    },
-  ];
 
   const pupContent = (
     <ul
@@ -233,11 +233,20 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   if (isPopUp) {
     return (
       <Popup
-        overlayInnerClassName={[...popupClass]}
+        {...restPopupProps}
+        overlayInnerClassName={[
+          `${classPrefix}-menu__popup`,
+          `${classPrefix}-is-vertical`,
+          {
+            [`${classPrefix}-is-opened`]: isOpen,
+          },
+          overlayInnerClassName,
+        ]}
         overlayClassName={[
           `${classPrefix}-menu--${theme}`,
           `${classPrefix}-is-head-menu`,
           { [`${classPrefix}-menu-is-nested`]: level > 1 },
+          overlayClassName,
         ]}
         visible={open}
         placement={placement as PopupPlacement}
