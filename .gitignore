@@ -25,3 +25,4 @@ robotMsg.json
 cypress-coverage
 instrumented
 cy-report
+.history
