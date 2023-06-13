@@ -6,7 +6,7 @@ let key = 1;
 
 export default function useLockStyle(props) {
   const { preventScrollThrough, mode, visible, showInAttachedElement, placement, sizeValue } = props;
-  const lockStyleRef = useRef<HTMLStyleElement>(null!);
+  const lockStyleRef = useRef<HTMLStyleElement>(null);
   const timerRef = useRef(null);
 
   const clearStyleFunc = useCallback(() => {

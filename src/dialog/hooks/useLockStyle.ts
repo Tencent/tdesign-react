@@ -5,7 +5,7 @@ import { getScrollbarWidth } from '../../_common/js/utils/getScrollbarWidth';
 let key = 1;
 
 export default function useDialogLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement }) {
-  const lockStyleRef = useRef<HTMLStyleElement>(null!);
+  const lockStyleRef = useRef<HTMLStyleElement>(null);
   const timerRef = useRef(null);
 
   const clearStyleFunc = useCallback(() => {
