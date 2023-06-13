@@ -6,7 +6,7 @@ let key = 1;
 
 export default function useLockStyle(props) {
   const { preventScrollThrough, mode, visible, showInAttachedElement, placement, sizeValue } = props;
-  const lockStyleRef = useRef(document.createElement('style'));
+  const lockStyleRef = useRef<HTMLStyleElement>(null);
   const timerRef = useRef(null);
 
   const clearStyleFunc = useCallback(() => {
@@ -29,6 +29,9 @@ export default function useLockStyle(props) {
 
   useLayoutEffect(() => {
     if (typeof document === 'undefined') return;
+    if (!lockStyleRef.current) {
+      lockStyleRef.current = document.createElement('style');
+    }
     const hasScrollBar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
     const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
