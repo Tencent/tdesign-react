@@ -14,7 +14,6 @@ import { SelectInputValueChangeContext } from '../select-input';
 import { PopupVisibleChangeContext } from '../popup';
 import { PlainObject, TNode, TElement, SizeEnum, InfinityScroll } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
-import { SelectInputBlurContext } from '../select-input';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
@@ -211,7 +210,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 输入框失去焦点时触发
    */
-  onBlur?: (value: SelectValue, e: SelectInputBlurContext) => void;
+  onBlur?: (context: { value: SelectValue; e: FocusEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> }) => void;
   /**
    * 选中值变化时触发。`context.trigger` 表示触发变化的来源；`context.selectedOptions` 表示选中值的完整对象，数组长度一定和 `value` 相同；`context.option` 表示当前操作的选项，不一定存在
    */

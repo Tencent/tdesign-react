@@ -435,7 +435,7 @@ const Select = forwardRefWithStatics(
           onFocus={onFocus}
           onEnter={handleEnter}
           onBlur={(_, context) => {
-            onBlur?.(value, context);
+            onBlur?.({ value, e: context.e as React.FocusEvent<HTMLDivElement> });
           }}
           onClear={(context) => {
             onClearValue(context);
