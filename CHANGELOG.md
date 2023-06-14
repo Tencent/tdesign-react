@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.10 `2023-06-13` 
+### 🚀 Features
+- `Menu`:
+    - Submenu 新增 popupProps 属性，允许透传设置底层 Popup 弹窗属性 @xiaosansiji ([#2284](https://github.com/Tencent/tdesign-react/pull/2284))
+    - 弹出菜单使用 Popup 重构 @xiaosansiji ([#2274](https://github.com/Tencent/tdesign-react/pull/2274))
+
+### 🐞 Bug Fixes
+- `InputNumber`: 初始值为 undefined/null，且存在 decimalPlaces 时，不再进行小数点纠正 @chaishi ([#2273](https://github.com/Tencent/tdesign-react/pull/2273))
+- `Select`: 修复`onBlur`方法回调参数异常的问题 @Ali-ovo ([#2281](https://github.com/Tencent/tdesign-react/pull/2281))
+- `Dialog`: 修复 Dialog 在 SSR 环境下报错 @night-c ([#2280](https://github.com/Tencent/tdesign-react/pull/2280))
+-  `Table`:  修复组件设置 `expandOnRowClick` 为 `true` 时，点击整行报错 @pe-3 ([#2275](https://github.com/Tencent/tdesign-react/pull/2275))
+
 ## 🌈 1.1.9 `2023-06-06` 
 ### 🚀 Features
 - `DatePicker`: 支持 onConfirm 事件 @honkinglin ([#2260](https://github.com/Tencent/tdesign-react/pull/2260))

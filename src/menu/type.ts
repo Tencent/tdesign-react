@@ -6,6 +6,7 @@
 
 import { TNode, TElement } from '../common';
 import { MouseEvent } from 'react';
+import { PopupProps } from '../popup';
 
 export interface TdMenuProps {
   /**
@@ -129,6 +130,10 @@ export interface TdSubmenuProps {
    * 菜单项图标
    */
   icon?: TNode;
+  /**
+   * 透传 Popup 组件全部特性
+   */
+  popupProps?: PopupProps;
   /**
    * 二级菜单内容
    */

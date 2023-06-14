@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -46,7 +46,7 @@
     "generate:usage": "node script/generate-usage/index.js",
     "generate:coverage-badge": "npm run test:coverage && node script/generate-coverage.js",
     "test": "vitest run && npm run test:snap",
-    "test:ui": "vitest run --ui",
+    "test:ui": "vitest --ui",
     "test:snap": "cross-env NODE_ENV=test-snap vitest run",
     "test:snap-update": "cross-env NODE_ENV=test-snap vitest run -u",
     "test:update": "vitest run -u && npm run test:snap-update",

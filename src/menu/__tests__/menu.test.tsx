@@ -32,18 +32,18 @@ describe('Menu 组件测试', () => {
       </Menu>,
     );
 
-  test('menu collapsed works fine', () => {
+  test('menu collapsed works fine', async () => {
     const { container } = renderSubmenu({ collapsed: true });
     expect(container.firstChild).toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(0);
     const submenu = container.querySelectorAll('.t-submenu').item(1);
-    expect(submenu.querySelectorAll('.t-menu__popup-wrapper').length).toBe(2);
-    const popup = submenu.querySelectorAll('.t-menu__popup-wrapper').item(0);
-    expect(popup.style.maxHeight).toBe('0');
     fireEvent.mouseEnter(submenu);
-    expect(popup.style.maxHeight).not.toBe('0');
+    expect(document.querySelector('.t-menu__popup')).not.toBeNull();
+    expect(document.querySelector('.t-menu__popup')?.className.includes('t-is-opened')).toBeTruthy();
+
     fireEvent.mouseLeave(submenu);
-    expect(popup.style.maxHeight).toBe('0');
+    const popup = await waitFor(() => document.querySelector('.t-menu__popup'));
+    expect(popup?.className.includes('t-is-opened')).not.toBeTruthy();
   });
 
   test('menu defaultExpanded works fine', () => {

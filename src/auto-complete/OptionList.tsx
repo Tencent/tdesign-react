@@ -95,7 +95,7 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
       } else if (e.code === 'ArrowDown' || e.key === 'ArrowDown') {
         newIndex = index + 1 >= tOptions.length ? 0 : index + 1;
       }
-      setActive(tOptions[newIndex].text);
+      setActive(tOptions[newIndex]?.text);
     }
   };
 
