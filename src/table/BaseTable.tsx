@@ -297,19 +297,20 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
     const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
     const barWidth = isWidthOverflow ? scrollbarWidth : 0;
+    const headerBarWidth = isFixedHeader ? scrollbarWidth : 0;
     const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
     const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
     const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
     const affixHeaderWrapHeightStyle = {
-      width: `${tableWidth.current - barWidth}px`,
+      width: `${tableWidth.current - headerBarWidth}px`,
       height: `${affixHeaderWrapHeight}px`,
       opacity: headerOpacity,
     };
     const affixedHeader = Boolean((props.headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - barWidth - affixedLeftBorder}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth.current - headerBarWidth - affixedLeftBorder}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
