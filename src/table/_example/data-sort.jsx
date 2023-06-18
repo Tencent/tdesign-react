@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -56,9 +56,17 @@ for (let i = 0; i < 5; i++) {
   });
 }
 
+const SINGLE_SORT = { sortBy: 'status', descending: true };
+const MULTIPLE_SORT = [
+  {
+    sortBy: 'status',
+    descending: true,
+  },
+];
+
 export default function TableSingleSort() {
   const [data, setData] = useState(initialData);
-  const [sortInfo, setSortInfo] = useState({ sortBy: 'status', descending: true });
+  const [sortInfo, setSortInfo] = useState(SINGLE_SORT);
   const [multipleSort, setMultipleSort] = useState(false);
 
   function onSortChange(sort, options) {
@@ -72,6 +80,10 @@ export default function TableSingleSort() {
   function onDataChange(newData) {
     setData(newData);
   }
+
+  useEffect(() => {
+    setSortInfo(multipleSort ? MULTIPLE_SORT : SINGLE_SORT);
+  }, [multipleSort]);
 
   return (
     <Space direction="vertical">
