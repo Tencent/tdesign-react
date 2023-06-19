@@ -157,13 +157,13 @@ export default function useSorter(props: TdPrimaryTableProps) {
   };
 
   useEffect(() => {
-    if (!tSortInfo || !Object.keys(tSortInfo).length) return;
+    if (!tSortInfo || !Object.keys(tSortInfo).length || !tData.length) return;
     // isSortInfoSame 的两个参数顺序不可变
     if (!isSortInfoSame(tSortInfo, innerSort)) {
       handleDataSort(tSortInfo);
     }
     // eslint-disable-next-line
-  }, [tSortInfo]);
+  }, [tSortInfo, tData]);
 
   return {
     renderSortIcon,

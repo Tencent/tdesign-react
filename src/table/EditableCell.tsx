@@ -103,14 +103,14 @@ const EditableCell = (props: EditableCellProps) => {
     return Boolean(edit.abortEditOnEvent?.includes('onChange'));
   }, [col]);
 
-  const validateEdit = (trigger: 'self' | 'parent') =>
+  const validateEdit = (trigger: 'self' | 'parent', newVal: any) =>
     new Promise((resolve) => {
       const params: PrimaryTableRowValidateContext<TableRowData> = {
         result: [
           {
             ...cellParams,
             errorList: [],
-            value: editValue,
+            value: newVal,
           },
         ],
         trigger,
@@ -121,7 +121,7 @@ const EditableCell = (props: EditableCellProps) => {
         resolve(true);
         return;
       }
-      validate(editValue, rules).then((result) => {
+      validate(newVal, rules).then((result) => {
         const list = result?.filter((t) => !t.result);
         params.result[0].errorList = list;
         props.onValidate?.(params);
@@ -143,7 +143,7 @@ const EditableCell = (props: EditableCellProps) => {
   };
 
   const updateAndSaveAbort = (outsideAbortEvent: Function, eventName: string, ...args: any) => {
-    validateEdit('self').then((result) => {
+    validateEdit('self', args[0].value).then((result) => {
       if (result !== true) return;
       const oldValue = get(row, col.colKey);
       // 相同的值无需触发变化
@@ -218,7 +218,7 @@ const EditableCell = (props: EditableCellProps) => {
     }
     // 数据变化时，实时校验
     if (col.edit?.validateTrigger === 'change') {
-      validateEdit('self');
+      validateEdit('self', val);
     }
   };
 

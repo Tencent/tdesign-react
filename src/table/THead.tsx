@@ -131,7 +131,9 @@ export default function THead(props: TheadProps) {
           props.resizable || !canDragSort
             ? {
                 onMouseDown: (e) => {
-                  columnResizeParams?.onColumnMousedown?.(e, col, index);
+                  if (props.resizable) {
+                    columnResizeParams?.onColumnMousedown?.(e, col, index);
+                  }
                   if (!canDragSort) {
                     const timer = setTimeout(() => {
                       const thList = theadRef.current.querySelectorAll('th');
@@ -140,7 +142,9 @@ export default function THead(props: TheadProps) {
                     }, 10);
                   }
                 },
-                onMouseMove: (e) => columnResizeParams?.onColumnMouseover?.(e, col),
+                onMouseMove: (e) => {
+                  props.resizable && columnResizeParams?.onColumnMouseover?.(e, col);
+                },
               }
             : {};
         const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle({ col, colIndex: index }) : undefined;
