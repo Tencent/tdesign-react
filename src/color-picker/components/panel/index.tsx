@@ -46,9 +46,12 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     showPrimaryColorPreview = true,
   } = props;
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
-  const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
+  const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : 'monochrome');
+  const isGradient = mode === 'linear-gradient'; // 判断是否为gradient模式
+
+  const defaultEmptyColor = isGradient ? DEFAULT_LINEAR_GRADIENT : DEFAULT_COLOR;
+  const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
   const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
-  const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : getmodeByColor);
   const [updateId, setUpdateId] = useState(0);
   const update = useCallback(
     (value) => {
@@ -293,8 +296,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       </>
     );
   });
-
-  const isGradient = mode === 'linear-gradient';
 
   return (
     <div
