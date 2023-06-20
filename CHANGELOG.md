@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.11 `2023-06-20` 
+### 🐞 Bug Fixes
+- `Table`:
+    - 可拖拽调整列宽场景，修复 `resizable=false` 无效问题，默认值为 false @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
+    - 本地数据排序场景，修复异步拉取数据时，取消排序数据会导致空列表问题 @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
+    - 修复固定表格 + 固定列 + 虚拟滚动场景，表头不对齐问题，[issue#2126](https://github.com/Tencent/tdesign-react/issues/2126) @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
+    - 可编辑单元格/可编辑行场景，修复数据始终校验上一个值问题，调整为校验最新输入值，[issue#2219](https://github.com/Tencent/tdesign-react/issues/2219) @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
+    - 修复本地数据排序，多字段排序场景，示例代码缺失问题，[issue#1966](https://github.com/Tencent/tdesign-react/issues/1966) @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
+- `ColorPicker`:
+    - 初始化为渐变模式时 支持空字符串作为初始值 @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
+    - 修复 `recentColors` 等字段的类型问题 @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
+    - 修复内部下拉选项未透传 `popupProps` 的缺陷 @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
+
+
 ## 🌈 1.1.10 `2023-06-13` 
 ### 🚀 Features
 - `Menu`:
