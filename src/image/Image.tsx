@@ -10,24 +10,26 @@ import { imageDefaultProps } from './defaultProps';
 import Space from '../space';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { StyledProps } from '../common';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type ImageProps = TdImageProps & StyledProps;
 
-const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> = (props, ref) => {
+const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> = (originalProps, ref) => {
+  const props = useDefaultProps<ImageProps>(originalProps, imageDefaultProps);
   const {
     className,
     src,
     style,
     alt,
-    fit = imageDefaultProps.fit,
-    position = imageDefaultProps.position,
-    shape = imageDefaultProps.shape,
+    fit,
+    position,
+    shape,
     placeholder,
     loading,
     error,
-    overlayTrigger = imageDefaultProps.overlayTrigger,
-    lazy = imageDefaultProps.lazy,
-    gallery = imageDefaultProps.gallery,
+    overlayTrigger,
+    lazy,
+    gallery,
     overlayContent,
     srcset,
     onLoad,
