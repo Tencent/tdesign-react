@@ -48,7 +48,7 @@ interface ImageModelItemProps {
 }
 
 // 单个弹窗实例
-export const ImageModelItem = ({ rotateZ, scale, src, preSrc, mirror, errorText }: ImageModelItemProps) => {
+export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, src, preSrc, mirror, errorText }) => {
   const { classPrefix } = useConfig();
 
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
@@ -152,7 +152,7 @@ interface ImageViewerUtilsProps {
   };
 }
 
-export const ImageViewerUtils = ({
+export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   onZoom,
   scale,
   onZoomOut,
@@ -161,7 +161,7 @@ export const ImageViewerUtils = ({
   onMirror,
   onReset,
   tipText,
-}: ImageViewerUtilsProps) => {
+}) => {
   const { classPrefix } = useConfig();
   const { MirrorIcon, RotationIcon, ImageIcon } = useGlobalIcon({
     MirrorIcon: TdMirrorIcon,
@@ -288,7 +288,7 @@ interface ImageModalProps {
 }
 
 // 弹窗基础组件
-export const ImageModal = (props: ImageModalProps) => {
+export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const {
     closeOnOverlay,
     showOverlay = true,
