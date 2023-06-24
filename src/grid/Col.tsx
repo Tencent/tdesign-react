@@ -6,6 +6,7 @@ import { StyledProps } from '../common';
 import { TdColProps, TdRowProps } from './type';
 import { colDefaultProps } from './defaultProps';
 import { RowContext } from './Row';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 type FlexType = number | 'none' | 'auto' | string;
 
@@ -58,8 +59,21 @@ const parseFlex = (flex: FlexType) => {
   return flex;
 };
 
-const Col = forwardRef((props: ColProps | any, ref) => {
-  const { flex, offset, order, pull, push, span, tag, className, children, style: propStyle, ...otherColProps } = props;
+const Col = forwardRef<HTMLElement, ColProps>((props, ref) => {
+  const {
+    flex,
+    offset,
+    order,
+    pull,
+    push,
+    span,
+    tag,
+    className,
+    children,
+    style: propStyle,
+    ...otherColProps
+  } = useDefaultProps<ColProps>(props, colDefaultProps);
+
   const { gutter: rowGutter, size: rowSize } = useContext(RowContext);
 
   const { classPrefix } = useConfig();
@@ -115,6 +129,5 @@ const Col = forwardRef((props: ColProps | any, ref) => {
 });
 
 Col.displayName = 'Col';
-Col.defaultProps = colDefaultProps;
 
 export default Col;
