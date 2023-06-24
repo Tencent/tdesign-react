@@ -102,10 +102,10 @@ const Col = forwardRef<HTMLElement, ColProps>((props, ref) => {
     className,
     {
       [`${classPrefix}-col-${span}`]: span !== undefined,
-      [`${classPrefix}-col-offset-${offset}`]: parseInt(offset, 10) >= 0,
-      [`${classPrefix}-col-pull-${pull}`]: parseInt(pull, 10) >= 0,
-      [`${classPrefix}-col-push-${push}`]: parseInt(push, 10) >= 0,
-      [`${classPrefix}-col-order-${order}`]: parseInt(order, 10) >= 0,
+      [`${classPrefix}-col-offset-${offset}`]: parseInt(offset as unknown as string, 10) >= 0,
+      [`${classPrefix}-col-pull-${pull}`]: parseInt(pull as unknown as string, 10) >= 0,
+      [`${classPrefix}-col-push-${push}`]: parseInt(push as unknown as string, 10) >= 0,
+      [`${classPrefix}-col-order-${order}`]: parseInt(order as unknown as string, 10) >= 0,
     },
     sizeClasses,
   );
