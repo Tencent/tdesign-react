@@ -4,16 +4,6 @@ description: TDesign React is a UI component library for React and desktop appli
 spline: explain
 ---
 
-### 安装
-
-#### 使用 npm 安装
-
-推荐使用 npm 方式进行开发
-
-```bash
-npm i tdesign-react
-```
-
 ## Installation
 
 ### npm
@@ -42,7 +32,7 @@ import 'tdesign-react/es/style/index.css'; // global design variables
 
 ### Customize theme
 
-由于原始样式基于 less 编写，需要自行处理 less 文件的编译（例如安装 less、less-loader）
+Since the original styles are written in Less, you need to handle the compilation of Less files yourself (for example, by installing Less and Less-loader).
 
 read [this file](https://github.com/Tencent/tdesign-common/blob/main/style/web/_variables.less) fro the complete less variables definition of TDesign.
 
@@ -94,18 +84,18 @@ module.exports = {
 }
 ```
 
-### How to use React with next.js
+### How to use React with Next.js
 
-在 `next.js` 中并不支持引入 `css` 样式文件，而默认导入的 `es` 产物中会自动引入相应 `css` 文件导致项目报错，我们提供了一套无样式的组件库代码存放在 `lib` 目录下。
+`Next.js` does not support importing `css` style files by default. But the `es` bundle of tdesign-react automatically includes the corresponding css style file, which causes errors in the project. To solve this, we have provided a set of style-free component library codes stored in the `lib` bundle.
 
-所以在 `next.js` 中需要调整下使用方式：
+When using Next.js, you need to adjust how you use these components.
 
 ```js
-import { Button } from 'tdesign-react/lib/'; // 按需引入无样式组件代码
-import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
+import { Button } from 'tdesign-react/lib/';
+import 'tdesign-react/dist/tdesign.css';
 ```
 
-此外 `lib` 包导出的是 `es6` 的代码且在 `node_modules` 中，会被 `webpack` 在编译时跳过，还需配置下 `next.config.js`。
+In addition, the code exported by the `lib` package is written in `es6` and is located in the `node_modules`. It will be skipped by Webpack during compilation, and you need to configure it in `next.config.js`
 
 ```js
 const nextConfig = {
