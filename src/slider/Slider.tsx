@@ -114,8 +114,8 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
           'is-vertical': isVertical,
         })}
         disabled={disabled}
-        {...inputProps}
         theme="column"
+        {...inputProps}
       />
     );
   };
