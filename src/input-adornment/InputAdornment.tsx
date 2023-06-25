@@ -10,7 +10,7 @@ export interface InputAdornmentProps extends TdInputAdornmentProps, StyledProps 
   children?: React.ReactNode;
 }
 
-const InputAdornment = forwardRef((props: InputAdornmentProps, ref: React.Ref<HTMLDivElement>) => {
+const InputAdornment = forwardRef<HTMLDivElement, InputAdornmentProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const { prepend, append, children, className, style, ...wrapperProps } = props;
 
