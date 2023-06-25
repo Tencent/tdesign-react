@@ -34,7 +34,7 @@ export interface ImageModelMiniProps {
   };
 }
 
-export const ImageModelMiniContent = (props: ImageModelMiniProps) => {
+export const ImageModelMiniContent: React.FC<ImageModelMiniProps> = (props) => {
   const { classPrefix } = useConfig();
 
   return (
@@ -51,7 +51,7 @@ export const ImageModelMiniContent = (props: ImageModelMiniProps) => {
   );
 };
 
-export const ImageModelMini = (props: ImageModelMiniProps) => {
+export const ImageModelMini: React.FC<ImageModelMiniProps> = (props) => {
   const {
     visible,
     title,
