@@ -6,6 +6,7 @@ import { StyledProps } from '../common';
 import { TdRowProps } from './type';
 import { canUseDocument, getCssVarsValue } from '../_util/dom';
 import { rowDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 /**
  * Row 组件支持的属性。
@@ -88,8 +89,17 @@ const calcRowStyle = (gutter: TdRowProps['gutter'], currentSize: string): object
 
 export const RowContext = createContext({ gutter: undefined, size: undefined });
 
-const Row = forwardRef((props: RowProps, ref) => {
-  const { align, gutter, justify, tag, style: propStyle, className, children, ...otherRowProps } = props;
+const Row = forwardRef<HTMLElement, RowProps>((props, ref) => {
+  const {
+    align,
+    gutter,
+    justify,
+    tag,
+    style: propStyle,
+    className,
+    children,
+    ...otherRowProps
+  } = useDefaultProps<RowProps>(props, rowDefaultProps);
 
   const [size, setSize] = useState(canUseDocument ? calcSize(window.innerWidth) : 'md');
 
@@ -130,6 +140,5 @@ const Row = forwardRef((props: RowProps, ref) => {
 });
 
 Row.displayName = 'Row';
-Row.defaultProps = rowDefaultProps;
 
 export default Row;
