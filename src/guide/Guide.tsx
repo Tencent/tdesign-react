@@ -11,6 +11,7 @@ import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToE
 import setStyle from '../_common/js/utils/set-style';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type GuideProps = TdGuideProps;
 
@@ -24,7 +25,8 @@ export type GuideCrossProps = Pick<
  * */
 export type TdGuideStepProps = GuideStep;
 
-const Guide = (props: GuideProps) => {
+const Guide: React.FC<GuideProps> = (originalProps) => {
+  const props = useDefaultProps<TdGuideProps>(originalProps, guideDefaultProps);
   const { counter, hideCounter, hidePrev, hideSkip, steps, zIndex } = props;
 
   const { classPrefix, guide: guideGlobalConfig } = useConfig();
@@ -407,7 +409,5 @@ const Guide = (props: GuideProps) => {
 };
 
 Guide.displayName = 'Guide';
-
-Guide.defaultProps = guideDefaultProps;
 
 export default Guide;
