@@ -11,18 +11,23 @@ let demoCodesImports = {};
 export default {
   before({ source, file }) {
     const resourceDir = path.dirname(file);
-    const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.md/);
+    const reg = file.match(/src\/([\w-]+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
+
     const fileName = reg && reg[0];
     const componentName = reg && reg[1];
-    const localeName = reg && reg[2];
+    const localeName = reg && reg[3];
+
     demoImports = {};
     demoCodesImports = {};
-
     // 统一换成 common 公共文档内容
     if (fileName && source.includes(':: BASE_DOC ::')) {
       const localeDocPath = path.resolve(__dirname, `../../src/_common/docs/web/api/${fileName}`);
-      const defaultDocPath = path.resolve(__dirname, `../../src/_common/docs/web/api/${componentName}.md`);
+      const defaultDocPath = path.resolve(
+        __dirname,
+        `../../src/_common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
+      );
       let baseDoc = '';
+
       if (fs.existsSync(localeDocPath)) {
         // 优先载入语言版本
         baseDoc = fs.readFileSync(localeDocPath, 'utf-8');
@@ -37,14 +42,14 @@ export default {
 
     // 替换成对应 demo 文件
     source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
-      const defaultDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.vue`);
-      const localeDemoPath = path.resolve(resourceDir, `../_example/${demoFileName}.${localeName}.vue`);
+      const defaultDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.jsx`);
+      const localeDemoPath = path.resolve(resourceDir, `../_example/${demoFileName}.${localeName}.jsx`);
       // localeDemo 优先级最高
       if (fs.existsSync(localeDemoPath))
         return `\n::: demo _example/${demoFileName}.${localeName} ${componentName}\n:::\n`;
 
       if (!fs.existsSync(defaultDemoPath)) {
-        console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.vue 示例!`);
+        console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.jsx 示例!`);
         return '\n<h3>DEMO (🚧建设中）...</h3>';
       }
 

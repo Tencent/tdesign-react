@@ -194,7 +194,7 @@ async function customRender({ source, file, md }) {
   };
 
   // md filename
-  const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.md/);
+  const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
   const componentName = reg && reg[1];
 
   // split md
