@@ -18,6 +18,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import useLengthLimit from './useLengthLimit';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
@@ -43,7 +44,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode 
 };
 
 const Input = forwardRefWithStatics(
-  (props: InputProps, ref: React.RefObject<InputRef>) => {
+  (originalProps: InputProps, ref: React.RefObject<InputRef>) => {
     // 国际化文本初始化
     const [local, t] = useLocaleReceiver('input');
     const { BrowseIcon, BrowseOffIcon, CloseCircleFilledIcon } = useGlobalIcon({
@@ -51,6 +52,7 @@ const Input = forwardRefWithStatics(
       BrowseOffIcon: TdBrowseOffIcon,
       CloseCircleFilledIcon: TdCloseCircleFilledIcon,
     });
+    const props = useDefaultProps<InputProps>(originalProps, inputDefaultProps);
     const {
       type,
       autoWidth,
@@ -388,6 +390,5 @@ const Input = forwardRefWithStatics(
 );
 
 Input.displayName = 'Input';
-Input.defaultProps = inputDefaultProps;
 
 export default Input;

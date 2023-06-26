@@ -10,7 +10,7 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   separate?: boolean;
 }
 
-const InputGroup = forwardRef((props: InputGroupProps, ref: React.Ref<HTMLDivElement>) => {
+const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const { separate, children, className, ...wrapperProps } = props;
   return (
