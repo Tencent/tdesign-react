@@ -19,6 +19,7 @@ import EditableCell, { EditableCellProps } from './EditableCell';
 import { StyledProps } from '../common';
 import { useEditableRow } from './hooks/useEditableRow';
 import { primaryTableDefaultProps } from './defaultProps';
+import { CheckboxGroupValue } from '../checkbox';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
@@ -30,7 +31,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
   const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
-  const { tDisplayColumns, renderColumnController } = useColumnController(props);
+  const { tDisplayColumns, renderColumnController } = useColumnController(props, { onColumnReduce });
   // 展开/收起行功能
   const { showExpandedRow, showExpandIconColumn, getExpandColumn, renderExpandedRow, onInnerExpandRowClick } =
     useRowExpand(props);
@@ -90,6 +91,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     clearValidateData,
     ...primaryTableRef.current,
   }));
+
+  function onColumnReduce(reduceKeys: CheckboxGroupValue) {
+    if (props.resizable) {
+      primaryTableRef.current.updateTableWidthOnColumnChange(reduceKeys);
+    }
+  }
 
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
