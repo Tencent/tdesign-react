@@ -96,7 +96,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     updateTableAfterColumnResize,
     onColumnResizeChange: props.onColumnResizeChange,
   });
-  const { resizeLineRef, resizeLineStyle, setEffectColMap } = columnResizeParams;
+  const { resizeLineRef, resizeLineStyle, setEffectColMap, updateTableWidthOnColumnChange } = columnResizeParams;
 
   const dynamicBaseTableClasses = classNames(
     tableClasses.concat({
@@ -205,6 +205,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     refreshTable,
     scrollToElement: virtualConfig.scrollToElement,
     scrollColumnIntoView,
+    updateTableWidthOnColumnChange,
   }));
 
   // used for top margin

@@ -60,8 +60,9 @@ export default function TableCustomCol() {
     console.log(params);
   };
 
+  // Do not use `resizable` and `tableLayout=auto` at the same time !
   return (
-    <Space direction="vertical" size="large">
+    <Space direction="vertical" size="large" style={{ maxWidth: '100%' }}>
       <Button onClick={() => setColumnControllerVisible(true)}>显示列配置弹窗</Button>
       <Table
         displayColumns={displayColumns}
@@ -77,8 +78,8 @@ export default function TableCustomCol() {
           hideTriggerButton: true,
         }}
         pagination={{ defaultPageSize: 5, defaultCurrent: 1, total: 100 }}
-        tableLayout="auto"
         stripe
+        resizable
         onColumnChange={onColumnChange}
       ></Table>
     </Space>

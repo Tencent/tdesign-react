@@ -4,6 +4,7 @@
 import React, { useEffect, ChangeEvent, useRef } from 'react';
 import { SettingIcon as TdSettingIcon } from 'tdesign-icons-react';
 import intersection from 'lodash/intersection';
+import xorWith from 'lodash/xorWith';
 import classNames from 'classnames';
 import Checkbox, { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
 import { DialogPlugin } from '../../dialog/plugin';
@@ -29,10 +30,15 @@ export function getColumnKeys(columns: PrimaryTableCol[], keys = new Set<string>
   return keys;
 }
 
-export default function useColumnController(props: TdPrimaryTableProps) {
+export default function useColumnController(
+  props: TdPrimaryTableProps,
+  extra?: {
+    onColumnReduce?: (reduceKeys: CheckboxGroupValue) => void;
+  },
+) {
   const { classPrefix, table } = useConfig();
   const { SettingIcon } = useGlobalIcon({ SettingIcon: TdSettingIcon });
-  const { columns, columnController, displayColumns, columnControllerVisible } = props;
+  const { columns, columnController, displayColumns = [], columnControllerVisible } = props;
   const dialogInstance = useRef<DialogInstance>();
 
   const enabledColKeys = (() => {
@@ -144,6 +150,10 @@ export default function useColumnController(props: TdPrimaryTableProps) {
       cancelBtn: table.cancelText,
       width: 612,
       onConfirm: () => {
+        if (columnCheckboxKeys.current.length < displayColumns.length) {
+          const reduceKeys = xorWith(displayColumns, columnCheckboxKeys.current);
+          extra?.onColumnReduce?.(reduceKeys);
+        }
         setTDisplayColumns([...columnCheckboxKeys.current]);
         // 此处逻辑不要随意改动，涉及到 内置列配置按钮 和 不包含列配置按钮等场景
         if (columnControllerVisible === undefined) {
