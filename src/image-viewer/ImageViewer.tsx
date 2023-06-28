@@ -9,10 +9,12 @@ import useImageScale from './hooks/useImageScale';
 import useList from './hooks/useList';
 import useViewerScale from './hooks/useViewerScale';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
-const ImageViewer = (props: ImageViewerProps) => {
+const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
+  const props = useDefaultProps<ImageViewerProps>(originalProps, imageViewerDefaultProps);
   const { mode, trigger, images, title, imageScale: imageScaleD, viewerScale: viewerScaleD } = props;
 
   const [visible, setVisible] = useControlled(props, 'visible', (visible, context) => {
@@ -70,7 +72,5 @@ const ImageViewer = (props: ImageViewerProps) => {
 };
 
 ImageViewer.displayName = 'ImageViewer';
-
-ImageViewer.defaultProps = imageViewerDefaultProps;
 
 export default ImageViewer;

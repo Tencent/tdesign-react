@@ -183,7 +183,7 @@
     "start-server-and-test": "^1.14.0",
     "tdesign-icons-view": "^0.1.5",
     "tdesign-publish-cli": "^0.0.10",
-    "tdesign-site-components": "^0.12.2",
+    "tdesign-site-components": "^0.13.1",
     "tdesign-theme-generator": "^1.0.0",
     "ts-morph": "^13.0.02",
     "ts-node": "^10.4.0",

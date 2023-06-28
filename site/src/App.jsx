@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
-import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
 // import locale from 'tdesign-react/locale/zh_CN';
 // import locale from 'tdesign-react/locale/en_US';
@@ -11,12 +10,17 @@ import packageJson from '@/package.json';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
-const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
+const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
+
+const docsMap = {
+  zh: docs,
+  en: enDocs,
+};
 
 const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
 const currentVersion = packageJson.version.replace(/\./g, '_');
 
-const docRoutes = getRoute(siteConfig.docs, []);
+const docRoutes = [...getRoute(siteConfig.docs, []), ...getRoute(siteConfig.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
   const LazyCom = lazy(nav.component);
 
@@ -65,7 +69,8 @@ function Components() {
   useEffect(() => {
     tdHeaderRef.current.framework = 'react';
     tdDocSearch.current.docsearchInfo = { indexName: 'tdesign_doc_react' };
-    tdDocAsideRef.current.routerList = routerList;
+    const isEn = window.location.pathname.endsWith('en');
+    tdDocAsideRef.current.routerList = isEn ? docsMap.en : docsMap.zh;
 
     tdDocAsideRef.current.onchange = ({ detail }) => {
       if (window.location.pathname === detail) return;
