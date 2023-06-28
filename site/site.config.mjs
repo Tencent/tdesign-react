@@ -44,15 +44,15 @@ export const docs = [
     children: [
       {
         title: '全局特性配置',
-        titleEn: 'Global Config',
+        titleEn: 'Global Configuration',
         name: 'config',
-        path: '/react/global-config',
+        path: '/react/global-configuration',
         component: () => import('tdesign-react/config-provider/config-provider.md'),
         componentEn: () => import('tdesign-react/config-provider/config-provider.en-US.md'),
       },
       {
         title: '自定义主题',
-        titleEn: 'Custom Theme',
+        titleEn: 'Theme Customization',
         name: 'custom-theme',
         path: '/react/custom-theme',
         component: () => import('@common/theme.md'),
@@ -563,6 +563,7 @@ export const docs = [
       },
       {
         title: 'Rate 评分',
+        titleEn: 'Rate',
         name: 'rate',
         docType: 'data',
         path: '/react/components/rate',
