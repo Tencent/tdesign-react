@@ -165,12 +165,18 @@ const DEFAULT_TABS = [
   { tab: 'design', name: '指南' },
 ];
 
+const DEFAULT_EN_TABS = [
+  { tab: 'demo', name: 'DEMO' },
+  { tab: 'api', name: 'API' },
+  { tab: 'design', name: 'Guideline' },
+];
+
 // 解析 markdown 内容
 async function customRender({ source, file, md }) {
   let { content, data } = matter(source);
-  const lastUpdated = await getGitTimestamp(file) || Math.round(fs.statSync(file).mtimeMs);
+  const lastUpdated = (await getGitTimestamp(file)) || Math.round(fs.statSync(file).mtimeMs);
   // console.log('data', data);
-
+  const isEn = file.endsWith('en-US.md');
   // md top data
   const pageData = {
     spline: '',
@@ -179,7 +185,7 @@ async function customRender({ source, file, md }) {
     description: '',
     isComponent: false,
     tdDocHeader: true,
-    tdDocTabs: DEFAULT_TABS,
+    tdDocTabs: !isEn ? DEFAULT_TABS : DEFAULT_EN_TABS,
     apiFlag: /#+\s*API/,
     docClass: '',
     lastUpdated,
@@ -188,7 +194,7 @@ async function customRender({ source, file, md }) {
   };
 
   // md filename
-  const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.md/);
+  const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
   const componentName = reg && reg[1];
 
   // split md
@@ -244,7 +250,8 @@ async function customRender({ source, file, md }) {
     const designDocPath = path.resolve(__dirname, `../../src/_common/docs/web/design/${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
-      const designDocLastUpdated = await getGitTimestamp(designDocPath) || Math.round(fs.statSync(designDocPath).mtimeMs);
+      const designDocLastUpdated =
+        (await getGitTimestamp(designDocPath)) || Math.round(fs.statSync(designDocPath).mtimeMs);
       mdSegment.designDocLastUpdated = designDocLastUpdated;
 
       const designMd = fs.readFileSync(designDocPath, 'utf-8');
