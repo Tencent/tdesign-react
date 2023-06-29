@@ -5,6 +5,15 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.12 `2023-06-29` 
+
+### 🚀 Features
+- `Site`: 支持英文站点 @uyarn ([#2316](https://github.com/Tencent/tdesign-react/pull/2316))
+
+### 🐞 Bug Fixes
+- `Slider`: 修复数字输入框 `theme` 固定为 `column` 的问题 @Ali-ovo ([#2289](https://github.com/Tencent/tdesign-react/pull/2289))
+- `Table`: 列宽调整和自定义列共存场景，修复通过自定义列配置表格列数量变少时，表格总宽度无法再恢复变小，[tdesign-vue-next#2951](https://github.com/Tencent/tdesign-vue-next/issues/2951) @chaishi ([#2325](https://github.com/Tencent/tdesign-react/pull/2325))
+
 ## 🌈 1.1.11 `2023-06-20` 
 ### 🐞 Bug Fixes
 - `Table`:
