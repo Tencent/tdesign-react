@@ -5,7 +5,7 @@ import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, Synthetic
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
-export type TNode<T = undefined> = T extends undefined ? ReactNode : ReactNode | ((props: T) => ReactNode);
+export type TNode<T = undefined> = T extends undefined ? ReactNode : (ReactNode | ((props: T) => ReactNode));
 
 export type AttachNodeReturnValue = HTMLElement | Element | Document;
 export type AttachNode = CSSSelector | ((triggerNode?: HTMLElement) => AttachNodeReturnValue);
