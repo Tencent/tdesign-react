@@ -143,7 +143,15 @@ const Input = forwardRefWithStatics(
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
     const limitNumberNode =
-      limitNumber && showLimitNumber ? <div className={`${classPrefix}-input__limit-number`}>{limitNumber}</div> : null;
+      limitNumber && showLimitNumber ? (
+        <div
+          className={classNames(`${classPrefix}-input__limit-number`, {
+            [`${classPrefix}-is-disabled`]: disabled,
+          })}
+        >
+          {limitNumber}
+        </div>
+      ) : null;
 
     const updateInputWidth = () => {
       if (!autoWidth || !inputRef.current) return;
