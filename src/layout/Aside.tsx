@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import { TdAsideProps } from './type';
 import { StyledProps } from '../common';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface AsideProps extends TdAsideProps, StyledProps {
   /**
@@ -14,14 +15,14 @@ export interface AsideProps extends TdAsideProps, StyledProps {
 /**
  * Aside 组件
  */
-const Aside = (props: AsideProps) => {
-  const { width, className, style, children, ...otherAsideProps } = props;
+const Aside: React.FC<AsideProps> = (props) => {
+  const { width, className, style, children, ...otherAsideProps } = useDefaultProps(props, { width: 232 });
 
   const { classPrefix } = useConfig();
   const asideClassNames = classNames(`${classPrefix}-layout__sider`, className);
   const asideWidth = isNaN(Number(width)) ? width : `${width}px`;
 
-  const asideStyle = {
+  const asideStyle: React.CSSProperties = {
     width: asideWidth,
     maxWidth: asideWidth,
     minWidth: asideWidth,
@@ -34,10 +35,6 @@ const Aside = (props: AsideProps) => {
       {children}
     </aside>
   );
-};
-
-Aside.defaultProps = {
-  width: 232,
 };
 
 Aside.displayName = 'Aside';
