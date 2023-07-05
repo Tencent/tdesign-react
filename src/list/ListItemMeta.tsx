@@ -8,7 +8,7 @@ export interface ListItemMetaProps extends TdListItemMetaProps, StyledProps {}
 /**
  * 列表组件
  */
-const ListItemMeta = forwardRef((props: ListItemMetaProps, ref: React.Ref<HTMLDivElement>) => {
+const ListItemMeta = forwardRef<HTMLDivElement, ListItemMetaProps>((props, ref) => {
   const { title, image, description, className, style } = props;
   const { classPrefix } = useConfig();
 
