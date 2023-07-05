@@ -1,6 +1,5 @@
-import React, { useState, useEffect, FC, useMemo, CSSProperties } from 'react';
+import React, { useState, useEffect, useMemo, CSSProperties } from 'react';
 import classnames from 'classnames';
-
 import { addClass, canUseDocument, removeClass } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
@@ -8,10 +7,11 @@ import { TdLoadingProps } from './type';
 import Portal from '../common/Portal';
 import Gradient from './gradient';
 import { loadingDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {}
 
-const Loading: FC<LoadingProps> = (props) => {
+const Loading: React.FC<LoadingProps> = (props) => {
   const {
     attach,
     indicator,
@@ -28,7 +28,7 @@ const Loading: FC<LoadingProps> = (props) => {
     zIndex,
     className,
     style,
-  } = props;
+  } = useDefaultProps<LoadingProps>(props, loadingDefaultProps);
 
   const [showLoading, setShowLoading] = useState(delay ? false : loading);
 
@@ -59,7 +59,7 @@ const Loading: FC<LoadingProps> = (props) => {
     };
   }, [delay, loading]);
 
-  const calcStyles = useMemo(() => {
+  const calcStyles = useMemo<React.CSSProperties>(() => {
     const styles: CSSProperties = {};
 
     if (zIndex !== undefined) {
@@ -156,6 +156,5 @@ const Loading: FC<LoadingProps> = (props) => {
 };
 
 Loading.displayName = 'Loading';
-Loading.defaultProps = loadingDefaultProps;
 
 export default Loading;
