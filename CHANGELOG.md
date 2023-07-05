@@ -5,6 +5,13 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.13 `2023-07-05` 
+### 🐞 Bug Fixes
+- `Tag`: 修复 Tag children 为数字 0 时的渲染异常 @HelKyle ([#2335](https://github.com/Tencent/tdesign-react/pull/2335))
+- `Input`: 修复 `limitNumber` 部分在 `disabled` 状态下的样式问题 @uyarn ([#2338](https://github.com/Tencent/tdesign-react/pull/2338))
+- `TagInput`: 修复前置图标的样式缺陷 @uyarn ([#2342](https://github.com/Tencent/tdesign-react/pull/2342))
+- `SelectInput`: 修复失焦时未清空输入内容的缺陷 @uyarn ([#2342](https://github.com/Tencent/tdesign-react/pull/2342))
+
 ## 🌈 1.1.12 `2023-06-29` 
 
 ### 🚀 Features
