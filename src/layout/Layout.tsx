@@ -53,17 +53,15 @@ const Content: React.FC<ContentProps> = (props) => {
   );
 };
 
-interface CompoundedComponent {
+/**
+ * 布局组件
+ */
+const Layout: React.FC<LayoutProps> & {
   Header: typeof Header;
   Content: typeof Content;
   Footer: typeof Footer;
   Aside: typeof Aside;
-}
-
-/**
- * 布局组件
- */
-const Layout: React.FC<LayoutProps> & CompoundedComponent = (props) => {
+} = (props) => {
   const { direction, className, style, children, ...otherLayoutProps } = props;
   const [asides, setAsides] = useState([]);
   useEffect(() => {
