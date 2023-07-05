@@ -15,7 +15,7 @@ export interface ListItemProps extends TdListItemProps, StyledProps {
 /**
  * 列表组件
  */
-const ListItem = forwardRef((props: ListItemProps, ref: React.Ref<HTMLLIElement>) => {
+const ListItem = forwardRef<HTMLLIElement, ListItemProps>((props, ref) => {
   const { children, className, style, action, content } = props;
   const { classPrefix } = useConfig();
 

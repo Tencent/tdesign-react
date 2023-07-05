@@ -74,6 +74,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
               commonInputProps,
               onInnerClear,
               popupVisible: visibleProps.visible,
+              allowInput: props.allowInput,
             })
           : renderSelectSingle(visibleProps.visible)}
       </Popup>

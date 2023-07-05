@@ -11,6 +11,7 @@ export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
   onInnerClear: (context: { e: MouseEvent<SVGElement> }) => void;
   popupVisible: boolean;
+  allowInput: boolean;
 }
 
 const DEFAULT_KEYS = {
@@ -56,7 +57,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       valueDisplay={props.valueDisplay}
       placeholder={tPlaceholder}
       value={tags}
-      inputValue={tInputValue || ''}
+      inputValue={p.popupVisible && p.allowInput ? tInputValue : ''}
       onChange={onTagInputChange}
       onInputChange={(val, context) => {
         // 筛选器统一特性：筛选器按下回车时不清空输入框
