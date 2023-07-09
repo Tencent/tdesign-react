@@ -1,22 +1,43 @@
-import { DragEventHandler, useState, DragEvent } from 'react';
+import { DragEventHandler, useState } from 'react';
 import { TdUploadProps } from '../type';
 
 export interface UploadDragEvents {
-  onDragFileChange?: (e: DragEvent<HTMLDivElement>) => void;
+  accept: string;
+  onDragFileChange?: (files: File[]) => void;
   onDragenter?: TdUploadProps['onDragenter'];
   onDragleave?: TdUploadProps['onDragleave'];
   onDrop?: TdUploadProps['onDrop'];
 }
 
+/**
+ * use getFileList in common
+ */
+export function getFileList(files: FileList, accept?: string) {
+  const fileList: File[] = [];
+  for (let i = 0; i < files.length; i++) {
+    const regExp = new RegExp(accept);
+    if (regExp.test(files[i].type)) {
+      fileList.push(files[i]);
+    }
+  }
+  return fileList;
+}
+
 export default function useDrag(props: UploadDragEvents) {
+  const { accept } = props;
   const [target, setTarget] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
   const handleDrop: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
-    props.onDragFileChange?.(event);
-    props.onDrop?.({ e: event });
     setDragActive(false);
+
+    const {files} = event.dataTransfer;
+    const dragFiles: File[] = getFileList(files, accept);
+    if (!dragFiles.length) return;
+
+    props.onDragFileChange?.(dragFiles);
+    props.onDrop?.({ e: event });
   };
 
   const handleDragenter: DragEventHandler<HTMLDivElement> = (event) => {

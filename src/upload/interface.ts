@@ -4,6 +4,7 @@ import { TdUploadProps, UploadFile, UploadRemoveContext } from './type';
 import { GlobalConfigProvider } from '../config-provider/type';
 
 export interface CommonDisplayFileProps {
+  accept: string;
   files: TdUploadProps['files'];
   toUploadFiles: TdUploadProps['files'];
   displayFiles: TdUploadProps['files'];

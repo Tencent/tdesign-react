@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, ChangeEventHandler, DragEvent, MouseEvent, useEffect } from 'react';
+import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect } from 'react';
 import merge from 'lodash/merge';
 import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
@@ -14,6 +14,7 @@ import useControlled from '../../hooks/useControlled';
 import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../../_common/js/upload/types';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { getFileList } from './useDrag';
 
 /**
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件
@@ -165,7 +166,7 @@ export default function useUpload(props: TdUploadProps) {
     setToUploadFiles([]);
   };
 
-  const onFileChange = (files: FileList) => {
+  const onFileChange = (files: File[]) => {
     if (disabled) return;
     // @ts-ignore
     props.onSelectChange?.([...files], { currentSelectedFiles: formatToUploadFile([...files], props.format) });
@@ -230,11 +231,12 @@ export default function useUpload(props: TdUploadProps) {
   };
 
   const onNormalFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    onFileChange?.(e.target.files);
+    const fileList = getFileList(e.target.files);
+    onFileChange?.(fileList);
   };
 
-  function onDragFileChange(e: DragEvent<HTMLDivElement>) {
-    onFileChange?.(e.dataTransfer.files);
+  function onDragFileChange(files: File[]) {
+    onFileChange?.(files);
   }
 
   /**

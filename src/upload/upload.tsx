@@ -72,6 +72,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
   const triggerElement = renderTrigger();
 
   const commonDisplayFileProps: CommonDisplayFileProps = {
+    accept: props.accept,
     files: uploadValue,
     toUploadFiles,
     displayFiles,

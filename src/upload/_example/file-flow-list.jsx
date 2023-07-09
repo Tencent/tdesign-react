@@ -43,6 +43,7 @@ export default function FileFlowList() {
       <br />
 
       <Upload
+        accept='image/*'
         files={fileList}
         onChange={setFileList}
         action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
