@@ -37,11 +37,13 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     onDragFileChange,
     triggerUpload,
     cancelUpload,
+    uploadFilePercent,
   } = useUpload(props);
 
   React.useImperativeHandle(ref, () => ({
     upload: inputRef.current,
     uploading,
+    uploadFilePercent,
     triggerUpload,
     uploadFiles,
     cancelUpload,

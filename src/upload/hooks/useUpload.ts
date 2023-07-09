@@ -61,6 +61,14 @@ export default function useUpload(props: TdUploadProps) {
     setDisplayFiles(files);
   }, [props.multiple, toUploadFiles, uploadValue, autoUpload, isBatchUpload]);
 
+  const uploadFilePercent = (params: { file: UploadFile; percent: number }) => {
+    const { file, percent } = params;
+    const index = toUploadFiles.findIndex((item) => file.raw === item.raw);
+    const newFiles = [...toUploadFiles];
+    newFiles[index] = { ...newFiles[index], percent };
+    setToUploadFiles(newFiles);
+  };
+
   const updateProgress = (
     p: InnerProgressContext | SuccessContext | OnResponseErrorContext,
     toFiles: UploadFile[],
@@ -384,6 +392,7 @@ export default function useUpload(props: TdUploadProps) {
     inputRef,
     disabled,
     xhrReq,
+    uploadFilePercent,
     uploadFiles,
     onFileChange,
     onNormalFileChange,
