@@ -12,6 +12,7 @@ import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
 import { TdUploadProps, UploadFile } from '../type';
 import { abridgeName } from '../../_common/js/upload/utils';
+import parseTNode from '../../_util/parseTNode';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];
@@ -25,7 +26,7 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
-  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, disabled } = props;
+  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, disabled, fileListDisplay } = props;
   const { BrowseIcon, DeleteIcon, AddIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     AddIcon: TdAddIcon,
     BrowseIcon: TdBrowseIcon,
@@ -93,6 +94,17 @@ const ImageCard = (props: ImageCardUploadProps) => {
   );
 
   const cardItemClasses = `${classPrefix}-upload__card-item ${classPrefix}-is-background`;
+
+  if (fileListDisplay) {
+    return (
+      <div>
+        {parseTNode(fileListDisplay, {
+          files: displayFiles,
+        })}
+      </div>
+    );
+  }
+
   return (
     <div>
       <ul className={`${classPrefix}-upload__card`}>
