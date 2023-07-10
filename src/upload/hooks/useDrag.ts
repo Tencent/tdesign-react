@@ -1,5 +1,6 @@
 import { DragEventHandler, useState } from 'react';
 import { TdUploadProps } from '../type';
+import { getFileList } from '../../_common/js/upload/utils';
 
 export interface UploadDragEvents {
   accept: string;
@@ -7,20 +8,6 @@ export interface UploadDragEvents {
   onDragenter?: TdUploadProps['onDragenter'];
   onDragleave?: TdUploadProps['onDragleave'];
   onDrop?: TdUploadProps['onDrop'];
-}
-
-/**
- * use getFileList in common
- */
-export function getFileList(files: FileList, accept?: string) {
-  const fileList: File[] = [];
-  for (let i = 0; i < files.length; i++) {
-    const regExp = new RegExp(accept);
-    if (regExp.test(files[i].type)) {
-      fileList.push(files[i]);
-    }
-  }
-  return fileList;
 }
 
 export default function useDrag(props: UploadDragEvents) {
@@ -32,7 +19,7 @@ export default function useDrag(props: UploadDragEvents) {
     event.preventDefault();
     setDragActive(false);
 
-    const {files} = event.dataTransfer;
+    const { files } = event.dataTransfer;
     const dragFiles: File[] = getFileList(files, accept);
     if (!dragFiles.length) return;
 
