@@ -3,7 +3,7 @@ import { TdUploadProps } from '../type';
 import { getFileList } from '../../_common/js/upload/utils';
 
 export interface UploadDragEvents {
-  accept: string;
+  accept?: string;
   onDragFileChange?: (files: File[]) => void;
   onDragenter?: TdUploadProps['onDragenter'];
   onDragleave?: TdUploadProps['onDragleave'];
