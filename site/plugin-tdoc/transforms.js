@@ -42,13 +42,14 @@ export default {
 
     // 替换成对应 demo 文件
     source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
-      const defaultDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.jsx`);
+      const jsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.jsx`);
+      const tsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.tsx`);
       const localeDemoPath = path.resolve(resourceDir, `../_example/${demoFileName}.${localeName}.jsx`);
       // localeDemo 优先级最高
       if (fs.existsSync(localeDemoPath))
         return `\n::: demo _example/${demoFileName}.${localeName} ${componentName}\n:::\n`;
 
-      if (!fs.existsSync(defaultDemoPath)) {
+      if (!fs.existsSync(jsxDemoPath) && !fs.existsSync(tsxDemoPath)) {
         console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.jsx 示例!`);
         return '\n<h3>DEMO (🚧建设中）...</h3>';
       }
