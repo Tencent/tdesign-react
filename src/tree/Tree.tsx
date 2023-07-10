@@ -7,7 +7,7 @@ import { TreeOptionData } from '../common';
 import { usePersistFn } from '../_util/usePersistFn';
 import { TreeInstanceFunctions, TdTreeProps } from './type';
 import { useTreeConfig } from './useTreeConfig';
-import useControllable from './useControllable';
+import useControllable from './hooks/useControllable';
 import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
