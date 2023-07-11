@@ -1,28 +1,36 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Radio, Upload, Space, MessagePlugin } from 'tdesign-react';
 
 const RequestMethod = () => {
   const [files, setFiles] = useState([]);
   const [uploadMethod, setUploadMethod] = useState('requestSuccessMethod');
+  const uploadRef = useRef(null);
 
   // customize upload `file`, if success, return url
   const requestSuccessMethod = useCallback(
     (file) =>
       new Promise((resolve) => {
-        // set file.percent for mock upload progress
-        // eslint-disable-next-line no-param-reassign
-        file.percent = 0;
+        // 上传进度控制示例
+        let percent = 0;
+        const percentTimer = setInterval(() => {
+          if (percent + 10 < 99) {
+            percent += 10;
+            uploadRef.current.uploadFilePercent({ file, percent });
+          } else {
+            clearInterval(percentTimer);
+          }
+        }, 100);
+
+        //  mock upload progress
         let timer = setTimeout(() => {
           // resolve 参数为关键代码
           resolve({
             status: 'success',
             response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' },
           });
-          // eslint-disable-next-line no-param-reassign
-          file.percent = 100;
           clearTimeout(timer);
           timer = null;
-        }, 100);
+        }, 1000);
       }),
     [],
   );
@@ -66,6 +74,7 @@ const RequestMethod = () => {
       </Radio.Group>
 
       <Upload
+        ref={uploadRef}
         files={files}
         onChange={setFiles}
         requestMethod={uploadMethod === 'requestSuccessMethod' ? requestSuccessMethod : requestFailMethod}

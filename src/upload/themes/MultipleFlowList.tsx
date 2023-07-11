@@ -29,7 +29,7 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
-  const { draggable = true } = props;
+  const { draggable = true, accept } = props;
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
@@ -42,7 +42,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     TimeFilledIcon: TdTimeFilledIcon,
   });
 
-  const drag = useDrag(props.dragEvents);
+  const drag = useDrag({ ...props.dragEvents, accept });
 
   const uploadText = useMemo(() => {
     if (uploading) return `${locale.progress.uploadingText}`;

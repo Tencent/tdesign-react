@@ -24,12 +24,12 @@ export interface DraggerProps extends CommonDisplayFileProps {
 }
 
 const DraggerFile: FC<DraggerProps> = (props) => {
-  const { displayFiles, locale, disabled, trigger } = props;
+  const { displayFiles, locale, disabled, trigger, accept } = props;
 
   const { SIZE } = useCommonClassName();
   const uploadPrefix = `${props.classPrefix}-upload`;
 
-  const drag = useDrag(props.dragEvents);
+  const drag = useDrag({ ...props.dragEvents, accept });
   const { dragActive } = drag;
 
   const draggerFileRef = useRef();
