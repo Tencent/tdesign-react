@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import useConfig from '../hooks/useConfig';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
+import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export function useTreeConfig() {
   const { classPrefix: prefix } = useConfig();

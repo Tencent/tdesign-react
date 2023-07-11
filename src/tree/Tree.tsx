@@ -1,20 +1,24 @@
-import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject, MouseEvent } from 'react';
+import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject, MouseEvent, useRef } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree/types';
+
 import TreeNode from '../_common/js/tree/tree-node';
-import { TreeOptionData } from '../common';
-import { usePersistFn } from '../_util/usePersistFn';
-import { TreeInstanceFunctions, TdTreeProps } from './type';
-import { useTreeConfig } from './useTreeConfig';
-import useControllable from './hooks/useControllable';
+import { TreeOptionData, StyledProps } from '../common';
 import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
-import { useStore } from './useStore';
-import { TreeDraggableContext } from './TreeDraggableContext';
-import parseTNode from '../_util/parseTNode';
 
-export type TreeProps = TdTreeProps;
+import useControllable from './hooks/useControllable';
+import { useStore } from './hooks/useStore';
+import { useTreeConfig } from './hooks/useTreeConfig';
+import { TreeDraggableContext } from './hooks/TreeDraggableContext';
+import parseTNode from '../_util/parseTNode';
+import { usePersistFn } from '../_util/usePersistFn';
+import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
+
+import type { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree/types';
+import type { TreeInstanceFunctions, TdTreeProps } from './type';
+
+export type TreeProps = TdTreeProps & StyledProps;
 
 /**
  * 树组件
@@ -40,6 +44,8 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     transition, // 动画默认开启
     expandOnClickNode,
     onClick,
+    scroll,
+    style,
   } = props;
 
   const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
@@ -80,6 +86,13 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       return expanded;
     },
   );
+  const treeRef = useRef(null);
+
+  const { visibleData, isVirtual, panelStyle, cursorStyle, handleRowMounted } = useTreeVirtualScroll({
+    treeRef,
+    scroll,
+    data: visibleNodes,
+  });
 
   const setActived = usePersistFn(
     (
@@ -212,14 +225,17 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
 
   const renderEmpty = () => parseTNode(empty, null, emptyText);
 
-  const renderItems = () => {
-    if (visibleNodes.length <= 0) {
+  const renderItems = (renderNode: TreeNode[]) => {
+    if (renderNode.length <= 0) {
       return renderEmpty();
     }
-
     return (
-      <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
-        {visibleNodes.map((node, index) => (
+      <TransitionGroup
+        name={transitionNames.treeNode}
+        className={treeClassNames.treeList}
+        style={isVirtual ? { ...panelStyle } : null}
+      >
+        {renderNode.map((node, index) => (
           // https://github.com/reactjs/react-transition-group/issues/668
           <CSSTransition
             nodeRef={nodeList[index]}
@@ -242,6 +258,8 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               disableCheck={disableCheck}
               onClick={handleItemClick}
               onChange={handleChange}
+              onTreeItemMounted={handleRowMounted}
+              isVirtual={isVirtual}
             />
           </CSSTransition>
         ))}
@@ -266,9 +284,19 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
           [treeClassNames.treeCheckable]: checkable,
           [treeClassNames.treeFx]: transition,
           [treeClassNames.treeBlockNode]: expandOnClickNode,
+          [`${treeClassNames.tree}__vscroll`]: isVirtual,
         })}
+        style={style}
+        ref={treeRef}
       >
-        {renderItems()}
+        {isVirtual ? (
+          <>
+            <div className={`${treeClassNames.tree}__vscroll-cursor`} style={cursorStyle} />
+            {renderItems(visibleData)}
+          </>
+        ) : (
+          renderItems(visibleNodes)
+        )}
       </div>
     </TreeDraggableContext.Provider>
   );

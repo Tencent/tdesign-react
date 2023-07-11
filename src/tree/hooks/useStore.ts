@@ -1,13 +1,10 @@
 import { useRef } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-// import isEqual from 'lodash/isEqual';
-import useUpdateEffect from '../_util/useUpdateEffect';
-// import { TreeOptionData } from '../common';
-import TreeStore from '../_common/js/tree/tree-store';
-// import TreeNode from '../_common/js/tree/tree-node';
-import { usePersistFn } from '../_util/usePersistFn';
-import { TdTreeProps } from './type';
-import { TypeEventState } from './interface';
+import useUpdateEffect from '../../_util/useUpdateEffect';
+import TreeStore from '../../_common/js/tree/tree-store';
+import { usePersistFn } from '../../_util/usePersistFn';
+import type { TdTreeProps } from '../type';
+import type { TypeEventState } from '../interface';
 
 export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   const storeRef = useRef<TreeStore>();
