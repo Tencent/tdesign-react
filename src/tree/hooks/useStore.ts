@@ -29,7 +29,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     lazy,
     valueMode,
     filter,
-    // onDataChange,
     onLoad,
     allowFoldNodeOnFilter = false,
   } = props;
@@ -38,34 +37,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   const handleUpdate = usePersistFn(() => {
     refresh();
   });
-
-  // const handleReflow = usePersistFn(() => {
-  //   if (!onDataChange) {
-  //     return;
-  //   }
-
-  //   const nodes = storeRef.current.getNodes();
-
-  //   const rootNodes = nodes.filter((v) => !v.parent);
-
-  //   const getChild = (list: TreeNode[] | boolean) => {
-  //     if (Array.isArray(list) && list.length > 0) {
-  //       return list.map((v) => {
-  //         const nodeData: TreeOptionData = v.data;
-  //         if (Array.isArray(v.children) && v.children.length > 0) {
-  //           nodeData.children = getChild(v.children);
-  //         }
-  //         return nodeData;
-  //       });
-  //     }
-  //   };
-
-  //   const newData = getChild(rootNodes);
-
-  //   if (!isEqual(newData, data)) {
-  //     onDataChange?.(newData);
-  //   }
-  // });
 
   const getExpandedArr = (arr: TdTreeProps['expanded'], store: TreeStore) => {
     const expandedMap = new Map();
@@ -106,7 +77,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       },
       onUpdate: handleUpdate,
       allowFoldNodeOnFilter,
-      // onReflow: handleReflow,
     });
 
     // 初始化 store 的节点排列 + 状态
@@ -136,8 +106,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     if (Array.isArray(actived)) {
       store.setActived(actived);
     }
-
-    // refresh();
 
     store.refreshNodes();
     return store;

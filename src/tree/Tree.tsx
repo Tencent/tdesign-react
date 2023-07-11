@@ -71,7 +71,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     const newVisibleNodes = nodes?.filter((node) => node.visible);
     setVisibleNodes(newVisibleNodes);
   }
-
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn(
     (
@@ -88,7 +87,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   );
   const treeRef = useRef(null);
 
-  const { visibleData, isVirtual, panelStyle, cursorStyle, handleRowMounted } = useTreeVirtualScroll({
+  const { visibleData, isVirtual, treeNodeStyle, cursorStyle, handleRowMounted } = useTreeVirtualScroll({
     treeRef,
     scroll,
     data: visibleNodes,
@@ -229,11 +228,12 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     if (renderNode.length <= 0) {
       return renderEmpty();
     }
+
     return (
       <TransitionGroup
         name={transitionNames.treeNode}
         className={treeClassNames.treeList}
-        style={isVirtual ? { ...panelStyle } : null}
+        style={isVirtual ? { ...treeNodeStyle } : null}
       >
         {renderNode.map((node, index) => (
           // https://github.com/reactjs/react-transition-group/issues/668
@@ -245,7 +245,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
           >
             <TreeItem
               ref={nodeList[index]}
-              node={node}
+              node={store.getNode(node.value)}
               empty={empty}
               icon={icon}
               label={label}
@@ -259,7 +259,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               onClick={handleItemClick}
               onChange={handleChange}
               onTreeItemMounted={handleRowMounted}
-              isVirtual={isVirtual}
+              isVirtual={true}
             />
           </CSSTransition>
         ))}

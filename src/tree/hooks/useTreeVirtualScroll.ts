@@ -1,8 +1,8 @@
-import { useMemo, useCallback, useEffect } from 'react';
-import type { CSSProperties } from 'react';
+import { useMemo, useCallback, useEffect, CSSProperties } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
-import { TScroll } from '../../common';
 import TreeNode from '../../_common/js/tree/tree-node';
+
+import type { TScroll } from '../../common';
 
 export default function useTreeVirtualScroll({
   treeRef,
@@ -25,13 +25,14 @@ export default function useTreeVirtualScroll({
     () =>
       ({
         type: 'virtual',
-        isFixedRowHeight: scroll?.isFixedRowHeight || false,
-        rowHeight: scroll?.rowHeight || 34, // 默认每行高度34
+        isFixedRowHeight: scroll?.isFixedRowHeight || false, // expand and collapse operation make height of tree item different
+        rowHeight: scroll?.rowHeight || 34,
         bufferSize: scroll?.bufferSize || 20,
         threshold: scrollThreshold,
       } as const),
     [scroll, scrollThreshold],
   );
+
   const {
     visibleData = null,
     handleScroll: handleVirtualScroll = null,
@@ -42,15 +43,12 @@ export default function useTreeVirtualScroll({
     data: data || [],
     scroll: scrollParams,
   });
-
   let lastScrollY = -1;
-
   const onInnerVirtualScroll = useCallback(
     (e: WheelEvent) => {
       if (!isVirtual) {
         return;
       }
-
       const target = e.target as HTMLElement;
       const top = target.scrollTop;
       // 排除横向滚动出发的纵向虚拟滚动计算
@@ -62,13 +60,11 @@ export default function useTreeVirtualScroll({
         lastScrollY = -1;
       }
     },
-    [isVirtual],
+    [isVirtual, data],
   );
 
-  // 监听popup滚动 处理虚拟滚动时的virtualData变化
   useEffect(() => {
     const treeList = treeRef?.current;
-    console.log(treeList, 'treeList');
     if (isVirtual) {
       treeList?.addEventListener?.('scroll', onInnerVirtualScroll);
     }
@@ -92,7 +88,7 @@ export default function useTreeVirtualScroll({
     WebkitTransform: `translate(0, ${scrollHeight}px)`,
   } as CSSProperties;
 
-  const panelStyle = {
+  const treeNodeStyle = {
     transform: `translate(0, ${translateY}px)`,
     MsTransform: `translate(0, ${translateY}px)`,
     MozTransform: `translate(0, ${translateY}px)`,
@@ -106,6 +102,6 @@ export default function useTreeVirtualScroll({
     handleRowMounted,
     isVirtual,
     cursorStyle,
-    panelStyle,
+    treeNodeStyle,
   };
 }
