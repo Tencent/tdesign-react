@@ -16,8 +16,8 @@ export interface CustomFileProps extends CommonDisplayFileProps {
 }
 
 const CustomFile = (props: CustomFileProps) => {
-  const { classPrefix, displayFiles } = props;
-  const drag = useDrag(props.dragEvents);
+  const { classPrefix, displayFiles, accept } = props;
+  const drag = useDrag({ ...props.dragEvents, accept });
   const { dragActive } = drag;
 
   const dragEvents = props.draggable
