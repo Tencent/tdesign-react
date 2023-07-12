@@ -2,10 +2,14 @@ import React, { useRef, useState } from 'react';
 import { Upload, Space, MessagePlugin, Checkbox, Button } from 'tdesign-react';
 import { getFileUrlByFileRaw } from 'tdesign-react/_common/js/upload/utils';
 
+// function UploadUI({ files = [] }) {
+//   return <div>{JSON.stringify(files)}</div>
+// }
+
 export default function UploadExample() {
-  const uploadRef1 = useRef();
-  const uploadRef2 = useRef();
-  const uploadRef3 = useRef();
+  const uploadRef1 = useRef(null);
+  const uploadRef2 = useRef(null);
+  const uploadRef3 = useRef(null);
   const [files1, setFiles1] = useState([]);
   const [files2, setFiles2] = useState([
     {
@@ -127,6 +131,8 @@ export default function UploadExample() {
           accept="image/*"
           disabled={disabled}
           autoUpload={autoUpload}
+          // custom UI example
+          // fileListDisplay={UploadUI}
         />
 
         <Upload

@@ -43,7 +43,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
   // 当前场景是否满足开启虚拟滚动的条件
   const isVirtualScroll = useMemo(() => tScroll.type === 'virtual' && tScroll.threshold < data.length, [tScroll, data]);
-
   const getTrScrollTopHeightList = (trHeightList: number[], containerHeight: number) => {
     const list: number[] = [];
     // 大数据场景不建议使用 forEach 一类函数迭代
@@ -78,7 +77,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     }
   };
 
-  // 固定高度场景，不需要通过行渲染获取高度（仅非固定高度场景需要）
+  // 仅非固定高度场景需要
   const handleRowMounted = (rowData: any) => {
     if (!isVirtualScroll || !rowData || tScroll.isFixedRowHeight || !container?.current) return;
     const trHeight = rowData.ref.offsetHeight;
@@ -158,6 +157,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       setScrollHeight(data.length * tScroll.rowHeight);
       const startIndex = startAndEndIndex[0];
       const tmpData = data.slice(startIndex, startIndex + tripleBufferSize);
+
       setVisibleData(tmpData);
 
       const timer = setTimeout(() => {

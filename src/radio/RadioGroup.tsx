@@ -65,8 +65,13 @@ const RadioGroup = (props: RadioGroupProps) => {
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
     if (!checkedRadio) return setBarStyle({ width: 0 });
 
-    const { offsetWidth, offsetLeft } = checkedRadio;
-    setBarStyle({ width: `${offsetWidth}px`, left: `${offsetLeft}px` });
+    const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
+    setBarStyle({
+      width: `${offsetWidth}px`,
+      height: `${offsetHeight}px`,
+      left: `${offsetLeft}px`,
+      top: `${offsetTop}px`,
+    });
   };
 
   useEffect(() => {

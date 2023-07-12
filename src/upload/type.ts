@@ -7,7 +7,7 @@
 import { UploadConfig } from '../config-provider/type';
 import { ButtonProps } from '../button';
 import { PlainObject, TNode, UploadDisplayDragEvents } from '../common';
-import { MouseEvent, DragEvent } from 'react';
+import { CSSProperties, MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps<T extends UploadFile = UploadFile> {
   /**
@@ -35,7 +35,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   autoUpload?: boolean;
   /**
-   * 如果是自动上传模式 `autoUpload=true`，表示全部文件上传之前的钩子函数，函数参数为上传的文件，函数返回值决定是否继续上传，若返回值为 `false` 则终止上传。<br/>如果是非自动上传模式 `autoUpload=false`，则函数返回值为 `false` 时表示不触发文件变化
+   * 如果是自动上传模式 `autoUpload=true`，表示全部文件上传之前的钩子函数，函数参数为上传的文件，函数返回值决定是否继续上传，若返回值为 `false` 则终止上传。<br/>如果是非自动上传模式 `autoUpload=false`，则函数返回值为 `false` 时表示本次选中的文件不会加入到文件列表中，即不触发 `onChange` 事件
    */
   beforeAllFilesUpload?: (file: UploadFile[]) => boolean | Promise<boolean>;
   /**
@@ -63,7 +63,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   draggable?: boolean;
   /**
-   * 用于完全自定义文件列表内容
+   * 用于完全自定义文件列表界面内容(UI)，单文件和多文件均有效
    */
   fileListDisplay?: TNode<{ files: UploadFile[]; dragEvents?: UploadDisplayDragEvents }>;
   /**
@@ -92,6 +92,10 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    * 设置上传的请求头部，`action` 存在时有效
    */
   headers?: { [key: string]: string };
+  /**
+   * 用于添加属性到 HTML 元素 `input`
+   */
+  inputAttributes?: CSSProperties;
   /**
    * 多个文件是否作为一个独立文件包，整体替换，整体删除。不允许追加文件，只允许替换文件。`theme=file-flow` 时有效
    * @default false
@@ -131,7 +135,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   placeholder?: string;
   /**
-   * 自定义上传方法。返回值 `status` 表示上传成功或失败，`error` 或 `response.error` 表示上传失败的原因，`response` 表示请求上传成功后的返回数据，`response.url` 表示上传成功后的图片地址。<br/>示例一：`{ status: 'fail', error: '上传失败', response }`。<br/>示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`
+   * 自定义上传方法。返回值 `status` 表示上传成功或失败；`error` 或 `response.error` 表示上传失败的原因；<br/>`response` 表示请求上传成功后的返回数据，`response.url` 表示上传成功后的图片/文件地址，`response.files` 表示一个请求上传多个文件/图片后的返回值。<br/>示例一：`{ status: 'fail', error: '上传失败', response }`。<br/>示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`。<br/> 示例三：`{ status: 'success', files: [{ url: 'https://xxx.png', name: 'xxx.png' }]}`
    */
   requestMethod?: (files: UploadFile | UploadFile[]) => Promise<RequestMethodResponse>;
   /**
@@ -169,6 +173,11 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    * @default false
    */
   uploadAllFilesInOneRequest?: boolean;
+  /**
+   * 是否允许粘贴上传剪贴板中的文件
+   * @default false
+   */
+  uploadPastedFiles?: boolean;
   /**
    * 是否在请求时间超过 300ms 后显示模拟进度。上传进度有模拟进度和真实进度两种。一般大小的文件上传，真实的上传进度只有 0 和 100，不利于交互呈现，因此组件内置模拟上传进度。真实上传进度一般用于大文件上传。
    * @default true
@@ -216,7 +225,7 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    */
   onPreview?: (options: { file: UploadFile; index: number; e: MouseEvent<HTMLDivElement> }) => void;
   /**
-   * 上传进度变化时触发，真实进度和模拟进度都会触发。`type=real` 表示真实上传进度，`type=mock` 表示模拟上传进度
+   * 上传进度变化时触发，真实进度和模拟进度都会触发。<br/>⚠️ 原始上传请求，小文件的上传进度只有 0 和 100，故而不会触发 `progress` 事件；只有大文件才有真实的中间进度。如果你希望很小的文件也显示上传进度，保证 `useMockProgress=true` 的情况下，设置 `mockProgressDuration` 为更小的值。<br/>参数 `options.type=real` 表示真实上传进度，`options.type=mock` 表示模拟上传进度
    */
   onProgress?: (options: ProgressContext) => void;
   /**
@@ -250,6 +259,10 @@ export interface UploadInstanceFunctions<T extends UploadFile = UploadFile> {
    * 组件实例方法，打开文件选择器
    */
   triggerUpload: () => void;
+  /**
+   * 设置上传中文件的上传进度
+   */
+  uploadFilePercent: () => void;
   /**
    * 组件实例方法，默认上传未成功上传过的所有文件。带参数时，表示上传指定文件
    */
@@ -314,7 +327,7 @@ export interface FormatResponseContext {
 export interface RequestMethodResponse {
   status: 'success' | 'fail';
   error?: string;
-  response: { url?: string; [key: string]: any };
+  response: { url?: string; files?: UploadFile[]; [key: string]: any };
 }
 
 export interface SizeLimitObj {

@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, ChangeEventHandler, DragEvent, MouseEvent, useEffect } from 'react';
+import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect } from 'react';
 import merge from 'lodash/merge';
 import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
@@ -9,7 +9,7 @@ import {
   getDisplayFiles,
   formatToUploadFile,
 } from '../../_common/js/upload/main';
-import { getFileUrlByFileRaw } from '../../_common/js/upload/utils';
+import { getFileUrlByFileRaw, getFileList } from '../../_common/js/upload/utils';
 import useControlled from '../../hooks/useControlled';
 import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../../_common/js/upload/types';
 import useConfig from '../../hooks/useConfig';
@@ -60,6 +60,14 @@ export default function useUpload(props: TdUploadProps) {
     });
     setDisplayFiles(files);
   }, [props.multiple, toUploadFiles, uploadValue, autoUpload, isBatchUpload]);
+
+  const uploadFilePercent = (params: { file: UploadFile; percent: number }) => {
+    const { file, percent } = params;
+    const index = toUploadFiles.findIndex((item) => file.raw === item.raw);
+    const newFiles = [...toUploadFiles];
+    newFiles[index] = { ...newFiles[index], percent };
+    setToUploadFiles(newFiles);
+  };
 
   const updateProgress = (
     p: InnerProgressContext | SuccessContext | OnResponseErrorContext,
@@ -157,7 +165,7 @@ export default function useUpload(props: TdUploadProps) {
     setToUploadFiles([]);
   };
 
-  const onFileChange = (files: FileList) => {
+  const onFileChange = (files: File[]) => {
     if (disabled) return;
     // @ts-ignore
     props.onSelectChange?.([...files], { currentSelectedFiles: formatToUploadFile([...files], props.format) });
@@ -222,11 +230,12 @@ export default function useUpload(props: TdUploadProps) {
   };
 
   const onNormalFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    onFileChange?.(e.target.files);
+    const fileList = getFileList(e.target.files);
+    onFileChange?.(fileList);
   };
 
-  function onDragFileChange(e: DragEvent<HTMLDivElement>) {
-    onFileChange?.(e.dataTransfer.files);
+  function onDragFileChange(files: File[]) {
+    onFileChange?.(files);
   }
 
   /**
@@ -384,6 +393,7 @@ export default function useUpload(props: TdUploadProps) {
     inputRef,
     disabled,
     xhrReq,
+    uploadFilePercent,
     uploadFiles,
     onFileChange,
     onNormalFileChange,

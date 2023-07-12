@@ -22,6 +22,7 @@ export default function useTagScroll(props: TdTagInputProps) {
   };
 
   const updateScrollDistance = () => {
+    if (!scrollElement) return;
     setScrollDistance(scrollElement.scrollWidth - scrollElement.clientWidth);
   };
 

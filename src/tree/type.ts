@@ -5,8 +5,8 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
-import { TNode, TreeOptionData } from '../common';
-import { MouseEvent, DragEvent } from 'react';
+import { TNode, TreeOptionData, TScroll } from '../common';
+import { MouseEvent, WheelEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
@@ -118,7 +118,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   icon?: boolean | TNode<TreeNodeModel<T>>;
   /**
-   * 用来定义 value / label / children 在 `options` 中对应的字段别名
+   * 用来定义 `value / label / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`
    */
   keys?: TreeKeysType;
   /**
@@ -145,6 +145,10 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   operations?: TNode<TreeNodeModel<T>>;
   /**
+   * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
+   */
+  scroll?: TScroll;
+  /**
    * 节点展开折叠时是否使用过渡动画
    * @default true
    */
@@ -160,7 +164,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   defaultValue?: Array<TreeNodeValue>;
   /**
-   * 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaf 表示无论什么情况，选中值仅呈现叶子节点
+   * 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaft 表示无论什么情况，选中值仅呈现叶子节点
    * @default onlyLeaf
    */
   valueMode?: 'onlyLeaf' | 'parentFirst' | 'all';
@@ -222,6 +226,10 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 异步加载后触发，泛型 `T` 表示树节点 TS 类型
    */
   onLoad?: (context: { node: TreeNodeModel<T> }) => void;
+  /**
+   * 滚动事件
+   */
+  onScroll?: (params: { e: WheelEvent<HTMLDivElement> }) => void;
 }
 
 /** 组件实例方法 */
@@ -298,6 +306,11 @@ export interface TreeNodeState {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * 该节点是否允许被拖动，当树本身开启时，默认允许
+   * @default true
+   */
+  draggable?: boolean;
   /**
    * 子节点是否互斥展开
    * @default false
