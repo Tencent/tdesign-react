@@ -74,7 +74,9 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
     const iconMap = {
       info: <InfoCircleFilledIcon className={`${classPrefix}-is-info`} />,
       warning: <InfoCircleFilledIcon className={`${classPrefix}-is-warning`} />,
+      // error is going to deprecated
       error: <InfoCircleFilledIcon className={`${classPrefix}-is-error`} />,
+      danger: <InfoCircleFilledIcon className={`${classPrefix}-is-error`} />,
       success: <CheckCircleFilledIcon className={`${classPrefix}-is-success`} />,
     };
 
