@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.14 `2023-07-12` 
+### 🚀 Features
+- `Tree`: 支持虚拟滚动 @uyarn ([#2359](https://github.com/Tencent/tdesign-react/pull/2359))
+- `Table`: 树形结构，添加行层级类名，方便业务设置不同层级的样式 @chaishi ([#2354](https://github.com/Tencent/tdesign-react/pull/2354))
+- `Radio`: 优化选项组换行情况 @ontheroad1992 ([#2358](https://github.com/Tencent/tdesign-react/pull/2358))
+- `Upload`:
+    - 新增组件实例方法，`uploadFilePercent` 用于更新文件上传进度 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - `theme=image`，支持使用 `fileListDisplay` 自定义 UI 内容 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - `theme=image`，支持点击名称打开新窗口访问图片，[tdesign-vue#2338](https://github.com/Tencent/tdesign-vue/issues/2338) @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - 拖拽上传场景，支持 `accept` 文件类型限制，[tdesign-vue-next#3075](https://github.com/Tencent/tdesign-vue-next/issues/3075) @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+
+### 🐞 Bug Fixes
+- `Upload`: 自定义上传方法，修复未能正确返回上传成功或失败后的文件问题 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+
 ## 🌈 1.1.13 `2023-07-05` 
 ### 🐞 Bug Fixes
 - `Tag`: 修复 Tag children 为数字 0 时的渲染异常 @HelKyle ([#2335](https://github.com/Tencent/tdesign-react/pull/2335))
