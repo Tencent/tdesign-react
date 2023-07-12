@@ -26,7 +26,6 @@ expandOnClickNode | Boolean | false | \- | N
 expandParent | Boolean | false | \- | N
 expanded | Array | [] | Typescript：`Array<TreeNodeValue>` | N
 filter | Function | - | Typescript：`(node: TreeNodeModel<T>) => boolean` | N
-height | String / Number | - | table height | N
 hover | Boolean | - | \- | N
 icon | TNode | true | Typescript：`boolean \| TNode<TreeNodeModel<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 keys | Object | - | Typescript：`TreeKeysType` `interface TreeKeysType { value?: string; label?: string; children?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree/type.ts) | N
@@ -34,7 +33,6 @@ label | TNode | true | Typescript：`string \| boolean \| TNode<TreeNodeModel<T>
 lazy | Boolean | true | \- | N
 line | TNode | false | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 load | Function | - | Typescript：`(node: TreeNodeModel<T>) => Promise<Array<T>>` | N
-maxHeight | String / Number | - | table max height | N
 operations | TElement | - | Typescript：`TNode<TreeNodeModel<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 scroll | Object | - | lazy load and virtual scroll。Typescript：`TScroll`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 transition | Boolean | true | \- | N

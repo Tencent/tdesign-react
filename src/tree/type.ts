@@ -109,10 +109,6 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   filter?: (node: TreeNodeModel<T>) => boolean;
   /**
-   * 表格高度，超出后会出现滚动条。示例：100,  '30%',  '300'。值为数字类型，会自动加上单位 px。如果不是绝对固定表格高度，建议使用 `maxHeight`
-   */
-  height?: string | number;
-  /**
    * 节点是否有悬浮状态
    */
   hover?: boolean;
@@ -144,10 +140,6 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 加载子数据的方法，在展开节点时调用（仅当节点 children 为 true 时生效），泛型 `T` 表示树节点 TS 类型
    */
   load?: (node: TreeNodeModel<T>) => Promise<Array<T>>;
-  /**
-   * 表格最大高度，超出后会出现滚动条。示例：100, '30%', '300'。值为数字类型，会自动加上单位 px
-   */
-  maxHeight?: string | number;
   /**
    * 自定义节点操作项，泛型 `T` 表示树节点 TS 类型
    */
