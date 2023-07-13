@@ -61,6 +61,29 @@
     ]
   },
   {
+    "name": "trigger",
+    "type": "enum",
+    "defaultValue": "click",
+    "options": [
+      {
+        "label": "hover",
+        "value": "hover"
+      },
+      {
+        "label": "click",
+        "value": "click"
+      },
+      {
+        "label": "focus",
+        "value": "focus"
+      },
+      {
+        "label": "context-menu",
+        "value": "context-menu"
+      }
+    ]
+  },
+  {
     "name": "showArrow",
     "type": "Boolean",
     "defaultValue": true,

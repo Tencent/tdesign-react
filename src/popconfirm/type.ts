@@ -69,6 +69,11 @@ export interface TdPopconfirmProps {
    */
   theme?: 'default' | 'warning' | 'danger';
   /**
+   * 触发浮层出现的方式
+   * @default hover
+   */
+  trigger?: 'hover' | 'click' | 'focus' | 'mousedown' | 'context-menu';
+  /**
    * 触发元素
    */
   triggerElement?: TNode;

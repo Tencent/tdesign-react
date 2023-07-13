@@ -22,9 +22,9 @@ const Popconfirm = forwardRef((props: PopconfirmProps, ref: React.RefObject<Popu
   return (
     <Popup
       ref={ref}
+      trigger={props.trigger || 'click'}
       {...props}
       visible={visible}
-      trigger="click"
       onVisibleChange={(visible) => setVisible(visible)}
       overlayClassName={classNames(`${classPrefix}-popconfirm`)}
       content={

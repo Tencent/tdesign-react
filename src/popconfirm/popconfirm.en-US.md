@@ -18,6 +18,7 @@ placement | String | top | options：top/left/right/bottom/top-left/top-right/bo
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/popconfirm/type.ts) | N
 showArrow | Boolean | true | \- | N
 theme | String | default | options：default/warning/danger | N
+trigger | String | click | options：hover/click/focus/mousedown/context-menu | N
 triggerElement | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 visible | Boolean | - | \- | N
 defaultVisible | Boolean | - | uncontrolled property | N

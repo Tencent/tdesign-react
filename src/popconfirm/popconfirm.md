@@ -17,6 +17,7 @@ placement | String | top | 浮层出现位置。可选项：top/left/right/botto
 popupProps | Object | - | 透传 Popup 组件属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/popconfirm/type.ts) | N
 showArrow | Boolean | true | 是否显示浮层箭头 | N
 theme | String | default | 文字提示风格。可选项：default/warning/danger | N
+trigger | String | click | 触发浮层出现的方式。可选项：hover/click/focus/mousedown/context-menu | N
 triggerElement | TNode | - | 触发元素。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 visible | Boolean | - | 是否显示气泡确认框 | N
 defaultVisible | Boolean | - | 是否显示气泡确认框。非受控属性 | N
