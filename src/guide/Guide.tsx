@@ -47,6 +47,8 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
   const dialogWrapperRef = useRef<HTMLDivElement>(null);
   // dialog ref
   const dialogTooltipRef = useRef<HTMLDivElement>(null);
+  // ! popup ref 不确定这里的类型是否完全正确
+  const popupTooltipRef = useRef(null);
   // 是否开始展示
   const [active, setActive] = useState(false);
   // 步骤总数
@@ -87,13 +89,16 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
   };
 
   const showPopupGuide = () => {
-    currentHighlightLayerElm.current = getTargetElm(currentStepInfo.element);
-
     setTimeout(() => {
+      currentHighlightLayerElm.current = getTargetElm(currentStepInfo.element);
+      if (!currentHighlightLayerElm.current) return;
       scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
       setHighlightLayerPosition(referenceLayerRef.current);
       scrollToElm(currentHighlightLayerElm.current);
+      // fix: https://github.com/Tencent/tdesign-vue-next/issues/2536
+      // 这里其实是一个临时解决方案，最合理的是 popup 内部处理
+      popupTooltipRef.current?.update();
     });
   };
 
@@ -253,6 +258,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
       <div className={`${prefixCls}__action`}>
         {!hideSkip && !isLast && (
           <Button
+            key="skip"
             className={`${prefixCls}__skip`}
             theme="default"
             size={buttonSize}
@@ -263,8 +269,9 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         )}
         {!hidePrev && !isFirst && (
           <Button
+            key="prev"
             className={`${prefixCls}__prev`}
-            theme="primary"
+            theme="default"
             size={buttonSize}
             variant="base"
             onClick={handlePrev}
@@ -273,6 +280,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         )}
         {!isLast && (
           <Button
+            key="next"
             className={`${prefixCls}__next`}
             theme="primary"
             size={buttonSize}
@@ -283,6 +291,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         )}
         {isLast && (
           <Button
+            key="finish"
             className={`${prefixCls}__finish`}
             theme="primary"
             size={buttonSize}
@@ -348,13 +357,14 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     const innerClassName: PopupProps['overlayInnerClassName'] = [{ [`${prefixCls}__popup--content`]: !!content }];
     return createPortal(
       <Popup
+        ref={popupTooltipRef}
         visible={true}
         content={renderBody}
         showArrow={!content}
         zIndex={zIndex}
         placement={currentStepInfo.placement as StepPopupPlacement}
         {...currentStepInfo.popupProps}
-        overlayClassName={currentStepInfo.stepOverlayClass}
+        overlayClassName={[`${prefixCls}__popup`, currentStepInfo.stepOverlayClass]}
         overlayInnerClassName={innerClassName.concat(currentStepInfo.popupProps?.overlayInnerClassName)}
       >
         <div ref={referenceLayerRef} className={cx(classes)} />
