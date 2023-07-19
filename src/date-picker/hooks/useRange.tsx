@@ -150,6 +150,7 @@ export default function useRange(props: TdDateRangePickerProps) {
 
   // activeIndex 变化自动 focus 对应输入框
   useEffect(() => {
+    if (!popupVisible) return;
     if (!isMountedRef.current) {
       isMountedRef.current = true;
       return;

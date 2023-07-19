@@ -109,6 +109,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         setMonth(value.map((v: string) => parseToDayjs(v, format).month()));
       }
     } else {
+      setActiveIndex(0);
       setIsHoverCell(false);
       setIsFirstValueSelected(false);
       setInputValue(formatDate(value || [], { format }));
