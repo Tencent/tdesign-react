@@ -5,6 +5,13 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.1.15 `2023-07-19` 
+### 🚀 Features
+- `DatePicker`: 优化关闭浮层后重置默认选中区域 @honkinglin ([#2371](https://github.com/Tencent/tdesign-react/pull/2371))
+### 🐞 Bug Fixes
+- `Dialog`: 修复 `theme=danger` 无效问题，[issue#2364](https://github.com/Tencent/tdesign-react/issues/2364) @chaishi ([#2365](https://github.com/Tencent/tdesign-react/pull/2365))
+- `Popconfirm`: 当 `confirmBtn/cancelBtn` 值类型为 `Object` 时未透传 @imp2002 ([#2361](https://github.com/Tencent/tdesign-react/pull/2361)) 
+
 ## 🌈 1.1.14 `2023-07-12` 
 ### 🚀 Features
 - `Tree`: 支持虚拟滚动 @uyarn ([#2359](https://github.com/Tencent/tdesign-react/pull/2359))
