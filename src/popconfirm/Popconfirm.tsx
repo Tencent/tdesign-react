@@ -7,15 +7,19 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
 import Popcontent from './Popcontent';
 import { popconfirmDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type PopconfirmProps = TdPopconfirmProps;
 
-const Popconfirm = forwardRef((props: PopconfirmProps, ref: React.RefObject<PopupRef>) => {
+const Popconfirm = forwardRef<PopupRef, TdPopconfirmProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
   const [local, t] = useLocaleReceiver('popconfirm');
 
   const cancelContent = typeof local.cancel === 'string' ? local.cancel : local.cancel.content;
   const confirmContent = typeof local.confirm === 'string' ? local.confirm : local.confirm.content;
+
+  const props = useDefaultProps<TdPopconfirmProps>(originalProps, popconfirmDefaultProps);
+
   const { cancelBtn = t(cancelContent), confirmBtn = t(confirmContent) } = props;
   const [visible, setVisible] = useControlled(props, 'visible', props.onVisibleChange);
 
@@ -41,6 +45,5 @@ const Popconfirm = forwardRef((props: PopconfirmProps, ref: React.RefObject<Popu
 });
 
 Popconfirm.displayName = 'Popconfirm';
-Popconfirm.defaultProps = popconfirmDefaultProps;
 
 export default Popconfirm;

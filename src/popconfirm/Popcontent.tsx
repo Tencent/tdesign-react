@@ -9,7 +9,11 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { PopconfirmProps } from './Popconfirm';
 import type { PopconfirmVisibleChangeContext } from './type';
 
-const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => any }) => {
+interface PopcontentProps {
+  onClose?: (context: PopconfirmVisibleChangeContext) => any;
+}
+
+const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
   const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
 
   const { classPrefix } = useConfig();
