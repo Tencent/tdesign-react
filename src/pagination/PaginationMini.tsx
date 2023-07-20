@@ -15,10 +15,11 @@ import { StyledProps } from '../common';
 import type { TdPaginationMiniProps } from './type';
 import { paginationMiniDefaultProps } from './defaultProps';
 import noop from '../_util/noop';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface PaginationMiniProps extends TdPaginationMiniProps, StyledProps {}
 
-const PaginationMini = forwardRef((props: PaginationMiniProps, ref: React.Ref<HTMLDivElement>) => {
+const PaginationMini = forwardRef<HTMLDivElement, PaginationMiniProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const { RoundIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } = useGlobalIcon({
     RoundIcon: TdRoundIcon,
@@ -28,17 +29,35 @@ const PaginationMini = forwardRef((props: PaginationMiniProps, ref: React.Ref<HT
     ChevronRightIcon: TdChevronRightIcon,
   });
 
-  const { variant, tips, showCurrent, disabled, layout, size, onChange = noop, className, style } = props;
+  const {
+    variant,
+    tips,
+    showCurrent,
+    disabled,
+    layout,
+    size,
+    onChange = noop,
+    className,
+    style,
+  } = useDefaultProps<PaginationMiniProps>(props, paginationMiniDefaultProps);
 
   const titleConfig = useMemo(() => {
-    if (isObject(tips)) return tips;
-    if (tips === true) return { prev: '上一页', current: '当前', next: '下一页' };
+    if (isObject(tips)) {
+      return tips;
+    }
+    if (tips === true) {
+      return { prev: '上一页', current: '当前', next: '下一页' };
+    }
     return {};
   }, [tips]);
 
   const disabledConfig = useMemo(() => {
-    if (isObject(disabled)) return disabled;
-    if (disabled === true) return { prev: true, current: true, next: true };
+    if (isObject(disabled)) {
+      return disabled;
+    }
+    if (disabled === true) {
+      return { prev: true, current: true, next: true };
+    }
     return { prev: false, current: false, next: false };
   }, [disabled]);
 
@@ -89,6 +108,5 @@ const PaginationMini = forwardRef((props: PaginationMiniProps, ref: React.Ref<HT
 });
 
 PaginationMini.displayName = 'PaginationMini';
-PaginationMini.defaultProps = paginationMiniDefaultProps;
 
 export default PaginationMini;
