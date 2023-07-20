@@ -13,13 +13,15 @@ import HeadMenu from './HeadMenu';
 import SubMenu from './SubMenu';
 import MenuItem from './MenuItem';
 import MenuGroup from './MenuGroup';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface MenuProps extends TdMenuProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Menu = forwardRefWithStatics(
-  (props: MenuProps, ref) => {
+  (originalProps: MenuProps, ref: React.RefObject<HTMLDivElement>) => {
+    const props = useDefaultProps<MenuProps>(originalProps, menuDefaultProps);
     const { className, width = DEFAULT_MENU_WIDTH, children, theme, logo, operations, style } = props;
     const { classPrefix } = useConfig();
     const { value } = useMenuContext({ ...props, children, mode: 'accordion' });
@@ -54,6 +56,5 @@ const Menu = forwardRefWithStatics(
 );
 
 Menu.displayName = 'Menu';
-Menu.defaultProps = menuDefaultProps;
 
 export default Menu;
