@@ -33,7 +33,7 @@ export const Notification = forwardRef<NotificationInstance, NotificationProps>(
     style,
     className,
     id,
-  } = useDefaultProps(props, notificationDefaultProps);
+  } = useDefaultProps<NotificationProps>(props, notificationDefaultProps);
 
   const { classPrefix } = useConfig();
   const baseClassPrefix = `${classPrefix}-notification`;
