@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import isFunction from 'lodash/isFunction';
+import cloneDeep from 'lodash/cloneDeep';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import {
@@ -47,8 +48,16 @@ const EditableCell = (props: EditableCellProps) => {
   const { classPrefix } = useConfig();
 
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
+    if (!colKey) return row;
+    // handle colKey like a.b.c
+    const [firstKey, ...restKeys] = colKey.split('.') || [];
     const newRow = { ...row };
-    set(newRow, colKey, value);
+    if (restKeys.length) {
+      newRow[firstKey] = cloneDeep(row[firstKey]);
+      set(newRow[firstKey], restKeys.join('.'), value);
+    } else {
+      set(newRow, colKey, value);
+    }
     return newRow;
   };
 
@@ -61,6 +70,8 @@ const EditableCell = (props: EditableCellProps) => {
     }),
     [col, row, colIndex, rowIndex],
   );
+
+  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
@@ -238,14 +249,8 @@ const EditableCell = (props: EditableCellProps) => {
     });
   };
 
-  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
-
   useEffect(() => {
-    let val = cellValue;
-    if (typeof val === 'object' && val !== null) {
-      val = val instanceof Array ? [...val] : { ...val };
-    }
-    setEditValue(val);
+    setEditValue(cellValue);
   }, [cellValue]);
 
   useEffect(() => {
