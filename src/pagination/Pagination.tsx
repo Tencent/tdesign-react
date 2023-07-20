@@ -26,7 +26,8 @@ export interface PaginationProps extends TdPaginationProps, StyledProps {}
 
 const { Option } = Select;
 
-const Pagination = forwardRef<HTMLDivElement, PaginationProps>((props, ref) => {
+const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, ref) => {
+  const props = useDefaultProps<PaginationProps>(originalProps, paginationDefaultProps);
   const {
     theme,
     size,
@@ -49,7 +50,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((props, ref) => {
     className,
     selectProps,
     ...otherProps
-  } = useDefaultProps<PaginationProps>(props, paginationDefaultProps);
+  } = props;
   // 原生 html 属性透传
   const restProps = omit(otherProps, ['current', 'pageSize', 'defaultPageSize', 'defaultCurrent']);
 
