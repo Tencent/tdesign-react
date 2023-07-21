@@ -1,5 +1,6 @@
-import React, { FC, useContext, useState, ReactElement, useMemo } from 'react';
+import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from 'react';
 import classNames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import { StyledProps } from '../common';
 import { TdSubmenuProps } from './type';
 import useConfig from '../hooks/useConfig';
@@ -25,6 +26,9 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
   const { classPrefix } = useConfig();
+
+  const contentRef = useRef(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   // popup 状态下控制开关
   const [open, setOpen] = useState(false);
@@ -90,6 +94,21 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     </ul>
   );
 
+  const transitionCallbacks = {
+    onEnter: () => {
+      bodyRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+    },
+    onEntered: () => {
+      bodyRef.current.style.height = 'auto';
+    },
+    onExit: () => {
+      bodyRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+    },
+    onExiting: () => {
+      bodyRef.current.style.height = '0px';
+    },
+  };
+
   const submenu = (
     <li
       className={classNames(`${classPrefix}-submenu`, className, {
@@ -111,13 +130,22 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         <FakeArrow style={fakeArrowStyle} isActive={level === 1 && isOpen} disabled={disabled} />
       </div>
       {!isPopUp && (
-        <ul
-          key="normal"
-          style={{ ...childStyle, '--padding-left': `${menuPaddingLeft}px` } as React.CSSProperties}
-          className={`${classPrefix}-menu__sub`}
-        >
-          {childrens}
-        </ul>
+        <CSSTransition in={isOpen} appear timeout={300} nodeRef={bodyRef} {...transitionCallbacks}>
+          <div
+            style={{ height: 0, overflow: 'inherit' }}
+            ref={bodyRef}
+            className={`${classPrefix}-slide-down-enter-active`}
+          >
+            <ul
+              key="normal"
+              style={{ '--padding-left': `${menuPaddingLeft}px` } as React.CSSProperties}
+              className={`${classPrefix}-menu__sub`}
+              ref={contentRef}
+            >
+              {childrens}
+            </ul>
+          </div>
+        </CSSTransition>
       )}
     </li>
   );
