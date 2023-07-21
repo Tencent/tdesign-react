@@ -32,4 +32,5 @@ const GradientLoading: FC = () => {
     </svg>
   );
 };
+
 export default GradientLoading;

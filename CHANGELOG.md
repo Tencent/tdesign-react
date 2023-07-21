@@ -5,6 +5,34 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.1.15 `2023-07-19` 
+### 🚀 Features
+- `DatePicker`: 优化关闭浮层后重置默认选中区域 @honkinglin ([#2371](https://github.com/Tencent/tdesign-react/pull/2371))
+### 🐞 Bug Fixes
+- `Dialog`: 修复 `theme=danger` 无效问题，[issue#2364](https://github.com/Tencent/tdesign-react/issues/2364) @chaishi ([#2365](https://github.com/Tencent/tdesign-react/pull/2365))
+- `Popconfirm`: 当 `confirmBtn/cancelBtn` 值类型为 `Object` 时未透传 @imp2002 ([#2361](https://github.com/Tencent/tdesign-react/pull/2361)) 
+
+## 🌈 1.1.14 `2023-07-12` 
+### 🚀 Features
+- `Tree`: 支持虚拟滚动 @uyarn ([#2359](https://github.com/Tencent/tdesign-react/pull/2359))
+- `Table`: 树形结构，添加行层级类名，方便业务设置不同层级的样式 @chaishi ([#2354](https://github.com/Tencent/tdesign-react/pull/2354))
+- `Radio`: 优化选项组换行情况 @ontheroad1992 ([#2358](https://github.com/Tencent/tdesign-react/pull/2358))
+- `Upload`:
+    - 新增组件实例方法，`uploadFilePercent` 用于更新文件上传进度 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - `theme=image`，支持使用 `fileListDisplay` 自定义 UI 内容 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - `theme=image`，支持点击名称打开新窗口访问图片，[tdesign-vue#2338](https://github.com/Tencent/tdesign-vue/issues/2338) @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - 拖拽上传场景，支持 `accept` 文件类型限制，[tdesign-vue-next#3075](https://github.com/Tencent/tdesign-vue-next/issues/3075) @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+
+### 🐞 Bug Fixes
+- `Upload`: 自定义上传方法，修复未能正确返回上传成功或失败后的文件问题 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+
+## 🌈 1.1.13 `2023-07-05` 
+### 🐞 Bug Fixes
+- `Tag`: 修复 Tag children 为数字 0 时的渲染异常 @HelKyle ([#2335](https://github.com/Tencent/tdesign-react/pull/2335))
+- `Input`: 修复 `limitNumber` 部分在 `disabled` 状态下的样式问题 @uyarn ([#2338](https://github.com/Tencent/tdesign-react/pull/2338))
+- `TagInput`: 修复前置图标的样式缺陷 @uyarn ([#2342](https://github.com/Tencent/tdesign-react/pull/2342))
+- `SelectInput`: 修复失焦时未清空输入内容的缺陷 @uyarn ([#2342](https://github.com/Tencent/tdesign-react/pull/2342))
+
 ## 🌈 1.1.12 `2023-06-29` 
 
 ### 🚀 Features

@@ -12,6 +12,7 @@ import Loading from '../loading';
 import ListItem from './ListItem';
 import ListItemMeta from './ListItemMeta';
 import { listDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**
@@ -38,7 +39,7 @@ const List = forwardRefWithStatics(
       onLoadMore = noop,
       onScroll = noop,
       style,
-    } = props;
+    } = useDefaultProps<ListProps>(props, listDefaultProps);
 
     const { classPrefix } = useConfig();
     const [local, t] = useLocaleReceiver('list');
@@ -100,6 +101,5 @@ const List = forwardRefWithStatics(
 );
 
 List.displayName = 'List';
-List.defaultProps = listDefaultProps;
 
 export default List;

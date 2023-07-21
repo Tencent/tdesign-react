@@ -2,7 +2,7 @@ import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon as TdInfoCircleFilledIcon } from 'tdesign-icons-react';
-import Button from '../button';
+import Button, { ButtonProps } from '../button';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -71,6 +71,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
           onClose({ e, trigger: 'cancel' });
           onCancel({ e });
         }}
+        {...(typeof cancelBtn === 'object' ? { ...(cancelBtn as ButtonProps) } : {})}
       >
         {isString(cancelBtn) && cancelBtn}
       </Button>
@@ -99,6 +100,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
           onClose({ e, trigger: 'confirm' });
           onConfirm({ e });
         }}
+        {...(typeof confirmBtn === 'object' ? { ...(confirmBtn as ButtonProps) } : {})}
       >
         {isString(confirmBtn) && confirmBtn}
       </Button>

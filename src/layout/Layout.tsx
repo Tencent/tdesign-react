@@ -18,46 +18,31 @@ export interface FooterProps extends TdFooterProps, StyledProps, React.HTMLAttri
   children?: React.ReactNode;
 }
 
-const Header = (props: HeaderProps) => {
+const Header: React.FC<HeaderProps> = (props) => {
   const { classPrefix } = useConfig();
   const { className, style = {}, children, height, ...others } = props;
   const renderHeight = isNaN(Number(height)) ? height : `${height}px`;
-
   const headerClassNames = classNames(`${classPrefix}-layout__header`, className);
   return (
-    <header
-      className={headerClassNames}
-      style={{
-        height: renderHeight,
-        ...style,
-      }}
-      {...others}
-    >
+    <header className={headerClassNames} style={{ height: renderHeight, ...style }} {...others}>
       {children}
     </header>
   );
 };
 
-const Footer = (props: FooterProps) => {
+const Footer: React.FC<FooterProps> = (props) => {
   const { classPrefix } = useConfig();
   const { className, style = {}, children, height, ...others } = props;
   const renderHeight = isNaN(Number(height)) ? height : `${height}px`;
   const footerClassNames = classNames(`${classPrefix}-layout__footer`, className);
   return (
-    <footer
-      className={footerClassNames}
-      style={{
-        height: renderHeight,
-        ...style,
-      }}
-      {...others}
-    >
+    <footer className={footerClassNames} style={{ height: renderHeight, ...style }} {...others}>
       {children}
     </footer>
   );
 };
 
-const Content = (props: ContentProps) => {
+const Content: React.FC<ContentProps> = (props) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
   const contentClassNames = classNames(`${classPrefix}-layout__content`, className);
@@ -71,15 +56,22 @@ const Content = (props: ContentProps) => {
 /**
  * 布局组件
  */
-const Layout = (props: LayoutProps) => {
+const Layout: React.FC<LayoutProps> & {
+  Header: typeof Header;
+  Content: typeof Content;
+  Footer: typeof Footer;
+  Aside: typeof Aside;
+} = (props) => {
   const { direction, className, style, children, ...otherLayoutProps } = props;
   const [asides, setAsides] = useState([]);
-
   useEffect(() => {
     React.Children.forEach(children, (child: React.ReactChild) => {
-      if (!child || typeof child !== 'object') return;
-
-      if (child.type === Aside) setAsides([child]);
+      if (!child || typeof child !== 'object') {
+        return;
+      }
+      if (child.type === Aside) {
+        setAsides([child]);
+      }
     });
   }, [children]);
 
