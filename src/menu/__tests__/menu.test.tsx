@@ -1,4 +1,4 @@
-import { render, fireEvent, vi, waitFor } from '@test/utils';
+import { render, fireEvent, vi, waitFor, mockTimeout } from '@test/utils';
 import React from 'react';
 import Menu from '../index';
 
@@ -46,20 +46,26 @@ describe('Menu 组件测试', () => {
     expect(popup?.className.includes('t-is-opened')).not.toBeTruthy();
   });
 
-  test('menu defaultExpanded works fine', () => {
+  test('menu defaultExpanded works fine', async () => {
     const { container, queryByText } = renderSubmenu({ defaultExpanded: ['1'] });
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
-    expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
-    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+
+    // 菜单展开存在 300ms 的动画，所以需要等待 300ms 后再进行断言
+    await mockTimeout(
+      () =>
+        expect(queryByText('菜单二').parentElement.parentElement.parentElement.parentElement.style.height).toBe('auto'),
+      300,
+    );
+    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.parentElement.style.height).toBe('0px');
   });
 
   test('menu expanded works fine', () => {
     const { container, queryByText } = renderSubmenu({ expanded: ['1'] });
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
-    expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
-    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+    expect(queryByText('菜单二').parentElement.parentElement.parentElement.parentElement.style.height).toBe('auto');
+    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.parentElement.style.height).toBe('0px');
   });
 
   test('menu 测试单层导航', () => {
@@ -165,9 +171,9 @@ describe('Menu 组件测试', () => {
     expect(container.querySelectorAll('.t-submenu').length).toBe(1);
     fireEvent.click(getByText('仪表盘'));
     expect(clickFn).toHaveBeenCalledTimes(1);
-    const ulNode = queryByText('基础列表项').parentElement.parentElement;
-    expect(ulNode.style.maxHeight).toBe('0');
+    const slideNode = queryByText('基础列表项').parentElement.parentElement.parentElement;
+    expect(slideNode.style.height).toBe('0px');
     fireEvent.click(getByText('列表项'));
-    expect(ulNode.style.maxHeight).not.toBe('0');
+    expect(slideNode.style.height).not.toBe('0px');
   });
 });
