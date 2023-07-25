@@ -60,11 +60,15 @@ describe('Menu 组件测试', () => {
     expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.parentElement.style.height).toBe('0px');
   });
 
-  test('menu expanded works fine', () => {
+  test('menu expanded works fine', async () => {
     const { container, queryByText } = renderSubmenu({ expanded: ['1'] });
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
-    expect(queryByText('菜单二').parentElement.parentElement.parentElement.parentElement.style.height).toBe('auto');
+    await mockTimeout(
+      () =>
+        expect(queryByText('菜单二').parentElement.parentElement.parentElement.parentElement.style.height).toBe('auto'),
+      300,
+    );
     expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.parentElement.style.height).toBe('0px');
   });
 
@@ -152,7 +156,7 @@ describe('Menu 组件测试', () => {
     expect(onExpandFn).toHaveBeenCalledTimes(1);
   });
 
-  test('menu 测试分组导航', () => {
+  test('menu 测试分组导航', async () => {
     const clickFn = vi.fn();
     const { container, queryByText, getByText } = render(
       <Menu onChange={clickFn}>
@@ -174,6 +178,6 @@ describe('Menu 组件测试', () => {
     const slideNode = queryByText('基础列表项').parentElement.parentElement.parentElement;
     expect(slideNode.style.height).toBe('0px');
     fireEvent.click(getByText('列表项'));
-    expect(slideNode.style.height).not.toBe('0px');
+    await mockTimeout(() => expect(slideNode.style.height).not.toBe('0px'), 300);
   });
 });
