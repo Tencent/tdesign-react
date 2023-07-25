@@ -78,10 +78,12 @@ const columns = [
   // { colKey: 'email', title: '邮箱地址' },
 ];
 
+const defaultSelectedRowKeys = [];
+
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [checkStrictly, setCheckStrictly] = useState(true);
+  const [selectedRowKeys, setSelectedRowKeys] = useState(defaultSelectedRowKeys);
+  const [checkStrictly, setCheckStrictly] = useState(false);
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const treeTableRef = useRef(null);
 
@@ -92,7 +94,7 @@ export default function TableSingleSort() {
 
   useEffect(
     () => {
-      setSelectedRowKeys([]);
+      setSelectedRowKeys(defaultSelectedRowKeys);
       setData(cloneDeep(data));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
