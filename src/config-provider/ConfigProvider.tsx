@@ -1,6 +1,6 @@
 import React from 'react';
 import _mergeWith from 'lodash/mergeWith';
-import ConfigContext, { Config, defaultGlobalConfig, GlobalConfig } from './ConfigContext';
+import ConfigContext, { defaultGlobalConfig, Config } from './ConfigContext';
 import { GlobalConfigProvider } from './type';
 
 export interface ConfigProviderProps extends Config {
@@ -18,7 +18,7 @@ export const merge = (src: GlobalConfigProvider, config: GlobalConfigProvider) =
 export default function ConfigProvider({ children, globalConfig }: ConfigProviderProps) {
   const mergedGlobalConfig = merge(defaultGlobalConfig, globalConfig);
   return (
-    <ConfigContext.Provider value={{ globalConfig: mergedGlobalConfig as GlobalConfig }}>
+    <ConfigContext.Provider value={{ globalConfig: mergedGlobalConfig }}>
       {children}
     </ConfigContext.Provider>
   );
