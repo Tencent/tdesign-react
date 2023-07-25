@@ -133,6 +133,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     for (let i = 0, len = tSelectedRowKeys.length; i < len; i++) {
       const rowValue = tSelectedRowKeys[i];
       const state = treeDataMap.get(rowValue);
+      if (!state) continue;
       const children = get(state.row, rowDataKeys.childrenKey);
       // 根据选中的叶子结点计算父节点半选状态
       if (!children || !children.length) {
