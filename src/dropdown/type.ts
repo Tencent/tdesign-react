@@ -45,6 +45,14 @@ export interface TdDropdownProps {
    */
   options?: Array<DropdownOption>;
   /**
+   * 面板内的底部内容
+   */
+  panelBottomContent?: TNode;
+  /**
+   * 面板内的顶部内容
+   */
+  panelTopContent?: TNode;
+  /**
    * 弹窗定位方式，可选值同 Popup 组件
    * @default bottom-left
    */
@@ -100,7 +108,7 @@ export interface TdDropdownItemProps {
   /**
    * 组件前置图标
    */
-  prefixIcon?: TNode;
+  prefixIcon?: TElement;
   /**
    * 下拉菜单选项主题
    * @default default
