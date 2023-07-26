@@ -6,10 +6,10 @@
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
+import { SelectInputBlurContext } from '../select-input';
 import { RangeInputProps } from '../range-input';
 import { TNode } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
-import { SelectInputBlurContext } from '../select-input';
 
 export interface TdTimePickerProps {
   /**
@@ -23,16 +23,16 @@ export interface TdTimePickerProps {
    */
   clearable?: boolean;
   /**
-   * 禁用时间项
+   * 禁用时间项的配置函数
    */
   disableTime?: (
     h: number,
     m: number,
     s: number,
-  ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
+    ms: number,
+  ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number>; millisecond: Array<number> }>;
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -68,6 +68,7 @@ export interface TdTimePickerProps {
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -108,7 +109,7 @@ export interface TdTimePickerProps {
   /**
    * 当输入框内容发生变化时触发，参数 value 表示组件当前有效值
    */
-  onInput?: (context: { value: TimePickerValue; e: FormEvent<HTMLDivElement> }) => void;
+  onInput?: (context: { value: TimePickerValue; e: FormEvent<HTMLInputElement> }) => void;
   /**
    * 面板打开时触发
    */
@@ -137,11 +138,11 @@ export interface TdTimeRangePickerProps {
     h: number,
     m: number,
     s: number,
+    ms: number,
     context: { partial: TimeRangePickerPartial },
   ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
   /**
-   * 是否禁用组件
-   * @default false
+   * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
    */
   disabled?: boolean;
   /**
@@ -177,6 +178,7 @@ export interface TdTimeRangePickerProps {
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -221,7 +223,7 @@ export interface TdTimeRangePickerProps {
    */
   onInput?: (context: {
     value: TimeRangeValue;
-    e?: FormEvent<HTMLDivElement>;
+    e?: FormEvent<HTMLInputElement>;
     position?: TimeRangePickerPartial;
   }) => void;
   /**
