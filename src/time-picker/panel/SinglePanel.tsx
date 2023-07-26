@@ -45,6 +45,7 @@ export interface SinglePanelProps
     h: number,
     m: number,
     s: number,
+    ms: number,
     context?: { partial: TimeRangePickerPartial },
   ) => Partial<{ hour: number[]; minute: number[]; second: number[] }>;
   position?: TimeRangePickerPartial;
@@ -128,7 +129,12 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     (col: EPickerCols, el: string | number) => {
       const colIdx = timeArr.indexOf(col);
       if (colIdx !== -1) {
-        const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
+        const params: [number, number, number, number] = [
+          dayjsValue.hour(),
+          dayjsValue.minute(),
+          dayjsValue.second(),
+          dayjsValue.millisecond(),
+        ];
         params[colIdx] = Number(el);
         return !(disableTime && disableTime?.(...params, { partial: position }))?.[col]?.includes(Number(el));
       }
@@ -157,7 +163,12 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
         return hideDisabledTime && !!disableTime
           ? colList.filter((t) => {
-              const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
+              const params: [number, number, number, number] = [
+                dayjsValue.hour(),
+                dayjsValue.minute(),
+                dayjsValue.second(),
+                dayjsValue.millisecond(),
+              ];
               params[colIdx] = Number(t);
               return !disableTime?.(...params, { partial: position })?.[col]?.includes(Number(t));
             })
@@ -235,6 +246,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     }
     if (timeArr.includes(col)) {
       if (timeItemCanUsed(col, val)) formattedVal = dayjsValue[col]?.(val).format(format);
+      else formattedVal = dayjsValue.format(format);
     } else {
       const currentHour = dayjsValue.hour();
       if (meridiem === AM && currentHour >= 12) {
