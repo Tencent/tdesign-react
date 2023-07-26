@@ -13,12 +13,13 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import { NotificationInstance, TdNotificationProps } from './type';
 import { StyledProps } from '../common';
 import { notificationDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface NotificationProps extends TdNotificationProps, StyledProps {
   id?: string;
 }
 
-export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
+export const Notification = forwardRef<NotificationInstance, NotificationProps>((props, ref) => {
   const {
     title,
     content,
@@ -32,7 +33,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
     style,
     className,
     id,
-  } = props;
+  } = useDefaultProps<NotificationProps>(props, notificationDefaultProps);
 
   const { classPrefix } = useConfig();
   const baseClassPrefix = `${classPrefix}-notification`;
@@ -43,11 +44,12 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   });
 
   const remove = useContext(NotificationRemoveContext);
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));
+
+  React.useImperativeHandle(ref, () => ({ close: () => remove(id) }));
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout;
     if (duration > 0) {
       timer = setTimeout(() => {
         clearTimeout(timer);
@@ -55,12 +57,16 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
       }, duration);
     }
     return () => {
-      if (timer) clearTimeout(timer);
+      if (timer) {
+        clearTimeout(timer);
+      }
     };
   }, []);
 
   const renderIcon = () => {
-    if (typeof icon === 'boolean' && !icon) return null;
+    if (typeof icon === 'boolean' && !icon) {
+      return null;
+    }
 
     const IconWrapper = ({ children }) => <div className={`${baseClassPrefix}__icon`}>{children}</div>;
 
@@ -132,6 +138,5 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
 });
 
 Notification.displayName = 'Notification';
-Notification.defaultProps = notificationDefaultProps;
 
 export default Notification;

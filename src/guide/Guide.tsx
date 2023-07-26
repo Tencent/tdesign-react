@@ -405,7 +405,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     </>
   );
 
-  return <>{active && renderGuide()}</>;
+  return <>{innerCurrent > -1 && active && renderGuide()}</>;
 };
 
 Guide.displayName = 'Guide';

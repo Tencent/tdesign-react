@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+  ## 🌈 1.1.16 `2023-07-26` 
+### 🚀 Features
+- `TimePicker`:
+    - disableTime回调新增毫秒参数 @uyarn ([#2388](https://github.com/Tencent/tdesign-react/pull/2388))
+    - 优化展示不可选时间选项时滚动到不可选选项的体验 @uyarn ([#2388](https://github.com/Tencent/tdesign-react/pull/2388))
+- `Dropdown`: 新增panelTopContent及 panelBottomContent 支持需要上下额外节点的场景使用 @uyarn ([#2387](https://github.com/Tencent/tdesign-react/pull/2387))
+
+### 🐞 Bug Fixes
+- `Table`:
+    - 可编辑表格场景，支持设置 `colKey` 值为链式属性，如：`a.b.c` @chaishi ([#2381](https://github.com/Tencent/tdesign-react/pull/2381))
+    - 树形结构表格，修复当 `selectedRowKeys` 中的值在 data 数据中不存在时报错问题，[issue#2375](https://github.com/Tencent/tdesign-react/issues/2375) @chaishi ([#2385](https://github.com/Tencent/tdesign-react/pull/2385))
+- `Guide`: 修复设置step为 -1 时需要隐藏组件的功能 @uyarn ([#2389](https://github.com/Tencent/tdesign-react/pull/2389)) 
+
  ## 🌈 1.1.15 `2023-07-19` 
 ### 🚀 Features
 - `DatePicker`: 优化关闭浮层后重置默认选中区域 @honkinglin ([#2371](https://github.com/Tencent/tdesign-react/pull/2371))

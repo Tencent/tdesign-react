@@ -17,6 +17,7 @@ import { getTransitionParams } from './utils/transition';
 import useMutationObserver from '../_util/useMutationObserver';
 import useWindowSize from '../_util/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -34,7 +35,8 @@ export interface PopupRef {
   getPortalElement: () => HTMLDivElement;
 }
 
-const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => {
+const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
+  const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
     trigger,
     content,
@@ -228,6 +230,5 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 });
 
 Popup.displayName = 'Popup';
-Popup.defaultProps = popupDefaultProps;
 
 export default Popup;

@@ -10,7 +10,7 @@ export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {
   level?: number;
 }
 
-const MenuGroup = ({ title, children, level = 1 }: MenuGroupProps) => {
+const MenuGroup: React.FC<MenuGroupProps> = ({ title, children, level = 1 }) => {
   const { classPrefix } = useConfig();
 
   const itemAndGroupPaddingBias = 28;

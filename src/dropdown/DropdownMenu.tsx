@@ -10,12 +10,20 @@ import { DropdownOption } from './type';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 
 const DropdownMenu: React.FC<DropdownProps> = (props) => {
-  const { options = [], maxHeight = 300, minColumnWidth = 10, maxColumnWidth = 160, direction } = props;
+  const {
+    options = [],
+    maxHeight = 300,
+    minColumnWidth = 10,
+    maxColumnWidth = 160,
+    direction,
+    panelTopContent,
+    panelBottomContent,
+  } = props;
 
   const { classPrefix } = useConfig();
   const dropdownClass = `${classPrefix}-dropdown`;
   const dropdownMenuClass = `${dropdownClass}__menu`;
-
+  const [panelTopContentHeight, setPanelTopContentHeight] = useState(null);
   const { ChevronRightIcon, ChevronLeftIcon } = useGlobalIcon({
     ChevronRightIcon: TdIconChevronRight,
     ChevronLeftIcon: TdIconChevronLeft,
@@ -28,10 +36,16 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
   useEffect(() => {
     if (menuRef.current) {
       const menuHeight = menuRef.current.childNodes?.length * 30;
-
+      setTimeout(() => {
+        if (panelTopContent) {
+          const panelTopHeight =
+            parseInt(getComputedStyle(menuRef.current.childNodes?.[0] as HTMLElement)?.height, 10) || 0;
+          setPanelTopContentHeight(panelTopHeight);
+        }
+      });
       if (menuHeight >= maxHeight) setIsOverMaxHeight(true);
     }
-  }, [maxHeight]);
+  }, [maxHeight, panelTopContent]);
 
   const handleItemClick = (options: {
     data: DropdownOption;
@@ -56,7 +70,8 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
       const onViewIdx = Math.ceil(calcScrollTopMap[deep] / 30);
-      const itemIdx = idx >= onViewIdx ? idx - onViewIdx : idx;
+      const isOverflow = idx >= onViewIdx;
+      const itemIdx = isOverflow ? idx - onViewIdx : idx;
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children, deep + 1);
         renderContent = (
@@ -92,7 +107,7 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
                 })}
                 style={{
                   position: 'absolute',
-                  top: `${itemIdx * 30}px`,
+                  top: `${itemIdx * 30 + (isOverflow ? 0 : panelTopContentHeight)}px`,
                 }}
               >
                 <div
@@ -156,7 +171,9 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
       ref={menuRef}
       onScroll={throttleUpdate}
     >
+      {panelTopContent ? <div className={`${dropdownClass}__top-content`}>{panelTopContent}</div> : null}
       {renderOptions(options, 0)}
+      {panelBottomContent ? <div className={`${dropdownClass}__bottom-content`}>{panelBottomContent}</div> : null}
     </div>
   );
 };
