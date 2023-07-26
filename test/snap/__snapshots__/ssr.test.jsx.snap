@@ -350,6 +350,8 @@ exports[`ssr snapshot test > ssr test src/dropdown/_example/custom.jsx 1`] = `"<
 
 exports[`ssr snapshot test > ssr test src/dropdown/_example/disabled.jsx 1`] = `"<button type=\\"button\\" class=\\"t-button t-button--theme-default t-button--variant-text\\"><span class=\\"t-button__text\\">更多</span><span class=\\"t-button__suffix\\"><svg class=\\"t-icon t-icon-chevron-down\\" style=\\"font-size:16\\"><use xlink:href=\\"#t-icon-chevron-down\\"></use></svg></span></button>"`;
 
+exports[`ssr snapshot test > ssr test src/dropdown/_example/icon.jsx 1`] = `"<button type=\\"button\\" class=\\"t-button t-button--theme-default t-button--variant-text\\"><span class=\\"t-button__text\\">更多</span><span class=\\"t-button__suffix\\"><svg class=\\"t-icon t-icon-chevron-down\\" style=\\"font-size:16\\"><use xlink:href=\\"#t-icon-chevron-down\\"></use></svg></span></button>"`;
+
 exports[`ssr snapshot test > ssr test src/dropdown/_example/left.jsx 1`] = `"<button type=\\"button\\" class=\\"t-button t-button--theme-default t-button--variant-text\\"><span class=\\"t-button__text\\">更多</span><span class=\\"t-button__suffix\\"><svg class=\\"t-icon t-icon-chevron-down\\" style=\\"font-size:16\\"><use xlink:href=\\"#t-icon-chevron-down\\"></use></svg></span></button>"`;
 
 exports[`ssr snapshot test > ssr test src/dropdown/_example/long.jsx 1`] = `"<button type=\\"button\\" class=\\"t-button t-button--theme-primary t-button--variant-base\\"><span class=\\"t-button__text\\">hover我试试</span></button>"`;
