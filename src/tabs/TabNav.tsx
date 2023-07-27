@@ -28,7 +28,7 @@ export interface TabNavProps extends TdTabsProps, DragSortInnerProps {
 const TabNav: React.FC<TabNavProps> = (props) => {
   const {
     placement = 'top',
-    itemList,
+    itemList = [],
     tabClick = noop,
     theme,
     addable,
