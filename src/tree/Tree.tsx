@@ -87,7 +87,13 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   );
   const treeRef = useRef(null);
 
-  const { visibleData, isVirtual, treeNodeStyle, cursorStyle, handleRowMounted } = useTreeVirtualScroll({
+  const {
+    visibleData,
+    isVirtual,
+    treeNodeStyle: virtualTreeNodeStyle,
+    cursorStyle,
+    handleRowMounted,
+  } = useTreeVirtualScroll({
     treeRef,
     scroll,
     data: visibleNodes,
@@ -228,24 +234,14 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     if (renderNode.length <= 0) {
       return renderEmpty();
     }
-
-    return (
-      <TransitionGroup
-        name={transitionNames.treeNode}
-        className={treeClassNames.treeList}
-        style={isVirtual ? { ...treeNodeStyle } : null}
-      >
-        {renderNode.map((node, index) => (
-          // https://github.com/reactjs/react-transition-group/issues/668
-          <CSSTransition
-            nodeRef={nodeList[index]}
-            key={node.value}
-            timeout={transitionDuration}
-            classNames={transitionClassNames}
-          >
+    if (isVirtual)
+      return (
+        <div className={treeClassNames.treeList} style={virtualTreeNodeStyle}>
+          {renderNode.map((node, index) => (
             <TreeItem
               ref={nodeList[index]}
-              node={store.getNode(node.value)}
+              key={node.value}
+              node={node}
               empty={empty}
               icon={icon}
               label={label}
@@ -259,7 +255,37 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               onClick={handleItemClick}
               onChange={handleChange}
               onTreeItemMounted={handleRowMounted}
-              isVirtual={true}
+              isVirtual={isVirtual}
+            />
+          ))}
+        </div>
+      );
+
+    return (
+      <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
+        {renderNode.map((node, index) => (
+          // https://github.com/reactjs/react-transition-group/issues/668
+          <CSSTransition
+            nodeRef={nodeList[index]}
+            key={node.value}
+            timeout={transitionDuration}
+            classNames={transitionClassNames}
+          >
+            <TreeItem
+              ref={nodeList[index]}
+              node={node}
+              empty={empty}
+              icon={icon}
+              label={label}
+              line={line}
+              transition={transition}
+              expandOnClickNode={expandOnClickNode}
+              activable={activable}
+              operations={operations}
+              checkProps={checkProps}
+              disableCheck={disableCheck}
+              onClick={handleItemClick}
+              onChange={handleChange}
             />
           </CSSTransition>
         ))}
@@ -284,14 +310,14 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
           [treeClassNames.treeCheckable]: checkable,
           [treeClassNames.treeFx]: transition,
           [treeClassNames.treeBlockNode]: expandOnClickNode,
-          [`${treeClassNames.tree}__vscroll`]: isVirtual,
+          [treeClassNames.treeVscroll]: isVirtual,
         })}
         style={style}
         ref={treeRef}
       >
         {isVirtual ? (
           <>
-            <div className={`${treeClassNames.tree}__vscroll-cursor`} style={cursorStyle} />
+            <div className={treeClassNames.treeVscrollCursor} style={cursorStyle} />
             {renderItems(visibleData)}
           </>
         ) : (
