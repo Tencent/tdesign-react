@@ -10,6 +10,7 @@ import Radio from './Radio';
 import useMutationObservable from '../_util/useMutationObserver';
 import { radioGroupDefaultProps } from './defaultProps';
 import useKeyboard from './useKeyboard';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 /**
  * RadioGroup 组件所接收的属性
@@ -21,8 +22,11 @@ export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {
 /**
  * 单选选项组，里面可以嵌套 <Radio />
  */
-const RadioGroup = (props: RadioGroupProps) => {
+const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
+
+  const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
+
   const { disabled, children, onChange, size, variant, options = [], className, style } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
@@ -61,9 +65,13 @@ const RadioGroup = (props: RadioGroupProps) => {
   };
 
   const calcBarStyle = () => {
-    if (!variant.includes('filled')) return;
+    if (!variant.includes('filled')) {
+      return;
+    }
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
-    if (!checkedRadio) return setBarStyle({ width: 0 });
+    if (!checkedRadio) {
+      return setBarStyle({ width: 0 });
+    }
 
     const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
     setBarStyle({
@@ -81,7 +89,9 @@ const RadioGroup = (props: RadioGroupProps) => {
   useMutationObservable(radioGroupRef.current, calcBarStyle);
 
   const renderBlock = () => {
-    if (!variant.includes('filled')) return null;
+    if (!variant.includes('filled')) {
+      return null;
+    }
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
   };
 
@@ -120,6 +130,5 @@ const RadioGroup = (props: RadioGroupProps) => {
 };
 
 RadioGroup.displayName = 'RadioGroup';
-RadioGroup.defaultProps = radioGroupDefaultProps;
 
 export default RadioGroup;
