@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect, CSSProperties } from 'react';
+import { useMemo, useEffect, CSSProperties } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import TreeNode from '../../_common/js/tree/tree-node';
 
@@ -43,25 +43,22 @@ export default function useTreeVirtualScroll({
     data: data || [],
     scroll: scrollParams,
   });
+
   let lastScrollY = -1;
-  const onInnerVirtualScroll = useCallback(
-    (e: WheelEvent) => {
-      if (!isVirtual) {
-        return;
-      }
-      const target = e.target as HTMLElement;
-      const top = target.scrollTop;
-      // 排除横向滚动出发的纵向虚拟滚动计算
-      if (Math.abs(lastScrollY - top) > 5) {
-        handleVirtualScroll();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        lastScrollY = top;
-      } else {
-        lastScrollY = -1;
-      }
-    },
-    [isVirtual, data],
-  );
+  const onInnerVirtualScroll = (e: WheelEvent) => {
+    if (!isVirtual) {
+      return;
+    }
+    const target = e.target as HTMLElement;
+    const top = target.scrollTop;
+    if (lastScrollY !== top) {
+      handleVirtualScroll();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    } else {
+      lastScrollY = -1;
+    }
+    lastScrollY = top;
+  };
 
   useEffect(() => {
     const treeList = treeRef?.current;
@@ -75,7 +72,7 @@ export default function useTreeVirtualScroll({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVirtual, onInnerVirtualScroll, treeRef.current]);
+  }, [isVirtual, onInnerVirtualScroll]);
 
   const cursorStyle = {
     position: 'absolute',

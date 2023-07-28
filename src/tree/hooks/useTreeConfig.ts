@@ -45,6 +45,9 @@ export function useTreeConfig() {
       loading: `${prefix}-icon-loading ${prefix}-icon-loading-blue`,
       toggleEnter: `${tree}__item--enter-active`, // 节点展开动画
       toggleLeave: `${tree}__item--leave-active`, // 节点关闭动画
+      // 虚拟滚动相关
+      treeVscroll: `${tree}__vscroll`,
+      treeVscrollCursor: `${tree}__vscroll-cursor`,
     };
 
     const transitionNames = {
