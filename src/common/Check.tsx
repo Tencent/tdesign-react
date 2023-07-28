@@ -1,4 +1,4 @@
-import React, { Ref, forwardRef, useContext, MouseEvent } from 'react';
+import React, { forwardRef, useContext, MouseEvent } from 'react';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
@@ -27,7 +27,7 @@ export interface CheckContextValue {
   inject: (props: CheckProps) => CheckProps;
 }
 
-const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
+const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   // 支持从 Context 注入
   const context = useContext(CheckContext);
   const props = context ? context.inject(_props) : _props;

@@ -20,6 +20,5 @@ const Radio = forwardRefWithStatics(
 );
 
 Radio.displayName = 'Radio';
-Radio.defaultProps = radioDefaultProps;
 
 export default Radio;
