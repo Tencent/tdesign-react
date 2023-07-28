@@ -10,7 +10,7 @@ spline: explain
 - `tabs`: 修复tabs组件list传空数组时的js报错 @zhenglianghan ([#2393](https://github.com/Tencent/tdesign-react/pull/2393))
 - `list`: 修复ListItemMeta组件description传递自定义元素 @qijizh ([#2396](https://github.com/Tencent/tdesign-react/pull/2396))
 - `Tree`: 修复开启虚拟滚动时部分场景下节点回滚的交互异常问题 @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
- 
+- `Tree`: 修复1.1.15后基于`level`属性的操作无法正常工作的问题 @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
 
 ## 🌈 1.1.16 `2023-07-26`
 ### 🚀 Features
