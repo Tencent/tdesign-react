@@ -3,14 +3,11 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import Check, { CheckProps } from '../common/Check';
 import RadioGroup from './RadioGroup';
 import { radioDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
 
 export type RadioProps = Omit<CheckProps, 'type'>;
 
 const Radio = forwardRefWithStatics(
-  (props: RadioProps, ref: Ref<HTMLLabelElement>) => (
-    <Check ref={ref} type="radio" {...useDefaultProps<RadioProps>(props, radioDefaultProps)} />
-  ),
+  (props: RadioProps, ref: Ref<HTMLLabelElement>) => <Check ref={ref} type="radio" {...props} />,
   {
     Group: RadioGroup,
     Button: forwardRef<HTMLLabelElement, RadioProps>((props, ref) => (
@@ -20,5 +17,6 @@ const Radio = forwardRefWithStatics(
 );
 
 Radio.displayName = 'Radio';
+Radio.defaultProps = radioDefaultProps;
 
 export default Radio;
