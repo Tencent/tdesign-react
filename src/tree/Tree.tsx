@@ -262,11 +262,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       );
 
     return (
-      <TransitionGroup
-        name={transitionNames.treeNode}
-        className={treeClassNames.treeList}
-        style={isVirtual ? virtualTreeNodeStyle : null}
-      >
+      <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
         {renderNode.map((node, index) => (
           // https://github.com/reactjs/react-transition-group/issues/668
           <CSSTransition
@@ -290,8 +286,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               disableCheck={disableCheck}
               onClick={handleItemClick}
               onChange={handleChange}
-              onTreeItemMounted={handleRowMounted}
-              isVirtual={isVirtual}
             />
           </CSSTransition>
         ))}
