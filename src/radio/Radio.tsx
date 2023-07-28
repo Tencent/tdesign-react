@@ -14,7 +14,7 @@ const Radio = forwardRefWithStatics(
   {
     Group: RadioGroup,
     Button: forwardRef<HTMLLabelElement, RadioProps>((props, ref) => (
-      <Check ref={ref} type="radio-button" {...useDefaultProps<RadioProps>(props, radioDefaultProps)} />
+      <Check ref={ref} type="radio-button" {...props} />
     )),
   },
 );

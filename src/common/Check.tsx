@@ -1,4 +1,4 @@
-import React, { forwardRef, useContext, MouseEvent } from 'react';
+import React, { forwardRef, useContext, MouseEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
@@ -53,9 +53,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
 
   const TOnChange: (
     checked: boolean,
-    context: {
-      e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>;
-    },
+    context: { e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement> },
   ) => void = onChange;
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
@@ -90,9 +88,11 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
   const showLabel = !!(children || label);
 
-  const handleLabelClick = (event) => {
+  const handleLabelClick = (event: MouseEvent<HTMLSpanElement>) => {
     // 在tree等组件中使用  阻止label触发checked 与expand冲突
-    if (props.stopLabelTrigger) event.preventDefault();
+    if (props.stopLabelTrigger) {
+      event.preventDefault();
+    }
   };
 
   const onInnerClick = (e: MouseEvent<HTMLLabelElement>) => {
