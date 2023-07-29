@@ -14,12 +14,13 @@ import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../common';
 import { TdProgressProps } from './type';
 import { progressDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface ProgressProps extends TdProgressProps, StyledProps {}
 /**
  * 按钮组件
  */
-const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement>) => {
+const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const {
     CheckCircleIcon,
@@ -37,11 +38,21 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
-  const { theme, percentage, label, color = '', trackColor, strokeWidth, size, className } = props;
-  let { status } = props;
-  if (!status && percentage >= 100) {
-    status = 'success';
-  }
+  const {
+    theme,
+    percentage,
+    label,
+    color = '',
+    trackColor,
+    strokeWidth,
+    size,
+    className,
+    style,
+    status: customizeStatus,
+  } = useDefaultProps<ProgressProps>(props, progressDefaultProps);
+
+  const status = !customizeStatus && percentage >= 100 ? 'success' : customizeStatus;
+
   let iconMap = {
     success: CheckCircleFilledIcon,
     error: CloseCircleFilledIcon,
@@ -70,7 +81,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     return info;
   };
   const statusClassName = `${classPrefix}-progress--status--${status}`;
-  let progressDom;
+  let progressDom: React.ReactNode;
   if (theme === 'circle') {
     iconMap = {
       success: CheckCircleIcon,
@@ -233,13 +244,12 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     );
   }
   return (
-    <div className={className} style={props.style}>
+    <div className={className} style={style}>
       {progressDom}
     </div>
   );
 });
 
 Progress.displayName = 'Progress';
-Progress.defaultProps = progressDefaultProps;
 
 export default Progress;
