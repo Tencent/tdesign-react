@@ -53,6 +53,8 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     zIndex,
     destroyOnClose,
     sizeDraggable,
+    cancelBtnProps,
+    confirmBtnProps,
   } = props;
 
   // 国际化文本初始化
@@ -121,13 +123,13 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     if (footer !== true) return footer;
 
     const defaultCancelBtn = (
-      <Button theme="default" onClick={onCancelClick} className={`${prefixCls}__cancel`}>
+      <Button theme="default" onClick={onCancelClick} className={`${prefixCls}__cancel`} {...cancelBtnProps}>
         {cancelBtn && typeof cancelBtn === 'string' ? cancelBtn : cancelText}
       </Button>
     );
 
     const defaultConfirmBtn = (
-      <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}__confirm`}>
+      <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}__confirm`} {...confirmBtnProps}>
         {confirmBtn && typeof confirmBtn === 'string' ? confirmBtn : confirmText}
       </Button>
     );
