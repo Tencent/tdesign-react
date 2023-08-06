@@ -2,17 +2,17 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import observe from '../_common/js/utils/observe';
 
 export function useElementLazyRender(labelRef: MutableRefObject<HTMLElement>, lazyLoad: boolean) {
-  let ioObserver = useRef<IntersectionObserver>(null);
+  const ioObserver = useRef<IntersectionObserver>();
   const [showElement, setShowElement] = useState(true);
 
   const handleLazyLoad = () => {
-    if (!lazyLoad || !labelRef.current) return;
-    setShowElement(false)
+    if (!lazyLoad || !labelRef.current || ioObserver.current) return;
+    setShowElement(false);
     const io = observe(
       labelRef.current,
       null,
       () => {
-        setShowElement(true)
+        setShowElement(true);
       },
       10,
     );
@@ -20,8 +20,9 @@ export function useElementLazyRender(labelRef: MutableRefObject<HTMLElement>, la
 
     return () => {
       if (!lazyLoad || !labelRef.current) return;
+      // eslint-disable-next-line
       ioObserver.current?.unobserve(labelRef.current);
-      ioObserver = null;
+      ioObserver.current = null;
     };
   };
 

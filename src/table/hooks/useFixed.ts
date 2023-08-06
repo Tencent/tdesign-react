@@ -318,6 +318,11 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     }
   };
 
+  const setTableElmWidth = (width: number) => {
+    if (tableElmWidth.current === width) return;
+    tableElmWidth.current = width;
+  };
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const updateFixedStatus = () => {
     const { newColumnsMap, levelNodes } = getColumnMap(columns);
@@ -333,29 +338,16 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     };
   };
 
-  const updateFixedHeader = () => {
-    const timer = setTimeout(() => {
-      const tRef = tableContentRef?.current;
-      if (!tRef) return;
-      setIsFixedHeader(tRef.scrollHeight > tRef.clientHeight);
-      setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
-      const pos = tRef?.getBoundingClientRect?.();
-      setVirtualScrollHeaderPos({
-        top: pos?.top,
-        left: pos?.left,
-      });
-      clearTimeout(timer);
-    }, 0);
-  };
-
-  const updateTableWidth = () => {
+  const updateTableWidth = (isFixedHeader) => {
     const rect = tableContentRef.current?.getBoundingClientRect?.();
     if (!rect) return;
     // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
     const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
     tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
-    tableElmWidth.current = elmRect?.width;
+    if (elmRect?.width !== tableElmWidth.current) {
+      setTableElmWidth(elmRect?.width);
+    }
   };
 
   const calculateThWidthList = (trList: HTMLCollection) => {
@@ -387,13 +379,25 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   const updateThWidthListHandler = () => {
     if (notNeedThWidthList) return;
-    const timer = setTimeout(() => {
-      updateTableWidth();
-      const thead = tableContentRef.current?.querySelector('thead');
-      if (!thead) return;
-      updateThWidthList(thead.children);
-      clearTimeout(timer);
-    }, 0);
+    const thead = tableContentRef.current?.querySelector('thead');
+    if (!thead) return;
+    updateThWidthList(thead.children);
+  };
+
+  const updateFixedHeader = () => {
+    const tRef = tableContentRef?.current;
+    if (!tRef) return;
+    const isHeightOverflow = tRef.scrollHeight > tRef.clientHeight;
+    setIsFixedHeader(isHeightOverflow);
+    setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
+    const pos = tRef?.getBoundingClientRect?.();
+    setVirtualScrollHeaderPos({
+      top: pos?.top,
+      left: pos?.left,
+    });
+
+    updateTableWidth(isHeightOverflow);
+    updateThWidthListHandler();
   };
 
   const resetThWidthList = () => {
@@ -444,6 +448,7 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, columns, tableContentRef]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
   useEffect(() => {
@@ -453,26 +458,34 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   // 影响表头宽度的元素
   useEffect(
-    updateThWidthListHandler,
+    () => {
+      const timer = setTimeout(() => {
+        updateTableWidth(isFixedHeader);
+        updateThWidthListHandler();
+        clearTimeout(timer);
+      }, 10);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      data,
-      columns,
-      bordered,
+      // data,
+      // bordered,
       tableLayout,
       fixedRows,
-      isFixedHeader,
       headerAffixedTop,
       tableContentWidth,
       notNeedThWidthList,
-      tableContentRef,
+      // tableContentRef,
     ],
   );
 
   const refreshTable = () => {
-    updateTableWidth();
     updateFixedHeader();
-    updateThWidthListHandler();
+    const timer = setTimeout(() => {
+      updateTableWidth(isFixedHeader);
+      updateThWidthListHandler();
+      clearTimeout(timer);
+    }, 10);
+
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
       updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
@@ -485,14 +498,15 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
 
   function addTableResizeObserver(tableElement: HTMLDivElement) {
     // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    if (typeof window === 'undefined') return;
     if (getIEVersion() < 11 || typeof window.ResizeObserver === 'undefined') return;
     off(window, 'resize', onResize);
+    if (!tableElmWidth.current) return;
     const resizeObserver = new window.ResizeObserver(() => {
-      refreshTable();
       const timer = setTimeout(() => {
         refreshTable();
         clearTimeout(timer);
-      }, 250);
+      }, 60);
     });
     resizeObserver.observe(tableElement);
     return () => {
@@ -504,28 +518,26 @@ export default function useFixed(props: TdBaseTableProps, finalColumns: BaseTabl
   useEffect(() => {
     const scrollWidth = getScrollbarWidthWithCSS();
     setScrollbarWidth(scrollWidth);
+
     const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
-    const timer = setTimeout(() => {
-      updateTableWidth();
-      // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-      if ((isWatchResize && getIEVersion() < 11) || typeof window.ResizeObserver === 'undefined') {
-        on(window, 'resize', onResize);
-      }
-      clearTimeout(timer);
-    });
+    const hasWindow = typeof window !== 'undefined';
+    const hasResizeObserver = hasWindow && typeof window.ResizeObserver !== 'undefined';
+    updateTableWidth(isFixedHeader);
+    updateThWidthListHandler();
+    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
+      on(window, 'resize', onResize);
+    }
+
     return () => {
-      if ((isWatchResize && getIEVersion() < 11) || typeof window.ResizeObserver === 'undefined') {
-        off(window, 'resize', onResize);
+      if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
+        if (typeof window !== 'undefined') {
+          off(window, 'resize', onResize);
+        }
       }
-      clearTimeout(timer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn]);
-
-  const setTableElmWidth = (width: number) => {
-    if (tableElmWidth.current === width) return;
-    tableElmWidth.current = width;
-  };
 
   const updateTableAfterColumnResize = () => {
     updateFixedStatus();
