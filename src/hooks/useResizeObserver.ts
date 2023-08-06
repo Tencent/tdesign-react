@@ -5,7 +5,7 @@ export default function useResizeObserver(container: HTMLElement, callback: (dat
   let containerObserver: ResizeObserver = null;
 
   const cleanupObserver = () => {
-    if (!containerObserver) return;
+    if (!containerObserver || !container) return;
     containerObserver.unobserve(container);
     isFunction(containerObserver.disconnect) && containerObserver.disconnect();
     containerObserver = null;

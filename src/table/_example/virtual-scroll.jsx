@@ -109,6 +109,7 @@ const TableVirtualScroll = () => {
         bordered={bordered}
         height={height}
         scroll={{ type: 'virtual', rowHeight: 48, bufferSize: 10 }}
+        lazyLoad
       ></Table>
     </Space>
   );

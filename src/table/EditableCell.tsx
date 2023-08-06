@@ -76,8 +76,12 @@ const EditableCell = (props: EditableCellProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
+  const updateEditedCellValue = (val: any) => {
+    setEditValue(val);
+  };
+
   const editOnListeners = useMemo(
-    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow }) || {},
+    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow, updateEditedCellValue }) || {},
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cellParams, currentRow],
   );
@@ -98,7 +102,9 @@ const EditableCell = (props: EditableCellProps) => {
   const componentProps = useMemo(() => {
     const { edit } = col;
     if (!edit) return {};
-    const editProps = isFunction(edit.props) ? edit.props({ ...cellParams, editedRow: currentRow }) : { ...edit.props };
+    const editProps = isFunction(edit.props)
+      ? edit.props({ ...cellParams, editedRow: currentRow, updateEditedCellValue })
+      : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
     delete editProps.value;

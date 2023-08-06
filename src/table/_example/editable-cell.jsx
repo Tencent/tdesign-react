@@ -168,5 +168,5 @@ export default function EditableCellTable() {
   );
 
   // 当前示例包含：输入框、单选、多选、日期 等场景
-  return <Table rowKey="key" columns={columns} data={data} editableCellState={editableCellState} bordered />;
+  return <Table rowKey="key" columns={columns} data={data} editableCellState={editableCellState} bordered lazyLoad />;
 }

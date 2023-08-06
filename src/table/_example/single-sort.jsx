@@ -101,6 +101,7 @@ export default function TableSingleSort() {
         hideSortTips={hideSortTips}
         showSortColumnBgColor={true}
         onSortChange={onSortChange}
+        lazyLoad
       />
     </Space>
   );

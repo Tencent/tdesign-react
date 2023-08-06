@@ -81,6 +81,7 @@ export default function TableFixedColumn() {
         },
       ]}
       rowKey="index"
+      lazyLoad
     />
   );
 

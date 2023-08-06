@@ -187,6 +187,7 @@ const TableAffixDemo = () => {
         bordered
         resizable
         onDragSort={onDragSortChange}
+        lazyLoad
       ></Table>
     </Space>
   );

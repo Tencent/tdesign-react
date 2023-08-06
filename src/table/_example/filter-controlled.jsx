@@ -218,6 +218,7 @@ export default function TableSingleSort() {
           showJumper: true,
           pageSizeOptions: [1, 3, 5, 10],
         }}
+        lazyLoad
       />
     </Space>
   );

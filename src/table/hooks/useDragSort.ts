@@ -72,7 +72,6 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     let dragInstanceTmp: Sortable = null;
     const dragContainer = element?.querySelector('tbody');
     if (!dragContainer) {
-      log.error('Table', 'tbody does not exist.');
       return null;
     }
     const baseOptions: SortableOptions = {
