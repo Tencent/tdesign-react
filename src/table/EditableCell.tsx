@@ -42,10 +42,17 @@ const EditableCell = (props: EditableCellProps) => {
   const { row, col, colIndex, rowIndex, errors, editable, tableBaseClass } = props;
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
-  const [isEdit, setIsEdit] = useState(props.col.edit?.defaultEditable || false);
+  const isKeepEditMode = Boolean(col.edit?.keepEditMode);
+  const [isEdit, setIsEdit] = useState(isKeepEditMode || props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
   const { classPrefix } = useConfig();
+
+  useEffect(() => {
+    if (isKeepEditMode) {
+      setIsEdit(true);
+    }
+  }, [isKeepEditMode]);
 
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
     if (!colKey) return row;
@@ -172,7 +179,9 @@ const EditableCell = (props: EditableCellProps) => {
       editOnListeners[eventName]?.(args[2]);
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
-        setIsEdit(false);
+        if (!isKeepEditMode) {
+          setIsEdit(false);
+        }
         setErrorList([]);
         clearTimeout(timer);
       }, 0);
