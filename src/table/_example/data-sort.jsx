@@ -98,6 +98,7 @@ export default function TableSingleSort() {
         multipleSort={multipleSort}
         onSortChange={onSortChange}
         onDataChange={onDataChange}
+        lazyLoad
       />
     </Space>
   );

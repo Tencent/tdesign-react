@@ -286,6 +286,7 @@ export default function EditableRowTable() {
         onValidate={onValidate}
         table-layout="auto"
         bordered
+        lazyLoad
       />
     </div>
   );

@@ -8,6 +8,7 @@ import THead from './THead';
 import TFoot from './TFoot';
 import useTableHeader from './hooks/useTableHeader';
 import useColumnResize from './hooks/useColumnResize';
+import useElementLazyRender from '../hooks/useElementLazyRender';
 import useFixed from './hooks/useFixed';
 import useAffix from './hooks/useAffix';
 import usePagination from './hooks/usePagination';
@@ -21,6 +22,7 @@ import { Styles } from '../common';
 import { TableRowData } from './type';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import { getIEVersion } from '../_common/js/utils/helper';
+import log from '../_common/js/log';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -30,7 +32,19 @@ export interface TableListeners {
 }
 
 const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
-  const { tableLayout, height, data, columns, style, headerAffixedTop, bordered, resizable } = props;
+  const {
+    showHeader = true,
+    tableLayout,
+    height,
+    data,
+    columns,
+    style,
+    headerAffixedTop,
+    bordered,
+    resizable,
+    lazyLoad,
+    pagination,
+  } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
   const bottomContentRef = useRef<HTMLDivElement>();
@@ -69,6 +83,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     updateTableAfterColumnResize,
   } = useFixed(props, finalColumns);
 
+  const { showElement } = useElementLazyRender(tableRef, lazyLoad);
+
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
     affixHeaderRef,
@@ -81,7 +97,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     onHorizontalScroll,
     setTableContentRef,
     updateAffixHeaderOrFooter,
-  } = useAffix(props);
+  } = useAffix(props, { showElement });
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
 
@@ -294,24 +310,24 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
    * Affixed Header
    */
   const renderFixedHeader = () => {
-    if (!props.showHeader) return null;
+    if (!showHeader) return null;
     // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
     const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
     const barWidth = isWidthOverflow ? scrollbarWidth : 0;
-    const headerBarWidth = isFixedHeader ? scrollbarWidth : 0;
+    // const headerBarWidth = isFixedHeader ? scrollbarWidth : 0;
     const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
     const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
     const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
     const affixHeaderWrapHeightStyle = {
-      width: `${tableWidth.current - headerBarWidth}px`,
+      width: `${tableWidth.current}px`,
       height: `${affixHeaderWrapHeight}px`,
       opacity: headerOpacity,
     };
-    const affixedHeader = Boolean((props.headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
+    const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - headerBarWidth - affixedLeftBorder}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
@@ -321,10 +337,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       >
         <table
           className={classNames(tableElmClasses)}
-          style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}
+          style={{ ...tableElementStyles, width: tableElmWidth.current ? `${tableElmWidth.current}px` : undefined }}
         >
           {renderColGroup(true)}
-          {props.showHeader && <THead {...headProps} />}
+          {showHeader && <THead {...headProps} />}
         </table>
       </div>
     );
@@ -340,7 +356,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   };
 
   const renderAffixedHeader = () => {
-    if (!props.showHeader) return null;
+    if (!showHeader) return null;
     return (
       !!(virtualConfig.isVirtualScroll || props.headerAffixedTop) &&
       (props.headerAffixedTop ? (
@@ -382,7 +398,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
             { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
           ])}
         >
-          <table className={tableElmClasses} style={{ ...tableElementStyles, width: `${tableElmWidth.current}px` }}>
+          <table
+            className={tableElmClasses}
+            style={{ ...tableElementStyles, width: tableElmWidth.current ? `${tableElmWidth.current}px` : undefined }}
+          >
             {renderColGroup(true)}
             <TFoot
               rowKey={props.rowKey}
@@ -453,7 +472,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
       >
         {renderColGroup(false)}
         {useMemo(() => {
-          if (!props.showHeader) return null;
+          if (!showHeader) return null;
           return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
           // eslint-disable-next-line
         }, headUseMemoDependencies)}
@@ -535,121 +554,154 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   );
 
   const { topContent, bottomContent } = props;
-  const pagination = (
+  const paginationNode = pagination ? (
     <div ref={paginationRef} className={tableBaseClass.paginationWrap} style={{ opacity: Number(showAffixPagination) }}>
       {renderPagination()}
     </div>
-  );
+  ) : null;
   const bottom = !!bottomContent && (
     <div ref={bottomContentRef} className={tableBaseClass.bottomContent}>
       {bottomContent}
     </div>
   );
 
-  return (
-    <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={{ position: 'relative', ...style }}>
+  const affixedHeaderContent = useMemo(
+    renderAffixedHeader,
+    // eslint-disable-next-line
+    [
+      // eslint-disable-next-line
+      ...headUseMemoDependencies,
+      showAffixHeader,
+      tableWidth,
+      tableElmWidth,
+      affixHeaderRef,
+      affixedLeftBorder,
+      tableElmClasses,
+      tableElementStyles,
+      columns,
+      spansAndLeafNodes,
+      showHeader,
+      props.headerAffixedTop,
+    ],
+  );
+
+  const affixedFooterContent = useMemo(
+    renderAffixedFooter,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      showAffixFooter,
+      isFixedHeader,
+      rowAndColFixedPosition,
+      spansAndLeafNodes,
+      columns,
+      thWidthList,
+      tableBaseClass,
+      tableElementStyles,
+      tableElmWidth,
+      affixFooterRef,
+      affixedLeftBorder,
+      bordered,
+      isWidthOverflow,
+      scrollbarWidth,
+      tableElmClasses,
+      tableFootHeight,
+      tableWidth,
+      virtualConfig.isVirtualScroll,
+      props.rowKey,
+      props.footData,
+      props.rowAttributes,
+      props.rowClassName,
+      props.footerSummary,
+      props.footerAffixedBottom,
+      props.rowspanAndColspanInFooter,
+    ],
+  );
+
+  const scrollbarDivider = useMemo(() => {
+    if (!showRightDivider) return null;
+    return (
+      <div
+        className={tableBaseClass.scrollbarDivider}
+        style={{
+          right: `${scrollbarWidth}px`,
+          bottom: dividerBottom ? `${dividerBottom}px` : undefined,
+          height: `${tableContentRef.current?.getBoundingClientRect().height}px`,
+        }}
+      ></div>
+    );
+  }, [tableBaseClass, showRightDivider, scrollbarWidth, dividerBottom, tableContentRef]);
+
+  const affixedScrollbar = props.horizontalScrollAffixedBottom && (
+    <Affix
+      offsetBottom={0}
+      {...getAffixProps(props.horizontalScrollAffixedBottom)}
+      style={{ marginTop: `-${scrollbarWidth * 2}px` }}
+    >
+      <div
+        ref={horizontalScrollbarRef}
+        className={classNames(['scrollbar', tableBaseClass.obviousScrollbar])}
+        style={{
+          width: `${tableWidth.current}px`,
+          overflow: 'auto',
+          opacity: Number(showAffixFooter),
+        }}
+      >
+        <div style={{ width: `${tableElmWidth.current}px`, height: '5px' }}></div>
+      </div>
+    </Affix>
+  );
+
+  const affixedPaginationContent = props.paginationAffixedBottom ? (
+    <Affix offsetBottom={0} {...getAffixProps(props.paginationAffixedBottom)}>
+      {paginationNode}
+    </Affix>
+  ) : (
+    paginationNode
+  );
+
+  const tableElements = (
+    <>
       {!!topContent && <div className={tableBaseClass.topContent}>{topContent}</div>}
 
-      {useMemo(
-        renderAffixedHeader,
-        // eslint-disable-next-line
-        [
-          // eslint-disable-next-line
-          ...headUseMemoDependencies,
-          showAffixHeader,
-          tableWidth,
-          tableElmWidth,
-          affixHeaderRef,
-          affixedLeftBorder,
-          tableElmClasses,
-          tableElementStyles,
-          columns,
-          spansAndLeafNodes,
-          props.showHeader,
-          props.headerAffixedTop,
-        ],
-      )}
+      {affixedHeaderContent}
 
       {tableContent}
 
       {/* eslint-disable-next-line */}
-      {useMemo(renderAffixedFooter, [
-        showAffixFooter,
-        isFixedHeader,
-        rowAndColFixedPosition,
-        spansAndLeafNodes,
-        columns,
-        thWidthList,
-        tableBaseClass,
-        tableElementStyles,
-        tableElmWidth,
-        affixFooterRef,
-        affixedLeftBorder,
-        bordered,
-        isWidthOverflow,
-        scrollbarWidth,
-        tableElmClasses,
-        tableFootHeight,
-        tableWidth,
-        props.rowKey,
-        props.footData,
-        props.rowAttributes,
-        props.rowClassName,
-        props.footerSummary,
-        props.footerAffixedBottom,
-        props.rowspanAndColspanInFooter,
-      ])}
+      {affixedFooterContent}
 
       {loadingContent}
 
-      {useMemo(() => {
-        if (!showRightDivider) return null;
-        return (
-          <div
-            className={tableBaseClass.scrollbarDivider}
-            style={{
-              right: `${scrollbarWidth}px`,
-              bottom: dividerBottom ? `${dividerBottom}px` : undefined,
-              height: `${tableContentRef.current?.getBoundingClientRect().height}px`,
-            }}
-          ></div>
-        );
-      }, [tableBaseClass, showRightDivider, scrollbarWidth, dividerBottom, tableContentRef])}
+      {scrollbarDivider}
 
       {bottom}
 
       {/* 吸底的滚动条 */}
-      {props.horizontalScrollAffixedBottom && (
-        <Affix
-          offsetBottom={0}
-          {...getAffixProps(props.horizontalScrollAffixedBottom)}
-          style={{ marginTop: `-${scrollbarWidth * 2}px` }}
-        >
-          <div
-            ref={horizontalScrollbarRef}
-            className={classNames(['scrollbar', tableBaseClass.obviousScrollbar])}
-            style={{
-              width: `${tableWidth.current}px`,
-              overflow: 'auto',
-              opacity: Number(showAffixFooter),
-            }}
-          >
-            <div style={{ width: `${tableElmWidth.current}px`, height: '5px' }}></div>
-          </div>
-        </Affix>
-      )}
+      {affixedScrollbar}
 
       {/* 吸底的分页器 */}
-      {props.paginationAffixedBottom ? (
-        <Affix offsetBottom={0} {...getAffixProps(props.paginationAffixedBottom)}>
-          {pagination}
-        </Affix>
-      ) : (
-        pagination
-      )}
+      {affixedPaginationContent}
 
       {/* 调整列宽时的指示线。由于层级需要比较高，因而放在根节点，避免被吸顶表头覆盖。非必要情况，请勿调整辅助线位置 */}
-      <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>
+      {resizable && <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>}
+    </>
+  );
+
+  if (resizable && tableLayout === 'auto') {
+    log.warn(
+      'Table',
+      'table-layout can not be `auto`, cause you are using column resizable, set `table-layout: fixed` please.',
+    );
+  }
+
+  if (!showElement) {
+    <div ref={tableRef}></div>;
+  }
+
+  return (
+    <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={{ position: 'relative', ...style }}>
+      {tableElements}
     </div>
   );
 });

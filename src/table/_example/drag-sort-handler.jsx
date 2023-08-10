@@ -80,6 +80,7 @@ export default function TableDragSort() {
         dragSort="row-handler"
         loading={loading}
         onDragSort={onDragSort}
+        lazyLoad
       />
     </Space>
   );

@@ -14,6 +14,7 @@ export const baseTableDefaultProps: TdBaseTableProps = {
   footerAffixedBottom: false,
   headerAffixedTop: false,
   hover: false,
+  lazyLoad: false,
   loading: undefined,
   resizable: false,
   rowKey: 'id',
