@@ -44,6 +44,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     resizable,
     lazyLoad,
     pagination,
+    isStatic = false,
   } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
@@ -56,7 +57,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
-    [spansAndLeafNodes?.leafColumns, columns],
+    isStatic ? [] : [spansAndLeafNodes?.leafColumns, columns],
   );
 
   // 固定表头和固定列逻辑

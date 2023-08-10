@@ -52,6 +52,10 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   cellEmptyContent?: string | TNode<BaseTableCellParams<T>>;
   /**
+   * 静态的表格，用于表格的columns属性不会动态变化的场景 @link https://github.com/Tencent/tdesign-react/issues/2386
+   */
+  isStatic?: Boolean;
+  /**
    * 列配置，泛型 T 指表格数据类型
    * @default []
    */
