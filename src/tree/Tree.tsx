@@ -45,6 +45,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     expandOnClickNode,
     onClick,
     scroll,
+    className,
     style,
   } = props;
 
@@ -304,7 +305,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   return (
     <TreeDraggableContext.Provider value={draggable}>
       <div
-        className={classNames(treeClassNames.tree, {
+        className={classNames(treeClassNames.tree, className, {
           [treeClassNames.disabled]: disabled,
           [treeClassNames.treeHoverable]: hover,
           [treeClassNames.treeCheckable]: checkable,

@@ -170,7 +170,7 @@ export default function TBody(props: TableBodyProps) {
   const isEmpty = !data?.length && !props.loading && !hasFullRowConfig;
 
   // 垫上隐藏的 tr 元素高度
-  const translate = `translate(0, ${virtualConfig.translateY}px)`;
+  const translate = `translateY(${virtualConfig.translateY}px)`;
   const posStyle = virtualConfig.isVirtualScroll
     ? {
         transform: translate,

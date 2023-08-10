@@ -5,6 +5,25 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.2.0 `2023-08-10` 
+
+### ❗ Breaking Changes
+- `Icon`: 新增 960 个图标；调整图标命名 `photo` 为 `camera`，`books`为`bookmark`, `stop-cirle-1`为`stop-circle-stroke`；移除`money-circle`图标，具体请查看图标页面  @uyarn ([#2429](https://github.com/Tencent/tdesign-react/pull/2429))
+
+### 🚀 Features
+- `Table`:
+    - 新增 `lazyLoad` 用于懒加载整个表格 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+    - 可编辑单元格，新增 `edit.keepEditMode` ，用于保持单元格始终为编辑模式 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+    - 可筛选表格，支持透传 `attrs/style/classNames` 属性、样式、类名等信息到自定义组件，[tdesign-vue#2627](https://github.com/Tencent/tdesign-vue/issues/2627) @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+    -  可筛选表格，当前 `filterValue` 未设置过滤值的默认值时，不再透传 undefined 到筛选器组件，某些组件的默认值必须为数组，不允许是 undefined @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+### 🐞 Bug Fixes
+- `Cascader`:  传入的 value 不在 options中时会直接报错 @peng-yin ([#2414](https://github.com/Tencent/tdesign-react/pull/2414))
+- `menu`: 修复同一个MenuItem多次触发onChange的问题 @leezng ([#2424](https://github.com/Tencent/tdesign-react/pull/2424))
+- `Drawer`: 抽屉组件在 visible 默认为 true 时，无法正常显示 @peng-yin ([#2415](https://github.com/Tencent/tdesign-react/pull/2415))
+- `Table`:
+    - 虚拟滚动场景，修复表头宽度和表内容宽度不一致问题 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+    - 虚拟滚动场景，修复默认的滚动条长度（位置）和滚动后的不一致问题 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402)) 
+
 ## 🌈 1.1.17 `2023-07-28`
 ### 🐞 Bug Fixes
 - `tabs`: 修复tabs组件list传空数组时的js报错 @zhenglianghan ([#2393](https://github.com/Tencent/tdesign-react/pull/2393))

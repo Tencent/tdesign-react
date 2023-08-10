@@ -19,7 +19,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   /** 注意测试：数据长度为空；数据长度小于表格高度等情况。即期望只有数据量达到一定程度才允许开启虚拟滚动 */
   const [visibleData, setVisibleData] = useState<any[]>([]);
   // 滚动过程中表格顶部占位距离
-  const [translateY, setTranslateY] = useState(0);
+  const [translateY, setTranslateY] = useState((data?.length || 0) * (scroll?.rowHeight || 50));
   // 滚动高度，用于显示滚动条
   const [scrollHeight, setScrollHeight] = useState(0);
   const trScrollTopHeightList = useRef<number[]>([]);

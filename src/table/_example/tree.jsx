@@ -353,6 +353,7 @@ export default function TableTree() {
         pagination={pagination}
         onPageChange={onPageChange}
         onTreeExpandChange={onTreeExpandChange}
+        lazyLoad
       ></EnhancedTable>
 
       {/* <!-- 第二列展开树结点，缩进为 12px，示例代码有效，勿删 -->

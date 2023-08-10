@@ -1,56 +1,43 @@
 import React from 'react';
-import { LoadingIcon, CloseIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
+import {
+  LettersTIcon,
+  LettersDIcon,
+  LettersSIcon,
+  LettersEIcon,
+  LettersIIcon,
+  LettersNIcon,
+  LettersGIcon,
+  ComponentCheckboxIcon,
+  ComponentInputIcon,
+  ComponentSwitchIcon,
+  ComponentBreadcrumbIcon,
+  ComponentDropdownIcon,
+  ComponentRadioIcon,
+  ComponentStepsIcon,
+} from 'tdesign-icons-react';
+import { Space } from 'tdesign-react';
 
 export default function IconExample() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-      }}
-    >
-      <div
-        style={{
-          width: 140,
-          height: 140,
-          fontSize: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <LoadingIcon size="2em" />
-        <div style={{ marginTop: 12 }}>LoadingIcon</div>
-      </div>
-      <div
-        style={{
-          width: 140,
-          height: 140,
-          fontSize: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <CloseIcon size="2em" />
-        <div style={{ marginTop: 12 }}>CloseIcon</div>
-      </div>
-      <div
-        style={{
-          width: 140,
-          height: 140,
-          fontSize: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <CheckCircleFilledIcon size="2em" />
-        <div style={{ marginTop: 12 }}>CheckCircleFilledIcon</div>
-      </div>
-    </div>
+    <Space direction="vertical">
+      <Space breakLine style={{ color: `var(--td-brand-color)` }}>
+        <LettersTIcon />
+        <LettersDIcon />
+        <LettersEIcon />
+        <LettersSIcon />
+        <LettersIIcon />
+        <LettersGIcon />
+        <LettersNIcon />
+      </Space>
+      <Space breakLine>
+        <ComponentCheckboxIcon />
+        <ComponentBreadcrumbIcon />
+        <ComponentInputIcon />
+        <ComponentSwitchIcon />
+        <ComponentDropdownIcon />
+        <ComponentRadioIcon />
+        <ComponentStepsIcon />
+      </Space>
+    </Space>
   );
 }

@@ -97,5 +97,5 @@ export default function TableExample() {
     }
   }
 
-  return <Table data={data} bordered={true} columns={columns} rowKey="i" rowspanAndColspan={rowspanAndColspan} />;
+  return <Table data={data} bordered={true} columns={columns} rowKey="i" rowspanAndColspan={rowspanAndColspan} lazyLoad/>;
 }

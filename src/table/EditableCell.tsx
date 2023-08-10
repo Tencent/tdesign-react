@@ -42,10 +42,17 @@ const EditableCell = (props: EditableCellProps) => {
   const { row, col, colIndex, rowIndex, errors, editable, tableBaseClass } = props;
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
-  const [isEdit, setIsEdit] = useState(props.col.edit?.defaultEditable || false);
+  const isKeepEditMode = Boolean(col.edit?.keepEditMode);
+  const [isEdit, setIsEdit] = useState(isKeepEditMode || props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
   const { classPrefix } = useConfig();
+
+  useEffect(() => {
+    if (isKeepEditMode) {
+      setIsEdit(true);
+    }
+  }, [isKeepEditMode]);
 
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
     if (!colKey) return row;
@@ -76,8 +83,12 @@ const EditableCell = (props: EditableCellProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
+  const updateEditedCellValue = (val: any) => {
+    setEditValue(val);
+  };
+
   const editOnListeners = useMemo(
-    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow }) || {},
+    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow, updateEditedCellValue }) || {},
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cellParams, currentRow],
   );
@@ -98,7 +109,9 @@ const EditableCell = (props: EditableCellProps) => {
   const componentProps = useMemo(() => {
     const { edit } = col;
     if (!edit) return {};
-    const editProps = isFunction(edit.props) ? edit.props({ ...cellParams, editedRow: currentRow }) : { ...edit.props };
+    const editProps = isFunction(edit.props)
+      ? edit.props({ ...cellParams, editedRow: currentRow, updateEditedCellValue })
+      : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
     delete editProps.value;
@@ -166,7 +179,9 @@ const EditableCell = (props: EditableCellProps) => {
       editOnListeners[eventName]?.(args[2]);
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
-        setIsEdit(false);
+        if (!isKeepEditMode) {
+          setIsEdit(false);
+        }
         setErrorList([]);
         clearTimeout(timer);
       }, 0);

@@ -71,11 +71,13 @@ export default function TableFilterController(props: TableFilterControllerProps)
     const filterComponentProps: { [key: string]: any } = {
       options: ['single', 'multiple'].includes(column.filter.type) ? column.filter?.list : undefined,
       ...(column.filter?.props || {}),
-      value: innerFilterValue?.[column.colKey],
       onChange: (val: any) => {
         props.onInnerFilterChange?.(val, column);
       },
     };
+    if (column.colKey && innerFilterValue && column.colKey in innerFilterValue) {
+      filterComponentProps.value = innerFilterValue[column.colKey];
+    }
     // 允许自定义触发确认搜索的事件
     if (column.filter?.confirmEvents) {
       column.filter.confirmEvents.forEach((event) => {
@@ -86,9 +88,15 @@ export default function TableFilterController(props: TableFilterControllerProps)
       });
     }
     const FilterComponent = column?.filter?.component || Component;
+    const filter = column.filter || {};
     return (
       <div className={tableFilterClasses.contentInner}>
-        <FilterComponent value={innerFilterValue?.[column.colKey]} {...filterComponentProps} />
+        <FilterComponent
+          className={filter.classNames}
+          style={filter.style}
+          {...filter.attrs}
+          {...filterComponentProps}
+        />
       </div>
     );
   };

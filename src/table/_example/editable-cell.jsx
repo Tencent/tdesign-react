@@ -31,9 +31,11 @@ export default function EditableCellTable() {
   const [data, setData] = useState([...initData]);
   const [relationSelect, setRelationSelect] = useState({});
 
-  const editableCellState = (cellParams) =>
+  const editableCellState = (cellParams) => {
     // 第一行不允许编辑
-    cellParams.status !== 2;
+    // return cellParams.status !== 2;
+    return cellParams.index !== 2;
+  }
 
   const columns = useMemo(
     () => [
@@ -114,6 +116,7 @@ export default function EditableCellTable() {
         colKey: 'letters',
         cell: ({ row }) => row?.letters?.join('、'),
         edit: {
+          keepEditMode: true,
           component: Select,
           // props, 透传全部属性到 Select 组件
           // props 为函数时，参数有：col, row, rowIndex, colIndex, editedRow。一般用于实现编辑组件之间的联动
@@ -135,6 +138,7 @@ export default function EditableCellTable() {
             console.log('Edit Letters:', context);
             MessagePlugin.success('Success');
           },
+          rules: [{ validator: (val) => val.length > 0, message: '至少选择一种' }],
         },
       },
       {
@@ -168,5 +172,5 @@ export default function EditableCellTable() {
   );
 
   // 当前示例包含：输入框、单选、多选、日期 等场景
-  return <Table rowKey="key" columns={columns} data={data} editableCellState={editableCellState} bordered />;
+  return <Table rowKey="key" columns={columns} data={data} editableCellState={editableCellState} bordered lazyLoad />;
 }

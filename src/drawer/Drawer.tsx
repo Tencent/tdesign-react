@@ -70,7 +70,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
 
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
   const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
-  const [animationStart, setAnimationStart] = useState(false);
+  const [animationStart, setAnimationStart] = useState(visible);
 
   const sizeValue = useMemo(() => {
     const sizeMap = { small: '300px', medium: '500px', large: '760px' };

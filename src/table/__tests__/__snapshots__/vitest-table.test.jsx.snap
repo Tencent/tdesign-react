@@ -196,14 +196,6 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
         </tfoot>
       </table>
     </div>
-    <div
-      class="t-table__pagination-wrap"
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </div>
 `;
@@ -404,14 +396,6 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
         </tfoot>
       </table>
     </div>
-    <div
-      class="t-table__pagination-wrap"
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </div>
 `;
@@ -612,14 +596,6 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
         </tfoot>
       </table>
     </div>
-    <div
-      class="t-table__pagination-wrap"
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </div>
 `;
@@ -820,14 +796,6 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
         </tfoot>
       </table>
     </div>
-    <div
-      class="t-table__pagination-wrap"
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </div>
 `;
@@ -1022,14 +990,6 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
         </tfoot>
       </table>
     </div>
-    <div
-      class="t-table__pagination-wrap"
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </div>
 `;
@@ -1230,14 +1190,6 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
         </tfoot>
       </table>
     </div>
-    <div
-      class="t-table__pagination-wrap"
-      style="opacity: 1;"
-    />
-    <div
-      class="t-table__resize-line"
-      style="display: none; left: 10px; height: 10px; bottom: 0px;"
-    />
   </div>
 </div>
 `;

@@ -46,6 +46,7 @@ export default function TableFixedColumn() {
       tableLayout={tableLayout}
       tableContentWidth={tableLayout === 'fixed' ? undefined : '1200px'}
       resizable={true}
+      lazyLoad
       columns={[
         { colKey: 'applicant', title: '申请人', width: 100, fixed: 'left' },
         {
