@@ -11,6 +11,14 @@ SVG icons can be imported on demand. When using the Icon component in component 
 
 {{ IconExample }}
 
+### Full import
+
+The icon size supports multiple units, such as 'small', 'medium', 'large', '35px', '3em', etc. 
+The icon color is controlled by CSS, for example, using style="color: red" or style="fill: red". 
+Click on the 「All Icons」 navigation on the right to view all icons in the component library.
+
+{{ SvgSpriteExample }}
+
 ### Iconfont
 
 {{ IconFontExample }}

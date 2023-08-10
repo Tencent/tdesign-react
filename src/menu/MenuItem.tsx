@@ -36,7 +36,7 @@ const MenuItem: FC<MenuItemProps> = (props) => {
     if (disabled) return;
 
     onClick && onClick({ e });
-    onChange(value);
+    if (value !== active) onChange(value);
     setState({ active: value });
   };
 
