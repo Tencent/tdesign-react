@@ -29,7 +29,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const wrapRef = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
   const contentClickRef = useRef(false);
-  const dialogCardRef = useRef();
+  const dialogCardRef = useRef<HTMLDivElement>();
   const dialogPosition = useRef();
   const portalRef = useRef();
   const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...props });
@@ -149,6 +149,16 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     wrapRef.current.style.display = 'block';
   };
 
+  const onInnerAnimateStart = () => {
+    if (!dialogCardRef.current) return;
+    dialogCardRef.current.style.display = 'block';
+  };
+
+  const onInnerAnimateLeave = () => {
+    if (!dialogCardRef.current) return;
+    dialogCardRef.current.style.display = 'none';
+  };
+
   const renderMask = () => {
     if (mode !== 'modal') return null;
 
@@ -207,6 +217,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                 timeout={300}
                 classNames={`${componentCls}-zoom`}
                 nodeRef={dialogCardRef}
+                onEnter={onInnerAnimateStart}
+                onExited={onInnerAnimateLeave}
               >
                 <DialogCard
                   ref={dialogCardRef}
