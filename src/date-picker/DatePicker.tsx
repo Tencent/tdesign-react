@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import useConfig from '../hooks/useConfig';
@@ -108,9 +108,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setPopupVisible(false);
     }
   }
-
   // 头部快速切换
-  function onJumperClick({ trigger }) {
+  const onJumperClick = React.useCallback(({ trigger }) => {
     const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
@@ -130,7 +129,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
     setYear(nextYear);
     setMonth(nextMonth);
-  }
+    // eslint-disable-next-line
+  }, []);
 
   // timePicker 点击
   function onTimePickerChange(val: string) {
@@ -180,13 +180,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setPopupVisible(false);
   }
 
-  function onYearChange(year: number) {
+  const onYearChange = useCallback((year: number) => {
     setYear(year);
-  }
+    // eslint-disable-next-line
+  }, []);
 
-  function onMonthChange(month: number) {
+  const onMonthChange = useCallback((month: number) => {
     setMonth(month);
-  }
+    // eslint-disable-next-line
+  }, []);
 
   const panelProps = {
     value: cacheValue,
