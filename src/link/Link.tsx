@@ -20,6 +20,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
     theme,
     disabled,
     hover,
+    download,
     onClick,
     href,
     size,
@@ -49,6 +50,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
         [`${classPrefix}-is-underline`]: !!underline,
         [`${classPrefix}-link--hover-${hover}`]: !disabled,
       })}
+      download={download}
       onClick={handleClick}
     >
       {prefixIcon && <span className={classNames([`${classPrefix}-link__prefix-icon`])}>{parseTNode(prefixIcon)}</span>}
