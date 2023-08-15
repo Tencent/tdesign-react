@@ -217,6 +217,10 @@ export interface TdFormItemProps {
    * 自定义提示内容，样式跟随 `status` 变动，可在需要完全自主控制校验规则时使用
    */
   tips?: TNode;
+  /**
+   * 当用户交互产生数据变化时触发，用于格式化数据
+   */
+  valueFormat?: FormItemFormatType;
 }
 
 export interface TdFormListProps {
@@ -442,6 +446,8 @@ export interface FormValidateParams {
 export type ValidateTriggerType = 'blur' | 'change' | 'all';
 
 export type Data = { [key: string]: any };
+
+export type FormItemFormatType = (value: any) => any;
 
 export type InitialData = any;
 
