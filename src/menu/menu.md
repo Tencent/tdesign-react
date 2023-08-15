@@ -65,7 +65,7 @@ href | String | - | 跳转链接 | N
 icon | TElement | - | 图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 target | String | - | 链接或路由跳转方式。可选项：_blank/_self/_parent/_top | N
 value | String / Number | - | 菜单项唯一标识。TS 类型：`MenuValue` | N
-onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击时触发 | N
+onClick | Function |  | TS 类型：`(context: { e: MouseEvent, value: MenuValue }) => void`<br/>点击时触发 | N
 
 ### MenuGroup Props
 
