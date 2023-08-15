@@ -177,7 +177,7 @@ export interface TdMenuItemProps {
   /**
    * 点击时触发
    */
-  onClick?: (context: { e: MouseEvent<HTMLElement> }) => void;
+  onClick?: (context: { e: MouseEvent<HTMLElement>; value: MenuValue }) => void;
 }
 
 export interface TdMenuGroupProps {
