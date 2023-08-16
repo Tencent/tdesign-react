@@ -28,7 +28,7 @@ expanded | Array | [] | Typescript：`Array<TreeNodeValue>` | N
 filter | Function | - | Typescript：`(node: TreeNodeModel<T>) => boolean` | N
 hover | Boolean | - | \- | N
 icon | TNode | true | Typescript：`boolean \| TNode<TreeNodeModel<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-keys | Object | - | Typescript：`TreeKeysType` `interface TreeKeysType { value?: string; label?: string; children?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree/type.ts) | N
+keys | Object | - | alias field name in data。Typescript：`TreeKeysType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 label | TNode | true | Typescript：`string \| boolean \| TNode<TreeNodeModel<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 lazy | Boolean | true | \- | N
 line | TNode | false | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

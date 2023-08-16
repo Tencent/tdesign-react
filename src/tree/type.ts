@@ -5,7 +5,7 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
-import { TNode, TreeOptionData, TScroll } from '../common';
+import { TNode, TreeOptionData, TreeKeysType, TScroll } from '../common';
 import { MouseEvent, WheelEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
@@ -118,7 +118,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   icon?: boolean | TNode<TreeNodeModel<T>>;
   /**
-   * 用来定义 `value / label / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`
+   * 用来定义 `value / label / disabled / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`。其中，disabled 待开发。
    */
   keys?: TreeKeysType;
   /**
@@ -436,12 +436,6 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
    * 设置节点数据，数据变化可自动刷新页面，泛型 `T` 表示树节点 TS 类型，继承 `TreeOptionData`
    */
   setData: (data: T) => void;
-}
-
-export interface TreeKeysType {
-  value?: string;
-  label?: string;
-  children?: string;
 }
 
 export type TreeNodeValue = string | number;
