@@ -12,7 +12,7 @@ export default function ScrollBottom() {
   // 通过滚动事件自行判断
   // const handleScroll = ({ e }) => {
   //   const { scrollTop, clientHeight, scrollHeight } = e.target;
-  //   if (scrollHeight - scrollTop === clientHeight) {
+  //   if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
   //     console.log('到底部了');
   //     changeDynamicOptions((dynamicOptions) =>
   //       dynamicOptions.concat({

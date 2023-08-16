@@ -13,14 +13,14 @@ errorMessage | Object | - | Typescript：`FormErrorMessage` | N
 form | Object | - | Typescript：`FormInstanceFunctions` | N
 formControlledComponents | Array | - | Typescript：`Array<string>` | N
 initialData | Object | - | \- | N
-labelAlign | String | right | options：left/right/top | N
+labelAlign | String | right | options: left/right/top | N
 labelWidth | String / Number | '100px' | \- | N
-layout | String | vertical | options：vertical/inline | N
+layout | String | vertical | options: vertical/inline | N
 preventSubmitDefault | Boolean | true | \- | N
 requiredMark | Boolean | true | \- | N
-resetType | String | empty | options：empty/initial | N
-rules | Object | - | Typescript：`FormRules<FormData>` `type FormRules<T extends Data> = { [field in keyof T]?: Array<FormRule> }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-scrollToFirstError | String | - | options：''/smooth/auto | N
+resetType | String | empty | options: empty/initial | N
+rules | Object | - | Typescript：`FormRules<FormData>` `type FormRules<T extends Data = any> = { [field in keyof T]?: Array<FormRule> }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
+scrollToFirstError | String | - | options: ''/smooth/auto | N
 showErrorMessage | Boolean | true | \- | N
 statusIcon | TNode | undefined | Typescript：`boolean \| TNode<TdFormItemProps>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 submitWithWarningMessage | Boolean | false | \- | N
@@ -56,9 +56,9 @@ for | String | - | \- | N
 help | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 initialData | String / Number / Object / Array | - | Typescript：`InitialData` `type InitialData = any`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 label | TNode | '' | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-labelAlign | String | - | options：left/right/top | N
+labelAlign | String | - | options: left/right/top | N
 labelWidth | String / Number | - | \- | N
-name | String / Number / Array | - | Typescript：`NamePath` `type NamePath = string \| number \| Array<string \| number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
+name | String | - | \- | N
 requiredMark | Boolean | undefined | \- | N
 rules | Array | - | Typescript：`Array<FormRule>` | N
 shouldUpdate | Boolean / Function | false | Typescript：`boolean \| ((prevValue, curValue) => boolean)` | N
@@ -67,6 +67,7 @@ status | String | - | Typescript：`'error' \| 'warning' \| 'success' \| 'valida
 statusIcon | TNode | undefined | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 successBorder | Boolean | false | \- | N
 tips | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+valueFormat | Function | - | Triggered when user interaction results in data changes, used to format data。Typescript：`FormItemFormatType` `type FormItemFormatType = (value: any) => any`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 
 ### FormList Props
 
@@ -96,8 +97,8 @@ number | Boolean | - | \- | N
 pattern | Object | - | Typescript：`RegExp` | N
 required | Boolean | - | \- | N
 telnumber | Boolean | - | \- | N
-trigger | String | change | options：change/blur | N
-type | String | error | options：error/warning | N
+trigger | String | change | options: change/blur | N
+type | String | error | options: error/warning | N
 url | Boolean / Object | - | Typescript：`boolean \| IsURLOptions` `import { IsURLOptions } from 'validator/es/lib/isURL'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 validator | Function | - | Typescript：`CustomValidator` `type CustomValidator = (val: ValueType) => CustomValidateResolveType \| Promise<CustomValidateResolveType>` `type CustomValidateResolveType = boolean \| CustomValidateObj` `interface CustomValidateObj { result: boolean; message: string; type?: 'error' \| 'warning' \| 'success' }` `type ValueType = any`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 whitespace | Boolean | - | \- | N

@@ -6,10 +6,10 @@
 
 import { ButtonProps } from '../button';
 import { PopupProps } from '../popup';
-import { TNode, TElement } from '../common';
+import { TNode, TElement, StyledProps } from '../common';
 import { MouseEvent } from 'react';
 
-export interface TdPopconfirmProps {
+export interface TdPopconfirmProps extends StyledProps {
   /**
    * 取消按钮，可自定义。值为 null 则不显示取消按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制取消事件
    * @default ''

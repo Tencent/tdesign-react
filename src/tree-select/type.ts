@@ -10,7 +10,7 @@ import { PopupProps } from '../popup';
 import { SelectInputProps, SelectInputBlurContext, SelectInputValueChangeContext } from '../select-input';
 import { TagProps } from '../tag';
 import { TreeProps, TreeNodeModel, TreeKeysType } from '../tree';
-import { PopupVisibleChangeContext, PopupTriggerEvent, PopupTriggerSource } from '../popup';
+import { PopupTriggerEvent, PopupTriggerSource } from '../popup';
 import { TNode, TElement, TreeOptionData } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
@@ -77,7 +77,7 @@ export interface TdTreeSelectProps<
    */
   defaultInputValue?: InputValue;
   /**
-   * 用来定义 `value / label / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`
+   * 用来定义 `value / label / disabled / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label: 'name', children: 'list' }`
    */
   keys?: TreeKeysType;
   /**
