@@ -112,7 +112,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
   }
 
   return (
-    <div className={`${classPrefix}-popconfirm__content`}>
+    <div className={`${classPrefix}-popconfirm__content ${props.className}`} style={props.style}>
       <div className={`${classPrefix}-popconfirm__body`}>
         {renderIcon()}
         <div className={`${classPrefix}-popconfirm__inner`}>{content}</div>
