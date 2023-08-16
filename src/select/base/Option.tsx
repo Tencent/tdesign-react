@@ -118,6 +118,7 @@ const Option = (props: SelectOptionProps) => {
             [`${classPrefix}-is-disabled`]: disabled,
             [`${classPrefix}-is-checked`]: selected,
           })}
+          title={propTitle || (label as string)}
         >
           <input
             type="checkbox"
