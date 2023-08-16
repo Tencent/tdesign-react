@@ -7,8 +7,8 @@ import get from 'lodash/get';
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../_util/useRipple';
-import { StyledProps } from '../../common';
-import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType, SelectOption } from '../type';
+import { StyledProps, KeysType } from '../../common';
+import { SelectValue, TdOptionProps, TdSelectProps, SelectOption } from '../type';
 
 /**
  * Option 组件属性
@@ -30,7 +30,7 @@ export interface SelectOptionProps
   ) => void;
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   restData?: Record<string, any>;
-  keys?: SelectKeysType;
+  keys?: KeysType;
   optionLength?: number;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;

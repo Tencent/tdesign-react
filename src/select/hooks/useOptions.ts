@@ -1,12 +1,13 @@
 import React, { useState, useEffect, ReactNode, ReactElement } from 'react';
 import get from 'lodash/get';
-import { SelectKeysType, SelectOption, SelectValue } from '../type';
+import { SelectOption, SelectValue } from '../type';
+import { KeysType } from '../../common';
 import { getValueToOption } from '../util/helper';
 import Option from '../base/Option';
 
 // 处理 options 的逻辑
 export default function UseOptions(
-  keys: SelectKeysType,
+  keys: KeysType,
   options: SelectOption[],
   children: ReactNode,
   valueType: 'object' | 'value',
@@ -43,6 +44,7 @@ export default function UseOptions(
         ...option,
         value: get(option, keys?.value || 'value'),
         label: get(option, keys?.label || 'label'),
+        disabled: get(option, keys?.disabled || 'disabled'),
       }));
     }
     setCurrentOptions(transformedOptions);

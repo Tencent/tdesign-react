@@ -5,6 +5,7 @@
 import { TdCascaderProps } from './type';
 
 export const cascaderDefaultProps: TdCascaderProps = {
+  borderless: false,
   checkStrictly: false,
   clearable: false,
   filterable: false,

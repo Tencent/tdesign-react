@@ -83,6 +83,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       tips={props.tips}
       suffix={props.suffix}
       suffixIcon={renderSuffixIcon()}
+      borderless={props.borderless}
       popupProps={{
         ...props.popupProps,
         overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},
