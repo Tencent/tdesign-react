@@ -38,7 +38,6 @@ export interface TdTransferProps<T extends DataOption = DataOption> {
   direction?: 'left' | 'right' | 'both';
   /**
    * 禁用全部操作：搜索、选中、移动、分页等。[源列表, 目标列表]，示例：[true, false] 或者 true
-   * @default false
    */
   disabled?: boolean | Array<boolean>;
   /**
@@ -51,7 +50,7 @@ export interface TdTransferProps<T extends DataOption = DataOption> {
    */
   footer?: Array<string | TNode> | TNode<{ type: TransferListType }>;
   /**
-   * 用来定义选项文本和选项值字段，示例：`{ label: 'text', value: 'id' }`，表示选项文本取 `text` 字段，选项值取 `id` 字段
+   * 用来定义 value / label / disabled 在 `data` 中对应的字段别名，示例：`{ label: 'text', value: 'id' }`，表示选项文本取 `text` 字段，选项值取 `id` 字段
    */
   keys?: KeysType;
   /**
@@ -153,7 +152,7 @@ export interface SearchContext {
   query: string;
   type: TransferListType;
   trigger: 'input' | 'enter';
-  e: FormEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>;
+  e: FormEvent<HTMLInputElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type DataOption = { label?: string; value?: TransferValue; disabled?: boolean } & Record<string, any>;

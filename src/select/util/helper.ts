@@ -4,7 +4,8 @@ import get from 'lodash/get';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps } from '../type';
+import { SelectValue, TdOptionProps, TdSelectProps } from '../type';
+import { KeysType } from '../../common';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
@@ -12,7 +13,7 @@ type ValueToOption = {
   [value: string | number]: TdOptionProps;
 };
 
-function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueToOption, keys: SelectKeysType) {
+function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueToOption, keys: KeysType) {
   const { value, label, children } = dom.props;
   // eslint-disable-next-line no-param-reassign
   valueToOption[value] = {
@@ -22,11 +23,7 @@ function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueTo
 }
 
 // 获取 value => option，用于快速基于 value 找到对应的 option
-export const getValueToOption = (
-  children: ReactElement,
-  options: TdOptionProps[],
-  keys: SelectKeysType,
-): ValueToOption => {
+export const getValueToOption = (children: ReactElement, options: TdOptionProps[], keys: KeysType): ValueToOption => {
   const valueToOption = {};
 
   // options 优先级高于 children
@@ -80,7 +77,7 @@ export const getLabel = (
   children: ReactElement,
   value: SelectValue<TdOptionProps>,
   options: TdOptionProps[],
-  keys: SelectKeysType,
+  keys: KeysType,
 ) => {
   let selectedLabel = '';
   // 处理带 options 属性的情况
@@ -144,7 +141,7 @@ export const getLabel = (
   return selectedLabel;
 };
 
-export const getMultipleTags = (values: SelectValue[], keys: SelectKeysType) => {
+export const getMultipleTags = (values: SelectValue[], keys: KeysType) => {
   const tags = values.map((item) => ({
     label: get(item, keys?.label || 'label') || item.toString(),
     value: get(item, keys?.value || 'value') || item,
@@ -157,7 +154,7 @@ export const getSelectValueArr = (
   activeValue: SelectValue,
   selected?: boolean,
   valueType?: TdSelectProps['valueType'],
-  keys?: SelectKeysType,
+  keys?: KeysType,
   objVal?: SelectValue,
 ) => {
   // eslint-disable-next-line no-param-reassign
@@ -190,7 +187,7 @@ export const getSelectedOptions = (
   value: SelectValue,
   multiple: TdSelectProps['multiple'],
   valueType: TdSelectProps['valueType'],
-  keys: SelectKeysType,
+  keys: KeysType,
   tmpPropOptions: Array<unknown>,
 ) => {
   const isObjectType = valueType === 'object';
