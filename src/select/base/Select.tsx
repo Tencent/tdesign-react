@@ -209,6 +209,8 @@ const Select = forwardRefWithStatics(
     // 处理filter逻辑
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType = [];
+      if (filterable && isFunction(onSearch)) return;
+
       if (!value) {
         setCurrentOptions(tmpPropOptions);
         return;
