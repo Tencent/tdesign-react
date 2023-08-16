@@ -12,7 +12,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { TreeNodeModel } from '../tree';
 import { PopupVisibleChangeContext } from '../popup';
-import { TNode, TElement, TreeOptionData, SizeEnum } from '../common';
+import { TNode, TElement, TreeOptionData, SizeEnum, TreeKeysType } from '../common';
 import { FocusEvent } from 'react';
 
 export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOptionData> {
@@ -20,6 +20,11 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    * 自动聚焦
    */
   autofocus?: boolean;
+  /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
   /**
    * 参考 checkbox 组件 API
    */
@@ -60,9 +65,9 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    */
   inputProps?: InputProps;
   /**
-   * 用来定义 value / label / children 在 `options` 中对应的字段别名
+   * 用来定义 value / label / children / disabled 在 `options` 中对应的字段别名
    */
-  keys?: CascaderKeysType;
+  keys?: TreeKeysType;
   /**
    * 左侧文本
    */
@@ -225,12 +230,6 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    * 多选模式下，选中数据被移除时触发
    */
   onRemove?: (context: RemoveContext<CascaderOption>) => void;
-}
-
-export interface CascaderKeysType {
-  value?: string;
-  label?: string;
-  children?: string | boolean;
 }
 
 export type CascaderValue<T extends TreeOptionData = TreeOptionData> = string | number | T | Array<CascaderValue<T>>;
