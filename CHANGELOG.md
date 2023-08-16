@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+  ## 🌈 1.2.1 `2023-08-16` 
+### 🚀 Features
+- `Anchor`: 新增 `getCurrentAnchor` 支持自定义高亮锚点 @ontheroad1992 ([#2436](https://github.com/Tencent/tdesign-react/pull/2436))
+- `Menu`: MenuItem onClick 事件增加value返回值 @dexterBo ([#2441](https://github.com/Tencent/tdesign-react/pull/2441))
+- `Form`:  FormItem 新增 valueFormat 函数支持格式化数据 @honkinglin ([#2445](https://github.com/Tencent/tdesign-react/pull/2445))
+### 🐞 Bug Fixes
+- `Dialog`: 修复闪烁问题 @linjunc ([#2435](https://github.com/Tencent/tdesign-react/pull/2435))
+- `Select`: 
+    - 修复多选丢失title的问题 @uyarn ([#2446](https://github.com/Tencent/tdesign-react/pull/2446))
+    - 开启远程搜索时不执行内部过滤 @uyarn ([#2446](https://github.com/Tencent/tdesign-react/pull/2446))
+- `Popconfirm`: invalid className and style props @betavs ([#2420](https://github.com/Tencent/tdesign-react/pull/2420))
+- `DatePicker`: 修复 hover cell 造成不必要的渲染 @j10ccc ([#2440](https://github.com/Tencent/tdesign-react/pull/2440)) 
+
  ## 🌈 1.2.0 `2023-08-10` 
 
 ### ❗ Breaking Changes
