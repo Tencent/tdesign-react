@@ -196,9 +196,13 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     }
   };
 
-  const onInnerRowClick: TdPrimaryTableProps['onRowClick'] = (context) => {
-    onInnerExpandRowClick(context);
-    onInnerSelectRowClick(context);
+  const onInnerRowClick: TdPrimaryTableProps['onRowClick'] = (params) => {
+    if (props.expandOnRowClick) {
+      onInnerExpandRowClick(params);
+    }
+    if (props.selectOnRowClick) {
+      onInnerSelectRowClick(params);
+    }
   };
 
   function formatNode(api: string, renderInnerNode: Function, condition: boolean, extra?: { reverse?: boolean }) {
