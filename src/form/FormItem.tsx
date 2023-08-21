@@ -91,6 +91,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     status,
     tips,
     help,
+    valueFormat,
     initialData,
     className,
     shouldUpdate,
@@ -508,7 +509,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
-                  updateFormValue(value, true, true);
+                  const newValue = valueFormat ? valueFormat(value) : value;
+                  updateFormValue(newValue, true, true);
                   child.props.onChange?.call?.(null, value, ...args);
                 },
                 onBlur: (value: any, ...args: any[]) => {

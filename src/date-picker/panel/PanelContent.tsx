@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import { TimePickerPanel } from '../../time-picker';
@@ -62,6 +62,21 @@ export default function PanelContent(props: PanelContentProps) {
 
   const defaultTime = '00:00:00';
 
+  const onMonthChangeInner = useCallback((val: number) => {
+    onMonthChange?.(val, { partial });
+    // eslint-disable-next-line
+  }, []);
+
+  const onYearChangeInner = useCallback((val: number) => {
+    onYearChange?.(val, { partial });
+    // eslint-disable-next-line
+  }, []);
+
+  const onJumperClickInner = useCallback(({ trigger }) => {
+    onJumperClick?.({ trigger, partial });
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className={`${panelName}-content`}>
       <div className={`${panelName}-${mode}`}>
@@ -69,9 +84,9 @@ export default function PanelContent(props: PanelContentProps) {
           mode={mode}
           year={year}
           month={month}
-          onMonthChange={(val: number) => onMonthChange?.(val, { partial })}
-          onYearChange={(val: number) => onYearChange?.(val, { partial })}
-          onJumperClick={({ trigger }) => onJumperClick?.({ trigger, partial })}
+          onMonthChange={onMonthChangeInner}
+          onYearChange={onYearChangeInner}
+          onJumperClick={onJumperClickInner}
         />
 
         <DateTable
