@@ -110,7 +110,7 @@ export default function useColumnResize(params: {
   // 只在表头显示拖拽图标
   const onColumnMouseover = (e: MouseEvent, col: BaseTableCol<TableRowData>) => {
     // calculate mouse cursor before drag start
-    if (!resizeLineRef.current || resizeLineParams.isDragging) return;
+    if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) return;
     const target = (e.target as HTMLElement).closest('th');
     if (!target) return;
     // 判断是否为叶子阶段，仅叶子结点允许拖拽
