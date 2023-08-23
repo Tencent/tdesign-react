@@ -63,20 +63,26 @@ describe('Watermark 组件测试', () => {
     const watermarkWrapParent = watermarkWrap.parentElement;
     const watermarkEle = wrapper.container.querySelector('.test-observer');
 
+    // 删除了水印wrap元素，还会被立即追加回去
+    watermarkWrapParent.removeChild(watermarkWrap);
+    const afterWrapRemove = wrapper.container.querySelector('.t-watermark');
+    expect(afterWrapRemove).toBeNull();
+    await mockDelay(10);
+    const waitAfterWrapRemove = wrapper.container.querySelector('.t-watermark');
+    expect(waitAfterWrapRemove).not.toBeNull();
+
+    // 删除了水印元素，还会被立即追加回去
     watermarkWrap.removeChild(watermarkEle);
     const afterMarkRemove = wrapper.container.querySelector('.test-observer');
     expect(afterMarkRemove).toBeNull();
-    // 删除了水印元素，还会被立即追加回去
     await mockDelay(10);
     const waitAfterMarkRemove = wrapper.container.querySelector('.test-observer');
     expect(waitAfterMarkRemove).not.toBeNull();
 
-    watermarkWrapParent.removeChild(watermarkWrap);
-    const afterWrapRemove = wrapper.container.querySelector('.t-watermark');
-    expect(afterWrapRemove).toBeNull();
-    // 删除了水印wrap元素，还会被立即追加回去
+    // 修改水印元素的属性，会立即还原
+    watermarkEle.setAttribute('any', '11');
     await mockDelay(10);
-    const waitAfterWrapRemove = wrapper.container.querySelector('.t-watermark');
-    expect(waitAfterWrapRemove).not.toBeNull();
+    const waitAfterAttrChange = wrapper.container.querySelector('.test-observer');
+    expect(waitAfterAttrChange.getAttribute('any')).toBeNull();
   });
 });
