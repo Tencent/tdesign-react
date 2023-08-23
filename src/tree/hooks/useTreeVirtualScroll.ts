@@ -39,6 +39,7 @@ export default function useTreeVirtualScroll({
     scrollHeight = null,
     translateY = null,
     handleRowMounted = null,
+    scrollToElement,
   } = useVirtualScroll(treeRef, {
     data: data || [],
     scroll: scrollParams,
@@ -100,5 +101,6 @@ export default function useTreeVirtualScroll({
     isVirtual,
     cursorStyle,
     treeNodeStyle,
+    scrollToElement,
   };
 }

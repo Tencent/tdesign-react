@@ -67,6 +67,7 @@ getPath | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | 必需。自下而�
 insertAfter | `(value: TreeNodeValue, newData: T)` | \- | 必需。插入新节点到指定节点后面，泛型 `T` 表示树节点 TS 类型
 insertBefore | `(value: TreeNodeValue, newData: T)` | \- | 必需。插入新节点到指定节点前面，泛型 `T` 表示树节点 TS 类型
 remove | `(value: TreeNodeValue)` | \- | 必需。移除指定节点
+scrollTo | `(scrollToParams: ScrollToElementParams)` | \- | 虚拟滚动场景下 支持指定滚动到具体的节点
 setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | 必需。设置节点状态
 
 ### TreeNodeState
