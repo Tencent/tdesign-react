@@ -6,7 +6,7 @@ function getObject(i, currentPage) {
   return {
     id: i,
     key: `申请人 ${i}_${currentPage} 号`,
-    platform: i % 2 === 0 ? '共有' : '私有',
+    platform: i % 2 === 0 ? '电子签署' : '纸质签署',
     type: ['String', 'Number', 'Array', 'Object'][i % 4],
     default: ['-', '0', '[]', '{}'][i % 4],
     detail: {
@@ -66,7 +66,7 @@ function getData(currentPage = 1) {
 }
 
 export default function TableTree() {
-  const table = useRef(null);
+  const tableRef = useRef(null);
   const [data, setData] = useState(getData());
   const [lazyLoadingData, setLazyLoadingData] = useState(null);
   const [expandAll, setExpandAll] = useState(false);
@@ -77,12 +77,16 @@ export default function TableTree() {
     total: 100,
   });
 
+  const [expandedTreeNodes, setExpandedTreeNodes] = useState([]);
+
   const resetData = () => {
     const data = getData();
-    // 当 keys 发生变化时才会触发更新
-    // setData(data);
-    // 如果希望无论何时都触发更新请使用 tableRef.current.resetData
-    table.current.resetData(data);
+    // 方式一
+    setData(data);
+    setExpandedTreeNodes([]);
+
+    // 方式二
+    // tableRef.current.resetData(data);
   };
 
   const onEditClick = (row) => {
@@ -92,17 +96,18 @@ export default function TableTree() {
       type: 'Symbol',
       default: 'undefined',
     };
-    table.current.setData(row.key, newData);
+    tableRef.current.setData(row.key, newData);
     MessagePlugin.success('数据已更新');
   };
 
   const onDeleteConfirm = (row) => {
-    table.current.remove(row.key);
+    tableRef.current.remove(row.key);
+    // tableRef.current.removeChildren(row.key);
     MessagePlugin.success('删除成功');
   };
 
   const onLookUp = (row) => {
-    const allRowData = table.current.getData(row.key);
+    const allRowData = tableRef.current.getData(row.key);
     const message = '当前行全部数据，包含节点路径、父节点、子节点、是否展开、是否禁用等';
     MessagePlugin.success(`打开控制台查看${message}`);
     console.log(`${message}：`, allRowData);
@@ -110,7 +115,7 @@ export default function TableTree() {
 
   const appendTo = (row) => {
     const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
-    table.current.appendTo(row.key, {
+    tableRef.current.appendTo(row.key, {
       id: randomKey1,
       key: `申请人 ${randomKey1} 号`,
       platform: '电子签署',
@@ -125,7 +130,7 @@ export default function TableTree() {
   function appendMultipleDataTo(row) {
     const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
     const randomKey2 = Math.round(Math.random() * Math.random() * 1000) + 10000;
-    const newData = [
+    const appendList = [
       {
         id: randomKey1,
         key: `申请人 ${randomKey1} 号`,
@@ -139,14 +144,14 @@ export default function TableTree() {
         type: 'Number',
       },
     ];
-    table.current.appendTo(row?.key, newData);
+    tableRef.current.appendTo(row?.key, appendList);
     MessagePlugin.success(`已插入子节点申请人 ${randomKey1} 和 ${randomKey2} 号，请展开查看`);
   }
 
   // 当前节点之前，新增兄弟节前
   const insertBefore = (row) => {
     const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
-    table.current.insertBefore(row.key, {
+    tableRef.current.insertBefore(row.key, {
       id: randomKey,
       key: `申请人 ${randomKey} 号`,
       platform: '纸质签署',
@@ -158,7 +163,7 @@ export default function TableTree() {
   // 当前节点之后，新增兄弟节前
   const insertAfter = (row) => {
     const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
-    table.current.insertAfter(row.key, {
+    tableRef.current.insertAfter(row.key, {
       id: randomKey,
       key: `申请人 ${randomKey} 号`,
       platform: '纸质签署',
@@ -176,6 +181,12 @@ export default function TableTree() {
       cell: () => <MoveIcon />,
       width: 46,
       align: 'center',
+    },
+    {
+      colKey: 'id',
+      title: '编号',
+      ellipsis: true,
+      width: 80,
     },
     {
       width: 180,
@@ -230,19 +241,19 @@ export default function TableTree() {
     ];
     rowIds.forEach((id) => {
       // getData 参数为行唯一标识，lodash.get(row, rowKey)
-      const rowData = table.current.getData(id);
-      table.current.toggleExpandData(rowData);
+      const rowData = tableRef.current.getData(id);
+      tableRef.current.toggleExpandData(rowData);
       // 或者
-      // table.current.toggleExpandData({ rowIndex: rowData.rowIndex, row: rowData.row });
+      // tableRef.current.toggleExpandData({ rowIndex: rowData.rowIndex, row: rowData.row });
     });
   };
 
   const appendToRoot = () => {
     const key = Math.round(Math.random() * 10010);
-    table.current.appendTo('', {
+    tableRef.current.appendTo('', {
       id: key,
       key: `申请人 ${key}_${1} 号`,
-      platform: key % 2 === 0 ? '共有' : '私有',
+      platform: key % 2 === 0 ? '电子签署' : '纸质签署',
       type: ['String', 'Number', 'Array', 'Object'][key % 4],
       default: ['-', '0', '[]', '{}'][key % 4],
       detail: {
@@ -258,17 +269,19 @@ export default function TableTree() {
 
   const onExpandAllToggle = () => {
     setExpandAll(!expandAll);
-    !expandAll ? table.current.expandAll() : table.current.foldAll();
+    !expandAll ? tableRef.current.expandAll() : tableRef.current.foldAll();
   };
 
   const getTreeNode = () => {
-    const treeData = table.current.getTreeNode();
+    // 查看树形结构平铺数据
+   // tableRef.current.dataSource
+    const treeData = tableRef.current.getTreeNode();
     console.log(treeData);
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');
   };
 
   const renderTreeExpandAndFoldIcon = ({ type, row }) => {
-    if (lazyLoadingData?.id === row?.id) {
+    if (lazyLoadingData?.key === row?.key) {
       return <Loading size="14px" />;
     }
     return type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />;
@@ -282,7 +295,7 @@ export default function TableTree() {
   // 懒加载图标渲染
   function lazyLoadingTreeIconRender(params) {
     const { type, row } = params;
-    if (lazyLoadingData?.id === row?.id) {
+    if (lazyLoadingData?.key === row?.key) {
       return <Loading size="14px" />;
     }
     return type === 'expand' ? <AddRectangleIcon /> : <MinusRectangleIcon />;
@@ -341,13 +354,16 @@ export default function TableTree() {
       </Checkbox>
       {/* <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! --> */}
       {/* treeNodeColumnIndex 定义第几列作为树结点展开列，默认为第一列 --> */}
-      {/* defaultExpandAll 默认展开全部，也可通过实例方法 table.current.expandAll() 自由控制展开或收起 */}
+      {/* defaultExpandAll 默认展开全部，也可通过实例方法 tableRef.current.expandAll() 自由控制展开或收起 */}
+      {/* expandedTreeNodes + onExpandedTreeNodesChange 用于自由控制展开行，非必须 */}
       <EnhancedTable
-        ref={table}
+        ref={tableRef}
         rowKey="key"
         data={data}
         columns={columns}
         tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 /** , defaultExpandAll: true */ }}
+        expandedTreeNodes={expandedTreeNodes}
+        onExpandedTreeNodesChange={setExpandedTreeNodes}
         dragSort="row-handler"
         treeExpandAndFoldIcon={treeExpandIconRender}
         pagination={pagination}
@@ -360,7 +376,7 @@ export default function TableTree() {
       <!-- indent 定义缩进距离 -->
       <!-- 如果子结点字段不是 'children'，可以使用 childrenKey 定义字段别名，如 `:tree="{ childrenKey: 'list' }"` --> */}
       {/* <EnhancedTable
-        ref={table}
+        ref={tableRef}
         rowKey="key"
         data={data}
         columns={columns}
