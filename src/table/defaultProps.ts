@@ -48,4 +48,4 @@ export const primaryTableDefaultProps: Pick<
   sortOnRowDraggable: false,
 };
 
-export const enhancedTableDefaultProps: TdEnhancedTableProps = { defaultExpandedTreeNodes: [] };
+export const enhancedTableDefaultProps: TdEnhancedTableProps = { defaultExpandedTreeNodes: [], rowKey: undefined };
