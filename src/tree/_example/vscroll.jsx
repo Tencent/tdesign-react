@@ -6,6 +6,7 @@ export default () => {
   const [showLine, toggleShowLine] = useState(true);
   const [options, setOptions] = useState([]);
   const treeRef = useRef(null);
+
   useEffect(() => {
     const newOptions = [];
     for (let i = 0; i < 3000; i++) {
@@ -42,7 +43,7 @@ export default () => {
           <Switch onChange={toggleShowLine} />
         </Form.FormItem>
       </Form>
-      <Button onClick={handleScroll}>scroll to speical node</Button>
+      <Button onClick={handleScroll}>scroll to special node</Button>
       <Tree
         data={options}
         defaultValue={defaultChecked}
