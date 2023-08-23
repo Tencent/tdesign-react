@@ -103,9 +103,7 @@ import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
 
 ```js
 const nextConfig = {
-  experimental: {
-    transpilePackages: ['tdesign-react'],
-  },
+  transpilePackages: ['tdesign-react'],
 };
 
 module.exports = nextConfig;
