@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+    ## 🌈 1.2.3 `2023-08-24` 
+### 🐞 Bug Fixes
+- `Table`: 修复 usePrevious 报错 @honkinglin ([#2464](https://github.com/Tencent/tdesign-react/pull/2464))
+- `ImageViewer`: 修复引入文件路径报错 @honkinglin ([#2465](https://github.com/Tencent/tdesign-react/pull/2465)) 
+
    ## 🌈 1.2.2 `2023-08-24` 
 ### 🚀 Features
 - `Table`:
