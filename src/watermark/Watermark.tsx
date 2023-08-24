@@ -8,15 +8,9 @@ import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../_util/useMutationObserver';
 import { TdWatermarkProps } from './type';
 import { watermarkDefaultProps as defaultProps } from './defaultProps';
+import { getStyleStr } from './utils';
 
 export interface WatermarkProps extends TdWatermarkProps, StyledProps {}
-
-const toLowercaseSeparator = (key: string) => key.replace(/([A-Z])/g, '-$1').toLowerCase();
-
-const getStyleStr = (style: React.CSSProperties): string =>
-  Object.keys(style)
-    .map((key: keyof React.CSSProperties) => `${toLowercaseSeparator(key)}: ${style[key]};`)
-    .join(' ');
 
 const Watermark: React.FC<WatermarkProps> = ({
   alpha = defaultProps.alpha,
@@ -50,13 +44,15 @@ const Watermark: React.FC<WatermarkProps> = ({
   }
   const clsName = `${classPrefix}-watermark`;
   const [base64Url, setBase64Url] = useState('');
+  const styleStr = useRef('');
+  const maskclassName = useRef(className);
   const watermarkRef = useRef<HTMLDivElement>();
   const watermarkImgRef = useRef<HTMLDivElement>();
   const stopObservation = useRef(false);
   const offsetLeft = offset[0] || gapX / 2;
   const offsetTop = offset[1] || gapY / 2;
 
-  // 水印节点的背景base64
+  // 水印节点 - 背景base64
   useEffect(() => {
     generateBase64Url(
       {
@@ -77,7 +73,32 @@ const Watermark: React.FC<WatermarkProps> = ({
     );
   }, [width, height, rotate, zIndex, lineSpace, alpha, offsetLeft, offsetTop, gapX, gapY, watermarkContent]);
 
-  // 插入水印节点
+  // 水印节点 - styleStr
+  useEffect(() => {
+    styleStr.current = getStyleStr({
+      zIndex,
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      width: '100%',
+      height: '100%',
+      backgroundSize: `${gapX + width}px`,
+      pointerEvents: 'none',
+      backgroundRepeat: movable ? 'no-repeat' : isRepeat ? 'repeat' : 'no-repeat',
+      backgroundImage: `url('${base64Url}')`,
+      animation: movable ? `watermark infinite ${(moveInterval * 4) / 60}s` : 'none',
+      ...style,
+    });
+  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style]);
+
+  // 水印节点 - className
+  useEffect(() => {
+    maskclassName.current = className;
+  }, [className]);
+
+  // 水印节点 - 渲染
   const renderWatermark = useCallback(() => {
     // 停止监听
     stopObservation.current = true;
@@ -86,39 +107,23 @@ const Watermark: React.FC<WatermarkProps> = ({
     watermarkImgRef.current = undefined;
     // 创建新的
     watermarkImgRef.current = document.createElement('div');
-    watermarkImgRef.current.setAttribute(
-      'style',
-      getStyleStr({
-        zIndex,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-        backgroundSize: `${gapX + width}px`,
-        pointerEvents: 'none',
-        backgroundRepeat: movable ? 'no-repeat' : isRepeat ? 'repeat' : 'no-repeat',
-        backgroundImage: `url('${base64Url}')`,
-        animation: movable ? `watermark infinite ${(moveInterval * 4) / 60}s` : 'none',
-        ...style,
-      }),
-    );
-    if (className) {
-      watermarkImgRef.current.setAttribute('class', className);
+    watermarkImgRef.current.setAttribute('style', styleStr.current);
+    if (maskclassName.current) {
+      watermarkImgRef.current.setAttribute('class', maskclassName.current);
     }
     watermarkRef.current?.append(watermarkImgRef.current);
     // 继续监听
     setTimeout(() => {
       stopObservation.current = false;
     });
-  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, className]);
+  }, []);
+
+  // 水印节点 - 初始化渲染
   useEffect(() => {
     renderWatermark();
-  }, [renderWatermark, base64Url]);
+  }, [renderWatermark, zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, className]);
 
-  // 监听水印节点
+  // 水印节点 - 变化时重新渲染
   useMutationObserver(watermarkRef.current, (mutations) => {
     if (stopObservation.current) return;
     if (removable) return;
@@ -140,6 +145,7 @@ const Watermark: React.FC<WatermarkProps> = ({
     });
   });
 
+  // 组件父节点 - 增加keyframes
   const parent = useRef<HTMLElement>();
   useEffect(() => {
     parent.current = watermarkRef.current.parentElement;
@@ -147,6 +153,7 @@ const Watermark: React.FC<WatermarkProps> = ({
     injectStyle(keyframesStyle);
   }, []);
 
+  // 水印节点的父节点 - 防删除
   useMutationObserver(typeof document !== 'undefined' ? document.body : null, (mutations) => {
     if (removable) return;
     mutations.forEach((mutation) => {
