@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Tree, Switch, Space, Form } from 'tdesign-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Tree, Switch, Space, Form, Button } from 'tdesign-react';
 
 export default () => {
   const [checkable, setCheckable] = useState(true);
   const [showLine, toggleShowLine] = useState(true);
   const [options, setOptions] = useState([]);
+  const treeRef = useRef(null);
 
   useEffect(() => {
     const newOptions = [];
@@ -27,6 +28,10 @@ export default () => {
     setOptions(newOptions);
   }, []);
 
+  const handleScroll = () => {
+    treeRef.current.scrollTo({ index: 100, behavior: 'smooth' });
+  };
+
   const defaultChecked = ['1.2', '2.2'];
   return (
     <Space direction="vertical">
@@ -38,6 +43,7 @@ export default () => {
           <Switch onChange={toggleShowLine} />
         </Form.FormItem>
       </Form>
+      <Button onClick={handleScroll}>scroll to special node</Button>
       <Tree
         data={options}
         defaultValue={defaultChecked}
@@ -49,6 +55,7 @@ export default () => {
         hover
         scroll={{ type: 'virtual' }}
         style={{ height: '300px' }}
+        ref={treeRef}
       />
     </Space>
   );

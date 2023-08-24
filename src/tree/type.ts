@@ -5,7 +5,7 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
-import { TNode, TreeOptionData, TScroll } from '../common';
+import { TNode, TreeOptionData, TScroll, ScrollToElementParams } from '../common';
 import { MouseEvent, WheelEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
@@ -118,7 +118,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   icon?: boolean | TNode<TreeNodeModel<T>>;
   /**
-   * 用来定义 `value / label / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`
+   * 用来定义 `value / label / disabled / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`。其中，disabled 待开发。
    */
   keys?: TreeKeysType;
   /**
@@ -274,6 +274,10 @@ export interface TreeInstanceFunctions<T extends TreeOptionData = TreeOptionData
    * 移除指定节点
    */
   remove: (value: TreeNodeValue) => void;
+  /**
+   * 虚拟滚动场景下 支持指定滚动到具体的节点
+   */
+  scrollTo?: (scrollToParams: ScrollToElementParams) => void;
   /**
    * 设置节点状态
    */

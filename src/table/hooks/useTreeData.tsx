@@ -3,7 +3,6 @@ import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-react';
-import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import TableTreeStore, { SwapParams } from '../../_common/js/table/tree-store';
@@ -13,6 +12,7 @@ import { renderCell } from '../Cell';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { parseContentTNode } from '../../_util/parseTNode';
+import useTreeDataExpand from './useTreeDataExpand';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];
@@ -38,12 +38,12 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     [rowKey, tree?.childrenKey],
   );
 
-  const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
-
-  const uniqueKeys = useMemo(
-    () => store?.getAllUniqueKeys(data, rowDataKeys)?.join() || '',
-    [data, rowDataKeys, store],
+  const { tExpandedTreeNode, expandAll, foldAll, updateExpandOnDataChange, onExpandFoldIconClick } = useTreeDataExpand(
+    props,
+    { store, dataSource, rowDataKeys, setDataSource },
   );
+
+  const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
 
   useEffect(() => {
     if (!store || !checkedColumn) return;
@@ -58,14 +58,14 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     () => {
       if (!data || !store) return;
       // 如果没有树形解构，则不需要相关逻辑
-      if (!tree || !Object.keys(tree).length) {
+      if (tree) {
+        resetData(data);
+      } else {
         setDataSource(data);
-        return;
       }
-      resetData(data);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [uniqueKeys],
+    [data],
   );
 
   useEffect(
@@ -78,12 +78,12 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   );
 
   function resetData(data: TableRowData[]) {
-    let newVal = cloneDeep(data);
-    store.initialTreeStore(newVal, props.columns, rowDataKeys);
-    if (props.tree?.defaultExpandAll) {
-      newVal = store.expandAll(newVal, rowDataKeys);
+    store.initialTreeStore(data, props.columns, rowDataKeys);
+    if (tExpandedTreeNode?.length) {
+      updateExpandOnDataChange(data);
+    } else {
+      setDataSource([...data]);
     }
-    setDataSource(newVal);
   }
 
   function getTreeNodeStyle(level: number) {
@@ -157,7 +157,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
               <span
                 className={tableTreeClasses.icon}
                 onClick={(e: MouseEvent<HTMLSpanElement>) => {
-                  toggleExpandData({ ...p }, 'expand-fold-icon');
+                  onExpandFoldIconClick(p, 'expand-fold-icon');
                   e.stopPropagation();
                 }}
               >
@@ -214,6 +214,15 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
+   * 移除子节点
+   * @param key 行唯一标识
+   */
+  function removeChildren(key: TableRowValue) {
+    const newData = store.removeChildren(key, dataSource, rowDataKeys);
+    setDataSource([...newData]);
+  }
+
+  /**
    * 对外暴露的组件实例方法，为当前节点添加子节点，默认添加到最后一个节点
    * @param key 当前节点唯一标识
    * @param newData 待添加的新节点
@@ -239,20 +248,6 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    */
   function insertBefore<T>(rowValue: TableRowValue, newData: T) {
     setDataSource([...store.insertBefore(rowValue, newData, dataSource, rowDataKeys)]);
-  }
-
-  /**
-   * 对外暴露的组件实例方法，展开所有节点
-   */
-  function expandAll() {
-    setDataSource([...store.expandAll(dataSource, rowDataKeys)]);
-  }
-
-  /**
-   * 对外暴露的组件实例方法，收起所有节点
-   */
-  function foldAll() {
-    setDataSource([...store.foldAll(dataSource, rowDataKeys)]);
   }
 
   /**
@@ -294,6 +289,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     setData,
     getData,
     remove,
+    removeChildren,
     appendTo,
     insertAfter,
     insertBefore,

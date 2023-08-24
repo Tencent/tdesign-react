@@ -94,6 +94,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     treeNodeStyle: virtualTreeNodeStyle,
     cursorStyle,
     handleRowMounted,
+    scrollToElement,
   } = useTreeVirtualScroll({
     treeRef,
     scroll,
@@ -149,6 +150,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     ref,
     () => ({
       store,
+      scrollTo: scrollToElement,
       appendTo(value, newData) {
         let list = [];
         if (Array.isArray(newData)) {
@@ -216,7 +218,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         }
       },
     }),
-    [store, setExpanded, setActived, setChecked],
+    [store, setExpanded, setActived, setChecked, scrollToElement],
   );
 
   /* ======== render ======= */

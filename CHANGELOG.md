@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+   ## 🌈 1.2.2 `2023-08-24` 
+### 🚀 Features
+- `Table`:
+    - 树形结构，新增组件实例方法 `removeChildren`，用于移除子节点 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
+    - 树形结构，支持通过属性 `expandedTreeNodes.sync` 自由控制展开节点，非必传属性 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
+- `Tree`: 新增`scrollTo`方法 支持在虚拟滚动场景下滚动到指定节点的需求 @uyarn ([#2460](https://github.com/Tencent/tdesign-react/pull/2460))
+### 🐞 Bug Fixes
+- `taginput`: fix when entering Chinese, it will be blocked by the previous label @Zzongke ([#2438](https://github.com/Tencent/tdesign-react/pull/2438))
+- `Table`:
+    - 点击行展开/点击行选中，修复 `expandOnRowClick`和 `selectOnRowClick` 无法独立控制行点击执行交互问题 [issue#3254](https://github.com/Tencent/tdesign-vue-next/issues/3254) @chaishi ([#2452](https://github.com/Tencent/tdesign-react/pull/2452))
+    - 树形结构，修复组件实例方法 展开全部 `expandAll` 问题 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
+- `TagInput`: 修复中文展示问题 @Zzongke ([#2438](https://github.com/Tencent/tdesign-react/pull/2438))
+- `Form`: 修复FormList组件使用form setFieldsValue、reset异常 @nickcdon ([#2406](https://github.com/Tencent/tdesign-react/pull/2406)) 
+
   ## 🌈 1.2.1 `2023-08-16` 
 ### 🚀 Features
 - `Anchor`: 新增 `getCurrentAnchor` 支持自定义高亮锚点 @ontheroad1992 ([#2436](https://github.com/Tencent/tdesign-react/pull/2436))
