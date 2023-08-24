@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
-import { TNode } from 'tdesign-react/common';
+import { TNode } from '../common';
 import Dialog from '../dialog';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
