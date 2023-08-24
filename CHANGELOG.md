@@ -5,12 +5,12 @@ toc: false
 spline: explain
 ---
 
-    ## 🌈 1.2.3 `2023-08-24` 
+## 🌈 1.2.3 `2023-08-24` 
 ### 🐞 Bug Fixes
 - `Table`: 修复 usePrevious 报错 @honkinglin ([#2464](https://github.com/Tencent/tdesign-react/pull/2464))
 - `ImageViewer`: 修复引入文件路径报错 @honkinglin ([#2465](https://github.com/Tencent/tdesign-react/pull/2465)) 
 
-   ## 🌈 1.2.2 `2023-08-24` 
+## 🌈 1.2.2 `2023-08-24` 
 ### 🚀 Features
 - `Table`:
     - 树形结构，新增组件实例方法 `removeChildren`，用于移除子节点 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
@@ -24,7 +24,7 @@ spline: explain
 - `TagInput`: 修复中文展示问题 @Zzongke ([#2438](https://github.com/Tencent/tdesign-react/pull/2438))
 - `Form`: 修复FormList组件使用form setFieldsValue、reset异常 @nickcdon ([#2406](https://github.com/Tencent/tdesign-react/pull/2406)) 
 
-  ## 🌈 1.2.1 `2023-08-16` 
+## 🌈 1.2.1 `2023-08-16` 
 ### 🚀 Features
 - `Anchor`: 新增 `getCurrentAnchor` 支持自定义高亮锚点 @ontheroad1992 ([#2436](https://github.com/Tencent/tdesign-react/pull/2436))
 - `Menu`: MenuItem onClick 事件增加value返回值 @dexterBo ([#2441](https://github.com/Tencent/tdesign-react/pull/2441))
