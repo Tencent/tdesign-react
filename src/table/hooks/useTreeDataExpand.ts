@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import usePrevious from 'tdesign-react/hooks/usePrevious';
+import usePrevious from '../../hooks/usePrevious';
 import { TdEnhancedTableProps, TableRowData } from '../type';
 import useControlled from '../../hooks/useControlled';
 import TableTreeStore, { diffExpandedTreeNode, getUniqueRowValue } from '../../_common/js/table/tree-store';
