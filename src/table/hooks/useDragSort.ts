@@ -2,6 +2,7 @@
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import get from 'lodash/get';
+import { PaginationProps } from '../../pagination';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
@@ -12,7 +13,7 @@ import { BaseTableColumns } from '../interface';
 import { getColumnDataByKey, getColumnIndexByKey } from '../utils';
 
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
-  const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
+  const { sortOnRowDraggable, dragSort, data, onDragSort, pagination } = props;
   const { tableDraggableClasses, tableBaseClass, tableFullRowClasses } = useClassName();
   const [columns, setDragSortColumns] = useState<BaseTableColumns>(props.columns || []);
   // 判断是否有拖拽列。此处重点测试树形结构的拖拽排序
@@ -33,6 +34,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   const lastColList = useRef([]);
   const dragColumns = useRef([]);
   const originalColumns = useRef([]);
+  const tPagination = useLatest(pagination);
 
   // 拖拽实例
   let dragColInstanceTmp: Sortable = null;
@@ -57,8 +59,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   const onDragSortRef = useLatest(onDragSort);
 
   // 本地分页的表格，index 不同，需加上分页计数
-  function getDataPageIndex(index: number) {
-    const { pagination } = props;
+  function getDataPageIndex(index: number, pagination: PaginationProps) {
     // 开启本地分页的场景
     if (!props.disableDataPage && pagination && data.length > pagination.pageSize) {
       return pagination.pageSize * (pagination.current - 1) + index;
@@ -91,17 +92,15 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
           currentIndex -= 1;
           targetIndex -= 1;
         }
+        currentIndex = getDataPageIndex(currentIndex, tPagination.current);
+        targetIndex = getDataPageIndex(targetIndex, tPagination.current);
         const params: DragSortContext<TableRowData> = {
           currentIndex,
           current: tData.current[currentIndex],
           targetIndex,
           target: tData.current[targetIndex],
           data: tData.current,
-          newData: swapDragArrayElement(
-            [...tData.current],
-            getDataPageIndex(currentIndex),
-            getDataPageIndex(targetIndex),
-          ),
+          newData: swapDragArrayElement([...tData.current], currentIndex, targetIndex),
           e: evt,
           sort: 'row',
         };
