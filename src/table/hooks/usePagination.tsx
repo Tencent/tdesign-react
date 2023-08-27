@@ -41,7 +41,7 @@ export default function usePagination(props: TdBaseTableProps) {
   useEffect(() => {
     if (!pagination || !pagination.defaultCurrent) return;
     // 存在受控属性时，立即返回不再执行后续内容
-    const isControlled = pagination.defaultCurrent && pagination.current;
+    const isControlled = Boolean(pagination.current);
     if (isControlled) return;
     updateDataSourceAndPaginate(
       innerPagination.current ?? pagination.defaultCurrent,
