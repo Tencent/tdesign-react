@@ -43,7 +43,6 @@ export default function useDragSort(
   const lastColList = useRef([]);
   const dragColumns = useRef([]);
   const originalColumns = useRef([]);
-  // const tPagination = useLatest(innerPagination);
 
   // 拖拽实例
   let dragColInstanceTmp: Sortable = null;
