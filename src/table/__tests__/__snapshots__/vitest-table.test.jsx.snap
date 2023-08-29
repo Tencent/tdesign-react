@@ -28,7 +28,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
         >
           <tr>
             <th
-              class="t-table__th-index"
+              class="table-test-column-index t-table__th-index"
               data-colkey="index"
             >
               <div
@@ -66,7 +66,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               1
             </td>
@@ -83,7 +83,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               2
             </td>
@@ -102,7 +102,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               3
             </td>
@@ -121,7 +121,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               4
             </td>
@@ -140,7 +140,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               5
             </td>
@@ -228,7 +228,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-index"
+              class="table-test-column-index t-table__th-index"
               data-colkey="index"
             >
               <div
@@ -266,7 +266,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               1
             </td>
@@ -283,7 +283,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               2
             </td>
@@ -302,7 +302,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               3
             </td>
@@ -321,7 +321,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               4
             </td>
@@ -340,7 +340,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               5
             </td>
@@ -428,7 +428,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-index"
+              class="table-test-column-index t-table__th-index"
               data-colkey="index"
             >
               <div
@@ -466,7 +466,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               1
             </td>
@@ -483,7 +483,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               2
             </td>
@@ -502,7 +502,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               3
             </td>
@@ -521,7 +521,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               4
             </td>
@@ -540,7 +540,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               5
             </td>
@@ -628,7 +628,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-index"
+              class="table-test-column-index t-table__th-index"
               data-colkey="index"
             >
               <div
@@ -666,7 +666,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               1
             </td>
@@ -683,7 +683,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               2
             </td>
@@ -702,7 +702,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               3
             </td>
@@ -721,7 +721,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               4
             </td>
@@ -740,7 +740,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               5
             </td>
@@ -822,7 +822,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-index"
+              class="table-test-column-index t-table__th-index"
               data-colkey="index"
             >
               <div
@@ -860,7 +860,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               1
             </td>
@@ -877,7 +877,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               2
             </td>
@@ -896,7 +896,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               3
             </td>
@@ -915,7 +915,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               4
             </td>
@@ -934,7 +934,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               5
             </td>
@@ -1022,7 +1022,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
         >
           <tr>
             <th
-              class="t-table__th-index"
+              class="table-test-column-index t-table__th-index"
               data-colkey="index"
             >
               <div
@@ -1060,7 +1060,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               1
             </td>
@@ -1077,7 +1077,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               2
             </td>
@@ -1096,7 +1096,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               3
             </td>
@@ -1115,7 +1115,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               4
             </td>
@@ -1134,7 +1134,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             class=""
           >
             <td
-              class=""
+              class="table-test-column-index"
             >
               5
             </td>

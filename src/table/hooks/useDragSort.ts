@@ -2,6 +2,7 @@
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import get from 'lodash/get';
+import { PaginationProps } from '../../pagination';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
@@ -11,7 +12,16 @@ import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
 import { getColumnDataByKey, getColumnIndexByKey } from '../utils';
 
-export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
+export default function useDragSort(
+  props: TdPrimaryTableProps,
+  {
+    primaryTableRef,
+    innerPagination,
+  }: {
+    primaryTableRef: MutableRefObject<any>;
+    innerPagination: MutableRefObject<PaginationProps>;
+  },
+) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
   const { tableDraggableClasses, tableBaseClass, tableFullRowClasses } = useClassName();
   const [columns, setDragSortColumns] = useState<BaseTableColumns>(props.columns || []);
@@ -57,11 +67,12 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   const onDragSortRef = useLatest(onDragSort);
 
   // 本地分页的表格，index 不同，需加上分页计数
-  function getDataPageIndex(index: number) {
-    const { pagination } = props;
+  function getDataPageIndex(index: number, pagination: PaginationProps) {
+    const current = pagination.current ?? pagination.defaultCurrent;
+    const pageSize = pagination.pageSize ?? pagination.defaultPageSize;
     // 开启本地分页的场景
-    if (!props.disableDataPage && pagination && data.length > pagination.pageSize) {
-      return pagination.pageSize * (pagination.current - 1) + index;
+    if (!props.disableDataPage && pagination && data.length > pageSize) {
+      return pageSize * (current - 1) + index;
     }
     return index;
   }
@@ -91,17 +102,18 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
           currentIndex -= 1;
           targetIndex -= 1;
         }
+        if (innerPagination.current) {
+          currentIndex = getDataPageIndex(currentIndex, innerPagination.current);
+          targetIndex = getDataPageIndex(targetIndex, innerPagination.current);
+        }
+        const newData = swapDragArrayElement([...tData.current], currentIndex, targetIndex);
         const params: DragSortContext<TableRowData> = {
           currentIndex,
           current: tData.current[currentIndex],
           targetIndex,
           target: tData.current[targetIndex],
           data: tData.current,
-          newData: swapDragArrayElement(
-            [...tData.current],
-            getDataPageIndex(currentIndex),
-            getDataPageIndex(targetIndex),
-          ),
+          newData,
           e: evt,
           sort: 'row',
         };
@@ -210,7 +222,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       clearTimeout(timer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [primaryTableRef, columns, dragSort]);
+  }, [primaryTableRef, columns, dragSort, innerPagination]);
 
   return {
     isRowDraggable,

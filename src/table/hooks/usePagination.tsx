@@ -40,7 +40,13 @@ export default function usePagination(props: TdBaseTableProps) {
   // 非受控情况
   useEffect(() => {
     if (!pagination || !pagination.defaultCurrent) return;
-    updateDataSourceAndPaginate(pagination.defaultCurrent, pagination.defaultPageSize);
+    // 存在受控属性时，立即返回不再执行后续内容
+    const isControlled = Boolean(pagination.current);
+    if (isControlled) return;
+    updateDataSourceAndPaginate(
+      innerPagination.current ?? pagination.defaultCurrent,
+      innerPagination.pageSize ?? pagination.defaultPageSize,
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateDataSourceAndPaginate]);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@test/utils';
 
-function getTableData(total = 5) {
+export function getTableData(total = 5) {
   const data = [];
   for (let i = 0; i < total; i++) {
     data.push({
@@ -22,7 +22,7 @@ function getTableData(total = 5) {
 }
 
 const SIMPLE_COLUMNS = [
-  { title: 'Index', colKey: 'index' },
+  { title: 'Index', colKey: 'index', className: 'table-test-column-index' },
   { title: 'Applicant', colKey: 'applicant' },
   { title: 'Time', colKey: 'createTime' },
 ];
@@ -45,6 +45,34 @@ export function getEmptyDataTableMount(TTable, props) {
     <TTable
       rowKey="index"
       data={[]}
+      columns={SIMPLE_COLUMNS}
+      {...props}
+    ></TTable>
+  );
+}
+
+/** 获取用于本地数据分页的表格数据（受控和非受控测试） */
+export function getDataLengthLargerThanPageSizeTableMount(TTable, props, rerender) {
+  const renderFun = rerender || render;
+  return renderFun(
+    <TTable
+      rowKey="index"
+      data={getTableData(props.pagination.total)}
+      columns={SIMPLE_COLUMNS}
+      {...props}
+    ></TTable>
+  );
+}
+
+/**
+ * 远程数据分页
+ */
+export function getNormalCountDataTableMount(TTable, props, rerender) {
+  const renderFun = rerender || render;
+  return renderFun(
+    <TTable
+      rowKey="index"
+      data={getTableData(props.pagination.pageSize)}
       columns={SIMPLE_COLUMNS}
       {...props}
     ></TTable>
