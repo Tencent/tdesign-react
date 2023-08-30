@@ -15,7 +15,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
-  const shouldToggle = !disabled && content;
+  const shouldToggle = !disabled && content === 0 ? true : content;
 
   // 解析 delay 数据类型
   const [appearDelay = 0, exitDelay = 0] = useMemo(() => {
