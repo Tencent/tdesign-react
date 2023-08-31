@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.2.4 `2023-08-31` 
+### 🚀 Features
+- `Table`: 树形结构，没有设置 `expandedTreeNodes` 情况下，data 数据发生变化时，自动重置收起所有展开节点（如果希望保持展开节点，请使用属性 `expandedTreeNodes` 控制，[tdesign-vue#2735](https://github.com/Tencent/tdesign-vue/issues/2735) @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
+### 🐞 Bug Fixes
+- `Watermark`: watermark组件，修改水印节点，都不影响水印展示 @tingtingcheng6 ([#2459](https://github.com/Tencent/tdesign-react/pull/2459))
+- `Table`:
+    - 拖拽排序 + 本地数据分页场景，修复拖拽排序事件参数 `currentIndex/targetIndex/current/target` 等不正确问题 @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
+    - 拖拽排序 + 本地数据分页场景，修复在第二页以后的分页数据中拖拽调整顺序后，会自动跳转到第一页问题 @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
+    - 支持分页非受控用法的拖拽排序场景 @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
+- `Slider`: 修复初始值为0 时，label位置错误的缺陷 @Zzongke ([#2477](https://github.com/Tencent/tdesign-react/pull/2477))
+- `Tree`: 支持`store.children`调用getChildren方法 @uyarn ([#2480](https://github.com/Tencent/tdesign-react/pull/2480)) 
+
 ## 🌈 1.2.3 `2023-08-24` 
 ### 🐞 Bug Fixes
 - `Table`: 修复 usePrevious 报错 @honkinglin ([#2464](https://github.com/Tencent/tdesign-react/pull/2464))
