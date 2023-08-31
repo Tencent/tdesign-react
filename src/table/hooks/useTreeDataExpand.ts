@@ -143,6 +143,7 @@ export function useTreeDataExpand(
 
   return {
     tExpandedTreeNode,
+    isDefaultExpandAllExecute,
     expandAll,
     foldAll,
     onExpandFoldIconClick,
