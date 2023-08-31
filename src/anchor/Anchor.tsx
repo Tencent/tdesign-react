@@ -56,6 +56,17 @@ const Anchor = forwardRefWithStatics(
       opacity: 0,
     });
 
+    useEffect(() => {
+      if (isFunction(getCurrentAnchor)) {
+        const newHref = getCurrentAnchor(activeItem);
+        setActiveItem(newHref);
+      } else {
+        const href = window?.location.hash;
+        setActiveItem(decodeURIComponent(href));
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getCurrentAnchor]);
+
     const anchorEl = useRef(null);
     const intervalRef = useRef<IntervalRef>({
       items: [],
@@ -83,9 +94,9 @@ const Anchor = forwardRefWithStatics(
 
     const handleScrollTo = (link: string) => {
       const anchor = getAnchorTarget(link);
-      if (!anchor) return;
       onChange?.(link, activeItem);
       setActiveItem(link);
+      if (!anchor) return;
       intervalRef.current.handleScrollLock = true;
       const { scrollContainer } = intervalRef.current;
       const scrollTop = getScroll(scrollContainer);
@@ -100,7 +111,8 @@ const Anchor = forwardRefWithStatics(
 
     const handleClick = (item: Item, e: React.MouseEvent<HTMLDivElement>) => {
       onClick?.({ e, ...item });
-      handleScrollTo(item.href);
+      const newHref = isFunction(getCurrentAnchor) ? getCurrentAnchor(item.href) : item.href;
+      handleScrollTo(newHref);
     };
 
     useEffect(() => {
@@ -153,7 +165,8 @@ const Anchor = forwardRefWithStatics(
       return () => {
         scrollContainer?.removeEventListener('scroll', handleScroll);
       };
-    }, [container, handleScroll]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [container]);
 
     const anchorClass = classNames(
       `${classPrefix}-anchor`,
@@ -175,7 +188,7 @@ const Anchor = forwardRefWithStatics(
       <AnchorContext.Provider
         value={{
           onClick: handleClick,
-          activeItem: getCurrentAnchor?.(activeItem) || activeItem,
+          activeItem,
           registerItem,
           unregisterItem,
         }}
