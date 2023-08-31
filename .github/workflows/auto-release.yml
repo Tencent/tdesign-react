@@ -5,7 +5,7 @@ on:
     branches: [develop]
     types: [opened, synchronize, reopened, closed]
     paths:
-      - "package.json"
+      - 'package.json'
   issue_comment:
     types: [edited]
 
@@ -58,7 +58,7 @@ jobs:
           BODY: ${{ github.event.comment.body }}
         run: |
           txt=$(cat CHANGELOG.md)
-          echo "${txt%%##*} $BODY ${txt##*---}" > CHANGELOG.md
+          echo "${txt%%##*}$BODY${txt##*---}" > CHANGELOG.md
           git add .
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
