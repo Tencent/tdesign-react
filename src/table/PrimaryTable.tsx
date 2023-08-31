@@ -11,7 +11,7 @@ import useSorter from './hooks/useSorter';
 import useFilter from './hooks/useFilter';
 import useDragSort from './hooks/useDragSort';
 import useAsyncLoading from './hooks/useAsyncLoading';
-import { PageInfo } from '../pagination';
+import { PageInfo, PaginationProps } from '../pagination';
 import useClassName from './hooks/useClassName';
 import useStyle from './hooks/useStyle';
 import { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
@@ -28,6 +28,7 @@ export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
+  const innerPagination = useRef<PaginationProps>(props.pagination);
   const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
   const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
@@ -51,10 +52,10 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(
-    props,
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(props, {
     primaryTableRef,
-  );
+    innerPagination,
+  });
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
@@ -179,6 +180,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   })();
 
   const onInnerPageChange = (pageInfo: PageInfo, newData: Array<TableRowData>) => {
+    innerPagination.current = { ...innerPagination, ...pageInfo };
     setCurrentPaginateData(newData);
     props.onPageChange?.(pageInfo, newData);
     const changeParams: Parameters<TdPrimaryTableProps['onChange']> = [
