@@ -4,7 +4,6 @@ import isObject from 'lodash/isObject';
 import {
   BaseTableCellParams,
   CellData,
-  PrimaryTableCol,
   RowClassNameParams,
   TableColumnClassName,
   TableRowData,
@@ -125,44 +124,6 @@ export const getScrollDirection = (scrollLeft: number, scrollTop: number): SCROL
   return direction;
 };
 
-export const getRecord = (record: Record<any, any>) => {
-  if (!record) {
-    return record;
-  }
-  const result = {};
-  Object.keys(record).forEach((key) => {
-    const descriptor = Object.getOwnPropertyDescriptor(record, key);
-    descriptor &&
-      Reflect.defineProperty(result, key, {
-        set(val) {
-          descriptor.set(val);
-        },
-        get() {
-          console.warn('The parameter `record` will be deprecated, please use `row` instead');
-          return descriptor.get();
-        },
-      });
-  });
-  return result;
-};
-
-export function isRowSelectedDisabled(
-  selectColumn: PrimaryTableCol,
-  row: Record<string, any>,
-  rowIndex: number,
-): boolean {
-  if (!selectColumn) return false;
-  let disabled = isFunction(selectColumn.disabled) ? selectColumn.disabled({ row, rowIndex }) : selectColumn.disabled;
-  if (selectColumn.checkProps) {
-    if (isFunction(selectColumn.checkProps)) {
-      disabled = disabled || selectColumn.checkProps({ row, rowIndex }).disabled;
-    } else if (selectColumn.checkProps === 'object') {
-      disabled = disabled || selectColumn.checkProps.disabled;
-    }
-  }
-  return !!disabled;
-}
-
 // 多级表头，列配置场景，获取 currentRow
 export function getCurrentRowByKey<T extends { colKey?: string; children?: any[] }>(columns: T[], key: string): T {
   if (!columns || !key) return;
@@ -215,4 +176,18 @@ export function getColumnIndexByKey(columns: any[], colKey: string): number {
     }
   }
   return -1;
+}
+
+export function getColumnsResetValue(columns: any[], resetValue: { [key: string]: any } = {}) {
+  for (let i = 0, len = columns.length; i < len; i++) {
+    const col = columns[i];
+    if (col.filter && 'resetValue' in col.filter) {
+      // eslint-disable-next-line no-param-reassign
+      resetValue[col.colKey] = col.filter.resetValue;
+    }
+    if (col.children?.length) {
+      getColumnsResetValue(col.children, resetValue);
+    }
+  }
+  return resetValue;
 }
