@@ -57,7 +57,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
                 }}
               />
             )}
-            images={displayFiles.map((t) => t.url)}
+            images={displayFiles.map((t) => t.url || t.raw)}
             defaultIndex={index}
           />
         </span>
@@ -118,7 +118,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
             <li className={cardItemClasses} key={index}>
               {file.status === 'progress' && renderProgressFile(file, loadCard)}
               {file.status === 'fail' && renderFailFile(file, index, loadCard)}
-              {!['progress', 'fail'].includes(file.status) && file.url && renderMainContent(file, index)}
+              {!['progress', 'fail'].includes(file.status) && renderMainContent(file, index)}
               {fileName &&
                 (file.url ? (
                   <Link href={file.url} className={fileNameClassName} target="_blank" hover="color" size="small">
