@@ -8,7 +8,7 @@ import {
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import useImagePreviewUrl from 'tdesign-react/hooks/useImagePreviewUrl';
+import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import { TooltipLite } from '../tooltip';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -23,6 +23,7 @@ import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIconMap from './hooks/useIconMap';
+import Image from '../image';
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -43,7 +44,7 @@ interface ImageModelItemProps {
   rotateZ: number;
   scale: number;
   mirror: number;
-  src: string;
+  src: string | File;
   preSrc?: string | File;
   errorText: string;
 }
@@ -67,41 +68,38 @@ export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, 
     setError(false);
   }, [src]);
 
-  const { previewUrl } = useImagePreviewUrl(preSrc);
-  const { previewUrl: srcPreviewUrl } = useImagePreviewUrl(src);
-
   return (
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
         {!error && !!preSrc && (
-          <img
+          <Image
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
             }}
-            src={previewUrl}
+            src={preSrc}
             style={preImgStyle}
             data-testid="img-drag"
             alt="image"
-            draggable="false"
+            draggable={false}
           />
         )}
         {!error && (
-          <img
+          <Image
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
             }}
-            src={srcPreviewUrl}
+            src={src}
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}
             style={imgStyle}
             data-testid="img-drag"
             alt="image"
-            draggable="false"
+            draggable={false}
           />
         )}
       </div>
@@ -231,7 +229,7 @@ type ImageViewerHeaderProps = {
 
 function OneImagePreview({ image, classPrefix }: { image: ImageInfo; classPrefix: string }) {
   const { previewUrl } = useImagePreviewUrl(image.thumbnail || image.mainImage);
-  return <img alt="" src={previewUrl} className={`${classPrefix}-image-viewer__header-img`} />;
+  return <Image alt="" src={previewUrl} className={`${classPrefix}-image-viewer__header-img`} />;
 }
 
 const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
@@ -374,6 +372,9 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   if (!isArray(images) || images.length < 1) return null;
 
   const currentImage: ImageInfo = images[index];
+
+  console.log('~~~~~', images, index, images[index], currentImage);
+
   const tipText = {
     mirror: t(locale.mirrorTipText),
     rotate: t(locale.rotateTipText),

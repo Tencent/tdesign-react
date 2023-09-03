@@ -6,6 +6,7 @@ export function useImagePreviewUrl(imgUrl: string | File) {
   const [previewUrl, setPreviewUrl] = useState('');
 
   useEffect(() => {
+    if (!imgUrl) return;
     if (typeof imgUrl === 'string') {
       setPreviewUrl(imgUrl);
       return;

@@ -5,7 +5,10 @@ const ABRIDGE_NAME = [6, 6];
 
 export default function TUploadImageFlow() {
   const [autoUpload, setAutoUpload] = useState(false);
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState([
+    { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', name: 'demo-image-1.png' },
+    { url: 'https://tdesign.gtimg.com/site/avatar.jpg', name: 'avatar.jpg' },
+  ]);
    // eslint-disable-next-line
   const [files2, setFiles2] = useState([]);
 

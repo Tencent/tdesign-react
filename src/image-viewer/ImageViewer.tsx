@@ -42,10 +42,11 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   // @ts-ignore TODO 待类型完善后移除
   const uiImage: TNode = isFunction(trigger) ? trigger({ open, close, onOpen: open, onClose: close }) : trigger;
 
+  console.log('====== visible =======', visible);
   return (
     <>
       {uiImage}
-      {visibled &&
+      {(visibled || visible) &&
         createPortal(
           <ImageModal
             title={title}

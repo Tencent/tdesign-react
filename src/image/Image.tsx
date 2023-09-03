@@ -16,6 +16,8 @@ import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 export type ImageProps = TdImageProps &
   StyledProps & {
     onClick?: (e: MouseEvent<HTMLDivElement>) => void;
+    onMouseDown?: (e: MouseEvent<HTMLDivElement>) => void;
+    draggable?: boolean;
   };
 
 const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> = (originalProps, ref) => {

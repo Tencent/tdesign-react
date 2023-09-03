@@ -1,4 +1,4 @@
-import React, { MouseEvent, useMemo, useRef } from 'react';
+import React, { MouseEvent, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import {
   BrowseIcon as TdBrowseIcon,
@@ -51,8 +51,8 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
 
-  const currentPreviewFile = useRef<UploadFile[]>([]);
-  const previewIndex = useRef(0);
+  const [currentPreviewFile, setCurrentPreviewFile] = useState<UploadFile[]>([]);
+  const [previewIndex, setPreviewIndex] = useState(0);
 
   const {
     BrowseIcon,
@@ -107,17 +107,17 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     file: UploadFile;
     viewFiles: UploadFile[];
   }) => {
-    previewIndex.current = index;
-    currentPreviewFile.current = viewFiles;
+    setPreviewIndex(index);
+    setCurrentPreviewFile(viewFiles);
     onPreview?.({ file, index, e });
   };
 
   const previewIndexChange = (index: number) => {
-    previewIndex.current = index;
+    setPreviewIndex(index);
   };
 
   const closePreview = () => {
-    currentPreviewFile.current = [];
+    setCurrentPreviewFile([]);
   };
 
   const getStatusMap = () => {
@@ -413,11 +413,18 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         </div>
       )}
 
-      <ImageViewer
-        images={currentPreviewFile.current.map((t) => t.url || t.raw)}
-        visible={!!currentPreviewFile.current.length}
+      {/* <ImageViewer
+        images={['https://tdesign.gtimg.com/demo/demo-image-1.png']}
+        visible={true}
         onClose={closePreview}
         index={previewIndex.current}
+        onIndexChange={previewIndexChange}
+      ></ImageViewer> */}
+      <ImageViewer
+        images={currentPreviewFile.map((t) => t.url || t.raw)}
+        visible={!!currentPreviewFile.length}
+        onClose={closePreview}
+        index={previewIndex}
         onIndexChange={previewIndexChange}
       ></ImageViewer>
     </div>
