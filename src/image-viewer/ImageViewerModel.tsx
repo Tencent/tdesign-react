@@ -8,6 +8,7 @@ import {
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import useImagePreviewUrl from 'tdesign-react/hooks/useImagePreviewUrl';
 import { TooltipLite } from '../tooltip';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -43,7 +44,7 @@ interface ImageModelItemProps {
   scale: number;
   mirror: number;
   src: string;
-  preSrc?: string;
+  preSrc?: string | File;
   errorText: string;
 }
 
@@ -66,6 +67,9 @@ export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, 
     setError(false);
   }, [src]);
 
+  const { previewUrl } = useImagePreviewUrl(preSrc);
+  const { previewUrl: srcPreviewUrl } = useImagePreviewUrl(src);
+
   return (
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
@@ -77,7 +81,7 @@ export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, 
               event.stopPropagation();
               onMouseDown(event);
             }}
-            src={preSrc}
+            src={previewUrl}
             style={preImgStyle}
             data-testid="img-drag"
             alt="image"
@@ -91,7 +95,7 @@ export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, 
               event.stopPropagation();
               onMouseDown(event);
             }}
-            src={src}
+            src={srcPreviewUrl}
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}
             style={imgStyle}
@@ -220,10 +224,15 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
 };
 
 type ImageViewerHeaderProps = {
-  onImgClick: (index: number) => void;
+  onImgClick: (index: number, ctx: { trigger: 'current' }) => void;
   images: ImageInfo[];
   currentIndex: number;
 };
+
+function OneImagePreview({ image, classPrefix }: { image: ImageInfo; classPrefix: string }) {
+  const { previewUrl } = useImagePreviewUrl(image.thumbnail || image.mainImage);
+  return <img alt="" src={previewUrl} className={`${classPrefix}-image-viewer__header-img`} />;
+}
 
 const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
   const { classPrefix } = useConfig();
@@ -253,13 +262,9 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
               className={classNames(`${classPrefix}-image-viewer__header-box`, {
                 [`${classPrefix}-is-active`]: index === currentIndex,
               })}
-              onClick={() => onImgClick(index)}
+              onClick={() => onImgClick(index, { trigger: 'current' })}
             >
-              <img
-                alt=""
-                src={image.thumbnail || image.mainImage}
-                className={`${classPrefix}-image-viewer__header-img`}
-              />
+              <OneImagePreview image={image} classPrefix={classPrefix} />
             </div>
           ))}
         </div>

@@ -43,6 +43,9 @@ export default function BasicImageViewer() {
   return (
     <Space breakLine size={16}>
       <ImageViewer trigger={trigger} images={[img]}/>
+
+      {/* TODO: fix visible=true can not show image previewer */}
+      {/* <ImageViewer images={[img]} visible={true} /> */}
     </Space>
   );
 }
