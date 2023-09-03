@@ -14,6 +14,7 @@ import { TdUploadProps, UploadFile } from '../type';
 import { abridgeName } from '../../_common/js/upload/utils';
 import parseTNode from '../../_util/parseTNode';
 import Link from '../../link';
+import Image from '../../image';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];
@@ -44,15 +45,15 @@ const ImageCard = (props: ImageCardUploadProps) => {
 
   const renderMainContent = (file: UploadFile, index: number) => (
     <div className={`${classPrefix}-upload__card-content ${classPrefix}-upload__card-box`}>
-      <img className={`${classPrefix}-upload__card-image`} src={file.url} />
+      <Image className={`${classPrefix}-upload__card-image`} src={file.url || file.raw} error="" loading="" />
       <div className={`${classPrefix}-upload__card-mask`}>
         <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
           <ImageViewer
-            trigger={({ onOpen }) => (
+            trigger={({ open }) => (
               <BrowseIcon
                 onClick={(e) => {
                   props.onPreview?.({ file, index, e });
-                  onOpen();
+                  open();
                 }}
               />
             )}

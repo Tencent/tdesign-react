@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState, SyntheticEvent } from 'react';
+import React, { Fragment, useEffect, useRef, useState, SyntheticEvent, MouseEvent } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
@@ -13,7 +13,10 @@ import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 
-export type ImageProps = TdImageProps & StyledProps;
+export type ImageProps = TdImageProps &
+  StyledProps & {
+    onClick?: (e: MouseEvent<HTMLDivElement>) => void;
+  };
 
 const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> = (originalProps, ref) => {
   const props = useDefaultProps<ImageProps>(originalProps, imageDefaultProps);
@@ -98,11 +101,11 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
   };
 
   useEffect(() => {
-    if (hasError && src) {
+    if (hasError && previewUrl) {
       setHasError(false);
     }
     // eslint-disable-next-line
-  }, [src]);
+  }, [previewUrl]);
 
   const hasMouseEvent = overlayTrigger === 'hover';
   const [shouldShowOverlay, setShouldShowOverlay] = useState(!hasMouseEvent);

@@ -142,6 +142,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
       onPreview={props.onPreview}
+      showThumbnail={props.showThumbnail}
     >
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
