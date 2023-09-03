@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Upload, Space, MessagePlugin, Switch } from 'tdesign-react';
 
-const ABRIDGE_NAME = [6, 6];
+const ABRIDGE_NAME = [4, 6];
 
 export default function TUploadImageFlow() {
   const [autoUpload, setAutoUpload] = useState(false);
   const [files, setFiles] = useState([
-    { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', name: 'demo-image-1.png' },
-    { url: 'https://tdesign.gtimg.com/site/avatar.jpg', name: 'avatar.jpg' },
+    { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'success', name: 'demo-image-1.png' },
+    { url: 'https://tdesign.gtimg.com/site/avatar.jpg', status: 'success', name: 'avatar.jpg' },
   ]);
    // eslint-disable-next-line
   const [files2, setFiles2] = useState([]);

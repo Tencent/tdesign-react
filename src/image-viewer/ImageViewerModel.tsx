@@ -64,42 +64,45 @@ export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, 
   const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
   const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
 
+  const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
+  const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
+
   useEffect(() => {
     setError(false);
-  }, [src]);
+  }, [preSrcImagePreviewUrl, mainImagePreviewUrl]);
 
   return (
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
         {!error && !!preSrc && (
-          <Image
+          <img
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
             }}
-            src={preSrc}
+            src={preSrcImagePreviewUrl}
             style={preImgStyle}
             data-testid="img-drag"
             alt="image"
-            draggable={false}
+            draggable="false"
           />
         )}
         {!error && (
-          <Image
+          <img
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
               onMouseDown(event);
             }}
-            src={src}
+            src={mainImagePreviewUrl}
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}
             style={imgStyle}
             data-testid="img-drag"
             alt="image"
-            draggable={false}
+            draggable="false"
           />
         )}
       </div>
@@ -372,8 +375,6 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   if (!isArray(images) || images.length < 1) return null;
 
   const currentImage: ImageInfo = images[index];
-
-  console.log('~~~~~', images, index, images[index], currentImage);
 
   const tipText = {
     mirror: t(locale.mirrorTipText),

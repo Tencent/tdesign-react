@@ -1122,7 +1122,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
             <p
               class="t-upload__card-name"
             >
-              img2.txt
+              待上传
             </p>
           </li>
           <li

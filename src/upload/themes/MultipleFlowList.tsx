@@ -174,7 +174,8 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             {(file.url || file.raw) && (
               <span className={`${uploadPrefix}__card-mask-item`}>
                 <BrowseIcon
-                  onClick={({ e }) => {
+                  onClick={(event) => {
+                    const e = event.type ? event : event.e;
                     browseIconClick({
                       e,
                       index,
@@ -196,7 +197,9 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             )}
           </div>
         </div>
-        <p className={`${uploadPrefix}__card-name`}>{fileName}</p>
+        <p className={`${uploadPrefix}__card-name`}>
+          {file.status === 'waiting' ? locale.progress.waitingText : fileName}
+        </p>
       </li>
     );
   };
@@ -413,13 +416,6 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         </div>
       )}
 
-      {/* <ImageViewer
-        images={['https://tdesign.gtimg.com/demo/demo-image-1.png']}
-        visible={true}
-        onClose={closePreview}
-        index={previewIndex.current}
-        onIndexChange={previewIndexChange}
-      ></ImageViewer> */}
       <ImageViewer
         images={currentPreviewFile.map((t) => t.url || t.raw)}
         visible={!!currentPreviewFile.length}
