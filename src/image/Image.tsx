@@ -97,6 +97,13 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     onError?.({ e });
   };
 
+  useEffect(() => {
+    if (hasError && src) {
+      setHasError(false);
+    }
+    // eslint-disable-next-line
+  }, [src]);
+
   const hasMouseEvent = overlayTrigger === 'hover';
   const [shouldShowOverlay, setShouldShowOverlay] = useState(!hasMouseEvent);
   const handleToggleOverlay = (overlay: boolean) => {
