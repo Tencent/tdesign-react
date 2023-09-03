@@ -22,6 +22,7 @@ export default function FillModeImage() {
             <Image
               src={src}
               fit={item}
+              // fallback='https://tdesign.gtimg.com/demo/demo-image-1.png'
               style={{width: 120, height: 120}}
             />
             {item}

@@ -89,10 +89,11 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
 
   const [hasError, setHasError] = useState(false);
   const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
+    setHasError(true);
     if (fallback) {
       setImageSrc(fallback);
+      setHasError(false);
     }
-    setHasError(true);
     onError?.({ e });
   };
 
