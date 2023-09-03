@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import { PrimaryTableProps } from '../interface';
 import { validate } from '../../form/formModel';
 import { AllValidateResult } from '../../form';
-import { getEditableKeysMap } from '../utils';
+import { getEditableKeysMap } from '../../_common/js/table/utils';
 import { PrimaryTableRowEditContext, TableRowData, TableErrorListMap } from '../type';
 
 export type ErrorListObjectType = PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] };
