@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
+import { StyledProps, TNode } from '../common';
 import { TdDividerProps } from './type';
 import { dividerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -13,7 +14,7 @@ export interface DividerProps extends TdDividerProps, StyledProps {
   /**
    * 文本内容
    */
-  children?: React.ReactNode;
+  children?: React.ReactNode | TNode<{ className: string }>;
 }
 
 /**
@@ -26,7 +27,8 @@ const Divider: React.FC<DividerProps> = (props) => {
   );
 
   const { classPrefix } = useConfig();
-  const childrenNode = content || children;
+  const classNameProps = `${classPrefix}-divider__inner-text`;
+  let childrenNode = content || children;
 
   const showText = layout !== 'vertical' && !!childrenNode;
 
@@ -37,9 +39,15 @@ const Divider: React.FC<DividerProps> = (props) => {
     [`${classPrefix}-divider--with-text-${align}`]: showText,
   });
 
+  if (isFunction(childrenNode)) {
+    childrenNode = childrenNode({ className: classNameProps });
+  } else {
+    childrenNode = <span className={classNameProps}>{childrenNode}</span>;
+  }
+
   return (
     <div {...otherDividerProps} className={dividerClassNames} style={style}>
-      {showText ? <span className={`${classPrefix}-divider__inner-text`}>{childrenNode}</span> : null}
+      {showText ? childrenNode : null}
     </div>
   );
 };

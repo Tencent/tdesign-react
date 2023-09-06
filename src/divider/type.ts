@@ -15,11 +15,11 @@ export interface TdDividerProps {
   /**
    * 子元素，同 content
    */
-  children?: TNode;
+  children?: TNode | TNode<{ className: string }>;
   /**
    * 子元素
    */
-  content?: TNode;
+  content?: TNode | TNode<{ className: string }>;
   /**
    * 是否虚线（仅在水平分割线有效）
    * @default false
