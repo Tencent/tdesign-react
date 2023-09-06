@@ -14,9 +14,8 @@ export interface TablePromiseErrorData {
   errorMap: TableErrorListMap;
 }
 
-const cellRuleMap = new Map<any, PrimaryTableRowEditContext<TableRowData>[]>();
-
 export function useEditableRow(props: PrimaryTableProps) {
+  const cellRuleMap = useMemo(() => new Map<any, PrimaryTableRowEditContext<TableRowData>[]>(), []);
   const { editableRowKeys } = props;
   // 校验不通过的错误信息，其中 key 值为 [rowValue, col.colKey].join('__')
   const [errorListMap, setErrorListMap] = useState<TableErrorListMap>({});
