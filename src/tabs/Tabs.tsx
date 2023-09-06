@@ -93,7 +93,7 @@ const Tabs = forwardRefWithStatics(
                 return child;
               }
               if (child.props.destroyOnHide === false) {
-                return <TabPanel style={{ display: 'none' }}>{child.props.children}</TabPanel>;
+                return <TabPanel style={{ display: 'none' }}>{child.props.children || child.props.panel}</TabPanel>;
               }
             }
             return null;
