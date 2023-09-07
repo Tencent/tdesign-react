@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import React, { Children, FunctionComponent, cloneElement, useContext, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { TdAnchorItemProps } from './type';
 import useConfig from '../hooks/useConfig';
@@ -11,9 +11,17 @@ export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
+const AnchorItem: FunctionComponent<AnchorItemProps & { _level?: number }> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
-  const { href, title, target, children, className, ...rest } = useDefaultProps(props, anchorItemDefaultProps);
+  const {
+    href,
+    title,
+    target,
+    children,
+    className,
+    _level = 0,
+    ...rest
+  } = useDefaultProps(props, anchorItemDefaultProps);
 
   const { classPrefix } = useConfig();
 
@@ -28,26 +36,36 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
     return () => unregisterItem(href);
   }, [href, registerItem, unregisterItem]);
 
+  const domRef = useRef<HTMLDivElement>();
+  useEffect(() => {
+    if (domRef.current) {
+      domRef.current.style.setProperty('--level', `${_level + 1}`);
+    }
+  }, [_level]);
+
   return (
-    <div
-      {...rest}
-      className={classNames(
-        `${classPrefix}-anchor__item`,
-        { [`${classPrefix}-is-active`]: activeItem === href },
-        className,
-      )}
-    >
-      <a
-        href={href}
-        className={classNames(`${classPrefix}-anchor__item-link`)}
-        title={titleAttr}
-        target={target}
-        onClick={(e) => handleClick(e)}
+    <>
+      <div
+        ref={domRef}
+        {...rest}
+        className={classNames(
+          `${classPrefix}-anchor__item`,
+          { [`${classPrefix}-is-active`]: activeItem === href },
+          className,
+        )}
       >
-        {title}
-      </a>
-      {children}
-    </div>
+        <a
+          href={href}
+          className={classNames(`${classPrefix}-anchor__item-link`)}
+          title={titleAttr}
+          target={target}
+          onClick={(e) => handleClick(e)}
+        >
+          {title}
+        </a>
+      </div>
+      {Children.map(children, (child) => cloneElement(child as any, { _level: _level + 1 }))}
+    </>
   );
 };
 
