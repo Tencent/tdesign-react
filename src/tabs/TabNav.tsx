@@ -210,6 +210,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const handleTabItemClick = (clickItem) => {
     tabClick(clickItem.value);
     onChange(clickItem.value);
+    clickItem?.onClick?.(clickItem.value);
   };
 
   const handleTabAdd = (e) => {

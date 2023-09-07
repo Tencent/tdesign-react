@@ -49,8 +49,8 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
               value={currentChildListValues.includes(value.active) ? value.active : currentChildListValues[0]}
               onChange={value.onChange}
             >
-              {childList.map(({ props }) => (
-                <TabPanel value={props.value} key={props.value} label={props.children}></TabPanel>
+              {childList.map(({ props: { children, ...restProps } }) => (
+                <TabPanel key={props.value} {...restProps} label={children}></TabPanel>
               ))}
             </Tabs>
           </ul>
