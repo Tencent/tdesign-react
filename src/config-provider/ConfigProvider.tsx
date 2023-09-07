@@ -16,12 +16,8 @@ export const merge = (src: GlobalConfigProvider, config: GlobalConfigProvider) =
   });
 
 export default function ConfigProvider({ children, globalConfig }: ConfigProviderProps) {
-  const mergedGlobalConfig = merge(defaultGlobalConfig, globalConfig);
-  return (
-    <ConfigContext.Provider value={{ globalConfig: mergedGlobalConfig }}>
-      {children}
-    </ConfigContext.Provider>
-  );
+  const mergedGlobalConfig = merge({ ...defaultGlobalConfig }, globalConfig);
+  return <ConfigContext.Provider value={{ globalConfig: mergedGlobalConfig }}>{children}</ConfigContext.Provider>;
 }
 
 ConfigProvider.displayName = 'ConfigProvider';
