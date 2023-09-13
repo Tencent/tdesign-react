@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Upload, MessagePlugin, Space, Checkbox } from 'tdesign-react';
 
+const ABRIDGE_NAME = [10, 7];
+
 export default function FileFlowList() {
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(false);
   const [isBatchUpload, setIsBatchUpload] = useState(false);
   const [allowUploadDuplicateFile, setAllowUploadDuplicateFile] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [showThumbnail, setShowThumbnail] = useState(false);
+
   const [fileList, setFileList] = useState([]);
 
   // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
@@ -26,9 +30,10 @@ export default function FileFlowList() {
 
   return (
     <Space direction="vertical">
-      <Space>
+      <Space breakLine>
         <Checkbox checked={disabled} onChange={setDisabled}>禁用状态</Checkbox>
         <Checkbox checked={autoUpload} onChange={setAutoUpload}>自动上传</Checkbox>
+        <Checkbox checked={showThumbnail} onChange={setShowThumbnail}>显示文件缩略图</Checkbox>
         <Checkbox checked={allowUploadDuplicateFile} onChange={setAllowUploadDuplicateFile}>
           允许上传同名文件
         </Checkbox>
@@ -50,8 +55,10 @@ export default function FileFlowList() {
         theme="file-flow"
         multiple
         max={10}
+        abridge-name={ABRIDGE_NAME}
         disabled={disabled}
         autoUpload={autoUpload}
+        showThumbnail={showThumbnail}
         uploadAllFilesInOneRequest={uploadInOneRequest}
         isBatchUpload={isBatchUpload}
         allowUploadDuplicateFile={allowUploadDuplicateFile}

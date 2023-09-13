@@ -1,4 +1,4 @@
-import React, { MouseEvent, useMemo } from 'react';
+import React, { MouseEvent, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import {
   BrowseIcon as TdBrowseIcon,
@@ -6,6 +6,12 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   TimeFilledIcon as TdTimeFilledIcon,
+  FileExcelIcon as TdFileExcelIcon,
+  FilePdfIcon as TdFilePdfIcon,
+  FileWordIcon as TdFileWordIcon,
+  FilePowerpointIcon as TdFilePowerpointIcon,
+  FileIcon as TdFileIcon,
+  VideoIcon as TdVideoIcon,
 } from 'tdesign-icons-react';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
@@ -13,10 +19,20 @@ import { CommonDisplayFileProps } from '../interface';
 import TButton from '../../button';
 import { UploadFile, TdUploadProps } from '../type';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
-import { abridgeName, returnFileSize } from '../../_common/js/upload/utils';
+import {
+  abridgeName,
+  returnFileSize,
+  IMAGE_REGEXP,
+  FILE_PDF_REGEXP,
+  FILE_EXCEL_REGEXP,
+  FILE_WORD_REGEXP,
+  FILE_PPT_REGEXP,
+  VIDEO_REGEXP,
+} from '../../_common/js/upload/utils';
 import TLoading from '../../loading';
 import Link from '../../link';
 import parseTNode from '../../_util/parseTNode';
+import Image from '../../image';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;
@@ -25,21 +41,43 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
   disabled?: boolean;
   isBatchUpload?: boolean;
   draggable?: boolean;
+  showThumbnail?: boolean;
   onPreview?: TdUploadProps['onPreview'];
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
-  const { draggable = true, accept } = props;
+  const { draggable = true, accept, showThumbnail, onPreview } = props;
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
 
-  const { BrowseIcon, DeleteIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } = useGlobalIcon({
+  const [currentPreviewFile, setCurrentPreviewFile] = useState<UploadFile[]>([]);
+  const [previewIndex, setPreviewIndex] = useState(0);
+
+  const {
+    BrowseIcon,
+    DeleteIcon,
+    CheckCircleFilledIcon,
+    ErrorCircleFilledIcon,
+    TimeFilledIcon,
+    FileExcelIcon,
+    FilePdfIcon,
+    FileWordIcon,
+    FilePowerpointIcon,
+    FileIcon,
+    VideoIcon,
+  } = useGlobalIcon({
     BrowseIcon: TdBrowseIcon,
     DeleteIcon: TdDeleteIcon,
     CheckCircleFilledIcon: TdCheckCircleFilledIcon,
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
     TimeFilledIcon: TdTimeFilledIcon,
+    FileExcelIcon: TdFileExcelIcon,
+    FilePdfIcon: TdFilePdfIcon,
+    FileWordIcon: TdFileWordIcon,
+    FilePowerpointIcon: TdFilePowerpointIcon,
+    FileIcon: TdFileIcon,
+    VideoIcon: TdVideoIcon,
   });
 
   const drag = useDrag({ ...props.dragEvents, accept });
@@ -57,6 +95,30 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         onDragLeave: drag.handleDragleave,
       }
     : {};
+
+  const browseIconClick = ({
+    e,
+    index,
+    file,
+    viewFiles,
+  }: {
+    e: MouseEvent<HTMLDivElement>;
+    index: number;
+    file: UploadFile;
+    viewFiles: UploadFile[];
+  }) => {
+    setPreviewIndex(index);
+    setCurrentPreviewFile(viewFiles);
+    onPreview?.({ file, index, e });
+  };
+
+  const previewIndexChange = (index: number) => {
+    setPreviewIndex(index);
+  };
+
+  const closePreview = () => {
+    setCurrentPreviewFile([]);
+  };
 
   const getStatusMap = () => {
     const iconMap = {
@@ -106,25 +168,21 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             </div>
           )}
           {(['waiting', 'success'].includes(file.status) || (!file.status && file.url)) && (
-            <img
-              className={`${uploadPrefix}__card-image`}
-              src={file.url || '//tdesign.gtimg.com/tdesign-default-img.png'}
-            />
+            <Image className={`${uploadPrefix}__card-image`} src={file.url || file.raw} error="" loading="" />
           )}
           <div className={`${uploadPrefix}__card-mask`}>
-            {file.url && (
+            {(file.url || file.raw) && (
               <span className={`${uploadPrefix}__card-mask-item`}>
-                <ImageViewer
-                  trigger={({ onOpen }) => (
-                    <BrowseIcon
-                      onClick={(e) => {
-                        props.onPreview?.({ file, index, e });
-                        onOpen();
-                      }}
-                    />
-                  )}
-                  images={displayFiles.map((t) => t.url)}
-                  defaultIndex={index}
+                <BrowseIcon
+                  onClick={(event) => {
+                    const e = event.type ? event : event.e;
+                    browseIconClick({
+                      e,
+                      index,
+                      file,
+                      viewFiles: displayFiles,
+                    });
+                  }}
                 />
                 <span className={`${uploadPrefix}__card-mask-item-divider`}></span>
               </span>
@@ -139,7 +197,9 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             )}
           </div>
         </div>
-        <p className={`${uploadPrefix}__card-name`}>{fileName}</p>
+        <p className={`${uploadPrefix}__card-name`}>
+          {file.status === 'waiting' ? locale.progress.waitingText : fileName}
+        </p>
       </li>
     );
   };
@@ -169,6 +229,52 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       </Link>
     </td>
   );
+
+  function getFileThumbnailIcon(fileType: string) {
+    if (FILE_PDF_REGEXP.test(fileType)) {
+      return <FilePdfIcon />;
+    }
+    if (FILE_EXCEL_REGEXP.test(fileType)) {
+      return <FileExcelIcon />;
+    }
+    if (FILE_WORD_REGEXP.test(fileType)) {
+      return <FileWordIcon />;
+    }
+    if (FILE_PPT_REGEXP.test(fileType)) {
+      return <FilePowerpointIcon />;
+    }
+    if (VIDEO_REGEXP.test(fileType)) {
+      return <VideoIcon />;
+    }
+    return <FileIcon />;
+  }
+
+  function renderFileThumbnail(file: UploadFile) {
+    if (!file || (!file.raw && file.url)) return null;
+    const fileType = file.raw.type;
+    const className = `${uploadPrefix}__file-thumbnail`;
+    if (IMAGE_REGEXP.test(fileType) && (file.url || file.raw)) {
+      return (
+        <Image
+          className={className}
+          src={file.url || file.raw}
+          fit="scale-down"
+          error=""
+          loading=""
+          onClick={(e) => {
+            e.preventDefault();
+            browseIconClick({
+              e,
+              index: 0,
+              file,
+              viewFiles: [file],
+            });
+          }}
+        />
+      );
+    }
+    return <div className={className}>{getFileThumbnailIcon(fileType)}</div>;
+  }
 
   // batchUpload action col
   const renderBatchActionCol = (index: number) =>
@@ -217,17 +323,24 @@ const ImageFlowList = (props: ImageFlowListProps) => {
                 ? renderBatchActionCol(index)
                 : renderNormalActionCol(file, index);
             const fileName = props.abridgeName?.length ? abridgeName(file.name, ...props.abridgeName) : file.name;
+            const thumbnailNode = showThumbnail ? (
+              <div className={`${uploadPrefix}__file-info`}>
+                {renderFileThumbnail(file)}
+                {fileName}
+              </div>
+            ) : (
+              fileName
+            );
+            const fileNameNode = file.url ? (
+              <Link href={file.url} target="_blank" hover="color">
+                {thumbnailNode}
+              </Link>
+            ) : (
+              thumbnailNode
+            );
             return (
               <tr key={file.name + index}>
-                <td className={`${uploadPrefix}__file-name`}>
-                  {file.url ? (
-                    <Link href={file.url} target="_blank" hover="color">
-                      {fileName}
-                    </Link>
-                  ) : (
-                    fileName
-                  )}
-                </td>
+                <td className={`${uploadPrefix}__file-name`}>{fileNameNode}</td>
                 <td>{returnFileSize(file.size)}</td>
                 <td>{renderStatus(file)}</td>
                 {disabled ? null : deleteNode}
@@ -302,6 +415,14 @@ const ImageFlowList = (props: ImageFlowListProps) => {
           </TButton>
         </div>
       )}
+
+      <ImageViewer
+        images={currentPreviewFile.map((t) => t.url || t.raw)}
+        visible={!!currentPreviewFile.length}
+        onClose={closePreview}
+        index={previewIndex}
+        onIndexChange={previewIndexChange}
+      ></ImageViewer>
     </div>
   );
 };

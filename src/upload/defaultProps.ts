@@ -14,6 +14,7 @@ export const uploadDefaultProps: TdUploadProps = {
   method: 'POST',
   multiple: false,
   name: 'file',
+  showThumbnail: false,
   showUploadProgress: true,
   theme: 'file',
   uploadAllFilesInOneRequest: false,

@@ -18,9 +18,45 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, fail 
         <div
           class="t-upload__dragger-img-wrap"
         >
-          <img
-            src="https://image4.png"
-          />
+          <div
+            class="t-image__wrapper t-image__wrapper--shape-square"
+          >
+            <img
+              class="t-image t-image--fit-fill t-image--position-center"
+              src="https://image4.png"
+            />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                  >
+                    <path
+                      d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="t-upload__dragger-progress-info"
@@ -101,9 +137,45 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, progr
         <div
           class="t-upload__dragger-img-wrap"
         >
-          <img
-            src="https://image2.png"
-          />
+          <div
+            class="t-image__wrapper t-image__wrapper--shape-square"
+          >
+            <img
+              class="t-image t-image--fit-fill t-image--position-center"
+              src="https://image2.png"
+            />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                  >
+                    <path
+                      d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="t-upload__dragger-progress-info"
@@ -197,9 +269,45 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
         <div
           class="t-upload__dragger-img-wrap"
         >
-          <img
-            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          />
+          <div
+            class="t-image__wrapper t-image__wrapper--shape-square"
+          >
+            <img
+              class="t-image t-image--fit-fill t-image--position-center"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+            />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                  >
+                    <path
+                      d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="t-upload__dragger-progress-info"
@@ -280,9 +388,45 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
         <div
           class="t-upload__dragger-img-wrap"
         >
-          <img
-            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          />
+          <div
+            class="t-image__wrapper t-image__wrapper--shape-square"
+          >
+            <img
+              class="t-image t-image--fit-fill t-image--position-center"
+              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+            />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                  >
+                    <path
+                      d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="t-upload__dragger-progress-info"
@@ -363,9 +507,45 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, waiti
         <div
           class="t-upload__dragger-img-wrap"
         >
-          <img
-            src="https://image3.png"
-          />
+          <div
+            class="t-image__wrapper t-image__wrapper--shape-square"
+          >
+            <img
+              class="t-image t-image--fit-fill t-image--position-center"
+              src="https://image3.png"
+            />
+            <div
+              class="t-image__loading"
+            >
+              <div
+                class="t-space t-space-align-center t-space-vertical"
+                style="gap: 8px;"
+              >
+                <div
+                  class="t-space-item"
+                >
+                  <svg
+                    class="t-icon t-icon-image"
+                    fill="none"
+                    height="1em"
+                    style="font-size: 24px;"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                  >
+                    <path
+                      d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-space-item"
+                >
+                  图片加载中
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="t-upload__dragger-progress-info"
@@ -695,10 +875,43 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
             <div
               class="t-upload__card-content t-is-bordered"
             >
-              <img
-                class="t-upload__card-image"
-                src="//tdesign.gtimg.com/tdesign-default-img.png"
-              />
+              <div
+                class="t-image__wrapper t-image__wrapper--shape-square t-upload__card-image"
+              >
+                <img
+                  class="t-image t-image--fit-fill t-image--position-center"
+                  src=""
+                />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                      >
+                        <path
+                          d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    />
+                  </div>
+                </div>
+              </div>
               <div
                 class="t-upload__card-mask"
               >
@@ -732,10 +945,43 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
             <div
               class="t-upload__card-content t-is-bordered"
             >
-              <img
-                class="t-upload__card-image"
-                src="https://img1.txt"
-              />
+              <div
+                class="t-image__wrapper t-image__wrapper--shape-square t-upload__card-image"
+              >
+                <img
+                  class="t-image t-image--fit-fill t-image--position-center"
+                  src="https://img1.txt"
+                />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                      >
+                        <path
+                          d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    />
+                  </div>
+                </div>
+              </div>
               <div
                 class="t-upload__card-mask"
               >
@@ -792,10 +1038,43 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
             <div
               class="t-upload__card-content"
             >
-              <img
-                class="t-upload__card-image"
-                src="https://img2.txt"
-              />
+              <div
+                class="t-image__wrapper t-image__wrapper--shape-square t-upload__card-image"
+              >
+                <img
+                  class="t-image t-image--fit-fill t-image--position-center"
+                  src="https://img2.txt"
+                />
+                <div
+                  class="t-image__loading"
+                >
+                  <div
+                    class="t-space t-space-align-center t-space-vertical"
+                    style="gap: 8px;"
+                  >
+                    <div
+                      class="t-space-item"
+                    >
+                      <svg
+                        class="t-icon t-icon-image"
+                        fill="none"
+                        height="1em"
+                        style="font-size: 24px;"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                      >
+                        <path
+                          d="M2 2h20v20H2V2zm2 18h13.59L9 11.41l-5 5V20zm16-.41V4H4v9.59l5-5 11 11zM15.55 7a1 1 0 100 2 1 1 0 000-2zm-3 1a3 3 0 116 0 3 3 0 01-6 0z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="t-space-item"
+                    />
+                  </div>
+                </div>
+              </div>
               <div
                 class="t-upload__card-mask"
               >
@@ -843,7 +1122,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
             <p
               class="t-upload__card-name"
             >
-              img2.txt
+              待上传
             </p>
           </li>
           <li
