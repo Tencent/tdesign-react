@@ -153,7 +153,10 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   useEffect(
     () => {
       if (!isVirtualScroll) {
-        trScrollTopHeightList.current = getTrScrollTopHeightList([], container.current?.getBoundingClientRect().height);
+        trScrollTopHeightList.current = getTrScrollTopHeightList(
+          trHeightList,
+          container.current?.getBoundingClientRect().height,
+        );
         return;
       }
 
