@@ -1,11 +1,22 @@
-import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject, MouseEvent, useRef } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useImperativeHandle,
+  useMemo,
+  RefObject,
+  MouseEvent,
+  useRef,
+  useCallback,
+} from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
+import get from 'lodash/get';
 
 import TreeNode from '../_common/js/tree/tree-node';
-import { TreeOptionData, StyledProps } from '../common';
+import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
 import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
+import log from '../_common/js/log';
 
 import useControllable from './hooks/useControllable';
 import { useStore } from './hooks/useStore';
@@ -144,13 +155,31 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     }
     setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
   };
+  const handleScrollToElement = useCallback(
+    (params: ComponentScrollToElementParams) => {
+      let { index } = params;
 
+      if (!index && index !== 0) {
+        if (!params.key) {
+          log.error('Tree', 'scrollToElement: one of `index` or `key` must exist.');
+          return;
+        }
+        const data = isVirtual ? visibleData : visibleNodes;
+        index = data?.findIndex((item) => get(item.data, 'key') === params.key);
+        if (index < 0) {
+          log.error('Tree', `${params.key} does not exist in data, check \`key\` or \`data\` please.`);
+        }
+      }
+      scrollToElement({ ...params, index });
+    },
+    [scrollToElement, isVirtual, visibleData, visibleNodes],
+  );
   /** 对外暴露的公共方法 * */
   useImperativeHandle<unknown, TreeInstanceFunctions>(
     ref,
     () => ({
       store,
-      scrollTo: scrollToElement,
+      scrollTo: (p: ComponentScrollToElementParams) => handleScrollToElement(p),
       appendTo(value, newData) {
         let list = [];
         if (Array.isArray(newData)) {
@@ -218,7 +247,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         }
       },
     }),
-    [store, setExpanded, setActived, setChecked, scrollToElement],
+    [store, setExpanded, setActived, setChecked, handleScrollToElement],
   );
 
   /* ======== render ======= */
@@ -313,7 +342,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
           [treeClassNames.treeCheckable]: checkable,
           [treeClassNames.treeFx]: transition,
           [treeClassNames.treeBlockNode]: expandOnClickNode,
-          [treeClassNames.treeVscroll]: isVirtual,
+          [treeClassNames.treeVscroll]: props.scroll, // 开启虚拟滚动就要有overflow 否则低于 threshold 无法正常运行 scrollto
         })}
         style={style}
         ref={treeRef}

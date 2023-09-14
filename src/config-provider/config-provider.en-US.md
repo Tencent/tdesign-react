@@ -272,6 +272,7 @@ closeIcon | Function | - | Typescript：`TNode`。[see more ts definition](https
 
 name | type | default | description | required
 -- | -- | -- | -- | --
+checkIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 errorIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 
 ### AlertConfig

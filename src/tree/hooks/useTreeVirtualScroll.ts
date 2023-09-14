@@ -1,8 +1,7 @@
 import { useMemo, useEffect, CSSProperties } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import TreeNode from '../../_common/js/tree/tree-node';
-
-import type { TScroll } from '../../common';
+import { TScroll } from '../../common';
 
 export default function useTreeVirtualScroll({
   treeRef,

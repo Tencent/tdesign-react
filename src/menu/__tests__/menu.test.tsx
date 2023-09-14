@@ -170,4 +170,22 @@ describe('Menu 组件测试', () => {
     fireEvent.click(getByText('列表项'));
     expect(ulNode.style.maxHeight).not.toBe('0');
   });
+
+  test('menu 測試 menuItem onClick事件', () => {
+    const clickFn = vi.fn();
+    const { getByText } = render(
+      <Menu>
+        <SubMenu title="列表项" value="1-1">
+          <MenuItem value="item1" onClick={clickFn}>
+            仪表盘
+          </MenuItem>
+        </SubMenu>
+        <SubMenu title="列表项" value="2-1">
+          <MenuItem value="2-1-1">基础列表项</MenuItem>
+        </SubMenu>
+      </Menu>,
+    );
+    fireEvent.click(getByText('仪表盘'));
+    expect(clickFn).toHaveBeenCalledTimes(1);
+  });
 });

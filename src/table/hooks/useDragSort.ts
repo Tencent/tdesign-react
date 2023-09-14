@@ -10,7 +10,7 @@ import useLatest from '../../_util/useLatest';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
-import { getColumnDataByKey, getColumnIndexByKey } from '../utils';
+import { getColumnDataByKey, getColumnIndexByKey } from '../../_common/js/table/utils';
 
 export default function useDragSort(
   props: TdPrimaryTableProps,

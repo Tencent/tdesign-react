@@ -9,18 +9,21 @@ export default () => {
 
   useEffect(() => {
     const newOptions = [];
-    for (let i = 0; i < 3000; i++) {
+    for (let i = 1; i <= 3000; i++) {
       newOptions.push({
-        label: `第${i + 1}段`,
+        label: `第${i}段`,
         value: i,
+        key: i,
         children: [
           {
-            label: `第${i + 1}段第1个子节点`,
+            label: `第${i}段第1个子节点`,
             value: `${i}.1`,
+            key: `${i}.1`,
           },
           {
-            label: `第${i + 1}段第2个子节点`,
+            label: `第${i}段第2个子节点`,
             value: `${i}.2`,
+            key: `${i}.2`,
           },
         ],
       });
@@ -29,7 +32,7 @@ export default () => {
   }, []);
 
   const handleScroll = () => {
-    treeRef.current.scrollTo({ index: 100, behavior: 'smooth' });
+    treeRef.current.scrollTo({ key: '3.2', behavior: 'smooth' });
   };
 
   const defaultChecked = ['1.2', '2.2'];

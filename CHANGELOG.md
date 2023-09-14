@@ -5,6 +5,36 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.2.5 `2023-09-14` 
+### 🚀 Features
+- `steps`: 全局配置添加步骤条的已完成图标自定义 @Zzongke ([#2491](https://github.com/Tencent/tdesign-react/pull/2491))
+- `Table`: 可筛选表格，`onFilterChange` 事件新增参数 `trigger: 'filter-change' | 'confirm' | 'reset' | 'clear'`，表示触发筛选条件变化的来源 @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
+- `Form`: trigger新增`submit`选项 @honkinglin ([#2507](https://github.com/Tencent/tdesign-react/pull/2507))
+- `ImageViewer`:
+  - `onIndexChange` 事件新增 `trigger` 枚举值 `current` @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+  - 
+- `Image`:
+    - 新增 `fallback`，表示图片的兜底图，原始图片加载失败时会显示兜底图 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+    - 新增支持 `src` 类型为 `File`，支持通过 `File` 预览图片 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+- `Upload`: 文案列表支持显示缩略图 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+- `Tree`:
+    - 支持虚拟滚动场景下通过`key`滚动到特定节点 @uyarn ([#2509](https://github.com/Tencent/tdesign-react/pull/2509))
+    - 虚拟滚动下 低于`threshold` 仍可运行scrollTo操作 @uyarn ([#2509](https://github.com/Tencent/tdesign-react/pull/2509))
+### 🐞 Bug Fixes
+- `GlobalConfig`: 修复切换多语言失效的问题 @uyarn ([#2501](https://github.com/Tencent/tdesign-react/pull/2501))
+- `Table`:
+    - 可筛选表格，修复 `resetValue` 在清空筛选时，未能重置到指定 `resetValue` 值的问题 @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
+    - 树形结构表格，修复 expandedTreeNodes.sync 和 @expanded-tree-nodes-change 使用 expandTreeNodeOnClick  时无效问题 [tdesign-vue#2756](https://github.com/Tencent/tdesign-vue/issues/2756) @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
+    - 单元格在编辑模式下，保存的时候对于链式的colKey处理错误，未能覆盖原来的值 @Empire-suy ([#2493](https://github.com/Tencent/tdesign-react/pull/2493))
+    - 可编辑表格，修复多个可编辑表格同时存在时，校验互相影响问题 @chaishi ([#2498](https://github.com/Tencent/tdesign-react/pull/2498))
+    - 单元格在编辑模式下，保存的时候对于链式的colKey处理错误，未能覆盖原来的值 @Empire-suy ([#2493](https://github.com/Tencent/tdesign-react/pull/2493))
+    - 修复使用 list 传 props 且 destroyOnHide 为 false 下， 会丢失 panel 内容的问题 @lzy2014love ([#2500](https://github.com/Tencent/tdesign-react/pull/2500))
+- `TagInput`: 修复折叠展示选项尺寸大小问题 @uyarn ([#2503](https://github.com/Tencent/tdesign-react/pull/2503))
+- `Tabs`: 修复使用 list 传 props 且 destroyOnHide 为 false 下， 会丢失 panel 内容的问题 @lzy2014love ([#2500](https://github.com/Tencent/tdesign-react/pull/2500))
+- `menu`: 修复菜单expandType默认模式下menuitem传递onClick不触发的问题 @Zzongke ([#2502](https://github.com/Tencent/tdesign-react/pull/2502))
+- `ImageViewer`: 修复无法通过 `visible` 直接打开预览弹框问题 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+- `Tree`: 修复1.2.0版本后部分`TreeNodeModel`的操作失效的异常 @uyarn
+
  ## 🌈 1.2.4 `2023-08-31` 
 ### 🚀 Features
 - `Table`: 树形结构，没有设置 `expandedTreeNodes` 情况下，data 数据发生变化时，自动重置收起所有展开节点（如果希望保持展开节点，请使用属性 `expandedTreeNodes` 控制，[tdesign-vue#2735](https://github.com/Tencent/tdesign-vue/issues/2735) @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
