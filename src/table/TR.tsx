@@ -123,7 +123,7 @@ export default function TR(props: TrProps) {
       colIndex,
     };
     let spanState = null;
-    if (props.skipSpansMap.size) {
+    if (props.skipSpansMap?.size) {
       const cellKey = getCellKey(row, props.rowKey, col.colKey, colIndex);
       spanState = props.skipSpansMap.get(cellKey) || {};
       spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
