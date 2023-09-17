@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useImperativeHandle, forwardRef, useEffect, useState, WheelEvent } from 'react';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
-import TBody, { extendTableProps } from './TBody';
+import TBody, { extendTableProps, TableBodyProps } from './TBody';
 import { Affix } from '../affix';
 import { ROW_LISTENERS } from './TR';
 import THead from './THead';
@@ -49,8 +49,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const tableElmRef = useRef<HTMLTableElement>();
   const bottomContentRef = useRef<HTMLDivElement>();
   const [tableFootHeight, setTableFootHeight] = useState(0);
+  const allTableClasses = useClassName();
+
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
-    useClassName();
+    allTableClasses;
   // 表格基础样式类
   const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
@@ -422,7 +424,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     return affixedFooter;
   };
 
-  const tableBodyProps = {
+  const tableBodyProps: TableBodyProps = {
     classPrefix,
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     rowAndColFixedPosition,
@@ -431,10 +433,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     virtualConfig,
     handleRowMounted: virtualConfig.handleRowMounted,
     columns: spansAndLeafNodes?.leafColumns || columns,
-    tableElm: tableRef.current,
-    tableContentElm: tableContentRef.current,
-    tableWidth: tableWidth.current,
+    tableRef,
+    tableContentRef,
+    tableWidth,
     isWidthOverflow,
+    allTableClasses,
     rowKey: props.rowKey || 'id',
     scroll: props.scroll,
     cellEmptyContent: props.cellEmptyContent,
@@ -483,15 +486,15 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
           ),
           // eslint-disable-next-line
           [
-            tableBodyProps.classPrefix,
+            allTableClasses,
             tableBodyProps.ellipsisOverlayClassName,
             tableBodyProps.rowAndColFixedPosition,
             tableBodyProps.showColumnShadow,
             tableBodyProps.data,
             tableBodyProps.columns,
-            tableBodyProps.tableElm,
-            tableBodyProps.tableContentElm,
-            tableBodyProps.tableWidth,
+            tableRef,
+            tableContentRef,
+            tableWidth,
             isWidthOverflow,
             props.rowKey,
             props.rowClassName,

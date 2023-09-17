@@ -23,10 +23,14 @@ export default function useRowspanAndColspan(
   rowKey: string,
   rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
 ) {
-  const [skipSpansMap] = useState(new Map<string, SkipSpansValue>());
+  const [skipSpansMap, setKipSnapsMap] = useState(new Map<string, SkipSpansValue>());
 
   // 计算单元格是否跳过渲染
-  const onTrRowspanOrColspan = (params: BaseTableCellParams<TableRowData>, skipSpansValue: SkipSpansValue) => {
+  const onTrRowspanOrColspan = (
+    params: BaseTableCellParams<TableRowData>,
+    skipSpansValue: SkipSpansValue,
+    map: Map<string, SkipSpansValue>,
+  ) => {
     const { rowIndex, colIndex } = params;
     if (!skipSpansValue.rowspan && !skipSpansValue.colspan) return;
     const maxRowIndex = rowIndex + (skipSpansValue.rowspan || 1);
@@ -36,22 +40,22 @@ export default function useRowspanAndColspan(
         if (i !== rowIndex || j !== colIndex) {
           if (!data[i] || !columns[j]) return;
           const cellKey = getCellKey(data[i], rowKey, columns[j].colKey, j);
-          const state = skipSpansMap.get(cellKey) || {};
+          const state = map.get(cellKey) || {};
           state.skipped = true;
-          skipSpansMap.set(cellKey, state);
+          map.set(cellKey, state);
         }
       }
     }
   };
 
   // 计算单元格是否需要设置 rowspan 和 colspan
-  const updateSkipSpansMap = (
+  const getSkipSpansMap = (
     data: TableRowData[],
     columns: BaseTableCol<TableRowData>[],
     rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
   ) => {
-    skipSpansMap.clear();
     if (!data || !rowspanAndColspan) return;
+    const map: Map<string, SkipSpansValue> = new Map<string, SkipSpansValue>();
     for (let i = 0, len = data.length; i < len; i++) {
       const row = data[i];
       for (let j = 0, colLen = columns.length; j < colLen; j++) {
@@ -63,22 +67,26 @@ export default function useRowspanAndColspan(
           colIndex: j,
         };
         const cellKey = getCellKey(row, rowKey, col.colKey, j);
-        const state = skipSpansMap.get(cellKey) || {};
+        const state = map.get(cellKey) || {};
         const o = rowspanAndColspan(params) || {};
         if (o.rowspan || o.colspan || state.rowspan || state.colspan) {
           o.rowspan && (state.rowspan = o.rowspan);
           o.colspan && (state.colspan = o.colspan);
-          skipSpansMap.set(cellKey, state);
+          map.set(cellKey, state);
         }
-        onTrRowspanOrColspan?.(params, state);
+        onTrRowspanOrColspan?.(params, state, map);
       }
     }
+    return map;
   };
 
   useEffect(() => {
-    updateSkipSpansMap(data, columns, rowspanAndColspan);
+    if (!rowspanAndColspan) return;
+    skipSpansMap.clear();
+    const result = getSkipSpansMap(data, columns, rowspanAndColspan);
+    setKipSnapsMap(result);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, columns, rowspanAndColspan]);
 
-  return { skipSpansMap, updateSkipSpansMap };
+  return { skipSpansMap, getSkipSpansMap };
 }
