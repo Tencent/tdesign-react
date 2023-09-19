@@ -85,9 +85,9 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     [`${classPrefix}-card__description`]: description,
   });
 
-  const renderTitle = title ? <span className={titleClass}>{title}</span> : null;
+  const renderTitle = title ? <div className={titleClass}>{title}</div> : null;
 
-  const renderSubtitle = subtitle ? <span className={subtitleClass}>{subtitle}</span> : null;
+  const renderSubtitle = subtitle ? <div className={subtitleClass}>{subtitle}</div> : null;
 
   const renderDescription = description ? <p className={descriptionClass}>{description}</p> : null;
 
