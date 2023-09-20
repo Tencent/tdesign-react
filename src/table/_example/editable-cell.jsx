@@ -115,6 +115,7 @@ export default function EditableCellTable() {
         title: '申请事项',
         colKey: 'letters',
         cell: ({ row }) => row?.letters?.join('、'),
+        width: 280,
         edit: {
           keepEditMode: true,
           component: Select,
