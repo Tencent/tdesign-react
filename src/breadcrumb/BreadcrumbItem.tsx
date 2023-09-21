@@ -32,6 +32,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     replace,
     className,
     content,
+    tooltipLiteProps,
     ...restProps
   } = useDefaultProps<BreadcrumbItemProps>(props, breadcrumbItemDefaultProps);
 
@@ -91,7 +92,13 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   return (
     <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
-      {isCutOff ? <TooltipLite content={children || content}>{itemContent}</TooltipLite> : itemContent}
+      {isCutOff ? (
+        <TooltipLite content={children || content} {...tooltipLiteProps}>
+          {itemContent}
+        </TooltipLite>
+      ) : (
+        itemContent
+      )}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
   );

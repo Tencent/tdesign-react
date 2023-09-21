@@ -27,3 +27,4 @@ replace | Boolean | false | 路由跳转是否采用覆盖的方式（覆盖后�
 router | Object | - | 路由对象。如果项目存在 Router，则默认使用 Router。TS 类型：`any` | N
 target | String | _self | 链接或路由跳转方式。可选项：_blank/_self/_parent/_top | N
 to | String / Object | - | 路由跳转目标，当且仅当 Router 存在时，该 API 有效。TS 类型：`Route` `interface Route { path?: string; name?: string; hash?: string; query?: RouteData; params?: RouteData }` `type RouteData = { [key: string]: string \| string[] }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/breadcrumb/type.ts) | N
+tooltipLiteProps | TooltipLiteProps | - | tooltipLite参数透传，同TooltipLiteProps类型。TS 类型：`TooltipLiteProps`。
