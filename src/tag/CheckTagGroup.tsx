@@ -1,5 +1,5 @@
 import React from 'react';
-import useControlled from 'tdesign-react/hooks/useControlled';
+import useControlled from '../hooks/useControlled';
 import { StyledProps } from '../common';
 import { checkTagGroupDefaultProps } from './defaultProps';
 import { CheckTagGroupValue, TdCheckTagGroupProps, TdCheckTagProps } from './type';
@@ -16,7 +16,7 @@ const CheckTagGroup = (props: CheckTagGroupProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
 
   const onCheckTagChange: TdCheckTagProps['onChange'] = (checked, ctx) => {
-    const {value} = ctx;
+    const { value } = ctx;
     if (checked) {
       if (props.multiple) {
         setInnerValue(innerValue.concat(value), { e: ctx.e, type: 'check', value });
