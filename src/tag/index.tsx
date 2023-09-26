@@ -1,5 +1,6 @@
 import { TagFunction } from './Tag';
 import _CheckTag from './CheckTag';
+import _CheckTagGroup from './CheckTagGroup';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { tagDefaultProps } from './defaultProps';
 
@@ -18,8 +19,8 @@ export const Tag = forwardRefWithStatics(TagFunction, {
 
 Tag.displayName = 'Tag';
 Tag.defaultProps = tagDefaultProps;
-// export const Tag = _Tag;
 
 export const CheckTag = _CheckTag;
+export const CheckTagGroup = _CheckTagGroup;
 
 export default Tag;
