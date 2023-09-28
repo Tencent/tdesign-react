@@ -221,7 +221,7 @@ const EditableCell = (props: EditableCellProps) => {
     const params = {
       ...cellParams,
       value: val,
-      editedRow: { ...props.row, [props.col.colKey]: val },
+      editedRow: set({ ...props.row }, props.col.colKey, val),
     };
     props.onChange?.(params);
     props.onRuleChange?.(params);

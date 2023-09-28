@@ -121,6 +121,15 @@ export default () => {
 
   const renderOperations2 = (node) => (
     <>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="base" onClick={() => append(node)}>
+        添加子节点
+      </Button>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertBefore(node)}>
+        前插节点
+      </Button>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertAfter(node)}>
+        后插节点
+      </Button>
       <Button style={{ marginLeft: '10px' }} size="small" variant="base" theme="danger" onClick={() => remove(node)}>
         删除
       </Button>

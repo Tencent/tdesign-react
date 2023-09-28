@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, MouseEvent, useEffect } from 'react';
+import React, { useMemo, useRef, MouseEvent, useEffect, MutableRefObject } from 'react';
 import get from 'lodash/get';
 import classnames from 'classnames';
 import { formatRowAttributes, formatRowClassNames } from './utils';
@@ -52,8 +52,8 @@ export interface TrProps extends TrCommonProps {
   trs?: Map<number, object>;
   bufferSize?: number;
   scroll?: InfinityScroll;
-  tableElm?: HTMLDivElement;
-  tableContentElm?: HTMLDivElement;
+  tableRef?: MutableRefObject<HTMLDivElement>;
+  tableContentRef?: MutableRefObject<HTMLDivElement>;
   pagination?: PaginationProps;
   virtualConfig?: VirtualScrollConfig;
   onRowMounted?: (data: any) => void;
@@ -72,7 +72,7 @@ export default function TR(props: TrProps) {
     dataLength,
     fixedRows,
     scroll,
-    tableContentElm,
+    tableContentRef,
     rowAndColFixedPosition,
     virtualConfig,
     onRowMounted,
@@ -102,7 +102,7 @@ export default function TR(props: TrProps) {
   }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes]);
 
   const useLazyLoadParams = useMemo(() => ({ ...scroll, rowIndex }), [scroll, rowIndex]);
-  const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentElm, trRef, useLazyLoadParams);
+  const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentRef.current, trRef, useLazyLoadParams);
 
   useEffect(() => {
     if (virtualConfig.isVirtualScroll && trRef.current) {
@@ -123,7 +123,7 @@ export default function TR(props: TrProps) {
       colIndex,
     };
     let spanState = null;
-    if (props.skipSpansMap.size) {
+    if (props.skipSpansMap?.size) {
       const cellKey = getCellKey(row, props.rowKey, col.colKey, colIndex);
       spanState = props.skipSpansMap.get(cellKey) || {};
       spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
@@ -149,7 +149,7 @@ export default function TR(props: TrProps) {
         tableClassNames={classNames}
         rowspanAndColspan={props.rowspanAndColspan}
         onClick={onClick}
-        tableElm={props.tableElm}
+        tableRef={props.tableRef}
         classPrefix={props.classPrefix}
         overlayClassName={props.ellipsisOverlayClassName}
         pagination={props.pagination}

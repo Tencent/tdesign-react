@@ -3,30 +3,35 @@
 exports[`Image Component > props.fit is equal to contain 1`] = `
 <img
   class="t-image t-image--fit-contain t-image--position-center"
+  src=""
 />
 `;
 
 exports[`Image Component > props.fit is equal to cover 1`] = `
 <img
   class="t-image t-image--fit-cover t-image--position-center"
+  src=""
 />
 `;
 
 exports[`Image Component > props.fit is equal to fill 1`] = `
 <img
   class="t-image t-image--fit-fill t-image--position-center"
+  src=""
 />
 `;
 
 exports[`Image Component > props.fit is equal to none 1`] = `
 <img
   class="t-image t-image--fit-none t-image--position-center"
+  src=""
 />
 `;
 
 exports[`Image Component > props.fit is equal to scale-down 1`] = `
 <img
   class="t-image t-image--fit-scale-down t-image--position-center"
+  src=""
 />
 `;
 
@@ -37,6 +42,7 @@ exports[`Image Component > props.loading works fine 1`] = `
   >
     <img
       class="t-image t-image--fit-fill t-image--position-center"
+      src=""
     />
     <div
       class="t-image__loading"
@@ -58,6 +64,7 @@ exports[`Image Component > props.overlayContent works fine 1`] = `
   >
     <img
       class="t-image t-image--fit-fill t-image--position-center"
+      src=""
     />
     <div
       class="t-image__loading"
@@ -119,6 +126,7 @@ exports[`Image Component > props.placeholder works fine 1`] = `
     </div>
     <img
       class="t-image t-image--fit-fill t-image--position-center"
+      src=""
     />
     <div
       class="t-image__loading"

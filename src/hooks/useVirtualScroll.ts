@@ -123,7 +123,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   };
 
   const updateScrollTop = ({ index, top = 0, behavior }: ScrollToElementParams) => {
-    const scrollTop = trScrollTopHeightList.current[index] - containerHeight.current - top;
+    const containerCurrentHeight = containerHeight.current || container.current.getBoundingClientRect().height;
+    const scrollTop = trScrollTopHeightList.current[index] - containerCurrentHeight - top;
     container.current?.scrollTo({
       top: scrollTop,
       behavior: behavior || 'auto',
@@ -151,7 +152,14 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   // 固定高度场景，可直接通过数据长度计算出最大滚动高度
   useEffect(
     () => {
-      if (!isVirtualScroll) return;
+      if (!isVirtualScroll) {
+        trScrollTopHeightList.current = getTrScrollTopHeightList(
+          trHeightList,
+          container.current?.getBoundingClientRect().height,
+        );
+        return;
+      }
+
       // 给数据添加下标
       addIndexToData(data);
       setScrollHeight(data.length * tScroll.rowHeight);

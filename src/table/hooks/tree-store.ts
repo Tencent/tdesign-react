@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-param-reassign */
 import get from 'lodash/get';
-import { isRowSelectedDisabled } from '../utils';
+import { isRowSelectedDisabled } from '../../_common/js/table/utils';
 import { PrimaryTableCol, TableRowState, TableRowValue, TableRowData } from '../type';
 import log from '../../_common/js/log';
 

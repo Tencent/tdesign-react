@@ -3,17 +3,16 @@ import { ImageInfo } from '../type';
 
 const checkImages = (images) =>
   images.map((image) => {
-    const result: ImageInfo = { mainImage: '' };
-    if (typeof image === 'string' || !image) result.mainImage = image;
-    else {
-      result.mainImage = image.mainImage;
-      result.thumbnail = image.thumbnail;
-      result.download = image.download;
+    let result: ImageInfo = { mainImage: '' };
+    if (typeof image === 'object' && !(image instanceof File)) {
+      result = image;
+    } else {
+      result.mainImage = image;
+      result.thumbnail = image;
     }
     return result;
   });
 
-// 业务组件
 const useList = (images) => {
   const [list, setList] = useState(() => checkImages(images));
 

@@ -5,7 +5,7 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
-import { TNode, TreeOptionData, TScroll, ScrollToElementParams } from '../common';
+import { TNode, TreeOptionData, TScroll, ComponentScrollToElementParams } from '../common';
 import { MouseEvent, WheelEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
@@ -277,7 +277,7 @@ export interface TreeInstanceFunctions<T extends TreeOptionData = TreeOptionData
   /**
    * 虚拟滚动场景下 支持指定滚动到具体的节点
    */
-  scrollTo?: (scrollToParams: ScrollToElementParams) => void;
+  scrollTo?: (scrollToParams: ComponentScrollToElementParams) => void;
   /**
    * 设置节点状态
    */
