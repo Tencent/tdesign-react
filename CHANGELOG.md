@@ -10,9 +10,7 @@ spline: explain
 - `steps`: 全局配置添加步骤条的已完成图标自定义 @Zzongke ([#2491](https://github.com/Tencent/tdesign-react/pull/2491))
 - `Table`: 可筛选表格，`onFilterChange` 事件新增参数 `trigger: 'filter-change' | 'confirm' | 'reset' | 'clear'`，表示触发筛选条件变化的来源 @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
 - `Form`: trigger新增`submit`选项 @honkinglin ([#2507](https://github.com/Tencent/tdesign-react/pull/2507))
-- `ImageViewer`:
-  - `onIndexChange` 事件新增 `trigger` 枚举值 `current` @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
-  - 
+- `ImageViewer`: `onIndexChange` 事件新增 `trigger` 枚举值 `current` @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
 - `Image`:
     - 新增 `fallback`，表示图片的兜底图，原始图片加载失败时会显示兜底图 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
     - 新增支持 `src` 类型为 `File`，支持通过 `File` 预览图片 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
