@@ -70,6 +70,9 @@ export default function useMultiple(props: TdSelectInputProps) {
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
+      onBlur={() => {
+        setTInputValue('');
+      }}
       {...props.tagInputProps}
       inputProps={{
         readonly: !props.allowInput || props.readonly,

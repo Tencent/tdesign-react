@@ -88,6 +88,9 @@ export default function useSingle(props: TdSelectInputProps) {
           // focus might not need to change input value. it will caught some curious errors in tree-select
           // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
         }}
+        onBlur={() => {
+          setInputValue('');
+        }}
         onEnter={(val, context) => {
           props.onEnter?.(value, { ...context, inputValue: val });
         }}
