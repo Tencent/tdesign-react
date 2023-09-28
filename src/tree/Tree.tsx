@@ -165,7 +165,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
           return;
         }
         const data = isVirtual ? visibleData : visibleNodes;
-        index = data?.findIndex((item) => get(item.data, 'key') === params.key);
+        index = data?.findIndex((item) => [get(item.data, 'key'), get(item.data, 'value')].includes(params.key));
         if (index < 0) {
           log.error('Tree', `${params.key} does not exist in data, check \`key\` or \`data\` please.`);
         }

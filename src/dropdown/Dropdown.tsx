@@ -48,6 +48,7 @@ const Dropdown: React.FC<DropdownProps> & {
   };
 
   const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
+    if (disabled) return;
     togglePopupVisible(visible);
     popupProps?.onVisibleChange?.(visible, context);
   };

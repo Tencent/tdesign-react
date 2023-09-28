@@ -18,12 +18,10 @@ export default () => {
           {
             label: `第${i}段第1个子节点`,
             value: `${i}.1`,
-            key: `${i}.1`,
           },
           {
             label: `第${i}段第2个子节点`,
             value: `${i}.2`,
-            key: `${i}.2`,
           },
         ],
       });

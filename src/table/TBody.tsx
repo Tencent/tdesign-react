@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { MutableRefObject, useMemo } from 'react';
 import camelCase from 'lodash/camelCase';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import useClassName from './hooks/useClassName';
+import { TableClassName } from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 import { BaseTableProps, RowAndColFixedPosition } from './interface';
 import { TdBaseTableProps } from './type';
@@ -19,13 +19,14 @@ export interface TableBodyProps extends BaseTableProps {
   // 固定列 left/right 具体值
   rowAndColFixedPosition?: RowAndColFixedPosition;
   showColumnShadow?: { left: boolean; right: boolean };
-  tableElm?: HTMLDivElement;
-  tableContentElm?: HTMLDivElement;
+  tableRef?: MutableRefObject<HTMLDivElement>;
+  tableContentRef?: MutableRefObject<HTMLDivElement>;
   cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
-  tableWidth?: number;
+  tableWidth?: MutableRefObject<number>;
   isWidthOverflow?: boolean;
   virtualConfig: VirtualScrollConfig;
   pagination?: PaginationProps;
+  allTableClasses?: TableClassName;
   handleRowMounted?: (rowData: any) => void;
 }
 
@@ -58,10 +59,12 @@ export const extendTableProps = [
 
 export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
-  const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig } = props;
+  const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig, allTableClasses } = props;
   const [global, t] = useLocaleReceiver('table');
-  const { tableFullRowClasses, tableBaseClass } = useClassName();
+  const { tableFullRowClasses, tableBaseClass } = allTableClasses;
   const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
+  const columnLength = columns.length;
+  const dataLength = data?.length;
 
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
   const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
@@ -104,69 +107,77 @@ export default function TBody(props: TableBodyProps) {
     );
   };
 
-  const columnLength = columns.length;
-  const dataLength = data?.length;
-  const trNodeList = [];
-
-  const properties = [
-    'classPrefix',
-    'ellipsisOverlayClassName',
-    'rowAndColFixedPosition',
-    'scroll',
-    'tableElm',
-    'tableContentElm',
-    'trs',
-    'bufferSize',
-    'isVirtual',
-    'rowHeight',
-    'scrollType',
-  ];
-  data?.forEach((row, rowIndex) => {
-    const trProps = {
-      ...pick(props, TABLE_PROPS),
-      rowKey: props.rowKey || 'id',
-      row,
-      columns,
-      // eslint-disable-next-line
-      rowIndex: row.__VIRTUAL_SCROLL_INDEX || rowIndex,
-      dataLength,
-      skipSpansMap,
-      virtualConfig,
-      classPrefix: props.classPrefix,
-      ellipsisOverlayClassName: props.ellipsisOverlayClassName,
-      ...pick(props, properties),
-      pagination: props.pagination,
-    };
-    if (props.onCellClick) {
-      trProps.onCellClick = props.onCellClick;
-    }
-
-    const trNode = (
-      <TR key={get(row, props.rowKey || 'id') || rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
-    );
-    trNodeList.push(trNode);
-
-    // 执行展开行渲染
-    if (props.renderExpandedRow) {
-      const p = {
-        row,
-        index: rowIndex,
-        columns,
-        tableWidth: props.tableWidth,
-        isWidthOverflow: props.isWidthOverflow,
-      };
-      const expandedContent = props.renderExpandedRow(p);
-      expandedContent && trNodeList.push(expandedContent);
-    }
-  });
-
-  const list = (
-    <>
-      {getFullRow(columnLength, 'first-full-row')}
-      {trNodeList}
-      {getFullRow(columnLength, 'last-full-row')}
-    </>
+  const firstFullRowNode = useMemo(
+    () => getFullRow(columnLength, 'first-full-row'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [firstFullRow, columnLength, getFullRow],
   );
+
+  const lastFullRowNode = useMemo(
+    () => getFullRow(columnLength, 'last-full-row'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lastFullRow, columnLength, getFullRow],
+  );
+
+  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
+
+  const getTRNodeList = () => {
+    if (isSkipSnapsMapNotFinish) return null;
+    const trNodeList = [];
+    const properties = [
+      'classPrefix',
+      'ellipsisOverlayClassName',
+      'rowAndColFixedPosition',
+      'scroll',
+      'tableRef',
+      'tableContentRef',
+      'trs',
+      'bufferSize',
+      'isVirtual',
+      'rowHeight',
+      'scrollType',
+    ];
+    data?.forEach((row, rowIndex) => {
+      const trProps = {
+        ...pick(props, TABLE_PROPS),
+        rowKey: props.rowKey || 'id',
+        row,
+        columns,
+        // eslint-disable-next-line
+        rowIndex: row.__VIRTUAL_SCROLL_INDEX || rowIndex,
+        dataLength,
+        skipSpansMap,
+        virtualConfig,
+        classPrefix: props.classPrefix,
+        ellipsisOverlayClassName: props.ellipsisOverlayClassName,
+        ...pick(props, properties),
+        pagination: props.pagination,
+      };
+      if (props.onCellClick) {
+        trProps.onCellClick = props.onCellClick;
+      }
+
+      const trNode = (
+        <TR key={get(row, props.rowKey || 'id') || rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
+      );
+      trNodeList.push(trNode);
+
+      // 执行展开行渲染
+      if (props.renderExpandedRow) {
+        const p = {
+          row,
+          index: rowIndex,
+          columns,
+          tableWidth: props.tableWidth,
+          isWidthOverflow: props.isWidthOverflow,
+        };
+        const expandedContent = props.renderExpandedRow(p);
+        expandedContent && trNodeList.push(expandedContent);
+      }
+    });
+    return trNodeList;
+  };
+
   const isEmpty = !data?.length && !props.loading && !hasFullRowConfig;
 
   // 垫上隐藏的 tr 元素高度
@@ -179,6 +190,14 @@ export default function TBody(props: TableBodyProps) {
         WebkitTransform: translate,
       }
     : undefined;
+
+  const list = (
+    <>
+      {firstFullRowNode}
+      {getTRNodeList()}
+      {lastFullRowNode}
+    </>
+  );
 
   return (
     <tbody className={classNames(tbodyClasses)} style={{ ...posStyle }}>
