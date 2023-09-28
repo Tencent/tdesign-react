@@ -62,20 +62,29 @@ export default function PanelContent(props: PanelContentProps) {
 
   const defaultTime = '00:00:00';
 
-  const onMonthChangeInner = useCallback((val: number) => {
-    onMonthChange?.(val, { partial });
+  const onMonthChangeInner = useCallback(
+    (val: number) => {
+      onMonthChange?.(val, { partial });
+    },
     // eslint-disable-next-line
-  }, []);
+    [partial],
+  );
 
-  const onYearChangeInner = useCallback((val: number) => {
-    onYearChange?.(val, { partial });
+  const onYearChangeInner = useCallback(
+    (val: number) => {
+      onYearChange?.(val, { partial });
+    },
     // eslint-disable-next-line
-  }, []);
+    [partial],
+  );
 
-  const onJumperClickInner = useCallback(({ trigger }) => {
-    onJumperClick?.({ trigger, partial });
+  const onJumperClickInner = useCallback(
+    ({ trigger }) => {
+      onJumperClick?.({ trigger, partial });
+    },
     // eslint-disable-next-line
-  }, []);
+    [partial],
+  );
 
   return (
     <div className={`${panelName}-content`}>
