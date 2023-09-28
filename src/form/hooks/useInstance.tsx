@@ -115,7 +115,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     const fieldsValue = {};
 
     if (nameList === true) {
-      for (const [name, formItemRef] of formMapRef.current.entries()) {
+      // 嵌套数组子节点先添加导致外层数据覆盖因而需要倒序遍历
+      for (const [name, formItemRef] of [...formMapRef.current.entries()].reverse()) {
         const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
         merge(fieldsValue, fieldValue);
       }
