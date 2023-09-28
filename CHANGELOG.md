@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.2.6 `2023-09-28` 
+### 🚀 Features
+- `Table`: 优化渲染次数 @chaishi ([#2514](https://github.com/Tencent/tdesign-react/pull/2514))
+- `card`: title使用`div`取代`span` 在自定义场景下更符合规范 @uyarn ([#2517](https://github.com/Tencent/tdesign-react/pull/2517))
+- `Tree`: Tree支持通过key匹配单一value指定滚动到特定位置，具体使用方式请参考示例代码 @uyarn ([#2519](https://github.com/Tencent/tdesign-react/pull/2519))
+### 🐞 Bug Fixes
+- `Form`: 修复 formList 嵌套数据获取异常 @honkinglin ([#2529](https://github.com/Tencent/tdesign-react/pull/2529))
+- `Table`: 修复数据切换时 `rowspanAndColspan` 渲染问题，[issue#2513](https://github.com/Tencent/tdesign-react/issues/2513) @chaishi ([#2514](https://github.com/Tencent/tdesign-react/pull/2514))
+- `Cascader`: hover 没有子节点数据的父节点时未更新子节点 @betavs ([#2528](https://github.com/Tencent/tdesign-react/pull/2528))
+- `Datepicker`: 修复切换月份失效问题 @honkinglin ([#2531](https://github.com/Tencent/tdesign-react/pull/2531))
+- `Dropdown`: 修复`Dropdown` disabled API失效的问题 @uyarn ([#2532](https://github.com/Tencent/tdesign-react/pull/2532))
+
  ## 🌈 1.2.5 `2023-09-14` 
 ### 🚀 Features
 - `steps`: 全局配置添加步骤条的已完成图标自定义 @Zzongke ([#2491](https://github.com/Tencent/tdesign-react/pull/2491))
