@@ -22,21 +22,12 @@ export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {
 /**
  * 单选选项组，里面可以嵌套 <Radio />
  */
-const RadioGroup: React.FC<RadioGroupProps> = (props) => {
+const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
 
-  // const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
+  const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
 
-  const {
-    disabled,
-    children,
-    onChange,
-    size,
-    variant,
-    options = [],
-    className,
-    style,
-  } = useDefaultProps<RadioGroupProps>(props, radioGroupDefaultProps);
+  const { disabled, children, onChange, size, variant, options = [], className, style } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState({});
@@ -139,6 +130,5 @@ const RadioGroup: React.FC<RadioGroupProps> = (props) => {
 };
 
 RadioGroup.displayName = 'RadioGroup';
-// RadioGroup.defaultProps = radioGroupDefaultProps;
 
 export default RadioGroup;
