@@ -12,5 +12,8 @@
     "esm",
     "cjs",
     "es"
-  ]
+  ],
+  "compilerOptions": {
+    "paths":{}
+  }
 }

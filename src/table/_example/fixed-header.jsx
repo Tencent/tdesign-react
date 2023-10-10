@@ -78,6 +78,7 @@ export default function TableFixHeader() {
         },
       ]}
       rowKey="index"
+      lazyLoad
     />
   );
 

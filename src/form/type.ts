@@ -217,6 +217,10 @@ export interface TdFormItemProps {
    * 自定义提示内容，样式跟随 `status` 变动，可在需要完全自主控制校验规则时使用
    */
   tips?: TNode;
+  /**
+   * 当用户交互产生数据变化时触发，用于格式化数据
+   */
+  valueFormat?: FormItemFormatType;
 }
 
 export interface TdFormListProps {
@@ -296,7 +300,7 @@ export interface FormRule {
    * 校验触发方式
    * @default change
    */
-  trigger?: 'change' | 'blur';
+  trigger?: 'change' | 'blur' | 'submit';
   /**
    * 校验未通过时呈现的错误信息类型，有 告警信息提示 和 错误信息提示 等两种
    * @default error
@@ -442,6 +446,8 @@ export interface FormValidateParams {
 export type ValidateTriggerType = 'blur' | 'change' | 'all';
 
 export type Data = { [key: string]: any };
+
+export type FormItemFormatType = (value: any) => any;
 
 export type InitialData = any;
 

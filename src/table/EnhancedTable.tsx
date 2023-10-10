@@ -17,7 +17,8 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
   const primaryTableRef = useRef<EnhancedTableRef>();
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
-  const { store, dataSource, formatTreeColumn, swapData, ...treeInstanceFunctions } = useTreeData(props);
+  const { store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions } =
+    useTreeData(props);
 
   const treeDataMap = store?.treeDataMap;
 
@@ -48,7 +49,7 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
 
   const onEnhancedTableRowClick: TdPrimaryTableProps['onRowClick'] = (p) => {
     if (props.tree?.expandTreeNodeOnClick) {
-      treeInstanceFunctions.toggleExpandData(
+      onExpandFoldIconClick(
         {
           row: p.row,
           rowIndex: p.index,

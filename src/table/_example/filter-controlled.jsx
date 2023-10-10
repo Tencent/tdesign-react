@@ -85,6 +85,9 @@ const columns = [
       props: {
         firstDayOfWeek: 7,
       },
+      style: { fontSize: '14px' },
+      classNames: 'custom-class-name',
+      attrs: { 'data-type': 'DateRangePickerPanel' },
       // 是否显示重置取消按钮，一般情况不需要显示
       showConfirmAndReset: true,
       // 日期范围是一个组件，重置时需赋值为 []
@@ -118,7 +121,6 @@ export default function TableSingleSort() {
   //  survivalTime: [300, 500]
   const [filterValue, setFilterValue] = useState({
     lastName: [],
-    createTime: [],
   });
 
   const request = (filters) => {
@@ -216,6 +218,7 @@ export default function TableSingleSort() {
           showJumper: true,
           pageSizeOptions: [1, 3, 5, 10],
         }}
+        lazyLoad
       />
     </Space>
   );

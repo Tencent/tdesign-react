@@ -173,6 +173,7 @@ export default function TableSingleSort() {
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}
         onRowClick={onRowClick}
+        lazyLoad
       />
     </Space>
   );

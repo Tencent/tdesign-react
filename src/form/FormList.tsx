@@ -11,13 +11,19 @@ import log from '../_common/js/log';
 let key = 0;
 
 const FormList: React.FC<TdFormListProps> = (props) => {
-  const { formMapRef, form, onFormItemValueChange, initialData: initialDataFromForm } = useFormContext();
+  const {
+    formMapRef,
+    form,
+    onFormItemValueChange,
+    initialData: initialDataFromForm,
+    resetType: resetTypeFromContext,
+  } = useFormContext();
   const { name, rules, children } = props;
 
   const initialData = props.initialData || get(initialDataFromForm, name) || [];
 
   const [formListValue, setFormListValue] = useState(initialData);
-  const [fields, setFields] = useState<Array<FormListField>>(
+  const [fields, setFields] = useState<Array<FormListField>>(() =>
     initialData.map((data, index) => ({
       data: { ...data },
       key: (key += 1),
@@ -32,6 +38,15 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .concat(name)
     .filter((item) => item !== undefined)
     .join('_'); // 转化 name
+
+  const isMounted = useRef(false);
+
+  useEffect(
+    () => () => {
+      isMounted.current = false;
+    },
+    [],
+  );
 
   const operation: FormListFieldOperation = {
     add(defaultValue?: any, insertIndex?: number) {
@@ -119,6 +134,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   }, [formListValue]);
 
   useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
     // fields 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
 
@@ -207,11 +226,26 @@ const FormList: React.FC<TdFormListProps> = (props) => {
           originData,
         );
       },
-      resetField: () => {
+      resetField: (type: string) => {
+        const resetType = type || resetTypeFromContext;
         [...formListMapRef.current.values()].forEach((formItemRef) => {
           formItemRef?.current?.resetField?.();
         });
         setFormListValue([]);
+        fieldsTaskQueueRef.current = [];
+        key = 0;
+        if (resetType === 'initial') {
+          setFields(
+            initialData.map((data, index) => ({
+              data: { ...data },
+              key: (key += 1),
+              name: index,
+              isListField: true,
+            })),
+          );
+        } else {
+          setFields([]);
+        }
       },
       setValidateMessage: (fieldData) => {
         [...formListMapRef.current.values()].forEach((formItemRef) => {

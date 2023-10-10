@@ -26,6 +26,7 @@ export default function EmptyTable() {
             &nbsp;&nbsp;<span>渲染函数自定义加载中（可单独去除内置加载图标）</span>
           </div>
         }
+        lazyLoad
       ></Table>
     </div>
   );

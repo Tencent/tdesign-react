@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Tree, Switch, Space, Form } from 'tdesign-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Tree, Switch, Space, Form, Button } from 'tdesign-react';
 
 export default () => {
   const [checkable, setCheckable] = useState(true);
   const [showLine, toggleShowLine] = useState(true);
   const [options, setOptions] = useState([]);
+  const treeRef = useRef(null);
 
   useEffect(() => {
     const newOptions = [];
-    for (let i = 0; i < 3000; i++) {
+    for (let i = 1; i <= 3000; i++) {
       newOptions.push({
-        label: `第${i + 1}段`,
+        label: `第${i}段`,
         value: i,
+        key: i,
         children: [
           {
-            label: `第${i + 1}段第1个子节点`,
+            label: `第${i}段第1个子节点`,
             value: `${i}.1`,
           },
           {
-            label: `第${i + 1}段第2个子节点`,
+            label: `第${i}段第2个子节点`,
             value: `${i}.2`,
           },
         ],
@@ -26,6 +28,10 @@ export default () => {
     }
     setOptions(newOptions);
   }, []);
+
+  const handleScroll = () => {
+    treeRef.current.scrollTo({ key: '3.2', behavior: 'smooth' });
+  };
 
   const defaultChecked = ['1.2', '2.2'];
   return (
@@ -38,6 +44,7 @@ export default () => {
           <Switch onChange={toggleShowLine} />
         </Form.FormItem>
       </Form>
+      <Button onClick={handleScroll}>scroll to special node</Button>
       <Tree
         data={options}
         defaultValue={defaultChecked}
@@ -49,6 +56,7 @@ export default () => {
         hover
         scroll={{ type: 'virtual' }}
         style={{ height: '300px' }}
+        ref={treeRef}
       />
     </Space>
   );

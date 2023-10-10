@@ -2,10 +2,11 @@ import React, { useEffect, useState, MutableRefObject } from 'react';
 import isFunction from 'lodash/isFunction';
 import useClassName from './useClassName';
 import TButton from '../../button';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue } from '../type';
+import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue, TableFilterChangeContext } from '../type';
 import useControlled from '../../hooks/useControlled';
 import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { getColumnsResetValue } from '../../_common/js/table/utils';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;
@@ -27,6 +28,7 @@ function filterEmptyData(data: FilterValue) {
 }
 
 export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
+  const { columns } = props;
   const [locale, t] = useLocaleReceiver('table');
   const { tableFilterClasses, isFocusClass } = useClassName();
   const [isTableOverflowHidden, setIsTableOverflowHidden] = useState<boolean>();
@@ -101,12 +103,16 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
     };
     setInnerFilterValue(filterValue);
     if (!column.filter.showConfirmAndReset) {
-      emitFilterChange(filterValue, column);
+      emitFilterChange(filterValue, 'filter-change', column);
     }
   }
 
-  function emitFilterChange(filterValue: FilterValue, column?: PrimaryTableCol) {
-    setTFilterValue(filterValue, { col: column });
+  function emitFilterChange(
+    filterValue: FilterValue,
+    trigger: TableFilterChangeContext<TableRowData>['trigger'],
+    column?: PrimaryTableCol,
+  ) {
+    setTFilterValue(filterValue, { col: column, trigger });
     props.onChange?.({ filter: filterValue }, { trigger: 'filter' });
   }
 
@@ -122,15 +128,16 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
         column.filter.resetValue ||
         '',
     };
-    emitFilterChange(filterValue, column);
+    emitFilterChange(filterValue, 'reset', column);
   }
 
   function onResetAll() {
-    emitFilterChange({}, undefined);
+    const resetValue: { [key: string]: any } = getColumnsResetValue(columns);
+    emitFilterChange(resetValue, 'clear', undefined);
   }
 
   function onConfirm(column: PrimaryTableCol) {
-    emitFilterChange(innerFilterValue, column);
+    emitFilterChange(innerFilterValue, 'confirm', column);
   }
 
   // 图标：内置图标，组件自定义图标，全局配置图标

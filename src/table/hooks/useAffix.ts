@@ -9,7 +9,7 @@ import { AffixProps } from '../../affix';
  * 3. 底部滚动条吸底
  * 4. 分页器吸底
  */
-export default function useAffix(props: TdBaseTableProps) {
+export default function useAffix(props: TdBaseTableProps, { showElement }: { showElement: boolean }) {
   const tableContentRef = useRef<HTMLDivElement>();
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>();
@@ -75,6 +75,7 @@ export default function useAffix(props: TdBaseTableProps) {
   const updateAffixHeaderOrFooter = () => {
     if (!isAffixed && !isVirtualScroll) return;
     const pos = tableContentRef.current?.getBoundingClientRect();
+    if (!pos) return;
     const headerRect = tableContentRef.current?.querySelector('thead')?.getBoundingClientRect();
     const headerHeight = headerRect?.height || 0;
     const footerRect = affixFooterRef.current?.getBoundingClientRect();
@@ -220,7 +221,7 @@ export default function useAffix(props: TdBaseTableProps) {
 
     return removeHorizontalScrollListeners;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [affixHeaderRef, affixFooterRef, horizontalScrollbarRef, tableContentRef]);
+  }, [affixHeaderRef, affixFooterRef, horizontalScrollbarRef, tableContentRef, showElement]);
 
   useEffect(() => {
     addVerticalScrollListener();
@@ -240,6 +241,7 @@ export default function useAffix(props: TdBaseTableProps) {
     props.headerAffixedTop,
     props.footerAffixedBottom,
     props.horizontalScrollAffixedBottom,
+    props.lazyLoad,
   ]);
 
   const setTableContentRef = (tableContent: HTMLDivElement) => {

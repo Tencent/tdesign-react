@@ -45,7 +45,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   return (
     <>
       {uiImage}
-      {visibled &&
+      {(visibled || visible) &&
         createPortal(
           <ImageModal
             title={title}

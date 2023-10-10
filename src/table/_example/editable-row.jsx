@@ -187,6 +187,7 @@ export default function EditableRowTable() {
         title: '申请事项',
         colKey: 'letters',
         cell: ({ row }) => row?.letters?.join('、'),
+        width: 200,
         edit: {
           component: Select,
           // props, 透传全部属性到 Select 组件
@@ -229,7 +230,6 @@ export default function EditableRowTable() {
       {
         title: '操作栏',
         colKey: 'operate',
-        width: 150,
         cell: ({ row }) => {
           const editable = editableRowKeys.includes(row.key);
           return (
@@ -286,6 +286,7 @@ export default function EditableRowTable() {
         onValidate={onValidate}
         table-layout="auto"
         bordered
+        lazyLoad
       />
     </div>
   );

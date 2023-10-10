@@ -39,11 +39,7 @@ const StepItem = (props: StepItemProps) => {
       return <span className={iconCls}>{(globalStepsConfig.errorIcon || <CloseIcon />) as React.ReactNode}</span>;
 
     if (status === 'finish')
-      return (
-        <span className={iconCls}>
-          <CheckIcon />
-        </span>
-      );
+      return <span className={iconCls}>{(globalStepsConfig.checkIcon || <CheckIcon />) as React.ReactNode}</span>;
 
     return <span className={iconCls}>{Number(index) + 1}</span>;
   }

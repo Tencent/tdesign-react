@@ -35,16 +35,16 @@ const RemoteSearchSelect = () => {
       if (search) {
         options = [
           {
-            value: `${search}_test1`,
-            label: `${search}_test1`,
+            value: `腾讯_test1`,
+            label: `腾讯_test1`,
           },
           {
-            value: `${search}_test2`,
-            label: `${search}_test2`,
+            value: `腾讯_test2`,
+            label: `腾讯_test2`,
           },
           {
-            value: `${search}_test3`,
-            label: `${search}_test3`,
+            value: `腾讯_test3`,
+            label: `腾讯_test3`,
           },
         ];
       } else {

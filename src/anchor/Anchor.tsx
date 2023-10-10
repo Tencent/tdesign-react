@@ -43,6 +43,7 @@ const Anchor = forwardRefWithStatics(
       onClick,
       onChange,
       className,
+      getCurrentAnchor,
       ...rest
     } = useDefaultProps(props, anchorDefaultProps);
 
@@ -174,7 +175,7 @@ const Anchor = forwardRefWithStatics(
       <AnchorContext.Provider
         value={{
           onClick: handleClick,
-          activeItem,
+          activeItem: getCurrentAnchor?.(activeItem) || activeItem,
           registerItem,
           unregisterItem,
         }}
