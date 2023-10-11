@@ -7,10 +7,12 @@ import TimelineContext from './TimelineContext';
 import parseTNode from '../_util/parseTNode';
 import { useAlign } from './useAlign';
 import Loading from '../loading';
+import noop from '../_util/noop';
 
 export interface TimelineItemProps extends TdTimelineItemProps, StyledProps {
   children?: React.ReactNode;
   index?: number;
+  onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 const DefaultTheme = ['default', 'primary', 'success', 'warning', 'error'];
@@ -27,6 +29,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
     content,
     label,
     loading = false,
+    onClick = noop,
   } = props;
   const { theme, reverse, itemsStatus, layout, globalAlign, mode } = useContext(TimelineContext);
   const { classPrefix } = useConfig();
@@ -91,7 +94,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
   });
 
   return (
-    <li className={itemClassName} style={style}>
+    <li className={itemClassName} style={style} onClick={onClick}>
       {mode === 'alternate' && label && <div className={labelClassName}>{label}</div>}
       <div className={`${classPrefix}-timeline-item__wrapper`}>
         <div className={dotClassName} style={{ borderColor: !DefaultTheme.includes(dotColor) && dotColor }}>
