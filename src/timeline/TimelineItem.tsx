@@ -1,5 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import classNames from 'classnames';
+import omit from 'lodash/omit';
 import { TdTimelineItemProps } from './type';
 import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
@@ -7,12 +8,11 @@ import TimelineContext from './TimelineContext';
 import parseTNode from '../_util/parseTNode';
 import { useAlign } from './useAlign';
 import Loading from '../loading';
-import noop from '../_util/noop';
 
 export interface TimelineItemProps extends TdTimelineItemProps, StyledProps {
   children?: React.ReactNode;
   index?: number;
-  onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
+  onClick?: (context: { e: React.MouseEvent<HTMLElement>; item: TdTimelineItemProps }) => void;
 }
 
 const DefaultTheme = ['default', 'primary', 'success', 'warning', 'error'];
@@ -29,7 +29,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
     content,
     label,
     loading = false,
-    onClick = noop,
+    onClick,
   } = props;
   const { theme, reverse, itemsStatus, layout, globalAlign, mode } = useContext(TimelineContext);
   const { classPrefix } = useConfig();
@@ -66,6 +66,10 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
     return ele;
   }, [dot, classPrefix]);
 
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    onClick?.({ e, item: omit(props, ['children', 'index', 'onClick']) });
+  };
+
   // 节点类名
   const itemClassName = classNames(
     {
@@ -94,7 +98,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
   });
 
   return (
-    <li className={itemClassName} style={style} onClick={onClick}>
+    <li className={itemClassName} style={style} onClick={handleClick}>
       {mode === 'alternate' && label && <div className={labelClassName}>{label}</div>}
       <div className={`${classPrefix}-timeline-item__wrapper`}>
         <div className={dotClassName} style={{ borderColor: !DefaultTheme.includes(dotColor) && dotColor }}>
