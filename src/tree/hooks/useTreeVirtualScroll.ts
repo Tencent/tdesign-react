@@ -1,7 +1,11 @@
-import { useMemo, useEffect, CSSProperties } from 'react';
+import { useMemo, useEffect, CSSProperties, useCallback } from 'react';
+import get from 'lodash/get';
+
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import TreeNode from '../../_common/js/tree/tree-node';
-import { TScroll } from '../../common';
+import log from '../../_common/js/log';
+
+import type { TScroll, ComponentScrollToElementParams } from '../../common';
 
 export default function useTreeVirtualScroll({
   treeRef,
@@ -60,6 +64,26 @@ export default function useTreeVirtualScroll({
     lastScrollY = top;
   };
 
+  const handleScrollToElement = useCallback(
+    (params: ComponentScrollToElementParams) => {
+      let { index } = params;
+
+      if (!index && index !== 0) {
+        if (!params.key) {
+          log.error('Tree', 'scrollToElement: one of `index` or `key` must exist.');
+          return;
+        }
+        const scrollData = isVirtual ? visibleData : data;
+        index = scrollData?.findIndex((item) => [get(item.data, 'key'), get(item.data, 'value')].includes(params.key));
+        if (index < 0) {
+          log.error('Tree', `${params.key} does not exist in data, check \`key\` or \`data\` please.`);
+        }
+      }
+      scrollToElement({ ...params, index });
+    },
+    [scrollToElement, isVirtual, visibleData, data],
+  );
+
   useEffect(() => {
     const treeList = treeRef?.current;
     if (isVirtual) {
@@ -101,5 +125,6 @@ export default function useTreeVirtualScroll({
     cursorStyle,
     treeNodeStyle,
     scrollToElement,
+    handleScrollToElement,
   };
 }

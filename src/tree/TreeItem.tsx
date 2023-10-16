@@ -12,12 +12,14 @@ import React, {
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
+
 import Loading from '../loading';
+import Checkbox from '../checkbox';
+import TreeNode from '../_common/js/tree/tree-node';
+
 import useRipple from '../_util/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TreeNode from '../_common/js/tree/tree-node';
-import Checkbox from '../checkbox';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import useDraggable from './hooks/useDraggable';
 import composeRefs from '../_util/composeRefs';
@@ -25,9 +27,6 @@ import useConfig from '../hooks/useConfig';
 
 import type { TreeItemProps } from './interface';
 
-/**
- * 树节点组件
- */
 const TreeItem = forwardRef(
   (
     props: TreeItemProps & {

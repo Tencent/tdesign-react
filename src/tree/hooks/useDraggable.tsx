@@ -1,5 +1,6 @@
-import throttle from 'lodash/throttle';
 import { RefObject, DragEvent, useState, useRef } from 'react';
+import throttle from 'lodash/throttle';
+
 import { TreeNode } from '../../_common/js/tree/tree-node';
 import { useTreeDraggableContext } from './TreeDraggableContext';
 import { DropPosition } from '../interface';

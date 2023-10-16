@@ -1,29 +1,17 @@
-import React, {
-  forwardRef,
-  useState,
-  useImperativeHandle,
-  useMemo,
-  RefObject,
-  MouseEvent,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useMemo, RefObject, useRef } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import get from 'lodash/get';
 
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
 import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
-import log from '../_common/js/log';
 
-import useControllable from './hooks/useControllable';
-import { useStore } from './hooks/useStore';
+import useTreeState from './hooks/useTreeState';
+import useTreeStore from './hooks/useTreeStore';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import { TreeDraggableContext } from './hooks/TreeDraggableContext';
 import parseTNode from '../_util/parseTNode';
-import { usePersistFn } from '../_util/usePersistFn';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 
 import type { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree/types';
@@ -31,14 +19,8 @@ import type { TreeInstanceFunctions, TdTreeProps } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
-/**
- * 树组件
- */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-
-  // 可见节点集合
-  const [visibleNodes, setVisibleNodes] = useState([]);
 
   const {
     empty,
@@ -60,44 +42,27 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     style,
   } = props;
 
-  const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
-
   // 国际化文本初始化
   const emptyText = locale('empty');
 
-  const store = useStore(
-    {
-      ...props,
-      value,
-      onChange,
-      expanded,
-      onExpand,
-      onActive,
-      actived,
-    },
-    initial,
-  );
-
-  function initial() {
-    const nodes = store?.getNodes();
-    const newVisibleNodes = nodes?.filter((node) => node.visible);
-    setVisibleNodes(newVisibleNodes);
-  }
-  // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
-  const setExpanded = usePersistFn(
-    (
-      node: TreeNode,
-      isExpanded: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
-    ) => {
-      const { e, trigger } = ctx;
-      const expanded = node.setExpanded(isExpanded);
-      const treeNodeModel = node?.getModel();
-      (e || trigger) && onExpand?.(expanded, { node: treeNodeModel, e, trigger });
-      return expanded;
-    },
-  );
   const treeRef = useRef(null);
+
+  const {
+    value,
+    setChecked,
+    toggleChecked,
+    expanded,
+    setExpanded,
+    toggleExpanded,
+    setActived,
+    actived,
+    toggleActived,
+    updateState,
+    visibleNodes,
+    allNodes,
+  } = useTreeState(props);
+
+  const { store } = useTreeStore(props, { value, expanded, actived, updateState });
 
   const {
     visibleData,
@@ -105,34 +70,12 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     treeNodeStyle: virtualTreeNodeStyle,
     cursorStyle,
     handleRowMounted,
-    scrollToElement,
+    handleScrollToElement,
   } = useTreeVirtualScroll({
     treeRef,
     scroll,
-    data: visibleNodes,
+    data: allNodes,
   });
-
-  const setActived = usePersistFn(
-    (
-      node: TreeNode,
-      isActived: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
-    ) => {
-      const actived = node.setActived(isActived);
-      const treeNodeModel = node?.getModel();
-      onActive?.(actived, { node: treeNodeModel, ...ctx });
-      return actived;
-    },
-  );
-
-  const setChecked = usePersistFn(
-    (node: TreeNode, isChecked: boolean, ctx: { e?: any; trigger: 'node-click' | 'setItem' }) => {
-      const checked = node.setChecked(isChecked);
-      const treeNodeModel = node?.getModel();
-      onChange?.(checked, { node: treeNodeModel, ...ctx });
-      return checked;
-    },
-  );
 
   const handleItemClick: TreeItemProps['onClick'] = (node, options) => {
     if (!node) {
@@ -140,10 +83,10 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     }
     const isDisabled = disabled || node.disabled;
     const { expand, active, e, trigger } = options;
-    if (expand) setExpanded(node, !node.isExpanded(), { e, trigger });
+    if (expand) toggleExpanded(node, { e, trigger });
 
     if (active && !isDisabled) {
-      setActived(node, !node.isActived(), { e, trigger: 'node-click' });
+      toggleActived(node, { e, trigger: 'node-click' });
       const treeNodeModel = node?.getModel();
       onClick?.({ node: treeNodeModel, e });
     }
@@ -153,33 +96,15 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     if (!node || disabled || node.disabled) {
       return;
     }
-    setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
+    toggleChecked(node, { ...ctx, trigger: 'node-click' });
   };
-  const handleScrollToElement = useCallback(
-    (params: ComponentScrollToElementParams) => {
-      let { index } = params;
 
-      if (!index && index !== 0) {
-        if (!params.key) {
-          log.error('Tree', 'scrollToElement: one of `index` or `key` must exist.');
-          return;
-        }
-        const data = isVirtual ? visibleData : visibleNodes;
-        index = data?.findIndex((item) => [get(item.data, 'key'), get(item.data, 'value')].includes(params.key));
-        if (index < 0) {
-          log.error('Tree', `${params.key} does not exist in data, check \`key\` or \`data\` please.`);
-        }
-      }
-      scrollToElement({ ...params, index });
-    },
-    [scrollToElement, isVirtual, visibleData, visibleNodes],
-  );
-  /** 对外暴露的公共方法 * */
+  // treeRef expose methods
   useImperativeHandle<unknown, TreeInstanceFunctions>(
     ref,
     () => ({
       store,
-      scrollTo: (p: ComponentScrollToElementParams) => handleScrollToElement(p),
+      scrollTo: (p: ComponentScrollToElementParams) => handleScrollToElement(p), // 指定滚动到具体节点
       appendTo(value, newData) {
         let list = [];
         if (Array.isArray(newData)) {
@@ -232,21 +157,22 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
         const spec = options;
         if (node && spec) {
           if ('expanded' in options) {
-            setExpanded(node, spec.expanded, { trigger: 'setItem' });
+            toggleExpanded(node, { trigger: 'setItem' });
             delete spec.expanded;
           }
           if ('actived' in options) {
-            setActived(node, spec.actived, { trigger: 'setItem' });
+            toggleActived(node, { trigger: 'setItem' });
             delete spec.actived;
           }
           if ('checked' in options) {
-            setChecked(node, spec.checked, { trigger: 'setItem' });
+            toggleChecked(node, { trigger: 'setItem' });
             delete spec.checked;
           }
           node.set(spec);
         }
       },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [store, setExpanded, setActived, setChecked, handleScrollToElement],
   );
 
@@ -342,7 +268,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
           [treeClassNames.treeCheckable]: checkable,
           [treeClassNames.treeFx]: transition,
           [treeClassNames.treeBlockNode]: expandOnClickNode,
-          [treeClassNames.treeVscroll]: props.scroll, // 开启虚拟滚动就要有overflow 否则低于 threshold 无法正常运行 scrollto
+          [treeClassNames.treeVscroll]: props.scroll, // 开启虚拟滚动就要有 overflow, 否则低于 threshold 无法正常运行 scrollTo
         })}
         style={style}
         ref={treeRef}
