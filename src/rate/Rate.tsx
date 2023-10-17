@@ -9,6 +9,8 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
 import { rateDefaultProps } from './defaultProps';
 
+export interface RateProps extends TdRateProps, StyledProps {}
+
 // 评分图标
 // fix: 2550
 const RateIcon = ({ props, icon }) => {
@@ -18,8 +20,6 @@ const RateIcon = ({ props, icon }) => {
   }
   return <StarFilledIcon {...props} />;
 };
-
-export interface RateProps extends TdRateProps, StyledProps {}
 
 const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
   const { allowHalf, color, count, disabled, gap, showText, size, texts, icon, className, style, onChange } = props;
