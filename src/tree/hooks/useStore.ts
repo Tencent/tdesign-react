@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import TreeStore from '../../_common/js/tree/tree-store';
@@ -8,7 +8,8 @@ import type { TypeEventState } from '../interface';
 
 export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   const storeRef = useRef<TreeStore>();
-
+  const [filterChanged, toggleFilterChanged] = useState(false);
+  const [prevExpanded, changePrevExpanded] = useState(null);
   const {
     data,
     keys,
@@ -33,8 +34,40 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     allowFoldNodeOnFilter = false,
   } = props;
 
+  useEffect(() => {
+    if (!allowFoldNodeOnFilter) return;
+    toggleFilterChanged(true);
+  }, [filter, allowFoldNodeOnFilter]);
+
+  // 在 update 之后检查，如果之前 filter 有变更，则检查路径节点是否需要展开
+  // 如果 filter 属性被清空，则重置为开启搜索之前的结果
+  const expandFilterPath = () => {
+    if (!allowFoldNodeOnFilter || !filterChanged) return;
+    // 确保 filter 属性未变更时，不会重复检查展开状态
+    toggleFilterChanged(false);
+    const store = storeRef.current;
+    if (props.filter) {
+      if (!prevExpanded) changePrevExpanded(store.getExpanded()); // 缓存之前的展开状态
+
+      // 展开搜索命中节点的路径节点
+      const pathValues = [];
+      const allNodes = store.getNodes();
+      allNodes.forEach((node) => {
+        if (node.vmIsLocked) {
+          pathValues.push(node.value);
+        }
+      });
+      store.setExpanded(pathValues);
+    } else if (prevExpanded) {
+      // filter 属性置空，还原最开始的展开状态
+      store.replaceExpanded(prevExpanded);
+      changePrevExpanded(null);
+    }
+  };
+
   // 传入 TreeStore 中调用的，但是每次都需要使用最新的值，所以使用 usePersistFn
   const handleUpdate = usePersistFn(() => {
+    expandFilterPath();
     refresh();
   });
 

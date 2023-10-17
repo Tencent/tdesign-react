@@ -31,9 +31,6 @@ import type { TreeInstanceFunctions, TdTreeProps } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
-/**
- * 树组件
- */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
 
