@@ -21,6 +21,8 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
   const [hoverValue = undefined, setHoverValue] = useState<number | undefined>(undefined);
   const displayValue = hoverValue || starValue;
   const rootRef = React.useRef(null);
+  const hoverCheckRef = React.useRef(null);
+  const checkTimeHandler = React.useRef(null);
 
   const activeColor = Array.isArray(color) ? color[0] : color;
   const defaultColor = Array.isArray(color) ? color[1] : 'var(--td-bg-color-component)';
@@ -58,6 +60,19 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
     setHoverValue(undefined);
   };
 
+  const mouseOutHandler = () => {
+    if (disabled) return;
+    // fix: 2250 鼠标移走，未恢复到之前的状态
+    clearTimeout(checkTimeHandler.current);
+    checkTimeHandler.current = setTimeout(() => {
+      const computedStyle = getComputedStyle(hoverCheckRef.current);
+      const fontSize = computedStyle.getPropertyValue('font-size');
+      if (fontSize === '0px') {
+        setHoverValue(undefined);
+      }
+    }, 100);
+  };
+
   const clickHandler = (event: MouseEvent<HTMLElement>, index: number) => {
     if (disabled) return;
     setStarValue(getStarValue(event, index));
@@ -75,6 +90,7 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
       style={style}
       className={classNames(`${classPrefix}-rate`, className)}
       onMouseLeave={mouseLeaveHandler}
+      onMouseOut={mouseOutHandler}
     >
       <ul className={`${classPrefix}-rate__list`} style={{ gap }} ref={rootRef}>
         {[...Array(count)].map((_, index) => (
@@ -106,6 +122,7 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
           </li>
         ))}
       </ul>
+      <span ref={hoverCheckRef} className={`${classPrefix}-rate__hover__check`}></span>
       {showText && <div className={`${classPrefix}-rate__text`}>{texts[displayValue - 1]}</div>}
     </div>
   );
