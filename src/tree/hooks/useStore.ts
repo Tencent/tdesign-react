@@ -4,8 +4,10 @@ import useUpdateEffect from '../../_util/useUpdateEffect';
 import usePrevious from '../../hooks/usePrevious';
 import TreeStore from '../../_common/js/tree/tree-store';
 import { usePersistFn } from '../../_util/usePersistFn';
+
 import type { TdTreeProps } from '../type';
 import type { TypeEventState } from '../interface';
+import type { TypeTreeNodeData } from '../../_common/js/tree/types';
 
 export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   const storeRef = useRef<TreeStore>();
@@ -122,7 +124,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       list = [];
     }
 
-    store.append(list);
+    store.append(list as Array<TypeTreeNodeData>);
 
     // 刷新节点，必须在配置选中之前执行
     // 这样选中态联动判断才能找到父节点
@@ -161,7 +163,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       const checked = store.getChecked();
       const actived = store.getActived();
       store.removeAll();
-      store.append(data);
+      store.append(data as Array<TypeTreeNodeData>);
       store.setChecked(checked);
       store.setActived(actived);
       store.setExpanded(expanded);
