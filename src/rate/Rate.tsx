@@ -13,7 +13,7 @@ export interface RateProps extends TdRateProps, StyledProps {}
 
 // 评分图标
 // fix: 2550
-const RateIcon = ({ props, icon }) => {
+const RateIcon = ({ icon, ...props }) => {
   const { StarFilledIcon } = useGlobalIcon({ StarFilledIcon: TdStarFilledIcon });
   if (React.isValidElement(icon)) {
     return React.cloneElement(icon, props);
@@ -88,19 +88,19 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
             {showText ? (
               <TooltipLite key={index} content={texts[displayValue - 1]}>
                 <div className={`${classPrefix}-rate__star-top`}>
-                  <RateIcon props={{ size, color: activeColor }} icon={icon} />
+                  <RateIcon size={size} color={activeColor} icon={icon} />
                 </div>
                 <div className={`${classPrefix}-rate__star-bottom`}>
-                  <RateIcon props={{ size, color: defaultColor }} icon={icon} />
+                  <RateIcon size={size} color={defaultColor} icon={icon} />
                 </div>
               </TooltipLite>
             ) : (
               <>
                 <div className={`${classPrefix}-rate__star-top`}>
-                  <RateIcon props={{ size, color: activeColor }} icon={icon} />
+                  <RateIcon size={size} color={activeColor} icon={icon} />
                 </div>
                 <div className={`${classPrefix}-rate__star-bottom`}>
-                  <RateIcon props={{ size, color: defaultColor }} icon={icon} />
+                  <RateIcon size={size} color={defaultColor} icon={icon} />
                 </div>
               </>
             )}
