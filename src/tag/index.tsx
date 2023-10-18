@@ -15,6 +15,7 @@ export * from './type';
  */
 export const Tag = forwardRefWithStatics(TagFunction, {
   CheckTag: _CheckTag,
+  CheckTagGroup: _CheckTagGroup,
 });
 
 Tag.displayName = 'Tag';

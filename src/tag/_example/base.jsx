@@ -1,6 +1,5 @@
 import React from 'react';
-import { Space } from 'tdesign-react';
-import { Tag } from 'tdesign-react/tag/Tag';
+import { Space, Tag } from 'tdesign-react';
 
 export default function ThemeTagExample() {
   return (
@@ -56,7 +55,7 @@ export default function ThemeTagExample() {
       </Space>
 
       <Space>
-      <Tag variant="light-outline">灰标签</Tag>
+        <Tag variant="light-outline">灰标签</Tag>
         <Tag theme="primary" variant="light-outline">
           标签一
         </Tag>

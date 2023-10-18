@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Space, CheckTagGroup } from 'tdesign-react';
+import { Space, Tag } from 'tdesign-react';
+
+const { CheckTagGroup } = Tag;
 
 const options = [
   { label: '标签1', value: 1 },
@@ -12,7 +14,7 @@ const options = [
 
 const avatarStyle = {
   width: '16px',
-  height: "16px",
+  height: '16px',
   borderRadius: '2px',
   verticalAlign: '-4px',
   marginRight: '4px',
@@ -22,7 +24,9 @@ function CustomTag(option) {
   return (
     <div>
       <img src={option.avatar} style={avatarStyle} />
-      <span>{option.label}({option.value})</span>
+      <span>
+        {option.label}({option.value})
+      </span>
     </div>
   );
 }
@@ -91,7 +95,6 @@ const CheckTagGroupDemo = () => {
           uncheckedProps={STYLE_B_UNCHECKED_PROPS}
         />
       </Space>
-
     </Space>
   );
 };
