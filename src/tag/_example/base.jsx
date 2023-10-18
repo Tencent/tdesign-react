@@ -1,11 +1,11 @@
 import React from 'react';
-import { Tag, Space } from 'tdesign-react';
+import { Space, Tag } from 'tdesign-react';
 
 export default function ThemeTagExample() {
   return (
-    <Space direction="vertical" size="large">
+    <Space direction="vertical">
       <Space>
-        <Tag theme="default">标签一</Tag>
+        <Tag>标签一</Tag>
         <a href="https://www.tencent.com/zh-cn" target="_blank" rel="noreferrer">
           <Tag>超链接</Tag>
         </a>
@@ -22,6 +22,7 @@ export default function ThemeTagExample() {
       </Space>
 
       <Space>
+        <Tag variant="light">灰标签</Tag>
         <Tag theme="primary" variant="light">
           标签一
         </Tag>
@@ -37,6 +38,8 @@ export default function ThemeTagExample() {
       </Space>
 
       <Space>
+        {/* Do not delete the grey tag from demo, it's very useful */}
+        <Tag variant="outline">灰标签</Tag>
         <Tag theme="primary" variant="outline">
           标签一
         </Tag>
@@ -52,6 +55,7 @@ export default function ThemeTagExample() {
       </Space>
 
       <Space>
+        <Tag variant="light-outline">灰标签</Tag>
         <Tag theme="primary" variant="light-outline">
           标签一
         </Tag>
