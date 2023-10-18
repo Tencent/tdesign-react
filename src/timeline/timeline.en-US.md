@@ -26,3 +26,4 @@ dotColor | String | primary | Typescript：`string` | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | options：left/right/top/bottom | N
 loading | Boolean | - | Whether it is in the loading state | N
+onClick | Function |  | Typescript：`(context: { e: MouseEvent; item: TdTimelineItemProps }) => void` [TdTimelineItemProps 详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/timeline/type.ts) <br/>  trigger on click. | N
