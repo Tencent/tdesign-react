@@ -93,7 +93,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   /* ---------------------------------computed value---------------------------------------- */
 
-  const defaultFilter = (text, option) => {
+  const defaultFilter = (text: string, option: TreeOptionData) => {
     if (!text) return true;
     // 过滤时会有空节点影响判断
     if (!option.label && !option.value) return false;
@@ -182,7 +182,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     });
     // 单选选择后收起弹框
     setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
-    filterInput && setFilterInput('', { trigger: 'change' });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
@@ -195,12 +194,10 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
           trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
         },
       );
-      filterInput && setFilterInput('', { trigger: 'change' });
     }
   });
 
   const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
-    !visible && filterInput && setFilterInput('', { trigger: 'clear' });
     setPopupVisible(visible, { e: ctx.e });
   };
 
@@ -273,7 +270,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
           ref={treeRef}
           hover
           transition
-          filter={handleFilter}
+          filter={filterInput ? handleFilter : null}
           data={data}
           disabled={disabled}
           empty={empty}

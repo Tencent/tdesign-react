@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import useUpdateEffect from '../../_util/useUpdateEffect';
+import usePrevious from '../../hooks/usePrevious';
 import TreeStore from '../../_common/js/tree/tree-store';
 import { usePersistFn } from '../../_util/usePersistFn';
 import type { TdTreeProps } from '../type';
@@ -34,9 +35,12 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     allowFoldNodeOnFilter = false,
   } = props;
 
+  const preFilter = usePrevious(filter);
+
   useEffect(() => {
     if (!allowFoldNodeOnFilter) return;
-    toggleFilterChanged(true);
+    toggleFilterChanged(JSON.stringify(preFilter) !== JSON.stringify(filter));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, allowFoldNodeOnFilter]);
 
   // 在 update 之后检查，如果之前 filter 有变更，则检查路径节点是否需要展开
