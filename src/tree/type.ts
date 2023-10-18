@@ -100,6 +100,11 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   expanded?: Array<TreeNodeValue>;
   /**
+   * 展开的节点值，非受控属性
+   * @default []
+   */
+  defaultExpanded?: Array<TreeNodeValue>;
+  /**
    * 节点过滤方法，只呈现返回值为 true 的节点，泛型 `T` 表示树节点 TS 类型
    */
   filter?: (node: TreeNodeModel<T>) => boolean;
