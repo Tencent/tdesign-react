@@ -15,7 +15,7 @@ const options = [
 ];
 
 export default function Example() {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
 
   function loadFunc(node) {
     return new Promise((resolve) => {
@@ -50,7 +50,7 @@ export default function Example() {
         treeProps={{ load: loadFunc, lazy: true }}
         onChange={(val) => {
           setValue(val);
-          console.log(val)
+          console.log(val);
         }}
       />
     </div>
