@@ -92,16 +92,19 @@ const items = [
   },
 ];
 
-const DEFAULT_EXPANDED = ['1.1.1'];
-
 export default () => {
   const [filterText, setFilterText] = useState('');
+  const [filterText2, setFilterText2] = useState('');
 
   const filterByText = (node) => {
     const rs = node.data.label.indexOf(filterText) >= 0;
     return rs;
   };
 
+  const filterByText2 = (node) => {
+    const rs = node.data.label.indexOf(filterText2) >= 0;
+    return rs;
+  };
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <InputAdornment prepend="filter:">
@@ -109,12 +112,22 @@ export default () => {
       </InputAdornment>
       <Tree
         data={items}
-        allowFoldNodeOnFilter
+        allowFoldNodeOnFilter={true}
         expandOnClickNode
-        defaultExpanded={DEFAULT_EXPANDED}
         hover
         line
-        filter={filterByText}
+        filter={filterText ? filterByText : null}
+      />
+      <InputAdornment prepend="filter:">
+        <Input value={filterText2} onChange={setFilterText2} />
+      </InputAdornment>
+      <Tree
+        data={items}
+        allowFoldNodeOnFilter={false}
+        expandOnClickNode
+        hover
+        line
+        filter={filterText2 ? filterByText2 : null}
       />
     </Space>
   );

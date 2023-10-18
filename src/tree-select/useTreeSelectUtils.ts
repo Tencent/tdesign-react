@@ -3,8 +3,10 @@ import type { TreeSelectValue } from './type';
 import Tree, { TreeNodeValue } from '../tree';
 import TreeStore from '../_common/js/tree/tree-store';
 import { usePersistFn } from '../_util/usePersistFn';
-import type { NodeOptions, TreeSelectProps } from './TreeSelect';
 import { treeSelectDefaultProps } from './defaultProps';
+
+import type { NodeOptions, TreeSelectProps } from './TreeSelect';
+import type { TypeTreeNodeData } from '../_common/js/tree/types';
 
 export const useTreeSelectUtils = (
   { data, treeProps, valueType }: TreeSelectProps,
@@ -15,7 +17,7 @@ export const useTreeSelectUtils = (
       ...treeSelectDefaultProps.treeProps,
       ...treeProps,
     });
-    store.append(data);
+    store.append(data as Array<TypeTreeNodeData>);
     return store;
   }, [data, treeProps]);
 
