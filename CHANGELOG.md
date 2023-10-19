@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.2.7 `2023-10-19` 
+### 🚀 Features
+- `Timeline`: TimelineItem添加点击事件。 @Zzongke ([#2545](https://github.com/Tencent/tdesign-react/pull/2545))
+- `Tag`:
+    - 支持多种风格标签配置 @chaishi ([#2524](https://github.com/Tencent/tdesign-react/pull/2524))
+    - 支持标签组`CheckTagGroup`的使用，详见示例文档  @chaishi ([#2524](https://github.com/Tencent/tdesign-react/pull/2524))
+### 🐞 Bug Fixes
+- `locale`: 添加缺失it_IT、ru_RU、zh_TW 的语言环境 @Zzongke ([#2542](https://github.com/Tencent/tdesign-react/pull/2542))
+- `Cascader`: `change` 事件中 `source` 异常问题 @betavs ([#2544](https://github.com/Tencent/tdesign-react/pull/2544))
+- `Tree`: 修复`allowFoldNodeOnFilter`为true下过滤后节点的展示结果 @uyarn ([#2552](https://github.com/Tencent/tdesign-react/pull/2552))
+- `TagInput`: 修复在只有一个选项时，删除过滤文字会误删已选项的缺陷 @uyarn ([#2552](https://github.com/Tencent/tdesign-react/pull/2552))
+- `TreeSelect`: 调整过滤选项后的交互行为，与其他实现框架保持一致 @uyarn ([#2552](https://github.com/Tencent/tdesign-react/pull/2552))
+- `Rate`: 修复鼠标快速移动，会出现多个text显示的问题 @Jon-Millent ([#2551](https://github.com/Tencent/tdesign-react/pull/2551))
+
  ## 🌈 1.2.6 `2023-09-28` 
 ### 🚀 Features
 - `Table`: 优化渲染次数 @chaishi ([#2514](https://github.com/Tencent/tdesign-react/pull/2514))

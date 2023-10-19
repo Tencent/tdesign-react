@@ -30,7 +30,7 @@ export default () => {
   }, []);
 
   const handleScroll = () => {
-    treeRef.current.scrollTo({ key: '3.2', behavior: 'smooth' });
+    treeRef.current.scrollTo({ index: '10', behavior: 'smooth' });
   };
 
   const defaultChecked = ['1.2', '2.2'];

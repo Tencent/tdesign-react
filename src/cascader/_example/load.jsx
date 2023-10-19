@@ -7,12 +7,12 @@ export default function Example() {
     {
       label: '选项1',
       value: '1',
-      children: [],
+      children: true,
     },
     {
       label: '选项2',
       value: '2',
-      children: [],
+      children: true,
     },
   ];
 

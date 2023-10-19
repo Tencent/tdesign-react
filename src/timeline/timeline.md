@@ -26,3 +26,4 @@ dotColor | String | primary | 时间轴颜色，内置 `primary/warning/error/de
 label | TNode | - | 标签文本内容，可完全自定义。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | 标签信息相对于时间轴的位置，在 `mode='alternate'` 时生效，优先级高于 `Timeline.labelAlign`。可选项：left/right/top/bottom | N
 loading | Boolean | - | 是否处在加载状态 | N
+onClick | Function |  | TS 类型：`(context: { e: MouseEvent; item: TdTimelineItemProps }) => void` [TdTimelineItemProps 详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/timeline/type.ts) <br/> 点击时触发。 | N
