@@ -5,7 +5,7 @@ toc: false
 spline: explain
 ---
 
- ## 🌈 1.2.7 `2023-10-19` 
+ ## 🌈 1.3.0 `2023-10-19` 
 ### 🚀 Features
 - `Timeline`: TimelineItem添加点击事件。 @Zzongke ([#2545](https://github.com/Tencent/tdesign-react/pull/2545))
 - `Tag`:
