@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle, useMemo } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -171,13 +171,15 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     return arr;
   };
 
-  const tColumns = (() => {
+  //  影响的因素有: columns、展开/收起行
+  const tColumns = useMemo(() => {
     const cols = getColumns(columns);
     if (showExpandIconColumn) {
       cols.unshift(getExpandColumn());
     }
     return cols;
-  })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns, showExpandIconColumn]);
 
   const onInnerPageChange = (pageInfo: PageInfo, newData: Array<TableRowData>) => {
     innerPagination.current = { ...innerPagination, ...pageInfo };
