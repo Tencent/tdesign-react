@@ -29,7 +29,7 @@ const statusNameListMap = {
 
 export default function TableBasic() {
   const [stripe, setStripe] = useState(false);
-  const [bordered, setBordered] = useState(false);
+  const [bordered, setBordered] = useState(true);
   const [hover, setHover] = useState(false);
   const [tableLayout, setTableLayout] = useState(false);
   const [size, setSize] = useState('medium');
