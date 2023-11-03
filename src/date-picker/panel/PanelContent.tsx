@@ -82,8 +82,7 @@ export default function PanelContent(props: PanelContentProps) {
     ({ trigger }) => {
       onJumperClick?.({ trigger, partial });
     },
-    // eslint-disable-next-line
-    [partial],
+    [partial, onJumperClick],
   );
 
   return (
