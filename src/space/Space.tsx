@@ -5,12 +5,15 @@ import useConfig from '../hooks/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';
+import { getFlexGapPolyFill } from '../_common/js/utils/helper';
 
-// export for test
 export const SizeMap = { small: '8px', medium: '16px', large: '24px' };
+const defaultNeedPolyfill = getFlexGapPolyFill();
 
 export interface SpaceProps extends TdSpaceProps, StyledProps {
   children?: React.ReactNode;
+  /** 强制使用 margin 间距代替 gap 属性间距（某些浏览器不支持 gap 属性） */
+  forceFlexGapPolyfill?: boolean;
 }
 
 const toArray = (children: React.ReactNode): React.ReactElement[] => {
@@ -34,8 +37,10 @@ const toArray = (children: React.ReactNode): React.ReactElement[] => {
 };
 
 const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => {
-  const { className, style, align, direction, size, breakLine, separator } = props;
+  const { className, style, align, direction = 'horizontal', size, breakLine, separator } = props;
   const { classPrefix } = useConfig();
+
+  const needPolyfill = props.forceFlexGapPolyfill || defaultNeedPolyfill;
 
   const renderStyle = useMemo(() => {
     let renderGap = '';
@@ -53,12 +58,16 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
       renderGap = `${size}px`;
     }
 
-    return {
-      gap: renderGap,
-      ...(breakLine ? { flexWrap: 'wrap' } : {}),
-      ...style,
-    };
-  }, [style, size, breakLine]) as React.CSSProperties;
+    const fullStyle: { [key: string]: string | number } = { ...style };
+    if (needPolyfill) {
+      const [columnGap, rowGap] = renderGap.split(' ');
+      fullStyle['--column-gap'] = columnGap;
+      fullStyle['--row-gap'] = rowGap || columnGap;
+    } else {
+      fullStyle.gap = renderGap;
+    }
+    return fullStyle;
+  }, [style, size, needPolyfill]) as React.CSSProperties;
 
   function renderChildren() {
     const children = toArray(props.children);
@@ -82,6 +91,8 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
       className={classNames(`${classPrefix}-space`, className, {
         [`${classPrefix}-space-align-${align}`]: align,
         [`${classPrefix}-space-${direction}`]: direction,
+        [`${classPrefix}-space--break-line`]: breakLine,
+        [`${classPrefix}-space--polyfill`]: needPolyfill,
       })}
     >
       {renderChildren()}

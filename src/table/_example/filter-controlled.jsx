@@ -22,6 +22,8 @@ const columns = [
         { label: '已过期', value: 1 },
         { label: '审批失败', value: 2 },
       ],
+      // confirm to search and hide filter popup
+      confirmEvents: ['onChange'],
       // 透传浮层全部属性，示例代码
       // popupProps: {
       //   placement: 'right',

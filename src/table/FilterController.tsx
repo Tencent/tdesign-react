@@ -73,6 +73,9 @@ export default function TableFilterController(props: TableFilterControllerProps)
       ...(column.filter?.props || {}),
       onChange: (val: any) => {
         props.onInnerFilterChange?.(val, column);
+        if (column.filter?.confirmEvents?.includes('onChange')) {
+          setFilterPopupVisible(false);
+        }
       },
     };
     if (column.colKey && innerFilterValue && column.colKey in innerFilterValue) {
@@ -81,6 +84,7 @@ export default function TableFilterController(props: TableFilterControllerProps)
     // 允许自定义触发确认搜索的事件
     if (column.filter?.confirmEvents) {
       column.filter.confirmEvents.forEach((event) => {
+        if (event === 'onChange') return;
         filterComponentProps[event] = () => {
           setFilterPopupVisible(false);
           props.onConfirm?.(column);
