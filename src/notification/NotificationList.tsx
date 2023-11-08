@@ -1,4 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import { flushSync } from 'react-dom';
 import { render } from '../_util/react-render';
 import useConfig from '../hooks/useConfig';
 import {
@@ -132,20 +133,23 @@ export const fetchListInstance = (
   zIndex: number,
 ): Promise<NotificationListInstance> =>
   new Promise((resolve) => {
-    if (listMap.has(placement)) {
-      resolve(listMap.get(placement));
-    } else {
-      render(
-        <NotificationList
-          attach={attach}
-          placement={placement}
-          zIndex={Number(zIndex)}
-          renderCallback={(instance) => {
-            listMap.set(placement, instance);
-            resolve(instance);
-          }}
-        />,
-        attach,
-      );
-    }
+    // Fix the bug of Notification triggered for the first time in React 18 concurrent mode
+    flushSync(() => {
+      if (listMap.has(placement)) {
+        resolve(listMap.get(placement));
+      } else {
+        render(
+          <NotificationList
+            attach={attach}
+            placement={placement}
+            zIndex={Number(zIndex)}
+            renderCallback={(instance) => {
+              listMap.set(placement, instance);
+              resolve(instance);
+            }}
+          />,
+          attach,
+        );
+      }
+    });
   });
