@@ -1,5 +1,4 @@
 import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
-import { flushSync } from 'react-dom';
 import { render } from '../_util/react-render';
 import useConfig from '../hooks/useConfig';
 import {
@@ -86,9 +85,11 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     ]);
 
     return new Promise((resolve) => {
-      requestAnimationFrame(() => {
+      // setTimeout replace requestAnimationFrame
+      // 在useEffect启动关闭Notification时，requestAnimationFrame可能会过早执行，导致ref.current为undefined
+      setTimeout(() => {
         resolve(ref.current);
-      });
+      }, 1000 / 60);
     });
   };
 
@@ -127,6 +128,9 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
   );
 });
 
+// 判断多个Notification同时执行
+let renderNotification = false;
+
 export const fetchListInstance = (
   placement: NotificationPlacementList,
   attach: HTMLElement,
@@ -134,22 +138,29 @@ export const fetchListInstance = (
 ): Promise<NotificationListInstance> =>
   new Promise((resolve) => {
     // Fix the bug of Notification triggered for the first time in React 18 concurrent mode
-    flushSync(() => {
+    function idle() {
       if (listMap.has(placement)) {
         resolve(listMap.get(placement));
-      } else {
+        return;
+      }
+      if (!renderNotification) {
+        renderNotification = true;
         render(
           <NotificationList
             attach={attach}
             placement={placement}
             zIndex={Number(zIndex)}
             renderCallback={(instance) => {
+              renderNotification = false;
               listMap.set(placement, instance);
               resolve(instance);
             }}
           />,
           attach,
         );
-      }
-    });
+        return;
+      } // 循环执行，直到NotificationList的回调执行
+      setTimeout(idle, 1000 / 60);
+    }
+    idle();
   });
