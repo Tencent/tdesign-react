@@ -5,9 +5,9 @@ import { IconFont } from 'tdesign-icons-react';
 const CombinationStatistic = () => {
   const iconStyle = {
     fontSize: '32px',
-    color: '#0052d9',
-    background: '#f2f3ffff',
-    borderRadius: '6px',
+    color: 'var(--td-brand-color)',
+    background: 'var(--td-brand-color-light)',
+    borderRadius: 'var(--td-radius-medium)',
     padding: '12px',
   };
   const separator = <Divider layout="vertical" style={{ height: '100%' }} />;

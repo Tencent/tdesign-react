@@ -118,9 +118,8 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
   }, []);
 
   useEffect(() => {
-    if (animationStart && animation && !tween.current) {
-      start();
-    }
+    animationStart && animation && !tween.current && start();
+
     return () => {
       if (tween.current) {
         tween.current.stop();
@@ -135,9 +134,9 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
       tween.current = null;
     }
     setInnerValue(value);
-    if (animationStart && animation) {
-      start();
-    }
+
+    animationStart && animation && start();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
