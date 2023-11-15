@@ -79,6 +79,17 @@ describe('RadioGroup', () => {
     expect(container.firstChild.lastChild).toHaveClass('t-is-checked');
   });
 
+  test('variant', () => {
+    const { container } = render(
+      <Radio.Group
+        variant="primary-filled"
+        defaultValue="北京"
+        options={[{ value: '上海', label: '上海' }, { value: '广州', label: '广州', disabled: true }, '北京', 1]}
+      />,
+    );
+    expect(container.firstChild.firstChild).toHaveClass('t-radio-button');
+  });
+
   test('value is string', () => {
     const { container } = render(<Radio.Group options={['北京', '广州']} value="北京"></Radio.Group>);
     expect(container.firstChild.firstChild).toHaveClass('t-is-checked');

@@ -27,12 +27,16 @@ export interface PopupProps extends TdPopupProps {
 }
 
 export interface PopupRef {
-  // 获取popper实例
+  /** 获取 popper 实例 */
   getPopper: () => ReturnType<typeof usePopper>;
-  // 获取Popup dom元素
+  /** 获取 Popup dom 元素 */
   getPopupElement: () => HTMLDivElement;
-  // 获取portal dom元素
+  /** 获取 portal dom 元素 */
   getPortalElement: () => HTMLDivElement;
+  /** 获取内容区域 dom 元素 */
+  getPopupContentElement: () => HTMLDivElement;
+  /** 设置 popup 显示隐藏 */
+  setVisible: (visible: boolean) => void;
 }
 
 const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {

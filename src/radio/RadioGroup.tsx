@@ -85,21 +85,27 @@ const RadioGroup = (props: RadioGroupProps) => {
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
   };
 
-  const renderOptions = () =>
-    options.map((item) => {
+  const renderOptions = () => {
+    const Comp = variant.includes('filled') ? Radio.Button : Radio;
+    return options.map((item) => {
+      let label: ReactNode;
+      let value: string | number;
+      let disabled: boolean | undefined;
       if (typeof item === 'string' || typeof item === 'number') {
-        return (
-          <Radio value={item} key={item}>
-            {item}
-          </Radio>
-        );
+        label = item;
+        value = item;
+      } else {
+        label = item.label;
+        value = item.value;
+        disabled = item.disabled;
       }
       return (
-        <Radio value={item.value} key={item.value} disabled={item.disabled}>
-          {item.label}
-        </Radio>
+        <Comp value={value} key={value} disabled={disabled}>
+          {label}
+        </Comp>
       );
     });
+  };
 
   return (
     <CheckContext.Provider value={context}>

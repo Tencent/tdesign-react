@@ -98,6 +98,9 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
     return (
       <span
         className={`${componentCls}__close`}
+        style={{
+          marginLeft: 'auto',
+        }}
         onClick={(e: React.MouseEvent<HTMLDivElement>) => onCloseBtnClick?.({ e })}
       >
         {closeIcon()}
