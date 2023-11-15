@@ -121,7 +121,7 @@ const Select = forwardRefWithStatics(
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
       setShowPopup(visible, ctx);
-      visible && inputValue && onInputChange('');
+      visible && inputValue && onInputChange('', { trigger: 'focus' });
     };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
@@ -193,7 +193,7 @@ const Select = forwardRefWithStatics(
       context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger },
     ) => {
       if (multiple) {
-        !reserveKeyword && inputValue && onInputChange('', { trigger: 'clear' });
+        !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
       }
       if (creatable && isFunction(onCreate)) {
         if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
@@ -236,7 +236,7 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
-      if (context.trigger !== 'clear') onInputChange(value);
+      if (context.trigger !== 'clear') onInputChange(value, { e: context.e, trigger: 'input' });
       if (value === undefined) return;
 
       if (isFunction(onSearch)) {
