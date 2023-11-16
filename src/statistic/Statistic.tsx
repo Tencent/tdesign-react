@@ -13,7 +13,8 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 import Skeleton from '../skeleton';
-import Tween from './tween';
+import Tween from '../_common/js/statistic/tween';
+import { COLOR_MAP } from '../_common/js/statistic/utils';
 
 export interface StatisticProps extends TdStatisticProps, StyledProps {}
 
@@ -91,13 +92,6 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
 
     return _value;
   }, [innerValue, decimalPlaces, separator, format]);
-
-  const COLOR_MAP = {
-    blue: 'var(--td-brand-color)',
-    red: 'var(--td-error-color)',
-    orange: 'var(--td-warning-color)',
-    green: 'var(--td-success-color)',
-  };
 
   const valueStyle = useMemo(
     () => ({
