@@ -14,9 +14,9 @@ export default function InputExample() {
       <Input
         value={value1}
         onChange={setValue1}
-        maxlength={5}
+        maxlength={10}
         showLimitNumber
-        placeholder="内置字数限制，最大文本长度，一个中文字等于一个长度"
+        placeholder="内置字数限制，最大文本长度为10"
       />
 
       <Input

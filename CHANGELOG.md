@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.3.1 `2023-11-15` 
+### 🚀 Features
+- `Upload`: 拖拽上传文件场景，即使文件类型错误，也触发 `drop` 事件 @chaishi ([#2591](https://github.com/Tencent/tdesign-react/pull/2591))
+### 🐞 Bug Fixes
+- `Tree`: 
+    - 修复不添加activable参数也可触发onClick事件 @HaixingOoO ([#2568](https://github.com/Tencent/tdesign-react/pull/2568))
+    - 修复可编辑表格编辑组件之间的联动不生效。 @HaixingOoO ([#2572](https://github.com/Tencent/tdesign-react/pull/2572))
+- `Notification`: 
+    - 修复连续弹两个Notification,第一次实际只显示一个。 @HaixingOoO ([#2595](https://github.com/Tencent/tdesign-react/pull/2595))
+    - 使用flushSync在useEffect中会警告，现在替换flushSycn，改用循环setTimeout来处理。 @HaixingOoO ([#2597](https://github.com/Tencent/tdesign-react/pull/2597))
+- `Dialog`: 
+    - 修复Dialog中引入Input组件，从Input中间输入光标会跳转到最后 @HaixingOoO ([#2485](https://github.com/Tencent/tdesign-react/pull/2485))
+    - 修复弹窗的头部标题显示影响了取消按钮的位置 @HaixingOoO ([#2593](https://github.com/Tencent/tdesign-react/pull/2593))
+- `Popup`: 修复PopupRef的类型缺失问题 @Ricinix ([#2577](https://github.com/Tencent/tdesign-react/pull/2577))
+- `Tabs`: 修复重复点击激活的选项卡，也会触发 onChange 事件。 @HaixingOoO ([#2588](https://github.com/Tencent/tdesign-react/pull/2588))
+- `Rdio`: Radio 根据对应 variant 选择 Radio.Button 进行展示 @NWYLZW ([#2589](https://github.com/Tencent/tdesign-react/pull/2589))
+- `Input`: 修复Input设置最大长度后回删的异常行为 @uyarn ([#2598](https://github.com/Tencent/tdesign-react/pull/2598))
+- `Link`: 修复前后图标没有垂直居中的问题 @uyarn ([#2598](https://github.com/Tencent/tdesign-react/pull/2598))
+- `Select`: 修复`inputchange`事件context参数异常的问题 @uyarn ([#2600](https://github.com/Tencent/tdesign-react/pull/2600))
+- `DatePicker`: 修复`PaginationMini `未更新导致切换行为异常的问题 @Ricinix ([#2587](https://github.com/Tencent/tdesign-react/pull/2587))
+- `Form`: 修复 setFields 触发 onValuesChange 导致的死循环 @honkinglin ([#2570](https://github.com/Tencent/tdesign-react/pull/2570))
+
  ## 🌈 1.3.0 `2023-10-19` 
 ### 🚀 Features
 - `Timeline`: TimelineItem添加点击事件。 @Zzongke ([#2545](https://github.com/Tencent/tdesign-react/pull/2545))
