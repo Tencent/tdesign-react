@@ -5,7 +5,7 @@ import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, Synthetic
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
-export type TNode<T = undefined> = T extends undefined ? ReactNode : (ReactNode | ((props: T) => ReactNode));
+export type TNode<T = undefined> = T extends undefined ? ReactNode : ReactNode | ((props: T) => ReactNode);
 
 export type AttachNodeReturnValue = HTMLElement | Element | Document;
 export type AttachNode = CSSSelector | ((triggerNode?: HTMLElement) => AttachNodeReturnValue);
@@ -47,7 +47,7 @@ export type OptionData = {
 } & PlainObject;
 
 export type TreeOptionData<T = string | number> = {
-  children?: Array<TreeOptionData<T>>;
+  children?: Array<TreeOptionData<T>> | boolean;
   /** option label content */
   label?: string | TNode;
   /** option search text */
@@ -71,10 +71,15 @@ export type CSSSelector = string;
 export interface KeysType {
   value?: string;
   label?: string;
+  disabled?: string;
+}
+
+export interface TreeKeysType extends KeysType {
+  children?: string;
 }
 
 export interface HTMLElementAttributes {
-  [css: string]: string;
+  [attribute: string]: string;
 }
 
 export interface TScroll {
@@ -116,4 +121,8 @@ export interface ScrollToElementParams {
   /** 单个元素高度非固定场景下，即 isFixedRowHeight = false。延迟设置元素位置，一般用于依赖不同高度异步渲染等场景，单位：毫秒 */
   time?: number;
   behavior?: 'auto' | 'smooth';
+}
+
+export interface ComponentScrollToElementParams extends ScrollToElementParams {
+  key: string | number;
 }

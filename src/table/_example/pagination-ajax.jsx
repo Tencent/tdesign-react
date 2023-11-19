@@ -126,6 +126,7 @@ export default function TableBasic() {
       selectedRowKeys={selectedRowKeys}
       onSelectChange={onSelectChange}
       // reserveSelectedRowOnPaginate={false}
+      lazyLoad
     />
   );
 }

@@ -1,5 +1,5 @@
-import useControlled from '../hooks/useControlled';
-import { TdTreeProps } from './type';
+import useControlled from '../../hooks/useControlled';
+import { TdTreeProps } from '../type';
 
 export default function useControllable(
   props: TdTreeProps,

@@ -35,8 +35,8 @@ const MenuItem: FC<MenuItemProps> = (props) => {
     e.stopPropagation();
     if (disabled) return;
 
-    onClick && onClick({ e });
-    onChange(value);
+    onClick && onClick({ e, value });
+    if (value !== active) onChange(value);
     setState({ active: value });
   };
 

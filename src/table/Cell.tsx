@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, MutableRefObject } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -27,7 +27,7 @@ export interface CellProps {
   cellSpans: RowspanColspan;
   cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
   tableClassNames: TableClassName;
-  tableElm?: HTMLDivElement;
+  tableRef?: MutableRefObject<HTMLDivElement>;
   classPrefix?: string;
   overlayClassName?: string;
   pagination?: PaginationProps;
@@ -95,7 +95,7 @@ function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, param
 }
 
 const Cell = (props: CellProps) => {
-  const { cellParams, tableClassNames, tableElm, columnLength, classPrefix, overlayClassName, pagination } = props;
+  const { cellParams, tableClassNames, tableRef, columnLength, classPrefix, overlayClassName, pagination } = props;
   const { col, colIndex, rowIndex } = cellParams;
   const { cellSpans, dataLength, rowAndColFixedPosition, cellEmptyContent, rowspanAndColspan, onClick } = props;
   const { tableColFixedClasses, tdEllipsisClass, tableBaseClass, tdAlignClasses, tableDraggableClasses } =
@@ -127,7 +127,13 @@ const Cell = (props: CellProps) => {
       onClick={onClick}
     >
       {col.ellipsis
-        ? renderEllipsisCell(cellParams, { cellNode, tableElm, columnLength, classPrefix, overlayClassName })
+        ? renderEllipsisCell(cellParams, {
+            cellNode,
+            tableElm: tableRef.current,
+            columnLength,
+            classPrefix,
+            overlayClassName,
+          })
         : cellNode}
     </td>
   );

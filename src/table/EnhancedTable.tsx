@@ -1,9 +1,11 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import get from 'lodash/get';
 import PrimaryTable from './PrimaryTable';
 import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
 import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
+import useConfig from '../hooks/useConfig';
 
 import { StyledProps } from '../common';
 
@@ -11,11 +13,12 @@ export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
 const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, ref) => {
   const { tree, columns, style, className } = props;
-
+  const { classPrefix } = useConfig();
   const primaryTableRef = useRef<EnhancedTableRef>();
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
-  const { store, dataSource, formatTreeColumn, swapData, ...treeInstanceFunctions } = useTreeData(props);
+  const { store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions } =
+    useTreeData(props);
 
   const treeDataMap = store?.treeDataMap;
 
@@ -46,7 +49,7 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
 
   const onEnhancedTableRowClick: TdPrimaryTableProps['onRowClick'] = (p) => {
     if (props.tree?.expandTreeNodeOnClick) {
-      treeInstanceFunctions.toggleExpandData(
+      onExpandFoldIconClick(
         {
           row: p.row,
           rowIndex: p.index,
@@ -85,6 +88,12 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     disableDataPage: Boolean(tree && Object.keys(tree).length),
     onSelectChange: onInnerSelectChange,
     onDragSort: onDragSortChange,
+    rowClassName: ({ row }) => {
+      const rowValue = get(row, props.rowKey || 'id');
+      const rowState = treeDataMap.get(rowValue);
+      if (!rowState) return [props.rowClassName];
+      return [`${classPrefix}-table-tr--level-${rowState.level}`, props.rowClassName];
+    },
     style,
     className,
   };

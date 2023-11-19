@@ -28,7 +28,7 @@ const ListItemMeta = forwardRef<HTMLDivElement, ListItemMetaProps>((props, ref) 
       <div className={`${classPrefix}-list-item__meta-content`}>
         <h3 className={`${classPrefix}-list-item__meta-title`}>{title}</h3>
         <div className={`${classPrefix}-list-item__meta-description`}>
-          <p>{description}</p>
+          {typeof description === 'string' ? <p>{description}</p> : description}
         </div>
       </div>
     </div>

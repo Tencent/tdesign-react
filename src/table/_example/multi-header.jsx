@@ -215,6 +215,7 @@ export default function TableExample() {
         columnController={{ displayType: 'auto-width' }}
         sort={sort}
         onSortChange={onSortChange}
+        lazyLoad
       />
     </Space>
   );

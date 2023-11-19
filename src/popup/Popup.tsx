@@ -17,6 +17,7 @@ import { getTransitionParams } from './utils/transition';
 import useMutationObserver from '../_util/useMutationObserver';
 import useWindowSize from '../_util/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -26,15 +27,20 @@ export interface PopupProps extends TdPopupProps {
 }
 
 export interface PopupRef {
-  // 获取popper实例
+  /** 获取 popper 实例 */
   getPopper: () => ReturnType<typeof usePopper>;
-  // 获取Popup dom元素
+  /** 获取 Popup dom 元素 */
   getPopupElement: () => HTMLDivElement;
-  // 获取portal dom元素
+  /** 获取 portal dom 元素 */
   getPortalElement: () => HTMLDivElement;
+  /** 获取内容区域 dom 元素 */
+  getPopupContentElement: () => HTMLDivElement;
+  /** 设置 popup 显示隐藏 */
+  setVisible: (visible: boolean) => void;
 }
 
-const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => {
+const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
+  const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
     trigger,
     content,
@@ -228,6 +234,5 @@ const Popup = forwardRef((props: PopupProps, ref: React.RefObject<PopupRef>) => 
 });
 
 Popup.displayName = 'Popup';
-Popup.defaultProps = popupDefaultProps;
 
 export default Popup;

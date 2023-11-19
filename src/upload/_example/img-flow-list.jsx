@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { Upload, Space, MessagePlugin, Switch } from 'tdesign-react';
 
+const ABRIDGE_NAME = [4, 6];
+
 export default function TUploadImageFlow() {
   const [autoUpload, setAutoUpload] = useState(false);
-  const [files3, setFiles3] = useState([]);
+  const [files, setFiles] = useState([
+    { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'success', name: 'demo-image-1.png' },
+    { url: 'https://tdesign.gtimg.com/site/avatar.jpg', status: 'success', name: 'avatar.jpg' },
+  ]);
+   // eslint-disable-next-line
+  const [files2, setFiles2] = useState([]);
 
   // 示例代码：自定义上传方法，一个请求上传一个文件
   // eslint-disable-next-line
@@ -21,15 +28,14 @@ export default function TUploadImageFlow() {
   // 示例代码：自定义上传方法，一个请求上传多个文件
   // eslint-disable-next-line
   const requestMethod2 = () => {
+    const files = [
+      { name: files2[0].name, status: 'success', url: 'https://tdesign.gtimg.com/site/avatar.jpg' },
+      { name: files2[1].name, status: 'success', url: 'https://avatars.githubusercontent.com/u/11605702?v=4' },
+    ];
     return new Promise((resolve) => {
       resolve({
         status: 'success',
-        response: {
-          files: [
-            { name: 'avatar1.jpg', url: 'https://tdesign.gtimg.com/site/avatar.jpg' },
-            { name: 'avatar2.jpg', url: 'https://avatars.githubusercontent.com/u/11605702?v=4' },
-          ],
-        },
+        response: { files },
       });
     });
   };
@@ -59,18 +65,38 @@ export default function TUploadImageFlow() {
 
       <br />
 
+      {/* <!-- action 上传地址，使用组件内部上传逻辑，action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo" --> */}
+     {/* <!-- requestMethod 自定义上传方法，自定义上传逻辑 --> */}
       <Upload
-        files={files3}
-        onChange={setFiles3}
-        action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+        files={files}
+        onChange={setFiles}
+        // action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+        requestMethod={requestMethod1}
         placeholder="支持批量上传图片文件"
         theme="image-flow"
         accept="image/*"
         multiple
         autoUpload={autoUpload}
         max={8}
+        abridgeName={ABRIDGE_NAME}
         onValidate={onValidate}
       />
+
+      {/* <Upload
+        files={files2}
+        onChange={setFiles2}
+        // action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+        requestMethod={requestMethod2}
+        placeholder="支持批量上传图片文件"
+        theme="image-flow"
+        accept="image/*"
+        multiple
+        autoUpload={autoUpload}
+        max={8}
+        abridgeName={ABRIDGE_NAME}
+        uploadAllFilesInOneRequest={true}
+        onValidate={onValidate}
+      /> */}
     </Space>
   );
 }

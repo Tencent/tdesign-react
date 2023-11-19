@@ -169,6 +169,7 @@ export default function TableExpandable() {
         tableLayout="auto"
         tableContentWidth="1200"
         onExpandChange={rehandleExpandChange}
+        lazyLoad
       ></Table>
     </Space>
   );

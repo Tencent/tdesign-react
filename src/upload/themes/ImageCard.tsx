@@ -12,6 +12,9 @@ import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
 import { TdUploadProps, UploadFile } from '../type';
 import { abridgeName } from '../../_common/js/upload/utils';
+import parseTNode from '../../_util/parseTNode';
+import Link from '../../link';
+import Image from '../../image';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];
@@ -25,7 +28,7 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
-  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, disabled } = props;
+  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, disabled, fileListDisplay } = props;
   const { BrowseIcon, DeleteIcon, AddIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     AddIcon: TdAddIcon,
     BrowseIcon: TdBrowseIcon,
@@ -42,19 +45,19 @@ const ImageCard = (props: ImageCardUploadProps) => {
 
   const renderMainContent = (file: UploadFile, index: number) => (
     <div className={`${classPrefix}-upload__card-content ${classPrefix}-upload__card-box`}>
-      <img className={`${classPrefix}-upload__card-image`} src={file.url} />
+      <Image className={`${classPrefix}-upload__card-image`} src={file.url || file.raw} error="" loading="" />
       <div className={`${classPrefix}-upload__card-mask`}>
         <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
           <ImageViewer
-            trigger={({ onOpen }) => (
+            trigger={({ open }) => (
               <BrowseIcon
                 onClick={(e) => {
                   props.onPreview?.({ file, index, e });
-                  onOpen();
+                  open();
                 }}
               />
             )}
-            images={displayFiles.map((t) => t.url)}
+            images={displayFiles.map((t) => t.url || t.raw)}
             defaultIndex={index}
           />
         </span>
@@ -93,18 +96,37 @@ const ImageCard = (props: ImageCardUploadProps) => {
   );
 
   const cardItemClasses = `${classPrefix}-upload__card-item ${classPrefix}-is-background`;
+
+  if (fileListDisplay) {
+    return (
+      <div>
+        {parseTNode(fileListDisplay, {
+          files: displayFiles,
+        })}
+      </div>
+    );
+  }
+
   return (
     <div>
       <ul className={`${classPrefix}-upload__card`}>
         {displayFiles?.map((file: UploadFile, index: number) => {
           const loadCard = `${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`;
           const fileName = props.abridgeName ? abridgeName(file.name, ...props.abridgeName) : file.name;
+          const fileNameClassName = `${classPrefix}-upload__card-name`;
           return (
             <li className={cardItemClasses} key={index}>
               {file.status === 'progress' && renderProgressFile(file, loadCard)}
               {file.status === 'fail' && renderFailFile(file, index, loadCard)}
-              {!['progress', 'fail'].includes(file.status) && file.url && renderMainContent(file, index)}
-              <div className={`${classPrefix}-upload__card-name`}>{fileName}</div>
+              {!['progress', 'fail'].includes(file.status) && renderMainContent(file, index)}
+              {fileName &&
+                (file.url ? (
+                  <Link href={file.url} className={fileNameClassName} target="_blank" hover="color" size="small">
+                    {fileName}
+                  </Link>
+                ) : (
+                  <span className={fileNameClassName}>{fileName}</span>
+                ))}
             </li>
           );
         })}

@@ -1,11 +1,13 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, MouseEvent, useMemo, FocusEvent } from 'react';
 import classNames from 'classnames';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
-import { TdCheckTagProps } from './type';
+import { TdCheckTagProps, TdTagProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import { checkTagDefaultProps } from './defaultProps';
+import Tag from './Tag';
+import { ENTER_REG, SPACE_REG } from '../_common/js/common';
 
 /**
  * CheckTag 组件支持的属性
@@ -17,46 +19,79 @@ export interface CheckTagProps extends TdCheckTagProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElement>) => {
-  const { content, onClick = noop, disabled, children, className, size, onChange, ...tagOtherProps } = props;
-  const [value, onValueChange] = useControlled(props, 'checked', onChange);
+const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLDivElement>) => {
+  const {
+    value,
+    content,
+    onClick = noop,
+    disabled,
+    children,
+    size,
+    checkedProps,
+    uncheckedProps,
+    onChange,
+    ...tagOtherProps
+  } = props;
+  const [innerChecked, setInnerChecked] = useControlled(props, 'checked', onChange);
 
   const { classPrefix } = useConfig();
   const tagClassPrefix = `${classPrefix}-tag`;
 
-  const sizeMap = {
-    large: `${classPrefix}-size-l`,
-    small: `${classPrefix}-size-s`,
+  const tagClass = useMemo(() => [
+      `${tagClassPrefix}`,
+      `${tagClassPrefix}--check`,
+      {
+        [`${tagClassPrefix}--checked`]: innerChecked,
+        [`${tagClassPrefix}--disabled`]: disabled,
+        [`${classPrefix}-size-s`]: size === 'small',
+        [`${classPrefix}-size-l`]: size === 'large',
+      },
+    ], [innerChecked, disabled, classPrefix, tagClassPrefix, size]);
+
+  const checkTagProps = useMemo(() => {
+    const tmpCheckedProps: TdTagProps = { theme: 'primary', ...checkedProps };
+    const tmpUncheckedProps: TdTagProps = { ...uncheckedProps };
+    return innerChecked ? tmpCheckedProps : tmpUncheckedProps;
+  }, [innerChecked, checkedProps, uncheckedProps]);
+
+  const handleClick = ({ e }: { e: MouseEvent<HTMLDivElement> }) => {
+    if (!disabled) {
+      onClick?.({ e });
+      setInnerChecked(!innerChecked, { e, value });
+    }
   };
 
-  const checkTagClassNames = classNames(
-    tagClassPrefix,
-    sizeMap[size],
-    className,
-    `${tagClassPrefix}--default`,
-    `${tagClassPrefix}--check`,
-    `${tagClassPrefix}--${size}`,
-    {
-      [`${tagClassPrefix}--disabled`]: disabled,
-      [`${tagClassPrefix}--checked`]: value,
-    },
-  );
+  const keyboardEventListener = (e) => {
+    const code = e.code || e.key?.trim();
+    const isCheckedCode = SPACE_REG.test(code) || ENTER_REG.test(code);
+    if (isCheckedCode) {
+      e.preventDefault();
+      setInnerChecked(!innerChecked, { e, value });
+    }
+  };
+
+  const onCheckboxFocus = (e: FocusEvent<HTMLDivElement>) => {
+    e.currentTarget.addEventListener('keydown', keyboardEventListener);
+  };
+
+  const onCheckboxBlur = (e: FocusEvent<HTMLDivElement>) => {
+    e.currentTarget.removeEventListener('keydown', keyboardEventListener);
+  };
 
   return (
-    <span
+    <Tag
       ref={ref}
-      className={checkTagClassNames}
+      className={classNames(tagClass)}
+      disabled={props.disabled}
+      tabIndex={props.disabled ? undefined : 0}
+      onFocus={onCheckboxFocus}
+      onBlur={onCheckboxBlur}
+      {...checkTagProps}
+      onClick={handleClick}
       {...tagOtherProps}
-      onClick={(e) => {
-        if (disabled) {
-          return;
-        }
-        onValueChange(!value);
-        onClick({ e });
-      }}
     >
-      {children || content}
-    </span>
+      {content || children}
+    </Tag>
   );
 });
 

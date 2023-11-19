@@ -55,5 +55,5 @@ export default function TableDragSort() {
   }
 
   // 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法
-  return <Table rowKey="index" data={data} columns={columns} dragSort="row" onDragSort={onDragSort} />;
+  return <Table rowKey="index" data={data} columns={columns} dragSort="row" onDragSort={onDragSort} lazyLoad />;
 }

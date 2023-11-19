@@ -1,17 +1,18 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-// import isEqual from 'lodash/isEqual';
-import useUpdateEffect from '../_util/useUpdateEffect';
-// import { TreeOptionData } from '../common';
-import TreeStore from '../_common/js/tree/tree-store';
-// import TreeNode from '../_common/js/tree/tree-node';
-import { usePersistFn } from '../_util/usePersistFn';
-import { TdTreeProps } from './type';
-import { TypeEventState } from './interface';
+import useUpdateEffect from '../../_util/useUpdateEffect';
+import usePrevious from '../../hooks/usePrevious';
+import TreeStore from '../../_common/js/tree/tree-store';
+import { usePersistFn } from '../../_util/usePersistFn';
+
+import type { TdTreeProps } from '../type';
+import type { TypeEventState } from '../interface';
+import type { TypeTreeNodeData } from '../../_common/js/tree/types';
 
 export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   const storeRef = useRef<TreeStore>();
-
+  const [filterChanged, toggleFilterChanged] = useState(false);
+  const [prevExpanded, changePrevExpanded] = useState(null);
   const {
     data,
     keys,
@@ -32,43 +33,49 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     lazy,
     valueMode,
     filter,
-    // onDataChange,
     onLoad,
     allowFoldNodeOnFilter = false,
   } = props;
 
+  const preFilter = usePrevious(filter);
+
+  useEffect(() => {
+    if (!allowFoldNodeOnFilter) return;
+    toggleFilterChanged(JSON.stringify(preFilter) !== JSON.stringify(filter));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, allowFoldNodeOnFilter]);
+
+  // 在 update 之后检查，如果之前 filter 有变更，则检查路径节点是否需要展开
+  // 如果 filter 属性被清空，则重置为开启搜索之前的结果
+  const expandFilterPath = () => {
+    if (!allowFoldNodeOnFilter || !filterChanged) return;
+    // 确保 filter 属性未变更时，不会重复检查展开状态
+    toggleFilterChanged(false);
+    const store = storeRef.current;
+    if (props.filter) {
+      if (!prevExpanded) changePrevExpanded(store.getExpanded()); // 缓存之前的展开状态
+
+      // 展开搜索命中节点的路径节点
+      const pathValues = [];
+      const allNodes = store.getNodes();
+      allNodes.forEach((node) => {
+        if (node.vmIsLocked) {
+          pathValues.push(node.value);
+        }
+      });
+      store.setExpanded(pathValues);
+    } else if (prevExpanded) {
+      // filter 属性置空，还原最开始的展开状态
+      store.replaceExpanded(prevExpanded);
+      changePrevExpanded(null);
+    }
+  };
+
   // 传入 TreeStore 中调用的，但是每次都需要使用最新的值，所以使用 usePersistFn
   const handleUpdate = usePersistFn(() => {
+    expandFilterPath();
     refresh();
   });
-
-  // const handleReflow = usePersistFn(() => {
-  //   if (!onDataChange) {
-  //     return;
-  //   }
-
-  //   const nodes = storeRef.current.getNodes();
-
-  //   const rootNodes = nodes.filter((v) => !v.parent);
-
-  //   const getChild = (list: TreeNode[] | boolean) => {
-  //     if (Array.isArray(list) && list.length > 0) {
-  //       return list.map((v) => {
-  //         const nodeData: TreeOptionData = v.data;
-  //         if (Array.isArray(v.children) && v.children.length > 0) {
-  //           nodeData.children = getChild(v.children);
-  //         }
-  //         return nodeData;
-  //       });
-  //     }
-  //   };
-
-  //   const newData = getChild(rootNodes);
-
-  //   if (!isEqual(newData, data)) {
-  //     onDataChange?.(newData);
-  //   }
-  // });
 
   const getExpandedArr = (arr: TdTreeProps['expanded'], store: TreeStore) => {
     const expandedMap = new Map();
@@ -109,7 +116,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       },
       onUpdate: handleUpdate,
       allowFoldNodeOnFilter,
-      // onReflow: handleReflow,
     });
 
     // 初始化 store 的节点排列 + 状态
@@ -118,7 +124,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       list = [];
     }
 
-    store.append(list);
+    store.append(list as Array<TypeTreeNodeData>);
 
     // 刷新节点，必须在配置选中之前执行
     // 这样选中态联动判断才能找到父节点
@@ -140,8 +146,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       store.setActived(actived);
     }
 
-    // refresh();
-
     store.refreshNodes();
     return store;
   };
@@ -159,7 +163,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       const checked = store.getChecked();
       const actived = store.getActived();
       store.removeAll();
-      store.append(data);
+      store.append(data as Array<TypeTreeNodeData>);
       store.setChecked(checked);
       store.setActived(actived);
       store.setExpanded(expanded);

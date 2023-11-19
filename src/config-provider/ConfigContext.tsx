@@ -17,22 +17,21 @@ export const defaultAnimation = {
   exclude: [],
 };
 
-export const defaultGlobalConfig = {
+type DefaultGlobalConfig = Partial<GlobalConfigProvider>;
+
+export const defaultGlobalConfig: DefaultGlobalConfig = {
   animation: defaultAnimation,
   classPrefix: defaultClassPrefix,
-  ...merge(defaultLocale, defaultConfig),
+  ...merge({}, defaultLocale, defaultConfig),
 };
 
 export type Locale = typeof defaultLocale;
 
-export type GlobalConfig = typeof defaultGlobalConfig;
-export interface Config {
-  globalConfig?: GlobalConfigProvider;
-}
-
-export const defaultContext: { globalConfig: GlobalConfig } = {
+export const defaultContext = {
   globalConfig: defaultGlobalConfig,
 };
+
+export type Config = typeof defaultContext;
 
 const ConfigContext = createContext(defaultContext);
 

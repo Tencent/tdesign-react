@@ -2,14 +2,18 @@ import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon as TdInfoCircleFilledIcon } from 'tdesign-icons-react';
-import Button from '../button';
+import Button, { ButtonProps } from '../button';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { PopconfirmProps } from './Popconfirm';
 import type { PopconfirmVisibleChangeContext } from './type';
 
-const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => any }) => {
+interface PopcontentProps {
+  onClose?: (context: PopconfirmVisibleChangeContext) => any;
+}
+
+const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
   const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
 
   const { classPrefix } = useConfig();
@@ -71,6 +75,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
           onClose({ e, trigger: 'cancel' });
           onCancel({ e });
         }}
+        {...(typeof cancelBtn === 'object' ? { ...(cancelBtn as ButtonProps) } : {})}
       >
         {isString(cancelBtn) && cancelBtn}
       </Button>
@@ -99,6 +104,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
           onClose({ e, trigger: 'confirm' });
           onConfirm({ e });
         }}
+        {...(typeof confirmBtn === 'object' ? { ...(confirmBtn as ButtonProps) } : {})}
       >
         {isString(confirmBtn) && confirmBtn}
       </Button>
@@ -106,7 +112,7 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
   }
 
   return (
-    <div className={`${classPrefix}-popconfirm__content`}>
+    <div className={`${classPrefix}-popconfirm__content ${props.className}`} style={props.style}>
       <div className={`${classPrefix}-popconfirm__body`}>
         {renderIcon()}
         <div className={`${classPrefix}-popconfirm__inner`}>{content}</div>

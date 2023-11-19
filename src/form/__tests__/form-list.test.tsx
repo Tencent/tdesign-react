@@ -102,9 +102,12 @@ describe('Form List 组件测试', () => {
     fireEvent.click(resetBtn);
     fireEvent.click(submitBtn);
     await mockTimeout(() => true);
-    expect(queryByText('省份必填')).toBeTruthy();
-    expect(queryByText('地区必填')).toBeTruthy();
+    expect(queryByText('guangdong')).not.toBeTruthy();
+    expect(queryByText('shenzhen')).not.toBeTruthy();
 
+    fireEvent.click(addBtn);
+    expect(queryByDisplayValue('guangdong')).toBeTruthy();
+    expect(queryByDisplayValue('shenzhen')).toBeTruthy();
     const removeBtn = container.querySelector('.test-remove');
     fireEvent.click(removeBtn);
     expect(queryByDisplayValue('guangdong')).not.toBeTruthy();
@@ -121,11 +124,10 @@ describe('Form List 组件测试', () => {
     fireEvent.click(queryByText('validateOnly'));
     await mockTimeout(() => true);
     expect(queryByText('省份必填')).not.toBeTruthy();
-    fireEvent.click(queryByText('reset'));
     fireEvent.click(queryByText('validate'));
     await mockTimeout(() => true);
-    expect(queryByText('省份必填')).toBeTruthy();
+    expect(queryByText('地区必填')).toBeTruthy();
     fireEvent.click(queryByText('clearValidate'));
-    expect(queryByText('省份必填')).not.toBeTruthy();
+    expect(queryByText('地区必填')).not.toBeTruthy();
   });
 });

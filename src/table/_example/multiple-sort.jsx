@@ -79,7 +79,7 @@ export default function TableSingleSort() {
   return (
     <Space direction="vertical">
       <div>排序方式：{JSON.stringify(sort)}</div>
-      <Table rowKey="index" data={initialData} columns={columns} sort={sort} multipleSort onSortChange={onSortChange} />
+      <Table rowKey="index" data={initialData} columns={columns} sort={sort} multipleSort onSortChange={onSortChange} lazyLoad/>
     </Space>
   );
 }

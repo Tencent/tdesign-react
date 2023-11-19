@@ -11,11 +11,20 @@ import { rateDefaultProps } from './defaultProps';
 
 export interface RateProps extends TdRateProps, StyledProps {}
 
+// 评分图标
+// fix: 2550
+const RateIcon = ({ icon, ...props }) => {
+  const { StarFilledIcon } = useGlobalIcon({ StarFilledIcon: TdStarFilledIcon });
+  if (React.isValidElement(icon)) {
+    return React.cloneElement(icon, props);
+  }
+  return <StarFilledIcon {...props} />;
+};
+
 const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
   const { allowHalf, color, count, disabled, gap, showText, size, texts, icon, className, style, onChange } = props;
 
   const { classPrefix } = useConfig();
-  const { StarFilledIcon } = useGlobalIcon({ StarFilledIcon: TdStarFilledIcon });
   const [starValue = 0, setStarValue] = useControlled(props, 'value', onChange);
 
   const [hoverValue = undefined, setHoverValue] = useState<number | undefined>(undefined);
@@ -24,14 +33,6 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
 
   const activeColor = Array.isArray(color) ? color[0] : color;
   const defaultColor = Array.isArray(color) ? color[1] : 'var(--td-bg-color-component)';
-
-  // 评分图标
-  const RateIcon = (props: any) => {
-    if (React.isValidElement(icon)) {
-      return React.cloneElement(icon, props);
-    }
-    return <StarFilledIcon {...props} />;
-  };
 
   const getStarValue = (event: MouseEvent<HTMLElement>, index: number) => {
     if (allowHalf) {
@@ -87,19 +88,19 @@ const Rate = forwardRef((props: RateProps, ref: React.Ref<HTMLDivElement>) => {
             {showText ? (
               <TooltipLite key={index} content={texts[displayValue - 1]}>
                 <div className={`${classPrefix}-rate__star-top`}>
-                  <RateIcon size={size} color={activeColor} />
+                  <RateIcon size={size} color={activeColor} icon={icon} />
                 </div>
                 <div className={`${classPrefix}-rate__star-bottom`}>
-                  <RateIcon size={size} color={defaultColor} />
+                  <RateIcon size={size} color={defaultColor} icon={icon} />
                 </div>
               </TooltipLite>
             ) : (
               <>
                 <div className={`${classPrefix}-rate__star-top`}>
-                  <RateIcon size={size} color={activeColor} />
+                  <RateIcon size={size} color={activeColor} icon={icon} />
                 </div>
                 <div className={`${classPrefix}-rate__star-bottom`}>
-                  <RateIcon size={size} color={defaultColor} />
+                  <RateIcon size={size} color={defaultColor} icon={icon} />
                 </div>
               </>
             )}

@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import { PrimaryTableProps } from '../interface';
 import { validate } from '../../form/formModel';
 import { AllValidateResult } from '../../form';
-import { getEditableKeysMap } from '../utils';
+import { getEditableKeysMap } from '../../_common/js/table/utils';
 import { PrimaryTableRowEditContext, TableRowData, TableErrorListMap } from '../type';
 
 export type ErrorListObjectType = PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] };
@@ -14,9 +14,8 @@ export interface TablePromiseErrorData {
   errorMap: TableErrorListMap;
 }
 
-const cellRuleMap = new Map<any, PrimaryTableRowEditContext<TableRowData>[]>();
-
 export function useEditableRow(props: PrimaryTableProps) {
+  const cellRuleMap = useMemo(() => new Map<any, PrimaryTableRowEditContext<TableRowData>[]>(), []);
   const { editableRowKeys } = props;
   // 校验不通过的错误信息，其中 key 值为 [rowValue, col.colKey].join('__')
   const [errorListMap, setErrorListMap] = useState<TableErrorListMap>({});
@@ -52,7 +51,7 @@ export function useEditableRow(props: PrimaryTableProps) {
             resolve({ ...item, errorList: [] });
             return;
           }
-          validate(editedRow[col.colKey], rules).then((r) => {
+          validate(get(editedRow, col.colKey), rules).then((r) => {
             resolve({ ...item, errorList: r.filter((t) => !t.result) });
           });
         }),

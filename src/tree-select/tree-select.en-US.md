@@ -20,7 +20,7 @@ filterable | Boolean | false | \- | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 inputValue | String / Number | - | input value。Typescript：`InputValue`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 defaultInputValue | String / Number | - | input value。uncontrolled property。Typescript：`InputValue`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
-keys | Object | - | Typescript：`TreeKeysType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+keys | Object | - | alias filed name in data。Typescript：`TreeKeysType`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 loading | Boolean | false | \- | N
 loadingText | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -37,8 +37,8 @@ prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](http
 readonly | Boolean | false | \- | N
 reserveKeyword | Boolean | false | \- | N
 selectInputProps | Object | - | Typescript：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
-size | String | medium | options：small/medium/large | N
-status | String | default | options：default/success/warning/error | N
+size | String | medium | options: small/medium/large | N
+status | String | default | options: default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 tagProps | Object | - | Typescript：`TagProps`，[Tag API Documents](./tag?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
@@ -47,7 +47,7 @@ treeProps | Object | - | Typescript：`TreeProps`，[Tree API Documents](./tree?
 value | String / Number / Object / Array | - | Typescript：`TreeValueType` `type TreeSelectValue = string \| number \| TreeOptionData \| Array<string \| number \| TreeOptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 defaultValue | String / Number / Object / Array | - | uncontrolled property。Typescript：`TreeValueType` `type TreeSelectValue = string \| number \| TreeOptionData \| Array<string \| number \| TreeOptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts) | N
 valueDisplay | TElement | - | Typescript：`string \| TNode<{ value: TreeOptionData \| TreeOptionData[]; onClose: (index: number) => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-valueType | String | value | options：value/object | N
+valueType | String | value | options: value/object | N
 onBlur | Function |  | Typescript：`(context: SelectInputBlurContext & { value: TreeSelectValue }) => void`<br/> | N
 onChange | Function |  | Typescript：`(value: TreeValueType, context: TreeSelectChangeContext<DataOption>) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree-select/type.ts)。<br/>`interface TreeSelectChangeContext<DataOption> { node: TreeNodeModel<DataOption>; data: DataOption; index?: number; trigger: TreeSelectValueChangeTrigger; e?: MouseEvent \| KeyboardEvent \| Event }`<br/><br/>`type TreeSelectValueChangeTrigger = 'clear' \| 'tag-remove' \| 'backspace' \| 'check' \| 'uncheck'`<br/> | N
 onClear | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N

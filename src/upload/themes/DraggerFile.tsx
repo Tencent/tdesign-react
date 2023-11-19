@@ -14,6 +14,7 @@ import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
 import { parseContentTNode } from '../../_util/parseTNode';
+import Image from '../../image';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -24,12 +25,12 @@ export interface DraggerProps extends CommonDisplayFileProps {
 }
 
 const DraggerFile: FC<DraggerProps> = (props) => {
-  const { displayFiles, locale, disabled, trigger } = props;
+  const { displayFiles, locale, disabled, trigger, accept } = props;
 
   const { SIZE } = useCommonClassName();
   const uploadPrefix = `${props.classPrefix}-upload`;
 
-  const drag = useDrag(props.dragEvents);
+  const drag = useDrag({ ...props.dragEvents, accept });
   const { dragActive } = drag;
 
   const draggerFileRef = useRef();
@@ -53,7 +54,10 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     const url = file?.url || file?.response?.url;
     return (
       <div className={`${uploadPrefix}__dragger-img-wrap`}>
-        {url && <ImageViewer images={[url]} trigger={({ onOpen }) => <img src={url} onClick={onOpen} />}></ImageViewer>}
+        <ImageViewer
+          images={[url]}
+          trigger={({ open }) => <Image src={url || file.raw} onClick={open} />}
+        ></ImageViewer>
       </div>
     );
   };

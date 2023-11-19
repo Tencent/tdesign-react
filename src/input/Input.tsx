@@ -168,7 +168,7 @@ const Input = forwardRefWithStatics(
         updateInputWidth();
       });
       // eslint-disable-next-line
-    }, [autoWidth, value, placeholder, inputRef]);
+    }, [autoWidth, value, placeholder, inputRef, composingValue]);
 
     // 当元素默认为 display: none 状态，无法提前准确计算宽度，因此需要监听元素宽度变化。比如：Tabs 场景切换。
     useEffect(() => {
@@ -226,6 +226,7 @@ const Input = forwardRefWithStatics(
         onBlur={handleBlur}
         onPaste={handlePaste}
         name={name}
+        maxLength={maxlength && !allowInputOverMax ? maxlength : null}
       />
     );
 
@@ -256,7 +257,7 @@ const Input = forwardRefWithStatics(
         {showInput && renderInput}
         {autoWidth && (
           <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
-            {value || placeholder}
+            {innerValue || placeholder}
           </span>
         )}
         {suffixContent || limitNumberNode ? (

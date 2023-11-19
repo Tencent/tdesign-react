@@ -18,6 +18,7 @@ export default function useTagList(props: TagInputProps) {
     props;
   // handle controlled property and uncontrolled property
   const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
@@ -58,7 +59,7 @@ export default function useTagList(props: TagInputProps) {
     const { e } = context;
     if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
-    if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.key)) {
+    if (!value && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
       const item = tagValue[index];
       const trigger = 'backspace';
@@ -104,7 +105,7 @@ export default function useTagList(props: TagInputProps) {
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;
-      list.push(<Fragment key="more">{more ?? <Tag>+{len}</Tag>}</Fragment>);
+      list.push(<Fragment key="more">{more ?? <Tag size={size}>+{len}</Tag>}</Fragment>);
     }
     return list;
   };

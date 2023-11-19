@@ -91,6 +91,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     status,
     tips,
     help,
+    valueFormat,
     initialData,
     className,
     shouldUpdate,
@@ -438,7 +439,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (!shouldValidate.current) return;
 
     // value change event
-    if (typeof name !== 'undefined') {
+    if (typeof name !== 'undefined' && shouldEmitChangeRef.current) {
       if (formListName) {
         // 整理 formItem 的值
         const formListValue = merge([], calcFieldValue(name, formValue));
@@ -508,7 +509,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
-                  updateFormValue(value, true, true);
+                  const newValue = valueFormat ? valueFormat(value) : value;
+                  updateFormValue(newValue, true, true);
                   child.props.onChange?.call?.(null, value, ...args);
                 },
                 onBlur: (value: any, ...args: any[]) => {

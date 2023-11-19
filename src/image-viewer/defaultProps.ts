@@ -8,8 +8,9 @@ export const imageViewerDefaultProps: TdImageViewerProps = {
   closeBtn: true,
   draggable: undefined,
   images: [],
+  defaultIndex: 0,
   mode: 'modal',
+  navigationArrow: true,
   showOverlay: undefined,
   defaultVisible: false,
-  defaultIndex: 0,
 };

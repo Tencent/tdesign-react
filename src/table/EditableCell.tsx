@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import isFunction from 'lodash/isFunction';
+import cloneDeep from 'lodash/cloneDeep';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import {
@@ -41,14 +42,29 @@ const EditableCell = (props: EditableCellProps) => {
   const { row, col, colIndex, rowIndex, errors, editable, tableBaseClass } = props;
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
-  const [isEdit, setIsEdit] = useState(props.col.edit?.defaultEditable || false);
+  const isKeepEditMode = Boolean(col.edit?.keepEditMode);
+  const [isEdit, setIsEdit] = useState(isKeepEditMode || props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
   const { classPrefix } = useConfig();
 
+  useEffect(() => {
+    if (isKeepEditMode) {
+      setIsEdit(true);
+    }
+  }, [isKeepEditMode]);
+
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
+    if (!colKey) return row;
+    // handle colKey like a.b.c
+    const [firstKey, ...restKeys] = colKey.split('.') || [];
     const newRow = { ...row };
-    set(newRow, colKey, value);
+    if (restKeys.length) {
+      newRow[firstKey] = cloneDeep(row[firstKey]);
+      set(newRow[firstKey], restKeys.join('.'), value);
+    } else {
+      set(newRow, colKey, value);
+    }
     return newRow;
   };
 
@@ -62,11 +78,17 @@ const EditableCell = (props: EditableCellProps) => {
     [col, row, colIndex, rowIndex],
   );
 
+  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
+  const updateEditedCellValue = (val: any) => {
+    setEditValue(val);
+  };
+
   const editOnListeners = useMemo(
-    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow }) || {},
+    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow, updateEditedCellValue }) || {},
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cellParams, currentRow],
   );
@@ -87,7 +109,9 @@ const EditableCell = (props: EditableCellProps) => {
   const componentProps = useMemo(() => {
     const { edit } = col;
     if (!edit) return {};
-    const editProps = isFunction(edit.props) ? edit.props({ ...cellParams, editedRow: currentRow }) : { ...edit.props };
+    const editProps = isFunction(edit.props)
+      ? edit.props({ ...cellParams, editedRow: currentRow, updateEditedCellValue })
+      : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
     delete editProps.value;
@@ -155,7 +179,9 @@ const EditableCell = (props: EditableCellProps) => {
       editOnListeners[eventName]?.(args[2]);
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
-        setIsEdit(false);
+        if (!isKeepEditMode) {
+          setIsEdit(false);
+        }
         setErrorList([]);
         clearTimeout(timer);
       }, 0);
@@ -195,7 +221,7 @@ const EditableCell = (props: EditableCellProps) => {
     const params = {
       ...cellParams,
       value: val,
-      editedRow: { ...props.row, [props.col.colKey]: val },
+      editedRow: set({ ...props.row }, props.col.colKey, val),
     };
     props.onChange?.(params);
     props.onRuleChange?.(params);
@@ -238,14 +264,8 @@ const EditableCell = (props: EditableCellProps) => {
     });
   };
 
-  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
-
   useEffect(() => {
-    let val = cellValue;
-    if (typeof val === 'object' && val !== null) {
-      val = val instanceof Array ? [...val] : { ...val };
-    }
-    setEditValue(val);
+    setEditValue(cellValue);
   }, [cellValue]);
 
   useEffect(() => {

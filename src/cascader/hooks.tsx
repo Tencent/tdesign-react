@@ -8,7 +8,7 @@ import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from '.
 import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 
 import useControlled from '../hooks/useControlled';
-import {
+import type {
   TreeNode,
   TreeNodeValue,
   TdCascaderProps,
@@ -16,6 +16,8 @@ import {
   CascaderChangeSource,
   CascaderValue,
 } from './interface';
+
+import type { TypeTreeNodeData } from '../_common/js/tree/types';
 
 export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
@@ -96,7 +98,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
           });
         },
       });
-      store.append(options);
+      store.append(options as Array<TypeTreeNodeData>);
       setTreeStore(store);
     } else {
       treeStore.reload(options);

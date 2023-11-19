@@ -135,7 +135,7 @@ export default function TableEllipsis() {
 
   return (
     <div>
-      <Table rowKey="index" data={data} columns={columns} />
+      <Table rowKey="index" data={data} columns={columns} lazyLoad/>
     </div>
   );
 }

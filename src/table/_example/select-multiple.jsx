@@ -76,6 +76,7 @@ export default function TableSingleSort() {
       selectOnRowClick={true}
       selectedRowKeys={selectedRowKeys}
       onSelectChange={onSelectChange}
+      lazyLoad
     />
   );
 }

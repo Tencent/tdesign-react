@@ -18,6 +18,7 @@ import { TdPaginationProps } from './type';
 import { StyledProps } from '../common';
 import { pageSizeValidator } from './validators';
 import { paginationDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type { PageInfo } from './type';
 
@@ -25,7 +26,8 @@ export interface PaginationProps extends TdPaginationProps, StyledProps {}
 
 const { Option } = Select;
 
-const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivElement>) => {
+const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, ref) => {
+  const props = useDefaultProps<PaginationProps>(originalProps, paginationDefaultProps);
   const {
     theme,
     size,
@@ -69,7 +71,9 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
 
   // 处理改变当前页的逻辑
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
-    if (disabled || current === _nextCurrent) return;
+    if (disabled || current === _nextCurrent) {
+      return;
+    }
 
     let nextCurrent = _nextCurrent;
     let nextPageSize = _nextPageSize;
@@ -219,6 +223,5 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
 });
 
 Pagination.displayName = 'Pagination';
-Pagination.defaultProps = paginationDefaultProps;
 
 export default Pagination;
