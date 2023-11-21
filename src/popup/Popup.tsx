@@ -8,7 +8,6 @@ import { Placement } from '@popperjs/core';
 import useControlled from '../hooks/useControlled';
 import useAnimation from '../_util/useAnimation';
 import useConfig from '../hooks/useConfig';
-import usePrevious from '../hooks/usePrevious';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
@@ -70,7 +69,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
-  const prevVisible = usePrevious(visible);
 
   const [popupElement, setPopupElement] = useState(null);
   const triggerRef = useRef(null); // 记录 trigger 元素
@@ -128,10 +126,10 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   // 下拉展开时更新内部滚动条
   useEffect(() => {
     if (!triggerRef.current) triggerRef.current = getTriggerDom();
-    if (prevVisible !== visible && visible) {
+    if (visible) {
       updateScrollTop?.(contentRef.current);
     }
-  }, [visible, prevVisible, updateScrollTop, getTriggerDom]);
+  }, [visible, updateScrollTop, getTriggerDom]);
 
   function handleExited() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
