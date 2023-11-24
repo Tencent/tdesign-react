@@ -9,9 +9,6 @@
   "typings": "es/index.d.ts",
   "unpkg": "dist/tdesign.min.js",
   "jsdelivr": "dist/tdesign.min.js",
-  "engines": {
-    "node": ">=18"
-  },
   "files": [
     "esm",
     "es",
