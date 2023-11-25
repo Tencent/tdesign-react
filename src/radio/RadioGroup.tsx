@@ -86,7 +86,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   };
 
   const renderOptions = () => {
-    const Comp = variant.includes('filled') ? Radio.Button : Radio;
+    const Comp = variant.includes('filled') || variant === 'outline' ? Radio.Button : Radio;
     return options.map((item) => {
       let label: ReactNode;
       let value: string | number;
