@@ -43,14 +43,15 @@ export default function useLockStyle(props) {
         ${mode === 'push' ? '' : `width: calc(100% - ${scrollbarWidth}px);`}
       }
     `;
-    if (drawerWrapper) {
+  }, [mode]);
+
+  useLayoutEffect(() => {
+    if (drawerWrapper && mode === 'push') {
       if (visible) {
-        if (mode === 'push') {
-          drawerWrapper.parentNode.style.cssText += ` 
+        drawerWrapper.parentNode.style.cssText += ` 
             transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s;
             ${marginString};}
           `;
-        }
       } else {
         drawerWrapper.parentNode.style.cssText = drawerWrapper.parentNode.style.cssText.replace(/margin:.+;/, '');
       }
