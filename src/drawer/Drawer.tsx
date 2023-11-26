@@ -77,7 +77,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     return dragSizeValue || sizeMap[size] || size;
   }, [dragSizeValue, size]);
 
-  useLockStyle({ ...props, sizeValue });
+  useLockStyle({ ...props, sizeValue, drawerWrapper: drawerWrapperRef.current });
   useImperativeHandle(ref, () => containerRef.current);
 
   useEffect(() => {
