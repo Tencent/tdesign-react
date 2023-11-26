@@ -109,28 +109,30 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     }
   }
   // 头部快速切换
-  const onJumperClick = React.useCallback(({ trigger }) => {
-    const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
-    const monthCount = monthCountMap[mode] || 0;
+  const onJumperClick = React.useCallback(
+    ({ trigger }) => {
+      const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
+      const monthCount = monthCountMap[mode] || 0;
 
-    const current = new Date(year, month);
+      const current = new Date(year, month);
 
-    let next = null;
-    if (trigger === 'prev') {
-      next = subtractMonth(current, monthCount);
-    } else if (trigger === 'current') {
-      next = new Date();
-    } else if (trigger === 'next') {
-      next = addMonth(current, monthCount);
-    }
+      let next = null;
+      if (trigger === 'prev') {
+        next = subtractMonth(current, monthCount);
+      } else if (trigger === 'current') {
+        next = new Date();
+      } else if (trigger === 'next') {
+        next = addMonth(current, monthCount);
+      }
 
-    const nextYear = next.getFullYear();
-    const nextMonth = next.getMonth();
+      const nextYear = next.getFullYear();
+      const nextMonth = next.getMonth();
 
-    setYear(nextYear);
-    setMonth(nextMonth);
-    // eslint-disable-next-line
-  }, []);
+      setYear(nextYear);
+      setMonth(nextMonth);
+    },
+    [year, month, mode, setYear, setMonth],
+  );
 
   // timePicker 点击
   function onTimePickerChange(val: string) {

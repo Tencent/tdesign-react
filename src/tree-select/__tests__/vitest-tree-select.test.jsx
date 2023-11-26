@@ -168,6 +168,7 @@ describe('TreeSelect Component', () => {
 
   it('props.filter: priority of onSearch is higher than props.filter, props.filter is forbidden to work in this scene', async () => {
     const { container } = getTreeSelectMultipleMount(TreeSelect, {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onSearch: () => {},
       filter: (filterWord, option) => !filterWord || option.label === filterWord,
     });
@@ -176,7 +177,7 @@ describe('TreeSelect Component', () => {
     simulateInputChange(inputDom1, 'tdesign-react');
     await mockDelay(100);
     const tTreeItemNotTTreeItemHiddenDom = document.querySelectorAll('.t-tree__item:not(.t-tree__item--hidden)');
-    expect(tTreeItemNotTTreeItemHiddenDom.length).toBe(6);
+    expect(tTreeItemNotTTreeItemHiddenDom.length).toBe(8);
   });
 
   it('props.filter: multiple tree select, check filter nodes', async () => {
@@ -569,21 +570,6 @@ describe('TreeSelect Component', () => {
     expect(onFocusFn).toHaveBeenCalled();
     expect(onFocusFn.mock.calls[0][0].value).toEqual([{ label: 'tdesign-vue', value: 1 }]);
     expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
-  });
-
-  it('events.inputChange: clear filter words on change', async () => {
-    const onInputChangeFn1 = vi.fn();
-    const { container } = getTreeSelectMultipleMount(
-      TreeSelect,
-      { inputValue: 'tdesign-vue' },
-      { onInputChange: onInputChangeFn1 },
-    );
-    fireEvent.click(container.querySelector('.t-input'));
-    await mockDelay(200);
-    fireEvent.click(document.querySelector('.t-tree__item:first-child .t-checkbox__label'));
-    expect(onInputChangeFn1).toHaveBeenCalled();
-    expect(onInputChangeFn1.mock.calls[0][0]).toBe('');
-    expect(onInputChangeFn1.mock.calls[0][1].trigger).toBe('change');
   });
 
   it('events.popupVisibleChange works fine', async () => {

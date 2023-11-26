@@ -49,7 +49,7 @@ describe('Space 组件测试', () => {
         <div></div>
       </Space>,
     );
-    expect((container.firstChild as HTMLDivElement).style.flexWrap).toBe('wrap');
+    expect((container.firstChild as HTMLDivElement).classList.contains('t-space--break-line')).toBeTruthy();
   });
 
   test('separator', async () => {

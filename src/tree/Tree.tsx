@@ -31,9 +31,6 @@ import type { TreeInstanceFunctions, TdTreeProps } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
-/**
- * 树组件
- */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
 
@@ -142,10 +139,14 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     const { expand, active, e, trigger } = options;
     if (expand) setExpanded(node, !node.isExpanded(), { e, trigger });
 
-    if (active && !isDisabled) {
-      setActived(node, !node.isActived(), { e, trigger: 'node-click' });
+    if (!isDisabled) {
       const treeNodeModel = node?.getModel();
-      onClick?.({ node: treeNodeModel, e });
+      if (active) {
+        setActived(node, !node.isActived(), { e, trigger: 'node-click' });
+        onClick?.({ node: treeNodeModel, e });
+      } else {
+        onClick?.({ node: treeNodeModel, e });
+      }
     }
   };
 

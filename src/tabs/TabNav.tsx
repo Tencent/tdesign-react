@@ -209,7 +209,9 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   const handleTabItemClick = (clickItem) => {
     tabClick(clickItem.value);
-    onChange(clickItem.value);
+    if (activeValue !== clickItem.value) {
+      onChange(clickItem.value);
+    }
     clickItem?.onClick?.(clickItem.value);
   };
 

@@ -23,6 +23,7 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const props = useDefaultProps<DialogProps>(originalProps, dialogDefaultProps);
+  const { children, ...restProps } = props;
   const { classPrefix } = useConfig();
 
   const componentCls = `${classPrefix}-dialog`;
@@ -32,7 +33,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const dialogCardRef = useRef<HTMLDivElement>();
   const dialogPosition = useRef();
   const portalRef = useRef();
-  const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...props });
+  const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
   const [local] = useLocaleReceiver('dialog');
 
   const {
@@ -228,7 +229,9 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}
                   onMouseDown={onDialogMoveStart}
-                />
+                >
+                  {children}
+                </DialogCard>
               </CSSTransition>
             </div>
           </div>

@@ -16,10 +16,16 @@ describe('Space Component', () => {
     });
   });
 
-  it(`props.breakLine is equal to true`, () => {
-    const { container } = getSpaceDefaultMount(Space, { breakLine: true });
-    const domWrapper = container.firstChild;
-    expect(domWrapper.style.flexWrap).toBe('wrap');
+  it('props.breakLine works fine', () => {
+    // breakLine default value is false
+    const { container: container1 } = getSpaceDefaultMount(Space);
+    expect(container1.querySelector(`.${'t-space--break-line'}`)).toBeFalsy();
+    // breakLine = true
+    const { container: container2 } = getSpaceDefaultMount(Space, { breakLine: true });
+    expect(container2.firstChild).toHaveClass('t-space--break-line');
+    // breakLine = false
+    const { container: container3 } = getSpaceDefaultMount(Space, { breakLine: false });
+    expect(container3.querySelector(`.${'t-space--break-line'}`)).toBeFalsy();
   });
 
   ['vertical', 'horizontal'].forEach((item) => {
