@@ -11,6 +11,7 @@ import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsFirstRender from '../hooks/useIsFirstRender';
 
 import Skeleton from '../skeleton';
 import Tween from '../_common/js/statistic/tween';
@@ -51,8 +52,8 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
    */
   const [innerValue, setInnerValue] = useState(animation?.valueFrom ?? value);
   const numberValue = useMemo(() => (isNumber(value) ? value : 0), [value]);
-
   const tween = useRef(null);
+  const isFirstRender = useIsFirstRender();
 
   const start = (from: number = animation?.valueFrom ?? 0, to: number = numberValue) => {
     if (from !== to) {
@@ -63,7 +64,7 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
         to: {
           value: to,
         },
-        duration: props.animation.duration,
+        duration: animation?.duration,
         onUpdate: (keys) => {
           setInnerValue(keys.value);
         },
@@ -76,11 +77,10 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
   };
 
   const formatValue = useMemo(() => {
-    // eslint-disable-next-line no-underscore-dangle
-    let _value: number | undefined | string = innerValue;
+    let formatInnerValue: number | string | undefined = innerValue;
 
     if (isFunction(format)) {
-      return format(_value);
+      return format(formatInnerValue);
     }
     const options = {
       minimumFractionDigits: decimalPlaces || 0,
@@ -88,9 +88,9 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
       useGrouping: !!separator,
     };
     // replace的替换的方案仅能应对大部分地区
-    _value = _value.toLocaleString(undefined, options).replace(/,|，/g, separator);
+    formatInnerValue = formatInnerValue.toLocaleString(undefined, options).replace(/,|，/g, separator);
 
-    return _value;
+    return formatInnerValue;
   }, [innerValue, decimalPlaces, separator, format]);
 
   const valueStyle = useMemo(
@@ -102,37 +102,28 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
   );
 
   useEffect(() => {
-    animation && animationStart && start();
-    return () => {
-      if (tween.current) {
-        tween.current.stop();
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    //  第一次渲染不执行，否则导致初始formValue失效
+    console.log('isFirstRender', isFirstRender);
+    if (isFirstRender) return;
 
-  useEffect(() => {
-    animationStart && animation && !tween.current && start();
-
-    return () => {
-      if (tween.current) {
-        tween.current.stop();
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animationStart]);
-
-  useEffect(() => {
-    if (tween.current) {
-      tween.current?.stop();
-      tween.current = null;
-    }
     setInnerValue(value);
 
     animationStart && animation && start();
 
+    return () => {
+      if (tween.current) {
+        tween.current.stop();
+      }
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
+  useEffect(() => {
+    animationStart && animation && !tween.current && start();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [animationStart]);
 
   useImperativeHandle(ref, () => ({
     start,

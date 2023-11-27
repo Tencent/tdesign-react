@@ -1,17 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@test/utils';
-import { vi } from 'vitest';
+import { render, fireEvent, mockDelay } from '@test/utils';
 import { ArrowTriangleDownFilledIcon, ArrowTriangleUpFilledIcon } from 'tdesign-icons-react';
 import Statistic from '../index';
-
-beforeEach(() => {
-  vi.useFakeTimers({ shouldAdvanceTime: true });
-});
-
-afterEach(() => {
-  vi.runOnlyPendingTimers();
-  vi.useRealTimers();
-});
 
 describe('Statistic 组件测试', () => {
   /**
@@ -117,10 +107,36 @@ describe('Statistic 组件测试', () => {
 
     fireEvent.click(document.querySelector('#button'));
 
-    vi.advanceTimersByTime(2000);
+    await mockDelay(2000);
 
-    await waitFor(() => {
-      expect(document.querySelector('.t-statistic-content-value')).toHaveTextContent('82.76');
-    });
+    expect(document.querySelector('.t-statistic-content-value')).toHaveTextContent('82.76');
+  });
+
+  /**
+   * not animation config display value
+   */
+  test('not animation', async () => {
+    render(<Statistic title="Total Assets" value={82.76} format={(value) => +value.toFixed(2)} />);
+
+    expect(document.querySelector('.t-statistic-content-value')).toHaveTextContent('82.76');
+  });
+
+  /**
+   * have animation config display valueFrom
+   */
+  test('not animation', async () => {
+    render(
+      <Statistic
+        title="Total Assets"
+        value={82.76}
+        animation={{
+          valueFrom: 0,
+          duration: 2000,
+        }}
+        format={(value) => +value.toFixed(2)}
+      />,
+    );
+
+    expect(document.querySelector('.t-statistic-content-value')).toHaveTextContent('0');
   });
 });

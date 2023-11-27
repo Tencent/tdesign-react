@@ -32,16 +32,19 @@ const CombinationStatistic = () => {
             color="red"
             extra={
               <Space direction="vertical" size={0}>
-                <span>
-                  the day before
-                  <IconFont name="arrow-up" style={{ color: '#d54941' }} />
+                <Space align="center" size={7}>
+                  <div style={{ width: '120px' }}>the day before</div>
+                  <IconFont name="arrow-up" style={{ color: '#d54941', fontSize: 'var(--td-font-size-body-large)' }} />
                   9%
-                </span>
-                <span>
-                  last week
-                  <IconFont name="arrow-down" style={{ color: '#2ba471' }} />
+                </Space>
+                <Space align="center" size={7}>
+                  <div style={{ width: '120px' }}>last week</div>
+                  <IconFont
+                    name="arrow-down"
+                    style={{ color: '#2ba471', fontSize: 'var(--td-font-size-body-large)' }}
+                  />
                   9%
-                </span>
+                </Space>
               </Space>
             }
           ></Statistic>
