@@ -5,7 +5,7 @@ import { getScrollbarWidth } from '../../_common/js/utils/getScrollbarWidth';
 let key = 1;
 
 export default function useLockStyle(props) {
-  const { preventScrollThrough, mode, visible, showInAttachedElement, placement, sizeValue } = props;
+  const { preventScrollThrough, mode, visible, showInAttachedElement, placement, sizeValue, drawerWrapper } = props;
   const lockStyleRef = useRef<HTMLStyleElement>(null);
   const timerRef = useRef(null);
 
@@ -32,6 +32,7 @@ export default function useLockStyle(props) {
     if (!lockStyleRef.current) {
       lockStyleRef.current = document.createElement('style');
     }
+
     const hasScrollBar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
     const scrollbarWidth = hasScrollBar ? getScrollbarWidth() : 0;
     lockStyleRef.current.dataset.id = `td_drawer_${+new Date()}_${(key += 1)}`;
@@ -39,10 +40,23 @@ export default function useLockStyle(props) {
       html body {
         overflow-y: hidden;
         transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s;
-        ${mode === 'push' ? marginString : `width: calc(100% - ${scrollbarWidth}px);`}
+        ${mode === 'push' ? '' : `width: calc(100% - ${scrollbarWidth}px);`}
       }
     `;
-  }, [mode, marginString]);
+  }, [mode]);
+
+  useLayoutEffect(() => {
+    if (drawerWrapper && mode === 'push') {
+      if (visible) {
+        drawerWrapper.parentNode.style.cssText += ` 
+            transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s;
+            ${marginString};}
+          `;
+      } else {
+        drawerWrapper.parentNode.style.cssText = drawerWrapper.parentNode.style.cssText.replace(/margin:.+;/, '');
+      }
+    }
+  }, [mode, marginString, drawerWrapper, visible]);
 
   useLayoutEffect(() => {
     if (typeof document === 'undefined') return;
