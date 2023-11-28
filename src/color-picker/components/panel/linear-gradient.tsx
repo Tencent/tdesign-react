@@ -36,7 +36,7 @@ const LinearGradient = (props) => {
     setSelectedId(color.gradientSelectedId);
     selectedRef.current = color.gradientSelectedId;
     colors.current = cloneDeep(color.gradientColors);
-  }, [color]);
+  }, [color.gradientColors, color?.gradientDegree, color.gradientSelectedId, color.value, color.saturation]);
 
   const updateSliderRect = () => {
     const rect = refSlider.current.getBoundingClientRect();
