@@ -83,6 +83,10 @@ describe('RadioGroup', () => {
     const { container } = render(
       <>
         <Radio.Group
+          defaultValue="北京"
+          options={[{ value: '上海', label: '上海' }, { value: '广州', label: '广州', disabled: true }, '北京', 1]}
+        />
+        <Radio.Group
           variant="outline"
           defaultValue="北京"
           options={[{ value: '上海', label: '上海' }, { value: '广州', label: '广州', disabled: true }, '北京', 1]}
@@ -99,7 +103,8 @@ describe('RadioGroup', () => {
         />
       </>,
     );
-    for (const item of container.children) {
+    expect(container.firstChild.firstChild).toHaveClass('t-radio');
+    for (const item of [...container.children].slice(1)) {
       expect(item.firstChild).toHaveClass('t-radio-button');
     }
   });
