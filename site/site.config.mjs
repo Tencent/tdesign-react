@@ -506,6 +506,14 @@ export const docs = [
         componentEn: () => import('tdesign-react/skeleton/skeleton.en-US.md'),
       },
       {
+        title: 'Statistic 统计数值',
+        titleEn: 'Statistic',
+        name: 'statistic',
+        path: '/react/components/statistic',
+        component: () => import('tdesign-react/statistic/statistic.md'),
+        componentEn: () => import('tdesign-react/statistic/statistic.en-US.md'),
+      },
+      {
         title: 'Swiper 轮播框',
         titleEn: 'Swiper',
         name: 'swiper',
