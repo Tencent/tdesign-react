@@ -103,7 +103,6 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
 
   useEffect(() => {
     //  第一次渲染不执行，否则导致初始formValue失效
-    console.log('isFirstRender', isFirstRender);
     if (isFirstRender) return;
 
     setInnerValue(value);
