@@ -38,7 +38,7 @@ export interface SelectOptionProps
 
 const componentType = 'select';
 
-const Option = (props: SelectOptionProps) => {
+const Option: React.FC<SelectOptionProps> = (props) => {
   const {
     disabled: propDisabled,
     label: propLabel,

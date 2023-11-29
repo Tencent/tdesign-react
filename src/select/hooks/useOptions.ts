@@ -5,16 +5,16 @@ import { getValueToOption } from '../util/helper';
 import Option from '../base/Option';
 
 // 处理 options 的逻辑
-export default function UseOptions(
+function UseOptions(
   keys: SelectKeysType,
   options: SelectOption[],
   children: ReactNode,
   valueType: 'object' | 'value',
   value: SelectValue<SelectOption>,
 ) {
+  const [valueToOption, setValueToOption] = useState({});
   const [currentOptions, setCurrentOptions] = useState([]);
   const [tmpPropOptions, setTmpPropOptions] = useState([]);
-  const [valueToOption, setValueToOption] = useState({});
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   // 处理设置 option 的逻辑
@@ -27,11 +27,11 @@ export default function UseOptions(
       arrayChildren.filter((v: ReactElement) => v.type === Option).length === arrayChildren.length;
 
     if (isChildrenFilterable) {
-      transformedOptions = arrayChildren.map((v) => {
-        if (React.isValidElement(v)) {
+      transformedOptions = arrayChildren?.map<SelectOption>((v) => {
+        if (React.isValidElement<SelectOption>(v)) {
           return {
             ...v.props,
-            label: v.props.label || (v.props.children as string),
+            label: v.props.label || v.props.children,
           };
         }
         return { label: v };
@@ -39,7 +39,7 @@ export default function UseOptions(
     }
     if (keys) {
       // 如果有定制 keys 先做转换
-      transformedOptions = transformedOptions?.map((option) => ({
+      transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
         ...option,
         value: get(option, keys?.value || 'value'),
         label: get(option, keys?.label || 'label'),
@@ -58,7 +58,7 @@ export default function UseOptions(
       const labelKey = keys?.label || 'label';
       if (Array.isArray(value)) {
         return value
-          .map((item) => {
+          .map((item: SelectValue<SelectOption>) => {
             if (valueType === 'value') {
               return (
                 valueToOption[item as string | number] ||
@@ -100,3 +100,5 @@ export default function UseOptions(
     setSelectedOptions,
   };
 }
+
+export default UseOptions;
