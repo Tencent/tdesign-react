@@ -98,7 +98,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
 
   // 处理改变 pageSize 的逻辑
   const changePageSize = (nextPageSize: number) => {
-    const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
+    const nextCurrent = Math.min(current, Math.max(1, Math.ceil(total / nextPageSize)));
     const pageInfo = {
       current: nextCurrent,
       previous: current,
