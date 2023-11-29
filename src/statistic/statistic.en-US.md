@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Statistic Props
 
 name | type | default | description | required
@@ -23,3 +22,11 @@ trend | String | - | trend。options: increase/decrease | N
 trendPlacement | String | left | Position of trending placements。options: left/right | N
 unit | TNode | - | Unit content。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 value | Number | - | The value of Statistic | N
+
+### StatisticInstanceFunctions 组件实例方法
+
+name | params | return | description
+-- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+start | `(from: number, to: number)` | \- | required。Digital scrolling change, from one number to another number
