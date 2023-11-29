@@ -2,7 +2,7 @@ import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
-import Input from '../input';
+import Input, { InputRef } from '../input';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
@@ -10,6 +10,7 @@ import type { StyledProps, TNode } from '../common';
 import parseTNode from '../_util/parseTNode';
 import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
 import { rangeInputDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface RangeInputProps extends TdRangeInputProps, StyledProps {}
 
@@ -17,11 +18,8 @@ export interface RangeInputRefInterface extends React.RefObject<unknown>, RangeI
   currentElement: HTMLFormElement;
 }
 
-function calcArrayValue(value: unknown | Array<unknown>) {
-  if (Array.isArray(value)) {
-    return value;
-  }
-  return [value, value];
+function calcArrayValue<T>(value: T | T[]) {
+  return Array.isArray(value) ? value : [value, value];
 }
 
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode) => {
@@ -32,11 +30,13 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
   return result ? <span className={`${classPrefix}-range-input__${type} ${iconClassName}`}>{result}</span> : null;
 };
 
-const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObject<HTMLDivElement>) => {
+const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
   const { CloseCircleFilledIcon } = useGlobalIcon({
     CloseCircleFilledIcon: TdCloseCircleFilledIcon,
   });
+
+  const props = useDefaultProps<RangeInputProps>(originalProps, rangeInputDefaultProps);
 
   const {
     className,
@@ -70,10 +70,11 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
 
   const name = `${classPrefix}-range-input`;
 
-  const wrapperRef = useRef();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
   const inputRefs = {
-    firstInputRef: useRef(),
-    secondInputRef: useRef(),
+    firstInputRef: useRef<InputRef>(null),
+    secondInputRef: useRef<InputRef>(null),
   };
 
   const [isFocused, toggleIsFocused] = useState(false);
@@ -130,21 +131,21 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
     props.onMouseLeave?.({ e });
   }
 
-  useImperativeHandle(ref as RangeInputRefInterface, () => ({
+  useImperativeHandle(ref, () => ({
     currentElement: wrapperRef.current,
     firstInputElement: inputRefs.firstInputRef.current,
     secondInputElement: inputRefs.secondInputRef.current,
-    focus: (options) => {
+    focus(options) {
       const { position = 'first' } = options || {};
-      inputRefs[`${position}InputRef`].current?.focus();
+      (inputRefs[`${position}InputRef`].current as InputRef)?.focus();
     },
-    blur: (options) => {
+    blur(options) {
       const { position = 'first' } = options || {};
-      inputRefs[`${position}InputRef`].current?.blur();
+      (inputRefs[`${position}InputRef`].current as InputRef)?.blur();
     },
-    select: (options) => {
+    select(options) {
       const { position = 'first' } = options || {};
-      inputRefs[`${position}InputRef`].current?.select();
+      (inputRefs[`${position}InputRef`].current as InputRef)?.select();
     },
   }));
 
@@ -161,7 +162,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
         [`${name}--prefix`]: prefixIconContent || labelContent,
         [`${name}--suffix`]: suffixContent || suffixIconContent,
       })}
-      {...(restProps as React.HTMLAttributes<HTMLDivElement>)}
+      {...restProps}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -218,6 +219,5 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
 });
 
 RangeInput.displayName = 'RangeInput';
-RangeInput.defaultProps = rangeInputDefaultProps;
 
 export default RangeInput;
