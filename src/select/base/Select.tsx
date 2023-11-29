@@ -42,8 +42,8 @@ export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledP
 
 type OptionsType = TdOptionProps[];
 
-const Select = forwardRefWithStatics<SelectProps, HTMLDivElement>(
-  (originalProps, ref) => {
+const Select = forwardRefWithStatics(
+  (originalProps: SelectProps, ref: React.Ref<HTMLDivElement>) => {
     const props = useDefaultProps<SelectProps>(originalProps, selectDefaultProps);
     // 国际化文本初始化
     const [local, t] = useLocaleReceiver('select');
