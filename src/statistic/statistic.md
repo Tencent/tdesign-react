@@ -1,7 +1,6 @@
 :: BASE_DOC ::
 
 ## API
-
 ### Statistic Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -23,3 +22,11 @@ trend | String | - | 趋势。可选项：increase/decrease | N
 trendPlacement | String | left | 趋势展示位置。可选项：left/right | N
 unit | TNode | - | 单位内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 value | Number | - | 数值显示的值 | N
+
+### StatisticInstanceFunctions 组件实例方法
+
+名称 | 参数 | 返回值 | 描述
+-- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
+start | `(from: number, to: number)` | \- | 必需。设置数字滚动变化效果，从一个数字到另一个数字
