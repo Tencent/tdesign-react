@@ -1,5 +1,5 @@
 import React from 'react';
-import { vi, render, fireEvent } from '@test/utils';
+import { vi, render, simulateImageEvent, mockDelay } from '@test/utils';
 import Avatar from '../Avatar';
 
 describe('Avatar 组件测试', () => {
@@ -29,9 +29,11 @@ describe('Avatar 组件测试', () => {
 
   test('Avatar onError 回调', async () => {
     const mockOnErrorFn = vi.fn();
-    const wrapper = render(<Avatar image="http://error/" alt="test-avatar" onError={mockOnErrorFn}></Avatar>);
-    const image = wrapper.getByAltText('test-avatar');
-    fireEvent(image, new Event('error'));
-    expect(mockOnErrorFn).toHaveBeenCalledTimes(1);
+    const { container } = render(<Avatar image="http://error/" alt="test-avatar" onError={mockOnErrorFn}></Avatar>);
+    const imageDom = container.querySelector('img');
+    simulateImageEvent(imageDom, 'error');
+    await mockDelay(300);
+    expect(mockOnErrorFn).toHaveBeenCalled();
+    expect(mockOnErrorFn.mock.calls[0][0].e.type).toBe('error');
   });
 });

@@ -13,6 +13,15 @@ import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 
+export function isImageValid(src: string) {
+  return new Promise((resolve) => {
+    const img = document.createElement('img');
+    img.onerror = () => resolve(false);
+    img.onload = () => resolve(true);
+    img.src = src;
+  });
+}
+
 export type ImageProps = TdImageProps &
   StyledProps & {
     onClick?: (e: MouseEvent<HTMLDivElement>) => void;
@@ -93,7 +102,11 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
   }, [lazy, imageRef]);
 
   const [hasError, setHasError] = useState(false);
+
+  // 判断是否执行过onError事件，要不在CSR模式下会执行两次onError
+  const isFirstError = useRef(false);
   const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
+    isFirstError.current = true;
     setHasError(true);
     if (fallback) {
       setImageSrc(fallback);
@@ -102,12 +115,38 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     onError?.({ e });
   };
 
+  const imgRef = useRef();
   useEffect(() => {
     if (hasError && previewUrl) {
       setHasError(false);
     }
-    // eslint-disable-next-line
+    // 在SSR在判断执行onError
+    previewUrl &&
+      isImageValid(previewUrl as string).then((isValid) => {
+        //  SSR模式下会执行，CSR模式下不会执行
+        //  这里添加setTimeout是因为CSR image渲染时，onError有时快有时慢，会导致执行顺序不同导致的bug
+        setTimeout(() => {
+          if (!isValid && !isFirstError.current) {
+            //  SSR模式下获取不到imaage的合成事件，暂时传递image实例
+            handleError(imgRef.current);
+          }
+        }, 0);
+      });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewUrl]);
+
+  useEffect(() => {
+    // SSR下执行
+    if (imgRef.current) {
+      const { complete, naturalWidth, naturalHeight } = imgRef.current;
+      if (complete && naturalWidth !== 0 && naturalHeight !== 0) {
+        //  SSR模式下获取不到imaage的合成事件，暂时传递image实例
+        handleLoad(imgRef.current);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const hasMouseEvent = overlayTrigger === 'hover';
   const [shouldShowOverlay, setShouldShowOverlay] = useState(!hasMouseEvent);
@@ -148,6 +187,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     const url = typeof imageSrc === 'string' ? imageSrc : previewUrl;
     return (
       <img
+        ref={imgRef}
         src={url}
         onError={handleError}
         onLoad={handleLoad}
