@@ -340,7 +340,9 @@ const TreeItem = forwardRef(
         data-value={node.value}
         data-level={level}
         className={classNames(treeClassNames.treeNode, {
-          [treeClassNames.treeNodeOpen]: node.expanded,
+          [treeClassNames.treeNodeOpen]:
+            node.expanded &&
+            (typeof node.data.children === 'boolean' ? node.data.children : node.data.children !== undefined),
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
           [treeClassNames.treeNodeDraggable]: node.isDraggable(),

@@ -16,7 +16,6 @@ export interface TdColorFormatProps extends TdColorPickerProps {
 const FormatPanel = (props: TdColorFormatProps) => {
   const { baseClassName, format, onModeChange, selectInputProps } = props;
   const [formatMode, setFormatMode] = useState(format);
-
   const handleModeChange = (v: TdColorPickerProps['format']) => {
     setFormatMode(v);
     onModeChange(v);

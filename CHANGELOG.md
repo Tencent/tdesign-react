@@ -5,6 +5,25 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.4.0 `2023-11-30`
+
+### 🚀 Features
+
+- `Space`: 兼容支持组件间距在低级浏览器中的呈现 @chaishi ([#2602](https://github.com/Tencent/tdesign-react/pull/2602))
+- `Statistic`: 新增统计数值组件 @HaixingOoO ([#2596](https://github.com/Tencent/tdesign-react/pull/2596))
+
+### 🐞 Bug Fixes
+
+- `ColorPicker`: 修复 format 为`hex`时，配合`enableAlpha` 调整透明度不生效的问题 @uyarn ([#2628](https://github.com/Tencent/tdesign-react/pull/2628))
+- `ColorPicker`: 修复修改颜色上方滑杆按钮颜色不变 @HaixingOoO ([#2615](https://github.com/Tencent/tdesign-react/pull/2615))
+- `Table`: 修复 `lazyLoad` 懒加载效果 @chaishi ([#2605](https://github.com/Tencent/tdesign-react/pull/2605))
+- `Tree`: 修复树组件节点的 `open class` 状态控制逻辑错误导致的样式异常 @NWYLZW ([#2611](https://github.com/Tencent/tdesign-react/pull/2611))
+- `Tree`: 指定滚动到特定节点 API 中的`key`和`index`应为可选 @uyarn ([#2626](https://github.com/Tencent/tdesign-react/pull/2626))
+- `Drawer`: 修复 Drawer 的 mode 为`push`时,推开内容区域为 drawer 节点的父节点。 @HaixingOoO ([#2614](https://github.com/Tencent/tdesign-react/pull/2614))
+- `Radio`: 修复表单 disabled 未生效在 Radio 上的问题 @li-jia-nan ([#2397](https://github.com/Tencent/tdesign-react/pull/2397))
+- `Pagination`: 修复当 `total` 为 0 并且 `pageSize` 改变时， `current` 值为 0 的问题 @betavs ([#2624](https://github.com/Tencent/tdesign-react/pull/2624))
+- `Image`: 修复图片在 SSR 模式下不会触发原生事件 @HaixingOoO ([#2616](https://github.com/Tencent/tdesign-react/pull/2616))
+
  ## 🌈 1.3.1 `2023-11-15` 
 ### 🚀 Features
 - `Upload`: 拖拽上传文件场景，即使文件类型错误，也触发 `drop` 事件 @chaishi ([#2591](https://github.com/Tencent/tdesign-react/pull/2591))

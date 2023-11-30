@@ -197,6 +197,20 @@ describe('Tree test', () => {
     expect(onChangeFn1).not.toHaveBeenCalled();
   });
 
+  it('should calculate right class of tree item.', async () => {
+    const { container } = await renderTreeWithProps({
+      expanded: [1, '1-2', '1-2', 2],
+    });
+
+    await mockDelay(300);
+    const allItems = container.querySelectorAll('.t-tree__item');
+    expect(allItems.length).toBe(4);
+    const nodeOpenItems = container.querySelectorAll('.t-tree__item--open');
+    // only set expanded when node has children
+    // or children is `true` when the tree is lazy
+    expect(nodeOpenItems.length).toBe(1);
+  });
+
   test('props.line', async () => {
     const data = [
       {

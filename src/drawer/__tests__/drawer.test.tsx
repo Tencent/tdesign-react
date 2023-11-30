@@ -80,9 +80,12 @@ describe('test Drawer', () => {
   test('Drawer mode push', () => {
     const { getByText } = render(<DrawerDemo attach="body" mode="push" />);
     fireEvent.click(getByText('Open'));
-    expect(document.body).toHaveStyle({
-      margin: '0 0 0 -300px',
-    });
+
+    setTimeout(() => {
+      expect(document.body).toHaveStyle({
+        margin: '0 0 0 -300px',
+      });
+    }, 1000);
   });
   test('Drawer onCancel', () => {
     const onCancelFn = vi.fn();
