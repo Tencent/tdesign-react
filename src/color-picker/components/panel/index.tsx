@@ -44,17 +44,25 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     closeBtn,
     colorModes = ['linear-gradient', 'monochrome'],
     showPrimaryColorPreview = true,
+    onRecentColorsChange,
   } = props;
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
   const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : 'monochrome');
-  const isGradient = mode === 'linear-gradient'; // 判断是否为gradient模式
-
-  const defaultEmptyColor = isGradient ? DEFAULT_LINEAR_GRADIENT : DEFAULT_COLOR;
-  const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
-  const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
   const [updateId, setUpdateId] = useState(0);
+
+  const isGradient = mode === 'linear-gradient'; // 判断是否为 linear-gradient 模式
+  const defaultEmptyColor = isGradient ? DEFAULT_LINEAR_GRADIENT : DEFAULT_COLOR;
+
+  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
+    defaultRecentColors: colorPickerDefaultProps.recentColors,
+  });
+
+  const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
+  const getModeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
+  const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : format ?? 'RGB');
+
   const update = useCallback(
-    (value) => {
+    (value: string) => {
       colorInstanceRef.current.update(value);
       setUpdateId(updateId + 1);
     },
@@ -66,9 +74,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     if (mode === 'linear-gradient') {
       return colorInstanceRef.current.linearGradient;
     }
-
-    return colorInstanceRef.current.getFormatsColorMap()[format] || colorInstanceRef.current.css;
-  }, [format, mode]);
+    const finalFormat = format === 'HEX' && enableAlpha ? 'HEX8' : format; // hex should transfer to hex8 when alpha channel is opened
+    return colorInstanceRef.current.getFormatsColorMap()[finalFormat] || colorInstanceRef.current.css;
+  }, [format, enableAlpha, mode]);
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
@@ -84,7 +92,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     if (typeof value === 'undefined' || mode === 'linear-gradient') {
       return;
     }
-
     // common Color new 的时候使用 hsv ，一个 rgba 可以对应两个 hsv ，这里先直接用 tinycolor 比较下颜色是否修改了
     const newUniqColor = tinyColor(value).toRgb();
     const { r, g, b, a } = newUniqColor;
@@ -106,16 +113,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     if (colorModes.length === 1) {
       setMode(colorModes[0]);
     } else {
-      setMode(getmodeByColor);
+      setMode(getModeByColor);
     }
-  }, [colorModes, getmodeByColor]);
-
-  const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : 'RGB');
-
-  const { onRecentColorsChange } = props;
-  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
-    defaultRecentColors: colorPickerDefaultProps.recentColors,
-  });
+  }, [colorModes, getModeByColor]);
 
   const baseProps = {
     color: colorInstanceRef.current,
@@ -259,7 +259,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
           color.update(value);
           color.updateCurrentGradientColor();
         } else {
-          console.warn('该模式不支持渐变色');
+          console.warn('linear-gradient is not supported in this mode');
         }
       } else if (mode === 'linear-gradient') {
         setMode('monochrome');
