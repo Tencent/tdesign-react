@@ -80,6 +80,12 @@ TDesign also provides component libraries for other platforms and frameworks.
 
 Contributing is welcome. Read [guidelines for contributing](https://github.com/Tencent/tdesign-react/blob/develop/CONTRIBUTING.md) before submitting your [Pull Request](https://github.com/Tencent/tdesign-react/pulls).
 
+## Contributors
+
+<a href="https://github.com/tencent/tdesign-react/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=tencent/tdesign-react" />
+</a>
+
 # Feedback
 
 Create your [Github issues](https://github.com/Tencent/tdesign-react/issues) or scan the QR code below to join our user groups
