@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Space, AutoComplete } from 'tdesign-react';
+import escapeRegExp from 'lodash/escapeRegExp';
 
 const LIST = ['第一个 AutoComplete 默认联想词', '第二个 AutoComplete 默认联想词', '第三个 AutoComplete 默认联想词'];
 
@@ -8,7 +9,7 @@ const AutoCompleteBaseFilter = () => {
   const [value2, setValue2] = useState('');
 
   function filterWords(keyword, option) {
-    const regExp = new RegExp(keyword);
+    const regExp = new RegExp(escapeRegExp(keyword));
     return regExp.test(option.text);
   }
 
