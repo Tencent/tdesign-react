@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import isFunction from 'lodash/isFunction';
 import { TdImageViewerProps } from './type';
-import { ImageModal } from './ImageViewerModel';
+import { ImageModal } from './ImageViewerModal';
 import { StyledProps, TNode } from '../common';
 import { imageViewerDefaultProps } from './defaultProps';
 import useImageScale from './hooks/useImageScale';

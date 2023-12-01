@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useControlled from '../../hooks/useControlled';
 
-/** ImageViewerModel hooks * */
+/** ImageViewerModal hooks * */
 // 选中下标控制
 const useIndex = (resProps, images) => {
   const [index, setIndex] = useControlled(resProps, 'index', resProps.onIndexChange);

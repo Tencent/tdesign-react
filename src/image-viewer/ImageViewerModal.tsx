@@ -15,7 +15,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TNode } from '../common';
 import { downloadFile } from './utils';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
-import { ImageModelMini } from './ImageViewerMini';
+import { ImageModalMini } from './ImageViewerMini';
 import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
 import useIndex from './hooks/useIndex';
@@ -40,7 +40,7 @@ const ImageError = ({ errorText }: { errorText: string }) => {
   );
 };
 
-interface ImageModelItemProps {
+interface ImageModalItemProps {
   rotateZ: number;
   scale: number;
   mirror: number;
@@ -50,7 +50,7 @@ interface ImageModelItemProps {
 }
 
 // 单个弹窗实例
-export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, src, preSrc, mirror, errorText }) => {
+export const ImageModalItem: React.FC<ImageModalItemProps> = ({ rotateZ, scale, src, preSrc, mirror, errorText }) => {
   const { classPrefix } = useConfig();
 
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
@@ -113,7 +113,7 @@ export const ImageModelItem: React.FC<ImageModelItemProps> = ({ rotateZ, scale, 
 // 旋转角度单位
 const ROTATE_COUNT = 90;
 
-interface ImageModelIconProps {
+interface ImageModalIconProps {
   name?: string;
   size?: string;
   label?: string;
@@ -123,7 +123,7 @@ interface ImageModelIconProps {
   onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, size = '16px' }: ImageModelIconProps) => {
+const ImageModalIcon = ({ onClick, className, disabled, isRange, name, label, size = '16px' }: ImageModalIconProps) => {
   const { classPrefix } = useConfig();
 
   const Icons = useIconMap();
@@ -187,13 +187,13 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
             <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
           </div>
         </TooltipLite>
-        <ImageModelIcon size="medium" name="zoom-out" onClick={onZoomOut} />
-        <ImageModelIcon
+        <ImageModalIcon size="medium" name="zoom-out" onClick={onZoomOut} />
+        <ImageModalIcon
           className={`${classPrefix}-image-viewer__utils-scale`}
           size="medium"
           label={`${scale * 100}%`}
         />
-        <ImageModelIcon size="medium" name="zoom-in" onClick={onZoom} />
+        <ImageModalIcon size="medium" name="zoom-in" onClick={onZoom} />
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
           content={tipText.originsize}
@@ -210,7 +210,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           </div>
         </TooltipLite>
         {currentImage.download && (
-          <ImageModelIcon
+          <ImageModalIcon
             size="medium"
             name="download"
             onClick={() => {
@@ -250,7 +250,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
         [`${classPrefix}-is-show`]: isExpand,
       })}
     >
-      <ImageModelIcon
+      <ImageModalIcon
         name="chevron-down"
         className={`${classPrefix}-image-viewer__header-pre-bt`}
         onClick={() => setIsExpand(!isExpand)}
@@ -385,7 +385,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   if (isMini) {
     return (
-      <ImageModelMini
+      <ImageModalMini
         visible={visible}
         draggable={draggable}
         index={index}
@@ -416,7 +416,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   let closeNode: TNode = closeBtn;
   if (closeBtn === true) {
     closeNode = (
-      <ImageModelIcon
+      <ImageModalIcon
         name="close"
         size="24px"
         className={`${classPrefix}-image-viewer__modal-close-bt `}
@@ -445,14 +445,14 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
             <span>{title}</span>
             {`${index + 1}/${images.length}`}
           </div>
-          <ImageModelIcon
+          <ImageModalIcon
             size="24px"
             name="chevron-left"
             className={`${classPrefix}-image-viewer__modal-prev-bt`}
             onClick={prev}
             disabled={index <= 0}
           />
-          <ImageModelIcon
+          <ImageModalIcon
             size="24px"
             name="chevron-right"
             className={`${classPrefix}-image-viewer__modal-next-bt`}
@@ -472,7 +472,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         tipText={tipText}
       />
       {closeNode}
-      <ImageModelItem
+      <ImageModalItem
         scale={scale}
         rotateZ={rotateZ}
         mirror={mirror}
