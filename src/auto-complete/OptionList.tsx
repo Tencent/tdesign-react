@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useRef, MouseEvent, useEffect, useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
+import escapeRegExp from 'lodash/escapeRegExp';
 import useConfig from '../hooks/useConfig';
 import log from '../_common/js/log';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
@@ -65,7 +66,7 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
       options = options.filter((option) => props.filter(value, option));
     } else if (props.filterable) {
       // 默认过滤规则
-      const regExp = new RegExp(value, 'i');
+      const regExp = new RegExp(escapeRegExp(value), 'i');
       options = options.filter((item) => regExp.test(item.text));
     }
 

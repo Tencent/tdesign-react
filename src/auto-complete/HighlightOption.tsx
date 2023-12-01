@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import escapeRegExp from 'lodash/escapeRegExp';
 import useConfig from '../hooks/useConfig';
 
 export interface TdHighlightOptionProps {
@@ -15,7 +16,7 @@ const HighlightOption: React.FC<TdHighlightOptionProps> = (props) => {
   const words = useMemo<{ list: string[]; keyword?: string }>(() => {
     if (!content) return { list: [] };
     if (typeof content !== 'string' || !keyword) return { list: [content] };
-    const regExp = new RegExp(keyword, 'i');
+    const regExp = new RegExp(escapeRegExp(keyword), 'i');
     const splitKeyword = content.match(regExp)?.[0];
     return {
       list: content.split(splitKeyword),
