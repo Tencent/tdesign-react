@@ -2,10 +2,10 @@ import React, { KeyboardEvent, MouseEvent } from 'react';
 import { TNode } from '../common';
 import Dialog from '../dialog';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
-import { ImageModelItem, ImageViewerUtils } from './ImageViewerModel';
+import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
 import useConfig from '../hooks/useConfig';
 
-export interface ImageModelMiniProps {
+export interface ImageModalMiniProps {
   visible: boolean;
   title?: TNode;
   draggable: boolean;
@@ -34,12 +34,12 @@ export interface ImageModelMiniProps {
   };
 }
 
-export const ImageModelMiniContent: React.FC<ImageModelMiniProps> = (props) => {
+export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
   const { classPrefix } = useConfig();
 
   return (
     <div className={`${classPrefix}-image-viewer-mini__content`}>
-      <ImageModelItem
+      <ImageModalItem
         rotateZ={props.rotateZ}
         scale={props.scale}
         mirror={props.mirror}
@@ -51,7 +51,7 @@ export const ImageModelMiniContent: React.FC<ImageModelMiniProps> = (props) => {
   );
 };
 
-export const ImageModelMini: React.FC<ImageModelMiniProps> = (props) => {
+export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
   const {
     visible,
     title,
@@ -99,7 +99,7 @@ export const ImageModelMini: React.FC<ImageModelMiniProps> = (props) => {
       footer={footer}
       onClose={onClose}
     >
-      <ImageModelMiniContent {...props} />
+      <ImageModalMiniContent {...props} />
     </Dialog>
   );
 };
