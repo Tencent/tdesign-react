@@ -24,6 +24,9 @@ export default function useOverlayInnerStyle(
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
 
+    // 设置display来可以获取popupElement的宽度
+    // eslint-disable-next-line no-param-reassign
+    popupElement.style.display = '';
     // popupElement的scrollBar宽度
     const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
 
