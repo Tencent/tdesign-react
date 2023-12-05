@@ -25,7 +25,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   ],
 };
 
-const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>((originalProps, ref) => {
+const Skeleton: React.FC<SkeletonProps> = (originalProps) => {
   const props = useDefaultProps<SkeletonProps>(originalProps, skeletonDefaultProps);
   const { animation, loading, rowCol, theme, className, style, delay = 0, children } = props;
   const { classPrefix } = useConfig();
@@ -118,11 +118,11 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>((originalProps,
   }
 
   return (
-    <div className={className} style={style} ref={ref}>
+    <div className={className} style={style}>
       {childrenContent}
     </div>
   );
-});
+};
 
 Skeleton.displayName = 'Skeleton';
 
