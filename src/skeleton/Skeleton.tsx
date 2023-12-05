@@ -88,7 +88,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>((originalProps,
     ));
   };
 
-  const [ctrlLoading, setCtrlLoading] = useState<boolean>(loading);
+  const [ctrlLoading, setCtrlLoading] = useState(loading);
 
   useEffect(() => {
     if (delay > 0 && !loading) {
