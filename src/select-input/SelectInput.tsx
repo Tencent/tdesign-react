@@ -1,21 +1,24 @@
-import React, { forwardRef, useRef, useImperativeHandle } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
-import Popup, { PopupVisibleChangeContext } from '../popup';
+import Popup, { PopupRef, PopupVisibleChangeContext } from '../popup';
 import useSingle from './useSingle';
 import useMultiple from './useMultiple';
 import useOverlayInnerStyle from './useOverlayInnerStyle';
 import { TdSelectInputProps } from './type';
 import { StyledProps } from '../common';
 import { selectInputDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { InputRef } from '../input';
 
 export interface SelectInputProps extends TdSelectInputProps, StyledProps {
   updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
-const SelectInput = forwardRef((props: SelectInputProps, ref) => {
-  const selectInputRef = useRef();
-  const selectInputWrapRef = useRef();
+const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputProps>((originalProps, ref) => {
+  const props = useDefaultProps<SelectInputProps>(originalProps, selectInputDefaultProps);
+  const selectInputRef = useRef<PopupRef>();
+  const selectInputWrapRef = useRef<HTMLDivElement>(null);
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
   const { commonInputProps, inputRef, singleInputValue, onInnerClear, renderSelectSingle } = useSingle(props);
@@ -81,7 +84,9 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
     </div>
   );
 
-  if (!props.tips) return mainContent;
+  if (!props.tips) {
+    return mainContent;
+  }
 
   return (
     <div ref={selectInputWrapRef} className={`${prefix}-select-input__wrap`}>
@@ -94,6 +99,5 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
 });
 
 SelectInput.displayName = 'SelectInput';
-SelectInput.defaultProps = selectInputDefaultProps;
 
 export default SelectInput;

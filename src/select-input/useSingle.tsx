@@ -3,7 +3,7 @@ import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
-import Input, { TdInputProps } from '../input';
+import Input, { InputRef, TdInputProps } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
 import useConfig from '../hooks/useConfig';
@@ -42,7 +42,7 @@ function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputPr
 export default function useSingle(props: TdSelectInputProps) {
   const { value, keys, loading } = props;
   const { classPrefix } = useConfig();
-  const inputRef = useRef();
+  const inputRef = useRef<InputRef>();
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const commonInputProps: SelectInputCommonProperties = {
