@@ -43,6 +43,7 @@ const DropdownItem = forwardRef<HTMLLIElement, DropdownItemProps>((props, ref: R
   useRipple(isSubmenu ? null : ref?.current || dropdownItemDom);
 
   const handleItemClick = (e: React.MouseEvent) => {
+    if (disabled) return;
     onClick?.(value, e);
   };
   return (
