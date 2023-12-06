@@ -20,6 +20,7 @@ type DropdownItemProps = Pick<DropdownOption, 'value'> &
     prefixIcon?: React.ReactNode;
     onClick?: (value: DropdownOption['value'], e: unknown) => void;
     isSubmenu?: boolean;
+    divider?: boolean;
   };
 
 const DropdownItem = forwardRef<HTMLLIElement, DropdownItemProps>((props, ref: RefObject<HTMLLIElement>) => {
