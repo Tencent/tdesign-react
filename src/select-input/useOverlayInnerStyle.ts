@@ -23,12 +23,27 @@ export default function useOverlayInnerStyle(
 
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
-    // 避免因滚动条出现文本省略，预留宽度 8
-    const SCROLLBAR_WIDTH = popupElement.scrollHeight > popupElement.offsetHeight ? 8 : 0;
+
+    // 设置display来可以获取popupElement的宽度
+    // eslint-disable-next-line no-param-reassign
+    popupElement.style.display = '';
+    // popupElement的scrollBar宽度
+    const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
+
+    /**
+     * issue：https://github.com/Tencent/tdesign-react/issues/2642
+     *
+     * popupElement的内容宽度不超过triggerElement的宽度，就使用triggerElement的宽度减去popup的滚动条宽度，
+     * 让popupElement的宽度加上scrollBar的宽度等于triggerElement的宽度；
+     *
+     * popupElement的内容宽度超过triggerElement的宽度，就使用popupElement的scrollWidth，
+     * 不用offsetWidth是会包含scrollBar的宽度
+     */
     const width =
-      popupElement.offsetWidth + SCROLLBAR_WIDTH >= triggerElement.offsetWidth
-        ? popupElement.offsetWidth
-        : triggerElement.offsetWidth;
+      popupElement.offsetWidth - overlayScrollWidth > triggerElement.offsetWidth
+        ? popupElement.scrollWidth
+        : triggerElement.offsetWidth - overlayScrollWidth;
+
     let otherOverlayInnerStyle: React.CSSProperties = {};
     if (popupProps && typeof popupProps.overlayInnerStyle === 'object' && !popupProps.overlayInnerStyle.width) {
       otherOverlayInnerStyle = popupProps.overlayInnerStyle;
