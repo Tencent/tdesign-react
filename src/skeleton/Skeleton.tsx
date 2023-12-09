@@ -8,6 +8,7 @@ import useConfig from '../hooks/useConfig';
 import { pxCompat } from '../_util/helper';
 import parseTNode from '../_util/parseTNode';
 import { skeletonDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type SkeletonProps = TdSkeletonProps & StyledProps & { children: React.ReactNode };
 
@@ -24,9 +25,9 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   ],
 };
 
-const Skeleton = (props: SkeletonProps) => {
+const Skeleton: React.FC<SkeletonProps> = (originalProps) => {
+  const props = useDefaultProps<SkeletonProps>(originalProps, skeletonDefaultProps);
   const { animation, loading, rowCol, theme, className, style, delay = 0, children } = props;
-
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-skeleton`; // t-skeleton
 
@@ -70,7 +71,7 @@ const Skeleton = (props: SkeletonProps) => {
       cols = [_cols as SkeletonRowColObj];
     }
 
-    return cols.map((item, index) => (
+    return cols.map<React.ReactNode>((item, index) => (
       <div key={index} className={getColItemClass(item)} style={getColItemStyle(item)}>
         {parseTNode(item.content)}
       </div>
@@ -80,7 +81,7 @@ const Skeleton = (props: SkeletonProps) => {
   const renderRowCol = (_rowCol?: SkeletonRowCol) => {
     const renderedRowCol: SkeletonRowCol = _rowCol || rowCol;
 
-    return renderedRowCol.map((item, index) => (
+    return renderedRowCol.map<React.ReactNode>((item, index) => (
       <div key={index} className={`${name}__row`}>
         {renderCols(item)}
       </div>
@@ -104,7 +105,7 @@ const Skeleton = (props: SkeletonProps) => {
     return <>{children}</>;
   }
 
-  const childrenContent = [];
+  const childrenContent: React.ReactNode[] = [];
   if (theme && !rowCol) {
     childrenContent.push(renderRowCol(ThemeMap[theme]));
   }
@@ -124,6 +125,5 @@ const Skeleton = (props: SkeletonProps) => {
 };
 
 Skeleton.displayName = 'Skeleton';
-Skeleton.defaultProps = skeletonDefaultProps;
 
 export default Skeleton;

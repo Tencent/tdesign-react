@@ -13,7 +13,6 @@ export default () => {
       newOptions.push({
         label: `第${i}段`,
         value: i,
-        key: i,
         children: [
           {
             label: `第${i}段第1个子节点`,
@@ -30,7 +29,7 @@ export default () => {
   }, []);
 
   const handleScroll = () => {
-    treeRef.current.scrollTo({ index: '10', behavior: 'smooth' });
+    treeRef.current.scrollTo({ key: '10.1', behavior: 'smooth' });
   };
 
   const defaultChecked = ['1.2', '2.2'];

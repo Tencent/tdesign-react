@@ -82,7 +82,7 @@ describe('ImageViewerMini', () => {
   });
 });
 
-describe('ImageViewerModel', () => {
+describe('ImageViewerModal', () => {
   const triggerText = '预览单张图片';
   test('base', async () => {
     const user = userEvent.setup();
