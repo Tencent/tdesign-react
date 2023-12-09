@@ -55,7 +55,9 @@ export default function useOverlayInnerStyle(
   };
 
   const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
-    if (disabled || readonly) return;
+    if (disabled || readonly) {
+      return;
+    }
     // 如果点击触发元素（输入框）且为可输入状态，则继续显示下拉框
     const newVisible = context.trigger === 'trigger-element-click' && allowInput ? true : visible;
     if (props.popupVisible !== newVisible) {

@@ -1,11 +1,12 @@
 import React, { useRef, MouseEvent } from 'react';
 import isObject from 'lodash/isObject';
 import classNames from 'classnames';
-import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys } from './type';
+import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys, SelectInputValue } from './type';
 import TagInput, { TagInputValue } from '../tag-input';
 import { SelectInputCommonProperties } from './interface';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
+import { InputRef } from '../input';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
@@ -23,7 +24,7 @@ const DEFAULT_KEYS = {
 export default function useMultiple(props: TdSelectInputProps) {
   const { value } = props;
   const { classPrefix } = useConfig();
-  const tagInputRef = useRef();
+  const tagInputRef = useRef<InputRef>();
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
 
@@ -31,7 +32,7 @@ export default function useMultiple(props: TdSelectInputProps) {
     if (!(value instanceof Array)) {
       return isObject(value) ? [value[iKeys.label]] : [value];
     }
-    return value.map((item) => (isObject(item) ? item[iKeys.label] : item));
+    return value.map((item: SelectInputValue) => (isObject(item) ? item[iKeys.label] : item));
   };
   const tags = getTags();
 
