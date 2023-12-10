@@ -290,6 +290,7 @@ interface ImageModalProps {
   isMini: boolean;
   draggable: boolean;
   closeBtn: boolean | TNode;
+  closeOnEscKeydown?: boolean;
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
 }
 
@@ -309,6 +310,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onClose,
     visible,
     title,
+    closeOnEscKeydown,
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
@@ -357,10 +359,10 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         case 'ArrowDown':
           return onZoomOut();
         case 'Escape':
-          return onClose?.({ trigger: 'esc', e: event });
+          return closeOnEscKeydown && onClose?.({ trigger: 'esc', e: event });
       }
     },
-    [next, onClose, prev, onZoom, onZoomOut],
+    [next, onClose, prev, onZoom, onZoomOut, closeOnEscKeydown],
   );
 
   useEffect(() => {

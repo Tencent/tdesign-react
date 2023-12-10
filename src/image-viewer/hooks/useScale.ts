@@ -1,8 +1,9 @@
 // 缩放控制
 import { useCallback, useState } from 'react';
+import { ImageScale } from '../type';
 
-const useScale = (imageScale) => {
-  const [scale, setScale] = useState(1);
+const useScale = (imageScale: ImageScale) => {
+  const [scale, setScale] = useState(() => imageScale.defaultScale ?? 1);
   const onZoom = useCallback(() => {
     setScale((scale) => {
       const newScale = scale + imageScale.step;
@@ -21,7 +22,7 @@ const useScale = (imageScale) => {
     });
   }, [imageScale]);
 
-  const onResetScale = useCallback(() => setScale(1), []);
+  const onResetScale = useCallback(() => setScale(imageScale.defaultScale ?? 1), [imageScale]);
 
   return {
     scale,
