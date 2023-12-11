@@ -1,6 +1,5 @@
 import React, {
   useEffect,
-  Ref,
   useMemo,
   KeyboardEvent,
   useRef,
@@ -32,6 +31,7 @@ import { PopupVisibleChangeContext } from '../../popup';
 import useOptions from '../hooks/useOptions';
 import composeRefs from '../../_util/composeRefs';
 import { parseContentTNode } from '../../_util/parseTNode';
+import useDefaultProps from '../../hooks/useDefaultProps';
 
 export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
@@ -43,7 +43,8 @@ export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledP
 type OptionsType = TdOptionProps[];
 
 const Select = forwardRefWithStatics(
-  (props: SelectProps, ref: Ref<HTMLDivElement>) => {
+  (originalProps: SelectProps, ref: React.Ref<HTMLDivElement>) => {
+    const props = useDefaultProps<SelectProps>(originalProps, selectDefaultProps);
     // 国际化文本初始化
     const [local, t] = useLocaleReceiver('select');
     const emptyText = t(local.loadingText);
@@ -91,6 +92,8 @@ const Select = forwardRefWithStatics(
       tagInputProps,
       tagProps,
       scroll,
+      suffixIcon,
+      onPopupVisibleChange,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -100,7 +103,7 @@ const Select = forwardRefWithStatics(
 
     const name = `${classPrefix}-select`; // t-select
 
-    const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
+    const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
 
     const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions } = useOptions(
@@ -177,7 +180,9 @@ const Select = forwardRefWithStatics(
       }
     };
     const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
-      if (!props.multiple) return;
+      if (!multiple) {
+        return;
+      }
       const selectableOptions = currentOptions
         .filter((option) => !option.checkAll && !option.disabled)
         .map((option) => option.value);
@@ -209,7 +214,9 @@ const Select = forwardRefWithStatics(
     // 处理filter逻辑
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType = [];
-      if (filterable && isFunction(onSearch)) return;
+      if (filterable && isFunction(onSearch)) {
+        return;
+      }
 
       if (!value) {
         setCurrentOptions(tmpPropOptions);
@@ -236,11 +243,14 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
-      if (context.trigger !== 'clear') onInputChange(value, { e: context.e, trigger: 'input' });
-      if (value === undefined) return;
-
+      if (context.trigger !== 'clear') {
+        onInputChange(value, { e: context.e, trigger: 'input' });
+      }
+      if (value === undefined) {
+        return;
+      }
       if (isFunction(onSearch)) {
-        onSearch(value, { e: context.e });
+        onSearch(value, { e: context.e as KeyboardEvent<HTMLDivElement> });
         return;
       }
     };
@@ -264,8 +274,9 @@ const Select = forwardRefWithStatics(
 
     // 渲染后置图标
     const renderSuffixIcon = () => {
-      if (props.suffixIcon) return props.suffixIcon;
-
+      if (suffixIcon) {
+        return suffixIcon;
+      }
       if (loading) {
         return (
           <Loading className={classNames(`${name}__right-icon`, `${name}__active-icon`)} loading={true} size="small" />
@@ -364,7 +375,9 @@ const Select = forwardRefWithStatics(
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
-      if (!content) return;
+      if (!content) {
+        return;
+      }
       const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
       if (firstSelectedNode) {
         const { paddingBottom } = getComputedStyle(firstSelectedNode);
@@ -439,21 +452,15 @@ const Select = forwardRefWithStatics(
           onBlur={(_, context) => {
             onBlur?.({ value, e: context.e as React.FocusEvent<HTMLDivElement> });
           }}
-          onClear={(context) => {
-            onClearValue(context);
-          }}
+          onClear={onClearValue}
           {...selectInputProps}
         />
       </div>
     );
   },
-  {
-    Option,
-    OptionGroup,
-  },
+  { Option, OptionGroup },
 );
 
 Select.displayName = 'Select';
-Select.defaultProps = selectDefaultProps;
 
 export default Select;
