@@ -5,7 +5,7 @@ export function supportRef(nodeOrComponent: any): boolean {
   const type = isMemo(nodeOrComponent) ? nodeOrComponent.type.type : nodeOrComponent.type;
 
   // Function component node
-  if (typeof type === 'function' && !type.prototype?.render) {
+  if (typeof type === 'function' && !type?.render) {
     return false;
   }
 
