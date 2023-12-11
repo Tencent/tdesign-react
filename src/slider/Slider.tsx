@@ -93,6 +93,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   const sizeKey = isVertical ? 'height' : 'width';
   const renderDots = isVertical ? dots.map((item) => ({ ...item, position: 1 - item.position })) : dots;
 
+  const positionsRef = useRef([0]);
+
   const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode) => {
     const safeValue = Number(newValue.toFixed(32));
     let resultValue = Math.max(Math.min(max, safeValue), min);
@@ -160,8 +162,13 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     const clientKey = isVertical ? 'clientY' : 'clientX';
     const sliderPositionInfo = sliderRef.current.getBoundingClientRect();
     const sliderOffset = sliderPositionInfo[startDirection];
+    const oldPosition = positionsRef.current[nodeIndex || 0];
     const position = ((event[clientKey] - sliderOffset) / sliderPositionInfo[sizeKey]) * (isVertical ? -1 : 1);
+    if (oldPosition === position) {
+      return;
+    }
     setPosition(position, nodeIndex);
+    positionsRef.current[nodeIndex || 0] = position;
   };
 
   const handleClickMarks = (event: React.MouseEvent, value: number) => {
