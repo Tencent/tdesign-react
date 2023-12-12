@@ -119,7 +119,7 @@ export function useTreeDataExpand(
     if (changedExpandTreeNode.type === 'user-reaction-change') {
       const { row, rowIndex } = changedExpandTreeNode || {};
       const newData = store.toggleExpandData({ row, rowIndex }, dataSource, rowDataKeys);
-      setDataSource(newData);
+      setDataSource([...newData]);
     } else if (changedExpandTreeNode.type === 'props-change') {
       updateExpandState(dataSource, tExpandedTreeNode, oldExpandedTreeNode);
     }
