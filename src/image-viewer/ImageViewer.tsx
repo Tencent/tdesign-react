@@ -62,6 +62,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
             closeOnOverlay={props.closeOnOverlay}
             closeBtn={props.closeBtn}
             showOverlay={props.showOverlay}
+            closeOnEscKeydown={props.closeOnEscKeydown}
             onClose={close}
             onOpen={open}
           />,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act, fireEvent, waitFor, vi, mockTimeout } from '@test/utils';
+import { render, act, fireEvent, waitFor, vi, mockTimeout, mockDelay } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 
 import { ImageViewer } from '../index';
@@ -174,5 +174,56 @@ describe('ImageViewerModal', () => {
       fireEvent.click(getByText(triggerText));
     });
     expect(getByText('closeBtn')).toBeTruthy();
+  });
+
+  test('closeOnEscKeydown is false', async () => {
+    const user = userEvent.setup();
+    const BasicImageViewer = () => {
+      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} closeOnEscKeydown={false} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+    expect(document.querySelector('.t-image-viewer-preview-image')).toBeInTheDocument();
+
+    // 模拟键盘事件
+    await user.type(document.body, '{Escape}');
+    await mockDelay(300);
+    expect(document.querySelector('.t-image-viewer-preview-image')).toBeInTheDocument();
+  });
+
+  test('imageScale defaultScale', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 2,
+            min: 0.5,
+            step: 0.5,
+            defaultScale: 2,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(2)',
+    });
   });
 });
