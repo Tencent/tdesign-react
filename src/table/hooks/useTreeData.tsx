@@ -88,7 +88,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     const defaultNeedExpand = Boolean(!isDefaultExpandedTreeNodesExecute && defaultExpandedTreeNodes?.length);
     const needExpandAll = Boolean(tree?.defaultExpandAll && !isDefaultExpandAllExecute);
     if ((tExpandedTreeNode?.length && !!(expandedTreeNodes || defaultNeedExpand)) || needExpandAll) {
-      updateExpandOnDataChange(data);
+      updateExpandOnDataChange([...data]);
       setIsDefaultExpandedTreeNodesExecute(true);
     } else {
       setDataSource([...data]);
