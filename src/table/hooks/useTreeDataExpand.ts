@@ -121,7 +121,7 @@ export function useTreeDataExpand(
       const newData = store.toggleExpandData({ row, rowIndex }, dataSource, rowDataKeys);
       setDataSource([...newData]);
     } else if (changedExpandTreeNode.type === 'props-change') {
-      updateExpandState(dataSource, tExpandedTreeNode, oldExpandedTreeNode);
+      updateExpandState([...dataSource], tExpandedTreeNode, oldExpandedTreeNode);
     }
     if (changedExpandTreeNode.type !== 'props-change') {
       setChangedExpandTreeNode({ type: 'props-change' });
@@ -136,7 +136,7 @@ export function useTreeDataExpand(
     } else if (tExpandedTreeNode?.length) {
       setTimeout(() => {
         const newData = updateExpandState([...data], tExpandedTreeNode, []);
-        setDataSource(newData);
+        setDataSource([...newData]);
       });
     }
   };
