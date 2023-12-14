@@ -1,4 +1,4 @@
-import React, { Children, Ref, forwardRef, isValidElement, cloneElement, useRef, CSSProperties } from 'react';
+import React, { Children, isValidElement, cloneElement, useRef, CSSProperties } from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
@@ -48,7 +48,7 @@ interface SelectPopupProps
   getPopupInstance?: () => HTMLDivElement;
 }
 
-const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
+const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, ref) => {
   const {
     value,
     size,
@@ -66,6 +66,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     panelBottomContent,
     onChange,
     onCheckAllChange,
+    getPopupInstance,
     options: propsOptions,
     scroll: propsScroll,
   } = props;
@@ -73,9 +74,9 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('select');
   const emptyText = t(local.empty);
-  const popupContentRef = useRef<HTMLElement>(null);
+  const popupContentRef = useRef<HTMLDivElement>(null);
 
-  popupContentRef.current = props.getPopupInstance();
+  popupContentRef.current = getPopupInstance();
 
   const { visibleData, handleRowMounted, isVirtual, panelStyle, cursorStyle } = usePanelVirtualScroll({
     popupContentRef,
@@ -84,7 +85,9 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   });
 
   const { classPrefix } = useConfig();
-  if (!children && !propsOptions) return null;
+  if (!children && !propsOptions) {
+    return null;
+  }
 
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
     const isValObj = valueType === 'object';
@@ -158,8 +161,8 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
                 {...(isVirtual
                   ? {
                       isVirtual,
-                      bufferSize: props.scroll?.bufferSize,
-                      scrollType: props.scroll?.type,
+                      bufferSize: propsScroll?.bufferSize,
+                      scrollType: propsScroll?.type,
                     }
                   : {})}
                 {...restData}

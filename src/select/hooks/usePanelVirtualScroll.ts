@@ -1,33 +1,31 @@
 import { useEffect, useMemo, MutableRefObject, useCallback, CSSProperties } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import { TdSelectProps } from '../type';
+import { TScroll } from '../../common';
 
-const usePanelVirtualScroll = ({
-  popupContentRef,
-  scroll,
-  options,
-}: {
+interface PanelVirtualScroll {
   scroll?: TdSelectProps['scroll'];
-  popupContentRef: MutableRefObject<HTMLElement>;
+  popupContentRef: MutableRefObject<HTMLDivElement>;
   options: TdSelectProps['options'];
-}) => {
+}
+
+const usePanelVirtualScroll = ({ popupContentRef, scroll, options }: PanelVirtualScroll) => {
   const scrollThreshold = scroll?.threshold || 100;
   const scrollType = scroll?.type;
 
-  const isVirtual = useMemo(
+  const isVirtual = useMemo<boolean>(
     () => scrollType === 'virtual' && options?.length > scrollThreshold,
     [scrollType, scrollThreshold, options],
   );
 
-  const scrollParams = useMemo(
-    () =>
-      ({
-        type: 'virtual',
-        isFixedRowHeight: scroll?.isFixedRowHeight || false,
-        rowHeight: scroll?.rowHeight || 28, // 默认每行高度28
-        bufferSize: scroll?.bufferSize || 20,
-        threshold: scrollThreshold,
-      } as const),
+  const scrollParams = useMemo<TScroll>(
+    () => ({
+      type: 'virtual',
+      isFixedRowHeight: scroll?.isFixedRowHeight || false,
+      rowHeight: scroll?.rowHeight || 28, // 默认每行高度28
+      bufferSize: scroll?.bufferSize || 20,
+      threshold: scrollThreshold,
+    }),
     [scroll, scrollThreshold],
   );
   const {

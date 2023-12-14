@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
@@ -11,6 +11,7 @@ import InputNumber from '../input-number/InputNumber';
 import SliderHandleButton from './SliderHandleButton';
 import { accAdd } from '../_util/number';
 import { sliderDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type SliderProps = TdSliderProps & StyledProps;
 
@@ -18,13 +19,27 @@ const LEFT_NODE = 0;
 const RIGHT_NODE = 1;
 type SliderHandleNode = typeof LEFT_NODE | typeof RIGHT_NODE;
 
-const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) => {
+const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
-  const { disabled, inputNumberProps, label, layout, marks, max, min, range, step, tooltipProps, className, style } =
-    props;
+  const props = useDefaultProps(originalProps, sliderDefaultProps);
+  const {
+    disabled,
+    inputNumberProps,
+    label,
+    layout,
+    marks,
+    max,
+    min,
+    range,
+    step,
+    tooltipProps,
+    className,
+    style,
+    onChange,
+  } = props;
 
-  const sliderRef = useRef<HTMLDivElement>();
-  const [value, onChange] = useControlled(props, 'value', props.onChange);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [value, internalOnChange] = useControlled(props, 'value', onChange);
   const isVertical = layout === 'vertical';
 
   const renderValue = Array.isArray(value) ? value : [min, value];
@@ -32,18 +47,14 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
   const width = (renderValue[RIGHT_NODE] - renderValue[LEFT_NODE]) / (max - min);
   const end = start + width;
 
-  const dots: { value: number; label: TNode; position: number }[] = useMemo(() => {
+  const dots = useMemo<{ value: number; label: TNode; position: number }[]>(() => {
     // 当 marks 为数字数组
     if (Array.isArray(marks)) {
       if (marks.some((mark) => typeof mark !== 'number')) {
         console.warn('The props "marks" only support number!');
         return [];
       }
-      return marks.map((mark) => ({
-        value: mark,
-        position: (mark - min) / (max - min),
-        label: mark,
-      }));
+      return marks.map((mark) => ({ value: mark, position: (mark - min) / (max - min), label: mark }));
     }
     // 当 marks 为对象
     if (marks && typeof marks === 'object') {
@@ -92,9 +103,9 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
     if (Array.isArray(value)) {
       const arrValue = value.slice();
       arrValue[nodeIndex] = resultValue;
-      onChange(arrValue);
+      internalOnChange(arrValue);
     } else {
-      onChange(resultValue);
+      internalOnChange(resultValue);
     }
   };
 
@@ -110,9 +121,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
             handleInputChange(Number(v), nodeIndex);
           }
         }}
-        className={classNames(`${classPrefix}-slider-input`, {
-          'is-vertical': isVertical,
-        })}
+        className={classNames(`${classPrefix}-slider-input`, { 'is-vertical': isVertical })}
         disabled={disabled}
         theme="column"
         {...inputProps}
@@ -145,7 +154,9 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
   };
 
   const onSliderChange = (event: React.MouseEvent | MouseEvent, nodeIndex?: SliderHandleNode) => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
     const clientKey = isVertical ? 'clientY' : 'clientX';
     const sliderPositionInfo = sliderRef.current.getBoundingClientRect();
     const sliderOffset = sliderPositionInfo[startDirection];
@@ -162,16 +173,17 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
     const currentValue = renderValue[nodeIndex];
     // 模板替换
     let tipLabel: React.ReactNode = currentValue;
-    if (isFunction(label))
+
+    if (isFunction(label)) {
       tipLabel = label({ value: currentValue, position: nodeIndex === LEFT_NODE ? 'start' : 'end' });
-    if (isString(label)) tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
+    }
+    if (isString(label)) {
+      tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
+    }
 
     return (
       <SliderHandleButton
-        toolTipProps={{
-          content: tipLabel,
-          ...tooltipProps,
-        }}
+        toolTipProps={{ content: tipLabel, ...tooltipProps }}
         hideTips={label === false}
         classPrefix={classPrefix}
         style={style}
@@ -183,9 +195,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
   return (
     <div
       style={{ ...style }}
-      className={classNames(`${classPrefix}-slider__container`, {
-        'is-vertical': isVertical,
-      })}
+      className={classNames(`${classPrefix}-slider__container`, { 'is-vertical': isVertical })}
       ref={ref}
     >
       <div
@@ -206,7 +216,9 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
           {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
           <div className={`${classPrefix}-slider__stops`}>
             {renderDots.map(({ position, value }) => {
-              if (position === 0 || position === 1) return null;
+              if (position === 0 || position === 1) {
+                return null;
+              }
               return (
                 <div
                   key={value}
@@ -231,11 +243,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
         </div>
       </div>
       {inputNumberProps ? (
-        <div
-          className={classNames(`${classPrefix}-slider__input-container`, {
-            'is-vertical': isVertical,
-          })}
-        >
+        <div className={classNames(`${classPrefix}-slider__input-container`, { 'is-vertical': isVertical })}>
           {range && createInput(LEFT_NODE)}
           {range && <div className={`${classPrefix}-slider__center-line`}></div>}
           {createInput(RIGHT_NODE)}
@@ -246,6 +254,5 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
 });
 
 Slider.displayName = 'Slider';
-Slider.defaultProps = sliderDefaultProps;
 
 export default Slider;

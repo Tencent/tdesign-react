@@ -1,4 +1,5 @@
 import { MutableRefObject, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { CHECKED_CODE_REG } from '../_common/js/common';
 import { off, on } from '../_util/dom';
 
 /** 键盘操作 */
@@ -7,7 +8,7 @@ export default function useKeyboard(
   setInnerValue: (value: any, context: { e: ChangeEvent<any> }) => void,
 ) {
   const checkRadioInGroup = (e: KeyboardEvent) => {
-    if (/enter/i.test(e.key) || /enter/i.test(e.code)) {
+    if (CHECKED_CODE_REG.test(e.key) || CHECKED_CODE_REG.test(e.code)) {
       const inputNode = (e.target as HTMLElement).querySelector('input');
       const data = inputNode?.dataset || {};
       if (inputNode.checked && data.allowUncheck) {

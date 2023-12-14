@@ -4,6 +4,7 @@ import useConfig from '../../hooks/useConfig';
 
 import { TdOptionGroupProps, SelectValue } from '../type';
 import { optionGroupDefaultProps } from '../defaultProps';
+import useDefaultProps from '../../hooks/useDefaultProps';
 
 export interface SelectGOptionGroupProps extends TdOptionGroupProps {
   selectedValue?: SelectValue;
@@ -16,15 +17,18 @@ export interface SelectGOptionGroupProps extends TdOptionGroupProps {
   multiple?: boolean;
 }
 
-const OptionGroup = (props: SelectGOptionGroupProps) => {
-  const { children, label, selectedValue, onSelect, divider, multiple } = props;
+const OptionGroup: React.FC<SelectGOptionGroupProps> = (props) => {
+  const { children, label, selectedValue, onSelect, divider, multiple } = useDefaultProps<SelectGOptionGroupProps>(
+    props,
+    optionGroupDefaultProps,
+  );
 
   const { classPrefix } = useConfig();
 
   const childrenWithProps = Children.map(children, (child) => {
-    if (isValidElement(child)) {
-      const addedProps = { selectedValue, onSelect, multiple };
-      return cloneElement(child, { ...addedProps });
+    if (isValidElement<SelectGOptionGroupProps>(child)) {
+      const addedProps: SelectGOptionGroupProps = { selectedValue, onSelect, multiple };
+      return cloneElement<SelectGOptionGroupProps>(child, { ...addedProps });
     }
     return child;
   });
@@ -41,7 +45,5 @@ const OptionGroup = (props: SelectGOptionGroupProps) => {
   );
   return;
 };
-
-OptionGroup.defaultProps = optionGroupDefaultProps;
 
 export default OptionGroup;

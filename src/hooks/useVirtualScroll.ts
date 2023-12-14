@@ -179,7 +179,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       }, 1);
     },
     // eslint-disable-next-line
-    [container, data, tScroll, isVirtualScroll],
+    [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList, tripleBufferSize],
   );
 
   return {

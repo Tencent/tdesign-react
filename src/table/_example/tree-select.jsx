@@ -142,6 +142,9 @@ export default function TableSingleSort() {
     });
   };
 
+  // 树节点展开，受控示例
+  // const [expandedTreeNodes, setExpandedTreeNodes] = useState(['first_level_0']);
+
   return (
     <Space direction="vertical">
       <Space>
@@ -174,6 +177,8 @@ export default function TableSingleSort() {
         onExpandChange={onExpandChange}
         onRowClick={onRowClick}
         lazyLoad
+        // expandedTreeNodes={expandedTreeNodes}
+        // onExpandedTreeNodesChange={setExpandedTreeNodes}
       />
     </Space>
   );

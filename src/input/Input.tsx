@@ -128,7 +128,13 @@ const Input = forwardRefWithStatics(
     let suffixIconNew = suffixIcon;
 
     if (isShowClearIcon)
-      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
+      suffixIconNew = (
+        <CloseCircleFilledIcon
+          className={`${classPrefix}-input__suffix-clear`}
+          onMouseDown={handleMouseDown}
+          onClick={handleClear}
+        />
+      );
     if (type === 'password' && typeof suffixIcon === 'undefined') {
       if (renderType === 'password') {
         suffixIconNew = (
@@ -290,6 +296,11 @@ const Input = forwardRefWithStatics(
         setComposingValue(newStr);
         onChange(newStr, { e, trigger });
       }
+    }
+    // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
+    // https://github.com/Tencent/tdesign-react/issues/2320
+    function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
+      e.stopPropagation();
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
       onChange?.('', { e, trigger: 'clear' });

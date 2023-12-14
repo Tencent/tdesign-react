@@ -6,6 +6,7 @@ import { TdImageViewerProps } from './type';
 
 export const imageViewerDefaultProps: TdImageViewerProps = {
   closeBtn: true,
+  closeOnEscKeydown: true,
   draggable: undefined,
   images: [],
   defaultIndex: 0,
