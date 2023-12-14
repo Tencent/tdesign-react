@@ -5,6 +5,25 @@ toc: false
 spline: explain
 ---
 
+ ## 🌈 1.4.1 `2023-12-14` 
+### 🚀 Features
+- `Radio`: 支持通过空格键(Space)选中选项 @liweijie0812 ([#2638](https://github.com/Tencent/tdesign-react/pull/2638))
+- `Dropdown`: 移除对left的item样式特殊处理 @uyarn ([#2663](https://github.com/Tencent/tdesign-react/pull/2663))
+### 🐞 Bug Fixes
+- `AutoComplete`: 修复部分特殊字符匹配报错的问题  @ZWkang ([#2631](https://github.com/Tencent/tdesign-react/pull/2631))
+- `DatePicker`: 修复日期点击清空内容时弹窗会闪烁的缺陷 @HaixingOoO ([#2641](https://github.com/Tencent/tdesign-react/pull/2641))
+- `DatePicker`: 修复日期选择禁用后，后缀图标颜色改变的问题 @HaixingOoO  @uyarn ([#2663](https://github.com/Tencent/tdesign-react/pull/2663))
+- `DatePicker`: 修复禁用状态下点击组件边缘仍能显示`Panel` @Zz-ZzzZ ([#2653](https://github.com/Tencent/tdesign-react/pull/2653))
+- `Dropdown`: 修复下拉菜单禁用状态可点击的问题 @betavs ([#2648](https://github.com/Tencent/tdesign-react/pull/2648))
+- `Dropdown`: 修复`DropdownItem`子组件遗漏`Divider`类型的缺陷 @uyarn ([#2649](https://github.com/Tencent/tdesign-react/pull/2649))
+- `Popup`: 修复 `disabled` 属性未生效的缺陷 @uyarn ([#2665](https://github.com/Tencent/tdesign-react/pull/2665))
+- `Select`: 修复`InputChange`事件在blur时trigger异常的问题 @uyarn ([#2664](https://github.com/Tencent/tdesign-react/pull/2664))
+- `SelectInput`: 修复`SelectInput`的popup内容宽度计算问题 @HaixingOoO ([#2647](https://github.com/Tencent/tdesign-react/pull/2647))
+- `ImageViewer`: 图片预览添加默认的缩放比例和按下 ESC 时是否触发图片预览器关闭事件 @HaixingOoO ([#2652](https://github.com/Tencent/tdesign-react/pull/2652))
+- `Table`: @chaishi 
+    - 修复 `EnhancedTable` 树节点无法正常展开问题 ([#2661](https://github.com/Tencent/tdesign-react/pull/2661))
+    - 修复虚拟滚动场景，树节点无法展开问题 ([#2659](https://github.com/Tencent/tdesign-react/pull/2659))
+
  ## 🌈 1.4.0 `2023-11-30`
 
 ### 🚀 Features
