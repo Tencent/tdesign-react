@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
-import { ChevronRightIcon as TdIconChevronRight, ChevronLeftIcon as TdIconChevronLeft } from 'tdesign-icons-react';
+import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
 import { DropdownProps } from './Dropdown';
 import TDivider from '../divider';
@@ -24,9 +24,8 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
   const dropdownClass = `${classPrefix}-dropdown`;
   const dropdownMenuClass = `${dropdownClass}__menu`;
   const [panelTopContentHeight, setPanelTopContentHeight] = useState(null);
-  const { ChevronRightIcon, ChevronLeftIcon } = useGlobalIcon({
+  const { ChevronRightIcon } = useGlobalIcon({
     ChevronRightIcon: TdIconChevronRight,
-    ChevronLeftIcon: TdIconChevronLeft,
   });
 
   const menuRef = useRef<HTMLDivElement>();
@@ -89,17 +88,8 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
               isSubmenu={true}
             >
               <div className={`${dropdownClass}__item-content`}>
-                {direction === 'right' ? (
-                  <>
-                    <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
-                    <ChevronRightIcon className={`${dropdownClass}__item-direction`} size="16" />
-                  </>
-                ) : (
-                  <>
-                    <ChevronLeftIcon className={`${dropdownClass}__item-direction`} size="16" />
-                    <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
-                  </>
-                )}
+                <span className={`${dropdownClass}__item-text`}>{optionItem.content}</span>
+                <ChevronRightIcon className={`${dropdownClass}__item-direction`} size="16" />
               </div>
               <div
                 className={classNames(`${dropdownClass}__submenu-wrapper`, {
