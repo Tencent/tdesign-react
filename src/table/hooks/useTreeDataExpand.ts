@@ -134,7 +134,8 @@ export function useTreeDataExpand(
       expandAll('default-expand-all', [...data]);
       setIsDefaultExpandAllExecute(true);
     } else if (tExpandedTreeNode?.length) {
-      setTimeout(() => {
+      const asyncCall = typeof window !== 'undefined' ? window.requestAnimationFrame : setTimeout;
+      asyncCall(() => {
         const newData = updateExpandState([...data], tExpandedTreeNode, []);
         setDataSource([...newData]);
       });
