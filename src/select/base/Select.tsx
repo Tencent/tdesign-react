@@ -124,7 +124,7 @@ const Select = forwardRefWithStatics(
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
       setShowPopup(visible, ctx);
-      visible && inputValue && onInputChange('', { trigger: 'focus' });
+      !visible && onInputChange('', { trigger: 'blur' });
     };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
