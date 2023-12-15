@@ -355,6 +355,13 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   const renderImageList = () => {
     if (props.fileListDisplay) {
       return parseTNode(props.fileListDisplay, {
+        cancelUpload: props.cancelUpload,
+        uploadFiles: props.uploadFiles,
+        onRemove: props.onRemove,
+        onPreview: props.onPreview,
+        toUploadFiles: props.toUploadFiles,
+        sizeOverLimitMessage: props.sizeOverLimitMessage,
+        locale: props.locale,
         files: displayFiles,
         dragEvents: innerDragEvents,
       });
