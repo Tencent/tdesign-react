@@ -35,6 +35,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     uploadFiles,
     onNormalFileChange,
     onDragFileChange,
+    onPasteFileChange,
     triggerUpload,
     cancelUpload,
     uploadFilePercent,
@@ -164,8 +165,20 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     </CustomFile>
   );
 
+  const uploadClasses = [
+    props.className,
+    `${classPrefix}-upload`,
+    {
+      [`${classPrefix}-upload--theme-${props.theme}`]: props.theme === 'file-input',
+    },
+  ];
+
   return (
-    <div className={classNames([props.className, `${classPrefix}-upload`])} style={props.style}>
+    <div
+      className={classNames(uploadClasses)}
+      style={props.style}
+      onPaste={props.uploadPastedFiles ? onPasteFileChange : undefined}
+    >
       <input
         ref={inputRef}
         type="file"

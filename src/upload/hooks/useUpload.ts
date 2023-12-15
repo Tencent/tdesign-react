@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect } from 'react';
+import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect, ClipboardEventHandler } from 'react';
 import merge from 'lodash/merge';
 import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
@@ -63,10 +63,15 @@ export default function useUpload(props: TdUploadProps) {
 
   const uploadFilePercent = (params: { file: UploadFile; percent: number }) => {
     const { file, percent } = params;
-    const index = toUploadFiles.findIndex((item) => file.raw === item.raw);
-    const newFiles = [...toUploadFiles];
-    newFiles[index] = { ...newFiles[index], percent };
-    setToUploadFiles(newFiles);
+    if (autoUpload) {
+      const index = toUploadFiles.findIndex((item) => file.raw === item.raw);
+      const newFiles = [...toUploadFiles];
+      newFiles[index] = { ...newFiles[index], percent };
+      setToUploadFiles(newFiles);
+    } else {
+      const index = uploadValue.findIndex((item) => file.raw === item.raw);
+      uploadValue[index] = { ...uploadValue[index], percent };
+    }
   };
 
   const updateProgress = (
@@ -217,6 +222,11 @@ export default function useUpload(props: TdUploadProps) {
     onFileChange?.(files);
   }
 
+  const onPasteFileChange: ClipboardEventHandler<HTMLDivElement> = (e) => {
+    // @ts-ignore
+    onFileChange?.([...e.clipboardData.files]);
+  };
+
   /**
    * 上传文件。对外暴露方法，修改时需谨慎
    * @param toFiles 本地上传的文件列表
@@ -334,9 +344,9 @@ export default function useUpload(props: TdUploadProps) {
     });
     setUploading(false);
 
+    // autoUpload do not need to reset to waiting state
     if (autoUpload) {
-      // toUploadFiles.current = toUploadFiles.current.map((item) => ({ ...item, status: 'waiting' }));
-      setToUploadFiles(toUploadFiles.map((item) => ({ ...item, status: 'waiting' })));
+      setToUploadFiles([]);
     } else {
       setUploadValue(
         uploadValue.map((item) => {
@@ -377,6 +387,7 @@ export default function useUpload(props: TdUploadProps) {
     onFileChange,
     onNormalFileChange,
     onDragFileChange,
+    onPasteFileChange,
     onRemove,
     triggerUpload,
     cancelUpload,
