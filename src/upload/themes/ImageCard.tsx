@@ -133,10 +133,19 @@ const ImageCard = (props: ImageCardUploadProps) => {
         {showTrigger && (
           <li className={cardItemClasses} onClick={props.triggerUpload}>
             <div
-              className={`${classPrefix}-upload__image-add ${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}
+              className={classNames([
+                `${classPrefix}-upload__image-add`,
+                `${classPrefix}-upload__card-container`,
+                `${classPrefix}-upload__card-box`,
+                {
+                  [`${classPrefix}-is-disabled`]: props.disabled,
+                },
+              ])}
             >
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>{locale?.triggerUploadText?.image}</p>
+              <p className={classNames([`${classPrefix}-size-s`, `${classPrefix}-upload__add-text`])}>
+                {locale?.triggerUploadText?.image}
+              </p>
             </div>
           </li>
         )}
