@@ -136,7 +136,7 @@ export default function NormalFile(props: NormalFileProps) {
         <small className={classNames([props.tipsClasses, props.placeholderClass])}>{props.placeholder}</small>
       )}
 
-      {fileListDisplay || renderFilePreviewAsText(displayFiles)}
+      {fileListDisplay === null ? null : fileListDisplay || renderFilePreviewAsText(displayFiles)}
 
       {props.sizeOverLimitMessage && (
         <small className={classNames(props.errorClasses)}>{props.sizeOverLimitMessage}</small>
