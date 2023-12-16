@@ -232,7 +232,7 @@ type ImageViewerHeaderProps = {
 
 function OneImagePreview({ image, classPrefix }: { image: ImageInfo; classPrefix: string }) {
   const { previewUrl } = useImagePreviewUrl(image.thumbnail || image.mainImage);
-  return <Image alt="" src={previewUrl} className={`${classPrefix}-image-viewer__header-img`} />;
+  return <Image alt="" error="" src={previewUrl} className={`${classPrefix}-image-viewer__header-img`} />;
 }
 
 const ImageViewerHeader = (props: ImageViewerHeaderProps) => {

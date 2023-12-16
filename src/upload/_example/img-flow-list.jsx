@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
-import { Upload, Space, MessagePlugin, Switch } from 'tdesign-react';
+import { Upload, Space, MessagePlugin, Switch, Checkbox, Divider } from 'tdesign-react';
 
 const ABRIDGE_NAME = [4, 6];
 
 export default function TUploadImageFlow() {
   const [autoUpload, setAutoUpload] = useState(false);
+  const [showImageFileName, setShowImageFileName] = useState(true);
+  const [showUploadButton, setShowUploadButton] = useState(true);
   const [files, setFiles] = useState([
     { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'success', name: 'demo-image-1.png' },
     { url: 'https://tdesign.gtimg.com/site/avatar.jpg', status: 'success', name: 'avatar.jpg' },
   ]);
    // eslint-disable-next-line
   const [files2, setFiles2] = useState([]);
+
+  const staticFiles = [
+    {
+      url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+      name: 'loading.svg',
+      status: 'success',
+    },
+    {
+      url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+      name: 'loading.svg',
+      status: 'waiting',
+    },
+    {
+      // url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+      name: 'loading.svg',
+      status: 'progress',
+      percent: 10,
+    },
+    {
+      url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+      name: 'loading.svg',
+      status: 'fail',
+    },
+  ];  
 
   // 示例代码：自定义上传方法，一个请求上传一个文件
   // eslint-disable-next-line
@@ -58,10 +84,18 @@ export default function TUploadImageFlow() {
   // 因接口返回的 url 是同一个，所以看到的图片都是一个
   return (
     <Space direction="vertical">
-      <div>
-        是否自动上传：
-        <Switch value={autoUpload} onChange={setAutoUpload} />
-      </div>
+      <Space>
+        <div>
+          AutoUpload
+          <Switch value={autoUpload} onChange={setAutoUpload} />
+        </div>
+        <Checkbox value={showImageFileName} onChange={setShowImageFileName}>
+          Show Image Name
+        </Checkbox>
+        <Checkbox value={showUploadButton} onChange={setShowUploadButton}>
+          Show UploadButton Or CancelUploadButton
+        </Checkbox>
+      </Space>
 
       <br />
 
@@ -79,6 +113,9 @@ export default function TUploadImageFlow() {
         autoUpload={autoUpload}
         max={8}
         abridgeName={ABRIDGE_NAME}
+        showImageFileName={showImageFileName}
+        uploadButton={showUploadButton ? {} : null}
+        cancelUploadButton={showUploadButton ? { theme: 'default', content: '取消上传' } : null}
         onValidate={onValidate}
       />
 
@@ -97,6 +134,16 @@ export default function TUploadImageFlow() {
         uploadAllFilesInOneRequest={true}
         onValidate={onValidate}
       /> */}
+      
+      <br />
+      <Divider align="left">Different Status Images</Divider>
+
+      <Upload
+        files={staticFiles}
+        theme="image-flow"
+        showImageFileName={showImageFileName}
+        className="static-image-list"
+      ></Upload>
     </Space>
   );
 }

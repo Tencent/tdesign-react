@@ -92,6 +92,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     autoUpload: props.autoUpload,
     showUploadProgress: props.showUploadProgress,
     fileListDisplay: props.fileListDisplay,
+    imageViewerProps: props.imageViewerProps,
     onRemove,
   };
 
@@ -131,6 +132,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
       onPreview={props.onPreview}
+      showImageFileName={props.showImageFileName}
     />
   );
 
@@ -144,6 +146,9 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
       cancelUpload={cancelUpload}
       onPreview={props.onPreview}
       showThumbnail={props.showThumbnail}
+      showImageFileName={props.showImageFileName}
+      uploadButton={props.uploadButton}
+      cancelUploadButton={props.cancelUploadButton}
     >
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
@@ -198,6 +203,8 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
           {props.tips}
         </small>
       )}
+
+      {sizeOverLimitMessage && <small className={classNames(errorClasses)}>{sizeOverLimitMessage}</small>}
     </div>
   );
 }

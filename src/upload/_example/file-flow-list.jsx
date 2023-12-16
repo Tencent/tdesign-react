@@ -28,6 +28,13 @@ export default function FileFlowList() {
     }
   };
 
+  const formatResponse = (res) => {
+    if (!res) {
+      return { status: 'fail', error: '上传失败，原因：文件过大或网络不通' };
+    }
+    return res;
+  };
+
   return (
     <Space direction="vertical">
       <Space breakLine>
@@ -63,6 +70,7 @@ export default function FileFlowList() {
         isBatchUpload={isBatchUpload}
         allowUploadDuplicateFile={allowUploadDuplicateFile}
         onValidate={onValidate}
+        formatResponse={formatResponse}
       />
     </Space>
   );

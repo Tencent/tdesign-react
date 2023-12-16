@@ -25,6 +25,7 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
   onPreview?: TdUploadProps['onPreview'];
+  showImageFileName?: boolean;
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
@@ -59,6 +60,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
             )}
             images={displayFiles.map((t) => t.url || t.raw)}
             defaultIndex={index}
+            {...props.imageViewerProps}
           />
         </span>
         {!disabled && (
@@ -101,6 +103,14 @@ const ImageCard = (props: ImageCardUploadProps) => {
     return (
       <div>
         {parseTNode(fileListDisplay, {
+          triggerUpload: props.triggerUpload,
+          uploadFiles: props.uploadFiles,
+          cancelUpload: props.cancelUpload,
+          onPreview: props.onPreview,
+          onRemove: props.onRemove,
+          toUploadFiles: props.toUploadFiles,
+          sizeOverLimitMessage: props.sizeOverLimitMessage,
+          locale: props.locale,
           files: displayFiles,
         })}
       </div>
@@ -120,6 +130,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
               {file.status === 'fail' && renderFailFile(file, index, loadCard)}
               {!['progress', 'fail'].includes(file.status) && renderMainContent(file, index)}
               {fileName &&
+                props.showImageFileName &&
                 (file.url ? (
                   <Link href={file.url} className={fileNameClassName} target="_blank" hover="color" size="small">
                     {fileName}

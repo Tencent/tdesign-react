@@ -174,8 +174,8 @@ export default function UploadExample() {
         <Upload
           ref={uploadRef1}
           files={files1}
-          onChange={(val) => {
-            console.log(val);
+          onChange={(val, ctx) => {
+            console.log(val, ctx);
             setFiles1(val);
           }}
           action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"

@@ -49,12 +49,12 @@ export default function useUpload(props: TdUploadProps) {
   const [uploading, setUploading] = useState(false);
 
   // 文件列表显示的内容（自动上传和非自动上传有所不同）
-  const [displayFiles, setDisplayFiles] = useState(uploadValue);
+  const [displayFiles, setDisplayFiles] = useState(uploadValue || []);
   useEffect(() => {
     const files = getDisplayFiles({
       multiple: props.multiple,
       toUploadFiles,
-      uploadValue: [...uploadValue],
+      uploadValue: uploadValue ? [...uploadValue] : [],
       autoUpload,
       isBatchUpload,
     });
@@ -158,7 +158,7 @@ export default function useUpload(props: TdUploadProps) {
       // @ts-ignore
       files: [...files],
       allowUploadDuplicateFile: props.allowUploadDuplicateFile,
-      max: props.max,
+      max: props.multiple ? props.max : 0,
       sizeLimit: props.sizeLimit,
       isBatchUpload,
       autoUpload,
@@ -365,6 +365,14 @@ export default function useUpload(props: TdUploadProps) {
 
     props.onCancelUpload?.();
   };
+
+  // 矫正数据格式为数组
+  useEffect(() => {
+    if (!Array.isArray(uploadValue)) {
+      setUploadValue([], { trigger: 'default' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadValue]);
 
   return {
     t,
