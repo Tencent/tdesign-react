@@ -7,7 +7,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import parseTNode from 'tdesign-react/_util/parseTNode';
+import parseTNode from '../../_util/parseTNode';
 import TLoading from '../../loading';
 import Link from '../../link';
 import { UploadFile } from '../type';
