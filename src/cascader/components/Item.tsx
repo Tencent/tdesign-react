@@ -2,6 +2,7 @@ import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
+import isFunction from 'lodash/isFunction';
 import TLoading from '../../loading';
 import Checkbox from '../../checkbox';
 
@@ -114,6 +115,11 @@ const Item = forwardRef(
       );
     };
 
+    const isFiltering = useMemo(
+      () => Boolean(cascaderContext.filterable) || isFunction(cascaderContext.filter),
+      [cascaderContext.filterable, cascaderContext.filter],
+    );
+
     return (
       <li
         ref={ref || setRefCurrent}
@@ -121,7 +127,7 @@ const Item = forwardRef(
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           e?.nativeEvent?.stopImmediatePropagation?.();
-
+          if (cascaderContext.inputVal && isFiltering) return;
           onClick(node);
         }}
         onMouseEnter={(e: React.MouseEvent) => {
