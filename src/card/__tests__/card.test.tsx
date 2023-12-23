@@ -2,7 +2,6 @@ import { render } from '@test/utils';
 import React from 'react';
 import Card from '../Card';
 import Avatar from '../../avatar';
-import Loading from '../../loading';
 
 const cover = 'https://tdesign.gtimg.com/site/source/card-demo.png';
 const avatar = 'https://tdesign.gtimg.com/site/avatar.jpg';
@@ -56,11 +55,7 @@ describe('Card', () => {
   });
 
   test('loading', () => {
-    const { container } = render(
-      <Loading>
-        <Card></Card>
-      </Loading>,
-    );
+    const { container } = render(<Card loading></Card>);
     expect(container.querySelector('.t-loading')).toBeInTheDocument();
   });
   test('custom loading props', () => {
