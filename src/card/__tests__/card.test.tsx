@@ -63,4 +63,20 @@ describe('Card', () => {
     );
     expect(container.querySelector('.t-loading')).toBeInTheDocument();
   });
+  test('custom loading props', () => {
+    const customProps = {
+      text: 'TDesign努力加载中...',
+    };
+    const { container } = render(
+      <Card
+        title="自定义loadingProps Card"
+        loading={true}
+        bordered
+        style={{ width: '400px' }}
+        loadingProps={customProps}
+      ></Card>,
+    );
+    expect(container.querySelector('.t-loading')).toBeInTheDocument();
+    expect(container.querySelector('.t-loading__text').textContent).toBe('TDesign努力加载中...');
+  });
 });
