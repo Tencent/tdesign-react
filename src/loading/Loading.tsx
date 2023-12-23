@@ -70,8 +70,8 @@ const Loading: React.FC<LoadingProps> = (props) => {
       styles.fontSize = size;
     }
 
-    return style ? { ...styles, ...style } : styles;
-  }, [size, zIndex, style]);
+    return styles;
+  }, [size, zIndex]);
 
   const sizeMap = {
     large: `${classPrefix}-size-l`,
@@ -113,7 +113,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
 
   if (fullscreen) {
     return loading ? (
-      <div className={classnames(name, fullscreenClass, centerClass, overlayClass)} style={calcStyles}>
+      <div className={classnames(name, fullscreenClass, centerClass, overlayClass)} style={{ ...calcStyles, ...style }}>
         <div className={baseClasses}>{commonContent()}</div>
       </div>
     ) : null;
@@ -121,7 +121,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
 
   if (content || children) {
     return (
-      <div className={relativeClass}>
+      <div className={relativeClass} style={style}>
         {content || children}
         {showLoading ? (
           <div
@@ -140,7 +140,10 @@ const Loading: React.FC<LoadingProps> = (props) => {
     return (
       <Portal attach={attach}>
         {loading ? (
-          <div className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })} style={calcStyles}>
+          <div
+            className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })}
+            style={{ ...calcStyles, ...style }}
+          >
             {commonContent()}
           </div>
         ) : null}
@@ -149,7 +152,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
   }
 
   return loading ? (
-    <div className={classnames(name, baseClasses)} style={calcStyles}>
+    <div className={classnames(name, baseClasses)} style={{ ...calcStyles, ...style }}>
       {commonContent()}
     </div>
   ) : null;

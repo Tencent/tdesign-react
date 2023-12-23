@@ -31,6 +31,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     title,
     theme,
     status,
+    loadingProps,
   } = useDefaultProps<CardProps>(props, cardDefaultProps);
 
   const { classPrefix } = useConfig();
@@ -132,7 +133,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   );
 
   const card = (
-    <div ref={ref} className={cardClass} style={style}>
+    <div ref={ref} className={cardClass}>
       {showHeader ? renderHeader() : null}
       {renderCover}
       {renderChildren}
@@ -140,7 +141,13 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     </div>
   );
 
-  return loading ? <Loading>{card}</Loading> : card;
+  return loading ? (
+    <Loading {...loadingProps} style={style}>
+      {card}
+    </Loading>
+  ) : (
+    React.cloneElement(card, { style })
+  );
 });
 
 Card.displayName = 'Card';
