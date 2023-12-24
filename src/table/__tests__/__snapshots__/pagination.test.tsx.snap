@@ -366,7 +366,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
         <div
           class="t-pagination__total"
         >
-          共 102 项数据
+          共 102 条数据
         </div>
         <div
           class="t-pagination__select"
