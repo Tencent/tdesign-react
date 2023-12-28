@@ -5,6 +5,33 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.4.2 `2023-12-28` 
+### 🚀 Features
+- `Card`: Card组件添加`LoadingProps`属性 @HaixingOoO ([#2677](https://github.com/Tencent/tdesign-react/pull/2677))
+- `DateRangePicker`: 新增`cancelRangeSelectLimit`，支持不限制RangePicker选择的前后范围 @uyarn ([#2684](https://github.com/Tencent/tdesign-react/pull/2684))
+- `Space`: 元素为空时，不再渲染一个子元素 @chaishi ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+- `Upload`: @chaishi
+  - 新增支持使用 `uploadPastedFiles` 粘贴上传文件([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 输入框类型的上传组件，新增类名 `t-upload--theme-file-input`([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 新增支持 `uploadPastedFiles`，表示允许粘贴上传文件 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 新增 `cancelUploadButton` 和 `uploadButton`，支持自定义上传按钮和取消上传按钮 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 新增 `imageViewerProps`，透传图片预览组件全部属性 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 新增 `showImageFileName`，用于控制是否显示图片名称 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 支持传入默认值为非数组形式，[#2471](https://github.com/Tencent/tdesign-react/issues/2471)([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 支持 `fileListDisplay=null` 时，隐藏文件列表；并新增更加完整的 `fileListDisplay` 参数，用于自定义 UI ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+### 🐞 Bug Fixes
+- `Table`:  异步获取最新的树形结构数据时，优先使用`window.requestAnimationFrame`函数，以防闪屏 @lazybonee ([#2668](https://github.com/Tencent/tdesign-react/pull/2668))
+- `Table`: 修复筛选值为 `0/false` 时，筛选图标不能高亮问题 @chaishi ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+- `Cascader`: 修复Cascader组件在 filter 之后进行选择操作和清除内容存在异常bug @HaixingOoO ([#2674](https://github.com/Tencent/tdesign-react/pull/2674))
+- `ColorPicker`: 全局设置border-box后造成颜色列表样式问题 @carolin913
+- `Pagination`: 将总数单位 `项` 改为 `条` , 保持内容一致性  @dinghuihua ([#2679](https://github.com/Tencent/tdesign-react/pull/2679))
+- `InputNumber`: 修复 `min=0` 或 `max=0` 限制无效问题，[tdesign-vue#2516](https://github.com/Tencent/tdesign-vue/issues/2516) @chaishi ([#2352](https://github.com/Tencent/tdesign-react/pull/2352))
+- `Watermark`: 修复行内style引起的无法sticky定位问题 @carolin913 ([#2685](https://github.com/Tencent/tdesign-react/pull/2685))
+- `Calendar`: 修复卡片模式下未正常展示周信息的缺陷 @uyarn ([#2686](https://github.com/Tencent/tdesign-react/pull/2686))
+- `Upload`: @chaishi 
+  - 修复手动上传时，无法更新上传进度问题 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 修复 `uploadFilePercent` 参数类型问题  ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+    
  ## 🌈 1.4.1 `2023-12-14` 
 ### 🚀 Features
 - `Radio`: 支持通过空格键(Space)选中选项 @liweijie0812 ([#2638](https://github.com/Tencent/tdesign-react/pull/2638))
@@ -25,7 +52,6 @@ spline: explain
     - 修复虚拟滚动场景，树节点无法展开问题 ([#2659](https://github.com/Tencent/tdesign-react/pull/2659))
 
  ## 🌈 1.4.0 `2023-11-30`
-
 ### 🚀 Features
 
 - `Space`: 兼容支持组件间距在低级浏览器中的呈现 @chaishi ([#2602](https://github.com/Tencent/tdesign-react/pull/2602))
