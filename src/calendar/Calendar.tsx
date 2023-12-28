@@ -67,7 +67,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
     style,
     mode: modeFromProps,
     value: valueFromProps,
-    firstDayOfWeek,
+    firstDayOfWeek = 1,
     format,
     range,
     head,
