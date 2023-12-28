@@ -40,6 +40,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     presetsPlacement,
     panelPreselection,
     onPick,
+    cancelRangeSelectLimit,
   } = props;
 
   const {
@@ -354,7 +355,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     presetsPlacement,
     activeIndex,
     popupVisible,
-    cancelRangeSelectLimit: props.cancelRangeSelectLimit,
+    cancelRangeSelectLimit,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,

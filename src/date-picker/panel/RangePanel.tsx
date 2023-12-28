@@ -19,7 +19,7 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   year?: number[];
   month?: number[];
   time?: string[];
-  cancelRangeSelectLimit: boolean;
+  cancelRangeSelectLimit?: boolean;
   onClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement>; partial: 'start' | 'end' }) => void;
   onCellMouseEnter?: (date: Date, context: { partial: 'start' | 'end' }) => void;
