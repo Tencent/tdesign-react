@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { useCallback, useState, useEffect, useRef } from 'react';
+import classNames from 'classnames';
 import { StyledProps } from '../common';
 import generateBase64Url from '../_common/js/watermark/generateBase64Url';
 import randomMovingStyle from '../_common/js/watermark/randomMovingStyle';
@@ -45,7 +46,6 @@ const Watermark: React.FC<WatermarkProps> = ({
   const clsName = `${classPrefix}-watermark`;
   const [base64Url, setBase64Url] = useState('');
   const styleStr = useRef('');
-  const maskclassName = useRef(className);
   const watermarkRef = useRef<HTMLDivElement>();
   const watermarkImgRef = useRef<HTMLDivElement>();
   const stopObservation = useRef(false);
@@ -82,8 +82,8 @@ const Watermark: React.FC<WatermarkProps> = ({
       right: 0,
       top: 0,
       bottom: 0,
-      width: '100%',
-      height: '100%',
+      width: movable ? `${width}px` : '100%',
+      height: movable ? `${height}px` : '100%',
       backgroundSize: `${gapX + width}px`,
       pointerEvents: 'none',
       backgroundRepeat: movable ? 'no-repeat' : isRepeat ? 'repeat' : 'no-repeat',
@@ -91,12 +91,7 @@ const Watermark: React.FC<WatermarkProps> = ({
       animation: movable ? `watermark infinite ${(moveInterval * 4) / 60}s` : 'none',
       ...style,
     });
-  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style]);
-
-  // 水印节点 - className
-  useEffect(() => {
-    maskclassName.current = className;
-  }, [className]);
+  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, height]);
 
   // 水印节点 - 渲染
   const renderWatermark = useCallback(() => {
@@ -108,9 +103,6 @@ const Watermark: React.FC<WatermarkProps> = ({
     // 创建新的
     watermarkImgRef.current = document.createElement('div');
     watermarkImgRef.current.setAttribute('style', styleStr.current);
-    if (maskclassName.current) {
-      watermarkImgRef.current.setAttribute('class', maskclassName.current);
-    }
     watermarkRef.current?.append(watermarkImgRef.current);
     // 继续监听
     setTimeout(() => {
@@ -170,7 +162,7 @@ const Watermark: React.FC<WatermarkProps> = ({
   });
 
   return (
-    <div style={{ position: 'relative', overflow: 'hidden' }} className={clsName} ref={watermarkRef}>
+    <div className={classNames([clsName, className])} ref={watermarkRef}>
       {children || content}
     </div>
   );

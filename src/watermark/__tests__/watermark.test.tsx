@@ -59,30 +59,33 @@ describe('Watermark 组件测试', () => {
     child.innerText = 'testing';
     child.id = 'test';
 
+    const watermarkWrapCls = wrapper.container.querySelector('.test-observer');
+    expect(watermarkWrapCls).not.toBeNull();
     const watermarkWrap = wrapper.container.querySelector('.t-watermark');
     const watermarkWrapParent = watermarkWrap.parentElement;
-    const watermarkEle = wrapper.container.querySelector('.test-observer');
+    const watermarkEle = watermarkWrap.querySelectorAll('div')[1];
 
     // 删除了水印wrap元素，还会被立即追加回去
     watermarkWrapParent.removeChild(watermarkWrap);
-    const afterWrapRemove = wrapper.container.querySelector('.t-watermark');
+    const afterWrapRemove = watermarkWrapParent.querySelector('.t-watermark');
     expect(afterWrapRemove).toBeNull();
     await mockDelay(10);
-    const waitAfterWrapRemove = wrapper.container.querySelector('.t-watermark');
+    const waitAfterWrapRemove = watermarkWrapParent.querySelector('.t-watermark');
     expect(waitAfterWrapRemove).not.toBeNull();
 
     // 删除了水印元素，还会被立即追加回去
-    watermarkWrap.removeChild(watermarkEle);
-    const afterMarkRemove = wrapper.container.querySelector('.test-observer');
-    expect(afterMarkRemove).toBeNull();
+    waitAfterWrapRemove.removeChild(watermarkEle);
+    expect(waitAfterWrapRemove.querySelectorAll('div').length).toBe(1);
+    // const afterMarkRemove = waitAfterWrapRemove.querySelectorAll('div')[1];
+    // expect(afterMarkRemove).toBeNull();
     await mockDelay(10);
-    const waitAfterMarkRemove = wrapper.container.querySelector('.test-observer');
+    const waitAfterMarkRemove = waitAfterWrapRemove.querySelectorAll('div')[1];
     expect(waitAfterMarkRemove).not.toBeNull();
 
     // 修改水印元素的属性，会立即还原
     watermarkEle.setAttribute('any', '11');
     await mockDelay(10);
-    const waitAfterAttrChange = wrapper.container.querySelector('.test-observer');
+    const waitAfterAttrChange = watermarkWrap.querySelectorAll('div')[1];
     expect(waitAfterAttrChange.getAttribute('any')).toBeNull();
   });
 });
