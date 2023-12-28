@@ -10,7 +10,7 @@ export interface TableDataProps extends SinglePanelProps {
   hoverEnd?: Date | undefined;
   minDate: Date | null;
   maxDate: Date | null;
-  cancelRangeSelectLimit: boolean;
+  cancelRangeSelectLimit?: boolean;
 }
 
 export default function useTableData(props: TableDataProps) {
