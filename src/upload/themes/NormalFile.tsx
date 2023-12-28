@@ -1,5 +1,4 @@
 import React from 'react';
-import isFunction from 'lodash/isFunction';
 import {
   CloseIcon as TdCloseIcon,
   TimeFilledIcon as TdTimeFilledIcon,
@@ -8,6 +7,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import parseTNode from '../../_util/parseTNode';
 import TLoading from '../../loading';
 import Link from '../../link';
 import { UploadFile } from '../type';
@@ -109,7 +109,7 @@ export default function NormalFile(props: NormalFileProps) {
           {file?.name && file.status === 'fail' && (
             <ErrorCircleFilledIcon className={`${uploadPrefix}__status-icon ${uploadPrefix}__file-fail`} />
           )}
-          {!disabled && (
+          {Boolean(!disabled && file?.name) && (
             <CloseCircleFilledIcon
               className={`${uploadPrefix}__single-input-clear`}
               onClick={(e) => props.onRemove({ e, file, index: 0 })}
@@ -120,10 +120,15 @@ export default function NormalFile(props: NormalFileProps) {
     );
   };
 
-  const { displayFiles } = props;
-  const fileListDisplay = isFunction(props.fileListDisplay)
-    ? props.fileListDisplay({ files: displayFiles })
-    : props.fileListDisplay;
+  const { displayFiles, fileListDisplay } = props;
+
+  const fileListDisplayNode = parseTNode(fileListDisplay, {
+    onRemove: props.onRemove,
+    toUploadFiles: props.toUploadFiles,
+    sizeOverLimitMessage: props.sizeOverLimitMessage,
+    locale: props.locale,
+    files: displayFiles,
+  });
 
   const classes = [`${uploadPrefix}__single`, `${uploadPrefix}__single-${theme}`];
   return (
@@ -136,11 +141,7 @@ export default function NormalFile(props: NormalFileProps) {
         <small className={classNames([props.tipsClasses, props.placeholderClass])}>{props.placeholder}</small>
       )}
 
-      {fileListDisplay || renderFilePreviewAsText(displayFiles)}
-
-      {props.sizeOverLimitMessage && (
-        <small className={classNames(props.errorClasses)}>{props.sizeOverLimitMessage}</small>
-      )}
+      {fileListDisplayNode === null ? null : fileListDisplayNode || renderFilePreviewAsText(displayFiles)}
 
       {/* 单文件上传失败要显示失败的原因 */}
       {!props.multiple && displayFiles[0]?.status === 'fail' && theme === 'file' ? (

@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect } from 'react';
+import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect, ClipboardEventHandler } from 'react';
 import merge from 'lodash/merge';
 import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
@@ -49,12 +49,12 @@ export default function useUpload(props: TdUploadProps) {
   const [uploading, setUploading] = useState(false);
 
   // 文件列表显示的内容（自动上传和非自动上传有所不同）
-  const [displayFiles, setDisplayFiles] = useState(uploadValue);
+  const [displayFiles, setDisplayFiles] = useState(uploadValue || []);
   useEffect(() => {
     const files = getDisplayFiles({
       multiple: props.multiple,
       toUploadFiles,
-      uploadValue: [...uploadValue],
+      uploadValue: uploadValue ? [...uploadValue] : [],
       autoUpload,
       isBatchUpload,
     });
@@ -63,10 +63,15 @@ export default function useUpload(props: TdUploadProps) {
 
   const uploadFilePercent = (params: { file: UploadFile; percent: number }) => {
     const { file, percent } = params;
-    const index = toUploadFiles.findIndex((item) => file.raw === item.raw);
-    const newFiles = [...toUploadFiles];
-    newFiles[index] = { ...newFiles[index], percent };
-    setToUploadFiles(newFiles);
+    if (autoUpload) {
+      const index = toUploadFiles.findIndex((item) => file.raw === item.raw);
+      const newFiles = [...toUploadFiles];
+      newFiles[index] = { ...newFiles[index], percent };
+      setToUploadFiles(newFiles);
+    } else {
+      const index = uploadValue.findIndex((item) => file.raw === item.raw);
+      uploadValue[index] = { ...uploadValue[index], percent };
+    }
   };
 
   const updateProgress = (
@@ -153,7 +158,7 @@ export default function useUpload(props: TdUploadProps) {
       // @ts-ignore
       files: [...files],
       allowUploadDuplicateFile: props.allowUploadDuplicateFile,
-      max: props.max,
+      max: props.multiple ? props.max : 0,
       sizeLimit: props.sizeLimit,
       isBatchUpload,
       autoUpload,
@@ -216,6 +221,11 @@ export default function useUpload(props: TdUploadProps) {
   function onDragFileChange(files: File[]) {
     onFileChange?.(files);
   }
+
+  const onPasteFileChange: ClipboardEventHandler<HTMLDivElement> = (e) => {
+    // @ts-ignore
+    onFileChange?.([...e.clipboardData.files]);
+  };
 
   /**
    * 上传文件。对外暴露方法，修改时需谨慎
@@ -334,9 +344,9 @@ export default function useUpload(props: TdUploadProps) {
     });
     setUploading(false);
 
+    // autoUpload do not need to reset to waiting state
     if (autoUpload) {
-      // toUploadFiles.current = toUploadFiles.current.map((item) => ({ ...item, status: 'waiting' }));
-      setToUploadFiles(toUploadFiles.map((item) => ({ ...item, status: 'waiting' })));
+      setToUploadFiles([]);
     } else {
       setUploadValue(
         uploadValue.map((item) => {
@@ -355,6 +365,14 @@ export default function useUpload(props: TdUploadProps) {
 
     props.onCancelUpload?.();
   };
+
+  // 矫正数据格式为数组
+  useEffect(() => {
+    if (!Array.isArray(uploadValue)) {
+      setUploadValue([], { trigger: 'default' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadValue]);
 
   return {
     t,
@@ -377,6 +395,7 @@ export default function useUpload(props: TdUploadProps) {
     onFileChange,
     onNormalFileChange,
     onDragFileChange,
+    onPasteFileChange,
     onRemove,
     triggerUpload,
     cancelUpload,

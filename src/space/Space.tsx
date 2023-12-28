@@ -1,4 +1,4 @@
-import React, { CSSProperties, forwardRef, useMemo } from 'react';
+import React, { CSSProperties, ReactNode, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { isFragment } from 'react-is';
 import useConfig from '../hooks/useConfig';
@@ -36,6 +36,8 @@ const toArray = (children: React.ReactNode): React.ReactElement[] => {
 
   return ret;
 };
+
+const EMPTY_NODE: ReactNode[] = ['', false, null, undefined];
 
 const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => {
   const { className, style, align, direction, size, breakLine, separator } = props;
@@ -78,7 +80,7 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
       const showSeparator = index + 1 !== childCount && separator;
       return (
         <>
-          <div className={`${classPrefix}-space-item`}>{child}</div>
+          {EMPTY_NODE.includes(child) ? null : <div className={`${classPrefix}-space-item`}>{child}</div>}
           {showSeparator && <div className={`${classPrefix}-space-item-separator`}>{separator}</div>}
         </>
       );

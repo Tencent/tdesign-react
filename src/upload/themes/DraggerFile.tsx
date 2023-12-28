@@ -57,6 +57,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
         <ImageViewer
           images={[url]}
           trigger={({ open }) => <Image src={url || file.raw} onClick={open} />}
+          {...props.imageViewerProps}
         ></ImageViewer>
       </div>
     );
