@@ -297,7 +297,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       presetValue = preset();
     }
     if (!Array.isArray(presetValue)) {
-      log.error('DateRangePicker', `preset: ${preset} 预设值必须是数组!`);
+      log.error('DateRangePicker', `preset: ${preset} must be Array!`);
     } else {
       onChange(formatDate(presetValue, { format, targetFormat: valueType, autoSwap: true }), {
         dayjsValue: presetValue.map((p) => parseToDayjs(p, format)),
@@ -354,6 +354,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     presetsPlacement,
     activeIndex,
     popupVisible,
+    cancelRangeSelectLimit: props.cancelRangeSelectLimit,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,

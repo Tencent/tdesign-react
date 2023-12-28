@@ -24,7 +24,7 @@ export default function useRange(props: TdDateRangePickerProps) {
 
   if (props.enableTimePicker) {
     if (!extractTimeFormat(format))
-      log.error('DatePicker', `format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
+      log.error('DatePicker', `format: ${format} is invalid，time selection must include time formatting HH:mm:ss`);
   }
 
   // warning invalid value
