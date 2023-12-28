@@ -10,6 +10,7 @@ export interface TableDataProps extends SinglePanelProps {
   hoverEnd?: Date | undefined;
   minDate: Date | null;
   maxDate: Date | null;
+  cancelRangeSelectLimit?: boolean;
 }
 
 export default function useTableData(props: TableDataProps) {
@@ -45,6 +46,7 @@ export default function useTableData(props: TableDataProps) {
     quarterLocal,
     showWeekOfYear: mode === 'week',
     dayjsLocale: local.dayjsLocale,
+    cancelRangeSelectLimit: props.cancelRangeSelectLimit,
   };
 
   if (mode === 'date') {
