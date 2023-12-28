@@ -2,7 +2,6 @@ import { render } from '@test/utils';
 import React from 'react';
 import Card from '../Card';
 import Avatar from '../../avatar';
-import Loading from '../../loading';
 
 const cover = 'https://tdesign.gtimg.com/site/source/card-demo.png';
 const avatar = 'https://tdesign.gtimg.com/site/avatar.jpg';
@@ -56,11 +55,23 @@ describe('Card', () => {
   });
 
   test('loading', () => {
+    const { container } = render(<Card loading></Card>);
+    expect(container.querySelector('.t-loading')).toBeInTheDocument();
+  });
+  test('custom loading props', () => {
+    const customProps = {
+      text: 'TDesign努力加载中...',
+    };
     const { container } = render(
-      <Loading>
-        <Card></Card>
-      </Loading>,
+      <Card
+        title="自定义loadingProps Card"
+        loading={true}
+        bordered
+        style={{ width: '400px' }}
+        loadingProps={customProps}
+      ></Card>,
     );
     expect(container.querySelector('.t-loading')).toBeInTheDocument();
+    expect(container.querySelector('.t-loading__text').textContent).toBe('TDesign努力加载中...');
   });
 });

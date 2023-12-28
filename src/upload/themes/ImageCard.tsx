@@ -25,6 +25,7 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
   onPreview?: TdUploadProps['onPreview'];
+  showImageFileName?: boolean;
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
@@ -59,6 +60,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
             )}
             images={displayFiles.map((t) => t.url || t.raw)}
             defaultIndex={index}
+            {...props.imageViewerProps}
           />
         </span>
         {!disabled && (
@@ -101,6 +103,14 @@ const ImageCard = (props: ImageCardUploadProps) => {
     return (
       <div>
         {parseTNode(fileListDisplay, {
+          triggerUpload: props.triggerUpload,
+          uploadFiles: props.uploadFiles,
+          cancelUpload: props.cancelUpload,
+          onPreview: props.onPreview,
+          onRemove: props.onRemove,
+          toUploadFiles: props.toUploadFiles,
+          sizeOverLimitMessage: props.sizeOverLimitMessage,
+          locale: props.locale,
           files: displayFiles,
         })}
       </div>
@@ -120,6 +130,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
               {file.status === 'fail' && renderFailFile(file, index, loadCard)}
               {!['progress', 'fail'].includes(file.status) && renderMainContent(file, index)}
               {fileName &&
+                props.showImageFileName &&
                 (file.url ? (
                   <Link href={file.url} className={fileNameClassName} target="_blank" hover="color" size="small">
                     {fileName}
@@ -133,10 +144,19 @@ const ImageCard = (props: ImageCardUploadProps) => {
         {showTrigger && (
           <li className={cardItemClasses} onClick={props.triggerUpload}>
             <div
-              className={`${classPrefix}-upload__image-add ${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}
+              className={classNames([
+                `${classPrefix}-upload__image-add`,
+                `${classPrefix}-upload__card-container`,
+                `${classPrefix}-upload__card-box`,
+                {
+                  [`${classPrefix}-is-disabled`]: props.disabled,
+                },
+              ])}
             >
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>{locale?.triggerUploadText?.image}</p>
+              <p className={classNames([`${classPrefix}-size-s`, `${classPrefix}-upload__add-text`])}>
+                {locale?.triggerUploadText?.image}
+              </p>
             </div>
           </li>
         )}

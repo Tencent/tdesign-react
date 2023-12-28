@@ -160,7 +160,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   const handleBlur = (value: string, ctx: { e: React.FocusEvent<HTMLDivElement, Element> }) => {
-    if (!props.allowInputOverLimit && value) {
+    if (!props.allowInputOverLimit && value !== undefined) {
       const r = getMaxOrMinValidateResult({
         value: tValue,
         largeNumber,

@@ -15,7 +15,7 @@ export default function parseTNode(
     node = renderNode(renderParams);
   } else if (renderNode === true) {
     node = defaultNode;
-  } else {
+  } else if (renderNode !== null) {
     node = renderNode ?? defaultNode;
   }
   return node as ReactNode;

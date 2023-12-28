@@ -9,7 +9,7 @@
 ### 1.初始化子仓库
 
 ```bash
-git submodule init && git submodule update
+npm run init
 ```
 
 ### 2.安装依赖
@@ -24,7 +24,7 @@ npm i
 npm run start
 ```
 
-完成以上 3 个步骤，浏览器访问 <http://127.0.0.1:15000> 即可调该框架的任何内容
+完成以上 3 个步骤，浏览器访问 <http://127.0.0.1:15000> 即可调试该框架的任何内容
 
 ## 目录结构
 

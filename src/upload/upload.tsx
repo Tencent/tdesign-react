@@ -35,6 +35,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     uploadFiles,
     onNormalFileChange,
     onDragFileChange,
+    onPasteFileChange,
     triggerUpload,
     cancelUpload,
     uploadFilePercent,
@@ -91,6 +92,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     autoUpload: props.autoUpload,
     showUploadProgress: props.showUploadProgress,
     fileListDisplay: props.fileListDisplay,
+    imageViewerProps: props.imageViewerProps,
     onRemove,
   };
 
@@ -130,6 +132,7 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
       uploadFiles={uploadFiles}
       cancelUpload={cancelUpload}
       onPreview={props.onPreview}
+      showImageFileName={props.showImageFileName}
     />
   );
 
@@ -143,6 +146,9 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
       cancelUpload={cancelUpload}
       onPreview={props.onPreview}
       showThumbnail={props.showThumbnail}
+      showImageFileName={props.showImageFileName}
+      uploadButton={props.uploadButton}
+      cancelUploadButton={props.cancelUploadButton}
     >
       <div className={`${classPrefix}-upload__trigger`} onClick={triggerUpload}>
         {triggerElement}
@@ -164,8 +170,20 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
     </CustomFile>
   );
 
+  const uploadClasses = [
+    props.className,
+    `${classPrefix}-upload`,
+    {
+      [`${classPrefix}-upload--theme-${props.theme}`]: props.theme === 'file-input',
+    },
+  ];
+
   return (
-    <div className={classNames([props.className, `${classPrefix}-upload`])} style={props.style}>
+    <div
+      className={classNames(uploadClasses)}
+      style={props.style}
+      onPaste={props.uploadPastedFiles ? onPasteFileChange : undefined}
+    >
       <input
         ref={inputRef}
         type="file"
@@ -185,6 +203,8 @@ function TdUpload<T extends UploadFile = UploadFile>(props: UploadProps<T>, ref:
           {props.tips}
         </small>
       )}
+
+      {sizeOverLimitMessage && <small className={classNames(errorClasses)}>{sizeOverLimitMessage}</small>}
     </div>
   );
 }

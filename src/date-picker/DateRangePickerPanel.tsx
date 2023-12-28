@@ -233,7 +233,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
 
     if (!Array.isArray(presetVal)) {
-      log.error('DateRangePickerPanel', `preset: ${presetValue} 预设值必须是数组!`);
+      log.error('DateRangePickerPanel', `preset: ${presetValue} must be Array!`);
     } else {
       onChange(formatDate(presetVal, { format, autoSwap: true }), {
         dayjsValue: presetVal.map((p) => parseToDayjs(p, format)),

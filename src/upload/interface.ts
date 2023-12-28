@@ -2,6 +2,7 @@ import { MouseEvent, ReactNode } from 'react';
 import { StyledProps } from '../common';
 import { TdUploadProps, UploadFile, UploadRemoveContext } from './type';
 import { GlobalConfigProvider } from '../config-provider/type';
+import { ImageViewerProps } from '../image-viewer';
 
 export interface CommonDisplayFileProps {
   accept: string;
@@ -24,6 +25,7 @@ export interface CommonDisplayFileProps {
   showUploadProgress?: boolean;
   children?: ReactNode;
   fileListDisplay?: TdUploadProps['fileListDisplay'];
+  imageViewerProps?: ImageViewerProps;
   onRemove?: (p: UploadRemoveContext) => void;
 }
 

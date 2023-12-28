@@ -1,5 +1,7 @@
 import React, { MouseEvent, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
+import isObject from 'lodash/isObject';
 import {
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,
@@ -16,7 +18,7 @@ import {
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
-import TButton from '../../button';
+import TButton, { ButtonProps } from '../../button';
 import { UploadFile, TdUploadProps } from '../type';
 import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import {
@@ -43,10 +45,13 @@ export interface ImageFlowListProps extends CommonDisplayFileProps {
   draggable?: boolean;
   showThumbnail?: boolean;
   onPreview?: TdUploadProps['onPreview'];
+  uploadButton?: TdUploadProps['uploadButton'];
+  cancelUploadButton?: TdUploadProps['cancelUploadButton'];
+  showImageFileName?: boolean;
 }
 
 const ImageFlowList = (props: ImageFlowListProps) => {
-  const { draggable = true, accept, showThumbnail, onPreview } = props;
+  const { draggable = true, accept, showThumbnail, cancelUploadButton, uploadButton, onPreview } = props;
   // locale 已经在 useUpload 中统一处理优先级
   const { locale, uploading, disabled, displayFiles, classPrefix } = props;
   const uploadPrefix = `${classPrefix}-upload`;
@@ -171,7 +176,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             <Image className={`${uploadPrefix}__card-image`} src={file.url || file.raw} error="" loading="" />
           )}
           <div className={`${uploadPrefix}__card-mask`}>
-            {(file.url || file.raw) && (
+            {(file.url || file.raw) && !['progress', 'fail'].includes(file.status) && (
               <span className={`${uploadPrefix}__card-mask-item`}>
                 <BrowseIcon
                   onClick={(event) => {
@@ -197,9 +202,12 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             )}
           </div>
         </div>
-        <p className={`${uploadPrefix}__card-name`}>
-          {file.status === 'waiting' ? locale.progress.waitingText : fileName}
-        </p>
+        {props.showImageFileName && (
+          <p className={classNames([`${uploadPrefix}__card-name`, `${uploadPrefix}__flow-status`])}>
+            {['success', 'waiting'].includes(file.status) && iconMap[file.status]}
+            {fileName}
+          </p>
+        )}
       </li>
     );
   };
@@ -210,7 +218,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       <div className={`${uploadPrefix}__flow-status`}>
         {iconMap[file.status]}
         <span className={`${uploadPrefix}__${props.theme}-${file.status}`}>
-          {textMap[file.status]}
+          {file.response?.error ? file.response.error || textMap[file.status] : textMap[file.status]}
           {props.showUploadProgress && file.status === 'progress' ? ` ${file.percent || 0}%` : ''}
         </span>
       </div>
@@ -293,8 +301,16 @@ const ImageFlowList = (props: ImageFlowListProps) => {
     ) : null;
 
   const renderFileList = () => {
+    if (props.fileListDisplay === null) return null;
     if (props.fileListDisplay) {
       return parseTNode(props.fileListDisplay, {
+        cancelUpload: props.cancelUpload,
+        uploadFiles: props.uploadFiles,
+        onPreview: props.onPreview,
+        onRemove: props.onRemove,
+        toUploadFiles: props.toUploadFiles,
+        sizeOverLimitMessage: props.sizeOverLimitMessage,
+        locale: props.locale,
         files: displayFiles,
         dragEvents: innerDragEvents,
       });
@@ -355,6 +371,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
   const renderImageList = () => {
     if (props.fileListDisplay) {
       return parseTNode(props.fileListDisplay, {
+        ...props,
         files: displayFiles,
         dragEvents: innerDragEvents,
       });
@@ -363,6 +380,41 @@ const ImageFlowList = (props: ImageFlowListProps) => {
       <ul className={`${uploadPrefix}__card clearfix`}>
         {displayFiles.map((file, index) => renderImgItem(file, index))}
       </ul>
+    );
+  };
+
+  const renderCancelUploadButton = () => {
+    if (cancelUploadButton === null) return null;
+    if (isFunction(cancelUploadButton)) return parseTNode(cancelUploadButton);
+    const cancelButtonProps = (isObject(cancelUploadButton) ? cancelUploadButton : undefined) as ButtonProps;
+    return (
+      <TButton
+        theme="default"
+        disabled={disabled || !uploading}
+        className={`${uploadPrefix}__cancel`}
+        onClick={(e) => props.cancelUpload?.({ e })}
+        {...cancelButtonProps}
+      >
+        {locale?.cancelUploadText}
+      </TButton>
+    );
+  };
+
+  const renderUploadButton = () => {
+    if (uploadButton === null) return null;
+    if (isFunction(uploadButton)) return parseTNode(uploadButton);
+    const uploadButtonProps = (isObject(uploadButton) ? uploadButton : undefined) as ButtonProps;
+    return (
+      <TButton
+        disabled={disabled || uploading || !displayFiles.length}
+        theme="primary"
+        loading={uploading}
+        className={`${uploadPrefix}__continue`}
+        onClick={() => props.uploadFiles?.()}
+        {...uploadButtonProps}
+      >
+        {uploadText}
+      </TButton>
     );
   };
 
@@ -395,24 +447,9 @@ const ImageFlowList = (props: ImageFlowListProps) => {
 
       {!props.autoUpload && (
         <div className={`${uploadPrefix}__flow-bottom`}>
-          <TButton
-            theme="default"
-            disabled={disabled || !uploading}
-            className={`${uploadPrefix}__cancel`}
-            onClick={(e) => props.cancelUpload?.({ e })}
-          >
-            {locale?.cancelUploadText}
-          </TButton>
+          {renderCancelUploadButton()}
 
-          <TButton
-            disabled={disabled || uploading || !displayFiles.length}
-            theme="primary"
-            loading={uploading}
-            className={`${uploadPrefix}__continue`}
-            onClick={() => props.uploadFiles?.()}
-          >
-            {uploadText}
-          </TButton>
+          {renderUploadButton()}
         </div>
       )}
 
@@ -422,6 +459,7 @@ const ImageFlowList = (props: ImageFlowListProps) => {
         onClose={closePreview}
         index={previewIndex}
         onIndexChange={previewIndexChange}
+        {...props.imageViewerProps}
       ></ImageViewer>
     </div>
   );

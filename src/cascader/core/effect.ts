@@ -110,7 +110,13 @@ export function valueChangeEffect(node: TreeNode, cascaderContext: CascaderConte
  * @param cascaderContext
  */
 export function closeIconClickEffect(cascaderContext: CascaderContextType) {
-  const { setVisible, multiple, setExpend, setValue } = cascaderContext;
+  const { setVisible, multiple, setExpend, setValue, treeStore } = cascaderContext;
+
+  const expanded = treeStore.getExpanded();
+  setTimeout(() => {
+    treeStore.replaceExpanded(expanded);
+    treeStore.refreshNodes();
+  }, 0);
 
   setVisible(false, {});
 
