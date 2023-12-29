@@ -27,7 +27,7 @@ export interface OptionsListRef {
 }
 
 const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: OptionsListProps, ref) => {
-  const { value, onSelect, popupVisible } = props;
+  const { value, popupVisible, onSelect } = props;
   const { classPrefix } = useConfig();
   const [active, setActive] = useState('');
   const activeIndexRef = useRef(-1);
@@ -87,6 +87,17 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
   // 键盘事件，上下选择
   const onKeyInnerPress = (e: KeyboardEvent) => {
     if (e.code === 'Enter' || e.key === 'Enter') {
+      // 当没有匹配项的时候， 默认回车选中第一个
+      const currentIndex = activeIndexRef.current;
+
+      if (currentIndex === -1) {
+        // currentIndex = 0
+
+        return onSelect?.('', { e });
+      }
+
+      // 如果需要选中第一项，放开这个注释
+      // onSelect?.(tOptions[currentIndex]?.text, { e });
       onSelect?.(tOptions[activeIndexRef.current].text, { e });
     } else {
       const index = activeIndexRef.current;
