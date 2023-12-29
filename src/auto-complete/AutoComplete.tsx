@@ -63,6 +63,9 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   })();
 
   const onInputChange: TdInputProps['onChange'] = (value, context) => {
+    if (!popupVisible) {
+      setPopupVisible(true);
+    }
     setTValue(value, context);
   };
 
