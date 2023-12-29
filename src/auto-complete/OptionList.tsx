@@ -90,7 +90,7 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
       const currentIndex = activeIndexRef.current;
 
       if (currentIndex === -1) {
-        return onSelect?.('', { e });
+        return
       }
 
       onSelect?.(tOptions[activeIndexRef.current].text, { e });
