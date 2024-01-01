@@ -134,7 +134,7 @@
     "@vitest/ui": "^0.24.1",
     "autoprefixer": "^10.4.0",
     "babel-polyfill": "^6.26.0",
-    "camelcase": "^6.2.1",
+    "camelcase": "^8.0.0",
     "chalk": "^4.1.0",
     "cross-env": "^5.2.1",
     "cssnano": "^4.0.1",
