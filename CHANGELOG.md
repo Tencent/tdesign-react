@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.4.3 `2024-01-02` 
+### 🐞 Bug Fixes
+- `AutoComplete`: 修复`ActiveIndex=-1`没匹配时，回车会报错的问题 @Ali-ovo ([#2300](https://github.com/Tencent/tdesign-react/pull/2300))
+- `Cascader`: 修复`1.4.2` Cascader单选过滤下不触发选中的缺陷 @HaixingOoO ([#2700](https://github.com/Tencent/tdesign-react/pull/2700))
+
+
 ## 🌈 1.4.2 `2023-12-28` 
 ### 🚀 Features
 - `Card`: Card组件添加`LoadingProps`属性 @HaixingOoO ([#2677](https://github.com/Tencent/tdesign-react/pull/2677))
