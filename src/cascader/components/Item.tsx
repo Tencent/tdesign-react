@@ -132,6 +132,7 @@ const Item = forwardRef(
         }}
         onMouseEnter={(e: React.MouseEvent) => {
           e.stopPropagation();
+          if (cascaderContext.inputVal && isFiltering) return;
           onMouseEnter(node);
         }}
       >
