@@ -136,6 +136,14 @@ export const docs = [
         component: () => import('tdesign-react/space/space.md'),
         componentEn: () => import('tdesign-react/space/space.en-US.md'),
       },
+      {
+        title: 'Descriptions 描述',
+        titleEn: 'Descriptions',
+        name: 'descriptions',
+        path: '/react/components/descriptions',
+        component: () => import('tdesign-react/descriptions/descriptions.md'),
+        componentEn: () => import('tdesign-react/descriptions/descriptions.en-US.md'),
+      },
     ],
   },
   {
