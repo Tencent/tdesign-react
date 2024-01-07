@@ -409,7 +409,7 @@ module.exports = {
   },
   "treeSelect": {
     "statements": "95.45%",
-    "branches": "85.95%",
+    "branches": "86.17%",
     "functions": "97.61%",
     "lines": "97.2%"
   },
