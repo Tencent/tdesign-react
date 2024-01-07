@@ -22,9 +22,9 @@ export default function BasicDescriptions() {
   ];
   return (
     <Space direction="vertical">
-      {/* 推荐：数据写法 */}
+      <h3>推荐：数据写法</h3>
       <Descriptions items={items} title="Shipping address" />
-      {/* JSX写法 */}
+      <h3>JSX写法</h3>
       <Descriptions title="Shipping address">
         <Descriptions.Item label="Name">TDesign</Descriptions.Item>
         <Descriptions.Item label="Telephone Number">139****0609</Descriptions.Item>
