@@ -9,7 +9,7 @@ import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../hooks/useCommonClassName';
 import { LayoutEnum } from '../common';
 import { DescriptionsContext } from './DescriptionsContext';
-import Item from './Item';
+import DescriptionsItem from './DescriptionsItem';
 import Row from './Row';
 
 /**
@@ -64,7 +64,7 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
     } else {
       // 2.2 b 方式 获取 TDescriptionsItem
       const childrenList = React.Children.toArray(children).filter(
-        (child: JSX.Element) => child.type.displayName === Item.displayName,
+        (child: JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
       );
 
       if (childrenList.length !== 0) {
@@ -141,6 +141,6 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
 
 Descriptions.displayName = 'Descriptions';
 
-Descriptions.Item = Item;
+Descriptions.Item = DescriptionsItem;
 
 export default Descriptions;

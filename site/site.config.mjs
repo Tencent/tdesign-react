@@ -136,14 +136,6 @@ export const docs = [
         component: () => import('tdesign-react/space/space.md'),
         componentEn: () => import('tdesign-react/space/space.en-US.md'),
       },
-      {
-        title: 'Descriptions 描述',
-        titleEn: 'Descriptions',
-        name: 'descriptions',
-        path: '/react/components/descriptions',
-        component: () => import('tdesign-react/descriptions/descriptions.md'),
-        componentEn: () => import('tdesign-react/descriptions/descriptions.en-US.md'),
-      },
     ],
   },
   {
@@ -464,6 +456,14 @@ export const docs = [
         path: '/react/components/comment',
         component: () => import('tdesign-react/comment/comment.md'),
         componentEn: () => import('tdesign-react/comment/comment.en-US.md'),
+      },
+      {
+        title: 'Descriptions 描述',
+        titleEn: 'Descriptions',
+        name: 'descriptions',
+        path: '/react/components/descriptions',
+        component: () => import('tdesign-react/descriptions/descriptions.md'),
+        componentEn: () => import('tdesign-react/descriptions/descriptions.en-US.md'),
       },
       {
         title: 'Image 图片',
