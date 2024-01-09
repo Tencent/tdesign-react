@@ -1,7 +1,7 @@
 import React from 'react';
 import { Descriptions, Space } from 'tdesign-react';
 
-export default function Direction() {
+export default function Layout() {
   const items = [
     {
       label: 'Name',
