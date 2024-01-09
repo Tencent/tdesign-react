@@ -1,6 +1,6 @@
 import { useRef, DragEvent } from 'react';
-import TreeStore from '../../_common/js/tree/tree-store';
-import TreeNode from '../../_common/js/tree/tree-node';
+import TreeStore from '../../_common/js/tree-v1/tree-store';
+import TreeNode from '../../_common/js/tree-v1/tree-node';
 import { TreeProps } from '../Tree';
 import { createHookContext } from '../../_util/createHookContext';
 

@@ -16,7 +16,7 @@ import Loading from '../loading';
 import useRipple from '../_util/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TreeNode from '../_common/js/tree/tree-node';
+import TreeNode from '../_common/js/tree-v1/tree-node';
 import Checkbox from '../checkbox';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import useDraggable from './hooks/useDraggable';

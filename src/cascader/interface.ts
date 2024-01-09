@@ -1,8 +1,8 @@
 import { TdCascaderProps, CascaderValue, CascaderChangeSource } from './type';
 import { TdSelectInputProps } from '../select-input/type';
-import TreeStore from '../_common/js/tree/tree-store';
-import TreeNode from '../_common/js/tree/tree-node';
-import { TreeNodeModel, TreeNodeValue } from '../_common/js/tree/types';
+import TreeStore from '../_common/js/tree-v1/tree-store';
+import TreeNode from '../_common/js/tree-v1/tree-node';
+import { TreeNodeModel, TreeNodeValue } from '../_common/js/tree-v1/types';
 
 export * from './type';
 export interface CascaderContextType
@@ -34,8 +34,8 @@ export interface CascaderContextType
   setExpend: (val: TreeNodeValue[]) => void;
 }
 
-export { TreeNode } from '../_common/js/tree/tree-node';
-export type { TreeNodeValue } from '../_common/js/tree/types';
+export { TreeNode } from '../_common/js/tree-v1/tree-node';
+export type { TreeNodeValue } from '../_common/js/tree-v1/types';
 export type { TreeOptionData } from '../_common/js/common';
 export type { TreeNodeModel } from '../tree';
 export type { TdSelectInputProps } from '../select-input/type';
