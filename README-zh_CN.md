@@ -19,7 +19,7 @@
   </a>
 </p>
 
-简体中文 | [English](./README.md) 
+简体中文 | [English](./README.md)
 
 TDesign 适配桌面端的组件库，适合在 React 16.x 及以上技术栈的项目中使用。
 
@@ -37,23 +37,28 @@ TDesign 适配桌面端的组件库，适合在 React 16.x 及以上技术栈的
 npm i tdesign-react
 ```
 
+```shell
+yarn add tdesign-react
+```
+
+```shell
+pnpm add tdesign-react
+```
+
 # 🔨 基础使用
 
 推荐使用 Webpack 或 Rollup 等支持 tree-shaking 特性的构建工具，无需额外配置即可实现组件按需引入：
 
-```js
+```tsx
+import React from 'react';
 import { Button } from 'tdesign-react';
-import 'tdesign-react/es/style/index.css'; // 少量公共样式
+import 'tdesign-react/es/style/index.css';
 
 function App() {
-  return (
-    <Button>
-      Hello TDesign
-    </Button>
-  );
+  return <Button>Hello TDesign</Button>;
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
 ```
 
 npm package 中提供了多种构建产物，可以阅读 [这里](https://github.com/Tencent/tdesign/blob/main/docs/develop-install.md) 了解不同目录下产物的差别。
@@ -66,7 +71,7 @@ npm package 中提供了多种构建产物，可以阅读 [这里](https://githu
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/> IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge >=84                                                                                                                                                                                                        | Firefox >=83                                                                                                                                                                                                      | Chrome >=84                                                                                                                                                                                                   | Safari >=14.1                                                                                                                                                                                                   |
+| Edge >=84                                                                                                                                                                                                        | Firefox >=83                                                                                                                                                                                                      | Chrome >=84                                                                                                                                                                                                   | Safari >=14.1                                                                                                                                                                                                 |
 
 详情参见[桌面端组件库浏览器兼容性说明](https://github.com/Tencent/tdesign/wiki/Browser-Compatibility)
 
