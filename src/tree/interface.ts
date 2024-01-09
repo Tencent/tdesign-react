@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { TreeProps } from './Tree';
-import TreeNode from '../_common/js/tree/tree-node';
-import { TypeTreeEventState } from '../_common/js/tree/types';
+import TreeNode from '../_common/js/tree-v1/tree-node';
+import { TypeTreeEventState } from '../_common/js/tree-v1/types';
 
 export interface TypeEventState extends TypeTreeEventState {
   mouseEvent?: MouseEvent;

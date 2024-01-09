@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import isEqual from 'lodash/isEqual';
 import isFunction from 'lodash/isFunction';
 
-import TreeStore from '../_common/js/tree/tree-store';
+import TreeStore from '../_common/js/tree-v1/tree-store';
 import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from './core/helper';
 import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 
@@ -17,7 +17,7 @@ import type {
   CascaderValue,
 } from './interface';
 
-import type { TypeTreeNodeData } from '../_common/js/tree/types';
+import type { TypeTreeNodeData } from '../_common/js/tree-v1/types';
 
 export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
