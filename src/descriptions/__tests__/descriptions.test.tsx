@@ -3,6 +3,8 @@ import { render } from '@test/utils';
 import Descriptions from '../index';
 import { SizeEnum } from '../../common';
 
+const { DescriptionsItem } = Descriptions;
+
 const items = [
   {
     label: 'Name',
@@ -216,12 +218,12 @@ describe('Descriptions 组件测试', () => {
   test('jsx and DescriptionsItem span', () => {
     const { container } = render(
       <Descriptions>
-        <Descriptions.Item label="Name">TDesign</Descriptions.Item>
-        <Descriptions.Item label="Telephone Number">139****0609</Descriptions.Item>
-        <Descriptions.Item label="Area">China Tencent Headquarters</Descriptions.Item>
-        <Descriptions.Item label="Address" content="test" span={2}>
+        <DescriptionsItem label="Name">TDesign</DescriptionsItem>
+        <DescriptionsItem label="Telephone Number">139****0609</DescriptionsItem>
+        <DescriptionsItem label="Area">China Tencent Headquarters</DescriptionsItem>
+        <DescriptionsItem label="Address" content="test" span={2}>
           Shenzhen Penguin Island D1 4A Mail Center
-        </Descriptions.Item>
+        </DescriptionsItem>
       </Descriptions>,
     );
 

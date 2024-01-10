@@ -1,6 +1,8 @@
 import React from 'react';
 import { Descriptions, Space } from 'tdesign-react';
 
+const { DescriptionsItem } = Descriptions;
+
 export default function BasicDescriptions() {
   const items = [
     {
@@ -26,12 +28,12 @@ export default function BasicDescriptions() {
       <Descriptions items={items} title="Shipping address" />
       <h3>JSX写法</h3>
       <Descriptions title="Shipping address">
-        <Descriptions.Item label="Name">TDesign</Descriptions.Item>
-        <Descriptions.Item label="Telephone Number">139****0609</Descriptions.Item>
-        <Descriptions.Item label="Area">China Tencent Headquarters</Descriptions.Item>
-        <Descriptions.Item label="Address" content="test">
+        <DescriptionsItem label="Name">TDesign</DescriptionsItem>
+        <DescriptionsItem label="Telephone Number">139****0609</DescriptionsItem>
+        <DescriptionsItem label="Area">China Tencent Headquarters</DescriptionsItem>
+        <DescriptionsItem label="Address" content="test">
           Shenzhen Penguin Island D1 4A Mail Center
-        </Descriptions.Item>
+        </DescriptionsItem>
       </Descriptions>
     </Space>
   );

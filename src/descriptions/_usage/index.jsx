@@ -10,51 +10,38 @@ import BaseUsage, {
 } from "@site/src/components/BaseUsage";
 import jsxToString from "react-element-to-jsx-string";
 
-import baseTableConfigProps from "./base-table-props.json";
+import configProps from "./props.json";
 
-import { Table } from "tdesign-react";
+import { Descriptions } from "tdesign-react";
 
 export default function Usage() {
-  const [configList, setConfigList] = useState(baseTableConfigProps);
+  const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [
-    { label: "Table", value: "baseTable", config: baseTableConfigProps },
-  ];
-
-  const data = Array(30)
-    .fill(0)
-    .map((_, i) => ({
-      index: i,
-      platform: "公有",
-      description: "数据源",
-    }));
-
-  const columns = [
-    { colKey: "index", title: "index" },
-    { colKey: "platform", title: "平台" },
-    { colKey: "description", title: "说明" },
-  ];
-
-  const defaultProps = {
-    data,
-    columns,
-    maxHeight: 140,
-    pagination: { total: 30, defaultPageSize: 10 },
-  };
-
-  const panelMap = {
-    baseTable: <Table {...defaultProps} {...changedProps} />,
-  };
+  const panelList = [{ label: "descriptions", value: "descriptions" }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
+  const { DescriptionsItem } = Descriptions;
   useEffect(() => {
-    setRenderComp(panelMap[panel]);
-  }, [changedProps, panel]);
+    setRenderComp(
+      <Descriptions title="Shipping address" {...changedProps}>
+        <DescriptionsItem label="Name">TDesign</DescriptionsItem>
+        <DescriptionsItem label="Telephone Number">
+          139****0609
+        </DescriptionsItem>
+        <DescriptionsItem label="Area">
+          China Tencent Headquarters
+        </DescriptionsItem>
+        <DescriptionsItem label="Address" content="test">
+          Shenzhen Penguin Island D1 4A Mail Center
+        </DescriptionsItem>
+      </Descriptions>
+    );
+  }, [changedProps]);
 
   const jsxStr = useMemo(() => {
     if (!renderComp) return "";

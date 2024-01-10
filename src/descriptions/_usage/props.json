@@ -1,0 +1,44 @@
+[
+    {
+      "name": "bordered",
+      "type": "Boolean",
+      "defaultValue": true,
+      "options": []
+    },
+    {
+      "name": "colon",
+      "type": "Boolean",
+      "defaultValue": false,
+      "options": []
+    },
+    {
+      "name": "layout",
+      "type": "enum",
+      "defaultValue": "horizontal",
+      "options": [
+        {
+          "label": "horizontal",
+          "value": "horizontal"
+        },
+        {
+          "label": "vertical",
+          "value": "vertical"
+        }
+      ]
+    },
+    {
+      "name": "itemLayout",
+      "type": "enum",
+      "defaultValue": "horizontal",
+      "options": [
+        {
+          "label": "horizontal",
+          "value": "horizontal"
+        },
+        {
+          "label": "vertical",
+          "value": "vertical"
+        }
+      ]
+    }
+  ]

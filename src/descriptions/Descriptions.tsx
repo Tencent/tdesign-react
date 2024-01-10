@@ -141,6 +141,6 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
 
 Descriptions.displayName = 'Descriptions';
 
-Descriptions.Item = DescriptionsItem;
+Descriptions.DescriptionsItem = DescriptionsItem;
 
 export default Descriptions;
