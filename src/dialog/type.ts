@@ -10,6 +10,11 @@ import { MouseEvent, KeyboardEvent } from 'react';
 
 export interface TdDialogProps extends TdDialogCardProps {
   /**
+   * 弹框元素类名，示例：'t-class-dialog-first t-class-dialog-second'
+   * @default ''
+   */
+  dialogClassName?: string;
+  /**
    * 对话框挂载的节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
    */
   attach?: AttachNode;
@@ -156,12 +161,12 @@ export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
    */
   attach?: AttachNode;
   /**
-   * 弹框类名，示例：'t-class-dialog-first t-class-dialog-second'
+   * ctx 弹框顶层元素类名，示例：'t-class-dialog-ctx-first t-class-dialog-ctx-second'
    * @default ''
    */
   className?: string;
   /**
-   * 弹框 style 属性，输入 [CSSStyleDeclaration.cssText](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/cssText)
+   * 弹框顶层元素 style 属性，输入 [CSSStyleDeclaration.cssText](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/cssText)
    */
   style?: Styles;
 }
