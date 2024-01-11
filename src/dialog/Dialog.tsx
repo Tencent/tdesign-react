@@ -37,6 +37,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const [local] = useLocaleReceiver('dialog');
 
   const {
+    className,
+    dialogClassName,
     style,
     width,
     mode,
@@ -192,7 +194,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       <Portal attach={attach} ref={portalRef}>
         <div
           ref={wrapRef}
-          className={classNames(props.className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
+          className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
           })}
@@ -224,6 +226,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                 <DialogCard
                   ref={dialogCardRef}
                   {...restState}
+                  className={dialogClassName}
                   style={{ ...style, width: parseValueToPx(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
