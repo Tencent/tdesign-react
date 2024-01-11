@@ -1062,24 +1062,6 @@ module.exports = {
       }, [changedProps]);
     `,
   },
-  Jumper: {
-    importStr: `
-      import configProps from './props.json';\n
-      import { Jumper } from 'tdesign-react';\n`,
-    configStr: `
-      const [configList, setConfigList] = useState(configProps);
-    `,
-    panelStr: `
-      const panelList = [{ label: 'jumper', value: 'jumper' }];
-    `,
-    usageStr: `
-      useEffect(() => {
-        setRenderComp((
-          <Jumper {...changedProps}></Jumper>
-        ));
-      }, [changedProps]);
-    `,
-  },
   Collapse: {
     importStr: `
     import configProps from './props.json';\n
@@ -1109,6 +1091,32 @@ module.exports = {
             </Collapse>
           </Panel>
         </Collapse>
+      ));
+    }, [changedProps]);
+  `,
+  },
+  Descriptions: {
+    importStr: `
+    import configProps from './props.json';\n
+    import { Descriptions } from 'tdesign-react';\n`,
+    configStr: `
+    const [configList, setConfigList] = useState(configProps);
+  `,
+    panelStr: `
+    const panelList = [{ label: 'descriptions', value: 'descriptions' }];
+  `,
+    usageStr: `
+    const { DescriptionsItem } = Descriptions;
+    useEffect(() => {
+      setRenderComp((
+        <Descriptions title="Shipping address" {...changedProps}>
+        <DescriptionsItem label="Name">TDesign</DescriptionsItem>
+        <DescriptionsItem label="Telephone Number">139****0609</DescriptionsItem>
+        <DescriptionsItem label="Area">China Tencent Headquarters</DescriptionsItem>
+        <DescriptionsItem label="Address" content="test">
+          Shenzhen Penguin Island D1 4A Mail Center
+        </DescriptionsItem>
+      </Descriptions>
       ));
     }, [changedProps]);
   `,

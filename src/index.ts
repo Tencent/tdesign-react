@@ -65,3 +65,4 @@ export * from './link';
 export * from './guide';
 export * from './back-top';
 export * from './statistic';
+export * from './descriptions';

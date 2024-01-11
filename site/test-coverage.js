@@ -119,6 +119,12 @@ module.exports = {
     "functions": "60%",
     "lines": "66.07%"
   },
+  "descriptions": {
+    "statements": "98.82%",
+    "branches": "100%",
+    "functions": "95.45%",
+    "lines": "100%"
+  },
   "dialog": {
     "statements": "85%",
     "branches": "71.42%",
@@ -403,7 +409,7 @@ module.exports = {
   },
   "treeSelect": {
     "statements": "95.45%",
-    "branches": "85.95%",
+    "branches": "86.17%",
     "functions": "97.61%",
     "lines": "97.2%"
   },
