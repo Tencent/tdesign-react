@@ -30,13 +30,13 @@ let triggerEl: HTMLElement;
 
 const componentName = 't-popup';
 
-const triggerType = (triggerProps: string): Record<(typeof triggers)[number], boolean> =>
+const triggerType = (triggerProps: string) =>
   triggers.reduce(
     (map, trigger) => ({
       ...map,
       [trigger]: triggerProps.includes(trigger),
     }),
-    {} as any,
+    {} as Record<(typeof triggers)[number], boolean>,
   );
 
 function getPopperPlacement(placement: TdPopupProps['placement']) {
@@ -105,6 +105,16 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     }
   };
 
+  const overlayInnerStyleMerge = () => {
+    if (!overlayInnerStyle || !triggerEl || !popperRef.current) {
+      return {};
+    }
+    if (typeof overlayInnerStyle === 'object') {
+      return overlayInnerStyle;
+    }
+    return overlayInnerStyle(triggerEl, popperRef.current);
+  };
+
   // mounted
   useLayoutEffect(() => {
     setVisibleState(true);
@@ -129,7 +139,7 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
       style={stylePoper()}
       {...eventProps}
     >
-      <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyle as React.CSSProperties}>
+      <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyleMerge()}>
         {content}
         {showArrow && <div className={`${componentName}__arrow`}></div>}
       </div>
