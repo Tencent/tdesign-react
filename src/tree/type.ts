@@ -230,6 +230,14 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 滚动事件
    */
   onScroll?: (params: { e: WheelEvent<HTMLDivElement> }) => void;
+  /**
+   * 鼠标移入节点时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onMouseEnter?: (context: { node: TreeNodeModel<T>; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 鼠标移出节点时触发，泛型 `T` 表示树节点 TS 类型
+   */
+  onMouseLeave?: (context: { node: TreeNodeModel<T>; e: MouseEvent<HTMLDivElement> }) => void;
 }
 
 /** 组件实例方法 */

@@ -11,6 +11,7 @@ import React, {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import get from 'lodash/get';
+import debounce from 'lodash/debounce';
 
 import TreeNode from '../_common/js/tree-v1/tree-node';
 import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
@@ -55,6 +56,8 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     scroll,
     className,
     style,
+    onMouseEnter,
+    onMouseLeave,
   } = props;
 
   const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
@@ -175,6 +178,32 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     },
     [scrollToElement, isVirtual, visibleData, visibleNodes],
   );
+
+  const mouseEvtRef = useRef<ReturnType<typeof debounce>>();
+  const [isMouseEnter, setIsMouseEnter] = useState<boolean>(false);
+  const handleMouseEnter: TreeItemProps['onMouseEnter'] = useCallback(
+    (node, ctx) => {
+      if (!mouseEvtRef.current) {
+        mouseEvtRef.current = debounce<TreeItemProps['onMouseEnter']>((node, ctx) => {
+          setIsMouseEnter(true);
+          const treeNodeModel = node?.getModel();
+          onMouseEnter?.({ node: treeNodeModel, e: ctx.e });
+        }, 500);
+      }
+      mouseEvtRef.current(node, ctx);
+    },
+    [onMouseEnter],
+  );
+  const handleMouseLeave: TreeItemProps['onMouseLeave'] = useCallback(
+    (node, ctx) => {
+      if (!isMouseEnter) return;
+      const treeNodeModel = node?.getModel();
+      onMouseLeave?.({ node: treeNodeModel, e: ctx.e });
+      setIsMouseEnter(false);
+    },
+    [onMouseLeave, isMouseEnter],
+  );
+
   /** 对外暴露的公共方法 * */
   useImperativeHandle<unknown, TreeInstanceFunctions>(
     ref,
@@ -287,6 +316,8 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               disableCheck={disableCheck}
               onClick={handleItemClick}
               onChange={handleChange}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               onTreeItemMounted={handleRowMounted}
               isVirtual={isVirtual}
             />
@@ -319,6 +350,8 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               disableCheck={disableCheck}
               onClick={handleItemClick}
               onChange={handleChange}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             />
           </CSSTransition>
         ))}

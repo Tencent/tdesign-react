@@ -50,6 +50,9 @@ onDrop | Function |  | TS 类型：`(context: {     e: DragEvent;     dragNode: 
 onExpand | Function |  | TS 类型：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'icon-click' \| 'setItem' }) => void`<br/>节点展开或收起时触发，泛型 `T` 表示树节点 TS 类型 | N
 onLoad | Function |  | TS 类型：`(context: { node: TreeNodeModel<T> }) => void`<br/>异步加载后触发，泛型 `T` 表示树节点 TS 类型 | N
 onScroll | Function |  | TS 类型：`(params: { e: WheelEvent }) => void`<br/>滚动事件 | N
+onMouseEnter | Function |  | TS 类型：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/>鼠标移入节点时触发，泛型 `T` 表示树节点 TS 类型 | N
+onMouseLeave | Function |  | TS 类型：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/>鼠标移出节点时触发，泛型 `T` 表示树节点 TS 类型 | N
+
 
 ### TreeInstanceFunctions 组件实例方法
 

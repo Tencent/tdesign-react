@@ -8,6 +8,8 @@ import React, {
   DragEvent,
   isValidElement,
   useEffect,
+  MouseEventHandler,
+  useCallback,
 } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
@@ -50,6 +52,8 @@ const TreeItem = forwardRef(
       onChange,
       isVirtual,
       onTreeItemMounted,
+      onMouseEnter,
+      onMouseLeave,
     } = props;
 
     const { CaretRightSmallIcon } = useGlobalIcon({
@@ -102,6 +106,20 @@ const TreeItem = forwardRef(
       evt.stopPropagation();
       handleItemClick(evt);
     };
+
+    const mouseEnterLeaveWrap = useCallback(
+      (node: TreeNode, cb: typeof onMouseEnter | typeof onMouseLeave, evt: MouseEvent<HTMLDivElement>) => {
+        if (node.loading) {
+          return;
+        }
+        evt.stopPropagation();
+        evt.preventDefault();
+        cb?.(node, { e: evt });
+      },
+      [onMouseEnter, onMouseLeave],
+    );
+    const handleMouseEnter: MouseEventHandler<HTMLDivElement> = (evt) => mouseEnterLeaveWrap(node, onMouseEnter, evt);
+    const handleMouseLeave: MouseEventHandler<HTMLDivElement> = (evt) => mouseEnterLeaveWrap(node, onMouseLeave, evt);
 
     const stopPropagation = (e: MouseEvent) => {
       e.stopPropagation();
@@ -333,7 +351,6 @@ const TreeItem = forwardRef(
       evt.preventDefault();
       setDragStatus('drop', evt);
     };
-
     return (
       <div
         ref={composeRefs(ref, nodeRef)}
@@ -364,6 +381,8 @@ const TreeItem = forwardRef(
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {renderLine()}
         {renderIcon()}

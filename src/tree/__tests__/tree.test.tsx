@@ -48,7 +48,6 @@ describe('Tree test', () => {
   test('customize empty prop', async () => {
     const { container } = render(<Tree data={[]} empty="空数据（string）" />);
     await mockTimeout(() => {
-      console.log('customize empty prop', container.querySelector('.t-tree'));
       expect(container.querySelector('.t-tree')).toHaveTextContent('空数据（string）');
     });
   });
@@ -319,5 +318,75 @@ describe('Tree test', () => {
     const { container } = await renderTreeWithProps({ data });
     await mockDelay(300);
     expect(container.querySelectorAll('.t-loading').length).toBe(1);
+  });
+
+  test('when props.onMouseEnter is provided, it should works fine', async () => {
+    const onMouseEnterFnTree = vi.fn();
+    const data = [
+      {
+        label: '第一段',
+        value: 1,
+      },
+      {
+        label: '第二段',
+        value: 2,
+      },
+    ];
+    const { container } = render(<Tree data={data} hover onMouseEnter={onMouseEnterFnTree} />);
+    await mockDelay(300);
+    fireEvent.mouseEnter(container.querySelector('.t-tree__item'));
+    /**
+     *  The reason for waiting 1000ms is that the mouseenter event has a
+     *  600ms debounce for performance
+     */
+    await mockTimeout(() => {
+      expect(onMouseEnterFnTree).toHaveBeenCalled();
+    }, 1000);
+  });
+  test('when props.onMouseLeave is provided, it should works fine', async () => {
+    const onMouseLeaveFnTree = vi.fn();
+    const data = [
+      {
+        label: '第一段',
+        value: 1,
+      },
+      {
+        label: '第二段',
+        value: 2,
+      },
+    ];
+    const { container } = render(<Tree data={data} hover onMouseLeave={onMouseLeaveFnTree} />);
+    await mockDelay(300);
+    fireEvent.mouseEnter(container.querySelector('.t-tree__item'));
+    fireEvent.mouseLeave(container.querySelector('.t-tree__item'));
+    await mockTimeout(() => {
+      expect(onMouseLeaveFnTree).toHaveBeenCalled();
+    }, 1000);
+  });
+  test('executes only once on onMouseEnter and onMouseleave high-frequency trigger.', async () => {
+    const onMouseLeaveFnTree = vi.fn();
+    const onMouseEnterFnTree = vi.fn();
+    const data = [
+      {
+        label: '第一段',
+        value: 1,
+      },
+      {
+        label: '第二段',
+        value: 2,
+      },
+    ];
+    const { container } = render(
+      <Tree data={data} hover onMouseEnter={onMouseEnterFnTree} onMouseLeave={onMouseLeaveFnTree} />,
+    );
+    await mockDelay(300);
+    fireEvent.mouseEnter(container.getElementByClassName('t-tree__item')[0]);
+    fireEvent.mouseLeave(container.getElementByClassName('t-tree__item')[0]);
+    fireEvent.mouseEnter(container.getElementByClassName('t-tree__item')[1]);
+    fireEvent.mouseLeave(container.getElementByClassName('t-tree__item')[1]);
+    await mockTimeout(() => {
+      expect(onMouseEnterFnTree).toHaveBeenCalledTimes(1);
+      expect(onMouseLeaveFnTree).toHaveBeenCalledTimes(1);
+    }, 1000);
   });
 });

@@ -41,6 +41,14 @@ export interface TreeItemProps
    * 树节点状态变更事件
    */
   onChange?: (node: TreeNode, ctx: { e: any }) => void;
+  /**
+   * 树节点鼠标移入回调事件
+   */
+  onMouseEnter?: (node: TreeNode, ctx: { e: any }) => void;
+  /**
+   * 树节点鼠标移出回调事件
+   */
+  onMouseLeave?: (node: TreeNode, ctx: { e: any }) => void;
 }
 
 export type DropPosition = -1 | 0 | 1;

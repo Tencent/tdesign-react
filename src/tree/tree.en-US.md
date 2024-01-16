@@ -50,6 +50,8 @@ onDrop | Function |  | Typescript：`(context: {     e: DragEvent;     dragNode:
 onExpand | Function |  | Typescript：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'icon-click' \| 'setItem' }) => void`<br/> | N
 onLoad | Function |  | Typescript：`(context: { node: TreeNodeModel<T> }) => void`<br/> | N
 onScroll | Function |  | Typescript：`(params: { e: WheelEvent }) => void`<br/>trigger on content scroll | N
+onMouseEnter | Function |  | Typescript：：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/>trigger on mouse enter | N
+onMouseLeave | Function |  | Typescript：：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/>trigger on mouse leave  | N
 
 ### TreeInstanceFunctions 组件实例方法
 
