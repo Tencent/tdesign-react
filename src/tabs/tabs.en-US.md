@@ -21,6 +21,8 @@ defaultValue | String / Number | - | uncontrolled property。Typescript：`TabVa
 onAdd | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onChange | Function |  | Typescript：`(value: TabValue) => void`<br/> | N
 onDragSort | Function |  | Typescript：`(context: TabsDragSortContext) => void`<br/>trigger on drag sort。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tabs/type.ts)。<br/>`interface TabsDragSortContext { currentIndex: number; current: TabValue; targetIndex: number; target: TabValue }`<br/> | N
+onDragStart | Function |  | Typescript：`(context: TabsDragSortContext) => void`<br/>trigger when drag sort starts。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tabs/type.ts)。<br/>`interface TabsDragSortContext { currentIndex: number; current: TabValue; targetIndex: number; target: TabValue }`<br/> | N
+onDragEnd | Function |  | Typescript：`(context: TabsDragSortContext) => void`<br/>trigger when drag sort ends。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tabs/type.ts)。<br/>`interface TabsDragSortContext { currentIndex: number; current: TabValue; targetIndex: number; target: TabValue }`<br/> | N
 onRemove | Function |  | Typescript：`(options: { value: TabValue; index: number; e: MouseEvent }) => void`<br/> | N
 
 ### TabPanel Props

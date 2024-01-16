@@ -63,6 +63,14 @@ export interface TdTabsProps {
    */
   onDragSort?: (context: TabsDragSortContext) => void;
   /**
+   * 拖拽排序开始时出发
+   */
+  onDragStart?: (context: TabsDragSortContext) => void;
+  /**
+   * 拖拽排序结束时出发
+   */
+  onDragEnd?: (context: TabsDragSortContext) => void;
+  /**
    * 删除选项卡时触发
    */
   onRemove?: (options: { value: TabValue; index: number; e: MouseEvent<SVGSVGElement> }) => void;

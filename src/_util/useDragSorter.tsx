@@ -3,6 +3,8 @@ import { useCallback, useRef, useState } from 'react';
 interface DragSortProps<T> {
   sortOnDraggable: boolean;
   onDragSort?: (context: DragSortContext<T>) => void;
+  onCustomDragEnd?: (context: DragSortContext<T>) => void;
+  onCustomDragStart?: (context: DragSortContext<T>) => void;
   onDragOverCheck?: {
     x?: boolean;
     targetClassNameRegExp?: RegExp;
@@ -31,7 +33,7 @@ export interface DragSortContext<T> {
 }
 
 function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
-  const { sortOnDraggable, onDragSort, onDragOverCheck } = props;
+  const { sortOnDraggable, onDragSort, onCustomDragEnd, onCustomDragStart, onDragOverCheck } = props;
   const [draggingIndex, setDraggingIndex] = useState(-1);
   const [dragStartData, setDragStartData] = useState(null);
   const [isDropped, setIsDropped] = useState(null);
@@ -70,6 +72,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
         target: record,
         targetIndex: index,
       });
+
       setDraggingIndex(index);
     },
     [
@@ -97,6 +100,13 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
         nodeWidth: width,
         mouseX: e.clientX || 0,
       });
+
+      onCustomDragStart?.({
+        currentIndex: index,
+        current: record,
+        target: dragStartData,
+        targetIndex: draggingIndex,
+      });
     }
   }
 
@@ -110,6 +120,13 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
     setIsDropped(false);
     setDraggingIndex(-1);
     setDragStartData(null);
+
+    onCustomDragEnd?.({
+      currentIndex: -1,
+      current: null,
+      target: dragStartData,
+      targetIndex: draggingIndex,
+    });
   }
   function getDragProps(index, record: T) {
     if (sortOnDraggable) {
