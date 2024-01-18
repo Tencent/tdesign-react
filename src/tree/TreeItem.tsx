@@ -9,6 +9,7 @@ import React, {
   isValidElement,
   useEffect,
   MouseEventHandler,
+  useCallback,
 } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
@@ -106,18 +107,17 @@ const TreeItem = forwardRef(
       handleItemClick(evt);
     };
 
-    const mouseEnterLeaveWrap = (
-      node: TreeNode,
-      cb: typeof onMouseEnter | typeof onMouseLeave,
-      evt: MouseEvent<HTMLDivElement>,
-    ) => {
-      if (node.loading) {
-        return;
-      }
-      evt.stopPropagation();
-      evt.preventDefault();
-      cb?.(node, { e: evt });
-    };
+    const mouseEnterLeaveWrap = useCallback(
+      (node: TreeNode, cb: typeof onMouseEnter | typeof onMouseLeave, evt: MouseEvent<HTMLDivElement>) => {
+        if (node.loading) {
+          return;
+        }
+        evt.stopPropagation();
+        evt.preventDefault();
+        cb?.(node, { e: evt });
+      },
+      [onMouseEnter, onMouseLeave],
+    );
     const handleMouseEnter: MouseEventHandler<HTMLDivElement> = (evt) => mouseEnterLeaveWrap(node, onMouseEnter, evt);
     const handleMouseLeave: MouseEventHandler<HTMLDivElement> = (evt) => mouseEnterLeaveWrap(node, onMouseLeave, evt);
 
