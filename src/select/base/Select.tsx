@@ -379,7 +379,7 @@ const Select = forwardRefWithStatics(
         return;
       }
       const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
-      if (firstSelectedNode) {
+      if (!multiple && firstSelectedNode) {
         const { paddingBottom } = getComputedStyle(firstSelectedNode);
         const { marginBottom } = getComputedStyle(content);
         const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
