@@ -458,6 +458,14 @@ export const docs = [
         componentEn: () => import('tdesign-react/comment/comment.en-US.md'),
       },
       {
+        title: 'Descriptions 描述',
+        titleEn: 'Descriptions',
+        name: 'descriptions',
+        path: '/react/components/descriptions',
+        component: () => import('tdesign-react/descriptions/descriptions.md'),
+        componentEn: () => import('tdesign-react/descriptions/descriptions.en-US.md'),
+      },
+      {
         title: 'Image 图片',
         titleEn: 'Image',
         name: 'image',

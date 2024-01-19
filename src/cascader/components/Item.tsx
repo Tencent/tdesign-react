@@ -127,11 +127,12 @@ const Item = forwardRef(
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           e?.nativeEvent?.stopImmediatePropagation?.();
-          if (cascaderContext.inputVal && isFiltering) return;
+          if (multiple && cascaderContext.inputVal && isFiltering) return;
           onClick(node);
         }}
         onMouseEnter={(e: React.MouseEvent) => {
           e.stopPropagation();
+          if (cascaderContext.inputVal && isFiltering) return;
           onMouseEnter(node);
         }}
       >

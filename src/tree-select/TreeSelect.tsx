@@ -336,9 +336,10 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
       onMouseenter={hoverAction.on}
       onMouseleave={hoverAction.off}
       suffixIcon={
-        readonly ? null : (
+        props.suffixIcon ||
+        (readonly ? null : (
           <SelectArrow isActive={popupVisible} isHighlight={hover || popupVisible} disabled={disabled} />
-        )
+        ))
       }
       collapsedItems={renderCollapsedItems}
       label={parseTNode(prefixIcon)}
