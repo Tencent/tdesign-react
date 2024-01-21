@@ -180,8 +180,8 @@ const Swiper = (swiperProps: SwiperProps) => {
 
     // 计算swiper animation duration
     let swiperAnimationDuration = 0;
-    if (currentIndex === -1) {
-      swiperAnimationDuration = type === 'card' ? 50 : 250;
+    if (currentIndex === -1 && type === 'card') {
+      swiperAnimationDuration = 50;
     } else {
       swiperAnimationDuration = duration + 50;
     }
@@ -307,7 +307,8 @@ const Swiper = (swiperProps: SwiperProps) => {
           <li
             key={i}
             className={classnames(`${classPrefix}-swiper__navigation-item`, {
-              [`${classPrefix}-is-active`]: i === currentIndex % childrenLength,
+              [`${classPrefix}-is-active`]:
+                i === (currentIndex === -1 ? childrenLength - 1 : currentIndex) % childrenLength,
             })}
             onClick={() => navMouseAction(MouseAction.Click, i)}
             onMouseEnter={() => navMouseAction(MouseAction.Enter, i)}
