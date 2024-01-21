@@ -116,10 +116,7 @@ const Swiper = (swiperProps: SwiperProps) => {
     );
   }
   const swiperItemLength = swiperItemList.length;
-
-  //
   const startIndex = loop ? -1 : 0;
-
   const endIndex = loop ? React.Children.count(children) : React.Children.count(children) - 1;
 
   // 统一跳转处理函数
@@ -242,12 +239,18 @@ const Swiper = (swiperProps: SwiperProps) => {
       return false;
     }
     if (direction === ArrowClickDirection.Right) {
+      if (!loop && currentIndex === endIndex) {
+        return;
+      }
       if (type === 'card') {
         return swiperTo(currentIndex + 1 >= swiperItemLength ? 0 : currentIndex + 1, { source: 'click' });
       }
       return swiperTo(currentIndex + 1, { source: 'click' });
     }
     if (direction === ArrowClickDirection.Left) {
+      if (!loop && currentIndex === startIndex) {
+        return;
+      }
       return swiperTo(currentIndex - 1, { source: 'click' });
     }
   };
