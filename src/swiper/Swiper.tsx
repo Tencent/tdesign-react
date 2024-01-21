@@ -9,6 +9,7 @@ import { StyledProps } from '../common';
 import { swiperDefaultProps } from './defaultProps';
 
 import SwiperItem from './SwiperItem';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface SwiperProps extends TdSwiperProps, StyledProps {
   children?: React.ReactNode;
@@ -37,7 +38,9 @@ const defaultNavigation: SwiperNavigation = {
   type: 'bars',
 };
 
-const Swiper = (props: SwiperProps) => {
+const Swiper = (swiperProps: SwiperProps) => {
+  const props = useDefaultProps<SwiperProps>(swiperProps, swiperDefaultProps);
+
   const {
     animation, // 轮播切换动画效果类型
     autoplay, // 是否自动播放
@@ -70,14 +73,13 @@ const Swiper = (props: SwiperProps) => {
     navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
   }
 
-  const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
+  const [currentIndex, setCurrentIndex] = useState(() => current ?? defaultCurrent);
   const [needAnimation, setNeedAnimation] = useState(false);
   const [arrowShow, setArrowShow] = useState(navigationConfig.showSlideBtn === 'always');
   const swiperTimer = useRef(null); // 计时器指针
   const swiperAnimationTimer = useRef(null); // 计时器指针
   const isHovering = useRef(false);
   const swiperWrap = useRef(null);
-  const preCurrent = useRef(defaultCurrent - 0);
 
   const getWrapAttribute = (attr) => swiperWrap.current?.parentNode?.[attr];
 
@@ -105,13 +107,20 @@ const Swiper = (props: SwiperProps) => {
     }),
   );
   // 子节点不为空时，复制第一个子节点到列表最后
-  if (childrenLength > 0 && type === 'default') {
+  if (loop && childrenLength > 0 && type === 'default') {
     const firstEle = swiperItemList[0];
+    const lastEle = swiperItemList[childrenLength - 1];
+    swiperItemList.unshift(React.cloneElement(lastEle, { ...lastEle, props, key: -1, index: -1, isCloneEle: true }));
     swiperItemList.push(
-      React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength }),
+      React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength, isCloneEle: true }),
     );
   }
   const swiperItemLength = swiperItemList.length;
+
+  //
+  const startIndex = loop ? -1 : 0;
+
+  const endIndex = loop ? React.Children.count(children) : React.Children.count(children) - 1;
 
   // 统一跳转处理函数
   const swiperTo = useCallback(
@@ -132,12 +141,15 @@ const Swiper = (props: SwiperProps) => {
     if (autoplay && interval > 0) {
       swiperTimer.current = setTimeout(
         () => {
+          if (!loop && currentIndex === endIndex) {
+            return;
+          }
           swiperTo(currentIndex + 1, { source: 'autoplay' });
         },
         currentIndex === 0 ? interval - (duration + 50) : interval, // 当 index 为 0 的时候，表明刚从克隆的最后一项跳转过来，已经经历了duration + 50 的间隔时间，减去即可
       );
     }
-  }, [autoplay, currentIndex, duration, interval, swiperTo]);
+  }, [autoplay, interval, currentIndex, loop, duration, endIndex, swiperTo]);
 
   const clearTimer = useCallback(() => {
     if (swiperTimer.current) {
@@ -146,23 +158,15 @@ const Swiper = (props: SwiperProps) => {
     }
   }, []);
 
-  const isEnd = useCallback(() => {
-    if (type === 'card') {
-      return !loop && currentIndex + 1 >= swiperItemLength;
-    }
-    return !loop && currentIndex + 2 >= swiperItemLength;
-  }, [loop, currentIndex, swiperItemLength, type]);
-
   // 监听 current 参数变化
   useEffect(() => {
     if (current !== undefined) {
       const nextCurrent = current % childrenLength;
-      if (nextCurrent === 0 && preCurrent.current === childrenLength - 1) {
+      if (nextCurrent === 0) {
         swiperTo(childrenLength, { source: 'autoplay' });
       } else {
         swiperTo(nextCurrent, { source: 'autoplay' });
       }
-      preCurrent.current = nextCurrent;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, childrenLength]);
@@ -176,23 +180,33 @@ const Swiper = (props: SwiperProps) => {
       clearTimeout(swiperAnimationTimer.current);
       swiperAnimationTimer.current = null;
     }
+
+    // 计算swiper animation duration
+    let swiperAnimationDuration = 0;
+    if (currentIndex === -1) {
+      swiperAnimationDuration = type === 'card' ? 50 : 250;
+    } else {
+      swiperAnimationDuration = duration + 50;
+    }
+
     swiperAnimationTimer.current = setTimeout(() => {
       setNeedAnimation(false);
-      if (isEnd()) {
+      if (loop && currentIndex === endIndex) {
         clearTimer();
-      }
-      if (currentIndex + 1 >= swiperItemLength && type !== 'card') {
         setCurrentIndex(0);
       }
-    }, duration + 50); // 多 50ms 的间隔时间参考了 react-slick 的动画间隔取值
-  }, [currentIndex, swiperItemLength, duration, type, clearTimer, isEnd]);
+      if (loop && currentIndex === startIndex) {
+        setCurrentIndex(endIndex - 1);
+      }
+    }, swiperAnimationDuration); // 多 50ms 的间隔时间参考了 react-slick 的动画间隔取值
+  }, [currentIndex, swiperItemLength, duration, type, clearTimer, endIndex, startIndex, loop]);
 
   useEffect(() => {
     if (!isHovering.current || !stopOnHover) {
       clearTimer();
       setTimer();
     }
-  }, [setTimer, clearTimer, stopOnHover]);
+  }, [setTimer, clearTimer, stopOnHover, loop, currentIndex, endIndex]);
 
   // 鼠标移入移出事件
   const onMouseEnter = () => {
@@ -206,7 +220,7 @@ const Swiper = (props: SwiperProps) => {
   };
   const onMouseLeave = () => {
     isHovering.current = false;
-    if (!isEnd()) {
+    if (!swiperTimer.current && autoplay) {
       setTimer();
     }
     if (navigationConfig.showSlideBtn === 'hover') {
@@ -234,9 +248,6 @@ const Swiper = (props: SwiperProps) => {
       return swiperTo(currentIndex + 1, { source: 'click' });
     }
     if (direction === ArrowClickDirection.Left) {
-      if (currentIndex - 1 < 0) {
-        return swiperTo(childrenLength - 1, { source: 'click' });
-      }
       return swiperTo(currentIndex - 1, { source: 'click' });
     }
   };
@@ -308,6 +319,7 @@ const Swiper = (props: SwiperProps) => {
 
   // 构造 css 对象
   const getWrapperStyle = () => {
+    const loopIndex = loop ? 1 : 0;
     const offsetHeight = height ? `${height}px` : `${getWrapAttribute('offsetHeight')}px`;
     if (type === 'card' || animation === 'fade') {
       return {
@@ -318,16 +330,16 @@ const Swiper = (props: SwiperProps) => {
       if (direction === 'vertical') {
         return {
           height: offsetHeight,
-          msTransform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
-          WebkitTransform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
-          transform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
+          msTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
+          WebkitTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
+          transform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
           transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
         };
       }
       return {
-        msTransform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
-        WebkitTransform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
-        transform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
+        msTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
+        WebkitTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
+        transform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
         transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
       };
     }
@@ -370,6 +382,5 @@ const Swiper = (props: SwiperProps) => {
 Swiper.SwiperItem = SwiperItem;
 
 Swiper.displayName = 'Swiper';
-Swiper.defaultProps = swiperDefaultProps;
 
 export default Swiper;

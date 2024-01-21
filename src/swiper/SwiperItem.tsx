@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import { SwiperProps } from './Swiper';
+import useIsFirstRender from '../hooks/useIsFirstRender';
 
 export interface SwiperItemProps extends SwiperProps {
   currentIndex?: number;
@@ -64,6 +65,8 @@ const SwiperItem = (props: SwiperItemProps) => {
     getWrapAttribute,
   } = props;
   const { classPrefix } = useConfig();
+  const [, setUpdate] = useState({});
+  const isFirstFirstRender = useIsFirstRender();
 
   const getSwiperItemStyle = () => {
     if (animation === 'fade') {
@@ -91,14 +94,22 @@ const SwiperItem = (props: SwiperItemProps) => {
     return {};
   };
 
+  useEffect(() => {
+    if (isFirstFirstRender) {
+      setUpdate({});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div
       className={classnames(`${classPrefix}-swiper__container__item`, {
         [`${classPrefix}-swiper__card`]: type === 'card',
-        [`${classPrefix}-is-active`]: type === 'card' && index === currentIndex,
+        [`${classPrefix}-is-active`]: index === currentIndex,
         [`${classPrefix}-swiper__fade`]: animation === 'fade',
       })}
       style={getSwiperItemStyle()}
+      data-index={index}
     >
       {children}
     </div>
