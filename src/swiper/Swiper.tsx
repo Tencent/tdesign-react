@@ -73,7 +73,7 @@ const Swiper = (swiperProps: SwiperProps) => {
     navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
   }
 
-  const [currentIndex, setCurrentIndex] = useState(() => current ?? defaultCurrent);
+  const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
   const [needAnimation, setNeedAnimation] = useState(false);
   const [arrowShow, setArrowShow] = useState(navigationConfig.showSlideBtn === 'always');
   const swiperTimer = useRef(null); // 计时器指针
