@@ -81,7 +81,7 @@ const Swiper = (swiperProps: SwiperProps) => {
   const isHovering = useRef(false);
   const swiperWrap = useRef(null);
 
-  const getWrapAttribute = (attr) => swiperWrap.current?.parentNode?.[attr];
+  const getWrapAttribute = (attr: string) => swiperWrap.current?.parentNode?.[attr];
 
   // 进行子组件筛选，创建子节点列表
   const childrenList = useMemo(
@@ -110,9 +110,9 @@ const Swiper = (swiperProps: SwiperProps) => {
   if (loop && childrenLength > 0 && type === 'default') {
     const firstEle = swiperItemList[0];
     const lastEle = swiperItemList[childrenLength - 1];
-    swiperItemList.unshift(React.cloneElement(lastEle, { ...lastEle, props, key: -1, index: -1, isCloneEle: true }));
+    swiperItemList.unshift(React.cloneElement(lastEle, { ...lastEle, props, key: -1, index: -1 }));
     swiperItemList.push(
-      React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength, isCloneEle: true }),
+      React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength }),
     );
   }
   const swiperItemLength = swiperItemList.length;
@@ -123,7 +123,7 @@ const Swiper = (swiperProps: SwiperProps) => {
   const swiperTo = useCallback(
     (index: number, context: { source: SwiperChangeSource }) => {
       // 事件通知
-      onChange(index % childrenLength, context);
+      onChange((index === -1 ? childrenLength - 1 : index) % childrenLength, context);
       if (index !== currentIndex) {
         // 设置内部 index
         setNeedAnimation(true);
