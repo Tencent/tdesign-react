@@ -30,6 +30,7 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLDivElement
     checkedProps,
     uncheckedProps,
     onChange,
+    className,
     ...tagOtherProps
   } = props;
   const [innerChecked, setInnerChecked] = useControlled(props, 'checked', onChange);
@@ -37,7 +38,8 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLDivElement
   const { classPrefix } = useConfig();
   const tagClassPrefix = `${classPrefix}-tag`;
 
-  const tagClass = useMemo(() => [
+  const tagClass = useMemo(
+    () => [
       `${tagClassPrefix}`,
       `${tagClassPrefix}--check`,
       {
@@ -46,7 +48,10 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLDivElement
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-size-l`]: size === 'large',
       },
-    ], [innerChecked, disabled, classPrefix, tagClassPrefix, size]);
+      className,
+    ],
+    [innerChecked, disabled, classPrefix, tagClassPrefix, size, className],
+  );
 
   const checkTagProps = useMemo(() => {
     const tmpCheckedProps: TdTagProps = { theme: 'primary', ...checkedProps };
