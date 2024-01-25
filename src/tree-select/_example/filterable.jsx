@@ -35,6 +35,10 @@ const options = [
 export default function Example() {
   const [type, setType] = useState('default');
 
+  function handleEnter(ctx) {
+    console.log('onEnter api:', ctx);
+  }
+
   function filterFunction(searchText, node) {
     return node.data.label.indexOf(searchText) >= 0;
   }
@@ -47,7 +51,7 @@ export default function Example() {
       </Radio.Group>
       {type === 'default' ? (
         <>
-          <TreeSelect data={options} clearable filterable placeholder="请选择" />
+          <TreeSelect data={options} clearable filterable placeholder="请选择" onEnter={handleEnter} />
           <TreeSelect data={options} multiple clearable filterable placeholder="请选择" />
         </>
       ) : (
