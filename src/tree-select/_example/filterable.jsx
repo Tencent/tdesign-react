@@ -36,7 +36,7 @@ export default function Example() {
   const [type, setType] = useState('default');
 
   function handleEnter(ctx) {
-    console.log(ctx, 'ctx');
+    console.log('onEnter api:', ctx);
   }
 
   function filterFunction(searchText, node) {
