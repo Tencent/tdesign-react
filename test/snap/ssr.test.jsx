@@ -16,9 +16,9 @@ function runTest() {
 
   vi.mock('react-dom', async () => ({
     ...(await vi.importActual('react-dom')),
-    createPortal: node => node
+    createPortal: (node) => node,
   }));
-  
+
   describe('ssr snapshot test', () => {
     HTMLCanvasElement.prototype.getContext = vi.fn();
 

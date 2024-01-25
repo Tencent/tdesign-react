@@ -59,13 +59,19 @@ export function getFakeFileList(type = 'file', count = 1) {
   if (type === 'image') {
     return new Array(count).fill(null).map((_, index) => {
       const letters = new Array(index).fill('A').join('');
-      return new File([`image bits${letters}`], `image-name${index || ''}.png`, { type: 'text/plain', lastModified: 1674355700444 })
+      return new File([`image bits${letters}`], `image-name${index || ''}.png`, {
+        type: 'text/plain',
+        lastModified: 1674355700444,
+      });
     });
   }
   if (type === 'file') {
     return new Array(count).fill(null).map((_, index) => {
       const letters = new Array(index).fill('B').join('');
-      return new File([`this is file text bits${letters}`], `file-name${index || ''}.txt`, { type: 'image/png', lastModified: 1674355700444 });
+      return new File([`this is file text bits${letters}`], `file-name${index || ''}.txt`, {
+        type: 'image/png',
+        lastModified: 1674355700444,
+      });
     });
   }
   return [];
@@ -137,7 +143,7 @@ export function simulateKeydownEvent(dom, type) {
  * @param mockFunc 可选，mock IntersectionObserver 中的一些方法，比如observe、unobserve等
  * @returns void
  */
-export function mockIntersectionObserver (mockData, mockFunc) {
+export function mockIntersectionObserver(mockData, mockFunc) {
   const { boundingClientRect = {}, intersectionRect = {}, rootBounds = {}, thresholds = 0.5 } = mockData;
   const { observe, unobserve, disconnect } = mockFunc;
 
@@ -177,4 +183,4 @@ export function mockIntersectionObserver (mockData, mockFunc) {
     disconnect: disconnect || vi.fn(),
     takeRecords: () => records,
   }));
-};
+}
