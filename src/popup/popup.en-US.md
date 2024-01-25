@@ -1,5 +1,14 @@
 :: BASE_DOC ::
 
+### Called Popup via plugin
+
+Calling Popup through the plug-in method is used to render Popup in a scene with existing nodes. At the same time, no matter how it is called, it will only be mounted on one node, which is used to reduce the number of Popup rendering nodes on the page.
+
+Support functional calls `PopupPlugin` 。
+- `PopupPlugin(triggerElement, content, popupProps)`
+
+{{ plugin }}
+
 ## API
 ### Popup Props
 

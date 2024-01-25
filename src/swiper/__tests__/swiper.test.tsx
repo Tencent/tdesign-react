@@ -73,7 +73,7 @@ describe('Swiper 组件测试', () => {
 
     fireEvent.click(document.querySelector('.t-swiper__arrow-right'));
     expect(document.querySelector('.t-swiper__container').getAttribute('style')).toBe(
-      'transform: translate3d(-100%, 0px, 0px); transition: transform 0.3s ease;',
+      'transform: translate3d(-200%, 0px, 0px); transition: transform 0.3s ease;',
     );
     fireEvent.click(document.querySelector('.t-swiper__arrow-left'));
   });

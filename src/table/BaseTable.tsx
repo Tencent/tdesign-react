@@ -61,6 +61,26 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     [spansAndLeafNodes?.leafColumns, columns],
   );
 
+  const { showElement } = useElementLazyRender(tableRef, lazyLoad);
+  const paginationAffixRef = useRef();
+  const horizontalScrollAffixRef = useRef();
+  const headerTopAffixRef = useRef();
+  const footerBottomAffixRef = useRef();
+
+  // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
+  const {
+    affixHeaderRef,
+    affixFooterRef,
+    horizontalScrollbarRef,
+    paginationRef,
+    showAffixHeader,
+    showAffixFooter,
+    showAffixPagination,
+    onHorizontalScroll,
+    setTableContentRef,
+    updateAffixHeaderOrFooter,
+  } = useAffix(props, { showElement });
+
   // 固定表头和固定列逻辑
   const {
     scrollbarWidth,
@@ -83,23 +103,16 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     updateThWidthList,
     addTableResizeObserver,
     updateTableAfterColumnResize,
-  } = useFixed(props, finalColumns);
-
-  const { showElement } = useElementLazyRender(tableRef, lazyLoad);
-
-  // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
-  const {
-    affixHeaderRef,
-    affixFooterRef,
-    horizontalScrollbarRef,
-    paginationRef,
-    showAffixHeader,
-    showAffixFooter,
-    showAffixPagination,
-    onHorizontalScroll,
-    setTableContentRef,
-    updateAffixHeaderOrFooter,
-  } = useAffix(props, { showElement });
+  } = useFixed(
+    props,
+    finalColumns,
+    // {
+    //   paginationAffixRef,
+    //   horizontalScrollAffixRef,
+    //   headerTopAffixRef,
+    //   footerBottomAffixRef,
+    // }
+  );
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
 
@@ -365,6 +378,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
         <Affix
           offsetTop={0}
           {...getAffixProps(props.headerAffixedTop, props.headerAffixProps)}
+          ref={headerTopAffixRef}
           onFixedChange={onFixedChange}
         >
           {renderFixedHeader()}
@@ -390,6 +404,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
         onFixedChange={onFixedChange}
         offsetBottom={marginScrollbarWidth || 0}
         {...getAffixProps(props.footerAffixedBottom)}
+        ref={footerBottomAffixRef}
         style={{ marginTop: `${-1 * (tableFootHeight + marginScrollbarWidth)}px` }}
       >
         <div
@@ -639,6 +654,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     <Affix
       offsetBottom={0}
       {...getAffixProps(props.horizontalScrollAffixedBottom)}
+      ref={horizontalScrollAffixRef}
       style={{ marginTop: `-${scrollbarWidth * 2}px` }}
     >
       <div
@@ -656,7 +672,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   );
 
   const affixedPaginationContent = props.paginationAffixedBottom ? (
-    <Affix offsetBottom={0} {...getAffixProps(props.paginationAffixedBottom)}>
+    <Affix offsetBottom={0} {...getAffixProps(props.paginationAffixedBottom)} ref={paginationAffixRef}>
       {paginationNode}
     </Affix>
   ) : (

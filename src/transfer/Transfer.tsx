@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import difference from 'lodash/difference';
 import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
+import isArray from 'lodash/isArray';
 import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
 import useConfig from '../hooks/useConfig';
@@ -47,6 +48,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     content,
     tree,
     showCheckAll,
+    direction = 'both',
   } = props;
   const [state, setState] = useState<StateInterface>(() => ({
     source: data.filter((item) => !defaultValue.includes(item.value)),
@@ -84,8 +86,10 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   }, [searchState, state]);
 
   const [SourceEmptyCmp, TargetEmptyCmp] = getDefaultValue(empty, t(local.empty)).map((item) => getJSX(item));
-  const [sourceDisable, targetDisable] = getDefaultValue(disabled, false);
-  const [sourcePagonation, targetPagonation] = getDefaultValue(pagination);
+  const sourceDisabled = isArray(disabled) ? disabled[0] : disabled;
+  const targetDisabled = isArray(disabled) ? disabled[1] : disabled;
+
+  const [sourcePagination, targetPagination] = getDefaultValue(pagination);
   const [sourceTitle, targetTitle] = getDefaultValue(title as any as any).map((item) => getJSX(item));
   const [leftOperation, rightOperation] = getDefaultValue(operation as any, [
     () => <ChevronRightIcon />,
@@ -151,29 +155,35 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   };
 
   const OperationsCmp = () => {
-    const isSourceDisabled = sourceDisable || !checkeds.source.length;
-    const isTargetDisabled = targetDisable || !checkeds.target.length;
+    const isSourceDisabled = sourceDisabled || !checkeds.source.length;
+    const isTargetDisabled = targetDisabled || !checkeds.target.length;
+    const isToRightShow = direction !== 'left';
+    const isToLeftShow = direction !== 'right';
 
     return (
       <div className={`${transferClassName}__operations`}>
-        <Button
-          size="small"
-          key={isSourceDisabled ? 'right-outline' : 'right-base'}
-          variant="outline"
-          disabled={isSourceDisabled}
-          onClick={transformSource}
-        >
-          {leftOperation}
-        </Button>
-        <Button
-          size="small"
-          key={isSourceDisabled ? 'left-outline' : 'left-base'}
-          variant="outline"
-          disabled={isTargetDisabled}
-          onClick={transformTarget}
-        >
-          {rightOperation}
-        </Button>
+        {isToRightShow && (
+          <Button
+            size="small"
+            key={isSourceDisabled ? 'right-outline' : 'right-base'}
+            variant="outline"
+            disabled={isSourceDisabled}
+            onClick={transformSource}
+          >
+            {leftOperation}
+          </Button>
+        )}
+        {isToLeftShow && (
+          <Button
+            size="small"
+            key={isSourceDisabled ? 'left-outline' : 'left-base'}
+            variant="outline"
+            disabled={isTargetDisabled}
+            onClick={transformTarget}
+          >
+            {rightOperation}
+          </Button>
+        )}
       </div>
     );
   };
@@ -235,8 +245,8 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         search={search}
         checked={checkeds.source}
         empty={SourceEmptyCmp}
-        disabled={sourceDisable}
-        pagination={sourcePagonation}
+        disabled={sourceDisabled}
+        pagination={sourcePagination}
         title={sourceTitle}
         footer={sourceFooter}
         transferItem={sourceTransferItem}
@@ -253,8 +263,8 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         search={search}
         checked={checkeds.target}
         empty={TargetEmptyCmp}
-        disabled={targetDisable}
-        pagination={targetPagonation}
+        disabled={targetDisabled}
+        pagination={targetPagination}
         title={targetTitle}
         footer={targetFooter}
         transferItem={targetTransferItem}

@@ -107,7 +107,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (!name) return null;
 
     const formItemRef = getMapValue(name, formMapRef);
-    return formItemRef?.current.getValue?.();
+    return formItemRef?.current?.getValue?.();
   }
 
   // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
