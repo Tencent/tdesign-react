@@ -9,6 +9,10 @@ import { MouseEvent } from 'react';
 
 export interface TdTabsProps {
   /**
+   * 选项卡右侧的操作区域
+   */
+  action?: TNode;
+  /**
    * 选项卡是否可增加
    * @default false
    */

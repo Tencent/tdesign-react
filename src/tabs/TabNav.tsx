@@ -272,6 +272,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             <AddIcon />
           </div>
         ) : null}
+        {props.action}
       </div>
       <div
         className={classNames(
