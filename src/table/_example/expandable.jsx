@@ -166,10 +166,10 @@ export default function TableExpandable() {
         expandedRow={expandedRow}
         expandOnRowClick={expandOnRowClick}
         expandIcon={expandIcon === 'custom' ? tmpExpandIcon : expandIcon}
-        tableLayout="auto"
         tableContentWidth="1200"
         onExpandChange={rehandleExpandChange}
         lazyLoad
+        resizable
       ></Table>
     </Space>
   );
