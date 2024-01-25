@@ -63,6 +63,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
     onFocus,
     onSearch,
     onRemove,
+    onEnter,
   } = props;
 
   const selectInputProps = useTreeSelectPassThroughProps(props);
@@ -249,6 +250,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 
   const handleEnter = usePersistFn<SelectInputProps['onEnter']>((_, ctx) => {
     onSearch?.(ctx.inputValue, { e: ctx.e });
+    onEnter?.({ inputValue: ctx.inputValue, e: ctx.e, value: getTreeSelectEventValue() });
   });
 
   const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, ctx) => {
