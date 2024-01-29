@@ -165,7 +165,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // 更新 form 表单字段
   const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
-    setPrevStore?.(form?.getFieldsValue?.(true));
+    setPrevStore?.(form?.getFieldsValue()?.(true));
 
     shouldEmitChangeRef.current = shouldEmitChange;
     isUpdatedRef.current = true;
@@ -399,7 +399,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
     const cancelRegister = registerWatch?.(() => {
-      const currStore = form?.getFieldsValue?.(true) || {};
+      const currStore = form?.getFieldsValue()?.(true) || {};
       let updateFlag = shouldUpdate as boolean;
       if (isFunction(shouldUpdate)) updateFlag = shouldUpdate(getPrevStore?.(), currStore);
 

@@ -108,7 +108,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取 form dom 元素
    */
-  currentElement: () => HTMLFormElement;
+  currentElement?: () => HTMLFormElement;
   /**
    * 获取 form dom 元素
    */

@@ -125,7 +125,7 @@ onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unkno
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | 必需。清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
-currentElement | \- | `HTMLFormElement` | 必需。获取 form dom 元素
+currentElement | \- | `HTMLFormElement` | 获取 form dom 元素
 getCurrentElement | \- | `HTMLFormElement` | 获取 form dom 元素
 getFieldValue | `(field: NamePath) ` | `unknown` | 必需。获取单个字段值
 getFieldsValue | \- | `getFieldsValue<FormData>` | 必需。获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>

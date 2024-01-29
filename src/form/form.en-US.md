@@ -35,7 +35,7 @@ name | params | return | description
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | required
-currentElement | \- | `HTMLFormElement` | required
+currentElement | \- | `HTMLFormElement` | \-
 getCurrentElement | \- | `HTMLFormElement` | \-
 getFieldValue | `(field: NamePath) ` | `unknown` | required
 getFieldsValue | \- | `getFieldsValue<FormData>` | required。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
