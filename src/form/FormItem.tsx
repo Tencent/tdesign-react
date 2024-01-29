@@ -399,7 +399,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
     const cancelRegister = registerWatch?.(() => {
-      const currStore = form?.getFieldsValue()?.(true) || {};
+      const currStore = form?.getFieldsValue() || {};
       let updateFlag = shouldUpdate as boolean;
       if (isFunction(shouldUpdate)) updateFlag = shouldUpdate(getPrevStore?.(), currStore);
 
