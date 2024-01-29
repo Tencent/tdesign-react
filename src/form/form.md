@@ -148,7 +148,7 @@ initialData | String / Number / Object / Array | - | 表单初始数据，重置
 label | TNode | '' | 字段标签名称。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。默认使用 Form 的对齐方式，优先级高于 Form.labelAlign。可选项：left/right/top | N
 labelWidth | String / Number | - | 可以整体设置标签宽度，优先级高于 Form.labelWidth | N
-name | String | - | 表单字段名称 | N
+name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` `type NamePath = string \| number \| Array<string \| number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 requiredMark | Boolean | undefined | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
 shouldUpdate | Boolean / Function | false | TS 类型：`boolean \| ((prevValue, curValue) => boolean)` | N

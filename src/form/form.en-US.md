@@ -58,7 +58,7 @@ initialData | String / Number / Object / Array | - | Typescript：`InitialData` 
 label | TNode | '' | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 labelAlign | String | - | options: left/right/top | N
 labelWidth | String / Number | - | \- | N
-name | String | - | \- | N
+name | String / Number / Array | - | Typescript：`NamePath` `type NamePath = string \| number \| Array<string \| number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
 requiredMark | Boolean | undefined | \- | N
 rules | Array | - | Typescript：`Array<FormRule>` | N
 shouldUpdate | Boolean / Function | false | Typescript：`boolean \| ((prevValue, curValue) => boolean)` | N

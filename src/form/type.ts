@@ -176,9 +176,8 @@ export interface TdFormItemProps {
   labelWidth?: string | number;
   /**
    * 表单字段名称
-   * @default ''
    */
-  name?: string;
+  name?: NamePath;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
@@ -445,6 +444,8 @@ export type ValidateTriggerType = 'blur' | 'change' | 'submit' | 'all';
 export type Data = { [key: string]: any };
 
 export type InitialData = any;
+
+export type NamePath = string | number | Array<string | number>;
 
 export type FormItemFormatType = (value: any) => any;
 
