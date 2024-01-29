@@ -165,7 +165,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // 更新 form 表单字段
   const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
-    setPrevStore?.(form?.getFieldsValue()?.(true));
+    setPrevStore?.(form?.getFieldsValue());
 
     shouldEmitChangeRef.current = shouldEmitChange;
     isUpdatedRef.current = true;

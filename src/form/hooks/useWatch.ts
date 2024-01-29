@@ -19,7 +19,7 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
     const { registerWatch = noop } = form.getInternalHooks?.(HOOK_MARK);
 
     const cancelRegister = registerWatch(() => {
-      const allFieldsValue = form.getFieldsValue()?.(true);
+      const allFieldsValue = form.getFieldsValue();
       const newValue = get(allFieldsValue, name);
       const nextValueStr = JSON.stringify(newValue);
 
@@ -30,7 +30,7 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
       }
     });
 
-    const allFieldsValue = form.getFieldsValue()?.(true);
+    const allFieldsValue = form.getFieldsValue();
     const initialValue = get(allFieldsValue, name);
     setValue(initialValue);
 
