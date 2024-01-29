@@ -110,6 +110,10 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   currentElement: () => HTMLFormElement;
   /**
+   * 获取 form dom 元素
+   */
+  getCurrentElement?: () => HTMLFormElement;
+  /**
    * 获取单个字段值
    */
   getFieldValue: (field: NamePath) => unknown;
