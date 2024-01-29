@@ -102,7 +102,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         props?.selectInputProps?.onInputChange?.(value, ctx);
       }}
       onTagChange={(val: TagInputValue, ctx) => {
-        if (ctx.trigger === 'enter') {
+        if (ctx.trigger === 'enter' || ctx.trigger === 'clear') {
           return;
         }
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
