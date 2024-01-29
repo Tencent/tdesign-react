@@ -4,7 +4,7 @@ import isObject from 'lodash/isObject';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';
-import { canUseDocument, getCssVarsValue } from '../_util/dom';
+import { canUseDocument, getCssVarsValueFormat } from '../_util/dom';
 import { rowDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
@@ -19,11 +19,21 @@ export interface RowProps extends TdRowProps, StyledProps {
 }
 
 const calcSize = (width: number) => {
-  const smWidth = getCssVarsValue('--td-screen-sm') || 768;
-  const mdWidth = getCssVarsValue('--td-screen-md') || 992;
-  const lgWidth = getCssVarsValue('--td-screen-lg') || 1200;
-  const xlWidth = getCssVarsValue('--td-screen-xl') || 1400;
-  const xxlWidth = getCssVarsValue('--td-screen-xxl') || 1880;
+  const smWidth = getCssVarsValueFormat<number>('--td-screen-sm', undefined, (val?: string) =>
+    val ? Number.parseFloat(val) : 768,
+  );
+  const mdWidth = getCssVarsValueFormat<number>('--td-screen-md', undefined, (val?: string) =>
+    val ? Number.parseFloat(val) : 992,
+  );
+  const lgWidth = getCssVarsValueFormat<number>('--td-screen-lg', undefined, (val?: string) =>
+    val ? Number.parseFloat(val) : 1200,
+  );
+  const xlWidth = getCssVarsValueFormat<number>('--td-screen-xl', undefined, (val?: string) =>
+    val ? Number.parseFloat(val) : 1400,
+  );
+  const xxlWidth = getCssVarsValueFormat<number>('--td-screen-xxl', undefined, (val?: string) =>
+    val ? Number.parseFloat(val) : 1880,
+  );
 
   let size = 'xs';
   if (width >= xxlWidth) {

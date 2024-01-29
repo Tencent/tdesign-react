@@ -202,19 +202,21 @@ export const getAttach = (node: any): HTMLElement => {
 };
 
 // 获取 css vars
-export function getCssVarsValue(name: string, withUnit?: false, element?: HTMLElement): number | undefined;
-export function getCssVarsValue(name: string, withUnit: true, element?: HTMLElement): string | undefined;
-export function getCssVarsValue(name: string, withUnit: any, element?: HTMLElement): any {
+export const getCssVarsValue = (name: string, element?: HTMLElement): string | undefined => {
   if (!canUseDocument) return undefined;
 
   const el = element || document.documentElement;
-  const value = getComputedStyle(el).getPropertyValue(name);
+  return getComputedStyle(el).getPropertyValue(name);
+};
 
-  if (!withUnit) {
-    return Number.parseInt(value, 10);
-  }
-  return value;
-}
+export const getCssVarsValueFormat = <T = any>(
+  name: string,
+  element?: HTMLElement,
+  format?: (value?: string) => T,
+): T | undefined => {
+  const value = getCssVarsValue(name, element);
+  return format ? format(value) : undefined;
+};
 
 /**
  * 检查元素是否在父元素视图
