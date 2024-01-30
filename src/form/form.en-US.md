@@ -38,7 +38,7 @@ clearValidate | `(fields?: Array<keyof FormData>)` | \- | required
 currentElement | \- | `HTMLFormElement` | \-
 getCurrentElement | \- | `HTMLFormElement` | \-
 getFieldValue | `(field: NamePath) ` | `unknown` | required
-getFieldsValue | \- | `getFieldsValue<FormData>` | required。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
+getFieldsValue | `(nameList: string[] \| boolean)` | `getFieldsValue<FormData>` | required。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | required。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' \| 'empty'; fields?: Array<keyof FormData> }`<br/>
 setFields | `(fields: FieldData[])` | \- | required。Typescript：`(fields: FieldData[]) => void` `interface FieldData { name: NamePath; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
 setFieldsValue | `(field: Data)` | \- | required
