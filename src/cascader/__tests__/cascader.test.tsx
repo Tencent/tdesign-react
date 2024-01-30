@@ -294,9 +294,10 @@ describe('Cascader 组件测试', () => {
     fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onRemove).toHaveBeenCalledTimes(0);
-    // 点击tag onRemove,触发一次onRemove
+    // 点击tag onRemove,触发一次onRemove,触发两次onChange
     fireEvent.click(container.querySelectorAll('.t-tag__icon-close')[0]);
     expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(2);
   });
 
   test('render label', async () => {
