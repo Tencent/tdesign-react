@@ -194,7 +194,7 @@
     "vite-plugin-pwa": "^0.12.8",
     "vite-plugin-tdoc": "^2.0.1",
     "vitest": "^0.24.1",
-    "workbox-precaching": "^6.3.0"
+    "workbox-precaching": "^7.0.0"
   },
   "dependencies": {
     "@babel/runtime": "~7.17.2",
