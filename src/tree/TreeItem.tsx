@@ -336,7 +336,7 @@ const TreeItem = forwardRef(
       setDragStatus('drop', evt);
     };
     const childrenKey = props.keys?.children || 'children';
-    console.log(childrenKey, 'childrenKey');
+
     return (
       <div
         ref={composeRefs(ref, nodeRef)}
