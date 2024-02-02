@@ -1,6 +1,7 @@
 import { render, fireEvent, mockTimeout, vi, userEvent, mockDelay } from '@test/utils';
 import React, { useState } from 'react';
 import Cascader, { CascaderPanel } from '../index';
+import Tag from '../../tag';
 
 const options = [
   {
@@ -306,7 +307,7 @@ describe('Cascader 组件测试', () => {
     expect(getByText(label)).toBeInTheDocument();
   });
 
-  test('render valueDisplay', async () => {
+  test('render single valueDisplay', async () => {
     const SingleValueDisplay = ({ value, selectedOptions }: any) =>
       value && (
         <div className="valueDisplay">
@@ -334,6 +335,46 @@ describe('Cascader 组件测试', () => {
       ></Cascader>,
     );
     expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
+  });
+
+  test('render multiple valueDisplay', async () => {
+    const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
+      value && value.length
+        ? selectedOptions.map((option, index) => (
+            <Tag key={option.value} closable onClose={() => onClose(index)}>
+              <img
+                src={option.avatar}
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  marginTop: '2px',
+                  verticalAlign: '-4px',
+                  marginRight: '4px',
+                }}
+              />
+              <span>{option.label}</span>
+              <span className="options-value">({option.value})</span>
+            </Tag>
+          ))
+        : null;
+    const { container } = render(
+      <Cascader
+        value={['1.3', '2.1', '2.2']}
+        label="多选："
+        options={optionsData}
+        valueDisplay={<MultipleValueDisplay />}
+        multiple
+        clearable
+      ></Cascader>,
+    );
+    const optionsValue = container.querySelectorAll('.options-value');
+    expect(optionsValue[0]).toHaveTextContent('(1.3)');
+    expect(optionsValue[1]).toHaveTextContent('(2.1)');
+    expect(optionsValue[2]).toHaveTextContent('(2.2)');
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
+    expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
   });
 });
 
