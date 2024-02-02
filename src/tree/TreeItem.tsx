@@ -23,6 +23,7 @@ import useDraggable from './hooks/useDraggable';
 import composeRefs from '../_util/composeRefs';
 import useConfig from '../hooks/useConfig';
 
+import type { TdTreeProps } from './type';
 import type { TreeItemProps } from './interface';
 
 /**
@@ -33,6 +34,7 @@ const TreeItem = forwardRef(
     props: TreeItemProps & {
       onTreeItemMounted?: (rowData: { ref: HTMLElement; data: TreeNode }) => void;
       isVirtual?: boolean;
+      keys: TdTreeProps['keys'];
     },
     ref: React.Ref<HTMLDivElement>,
   ) => {
@@ -333,7 +335,8 @@ const TreeItem = forwardRef(
       evt.preventDefault();
       setDragStatus('drop', evt);
     };
-
+    const childrenKey = props.keys?.children || 'children';
+    console.log(childrenKey, 'childrenKey');
     return (
       <div
         ref={composeRefs(ref, nodeRef)}
@@ -342,7 +345,9 @@ const TreeItem = forwardRef(
         className={classNames(treeClassNames.treeNode, {
           [treeClassNames.treeNodeOpen]:
             node.expanded &&
-            (typeof node.data.children === 'boolean' ? node.data.children : node.data.children !== undefined),
+            (typeof node.data[childrenKey] === 'boolean'
+              ? node.data[childrenKey]
+              : node.data[childrenKey] !== undefined),
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
           [treeClassNames.treeNodeDraggable]: node.isDraggable(),

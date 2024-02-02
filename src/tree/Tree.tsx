@@ -275,6 +275,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               ref={nodeList[index]}
               key={node.value}
               node={node}
+              keys={props.keys}
               empty={empty}
               icon={icon}
               label={label}
@@ -307,6 +308,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
             <TreeItem
               ref={nodeList[index]}
               node={node}
+              keys={props.keys}
               empty={empty}
               icon={icon}
               label={label}
