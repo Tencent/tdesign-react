@@ -174,12 +174,12 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   const getCascaderItems = (arrValue: CascaderValue[]) => {
     const { treeStore } = cascaderContext;
-    const options: TreeOptionData[] = [];
+    const optionsData: TreeOptionData[] = [];
     arrValue.forEach((value) => {
       const nodes = treeStore?.getNodes(value);
-      nodes && nodes[0] && options.push(nodes[0].data);
+      nodes && nodes[0] && optionsData.push(nodes[0].data);
     });
-    return options;
+    return optionsData;
   };
 
   return {
