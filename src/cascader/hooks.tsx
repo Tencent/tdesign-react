@@ -158,7 +158,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   useEffect(() => {
     if (!treeStore) return;
     treeStore.replaceChecked(getTreeValue(scopeVal));
-  }, [scopeVal, treeStore, cascaderContext.multiple]);
+  }, [options, scopeVal, treeStore, cascaderContext.multiple]);
 
   useEffect(() => {
     if (!innerPopupVisible && isFilterable) {
