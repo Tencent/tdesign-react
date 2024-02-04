@@ -1,6 +1,7 @@
 import { render, fireEvent, mockTimeout, vi, userEvent, mockDelay } from '@test/utils';
 import React, { useState } from 'react';
 import Cascader, { CascaderPanel } from '../index';
+import Tag from '../../tag';
 
 const options = [
   {
@@ -32,6 +33,49 @@ const options = [
     value: '2',
   },
 ];
+
+const AVATAR = 'https://tdesign.gtimg.com/site/avatar.jpg';
+
+const optionsData = [
+  {
+    label: '选项一',
+    value: '1',
+    children: [
+      {
+        label: '子选项一',
+        value: '1.1',
+        avatar: AVATAR,
+      },
+      {
+        label: '子选项二',
+        value: '1.2',
+        avatar: AVATAR,
+      },
+      {
+        label: '子选项三',
+        value: '1.3',
+        avatar: AVATAR,
+      },
+    ],
+  },
+  {
+    label: '选项二',
+    value: '2',
+    children: [
+      {
+        label: '子选项一',
+        value: '2.1',
+        avatar: AVATAR,
+      },
+      {
+        label: '子选项二',
+        value: '2.2',
+        avatar: AVATAR,
+      },
+    ],
+  },
+];
+
 const popupSelector = '.t-popup';
 
 // TODO
@@ -236,6 +280,101 @@ describe('Cascader 组件测试', () => {
     expect(document.querySelector(popupSelector)).toHaveTextContent(labelText);
     await mockTimeout(() => fireEvent.click(getByText(labelText)));
     expect(document.querySelector('.t-input__inner')).toHaveValue(labelText);
+  });
+
+  test('multiple Clicking the clear all button only triggers onChange once', async () => {
+    const onChange = vi.fn();
+    const onRemove = vi.fn();
+    const { container } = render(
+      <Cascader value={['1.1']} options={optionsData} multiple onChange={onChange} onRemove={onRemove} clearable />,
+    );
+    fireEvent.mouseEnter(container.querySelector('.t-input'));
+    await mockDelay();
+    // 点击清除按钮只触发一次onChange,不触发onRemove
+    expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
+    fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onRemove).toHaveBeenCalledTimes(0);
+    // 点击tag onRemove,触发一次onRemove,触发两次onChange
+    fireEvent.click(container.querySelectorAll('.t-tag__icon-close')[0]);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(2);
+  });
+
+  test('render label', async () => {
+    const label = '单选:';
+    const { getByText } = render(<Cascader label={label} value={'1.1'} options={optionsData} clearable />);
+    expect(getByText(label)).toBeInTheDocument();
+  });
+
+  test('render single valueDisplay', async () => {
+    const SingleValueDisplay = ({ value, selectedOptions }: any) =>
+      value && (
+        <div className="valueDisplay">
+          <img
+            src={selectedOptions?.[0]?.avatar}
+            style={{
+              width: '16px',
+              height: '16px',
+              marginTop: '2px',
+              verticalAlign: '-4px',
+              marginRight: '4px',
+            }}
+          />
+          <span>{selectedOptions?.[0]?.label}</span>
+          <span>({value})</span>
+        </div>
+      );
+    const { container } = render(
+      <Cascader
+        value={'2.2'}
+        label="单选："
+        options={optionsData}
+        valueDisplay={<SingleValueDisplay />}
+        clearable
+      ></Cascader>,
+    );
+    expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
+  });
+
+  test('render multiple valueDisplay', async () => {
+    const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
+      value && value.length
+        ? selectedOptions.map((option, index) => (
+            <Tag key={option.value} closable onClose={() => onClose(index)}>
+              <img
+                src={option.avatar}
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  marginTop: '2px',
+                  verticalAlign: '-4px',
+                  marginRight: '4px',
+                }}
+              />
+              <span>{option.label}</span>
+              <span className="options-value">({option.value})</span>
+            </Tag>
+          ))
+        : null;
+    const { container } = render(
+      <Cascader
+        value={['1.3', '2.1', '2.2']}
+        label="多选："
+        options={optionsData}
+        valueDisplay={<MultipleValueDisplay />}
+        multiple
+        clearable
+      ></Cascader>,
+    );
+    const optionsValue = container.querySelectorAll('.options-value');
+    expect(optionsValue[0]).toHaveTextContent('(1.3)');
+    expect(optionsValue[1]).toHaveTextContent('(2.1)');
+    expect(optionsValue[2]).toHaveTextContent('(2.2)');
+    fireEvent.click(container.querySelector('.t-input'));
+    await mockDelay();
+    expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
+    expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
   });
 });
 
