@@ -15,7 +15,6 @@ export default function useDialogPosition(visible: boolean, dialogCardRef: Mutab
 
   useLayoutEffect(() => {
     document.addEventListener('click', getClickPosition, true);
-
     return () => {
       document.removeEventListener('click', getClickPosition, true);
     };
