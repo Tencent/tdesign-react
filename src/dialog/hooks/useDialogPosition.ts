@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useLayoutEffect, useRef } from 'react';
 
-export default function useDialogPosition(visible, dialogCardRef) {
+export default function useDialogPosition(visible: boolean, dialogCardRef: MutableRefObject<HTMLElement>) {
   const mousePosRef = useRef(null);
 
   const getClickPosition = (e: MouseEvent) => {
@@ -13,11 +13,7 @@ export default function useDialogPosition(visible, dialogCardRef) {
     }, 100);
   };
 
-  if (typeof document !== 'undefined') {
-    document.addEventListener('click', getClickPosition, true);
-  }
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.addEventListener('click', getClickPosition, true);
 
     return () => {
