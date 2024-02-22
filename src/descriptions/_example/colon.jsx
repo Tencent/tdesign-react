@@ -26,7 +26,7 @@ export default function Colon() {
     <Space direction="vertical">
       <Space align="center">
         <Switch size="large" value={checked} onChange={setChecked} />
-        显示引号
+        展示冒号
       </Space>
       <Descriptions items={items} title="Shipping address" bordered colon={checked} />
     </Space>

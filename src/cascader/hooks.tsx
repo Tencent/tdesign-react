@@ -18,6 +18,7 @@ import type {
 } from './interface';
 
 import type { TypeTreeNodeData } from '../_common/js/tree-v1/types';
+import { TreeOptionData } from '../common';
 
 export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
@@ -157,7 +158,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   useEffect(() => {
     if (!treeStore) return;
     treeStore.replaceChecked(getTreeValue(scopeVal));
-  }, [scopeVal, treeStore, cascaderContext.multiple]);
+  }, [options, scopeVal, treeStore, cascaderContext.multiple]);
 
   useEffect(() => {
     if (!innerPopupVisible && isFilterable) {
@@ -171,8 +172,20 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputVal, scopeVal]);
 
+  const getCascaderItems = (arrValue: CascaderValue[]) => {
+    const { treeStore } = cascaderContext;
+    const optionsData: TreeOptionData[] = [];
+    arrValue.forEach((value) => {
+      const nodes = treeStore?.getNodes(value);
+      nodes && nodes[0] && optionsData.push(nodes[0].data);
+    });
+    return optionsData;
+  };
+
   return {
     cascaderContext,
     isFilterable,
+    innerValue,
+    getCascaderItems,
   };
 };

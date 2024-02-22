@@ -1,7 +1,7 @@
 import React from 'react';
 import { Descriptions, Space } from 'tdesign-react';
 
-const { DescriptionsItem } = Descriptions;
+// const { DescriptionsItem } = Descriptions;
 
 export default function BasicDescriptions() {
   const items = [
@@ -24,9 +24,9 @@ export default function BasicDescriptions() {
   ];
   return (
     <Space direction="vertical">
-      <h3>推荐：数据写法</h3>
+      {/* <h3>推荐：数据写法</h3> */}
       <Descriptions items={items} title="Shipping address" />
-      <h3>JSX写法</h3>
+      {/* <h3>JSX写法</h3>
       <Descriptions title="Shipping address">
         <DescriptionsItem label="Name">TDesign</DescriptionsItem>
         <DescriptionsItem label="Telephone Number">139****0609</DescriptionsItem>
@@ -34,7 +34,7 @@ export default function BasicDescriptions() {
         <DescriptionsItem label="Address" content="test">
           Shenzhen Penguin Island D1 4A Mail Center
         </DescriptionsItem>
-      </Descriptions>
+      </Descriptions> */}
     </Space>
   );
 }

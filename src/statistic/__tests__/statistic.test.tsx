@@ -21,7 +21,7 @@ describe('Statistic 组件测试', () => {
    */
 
   const COLOR_MAP = {
-    black: 'black',
+    black: 'var(--td-text-color-primary)',
     blue: 'var(--td-brand-color)',
     red: 'var(--td-error-color)',
     orange: 'var(--td-warning-color)',

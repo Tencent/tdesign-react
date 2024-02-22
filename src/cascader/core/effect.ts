@@ -143,22 +143,21 @@ export function handleRemoveTagEffect(
   const newValue = cloneDeep(value) as [];
   const res = newValue.splice(index, 1);
   const node = treeStore.getNodes(res[0])[0];
-
-  setValue(newValue, 'uncheck', node.getModel());
-
   const checked = node.setChecked(!node.isChecked());
-  // 处理不同数据类型
-  const resValue =
-    valueType === 'single'
-      ? checked
-      : checked.map((val) =>
-          treeStore
-            .getNode(val)
-            .getPath()
-            .map((item) => item.value),
-        );
 
-  setValue(resValue, 'uncheck', node.getModel());
+  if (valueType === 'single') {
+    setValue(newValue, 'uncheck', node.getModel());
+  } else {
+    // 处理不同数据类型
+    const resValue = checked.map((val) =>
+      treeStore
+        .getNode(val)
+        .getPath()
+        .map((item) => item.value),
+    );
+    setValue(resValue, 'uncheck', node.getModel());
+  }
+
   if (isFunction(onRemove)) {
     onRemove({ value: checked, node: node as any });
   }

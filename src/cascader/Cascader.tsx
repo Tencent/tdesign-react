@@ -17,11 +17,13 @@ import { useCascaderContext } from './hooks';
 import { cascaderDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
+import parseTNode, { parseContentTNode } from '../_util/parseTNode';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
 const Cascader: React.FC<CascaderProps> = (originalProps) => {
   const props = useDefaultProps<CascaderProps>(originalProps, cascaderDefaultProps);
+
   /**
    * global user props, config, data
    */
@@ -31,7 +33,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
   const COMPONENT_NAME = `${classPrefix}-cascader`;
 
   // 拿到全局状态的上下文
-  const { cascaderContext, isFilterable } = useCascaderContext(props);
+  const { cascaderContext, isFilterable, innerValue, getCascaderItems } = useCascaderContext(props);
 
   const displayValue = useMemo(
     () => (props.multiple ? getMultipleContent(cascaderContext) : getSingleContent(cascaderContext)),
@@ -62,6 +64,33 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
     );
   };
 
+  // render label
+  const renderLabel = () => {
+    const label = parseTNode(props.label);
+    if (props.multiple) return label;
+    if (!label) return null;
+    return <div className={`${classPrefix}-tag-input__prefix`}>{label}</div>;
+  };
+
+  // render valueDisplay
+  const valueDisplayParams = useMemo(() => {
+    const arrayValue = innerValue instanceof Array ? innerValue : [innerValue];
+    const displayValue =
+      props.multiple && props.minCollapsedNum ? arrayValue.slice(0, props.minCollapsedNum) : innerValue;
+    const options = getCascaderItems(arrayValue);
+
+    return {
+      value: innerValue,
+      selectedOptions: options,
+      onClose: (index: number) => {
+        handleRemoveTagEffect(cascaderContext, index, props.onRemove);
+      },
+      displayValue,
+    };
+  }, [cascaderContext, innerValue, props.multiple, props.minCollapsedNum, props.onRemove, getCascaderItems]);
+
+  const renderValueDisplay = () => parseContentTNode(props.valueDisplay, valueDisplayParams);
+
   const { setVisible, visible, inputVal, setInputVal } = cascaderContext;
   return (
     <SelectInput
@@ -81,6 +110,8 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       disabled={props.disabled}
       status={props.status}
       tips={props.tips}
+      label={renderLabel()}
+      valueDisplay={renderValueDisplay()}
       suffix={props.suffix}
       suffixIcon={renderSuffixIcon()}
       popupProps={{
@@ -102,7 +133,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         props?.selectInputProps?.onInputChange?.(value, ctx);
       }}
       onTagChange={(val: TagInputValue, ctx) => {
-        if (ctx.trigger === 'enter') {
+        if (ctx.trigger === 'enter' || ctx.trigger === 'clear') {
           return;
         }
         handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
