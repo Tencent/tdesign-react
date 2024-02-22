@@ -1,7 +1,10 @@
 import React from 'react';
-import { Descriptions, Space } from 'tdesign-react';
+import { Descriptions, Space, Row, Col, Radio } from 'tdesign-react';
 
 export default function Layout() {
+  const [layout, setLayout] = React.useState('horizontal');
+  const [itemLayout, setItemLayout] = React.useState('horizontal');
+
   const items = [
     {
       label: 'Name',
@@ -21,27 +24,33 @@ export default function Layout() {
     },
   ];
 
+  const layoutOptions = ['horizontal', 'vertical'];
+  const itemLayoutOptions = ['horizontal', 'vertical'];
+
   return (
     <Space direction="vertical">
-      <Space direction="vertical">
-        <h3>整体左右布局，item 左右布局</h3>
-        <Descriptions items={items} title="Shipping address" bordered />
-      </Space>
-
-      <Space direction="vertical">
-        <h3>整体左右布局，item 上下布局</h3>
-        <Descriptions items={items} title="Shipping address" bordered itemLayout="vertical" />
-      </Space>
-
-      <Space direction="vertical">
-        <h3>整体上下布局，item 左右布局</h3>
-        <Descriptions items={items} title="Shipping address" bordered layout="vertical" />
-      </Space>
-
-      <Space direction="vertical">
-        <h3>整体上下布局，item 上下布局</h3>
-        <Descriptions items={items} title="Shipping address" bordered layout="vertical" itemLayout="vertical" />
-      </Space>
+      <Row align="middle">
+        <Col>
+          <span>layout：</span>
+        </Col>
+        <Col>
+          <Radio.Group variant="default-filled" value={layout} onChange={setLayout} options={layoutOptions} />
+        </Col>
+      </Row>
+      <Row align="middle">
+        <Col>
+          <span>itemLayout：</span>
+        </Col>
+        <Col>
+          <Radio.Group
+            variant="default-filled"
+            value={itemLayout}
+            onChange={setItemLayout}
+            options={itemLayoutOptions}
+          />
+        </Col>
+      </Row>
+      <Descriptions items={items} title="Shipping address" bordered layout={layout} itemLayout={itemLayout} />
     </Space>
   );
 }
