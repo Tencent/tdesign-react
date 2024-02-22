@@ -1,5 +1,5 @@
 import React from 'react';
-import { Td<%= PascalCaseComponent %>Props } from '../_type/components/<%= component %>';
+import type { Td<%= PascalCaseComponent %>Props } from './type';
 
 export type <%= PascalCaseComponent %>Props = Td<%= PascalCaseComponent %>Props;
 

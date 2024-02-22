@@ -12,14 +12,6 @@ function getToBeCreatedFiles(component, pascalCaseName) {
           file: `${pascalCaseName}.tsx`,
           template: 'component.tsx.tpl',
         },
-        {
-          file: `api.md`,
-          template: 'api.md.tpl',
-        },
-        {
-          file: `README.md`,
-          template: 'readme.md.tpl',
-        },
       ],
     },
     [`src/${component}/_example`]: {
