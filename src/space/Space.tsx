@@ -41,7 +41,7 @@ const toArray = (children: React.ReactNode): React.ReactElement[] => {
 const EMPTY_NODE: ReactNode[] = ['', false, null, undefined];
 
 const Space = React.forwardRef<HTMLDivElement, SpaceProps>((originalProps, ref) => {
-  const props = useDefaultProps(originalProps, spaceDefaultProps);
+  const props = useDefaultProps<SpaceProps>(originalProps, spaceDefaultProps);
   const { className, style, align, direction, size, breakLine, separator, forceFlexGapPolyfill } = props;
   const { classPrefix } = useConfig();
 
