@@ -6,6 +6,7 @@ import type { TdStickyToolProps, TdStickyItemProps } from './type';
 import type { StyledProps, Styles } from '../common';
 import StickyItem from './StickyItem';
 import { stickyToolDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface StickyToolProps extends TdStickyToolProps, StyledProps {
   children?: React.ReactNode;
@@ -14,10 +15,10 @@ export interface StickyToolProps extends TdStickyToolProps, StyledProps {
 const StickyTool = forwardRefWithStatics(
   (props: StickyToolProps, ref: React.Ref<HTMLDivElement>) => {
     const { style, className, children, width, type, shape, placement, offset, popupProps, list, onClick, onHover } =
-      props;
+      useDefaultProps<StickyToolProps>(props, stickyToolDefaultProps);
     const { classPrefix } = useConfig();
 
-    const styles = useMemo(() => {
+    const styles = useMemo<React.CSSProperties>(() => {
       const position: Array<string | number> = offset ? [80, 24] : ['80px', '24px'];
       offset?.forEach((item, index) => {
         position[index] = isNaN(Number(item))
@@ -33,7 +34,9 @@ const StickyTool = forwardRefWithStatics(
           styles.transform = 'translate(0, -50%)';
         }
       });
-      if (width) styles.width = typeof width === 'number' ? `${width}px` : width;
+      if (width) {
+        styles.width = typeof width === 'number' ? `${width}px` : width;
+      }
       return styles;
     }, [offset, placement, width, style]);
 
@@ -50,9 +53,9 @@ const StickyTool = forwardRefWithStatics(
       [onHover],
     );
 
-    const stickyItemList = useMemo(() => {
+    const stickyItemList = useMemo<React.ReactNode[]>(() => {
       if (list?.length) {
-        return list.map((item, index: number) => {
+        return list.map<React.ReactNode>((item, index: number) => {
           const itemProps = {
             ...item,
             type,
@@ -98,6 +101,5 @@ const StickyTool = forwardRefWithStatics(
 );
 
 StickyTool.displayName = 'StickyTool';
-StickyTool.defaultProps = stickyToolDefaultProps;
 
 export default StickyTool;

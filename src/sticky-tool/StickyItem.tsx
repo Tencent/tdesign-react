@@ -1,8 +1,8 @@
-import React, { forwardRef, useCallback, useMemo, MouseEvent } from 'react';
+import React, { useCallback, useMemo, MouseEvent } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import type { TdStickyItemProps, TdStickyToolProps } from './type';
-import Popup, { PopupProps } from '../popup';
+import Popup, { PopupPlacement, PopupProps } from '../popup';
 import type { StyledProps, Styles } from '../common';
 
 export interface StickyItemProps extends TdStickyItemProps, StyledProps {
@@ -16,7 +16,7 @@ export interface StickyItemProps extends TdStickyItemProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivElement>) => {
+const StickyItem = React.forwardRef<HTMLDivElement, StickyItemProps>((props, ref) => {
   const {
     icon,
     label,
@@ -34,8 +34,8 @@ const StickyItem = forwardRef((props: StickyItemProps, ref: React.Ref<HTMLDivEle
     className,
   } = props;
   const { classPrefix } = useConfig();
-  const popupPlacement = useMemo(() => (placement.indexOf('right') !== -1 ? 'left' : 'right'), [placement]);
-  const styles = useMemo(() => {
+  const popupPlacement = useMemo<PopupPlacement>(() => (placement.includes('right') ? 'left' : 'right'), [placement]);
+  const styles = useMemo<React.CSSProperties>(() => {
     const styles: Styles = { ...style };
     if (baseWidth) {
       const selfWidth = type === 'normal' ? '56px' : '40px';
