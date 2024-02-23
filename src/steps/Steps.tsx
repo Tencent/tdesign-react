@@ -8,13 +8,15 @@ import { StyledProps } from '../common';
 import StepItem from './StepItem';
 import StepsContext from './StepsContext';
 import { stepsDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface StepsProps extends TdStepsProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Steps = forwardRefWithStatics(
-  (props: StepsProps, ref) => {
+  (originalProps: StepsProps, ref) => {
+    const props = useDefaultProps<StepsProps>(originalProps, stepsDefaultProps);
     const { style, readonly, layout, theme, sequence, separator, children, options } = props;
     const { classPrefix } = useConfig();
 
@@ -23,15 +25,20 @@ const Steps = forwardRefWithStatics(
     // 整理 StepItem value 映射
     const indexMap = useMemo(() => {
       const map = {};
-
       if (options) {
         options.forEach((item, index) => {
-          if (item.value !== undefined) map[item.value] = index;
+          if (item.value !== undefined) {
+            map[item.value] = index;
+          }
         });
       } else {
         React.Children.forEach(children, (child, index) => {
-          if (!React.isValidElement(child)) return;
-          if (child.props.value !== undefined) map[child.props.value] = index;
+          if (!React.isValidElement(child)) {
+            return;
+          }
+          if (child.props.value !== undefined) {
+            map[child.props.value] = index;
+          }
         });
       }
       return map;
@@ -39,13 +46,20 @@ const Steps = forwardRefWithStatics(
 
     const handleStatus = useCallback(
       (item: TdStepItemProps, index: number) => {
-        if (current === 'FINISH') return 'finish';
-        if (item.status && item.status !== 'default') return item.status;
-
+        if (current === 'FINISH') {
+          return 'finish';
+        }
+        if (item.status && item.status !== 'default') {
+          return item.status;
+        }
         // value 不存在时，使用 index 进行区分每一个步骤
         if (item.value === undefined) {
-          if (sequence === 'positive' && index < current) return 'finish';
-          if (sequence === 'reverse' && index > current) return 'finish';
+          if (sequence === 'positive' && typeof current === 'number' && index < current) {
+            return 'finish';
+          }
+          if (sequence === 'reverse' && typeof current === 'number' && index > current) {
+            return 'finish';
+          }
         }
 
         // value 存在，找匹配位置
@@ -55,21 +69,26 @@ const Steps = forwardRefWithStatics(
             console.warn('TDesign Steps Warn: The current `value` is not exist.');
             return 'default';
           }
-          if (sequence === 'positive' && index < matchIndex) return 'finish';
-          if (sequence === 'reverse' && index > matchIndex) return 'finish';
+          if (sequence === 'positive' && index < matchIndex) {
+            return 'finish';
+          }
+          if (sequence === 'reverse' && index > matchIndex) {
+            return 'finish';
+          }
         }
         const key = item.value ?? index;
-        if (key === current) return 'process';
+        if (key === current) {
+          return 'process';
+        }
         return 'default';
       },
       [current, sequence, indexMap],
     );
 
-    const stepItemList = useMemo(() => {
+    const stepItemList = useMemo<React.ReactNode[]>(() => {
       if (options) {
         const optionsDisplayList = sequence === 'reverse' ? options.reverse() : options;
-
-        return options.map((item, index: number) => {
+        return options.map<React.ReactNode>((item, index) => {
           const stepIndex = sequence === 'reverse' ? optionsDisplayList.length - index - 1 : index;
           return <StepItem key={index} {...item} index={stepIndex} status={handleStatus(item, index)} />;
         });
@@ -111,6 +130,5 @@ const Steps = forwardRefWithStatics(
 );
 
 Steps.displayName = 'Steps';
-Steps.defaultProps = stepsDefaultProps;
 
 export default Steps;
