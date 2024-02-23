@@ -338,7 +338,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         current: innerCurrent,
         total: stepsTotal,
       };
-      renderBody = isFunction(content) ? content(contentProps) : content;
+      renderBody = isFunction(content) ? content(contentProps) : React.cloneElement(content, contentProps);
     } else {
       renderBody = renderPopupContent();
     }
@@ -354,7 +354,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         zIndex={zIndex}
         placement={currentStepInfo.placement as StepPopupPlacement}
         {...currentStepInfo.popupProps}
-        overlayClassName={currentStepInfo.stepOverlayClass}
+        overlayClassName={[`${prefixCls}__popup`, currentStepInfo.stepOverlayClass]}
         overlayInnerClassName={innerClassName.concat(currentStepInfo.popupProps?.overlayInnerClassName)}
       >
         <div ref={referenceLayerRef} className={cx(classes)} />
