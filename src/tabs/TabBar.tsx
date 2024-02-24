@@ -29,10 +29,10 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     let offset = 0;
 
     if (containerRef.current) {
-      const itemsRef = containerRef.current.querySelectorAll?.(`.${tabsClassPrefix}__nav-item`);
-      if (itemsRef.length - 1 >= currentActiveIdRef.current) {
+      const itemsRef = containerRef.current?.querySelectorAll<HTMLElement>(`.${tabsClassPrefix}__nav-item`);
+      if (itemsRef.length - 1 >= (currentActiveIdRef.current as number)) {
         itemsRef.forEach((item, itemIndex) => {
-          if (itemIndex < currentActiveIdRef.current) {
+          if (itemIndex < (currentActiveIdRef.current as number)) {
             offset += Number(getComputedStyle(item)[itemProp].replace('px', ''));
           }
         });

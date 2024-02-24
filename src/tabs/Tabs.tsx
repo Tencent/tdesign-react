@@ -8,15 +8,16 @@ import TabPanel from './TabPanel';
 import { StyledProps } from '../common';
 import { tabsDefaultProps } from './defaultProps';
 import useDragSorter from '../_util/useDragSorter';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Tabs = forwardRefWithStatics(
-  (props: TabsProps, ref) => {
-    const { children, list, placement, onRemove, value: tabValue, onChange, className, style } = props;
-    let { defaultValue } = props;
+  (originalProps: TabsProps, ref: React.Ref<HTMLDivElement>) => {
+    const props = useDefaultProps<TabsProps>(originalProps, tabsDefaultProps);
+    const { defaultValue, children, list, placement, onRemove, value: tabValue, onChange, className, style } = props;
 
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
@@ -31,14 +32,14 @@ const Tabs = forwardRefWithStatics(
       },
     });
 
-    const memoChildren = useMemo(() => {
+    const memoChildren = useMemo<React.ReactNode | React.ReactNode[]>(() => {
       if (!list || list.length === 0) {
         return children;
       }
-      return list.map((panelProps) => <TabPanel key={panelProps.value} {...panelProps} />);
+      return list.map<React.ReactNode>((panelProps) => <TabPanel key={panelProps.value} {...panelProps} />);
     }, [children, list]);
 
-    const itemList = React.Children.map(memoChildren, (child: any) => {
+    const itemList = React.Children.map(memoChildren, (child: React.ReactElement) => {
       if (child && child.type === TabPanel) {
         return child.props;
       }
@@ -46,24 +47,24 @@ const Tabs = forwardRefWithStatics(
     });
 
     // 当未设置默认值时，默认选中第一个。
-    if (defaultValue === undefined && Array.isArray(itemList) && itemList.length !== 0) {
-      defaultValue = itemList[0].value;
-    }
-
-    const [value, setValue] = useState<TabValue>(defaultValue);
+    const [value, setValue] = useState<TabValue>(
+      defaultValue === undefined && Array.isArray(itemList) && itemList.length !== 0 ? itemList[0].value : defaultValue,
+    );
 
     useEffect(() => {
-      tabValue !== undefined && setValue(tabValue);
+      if (tabValue !== undefined) {
+        setValue(tabValue);
+      }
     }, [tabValue]);
 
-    const handleChange = (v) => {
+    const handleChange = (v: TabValue) => {
       if (tabValue === undefined) {
         setValue(v);
       }
       onChange?.(v);
     };
 
-    const handleClickTab = (v) => {
+    const handleClickTab = (v: TabValue) => {
       if (tabValue === undefined) {
         setValue(v);
       }
@@ -107,6 +108,5 @@ const Tabs = forwardRefWithStatics(
 );
 
 Tabs.displayName = 'Tabs';
-Tabs.defaultProps = tabsDefaultProps;
 
 export default Tabs;
