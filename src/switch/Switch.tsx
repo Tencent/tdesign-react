@@ -72,7 +72,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
       ref={ref}
       onClick={onInternalClick}
     >
-      <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading={true} size="small" />}</span>
+      <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading size="small" />}</span>
       <div className={`${classPrefix}-switch__content`}>{contentNode}</div>
     </button>
   );
