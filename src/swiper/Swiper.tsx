@@ -80,7 +80,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   const isHovering = useRef<boolean>(false);
   const swiperWrap = useRef<HTMLDivElement>(null);
 
-  const getWrapAttribute = React.useCallback((attr: string) => swiperWrap.current?.parentNode?.[attr], [swiperWrap]);
+  const getWrapAttribute = React.useCallback((attr: string) => swiperWrap.current?.parentNode?.[attr], []);
 
   // 进行子组件筛选，创建子节点列表
   const childrenList = useMemo<React.ReactNode[]>(
@@ -257,10 +257,10 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
 
   const renderArrow = (type: CreateArrow): React.ReactNode => {
     if (!arrowShow) {
-      return null;
+      return '';
     }
     if (navigationConfig.type === 'fraction' && type === CreateArrow.Default) {
-      return null;
+      return '';
     }
     const fractionIndex = currentIndex + 1 > childrenLength ? 1 : currentIndex + 1;
     return (
@@ -272,10 +272,12 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
         <div className={`${classPrefix}-swiper__arrow-left`} onClick={() => arrowClick(ArrowClickDirection.Left)}>
           <ChevronLeftIcon />
         </div>
-        {type === CreateArrow.Fraction && (
+        {type === CreateArrow.Fraction ? (
           <div className={`${classPrefix}-swiper__navigation-text-fraction`}>
             {fractionIndex}/{childrenLength}
           </div>
+        ) : (
+          ''
         )}
         <div className={`${classPrefix}-swiper__arrow-right`} onClick={() => arrowClick(ArrowClickDirection.Right)}>
           <ChevronRightIcon />
@@ -332,16 +334,16 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       if (direction === 'vertical') {
         return {
           height: offsetHeight,
-          msTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
-          WebkitTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
-          transform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
+          msTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0)`,
+          WebkitTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0)`,
+          transform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0)`,
           transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
         };
       }
       return {
-        msTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
-        WebkitTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
-        transform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
+        msTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0, 0)`,
+        WebkitTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0, 0)`,
+        transform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0, 0)`,
         transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
       };
     }
