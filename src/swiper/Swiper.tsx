@@ -334,16 +334,16 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       if (direction === 'vertical') {
         return {
           height: offsetHeight,
-          msTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0)`,
-          WebkitTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0)`,
-          transform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0)`,
+          msTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
+          WebkitTransform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
+          transform: `translate3d(0, -${(currentIndex + loopIndex) * 100}%, 0px)`,
           transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
         };
       }
       return {
-        msTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0, 0)`,
-        WebkitTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0, 0)`,
-        transform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0, 0)`,
+        msTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
+        WebkitTransform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
+        transform: `translate3d(-${(currentIndex + loopIndex) * 100}%, 0px, 0px)`,
         transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
       };
     }
