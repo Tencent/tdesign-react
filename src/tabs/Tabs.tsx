@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { TabValue, TdTabsProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -17,7 +17,18 @@ export interface TabsProps extends TdTabsProps, StyledProps {
 const Tabs = forwardRefWithStatics(
   (originalProps: TabsProps, ref: React.Ref<HTMLDivElement>) => {
     const props = useDefaultProps<TabsProps>(originalProps, tabsDefaultProps);
-    const { defaultValue, children, list, placement, onRemove, value: tabValue, onChange, className, style } = props;
+    const {
+      defaultValue,
+      children,
+      list,
+      placement,
+      value: tabValue,
+      dragSort,
+      className,
+      style,
+      onRemove,
+      onChange,
+    } = props;
 
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
@@ -25,14 +36,14 @@ const Tabs = forwardRefWithStatics(
 
     const { getDragProps } = useDragSorter({
       ...props,
-      sortOnDraggable: props.dragSort,
+      sortOnDraggable: dragSort,
       onDragOverCheck: {
         x: true,
         targetClassNameRegExp: new RegExp(targetClassNameRegExpStr),
       },
     });
 
-    const memoChildren = useMemo<React.ReactNode | React.ReactNode[]>(() => {
+    const memoChildren = React.useMemo<React.ReactNode | React.ReactNode[]>(() => {
       if (!list || list.length === 0) {
         return children;
       }
@@ -47,7 +58,7 @@ const Tabs = forwardRefWithStatics(
     });
 
     // 当未设置默认值时，默认选中第一个。
-    const [value, setValue] = useState<TabValue>(
+    const [value, setValue] = React.useState<TabValue>(
       defaultValue === undefined && Array.isArray(itemList) && itemList.length !== 0 ? itemList[0].value : defaultValue,
     );
 
@@ -57,36 +68,56 @@ const Tabs = forwardRefWithStatics(
       }
     }, [tabValue]);
 
-    const handleChange = (v: TabValue) => {
-      if (tabValue === undefined) {
-        setValue(v);
-      }
-      onChange?.(v);
-    };
+    const handleChange = React.useCallback(
+      (v: TabValue) => {
+        if (tabValue === undefined) {
+          setValue(v);
+        }
+        onChange?.(v);
+      },
+      [tabValue, onChange],
+    );
 
-    const handleClickTab = (v: TabValue) => {
-      if (tabValue === undefined) {
-        setValue(v);
-      }
-    };
+    const handleClickTab = React.useCallback(
+      (v: TabValue) => {
+        if (tabValue === undefined) {
+          setValue(v);
+        }
+      },
+      [tabValue],
+    );
 
-    const renderHeader = () => (
-      <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
-        <TabNav
-          {...props}
-          getDragProps={getDragProps}
-          activeValue={value}
-          onRemove={onRemove}
-          itemList={itemList}
-          tabClick={handleClickTab}
-          onChange={handleChange}
-        />
-      </div>
+    const headerNode = React.useMemo<React.ReactNode>(
+      () => (
+        <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
+          <TabNav
+            {...props}
+            getDragProps={getDragProps}
+            activeValue={value}
+            onRemove={onRemove}
+            itemList={itemList}
+            tabClick={handleClickTab}
+            onChange={handleChange}
+          />
+        </div>
+      ),
+      [
+        props,
+        getDragProps,
+        value,
+        onRemove,
+        itemList,
+        handleClickTab,
+        handleChange,
+        placement,
+        tdTabsClassGenerator,
+        tdClassGenerator,
+      ],
     );
 
     return (
       <div ref={ref} className={classNames(tdTabsClassPrefix, className)} style={style}>
-        {placement !== 'bottom' ? renderHeader() : null}
+        {placement !== 'bottom' ? headerNode : null}
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(memoChildren, (child: any) => {
             if (child && child.type === TabPanel) {
@@ -100,7 +131,7 @@ const Tabs = forwardRefWithStatics(
             return null;
           })}
         </div>
-        {placement === 'bottom' ? renderHeader() : null}
+        {placement === 'bottom' ? headerNode : null}
       </div>
     );
   },
