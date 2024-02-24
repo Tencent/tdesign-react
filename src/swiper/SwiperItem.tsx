@@ -68,7 +68,7 @@ const SwiperItem: React.FC<SwiperItemProps> = (props) => {
   const [, setUpdate] = useState({});
   const isFirstFirstRender = useIsFirstRender();
 
-  const swiperItemStyle = React.useMemo<React.CSSProperties>(() => {
+  const getSwiperItemStyle = (): React.CSSProperties => {
     if (animation === 'fade') {
       return {
         opacity: currentIndex === index ? 1 : 0,
@@ -92,7 +92,7 @@ const SwiperItem: React.FC<SwiperItemProps> = (props) => {
       };
     }
     return {};
-  }, [animation, childrenLength, currentIndex, duration, getWrapAttribute, index, needAnimation, type]);
+  };
 
   useEffect(() => {
     if (isFirstFirstRender) {
@@ -108,7 +108,7 @@ const SwiperItem: React.FC<SwiperItemProps> = (props) => {
         [`${classPrefix}-is-active`]: index === currentIndex,
         [`${classPrefix}-swiper__fade`]: animation === 'fade',
       })}
-      style={swiperItemStyle}
+      style={getSwiperItemStyle()}
       data-index={index}
     >
       {children}

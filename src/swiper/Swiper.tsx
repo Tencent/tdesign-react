@@ -322,7 +322,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   };
 
   // 构造 css 对象
-  const wrapperStyle = React.useMemo<React.CSSProperties>(() => {
+  const getWrapperStyle = (): React.CSSProperties => {
     const loopIndex = loop ? 1 : 0;
     const offsetHeight = height ? `${height}px` : `${getWrapAttribute('offsetHeight')}px`;
     if (type === 'card' || animation === 'fade') {
@@ -347,7 +347,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
         transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
       };
     }
-  }, [loop, height, getWrapAttribute, type, animation, direction, currentIndex, needAnimation, duration]);
+  };
 
   return (
     <div
@@ -372,7 +372,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
           })}
           style={{ height: '' }}
         >
-          <div className={`${classPrefix}-swiper__container`} style={wrapperStyle}>
+          <div className={`${classPrefix}-swiper__container`} style={getWrapperStyle()}>
             {swiperItemList}
           </div>
         </div>
