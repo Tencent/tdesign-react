@@ -38,9 +38,8 @@ const defaultNavigation: SwiperNavigation = {
   type: 'bars',
 };
 
-const Swiper = (swiperProps: SwiperProps) => {
+const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = (swiperProps) => {
   const props = useDefaultProps<SwiperProps>(swiperProps, swiperDefaultProps);
-
   const {
     animation, // 轮播切换动画效果类型
     autoplay, // 是否自动播放
@@ -76,25 +75,26 @@ const Swiper = (swiperProps: SwiperProps) => {
   const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
   const [needAnimation, setNeedAnimation] = useState(false);
   const [arrowShow, setArrowShow] = useState(navigationConfig.showSlideBtn === 'always');
-  const swiperTimer = useRef(null); // 计时器指针
-  const swiperAnimationTimer = useRef(null); // 计时器指针
-  const isHovering = useRef(false);
-  const swiperWrap = useRef(null);
+  const swiperTimer = useRef<ReturnType<typeof setTimeout>>(null); // 计时器指针
+  const swiperAnimationTimer = useRef<ReturnType<typeof setTimeout>>(null); // 计时器指针
+  const isHovering = useRef<boolean>(false);
+  const swiperWrap = useRef<HTMLDivElement>(null);
 
-  const getWrapAttribute = (attr: string) => swiperWrap.current?.parentNode?.[attr];
+  const getWrapAttribute = React.useCallback((attr: string) => swiperWrap.current?.parentNode?.[attr], [swiperWrap]);
 
   // 进行子组件筛选，创建子节点列表
-  const childrenList = useMemo(
+  const childrenList = useMemo<React.ReactNode[]>(
     () =>
       React.Children.toArray(children).filter(
         (child: JSX.Element) => child.type.displayName === SwiperItem.displayName,
       ),
     [children],
   );
+
   const childrenLength = childrenList.length;
 
   // 创建渲染用的节点列表
-  const swiperItemList = childrenList.map((child: JSX.Element, index: number) =>
+  const swiperItemList = childrenList.map((child: JSX.Element, index) =>
     React.cloneElement(child, {
       key: index,
       index,
@@ -206,7 +206,7 @@ const Swiper = (swiperProps: SwiperProps) => {
   }, [setTimer, clearTimer, stopOnHover, loop, currentIndex, endIndex]);
 
   // 鼠标移入移出事件
-  const onMouseEnter = () => {
+  const onMouseEnter: React.MouseEventHandler<HTMLElement> = () => {
     isHovering.current = true;
     if (stopOnHover) {
       clearTimer();
@@ -215,7 +215,7 @@ const Swiper = (swiperProps: SwiperProps) => {
       setArrowShow(true);
     }
   };
-  const onMouseLeave = () => {
+  const onMouseLeave: React.MouseEventHandler<HTMLElement> = () => {
     isHovering.current = false;
     if (!swiperTimer.current && autoplay) {
       setTimer();
@@ -255,12 +255,12 @@ const Swiper = (swiperProps: SwiperProps) => {
     }
   };
 
-  const createArrow = (type: CreateArrow) => {
+  const renderArrow = (type: CreateArrow): React.ReactNode => {
     if (!arrowShow) {
-      return '';
+      return null;
     }
     if (navigationConfig.type === 'fraction' && type === CreateArrow.Default) {
-      return '';
+      return null;
     }
     const fractionIndex = currentIndex + 1 > childrenLength ? 1 : currentIndex + 1;
     return (
@@ -272,12 +272,10 @@ const Swiper = (swiperProps: SwiperProps) => {
         <div className={`${classPrefix}-swiper__arrow-left`} onClick={() => arrowClick(ArrowClickDirection.Left)}>
           <ChevronLeftIcon />
         </div>
-        {type === CreateArrow.Fraction ? (
+        {type === CreateArrow.Fraction && (
           <div className={`${classPrefix}-swiper__navigation-text-fraction`}>
             {fractionIndex}/{childrenLength}
           </div>
-        ) : (
-          ''
         )}
         <div className={`${classPrefix}-swiper__arrow-right`} onClick={() => arrowClick(ArrowClickDirection.Right)}>
           <ChevronRightIcon />
@@ -286,11 +284,11 @@ const Swiper = (swiperProps: SwiperProps) => {
     );
   };
 
-  const createNavigation = () => {
+  const renderNavigation = (): React.ReactNode => {
     if (navigationConfig.type === 'fraction') {
       return (
         <div className={classnames(`${classPrefix}-swiper__navigation`, `${classPrefix}-swiper__navigation--fraction`)}>
-          {createArrow(CreateArrow.Fraction)}
+          {renderArrow(CreateArrow.Fraction)}
         </div>
       );
     }
@@ -322,7 +320,7 @@ const Swiper = (swiperProps: SwiperProps) => {
   };
 
   // 构造 css 对象
-  const getWrapperStyle = () => {
+  const wrapperStyle = React.useMemo<React.CSSProperties>(() => {
     const loopIndex = loop ? 1 : 0;
     const offsetHeight = height ? `${height}px` : `${getWrapAttribute('offsetHeight')}px`;
     if (type === 'card' || animation === 'fade') {
@@ -347,7 +345,7 @@ const Swiper = (swiperProps: SwiperProps) => {
         transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
       };
     }
-  };
+  }, [loop, height, getWrapAttribute, type, animation, direction, currentIndex, needAnimation, duration]);
 
   return (
     <div
@@ -372,12 +370,12 @@ const Swiper = (swiperProps: SwiperProps) => {
           })}
           style={{ height: '' }}
         >
-          <div className={`${classPrefix}-swiper__container`} style={getWrapperStyle()}>
+          <div className={`${classPrefix}-swiper__container`} style={wrapperStyle}>
             {swiperItemList}
           </div>
         </div>
-        {createNavigation()}
-        {createArrow(CreateArrow.Default)}
+        {renderNavigation()}
+        {renderArrow(CreateArrow.Default)}
       </div>
     </div>
   );
