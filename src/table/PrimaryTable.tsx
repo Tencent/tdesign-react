@@ -20,12 +20,14 @@ import { StyledProps } from '../common';
 import { useEditableRow } from './hooks/useEditableRow';
 import { primaryTableDefaultProps } from './defaultProps';
 import { CheckboxGroupValue } from '../checkbox';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
-const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
+const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
+  const props = useDefaultProps<TPrimaryTableProps>(originalProps, primaryTableDefaultProps);
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
@@ -270,8 +272,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
 });
 
 PrimaryTable.displayName = 'PrimaryTable';
-
-PrimaryTable.defaultProps = primaryTableDefaultProps;
 
 export default PrimaryTable as <T extends TableRowData = TableRowData>(
   props: PrimaryTableProps<T> & {

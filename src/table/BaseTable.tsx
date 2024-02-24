@@ -23,6 +23,7 @@ import { TableRowData } from './type';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import { getIEVersion } from '../_common/js/utils/helper';
 import log from '../_common/js/log';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -31,7 +32,8 @@ export interface TableListeners {
   [key: string]: Function;
 }
 
-const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
+const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) => {
+  const props = useDefaultProps<BaseTableProps<TableRowData>>(originalProps, baseTableDefaultProps);
   const {
     showHeader = true,
     tableLayout,
@@ -726,8 +728,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 });
 
 BaseTable.displayName = 'BaseTable';
-
-BaseTable.defaultProps = baseTableDefaultProps;
 
 export default BaseTable as <T extends TableRowData = TableRowData>(
   props: BaseTableProps<T> & {
