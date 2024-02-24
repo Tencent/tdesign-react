@@ -123,7 +123,7 @@ export default function TBody(props: TableBodyProps) {
 
   const getTRNodeList = () => {
     if (isSkipSnapsMapNotFinish) return null;
-    const trNodeList = [];
+    const trNodeList: React.ReactNode[] = [];
     const properties = [
       'classPrefix',
       'ellipsisOverlayClassName',
@@ -182,13 +182,13 @@ export default function TBody(props: TableBodyProps) {
 
   // 垫上隐藏的 tr 元素高度
   const translate = `translateY(${virtualConfig.translateY}px)`;
-  const posStyle = virtualConfig.isVirtualScroll
-    ? {
+  const posStyle: React.CSSProperties = virtualConfig.isVirtualScroll
+    ? ({
         transform: translate,
         msTransform: translate,
         MozTransform: translate,
         WebkitTransform: translate,
-      }
+      } as React.CSSProperties)
     : undefined;
 
   const list = (

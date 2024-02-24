@@ -2,9 +2,9 @@ import React, { useRef, useMemo, useImperativeHandle, forwardRef, useEffect, use
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
-import { Affix } from '../affix';
+import { Affix, AffixRef } from '../affix';
 import { ROW_LISTENERS } from './TR';
-import THead from './THead';
+import THead, { TheadProps } from './THead';
 import TFoot from './TFoot';
 import useTableHeader from './hooks/useTableHeader';
 import useColumnResize from './hooks/useColumnResize';
@@ -66,8 +66,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const { showElement } = useElementLazyRender(tableRef, lazyLoad);
   const paginationAffixRef = useRef();
   const horizontalScrollAffixRef = useRef();
-  const headerTopAffixRef = useRef();
-  const footerBottomAffixRef = useRef();
+  const headerTopAffixRef = useRef<AffixRef>();
+  const footerBottomAffixRef = useRef<AffixRef>();
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
@@ -286,7 +286,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       })}
     </colgroup>
   );
-  const headProps = {
+  const headProps: TheadProps = {
     isFixedHeader,
     rowAndColFixedPosition,
     isMultipleHeader,
@@ -730,7 +730,5 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 BaseTable.displayName = 'BaseTable';
 
 export default BaseTable as <T extends TableRowData = TableRowData>(
-  props: BaseTableProps<T> & {
-    ref?: React.Ref<BaseTableRef>;
-  },
+  props: BaseTableProps<T> & React.RefAttributes<BaseTableRef>,
 ) => React.ReactElement;

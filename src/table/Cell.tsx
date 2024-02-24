@@ -12,7 +12,7 @@ import { TooltipProps } from '../tooltip';
 import { PaginationProps } from '../pagination';
 
 export interface RenderEllipsisCellParams {
-  cellNode: any;
+  cellNode: React.ReactNode;
   tableElm?: HTMLDivElement;
   columnLength: number;
   classPrefix?: string;

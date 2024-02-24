@@ -106,7 +106,5 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
 EnhancedTable.displayName = 'EnhancedTable';
 
 export default EnhancedTable as <T extends TableRowData = TableRowData>(
-  props: EnhancedTableProps<T> & {
-    ref?: React.Ref<EnhancedTableRef>;
-  },
+  props: EnhancedTableProps<T> & React.RefAttributes<EnhancedTableRef>,
 ) => React.ReactElement;

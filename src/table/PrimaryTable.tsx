@@ -209,7 +209,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     }
   };
 
-  function formatNode(api: string, renderInnerNode: Function, condition: boolean, extra?: { reverse?: boolean }) {
+  function formatNode(
+    api: string,
+    renderInnerNode: () => React.ReactNode,
+    condition: boolean,
+    extra?: { reverse?: boolean },
+  ) {
     if (!condition) return props[api];
     const innerNode = renderInnerNode();
     const propsNode = props[api];
@@ -274,7 +279,5 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
 PrimaryTable.displayName = 'PrimaryTable';
 
 export default PrimaryTable as <T extends TableRowData = TableRowData>(
-  props: PrimaryTableProps<T> & {
-    ref?: React.Ref<PrimaryTableRef>;
-  },
+  props: PrimaryTableProps<T> & React.RefAttributes<PrimaryTableRef>,
 ) => React.ReactElement;

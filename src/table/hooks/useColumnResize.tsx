@@ -108,7 +108,10 @@ export default function useColumnResize(params: {
 
   // 表格列宽拖拽事件
   // 只在表头显示拖拽图标
-  const onColumnMouseover = (e: MouseEvent, col: BaseTableCol<TableRowData>) => {
+  const onColumnMouseover = (
+    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    col: BaseTableCol<TableRowData>,
+  ) => {
     // calculate mouse cursor before drag start
     if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) return;
     const target = (e.target as HTMLElement).closest('th');
@@ -200,7 +203,11 @@ export default function useColumnResize(params: {
   };
 
   // 调整表格列宽
-  const onColumnMousedown = (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => {
+  const onColumnMousedown = (
+    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    col: BaseTableCol<TableRowData>,
+    index: number,
+  ) => {
     if (!resizeLineParams.draggingCol) return;
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
