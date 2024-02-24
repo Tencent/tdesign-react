@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
 import { Affix } from '../affix';
 import { ROW_LISTENERS } from './TR';
-import THead from './THead';
+import THead, { TheadProps } from './THead';
 import TFoot from './TFoot';
 import useTableHeader from './hooks/useTableHeader';
 import useColumnResize from './hooks/useColumnResize';
@@ -295,7 +295,7 @@ const BaseTable = React.forwardRef<BaseTableRef, BaseTableProps>((originalProps,
       })}
     </colgroup>
   );
-  const headProps = {
+  const headProps: TheadProps = {
     isFixedHeader,
     rowAndColFixedPosition,
     isMultipleHeader,

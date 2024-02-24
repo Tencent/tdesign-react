@@ -18,13 +18,10 @@ const distance = 8;
 let originalSelectStart: (this: GlobalEventHandlers, ev: Event) => any;
 let originalDragStart: (this: GlobalEventHandlers, ev: Event) => any;
 
-export default function useColumnResize(params: {
+function useColumnResize(params: {
   isWidthOverflow: boolean;
   tableContentRef: MutableRefObject<HTMLDivElement>;
-  showColumnShadow: {
-    left: boolean;
-    right: boolean;
-  };
+  showColumnShadow: { left: boolean; right: boolean };
   getThWidthList: (type?: 'default' | 'calculate') => { [colKeys: string]: number };
   updateThWidthList: (data: { [colKeys: string]: number }) => void;
   setTableElmWidth: (width: number) => void;
@@ -66,7 +63,9 @@ export default function useColumnResize(params: {
 
   // 递归查找列宽度变化后，受影响的相关列
   const setEffectColMap = (nodes: BaseTableCol<TableRowData>[], parent: BaseTableCol<TableRowData> | null) => {
-    if (!nodes) return;
+    if (!nodes) {
+      return;
+    }
     setLeafColumns(nodes);
     nodes.forEach((n, index) => {
       const prevNode = getSiblingResizableCol(nodes, index - 1, 'prev');
@@ -108,14 +107,23 @@ export default function useColumnResize(params: {
 
   // 表格列宽拖拽事件
   // 只在表头显示拖拽图标
-  const onColumnMouseover = (e: MouseEvent, col: BaseTableCol<TableRowData>) => {
+  const onColumnMouseover = (
+    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    col: BaseTableCol<TableRowData>,
+  ) => {
     // calculate mouse cursor before drag start
-    if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) return;
+    if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) {
+      return;
+    }
     const target = (e.target as HTMLElement).closest('th');
-    if (!target) return;
+    if (!target) {
+      return;
+    }
     // 判断是否为叶子阶段，仅叶子结点允许拖拽
     const colKey = target.getAttribute('data-colkey');
-    if (!leafColumns.find((t) => t.colKey === colKey)) return;
+    if (!leafColumns.find((t) => t.colKey === colKey)) {
+      return;
+    }
     const targetBoundRect = target.getBoundingClientRect();
     const thRightCursor = targetBoundRect.right - e.pageX <= distance;
     const thLeftCursor = e.pageX - targetBoundRect.left <= distance;
@@ -200,8 +208,14 @@ export default function useColumnResize(params: {
   };
 
   // 调整表格列宽
-  const onColumnMousedown = (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => {
-    if (!resizeLineParams.draggingCol) return;
+  const onColumnMousedown = (
+    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    col: BaseTableCol<TableRowData>,
+    index: number,
+  ) => {
+    if (!resizeLineParams.draggingCol) {
+      return;
+    }
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
@@ -241,7 +255,9 @@ export default function useColumnResize(params: {
 
     // 拖拽时鼠标可能会超出 table 范围，需要给 document 绑定拖拽相关事件
     const onDragEnd = () => {
-      if (!resizeLineParams.isDragging) return;
+      if (!resizeLineParams.isDragging) {
+        return;
+      }
       const moveDistance = resizeLinePos - (parseFloat(String(resizeLineParams.resizeLineStyle?.left || '')) || 0);
       /**
        * 计算列宽
@@ -291,11 +307,7 @@ export default function useColumnResize(params: {
       resizeLineParams.effectCol = null;
       resizeLineParams.resizeLineStyle = null;
       target.style.cursor = '';
-      setResizeLineStyle({
-        ...resizeLineStyle,
-        display: 'none',
-        left: undefined,
-      });
+      setResizeLineStyle({ ...resizeLineStyle, display: 'none', left: undefined });
       off(document, 'mouseup', onDragEnd);
       off(document, 'mousemove', onDragOver);
       document.onselectstart = originalSelectStart;
@@ -334,3 +346,5 @@ export default function useColumnResize(params: {
     updateTableWidthOnColumnChange,
   };
 }
+
+export default useColumnResize;
