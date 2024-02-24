@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Loading from '../loading';
 import useConfig from '../hooks/useConfig';
@@ -8,14 +8,16 @@ import { SwitchValue, TdSwitchProps } from './type';
 import { switchDefaultProps } from './defaultProps';
 import log from '../_common/js/log';
 import parseTNode from '../_util/parseTNode';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
 
 export interface SwitchProps<T extends SwitchValue = SwitchValue> extends TdSwitchProps<T>, StyledProps {}
 
-const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
+  const props = useDefaultProps<SwitchProps<SwitchValue>>(originalProps, switchDefaultProps);
   const { className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps } = props;
   const [activeValue = true, inactiveValue = false] = customValue || [];
 
@@ -23,24 +25,23 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
   const initChecked = defaultValue === activeValue || value === activeValue;
   const [innerChecked, setInnerChecked] = useState(initChecked);
 
-  function renderContent(checked: boolean) {
+  const contentNode = React.useMemo<React.ReactNode>(() => {
     if (Array.isArray(label)) {
       const [activeContent = '', inactiveContent = ''] = label;
-      const content = checked ? activeContent : inactiveContent;
+      const content = innerChecked ? activeContent : inactiveContent;
       return parseTNode(content, { value });
     }
-
     return parseTNode(label, { value });
-  }
+  }, [label, innerChecked, value]);
 
-  function onInternalClick(e: React.MouseEvent) {
-    if (disabled) return;
-
+  const onInternalClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (disabled) {
+      return;
+    }
     !isControlled && setInnerChecked(!innerChecked);
-
     const changedValue = !innerChecked ? activeValue : inactiveValue;
     onChange?.(changedValue, { e });
-  }
+  };
 
   useEffect(() => {
     if (Array.isArray(customValue) && !customValue.includes(value)) {
@@ -71,17 +72,14 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
       ref={ref}
       onClick={onInternalClick}
     >
-      <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading={true} size="small" />}</span>
-      <div className={`${classPrefix}-switch__content`}>{renderContent(innerChecked)}</div>
+      <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading size="small" />}</span>
+      <div className={`${classPrefix}-switch__content`}>{contentNode}</div>
     </button>
   );
 });
 
 Switch.displayName = 'Switch';
-Switch.defaultProps = switchDefaultProps;
 
 export default Switch as <T extends SwitchValue = SwitchValue>(
-  props: SwitchProps<T> & {
-    ref?: React.Ref<HTMLButtonElement>;
-  },
+  props: SwitchProps<T> & React.RefAttributes<HTMLButtonElement>,
 ) => React.ReactElement;
