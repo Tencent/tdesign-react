@@ -42,7 +42,7 @@ const calculateTranslate = (index: number, currentIndex: number, parentWidth: nu
   return ((2 + itemWidth * (CARD_SCALE - 1)) * parentWidth) / 2;
 };
 
-const getZindex = (isActivity, inStage) => {
+const getZindex = (isActivity: boolean, inStage: boolean) => {
   if (isActivity) {
     return 2;
   }
