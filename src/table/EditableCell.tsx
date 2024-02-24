@@ -38,7 +38,7 @@ export interface EditableCellProps {
   onRuleChange?: (context: PrimaryTableRowEditContext<TableRowData>) => void;
 }
 
-const EditableCell = (props: EditableCellProps) => {
+const EditableCell: React.FC<EditableCellProps> = (props) => {
   const { row, col, colIndex, rowIndex, errors, editable, tableBaseClass } = props;
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
@@ -55,7 +55,9 @@ const EditableCell = (props: EditableCellProps) => {
   }, [isKeepEditMode]);
 
   const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
-    if (!colKey) return row;
+    if (!colKey) {
+      return row;
+    }
     // handle colKey like a.b.c
     const [firstKey, ...restKeys] = colKey.split('.') || [];
     const newRow = { ...row };
@@ -108,7 +110,9 @@ const EditableCell = (props: EditableCellProps) => {
 
   const componentProps = useMemo(() => {
     const { edit } = col;
-    if (!edit) return {};
+    if (!edit) {
+      return {};
+    }
     const editProps = isFunction(edit.props)
       ? edit.props({ ...cellParams, editedRow: currentRow, updateEditedCellValue })
       : { ...edit.props };
@@ -121,14 +125,16 @@ const EditableCell = (props: EditableCellProps) => {
     return editProps;
   }, [currentRow, cellParams, col]);
 
-  const isAbortEditOnChange = useMemo(() => {
+  const isAbortEditOnChange = useMemo<boolean>(() => {
     const { edit } = col;
-    if (!edit) return false;
-    return Boolean(edit.abortEditOnEvent?.includes('onChange'));
+    if (!edit) {
+      return false;
+    }
+    return edit.abortEditOnEvent?.includes('onChange');
   }, [col]);
 
   const validateEdit = (trigger: 'self' | 'parent', newVal: any) =>
-    new Promise((resolve) => {
+    new Promise<AllValidateResult[] | boolean>((resolve) => {
       const params: PrimaryTableRowValidateContext<TableRowData> = {
         result: [
           {
@@ -168,7 +174,9 @@ const EditableCell = (props: EditableCellProps) => {
 
   const updateAndSaveAbort = (outsideAbortEvent: Function, eventName: string, ...args: any) => {
     validateEdit('self', args[0].value).then((result) => {
-      if (result !== true) return;
+      if (result !== true) {
+        return;
+      }
       const oldValue = get(row, col.colKey);
       // 相同的值无需触发变化
       if (!isSame(args[0].value, oldValue)) {
@@ -191,13 +199,19 @@ const EditableCell = (props: EditableCellProps) => {
   const listeners = useMemo<{ [key: string]: Function }>(() => {
     const { edit } = col;
     const isCellEditable = props.editable === undefined;
-    if (!isEdit || !isCellEditable) return;
-    if (!edit?.abortEditOnEvent?.length) return {};
+    if (!isEdit || !isCellEditable) {
+      return;
+    }
+    if (!edit?.abortEditOnEvent?.length) {
+      return {};
+    }
     // 自定义退出编辑态的事件
     const tListeners = {};
     const outsideAbortEvent = edit?.onEdited;
     edit.abortEditOnEvent.forEach((itemEvent) => {
-      if (itemEvent === 'onChange') return;
+      if (itemEvent === 'onChange') {
+        return;
+      }
       tListeners[itemEvent] = (...args: any) => {
         updateAndSaveAbort(
           outsideAbortEvent,
@@ -249,12 +263,18 @@ const EditableCell = (props: EditableCellProps) => {
   };
 
   const documentClickHandler: EventListener = (e) => {
-    if (!col.edit || !col.edit.component) return;
-    if (!isEdit) return;
+    if (!col.edit || !col.edit.component) {
+      return;
+    }
+    if (!isEdit) {
+      return;
+    }
     // @ts-ignore some browser is also only support e.path
     const path = e.composedPath?.() || e.path || [];
     const node = path.find((node: HTMLElement) => node.classList?.contains(`${classPrefix}-popup__content`));
-    if (node) return;
+    if (node) {
+      return;
+    }
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, '', {
       value: editValue,
@@ -269,9 +289,13 @@ const EditableCell = (props: EditableCellProps) => {
   }, [cellValue]);
 
   useEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (typeof document === 'undefined') {
+      return;
+    }
     const isCellEditable = props.editable === undefined;
-    if (!col.edit || !col.edit.component || !isCellEditable) return;
+    if (!col.edit || !col.edit.component || !isCellEditable) {
+      return;
+    }
     if (isEdit) {
       document.addEventListener('click', documentClickHandler);
     } else {
@@ -293,11 +317,7 @@ const EditableCell = (props: EditableCellProps) => {
 
   useEffect(() => {
     if (props.editable === true) {
-      props.onRuleChange?.({
-        ...cellParams,
-        value: cellValue,
-        editedRow: currentRow || row,
-      });
+      props.onRuleChange?.({ ...cellParams, value: cellValue, editedRow: currentRow || row });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.editable, cellValue, row, col, cellParams, currentRow]);

@@ -19,7 +19,7 @@ export interface EllipsisProps {
 }
 
 /** 超出省略显示 */
-export default function Ellipsis(props: EllipsisProps) {
+const Ellipsis: React.FC<EllipsisProps> = (props) => {
   const { classPrefix } = props;
   const root = useRef<HTMLDivElement>();
   const [isOverflow, setIsOverflow] = useState(false);
@@ -33,7 +33,9 @@ export default function Ellipsis(props: EllipsisProps) {
 
   // 当表格数据量大时，不希望默认渲染全量的 Popup，期望在用户 mouseenter 的时候再显示
   const onTriggerMouseenter = () => {
-    if (!root.current) return;
+    if (!root.current) {
+      return;
+    }
     setIsOverflow(isNodeOverflow(root.current));
   };
 
@@ -52,7 +54,7 @@ export default function Ellipsis(props: EllipsisProps) {
       {cellNode}
     </div>
   );
-  let content = null;
+  let content: React.ReactNode = null;
   const { tooltipProps } = props;
   if (isOverflow) {
     const rProps = {
@@ -71,6 +73,8 @@ export default function Ellipsis(props: EllipsisProps) {
     content = ellipsisContent;
   }
   return content;
-}
+};
 
 Ellipsis.displayName = 'Ellipsis';
+
+export default Ellipsis;

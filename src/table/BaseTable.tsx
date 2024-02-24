@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useImperativeHandle, forwardRef, useEffect, useState, WheelEvent } from 'react';
+import React, { useRef, useMemo, useImperativeHandle, useEffect, useState, WheelEvent } from 'react';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
@@ -19,19 +19,21 @@ import useClassName from './hooks/useClassName';
 import { getAffixProps } from './utils';
 import { baseTableDefaultProps } from './defaultProps';
 import { Styles } from '../common';
-import { TableRowData } from './type';
+import { BaseTableCol, TableRowData } from './type';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import { getIEVersion } from '../_common/js/utils/helper';
 import log from '../_common/js/log';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
-export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
+export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map<string>((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
 
 export interface TableListeners {
   [key: string]: Function;
 }
 
-const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
+const BaseTable = React.forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) => {
+  const props = useDefaultProps<BaseTableProps<TableRowData>>(originalProps, baseTableDefaultProps);
   const {
     showHeader = true,
     tableLayout,
@@ -56,7 +58,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   // 表格基础样式类
   const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
-  const finalColumns = useMemo(
+
+  const finalColumns = useMemo<BaseTableCol<TableRowData>[]>(
     () => spansAndLeafNodes?.leafColumns || columns,
     [spansAndLeafNodes?.leafColumns, columns],
   );
@@ -146,14 +149,16 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     { [tableBaseClass.fullHeight]: height },
   ]);
 
-  const showRightDivider = useMemo(
+  const showRightDivider = useMemo<boolean>(
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
     [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
   );
 
   const [dividerBottom, setDividerBottom] = useState(0);
   useEffect(() => {
-    if (!bordered) return;
+    if (!bordered) {
+      return;
+    }
     const bottomRect = bottomContentRef.current?.getBoundingClientRect();
     const paginationRect = paginationRef.current?.getBoundingClientRect();
     const bottom = (bottomRect?.height || 0) + (paginationRect?.height || 0);
@@ -173,7 +178,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   const [lastLeafColumns, setLastLeafColumns] = useState(props.columns || []);
 
   useEffect(() => {
-    if (lastLeafColumns.map((t) => t.colKey).join() !== spansAndLeafNodes.leafColumns.map((t) => t.colKey).join()) {
+    if (
+      lastLeafColumns.map((t) => t.colKey).join() !== spansAndLeafNodes.leafColumns.map<string>((t) => t.colKey).join()
+    ) {
       props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setLastLeafColumns(spansAndLeafNodes.leafColumns);
@@ -214,7 +221,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
    * @returns
    */
   const scrollColumnIntoView = (colKey: string) => {
-    if (!tableContentRef.current) return;
+    if (!tableContentRef.current) {
+      return;
+    }
     const thDom = tableContentRef.current.querySelector(`th[data-colkey="${colKey}"]`);
     const fixedThDom = tableContentRef.current.querySelectorAll('th.t-table__cell--fixed-left');
     let totalWidth = 0;
@@ -242,7 +251,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   // used for top margin
   const getTFootHeight = () => {
     const timer = setTimeout(() => {
-      if (!tableElmRef.current) return;
+      if (!tableElmRef.current) {
+        return;
+      }
       const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
       setTableFootHeight(height);
     }, 1);
@@ -269,7 +280,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
   const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
-      {finalColumns.map((col) => {
+      {finalColumns.map<React.ReactNode>((col) => {
         const style: Styles = {
           width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
         };
@@ -325,7 +336,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
    * Affixed Header
    */
   const renderFixedHeader = () => {
-    if (!showHeader) return null;
+    if (!showHeader) {
+      return null;
+    }
     // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
     const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
     const barWidth = isWidthOverflow ? scrollbarWidth : 0;
@@ -371,7 +384,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
   };
 
   const renderAffixedHeader = () => {
-    if (!showHeader) return null;
+    if (!showHeader) {
+      return null;
+    }
     return (
       !!(virtualConfig.isVirtualScroll || props.headerAffixedTop) &&
       (props.headerAffixedTop ? (
@@ -489,13 +504,15 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
         }}
       >
         {renderColGroup(false)}
-        {useMemo(() => {
-          if (!showHeader) return null;
+        {React.useMemo<React.ReactNode>(() => {
+          if (!showHeader) {
+            return null;
+          }
           return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
           // eslint-disable-next-line
         }, headUseMemoDependencies)}
 
-        {useMemo(
+        {React.useMemo<React.ReactNode>(
           () => (
             <TBody {...tableBodyProps} />
           ),
@@ -524,8 +541,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
             props.cellEmptyContent,
           ],
         )}
-
-        {useMemo(
+        {React.useMemo<React.ReactNode>(
           () => (
             <TFoot
               rowKey={props.rowKey}
@@ -583,7 +599,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     </div>
   );
 
-  const affixedHeaderContent = useMemo(
+  const affixedHeaderContent = React.useMemo<React.ReactNode>(
     renderAffixedHeader,
     // eslint-disable-next-line
     [
@@ -603,7 +619,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     ],
   );
 
-  const affixedFooterContent = useMemo(
+  const affixedFooterContent = React.useMemo<React.ReactNode>(
     renderAffixedFooter,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -636,8 +652,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
     ],
   );
 
-  const scrollbarDivider = useMemo(() => {
-    if (!showRightDivider) return null;
+  const scrollbarDivider = React.useMemo<React.ReactNode>(() => {
+    if (!showRightDivider) {
+      return null;
+    }
     return (
       <div
         className={tableBaseClass.scrollbarDivider}
@@ -727,10 +745,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((props, ref) => {
 
 BaseTable.displayName = 'BaseTable';
 
-BaseTable.defaultProps = baseTableDefaultProps;
-
 export default BaseTable as <T extends TableRowData = TableRowData>(
-  props: BaseTableProps<T> & {
-    ref?: React.Ref<BaseTableRef>;
-  },
+  props: BaseTableProps<T> & React.RefAttributes<BaseTableRef>,
 ) => React.ReactElement;

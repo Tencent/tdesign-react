@@ -91,7 +91,9 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     rowClassName: ({ row }) => {
       const rowValue = get(row, props.rowKey || 'id');
       const rowState = treeDataMap.get(rowValue);
-      if (!rowState) return [props.rowClassName];
+      if (!rowState) {
+        return [props.rowClassName];
+      }
       return [`${classPrefix}-table-tr--level-${rowState.level}`, props.rowClassName];
     },
     style,
@@ -106,7 +108,5 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
 EnhancedTable.displayName = 'EnhancedTable';
 
 export default EnhancedTable as <T extends TableRowData = TableRowData>(
-  props: EnhancedTableProps<T> & {
-    ref?: React.Ref<EnhancedTableRef>;
-  },
+  props: EnhancedTableProps<T> & React.RefAttributes<EnhancedTableRef>,
 ) => React.ReactElement;

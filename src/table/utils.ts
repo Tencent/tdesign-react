@@ -36,12 +36,16 @@ export interface FormatRowAttributesParams {
 
 // 行属性
 export function formatRowAttributes(attributes: TdBaseTableProps['rowAttributes'], params: FormatRowAttributesParams) {
-  if (!attributes) return undefined;
+  if (!attributes) {
+    return undefined;
+  }
   const attrList = attributes instanceof Array ? attributes : [attributes];
   let result: HTMLElementAttributes = {};
   for (let i = 0; i < attrList.length; i++) {
     const attrItem = attrList[i];
-    if (!attrItem) continue;
+    if (!attrItem) {
+      continue;
+    }
     const attrProperty = isFunction(attrItem) ? attrItem(params) : attrItem;
     result =
       attrProperty instanceof Array ? formatRowAttributes(attrProperty, params) : Object.assign(result, attrProperty);
@@ -85,7 +89,7 @@ export function formatClassNames(
   for (let i = 0, len = classes.length; i < len; i++) {
     const cls = classes[i];
     if (isFunction(cls)) {
-      arr.push(cls(params));
+      arr.push(cls(params as CellData<TableRowData>));
     } else {
       arr.push(cls);
     }
@@ -97,9 +101,13 @@ export const INNER_PRE_NAME = '@@inner-';
 
 // 多级表头，列配置场景，获取 currentRow
 export function getCurrentRowByKey<T extends { colKey?: string; children?: any[] }>(columns: T[], key: string): T {
-  if (!columns || !key) return;
+  if (!columns || !key) {
+    return;
+  }
   const col = columns?.find((t) => t.colKey === key);
-  if (col) return col;
+  if (col) {
+    return col;
+  }
   for (let i = 0, len = columns.length; i < len; i++) {
     if (columns[i]?.children?.length) {
       return getCurrentRowByKey(columns[i]?.children, key);
@@ -109,7 +117,11 @@ export function getCurrentRowByKey<T extends { colKey?: string; children?: any[]
 
 /** 透传 Affix 组件全部特性 */
 export function getAffixProps(mainAffixProps: boolean | Partial<AffixProps>, subAffixProps?: Partial<AffixProps>) {
-  if (typeof mainAffixProps === 'object') return mainAffixProps;
-  if (typeof subAffixProps === 'object') return subAffixProps;
+  if (typeof mainAffixProps === 'object') {
+    return mainAffixProps;
+  }
+  if (typeof subAffixProps === 'object') {
+    return subAffixProps;
+  }
   return {};
 }

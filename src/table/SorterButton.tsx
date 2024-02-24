@@ -19,11 +19,9 @@ export interface SorterButtonProps {
   onSortIconClick: (e: MouseEvent<HTMLSpanElement>, p: { descending: boolean }) => void;
 }
 
-export default function SorterButton(props: SorterButtonProps) {
+const SorterButton: React.FC<SorterButtonProps> = (props) => {
   const { sortType = 'all' } = props;
-  const { ChevronDownIcon } = useGlobalIcon({
-    ChevronDownIcon: TdChevronDownIcon,
-  });
+  const { ChevronDownIcon } = useGlobalIcon({ ChevronDownIcon: TdChevronDownIcon });
   const { tableSortClasses, negativeRotate180 } = useClassName();
   const [locale, t] = useLocaleReceiver('table');
 
@@ -58,11 +56,13 @@ export default function SorterButton(props: SorterButtonProps) {
     asc: locale.sortAscendingOperationText,
     desc: locale.sortDescendingOperationText,
   };
-  const sortButton = allowSortTypes.map((direction: string) => {
+  const sortButton = allowSortTypes.map<React.ReactNode>((direction) => {
     const activeClass = direction === props.sortOrder ? tableSortClasses.iconActive : tableSortClasses.iconDefault;
     const cancelTips = locale.sortCancelOperationText;
     const tips = direction === props.sortOrder ? cancelTips : tooltips[direction];
-    if (props.hideSortTips ?? locale.hideSortTips) return getSortIcon(direction, activeClass);
+    if (props.hideSortTips ?? locale.hideSortTips) {
+      return getSortIcon(direction, activeClass);
+    }
     return (
       <Tooltip content={tips} key={direction} placement="right" {...props.tooltipProps} showArrow={false}>
         {getSortIcon(direction, activeClass)}
@@ -70,6 +70,8 @@ export default function SorterButton(props: SorterButtonProps) {
     );
   });
   return <div className={classNames(classes)}>{sortButton}</div>;
-}
+};
 
 SorterButton.displayName = 'SorterButton';
+
+export default SorterButton;

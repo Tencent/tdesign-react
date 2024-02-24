@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -20,12 +20,14 @@ import { StyledProps } from '../common';
 import { useEditableRow } from './hooks/useEditableRow';
 import { primaryTableDefaultProps } from './defaultProps';
 import { CheckboxGroupValue } from '../checkbox';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
-const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref) => {
+const PrimaryTable = React.forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
+  const props = useDefaultProps<TPrimaryTableProps>(originalProps, primaryTableDefaultProps);
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
@@ -74,7 +76,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
   // 如果想给 TR 添加类名，请在这里补充，不要透传更多额外 Props 到 BaseTable
   const tRowClassNames = (() => {
     const tClassNames = [props.rowClassName, selectedRowClassNames];
-    return tClassNames.filter((v) => v);
+    return tClassNames.filter(Boolean);
   })();
 
   // 如果想给 TR 添加属性，请在这里补充，不要透传更多额外 Props 到 BaseTable
@@ -83,7 +85,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     if (isRowHandlerDraggable || isRowDraggable) {
       tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
     }
-    return tAttributes.filter((v) => v);
+    return tAttributes.filter(Boolean);
   })();
 
   useImperativeHandle(ref, () => ({
@@ -106,7 +108,9 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
       let item = { ...columns[i] };
       // 自定义列显示控制
       const isDisplayColumn = item.children?.length || tDisplayColumns?.includes(item.colKey);
-      if (!isDisplayColumn && props.columnController && tDisplayColumns) continue;
+      if (!isDisplayColumn && props.columnController && tDisplayColumns) {
+        continue;
+      }
       item = formatToRowSelectColumn(item);
       const { sort } = props;
       if (item.sorter && props.showSortColumnBgColor) {
@@ -207,12 +211,23 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
     }
   };
 
-  function formatNode(api: string, renderInnerNode: Function, condition: boolean, extra?: { reverse?: boolean }) {
-    if (!condition) return props[api];
+  const formatNode = (
+    api: string,
+    renderInnerNode: () => React.ReactNode,
+    condition: boolean,
+    extra?: { reverse?: boolean },
+  ) => {
+    if (!condition) {
+      return props[api];
+    }
     const innerNode = renderInnerNode();
     const propsNode = props[api];
-    if (innerNode && !propsNode) return innerNode;
-    if (propsNode && !innerNode) return propsNode;
+    if (innerNode && !propsNode) {
+      return innerNode;
+    }
+    if (propsNode && !innerNode) {
+      return propsNode;
+    }
     if (innerNode && propsNode) {
       return extra?.reverse ? (
         <div>
@@ -227,15 +242,13 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
       );
     }
     return null;
-  }
+  };
 
   const isColumnController = !!(columnController && Object.keys(columnController).length);
   const placement = isColumnController ? columnController.placement || 'top-right' : '';
   const isBottomController = isColumnController && placement?.indexOf('bottom') !== -1;
   const topContent = formatNode('topContent', renderColumnController, isColumnController && !isBottomController);
-  const bottomContent = formatNode('bottomContent', renderColumnController, isBottomController, {
-    reverse: true,
-  });
+  const bottomContent = formatNode('bottomContent', renderColumnController, isBottomController, { reverse: true });
   const firstFullRow = formatNode('firstFullRow', renderFirstFilterRow, !hasEmptyCondition);
   const lastFullRow = formatNode('lastFullRow', renderAsyncLoading, !!props.asyncLoading);
 
@@ -271,10 +284,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((props, ref
 
 PrimaryTable.displayName = 'PrimaryTable';
 
-PrimaryTable.defaultProps = primaryTableDefaultProps;
-
 export default PrimaryTable as <T extends TableRowData = TableRowData>(
-  props: PrimaryTableProps<T> & {
-    ref?: React.Ref<PrimaryTableRef>;
-  },
+  props: PrimaryTableProps<T> & React.RefAttributes<PrimaryTableRef>,
 ) => React.ReactElement;

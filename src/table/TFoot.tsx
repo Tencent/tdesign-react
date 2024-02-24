@@ -25,14 +25,25 @@ export interface TFootProps {
   rowspanAndColspanInFooter: TdBaseTableProps['rowspanAndColspanInFooter'];
 }
 
-export default function TFoot(props: TFootProps) {
-  const { footData, columns, rowKey, footerSummary } = props;
+const TFoot: React.FC<TFootProps> = (props) => {
+  const {
+    footData,
+    columns,
+    rowKey,
+    footerSummary,
+    isFixedHeader,
+    rowClassName,
+    rowAttributes,
+    thWidthList,
+    rowAndColFixedPosition,
+    rowspanAndColspanInFooter,
+  } = props;
   const tfooterRef = useRef();
   const classnames = useClassName();
 
-  const { skipSpansMap } = useRowspanAndColspan(footData, columns, rowKey, props.rowspanAndColspanInFooter);
+  const { skipSpansMap } = useRowspanAndColspan(footData, columns, rowKey, rowspanAndColspanInFooter);
 
-  const renderTFootCell = (p: BaseTableCellParams<TableRowData>) => {
+  const renderTFootCell = (p: BaseTableCellParams<TableRowData>): React.ReactNode => {
     const { col, row } = p;
     if (isFunction(col.foot)) {
       return col.foot(p);
@@ -40,24 +51,19 @@ export default function TFoot(props: TFootProps) {
     return col.foot || get(row, col.colKey);
   };
 
-  const theadClasses = [
-    classnames.tableFooterClasses.footer,
-    { [classnames.tableFooterClasses.fixed]: props.isFixedHeader },
-  ];
+  const theadClasses = [classnames.tableFooterClasses.footer, { [classnames.tableFooterClasses.fixed]: isFixedHeader }];
 
-  if (!columns) return null;
+  if (!columns) {
+    return null;
+  }
 
-  const footerDomList = footData?.map((row, rowIndex) => {
-    const trAttributes = formatRowAttributes(props.rowAttributes, { row, rowIndex, type: 'foot' });
+  const footerDomList = footData?.map<React.ReactNode>((row, rowIndex) => {
+    const trAttributes = formatRowAttributes(rowAttributes, { row, rowIndex, type: 'foot' });
     // 自定义行类名
-    const customClasses = formatRowClassNames(
-      props.rowClassName,
-      { row, rowIndex, type: 'foot' },
-      props.rowKey || 'id',
-    );
+    const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, type: 'foot' }, rowKey || 'id');
     return (
       <tr key={rowIndex} {...trAttributes} className={classNames(customClasses)}>
-        {columns.map((col, colIndex) => {
+        {columns.map<React.ReactNode>((col, colIndex) => {
           // 合并单元格过滤
           const cellSpans: RowspanColspan = {};
           let spanState = null;
@@ -66,17 +72,14 @@ export default function TFoot(props: TFootProps) {
             spanState = skipSpansMap.get(cellKey) || {};
             spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
             spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
-            if (spanState.skipped) return null;
+            if (spanState.skipped) {
+              return null;
+            }
           }
-          const tdStyles = getColumnFixedStyles(
-            col,
-            colIndex,
-            props.rowAndColFixedPosition,
-            classnames.tableColFixedClasses,
-          );
+          const tdStyles = getColumnFixedStyles(col, colIndex, rowAndColFixedPosition, classnames.tableColFixedClasses);
           const style: CSSProperties = { ...tdStyles.style };
-          if (props.thWidthList?.[col.colKey]) {
-            style.width = `${props.thWidthList[col.colKey] || 0}px`;
+          if (thWidthList?.[col.colKey]) {
+            style.width = `${thWidthList[col.colKey] || 0}px`;
           }
           return (
             <td
@@ -86,12 +89,7 @@ export default function TFoot(props: TFootProps) {
               className={classNames(tdStyles.classes)}
               style={style}
             >
-              {renderTFootCell({
-                row,
-                rowIndex,
-                col,
-                colIndex,
-              })}
+              {renderTFootCell({ row, rowIndex, col, colIndex })}
             </td>
           );
         })}
@@ -100,7 +98,9 @@ export default function TFoot(props: TFootProps) {
   });
 
   // 都不存在，则不需要渲染 footer
-  if (!footerSummary && (!props.footData || !props.footData.length)) return null;
+  if (!footerSummary && (!footData || !footData.length)) {
+    return null;
+  }
   return (
     <tfoot ref={tfooterRef} className={classNames(theadClasses)}>
       {footerSummary && (
@@ -113,4 +113,6 @@ export default function TFoot(props: TFootProps) {
       {footerDomList}
     </tfoot>
   );
-}
+};
+
+export default TFoot;

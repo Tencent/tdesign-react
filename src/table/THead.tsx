@@ -1,9 +1,9 @@
-import React, { useRef, MutableRefObject, CSSProperties, useMemo } from 'react';
+import React, { useRef, MutableRefObject, CSSProperties } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import { getColumnFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
-import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
+import { ThRowspanAndColspan } from './hooks/useMultiHeader';
 import useClassName from './hooks/useClassName';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
 import { renderTitle } from './hooks/useTableHeader';
@@ -36,29 +36,51 @@ export interface TheadProps {
   columnResizeParams?: {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
-    onColumnMouseover: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
-    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => void;
+    onColumnMouseover: (
+      e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+      col: BaseTableCol<TableRowData>,
+    ) => void;
+    onColumnMousedown: (
+      e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+      col: BaseTableCol<TableRowData>,
+      index: number,
+    ) => void;
   };
 }
 
-export default function THead(props: TheadProps) {
-  const { columnResizeParams, classPrefix, showColumnShadow } = props;
+const THead: React.FC<TheadProps> = (props) => {
+  const {
+    columnResizeParams,
+    classPrefix,
+    showColumnShadow,
+    height,
+    maxHeight,
+    isMultipleHeader,
+    bordered,
+    spansAndLeafNodes,
+    rowAndColFixedPosition,
+    thList,
+    thWidthList,
+    resizable,
+    thDraggable,
+    ellipsisOverlayClassName,
+  } = props;
   const theadRef = useRef<HTMLTableSectionElement>(null);
   const classnames = useClassName();
   const { tableHeaderClasses, tableBaseClass } = classnames;
   const theadClasses = [
     tableHeaderClasses.header,
     {
-      [tableHeaderClasses.fixed]: Boolean(props.maxHeight || props.height),
-      [tableBaseClass.bordered]: props.bordered && props.isMultipleHeader,
-      [tableHeaderClasses.multipleHeader]: props.isMultipleHeader,
+      [tableHeaderClasses.fixed]: Boolean(maxHeight || height),
+      [tableBaseClass.bordered]: bordered && isMultipleHeader,
+      [tableHeaderClasses.multipleHeader]: isMultipleHeader,
     },
   ];
 
   // 单行表格合并
-  const colspanSkipMap = useMemo(() => {
-    const map: { [key: string]: boolean } = {};
-    const list = props.thList[0];
+  const colspanSkipMap = React.useMemo<Record<PropertyKey, boolean>>(() => {
+    const map: Record<PropertyKey, boolean> = {};
+    const list = thList[0];
     for (let i = 0, len = list.length; i < len; i++) {
       const item = list[i];
       if (item.colspan > 1) {
@@ -70,31 +92,33 @@ export default function THead(props: TheadProps) {
       }
     }
     return map;
-  }, [props.thList]);
+  }, [thList]);
 
   const getTableNode = (thead: HTMLElement) => {
     let parent = thead;
     while (parent) {
       parent = parent.parentNode as HTMLElement;
-      if (parent?.classList?.contains(`${props.classPrefix}-table`)) {
+      if (parent?.classList?.contains(`${classPrefix}-table`)) {
         break;
       }
     }
     return parent;
   };
 
-  const renderThNodeList = (rowAndColFixedPosition: RowAndColFixedPosition, thWidthList: TheadProps['thWidthList']) => {
+  const renderThNodeList = (): React.ReactNode[] => {
     // thBorderMap: rowspan 会影响 tr > th 是否为第一列表头，从而影响边框
-    const thBorderMap = new Map<any, boolean>();
-    const thRowspanAndColspan = props.spansAndLeafNodes.rowspanAndColspanMap;
-    return props.thList.map((row, rowIndex) => {
-      const thRow = row.map((col: TableColumns[0], index: number) => {
+    const thBorderMap = new Map<BaseTableCol<TableRowData>, boolean>();
+    const thRowspanAndColspan = spansAndLeafNodes.rowspanAndColspanMap;
+    return thList.map<React.ReactNode>((row, rowIndex) => {
+      const thRow = row.map<React.ReactNode>((col, index) => {
         // 因合并单行表头，跳过
-        if (colspanSkipMap[col.colKey]) return null;
+        if (colspanSkipMap[col.colKey]) {
+          return null;
+        }
         const rowspanAndColspan = thRowspanAndColspan.get(col);
         if (index === 0 && rowspanAndColspan.rowspan > 1) {
           for (let j = rowIndex + 1; j < rowIndex + rowspanAndColspan.rowspan; j++) {
-            thBorderMap.set(props.thList[j][0], true);
+            thBorderMap.set(thList[j][0], true);
           }
         }
         const thStyles = getColumnFixedStyles(col, index, rowAndColFixedPosition, classnames.tableColFixedClasses);
@@ -106,7 +130,7 @@ export default function THead(props: TheadProps) {
         };
         const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
         const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
-        const canDragSort = props.thDraggable && !(isLeftFixedActive || isRightFixedActive);
+        const canDragSort = thDraggable && !(isLeftFixedActive || isRightFixedActive);
         const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
         const thCustomClasses = formatClassNames(col.thClassName, colParams);
         const thClasses = [
@@ -126,24 +150,28 @@ export default function THead(props: TheadProps) {
         const width = withoutChildren && thWidthList?.[col.colKey] ? `${thWidthList?.[col.colKey]}px` : undefined;
         const styles = { ...(thStyles.style || {}), width };
         const innerTh = renderTitle(col, index);
-        if (!col.colKey) return null;
+        if (!col.colKey) {
+          return null;
+        }
         const resizeColumnListener =
-          props.resizable || !canDragSort
+          resizable || !canDragSort
             ? {
-                onMouseDown: (e) => {
-                  if (props.resizable) {
+                onMouseDown: (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) => {
+                  if (resizable) {
                     columnResizeParams?.onColumnMousedown?.(e, col, index);
                   }
                   if (!canDragSort) {
                     const timer = setTimeout(() => {
-                      const thList = theadRef.current.querySelectorAll('th');
-                      thList[index]?.removeAttribute('draggable');
+                      const thElement = theadRef.current.querySelectorAll<HTMLTableCellElement>('th');
+                      thElement[index]?.removeAttribute('draggable');
                       clearTimeout(timer);
                     }, 10);
                   }
                 },
-                onMouseMove: (e) => {
-                  props.resizable && columnResizeParams?.onColumnMouseover?.(e, col);
+                onMouseMove: (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) => {
+                  if (resizable) {
+                    columnResizeParams?.onColumnMouseover?.(e, col);
+                  }
                 },
               }
             : {};
@@ -171,8 +199,8 @@ export default function THead(props: TheadProps) {
                   popupContent={content}
                   // @ts-ignore TODO 待类型完善后移除
                   tooltipProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
-                  overlayClassName={props.ellipsisOverlayClassName}
-                  classPrefix={props.classPrefix}
+                  overlayClassName={ellipsisOverlayClassName}
+                  classPrefix={classPrefix}
                 >
                   {innerTh}
                 </TEllipsis>
@@ -189,7 +217,9 @@ export default function THead(props: TheadProps) {
 
   return (
     <thead ref={theadRef} className={classNames(theadClasses)}>
-      {renderThNodeList(props.rowAndColFixedPosition, props.thWidthList)}
+      {renderThNodeList()}
     </thead>
   );
-}
+};
+
+export default THead;

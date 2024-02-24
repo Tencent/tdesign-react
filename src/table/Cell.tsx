@@ -35,13 +35,13 @@ export interface CellProps {
   onClick?: (e: MouseEvent<HTMLTableCellElement>) => void;
 }
 
-export function renderCell(
+export const renderCell = (
   params: BaseTableCellParams<TableRowData>,
   extra?: {
     cellEmptyContent?: TdBaseTableProps['cellEmptyContent'];
     pagination?: PaginationProps;
   },
-) {
+) => {
   const { col, row, rowIndex } = params;
   // support serial number column
   if (col.colKey === 'serial-number') {
@@ -61,12 +61,16 @@ export function renderCell(
   }
   const r = col.cell || col.render || get(row, col.colKey);
   // 0 和 false 属于正常可用之，不能使用兜底逻辑 cellEmptyContent
-  if (![undefined, '', null].includes(r)) return r;
-  if (extra?.cellEmptyContent) return extra.cellEmptyContent;
+  if (![undefined, '', null].includes(r)) {
+    return r;
+  }
+  if (extra?.cellEmptyContent) {
+    return extra.cellEmptyContent;
+  }
   return r;
-}
+};
 
-function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, params: RenderEllipsisCellParams) {
+const renderEllipsisCell = (cellParams: BaseTableCellParams<TableRowData>, params: RenderEllipsisCellParams) => {
   const { cellNode, tableElm, columnLength, classPrefix, overlayClassName } = params;
   const { col, colIndex } = cellParams;
   let content = isFunction(col.ellipsis) ? col.ellipsis(cellParams) : undefined;
@@ -92,12 +96,26 @@ function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, param
       {cellNode}
     </TEllipsis>
   );
-}
+};
 
-const Cell = (props: CellProps) => {
-  const { cellParams, tableClassNames, tableRef, columnLength, classPrefix, overlayClassName, pagination } = props;
+const Cell: React.FC<CellProps> = (props) => {
+  const {
+    cellParams,
+    tableClassNames,
+    tableRef,
+    columnLength,
+    classPrefix,
+    overlayClassName,
+    pagination,
+    cellSpans,
+    dataLength,
+    rowAndColFixedPosition,
+    cellEmptyContent,
+    rowspanAndColspan,
+    onClick,
+  } = props;
   const { col, colIndex, rowIndex } = cellParams;
-  const { cellSpans, dataLength, rowAndColFixedPosition, cellEmptyContent, rowspanAndColspan, onClick } = props;
+
   const { tableColFixedClasses, tdEllipsisClass, tableBaseClass, tdAlignClasses, tableDraggableClasses } =
     tableClassNames;
 

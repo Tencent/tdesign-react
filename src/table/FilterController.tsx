@@ -41,12 +41,10 @@ export interface TableFilterControllerProps {
   onInnerFilterChange: (val: any, column: PrimaryTableCol<TableRowData>) => void;
 }
 
-export default function TableFilterController(props: TableFilterControllerProps) {
+const TableFilterController: React.FC<TableFilterControllerProps> = (props) => {
   const { tFilterValue, innerFilterValue, tableFilterClasses, isFocusClass, column } = props;
 
-  const { FilterIcon } = useGlobalIcon({
-    FilterIcon: TdFilterIcon,
-  });
+  const { FilterIcon } = useGlobalIcon({ FilterIcon: TdFilterIcon });
   const triggerElementRef = useRef<HTMLDivElement>(null);
   const [locale, t] = useLocaleReceiver('table');
   const [filterPopupVisible, setFilterPopupVisible] = useState(false);
@@ -67,7 +65,9 @@ export default function TableFilterController(props: TableFilterControllerProps)
       multiple: CheckboxGroup,
       input: Input,
     }[column.filter.type];
-    if (!Component && !column?.filter?.component) return;
+    if (!Component && !column?.filter?.component) {
+      return;
+    }
     const filterComponentProps: { [key: string]: any } = {
       options: ['single', 'multiple'].includes(column.filter.type) ? column.filter?.list : undefined,
       ...(column.filter?.props || {}),
@@ -160,4 +160,6 @@ export default function TableFilterController(props: TableFilterControllerProps)
       </Popup>
     </div>
   );
-}
+};
+
+export default TableFilterController;

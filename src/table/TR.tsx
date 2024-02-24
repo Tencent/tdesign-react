@@ -11,7 +11,7 @@ import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 import Cell from './Cell';
 import { PaginationProps } from '../pagination';
 import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
-import { InfinityScroll } from '../common';
+import { HTMLElementAttributes, InfinityScroll } from '../common';
 
 export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 
@@ -62,7 +62,7 @@ export interface TrProps extends TrCommonProps {
 export const ROW_LISTENERS = ['click', 'dblclick', 'mouseover', 'mousedown', 'mouseenter', 'mouseleave', 'mouseup'];
 
 // 表格行组件
-export default function TR(props: TrProps) {
+const TR: React.FC<TrProps> = (props) => {
   const {
     row,
     rowKey,
@@ -91,7 +91,7 @@ export default function TR(props: TrProps) {
     classNames.tableRowFixedClasses,
   );
 
-  const trAttributes = useMemo(
+  const trAttributes = useMemo<HTMLElementAttributes>(
     () => formatRowAttributes(rowAttributes, { row, rowIndex, type: 'body' }) || {},
     [row, rowAttributes, rowIndex],
   );
@@ -106,15 +106,12 @@ export default function TR(props: TrProps) {
 
   useEffect(() => {
     if (virtualConfig.isVirtualScroll && trRef.current) {
-      onRowMounted?.({
-        ref: trRef.current,
-        data: row,
-      });
+      onRowMounted?.({ ref: trRef.current, data: row });
     }
     // eslint-disable-next-line
   }, [virtualConfig.isVirtualScroll, trRef, row]);
 
-  const columnVNodeList = props.columns?.map((col, colIndex) => {
+  const columnVNodeList = props.columns?.map<React.ReactNode>((col, colIndex) => {
     const cellSpans: RowspanColspan = {};
     const params = {
       row,
@@ -128,7 +125,9 @@ export default function TR(props: TrProps) {
       spanState = props.skipSpansMap.get(cellKey) || {};
       spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
       spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
-      if (spanState.skipped) return null;
+      if (spanState.skipped) {
+        return null;
+      }
     }
     const onClick = (e: MouseEvent<HTMLTableCellElement>) => {
       const p = { ...params, e };
@@ -177,6 +176,8 @@ export default function TR(props: TrProps) {
         : columnVNodeList}
     </tr>
   );
-}
+};
 
 TR.displayName = 'TR';
+
+export default TR;

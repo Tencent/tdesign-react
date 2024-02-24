@@ -57,40 +57,81 @@ export const extendTableProps = [
   'onScrollY',
 ];
 
-export default function TBody(props: TableBodyProps) {
+const properties = [
+  'classPrefix',
+  'ellipsisOverlayClassName',
+  'rowAndColFixedPosition',
+  'scroll',
+  'tableRef',
+  'tableContentRef',
+  'trs',
+  'bufferSize',
+  'isVirtual',
+  'rowHeight',
+  'scrollType',
+];
+
+const TBody: React.FC<TableBodyProps> = (props) => {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
-  const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig, allTableClasses } = props;
+  const {
+    data,
+    columns,
+    rowKey,
+    firstFullRow,
+    lastFullRow,
+    virtualConfig,
+    allTableClasses,
+    isWidthOverflow,
+    tableWidth,
+    renderExpandedRow,
+    rowspanAndColspan,
+  } = props;
   const [global, t] = useLocaleReceiver('table');
   const { tableFullRowClasses, tableBaseClass } = allTableClasses;
-  const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
+  const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, rowspanAndColspan);
   const columnLength = columns.length;
   const dataLength = data?.length;
 
-  const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
-  const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
+  const tbodyClasses = useMemo<string[]>(() => [tableBaseClass.body], [tableBaseClass.body]);
+  const hasFullRowConfig = useMemo<React.ReactNode>(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
 
-  const renderEmpty = (columns: TableBodyProps['columns']) => (
-    <tr className={classNames([tableBaseClass.emptyRow, { [tableFullRowClasses.base]: props.isWidthOverflow }])}>
-      <td colSpan={columns.length}>
-        <div
-          className={classNames([tableBaseClass.empty, { [tableFullRowClasses.innerFullRow]: props.isWidthOverflow }])}
-          style={props.isWidthOverflow ? { width: `${props.tableWidth}px` } : {}}
-        >
-          {props.empty || t(global.empty)}
-        </div>
-      </td>
-    </tr>
+  const emptyNode = React.useMemo<React.ReactNode>(
+    () => (
+      <tr className={classNames([tableBaseClass.emptyRow, { [tableFullRowClasses.base]: isWidthOverflow }])}>
+        <td colSpan={columns.length}>
+          <div
+            className={classNames([tableBaseClass.empty, { [tableFullRowClasses.innerFullRow]: isWidthOverflow }])}
+            style={isWidthOverflow ? { width: `${tableWidth}px` } : {}}
+          >
+            {props.empty || t(global.empty)}
+          </div>
+        </td>
+      </tr>
+    ),
+    [
+      columns.length,
+      global.empty,
+      props.empty,
+      isWidthOverflow,
+      tableWidth,
+      t,
+      tableBaseClass.empty,
+      tableBaseClass.emptyRow,
+      tableFullRowClasses.base,
+      tableFullRowClasses.innerFullRow,
+    ],
   );
 
-  const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row') => {
+  const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row'): React.ReactNode => {
     const tType = camelCase(type);
     const fullRowNode = {
       'first-full-row': firstFullRow,
       'last-full-row': lastFullRow,
     }[type];
-
-    if (!fullRowNode) return null;
-    const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
+    if (!fullRowNode) {
+      return null;
+    }
+    const isFixedToLeft = isWidthOverflow && columns.find((col) => col.fixed === 'left');
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
     /** innerFullRow 和 innerFullElement 同时存在，是为了保证 固定列时，当前行不随内容进行横向滚动 */
     return (
@@ -98,7 +139,7 @@ export default function TBody(props: TableBodyProps) {
         <td colSpan={columnLength}>
           <div
             className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft })}
-            style={isFixedToLeft ? { width: `${props.tableWidth}px` } : {}}
+            style={isFixedToLeft ? { width: `${tableWidth}px` } : {}}
           >
             <div className={tableFullRowClasses.innerFullElement}>{fullRowNode}</div>
           </div>
@@ -107,36 +148,25 @@ export default function TBody(props: TableBodyProps) {
     );
   };
 
-  const firstFullRowNode = useMemo(
+  const firstFullRowNode = useMemo<React.ReactNode>(
     () => getFullRow(columnLength, 'first-full-row'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [firstFullRow, columnLength, getFullRow],
   );
 
-  const lastFullRowNode = useMemo(
+  const lastFullRowNode = useMemo<React.ReactNode>(
     () => getFullRow(columnLength, 'last-full-row'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [lastFullRow, columnLength, getFullRow],
   );
 
-  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
+  const isSkipSnapsMapNotFinish = Boolean(rowspanAndColspan && !skipSpansMap.size);
 
   const getTRNodeList = () => {
-    if (isSkipSnapsMapNotFinish) return null;
-    const trNodeList = [];
-    const properties = [
-      'classPrefix',
-      'ellipsisOverlayClassName',
-      'rowAndColFixedPosition',
-      'scroll',
-      'tableRef',
-      'tableContentRef',
-      'trs',
-      'bufferSize',
-      'isVirtual',
-      'rowHeight',
-      'scrollType',
-    ];
+    if (isSkipSnapsMapNotFinish) {
+      return null;
+    }
+    const trNodeList: React.ReactNode[] = [];
     data?.forEach((row, rowIndex) => {
       const trProps = {
         ...pick(props, TABLE_PROPS),
@@ -163,16 +193,18 @@ export default function TBody(props: TableBodyProps) {
       trNodeList.push(trNode);
 
       // 执行展开行渲染
-      if (props.renderExpandedRow) {
+      if (renderExpandedRow) {
         const p = {
           row,
           index: rowIndex,
           columns,
-          tableWidth: props.tableWidth,
-          isWidthOverflow: props.isWidthOverflow,
+          tableWidth,
+          isWidthOverflow,
         };
-        const expandedContent = props.renderExpandedRow(p);
-        expandedContent && trNodeList.push(expandedContent);
+        const expandedContent = renderExpandedRow(p);
+        if (expandedContent) {
+          trNodeList.push(expandedContent);
+        }
       }
     });
     return trNodeList;
@@ -182,13 +214,13 @@ export default function TBody(props: TableBodyProps) {
 
   // 垫上隐藏的 tr 元素高度
   const translate = `translateY(${virtualConfig.translateY}px)`;
-  const posStyle = virtualConfig.isVirtualScroll
-    ? {
+  const posStyle: React.CSSProperties = virtualConfig.isVirtualScroll
+    ? ({
         transform: translate,
         msTransform: translate,
         MozTransform: translate,
         WebkitTransform: translate,
-      }
+      } as React.CSSProperties)
     : undefined;
 
   const list = (
@@ -200,10 +232,12 @@ export default function TBody(props: TableBodyProps) {
   );
 
   return (
-    <tbody className={classNames(tbodyClasses)} style={{ ...posStyle }}>
-      {isEmpty ? renderEmpty(columns) : list}
+    <tbody className={classNames(tbodyClasses)} style={posStyle}>
+      {isEmpty ? emptyNode : list}
     </tbody>
   );
-}
+};
 
 TBody.displayName = 'TBody';
+
+export default TBody;
