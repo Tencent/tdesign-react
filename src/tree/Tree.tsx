@@ -29,13 +29,20 @@ import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 import type { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree-v1/types';
 import type { TreeInstanceFunctions, TdTreeProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { treeDefaultProps } from './defaultProps';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
 const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((originalProps, ref) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-  const props = useDefaultProps(originalProps, treeDefaultProps);
+  const props = useDefaultProps<TreeProps>(originalProps, {
+    data: [],
+    expandLevel: 0,
+    icon: true,
+    line: false,
+    transition: true,
+    lazy: true,
+    valueMode: 'onlyLeaf',
+  });
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
