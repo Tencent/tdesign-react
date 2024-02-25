@@ -16,12 +16,14 @@ import { TIME_PICKER_EMPTY } from '../_common/js/time-picker/const';
 import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import { StyledProps } from '../common';
 import { timeRangePickerDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 
 const defaultArrVal = [undefined, undefined];
 
-const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
+const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
+  const props = useDefaultProps<TimeRangePickerProps>(originalProps, timeRangePickerDefaultProps);
   const TEXT_CONFIG = useTimePickerTextConfig();
 
   const {
@@ -172,6 +174,5 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
 };
 
 TimeRangePicker.displayName = 'TimeRangePicker';
-TimeRangePicker.defaultProps = timeRangePickerDefaultProps;
 
 export default TimeRangePicker;

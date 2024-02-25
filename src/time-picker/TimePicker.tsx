@@ -21,6 +21,7 @@ import { timePickerDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdTimePickerProps } from './type';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);
@@ -28,7 +29,8 @@ dayjs.extend(customParseFormat);
 export interface TimePickerProps extends TdTimePickerProps, StyledProps {}
 
 const TimePicker = forwardRefWithStatics(
-  (props: TimePickerProps, ref: Ref<HTMLDivElement>) => {
+  (originalProps: TimePickerProps, ref: Ref<HTMLDivElement>) => {
+    const props = useDefaultProps<TimePickerProps>(originalProps, timePickerDefaultProps);
     const TEXT_CONFIG = useTimePickerTextConfig();
     const {
       allowInput,
@@ -147,6 +149,5 @@ const TimePicker = forwardRefWithStatics(
 );
 
 TimePicker.displayName = 'TimePicker';
-TimePicker.defaultProps = timePickerDefaultProps;
 
 export default TimePicker;
