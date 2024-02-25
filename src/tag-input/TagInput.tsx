@@ -13,10 +13,12 @@ import useHover from './useHover';
 import useControlled from '../hooks/useControlled';
 import { StyledProps } from '../common';
 import { tagInputDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
-const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef>) => {
+const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
+  const props = useDefaultProps<TagInputProps>(originalProps, tagInputDefaultProps);
   const { classPrefix: prefix } = useConfig();
   const { CloseCircleFilledIcon } = useGlobalIcon({
     CloseCircleFilledIcon: TdCloseCircleFilledIcon,
@@ -183,6 +185,5 @@ const TagInput = forwardRef((props: TagInputProps, ref: React.RefObject<InputRef
 });
 
 TagInput.displayName = 'TagInput';
-TagInput.defaultProps = tagInputDefaultProps;
 
 export default TagInput;
