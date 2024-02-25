@@ -1,4 +1,13 @@
-import React, { useRef, useMemo, useImperativeHandle, forwardRef, useEffect, useState, WheelEvent } from 'react';
+import React, {
+  useRef,
+  useMemo,
+  useImperativeHandle,
+  forwardRef,
+  useEffect,
+  useState,
+  WheelEvent,
+  RefAttributes,
+} from 'react';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
@@ -730,5 +739,5 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 BaseTable.displayName = 'BaseTable';
 
 export default BaseTable as <T extends TableRowData = TableRowData>(
-  props: BaseTableProps<T> & React.RefAttributes<BaseTableRef>,
+  props: BaseTableProps<T> & RefAttributes<BaseTableRef>,
 ) => React.ReactElement;

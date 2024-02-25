@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle, ReactNode, RefAttributes } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
@@ -211,7 +211,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
 
   function formatNode(
     api: string,
-    renderInnerNode: () => React.ReactNode,
+    renderInnerNode: () => ReactNode,
     condition: boolean,
     extra?: { reverse?: boolean },
   ) {
@@ -279,5 +279,5 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
 PrimaryTable.displayName = 'PrimaryTable';
 
 export default PrimaryTable as <T extends TableRowData = TableRowData>(
-  props: PrimaryTableProps<T> & React.RefAttributes<PrimaryTableRef>,
+  props: PrimaryTableProps<T> & RefAttributes<PrimaryTableRef>,
 ) => React.ReactElement;
