@@ -182,7 +182,7 @@ export default function TBody(props: TableBodyProps) {
 
   // 垫上隐藏的 tr 元素高度
   const translate = `translateY(${virtualConfig.translateY}px)`;
-  const posStyle: React.CSSProperties | undefined = virtualConfig.isVirtualScroll
+  const posStyle: React.CSSProperties = virtualConfig.isVirtualScroll
     ? ({
         transform: translate,
         msTransform: translate,

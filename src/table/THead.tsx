@@ -79,8 +79,8 @@ export default function THead(props: TheadProps) {
     return map;
   }, [props.thList]);
 
-  const getTableNode = (thead: HTMLElement) => {
-    let parent = thead;
+  const getTableNode = (thead: HTMLTableSectionElement) => {
+    let parent: HTMLElement = thead;
     while (parent) {
       parent = parent.parentNode as HTMLElement;
       if (parent?.classList?.contains(`${props.classPrefix}-table`)) {
@@ -143,7 +143,7 @@ export default function THead(props: TheadProps) {
                   }
                   if (!canDragSort) {
                     const timer = setTimeout(() => {
-                      const thList = theadRef.current.querySelectorAll('th');
+                      const thList = theadRef.current.querySelectorAll<HTMLTableCellElement>('th');
                       thList[index]?.removeAttribute('draggable');
                       clearTimeout(timer);
                     }, 10);

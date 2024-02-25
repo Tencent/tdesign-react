@@ -64,8 +64,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   );
 
   const { showElement } = useElementLazyRender(tableRef, lazyLoad);
-  const paginationAffixRef = useRef();
-  const horizontalScrollAffixRef = useRef();
+  const paginationAffixRef = useRef<AffixRef>();
+  const horizontalScrollAffixRef = useRef<AffixRef>();
   const headerTopAffixRef = useRef<AffixRef>();
   const footerBottomAffixRef = useRef<AffixRef>();
 
