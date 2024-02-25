@@ -9,6 +9,7 @@ import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
+import useDefaultProps from '../../hooks/useDefaultProps';
 
 export interface SinglePanelProps extends TdDatePickerProps, StyledProps {
   year?: number;
@@ -27,9 +28,14 @@ export interface SinglePanelProps extends TdDatePickerProps, StyledProps {
   onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
-const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((props, ref) => {
+const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps, ref) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-picker__panel`;
+  const props = useDefaultProps<SinglePanelProps>(originalProps, {
+    mode: 'date',
+    enableTimePicker: false,
+    presetsPlacement: 'bottom',
+  });
   const {
     value,
     mode,
@@ -108,11 +114,5 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((props, ref) =>
 });
 
 SinglePanel.displayName = 'SinglePanel';
-
-SinglePanel.defaultProps = {
-  mode: 'date',
-  enableTimePicker: false,
-  presetsPlacement: 'bottom',
-};
 
 export default SinglePanel;
