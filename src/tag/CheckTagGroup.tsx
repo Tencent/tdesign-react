@@ -5,10 +5,12 @@ import { checkTagGroupDefaultProps } from './defaultProps';
 import { CheckTagGroupValue, TdCheckTagGroupProps, TdCheckTagProps } from './type';
 import useConfig from '../hooks/useConfig';
 import CheckTag from './CheckTag';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface CheckTagGroupProps extends TdCheckTagGroupProps, StyledProps {}
 
-const CheckTagGroup = (props: CheckTagGroupProps) => {
+const CheckTagGroup: React.FC<CheckTagGroupProps> = (originalProps) => {
+  const props = useDefaultProps<CheckTagGroupProps>(originalProps, checkTagGroupDefaultProps);
   const { options, onChange } = props;
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-check-tag-group`;
@@ -54,6 +56,5 @@ const CheckTagGroup = (props: CheckTagGroupProps) => {
 };
 
 CheckTagGroup.displayName = 'CheckTagGroup';
-CheckTagGroup.defaultProps = checkTagGroupDefaultProps;
 
 export default CheckTagGroup;
