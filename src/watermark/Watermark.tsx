@@ -8,31 +8,35 @@ import injectStyle from '../_common/js/utils/injectStyle';
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../_util/useMutationObserver';
 import { TdWatermarkProps } from './type';
-import { watermarkDefaultProps as defaultProps } from './defaultProps';
+import { watermarkDefaultProps } from './defaultProps';
 import { getStyleStr } from './utils';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface WatermarkProps extends TdWatermarkProps, StyledProps {}
 
-const Watermark: React.FC<WatermarkProps> = ({
-  alpha = defaultProps.alpha,
-  x = 200,
-  y = 210,
-  width = 120,
-  height = 60,
-  rotate: tempRotate = defaultProps.rotate,
-  zIndex = 10,
-  lineSpace = defaultProps.lineSpace,
-  isRepeat = defaultProps.isRepeat,
-  removable = defaultProps.removable,
-  movable = defaultProps.movable,
-  moveInterval = defaultProps.moveInterval,
-  offset = [],
-  content,
-  children,
-  watermarkContent,
-  className,
-  style = {},
-}) => {
+const Watermark: React.FC<WatermarkProps> = (originalProps) => {
+  const props = useDefaultProps<WatermarkProps>(originalProps, watermarkDefaultProps);
+  const {
+    alpha,
+    x = 200,
+    y = 210,
+    width = 120,
+    height = 60,
+    rotate: tempRotate,
+    zIndex = 10,
+    lineSpace,
+    isRepeat,
+    removable,
+    movable,
+    moveInterval,
+    offset = [],
+    content,
+    children,
+    watermarkContent,
+    className,
+    style = {},
+  } = props;
+
   const { classPrefix } = useConfig();
 
   let gapX = x;
