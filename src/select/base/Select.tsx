@@ -2,15 +2,18 @@ import React, {
   useEffect,
   useMemo,
   KeyboardEvent,
+  WheelEvent,
   useRef,
   useCallback,
   Children,
   cloneElement,
   isValidElement,
+  useState,
 } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
+import debounce from 'lodash/debounce';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
@@ -99,7 +102,8 @@ const Select = forwardRefWithStatics(
     const [value, onChange] = useControlled(props, 'value', props.onChange);
     const selectInputRef = useRef(null);
     const { classPrefix } = useConfig();
-    const { overlayClassName, ...restPopupProps } = popupProps || {};
+    const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
+    const [isScrolling, toggleIsScrolling] = useState(false);
 
     const name = `${classPrefix}-select`; // t-select
 
@@ -123,8 +127,9 @@ const Select = forwardRefWithStatics(
 
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
-      setShowPopup(visible, ctx);
+      visible && toggleIsScrolling(false);
       !visible && onInputChange('', { trigger: 'blur' });
+      setShowPopup(visible, ctx);
     };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
@@ -375,7 +380,7 @@ const Select = forwardRefWithStatics(
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
-      if (!content) {
+      if (!content || isScrolling) {
         return;
       }
       const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
@@ -398,6 +403,20 @@ const Select = forwardRefWithStatics(
 
     const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
       onEnter?.({ ...context, value });
+    };
+
+    const handleScroll = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
+      toggleIsScrolling(true);
+
+      onScroll?.({ e });
+      if (onScrollToBottom) {
+        const debounceOnScrollBottom = debounce((e) => onScrollToBottom({ e }), 100);
+
+        const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+        if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+          debounceOnScrollBottom(e);
+        }
+      }
     };
     return (
       <div
@@ -441,6 +460,7 @@ const Select = forwardRefWithStatics(
           updateScrollTop={updateScrollTop}
           popupProps={{
             overlayClassName: [`${name}__dropdown`, overlayClassName],
+            onScroll: handleScroll,
             ...restPopupProps,
           }}
           popupVisible={showPopup}
