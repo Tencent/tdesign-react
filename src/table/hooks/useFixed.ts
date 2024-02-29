@@ -442,7 +442,6 @@ export default function useFixed(
     finalColumns: BaseTableCol<TableRowData>[] = [],
     preFinalColumns: BaseTableCol<TableRowData>[] = [],
   ) => {
-    console.log(preFinalColumns);
     const finalColKeys = finalColumns.map((t) => t.colKey);
     const preColKeys = preFinalColumns.map((t) => t.colKey);
     if (finalColKeys.length < preColKeys.length) {
