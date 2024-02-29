@@ -36,8 +36,15 @@ export interface TheadProps {
   columnResizeParams?: {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
-    onColumnMouseover: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
-    onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => void;
+    onColumnMouseover: (
+      e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+      col: BaseTableCol<TableRowData>,
+    ) => void;
+    onColumnMousedown: (
+      e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+      col: BaseTableCol<TableRowData>,
+      index: number,
+    ) => void;
   };
 }
 
@@ -72,8 +79,8 @@ export default function THead(props: TheadProps) {
     return map;
   }, [props.thList]);
 
-  const getTableNode = (thead: HTMLElement) => {
-    let parent = thead;
+  const getTableNode = (thead: HTMLTableSectionElement) => {
+    let parent: HTMLElement = thead;
     while (parent) {
       parent = parent.parentNode as HTMLElement;
       if (parent?.classList?.contains(`${props.classPrefix}-table`)) {
@@ -85,7 +92,7 @@ export default function THead(props: TheadProps) {
 
   const renderThNodeList = (rowAndColFixedPosition: RowAndColFixedPosition, thWidthList: TheadProps['thWidthList']) => {
     // thBorderMap: rowspan 会影响 tr > th 是否为第一列表头，从而影响边框
-    const thBorderMap = new Map<any, boolean>();
+    const thBorderMap = new Map<BaseTableCol<TableRowData>, boolean>();
     const thRowspanAndColspan = props.spansAndLeafNodes.rowspanAndColspanMap;
     return props.thList.map((row, rowIndex) => {
       const thRow = row.map((col: TableColumns[0], index: number) => {
@@ -130,19 +137,19 @@ export default function THead(props: TheadProps) {
         const resizeColumnListener =
           props.resizable || !canDragSort
             ? {
-                onMouseDown: (e) => {
+                onMouseDown: (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) => {
                   if (props.resizable) {
                     columnResizeParams?.onColumnMousedown?.(e, col, index);
                   }
                   if (!canDragSort) {
                     const timer = setTimeout(() => {
-                      const thList = theadRef.current.querySelectorAll('th');
+                      const thList = theadRef.current.querySelectorAll<HTMLTableCellElement>('th');
                       thList[index]?.removeAttribute('draggable');
                       clearTimeout(timer);
                     }, 10);
                   }
                 },
-                onMouseMove: (e) => {
+                onMouseMove: (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) => {
                   props.resizable && columnResizeParams?.onColumnMouseover?.(e, col);
                 },
               }

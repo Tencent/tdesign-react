@@ -128,7 +128,7 @@ const EditableCell = (props: EditableCellProps) => {
   }, [col]);
 
   const validateEdit = (trigger: 'self' | 'parent', newVal: any) =>
-    new Promise((resolve) => {
+    new Promise<AllValidateResult[] | boolean>((resolve) => {
       const params: PrimaryTableRowValidateContext<TableRowData> = {
         result: [
           {
