@@ -410,7 +410,7 @@ const Select = forwardRefWithStatics(
 
       props.popupProps?.onScroll?.({ e });
       if (props.popupProps?.onScrollToBottom) {
-        const debounceOnScrollBottom = debounce((e) => props.popupProps.onScrollToBottom?.({ e }), 100);
+        const debounceOnScrollBottom = debounce((e) => props.popupProps.onScrollToBottom({ e }), 100);
 
         const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
         if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
