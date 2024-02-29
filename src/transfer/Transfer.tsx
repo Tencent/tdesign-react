@@ -13,6 +13,7 @@ import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLea
 import { TNode, StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { transferDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TransferProps extends TdTransferProps, StyledProps {
   content?: Array<TNode>;
@@ -28,7 +29,8 @@ interface CheckedInterface {
   target: Array<TransferValue>;
 }
 
-const Transfer: React.FunctionComponent<TransferProps> = (props) => {
+const Transfer: React.FunctionComponent<TransferProps> = (originalProps) => {
+  const props = useDefaultProps<TransferProps>(originalProps, transferDefaultProps);
   const {
     data,
     search,
@@ -279,6 +281,5 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
 };
 
 Transfer.displayName = 'Transfer';
-Transfer.defaultProps = transferDefaultProps;
 
 export default Transfer;

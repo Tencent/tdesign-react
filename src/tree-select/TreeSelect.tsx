@@ -16,6 +16,9 @@ import { useTreeSelectPassThroughProps } from './useTreeSelectPassthoughProps';
 import { useTreeSelectLocale } from './useTreeSelectLocale';
 import { treeSelectDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { PopupRef } from '../popup';
+import { InputRef } from '../input';
 
 export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
   extends TdTreeSelectProps<DataOption>,
@@ -29,7 +32,10 @@ export interface NodeOptions {
 const useMergeFn = <T extends any[]>(...fns: Array<(...args: T) => void>) =>
   usePersistFn((...args: T) => fns.forEach((fn) => fn?.(...args)));
 
-const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
+type TreeSelectRefType = Partial<ElementRef<typeof Tree> & PopupRef & InputRef>;
+
+const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps, ref) => {
+  const props = useDefaultProps<TreeSelectProps<TreeOptionData>>(originalProps, treeSelectDefaultProps);
   /* ---------------------------------config---------------------------------------- */
 
   // 国际化文本初始化
@@ -73,7 +79,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
   const [filterInput, setFilterInput] = useControlled(props, 'inputValue', onInputChange);
 
   const treeRef = useRef<ElementRef<typeof Tree>>();
-  const selectInputRef = useRef();
+  const selectInputRef = useRef<Partial<PopupRef & InputRef>>();
 
   const tKeys = useMemo(
     () => ({
@@ -351,6 +357,5 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref) => {
 });
 
 TreeSelect.displayName = 'TreeSelect';
-TreeSelect.defaultProps = treeSelectDefaultProps;
 
 export default TreeSelect;

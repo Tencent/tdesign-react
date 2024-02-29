@@ -10,6 +10,7 @@ import getPosition from '../_common/js/utils/getPosition';
 import { TdTooltipLiteProps } from './type';
 import { tooltipLiteDefaultProps } from './defaultProps';
 import { getTransitionParams } from '../popup/utils/transition';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TooltipLiteProps extends TdTooltipLiteProps, StyledProps {
   children?: ReactNode;
@@ -17,7 +18,8 @@ export interface TooltipLiteProps extends TdTooltipLiteProps, StyledProps {
 
 const DEFAULT_TRANSITION_TIMEOUT = 180;
 
-const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
+const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
+  const props = useDefaultProps<TooltipLiteProps>(originalProps, tooltipLiteDefaultProps);
   const { style, className, placement, showArrow, theme, children, triggerElement, content, showShadow } = props;
   const triggerRef = useRef(null);
   const contentRef = useRef(null);
@@ -108,6 +110,5 @@ const TooltipLite: React.FC<TooltipLiteProps> = (props) => {
 };
 
 TooltipLite.displayName = 'Tooltiplite';
-TooltipLite.defaultProps = tooltipLiteDefaultProps;
 
 export default React.memo(TooltipLite);

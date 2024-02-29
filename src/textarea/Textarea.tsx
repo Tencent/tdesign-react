@@ -8,6 +8,7 @@ import useControlled from '../hooks/useControlled';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 import { textareaDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TextareaProps
   extends Omit<
@@ -21,7 +22,8 @@ export interface TextareaRefInterface extends React.RefObject<unknown> {
   textareaElement: HTMLTextAreaElement;
 }
 
-const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) => {
+const Textarea = forwardRef((originalProps: TextareaProps, ref: TextareaRefInterface) => {
+  const props = useDefaultProps<TextareaProps>(originalProps, textareaDefaultProps);
   const {
     disabled,
     maxlength,
@@ -201,6 +203,5 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
 });
 
 Textarea.displayName = 'Textarea';
-Textarea.defaultProps = textareaDefaultProps;
 
 export default Textarea;

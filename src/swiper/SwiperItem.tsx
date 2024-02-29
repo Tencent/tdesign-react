@@ -42,7 +42,7 @@ const calculateTranslate = (index: number, currentIndex: number, parentWidth: nu
   return ((2 + itemWidth * (CARD_SCALE - 1)) * parentWidth) / 2;
 };
 
-const getZindex = (isActivity, inStage) => {
+const getZindex = (isActivity: boolean, inStage: boolean) => {
   if (isActivity) {
     return 2;
   }
@@ -52,7 +52,7 @@ const getZindex = (isActivity, inStage) => {
   return 0;
 };
 
-const SwiperItem = (props: SwiperItemProps) => {
+const SwiperItem: React.FC<SwiperItemProps> = (props) => {
   const {
     children,
     currentIndex,
@@ -68,7 +68,7 @@ const SwiperItem = (props: SwiperItemProps) => {
   const [, setUpdate] = useState({});
   const isFirstFirstRender = useIsFirstRender();
 
-  const getSwiperItemStyle = () => {
+  const getSwiperItemStyle = (): React.CSSProperties => {
     if (animation === 'fade') {
       return {
         opacity: currentIndex === index ? 1 : 0,

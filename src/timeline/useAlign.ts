@@ -6,7 +6,7 @@ const DefaultAlign = {
   horizontal: ['top', 'bottom'],
 };
 
-export const useAlign = (align, layout = 'vertical') =>
+export const useAlign = (align: string, layout = 'vertical') =>
   useMemo(() => {
     let renderAlign = layout === 'vertical' ? 'left' : 'top';
     if (layout === 'vertical' && align) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@test/utils';
+import { render, screen } from '@test/utils';
 import Descriptions from '../index';
 import { SizeEnum } from '../../common';
 
@@ -241,5 +241,41 @@ describe('Descriptions 组件测试', () => {
     const { container } = render(<Descriptions items={itemsProps} title={'Shipping address'}></Descriptions>);
 
     expect(container.querySelector('.t-descriptions')).toBeInTheDocument();
+  });
+
+  // nest
+  test('nest', () => {
+    const itemsContent = [
+      {
+        label: 'City',
+        content: 'Shenzhen',
+      },
+      {
+        label: 'Detail',
+        content: 'Penguin Island D1 4A Mail Center',
+      },
+    ];
+
+    const items = [
+      {
+        label: 'Name',
+        content: 'TDesign',
+      },
+      {
+        label: 'Telephone Number',
+        content: '139****0609',
+      },
+      {
+        label: 'Area',
+        content: 'China Tencent Headquarters',
+      },
+      {
+        label: 'Address',
+        content: <Descriptions items={itemsContent} labelStyle={{ background: '#f4f4f4' }} colon />,
+      },
+    ];
+    render(<Descriptions items={items} title="Shipping address" bordered />);
+    expect(screen.getByText('Shenzhen')).not.toBeNull();
+    expect(screen.getByText('Shenzhen')).toBeInTheDocument();
   });
 });

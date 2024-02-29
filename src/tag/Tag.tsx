@@ -1,4 +1,4 @@
-import React, { FocusEvent, forwardRef } from 'react';
+import React, { ForwardRefRenderFunction, FocusEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
@@ -7,6 +7,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import { StyledProps } from '../common';
 import { TdTagProps } from './type';
 import { tagDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 /**
  * Tag 组件支持的属性。
@@ -21,7 +22,8 @@ export interface TagProps extends TdTagProps, StyledProps {
   onBlur?: (e: FocusEvent<HTMLDivElement>) => void;
 }
 
-export function TagFunction(props: TagProps, ref: React.Ref<HTMLDivElement>) {
+export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (originalProps, ref) => {
+  const props = useDefaultProps<TagProps>(originalProps, tagDefaultProps);
   const {
     theme,
     size,
@@ -105,11 +107,10 @@ export function TagFunction(props: TagProps, ref: React.Ref<HTMLDivElement>) {
   );
 
   return tag;
-}
+};
 
 export const Tag = forwardRef(TagFunction);
 
 Tag.displayName = 'Tag';
-Tag.defaultProps = tagDefaultProps;
 
 export default Tag;

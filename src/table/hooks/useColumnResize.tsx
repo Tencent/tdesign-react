@@ -5,7 +5,7 @@
  * - 当表格内容没有超出时，即没有出现横向滚动条时，此时认为表格有足够的列宽呈现内容，修改宽度为相邻宽度调整
  * - 当表格内容超出，出现横向滚动条时，会自动调整当前列宽和表格总列宽，不影响相邻列宽
  */
-import { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
+import React, { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
 import isNumber from 'lodash/isNumber';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { on, off } from '../../_util/dom';
@@ -108,7 +108,10 @@ export default function useColumnResize(params: {
 
   // 表格列宽拖拽事件
   // 只在表头显示拖拽图标
-  const onColumnMouseover = (e: MouseEvent, col: BaseTableCol<TableRowData>) => {
+  const onColumnMouseover = (
+    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    col: BaseTableCol<TableRowData>,
+  ) => {
     // calculate mouse cursor before drag start
     if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) return;
     const target = (e.target as HTMLElement).closest('th');
@@ -200,7 +203,11 @@ export default function useColumnResize(params: {
   };
 
   // 调整表格列宽
-  const onColumnMousedown = (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => {
+  const onColumnMousedown = (
+    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    col: BaseTableCol<TableRowData>,
+    index: number,
+  ) => {
     if (!resizeLineParams.draggingCol) return;
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
@@ -217,7 +224,7 @@ export default function useColumnResize(params: {
 
     // 初始化 resizeLine 标记线
     if (resizeLineRef?.current) {
-      const styles = { ...resizeLineStyle };
+      const styles: CSSProperties = { ...resizeLineStyle };
       styles.display = 'block';
       styles.height = `${tableBoundRect.bottom - targetBoundRect.top}px`;
       styles.left = `${resizeLinePos}px`;

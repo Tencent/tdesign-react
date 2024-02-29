@@ -9,6 +9,7 @@ import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
+import useDefaultProps from '../../hooks/useDefaultProps';
 
 export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];
@@ -32,9 +33,15 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
-const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
+const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, ref) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-range-picker__panel`;
+  const props = useDefaultProps<RangePanelProps>(originalProps, {
+    mode: 'date',
+    panelPreselection: true,
+    enableTimePicker: false,
+    presetsPlacement: 'bottom',
+  });
   const {
     value = [],
     hoverValue = [],
@@ -200,11 +207,5 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
 });
 
 RangePanel.displayName = 'RangePanel';
-RangePanel.defaultProps = {
-  mode: 'date',
-  panelPreselection: true,
-  enableTimePicker: false,
-  presetsPlacement: 'bottom',
-};
 
 export default RangePanel;

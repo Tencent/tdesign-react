@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
 import get from 'lodash/get';
 import PrimaryTable from './PrimaryTable';
 import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
@@ -106,7 +106,5 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
 EnhancedTable.displayName = 'EnhancedTable';
 
 export default EnhancedTable as <T extends TableRowData = TableRowData>(
-  props: EnhancedTableProps<T> & {
-    ref?: React.Ref<EnhancedTableRef>;
-  },
+  props: EnhancedTableProps<T> & RefAttributes<EnhancedTableRef>,
 ) => React.ReactElement;

@@ -113,7 +113,7 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
@@ -288,7 +288,7 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
@@ -299,6 +299,8 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
       >
         <span
           class="custom-node"
+          current="0"
+          total="1"
         >
           TNode
         </span>
@@ -421,7 +423,7 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
@@ -432,6 +434,8 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
       >
         <span
           class="custom-node"
+          current="0"
+          total="1"
         >
           TNode
         </span>
@@ -561,7 +565,7 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
@@ -924,7 +928,7 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-start"
       data-popper-reference-hidden="true"
@@ -1095,7 +1099,7 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-test-guide-step-overlay t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-test-guide-step-overlay t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
@@ -1266,7 +1270,7 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
     class="t-portal-wrapper appear appear-active"
   >
     <div
-      class="t-popup t-popup--animation-enter-active t-popup--animation-enter-to"
+      class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"

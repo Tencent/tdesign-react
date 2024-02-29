@@ -42,9 +42,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     dragProps,
   } = props;
 
-  const { CloseIcon } = useGlobalIcon({
-    CloseIcon: TdCloseIcon,
-  });
+  const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
 
   const isCard = theme === 'card';
 

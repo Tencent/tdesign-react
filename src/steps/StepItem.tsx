@@ -7,45 +7,48 @@ import { TdStepItemProps } from './type';
 import { StyledProps } from '../common';
 import StepsContext from './StepsContext';
 import { stepItemDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface StepItemProps extends TdStepItemProps, StyledProps {
   index?: number;
   children?: React.ReactNode;
 }
 
-const StepItem = (props: StepItemProps) => {
+const StepItem: React.FC<StepItemProps> = (originalProps) => {
+  const props = useDefaultProps<StepItemProps>(originalProps, stepItemDefaultProps);
   const { index, icon, title, content, value, children, style, status } = props;
 
   const { current, theme, onChange, readonly } = useContext(StepsContext);
   const { classPrefix, steps: globalStepsConfig } = useConfig();
-  const { CloseIcon, CheckIcon } = useGlobalIcon({
-    CloseIcon: TdCloseIcon,
-    CheckIcon: TdCheckIcon,
-  });
+  const { CloseIcon, CheckIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon, CheckIcon: TdCheckIcon });
 
   const canClick = status !== 'process' && !readonly;
 
   // 步骤条每一步展示的图标
-  function renderIcon() {
-    if (!icon) return null;
-
+  const iconNode = React.useMemo<React.ReactNode>(() => {
+    if (!icon) {
+      return null;
+    }
     const iconCls = `${classPrefix}-steps-item__icon--number`;
-
-    if (icon && icon !== true) return <span className={iconCls}>{icon}</span>;
-
-    if (theme !== 'default') return null;
-
-    if (status === 'error')
+    if (icon && icon !== true) {
+      return <span className={iconCls}>{icon}</span>;
+    }
+    if (theme !== 'default') {
+      return null;
+    }
+    if (status === 'error') {
       return <span className={iconCls}>{(globalStepsConfig.errorIcon || <CloseIcon />) as React.ReactNode}</span>;
-
-    if (status === 'finish')
+    }
+    if (status === 'finish') {
       return <span className={iconCls}>{(globalStepsConfig.checkIcon || <CheckIcon />) as React.ReactNode}</span>;
-
+    }
     return <span className={iconCls}>{Number(index) + 1}</span>;
-  }
+  }, [icon, classPrefix, theme, status, globalStepsConfig, index, CloseIcon, CheckIcon]);
 
   function onStepClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (!canClick) return;
+    if (!canClick) {
+      return;
+    }
     const currentValue = value ?? index;
     onChange(currentValue, current, { e });
   }
@@ -73,7 +76,7 @@ const StepItem = (props: StepItemProps) => {
             [`${classPrefix}-steps-item-${status}`]: status,
           })}
         >
-          {renderIcon()}
+          {iconNode}
         </div>
         <div className={`${classPrefix}-steps-item__content`}>
           <div className={`${classPrefix}-steps-item__title`}>{title}</div>
@@ -86,6 +89,5 @@ const StepItem = (props: StepItemProps) => {
 };
 
 StepItem.displayName = 'StepItem';
-StepItem.defaultProps = stepItemDefaultProps;
 
 export default StepItem;
