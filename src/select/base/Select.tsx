@@ -102,7 +102,7 @@ const Select = forwardRefWithStatics(
     const [value, onChange] = useControlled(props, 'value', props.onChange);
     const selectInputRef = useRef(null);
     const { classPrefix } = useConfig();
-    const { overlayClassName, ...restPopupProps } = popupProps || {};
+    const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
     const [isScrolling, toggleIsScrolling] = useState(false);
 
     const name = `${classPrefix}-select`; // t-select
@@ -408,9 +408,9 @@ const Select = forwardRefWithStatics(
     const handleScroll = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
       toggleIsScrolling(true);
 
-      props.popupProps?.onScroll?.({ e });
-      if (props.popupProps?.onScrollToBottom) {
-        const debounceOnScrollBottom = debounce((e) => props.popupProps.onScrollToBottom({ e }), 100);
+      onScroll?.({ e });
+      if (onScrollToBottom) {
+        const debounceOnScrollBottom = debounce((e) => onScrollToBottom({ e }), 100);
 
         const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
         if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
@@ -460,8 +460,8 @@ const Select = forwardRefWithStatics(
           updateScrollTop={updateScrollTop}
           popupProps={{
             overlayClassName: [`${name}__dropdown`, overlayClassName],
-            ...restPopupProps,
             onScroll: handleScroll,
+            ...restPopupProps,
           }}
           popupVisible={showPopup}
           onPopupVisibleChange={handleShowPopup}
