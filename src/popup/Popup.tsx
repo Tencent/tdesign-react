@@ -129,7 +129,8 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     if (visible) {
       updateScrollTop?.(contentRef.current);
     }
-  }, [visible, updateScrollTop, getTriggerDom]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, getTriggerDom]);
 
   function handleExited() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
