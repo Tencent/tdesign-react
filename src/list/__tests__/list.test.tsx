@@ -1,8 +1,6 @@
 import { render, fireEvent, vi } from '@test/utils';
 import React from 'react';
 import List from '../List';
-import Space from '../../space';
-import Link from '../../link';
 
 const { ListItem, ListItemMeta } = List;
 
@@ -91,17 +89,7 @@ describe('List 组件测试', () => {
     });
 
     test('action', () => {
-      const { queryByText } = render(
-        <ListItem
-          action={
-            <Space>
-              <Link theme="primary" hover="color">
-                操作1
-              </Link>
-            </Space>
-          }
-        />,
-      );
+      const { queryByText } = render(<ListItem action={<span>操作1</span>} />);
 
       expect(queryByText('操作1')).not.toBeNull();
       expect(queryByText('操作1')).toBeInTheDocument();
