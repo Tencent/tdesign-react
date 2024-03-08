@@ -67,11 +67,11 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 
   const renderIconNode = () => {
     if (React.isValidElement(icon)) return icon;
-    return React.createElement(iconMap[theme] || iconMap.info);
+    return React.createElement(iconMap[theme]);
   };
 
   const renderMessage = () => {
-    if (+maxLine > 0 && Array.isArray(message)) {
+    if (Array.isArray(message)) {
       return (
         <div className={`${classPrefix}-alert__description`}>
           {message.map((item, index) => {
