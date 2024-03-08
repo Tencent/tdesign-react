@@ -71,7 +71,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   };
 
   const renderMessage = () => {
-    if (Array.isArray(message)) {
+    if (+maxLine > 0 && Array.isArray(message)) {
       return (
         <div className={`${classPrefix}-alert__description`}>
           {message.map((item, index) => {
@@ -84,11 +84,9 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
             }
             return true;
           })}
-          {+maxLine > 0 ? (
-            <div className={`${classPrefix}-alert__collapse`} onClick={handleCollapse}>
-              {!collapsed ? t(local.expandText) : t(local.collapseText)}
-            </div>
-          ) : null}
+          <div className={`${classPrefix}-alert__collapse`} onClick={handleCollapse}>
+            {!collapsed ? t(local.expandText) : t(local.collapseText)}
+          </div>
         </div>
       );
     }
