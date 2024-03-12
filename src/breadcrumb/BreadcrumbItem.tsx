@@ -32,6 +32,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     replace,
     className,
     content,
+    onClick,
     ...restProps
   } = useDefaultProps<BreadcrumbItemProps>(props, breadcrumbItemDefaultProps);
 
@@ -89,8 +90,13 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />
   );
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    onClick?.(e);
+  };
+
   return (
-    <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
+    <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} onClick={handleClick} {...restProps}>
       {isCutOff ? <TooltipLite content={children || content}>{itemContent}</TooltipLite> : itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
