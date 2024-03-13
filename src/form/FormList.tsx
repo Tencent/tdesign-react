@@ -145,7 +145,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     Promise.resolve().then(() => {
       if (!fieldsTaskQueueRef.current.length) return;
 
-      const currentQueue = fieldsTaskQueueRef.current[0];
+      // fix multiple formlist stuck
+      const currentQueue = fieldsTaskQueueRef.current.pop();
       const { fieldData, callback, originData } = currentQueue;
 
       [...formListMapRef.current.values()].forEach((formItemRef) => {
@@ -155,7 +156,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         const data = get(fieldData, itemName);
         callback(formItemRef, data);
       });
-      fieldsTaskQueueRef.current.pop();
 
       // formList 嵌套 formList
       if (!formMapRef || !formMapRef.current) return;

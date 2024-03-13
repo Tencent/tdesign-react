@@ -5,6 +5,7 @@
  * */
 
 import { TNode, TElement } from '../common';
+import { MouseEvent } from 'react';
 
 export interface TdBreadcrumbProps {
   /**
@@ -64,7 +65,11 @@ export interface TdBreadcrumbItemProps {
   /**
    * 路由跳转目标，当且仅当 Router 存在时，该 API 有效
    */
-  to?: Route | string;
+  to?: string | Route;
+  /**
+   * 点击时触发
+   */
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 export interface Route {
