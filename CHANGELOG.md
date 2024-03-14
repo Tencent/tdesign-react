@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.5.3 `2024-03-14` 
+### 🚀 Features
+- `Breadcrumb`: `BreadcrumbItem` 支持 `onClick` 事件 @HaixingOoO ([#2795](https://github.com/Tencent/tdesign-react/pull/2795))
+- `tag`: `Tag`组件新增`color`API，支持自定义颜色 @maoyiluo  @uyarn ([#2799](https://github.com/Tencent/tdesign-react/pull/2799))
+### 🐞 Bug Fixes
+- `FormList`: 修复多个`FormList` 卡死的问题 @HaixingOoO ([#2788](https://github.com/Tencent/tdesign-react/pull/2788))
+- `DatePicker`: 修复 `format` 与 `valueType` 不一致的场景下计算错误的问题 @uyarn ([#2798](https://github.com/Tencent/tdesign-react/pull/2798))
+### 🚧 Others
+- `Portal`: 添加Portal测试用例 @HaixingOoO ([#2791](https://github.com/Tencent/tdesign-react/pull/2791))
+- `List`: 完善 List 测试用例 @HaixingOoO ([#2792](https://github.com/Tencent/tdesign-react/pull/2792))
+- `Alert`: 完善 Alert 测试,优化代码 @HaixingOoO ([#2793](https://github.com/Tencent/tdesign-react/pull/2793))
+
 ## 🌈 1.5.2 `2024-02-29` 
 ### 🚀 Features
 - `Cascader`: 新增`valueDisplay`和`label` API的支持 @HaixingOoO ([#2736](https://github.com/Tencent/tdesign-react/pull/2736))

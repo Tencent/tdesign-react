@@ -1,6 +1,8 @@
-import React, { ForwardRefRenderFunction, FocusEvent, forwardRef } from 'react';
+import React, { ForwardRefRenderFunction, FocusEvent, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+import tinycolor from 'tinycolor2';
+
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -39,6 +41,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     style,
     disabled,
     children,
+    color,
     ...otherTagProps
   } = props;
 
@@ -85,6 +88,32 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
   })();
   const titleAttribute = title ? { title } : undefined;
 
+  const getTagStyle = useMemo(() => {
+    if (!color) return style;
+    const luminance = tinycolor(color).getLuminance();
+
+    const calculatedStyle = style || {};
+
+    calculatedStyle.color = luminance > 0.5 ? 'black' : 'white';
+    if (variant === 'outline' || variant === 'light-outline') {
+      calculatedStyle.borderColor = color;
+    }
+
+    if (variant !== 'outline') {
+      const getLightestShade = () => {
+        const { r, g, b } = tinycolor(color).toRgb();
+        // alpha 0.1  is designed by @wen1kang
+        return `rgba(${r}, ${g}, ${b}, 0.1)`;
+      };
+
+      calculatedStyle.backgroundColor = variant === 'dark' ? color : getLightestShade();
+    }
+    if (variant !== 'dark') {
+      calculatedStyle.color = color;
+    }
+    return calculatedStyle;
+  }, [color, variant, style]);
+
   const tag = (
     <div
       ref={ref}
@@ -93,7 +122,9 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
         if (disabled) return;
         onClick({ e });
       }}
-      style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
+      style={
+        maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...getTagStyle } : getTagStyle
+      }
       {...otherTagProps}
     >
       <>
