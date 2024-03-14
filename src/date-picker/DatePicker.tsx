@@ -8,7 +8,7 @@ import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
 import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '../_common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
+import { subtractMonth, addMonth, extractTimeObj, covertToDate } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
@@ -64,8 +64,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   useEffect(() => {
     // 面板展开重置数据
-    setCacheValue(formatDate(value, { format }));
-    setInputValue(formatDate(value, { format }));
+    const dateValue = value ? covertToDate(value as string, valueType) : value;
+    setCacheValue(formatDate(dateValue, { format }));
+    setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
       setYear(parseToDayjs(value, format).year());
