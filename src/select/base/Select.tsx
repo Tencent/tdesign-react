@@ -350,6 +350,12 @@ const Select = forwardRefWithStatics(
                   const selectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
                   onChange(values, { e, selectedOptions, trigger: 'uncheck' });
                   tagProps?.onClose?.({ e });
+
+                  onRemove?.({
+                    value: value[key],
+                    data: { label: v, value: value[key] },
+                    e,
+                  });
                 }}
               >
                 {v}
