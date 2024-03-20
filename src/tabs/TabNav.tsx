@@ -14,6 +14,7 @@ import TabBar from './TabBar';
 import tabBase from '../_common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { DragSortInnerProps } from '../_util/useDragSorter';
+import parseTNode from '../_util/parseTNode';
 
 const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =
   tabBase;
@@ -39,6 +40,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     onChange = noop,
     activeValue,
     children,
+    action,
     getDragProps,
   } = props;
 
@@ -272,7 +274,17 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             <AddIcon />
           </div>
         ) : null}
-        {props.action}
+        {action ? (
+          <div
+            className={classNames(
+              tdTabsClassGenerator('btn'),
+              tdTabsClassGenerator('nav-action'),
+              tdSizeClassGenerator(size),
+            )}
+          >
+            {parseTNode(action)}
+          </div>
+        ) : null}
       </div>
       <div
         className={classNames(

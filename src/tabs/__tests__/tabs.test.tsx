@@ -340,4 +340,26 @@ describe('Tabs 组件测试', () => {
     expect(onDragSort.mock.calls[0][0].target.value).toEqual('vue');
     expect(container.querySelectorAll('.t-tabs__nav-item-text-wrapper').item(0).firstChild.nodeValue).toEqual('react');
   });
+
+  test('Tabs action', () => {
+    const { container } = render(
+      <Tabs
+        action="Action"
+        size={'medium'}
+        list={[
+          {
+            label: 'a',
+            value: 'a',
+          },
+          {
+            label: 'b',
+            value: 'b',
+          },
+        ]}
+      />,
+    );
+
+    expect(container.querySelector('.t-tabs__nav-action')).not.toBeNull();
+    expect(container.querySelector('.t-tabs__nav-action')).toBeInTheDocument();
+  });
 });
