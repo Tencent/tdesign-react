@@ -14,6 +14,7 @@ import TabBar from './TabBar';
 import tabBase from '../_common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { DragSortInnerProps } from '../_util/useDragSorter';
+import parseTNode from '../_util/parseTNode';
 
 const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =
   tabBase;
@@ -281,7 +282,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
               tdSizeClassGenerator(size),
             )}
           >
-            {action}
+            {parseTNode(action)}
           </div>
         ) : null}
       </div>
