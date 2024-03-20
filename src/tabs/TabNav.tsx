@@ -39,6 +39,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     onChange = noop,
     activeValue,
     children,
+    action,
     getDragProps,
   } = props;
 
@@ -272,7 +273,17 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             <AddIcon />
           </div>
         ) : null}
-        {props.action}
+        {action ? (
+          <div
+            className={classNames(
+              tdTabsClassGenerator('btn'),
+              tdTabsClassGenerator('nav-action'),
+              tdSizeClassGenerator(size),
+            )}
+          >
+            {action}
+          </div>
+        ) : null}
       </div>
       <div
         className={classNames(
