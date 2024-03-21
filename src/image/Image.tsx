@@ -35,7 +35,6 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     className,
     src,
     style,
-    alt,
     fit,
     position,
     shape,
@@ -50,8 +49,14 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     fallback,
     onLoad,
     onError,
-    ...rest
+    ...waitPassRest
   } = props;
+  const {
+    // penetrate pass to image tag element props
+    alt,
+    referrerpolicy,
+    ...rest
+  } = waitPassRest;
 
   const { classPrefix } = useConfig();
   const imageRef = useRef<HTMLDivElement>(null);
@@ -197,6 +202,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
           `${classPrefix}-image--position-${position}`,
         )}
         alt={alt}
+        referrerPolicy={referrerpolicy}
       />
     );
   };
