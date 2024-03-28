@@ -108,7 +108,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取 form dom 元素
    */
-  currentElement?: HTMLFormElement;
+  currentElement?: () => HTMLFormElement;
   /**
    * 获取 form dom 元素
    */
@@ -120,7 +120,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
-  getFieldsValue: getFieldsValue<FormData>;
+  getFieldsValue: (nameList: string[] | boolean) => getFieldsValue<FormData>;
   /**
    * 重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
    */
@@ -300,7 +300,7 @@ export interface FormRule {
    * 校验触发方式
    * @default change
    */
-  trigger?: 'change' | 'blur' | 'submit';
+  trigger?: ValidateTriggerType;
   /**
    * 校验未通过时呈现的错误信息类型，有 告警信息提示 和 错误信息提示 等两种
    * @default error
@@ -388,7 +388,7 @@ export interface FormErrorMessage {
   validator?: string;
 }
 
-export type FormRules<T extends Data> = { [field in keyof T]?: Array<FormRule> };
+export type FormRules<T extends Data = any> = { [field in keyof T]?: Array<FormRule> };
 
 export interface SubmitContext<T extends Data = Data> {
   e?: FormSubmitEvent;
@@ -443,15 +443,15 @@ export interface FormValidateParams {
   trigger?: ValidateTriggerType;
 }
 
-export type ValidateTriggerType = 'blur' | 'change' | 'all';
+export type ValidateTriggerType = 'blur' | 'change' | 'submit' | 'all';
 
 export type Data = { [key: string]: any };
-
-export type FormItemFormatType = (value: any) => any;
 
 export type InitialData = any;
 
 export type NamePath = string | number | Array<string | number>;
+
+export type FormItemFormatType = (value: any) => any;
 
 export type FormListField = { key: number; name: number; isListField: boolean };
 
