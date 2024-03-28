@@ -7,7 +7,7 @@ import { descriptionItemDefaultProps, descriptionsDefaultProps } from './default
 import useDefaultProps from '../hooks/useDefaultProps';
 import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../hooks/useCommonClassName';
-import { LayoutEnum } from '../common';
+import { LayoutEnum, StyledProps } from '../common';
 import { DescriptionsContext } from './DescriptionsContext';
 import DescriptionsItem from './DescriptionsItem';
 import Row from './Row';
@@ -26,14 +26,15 @@ import Row from './Row';
  * TDescriptionsItem：获取 item 数据（span, label, content）
  */
 
-export type DescriptionsProps = TdDescriptionsProps & {
-  children?: React.ReactNode;
-};
+export type DescriptionsProps = TdDescriptionsProps &
+  StyledProps & {
+    children?: React.ReactNode;
+  };
 
 const Descriptions = (DescriptionsProps: DescriptionsProps) => {
   const props = useDefaultProps<DescriptionsProps>(DescriptionsProps, descriptionsDefaultProps);
 
-  const { title, bordered, column, layout, items: rowItems, children } = props;
+  const { className, style, title, bordered, column, layout, items: rowItems, children } = props;
 
   const { classPrefix } = useConfig();
 
@@ -131,7 +132,7 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
 
   return (
     <DescriptionsContext.Provider value={props}>
-      <div className={COMPONENT_NAME}>
+      <div className={classNames(className, COMPONENT_NAME)} style={style}>
         {renderHeader()}
         {renderBody()}
       </div>
