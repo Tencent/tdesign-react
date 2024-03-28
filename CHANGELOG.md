@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.5.5 `2024-03-28` 
+### 🐞 Bug Fixes
+- `ImageViewer`: 修复 `imageReferrerpolicy` 没有对顶部缩略图生效的问题 @uyarn ([#2815](https://github.com/Tencent/tdesign-react/pull/2815))
+
 ## 🌈 1.5.4 `2024-03-28` 
 ### 🚀 Features
 - `ImageViewer`: 新增`imageReferrerpolicy` API，支持配合 Image 组件的需要配置 Referrerpolicy 的场景 @uyarn ([#2813](https://github.com/Tencent/tdesign-react/pull/2813))
