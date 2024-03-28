@@ -226,4 +226,23 @@ describe('ImageViewerModal', () => {
       transform: 'rotateZ(0deg) scale(2)',
     });
   });
+
+  test('imageReferrerpolicy', async () => {
+    const referrerPolicy = 'strict-origin-when-cross-origin';
+
+    const BasicImageViewer = () => {
+      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} imageReferrerpolicy={referrerPolicy} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')?.getAttribute('referrerpolicy')).toBe(referrerPolicy);
+  });
 });

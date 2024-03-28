@@ -27,6 +27,18 @@ export interface TdImageViewerProps {
    */
   draggable?: boolean;
   /**
+   * 图片预览中的 `<img>` 标签的原生属性，[MDN 定义](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)
+   */
+  imageReferrerpolicy?:
+    | 'no-referrer'
+    | 'no-referrer-when-downgrade'
+    | 'origin'
+    | 'origin-when-cross-origin'
+    | 'same-origin'
+    | 'strict-origin'
+    | 'strict-origin-when-cross-origin'
+    | 'unsafe-url';
+  /**
    *  图片缩放相关配置。`imageScale.max` 缩放的最大比例；`imageScale.min` 缩放的最小比例；`imageScale.step` 缩放的步长速度; `imageScale.defaultScale` 默认的缩放比例
    */
   imageScale?: ImageScale;
@@ -102,10 +114,28 @@ export interface ImageScale {
   defaultScale?: number;
 }
 
+export interface ImageScale {
+  max: number;
+  min: number;
+  step: number;
+  defaultScale?: number;
+}
+
 export interface ImageInfo {
   mainImage: string | File;
   thumbnail?: string | File;
   download?: boolean;
+}
+
+export interface ImageInfo {
+  mainImage: string | File;
+  thumbnail?: string | File;
+  download?: boolean;
+}
+
+export interface ImageViewerScale {
+  minWidth: number;
+  minHeight: number;
 }
 
 export interface ImageViewerScale {
