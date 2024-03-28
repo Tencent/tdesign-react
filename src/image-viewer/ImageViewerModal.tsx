@@ -25,6 +25,9 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIconMap from './hooks/useIconMap';
 import Image from '../image';
 
+import type { TdImageViewerProps } from './type';
+import { ImageViewerProps } from './ImageViewer';
+
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
   const { ImageErrorIcon } = useGlobalIcon({ ImageErrorIcon: TdImageErrorIcon });
@@ -47,10 +50,19 @@ interface ImageModalItemProps {
   src: string | File;
   preSrc?: string | File;
   errorText: string;
+  imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
 }
 
 // 单个弹窗实例
-export const ImageModalItem: React.FC<ImageModalItemProps> = ({ rotateZ, scale, src, preSrc, mirror, errorText }) => {
+export const ImageModalItem: React.FC<ImageModalItemProps> = ({
+  rotateZ,
+  scale,
+  src,
+  preSrc,
+  mirror,
+  errorText,
+  imageReferrerpolicy,
+}) => {
   const { classPrefix } = useConfig();
 
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
@@ -84,7 +96,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({ rotateZ, scale, 
             }}
             src={preSrcImagePreviewUrl}
             style={preImgStyle}
-            data-testid="img-drag"
+            referrerPolicy={imageReferrerpolicy}
             alt="image"
             draggable="false"
           />
@@ -100,7 +112,6 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({ rotateZ, scale, 
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}
             style={imgStyle}
-            data-testid="img-drag"
             alt="image"
             draggable="false"
           />
@@ -228,16 +239,33 @@ type ImageViewerHeaderProps = {
   onImgClick: (index: number, ctx: { trigger: 'current' }) => void;
   images: ImageInfo[];
   currentIndex: number;
+  imageRreferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
 };
 
-function OneImagePreview({ image, classPrefix }: { image: ImageInfo; classPrefix: string }) {
+function OneImagePreview({
+  image,
+  classPrefix,
+  imageRreferrerpolicy,
+}: {
+  image: ImageInfo;
+  classPrefix: string;
+  imageRreferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+}) {
   const { previewUrl } = useImagePreviewUrl(image.thumbnail || image.mainImage);
-  return <Image alt="" error="" src={previewUrl} className={`${classPrefix}-image-viewer__header-img`} />;
+  return (
+    <Image
+      alt=""
+      error=""
+      src={previewUrl}
+      className={`${classPrefix}-image-viewer__header-img`}
+      referrerpolicy={imageRreferrerpolicy}
+    />
+  );
 }
 
 const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
   const { classPrefix } = useConfig();
-  const { images, currentIndex, onImgClick } = props;
+  const { images, currentIndex, onImgClick, imageRreferrerpolicy } = props;
 
   const [isExpand, setIsExpand] = useState(true);
 
@@ -265,7 +293,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
               })}
               onClick={() => onImgClick(index, { trigger: 'current' })}
             >
-              <OneImagePreview image={image} classPrefix={classPrefix} />
+              <OneImagePreview image={image} classPrefix={classPrefix} imageRreferrerpolicy={imageRreferrerpolicy} />
             </div>
           ))}
         </div>
@@ -292,6 +320,7 @@ interface ImageModalProps {
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
+  imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
 }
 
 // 弹窗基础组件
@@ -311,6 +340,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     visible,
     title,
     closeOnEscKeydown,
+    imageReferrerpolicy,
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
@@ -410,6 +440,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         onRotate={onRotate}
         errorText={errorText}
         tipText={tipText}
+        imageReferrerpolicy={imageReferrerpolicy}
       />
     );
   }
@@ -481,6 +512,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         preSrc={currentImage.thumbnail}
         src={currentImage.mainImage}
         errorText={errorText}
+        imageReferrerpolicy={imageReferrerpolicy}
       />
     </div>
   );

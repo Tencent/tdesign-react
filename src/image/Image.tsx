@@ -35,7 +35,6 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     className,
     src,
     style,
-    alt,
     fit,
     position,
     shape,
@@ -50,8 +49,14 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     fallback,
     onLoad,
     onError,
-    ...rest
+    ...waitPassRest
   } = props;
+  const {
+    // penetrate pass to image tag element props
+    alt,
+    referrerpolicy,
+    ...rest
+  } = waitPassRest;
 
   const { classPrefix } = useConfig();
   const imageRef = useRef<HTMLDivElement>(null);
@@ -127,7 +132,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
         //  这里添加setTimeout是因为CSR image渲染时，onError有时快有时慢，会导致执行顺序不同导致的bug
         setTimeout(() => {
           if (!isValid && !isFirstError.current) {
-            //  SSR模式下获取不到imaage的合成事件，暂时传递image实例
+            //  SSR模式下获取不到 image 的合成事件，暂时传递 image 实例
             handleError(imgRef.current);
           }
         }, 0);
@@ -141,7 +146,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     if (imgRef.current) {
       const { complete, naturalWidth, naturalHeight } = imgRef.current;
       if (complete && naturalWidth !== 0 && naturalHeight !== 0) {
-        //  SSR模式下获取不到imaage的合成事件，暂时传递image实例
+        //  SSR模式下获取不到 image 的合成事件，暂时传递 image 实例
         handleLoad(imgRef.current);
       }
     }
@@ -197,6 +202,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
           `${classPrefix}-image--position-${position}`,
         )}
         alt={alt}
+        referrerPolicy={referrerpolicy}
       />
     );
   };

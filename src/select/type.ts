@@ -317,7 +317,7 @@ export type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'c
 export interface SelectRemoveContext<T> {
   value: string | number;
   data: T;
-  e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>;
+  e: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type SelectOption = TdOptionProps | SelectOptionGroup | PlainObject;

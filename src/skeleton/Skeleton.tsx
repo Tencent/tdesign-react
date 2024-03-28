@@ -10,7 +10,7 @@ import parseTNode from '../_util/parseTNode';
 import { skeletonDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
-export type SkeletonProps = TdSkeletonProps & StyledProps & { children: React.ReactNode };
+export type SkeletonProps = TdSkeletonProps & StyledProps & { children?: React.ReactNode };
 
 const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   text: [1],

@@ -65,6 +65,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
             closeOnEscKeydown={props.closeOnEscKeydown}
             onClose={close}
             onOpen={open}
+            imageReferrerpolicy={props.imageReferrerpolicy}
           />,
           document.body,
         )}
