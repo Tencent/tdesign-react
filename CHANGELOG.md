@@ -5,6 +5,16 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.5.4 `2024-03-28` 
+### 🚀 Features
+- `ImageViewer`: 新增`imageReferrerpolicy` API，支持配合 Image 组件的需要配置 Referrerpolicy 的场景 @uyarn ([#2813](https://github.com/Tencent/tdesign-react/pull/2813))
+### 🐞 Bug Fixes
+- `Select`: 修复 `onRemove` 事件没有正常触发的问题 @Ali-ovo ([#2802](https://github.com/Tencent/tdesign-react/pull/2802))
+- `Skeleton`: 修复`children`为必须的类型问题 @uyarn ([#2805](https://github.com/Tencent/tdesign-react/pull/2805))
+- `Tabs`: 提供 `action` 区域默认样式 @HaixingOoO ([#2808](https://github.com/Tencent/tdesign-react/pull/2808))
+- `Locale`: 修复`image`和`imageViewer` 英语语言包异常的问题 @uyarn  @HaixingOoO ([#2808](https://github.com/Tencent/tdesign-react/pull/2808))
+- `Image`: `referrerpolicy` 参数被错误传递到外层 `div` 上，实际传递目标为原生 `image` 标签 @NWYLZW ([#2811](https://github.com/Tencent/tdesign-react/pull/2811))
+
 ## 🌈 1.5.3 `2024-03-14` 
 ### 🚀 Features
 - `Breadcrumb`: `BreadcrumbItem` 支持 `onClick` 事件 @HaixingOoO ([#2795](https://github.com/Tencent/tdesign-react/pull/2795))
