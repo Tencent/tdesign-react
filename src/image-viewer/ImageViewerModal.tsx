@@ -239,17 +239,17 @@ type ImageViewerHeaderProps = {
   onImgClick: (index: number, ctx: { trigger: 'current' }) => void;
   images: ImageInfo[];
   currentIndex: number;
-  imageRreferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
 };
 
 function OneImagePreview({
   image,
   classPrefix,
-  imageRreferrerpolicy,
+  imageReferrerpolicy,
 }: {
   image: ImageInfo;
   classPrefix: string;
-  imageRreferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
 }) {
   const { previewUrl } = useImagePreviewUrl(image.thumbnail || image.mainImage);
   return (
@@ -258,14 +258,14 @@ function OneImagePreview({
       error=""
       src={previewUrl}
       className={`${classPrefix}-image-viewer__header-img`}
-      referrerpolicy={imageRreferrerpolicy}
+      referrerpolicy={imageReferrerpolicy}
     />
   );
 }
 
 const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
   const { classPrefix } = useConfig();
-  const { images, currentIndex, onImgClick, imageRreferrerpolicy } = props;
+  const { images, currentIndex, onImgClick, imageReferrerpolicy } = props;
 
   const [isExpand, setIsExpand] = useState(true);
 
@@ -293,7 +293,7 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
               })}
               onClick={() => onImgClick(index, { trigger: 'current' })}
             >
-              <OneImagePreview image={image} classPrefix={classPrefix} imageRreferrerpolicy={imageRreferrerpolicy} />
+              <OneImagePreview image={image} classPrefix={classPrefix} imageReferrerpolicy={imageReferrerpolicy} />
             </div>
           ))}
         </div>
@@ -473,7 +473,12 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       )}
       {images.length > 1 && (
         <>
-          <ImageViewerHeader images={images} currentIndex={index} onImgClick={setIndex} />
+          <ImageViewerHeader
+            images={images}
+            currentIndex={index}
+            onImgClick={setIndex}
+            imageReferrerpolicy={imageReferrerpolicy}
+          />
           <div className={`${classPrefix}-image-viewer__modal-index`}>
             <span>{title}</span>
             {`${index + 1}/${images.length}`}
