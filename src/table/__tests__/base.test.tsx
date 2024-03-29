@@ -98,7 +98,7 @@ TABLES.forEach((TTable) => {
           <TTable rowKey="index" rowClassName={rowClassName} data={data} columns={SIMPLE_COLUMNS}></TTable>,
         );
         const trWrapper = container.querySelector('tbody').querySelector('tr');
-        expect(trWrapper.getAttribute('class')).toBe(rowClassName);
+        expect(trWrapper.getAttribute('class')).toBe(`t-table__row__odd ${rowClassName} t-table__row`);
       });
       it('props.rowClassName could be an object ', () => {
         const rowClassName = {
@@ -109,7 +109,7 @@ TABLES.forEach((TTable) => {
           <TTable rowKey="index" rowClassName={rowClassName} data={data} columns={SIMPLE_COLUMNS}></TTable>,
         );
         const trWrapper = container.querySelector('tbody').querySelector('tr');
-        expect(trWrapper.getAttribute('class')).toBe('tdesign-class');
+        expect(trWrapper.getAttribute('class')).toBe('t-table__row__odd tdesign-class t-table__row');
       });
       it('props.rowClassName could be an Array ', () => {
         const rowClassName = [
@@ -123,7 +123,9 @@ TABLES.forEach((TTable) => {
           <TTable rowKey="index" rowClassName={rowClassName} data={data} columns={SIMPLE_COLUMNS}></TTable>,
         );
         const trWrapper = container.querySelector('tbody').querySelector('tr');
-        expect(trWrapper.getAttribute('class')).toBe('tdesign-class-default tdesign-class');
+        expect(trWrapper.getAttribute('class')).toBe(
+          't-table__row__odd tdesign-class-default tdesign-class t-table__row',
+        );
       });
       it('props.rowClassName could be a function ', () => {
         const rowClassName = () => ({
@@ -134,7 +136,7 @@ TABLES.forEach((TTable) => {
           <TTable rowKey="index" rowClassName={rowClassName} data={data} columns={SIMPLE_COLUMNS}></TTable>,
         );
         const trWrapper = container.querySelector('tbody').querySelector('tr');
-        expect(trWrapper.getAttribute('class')).toBe('tdesign-class');
+        expect(trWrapper.getAttribute('class')).toBe('t-table__row__odd tdesign-class t-table__row');
       });
     });
 

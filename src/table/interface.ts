@@ -85,6 +85,8 @@ export interface TableRowFixedClasses {
   bottom: string;
   firstBottom: string;
   withoutBorderBottom: string;
+  even: string;
+  odd: string;
 }
 
 export interface FixedColumnInfo<T extends TableRowData = TableRowData> {

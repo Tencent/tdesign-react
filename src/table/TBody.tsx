@@ -137,6 +137,7 @@ export default function TBody(props: TableBodyProps) {
       'rowHeight',
       'scrollType',
     ];
+
     data?.forEach((row, rowIndex) => {
       const trProps = {
         ...pick(props, TABLE_PROPS),
@@ -158,7 +159,12 @@ export default function TBody(props: TableBodyProps) {
       }
 
       const trNode = (
-        <TR key={get(row, props.rowKey || 'id') || rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
+        <TR
+          key={get(row, props.rowKey || 'id') || rowIndex}
+          {...trProps}
+          onRowMounted={props.handleRowMounted}
+          rowClassName={[trProps.rowClassName, allTableClasses.tableBaseClass.row]}
+        ></TR>
       );
       trNodeList.push(trNode);
 
