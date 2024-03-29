@@ -562,6 +562,14 @@ export const docs = [
         componentEn: () => import('tdesign-react/tooltip/tooltip.en-US.md'),
       },
       {
+        title: 'Typography 排版',
+        titleEn: 'Typography',
+        name: 'typography',
+        path: '/react/components/typography',
+        component: () => import('tdesign-react/typography/typography.md'),
+        componentEn: () => import('tdesign-react/typography/typography.en-US.md'),
+      },
+      {
         title: 'Tree 树',
         titleEn: 'Tree',
         name: 'tree',
