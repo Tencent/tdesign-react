@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { ReactElement, forwardRef, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
 import copy from 'copy-to-clipboard';
@@ -47,7 +47,7 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
       del: !!deleteProp,
       i: !!italic,
     };
-    return Object.entries(componentMap).find(([, condition]) => !!condition)?.[0];
+    return Object.entries(componentMap).find(([, condition]) => !!condition)?.[0] as keyof HTMLElementTagNameMap;
   };
 
   const currentRef = useRef();
@@ -95,9 +95,9 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
     const wrapWithTooltip = (wrapContent) =>
       tooltipProps ? <Tooltip {...tooltipProps}>{wrapContent}</Tooltip> : wrapContent;
 
-    const getSuffix = () => {
+    const getSuffix = (): ReactElement => {
       if (typeof copyProps?.suffix === 'function') {
-        return copyProps.suffix({ copied: isCopied });
+        return copyProps.suffix({ copied: isCopied }) as ReactElement;
       }
       return isCopied ? <CheckIcon /> : <CopyIcon />;
     };
@@ -107,7 +107,13 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
         {withChildren ? children : null}
         {copyable
           ? wrapWithTooltip(
-              <Button shape="circle" theme="primary" variant="text" icon={getSuffix()} onClick={handleCopy} />,
+              <Button
+                shape="circle"
+                theme="primary"
+                variant="text"
+                icon={getSuffix() as ReactElement}
+                onClick={handleCopy}
+              />,
             )
           : null}
       </>
@@ -147,7 +153,6 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
             [`${prefixCls}--${theme}`]: theme,
             [`${prefixCls}--disabled`]: disabled,
           })}
-          text={children}
           {...rest}
         >
           {children}

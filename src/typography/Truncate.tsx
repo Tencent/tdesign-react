@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+
 /**
  * LICENSE
  * https://github.com/pablosichert/react-truncate/blob/master/LICENSE.md
@@ -29,6 +30,7 @@ export default class Truncate extends React.Component {
     trimWhitespace: PropTypes.bool,
     width: PropTypes.number,
     onTruncate: PropTypes.func,
+    className: PropTypes.string,
     lineClassName: PropTypes.string,
   };
 
@@ -382,7 +384,6 @@ export default class Truncate extends React.Component {
     delete spanProps.onTruncate;
     delete spanProps.trimWhitespace;
     delete spanProps.lineClassName;
-    delete spanProps.width;
 
     return (
       <span

@@ -8,12 +8,12 @@ type TdEllipsis = {
   className?: string;
   children: ReactNode;
   lines: number;
-  ellipsisClassName: string;
-  ellipsisPrefix: ReactNode;
+  ellipsisClassName?: string;
+  ellipsisPrefix?: ReactNode;
   onToggleExpand?: (isExpanded: boolean, e: Event) => void;
-  width: number;
+  width?: number;
   onTruncate?: (truncated: boolean) => void;
-  component: string;
+  component: keyof HTMLElementTagNameMap;
   collapsible: boolean;
   expandable: boolean;
   more: ReactNode;
@@ -54,21 +54,26 @@ const Ellipsis = ({
     }
   };
 
-  const truncateRef = useRef();
+  const truncateRef = useRef<Truncate>();
   const [isTruncated, setTruncated] = useState(false);
   const handleTruncate = (truncated) => {
     if (isMountRef.current && truncated !== isTruncated) {
       setTruncated(truncated);
 
-      if (truncated) {
-        truncateRef.current?.onResize();
+      if (truncated && truncateRef.current) {
+        truncateRef.current.onResize?.();
       }
       onTruncate?.(truncated);
     }
   };
 
+  const componentProps = {
+    className,
+    ...rest,
+  };
+
   return (
-    <Component className={className} {...rest}>
+    <Component {...componentProps}>
       <Truncate
         width={width}
         lines={!isExpanded && lines}

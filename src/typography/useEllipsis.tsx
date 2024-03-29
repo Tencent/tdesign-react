@@ -25,7 +25,6 @@ export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
             row: ellipsis.row || 1,
             expandable: ellipsis.expandable ?? false,
             tooltipProps: ellipsis.tooltipProps || null,
-            // eslint-disable-next-line no-nested-ternary
             suffix: (expanded) =>
               typeof ellipsis?.suffix === 'function'
                 ? ellipsis?.suffix(expanded)
