@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useMemo } from 'react';
+import React, { CSSProperties, MutableRefObject, ReactNode, useMemo } from 'react';
 import camelCase from 'lodash/camelCase';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
@@ -123,7 +123,7 @@ export default function TBody(props: TableBodyProps) {
 
   const getTRNodeList = () => {
     if (isSkipSnapsMapNotFinish) return null;
-    const trNodeList = [];
+    const trNodeList: ReactNode[] = [];
     const properties = [
       'classPrefix',
       'ellipsisOverlayClassName',
@@ -182,13 +182,13 @@ export default function TBody(props: TableBodyProps) {
 
   // 垫上隐藏的 tr 元素高度
   const translate = `translateY(${virtualConfig.translateY}px)`;
-  const posStyle = virtualConfig.isVirtualScroll
-    ? {
+  const posStyle: CSSProperties = virtualConfig.isVirtualScroll
+    ? ({
         transform: translate,
         msTransform: translate,
         MozTransform: translate,
         WebkitTransform: translate,
-      }
+      } as CSSProperties)
     : undefined;
 
   const list = (

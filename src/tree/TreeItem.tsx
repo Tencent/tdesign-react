@@ -8,6 +8,7 @@ import React, {
   DragEvent,
   isValidElement,
   useEffect,
+  useState,
 } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
@@ -25,6 +26,7 @@ import useConfig from '../hooks/useConfig';
 
 import type { TdTreeProps } from './type';
 import type { TreeItemProps } from './interface';
+import type { TypeTreeNodeData } from '../_common/js/tree-v1/types';
 
 /**
  * 树节点组件
@@ -210,11 +212,23 @@ const TreeItem = forwardRef(
     const [labelDom, setRefCurrent] = useDomRefCallback();
     useRipple(labelDom);
 
+    // setData需要强制刷新组件来更新数据
+    const [, updateRender] = useState({});
+
     const renderLabel = () => {
       const emptyView = locale('empty');
       let labelText: string | ReactNode = '';
       if (label instanceof Function) {
-        labelText = label(node.getModel()) || emptyView;
+        const { setData: nodeSetData, ...rest } = node.getModel();
+        labelText =
+          label({
+            ...rest,
+            // 拦截setData render tree-item
+            setData: (value: TypeTreeNodeData) => {
+              nodeSetData(value);
+              updateRender({});
+            },
+          }) || emptyView;
       } else {
         labelText = node.label || emptyView;
       }

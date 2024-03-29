@@ -4,6 +4,7 @@ import { TdTabPanelProps } from './type';
 import { StyledProps } from '../common';
 import { useTabClass } from './useTabClass';
 import { tabPanelDefaultProps } from './defaultProps';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TabPanelProps extends TdTabPanelProps, StyledProps {
   children?: React.ReactNode;
@@ -11,9 +12,7 @@ export interface TabPanelProps extends TdTabPanelProps, StyledProps {
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
   const { tdTabPanelClassPrefix } = useTabClass();
-
-  const { className, style } = props;
-
+  const { className, style } = useDefaultProps<TabPanelProps>(props, tabPanelDefaultProps);
   return (
     <div className={classNames(tdTabPanelClassPrefix, className)} style={style}>
       {props.children || props.panel}
@@ -22,6 +21,5 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
 };
 
 TabPanel.displayName = 'TabPanel';
-TabPanel.defaultProps = tabPanelDefaultProps;
 
 export default TabPanel;

@@ -5,6 +5,49 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.5.5 `2024-03-28` 
+### 🐞 Bug Fixes
+- `ImageViewer`: 修复 `imageReferrerpolicy` 没有对顶部缩略图生效的问题 @uyarn ([#2815](https://github.com/Tencent/tdesign-react/pull/2815))
+
+## 🌈 1.5.4 `2024-03-28` 
+### 🚀 Features
+- `ImageViewer`: 新增`imageReferrerpolicy` API，支持配合 Image 组件的需要配置 Referrerpolicy 的场景 @uyarn ([#2813](https://github.com/Tencent/tdesign-react/pull/2813))
+### 🐞 Bug Fixes
+- `Select`: 修复 `onRemove` 事件没有正常触发的问题 @Ali-ovo ([#2802](https://github.com/Tencent/tdesign-react/pull/2802))
+- `Skeleton`: 修复`children`为必须的类型问题 @uyarn ([#2805](https://github.com/Tencent/tdesign-react/pull/2805))
+- `Tabs`: 提供 `action` 区域默认样式 @HaixingOoO ([#2808](https://github.com/Tencent/tdesign-react/pull/2808))
+- `Locale`: 修复`image`和`imageViewer` 英语语言包异常的问题 @uyarn  @HaixingOoO ([#2808](https://github.com/Tencent/tdesign-react/pull/2808))
+- `Image`: `referrerpolicy` 参数被错误传递到外层 `div` 上，实际传递目标为原生 `image` 标签 @NWYLZW ([#2811](https://github.com/Tencent/tdesign-react/pull/2811))
+
+## 🌈 1.5.3 `2024-03-14` 
+### 🚀 Features
+- `Breadcrumb`: `BreadcrumbItem` 支持 `onClick` 事件 @HaixingOoO ([#2795](https://github.com/Tencent/tdesign-react/pull/2795))
+- `tag`: `Tag`组件新增`color`API，支持自定义颜色 @maoyiluo  @uyarn ([#2799](https://github.com/Tencent/tdesign-react/pull/2799))
+### 🐞 Bug Fixes
+- `FormList`: 修复多个`FormList` 卡死的问题 @HaixingOoO ([#2788](https://github.com/Tencent/tdesign-react/pull/2788))
+- `DatePicker`: 修复 `format` 与 `valueType` 不一致的场景下计算错误的问题 @uyarn ([#2798](https://github.com/Tencent/tdesign-react/pull/2798))
+### 🚧 Others
+- `Portal`: 添加Portal测试用例 @HaixingOoO ([#2791](https://github.com/Tencent/tdesign-react/pull/2791))
+- `List`: 完善 List 测试用例 @HaixingOoO ([#2792](https://github.com/Tencent/tdesign-react/pull/2792))
+- `Alert`: 完善 Alert 测试,优化代码 @HaixingOoO ([#2793](https://github.com/Tencent/tdesign-react/pull/2793))
+
+## 🌈 1.5.2 `2024-02-29` 
+### 🚀 Features
+- `Cascader`: 新增`valueDisplay`和`label` API的支持 @HaixingOoO ([#2736](https://github.com/Tencent/tdesign-react/pull/2736))
+- `Descriptions`: `Descriptions` 组件支持嵌套 @HaixingOoO ([#2777](https://github.com/Tencent/tdesign-react/pull/2777))
+- `Tabs`: 调整激活 `Tab`下划线与 `TabHeader`边框的层级关系 @uyarn ([#2780](https://github.com/Tencent/tdesign-react/pull/2780))
+### 🐞 Bug Fixes
+- `Grid`: 尺寸计算错误，宽度兼容异常 @NWYLZW ([#2738](https://github.com/Tencent/tdesign-react/pull/2738))
+- `Cascader`: 修复`clearable`点击清除按钮触发三次`onChange`的问题 @HaixingOoO ([#2736](https://github.com/Tencent/tdesign-react/pull/2736))
+- `Dialog`: 修复`useDialogPosition`渲染多次绑定事件 @HaixingOoO ([#2749](https://github.com/Tencent/tdesign-react/pull/2749))
+- `Guide`: 修复`Guide`自定义内容功能失效 @zhangpaopao0609 ([#2752](https://github.com/Tencent/tdesign-react/pull/2752))
+- `Tree`: 修复设置 `keys.children` 后展开图标没有正常变化的问题 @uyarn ([#2746](https://github.com/Tencent/tdesign-react/pull/2746))
+- `Tree`: 修复`Tree` 自定义label `setData` 没有渲染的问题 @HaixingOoO ([#2776](https://github.com/Tencent/tdesign-react/pull/2776))
+- `Tree`: 修复设置 `Tree` 宽度，`TreeItem` 的 `checkbox` 会被压缩，`label` 省略号失效的问题 @HaixingOoO  @uyarn ([#2780](https://github.com/Tencent/tdesign-react/pull/2780))
+- `Select`: @uyarn 
+     - 修复通过滚动加载选项选中后滚动行为异常的问题 ([#2779](https://github.com/Tencent/tdesign-react/pull/2779))
+     - 修复使用`size` API时，虚拟滚动的功能异常问题  ([#2756](https://github.com/Tencent/tdesign-react/pull/2756))
+
 ## 🌈 1.5.1 `2024-01-25` 
 ### 🚀 Features
 - `Popup`: 支持`Plugin`方式使用。 @HaixingOoO ([#2717](https://github.com/Tencent/tdesign-react/pull/2717))

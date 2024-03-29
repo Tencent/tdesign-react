@@ -67,7 +67,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 
   const renderIconNode = () => {
     if (React.isValidElement(icon)) return icon;
-    return React.createElement(iconMap[theme] || iconMap.info);
+    return React.createElement(iconMap[theme]);
   };
 
   const renderMessage = () => {
@@ -84,11 +84,9 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
             }
             return true;
           })}
-          {+maxLine > 0 ? (
-            <div className={`${classPrefix}-alert__collapse`} onClick={handleCollapse}>
-              {!collapsed ? t(local.expandText) : t(local.collapseText)}
-            </div>
-          ) : null}
+          <div className={`${classPrefix}-alert__collapse`} onClick={handleCollapse}>
+            {!collapsed ? t(local.expandText) : t(local.collapseText)}
+          </div>
         </div>
       );
     }

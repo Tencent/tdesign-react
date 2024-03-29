@@ -7,7 +7,7 @@ export default function useDefaultProps<T>(originalProps: T, defaultProps: Recor
     // eslint-disable-next-line
     const props = Object.assign({}, originalProps);
     Object.keys(defaultProps).forEach((key) => {
-      // https://github.com/facebook/react/blob/main/packages/react/src/ReactElement.js#L328-L330
+      // https://github.com/facebook/react/blob/main/packages/react/src/jsx/ReactJSXElement.js#L719-L722
       if (props[key] === undefined) {
         props[key] = defaultProps[key];
       }

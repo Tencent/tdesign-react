@@ -251,7 +251,7 @@ export default class Truncate extends React.Component {
       }
 
       if (line === numLines) {
-        // Binary search determining the longest possible line inluding truncate string
+        // Binary search determining the longest possible line including truncate string
         const textRest = textWords.join(' ');
 
         let lower = 0;

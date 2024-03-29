@@ -82,6 +82,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     popupContentRef,
     scroll: propsScroll,
     options: propsOptions,
+    size,
   });
 
   const { classPrefix } = useConfig();

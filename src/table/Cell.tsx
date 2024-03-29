@@ -1,4 +1,4 @@
-import React, { MouseEvent, MutableRefObject } from 'react';
+import React, { MouseEvent, MutableRefObject, ReactNode } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -12,7 +12,7 @@ import { TooltipProps } from '../tooltip';
 import { PaginationProps } from '../pagination';
 
 export interface RenderEllipsisCellParams {
-  cellNode: any;
+  cellNode: ReactNode;
   tableElm?: HTMLDivElement;
   columnLength: number;
   classPrefix?: string;

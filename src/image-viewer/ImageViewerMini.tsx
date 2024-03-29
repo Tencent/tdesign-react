@@ -5,6 +5,8 @@ import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
 import useConfig from '../hooks/useConfig';
 
+import type { TdImageViewerProps } from './type';
+
 export interface ImageModalMiniProps {
   visible: boolean;
   title?: TNode;
@@ -32,6 +34,7 @@ export interface ImageModalMiniProps {
     rotate: string;
     originsize: string;
   };
+  imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
 }
 
 export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
@@ -46,6 +49,7 @@ export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
         src={props.currentImage.mainImage}
         preSrc={props.currentImage.thumbnail}
         errorText={props.errorText}
+        imageReferrerpolicy={props.imageReferrerpolicy}
       />
     </div>
   );

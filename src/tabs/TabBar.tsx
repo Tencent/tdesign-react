@@ -1,4 +1,4 @@
-import React, { useEffect, useState, CSSProperties, useCallback, useRef } from 'react';
+import React, { useEffect, useState, CSSProperties, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../_util/useMutationObserver';
@@ -14,13 +14,12 @@ const TabBar: React.FC<TabBarProps> = (props) => {
   const { classPrefix } = useConfig();
   const [barStyle, setBarStyle] = useState<CSSProperties>({});
   const tabsClassPrefix = `${classPrefix}-tabs`;
-
   const currentActiveIdRef = useRef(activeId);
   useEffect(() => {
     currentActiveIdRef.current = activeId;
   }, [activeId]);
 
-  const computeStyle = useCallback(() => {
+  const computeStyle = React.useCallback(() => {
     const isHorizontal = ['bottom', 'top'].includes(tabPosition);
     const transformPosition = isHorizontal ? 'translateX' : 'translateY';
     const itemProp = isHorizontal ? 'width' : 'height';
@@ -29,26 +28,20 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     let offset = 0;
 
     if (containerRef.current) {
-      const itemsRef = containerRef.current.querySelectorAll?.(`.${tabsClassPrefix}__nav-item`);
-      if (itemsRef.length - 1 >= currentActiveIdRef.current) {
+      const itemsRef = containerRef.current?.querySelectorAll<HTMLElement>(`.${tabsClassPrefix}__nav-item`);
+      if (itemsRef.length - 1 >= (currentActiveIdRef.current as number)) {
         itemsRef.forEach((item, itemIndex) => {
-          if (itemIndex < currentActiveIdRef.current) {
+          if (itemIndex < (currentActiveIdRef.current as number)) {
             offset += Number(getComputedStyle(item)[itemProp].replace('px', ''));
           }
         });
         const computedItem = itemsRef[currentActiveIdRef.current];
         if (!computedItem) {
-          setBarStyle({
-            transform: `${transformPosition}(${0}px)`,
-            [barBorderProp]: 0,
-          });
+          setBarStyle({ transform: `${transformPosition}(${0}px)`, [barBorderProp]: 0 });
           return;
         }
         const itemPropValue = getComputedStyle(computedItem)[itemProp];
-        setBarStyle({
-          transform: `${transformPosition}(${offset}px)`,
-          [barBorderProp]: itemPropValue || 0,
-        });
+        setBarStyle({ transform: `${transformPosition}(${offset}px)`, [barBorderProp]: itemPropValue || 0 });
       }
     }
   }, [currentActiveIdRef, containerRef, tabPosition, tabsClassPrefix]);
@@ -60,8 +53,8 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabPosition, activeId, containerRef.current]);
 
-  const handleMutationObserver = useCallback(
-    (mutations) => {
+  const handleMutationObserver = React.useCallback(
+    (mutations: MutationRecord[]) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'characterData') {
           computeStyle();

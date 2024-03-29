@@ -35,8 +35,24 @@ const MultipleSelect = () => {
 
   return (
     <Space breakLine style={{ width: '100%' }}>
-      <Select value={value} onChange={handleChange} filterable multiple options={options1} />
-      <Select defaultValue={['1', '2', '3', '4', '5', '6']} placeholder="请选择云产品" multiple>
+      <Select
+        value={value}
+        onChange={handleChange}
+        filterable
+        multiple
+        options={options1}
+        onRemove={(options) => {
+          console.log('onRemove', options);
+        }}
+      />
+      <Select
+        defaultValue={['1', '2', '3', '4', '5', '6']}
+        placeholder="请选择云产品"
+        multiple
+        onRemove={(options) => {
+          console.log('onRemove', options);
+        }}
+      >
         {options2.map((item) => (
           <Option value={item.value} label={item.label} key={item.value} content={item.content}></Option>
         ))}

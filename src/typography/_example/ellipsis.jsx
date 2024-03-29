@@ -17,7 +17,7 @@ const EllipsisExample = () => {
       <Paragraph
         ellipsis={{
           row: 2,
-          suffix: (expaned) => <><Button theme="primary" variant="text" style={{padding: 0, height: '1em'}}>{expaned ? 'less' : 'more'}</Button></>,
+          suffix: (expanded) => <><Button theme="primary" variant="text" style={{padding: 0, height: '1em'}}>{expanded ? 'less' : 'more'}</Button></>,
           expandable: true,
           collapsible: true
         }}
@@ -26,7 +26,7 @@ const EllipsisExample = () => {
       </Paragraph>
       <Text
         ellipsis={{
-          suffix: (expaned) => expaned ? 'less' : 'more',
+          suffix: (expanded) => expanded ? 'less' : 'more',
           expandable: false,
           tooltipProps: {
             content: 'long long long text'
@@ -46,7 +46,7 @@ const EllipsisExample = () => {
       </Text>
       <Paragraph
         ellipsis={{
-          suffix: (expaned) => <span>{expaned ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>,
+          suffix: (expanded) => <span>{expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>,
           expandable: true,
         }}
       >

@@ -95,7 +95,7 @@ Contributing is welcome. Read [guidelines for contributing](https://github.com/T
 
 Create your [Github issues](https://github.com/Tencent/tdesign-react/issues) or scan the QR code below to join our user groups
 
-<img src="https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/doc/React-IM.png" width="200" />
+<img src="https://raw.githubusercontent.com/Tencent/tdesign/main/packages/components/src/images/groups/react-group.png" width="200" />
 
 # License
 
