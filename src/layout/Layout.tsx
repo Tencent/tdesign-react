@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
@@ -63,23 +63,25 @@ const Layout: React.FC<LayoutProps> & {
   Aside: typeof Aside;
 } = (props) => {
   const { direction, className, style, children, ...otherLayoutProps } = props;
-  const [asides, setAsides] = useState([]);
-  useEffect(() => {
-    React.Children.forEach(children, (child: React.ReactChild) => {
+
+  const asides = useMemo(() => {
+    const childs: React.ReactElement[] = [];
+    React.Children.forEach(children, (child: React.ReactElement) => {
       if (!child || typeof child !== 'object') {
         return;
       }
       if (child.type === Aside) {
-        setAsides([child]);
+        childs.push(child);
       }
     });
+    return !!childs.length;
   }, [children]);
 
   const { classPrefix } = useConfig();
   const layoutClassNames = classNames(
     `${classPrefix}-layout`,
     {
-      [`${classPrefix}-layout--with-sider`]: !!asides.length,
+      [`${classPrefix}-layout--with-sider`]: asides,
       [`${classPrefix}-layout__direction-${direction}`]: direction,
     },
     className,
