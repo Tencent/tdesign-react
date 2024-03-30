@@ -64,24 +64,24 @@ const Layout: React.FC<LayoutProps> & {
 } = (props) => {
   const { direction, className, style, children, ...otherLayoutProps } = props;
 
-  const asides = useMemo(() => {
-    const childs: React.ReactElement[] = [];
+  const shouldAsides = useMemo(() => {
+    const asides: React.ReactElement[] = [];
     React.Children.forEach(children, (child: React.ReactElement) => {
       if (!child || typeof child !== 'object') {
         return;
       }
       if (child.type === Aside) {
-        childs.push(child);
+        asides.push(child);
       }
     });
-    return !!childs.length;
+    return !!asides.length;
   }, [children]);
 
   const { classPrefix } = useConfig();
   const layoutClassNames = classNames(
     `${classPrefix}-layout`,
     {
-      [`${classPrefix}-layout--with-sider`]: asides,
+      [`${classPrefix}-layout--with-sider`]: shouldAsides,
       [`${classPrefix}-layout__direction-${direction}`]: direction,
     },
     className,
