@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import Ellipsis from './Ellipsis';

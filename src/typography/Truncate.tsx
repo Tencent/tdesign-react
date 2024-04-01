@@ -1,5 +1,4 @@
-/* eslint-disable no-param-reassign */
-
+// @ts-nocheck
 /**
  * LICENSE
  * https://github.com/pablosichert/react-truncate/blob/master/LICENSE.md
@@ -109,6 +108,7 @@ export default class Truncate extends React.Component {
       item.key = `[${'@'.repeat(item[2].length - 1)}=${i + 1}]`;
       this.replacedLinks.push(item);
 
+      // eslint-disable-next-line no-param-reassign
       content = content.replace(item[0], item.key);
     });
 

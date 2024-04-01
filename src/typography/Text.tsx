@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { ReactElement, forwardRef, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';

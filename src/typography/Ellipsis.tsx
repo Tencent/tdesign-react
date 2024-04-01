@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';

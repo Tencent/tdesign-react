@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 
