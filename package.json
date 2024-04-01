@@ -113,7 +113,7 @@
     "@rollup/plugin-replace": "^3.0.0",
     "@rollup/plugin-url": "^7.0.0",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.4.3",
     "@types/estree": "0.0.50",
     "@types/hoist-non-react-statics": "^3.3.1",
