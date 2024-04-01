@@ -62,6 +62,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     destroyOnClose,
     preventScrollThrough,
     onCloseBtnClick,
+    forceRender = false,
     ...restState
   } = state;
 
@@ -94,6 +95,11 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     },
     update(newOptions) {
       setState((prevState) => ({ ...prevState, ...newOptions }));
+    },
+    // TODO: 待完善setConfirmLoading Event
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    setConfirmLoading() {
+      console.warn('待完善setConfirmLoading Event');
     },
   }));
 
@@ -184,7 +190,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       in={visible}
       appear
       timeout={300}
-      mountOnEnter
+      mountOnEnter={!forceRender}
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}
@@ -198,7 +204,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
           })}
-          style={{ zIndex }}
+          style={{ zIndex, display: 'none' }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
@@ -216,7 +222,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
               <CSSTransition
                 in={visible}
                 appear
-                mountOnEnter
                 timeout={300}
                 classNames={`${componentCls}-zoom`}
                 nodeRef={dialogCardRef}
