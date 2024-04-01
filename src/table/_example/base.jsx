@@ -70,7 +70,6 @@ export default function TableBasic() {
       rowClassName={({ rowIndex }) => `${rowIndex}-class`}
       cellEmptyContent={'-'}
       resizable
-      bordered
       // 与pagination对齐
       pagination={{
         defaultCurrent: 2,
