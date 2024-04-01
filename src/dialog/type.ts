@@ -202,10 +202,6 @@ export interface DialogInstance {
    */
   hide: () => void;
   /**
-   * 设置确认按钮加载状态
-   */
-  setConfirmLoading: (loading: boolean) => void;
-  /**
    * 显示弹框
    */
   show: () => void;

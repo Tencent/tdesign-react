@@ -96,11 +96,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     update(newOptions) {
       setState((prevState) => ({ ...prevState, ...newOptions }));
     },
-    // TODO: 待完善setConfirmLoading Event
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    setConfirmLoading() {
-      console.warn('待完善setConfirmLoading Event');
-    },
   }));
 
   // @ts-ignore 兼容旧版本 2.0 移除
