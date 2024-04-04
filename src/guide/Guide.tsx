@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
 import isFunction from 'lodash/isFunction';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
@@ -193,9 +193,14 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
   useIsomorphicLayoutEffect(() => {
     initGuide();
 
-    return destroyGuide;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(
+    () => destroyGuide,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const renderOverlayLayer = () =>
     createPortal(
