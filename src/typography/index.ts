@@ -9,9 +9,3 @@ export * from './type';
 export const Paragraph = _Paragraph;
 export const Text = _Text;
 export const Title = _Title;
-
-export default {
-  Paragraph,
-  Text,
-  Title,
-};
