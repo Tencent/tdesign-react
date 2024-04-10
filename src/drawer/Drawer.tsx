@@ -53,6 +53,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     zIndex,
     destroyOnClose,
     sizeDraggable,
+    forceRender,
   } = props;
 
   // 国际化文本初始化
@@ -167,6 +168,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     <CSSTransition
       in={visible}
       nodeRef={drawerWrapperRef}
+      mountOnEnter={!forceRender}
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
       onEntered={() => setAnimationStart(true)}

@@ -183,7 +183,7 @@
     "standard-changelog": "^2.0.27",
     "start-server-and-test": "^1.14.0",
     "tdesign-icons-view": "^0.2.0",
-    "tdesign-publish-cli": "^0.0.10",
+    "tdesign-publish-cli": "^0.0.12",
     "tdesign-site-components": "^0.14.6",
     "tdesign-theme-generator": "^1.0.0",
     "ts-morph": "^13.0.02",
