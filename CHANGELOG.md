@@ -5,6 +5,24 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.6.0 `2024-04-11` 
+### 🚀 Features
+- `Portal`: `Portal` 新增懒加载 `forceRender` ,默认为`lazy`模式 ,优化性能，兼容 `SSR` 渲染，对 `Dialog` 和 `Drawer` 组件可能存在破坏性影响 @HaixingOoO ([#2826](https://github.com/Tencent/tdesign-react/pull/2826))
+### 🐞 Bug Fixes
+- `ImageViewer`: 修复 `imageReferrerpolicy` 没有对顶部缩略图生效的问题 @uyarn ([#2815](https://github.com/Tencent/tdesign-react/pull/2815))
+- `Descriptions`: 修复 `props` 缺少 `className` 和 `style` 属性的问题 @HaixingOoO ([#2818](https://github.com/Tencent/tdesign-react/pull/2818))
+- `Layout`: 修复 `Layout` 添加 `Aside` 页面布局会跳动的问题 @HaixingOoO ([#2824](https://github.com/Tencent/tdesign-react/pull/2824))
+- `Input`: 修复在 `React16` 版本下阻止冒泡失败的问题 @HaixingOoO ([#2833](https://github.com/Tencent/tdesign-react/pull/2833))
+- `DatePicker`: 修复 `1.5.3` 版本之后处理Date类型和周选择器的异常 @uyarn ([#2841](https://github.com/Tencent/tdesign-react/pull/2841))
+- `Guide`:  
+     - 优化`SSR`下的使用问题 @HaixingOoO ([#2842](https://github.com/Tencent/tdesign-react/pull/2842))
+     - 修复`SSR`场景下 `Guide`组件初始化渲染位置异常的问题 @uyarn ([#2832](https://github.com/Tencent/tdesign-react/pull/2832))
+- `Scroll`: 修复由于`Chrome 121` 版本支持 scroll width 之后导致`Table`、`Select`及部分出现滚动条组件的样式异常问题 @loopzhou ([common#1765](https://github.com/Tencent/tdesign-vue/pull/1765)) @uyarn ([#2843](https://github.com/Tencent/tdesign-react/pull/2843))
+- `Locale`: 优化 `DatePicker` 部分模式的语言包 @uyarn ([#2843](https://github.com/Tencent/tdesign-react/pull/2843))
+- `Tree`: 修复初始化后 `draggable` 属性丢失响应式的问题 @Liao-js ([#2838](https://github.com/Tencent/tdesign-react/pull/2838))
+- `Style`: 支持通过`less`总入口打包样式的需求 @NWYLZW @uyarn  ([common#1757](https://github.com/Tencent/tdesign-common/pull/1757)) ([common#1766](https://github.com/Tencent/tdesign-common/pull/1766))
+
+
 ## 🌈 1.5.5 `2024-03-28` 
 ### 🐞 Bug Fixes
 - `ImageViewer`: 修复 `imageReferrerpolicy` 没有对顶部缩略图生效的问题 @uyarn ([#2815](https://github.com/Tencent/tdesign-react/pull/2815))
