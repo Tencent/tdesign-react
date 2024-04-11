@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
 import isFunction from 'lodash/isFunction';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
@@ -6,12 +6,13 @@ import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupProps } from '../popup';
 import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
-import { addClass, removeClass, isFixed, getWindowScroll } from '../_util/dom';
+import { addClass, removeClass, isFixed, getWindowScroll, canUseDocument } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
 import setStyle from '../_common/js/utils/set-style';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsomorphicLayoutEffect from '../_util/useLayoutEffect';
 
 export type GuideProps = TdGuideProps;
 
@@ -58,8 +59,6 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     currentStepInfo?.[propsName] ?? props[propsName];
   // 当前是否为 popup
   const isPopup = getCurrentCrossProps('mode') === 'popup';
-  // 当前元素位置状态
-  const currentElmIsFixed = isFixed(currentHighlightLayerElm.current || document.body);
 
   // 设置高亮层的位置
   const setHighlightLayerPosition = (highlightLayer: HTMLElement) => {
@@ -88,7 +87,6 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
 
   const showPopupGuide = () => {
     currentHighlightLayerElm.current = getTargetElm(currentStepInfo.element);
-
     setTimeout(() => {
       scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
@@ -104,6 +102,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
   const showDialogGuide = () => {
     setTimeout(() => {
       currentHighlightLayerElm.current = dialogTooltipRef.current;
+
       scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
       scrollToElm(currentHighlightLayerElm.current);
@@ -179,7 +178,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     }
   };
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (innerCurrent >= 0 && innerCurrent < steps.length) {
       initGuide();
     } else {
@@ -189,12 +188,24 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerCurrent]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     initGuide();
 
-    return destroyGuide;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(
+    () => destroyGuide,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  if (!canUseDocument) {
+    return null;
+  }
+
+  // 当前元素位置状态
+  const currentElmIsFixed = isFixed(currentHighlightLayerElm.current || document.body);
 
   const renderOverlayLayer = () =>
     createPortal(
