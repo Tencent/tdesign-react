@@ -31,7 +31,7 @@ const EllipsisExample = () => {
       </Paragraph>
       <Text
         ellipsis={{
-          suffix: (expanded) => (expanded ? 'less' : 'more'),
+          suffix: () => '',
           expandable: false,
           tooltipProps: {
             content: 'long long long text',
@@ -42,12 +42,10 @@ const EllipsisExample = () => {
       >
         {textString}
       </Text>
-      <Text ellipsis strong style={{ width: 300, display: 'block' }}>
-        {textString}
-      </Text>
+
       <Paragraph
         ellipsis={{
-          suffix: (expanded) => <span>{expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>,
+          suffix: (expanded) => <span>{expanded ? <ChevronUpIcon size={16} style={{marginLeft: 4}} /> : <ChevronDownIcon style={{marginLeft: 4}} size={16} />}</span>,
           expandable: true,
         }}
       >

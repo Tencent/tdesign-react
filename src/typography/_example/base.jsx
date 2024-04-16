@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Text, Paragraph } from 'tdesign-react';
+import { Title, Text, Paragraph, Space } from 'tdesign-react';
 
 export default function BasicTypography() {
   return (
@@ -21,29 +21,32 @@ export default function BasicTypography() {
         Desktop Application and <Text code>Vue 3</Text>, <Text code>Wechat MiniProgram</Text> components for Mobile
         Application.
       </Paragraph>
-      <ul>
-        <li>Features</li>
-        <li>
-          Comprehensive
-          <ul>
-            <li>Consistency</li>
-            <li>Usability</li>
-          </ul>
-        </li>
-        <li>Join TDesign </li>
-      </ul>
 
-      <ol>
-        <li>Features</li>
-        <li>
-          Comprehensive
-          <ol type="a">
-            <li>Consistency</li>
-            <li>Usability</li>
-          </ol>
-        </li>
-        <li>Join TDesign</li>
-      </ol>
+      <Space direction="vertical" size={12}>
+        <ul>
+          <li>Features</li>
+          <li>
+            Comprehensive
+            <ul>
+              <li>Consistency</li>
+              <li>Usability</li>
+            </ul>
+          </li>
+          <li>Join TDesign </li>
+        </ul>
+
+        <ol>
+          <li>Features</li>
+          <li>
+            Comprehensive
+            <ol type="a">
+              <li>Consistency</li>
+              <li>Usability</li>
+            </ol>
+          </li>
+          <li>Join TDesign</li>
+        </ol>
+      </Space>
     </>
   );
 }

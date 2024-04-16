@@ -3,12 +3,12 @@ import { Title } from 'tdesign-react';
 
 const TitleExample = () => (
   <>
-    <Title level="h1">h1. TDesign</Title>
-    <Title level="h2">h2. TDesign</Title>
-    <Title level="h3">h3. TDesign</Title>
-    <Title level="h4">h4. TDesign</Title>
-    <Title level="h5">h5. TDesign</Title>
-    <Title level="h6">h6. TDesign</Title>
+    <Title level="h1">H1. TDesign</Title>
+    <Title level="h2">H2. TDesign</Title>
+    <Title level="h3">H3. TDesign</Title>
+    <Title level="h4">H4. TDesign</Title>
+    <Title level="h5">H5. TDesign</Title>
+    <Title level="h6">H6. TDesign</Title>
   </>
 );
 

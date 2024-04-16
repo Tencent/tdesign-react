@@ -3,7 +3,7 @@ import { Text, Space } from 'tdesign-react';
 
 export default function TextExample() {
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" size={12}>
       <Text theme="primary">TDesign (primary)</Text>
       <Text theme="secondary">TDesign (secondary)</Text>
       <Text disabled>TDesign (disabled)</Text>

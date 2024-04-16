@@ -6,7 +6,7 @@ import copy from 'copy-to-clipboard';
 
 import Ellipsis from './Ellipsis';
 import { TdTextProps } from './type';
-import { titleDefaultProps } from './defaultProps';
+import { textDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useEllipsis from './useEllipsis';
 import Button from '../button/Button';
@@ -109,7 +109,7 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
         {copyable
           ? wrapWithTooltip(
               <Button
-                shape="circle"
+                shape="square"
                 theme="primary"
                 variant="text"
                 icon={getSuffix() as ReactElement}
@@ -167,6 +167,6 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
 export const Text = forwardRef(TextFunction);
 
 Text.displayName = 'Text';
-Text.defaultProps = titleDefaultProps;
+Text.defaultProps = textDefaultProps;
 
 export default Text;
