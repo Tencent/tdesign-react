@@ -1,3 +1,5 @@
+default.check-filename = true
+
 [default.extend-words]
 actived = "actived"
 formated = "formated"
