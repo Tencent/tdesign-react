@@ -114,7 +114,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
     }
   };
 
-  const { totalContrl } = useTotal({ totalContent, pageSize, current, total });
+  const { totalControl } = useTotal({ totalContent, pageSize, current, total });
 
   const { firstPageJumper, lastPageJumper } = useBoundaryJumper({
     disabled,
@@ -132,7 +132,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
     changeCurrent,
   });
 
-  const { pageNumberContrl } = usePageNumber({
+  const { pageNumberControl } = usePageNumber({
     showPageNumber,
     maxPageBtn,
     disabled,
@@ -147,7 +147,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
     setJumpValue(current);
   }, [current]);
 
-  const pageSizeContrl =
+  const pageSizeControl =
     showPageSize && pageSizeOptions.length ? (
       <div className={`${name}__select`}>
         <Select
@@ -201,15 +201,15 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
       {...restProps}
     >
       {/* 总数据 */}
-      {totalContrl}
+      {totalControl}
       {/* 分页器 */}
-      {pageSizeContrl}
+      {pageSizeControl}
       {/* 首页跳转 */}
       {firstPageJumper}
       {/* 上一页跳转 */}
       {prevJumper}
       {/* 常规版 */}
-      {theme === 'default' && pageNumberContrl}
+      {theme === 'default' && pageNumberControl}
       {/* 极简版 */}
       {theme === 'simple' && Jumper}
       {/* 下一页跳转 */}

@@ -10,9 +10,9 @@ export default function useTotal(props) {
 
   const { totalContent, pageSize, current, total } = props;
 
-  let totalContrl = null;
+  let totalControl = null;
 
-  if (totalContent === false) return { totalContrl };
+  if (totalContent === false) return { totalControl };
 
   // 渲染total相关逻辑
   const renderTotalContent = () => {
@@ -27,7 +27,7 @@ export default function useTotal(props) {
     return totalContent;
   };
 
-  totalContrl = <div className={`${name}__total`}>{renderTotalContent()}</div>;
+  totalControl = <div className={`${name}__total`}>{renderTotalContent()}</div>;
 
-  return { totalContrl };
+  return { totalControl };
 }
