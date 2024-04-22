@@ -46,14 +46,24 @@ export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
   };
 
   const getEllipsisSuffix = () => {
-    if (formattedEllipsis?.tooltipProps) {
+    const moreOrLess = formattedEllipsis.suffix?.(!isClamped);
+    if (formattedEllipsis?.tooltipProps && !!moreOrLess) {
       return <Tooltip {...formattedEllipsis?.tooltipProps}>{formattedEllipsis.suffix?.(!isClamped)}</Tooltip>;
     }
     return formattedEllipsis.suffix?.(!isClamped);
   };
 
+  const getEllipsisPrefix = () => {
+    const moreOrLess = formattedEllipsis.suffix?.(!isClamped);
+    if (formattedEllipsis?.tooltipProps && !moreOrLess) {
+      return <Tooltip {...formattedEllipsis?.tooltipProps}>...</Tooltip>;
+    }
+    return '...';
+  };
+
   const ellipsisProps = {
     lines: formattedEllipsis.row,
+    ellipsisPrefix: getEllipsisPrefix(),
     more: getEllipsisSuffix(),
     less: getEllipsisSuffix(),
     onToggleExpand: handleExpand,
