@@ -18,7 +18,8 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
 
     const { registerWatch = noop } = form.getInternalHooks?.(HOOK_MARK);
 
-    const cancelRegister = registerWatch(() => {
+    const cancelRegister = registerWatch((_values, paths) => {
+      if (String(name) !== String(paths)) return;
       const allFieldsValue = form.getFieldsValue?.(true);
       const newValue = get(allFieldsValue, name);
       const nextValueStr = JSON.stringify(newValue);
