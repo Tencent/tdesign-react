@@ -7,6 +7,7 @@ import { TdDrawerProps } from './type';
 export const drawerDefaultProps: TdDrawerProps = {
   closeOnEscKeydown: undefined,
   closeOnOverlayClick: undefined,
+  closeBtn: true,
   destroyOnClose: false,
   footer: true,
   forceRender: false,
