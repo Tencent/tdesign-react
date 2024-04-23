@@ -1,11 +1,8 @@
-import _Paragraph from './Paragraph';
-import _Text from './Text';
-import _Title from './Title';
+import _Typography from './Typography';
 
 import './style/index.js';
 
 export * from './type';
 
-export const Paragraph = _Paragraph;
-export const Text = _Text;
-export const Title = _Title;
+export const Typography = _Typography;
+export default Typography;

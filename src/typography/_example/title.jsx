@@ -1,5 +1,7 @@
 import React from 'react';
-import { Title } from 'tdesign-react';
+import { Typography } from 'tdesign-react';
+
+const { Title } = Typography;
 
 const TitleExample = () => (
   <>

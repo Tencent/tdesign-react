@@ -1,5 +1,7 @@
 import React from 'react';
-import { Title, Text, Paragraph, Space } from 'tdesign-react';
+import { Typography, Space } from 'tdesign-react';
+
+const { Title, Text, Paragraph } = Typography;
 
 export default function BasicTypography() {
   return (

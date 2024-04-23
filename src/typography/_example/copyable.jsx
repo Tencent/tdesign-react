@@ -1,6 +1,8 @@
 import React from 'react';
 import { AngryIcon, SmileIcon } from 'tdesign-icons-react';
-import { Text } from 'tdesign-react';
+import { Typography } from 'tdesign-react';
+
+const { Text } = Typography;
 
 const textString = `TDesign was founded with the principles of open-source collaboration from the beginning. The collaboration scheme discussion, component design, and API design, including source code, are fully open within the company, garnering widespread attention from internal developers and designers. TDesign follows an equal, open, and strict policy, regardless of the participants' roles.`;
 

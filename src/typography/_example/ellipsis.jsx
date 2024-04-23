@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from 'tdesign-icons-react';
-import { Button, Paragraph, Text } from 'tdesign-react';
+import { Button, Typography } from 'tdesign-react';
+
+const { Text, Paragraph } = Typography;
 
 const textString = `TDesign was founded with the principles of open-source collaboration from the beginning. The collaboration scheme discussion, component design, and API design, including source code, are fully open within the company, garnering widespread attention from internal developers and designers. TDesign follows an equal, open, and strict policy, regardless of the participants' roles.`;
 
@@ -45,7 +47,15 @@ const EllipsisExample = () => {
 
       <Paragraph
         ellipsis={{
-          suffix: (expanded) => <span>{expanded ? <ChevronUpIcon size={16} style={{marginLeft: 4}} /> : <ChevronDownIcon style={{marginLeft: 4}} size={16} />}</span>,
+          suffix: (expanded) => (
+            <span>
+              {expanded ? (
+                <ChevronUpIcon size={16} style={{ marginLeft: 4 }} />
+              ) : (
+                <ChevronDownIcon style={{ marginLeft: 4 }} size={16} />
+              )}
+            </span>
+          ),
           expandable: true,
         }}
       >

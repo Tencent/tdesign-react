@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, Space } from 'tdesign-react';
+import { Typography, Space } from 'tdesign-react';
+
+const { Text } = Typography;
 
 export default function TextExample() {
   return (
