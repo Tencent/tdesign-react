@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import isDate from 'lodash/isDate';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps, PresetDate } from './type';
@@ -64,7 +65,11 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   useEffect(() => {
     // 面板展开重置数据
-    const dateValue = value ? covertToDate(value as string, valueType) : value;
+    // Date valueType、week mode 、quarter mode nad empty string don't need to be parsed
+    const dateValue =
+      value && !isDate(value) && !['week', 'quarter'].includes(props.mode)
+        ? covertToDate(value as string, valueType)
+        : value;
     setCacheValue(formatDate(dateValue, { format }));
     setInputValue(formatDate(dateValue, { format }));
 

@@ -6,7 +6,7 @@ import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupProps } from '../popup';
 import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
-import { addClass, removeClass, isFixed, getWindowScroll } from '../_util/dom';
+import { addClass, removeClass, isFixed, getWindowScroll, canUseDocument } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
 import setStyle from '../_common/js/utils/set-style';
 import useControlled from '../hooks/useControlled';
@@ -59,8 +59,6 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     currentStepInfo?.[propsName] ?? props[propsName];
   // 当前是否为 popup
   const isPopup = getCurrentCrossProps('mode') === 'popup';
-  // 当前元素位置状态
-  const currentElmIsFixed = isFixed(currentHighlightLayerElm.current || document.body);
 
   // 设置高亮层的位置
   const setHighlightLayerPosition = (highlightLayer: HTMLElement) => {
@@ -201,6 +199,13 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+
+  if (!canUseDocument) {
+    return null;
+  }
+
+  // 当前元素位置状态
+  const currentElmIsFixed = isFixed(currentHighlightLayerElm.current || document.body);
 
   const renderOverlayLayer = () =>
     createPortal(

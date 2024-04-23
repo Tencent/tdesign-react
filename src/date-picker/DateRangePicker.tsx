@@ -326,15 +326,16 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     let partialIndex = partial === 'start' ? 0 : 1;
     if (enableTimePicker) partialIndex = activeIndex;
 
-    const nextMonth = [...month];
-    nextMonth[partialIndex] = nextVal;
-    // 保证左侧时间不大于右侧
-    if (year[0] === year[1]) {
-      if (partialIndex === 0) nextMonth[1] = Math.max(nextMonth[0], nextMonth[1]);
-      if (partialIndex === 1) nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
-    }
-
-    setMonth(nextMonth);
+    setMonth((currentMonth) => {
+      const nextMonth = [...currentMonth];
+      nextMonth[partialIndex] = nextVal;
+      // 保证左侧时间不大于右侧
+      if (year[0] === year[1]) {
+        if (partialIndex === 0) nextMonth[1] = Math.max(nextMonth[0], nextMonth[1]);
+        if (partialIndex === 1) nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
+      }
+      return nextMonth;
+    });
   }
 
   const panelProps = {
