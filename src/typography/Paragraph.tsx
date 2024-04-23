@@ -1,17 +1,25 @@
-// @ts-nocheck
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import Ellipsis from './Ellipsis';
-import { TdParagraphProps } from './type';
 import { paragraphDefaultProps } from './defaultProps';
+
 import useConfig from '../hooks/useConfig';
 import useEllipsis from './useEllipsis';
+import useDefaultProps from '../hooks/useDefaultProps';
 
-export type TypographyParagraphProps = TdParagraphProps;
+import type { StyledProps } from '../common';
+import type { TdParagraphProps } from './type';
 
-const ParagraphFunction = (props: TypographyParagraphProps, ref: React.Ref<HTMLDivElement>) => {
+export type TypographyParagraphProps = TdParagraphProps &
+  StyledProps & {
+    children: React.ReactNode;
+  };
+
+const Paragraph = forwardRef<HTMLDivElement, TypographyParagraphProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
-  const { ellipsis, children, className, ...rest } = props;
+  const props = useDefaultProps<TypographyParagraphProps>(originalProps, paragraphDefaultProps);
+
+  const { ellipsis, children, className, content, ...rest } = props;
   const prefixCls = `${classPrefix}-typography`;
 
   const { ellipsisProps } = useEllipsis(ellipsis);
@@ -19,19 +27,17 @@ const ParagraphFunction = (props: TypographyParagraphProps, ref: React.Ref<HTMLD
   if (!ellipsis) {
     return (
       <div className={classNames(className, prefixCls)} ref={ref} {...rest}>
-        {children}
+        {children || content}
       </div>
     );
   }
 
   return (
-    <Ellipsis {...ellipsisProps} className={classNames(className, prefixCls)} ref={ref} {...rest}>
-      {children}
+    <Ellipsis {...ellipsisProps} className={classNames(className, prefixCls)} {...rest}>
+      {children || content}
     </Ellipsis>
   );
-};
-
-export const Paragraph = forwardRef(ParagraphFunction);
+});
 
 Paragraph.displayName = 'Paragraph';
 Paragraph.defaultProps = paragraphDefaultProps;

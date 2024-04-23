@@ -1,26 +1,33 @@
-// @ts-nocheck
-import React, { ReactElement, forwardRef, useRef, useState } from 'react';
+import React, { ReactElement, useRef, forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
-import copy from 'copy-to-clipboard';
 
 import Ellipsis from './Ellipsis';
-import { TdTextProps } from './type';
-import { textDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useEllipsis from './useEllipsis';
 import Button from '../button/Button';
 import Tooltip from '../tooltip';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { textDefaultProps } from './defaultProps';
+import copyText from '../_util/copyText';
 
-export type TypographyTextProps = TdTextProps;
+import type { StyledProps } from '../common';
+import type { TdTextProps } from './type';
 
-const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement>) => {
+export type TypographyTextProps = TdTextProps &
+  StyledProps & {
+    children: React.ReactNode;
+  };
+
+const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
+  const props = useDefaultProps<TypographyTextProps>(originalProps, textDefaultProps);
+
   const prefixCls = `${classPrefix}-typography`;
 
   const [local, t] = useLocaleReceiver('typography');
-  const copiedText = t(local.copied);
+  const copiedText = t(local.copiedText);
 
   const {
     theme,
@@ -38,6 +45,7 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
     ellipsis,
     ...rest
   } = props;
+
   const getComponent = () => {
     const componentMap = {
       strong: !!strong,
@@ -83,17 +91,17 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
         };
 
   const handleCopy = () => {
-    copy(copyProps?.text);
+    copyText(copyProps?.text);
     setIsCopied(true);
     setTimeout(() => {
       setIsCopied(false);
     }, 1500);
-    copyProps.onCopy?.();
+    if (typeof copyProps.onCopy === 'function') copyProps.onCopy();
   };
 
   const renderContent = (withChildren: boolean) => {
     const { tooltipProps } = copyProps;
-    const wrapWithTooltip = (wrapContent) =>
+    const wrapWithTooltip = (wrapContent: React.ReactNode) =>
       tooltipProps ? <Tooltip {...tooltipProps}>{wrapContent}</Tooltip> : wrapContent;
 
     const getSuffix = (): ReactElement => {
@@ -162,11 +170,6 @@ const TextFunction = (props: TypographyTextProps, ref: React.Ref<HTMLSpanElement
       {renderContent(false)}
     </>
   );
-};
-
-export const Text = forwardRef(TextFunction);
-
-Text.displayName = 'Text';
-Text.defaultProps = textDefaultProps;
+});
 
 export default Text;

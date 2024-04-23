@@ -1,6 +1,6 @@
-// @ts-nocheck
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
+import isFunction from 'lodash/isFunction';
 
 import { TypographyEllipsis } from './type';
 import Tooltip from '../tooltip';
@@ -8,8 +8,8 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
   const [local, t] = useLocaleReceiver('typography');
-  const expandText = t(local.expand);
-  const collapseText = t(local.collapse);
+  const expandText = t(local.expandText);
+  const collapseText = t(local.collapseText);
 
   let formattedEllipsis: TypographyEllipsis = {};
   if (ellipsis) {
@@ -46,15 +46,21 @@ export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
   };
 
   const getEllipsisSuffix = () => {
-    const moreOrLess = formattedEllipsis.suffix?.(!isClamped);
+    let moreOrLess: React.ReactNode;
+    if (isFunction(formattedEllipsis.suffix)) moreOrLess = formattedEllipsis.suffix?.({ expanded: !isClamped });
+    else moreOrLess = formattedEllipsis.suffix;
+
     if (formattedEllipsis?.tooltipProps && !!moreOrLess) {
-      return <Tooltip {...formattedEllipsis?.tooltipProps}>{formattedEllipsis.suffix?.(!isClamped)}</Tooltip>;
+      return <Tooltip {...formattedEllipsis?.tooltipProps}>{moreOrLess}</Tooltip>;
     }
-    return formattedEllipsis.suffix?.(!isClamped);
+    return moreOrLess;
   };
 
   const getEllipsisPrefix = () => {
-    const moreOrLess = formattedEllipsis.suffix?.(!isClamped);
+    let moreOrLess: React.ReactNode;
+    if (isFunction(formattedEllipsis.suffix)) moreOrLess = formattedEllipsis.suffix?.({ expanded: !isClamped });
+    else moreOrLess = formattedEllipsis.suffix;
+
     if (formattedEllipsis?.tooltipProps && !moreOrLess) {
       return <Tooltip {...formattedEllipsis?.tooltipProps}>...</Tooltip>;
     }

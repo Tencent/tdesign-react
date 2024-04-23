@@ -1,20 +1,20 @@
-// @ts-nocheck
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
+
 import Truncate from './Truncate';
 import useConfig from '../hooks/useConfig';
 
-type TdEllipsis = {
+export type TdEllipsis = {
   className?: string;
   children: ReactNode;
   lines: number;
   ellipsisClassName?: string;
   ellipsisPrefix?: ReactNode;
-  onToggleExpand?: (isExpanded: boolean, e: Event) => void;
+  onToggleExpand?: (isExpanded: boolean, e: React.MouseEvent) => void;
   width?: number;
   onTruncate?: (truncated: boolean) => void;
-  component: keyof HTMLElementTagNameMap;
+  component?: keyof HTMLElementTagNameMap;
   collapsible: boolean;
   expandable: boolean;
   more: ReactNode;
@@ -36,7 +36,7 @@ const Ellipsis = ({
   more,
   less,
   ...rest
-}: TdEllipsis) => {
+}: TdEllipsis & { children: React.ReactNode }) => {
   const { classPrefix } = useConfig();
   const symbolClassName = ellipsisClassName || `${classPrefix}-typography-ellipsis-symbol`;
 
@@ -46,7 +46,7 @@ const Ellipsis = ({
   }, []);
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const handleToggleExpand = (e) => {
+  const handleToggleExpand = (e: React.MouseEvent) => {
     if (!expandable) return;
 
     if (isMountRef.current) {

@@ -5,7 +5,7 @@ const { Text } = Typography;
 
 export default function TextExample() {
   return (
-    <Space direction="vertical" size={12}>
+    <Space direction="vertical" className="vertical-demo" size={12}>
       <Text theme="primary">TDesign (primary)</Text>
       <Text theme="secondary">TDesign (secondary)</Text>
       <Text disabled>TDesign (disabled)</Text>

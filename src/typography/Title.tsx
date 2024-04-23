@@ -1,18 +1,26 @@
-// @ts-nocheck
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import Ellipsis from './Ellipsis';
 
 import { TdTitleProps } from './type';
 import { titleDefaultProps } from './defaultProps';
+
 import useConfig from '../hooks/useConfig';
 import useEllipsis from './useEllipsis';
+import useDefaultProps from '../hooks/useDefaultProps';
 
-export type TypographyTitleProps = TdTitleProps;
+import type { StyledProps } from '../common';
 
-const TitleFunction = (props: TypographyTitleProps, ref: React.Ref<HTMLDivElement>) => {
+export type TypographyTitleProps = TdTitleProps &
+  StyledProps & {
+    children: React.ReactNode;
+  };
+
+export const Title = forwardRef<HTMLHeadingElement, TypographyTitleProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
-  const { level: Component = 'h1', children, className, ellipsis, ...rest } = props;
+  const props = useDefaultProps<TypographyTitleProps>(originalProps, titleDefaultProps);
+
+  const { level: Component = 'h1', children, className, content, ellipsis, ...rest } = props;
   const prefixCls = `${classPrefix}-typography`;
 
   const { ellipsisProps } = useEllipsis(ellipsis);
@@ -20,21 +28,16 @@ const TitleFunction = (props: TypographyTitleProps, ref: React.Ref<HTMLDivElemen
   if (!ellipsis) {
     return (
       <Component className={classNames(className, prefixCls)} ref={ref} {...rest}>
-        {children}
+        {children || content}
       </Component>
     );
   }
 
   return (
-    <Ellipsis className={classNames(className, prefixCls)} {...ellipsisProps} ref={ref} component={Component} {...rest}>
-      {children}
+    <Ellipsis className={classNames(className, prefixCls)} {...ellipsisProps} component={Component} {...rest}>
+      {children || content}
     </Ellipsis>
   );
-};
-
-export const Title = forwardRef(TitleFunction);
-
-Title.displayName = 'Title';
-Title.defaultProps = titleDefaultProps;
+});
 
 export default Title;
