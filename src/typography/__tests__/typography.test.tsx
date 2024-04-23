@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, fireEvent, vi, mockDelay } from '@test/utils';
 import { AngryIcon, SmileIcon } from 'tdesign-icons-react';
-import { Text, Title, Paragraph } from '..';
+import { Typography } from '..';
+
+const { Text, Title, Paragraph } = Typography;
 
 const longTextString = `TDesign was founded with the principles of open-source collaboration from the beginning. The collaboration scheme discussion, component design, and API design, including source code, are fully open within the company, garnering widespread attention from internal developers and designers. TDesign follows an equal, open, and strict policy, regardless of the participants' roles.`;
 
