@@ -26,9 +26,9 @@ export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
             row: ellipsis.row || 1,
             expandable: ellipsis.expandable ?? false,
             tooltipProps: ellipsis.tooltipProps || null,
-            suffix: (expanded) =>
+            suffix: ({ expanded }) =>
               typeof ellipsis?.suffix === 'function'
-                ? ellipsis?.suffix(expanded)
+                ? ellipsis?.suffix({ expanded })
                 : expanded
                 ? collapseText
                 : ellipsis?.expandable

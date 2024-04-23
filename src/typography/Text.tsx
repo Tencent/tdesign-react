@@ -132,6 +132,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   if (!ellipsis) {
     return Component ? (
       <span className={classNames(className, prefixCls)} ref={ref || currentRef} {...rest}>
+        {/* @ts-ignore */}
         <Component>{renderContent(true)}</Component>
       </span>
     ) : (

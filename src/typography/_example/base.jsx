@@ -3,7 +3,7 @@ import { Typography, Space } from 'tdesign-react';
 
 const { Title, Text, Paragraph } = Typography;
 
-export default function BasicTypography() {
+export default function BasicExample() {
   return (
     <>
       <Title>What is TDesign</Title>
@@ -25,29 +25,31 @@ export default function BasicTypography() {
       </Paragraph>
 
       <Space direction="vertical" size={12}>
-        <ul>
-          <li>Features</li>
-          <li>
-            Comprehensive
-            <ul>
-              <li>Consistency</li>
-              <li>Usability</li>
-            </ul>
-          </li>
-          <li>Join TDesign </li>
-        </ul>
+        <Paragraph>
+          <ul>
+            <li>Features</li>
+            <li>
+              Comprehensive
+              <ul>
+                <li>Consistency</li>
+                <li>Usability</li>
+              </ul>
+            </li>
+            <li>Join TDesign </li>
+          </ul>
 
-        <ol>
-          <li>Features</li>
-          <li>
-            Comprehensive
-            <ol type="a">
-              <li>Consistency</li>
-              <li>Usability</li>
-            </ol>
-          </li>
-          <li>Join TDesign</li>
-        </ol>
+          <ol>
+            <li>Features</li>
+            <li>
+              Comprehensive
+              <ol type="a">
+                <li>Consistency</li>
+                <li>Usability</li>
+              </ol>
+            </li>
+            <li>Join TDesign</li>
+          </ol>
+        </Paragraph>
       </Space>
     </>
   );

@@ -18,7 +18,7 @@ const EllipsisExample = () => {
       <Paragraph
         ellipsis={{
           row: 2,
-          suffix: (expanded) => (
+          suffix: ({ expanded }) => (
             <>
               <Button theme="primary" variant="text" style={{ padding: 0, height: '1em' }}>
                 {expanded ? 'less' : 'more'}
@@ -47,7 +47,7 @@ const EllipsisExample = () => {
 
       <Paragraph
         ellipsis={{
-          suffix: (expanded) => (
+          suffix: ({ expanded }) => (
             <span>
               {expanded ? (
                 <ChevronUpIcon size={16} style={{ marginLeft: 4 }} />

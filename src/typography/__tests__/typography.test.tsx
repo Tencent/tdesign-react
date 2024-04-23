@@ -99,7 +99,7 @@ describe('Typography 组件测试', () => {
     expect(container.querySelector('.t-popup-open')).toBeTruthy();
   });
 
-  test('copiable 测试', async () => {
+  test('copyable 测试', async () => {
     const handleCopy = vi.fn();
     const { container } = render(<Text copyable={{ onCopy: handleCopy }}>{shortText}</Text>);
 
@@ -107,7 +107,7 @@ describe('Typography 组件测试', () => {
     expect(handleCopy).toHaveBeenCalled();
   });
 
-  test('copiable suffix 测试', async () => {
+  test('copyable suffix 测试', async () => {
     const { container } = render(
       <Text copyable={{ suffix: ({ copied }) => (copied ? <SmileIcon /> : <AngryIcon />) }}>{shortText}</Text>,
     );

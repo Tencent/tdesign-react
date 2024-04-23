@@ -74,6 +74,7 @@ const Ellipsis = ({
   };
 
   return (
+    // @ts-ignore
     <Component {...componentProps}>
       <Truncate
         width={width}
