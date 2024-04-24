@@ -74,7 +74,7 @@ const Dropdown: React.FC<DropdownProps> & {
       onVisibleChange={handleVisibleChange}
       {...popupParams}
     >
-      {arrayChildren?.[0]}
+      {React.cloneElement(arrayChildren?.[0] as React.ReactElement, { disabled })}
     </Popup>
   );
 };
