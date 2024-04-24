@@ -320,3 +320,11 @@ finishButtonProps | Object | - | finish button in last step. `{ content: 'Finish
 nextButtonProps | Object | - | next step button. `{ content: 'Next Button', theme: 'primary' }`。Typescript：`ButtonProps` | N
 prevButtonProps | Object | - | previous step button. `{ content: 'Previous Step', theme: 'default' }`。Typescript：`ButtonProps` | N
 skipButtonProps | Object | - | skip button. `{ content: 'Skip', theme: 'default' }`。Typescript：`ButtonProps` | N
+
+### TypographyConfig
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+collapseText | String | - | collapse text | N
+expandText | String | - | expand text | N
+copiedText | String | - | copied text | N

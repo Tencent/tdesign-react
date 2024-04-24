@@ -63,6 +63,7 @@ timePicker | Object | - | 时间选择器全局配置。TS 类型：`TimePickerC
 transfer | Object | - | 穿梭框全局配置。TS 类型：`TransferConfig` | N
 tree | Object | - | 树组件全局配置。TS 类型：`TreeConfig` | N
 treeSelect | Object | - | 树选择器组件全局配置。TS 类型：`TreeSelectConfig` | N
+typography | Object | - | 排版组件全局配置。TS 类型：`TypographyConfig` | N
 upload | Object | - | 上传组件全局配置。TS 类型：`UploadConfig` | N
 
 ### InputConfig
@@ -350,3 +351,11 @@ finishButtonProps | Object | - | 最后一步中的完成按钮，示例：`{ co
 nextButtonProps | Object | - | 下一步按钮，示例：`{ content: '下一步', theme: 'primary' }`。TS 类型：`ButtonProps` | N
 prevButtonProps | Object | - | 上一步按钮，示例：`{ content: '上一步', theme: 'default' }`。TS 类型：`ButtonProps` | N
 skipButtonProps | Object | - | 跳过按钮，示例：`{ content: '跳过', theme: 'default' }`。TS 类型：`ButtonProps` | N
+
+### TypographyConfig
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+collapseText | String | - | 语言配置，“收起”描述文本 | N
+expandText | String | - | 语言配置，“展开”描述文本 | N
+copiedText | String | - | 语言配置，“复制成功”描述文本 | N
