@@ -2,9 +2,9 @@ import React, { ReactElement, useRef, forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
 
-import Ellipsis from './Ellipsis';
+import Ellipsis from './ellipsis/Ellipsis';
 import useConfig from '../hooks/useConfig';
-import useEllipsis from './useEllipsis';
+import useEllipsis from './ellipsis/useEllipsis';
 import Button from '../button/Button';
 import Tooltip from '../tooltip';
 import { useLocaleReceiver } from '../locale/LocalReceiver';

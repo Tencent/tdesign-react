@@ -1,11 +1,9 @@
-// @ts-nocheck
 /**
  * LICENSE
  * https://github.com/pablosichert/react-truncate/blob/master/LICENSE.md
  *
  * ISC License
-Copyright (c) 2016, One.com
-
+ * 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is
 hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
@@ -15,13 +13,25 @@ FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATS
 DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-
-// Initial version of react-truncate module (v2.4.0)
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Truncate extends React.Component {
+export type TruncateProps = {
+  children: React.ReactNode;
+  ellipsis: React.ReactNode;
+  onTruncate: (truncated: boolean) => void;
+  lines: number;
+  trimWhitespace: boolean;
+  width: number;
+  className: string;
+  lineClassName: string;
+};
+
+export type TruncateState = {
+  targetWidth?: number;
+};
+
+export default class Truncate extends React.Component<TruncateProps, TruncateState> {
   static propTypes = {
     children: PropTypes.node,
     ellipsis: PropTypes.node,
@@ -35,21 +45,32 @@ export default class Truncate extends React.Component {
 
   static defaultProps = {
     children: '',
-    ellipsis: '…',
+    ellipsis: '...',
     lines: 1,
     trimWhitespace: false,
     width: 0,
     lineClassName: 'truncate-line',
   };
 
-  state = {};
+  elements: Record<string, HTMLElement>;
 
-  constructor(...args) {
-    super(...args);
+  replacedLinks: Array<Record<string, string>>;
+
+  calculatedEllipsisWidth: boolean;
+
+  canvasContext: CanvasRenderingContext2D;
+
+  timeout: number;
+
+  state: TruncateState = {};
+
+  constructor(props: TruncateProps) {
+    super(props);
 
     this.elements = {};
     this.replacedLinks = [];
-    this.calcedEllipsisWidth = false;
+    this.calculatedEllipsisWidth = false;
+    this.canvasContext;
   }
 
   componentDidMount() {
@@ -72,7 +93,7 @@ export default class Truncate extends React.Component {
     window.addEventListener('resize', onResize);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TruncateProps) {
     // Render was based on outdated refs and needs to be rerun
     if (this.props.children !== prevProps.children) {
       this.forceUpdate();
@@ -91,7 +112,7 @@ export default class Truncate extends React.Component {
       timeout,
     } = this;
 
-    if (ellipsis.parentNode && this.calcedEllipsisWidth) {
+    if (ellipsis.parentNode && this.calculatedEllipsisWidth) {
       ellipsis.parentNode.removeChild(ellipsis);
     }
 
@@ -115,17 +136,17 @@ export default class Truncate extends React.Component {
     return content;
   };
 
-  restoreReplacedLinks = (content) => {
+  restoreReplacedLinks = (content: string) => {
     this.replacedLinks.forEach((item) => {
       // eslint-disable-next-line no-param-reassign
       content = content.replace(item.key, item[0]);
     });
 
-    return this.createMarkup(content);
+    return this.createMarkup(content) as unknown as string;
   };
 
   // Shim innerText to consistently break lines at <br/> but not at \n
-  innerText = (node) => {
+  innerText = (node: HTMLElement) => {
     const div = document.createElement('div');
     const contentKey = 'innerText' in window.HTMLElement.prototype ? 'innerText' : 'textContent';
 
@@ -149,7 +170,7 @@ export default class Truncate extends React.Component {
     this.calcTargetWidth();
   };
 
-  onTruncate = (didTruncate) => {
+  onTruncate = (didTruncate: boolean) => {
     const { onTruncate } = this.props;
 
     if (typeof onTruncate === 'function') {
@@ -159,7 +180,7 @@ export default class Truncate extends React.Component {
     }
   };
 
-  calcTargetWidth = (callback) => {
+  calcTargetWidth = (callback?: () => void) => {
     const {
       elements: { target },
       calcTargetWidth,
@@ -175,7 +196,7 @@ export default class Truncate extends React.Component {
     const targetWidth =
       width ||
       // Floor the result to deal with browser subpixel precision
-      Math.floor(target.parentNode.getBoundingClientRect().width);
+      Math.floor(target.parentElement.getBoundingClientRect().width);
 
     // Delay calculation until parent node is inserted to the document
     // Mounting order in React is ChildComponent, ParentComponent
@@ -197,16 +218,18 @@ export default class Truncate extends React.Component {
     );
   };
 
-  measureWidth = (text) => this.canvasContext.measureText(text).width;
+  measureWidth = (text: string) => this.canvasContext.measureText(text).width;
 
-  ellipsisWidth = (node) => {
-    this.calcedEllipsisWidth = true;
+  ellipsisWidth = (node: HTMLElement) => {
+    this.calculatedEllipsisWidth = true;
     return node.offsetWidth;
   };
 
-  trimRight = (text) => text.replace(/\s+$/, '');
+  trimRight = (text: string) => text.replace(/\s+$/, '');
 
-  createMarkup = (str) => <span className={this.props.lineClassName} dangerouslySetInnerHTML={{ __html: str }} />;
+  createMarkup = (str: string) => (
+    <span className={this.props.lineClassName} dangerouslySetInnerHTML={{ __html: str }} />
+  );
 
   getLines = () => {
     const {
@@ -239,7 +262,7 @@ export default class Truncate extends React.Component {
         continue;
       }
 
-      let resultLine = textWords.join(' ');
+      let resultLine: string | React.JSX.Element = textWords.join(' ');
       if (measureWidth(resultLine) <= targetWidth) {
         if (textLines.length === 1) {
           // Line is end of text and fits without truncating
@@ -336,7 +359,7 @@ export default class Truncate extends React.Component {
     return lines.map(renderLine);
   };
 
-  renderLine = (line, i, arr) => {
+  renderLine = (line: React.ReactNode, i: number, arr: Array<string>) => {
     const { lineClassName } = this.props;
 
     if (i === arr.length - 1) {
@@ -367,7 +390,7 @@ export default class Truncate extends React.Component {
       onTruncate,
     } = this;
 
-    let text;
+    let text: React.ReactNode;
 
     const mounted = !!(target && targetWidth);
 
@@ -380,10 +403,6 @@ export default class Truncate extends React.Component {
         onTruncate(false);
       }
     }
-
-    delete spanProps.onTruncate;
-    delete spanProps.trimWhitespace;
-    delete spanProps.lineClassName;
 
     return (
       <span
@@ -411,20 +430,16 @@ export default class Truncate extends React.Component {
           ref={(ellipsisEl) => {
             this.elements.ellipsis = ellipsisEl;
           }}
-          style={this.styles.ellipsis}
+          style={{
+            position: 'fixed',
+            visibility: 'hidden',
+            top: 0,
+            left: 0,
+          }}
         >
           {ellipsis}
         </span>
       </span>
     );
   }
-
-  styles = {
-    ellipsis: {
-      position: 'fixed',
-      visibility: 'hidden',
-      top: 0,
-      left: 0,
-    },
-  };
 }

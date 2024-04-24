@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import Ellipsis from './Ellipsis';
+import Ellipsis from './ellipsis/Ellipsis';
 
 import { TdTitleProps } from './type';
 import { titleDefaultProps } from './defaultProps';
 
 import useConfig from '../hooks/useConfig';
-import useEllipsis from './useEllipsis';
+import useEllipsis from './ellipsis/useEllipsis';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
