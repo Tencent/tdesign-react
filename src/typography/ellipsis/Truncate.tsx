@@ -14,6 +14,7 @@ DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS 
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 import React from 'react';
+import omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 
 export type TruncateProps = {
@@ -406,7 +407,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
     return (
       <span
-        {...spanProps}
+        {...omit(spanProps, ['onTruncate', 'trimWhitespace', 'lineClassName'])}
         ref={(targetEl) => {
           this.elements.target = targetEl;
         }}
