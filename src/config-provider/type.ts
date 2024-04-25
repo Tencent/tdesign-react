@@ -127,6 +127,10 @@ export interface GlobalConfigProvider {
    */
   treeSelect?: TreeSelectConfig;
   /**
+   * 排版全局配置
+   */
+  typography?: TypographyConfig;
+  /**
    * 上传组件全局配置
    */
   upload?: UploadConfig;
@@ -884,6 +888,24 @@ export interface GuideConfig {
    * 跳过按钮，示例：`{ content: '跳过', theme: 'default' }`
    */
   skipButtonProps?: ButtonProps;
+}
+
+export interface TypographyConfig {
+  /**
+   * 语言配置，“收起”描述文本
+   * @default ''
+   */
+  collapseText?: string;
+  /**
+   * 语言配置，“展开”描述文本
+   * @default ''
+   */
+  expandText?: string;
+  /**
+   * 语言配置，“复制成功”描述文本
+   * @default ''
+   */
+  copiedText?: string;
 }
 
 export type AnimationType = 'ripple' | 'expand' | 'fade';

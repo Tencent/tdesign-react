@@ -1,4 +1,8 @@
+import { canUseDocument } from './dom';
+
 export default function copyText(text: string) {
+  if (!canUseDocument) return;
+
   if ('clipboard' in navigator) {
     navigator.clipboard.writeText(text);
     return;
@@ -16,7 +20,7 @@ export default function copyText(text: string) {
   selection.removeAllRanges();
   selection.addRange(range);
 
-  document.execCommand('copy');
+  document.execCommand?.('copy');
   selection.removeAllRanges();
   document.body.removeChild(textarea);
 }

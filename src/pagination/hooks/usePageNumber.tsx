@@ -64,7 +64,7 @@ export default function usePageNumber(props) {
 
   const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
 
-  const pageNumberContrl = showPageNumber && (
+  const pageNumberControl = showPageNumber && (
     <ul className={`${name}__pager`}>
       {isFolded && isMidEllipsis && (
         <>
@@ -133,5 +133,5 @@ export default function usePageNumber(props) {
     </ul>
   );
 
-  return { pageNumberContrl };
+  return { pageNumberControl };
 }

@@ -5,6 +5,20 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.7.0 `2024-04-25` 
+### 🚀 Features
+- `Typography`: 新增 `Typography` 排版组件 @insekkei ([#2821](https://github.com/Tencent/tdesign-react/pull/2821))
+### 🐞 Bug Fixes
+- `Table`: 在 `effect` 异步里执行获取数据时和更新数据，可能会导致一些 bug @HaixingOoO ([#2848](https://github.com/Tencent/tdesign-react/pull/2848))
+- `DatePicker`: 修复日期选择器中月份选择回跳初始状态的异常 @uyarn ([#2854](https://github.com/Tencent/tdesign-react/pull/2854))
+- `Form`: `useWatch` 在一定情况下，name 的不同会导致视图问题的缺陷 @HaixingOoO ([#2853](https://github.com/Tencent/tdesign-react/pull/2853))
+- `Drawer`: 修复 `1.6.0` closeBtn 属性默认值丢失的问题 @uyarn ([#2856](https://github.com/Tencent/tdesign-react/pull/2856))
+- `Dropdown`: 修复选项长度为空仍展示浮层的问题 @uyarn ([#2860](https://github.com/Tencent/tdesign-react/pull/2860))
+- `Dropdown`: 优化 `Dropdown` 的 `children` 透传 `disabled` @HaixingOoO ([#2862](https://github.com/Tencent/tdesign-react/pull/2862))
+- `SelectInput`: 修复非受控属性 `defaultPopupVisible` 不生效的问题 @uyarn ([#2861](https://github.com/Tencent/tdesign-react/pull/2861))
+- `Style`: 修复部分节点前缀无法统一替换的缺陷 @ZWkang  @uyarn ([#2863](https://github.com/Tencent/tdesign-react/pull/2863))
+- `Upload`: 修复 `method` 枚举值 `options` 错误的问题 @summer-shen @uyarn ([#2863](https://github.com/Tencent/tdesign-react/pull/2863))
+
 ## 🌈 1.6.0 `2024-04-11` 
 ### 🚀 Features
 - `Portal`: `Portal` 新增懒加载 `forceRender` ,默认为`lazy`模式 ,优化性能，兼容 `SSR` 渲染，对 `Dialog` 和 `Drawer` 组件可能存在破坏性影响 @HaixingOoO ([#2826](https://github.com/Tencent/tdesign-react/pull/2826))
