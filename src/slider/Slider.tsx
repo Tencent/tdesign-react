@@ -154,9 +154,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   };
 
   const onSliderChange = (event: React.MouseEvent | MouseEvent, nodeIndex?: SliderHandleNode) => {
-    if (disabled) {
-      return;
-    }
+    if (disabled || !sliderRef.current) return;
+
     const clientKey = isVertical ? 'clientY' : 'clientX';
     const sliderPositionInfo = sliderRef.current.getBoundingClientRect();
     const sliderOffset = sliderPositionInfo[startDirection];
