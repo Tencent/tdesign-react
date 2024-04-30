@@ -5,8 +5,8 @@ import { DatePicker, DateRangePicker, Space } from 'tdesign-react';
 export default function YearDatePicker() {
   const [pickDate, setPickDate] = useState();
 
-  const timePickerProps = useMemo(() => {
-    return {
+  const timePickerProps = useMemo(
+    () => ({
       disableTime: () => {
         if (pickDate === dayjs().format('YYYY-MM-DD')) {
           return {
@@ -15,8 +15,9 @@ export default function YearDatePicker() {
         }
         return {};
       },
-    };
-  }, [pickDate]);
+    }),
+    [pickDate],
+  );
 
   return (
     <Space direction="vertical">

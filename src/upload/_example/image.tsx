@@ -25,11 +25,14 @@ export default function UploadExample() {
   const [autoUpload, setAutoUpload] = useState(true);
 
   const setFormattedUrlFiles = (files) => {
-    const list = files.map(file => new Promise((resolve) => {
-      getFileUrlByFileRaw(file.raw).then((url) => {
-        resolve({ ...file, url  })
-      });
-    }))
+    const list = files.map(
+      (file) =>
+        new Promise((resolve) => {
+          getFileUrlByFileRaw(file.raw).then((url) => {
+            resolve({ ...file, url });
+          });
+        }),
+    );
     Promise.all(list).then((files) => {
       setFiles3(files);
     });
@@ -66,13 +69,10 @@ export default function UploadExample() {
     console.log('点击图片预览时触发', params);
   };
 
-  const formatResponse = () => {
-    return { name: 'FileName', error: '网络异常，图片上传失败' };
-  };
+  const formatResponse = () => ({ name: 'FileName', error: '网络异常，图片上传失败' });
 
   return (
     <Space direction="vertical">
-
       <Space>
         <Checkbox checked={disabled} onChange={setDisabled}>
           禁用状态
@@ -90,8 +90,8 @@ export default function UploadExample() {
         )}
       </Space>
 
-      <br/>
-      <Space direction='vertical'>
+      <br />
+      <Space direction="vertical">
         <Space>
           <Upload
             ref={uploadRef1}
@@ -109,7 +109,7 @@ export default function UploadExample() {
             }}
             autoUpload={autoUpload}
             formatResponse={() => ({
-                url: "https://tdesign.gtimg.com/demo/demo-image-1.png"
+              url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
             })}
           />
 
