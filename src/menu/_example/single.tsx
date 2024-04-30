@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
 import { Menu, MessagePlugin, Button } from 'tdesign-react';
-import { UserAddIcon, AppIcon, CallIcon, SearchIcon, MailIcon, UserIcon, EllipsisIcon } from 'tdesign-icons-react';
+import { SearchIcon, MailIcon, UserIcon, EllipsisIcon } from 'tdesign-icons-react';
 
 const { HeadMenu, MenuItem } = Menu;
 

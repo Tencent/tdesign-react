@@ -1,6 +1,6 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import { ConfigProvider, Calendar, Space } from 'tdesign-react';
+import { ConfigProvider, Calendar } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 const MONTHS = [

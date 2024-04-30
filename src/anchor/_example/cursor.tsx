@@ -3,7 +3,7 @@ import { Anchor } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;
 
-const cursorStyle = {
+const cursorStyle: React.CSSProperties = {
   width: '10px',
   height: '10px',
   backgroundColor: '#0052D9',

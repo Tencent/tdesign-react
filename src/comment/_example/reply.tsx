@@ -10,7 +10,7 @@ const classStyles = `
 </style>
 `;
 
-export default function replyComment() {
+export default function ReplyComment() {
   React.useEffect(() => {
     // 添加示例代码所需样式
     document.head.insertAdjacentHTML('beforeend', classStyles);

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload, Space } from 'tdesign-react';
+import { Button, message, Upload, Space, type TdUploadProps } from 'tdesign-react';
 
 export default function SingleCustom() {
   const MAX_UPLOAD_SIZE = 1;
@@ -17,9 +17,9 @@ export default function SingleCustom() {
     setTips('');
     message.success('上传成功');
   }, []);
-  const beforeUpload = useCallback(
-    (file) =>
-      new Promise((resolve, reject) => {
+  const beforeUpload: TdUploadProps['beforeUpload'] = useCallback(
+    () =>
+      new Promise((resolve) => {
         setName('name2');
         // 在这里写文件上传前的校验
         resolve(true);

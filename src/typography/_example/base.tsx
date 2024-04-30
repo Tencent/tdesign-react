@@ -7,7 +7,9 @@ export default function BasicExample() {
   return (
     <>
       <Title>What is TDesign</Title>
-      <Text mark>TDesign is an enterprise-level design system accumulated by Tencent's various business teams.</Text>
+      <Text mark>
+        TDesign is an enterprise-level design system accumulated by Tencent&apos;s various business teams.
+      </Text>
       <Paragraph>
         <Text strong>
           TDesign features a unified design values, consistent design language, and visual style, helping users form

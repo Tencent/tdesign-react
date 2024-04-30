@@ -11,46 +11,40 @@ const defaultList = [
 ];
 
 export default function DragSortExample() {
-
   const [tabList1, setTabList1] = useState([...defaultList]);
   const [tabList2, setTabList2] = useState([...defaultList]);
 
-  const onDragSort1 = useCallback(debounce(({ currentIndex, targetIndex }) => {
-    const temp = tabList1[currentIndex];
-    tabList1[currentIndex] = tabList1[targetIndex];
-    tabList1[targetIndex] = temp;
-    setTabList1([...tabList1]);
-  }, 500), [tabList1]);
+  const onDragSort1 = useCallback(
+    () =>
+      debounce(({ currentIndex, targetIndex }) => {
+        const temp = tabList1[currentIndex];
+        tabList1[currentIndex] = tabList1[targetIndex];
+        tabList1[targetIndex] = temp;
+        setTabList1([...tabList1]);
+      }, 500),
+    [tabList1],
+  );
 
-  const onDragSort2 = useCallback(debounce(({ currentIndex, targetIndex }) => {
-    const temp = tabList2[currentIndex];
-    tabList2[currentIndex] = tabList2[targetIndex];
-    tabList2[targetIndex] = temp;
-    setTabList2([...tabList2]);
-  }, 500), [tabList2]);
+  const onDragSort2 = useCallback(
+    () =>
+      debounce(({ currentIndex, targetIndex }) => {
+        const temp = tabList2[currentIndex];
+        tabList2[currentIndex] = tabList2[targetIndex];
+        tabList2[targetIndex] = temp;
+        setTabList2([...tabList2]);
+      }, 500),
+    [tabList2],
+  );
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Tabs
-        defaultValue={1}
-        list={tabList1}
-        dragSort
-        onDragSort={onDragSort1}
-      />
-      <Tabs
-        dragSort
-        onDragSort={onDragSort2}
-        placement={'top'}
-        size={'medium'}
-        defaultValue={1}
-      >
-        {
-          tabList2.map(({ label, value, panel }) => 
-            <TabPanel key={value} value={value} label={label}>
-              {panel}
-            </TabPanel>
-          )
-        }
+      <Tabs defaultValue={1} list={tabList1} dragSort onDragSort={onDragSort1} />
+      <Tabs dragSort onDragSort={onDragSort2} placement={'top'} size={'medium'} defaultValue={1}>
+        {tabList2.map(({ label, value, panel }) => (
+          <TabPanel key={value} value={value} label={label}>
+            {panel}
+          </TabPanel>
+        ))}
       </Tabs>
     </Space>
   );

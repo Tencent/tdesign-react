@@ -1,5 +1,5 @@
 import React from 'react';
-import { Anchor } from 'tdesign-react';
+import { Anchor, type TdAnchorProps } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;
 
@@ -7,7 +7,7 @@ export default function AnchorBase() {
   const handleClick = ({ e, href, title }) => {
     console.log('handleClick', e, href, title);
   };
-  const handleChange = (currentLink, prevLink) => {
+  const handleChange: TdAnchorProps['onChange'] = (currentLink, prevLink) => {
     console.log('currentLink', currentLink, 'prevLink', prevLink);
   };
   return (

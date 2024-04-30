@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, MessagePlugin, Radio, Select, Checkbox, Popup, Space } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Button,
+  MessagePlugin,
+  Radio,
+  Select,
+  Checkbox,
+  Popup,
+  Space,
+  type RadioValue,
+  type IsDateOptions,
+  type FormRules,
+  type Data,
+} from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -17,17 +31,17 @@ const options = [
 ];
 
 const errorMessage = {
-  date: '${name}不正确',
-  url: '${name}不正确',
-  required: '请输入${name}',
-  max: '${name}字符长度不能超过 ${validate} 个字符，一个中文等于两个字符',
-  min: '${name}字符长度不能少于 ${validate} 个字符，一个中文等于两个字符',
-  len: '${name}字符长度必须是 ${validate}',
-  pattern: '${name}不正确',
-  validator: '${name}有误',
+  date: 'name不正确',
+  url: 'name不正确',
+  required: '请输入name',
+  max: 'name字符长度不能超过validate个字符，一个中文等于两个字符',
+  min: 'name字符长度不能少于 validate 个字符，一个中文等于两个字符',
+  len: 'name字符长度必须是 validate',
+  pattern: 'name不正确',
+  validator: 'name有误',
 };
 
-const rules = {
+const rules: FormRules<Data> = {
   account: [
     { required: true },
     // { enum: ['sheep', 'name'] },
@@ -35,8 +49,8 @@ const rules = {
     { max: 10, type: 'warning' },
   ],
   description: [
-    { validator: (val) => val.length >= 5 },
-    { validator: (val) => val.length < 10, message: '不能超过 20 个字，中文长度等于英文长度' },
+    { validator: (val: string) => val.length >= 5 },
+    { validator: (val: string) => val.length < 10, message: '不能超过 20 个字，中文长度等于英文长度' },
   ],
   password: [
     { required: true },
@@ -45,7 +59,10 @@ const rules = {
   ],
   email: [{ required: true }, { email: { ignore_max_length: true } }],
   gender: [{ required: true }],
-  course: [{ required: true }, { validator: (val) => val.length <= 2, message: '最多选择 2 门课程', type: 'warning' }],
+  course: [
+    { required: true },
+    { validator: (val: string) => val.length <= 2, message: '最多选择 2 门课程', type: 'warning' },
+  ],
   'content.url': [
     { required: true },
     {
@@ -59,7 +76,7 @@ const rules = {
 
 export default function BaseForm() {
   const [form] = Form.useForm();
-  const [errorConfig, setErrorConfig] = useState('default');
+  const [errorConfig, setErrorConfig] = useState<RadioValue>('default');
 
   const onSubmit = ({ validateResult, firstError }) => {
     if (validateResult === true) {
@@ -137,7 +154,7 @@ export default function BaseForm() {
         <FormItem
           label="入学时间"
           name="date"
-          rules={[{ date: { delimiters: ['/', '-', '.'] }, message: '日期格式有误' }]}
+          rules={[{ date: { delimiters: ['/', '-', '.'] } as boolean | IsDateOptions, message: '日期格式有误' }]}
           initialData=""
         >
           <Input />

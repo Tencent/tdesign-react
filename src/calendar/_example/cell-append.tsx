@@ -14,10 +14,10 @@ export default function CalendarExample() {
         getShow(cellData) && (
           <div className="cell-append-demo-outer">
             <Tag theme="success" variant="light" size="small" className="activeTag" style={{ width: '100%' }}>
-              {cellData.mode == 'month' ? '我们的纪念日' : '我们的纪念月'}
+              {cellData.mode === 'month' ? '我们的纪念日' : '我们的纪念月'}
             </Tag>
             <Tag theme="warning" variant="light" size="small" className="activeTag" style={{ width: '100%' }}>
-              {cellData.mode == 'month' ? '家庭聚会' : '家庭聚会'}
+              {cellData.mode === 'month' ? '家庭聚会' : '家庭聚会'}
             </Tag>
           </div>
         )

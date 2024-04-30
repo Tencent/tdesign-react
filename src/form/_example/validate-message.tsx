@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
+import { Form, Input, Button, MessagePlugin, type FormRules, type FormValidateMessage, type Data } from 'tdesign-react';
 
 const { FormItem } = Form;
 
-const validateMessage = {
+const validateMessage: FormValidateMessage<Data> = {
   account: [
     {
       type: 'error',
@@ -18,9 +18,9 @@ const validateMessage = {
   ],
 };
 
-const rules = {
+const rules: FormRules<Data> = {
   account: [{ required: true }, { min: 2 }, { max: 10, type: 'warning' }],
-  description: [{ validator: (val) => val.length < 10, message: '不能超过 20 个字，中文长度等于英文长度' }],
+  description: [{ validator: (val: string) => val.length < 10, message: '不能超过 20 个字，中文长度等于英文长度' }],
   password: [{ required: true }, { len: 8, message: '请输入 8 位密码' }],
 };
 
@@ -47,23 +47,24 @@ export default function BaseForm() {
 
   const handleValidateOnly = () => {
     form.validateOnly().then((result) => {
-      console.log('validateOnly: ', result)
+      console.log('validateOnly: ', result);
     });
   };
-  
+
   useEffect(() => {
     form.setValidateMessage(validateMessage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Form rules={rules} form={form} onReset={onReset} onSubmit={onSubmit} scrollToFirstError="smooth">
-      <FormItem label="用户名" help="这是用户名字段帮助说明" name="account" initialData=''>
+      <FormItem label="用户名" help="这是用户名字段帮助说明" name="account" initialData="">
         <Input />
       </FormItem>
-      <FormItem label="个人简介" help="一句话介绍自己" name="description" initialData=''>
+      <FormItem label="个人简介" help="一句话介绍自己" name="description" initialData="">
         <Input />
       </FormItem>
-      <FormItem label="密码" name="password" initialData=''>
+      <FormItem label="密码" name="password" initialData="">
         <Input type="password" />
       </FormItem>
       <FormItem style={{ marginLeft: 100 }}>

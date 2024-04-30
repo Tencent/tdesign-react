@@ -1,10 +1,10 @@
 import React from 'react';
-import { Anchor } from 'tdesign-react';
+import { Anchor, type TdAnchorProps } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;
 
 export default function AnchorAttach() {
-  const handleClick = ({ e, href, title }) => {
+  const handleClick: TdAnchorProps['onClick'] = ({ e, href, title }) => {
     e.preventDefault();
     console.log('handleClick', href, title);
   };

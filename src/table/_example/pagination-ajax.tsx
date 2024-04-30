@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag } from 'tdesign-react';
+import { Table, Tag, type TdPrimaryTableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -7,7 +7,7 @@ const statusNameListMap = {
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
-const columns = [
+const columns: TdPrimaryTableProps['columns'] = [
   {
     colKey: 'row-select',
     type: 'multiple',
@@ -99,6 +99,7 @@ export default function TableBasic() {
 
   useEffect(() => {
     fetchData({ current, pageSize });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -115,9 +116,9 @@ export default function TableBasic() {
         // defaultPageSize: 5,
         total,
         showJumper: true,
-        onChange(pageInfo, context) {
+        onChange(pageInfo) {
           console.log(pageInfo, 'onChange pageInfo');
-          rehandleChange(pageInfo, context);
+          rehandleChange(pageInfo);
         },
       }}
       onPageChange={(pageInfo) => {

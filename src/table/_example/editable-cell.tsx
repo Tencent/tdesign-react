@@ -1,5 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { Table, Input, Select, DatePicker, MessagePlugin } from 'tdesign-react';
+import {
+  Table,
+  Input,
+  Select,
+  DatePicker,
+  MessagePlugin,
+  type TdPrimaryTableProps,
+  type TdBaseTableProps,
+} from 'tdesign-react';
 import dayjs from 'dayjs';
 
 export default function EditableCellTable() {
@@ -31,13 +39,12 @@ export default function EditableCellTable() {
   const [data, setData] = useState([...initData]);
   const [relationSelect, setRelationSelect] = useState({});
 
-  const editableCellState = (cellParams) => {
+  const editableCellState: TdPrimaryTableProps['editableCellState'] = (cellParams) =>
     // 第一行不允许编辑
     // return cellParams.status !== 2;
-    return cellParams.index !== 2;
-  }
+    cellParams.rowIndex !== 2;
 
-  const columns = useMemo(
+  const columns: TdBaseTableProps['columns'] = useMemo(
     () => [
       {
         title: '申请人',
@@ -169,6 +176,7 @@ export default function EditableCellTable() {
         },
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [data, relationSelect],
   );
 

@@ -48,15 +48,18 @@ export default function CalendarExample() {
     [getDateStr, appendHistories],
   );
 
-  const onControllerChange = React.useCallback((data) => {
-    appendHistories('控件值变化', data);
-  }, []);
+  const onControllerChange = React.useCallback(
+    (data) => {
+      appendHistories('控件值变化', data);
+    },
+    [appendHistories],
+  );
 
   return (
     <div>
       <div style={{ margin: '12px 0' }}>
         <label>禁用单元格右键菜单：</label>
-        <Switch value={preventCellContextmenu} onChange={setPreventCellContextmenu} />
+        <Switch value={preventCellContextmenu} onChange={(value) => setPreventCellContextmenu(value)} />
       </div>
       <Calendar
         preventCellContextmenu={preventCellContextmenu}
