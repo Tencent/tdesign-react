@@ -40,6 +40,5 @@ const Paragraph = forwardRef<HTMLDivElement, TypographyParagraphProps>((original
 });
 
 Paragraph.displayName = 'Paragraph';
-Paragraph.defaultProps = paragraphDefaultProps;
 
 export default Paragraph;

@@ -7,7 +7,7 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-action | TNode | - | 【开发中】选项卡右侧的操作区域。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+action | TNode | - | 选项卡右侧的操作区域。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 addable | Boolean | false | 选项卡是否可增加 | N
 disabled | Boolean | false | 是否禁用选项卡 | N
 dragSort | Boolean | false | 是否开启拖拽调整顺序 | N

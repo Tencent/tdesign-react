@@ -105,7 +105,15 @@ export default function useTagList(props: TagInputProps) {
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;
-      list.push(<Fragment key="more">{more ?? <Tag size={size}>+{len}</Tag>}</Fragment>);
+      list.push(
+        <Fragment key="more">
+          {more ?? (
+            <Tag size={size} {...tagProps}>
+              +{len}
+            </Tag>
+          )}
+        </Fragment>,
+      );
     }
     return list;
   };
