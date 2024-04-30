@@ -7,10 +7,13 @@ import { renderToString } from 'react-dom/server';
 // 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
 MockDate.set('2020-12-28 00:00:00');
 
-export const IGNORE_ASYNC_EXAMPLE_LIST = ['src/watermark/_example/*.jsx', 'src/table/_example/pagination-ajax.jsx'];
+export const IGNORE_ASYNC_EXAMPLE_LIST = [
+  'src/watermark/_example-js/*.jsx',
+  'src/table/_example-js/pagination-ajax.jsx',
+];
 
 function runTest() {
-  const files = glob.sync('src/**/_example/*.jsx', {
+  const files = glob.sync('src/**/_example-js/*.jsx', {
     ignore: IGNORE_ASYNC_EXAMPLE_LIST,
   });
 
