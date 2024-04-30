@@ -217,6 +217,21 @@ describe('TagInput Component', () => {
     expect(container.querySelector('.custom-node')).toBeTruthy();
   });
 
+  it('props.tagProps should effect collapsed tag', () => {
+    const { container } = render(
+      <TagInput
+        size="large"
+        tagProps={{ size: 'small' }}
+        value={['Vue', 'React', 'Miniprogram', 'Angular', 'Flutter']}
+        minCollapsedNum={1}
+      ></TagInput>,
+    );
+    // normal tag
+    expect(container.querySelectorAll('.t-tag')[0]).toHaveClass('t-size-s');
+    // collapsed tag
+    expect(container.querySelectorAll('.t-tag')[1]).toHaveClass('t-size-s');
+  });
+
   it('props.tag works fine', () => {
     const { container } = getTagInputValueMount(TagInput, {
       tag: <span className="custom-node">TNode</span>,
