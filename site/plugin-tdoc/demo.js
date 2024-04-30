@@ -6,7 +6,10 @@ function mdInJsx(_md) {
     validate: () => true,
     render(tokens, idx) {
       const { content, info } = tokens[idx];
-      return `<pre className="language-${info}"><code className="language-${info}">{\`${content.replace(/`/g, '\\`')}\`}</code></pre>`;
+      return `<pre className="language-${info}"><code className="language-${info}">{\`${content.replace(
+        /`/g,
+        '\\`',
+      )}\`}</code></pre>`;
     },
   });
 }
@@ -24,9 +27,10 @@ export default function renderDemo(md, container) {
         const demoName = path.basename(demoPath).trim();
         const demoDefName = `Demo${demoPathOnlyLetters}`;
         const demoCodeDefName = `Demo${demoPathOnlyLetters}Code`;
+        const demoJsxCodeDefName = `Demo${demoPathOnlyLetters}JsxCode`;
 
         const tpl = `
-            <td-doc-demo code={${demoCodeDefName}} demo-name="${demoName}" component-name="${componentName.trim()}">
+            <td-doc-demo component-name="${componentName.trim()}" demo-name="${demoName}" languages="TypeScript,JavaScript" data-JavaScript={${demoJsxCodeDefName}} data-TypeScript={${demoCodeDefName}}>
               <div slot="action">
                 <Stackblitz code={${demoCodeDefName}} />
                 <Codesandbox code={${demoCodeDefName}} />
