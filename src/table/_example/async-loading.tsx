@@ -46,8 +46,10 @@ const columns = [
   { colKey: 'createTime', title: '申请时间' },
 ];
 
+type IAsyncLoadingMode = 'loading' | 'load-more' | 'loading-custom' | '';
+
 export default function EmptyTable() {
-  const [asyncLoading, setAsyncLoading] = useState('loading');
+  const [asyncLoading, setAsyncLoading] = useState<IAsyncLoadingMode>('loading');
 
   const loadingNode = useMemo(
     () =>
@@ -71,7 +73,7 @@ export default function EmptyTable() {
 
   return (
     <div>
-      <Radio.Group value={asyncLoading} onChange={setAsyncLoading}>
+      <Radio.Group value={asyncLoading} onChange={(val: IAsyncLoadingMode) => setAsyncLoading(val)}>
         <Radio.Button value="load-more">加载更多</Radio.Button>
         <Radio.Button value="loading">加载中</Radio.Button>
         <Radio.Button value="loading-custom">自定义加载更多</Radio.Button>

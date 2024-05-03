@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from 'tdesign-react';
+import { TagInput, Space, TagInputValue } from 'tdesign-react';
 
 export default function TagInputThemeExample() {
-  const [tags, setTags] = useState(['Vue', 'React', 'Miniprogram']);
+  const [tags, setTags] = useState<TagInputValue>(['Vue', 'React', 'Miniprogram']);
   return (
     <Space direction="vertical" style={{ width: '80%' }}>
       <TagInput value={tags} onChange={setTags} tagProps={{ theme: 'primary' }} />

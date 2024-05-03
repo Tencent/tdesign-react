@@ -23,33 +23,37 @@ export default function UploadExample() {
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    setFiles3(multiple ? [
-      {
-        name: '这是一个上传成功的文件',
-        status: 'success',
-        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
-        size: 1000,
-      },
-      {
-        name: '这是一个上传中的文件',
-        status: 'progress',
-        percent: 30,
-        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
-        size: 1000,
-      },
-      {
-        name: '这是一个上传失败的文件',
-        status: 'fail',
-        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
-        size: 1000,
-      },
-      {
-        name: '这是一个等待上传的文件',
-        status: 'waiting',
-        url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
-        size: 1000,
-      },
-    ] : [])
+    setFiles3(
+      multiple
+        ? [
+            {
+              name: '这是一个上传成功的文件',
+              status: 'success',
+              url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+              size: 1000,
+            },
+            {
+              name: '这是一个上传中的文件',
+              status: 'progress',
+              percent: 30,
+              url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+              size: 1000,
+            },
+            {
+              name: '这是一个上传失败的文件',
+              status: 'fail',
+              url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+              size: 1000,
+            },
+            {
+              name: '这是一个等待上传的文件',
+              status: 'waiting',
+              url: 'https://tdesign.gtimg.com/site/source/figma-pc.png',
+              size: 1000,
+            },
+          ]
+        : [],
+    );
   }, [multiple]);
 
   const handleFail = ({ file }) => {
@@ -138,7 +142,7 @@ export default function UploadExample() {
   return (
     <Space direction="vertical">
       <Space>
-        <Radio.Group value={multiple} onChange={setMultiple} variant="default-filled">
+        <Radio.Group value={multiple} onChange={(val: boolean) => setMultiple(val)} variant="default-filled">
           <Radio.Button value={false}>单文件上传</Radio.Button>
           <Radio.Button value={true}>多文件上传</Radio.Button>
         </Radio.Group>

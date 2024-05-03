@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, Radio, Space } from 'tdesign-react';
+import { TreeSelect, Radio, Space, TreeSelectProps } from 'tdesign-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '广东省',
     value: 'guangdong',
@@ -32,8 +32,10 @@ const options = [
   },
 ];
 
+type TreeSelectType = 'default' | 'function';
+
 export default function Example() {
-  const [type, setType] = useState('default');
+  const [type, setType] = useState<TreeSelectType>('default');
 
   function handleEnter(ctx) {
     console.log('onEnter api:', ctx);
@@ -45,7 +47,7 @@ export default function Example() {
 
   return (
     <Space direction="vertical" style={{ width: 300 }}>
-      <Radio.Group value={type} onChange={(v) => setType(v)} variant="default-filled">
+      <Radio.Group value={type} onChange={(v: TreeSelectType) => setType(v)} variant="default-filled">
         <Radio.Button value="default">默认</Radio.Button>
         <Radio.Button value="function">自定义方法</Radio.Button>
       </Radio.Group>

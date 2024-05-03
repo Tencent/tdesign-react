@@ -11,21 +11,18 @@ for (let i = 0; i < 20; i++) {
 }
 
 export default function BaseExample() {
-  return (
-    <Transfer
-      data={list}
-      transferItem={[
-        ({ data }) => (
-          <span className="transfer-item">
-            {data.label} - {data.description}
-          </span>
-        ),
-        ({ data, index }) => (
-          <span className="transfer-item">
-            {index} - {data.label}
-          </span>
-        ),
-      ]}
-    ></Transfer>
-  );
+  // todo(type): fix transfer transferItem type.
+  const renderTransferItems: any = () => [
+    ({ data }) => (
+      <span className="transfer-item">
+        {data.label} - {data.description}
+      </span>
+    ),
+    ({ data, index }) => (
+      <span className="transfer-item">
+        {index} - {data.label}
+      </span>
+    ),
+  ];
+  return <Transfer data={list} transferItem={renderTransferItems}></Transfer>;
 }

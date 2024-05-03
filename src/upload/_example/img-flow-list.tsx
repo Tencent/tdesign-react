@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import { Upload, Space, MessagePlugin, Switch, Checkbox, Divider } from 'tdesign-react';
+import { Upload, Space, MessagePlugin, Switch, Checkbox, Divider, SwitchProps, type UploadProps } from 'tdesign-react';
 
 const ABRIDGE_NAME = [4, 6];
+
+const FILE_EXAMPLE = {
+  status: 'success' as const,
+  response: {
+    url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+  },
+};
+
+type RequestMethodReturn = Awaited<ReturnType<UploadProps['requestMethod']>>;
 
 export default function TUploadImageFlow() {
   const [autoUpload, setAutoUpload] = useState(false);
@@ -11,7 +20,7 @@ export default function TUploadImageFlow() {
     { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'success', name: 'demo-image-1.png' },
     { url: 'https://tdesign.gtimg.com/site/avatar.jpg', status: 'success', name: 'avatar.jpg' },
   ]);
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const [files2, setFiles2] = useState([]);
 
   const staticFiles = [
@@ -36,18 +45,13 @@ export default function TUploadImageFlow() {
       name: 'loading.svg',
       status: 'fail',
     },
-  ];  
+  ];
 
   // 示例代码：自定义上传方法，一个请求上传一个文件
   // eslint-disable-next-line
   const requestMethod1 = () => {
-    return new Promise((resolve) => {
-      resolve({
-        status: 'success',
-        response: {
-          url: 'https://tdesign.gtimg.com/site/avatar.jpg',
-        },
-      });
+    return new Promise<RequestMethodReturn>((resolve) => {
+      resolve(FILE_EXAMPLE);
     });
   };
 
@@ -81,13 +85,17 @@ export default function TUploadImageFlow() {
     }
   };
 
+  const handleSwitchChange: SwitchProps<typeof autoUpload>['onChange'] = (checked) => {
+    setAutoUpload(checked);
+  };
+
   // 因接口返回的 url 是同一个，所以看到的图片都是一个
   return (
     <Space direction="vertical">
       <Space>
         <div>
           AutoUpload
-          <Switch value={autoUpload} onChange={setAutoUpload} />
+          <Switch value={autoUpload} onChange={handleSwitchChange} />
         </div>
         <Checkbox value={showImageFileName} onChange={setShowImageFileName}>
           Show Image Name
@@ -100,7 +108,7 @@ export default function TUploadImageFlow() {
       <br />
 
       {/* <!-- action 上传地址，使用组件内部上传逻辑，action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo" --> */}
-     {/* <!-- requestMethod 自定义上传方法，自定义上传逻辑 --> */}
+      {/* <!-- requestMethod 自定义上传方法，自定义上传逻辑 --> */}
       <Upload
         files={files}
         onChange={setFiles}
@@ -134,7 +142,7 @@ export default function TUploadImageFlow() {
         uploadAllFilesInOneRequest={true}
         onValidate={onValidate}
       /> */}
-      
+
       <br />
       <Divider align="left">Different Status Images</Divider>
 

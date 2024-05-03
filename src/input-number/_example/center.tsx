@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { InputNumber, Space } from 'tdesign-react';
+import { InputNumber, InputNumberValue, Space } from 'tdesign-react';
 
 export default function InputNumberExample() {
-  const [value1, setValue1] = useState('');
+  const [value1, setValue1] = useState<InputNumberValue>('');
   const [value2, setValue2] = useState(100);
-  const [decimalValue, setDecimalValue] = useState(3.41);
+  const [decimalValue, setDecimalValue] = useState<InputNumberValue>(3.41);
   const [error, setError] = useState();
 
   const tips = useMemo(() => {

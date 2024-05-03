@@ -6,12 +6,12 @@ const { CheckTag } = Tag;
 const STYLE_B_UNCHECKED_PROPS = {
   theme: 'default',
   variant: 'outline',
-};
+} as const;
 
 const STYLE_C_CHECKED_PROPS = {
   theme: 'primary',
   variant: 'outline',
-};
+} as const;
 
 export default function CheckTagExample() {
   const [checked1, setChecked1] = useState(false);

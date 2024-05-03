@@ -10,7 +10,7 @@ export default function () {
       <Message duration={0} theme="info" closeBtn={'关闭'}>
         自定义关闭按钮（文字）
       </Message>
-      <Message duration={0} theme="info" closeBtn={(close) => <div onClick={close}>x</div>}>
+      <Message duration={0} theme="info" closeBtn={<div>x</div>}>
         自定义关闭按钮（函数）
       </Message>
       <Message duration={0} theme="info" closeBtn={<div onClick={() => console.log('close')}>x</div>}>

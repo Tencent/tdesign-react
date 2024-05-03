@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space, Tag } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag, TableProps } from 'tdesign-react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -8,7 +8,7 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',

@@ -1,8 +1,8 @@
 import React from 'react';
-import { TreeSelect } from 'tdesign-react';
+import { TreeSelect, TreeSelectProps } from 'tdesign-react';
 import { UserIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '广东省',
     value: 'guangdong',

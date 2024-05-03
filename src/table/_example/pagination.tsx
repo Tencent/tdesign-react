@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Space, Radio, Tag } from 'tdesign-react';
+import { Table, Space, Radio, Tag, TableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -25,7 +25,7 @@ for (let i = 0; i < total; i++) {
   });
 }
 
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'serial-number', width: 80, title: '序号' },
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
@@ -63,13 +63,14 @@ export default function TableBasic() {
       <Radio.Group
         variant="default-filled"
         value={reserveSelectedRowOnPaginate}
-        onChange={setReserveSelectedRowOnPaginate}
+        onChange={(val: boolean) => setReserveSelectedRowOnPaginate(val)}
       >
         <Radio.Button value={true}>跨分页选中</Radio.Button>
         <Radio.Button value={false}>当前页选中</Radio.Button>
       </Radio.Group>
 
       <Table
+        // todo(type): fix id props
         id="pagination-table"
         data={data}
         columns={columns}

@@ -37,10 +37,10 @@ export default () => {
     <Space direction="vertical">
       <Form>
         <Form.FormItem label="可选" initialData={checkable}>
-          <Switch onChange={setCheckable} />
+          <Switch<boolean> onChange={setCheckable} />
         </Form.FormItem>
         <Form.FormItem label="展示连线" initialData={showLine}>
-          <Switch onChange={toggleShowLine} />
+          <Switch<boolean> onChange={toggleShowLine} />
         </Form.FormItem>
       </Form>
       <Button onClick={handleScroll}>scroll to special node</Button>

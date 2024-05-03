@@ -1,5 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Radio, Upload, Space, MessagePlugin } from 'tdesign-react';
+import { Radio, Upload, Space, MessagePlugin, type UploadProps } from 'tdesign-react';
+
+type RequestMethodReturn = Awaited<ReturnType<UploadProps['requestMethod']>>;
 
 const RequestMethod = () => {
   const [files, setFiles] = useState([]);
@@ -9,7 +11,7 @@ const RequestMethod = () => {
   // customize upload `file`, if success, return url
   const requestSuccessMethod = useCallback(
     (file) =>
-      new Promise((resolve) => {
+      new Promise<RequestMethodReturn>((resolve) => {
         // 上传进度控制示例
         let percent = 0;
         const percentTimer = setInterval(() => {
@@ -25,7 +27,7 @@ const RequestMethod = () => {
         let timer = setTimeout(() => {
           // resolve 参数为关键代码
           resolve({
-            status: 'success',
+            status: 'success' as const,
             response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' },
           });
           clearTimeout(timer);
@@ -38,9 +40,9 @@ const RequestMethod = () => {
   // customize upload `file`, if fail, return error message
   const requestFailMethod = useCallback(
     () =>
-      new Promise((resolve) => {
+      new Promise<RequestMethodReturn>((resolve) => {
         const errorResult = {
-          status: 'fail',
+          status: 'fail' as const,
 
           // `errorResult.error` is equal to `errorResult.response.error`
           // error: 'for some reason, upload fail',

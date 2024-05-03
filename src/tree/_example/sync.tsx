@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { InputAdornment, Input, Tree, Space } from 'tdesign-react';
+import { InputAdornment, Input, Tree, Space, InputProps } from 'tdesign-react';
 
 const items = [
   {
@@ -165,7 +165,7 @@ export default () => {
     setActived(actived);
   };
 
-  const handleAllCheckedInput = (val) => {
+  const handleAllCheckedChange: InputProps['onChange'] = (val) => {
     console.log('checked input on change', val);
     setAllCheckedInput(val);
   };
@@ -176,7 +176,7 @@ export default () => {
     setChecked(vals);
   };
 
-  const handleAllExpandedInput = (val) => {
+  const handleAllExpandedChange: InputProps['onChange'] = (val) => {
     console.log('expanded input on change', val);
     setAllExpandedInput(val);
   };
@@ -187,7 +187,7 @@ export default () => {
     setExpanded(vals);
   };
 
-  const handleAllActivedInput = (val) => {
+  const handleAllActivedInput: InputProps['onChange'] = (val) => {
     console.log('actived input on change', val);
     setAllActivedInput(val);
   };
@@ -203,7 +203,7 @@ export default () => {
       <InputAdornment prepend="checked:">
         <Input
           value={allCheckedInput}
-          onInput={handleAllCheckedInput}
+          onChange={handleAllCheckedChange}
           onBlur={handleAllCheckedSubmit}
           onEnter={handleAllCheckedSubmit}
         />
@@ -211,7 +211,7 @@ export default () => {
       <InputAdornment prepend="expanded:">
         <Input
           value={allExpandedInput}
-          onInput={handleAllExpandedInput}
+          onChange={handleAllExpandedChange}
           onBlur={handleAllExpandedSubmit}
           onEnter={handleAllExpandedSubmit}
         />
@@ -219,7 +219,7 @@ export default () => {
       <InputAdornment prepend="actived:">
         <Input
           value={allActivedInput}
-          onInput={handleAllActivedInput}
+          onChange={handleAllActivedInput}
           onBlur={handleAllActivedSubmit}
           onEnter={handleAllActivedSubmit}
         />

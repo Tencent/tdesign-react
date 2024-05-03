@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, DateRangePickerPanel, Space, Tag } from 'tdesign-react';
+import { Table, Button, DateRangePickerPanel, Space, Tag, TableProps } from 'tdesign-react';
 import isNumber from 'lodash/isNumber';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -9,7 +9,7 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'applicant', title: '申请人', width: 100, foot: '-' },
   {
     title: '申请状态',
@@ -80,7 +80,8 @@ const columns = [
     sorter: true,
     // 自定义过滤组件：日期过滤配置，请确保自定义组件包含 value 和 onChange 属性
     filter: {
-      type: 'custom',
+      // todo(type): 类型缺陷
+      type: 'custom' as const,
       component: DateRangePickerPanel,
       props: {
         firstDayOfWeek: 7,
@@ -97,13 +98,13 @@ const columns = [
 ];
 
 // eslint-disable-next-line
-function IconText(props = {}) {
-  // 根据不同的 Props，允许定义不同的筛选图标（col, colIndex 在 Table 组件内部已经注入）
-  const { col, colIndx } = props;
-  console.log(col, colIndx);
-  if (col.colKey === 'email') return <div>EmailIcon</div>;
-  return <i>Icon</i>;
-}
+// function IconText(props = {}) {
+//   // 根据不同的 Props，允许定义不同的筛选图标（col, colIndex 在 Table 组件内部已经注入）
+//   const { col, colIndx } = props;
+//   console.log(col, colIndx);
+//   if (col.colKey === 'email') return <div>EmailIcon</div>;
+//   return <i>Icon</i>;
+// }
 
 const initData = new Array(5).fill(null).map((_, i) => ({
   key: String(i + 1),
@@ -119,7 +120,7 @@ const initData = new Array(5).fill(null).map((_, i) => ({
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
   //  survivalTime: [300, 500]
-  const [filterValue, setFilterValue] = useState({
+  const [filterValue, setFilterValue] = useState<TableProps['filterValue']>({
     lastName: [],
   });
 

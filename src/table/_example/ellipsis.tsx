@@ -79,8 +79,8 @@ export default function TableEllipsis() {
       colKey: 'ellipsisProps',
       // 浮层浅色背景，方向默认朝下出现
       ellipsis: {
-        theme: 'light',
-        placement: 'bottom',
+        theme: 'light' as const,
+        placement: 'bottom' as const,
       },
     },
     {
@@ -104,8 +104,8 @@ export default function TableEllipsis() {
       width: 100,
       ellipsis: {
         props: {
-          theme: 'light',
-          placement: 'bottom-right',
+          theme: 'light' as const,
+          placement: 'bottom-right' as const,
         },
         content: ({ row }) => (
           <div>
@@ -135,7 +135,7 @@ export default function TableEllipsis() {
 
   return (
     <div>
-      <Table rowKey="index" data={data} columns={columns} lazyLoad/>
+      <Table rowKey="index" data={data} columns={columns} lazyLoad />
     </div>
   );
 }

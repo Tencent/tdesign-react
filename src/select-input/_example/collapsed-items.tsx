@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Checkbox, Tag, Space, RadioGroup, Popup } from 'tdesign-react';
+import { SelectInput, Checkbox, Tag, Space, CheckboxOptionObj, SelectInputProps } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
@@ -32,7 +32,7 @@ const classStyles = `
 </style>
 `;
 
-const OPTIONS = [
+const OPTIONS: CheckboxOptionObj[] = [
   // 全选
   { label: 'Check All', checkAll: true },
   { label: 'tdesign-vue', value: 1 },
@@ -43,13 +43,10 @@ const OPTIONS = [
   { label: 'tdesign-mobile-react', value: 6 },
 ];
 
+type SelectValue = CheckboxOptionObj[];
 export default function SelectInputCollapsedItems() {
   const [options, setOptions] = useState([...OPTIONS]);
-  const [value, setValue] = useState(OPTIONS.slice(1));
-  const [size, setSize] = useState('medium');
-  const [disabled, setDisabled] = useState(false);
-  const [readonly, setReadOnly] = useState(false);
-  const [minCollapsedNum] = useState(1);
+  const [value, setValue] = useState<SelectValue>(OPTIONS.slice(1));
 
   const getCheckboxValue = () => {
     const arr = [];
@@ -115,33 +112,12 @@ export default function SelectInputCollapsedItems() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const renderCollapsedItems = ({ collapsedSelectedItems, onClose }) => (
-    <Popup
-      key={'tags'}
-      overlayInnerStyle={{
-        padding: '5px',
-      }}
-      content={
-        <Space size={5} align="center">
-          {collapsedSelectedItems.map((item, index) => (
-            <Tag
-              key={item}
-              size={size}
-              disabled={disabled}
-              closable={!readonly && !disabled}
-              onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
-            >
-              {item}
-            </Tag>
-          ))}
-        </Space>
-      }
-    >
-      <Tag size={size} disabled={disabled}>
-        More({collapsedSelectedItems?.length})
-      </Tag>
-    </Popup>
-  );
+  const handleCollapsedItems: SelectInputProps['collapsedItems'] = ({ collapsedTags }) => {
+    if (Array.isArray(collapsedTags)) {
+      return <Tag key={'More'}>More(+{collapsedTags.length})</Tag>;
+    }
+    return null;
+  };
 
   return (
     <Space direction="vertical" className="tdesign-demo__select-input-collapsed-items">
@@ -175,11 +151,7 @@ export default function SelectInputCollapsedItems() {
         value={value}
         panel={CheckboxPanel}
         suffixIcon={<ChevronDownIcon key="suffixIcon" />}
-        minCollapsedNum={minCollapsedNum}
-        collapsedItems={renderCollapsedItems}
-        size={size}
-        disabled={disabled}
-        readonly={readonly}
+        collapsedItems={handleCollapsedItems}
         clearable
         multiple
         onTagChange={onTagChange}

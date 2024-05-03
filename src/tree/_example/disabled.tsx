@@ -49,7 +49,7 @@ export default () => {
     <Space direction="vertical">
       <Form labelWidth={120}>
         <Form.FormItem label="是否禁用" initialData={disabled}>
-          <Switch onChange={setDisabled} />
+          <Switch<boolean> onChange={setDisabled} />
         </Form.FormItem>
       </Form>
       <Tree data={items} hover checkable expandAll disabled={disabled} />

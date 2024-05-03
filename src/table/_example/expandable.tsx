@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, Link, TableProps } from 'tdesign-react';
 import {
   ChevronRightCircleIcon,
   ChevronRightIcon,
@@ -26,9 +26,13 @@ const classStyles = `
 </style>
 `;
 
+type ExpandControlType = 'custom' | 'true' | 'false';
+
 export default function TableExpandable() {
-  const getColumns = (isFixedColumn) => [
-    { colKey: 'applicant', title: '申请人', width: '80', fixed: isFixedColumn ? 'left' : '' },
+  const getColumns: (isFixedColum: boolean) => TableProps['columns'] = (isFixedColumn) => [
+    isFixedColumn
+      ? { colKey: 'applicant', title: '申请人', width: '80', fixed: 'left' }
+      : { colKey: 'applicant', title: '申请人', width: '80' },
     {
       colKey: 'status',
       title: '申请状态',
@@ -46,16 +50,26 @@ export default function TableExpandable() {
     { colKey: 'channel', title: '签署方式' },
     { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
     { colKey: 'createTime', title: '申请时间' },
-    {
-      colKey: 'operation',
-      title: '操作',
-      fixed: isFixedColumn ? 'right' : '',
-      cell: ({ row }) => (
-        <Link theme="primary" hover="color">
-          {row.status === 0 ? '查看详情' : '再次申请'}
-        </Link>
-      ),
-    },
+    isFixedColumn
+      ? {
+          colKey: 'operation',
+          title: '操作',
+          fixed: 'right',
+          cell: ({ row }) => (
+            <Link theme="primary" hover="color">
+              {row.status === 0 ? '查看详情' : '再次申请'}
+            </Link>
+          ),
+        }
+      : {
+          colKey: 'operation',
+          title: '操作',
+          cell: ({ row }) => (
+            <Link theme="primary" hover="color">
+              {row.status === 0 ? '查看详情' : '再次申请'}
+            </Link>
+          ),
+        },
   ];
 
   const initialData = new Array(5).fill(null).map((item, i) => ({
@@ -72,8 +86,8 @@ export default function TableExpandable() {
   }));
 
   const [data] = useState(initialData);
-  const [expandControl, setExpandControl] = useState('true');
-  const [expandIcon, setExpandIcon] = useState(true);
+  const [expandControl, setExpandControl] = useState<ExpandControlType>('true');
+  const [expandIcon, setExpandIcon] = useState<true | false | 'custom'>(true);
   const [expandOnRowClick, setExpandOnRowClick] = useState(true);
   const [expandedRowKeys, setExpandedRowKeys] = useState(['2']);
   const [fixedColumns, setFixedColumns] = useState(false);
@@ -138,7 +152,11 @@ export default function TableExpandable() {
       {/* <!-- expanded-row-keys 为受控属性 --> */}
       {/* <!-- default-expanded-row-keys 为非受控属性 --> */}
       <div>
-        <Radio.Group value={expandControl} onChange={setExpandControl} variant="default-filled">
+        <Radio.Group
+          value={expandControl}
+          onChange={(val: ExpandControlType) => setExpandControl(val)}
+          variant="default-filled"
+        >
           <Radio.Button value="true"> 显示展开图标 </Radio.Button>
           <Radio.Button value="false"> 隐藏展开图标 </Radio.Button>
           <Radio.Button value="custom"> 自由控制展开图标 </Radio.Button>

@@ -1,71 +1,77 @@
 import React from 'react';
 import { Button, Tooltip } from 'tdesign-react';
 
+// const Absolute = Position.absolute as const;
+const Position = {
+  absolute: 'absolute',
+  relative: 'relative',
+} as const;
+
 const styles = {
   container: {
     margin: '0 auto',
     width: '500px',
     height: '260px',
-    position: 'relative',
+    position: Position.relative,
   },
   placementTop: {
-    position: 'absolute',
+    position: Position.absolute,
     top: '0',
     left: '42%',
   },
   placementTopLeft: {
-    position: 'absolute',
+    position: Position.absolute,
     top: '0',
     left: '70px',
   },
   placementTopRight: {
-    position: 'absolute',
+    position: Position.absolute,
     top: '0',
     right: '70px',
   },
   placementBottom: {
-    position: 'absolute',
+    position: Position.absolute,
     bottom: '0',
     left: '42%',
   },
   placementBottomLeft: {
-    position: 'absolute',
+    position: Position.absolute,
     bottom: '0',
     left: '70px',
     width: '120px',
   },
   placementBottomRight: {
-    position: 'absolute',
+    position: Position.absolute,
     bottom: '0',
     right: '70px',
   },
   placementLeft: {
-    position: 'absolute',
+    position: Position.absolute,
     left: '0',
     top: '42%',
   },
   placementLeftTop: {
-    position: 'absolute',
+    position: Position.absolute,
     left: '0',
     top: '50px',
   },
   placementLeftBottom: {
-    position: 'absolute',
+    position: Position.absolute,
     left: '0',
     bottom: '50px',
   },
   placementRight: {
-    position: 'absolute',
+    position: Position.absolute,
     right: '0',
     top: '42%',
   },
   placementRightTop: {
-    position: 'absolute',
+    position: Position.absolute,
     right: '0',
     top: '50px',
   },
   placementRightBottom: {
-    position: 'absolute',
+    position: Position.absolute,
     right: '0',
     bottom: '50px',
   },

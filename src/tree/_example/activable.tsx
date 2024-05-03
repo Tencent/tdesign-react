@@ -43,13 +43,13 @@ export default () => {
     <Space direction="vertical">
       <Form labelWidth={120}>
         <Form.FormItem label="节点可高亮" initialData={activable}>
-          <Switch onChange={setActivable} />
+          <Switch<boolean> onChange={setActivable} />
         </Form.FormItem>
         <Form.FormItem label="节点可多选高亮" initialData={activeMultiple}>
-          <Switch onChange={setActiveMultiple} />
+          <Switch<boolean> onChange={setActiveMultiple} />
         </Form.FormItem>
         <Form.FormItem label="整个节点可点击" initialData={expandOnClickNode}>
-          <Switch onChange={setExpandOnClickNode} />
+          <Switch<boolean> onChange={setExpandOnClickNode} />
         </Form.FormItem>
       </Form>
       <Tree

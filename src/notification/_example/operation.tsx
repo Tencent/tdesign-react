@@ -20,13 +20,13 @@ export default function NotificationExample() {
         theme="info"
         title="自定义底部"
         content="使用 props function 自定义底部内容"
-        footer={() => (
+        footer={
           <div>
             <Button theme="primary" variant="text">
               查看详情
             </Button>
           </div>
-        )}
+        }
       />
       <Notification
         theme="info"

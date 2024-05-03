@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { InputNumber, Space } from 'tdesign-react';
+import { InputNumber, InputNumberValue, Space } from 'tdesign-react';
 
 export default function InputNumberExample() {
-  const [value, setValue] = useState(0);
-  const [value1, setValue1] = useState(0);
+  const [value, setValue] = useState<InputNumberValue>(0);
+  const [value1, setValue1] = useState<InputNumberValue>(0);
 
   return (
     <Space direction="vertical">

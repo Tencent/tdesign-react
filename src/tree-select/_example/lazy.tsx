@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect } from 'tdesign-react';
+import { TreeSelect, TreeSelectProps } from 'tdesign-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '1',
     value: '1',
@@ -17,11 +17,11 @@ const options = [
 export default function Example() {
   const [value, setValue] = useState('');
 
-  function loadFunc(node) {
-    return new Promise((resolve) => {
+  const loadFunc: TreeSelectProps<{ label: string; value: string; children: boolean }>['treeProps']['load'] = (node) =>
+    new Promise((resolve) => {
       setTimeout(() => {
         let nodes = [];
-        if (node.level < 2) {
+        if (node.getLevel() < 2) {
           nodes = [
             {
               label: `${node.label}.1`,
@@ -38,7 +38,6 @@ export default function Example() {
         resolve(nodes);
       }, 2000);
     });
-  }
 
   return (
     <div style={{ width: 300 }}>
@@ -48,7 +47,7 @@ export default function Example() {
         placeholder="请选择"
         value={value}
         treeProps={{ load: loadFunc, lazy: true }}
-        onChange={(val) => {
+        onChange={(val: string) => {
           setValue(val);
           console.log(val);
         }}

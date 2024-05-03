@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Space, Tag } from 'tdesign-react';
+import { Table, Space, Tag, TableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -7,7 +7,7 @@ const statusNameListMap = {
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',
@@ -79,7 +79,15 @@ export default function TableSingleSort() {
   return (
     <Space direction="vertical">
       <div>排序方式：{JSON.stringify(sort)}</div>
-      <Table rowKey="index" data={initialData} columns={columns} sort={sort} multipleSort onSortChange={onSortChange} lazyLoad/>
+      <Table
+        rowKey="index"
+        data={initialData}
+        columns={columns}
+        sort={sort}
+        multipleSort
+        onSortChange={onSortChange}
+        lazyLoad
+      />
     </Space>
   );
 }

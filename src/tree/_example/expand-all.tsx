@@ -63,7 +63,7 @@ const data2 = [
 ];
 
 export default () => {
-  const [items, setItems] = useState(data1);
+  const [items, setItems] = useState<typeof data1 | typeof data2>(data1);
   const [hover, setHover] = useState(true);
   const [transition, setTransition] = useState(true);
 
@@ -78,10 +78,10 @@ export default () => {
           <Switch onChange={handleItemsChange} />
         </Form.FormItem>
         <Form.FormItem label="提供 hover 状态" initialData={hover}>
-          <Switch onChange={setHover} />
+          <Switch<boolean> onChange={setHover} />
         </Form.FormItem>
         <Form.FormItem label="展开动画" initialData={transition}>
-          <Switch onChange={setTransition} />
+          <Switch<boolean> onChange={setTransition} />
         </Form.FormItem>
       </Form>
       <Tree data={items} expandAll hover={hover} transition={transition} />

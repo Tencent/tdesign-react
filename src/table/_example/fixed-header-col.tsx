@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, Link, TableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const RadioGroup = Radio.Group;
@@ -28,7 +28,7 @@ for (let i = 0; i < 20; i++) {
 }
 
 export default function TableFixedColumn() {
-  const [tableLayout, setTableLayout] = useState('auto');
+  const [tableLayout, setTableLayout] = useState<TableProps['tableLayout']>('auto');
   const [fixedTopAndBottomRows, setFixedTopAndBottomRows] = useState(false);
   // <!-- 如果希望表格列宽自适应，设置 `table-layout: auto` 即可。需同时设置 table-content-width -->
   // <!-- fixedRows: [2, 2] 表示冻结表格的头两行和尾两行 -->
@@ -87,7 +87,11 @@ export default function TableFixedColumn() {
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <RadioGroup value={tableLayout} variant="default-filled" onChange={setTableLayout}>
+      <RadioGroup
+        value={tableLayout}
+        variant="default-filled"
+        onChange={(val: TableProps['tableLayout']) => setTableLayout(val)}
+      >
         <RadioButton value="fixed">table-layout: fixed</RadioButton>
         <RadioButton value="auto">table-layout: auto</RadioButton>
       </RadioGroup>

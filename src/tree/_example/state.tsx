@@ -1,12 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { Button, Tree, Space } from 'tdesign-react';
+import { Button, Tree, Space, TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 import cloneDeepWith from 'lodash/cloneDeepWith';
+import { TreeOptionData } from '../../common';
 
 let idx = 2;
 
+type IOptionType = TreeOptionData & {
+  icon: string;
+  label: string;
+  value: string;
+};
+
 export default () => {
-  const [items, setItems] = useState([
+  const [items, setItems] = useState<IOptionType[]>([
     {
       icon: '',
       label: 'node1',
@@ -19,13 +26,15 @@ export default () => {
     },
   ]);
 
-  const treeRef = useRef(null);
+  // const treeRef = useRef(null);
+  const treeRef = useRef<TreeInstanceFunctions<IOptionType>>(null);
+  type TreeOptionNodeModel = TreeNodeModel<IOptionType>;
 
-  const renderIcon = (node) => {
+  const renderIcon = (node: TreeOptionNodeModel) => {
     const { data } = node;
     let name = 'file';
     // console.log('node.getChildren()', node, node.getChildren());
-    if (node.getChildren()) {
+    if (node.getChildren(false)) {
       if (node.expanded) {
         name = 'folder-open';
       } else {
@@ -39,11 +48,11 @@ export default () => {
     return <Icon name={name} />;
   };
 
-  const check = (node) => {
+  const check = (node: TreeOptionNodeModel) => {
     console.info('check:', node);
   };
 
-  const changeIcon = (node) => {
+  const changeIcon = (node: TreeOptionNodeModel) => {
     const newData = cloneDeepWith(items, (item) => {
       if (item.value === node.value) {
         return {
@@ -69,7 +78,7 @@ export default () => {
     return item;
   };
 
-  const append = (node) => {
+  const append = (node?: TreeOptionNodeModel) => {
     const item = getInsertItem();
     if (item && treeRef.current) {
       if (!node) {
@@ -80,11 +89,11 @@ export default () => {
     }
   };
 
-  const remove = (node) => {
+  const remove = (node: TreeOptionNodeModel) => {
     treeRef.current?.remove(node.value);
   };
 
-  const renderOperations = (node) => (
+  const renderOperations = (node: TreeOptionNodeModel) => (
     <>
       <Button size="small" variant="base" style={{ marginLeft: '10px' }} onClick={() => check(node)}>
         检查节点信息

@@ -4,7 +4,7 @@ import { Skeleton } from 'tdesign-react';
 const animations = [
   { label: '渐变加载动画', value: 'gradient' },
   { label: '闪烁加载动画', value: 'flashed' },
-];
+] as const;
 
 export default function AnimationSkeleton() {
   return (

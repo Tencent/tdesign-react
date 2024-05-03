@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { SelectInput, Checkbox } from 'tdesign-react';
+import { SelectInput, Checkbox, CheckboxOptionObj } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
@@ -36,7 +36,7 @@ const classStyles = `
 
 const OPTIONS = [
   // 全选
-  { label: 'all frameworks', checkAll: true },
+  { label: 'all frameworks', checkAll: true as const },
   { label: 'tdesign-vue', value: 1 },
   { label: 'tdesign-react', value: 2 },
   { label: 'tdesign-miniprogram', value: 3 },
@@ -46,8 +46,8 @@ const OPTIONS = [
 ];
 
 export default function SelectInputAutocomplete() {
-  const [options, setOptions] = useState(OPTIONS);
-  const [value, setValue] = useState([
+  const [options, setOptions] = useState<CheckboxOptionObj[]>(OPTIONS);
+  const [value, setValue] = useState<CheckboxOptionObj[]>([
     { label: 'Vue', value: 1 },
     { label: 'React', value: 2 },
     { label: 'Miniprogram', value: 3 },

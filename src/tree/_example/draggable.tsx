@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tree, Space } from 'tdesign-react';
+import { Tree, Space, TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -71,8 +71,8 @@ export default () => {
   const handleDragLeave = () => {
     console.log('dragLeave');
   };
-  const handleDrop = ({ node, dropPosition, e }) => {
-    console.log(node, dropPosition, e);
+  const handleDrop: TreeProps['onDrop'] = ({ dragNode, dropPosition, e }) => {
+    console.log(dragNode, dropPosition, e);
   };
 
   return (

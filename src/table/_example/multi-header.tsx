@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space, Tag } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag, TableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -51,16 +51,16 @@ export default function TableExample() {
     console.log(context);
   };
 
-  const columns = [
+  const columns: TableProps['columns'] = [
     {
       title: '申请人',
       colKey: 'applicant',
-      fixed: fixedLeftCol && 'left',
+      fixed: fixedLeftCol ? ('left' as const) : undefined,
       width: 100,
     },
     {
       title: '申请汇总',
-      fixed: fixedLeftCol && 'left',
+      fixed: fixedLeftCol ? 'left' : undefined,
       width: 100,
       colKey: 'total_info',
       children: [
@@ -68,7 +68,7 @@ export default function TableExample() {
           align: 'left',
           colKey: 'platform',
           title: '申请状态',
-          fixed: fixedLeftCol && 'left',
+          fixed: fixedLeftCol ? 'left' : undefined,
           width: 120,
           sorter: (a, b) => a.default - b.default,
           cell: ({ rowIndex }) => {
@@ -88,21 +88,21 @@ export default function TableExample() {
         {
           title: '申请渠道和金额',
           colKey: 'type_default',
-          fixed: fixedLeftCol && 'left',
+          fixed: fixedLeftCol ? 'left' : undefined,
           width: 100,
           children: [
             {
               align: 'left',
               colKey: 'channel',
               title: '类型',
-              fixed: fixedLeftCol && 'left',
+              fixed: fixedLeftCol ? 'left' : undefined,
               width: 110,
             },
             {
               align: 'center',
               colKey: 'time',
               title: '申请耗时(天)',
-              fixed: fixedLeftCol && 'left',
+              fixed: fixedLeftCol ? 'left' : undefined,
               width: 150,
             },
           ],
@@ -132,14 +132,14 @@ export default function TableExample() {
     {
       title: '审批汇总',
       colKey: 'instruction',
-      fixed: fixedRightCol && 'right',
+      fixed: fixedRightCol ? 'right' : undefined,
       width: 100,
       children: [
         {
           align: 'left',
           colKey: 'property',
           title: '审批状态',
-          fixed: fixedRightCol && 'right',
+          fixed: fixedRightCol ? 'right' : undefined,
           width: 120,
           filter: {
             type: 'single',
@@ -156,19 +156,19 @@ export default function TableExample() {
           ellipsis: true,
           colKey: 'description',
           title: '说明',
-          fixed: fixedRightCol && 'right',
+          fixed: fixedRightCol ? 'right' : undefined,
           width: 100,
           children: [
             {
               colKey: 'field7',
               title: '审批单号',
-              fixed: fixedRightCol && 'right',
+              fixed: fixedRightCol ? 'right' : undefined,
               width: 120,
             },
             {
               colKey: 'detail.email',
               title: '邮箱地址',
-              fixed: fixedRightCol && 'right',
+              fixed: fixedRightCol ? 'right' : undefined,
               ellipsis: true,
               width: 150,
             },
@@ -179,7 +179,7 @@ export default function TableExample() {
     {
       colKey: 'createTime',
       title: '申请时间',
-      fixed: fixedRightCol && 'right',
+      fixed: fixedRightCol ? 'right' : undefined,
       width: '120',
     },
   ];

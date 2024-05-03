@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { TreeSelect } from 'tdesign-react';
+import { TreeSelect, TreeSelectProps } from 'tdesign-react';
 import { UserIcon } from 'tdesign-icons-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '开发一组',
     value: 'group1',
@@ -43,7 +43,7 @@ export default function Example() {
       placeholder="请输入"
       value={value}
       prefixIcon={<UserIcon />}
-      onChange={(val) => {
+      onChange={(val: string) => {
         setValue(val);
         console.log(val);
       }}

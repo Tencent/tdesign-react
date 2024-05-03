@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Slider } from 'tdesign-react';
+import { Slider, SliderProps, SliderValue } from 'tdesign-react';
 
 const InputNumberVerticalSlider = () => {
-  const [value, setValue] = useState(10);
-  const [rangeValue, setRangeValue] = useState([10, 80]);
+  const [value, setValue] = useState<SliderValue>(10);
+  const [rangeValue, setRangeValue] = useState<SliderValue>([10, 80]);
 
-  const inputNumberProps = { theme: 'row' };
+  const inputNumberProps: SliderProps['inputNumberProps'] = { theme: 'row' };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

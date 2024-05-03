@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Button, Popup } from 'tdesign-react';
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   container: {
     margin: '0 auto',
     width: '500px',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag } from 'tdesign-react';
+import { Table, Button, Space, Tag, TableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -9,7 +9,7 @@ const statusNameListMap = {
 };
 
 export default function TableLazy() {
-  const columns = [
+  const columns: TableProps['columns'] = [
     { colKey: 'applicant', title: '申请人', width: '100' },
     {
       colKey: 'status',
@@ -71,7 +71,7 @@ export default function TableLazy() {
         列表恢复初始状态
       </Button>
       <Table
-        row-key="id"
+        rowKey="id"
         columns={columns}
         data={data}
         height={300}

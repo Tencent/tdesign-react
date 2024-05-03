@@ -13,5 +13,5 @@ for (let i = 0; i < 20; i++) {
 export default function BaseExample() {
   const [value, setValue] = useState(['2']);
 
-  return <Transfer data={list} value={value} onChange={(v) => setValue(v)}></Transfer>;
+  return <Transfer data={list} value={value} onChange={(v: string[]) => setValue(v)}></Transfer>;
 }

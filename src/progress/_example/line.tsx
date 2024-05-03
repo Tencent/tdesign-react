@@ -45,9 +45,9 @@ export default function LineProgress() {
       <h3>可以在线形内展示进度信息</h3>
       <Space direction="vertical" style={{ width: '100%' }}>
         <div>默认样式</div>
-        <Progress theme="plump" percentage="30" />
+        <Progress theme="plump" percentage={30} />
         <div>进度0-10%时数字数字位置出现在目前进度的右边区域</div>
-        <Progress theme="plump" percentage="5" />
+        <Progress theme="plump" percentage={5} />
       </Space>
     </Space>
   );

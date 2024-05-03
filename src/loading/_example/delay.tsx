@@ -5,7 +5,7 @@ export default function LoadingDelay() {
   const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const loadingData = (time) => {
+  const loadingData = (time?: number) => {
     setLoading(true);
     setData('');
     const timer = setTimeout(() => {
@@ -33,7 +33,7 @@ export default function LoadingDelay() {
       </div>
 
       <div className="tdesign-demo-block-row">
-        <Button onClick={loadingData} size="small">
+        <Button onClick={() => loadingData()} size="small">
           快速重新加载数据（无loading）
         </Button>
         <Button onClick={() => loadingData(1000)} size="small">

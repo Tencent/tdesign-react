@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, Input, Space } from 'tdesign-react';
+import { TreeSelect, Input, Space, TreeSelectProps } from 'tdesign-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '广东省',
     value: 'guangdong',
@@ -43,15 +43,15 @@ export default function Example() {
         clearable
         placeholder="请选择"
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={(val: string) => setValue(val)}
         filter={(_, option) => {
-            if (typeof option.label === 'string') {
-                return !filter || option.label.indexOf(filter) > -1
-            }
+          if (typeof option.label === 'string') {
+            return !filter || option.label.indexOf(filter) > -1;
+          }
 
-            return true;
+          return true;
         }}
-        panelTopContent={<Input value={filter} onChange={setFilter}/>}
+        panelTopContent={<Input value={filter} onChange={setFilter} />}
       />
     </Space>
   );

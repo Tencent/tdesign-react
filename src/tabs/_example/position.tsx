@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Tabs, Radio, Space } from 'tdesign-react';
+import { Tabs, Radio, Space, TabsProps } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
 export default function PositionTabs() {
-  const [position, setPosition] = useState('top');
+  const [position, setPosition] = useState<TabsProps['placement']>('top');
+
+  const handlePositionChange = (val: TabsProps['placement']) => {
+    setPosition(val);
+  };
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Radio.Group variant="default-filled" defaultValue="top" onChange={setPosition}>
+      <Radio.Group variant="default-filled" defaultValue="top" onChange={handlePositionChange}>
         <Radio.Button value="top">top</Radio.Button>
         <Radio.Button value="right">right</Radio.Button>
         <Radio.Button value="bottom">bottom</Radio.Button>

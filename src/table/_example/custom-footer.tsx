@@ -10,7 +10,7 @@ const statusNameListMap = {
 
 const columns = [
   {
-    align: 'left',
+    align: 'left' as const,
     colKey: 'applicant',
     title: '申请人',
     foot: () => <b style={{ fontWeight: 'bold' }}>表尾信息</b>,
@@ -69,9 +69,11 @@ const footData = [
   },
 ];
 
+type FooterType = 'normal' | 'full' | 'custom';
+
 export default function TableFixHeader() {
   // 自定义表尾方式一：普通表尾
-  const [footerType, setFooterType] = useState('normal');
+  const [footerType, setFooterType] = useState<FooterType>('normal');
 
   // 自定义表尾方式二：通栏表尾
   const footerSummary = <div className="t-table__row-filter-inner">通栏总结行信息</div>;
@@ -88,7 +90,7 @@ export default function TableFixHeader() {
     <div className="tdesign-demo-block-column-large tdesign-demo__table">
       <div>
         {/* <!-- 表尾有 3 种方式 --> */}
-        <Radio.Group value={footerType} onChange={setFooterType} variant="default-filled">
+        <Radio.Group value={footerType} onChange={(val: FooterType) => setFooterType(val)} variant="default-filled">
           <Radio.Button value="normal">普通表尾</Radio.Button>
           <Radio.Button value="full">通栏表尾</Radio.Button>
           <Radio.Button value="custom">自定义表尾合并列</Radio.Button>

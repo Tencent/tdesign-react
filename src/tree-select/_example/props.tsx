@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect } from 'tdesign-react';
+import { TreeSelect, TreeSelectProps } from 'tdesign-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     name: '广东省',
     pinyin: 'guangdong',
@@ -42,7 +42,7 @@ export default function Example() {
       placeholder="请选择"
       value={value}
       // defaultValue="guangdong"
-      onChange={(val) => {
+      onChange={(val: string) => {
         setValue(val);
         console.log(val);
       }}

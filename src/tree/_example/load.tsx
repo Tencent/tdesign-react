@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tree } from 'tdesign-react';
+import { Tree, TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -13,11 +13,11 @@ const items = [
 ];
 
 export default () => {
-  const load = (node) =>
+  const load: TreeProps['load'] = (node) =>
     new Promise((resolve) => {
       setTimeout(() => {
         let nodes = [];
-        if (node.level < 2) {
+        if (node.getLevel() < 2) {
           nodes = [
             {
               label: `${node.label}.1`,

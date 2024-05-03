@@ -1,10 +1,10 @@
 import React from 'react';
-import { Space, Button, Statistic } from 'tdesign-react';
+import { Space, Button, Statistic, StatisticRef } from 'tdesign-react';
 
 const AnimationStatistic = () => {
   const [start, setStart] = React.useState(false);
   const [value, setValue] = React.useState(56.32);
-  const statisticRef = React.useRef();
+  const statisticRef = React.useRef<StatisticRef>();
 
   return (
     <Space direction="vertical">

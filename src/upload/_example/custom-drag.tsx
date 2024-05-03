@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload, Space } from 'tdesign-react';
+import { Button, message, Upload, Space, UploadProps, UploadFile } from 'tdesign-react';
 import { CloudUploadIcon } from 'tdesign-icons-react';
+
+import type { UploadRef } from 'tdesign-react/upload/interface';
 
 export default function CustomDrag() {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState(0);
-  const uploadDom = React.createRef();
+  const uploadDom = React.useRef<UploadRef>();
 
   const handleChange = useCallback((files) => {
     setFiles(files.slice(-1));
@@ -22,8 +24,9 @@ export default function CustomDrag() {
   const onProgress = useCallback((val) => {
     setProgress(val);
   }, []);
-  const customDraggerRender = useCallback(
-    ({ dragActive }) => {
+  const customDraggerRender: UploadProps['dragContent'] = useCallback(
+    (triggerContext) => {
+      const { dragActive } = triggerContext;
       function renderCustomDrag() {
         if (dragActive) {
           return <p>释放鼠标</p>;
@@ -31,11 +34,13 @@ export default function CustomDrag() {
         return progress < 1 ? <Button>自定义拖拽区域</Button> : null;
       }
 
-      function renderFiles(files) {
+      function renderFiles(files: UploadFile[]) {
         return (
           <ul style={{ padding: '0' }}>
             {files.map((file) => (
-              <li key={file.name} style={{ listStyleType: 'none' }}>{file.name}</li>
+              <li key={file.name} style={{ listStyleType: 'none' }}>
+                {file.name}
+              </li>
             ))}
           </ul>
         );
@@ -69,7 +74,7 @@ export default function CustomDrag() {
         theme="custom"
         dragContent={customDraggerRender}
         onChange={handleChange}
-        onTrigger={handleChange}
+        // onTrigger={handleChange}
         onFail={handleFail}
         onSuccess={handleSuccess}
         onProgress={onProgress}

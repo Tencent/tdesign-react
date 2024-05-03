@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, Space } from 'tdesign-react';
+import { TreeSelect, Space, TreeSelectProps, TreeSelectValue } from 'tdesign-react';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '广东省',
     value: 'guangdong',
@@ -33,8 +33,8 @@ const options = [
 ];
 
 export default function Example() {
-  const [value, setValue] = useState({ label: '深圳市', value: 'shenzhen' });
-  const [mulValue, setMulValue] = useState([
+  const [value, setValue] = useState<TreeSelectValue>({ label: '深圳市', value: 'shenzhen' });
+  const [mulValue, setMulValue] = useState<TreeSelectValue>([
     { label: '广州市', value: 'guangzhou' },
     { label: '深圳市', value: 'shenzhen' },
   ]);
@@ -47,7 +47,7 @@ export default function Example() {
         placeholder="请选择"
         value={value}
         valueType="object"
-        onChange={(val) => {
+        onChange={(val: TreeSelectValue) => {
           setValue(val);
           console.log(val);
         }}
@@ -59,7 +59,7 @@ export default function Example() {
         valueType="object"
         placeholder="请选择"
         value={mulValue}
-        onChange={(val) => {
+        onChange={(val: TreeSelectValue) => {
           setMulValue(val);
           console.log(val);
         }}

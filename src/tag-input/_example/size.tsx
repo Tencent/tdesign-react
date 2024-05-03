@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from 'tdesign-react';
+import { TagInput, Space, TagInputValue } from 'tdesign-react';
 
 export default function TagInputSize() {
-  const [tags1, setTags1] = useState(['Vue', 'React']);
-  const [tags2, setTags2] = useState(['Vue', 'React']);
-  const [tags3, setTags3] = useState(['Vue', 'React']);
+  const [tags1, setTags1] = useState<TagInputValue>(['Vue', 'React']);
+  const [tags2, setTags2] = useState<TagInputValue>(['Vue', 'React']);
+  const [tags3, setTags3] = useState<TagInputValue>(['Vue', 'React']);
   return (
     <Space direction="vertical" style={{ width: '80%' }}>
       <TagInput value={tags1} onChange={setTags1} size="small" clearable />

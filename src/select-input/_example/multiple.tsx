@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Radio, Checkbox } from 'tdesign-react';
+import { SelectInput, Radio, Checkbox, CheckboxGroupProps, SelectInputProps, CheckboxOptionObj } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
@@ -31,7 +31,7 @@ const classStyles = `
 </style>
 `;
 
-const OPTIONS = [
+const OPTIONS: CheckboxOptionObj[] = [
   // 全选
   { label: 'Check All', checkAll: true },
   { label: 'tdesign-vue', value: 1 },
@@ -42,8 +42,10 @@ const OPTIONS = [
   { label: 'tdesign-mobile-react', value: 6 },
 ];
 
+type ExcessTagsDisplayType = SelectInputProps['tagInputProps']['excessTagsDisplayType'];
+
 export default function SelectInputMultiple() {
-  const [excessTagsDisplayType, setExcessTagsDisplayType] = useState('break-line');
+  const [excessTagsDisplayType, setExcessTagsDisplayType] = useState<ExcessTagsDisplayType>('break-line');
   const [allowInput, setAllowInput] = useState(true);
   const [creatable, setCreatable] = useState(true);
   const [inputValue, setInputValue] = useState('');
@@ -51,7 +53,7 @@ export default function SelectInputMultiple() {
   const [options, setOptions] = useState([...OPTIONS]);
   // 仅用作展示的数据（过滤功能需要使用）
   const [displayOptions, setDisplayOptions] = useState([...OPTIONS]);
-  const [value, setValue] = useState([
+  const [value, setValue] = useState<Array<any>>([
     { label: 'Vue', value: 1 },
     { label: 'React', value: 2 },
     { label: 'Miniprogram', value: 3 },
@@ -70,7 +72,7 @@ export default function SelectInputMultiple() {
   const checkboxValue = getCheckboxValue();
 
   // 直接 checkboxgroup 组件渲染输出下拉选项，自定义处理可以避免顺序和 tagChange 冲突
-  const onCheckedChange = (val, { current, type }) => {
+  const onCheckedChange: CheckboxGroupProps['onChange'] = (val, { current, type }) => {
     // current 不存在，则表示操作全选
     if (!current) {
       const newValue = type === 'check' ? options.slice(1) : [];
@@ -138,7 +140,7 @@ export default function SelectInputMultiple() {
       <div>
         <Radio.Group
           value={excessTagsDisplayType}
-          onChange={setExcessTagsDisplayType}
+          onChange={(val: ExcessTagsDisplayType) => setExcessTagsDisplayType(val)}
           options={[
             { label: '选中项过多横向滚动', value: 'scroll' },
             { label: '选中项过多换行显示', value: 'break-line' },

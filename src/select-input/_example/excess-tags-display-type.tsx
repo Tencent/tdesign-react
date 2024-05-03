@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Checkbox } from 'tdesign-react';
+import { SelectInput, Checkbox, CheckboxOptionObj } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -31,7 +31,7 @@ const classStyles = `
 </style>
 `;
 
-const OPTIONS = [
+const OPTIONS: CheckboxOptionObj[] = [
   // 全选
   { label: 'Check All', checkAll: true },
   { label: 'tdesign-vue', value: 1 },

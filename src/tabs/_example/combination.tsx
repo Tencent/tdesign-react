@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { Tabs, Radio, Space } from 'tdesign-react';
+import { Tabs, Radio, Space, TabsProps } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
+type ITabsTheme = TabsProps['theme'];
+
 export default function AddTabs() {
-  const [theme, setTheme] = useState('normal');
-  const [scrollPosition, setScrollPosition] = useState('auto');
+  const [theme, setTheme] = useState<ITabsTheme>('normal');
   const panels = Array.from({ length: 20 }).map((item, index) => ({
     value: index + 1,
     label: `选项卡${index + 1}`,
   }));
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <Radio.Group variant="default-filled" defaultValue="normal" onChange={setTheme}>
+      <Radio.Group variant="default-filled" defaultValue="normal" onChange={(val: ITabsTheme) => setTheme(val)}>
         <Radio.Button value="normal">常规型</Radio.Button>
         <Radio.Button value="card">卡片型</Radio.Button>
       </Radio.Group>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Checkbox, Space, Tag } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag, TableSort } from 'tdesign-react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -14,7 +14,7 @@ const columns = [
     colKey: 'status',
     title: '申请状态',
     width: '150',
-    sortType: 'all',
+    sortType: 'all' as const,
     sorter: (a, b) => a.status - b.status,
     cell: ({ row }) => (
       <Tag
@@ -31,8 +31,8 @@ const columns = [
     title: '申请耗时(天)',
     colKey: 'time',
     width: '140',
-    align: 'center',
-    sortType: 'all',
+    align: 'center' as const,
+    sortType: 'all' as const,
     sorter: (a, b) => a.time - b.time,
   },
   { colKey: 'channel', title: '签署方式', width: '120' },
@@ -66,7 +66,7 @@ const MULTIPLE_SORT = [
 
 export default function TableSingleSort() {
   const [data, setData] = useState(initialData);
-  const [sortInfo, setSortInfo] = useState(SINGLE_SORT);
+  const [sortInfo, setSortInfo] = useState<TableSort>(SINGLE_SORT);
   const [multipleSort, setMultipleSort] = useState(false);
 
   function onSortChange(sort, options) {

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Form, InputNumber, Space, Radio } from 'tdesign-react';
 
+type AlignType = 'hide' | 'align-left' | 'align-input';
+
 const { FormItem } = Form;
 export default function Status() {
-  const [type, setType] = useState('align-input');
+  const [type, setType] = useState<AlignType>('align-input');
 
   return (
     <Space direction="vertical">
-      <Radio.Group value={type} onChange={setType} variant="default-filled">
+      <Radio.Group value={type} onChange={(val: AlignType) => setType(val)} variant="default-filled">
         <Radio.Button value="hide">隐藏文本提示</Radio.Button>
         <Radio.Button value="align-left">文本提示左对齐</Radio.Button>
         <Radio.Button value="align-input">文本提示对齐输入框</Radio.Button>

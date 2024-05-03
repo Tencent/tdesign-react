@@ -1,53 +1,59 @@
 import React, { useState } from 'react';
-import { Radio, Space } from 'tdesign-react';
+import { Radio, RadioOption, Space } from 'tdesign-react';
+
+const objOptions: RadioOption[] = [
+  {
+    value: 'bj',
+    label: '北京',
+  },
+  {
+    value: 'sh',
+    label: '上海',
+  },
+  {
+    value: 'gz',
+    label: '广州',
+    disabled: true,
+  },
+  {
+    value: 'sz',
+    label: '深圳',
+  },
+];
+// eslint-disable-next-line prefer-const
+let itemOptions = ['北京', '上海', '广州', '深圳'];
+
+type ValueType = '北京' | '上海' | '广州' | '深圳';
+type FirstCityType = 'bj' | 'sh' | 'gz' | 'sz';
 
 export default function RadioExample() {
-  const [city, setCity] = useState('bj');
-  const [city2, setCity2] = useState('sz');
-  const [city3, setCity3] = useState('深圳');
-  const objOptions = [
-    {
-      value: 'bj',
-      label: '北京',
-    },
-    {
-      value: 'sh',
-      label: '上海',
-    },
-    {
-      value: 'gz',
-      label: '广州',
-      disabled: true,
-    },
-    {
-      value: 'sz',
-      label: '深圳',
-    },
-  ];
-  const itemOptions = ['北京', '上海', '广州', '深圳'];
+  const [city, setCity] = useState<FirstCityType>('bj');
+  const [city2, setCity2] = useState<FirstCityType>('sz');
+  const [city3, setCity3] = useState<ValueType>('深圳');
+
   return (
     <Space direction="vertical">
-      <Radio.Group value={city} onChange={setCity} allowUncheck>
+      <Radio.Group value={city} onChange={(val: FirstCityType) => setCity(val)} allowUncheck>
         <Radio value="bj">北京</Radio>
         <Radio value="sh">上海</Radio>
         <Radio value="gz">广州</Radio>
         <Radio value="sz">深圳</Radio>
       </Radio.Group>
 
-      <Radio.Group value={city2} options={objOptions} allowUncheck onChange={setCity2} />
+      <Radio.Group value={city2} options={objOptions} allowUncheck onChange={(val: FirstCityType) => setCity2(val)} />
       <Radio.Group
-        variant='default-filled'
+        variant="default-filled"
         value={city2}
         options={objOptions}
-        onChange={setCity2}
+        onChange={(val: FirstCityType) => setCity2(val)}
       />
 
-      <Radio.Group value={city3} options={itemOptions} onChange={setCity3} />
+      <Radio.Group value={city3} options={itemOptions} onChange={(val: ValueType) => setCity3(val)} />
       <Radio.Group
-        variant='primary-filled'
+        variant="primary-filled"
         value={city3}
         options={itemOptions}
-        onChange={setCity3}
+        onChange={(val: ValueType) => setCity3(val)}
       />
     </Space>
   );

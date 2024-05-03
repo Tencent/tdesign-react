@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Drawer, Guide, Input, Row } from 'tdesign-react';
+import { Button, Drawer, Guide, GuideStep, Input, Row } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -53,7 +53,7 @@ export default function NoMaskGuide() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const steps = [
+  const steps: GuideStep[] = [
     {
       element: '.main-title-no-mask',
       title: '新手引导标题',

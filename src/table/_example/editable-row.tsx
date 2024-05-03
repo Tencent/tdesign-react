@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Link } from 'tdesign-react';
+import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Link, TableProps } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 const classStyles = `
@@ -139,7 +139,7 @@ export default function EditableRowTable() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const columns = useMemo(
+  const columns = useMemo<TableProps['columns']>(
     () => [
       {
         title: '申请人',
@@ -262,7 +262,7 @@ export default function EditableRowTable() {
   return (
     <div className="t-table-demo__editable-row">
       <div>
-        <Radio.Group value={openCheckAll} onChange={setOpenCheckAll}>
+        <Radio.Group value={openCheckAll} onChange={(val: boolean) => setOpenCheckAll(val)}>
           <Radio.Button value={true}>全量校验</Radio.Button>
           <Radio.Button value={false}>单行校验</Radio.Button>
         </Radio.Group>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import { Progress, Space } from 'tdesign-react';
 
-const commonStyle = {
+const commonStyle: CSSProperties = {
   textAlign: 'center',
 };
 

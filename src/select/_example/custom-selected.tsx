@@ -50,7 +50,7 @@ const CustomSelected = () => {
           { label: '选项九', value: '9' },
         ]}
         valueDisplay={({ value }) =>
-          value.length > 0 ? value.map((v, idx) => <Tag key={idx}>{`${v}选项`}</Tag>) : null
+          Array.isArray(value) && value.length > 0 ? value.map((v, idx) => <Tag key={idx}>{`${v}选项`}</Tag>) : null
         }
       />
     </Space>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Tag } from 'tdesign-react';
+import { Table, TableProps, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const classStyles = `
@@ -50,7 +50,7 @@ export default function TableStyle() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const columns = [
+  const columns: TableProps['columns'] = [
     { colKey: 'applicant', title: '申请人', width: 100 },
     {
       colKey: 'status',
@@ -111,7 +111,7 @@ export default function TableStyle() {
     <div className="t-demo__style">
       {/* rowClassName 设置行类名 */}
       <Table
-        row-key="id"
+        rowKey="id"
         data={data}
         columns={columns}
         rowClassName={getRowClassName}

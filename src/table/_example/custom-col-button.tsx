@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, TableColumnController, CheckboxGroupValue } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
+type ControlPlacement = TableColumnController['placement'];
 export default function TableCustomColButton() {
-  const [placement, setPlacement] = useState('top-right');
+  const [placement, setPlacement] = useState<ControlPlacement>('top-right');
   const [bordered, setBordered] = useState(true);
   const [customText, setCustomText] = useState(false);
 
@@ -26,7 +27,9 @@ export default function TableCustomColButton() {
   const [data] = useState([...initialData]);
 
   const staticColumn = ['applicant', 'status'];
-  const [displayColumns, setDisplayColumns] = useState(staticColumn.concat(['channel', 'detail.email', 'createTime']));
+  const [displayColumns, setDisplayColumns] = useState<CheckboxGroupValue>(
+    staticColumn.concat(['channel', 'detail.email', 'createTime']),
+  );
 
   const columns = [
     { colKey: 'applicant', title: '申请人', width: '100' },
@@ -87,7 +90,7 @@ export default function TableCustomColButton() {
 
   return (
     <Space direction="vertical" size="large">
-      <Radio.Group value={placement} onChange={setPlacement} variant="default-filled">
+      <Radio.Group value={placement} onChange={(val: ControlPlacement) => setPlacement(val)} variant="default-filled">
         <Radio.Button value="top-left">左上角</Radio.Button>
         <Radio.Button value="top-right">右上角</Radio.Button>
         <Radio.Button value="bottom-left">左下角</Radio.Button>

@@ -1,5 +1,15 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from 'tdesign-react';
+import {
+  EnhancedTable,
+  MessagePlugin,
+  Button,
+  Popconfirm,
+  Checkbox,
+  Space,
+  Loading,
+  Link,
+  TableProps,
+} from 'tdesign-react';
 import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 
 function getObject(i, currentPage) {
@@ -14,6 +24,7 @@ function getObject(i, currentPage) {
     },
     needed: i % 4 === 0 ? '是' : '否',
     description: '数据源',
+    list: [],
   };
 }
 
@@ -172,7 +183,7 @@ export default function TableTree() {
     MessagePlugin.success(`已插入子节点申请人 ${randomKey} 号，请展开查看`);
   };
 
-  const columns = [
+  const columns: TableProps['columns'] = [
     // 实验中
     {
       // 列拖拽排序必要参数
@@ -233,12 +244,7 @@ export default function TableTree() {
   ];
 
   const onRowToggle = () => {
-    const rowIds = [
-      '申请人 1_1 号',
-      '申请人 2_1 号',
-      '申请人 3_1 号',
-      '申请人 4_1 号',
-    ];
+    const rowIds = ['申请人 1_1 号', '申请人 2_1 号', '申请人 3_1 号', '申请人 4_1 号'];
     rowIds.forEach((id) => {
       // getData 参数为行唯一标识，lodash.get(row, rowKey)
       const rowData = tableRef.current.getData(id);
@@ -274,7 +280,7 @@ export default function TableTree() {
 
   const getTreeNode = () => {
     // 查看树形结构平铺数据
-   // tableRef.current.dataSource
+    // tableRef.current.dataSource
     const treeData = tableRef.current.getTreeNode();
     console.log(treeData);
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');

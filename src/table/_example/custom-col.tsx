@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag } from 'tdesign-react';
+import { Table, Button, Space, Tag, CheckboxGroupValue } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 export default function TableCustomCol() {
@@ -22,7 +22,9 @@ export default function TableCustomCol() {
   const [data] = useState([...initialData]);
 
   const staticColumn = ['applicant', 'status'];
-  const [displayColumns, setDisplayColumns] = useState(staticColumn.concat(['channel', 'detail.email', 'createTime']));
+  const [displayColumns, setDisplayColumns] = useState<CheckboxGroupValue>(
+    staticColumn.concat(['channel', 'detail.email', 'createTime']),
+  );
 
   const [columnControllerVisible, setColumnControllerVisible] = useState(false);
 

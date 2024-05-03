@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Slider } from 'tdesign-react';
+import { Slider, SliderValue } from 'tdesign-react';
 
 const marks = {
   10: 'min:10',
@@ -7,8 +7,8 @@ const marks = {
 };
 
 const MinAndMaxSlider = () => {
-  const [value, setValue] = useState(10);
-  const [rangeValue, setRangeValue] = useState([10, 20]);
+  const [value, setValue] = useState<SliderValue>(10);
+  const [rangeValue, setRangeValue] = useState<SliderValue>([10, 20]);
 
   return (
     <>

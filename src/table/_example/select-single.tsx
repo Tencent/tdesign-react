@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Tag } from 'tdesign-react';
+import { Table, TableProps, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -23,7 +23,7 @@ for (let i = 0; i < 5; i++) {
     createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
   });
 }
-const columns = [
+const columns: TableProps['columns'] = [
   {
     // title: '单选',
     // align: 'center',

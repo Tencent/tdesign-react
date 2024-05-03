@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { NotificationPlugin, Button, Input, Space } from 'tdesign-react';
+import { NotificationPlugin, Button, Input, Space, InputValue } from 'tdesign-react';
 
 export default function NotificationExample() {
-  const [offsetY, setOffsetY] = useState(0);
-  const [offsetX, setOffsetX] = useState(0);
+  const [offsetY, setOffsetY] = useState<InputValue>('0');
+  const [offsetX, setOffsetX] = useState<InputValue>('0');
 
   const openNotification = (placement) => {
     NotificationPlugin.info({

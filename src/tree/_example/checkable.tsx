@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Tree, Form, Switch, Space } from 'tdesign-react';
+import { Radio, Tree, Form, Switch, Space, RadioGroupProps } from 'tdesign-react';
 
 const valueOptions = [
   {
@@ -14,7 +14,9 @@ const valueOptions = [
     value: 'all',
     label: 'all',
   },
-];
+] as const;
+
+type Value = 'onlyLeaf' | 'parentFirst' | 'all';
 
 const items = [
   {
@@ -110,7 +112,7 @@ const items = [
 export default () => {
   const [checkable, setCheckable] = useState(true);
   const [checkStrictly, setCheckStrictly] = useState(false);
-  const [valueMode, setValueMode] = useState('onlyLeaf');
+  const [valueMode, setValueMode] = useState<Value>('onlyLeaf');
 
   const handleChange = (checked, context) => {
     console.info('onChange:', checked, context);
@@ -120,17 +122,21 @@ export default () => {
     console.info('onClick:', context);
   };
 
+  const handleMode: RadioGroupProps<Value>['onChange'] = (value: Value) => {
+    setValueMode(value);
+  };
+
   return (
     <Space direction="vertical">
       <Form>
         <Form.FormItem label="可选" initialData={checkable}>
-          <Switch onChange={setCheckable} />
+          <Switch<boolean> onChange={setCheckable} />
         </Form.FormItem>
         <Form.FormItem label="严格模式" initialData={checkStrictly}>
-          <Switch onChange={setCheckStrictly} />
+          <Switch<boolean> onChange={setCheckStrictly} />
         </Form.FormItem>
         <Form.FormItem label="选中值模式" name="valueMode" initialData={valueMode}>
-          <Radio.Group onChange={setValueMode}>
+          <Radio.Group onChange={handleMode}>
             {valueOptions.map((v) => (
               <Radio key={v.value} value={v.value}>
                 {v.label}

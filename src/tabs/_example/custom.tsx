@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs } from 'tdesign-react';
+import { TabValue, Tabs } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
@@ -8,13 +8,13 @@ for (let i = 1, max = 10; i <= max; ++i) {
   tabs.push({
     value: i,
     label: `选项卡 ${i}`,
-  })
+  });
 }
 
 export default function AddTabs() {
   const [panels, setPanels] = useState(tabs);
-  const [value, setValue] = useState(1);
-  
+  const [value, setValue] = useState<TabValue>(1);
+
   return (
     <Tabs
       placement={'top'}
@@ -35,7 +35,7 @@ export default function AddTabs() {
           value: newValue,
           label: `选项卡${panels.length + 1}`,
         });
-        setValue(newValue)
+        setValue(newValue);
         setPanels(newPanels);
       }}
     >

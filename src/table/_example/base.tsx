@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { SizeEnum } from '../../common';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -32,7 +33,7 @@ export default function TableBasic() {
   const [bordered, setBordered] = useState(false);
   const [hover, setHover] = useState(false);
   const [tableLayout, setTableLayout] = useState(false);
-  const [size, setSize] = useState('medium');
+  const [size, setSize] = useState<SizeEnum>('medium');
   const [showHeader, setShowHeader] = useState(true);
 
   // <!-- 当数据为空需要占位时，会显示 cellEmptyContent -->
@@ -97,7 +98,7 @@ export default function TableBasic() {
 
   return (
     <Space direction="vertical">
-      <RadioGroup value={size} variant="default-filled" onChange={setSize}>
+      <RadioGroup value={size} variant="default-filled" onChange={(size: SizeEnum) => setSize(size)}>
         <RadioButton value="small">小尺寸</RadioButton>
         <RadioButton value="medium">中尺寸</RadioButton>
         <RadioButton value="large">大尺寸</RadioButton>

@@ -1,5 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { InputAdornment, Button, Input, Tree, Form, Switch, Space } from 'tdesign-react';
+import {
+  InputAdornment,
+  Button,
+  Input,
+  Tree,
+  Form,
+  Switch,
+  Space,
+  TreeNodeModel,
+  TreeInstanceFunctions,
+} from 'tdesign-react';
 
 const items = [
   {
@@ -19,7 +29,9 @@ export default () => {
   const [activeId, setActiveId] = useState('');
   const [activeIds, setActiveIds] = useState([]);
 
-  const getLabelContent = (node) => {
+  type TreeOptionNodeModel = TreeNodeModel<{ value: string; label?: string }>;
+
+  const getLabelContent = (node: TreeOptionNodeModel) => {
     const pathNodes = node.getPath();
     let label = pathNodes.map((itemNode) => itemNode.getIndex() + 1).join('.');
     label = `${label} | value: ${node.value}`;
@@ -61,7 +73,7 @@ export default () => {
   };
 
   /* ======== 操作 api ======= */
-  const treeRef = useRef(null);
+  const treeRef = useRef<TreeInstanceFunctions<{ value: string; label?: string }>>(null);
 
   const setLabel = (value) => {
     const node = treeRef.current.getItem(value);
@@ -84,7 +96,7 @@ export default () => {
     };
     return item;
   };
-  const append = (node) => {
+  const append = (node?: TreeOptionNodeModel) => {
     const item = getInsertItem();
     if (item) {
       if (!node) {
@@ -99,7 +111,7 @@ export default () => {
     }
   };
 
-  const insertBefore = (node) => {
+  const insertBefore = (node: TreeOptionNodeModel) => {
     const item = getInsertItem();
     if (item) {
       treeRef.current.insertBefore(node.value, item);
@@ -107,7 +119,7 @@ export default () => {
     }
   };
 
-  const insertAfter = (node) => {
+  const insertAfter = (node: TreeOptionNodeModel) => {
     const item = getInsertItem();
     if (item) {
       treeRef.current.insertAfter(node.value, item);
@@ -115,11 +127,11 @@ export default () => {
     }
   };
 
-  const remove = (node) => {
+  const remove = (node: TreeOptionNodeModel) => {
     treeRef.current.remove(node.value);
   };
 
-  const renderOperations2 = (node) => (
+  const renderOperations2 = (node: TreeOptionNodeModel) => (
     <>
       <Button style={{ marginLeft: '10px' }} size="small" variant="base" onClick={() => append(node)}>
         添加子节点
@@ -156,7 +168,13 @@ export default () => {
     if (!node) return;
     let nodes = [];
     if (node) {
-      nodes = node.getChildren(true) || [];
+      const child = node.getChildren(true);
+      if (typeof child === 'boolean') {
+        // getChildren will never return true value.
+        nodes = [];
+      } else {
+        nodes = child;
+      }
     }
     console.info(
       'getActiveChildren:',
@@ -267,10 +285,10 @@ export default () => {
       <div className="operations">
         <Form labelWidth={200}>
           <Form.FormItem label="插入节点使用高亮节点" initialData={useActived}>
-            <Switch onChange={setUseActived} />
+            <Switch<boolean> onChange={setUseActived} />
           </Form.FormItem>
           <Form.FormItem label="子节点展开触发父节点展开" initialData={expandParent}>
-            <Switch onChange={setExpandParent} />
+            <Switch<boolean> onChange={setExpandParent} />
           </Form.FormItem>
         </Form>
       </div>

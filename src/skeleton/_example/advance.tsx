@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from 'tdesign-react';
+import { Skeleton, SkeletonProps } from 'tdesign-react';
 
 const style = {
   't-skeleton-demo': {
@@ -33,7 +33,7 @@ const style = {
   },
 };
 
-const rowCol = [
+const rowCol: SkeletonProps['rowCol'] = [
   [1, 1, 1].map(() => ({
     type: 'rect',
     content: 'image',
@@ -66,7 +66,7 @@ const rowCol = [
     type: 'rect',
     width: '100%',
     height: '300px',
-    content: () => (
+    content: (
       <div className="row-col-content">
         <h3 className="row-col-content__header">标题</h3>
         <div className="row-col-content__content">内容</div>

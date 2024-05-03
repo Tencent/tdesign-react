@@ -8,7 +8,7 @@ export default function () {
         onClick={() => {
           MessagePlugin.info({
             content: 'This is info Message',
-            close: true,
+            closeBtn: true,
           });
         }}
       >
@@ -19,7 +19,7 @@ export default function () {
         onClick={() => {
           MessagePlugin.success({
             content: 'This is success Message',
-            close: true,
+            closeBtn: true,
           });
         }}
       >
@@ -30,7 +30,7 @@ export default function () {
         onClick={() => {
           MessagePlugin.warning({
             content: 'This is warning Message',
-            close: true,
+            closeBtn: true,
           });
         }}
       >
@@ -41,7 +41,7 @@ export default function () {
         onClick={() => {
           MessagePlugin.error({
             content: 'This is error Message',
-            close: true,
+            closeBtn: true,
           });
         }}
       >
@@ -52,7 +52,7 @@ export default function () {
         onClick={() => {
           MessagePlugin.question({
             content: 'This is question Message',
-            close: true,
+            closeBtn: true,
           });
         }}
       >
@@ -63,7 +63,7 @@ export default function () {
         onClick={() => {
           MessagePlugin.loading({
             content: 'This is loading Message',
-            close: true,
+            closeBtn: true,
           });
         }}
       >

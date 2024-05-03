@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Space, Tag } from 'tdesign-react';
+import { CheckTagGroupValue, Space, Tag } from 'tdesign-react';
 
 const { CheckTagGroup } = Tag;
 
@@ -44,18 +44,18 @@ const options2 = [
 const STYLE_B_UNCHECKED_PROPS = {
   theme: 'default',
   variant: 'outline',
-};
+} as const;
 
 const STYLE_C_CHECKED_PROPS = {
   theme: 'primary',
   variant: 'outline',
-};
+} as const;
 
 const CheckTagGroupDemo = () => {
-  const [checkTagValue1, setCheckTagValue1] = useState([1]);
-  const [checkTagValue2, setCheckTagValue2] = useState([2]);
-  const [checkTagValue3, setCheckTagValue3] = useState([3]);
-  const [checkTagValue4, setCheckTagValue4] = useState([4, 6]);
+  const [checkTagValue1, setCheckTagValue1] = useState<CheckTagGroupValue>([1]);
+  const [checkTagValue2, setCheckTagValue2] = useState<CheckTagGroupValue>([2]);
+  const [checkTagValue3, setCheckTagValue3] = useState<CheckTagGroupValue>([3]);
+  const [checkTagValue4, setCheckTagValue4] = useState<CheckTagGroupValue>([4, 6]);
 
   return (
     <Space direction="vertical">

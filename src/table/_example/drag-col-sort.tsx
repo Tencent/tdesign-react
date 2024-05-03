@@ -9,7 +9,7 @@ const statusNameListMap = {
 };
 
 const initialColumns = [
-  { colKey: 'applicant', title: '申请人', width: '100', fixed: 'left' },
+  { colKey: 'applicant', title: '申请人', width: '100', fixed: 'left' as const },
   {
     colKey: 'status',
     title: '申请状态',

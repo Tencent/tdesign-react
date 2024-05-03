@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { EnhancedTable, Radio, Space, Button, MessagePlugin, Tag } from 'tdesign-react';
+import { EnhancedTable, Radio, Space, Button, MessagePlugin, Tag, TableProps } from 'tdesign-react';
 import cloneDeep from 'lodash/cloneDeep';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -22,6 +22,7 @@ for (let i = 0; i < 500; i++) {
     matters: ['宣传物料制作费用', 'algolia 服务报销', '相关周边制作费', '激励奖品快递费'][i % 4],
     time: [2, 3, 1, 4][i % 4],
     createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
+    childrenList: [],
   };
   obj.childrenList = new Array(5).fill(null).map((t, j) => {
     const secondIndex = 100 * j + (i + 1) * 10;
@@ -44,7 +45,7 @@ for (let i = 0; i < 500; i++) {
   });
   initData.push(obj);
 }
-const columns = [
+const columns: TableProps['columns'] = [
   {
     colKey: 'row-select',
     type: 'multiple',
@@ -148,7 +149,7 @@ export default function TableSingleSort() {
   return (
     <Space direction="vertical">
       <Space>
-        <Radio.Group value={checkStrictly} onChange={setCheckStrictly} variant="default-filled">
+        <Radio.Group value={checkStrictly} onChange={(val: boolean) => setCheckStrictly(val)} variant="default-filled">
           <Radio.Button value={true}>父子行选中独立</Radio.Button>
           <Radio.Button value={false}>父子行选中关联</Radio.Button>
         </Radio.Group>

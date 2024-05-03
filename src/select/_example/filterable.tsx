@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select, Space } from 'tdesign-react';
+import { Select, SelectProps, Space } from 'tdesign-react';
 
 const { Option } = Select;
 
@@ -27,11 +27,11 @@ const FilterableSelect = () => {
     return option.label.indexOf(search) !== -1;
   };
 
-  const handleBlur = (value, e) => {
+  const handleBlur: SelectProps['onBlur'] = ({ value, e }) => {
     console.log('handleBlur: ', value, e);
   };
 
-  const handleFocus = (value, e) => {
+  const handleFocus: SelectProps['onFocus'] = ({ value, e }) => {
     console.log('handleFocus: ', value, e);
   };
 

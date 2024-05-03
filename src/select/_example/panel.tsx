@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Select, Divider, Button, Input, Space } from 'tdesign-react';
+import { Select, Divider, Button, Input, Space, SelectProps } from 'tdesign-react';
 
-const OPTIONS = [
+const OPTIONS: SelectProps['options'] = [
   { label: '架构云', value: '1' },
   { label: '大数据', value: '2' },
   { label: '区块链', value: '3' },

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Button, Tooltip } from 'tdesign-react';
+import { Button, PopupRef, Tooltip } from 'tdesign-react';
 
 export default function Placements() {
-  const ref = useRef();
-  const timerRef = useRef();
+  const ref = useRef<Partial<PopupRef>>();
+  const timerRef = useRef<ReturnType<typeof setInterval>>();
   const [reset, setReset] = useState(true);
   const [count, setCount] = useState(5);
   const countRef = useRef(5);

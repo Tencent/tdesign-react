@@ -8,7 +8,7 @@ const themes = [
   { label: '头像描述', value: 'avatar-text' },
   { label: '选项卡', value: 'tab' },
   { label: '文章', value: 'article' },
-];
+] as const;
 
 export default function ThemeSkeleton() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Checkbox } from 'tdesign-react';
+import { SelectInput, Checkbox, CheckboxOptionObj, CheckboxGroupProps } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
@@ -33,7 +33,7 @@ const classStyles = `
 </style>
 `;
 
-const OPTIONS = [
+const OPTIONS: CheckboxOptionObj[] = [
   // 全选
   { label: 'Check All', checkAll: true },
   { label: 'tdesign-vue', value: 1 },
@@ -46,7 +46,7 @@ const OPTIONS = [
 
 export default function SelectInputMultiple() {
   const [options, setOptions] = useState([...OPTIONS]);
-  const [value, setValue] = useState([
+  const [value, setValue] = useState<CheckboxOptionObj[]>([
     { label: 'Vue', value: 1 },
     { label: 'React', value: 2 },
     { label: 'Miniprogram', value: 3 },
@@ -65,7 +65,7 @@ export default function SelectInputMultiple() {
   const checkboxValue = getCheckboxValue();
 
   // 直接 checkboxgroup 组件渲染输出下拉选项，自定义处理可以避免顺序和 tagChange 冲突
-  const onCheckedChange = (val, { current, type }) => {
+  const onCheckedChange: CheckboxGroupProps['onChange'] = (val, { current, type }) => {
     // current 不存在，则表示操作全选
     if (!current) {
       const newValue = type === 'check' ? options.slice(1) : [];

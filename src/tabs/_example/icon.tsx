@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Tabs, Radio, Space } from 'tdesign-react';
+import { Tabs, Radio, Space, TabsProps } from 'tdesign-react';
 import { DiscountIcon, ToolsIcon, TipsIcon } from 'tdesign-icons-react';
 
 const { TabPanel } = Tabs;
 
-export default function IconTabs() {
-  const [theme, setTheme] = useState(false);
+type ITabsTheme = TabsProps['theme'];
 
-  const handleChange = (value) => {
+export default function IconTabs() {
+  const [theme, setTheme] = useState<ITabsTheme>('normal');
+
+  const handleChange = (value: ITabsTheme) => {
     setTheme(value);
   };
   return (

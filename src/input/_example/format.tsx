@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Input } from 'tdesign-react';
+import { Input, InputProps } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, setValue] = useState('');
@@ -9,7 +9,7 @@ export default function InputExample() {
     return str;
   }
 
-  const inputStatus = isNaN(+value) ? 'error' : '';
+  const inputStatus: InputProps['status'] = isNaN(+value) ? 'error' : 'default';
   const tips = inputStatus ? '请输入数字' : '';
 
   return (

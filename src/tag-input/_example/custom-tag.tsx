@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { TagInput, Tag, Space } from 'tdesign-react';
+import { TagInput, Tag, Space, TagInputValue } from 'tdesign-react';
 
 export default function CustomTagExample() {
-  const [tags, setTags] = useState(['StudentA', 'StudentB', 'StudentC']);
+  const [tags, setTags] = useState<TagInputValue>(['StudentA', 'StudentB', 'StudentC']);
+
   return (
     <Space direction="vertical" style={{ width: '80%' }}>
       {/* 方式一：使用 tag 定义标签内部内容  */}

@@ -1,4 +1,4 @@
-import { Tree, Form, Switch, Space } from 'tdesign-react';
+import { Tree, Form, Switch, Space, TreeProps } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
@@ -78,15 +78,19 @@ const items = [
   },
 ];
 
+type ILine = {
+  cross?: boolean;
+};
+
 export default () => {
   const [showLine, setShowLine] = useState(true);
   const [showIcon, setShowIcon] = useState(true);
 
   const getLineNodes = (node) => {
     const nodes = node.getParents().reverse();
-    const lineNodes = [];
+    const lineNodes: ILine[] = [];
     nodes.forEach((item, index) => {
-      const line = {};
+      const line: ILine = {};
       const nextItem = nodes[index + 1];
       if (index < nodes.length - 1 && nextItem) {
         line.cross = !nextItem.isLast();
@@ -96,7 +100,8 @@ export default () => {
     return lineNodes;
   };
 
-  const renderLine = (node) => {
+  // todo(type): line need to defined type
+  const renderLine: TreeProps['line'] = (node) => {
     if (!showLine) return null;
 
     return (
@@ -124,10 +129,10 @@ export default () => {
     <Space direction="vertical">
       <Form>
         <Form.FormItem label="显示连线" initialData={showLine}>
-          <Switch onChange={setShowLine} />
+          <Switch<boolean> onChange={setShowLine} />
         </Form.FormItem>
         <Form.FormItem label="显示图标" initialData={showIcon}>
-          <Switch onChange={setShowIcon} />
+          <Switch<boolean> onChange={setShowIcon} />
         </Form.FormItem>
       </Form>
       <Tree data={items} line={showLine} icon={showIcon} expandAll />

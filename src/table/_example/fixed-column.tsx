@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, Link, TableProps } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const data = [];
@@ -25,13 +25,13 @@ const statusNameListMap = {
 };
 
 export default function TableFixedColumn() {
-  const [tableLayout, setTableLayout] = useState('fixed');
+  const [tableLayout, setTableLayout] = useState<TableProps['tableLayout']>('fixed');
   const [emptyData, setEmptyData] = useState(false);
   const [leftFixedColumn, setLeftFixedColumn] = useState(2);
   const [rightFixedColumn, setReftFixedColumn] = useState(1);
 
   const tableRef = useRef(null);
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const scrollToCreateTime = () => {
     // 横向滚动到指定列，一般用于列数量较多的场景
     tableRef.current.scrollColumnIntoView('createTime');
@@ -85,18 +85,26 @@ export default function TableFixedColumn() {
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={setLeftFixedColumn}>
+      <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={(val: number) => setLeftFixedColumn(val)}>
         <Radio.Button value={1}>左侧固定一列</Radio.Button>
         <Radio.Button value={2}>左侧固定两列</Radio.Button>
       </Radio.Group>
 
-      <Radio.Group value={rightFixedColumn} variant="default-filled" onChange={setReftFixedColumn}>
+      <Radio.Group
+        value={rightFixedColumn}
+        variant="default-filled"
+        onChange={(val: number) => setReftFixedColumn(val)}
+      >
         <Radio.Button value={1}>右侧固定一列</Radio.Button>
         <Radio.Button value={2}>右侧固定两列</Radio.Button>
       </Radio.Group>
 
       <div>
-        <Radio.Group value={tableLayout} variant="default-filled" onChange={setTableLayout}>
+        <Radio.Group
+          value={tableLayout}
+          variant="default-filled"
+          onChange={(val: TableProps['tableLayout']) => setTableLayout(val)}
+        >
           <Radio.Button value="fixed">table-layout: fixed</Radio.Button>
           <Radio.Button value="auto">table-layout: auto</Radio.Button>
         </Radio.Group>
@@ -106,7 +114,6 @@ export default function TableFixedColumn() {
       </div>
 
       {table}
-
     </Space>
   );
 }

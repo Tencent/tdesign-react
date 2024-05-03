@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Tabs, Radio, Space } from 'tdesign-react';
+import { Tabs, Radio, Space, TabsProps } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
+type ITabsTheme = TabsProps['theme'];
+
 export default function ThemeTabs() {
-  const [theme, setTheme] = useState('normal');
+  const [theme, setTheme] = useState<ITabsTheme>('normal');
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <Radio.Group variant="default-filled" defaultValue="normal" onChange={setTheme}>
+      <Radio.Group variant="default-filled" defaultValue="normal" onChange={(val: ITabsTheme) => setTheme(val)}>
         <Radio.Button value="normal">常规型</Radio.Button>
         <Radio.Button value="card">卡片型</Radio.Button>
       </Radio.Group>

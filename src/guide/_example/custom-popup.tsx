@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ArrowUpIcon } from 'tdesign-icons-react';
-import { Button, Drawer, Guide, Input, Row } from 'tdesign-react';
+import { Button, Drawer, Guide, GuideStep, Input, Row } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -153,25 +153,25 @@ export default function CustomPopupGuide() {
     console.log(e, current, total);
   };
 
-  const steps = [
+  const steps: GuideStep[] = [
     {
       element: '.main-title-custom-popup',
       title: '新手引导标题',
-      description: '新手引导的说明文案',
+      // description: '新手引导的说明文案',
       placement: 'bottom-right',
       content: <MyPopup />,
     },
     {
       element: '.label-field-1-custom-popup',
       title: '新手引导标题',
-      description: '新手引导的说明文案',
+      // description: '新手引导的说明文案',
       placement: 'bottom',
       content: <MyPopup />,
     },
     {
       element: '.label-field-2-custom-popup',
       title: '新手引导标题',
-      description: '新手引导的说明文案',
+      // description: '新手引导的说明文案',
       placement: 'bottom-left',
       content: <MyPopup />,
     },

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Drawer, Guide, Input, Row } from 'tdesign-react';
+import { Button, Drawer, Guide, GuideStep, Input, Row } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -52,13 +52,13 @@ export default function BasicGuide() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const steps = [
+  const steps: GuideStep[] = [
     {
       element: '.main-title-base',
       title: '新手引导标题',
       body: '新手引导的说明文案',
       placement: 'bottom-right',
-      stepOverlayClass: 't-test-guide-step-overlay'
+      stepOverlayClass: 't-test-guide-step-overlay',
     },
     {
       element: '.label-field-base',

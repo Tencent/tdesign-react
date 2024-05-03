@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { TreeSelect, Tag, Space } from 'tdesign-react';
+import { TreeSelect, Tag, Space, TreeSelectProps } from 'tdesign-react';
+import { TreeOptionData } from '../../common';
 
-const options = [
+const options: TreeSelectProps['data'] = [
   {
     label: '广东省',
     value: 'guangdong',
@@ -42,8 +43,8 @@ export default function Example() {
         clearable
         placeholder="请选择"
         value={value}
-        onChange={(val) => setValue(val)}
-        valueDisplay={({ value }) => `${value.label}(${value.value})`}
+        onChange={(val: string) => setValue(val)}
+        valueDisplay={({ value }: { value: TreeOptionData }) => `${value.label}(${value.value})`}
       />
       <TreeSelect
         data={options}
@@ -52,13 +53,13 @@ export default function Example() {
         placeholder="请选择"
         value={mulValue}
         valueDisplay={({ onClose, value }) =>
-          value.map(({ label, value }, index) => (
+          (value as TreeOptionData[]).map(({ label, value }, index) => (
             <Tag key={value} closable onClose={() => onClose(index)}>
               {label}({value})
             </Tag>
           ))
         }
-        onChange={(val) => setMulValue(val)}
+        onChange={(val: string[]) => setMulValue(val)}
       />
     </Space>
   );

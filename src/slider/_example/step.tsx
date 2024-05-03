@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Slider } from 'tdesign-react';
+import { Slider, SliderValue } from 'tdesign-react';
 
 const StepSlider = () => {
-  const [value, setValue] = useState(10);
-  const [rangeValue, setRangeValue] = useState([10, 80]);
+  const [value, setValue] = useState<SliderValue>(10);
+  const [rangeValue, setRangeValue] = useState<SliderValue>([10, 80]);
 
   return (
     <>

@@ -1,67 +1,67 @@
-import React, { useState } from 'react';
-import { Button, MessagePlugin, Input, Space } from 'tdesign-react';
+import React, { CSSProperties, useState } from 'react';
+import { Button, MessagePlugin, Input, Space, InputValue } from 'tdesign-react';
 
-const placementStyle = {
+const placementStyle: CSSProperties = {
   position: 'relative',
   margin: '0 auto',
   width: '500px',
   height: '260px',
 };
-const placementCenterStyle = {
+const placementCenterStyle: CSSProperties = {
   position: 'absolute',
   right: '42%',
   bottom: '42%',
 };
-const placementTopStyle = {
+const placementTopStyle: CSSProperties = {
   position: 'absolute',
   top: '0',
   left: '42%',
 };
-const placementTopLeftStyle = {
+const placementTopLeftStyle: CSSProperties = {
   position: 'absolute',
   top: '0',
   left: '70px',
 };
-const placementTopRightStyle = {
+const placementTopRightStyle: CSSProperties = {
   position: 'absolute',
   top: '0',
   right: '70px',
 };
-const placementBottomStyle = {
+const placementBottomStyle: CSSProperties = {
   position: 'absolute',
   bottom: '0',
   left: '42%',
 };
-const placementBottomLeftStyle = {
+const placementBottomLeftStyle: CSSProperties = {
   position: 'absolute',
   bottom: '0',
   left: '70px',
 };
-const placementBottomRightStyle = {
+const placementBottomRightStyle: CSSProperties = {
   position: 'absolute',
   bottom: '0',
   right: '70px',
 };
-const placementLeftStyle = {
+const placementLeftStyle: CSSProperties = {
   position: 'absolute',
   left: '0',
   top: '42%',
 };
-const placementRightStyle = {
+const placementRightStyle: CSSProperties = {
   position: 'absolute',
   right: '0',
   top: '42%',
 };
 
 export default function () {
-  const [offsetX, setOffsetX] = useState(0);
-  const [offsetY, setOffsetY] = useState(0);
+  const [offsetX, setOffsetX] = useState<InputValue>('0');
+  const [offsetY, setOffsetY] = useState<InputValue>('0');
 
   return (
     <Space direction="vertical">
       <Space>
         <Input
-          theme="column"
+          // theme="column"
           style={{ width: 200 }}
           placeholder={'请输入横向偏移量'}
           value={offsetX}
@@ -70,7 +70,7 @@ export default function () {
           }}
         />
         <Input
-          theme="column"
+          // theme="column"
           style={{ width: 200, marginLeft: 16 }}
           placeholder={'请输入纵向偏移量'}
           value={offsetY}
