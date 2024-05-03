@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, Popup, Space } from 'tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, MessagePlugin, Popup, Space, type FormProps } from 'tdesign-react';
 
 const { FormItem } = Form;
 
-export default function BaseForm() {
-  const [resetType, setResetType] = useState('initial');
+type ResetType = 'empty' | 'initial';
 
-  const onSubmit = ({ validateResult, firstError }) => {
+export default function BaseForm() {
+  const [resetType, setResetType] = useState<ResetType>('initial');
+
+  const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
     if (validateResult === true) {
       MessagePlugin.success('提交成功');
     } else {
@@ -15,7 +17,7 @@ export default function BaseForm() {
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };
@@ -29,7 +31,7 @@ export default function BaseForm() {
   return (
     <Space direction="vertical">
       <div>
-        <Radio.Group value={resetType} onChange={(value) => setResetType(value)} variant="default-filled">
+        <Radio.Group value={resetType} onChange={(value: ResetType) => setResetType(value)} variant="default-filled">
           <Radio.Button value="empty">重置为空</Radio.Button>
           <Radio.Button value="initial">
             <Popup content="改变表单数据后，点击重置按钮，观察数据重置情况"> 重置为初始值 </Popup>

@@ -8,7 +8,7 @@ export default function CalendarExample() {
     <div>
       <div style={{ margin: '12px 0' }}>
         <label>{`${isShowWeekendDefault ? '显示' : '隐藏'}周末`}</label>
-        <Switch value={isShowWeekendDefault} onChange={setIsShowWeekendDefault} />
+        <Switch value={isShowWeekendDefault} onChange={(val) => setIsShowWeekendDefault(val)} />
       </div>
       <Calendar isShowWeekendDefault={isShowWeekendDefault} />
     </div>

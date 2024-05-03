@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Dropdown, MessagePlugin, Comment } from 'tdesign-react';
+import { Card, Button, Dropdown, MessagePlugin, Comment, type TdDropdownProps } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 
 const options = [
@@ -13,7 +13,7 @@ const options = [
   },
 ];
 
-const clickHandler = (data) => {
+const clickHandler: TdDropdownProps['onClick'] = (data) => {
   MessagePlugin.success(`选中【${data.value}】`);
 };
 

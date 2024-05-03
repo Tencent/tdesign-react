@@ -1,17 +1,29 @@
 import React from 'react';
-import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Select } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Checkbox,
+  Button,
+  MessagePlugin,
+  Radio,
+  Select,
+  type FormProps,
+  type IsDateOptions,
+  type FormRules,
+  type Data,
+} from 'tdesign-react';
 
 const { FormItem } = Form;
 
-const rules = {
+const rules: FormRules<Data> = {
   account: [
     { required: true, message: '姓名必填' },
     { min: 2, message: '至少需要两个字符，一个中文等于两个字符' },
     { max: 10, message: '姓名字符长度超出' },
   ],
   description: [
-    { validator: (val) => val.length >= 5, message: '至少 5 个字，中文长度等于英文长度' },
-    { validator: (val) => val.length < 20, message: '不能超过 20 个字，中文长度等于英文长度' },
+    { validator: (val: string) => val.length >= 5, message: '至少 5 个字，中文长度等于英文长度' },
+    { validator: (val: string) => val.length < 20, message: '不能超过 20 个字，中文长度等于英文长度' },
   ],
   password: [
     { required: true, message: '密码必填' },
@@ -25,7 +37,7 @@ const rules = {
   gender: [{ required: true, message: '性别必填' }],
   course: [
     { required: true, message: '课程必填' },
-    { validator: (val) => val.length <= 2, message: '最多选择 2 门课程' },
+    { validator: (val: string) => val.length <= 2, message: '最多选择 2 门课程' },
   ],
   'content.url': [
     { required: true, message: '个人网站必填' },
@@ -55,7 +67,7 @@ const options = [
 export default function BaseForm() {
   const [form] = Form.useForm();
 
-  const onSubmit = ({ validateResult, firstError }) => {
+  const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
     if (validateResult === true) {
       MessagePlugin.success('提交成功');
     } else {
@@ -83,7 +95,7 @@ export default function BaseForm() {
       <FormItem label="用户名" help="这是用户名字段帮助说明" name="account">
         <Input />
       </FormItem>
-      <FormItem label="个人简介" help="一句话介绍自己" name="description" initialData=''>
+      <FormItem label="个人简介" help="一句话介绍自己" name="description" initialData="">
         <Input />
       </FormItem>
       <FormItem label="密码" name="password">
@@ -113,7 +125,7 @@ export default function BaseForm() {
       <FormItem
         label="入学时间"
         name="date"
-        rules={[{ date: { delimiters: ['/', '-', '.'] }, message: '日期格式有误' }]}
+        rules={[{ date: { delimiters: ['/', '-', '.'] } as IsDateOptions, message: '日期格式有误' }]}
       >
         <Input />
       </FormItem>

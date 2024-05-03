@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, type CascaderProps, type CascaderValue } from 'tdesign-react';
+import type { TreeOptionData } from '../../common';
 
 export default function Example() {
-  const [value1, setValue1] = useState([]);
+  const [value1, setValue1] = useState<CascaderValue>([]);
   const options = [
     {
       label: '选项1',
@@ -16,23 +17,23 @@ export default function Example() {
     },
   ];
 
-  const onChange1 = (value) => {
+  const onChange1: CascaderProps['onChange'] = (value) => {
     setValue1(value);
   };
 
-  const load = (node) =>
+  const load: CascaderProps['load'] = (node) =>
     new Promise((resolve) => {
       setTimeout(() => {
-        let nodes = [];
-        if (node.level < 3) {
+        let nodes: TreeOptionData[] = [];
+        if (node.getLevel() < 3) {
           nodes = [
             {
               label: `${node.label}.1`,
-              children: node.level < 2,
+              children: node.getLevel() < 2,
             },
             {
               label: `${node.label}.2`,
-              children: node.level < 2,
+              children: node.getLevel() < 2,
             },
           ];
         }

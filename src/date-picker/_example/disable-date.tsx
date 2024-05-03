@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { DatePicker, DateRangePicker, Space } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  const [pickDate, setPickDate] = useState();
+  const [pickDate, setPickDate] = useState('');
 
   const timePickerProps = useMemo(
     () => ({

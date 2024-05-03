@@ -112,12 +112,12 @@ export default function CalendarExample() {
           <legend>控件全局</legend>
           <p>
             <label>是否显示（全部控件）：</label>
-            <Switch value={visible} onChange={setVisible} />
+            <Switch value={visible} onChange={(val) => setVisible(val)} />
           </p>
           <br />
           <p>
             <label>是否禁用（全部控件）：</label>
-            <Switch value={disabled} onChange={setDisabled} />
+            <Switch value={disabled} onChange={(val) => setDisabled(val)} />
           </p>
           <br />
         </fieldset>
@@ -125,41 +125,41 @@ export default function CalendarExample() {
           <legend>控件局部</legend>
           <p>
             <label>是否显示“模式切换”控件：</label>
-            <Switch value={modeVisible} onChange={setModeVisible} />
+            <Switch value={modeVisible} onChange={(val) => setModeVisible(val)} />
             <label>是否禁用“模式切换”控件：</label>
-            <Switch value={modeDisabled} onChange={setModeDisabled} />
+            <Switch value={modeDisabled} onChange={(val) => setModeDisabled(val)} />
           </p>
           <br />
           <p>
             <label>是否显示“年份选择”控件：</label>
-            <Switch value={yearVisible} onChange={setYearVisible} />
+            <Switch value={yearVisible} onChange={(val) => setYearVisible(val)} />
             <label>是否禁用“年份选择”控件：</label>
-            <Switch value={yearDisabled} onChange={setYearDisabled} />
+            <Switch value={yearDisabled} onChange={(val) => setYearDisabled(val)} />
           </p>
           <br />
           <p>
             <label>是否显示“月份选择”控件：</label>
-            <Switch value={monthVisible} onChange={setMonthVisible} />
+            <Switch value={monthVisible} onChange={(val) => setMonthVisible(val)} />
             <label>是否禁用“月份选择”控件：</label>
-            <Switch value={monthDisabled} onChange={setMonthDisabled} />
+            <Switch value={monthDisabled} onChange={(val) => setMonthDisabled(val)} />
           </p>
           <br />
           <p>
             <label>是否禁用“隐藏周末”控件：</label>
-            <Switch value={weekendHideButtonDisabled} onChange={setWeekendHideButtonDisabled} />
+            <Switch value={weekendHideButtonDisabled} onChange={(val) => setWeekendHideButtonDisabled(val)} />
             <label>是否禁用“显示周末”控件：</label>
-            <Switch value={weekendShowButtonDisabled} onChange={setWeekendShowButtonDisabled} />
+            <Switch value={weekendShowButtonDisabled} onChange={(val) => setWeekendShowButtonDisabled(val)} />
             <label>是否显示“隐藏\显示周末”控件：</label>
-            <Switch value={weekendToggleVisible} onChange={setWeekendToggleVisible} />
+            <Switch value={weekendToggleVisible} onChange={(val) => setWeekendToggleVisible(val)} />
           </p>
           <br />
           <p>
             <label>是否显示“今天\本月”控件：</label>
-            <Switch value={currentVisible} onChange={setCurrentVisible} />
+            <Switch value={currentVisible} onChange={(val) => setCurrentVisible(val)} />
             <label>是否禁用“今天”按钮控件：</label>
-            <Switch value={currentDayButtonDisabled} onChange={setCurrentDayButtonDisabled} />
+            <Switch value={currentDayButtonDisabled} onChange={(val) => setCurrentDayButtonDisabled(val)} />
             <label>是否禁用“本月”按钮控件：</label>
-            <Switch value={currentMonthButtonDisabled} onChange={setCurrentMonthButtonDisabled} />
+            <Switch value={currentMonthButtonDisabled} onChange={(val) => setCurrentMonthButtonDisabled(val)} />
           </p>
           <br />
           <Calendar

@@ -15,6 +15,7 @@ import {
   Cascader,
   Textarea,
   Space,
+  type FormProps,
 } from 'tdesign-react';
 
 const { FormItem } = Form;
@@ -23,12 +24,12 @@ const INITIAL_DATA = {
   name: '',
   message: true,
   gender: '',
-  course: [],
+  course: [] as string[],
   college: '',
   personalProfile: '',
   address1: 1,
   address2: 2,
-  gradePoint: undefined,
+  gradePoint: 0,
   date: '',
   avatar: [{ url: 'https://tdesign.gtimg.com/site/avatar.jpg', name: 'avatar.jpg', status: 'success' }],
 };
@@ -48,7 +49,7 @@ const ADDRESS_OPTIONS = [
 export default function BaseForm() {
   const [formDisabled, setFormDisabled] = useState(true);
 
-  const onSubmit = ({ validateResult, firstError }) => {
+  const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
     if (validateResult === true) {
       MessagePlugin.success('提交成功');
     } else {
@@ -57,7 +58,7 @@ export default function BaseForm() {
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };
@@ -71,7 +72,11 @@ export default function BaseForm() {
   return (
     <Space direction="vertical">
       <div style={{ marginLeft: 36 }}>
-        <Radio.Group value={formDisabled} onChange={(value) => setFormDisabled(value)} variant="default-filled">
+        <Radio.Group
+          value={formDisabled}
+          onChange={(value: boolean) => setFormDisabled(value)}
+          variant="default-filled"
+        >
           <Radio.Button value={false}>启用</Radio.Button>
           <Radio.Button value={true}>禁用</Radio.Button>
         </Radio.Group>

@@ -28,15 +28,15 @@ export default function configDemo() {
       <Space direction="vertical">
         <DatePicker mode="date" firstDayOfWeek={7} />
 
-        <DateRangePicker mode="date" range />
+        <DateRangePicker mode="date" />
 
         <DatePicker mode="month" />
 
-        <DateRangePicker mode="month" range />
+        <DateRangePicker mode="month" />
 
         <DatePicker mode="year" />
 
-        <DateRangePicker mode="year" range />
+        <DateRangePicker mode="year" />
       </Space>
     </ConfigProvider>
   );

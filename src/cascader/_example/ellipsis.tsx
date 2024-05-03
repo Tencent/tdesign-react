@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, type CascaderProps, type CascaderValue } from 'tdesign-react';
 
 export default function Example() {
-  const [value1, setValue1] = useState('');
+  const [value1, setValue1] = useState<CascaderValue>('');
   const options = [
     {
       label: '当选项一数据展示文本过长时',
@@ -38,7 +38,7 @@ export default function Example() {
     },
   ];
 
-  const onChange1 = (value) => {
+  const onChange1: CascaderProps['onChange'] = (value) => {
     setValue1(value);
   };
 

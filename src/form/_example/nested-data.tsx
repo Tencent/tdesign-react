@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker } from 'tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker, type FormProps } from 'tdesign-react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem, FormList } = Form;
@@ -10,7 +10,7 @@ export default function BaseForm() {
   const user = Form.useWatch('user', form);
   console.log('user', user);
 
-  const onSubmit = (e) => {
+  const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
@@ -26,12 +26,12 @@ export default function BaseForm() {
     form.setFields?.([{ name: ['user', 'course'], value: ['la'] }]);
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };
 
-  const onValuesChange = (value) => {
+  const onValuesChange: FormProps['onValuesChange'] = (value) => {
     console.log(value);
   };
 

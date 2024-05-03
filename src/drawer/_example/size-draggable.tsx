@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Drawer, Radio, Button, Space } from 'tdesign-react';
 
+type Placement = 'right' | 'bottom' | 'left' | 'top';
+
 export default function () {
   const [visible, setVisible] = useState(false);
-  const [placement, setPlacement] = useState('right');
+  const [placement, setPlacement] = useState<Placement>('right');
 
   const handleClick = () => {
     setVisible(true);
@@ -13,7 +15,7 @@ export default function () {
   };
   return (
     <Space>
-      <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
+      <Radio.Group value={placement} onChange={(value: Placement) => setPlacement(value)}>
         <Radio.Button value="left">从左侧拖拽抽屉</Radio.Button>
         <Radio.Button value="right">从右侧拖拽抽屉</Radio.Button>
         <Radio.Button value="top">从上方拖拽抽屉</Radio.Button>

@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, MessagePlugin, type FormRules, type FormValidateMessage, type Data } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Button,
+  MessagePlugin,
+  type FormRules,
+  type FormValidateMessage,
+  type Data,
+  type FormProps,
+} from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -27,7 +36,7 @@ const rules: FormRules<Data> = {
 export default function BaseForm() {
   const [form] = Form.useForm();
 
-  const onSubmit = ({ validateResult, firstError }) => {
+  const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
     if (validateResult === true) {
       MessagePlugin.success('提交成功');
     } else {

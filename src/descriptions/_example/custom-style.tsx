@@ -2,11 +2,11 @@ import React from 'react';
 import { Descriptions } from 'tdesign-react';
 
 export default function CustomStyle() {
-  const customLabelClassName = {
+  const customLabelClassName: React.CSSProperties = {
     width: '100px',
     textAlign: 'left',
   };
-  const customContentClassName = {
+  const customContentClassName: React.CSSProperties = {
     textAlign: 'center',
   };
 

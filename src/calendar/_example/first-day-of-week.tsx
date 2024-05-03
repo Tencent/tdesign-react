@@ -24,7 +24,7 @@ export default function CalendarExample() {
             { label: '周六', value: 6 },
             { label: '周日', value: 7 },
           ]}
-          onChange={(value) => setFirstDayOfWeek(value)}
+          onChange={(value: number) => setFirstDayOfWeek(value)}
         />
       </Space>
       <Calendar firstDayOfWeek={firstDayOfWeek} />

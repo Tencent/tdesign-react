@@ -1,18 +1,18 @@
 import React from 'react';
-import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
+import { Form, Input, Button, MessagePlugin, type FormProps } from 'tdesign-react';
 import { DesktopIcon, LockOnIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const onSubmit = (e) => {
+  const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };

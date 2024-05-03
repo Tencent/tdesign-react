@@ -1,9 +1,9 @@
 import React from 'react';
-import { Calendar, Tag } from 'tdesign-react';
+import { Calendar, Tag, type CalendarCell } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 export default function CalendarExample() {
-  const getShow = (data) =>
+  const getShow = (data: CalendarCell) =>
     data.mode === 'month'
       ? dayjs().format('YYYY-MM-DD') === data.formattedDate
       : data.date.getMonth() === new Date().getMonth();

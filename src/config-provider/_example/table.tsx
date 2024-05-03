@@ -14,7 +14,7 @@ const columns = [
     colKey: 'platform',
     title: 'Platform',
     filter: {
-      type: 'single',
+      type: 'single' as const,
     },
   },
   {
@@ -22,7 +22,7 @@ const columns = [
     title: 'Property',
     sorter: true,
     filter: {
-      type: 'single',
+      type: 'single' as const,
     },
   },
 ];

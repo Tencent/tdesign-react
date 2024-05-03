@@ -29,7 +29,7 @@ const classStyles = `
 type ExpandControlType = 'custom' | 'true' | 'false';
 
 export default function TableExpandable() {
-  const getColumns: (isFixedColum: boolean) => TableProps['columns'] = (isFixedColumn) => [
+  const getColumns: (isFixedColumn: boolean) => TableProps['columns'] = (isFixedColumn) => [
     isFixedColumn
       ? { colKey: 'applicant', title: '申请人', width: '80', fixed: 'left' }
       : { colKey: 'applicant', title: '申请人', width: '80' },

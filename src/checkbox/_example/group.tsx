@@ -16,7 +16,7 @@ const options = [
   },
   {
     label: '全选',
-    checkAll: true,
+    checkAll: true as const,
   },
 ];
 

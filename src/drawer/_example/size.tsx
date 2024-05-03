@@ -13,7 +13,7 @@ export default function () {
   };
   return (
     <Space>
-      <Radio.Group value={size} onChange={(value) => setSize(value)}>
+      <Radio.Group value={size} onChange={(value: string) => setSize(value)}>
         <Radio.Button value="small">small(300px)</Radio.Button>
         <Radio.Button value="medium">medium(500px)</Radio.Button>
         <Radio.Button value="large">large(760px)</Radio.Button>
@@ -26,7 +26,7 @@ export default function () {
           打开抽屉
         </Button>
       </div>
-      <Drawer size={size} title="Drawer" placement="right" visible={visible} onClose={handleClose}>
+      <Drawer size={size} header="Drawer" placement="right" visible={visible} onClose={handleClose}>
         <p>抽屉的内容</p>
       </Drawer>
     </Space>

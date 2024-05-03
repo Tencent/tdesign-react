@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Affix, Button } from 'tdesign-react';
+import { Affix, Button, type AffixProps } from 'tdesign-react';
 
 export default function ContainerExample() {
   const [container, setContainer] = useState(null);
   const [affixed, setAffixed] = useState(false);
   const affixRef = useRef(null);
 
-  const handleFixedChange = (affixed, { top }) => {
+  const handleFixedChange: AffixProps['onFixedChange'] = (affixed, { top }) => {
     console.log('top', top);
     setAffixed(affixed);
   };

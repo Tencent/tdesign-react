@@ -31,7 +31,7 @@ export default function CheckboxExample() {
           value={max}
           max={3}
           min={1}
-          onChange={(value) => {
+          onChange={(value: number) => {
             setMax(value);
           }}
         />

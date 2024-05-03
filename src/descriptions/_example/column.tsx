@@ -26,7 +26,12 @@ export default function Column() {
   ];
   return (
     <Space direction="vertical">
-      <Radio.Group options={columnOptions} value={column} onChange={setColumn} variant="default-filled" />
+      <Radio.Group
+        options={columnOptions}
+        value={column}
+        onChange={(val: number) => setColumn(val)}
+        variant="default-filled"
+      />
       <Descriptions items={items} title="Shipping address" bordered column={column} />
     </Space>
   );

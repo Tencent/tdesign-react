@@ -1,23 +1,33 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, MessagePlugin, Loading } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Button,
+  MessagePlugin,
+  Loading,
+  type FormProps,
+  type FormRules,
+  type FormInstanceFunctions,
+  type Data,
+} from 'tdesign-react';
 import { AddRectangleIcon, HelpCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const onSubmit = (e) => {
+  const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };
 
-  const rules = {
+  const rules: FormRules<Data> = {
     fail: [{ required: true, message: '必填', type: 'error' }],
     warning: [{ required: true, message: '必填', type: 'warning' }],
     success: [],
@@ -25,7 +35,7 @@ export default function BaseForm() {
     warningB: [{ required: true, type: 'warning' }],
   };
 
-  const form = React.createRef();
+  const form = React.useRef<FormInstanceFunctions>();
   useEffect(() => {
     form.current.validate();
   }, [form]);

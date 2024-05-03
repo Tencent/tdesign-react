@@ -12,14 +12,14 @@ export default function AttachModalExample() {
     visibleShowInAttachedElement: false,
   });
 
-  const handleOpen = (visibleName) => {
+  const handleOpen = (visibleName: string) => {
     setState({
       ...state,
       [visibleName]: true,
     });
   };
 
-  const handleClose = (visibleName) => {
+  const handleClose = (visibleName: string) => {
     setState({
       ...state,
       [visibleName]: false,

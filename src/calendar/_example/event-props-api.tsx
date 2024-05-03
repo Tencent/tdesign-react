@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Switch, Calendar, List } from 'tdesign-react';
+import { Alert, Switch, Calendar, List, type CalendarProps, type CalendarCell } from 'tdesign-react';
 
 const { ListItem } = List;
 
@@ -7,7 +7,7 @@ export default function CalendarExample() {
   const [preventCellContextmenu, setPreventCellContextmenu] = React.useState(false);
   const [histories, setHistories] = React.useState([]);
 
-  const getDateStr = React.useCallback((calendarCell) => {
+  const getDateStr = React.useCallback((calendarCell: CalendarCell) => {
     const y = calendarCell.date.getFullYear();
     const m = calendarCell.date.getMonth() + 1;
     const d = calendarCell.date.getDate();
@@ -16,7 +16,7 @@ export default function CalendarExample() {
   }, []);
 
   const appendHistories = React.useCallback(
-    (content, data) => {
+    (content: string, data: CalendarCell) => {
       histories.unshift(`${content}`);
       setHistories([...histories]);
       console.info(data);
@@ -24,7 +24,7 @@ export default function CalendarExample() {
     [histories, setHistories],
   );
 
-  const onCellClick = React.useCallback(
+  const onCellClick = React.useCallback<CalendarProps['onCellClick']>(
     (cellEmitData) => {
       const output = getDateStr(cellEmitData.cell);
       appendHistories(`鼠标左键单击单元格 ${output}`, cellEmitData.cell);
@@ -32,7 +32,7 @@ export default function CalendarExample() {
     [getDateStr, appendHistories],
   );
 
-  const onCellDoubleClick = React.useCallback(
+  const onCellDoubleClick = React.useCallback<CalendarProps['onCellDoubleClick']>(
     (cellEmitData) => {
       const output = getDateStr(cellEmitData.cell);
       appendHistories(`鼠标双击单元格 ${output}`, cellEmitData.cell);
@@ -40,7 +40,7 @@ export default function CalendarExample() {
     [getDateStr, appendHistories],
   );
 
-  const onCellRightClick = React.useCallback(
+  const onCellRightClick = React.useCallback<CalendarProps['onCellRightClick']>(
     (cellEmitData) => {
       const output = getDateStr(cellEmitData.cell);
       appendHistories(`鼠标右键单击单元格 ${output}`, cellEmitData.cell);
@@ -48,7 +48,7 @@ export default function CalendarExample() {
     [getDateStr, appendHistories],
   );
 
-  const onControllerChange = React.useCallback(
+  const onControllerChange = React.useCallback<CalendarProps['onControllerChange']>(
     (data) => {
       appendHistories('控件值变化', data);
     },

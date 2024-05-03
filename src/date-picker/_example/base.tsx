@@ -1,12 +1,12 @@
 import React from 'react';
-import { DatePicker, Space } from 'tdesign-react';
+import { DatePicker, Space, type DatePickerProps } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  function handleChange(value, context) {
+  const handleChange: DatePickerProps['onChange'] = (value, context) => {
     console.log('onChange:', value, context);
     console.log('timestamp', context.dayjsValue.valueOf());
     console.log('YYYYMMDD', context.dayjsValue.format('YYYYMMDD'));
-  }
+  };
 
   return (
     <Space direction="vertical">

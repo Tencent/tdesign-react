@@ -1,8 +1,8 @@
 import React from 'react';
-import { Space, Cascader, Tag } from 'tdesign-react';
+import { Space, Cascader, Tag, type CascaderProps, type CascaderValue } from 'tdesign-react';
 
-const SingleValueDisplay = ({ value, selectedOptions }) =>
-  value && (
+const SingleValueDisplay: CascaderProps['valueDisplay'] = ({ value, selectedOptions }) =>
+  value ? (
     <div>
       <img
         src={selectedOptions?.[0]?.avatar}
@@ -15,12 +15,12 @@ const SingleValueDisplay = ({ value, selectedOptions }) =>
         }}
       />
       <span>{selectedOptions?.[0]?.label}</span>
-      <span>({value})</span>
+      <span>({value as string})</span>
     </div>
-  );
+  ) : null;
 
-const MultipleValueDisplay = ({ value, selectedOptions, onClose }) =>
-  value && value.length
+const MultipleValueDisplay: CascaderProps['valueDisplay'] = ({ selectedOptions, onClose }) =>
+  Array.isArray(selectedOptions) && selectedOptions.length
     ? selectedOptions.map((option, index) => (
         <Tag key={option.value} closable onClose={() => onClose(index)}>
           <img
@@ -40,8 +40,8 @@ const MultipleValueDisplay = ({ value, selectedOptions, onClose }) =>
     : null;
 
 export default function Example() {
-  const [value1, setValue1] = React.useState('2.2');
-  const [value2, setValue2] = React.useState(['1.3', '2.1', '2.2']);
+  const [value1, setValue1] = React.useState<CascaderValue>('2.2');
+  const [value2, setValue2] = React.useState<CascaderValue>(['1.3', '2.1', '2.2']);
 
   const AVATAR = 'https://tdesign.gtimg.com/site/avatar.jpg';
 
@@ -91,7 +91,7 @@ export default function Example() {
         value={value1}
         label="单选："
         options={optionsData}
-        valueDisplay={<SingleValueDisplay />}
+        valueDisplay={SingleValueDisplay}
         onChange={(val) => setValue1(val)}
         clearable
       ></Cascader>
@@ -100,7 +100,7 @@ export default function Example() {
         value={value2}
         label="多选："
         options={optionsData}
-        valueDisplay={<MultipleValueDisplay />}
+        valueDisplay={MultipleValueDisplay}
         onChange={(val) => setValue2(val)}
         clearable
         multiple

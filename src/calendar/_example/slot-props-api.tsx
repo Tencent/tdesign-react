@@ -1,19 +1,26 @@
 import React from 'react';
-import { Calendar, Space, Tag } from 'tdesign-react';
+import { Calendar, Space, Tag, type CalendarCell, type ControllerOptions } from 'tdesign-react';
 import dayjs from 'dayjs';
 
+type TagTheme = 'default' | 'danger' | 'warning' | 'success' | 'primary';
+
+interface DataList {
+  label: string;
+  value: TagTheme;
+}
+
 export default function CalendarExample() {
-  const displayNum = React.useCallback((date) => {
+  const displayNum = React.useCallback((date: CalendarCell) => {
     if (date.mode === 'month') {
       return date.date.getDate();
     }
     return date.date.getMonth() + 1;
   }, []);
 
-  const isShow = (data) =>
+  const isShow = (data: CalendarCell) =>
     data.mode === 'month' ? dayjs(data.formattedDate).date() === 15 : dayjs(data.formattedDate).month() === 7;
 
-  const dataList = [
+  const dataList: DataList[] = [
     {
       value: 'danger',
       label: '错误事件',
@@ -28,8 +35,8 @@ export default function CalendarExample() {
     },
   ];
 
-  const renderHead = (params) => {
-    let title = params.filterDate.getFullYear();
+  const renderHead = (params: ControllerOptions) => {
+    let title = `${params.filterDate.getFullYear()}`;
     if (params.mode === 'month') {
       title += `-${params.filterDate.getMonth() + 1}`;
     }

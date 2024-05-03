@@ -20,7 +20,7 @@ export default function OrderGrid() {
           xs={{ offset: 0, span: 3 }}
           sm={{ offset: 2, span: 3 }}
           md={{ offset: 4, span: 3 }}
-          g={{ offset: 6, span: 3 }}
+          lg={{ offset: 6, span: 3 }}
           xl={{ offset: 8, span: 3 }}
         >
           <div>Col</div>

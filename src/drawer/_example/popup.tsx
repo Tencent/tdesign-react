@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Drawer, Radio, Button, Space } from 'tdesign-react';
 
+type Mode = 'push' | 'overlay';
+
 export default function () {
   const [visible, setVisible] = useState(false);
-  const [mode, setMode] = useState('push');
+  const [mode, setMode] = useState<Mode>('push');
 
   const handleClick = () => {
     setVisible(true);
@@ -15,7 +17,7 @@ export default function () {
     <Space>
       <div>
         <span>抽屉弹出模式：</span>
-        <Radio.Group value={mode} onChange={(value) => setMode(value)}>
+        <Radio.Group value={mode} onChange={(value: Mode) => setMode(value)}>
           <Radio.Button value="push">push</Radio.Button>
           <Radio.Button value="overlay">overlay</Radio.Button>
         </Radio.Group>

@@ -3,7 +3,6 @@
   "include": ["./src", "./globals.d.ts"],
   "exclude": [
     "**/**/__tests__/*",
-    "**/**/_example/*",
     "**/**/_example-js/*",
     "**/**/_usage/*",
     "node_modules",

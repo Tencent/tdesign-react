@@ -1,25 +1,34 @@
 import React, { useRef } from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Radio,
+  Checkbox,
+  Button,
+  MessagePlugin,
+  type FormProps,
+  type CustomValidator,
+} from 'tdesign-react';
 import debounce from 'lodash/debounce';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
   const [form] = Form.useForm();
-  const onSubmit = (e) => {
+  const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };
 
-  function asyncValidate(val) {
-    return new Promise((resolve) => {
+  const asyncValidate: CustomValidator = (val) =>
+    new Promise((resolve) => {
       setTimeout(() => {
         if (val === '123') {
           resolve(true);
@@ -28,7 +37,6 @@ export default function BaseForm() {
         }
       }, 1000);
     });
-  }
 
   const handleChange = useRef(
     debounce((value) => {

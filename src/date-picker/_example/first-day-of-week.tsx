@@ -6,7 +6,7 @@ export default function YearDatePicker() {
 
   return (
     <Space direction="vertical">
-      <Radio.Group variant="default-filled" value={startWeek} onChange={(value) => setStartWeek(value)}>
+      <Radio.Group variant="default-filled" value={startWeek} onChange={(value: number) => setStartWeek(value)}>
         {[1, 2, 3, 4, 5, 6, 7].map((i) => (
           <Radio.Button key={i} value={i}>
             {i}

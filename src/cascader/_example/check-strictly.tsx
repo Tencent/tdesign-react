@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Cascader, Space } from 'tdesign-react';
+import { Cascader, Space, type CascaderProps, type CascaderValue } from 'tdesign-react';
 
 export default function Example() {
-  const [value1, setValue1] = useState('1.2.2');
-  const [value2, setValue2] = useState(['1.1.2.1', '2']);
+  const [value1, setValue1] = useState<CascaderValue>('1.2.2');
+  const [value2, setValue2] = useState<CascaderValue>(['1.1.2.1', '2']);
   const options = [
     {
       value: '1',
@@ -95,10 +95,10 @@ export default function Example() {
     },
   ];
 
-  const onChange1 = (value) => {
+  const onChange1: CascaderProps['onChange'] = (value) => {
     setValue1(value);
   };
-  const onChange2 = (value) => {
+  const onChange2: CascaderProps['onChange'] = (value) => {
     setValue2(value);
   };
 

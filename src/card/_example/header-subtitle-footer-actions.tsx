@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Row, Col, Button, Divider, Dropdown, MessagePlugin } from 'tdesign-react';
+import { Card, Row, Col, Button, Divider, Dropdown, MessagePlugin, type DropdownProps } from 'tdesign-react';
 import { ChatIcon, ShareIcon, ThumbUpIcon, Icon } from 'tdesign-icons-react';
 
 const options = [
@@ -13,7 +13,7 @@ const options = [
   },
 ];
 
-const clickHandler = (data) => {
+const clickHandler: DropdownProps['onClick'] = (data) => {
   MessagePlugin.success(`选中【${data.value}】`);
 };
 
@@ -34,19 +34,19 @@ export default function HeaderSubtitleFooterActionsCard() {
       style={{ width: '400px' }}
       footer={
         <Row align="middle" justify="center">
-          <Col flex="auto" align="middle">
+          <Col flex="auto">
             <Button variant="text">
               <ThumbUpIcon></ThumbUpIcon>
             </Button>
           </Col>
           <Divider layout="vertical"></Divider>
-          <Col flex="auto" align="middle">
+          <Col flex="auto">
             <Button variant="text">
               <ChatIcon></ChatIcon>
             </Button>
           </Col>
           <Divider layout="vertical"></Divider>
-          <Col flex="auto" align="middle">
+          <Col flex="auto">
             <Button variant="text">
               <ShareIcon></ShareIcon>
             </Button>

@@ -3,12 +3,14 @@ import { Form, Radio, Input, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
 
+type Layout = 'vertical' | 'inline';
+
 export default function LayoutForm() {
-  const [layout, setLayout] = useState('inline');
+  const [layout, setLayout] = useState<Layout>('inline');
   return (
     <Space direction="vertical">
       <div>
-        <Radio.Group value={layout} onChange={(value) => setLayout(value)} variant="default-filled">
+        <Radio.Group value={layout} onChange={(value: Layout) => setLayout(value)} variant="default-filled">
           <Radio.Button value="vertical">纵向布局</Radio.Button>
           <Radio.Button value="inline">行内布局</Radio.Button>
         </Radio.Group>

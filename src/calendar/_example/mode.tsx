@@ -1,8 +1,10 @@
 import React from 'react';
 import { Select, Calendar, Space } from 'tdesign-react';
 
+type Mode = 'year' | 'month';
+
 export default function CalendarExample() {
-  const [mode, setMode] = React.useState('year');
+  const [mode, setMode] = React.useState<Mode>('year');
 
   return (
     <div>
@@ -19,7 +21,7 @@ export default function CalendarExample() {
             { label: '月历', value: 'year' },
             { label: '日历', value: 'month' },
           ]}
-          onChange={(value) => setMode(value)}
+          onChange={(value: Mode) => setMode(value)}
         />
       </Space>
       <Calendar mode={mode} />

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
+import { Dropdown, Button, MessagePlugin, type DropdownProps } from 'tdesign-react';
 
 export default function BasicDropdown() {
   const options = Array.from({ length: 20 }).map((v, k) => ({
     content: `选项${k + 1}`,
     value: k + 1,
   }));
-  const clickHandler = (data) => {
+  const clickHandler: DropdownProps['onClick'] = (data) => {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (

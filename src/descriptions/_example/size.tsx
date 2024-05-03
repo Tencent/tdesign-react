@@ -1,8 +1,9 @@
 import React from 'react';
 import { Descriptions, Space, Radio } from 'tdesign-react';
 
+type SizeEnum = 'large' | 'medium' | 'small';
 export default function Size() {
-  const [size, setSize] = React.useState('medium');
+  const [size, setSize] = React.useState<SizeEnum>('medium');
 
   const sizeOptions = ['large', 'medium', 'small'];
   const items = [
@@ -25,7 +26,12 @@ export default function Size() {
   ];
   return (
     <Space direction="vertical">
-      <Radio.Group options={sizeOptions} value={size} onChange={setSize} variant="default-filled" />
+      <Radio.Group
+        options={sizeOptions}
+        value={size}
+        onChange={(val: SizeEnum) => setSize(val)}
+        variant="default-filled"
+      />
       <Descriptions items={items} title="Shipping address" bordered size={size} />
     </Space>
   );

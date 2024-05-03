@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Space, AutoComplete, Button } from 'tdesign-react';
+import { Space, AutoComplete, Button, type AutoCompleteProps } from 'tdesign-react';
 import { SearchIcon } from 'tdesign-icons-react';
 
 const classStyles = `
@@ -13,7 +13,7 @@ const classStyles = `
 </style>
 `;
 
-let timer = null;
+let timer: ReturnType<typeof setTimeout> = null;
 const AutoCompleteBase = () => {
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState('');
@@ -21,7 +21,7 @@ const AutoCompleteBase = () => {
   const [options2] = useState(['第一个默认联想词', '第二个默认联想词', '第三个默认联想词']);
 
   // 输入框内容发生变化时进行搜索，100ms 搜索一次
-  const onChange = (val) => {
+  const onChange: AutoCompleteProps['onChange'] = (val) => {
     setValue(val);
     clearTimeout(timer);
     timer = setTimeout(() => {

@@ -13,6 +13,7 @@ import {
   type IsDateOptions,
   type FormRules,
   type Data,
+  type FormProps,
 } from 'tdesign-react';
 
 const { FormItem } = Form;
@@ -78,7 +79,7 @@ export default function BaseForm() {
   const [form] = Form.useForm();
   const [errorConfig, setErrorConfig] = useState<RadioValue>('default');
 
-  const onSubmit = ({ validateResult, firstError }) => {
+  const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
     if (validateResult === true) {
       MessagePlugin.success('提交成功');
     } else {

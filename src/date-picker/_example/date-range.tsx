@@ -1,17 +1,23 @@
 import React from 'react';
-import { DateRangePicker, Space } from 'tdesign-react';
+import { DateRangePicker, Space, type DateRangePickerProps } from 'tdesign-react';
 
 export default function YearDatePicker() {
   // 选中日期时的事件
-  function onPick(value, context) {
+  const onPick: DateRangePickerProps['onPick'] = (value, context) => {
     console.log('onPick:', value, context);
-  }
+  };
 
-  function onChange(value, context) {
+  const onChange: DateRangePickerProps['onChange'] = (value, context) => {
     console.log('onChange:', value, context);
-    console.log('timestamp', context.dayjsValue.map(d => d.valueOf()));
-    console.log('YYYYMMDD', context.dayjsValue.map(d => d.format('YYYYMMDD')));
-  }
+    console.log(
+      'timestamp',
+      context.dayjsValue.map((d) => d.valueOf()),
+    );
+    console.log(
+      'YYYYMMDD',
+      context.dayjsValue.map((d) => d.format('YYYYMMDD')),
+    );
+  };
 
   return (
     <Space direction="vertical">

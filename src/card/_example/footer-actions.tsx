@@ -1,5 +1,16 @@
 import React from 'react';
-import { Card, Avatar, Row, Col, Button, Divider, Dropdown, MessagePlugin, Space } from 'tdesign-react';
+import {
+  Card,
+  Avatar,
+  Row,
+  Col,
+  Button,
+  Divider,
+  Dropdown,
+  MessagePlugin,
+  Space,
+  type TdDropdownProps,
+} from 'tdesign-react';
 import { UserIcon, ChatIcon, ShareIcon, ThumbUpIcon, HeartIcon, MoreIcon } from 'tdesign-icons-react';
 
 const { Group: AvatarGroup } = Avatar;
@@ -15,7 +26,7 @@ const options = [
   },
 ];
 
-const clickHandler = (data) => {
+const clickHandler: TdDropdownProps['onClick'] = (data) => {
   MessagePlugin.success(`选中【${data.value}】`);
 };
 
@@ -29,19 +40,19 @@ export default function FooterActionsCard() {
         style={{ width: '400px' }}
         footer={
           <Row align="middle" justify="center">
-            <Col flex="auto" align="middle">
+            <Col flex="auto">
               <Button variant="text" shape="square">
                 <ThumbUpIcon></ThumbUpIcon>
               </Button>
             </Col>
             <Divider layout="vertical"></Divider>
-            <Col flex="auto" align="middle">
+            <Col flex="auto">
               <Button variant="text" shape="square">
                 <ChatIcon></ChatIcon>
               </Button>
             </Col>
             <Divider layout="vertical"></Divider>
-            <Col flex="auto" align="middle">
+            <Col flex="auto">
               <Button variant="text" shape="square">
                 <ShareIcon></ShareIcon>
               </Button>
@@ -55,7 +66,7 @@ export default function FooterActionsCard() {
         cover="https://tdesign.gtimg.com/site/source/card-demo.png"
         style={{ width: '400px' }}
         actions={
-          <Col flex="auto" align="middle">
+          <Col flex="auto">
             <Dropdown options={options} onClick={clickHandler}>
               <Button variant="text" shape="square">
                 <MoreIcon></MoreIcon>
@@ -82,7 +93,7 @@ export default function FooterActionsCard() {
         cover="https://tdesign.gtimg.com/site/source/card-demo.png"
         style={{ width: '400px' }}
         actions={
-          <Col flex="auto" align="middle">
+          <Col flex="auto">
             <Dropdown options={options} onClick={clickHandler}>
               <Button variant="text" shape="square">
                 <MoreIcon></MoreIcon>

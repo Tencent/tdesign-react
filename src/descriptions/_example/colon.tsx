@@ -25,7 +25,7 @@ export default function Colon() {
   return (
     <Space direction="vertical">
       <Space align="center">
-        <Switch size="large" value={checked} onChange={setChecked} />
+        <Switch size="large" value={checked} onChange={(val) => setChecked(val)} />
         展示冒号
       </Space>
       <Descriptions items={items} title="Shipping address" bordered colon={checked} />

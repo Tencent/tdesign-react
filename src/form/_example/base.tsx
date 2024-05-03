@@ -1,5 +1,17 @@
 import React from 'react';
-import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker, Tooltip, Space } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Radio,
+  Checkbox,
+  Button,
+  Switch,
+  MessagePlugin,
+  DatePicker,
+  Tooltip,
+  Space,
+  type FormProps,
+} from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -11,14 +23,14 @@ export default function BaseForm() {
   console.log('name', name);
   console.log('gender', gender);
 
-  const onSubmit = (e) => {
+  const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };

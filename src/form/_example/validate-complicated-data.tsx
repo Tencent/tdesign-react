@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Tabs } from 'tdesign-react';
+import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Tabs, type FormProps } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -8,6 +8,12 @@ function getId() {
   id += 1;
   return id;
 }
+
+type InitialType<T> = {
+  [key in keyof T]: T[key];
+};
+
+type InitialData = InitialType<typeof INITIAL_DATA>;
 
 const INITIAL_DATA = {
   school: 1,
@@ -18,6 +24,7 @@ const INITIAL_DATA = {
       name: 'StudentA',
       courseType: 'wenke',
       course: ['1'],
+      status: true,
     },
     {
       id: getId(),
@@ -25,6 +32,7 @@ const INITIAL_DATA = {
       name: 'StudentB',
       courseType: 'wenke',
       course: [],
+      status: true,
     },
   ],
 };
@@ -54,14 +62,14 @@ const COURSE_OPTIONS = [
 
 export default function BaseForm() {
   const [studentTab, setStudentTab] = useState(1);
-  const [formData, setFormData] = useState(INITIAL_DATA);
+  const [formData, setFormData] = useState<InitialData>(INITIAL_DATA);
 
   const courseOptions = COURSE_OPTIONS.filter((item) => {
-    if (!formData.courseType || !item.courseTypes) return true;
-    return item.courseTypes.includes(formData.courseType);
+    if (!formData[0].courseType || !item.courseTypes) return true;
+    return item.courseTypes.includes(formData[0].courseType);
   });
 
-  const onSubmit = ({ validateResult, firstError }) => {
+  const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
     if (validateResult === true) {
       MessagePlugin.success('提交成功');
     } else {
@@ -106,7 +114,7 @@ export default function BaseForm() {
       </FormItem>
       <Tabs
         value={studentTab}
-        onChange={(v) => setStudentTab(v)}
+        onChange={(v: number) => setStudentTab(v)}
         theme="card"
         addable
         onAdd={onAddStudent}
@@ -128,8 +136,8 @@ export default function BaseForm() {
 
               <FormItem label="课程" name={`students[${index}].name`} label-width={80} initialData={student.course}>
                 <Checkbox.Group>
-                  {courseOptions.map(({ value, name, label }, index) => (
-                    <Checkbox key={index} value={value} name={name} label={label} />
+                  {courseOptions.map(({ value, label }, index) => (
+                    <Checkbox key={index} value={value} label={label} />
                   ))}
                 </Checkbox.Group>
               </FormItem>

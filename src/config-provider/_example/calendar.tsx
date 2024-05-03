@@ -25,7 +25,7 @@ export default function configDemo() {
       yearSelection: '{year}',
       // 1 表示周一；7 表示周日
       firstDayOfWeek: 7,
-      monthSelection: ({ month }) => MONTHS[month - 1],
+      monthSelection: ({ month }: { month: number }) => MONTHS[month - 1],
       yearRadio: 'Year',
       monthRadio: 'Month',
       hideWeekend: 'Hide Weekend',

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Descriptions, Space, Row, Col, Radio } from 'tdesign-react';
 
+type Layout = 'horizontal' | 'vertical';
+
 export default function Layout() {
-  const [layout, setLayout] = React.useState('horizontal');
-  const [itemLayout, setItemLayout] = React.useState('horizontal');
+  const [layout, setLayout] = React.useState<Layout>('horizontal');
+  const [itemLayout, setItemLayout] = React.useState<Layout>('horizontal');
 
   const items = [
     {
@@ -34,7 +36,12 @@ export default function Layout() {
           <span>layout：</span>
         </Col>
         <Col>
-          <Radio.Group variant="default-filled" value={layout} onChange={setLayout} options={layoutOptions} />
+          <Radio.Group
+            variant="default-filled"
+            value={layout}
+            onChange={(val: Layout) => setLayout(val)}
+            options={layoutOptions}
+          />
         </Col>
       </Row>
       <Row align="middle">
@@ -45,7 +52,7 @@ export default function Layout() {
           <Radio.Group
             variant="default-filled"
             value={itemLayout}
-            onChange={setItemLayout}
+            onChange={(val: 'horizontal' | 'vertical') => setItemLayout(val)}
             options={itemLayoutOptions}
           />
         </Col>

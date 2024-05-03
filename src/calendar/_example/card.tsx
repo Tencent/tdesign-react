@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Calendar, Select, Switch, Space } from 'tdesign-react';
 
+type Theme = 'card' | 'full';
+
 export default function CalendarExample() {
   const ref = React.useRef(null);
-  const [theme, setTheme] = React.useState('card');
+  const [theme, setTheme] = React.useState<Theme>('card');
   const [fillWithZero, setFillWithZero] = React.useState(false);
   const toCurrent = React.useCallback(() => {
     ref.current.toCurrent();
@@ -24,7 +26,7 @@ export default function CalendarExample() {
             { label: '卡片风格', value: 'card' },
             { label: '全屏风格', value: 'full' },
           ]}
-          onChange={(value) => setTheme(value)}
+          onChange={(value: Theme) => setTheme(value)}
         />
         <Button theme="primary" style={{ marginLeft: '12px' }} onClick={toCurrent}>
           回到今天

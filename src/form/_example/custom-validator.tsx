@@ -1,19 +1,29 @@
 import React from 'react';
-import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
+import {
+  Form,
+  Input,
+  Button,
+  MessagePlugin,
+  type FormProps,
+  type InternalFormInstance,
+  type CustomValidator,
+  type FormRules,
+  type Data,
+} from 'tdesign-react';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const form = React.createRef();
+  const form = React.useRef<InternalFormInstance>();
 
-  const onSubmit = (e) => {
+  const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
   };
 
-  const onReset = (e) => {
+  const onReset: FormProps['onReset'] = (e) => {
     console.log(e);
     MessagePlugin.info('重置成功');
   };
@@ -23,27 +33,26 @@ export default function BaseForm() {
   };
 
   // 自定义异步校验器
-  function rePassword(val) {
-    return new Promise((resolve) => {
+  const rePassword: CustomValidator = (val) =>
+    new Promise((resolve) => {
       const timer = setTimeout(() => {
         resolve(form.current.getFieldValue('password') === val);
         clearTimeout(timer);
       });
     });
-  }
 
   // 自定义异步校验器
-  function validateName(name) {
+  const validateName: CustomValidator = (name) => {
     const names = ['张三', '李四', '王五'];
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(!names.includes(name));
       }, 1000);
     });
-  }
+  };
 
   // 自定义校验器，不同的值输出不同的校验结果。支持异步校验（文案选自某密码重置站点，如有侵权，请联系我们删除）
-  function passwordValidator(val) {
+  const passwordValidator: CustomValidator = (val: any) => {
     if (!val || (val.length > 0 && val.length <= 2)) {
       return { result: false, message: '太简单了！再开动一下你的小脑筋吧！', type: 'error' };
     }
@@ -51,9 +60,9 @@ export default function BaseForm() {
       return { result: false, message: '还差一点点，就是一个完美的密码了！', type: 'warning' };
     }
     return { result: true, message: '太强了，你确定自己记得住吗！', type: 'success' };
-  }
+  };
 
-  const rules = {
+  const rules: FormRules<Data> = {
     account: [
       { required: true, message: '姓名必填', type: 'error' },
       { min: 2, message: '至少需要两个字', type: 'error' },

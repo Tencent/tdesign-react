@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Dialog, Button } from 'tdesign-react';
 
+type Placement = 'center' | 'top';
 export default function PositionExample() {
   const [visible, setVisible] = useState(false);
-  const [placement, setPlacement] = useState('center');
+  const [placement, setPlacement] = useState<Placement>('center');
   const [topData, setTopData] = useState('');
   const [visible1, setVisible1] = useState(false);
 
-  const handleClick = (placement) => {
+  const handleClick = (placement: Placement) => {
     setVisible(true);
     setPlacement(placement);
     setTopData('');

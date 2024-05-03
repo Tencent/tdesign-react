@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, type CascaderProps, type CascaderValue } from 'tdesign-react';
 
 export default function Example() {
-  const [value, setValue] = useState(['1.1']);
+  const [value, setValue] = useState<CascaderValue>(['1.1']);
   const options = [
     {
       label: '选项一',
@@ -38,7 +38,7 @@ export default function Example() {
     },
   ];
 
-  const onChange = (value) => {
+  const onChange: CascaderProps['onChange'] = (value) => {
     setValue(value);
   };
 

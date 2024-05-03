@@ -19,7 +19,7 @@ export default function NotModalExample() {
   const handleClose2 = () => {
     setVisible2(false);
   };
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
   return (
@@ -52,7 +52,7 @@ export default function NotModalExample() {
         visible={visible}
         onClose={handleClose}
         onCloseBtnClick={() => {
-          console.log('on click close btn')
+          console.log('on click close btn');
         }}
         onOpened={() => {
           console.log('dialog is open');

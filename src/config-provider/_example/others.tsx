@@ -13,6 +13,7 @@ import {
   Steps,
   Space,
   Image,
+  type ImageProps,
 } from 'tdesign-react';
 import { ChevronRightIcon, CloseIcon, CloseCircleIcon, ErrorIcon } from 'tdesign-icons-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
@@ -22,7 +23,7 @@ export default function configDemo() {
   const globalConfig = merge(enConfig, {
     image: {
       // 全局替换图片地址
-      replaceImageSrc(params) {
+      replaceImageSrc(params: ImageProps) {
         console.log(params);
         return 'https://tdesign.gtimg.com/demo/demo-image-1.png';
       },

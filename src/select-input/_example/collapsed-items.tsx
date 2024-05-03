@@ -122,7 +122,6 @@ export default function SelectInputCollapsedItems() {
   return (
     <Space direction="vertical" className="tdesign-demo__select-input-collapsed-items">
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
-      <h3>default:</h3>
       <SelectInput
         value={value}
         minCollapsedNum={1}
@@ -132,23 +131,11 @@ export default function SelectInputCollapsedItems() {
         multiple
         onTagChange={onTagChange}
       />
-
+      <br /> <br />
       {/* 使用 collapsedItems 自定义折叠标签 */}
-      <h3>use collapsedItems:</h3>
-      <Space align="center">
-        <div>size control:</div>
-        <RadioGroup value={size} options={['small', 'medium', 'large']} onChange={(value) => setSize(value)} />
-      </Space>
-      <Space align="center">
-        <span>disabled control:</span>
-        <Checkbox checked={disabled} onChange={(value) => setDisabled(value)} />
-      </Space>
-      <Space align="center">
-        <span>readonly control:</span>
-        <Checkbox checked={readonly} onChange={(value) => setReadOnly(value)} />
-      </Space>
       <SelectInput
         value={value}
+        minCollapsedNum={2}
         panel={CheckboxPanel}
         suffixIcon={<ChevronDownIcon key="suffixIcon" />}
         collapsedItems={handleCollapsedItems}
