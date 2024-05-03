@@ -1,7 +1,7 @@
 import React from 'react';
-import { IconFont } from 'tdesign-icons-react';
+import { IconFont, IconProps } from 'tdesign-icons-react';
 
-const CustomUrlIconFont = ({ name, size, style }) => (
+const CustomUrlIconFont = ({ name, size, style }: Partial<Pick<IconProps, 'name' | 'size' | 'style'>>) => (
   <IconFont name={name} size={size} style={style} url="https://tdesign.gtimg.com/icon/default-demo/index.css" />
 );
 
