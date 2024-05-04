@@ -207,7 +207,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const onInnerVirtualScroll = (e: WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
-    // 排除横向滚动出发的纵向虚拟滚动计算
+    // 排除横向滚动触发的纵向虚拟滚动计算
     if (lastScrollY !== top) {
       virtualConfig.isVirtualScroll && virtualConfig.handleScroll();
     } else {

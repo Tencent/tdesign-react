@@ -23,7 +23,7 @@ name | String | - | HTML 元素原生属性 | N
 readonly | Boolean | false | 只读状态 | N
 value | String / Number / Boolean | - | 多选框的值。TS 类型：`string \| number \| boolean` | N
 onChange | Function |  | TS 类型：`(checked: boolean, context: { e: ChangeEvent }) => void`<br/>值变化时触发 | N
-onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击时出发，一般用于外层阻止冒泡场景 | N
+onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击时触发，一般用于外层阻止冒泡场景 | N
 
 ### CheckboxGroup Props
 

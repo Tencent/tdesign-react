@@ -59,7 +59,7 @@ export interface TdCheckboxProps {
    */
   onChange?: (checked: boolean, context: { e: ChangeEvent<HTMLInputElement> }) => void;
   /**
-   * 点击时出发，一般用于外层阻止冒泡场景
+   * 点击时触发，一般用于外层阻止冒泡场景
    */
   onClick?: (context: { e: MouseEvent<HTMLLabelElement> }) => void;
 }
