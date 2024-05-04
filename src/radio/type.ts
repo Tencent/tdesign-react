@@ -49,7 +49,7 @@ export interface TdRadioProps<T = RadioValue> {
    */
   onChange?: (checked: boolean, context: { e: ChangeEvent<HTMLDivElement> }) => void;
   /**
-   * 点击时出发，一般用于外层阻止冒泡场景
+   * 点击触发，一般用于外层阻止冒泡场景
    */
   onClick?: (context: { e: MouseEvent<HTMLLabelElement> }) => void;
 }
