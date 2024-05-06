@@ -10,6 +10,7 @@ export const inputDefaultProps: TdInputProps = {
   autoWidth: false,
   autocomplete: undefined,
   autofocus: false,
+  borderless: false,
   clearable: false,
   placeholder: undefined,
   readonly: false,
