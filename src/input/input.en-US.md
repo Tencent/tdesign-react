@@ -12,6 +12,7 @@ allowInputOverMax | Boolean | false | \- | N
 autoWidth | Boolean | false | \- | N
 autocomplete | String | undefined | \- | N
 autofocus | Boolean | false | \- | N
+borderless | Boolean | false | input without border | N
 clearable | Boolean | false | \- | N
 disabled | Boolean | - | \- | N
 format | Function | - | Typescript：`InputFormatType` `type InputFormatType = (value: InputValue) => string`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/input/type.ts) | N
