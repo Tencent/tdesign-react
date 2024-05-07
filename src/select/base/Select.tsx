@@ -372,18 +372,6 @@ const Select = forwardRefWithStatics(
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
 
-    const renderCollapsedItems = useMemo(
-      () =>
-        collapsedItems
-          ? parseContentTNode(collapsedItems, {
-              value: selectedLabel,
-              collapsedSelectedItems: selectedLabel.slice(minCollapsedNum, selectedLabel.length),
-              count: selectedLabel.length - minCollapsedNum,
-            })
-          : null,
-      [selectedLabel, collapsedItems, minCollapsedNum],
-    );
-
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
       if (!content || isScrolling) {
@@ -462,7 +450,7 @@ const Select = forwardRefWithStatics(
             ...inputProps,
           }}
           minCollapsedNum={minCollapsedNum}
-          collapsedItems={renderCollapsedItems}
+          collapsedItems={collapsedItems}
           updateScrollTop={updateScrollTop}
           popupProps={{
             overlayClassName: [`${name}__dropdown`, overlayClassName],

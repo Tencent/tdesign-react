@@ -1,6 +1,9 @@
+import React from 'react';
 import { fireEvent, vi } from '@test/utils';
+import { render } from '@testing-library/react';
 import { TagInput } from '..';
 import { getTagInputValueMount } from './mount';
+import Collapsed from '../_example/collapsed';
 
 describe('TagInput Component', () => {
   const mockFn = vi.spyOn(HTMLSpanElement.prototype, 'getBoundingClientRect');
@@ -37,5 +40,11 @@ describe('TagInput Component', () => {
     // expect(onDragSort).toHaveBeenCalled(1);
     // expect(onDragSort.mock.calls[0][0].target).toEqual('Vue');
     // expect(container.querySelectorAll('.t-tag').item(0).firstChild.title).toEqual('React');
+  });
+
+  it('collapsedItems props', () => {
+    const { getByText } = render(<Collapsed />);
+
+    expect(getByText('More(4)')).toBeInTheDocument();
   });
 });
