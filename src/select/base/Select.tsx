@@ -120,9 +120,11 @@ const Select = forwardRefWithStatics(
 
     const selectedLabel = useMemo(() => {
       if (multiple) {
-        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
+        return selectedOptions.map(
+          (selectedOption) => get(selectedOption || {}, (keys?.label as string) || 'label') || '',
+        );
       }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
+      return get(selectedOptions[0] || {}, (keys?.label as string) || 'label') || undefined;
     }, [selectedOptions, keys, multiple]);
 
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
@@ -354,7 +356,7 @@ const Select = forwardRefWithStatics(
                   onRemove?.({
                     value: value[key],
                     data: { label: v, value: value[key] },
-                    e,
+                    e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
