@@ -11,7 +11,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
 import { PopupVisibleChangeContext } from '../popup';
-import { PlainObject, TNode, TElement, SizeEnum, InfinityScroll, KeysType } from '../common';
+import { PlainObject, TNode, TElement, SizeEnum, InfinityScroll } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
@@ -80,7 +80,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 用来定义 value / label / disabled 在 `options` 中对应的字段别名
    */
-  keys?: KeysType;
+  keys?: SelectKeysType;
   /**
    * 左侧文本
    */
@@ -315,8 +315,8 @@ export interface TdOptionGroupProps {
 }
 
 export interface SelectKeysType {
-  value?: string | ((option: SelectOption) => string);
-  label?: string | ((option: SelectOption) => string);
+  value?: string;
+  label?: string;
   disabled?: string;
 }
 
