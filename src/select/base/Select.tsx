@@ -120,11 +120,9 @@ const Select = forwardRefWithStatics(
 
     const selectedLabel = useMemo(() => {
       if (multiple) {
-        return selectedOptions.map(
-          (selectedOption) => get(selectedOption || {}, (keys?.label as string) || 'label') || '',
-        );
+        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
       }
-      return get(selectedOptions[0] || {}, (keys?.label as string) || 'label') || undefined;
+      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
     }, [selectedOptions, keys, multiple]);
 
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
