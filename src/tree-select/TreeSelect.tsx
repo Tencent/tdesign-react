@@ -65,6 +65,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     treeProps,
     inputProps,
     valueType,
+    collapsedItems,
     onBlur,
     onFocus,
     onSearch,
@@ -303,21 +304,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     );
   };
 
-  const renderCollapsedItems = useMemo(
-    () =>
-      props.collapsedItems
-        ? () =>
-            isFunction(props.collapsedItems)
-              ? props.collapsedItems({
-                  value: normalizedValue,
-                  collapsedSelectedItems: normalizedValue.slice(props.minCollapsedNum, normalizedValue.length),
-                  count: normalizedValue.length - props.minCollapsedNum,
-                })
-              : props.collapsedItems
-        : null,
-    [normalizedValue, props],
-  );
-
   return (
     <SelectInput
       status={props.status}
@@ -349,7 +335,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           <SelectArrow isActive={popupVisible} isHighlight={hover || popupVisible} disabled={disabled} />
         ))
       }
-      collapsedItems={renderCollapsedItems}
+      collapsedItems={collapsedItems}
       label={parseTNode(prefixIcon)}
       valueDisplay={internalInputValueDisplay}
     />
