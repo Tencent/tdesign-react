@@ -49,7 +49,12 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
       }
     >
       <div className={`${baseClassName}__trigger`} ref={triggerRef}>
-        <ColorTrigger disabled={disabled} inputProps={inputProps} value={innerValue} onChange={setInnerValue} />
+        <ColorTrigger
+          disabled={disabled}
+          inputProps={{ borderless: props.borderless, ...inputProps }}
+          value={innerValue}
+          onChange={setInnerValue}
+        />
       </div>
     </Popup>
   );

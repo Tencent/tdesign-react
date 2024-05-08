@@ -34,6 +34,7 @@ const TimePicker = forwardRefWithStatics(
     const TEXT_CONFIG = useTimePickerTextConfig();
     const {
       allowInput,
+      borderless,
       className,
       clearable,
       disabled,
@@ -112,6 +113,7 @@ const TimePicker = forwardRefWithStatics(
           clearable={clearable}
           allowInput={allowInput}
           className={inputClasses}
+          borderless={borderless}
           suffixIcon={<TimeIcon />}
           popupVisible={isPanelShowed}
           onInputChange={handleInputChange}

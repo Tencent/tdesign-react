@@ -6,6 +6,7 @@ import { TdTimePickerProps, TdTimeRangePickerProps } from './type';
 
 export const timePickerDefaultProps: TdTimePickerProps = {
   allowInput: false,
+  borderless: false,
   clearable: false,
   format: 'HH:mm:ss',
   hideDisabledTime: true,

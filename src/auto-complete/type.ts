@@ -16,6 +16,11 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
    */
   autofocus?: boolean;
   /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
+  /**
    * 触发显示联想词下拉框的元素，同 `triggerElement`
    */
   children?: TNode;
