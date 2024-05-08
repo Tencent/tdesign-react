@@ -129,7 +129,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
       [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
       [`${prefix}-is-empty`]: isEmpty,
-
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
     },
     props.className,
