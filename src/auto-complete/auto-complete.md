@@ -8,6 +8,7 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 autofocus | Boolean | - | 自动获取焦点 | N
+borderless | Boolean | false | 无边框模式 | N
 children | TNode | - | 触发显示联想词下拉框的元素，同 `triggerElement`。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 clearable | Boolean | - | 是否允许清空 | N
 disabled | Boolean | - | 是否禁用 | N

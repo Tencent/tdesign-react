@@ -8,6 +8,7 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 autofocus | Boolean | - | \- | N
+borderless | Boolean | false | \- | N
 children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 clearable | Boolean | - | \- | N
 disabled | Boolean | - | \- | N
