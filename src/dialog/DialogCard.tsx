@@ -63,6 +63,7 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
     onCloseBtnClick,
     cancelBtn = cancelText,
     confirmBtn = confirmText,
+    confirmLoading,
     ...otherProps
   } = useDefaultProps<DialogCardProps>(props, dialogCardDefaultProps);
 
@@ -120,6 +121,7 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
       });
       const renderConfirmBtn = renderDialogButton(confirmBtn, {
         theme: 'primary',
+        loading: confirmLoading,
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => onConfirm?.({ e }),
       });
 

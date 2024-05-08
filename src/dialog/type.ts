@@ -173,6 +173,7 @@ export interface TdDialogCardProps
     | 'onCancel'
     | 'onCloseBtnClick'
     | 'onConfirm'
+    | 'confirmLoading'
   > {}
 
 export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
@@ -201,6 +202,10 @@ export interface DialogInstance {
    * 隐藏弹框
    */
   hide: () => void;
+  /**
+   * 设置确认按钮加载状态
+   */
+  setConfirmLoading: (loading: boolean) => void;
   /**
    * 显示弹框
    */
