@@ -1,6 +1,8 @@
 import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
+import isNaN from 'lodash/isNaN';
+
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -75,14 +77,14 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
       return;
     }
 
-    let nextCurrent = _nextCurrent;
+    let nextCurrent = Math.trunc(_nextCurrent);
+    if (isNaN(nextCurrent)) return;
     let nextPageSize = _nextPageSize;
 
     if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
       nextPageSize =
         pageSize ?? (typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value);
     }
-
     // 边界处理
     if (nextCurrent < min) nextCurrent = min;
     if (nextCurrent > pageCount) nextCurrent = pageCount;
