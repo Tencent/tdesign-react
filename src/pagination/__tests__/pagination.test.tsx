@@ -9,7 +9,7 @@ describe('Pagination test', () => {
     expect(() => wrapper.unmount()).not.toThrow();
   });
 
-  test('click page', () => {
+  test('click page works fine', () => {
     const wrapper = render(<Pagination total={300} pageSize={15} />);
 
     fireEvent.click(wrapper.getByText('20'));
@@ -22,7 +22,7 @@ describe('Pagination test', () => {
     expect(document.querySelector('.t-is-current')).toHaveTextContent('19');
   });
 
-  test('pageSize', async () => {
+  test('pageSize works fine', async () => {
     const changeFn = vi.fn();
     const pageSizeChangeFn = vi.fn();
     const { getByText, container, getByDisplayValue } = render(
@@ -43,7 +43,7 @@ describe('Pagination test', () => {
     expect(container.querySelector('.t-pagination__pager').childNodes.length).toBe(5);
     expect(document.querySelector('.t-is-current')).toHaveTextContent('5');
   });
-  test('folded', () => {
+  test('folded works fine', () => {
     const changeFn = vi.fn();
     const pageSizeChangeFn = vi.fn();
     const { getByText, container } = render(
@@ -76,7 +76,7 @@ describe('Pagination test', () => {
     fireEvent.click(container.querySelector('.t-pagination__number--more'));
     expect(document.querySelector('.t-is-current')).toHaveTextContent('2');
   });
-  test('theme', () => {
+  test('theme works fine', () => {
     const changeFn = vi.fn();
     render(<Pagination total={100} defaultPageSize={5} theme="simple" onChange={changeFn} />);
 
@@ -84,7 +84,7 @@ describe('Pagination test', () => {
     fireEvent.keyDown(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
     expect(document.querySelector('.t-pagination__jump .t-input__inner').value).toEqual('5');
   });
-  test('totalContent', () => {
+  test('totalContent works fine', () => {
     const changeFn = vi.fn();
     const { getByText, rerender } = render(
       <Pagination total={100} defaultPageSize={5} totalContent="总条数" onChange={changeFn} />,
@@ -96,8 +96,7 @@ describe('Pagination test', () => {
     rerender(<Pagination total={100} defaultPageSize={5} totalContent={totalContentFn} onChange={changeFn} />);
     expect(totalContentFn).toBeCalled();
   });
-
-  test('jumper', () => {
+  test('jumper works fine', () => {
     render(<Pagination total={300} pageSize={15} showJumper />);
 
     fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5' } });
@@ -111,5 +110,14 @@ describe('Pagination test', () => {
     fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '-1' } });
     fireEvent.keyDown(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
     expect(document.querySelector('.t-is-current')).toHaveTextContent('1');
+  });
+  test('jump input number return integral part', () => {
+    // 测试输入小数会自动处理整数
+    const changeFn = vi.fn();
+    render(<Pagination total={100} defaultPageSize={20} theme="simple" onChange={changeFn} />);
+
+    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5.555' } });
+    fireEvent.keyDown(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
+    expect(document.querySelector('.t-pagination__jump .t-input__inner').value).toEqual('5');
   });
 });
