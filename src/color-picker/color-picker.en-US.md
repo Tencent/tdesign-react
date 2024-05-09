@@ -7,6 +7,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+borderless | Boolean | false | \- | N
 closeBtn | TNode | true | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 colorModes | Array | ()=> ['monochrome', 'linear-gradient'] | Typescript：`Array<'monochrome' \| 'linear-gradient'>` | N
 disabled | Boolean | - | \- | N

@@ -5,6 +5,7 @@
 import { TdColorPickerProps } from './type';
 
 export const colorPickerDefaultProps: TdColorPickerProps = {
+  borderless: false,
   closeBtn: true,
   colorModes: ['monochrome', 'linear-gradient'],
   enableAlpha: false,

@@ -8,6 +8,7 @@ name | type | default | description | required
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
+borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 disableTime | Function | - | disable time config function。Typescript：`(h: number, m: number, s: number, ms: number) => Partial<{ hour: Array<number>, minute: Array<number>, second: Array<number>, millisecond: Array<number>  }>` | N
 disabled | Boolean | false | \- | N

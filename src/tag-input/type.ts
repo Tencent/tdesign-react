@@ -16,6 +16,11 @@ export interface TdTagInputProps {
    */
   autoWidth?: boolean;
   /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
+  /**
    * 是否可清空
    * @default false
    */

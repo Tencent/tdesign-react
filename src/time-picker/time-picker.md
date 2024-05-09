@@ -8,6 +8,7 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许直接输入时间 | N
+borderless | Boolean | false | 无边框模式 | N
 clearable | Boolean | false | 是否允许清除选中值 | N
 disableTime | Function | - | 禁用时间项的配置函数。TS 类型：`(h: number, m: number, s: number, ms: number) => Partial<{ hour: Array<number>, minute: Array<number>, second: Array<number>, millisecond: Array<number>  }>` | N
 disabled | Boolean | false | 是否禁用组件 | N

@@ -97,6 +97,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       className={classNames(COMPONENT_NAME, props.className)}
       style={props.style}
       value={displayValue}
+      borderless={props.borderless}
       inputValue={visible ? inputVal : ''}
       popupVisible={visible}
       allowInput={isFilterable}
