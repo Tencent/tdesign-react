@@ -177,7 +177,7 @@ export default function SelectInputCollapsedItems() {
         suffixIcon={<ChevronDownIcon key="suffixIcon" />}
         minCollapsedNum={minCollapsedNum}
         collapsedItems={renderCollapsedItems}
-        tagInputProps={{ size }}
+        size={size}
         disabled={disabled}
         readonly={readonly}
         clearable
