@@ -14,11 +14,6 @@ import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, Compo
 
 export interface TdSelectInputProps {
   /**
-   * 组件尺寸
-   * @default medium
-   */
-  size?: SizeEnum;
-  /**
    * 是否允许输入
    * @default false
    */
@@ -122,6 +117,11 @@ export interface TdSelectInputProps {
    * @default false
    */
   reserveKeyword?: boolean;
+  /**
+   * 组件尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
   /**
    * 输入框状态
    * @default default
