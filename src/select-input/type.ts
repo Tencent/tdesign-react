@@ -9,7 +9,7 @@ import { PopupProps } from '../popup';
 import { TagInputProps, TagInputValue, TagInputChangeContext } from '../tag-input';
 import { TagProps } from '../tag';
 import { PopupVisibleChangeContext } from '../popup';
-import { TNode, TElement } from '../common';
+import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdSelectInputProps {
@@ -117,6 +117,11 @@ export interface TdSelectInputProps {
    * @default false
    */
   reserveKeyword?: boolean;
+  /**
+   * 组件尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
   /**
    * 输入框状态
    * @default default

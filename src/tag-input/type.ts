@@ -6,7 +6,7 @@
 
 import { InputProps } from '../input';
 import { TagProps } from '../tag';
-import { TNode, TElement } from '../common';
+import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdTagInputProps {
@@ -89,10 +89,10 @@ export interface TdTagInputProps {
    */
   readonly?: boolean;
   /**
-   * 尺寸
+   * 组件尺寸
    * @default medium
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: SizeEnum;
   /**
    * 输入框状态
    */
