@@ -37,14 +37,14 @@ export default function useRowSelect(
 
   const canSelectedRows = useMemo(() => {
     const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
-    return currentData.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+    return currentData?.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex)) || [];
     // eslint-disable-next-line
   }, [reserveSelectedRowOnPaginate, data, currentPaginateData]);
 
   // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
   const intersectionKeys = intersection(
     tSelectedRowKeys,
-    canSelectedRows.map((t) => get(t, rowKey || 'id')),
+    canSelectedRows?.map((t) => get(t, rowKey || 'id')),
   );
 
   useEffect(
