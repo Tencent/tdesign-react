@@ -92,7 +92,19 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     [props.keys],
   );
 
-  const { normalizeValue, formatValue, getNodeItem } = useTreeSelectUtils(props, treeRef);
+  const passThroughDefaultStore = useMemo<TreeSelectProps>(
+    () => ({
+      data,
+      treeProps: {
+        keys: tKeys,
+        ...treeProps,
+      },
+      valueType,
+    }),
+    [tKeys, data, treeProps, valueType],
+  );
+
+  const { normalizeValue, formatValue, getNodeItem } = useTreeSelectUtils(passThroughDefaultStore, treeRef);
 
   useImperativeHandle(ref, () => ({
     ...(selectInputRef.current || {}),
