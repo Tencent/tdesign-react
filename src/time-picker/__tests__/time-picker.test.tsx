@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
-import { fireEvent, render, waitFor, vi } from '@test/utils';
-import React from 'react';
+import { fireEvent, render, waitFor, vi, mockDelay } from '@test/utils';
+import React, { useState } from 'react';
 import TimePicker from '../index';
 
 // 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
@@ -129,10 +129,67 @@ describe('Timepicker 组件测试', () => {
       const panelItem1 = document.querySelectorAll('.t-time-picker__panel-body-scroll').item(0);
       fireEvent.click(panelItem1.querySelectorAll('.t-time-picker__panel-body-scroll-item').item(1));
 
-      expect(handlePick).toHaveBeenCalled(1);
+      expect(handlePick).toHaveBeenCalled();
       fireEvent.click(confirmBtn);
       // expect(container.querySelectorAll('input').item(0)).toHaveValue('01:00:00');
       // expect(handleChange).toHaveBeenCalled(1);
     });
+  });
+
+  test('TimePicker presets test', async () => {
+    const date = '20:00:00';
+    const { container, getByText } = render(
+      <TimePicker
+        value={date}
+        presets={{
+          此刻: '11:00:00',
+        }}
+        clearable
+      />,
+    );
+
+    fireEvent.click(document.querySelector('.t-input'));
+    await mockDelay();
+    fireEvent.click(getByText('此刻'));
+    fireEvent.click(getByText('确定'));
+
+    const inputs = container.querySelectorAll('input');
+    expect(inputs.item(0).value).toBe(date);
+  });
+
+  test('TimeRangePick presets test', async () => {
+    const date = ['11:00:00', '12:00:00'];
+    const defaultValue = ['00:00:01', '00:00:02'];
+
+    const RangePicker = () => {
+      const [value, setValue] = useState(defaultValue);
+      const onChange = (value) => {
+        setValue(value);
+      };
+
+      return (
+        <TimePicker.TimeRangePicker
+          value={value}
+          onChange={onChange}
+          allow-input
+          presets={{
+            此刻: ['11:00:00', '12:00:00'],
+          }}
+          format="HH:mm:ss"
+          clearable
+        />
+      );
+    };
+    const { getByText } = render(<RangePicker />);
+    fireEvent.click(document.querySelectorAll('input').item(0));
+    await mockDelay();
+    fireEvent.click(getByText('此刻'));
+    fireEvent.click(document.querySelectorAll('input').item(1));
+    await mockDelay();
+    fireEvent.click(getByText('此刻'));
+    fireEvent.click(getByText('确定'));
+    const inputs = document.querySelectorAll('input');
+    expect(inputs.item(0).value).toBe(date[0]);
+    expect(inputs.item(1).value).toBe(date[1]);
   });
 });
