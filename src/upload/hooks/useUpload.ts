@@ -28,6 +28,7 @@ export default function useUpload(props: TdUploadProps) {
   const xhrReq = useRef<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
   const [sizeOverLimitMessage, setSizeOverLimitMessage] = useState('');
+  const [update, forceUpdate] = useState({});
 
   const locale = useMemo(() => merge({}, globalLocale, props.locale), [globalLocale, props.locale]);
 
@@ -59,7 +60,7 @@ export default function useUpload(props: TdUploadProps) {
       isBatchUpload,
     });
     setDisplayFiles(files);
-  }, [props.multiple, toUploadFiles, uploadValue, autoUpload, isBatchUpload]);
+  }, [props.multiple, toUploadFiles, uploadValue, autoUpload, isBatchUpload, update]);
 
   const uploadFilePercent = (params: { file: UploadFile; percent: number }) => {
     const { file, percent } = params;
@@ -71,6 +72,11 @@ export default function useUpload(props: TdUploadProps) {
     } else {
       const index = uploadValue.findIndex((item) => file.raw === item.raw);
       uploadValue[index] = { ...uploadValue[index], percent };
+      /**
+       * 使用强制更新，修复手动自定义上传的percent无效
+       * https://github.com/Tencent/tdesign-react/issues/2893
+       */
+      forceUpdate({});
     }
   };
 
