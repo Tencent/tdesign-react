@@ -20,7 +20,6 @@ function UseOptions(
 
   // 处理设置 option 的逻辑
   useEffect(() => {
-    console.log(options, 'options');
     let transformedOptions = options;
 
     const arrayChildren = React.Children.toArray(children);
