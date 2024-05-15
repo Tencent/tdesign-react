@@ -37,7 +37,7 @@ export default function useRowSelect(
 
   const canSelectedRows = useMemo(() => {
     const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
-    return currentData.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+    return currentData?.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex)) || [];
     // eslint-disable-next-line
   }, [reserveSelectedRowOnPaginate, data, currentPaginateData]);
 
