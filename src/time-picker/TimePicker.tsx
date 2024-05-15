@@ -1,4 +1,4 @@
-import React, { useState, Ref, useCallback } from 'react';
+import React, { useState, Ref } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -66,13 +66,10 @@ const TimePicker = forwardRefWithStatics(
       [`${classPrefix}-is-focused`]: isPanelShowed,
     });
 
-    const effectVisibleCurrentValue = useCallback(
-      (visible: boolean) => {
-        setPanelShow(visible);
-        setCurrentValue(visible ? value ?? '' : '');
-      },
-      [setPanelShow, setCurrentValue, value],
-    );
+    const effectVisibleCurrentValue = (visible: boolean) => {
+      setPanelShow(visible);
+      setCurrentValue(visible ? value ?? '' : '');
+    };
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
       effectVisibleCurrentValue(visible);
