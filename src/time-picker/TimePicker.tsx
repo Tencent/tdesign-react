@@ -1,4 +1,4 @@
-import React, { useState, Ref, useEffect } from 'react';
+import React, { useState, Ref, useCallback } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -12,7 +12,7 @@ import noop from '../_util/noop';
 
 import SelectInput, { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
-import TimePickerPanel from './panel/TimePickerPanel';
+import TimePickerPanel, { TimePickerPanelProps } from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
@@ -49,6 +49,7 @@ const TimePicker = forwardRefWithStatics(
       onFocus = noop,
       onOpen = noop,
       onInput = noop,
+      onPick = noop,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -65,8 +66,16 @@ const TimePicker = forwardRefWithStatics(
       [`${classPrefix}-is-focused`]: isPanelShowed,
     });
 
+    const effectVisibleCurrentValue = useCallback(
+      (visible: boolean) => {
+        setPanelShow(visible);
+        setCurrentValue(visible ? value ?? '' : '');
+      },
+      [setPanelShow, setCurrentValue, value],
+    );
+
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
-      setPanelShow(visible);
+      effectVisibleCurrentValue(visible);
       visible ? onOpen(context) : onClose(context); // trigger on-open and on-close
     };
 
@@ -97,12 +106,13 @@ const TimePicker = forwardRefWithStatics(
     const handleClickConfirm = () => {
       const isValidTime = validateInputValue(currentValue, format);
       if (isValidTime) onChange(currentValue);
-      setPanelShow(false);
+      effectVisibleCurrentValue(false);
     };
 
-    useEffect(() => {
-      setCurrentValue(isPanelShowed ? value ?? '' : '');
-    }, [isPanelShowed, value]);
+    const handlePanelChange: TimePickerPanelProps['onChange'] = (v, ctx) => {
+      setCurrentValue(v);
+      onPick?.(v, ctx);
+    };
 
     return (
       <div className={classNames(name, className)} ref={ref} style={style}>
@@ -134,10 +144,11 @@ const TimePicker = forwardRefWithStatics(
               isFooterDisplay={true}
               isShowPanel={isPanelShowed}
               disableTime={disableTime}
-              onChange={setCurrentValue}
+              onChange={handlePanelChange}
               onPick={props.onPick}
               hideDisabledTime={hideDisabledTime}
               handleConfirmClick={handleClickConfirm}
+              presets={props.presets}
             />
           }
         />
