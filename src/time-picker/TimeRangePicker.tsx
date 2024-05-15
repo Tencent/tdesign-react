@@ -7,7 +7,8 @@ import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { RangeInputPopup, RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import { RangeInputPopup } from '../range-input';
+import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
 import TimePickerPanel from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';

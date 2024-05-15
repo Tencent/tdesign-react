@@ -7,8 +7,8 @@ import Button from '../../button';
 
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../_common/js/time-picker/const';
-import { TimePickerProps } from '../TimePicker';
-import { TimeRangePickerProps } from '../TimeRangePicker';
+import type { TimePickerProps } from '../TimePicker';
+import type { TimeRangePickerProps } from '../TimeRangePicker';
 import log from '../../_common/js/log';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
