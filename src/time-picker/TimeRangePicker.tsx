@@ -63,7 +63,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
     [`${classPrefix}-is-focused`]: isPanelShowed,
   });
 
-  const handleShowPopup: RangeInputPopupProps['onPopupVisibleChange'] = (visible: boolean, { trigger }) => {
+  const handleShowPopup: RangeInputPopupProps['onPopupVisibleChange'] = (visible, { trigger }) => {
     if (trigger === 'trigger-element-click') {
       setPanelShow(true);
       return;

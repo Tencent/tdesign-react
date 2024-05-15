@@ -12,7 +12,7 @@ import noop from '../_util/noop';
 
 import SelectInput, { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
-import TimePickerPanel, { TimePickerPanelProps } from './panel/TimePickerPanel';
+import TimePickerPanel, { type TimePickerPanelProps } from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
