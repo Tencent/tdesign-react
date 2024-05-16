@@ -1,5 +1,11 @@
 [
   {
+    "name": "borderless",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
     "name": "checkStrictly",
     "type": "Boolean",
     "defaultValue": false,

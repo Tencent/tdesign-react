@@ -11,6 +11,11 @@ import { TNode } from '../common';
 
 export interface TdColorPickerProps {
   /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
+  /**
    * 关闭按钮，值为 `true` 显示默认关闭按钮；值为 `false` 或 `undefined` 则不显示关闭按钮；值类型为函数，则表示自定义关闭按钮
    * @default true
    */

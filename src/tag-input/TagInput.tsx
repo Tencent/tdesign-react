@@ -27,6 +27,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   const {
     excessTagsDisplayType,
     autoWidth,
+    borderless,
     readonly,
     disabled,
     clearable,
@@ -116,7 +117,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   const displayNode = isFunction(valueDisplay)
     ? valueDisplay({
         value: tagValue,
-        onClose: (index, item) => onClose({ index, item }),
+        onClose: (index) => onClose({ index }),
       })
     : valueDisplay;
 
@@ -143,6 +144,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
       onWheel={onWheel}
       size={size}
+      borderless={borderless}
       readonly={readonly}
       disabled={disabled}
       label={renderLabel({ displayNode, label })}

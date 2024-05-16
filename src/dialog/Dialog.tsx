@@ -90,6 +90,9 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     hide() {
       setState({ visible: false });
     },
+    setConfirmLoading: (loading: boolean) => {
+      setState({ confirmLoading: loading });
+    },
     destroy() {
       setState({ visible: false, destroyOnClose: true });
     },

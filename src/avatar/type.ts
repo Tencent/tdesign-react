@@ -4,6 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { MouseEvent } from 'react';
 import { ImageProps } from '../image';
 import { PopupProps } from '../popup';
 import { TNode, TElement, ImageEvent } from '../common';
@@ -54,6 +55,18 @@ export interface TdAvatarProps {
    * 图片加载失败时触发
    */
   onError?: (context: { e: ImageEvent<HTMLImageElement> }) => void;
+  /**
+   * 点击时触发
+   */
+  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 鼠标移入时触发
+   */
+  onHover?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 右键点击时触发
+   */
+  onContextmenu?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
 export interface TdAvatarGroupProps {

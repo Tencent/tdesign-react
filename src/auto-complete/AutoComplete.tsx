@@ -127,6 +127,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
       disabled={props.disabled}
       clearable={props.clearable}
       autofocus={props.autofocus}
+      borderless={props.borderless}
       onClear={props.onClear}
       onChange={onInputChange}
       onFocus={onInnerFocus}

@@ -5,9 +5,8 @@
  * */
 
 import { InputProps } from '../input';
-import { InputValue } from '../input';
 import { TagProps } from '../tag';
-import { TNode, TElement } from '../common';
+import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdTagInputProps {
@@ -17,14 +16,24 @@ export interface TdTagInputProps {
    */
   autoWidth?: boolean;
   /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
+  /**
    * 是否可清空
    * @default false
    */
   clearable?: boolean;
   /**
-   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedTags` 表示折叠的标签，`count` 表示折叠的数量
+   * 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedSelectedItems` 表示折叠的标签，`count` 表示折叠的数量，`onClose` 表示移除标签的事件回调
    */
-  collapsedItems?: TNode<{ value: TagInputValue; collapsedTags: TagInputValue; count: number }>;
+  collapsedItems?: TNode<{
+    value: TagInputValue;
+    collapsedSelectedItems: TagInputValue;
+    count: number;
+    onClose: (context: { index: number; e?: MouseEvent }) => void;
+  }>;
   /**
    * 是否禁用标签输入框
    */
@@ -47,12 +56,12 @@ export interface TdTagInputProps {
    * 输入框的值
    * @default ''
    */
-  inputValue?: InputValue;
+  inputValue?: string;
   /**
    * 输入框的值，非受控属性
    * @default ''
    */
-  defaultInputValue?: InputValue;
+  defaultInputValue?: string;
   /**
    * 左侧文本
    */
@@ -71,15 +80,19 @@ export interface TdTagInputProps {
    */
   placeholder?: string;
   /**
+   * 组件前置图标
+   */
+  prefixIcon?: TElement;
+  /**
    * 只读状态，值为真会隐藏标签移除按钮和输入框
    * @default false
    */
   readonly?: boolean;
   /**
-   * 尺寸
+   * 组件尺寸
    * @default medium
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: SizeEnum;
   /**
    * 输入框状态
    */
@@ -121,7 +134,7 @@ export interface TdTagInputProps {
   /**
    * 失去焦点时触发
    */
-  onBlur?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLInputElement> }) => void;
+  onBlur?: (value: TagInputValue, context: { inputValue: string; e: FocusEvent<HTMLInputElement> }) => void;
   /**
    * 值变化时触发，参数 `context.trigger` 表示数据变化的触发来源；`context.index` 指当前变化项的下标；`context.item` 指当前变化项；`context.e` 表示事件参数
    */
@@ -141,15 +154,15 @@ export interface TdTagInputProps {
   /**
    * 按键按下 Enter 时触发
    */
-  onEnter?: (value: TagInputValue, context: { e: KeyboardEvent<HTMLDivElement>; inputValue: InputValue }) => void;
+  onEnter?: (value: TagInputValue, context: { e: KeyboardEvent<HTMLDivElement>; inputValue: string }) => void;
   /**
    * 聚焦时触发
    */
-  onFocus?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLInputElement> }) => void;
+  onFocus?: (value: TagInputValue, context: { inputValue: string; e: FocusEvent<HTMLInputElement> }) => void;
   /**
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、回车键触发等
    */
-  onInputChange?: (value: InputValue, context?: InputValueChangeContext) => void;
+  onInputChange?: (value: string, context?: InputValueChangeContext) => void;
   /**
    * 进入输入框时触发
    */

@@ -6,6 +6,7 @@ import { TdDatePickerProps, TdDateRangePickerProps, TdDatePickerPanelProps, TdDa
 
 export const datePickerDefaultProps: TdDatePickerProps = {
   allowInput: false,
+  borderless: false,
   clearable: false,
   defaultTime: '00:00:00',
   enableTimePicker: false,

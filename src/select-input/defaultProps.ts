@@ -14,5 +14,6 @@ export const selectInputDefaultProps: TdSelectInputProps = {
   minCollapsedNum: 0,
   multiple: false,
   readonly: false,
+  reserveKeyword: false,
   status: 'default',
 };
