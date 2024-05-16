@@ -19,7 +19,7 @@ size | String | - | 尺寸，示例值：small/medium/large/24px/38px 等。优�
 onError | Function |  | TS 类型：`(context: { e: ImageEvent }) => void`<br/>图片加载失败时触发 | N
 onClick | Function |  | TS 类型：`(context: { e: React.MouseEvent }) => void`<br/>点击事件 | N
 onHover | Function |  | TS 类型：`(context: { e: React.MouseEvent }) => void`<br/>鼠标悬浮事件 | N
-onRightClick | Function |  | TS 类型：`(context: { e: React.MouseEvent }) => void`<br/>右键点击事件 | N
+onContextMenu | Function |  | TS 类型：`(context: { e: React.MouseEvent }) => void`<br/>右键点击事件 | N
 
 ### AvatarGroup Props
 
