@@ -23,7 +23,7 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
       const allFieldsValue = form.getFieldsValue?.(true);
       const newValue = get(allFieldsValue, name);
       const nextValueStr = JSON.stringify(newValue);
-      console.log('first', valueStrRef.current !== nextValueStr);
+
       // Compare stringify in case it's nest object
       if (valueStrRef.current !== nextValueStr) {
         valueStrRef.current = nextValueStr;
