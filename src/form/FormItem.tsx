@@ -456,7 +456,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     filterRules.length && validate('change');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValue]);
+  }, [formValue, name]);
 
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
