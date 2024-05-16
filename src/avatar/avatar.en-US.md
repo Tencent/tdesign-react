@@ -19,7 +19,7 @@ size | String | - | size | N
 onError | Function |  | Typescript：`(context: { e: ImageEvent }) => void`<br/>trigger on image load failed | N
 onClick | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>click event | N
 onHover | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>hover event | N
-onContextMenu | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>right click event | N
+onContextmenu | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>right click event | N
 
 ### AvatarGroup Props
 

@@ -29,7 +29,7 @@ const Avatar = forwardRefWithStatics(
       onError,
       onClick,
       onHover,
-      onContextMenu,
+      onContextmenu,
       children,
       content,
       style,
@@ -122,7 +122,7 @@ const Avatar = forwardRefWithStatics(
         {...avatarProps}
         onClick={(e) => onClick?.({ e })}
         onMouseEnter={(e) => onHover?.({ e })}
-        onContextMenu={(e) => onContextMenu?.({ e })}
+        onContextMenu={(e) => onContextmenu?.({ e })}
       >
         {renderChildren}
       </div>

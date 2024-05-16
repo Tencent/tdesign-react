@@ -66,7 +66,7 @@ export interface TdAvatarProps {
   /**
    * 鼠标右键点击事件
    */
-  onContextMenu?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
+  onContextmenu?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
 }
 
 export interface TdAvatarGroupProps {
