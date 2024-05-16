@@ -12,6 +12,7 @@ export default function useClassName() {
         body: `${classPrefix}-table__body`,
         overflowVisible: `${classPrefix}-table--overflow-visible`,
         content: `${classPrefix}-table__content`,
+        row: `${classPrefix}-table__row`,
         topContent: `${classPrefix}-table__top-content`,
         bottomContent: `${classPrefix}-table__bottom-content`,
         paginationWrap: `${classPrefix}-table__pagination-wrap`,
@@ -77,6 +78,8 @@ export default function useClassName() {
         bottom: `${classPrefix}-table__row--fixed-bottom`,
         firstBottom: `${classPrefix}-table__row--fixed-bottom-first`,
         withoutBorderBottom: `${classPrefix}-table__row--without-border-bottom`,
+        even: `${classPrefix}-table__row__even`,
+        odd: `${classPrefix}-table__row__odd`,
       },
 
       tableColFixedClasses: {

@@ -63,7 +63,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
           class="t-table__body"
         >
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -80,7 +80,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             />
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -99,7 +99,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -118,7 +118,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -137,7 +137,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -263,7 +263,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
           class="t-table__body"
         >
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -280,7 +280,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             />
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -299,7 +299,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -318,7 +318,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -337,7 +337,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -463,7 +463,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
           class="t-table__body"
         >
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -480,7 +480,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             />
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -499,7 +499,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -518,7 +518,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -537,7 +537,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -663,7 +663,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
           class="t-table__body"
         >
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -680,7 +680,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             />
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -699,7 +699,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -718,7 +718,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -737,7 +737,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -857,7 +857,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
           class="t-table__body"
         >
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -874,7 +874,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             />
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -893,7 +893,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -912,7 +912,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -931,7 +931,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -1057,7 +1057,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
           class="t-table__body"
         >
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -1074,7 +1074,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             />
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -1093,7 +1093,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -1112,7 +1112,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__even t-table__row"
           >
             <td
               class="table-test-column-index"
@@ -1131,7 +1131,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
             </td>
           </tr>
           <tr
-            class=""
+            class="t-table__row__odd t-table__row"
           >
             <td
               class="table-test-column-index"

@@ -46,12 +46,23 @@ export function getRowFixedStyles(
   rowAndColFixedPosition: RowAndColFixedPosition,
   tableRowFixedClasses: TableRowFixedClasses,
 ): { style: Styles; classes: ClassName } {
-  if (!fixedRows || !fixedRows.length) return { style: undefined, classes: undefined };
+  const defaultClasses = {
+    [tableRowFixedClasses.even]: (rowIndex + 1) % 2 === 0,
+    [tableRowFixedClasses.odd]: (rowIndex + 1) % 2 === 1,
+  };
+
+  if (!fixedRows || !fixedRows.length)
+    return {
+      style: undefined,
+      classes: defaultClasses,
+    };
+
   const fixedTop = rowIndex < fixedRows[0];
   const fixedBottom = rowIndex > rowLength - 1 - fixedRows[1];
   const firstFixedBottomRow = rowLength - fixedRows[1];
   const fixedPos = rowAndColFixedPosition?.get(rowId) || {};
   const rowClasses = {
+    ...defaultClasses,
     [tableRowFixedClasses.top]: fixedTop,
     [tableRowFixedClasses.bottom]: fixedBottom,
     [tableRowFixedClasses.firstBottom]: rowIndex === firstFixedBottomRow,
