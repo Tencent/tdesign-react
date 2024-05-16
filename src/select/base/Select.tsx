@@ -116,6 +116,7 @@ const Select = forwardRefWithStatics(
       children,
       valueType,
       value,
+      reserveKeyword,
     );
 
     const selectedLabel = useMemo(() => {
@@ -222,7 +223,6 @@ const Select = forwardRefWithStatics(
       if (filterable && isFunction(onSearch)) {
         return;
       }
-
       if (!value) {
         setCurrentOptions(tmpPropOptions);
         return;
@@ -275,7 +275,7 @@ const Select = forwardRefWithStatics(
         handleFilter(String(inputValue));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue]);
+    }, [inputValue, tmpPropOptions]);
 
     // 渲染后置图标
     const renderSuffixIcon = () => {

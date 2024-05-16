@@ -11,6 +11,7 @@ function UseOptions(
   children: ReactNode,
   valueType: 'object' | 'value',
   value: SelectValue<SelectOption>,
+  reserveKeyword: boolean,
 ) {
   const [valueToOption, setValueToOption] = useState({});
   const [currentOptions, setCurrentOptions] = useState([]);
@@ -22,9 +23,9 @@ function UseOptions(
     let transformedOptions = options;
 
     const arrayChildren = React.Children.toArray(children);
-    const isChildrenFilterable =
-      arrayChildren.length > 0 &&
-      arrayChildren.filter((v: ReactElement) => v.type === Option).length === arrayChildren.length;
+    const optionChildren = arrayChildren.filter((v: ReactElement) => v.type === Option);
+    const isChildrenFilterable = arrayChildren.length > 0 && optionChildren.length === arrayChildren.length;
+    if (reserveKeyword && currentOptions.length && isChildrenFilterable) return;
 
     if (isChildrenFilterable) {
       transformedOptions = arrayChildren?.map<SelectOption>((v) => {
@@ -49,7 +50,8 @@ function UseOptions(
     setTmpPropOptions(transformedOptions);
 
     setValueToOption(getValueToOption(children as ReactElement, options as any, keys) || {});
-  }, [options, keys, children]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options, keys, children, reserveKeyword]);
 
   // 同步 value 对应的 options
   useEffect(() => {
