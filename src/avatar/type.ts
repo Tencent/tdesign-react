@@ -58,15 +58,15 @@ export interface TdAvatarProps {
   /**
    * 点击时触发
    */
-  onClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
+  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 鼠标移入时触发
    */
-  onHover?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
+  onHover?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 右键点击时触发
    */
-  onContextmenu?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
+  onContextmenu?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
 export interface TdAvatarGroupProps {
