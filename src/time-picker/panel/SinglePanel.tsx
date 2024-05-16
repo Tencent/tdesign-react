@@ -80,7 +80,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const maskRef = useRef(null);
 
   const dayjsValue = useMemo(() => {
-    const isStepsSet = !!steps.filter((v) => v > 1).length;
+    const isStepsSet = !!steps.filter((v) => Number(v) > 1).length;
 
     if (value) return dayjs(value, format);
 
@@ -292,7 +292,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const updateTimeScrollPos = useCallback(
     (isAutoScroll = false) => {
       const behavior = value && !isAutoScroll ? 'smooth' : 'auto';
-      const isStepsSet = !!steps.filter((v) => v > 1).length;
+      const isStepsSet = !!steps.filter((v) => Number(v) > 1).length;
 
       cols.forEach((col: EPickerCols, idx: number) => {
         if (!isStepsSet || (isStepsSet && value)) {
