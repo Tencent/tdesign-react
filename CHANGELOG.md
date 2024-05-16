@@ -5,6 +5,34 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.7.1 `2024-05-16` 
+### 🚀 Features
+- `Input`: 新增`borderless` 无边框模式输入框 @uyarn ([#2878](https://github.com/Tencent/tdesign-react/pull/2878))
+- `AutoComplete`、`ColorPicker`、`DatePicker`、`TagInput`、`TimePicker`: 新增`borderless` API @uyarn ([#2884](https://github.com/Tencent/tdesign-react/pull/2884))
+- `Scroll`: 调整对应 `Chrome 121` 升级的滚动条样式的兼容方式，不再依赖 `autoprefixer` 的版本 @loopZhou @uyarn ([#2878](https://github.com/Tencent/tdesign-react/pull/2878)，[#2890](https://github.com/Tencent/tdesign-react/pull/2890))
+- `Dialog`: 支持confirm按钮的加载状态，同时作为plugin支持调用setConfirmLoading方法 @ZWkang ([#2883](https://github.com/Tencent/tdesign-react/pull/2883))
+- `SelectInput`: `SelectInput` 支持 `size` 属性 @HaixingOoO ([#2894](https://github.com/Tencent/tdesign-react/pull/2894))
+- `TimePicker`: 新增支持`onPick` 和 `presets` API @ZWkang ([#2902](https://github.com/Tencent/tdesign-react/pull/2902))
+- `avatar`: 添加更多鼠标事件 @NWYLZW ([#2906](https://github.com/Tencent/tdesign-react/pull/2906))
+### 🐞 Bug Fixes
+- `Typography`: 删除多余的`defaultProps` @HaixingOoO ([#2866](https://github.com/Tencent/tdesign-react/pull/2866))
+- `Slider`: 修复 `sliderRef.current` 可能为空的问题 @ZWkang ([#2868](https://github.com/Tencent/tdesign-react/pull/2868))
+- `TagInput`: 修复没有透传`tagProps`到折叠选项的问题 @uyarn ([#2869](https://github.com/Tencent/tdesign-react/pull/2869))
+- `TagInput`: 扩展 `collapsedItems` 的删除功能 @HaixingOoO ([#2881](https://github.com/Tencent/tdesign-react/pull/2881))
+- `Pagination`: 修复当前页输入小数后没有自动调整的问题 @uyarn ([#2886](https://github.com/Tencent/tdesign-react/pull/2886))
+- `Table`: 修复`1.5.0`版本后部分场景下使用固定列导致异常的问题 @uyarn ([#2889](https://github.com/Tencent/tdesign-react/pull/2889))
+- `Menu`: 修复使用`dist`样式因为样式优先级问题导致子菜单位置偏移的问题 @uyarn ([#2890](https://github.com/Tencent/tdesign-react/pull/2890))
+- `Menu`: 提升 `t-popup__menu` 的样式优先级，解决dist内样式优先级一致导致样式异常的问题 @uyarn ([#2905](https://github.com/Tencent/tdesign-react/pull/2905))
+- `TreeSelect`: 修复需要通过 `treeProps` 设置 `keys` 属性才生效的问题 @ZWkang ([#2896](https://github.com/Tencent/tdesign-react/pull/2896))
+- `Table`: 修复卸载表格时数据为空导致报错的异常 @duxphp ([#2900](https://github.com/Tencent/tdesign-react/pull/2900))
+- `Upload`: 修复手动修改上传进度的问题 @HaixingOoO ([#2901](https://github.com/Tencent/tdesign-react/pull/2901))
+- `Upload`: 修复图片上传错误类型下的样式异常的问题 @uyarn ([#2905](https://github.com/Tencent/tdesign-react/pull/2905))
+- `Select`: 修复`creatable`功能异常问题 @uyarn ([#2903](https://github.com/Tencent/tdesign-react/pull/2903))
+- `Select`: 修复`reserveKeyword`配合`Option Children`用法的异常问题 @uyarn ([#2903](https://github.com/Tencent/tdesign-react/pull/2903))
+- `Select`: 优化已选样式覆盖已禁用样式的问题 @fython @uyarn ([#2905](https://github.com/Tencent/tdesign-react/pull/2905))
+- `Form`: 修复`FormItem`未触发监听`FormList`的`useWatch`的问题 @HaixingOoO ([#2904](https://github.com/Tencent/tdesign-react/pull/2904))
+- `ColorPicker`: 修复切换预览颜色时，通道按钮位置不变的问题 @fennghuang ([#2880](https://github.com/Tencent/tdesign-react/pull/2880))
+
 ## 🌈 1.7.0 `2024-04-25` 
 ### 🚀 Features
 - `Typography`: 新增 `Typography` 排版组件 @insekkei ([#2821](https://github.com/Tencent/tdesign-react/pull/2821))
