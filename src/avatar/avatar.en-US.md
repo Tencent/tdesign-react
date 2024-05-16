@@ -17,9 +17,9 @@ imageProps | Object | - | Typescript：`ImageProps`，[Image API Documents](./im
 shape | String | circle | shape。options：circle/round。Typescript：`ShapeEnum ` `type ShapeEnum = 'circle' \| 'round'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/avatar/type.ts) | N
 size | String | - | size | N
 onError | Function |  | Typescript：`(context: { e: ImageEvent }) => void`<br/>trigger on image load failed | N
-onClick | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>click event | N
-onHover | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>hover event | N
-onContextmenu | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>right click event | N
+onClick | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>trigger on click | N
+onHover | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>trigger on hover | N
+onContextmenu | Function |  | Typescript：`(context: { e: React.MouseEvent }) => void`<br/>trigger on right click | N
 
 ### AvatarGroup Props
 
