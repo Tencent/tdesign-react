@@ -116,6 +116,7 @@ const Select = forwardRefWithStatics(
       children,
       valueType,
       value,
+      reserveKeyword,
     );
 
     const selectedLabel = useMemo(() => {
@@ -222,7 +223,6 @@ const Select = forwardRefWithStatics(
       if (filterable && isFunction(onSearch)) {
         return;
       }
-
       if (!value) {
         setCurrentOptions(tmpPropOptions);
         return;
@@ -275,7 +275,7 @@ const Select = forwardRefWithStatics(
         handleFilter(String(inputValue));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue]);
+    }, [inputValue, tmpPropOptions]);
 
     // 渲染后置图标
     const renderSuffixIcon = () => {
@@ -354,7 +354,7 @@ const Select = forwardRefWithStatics(
                   onRemove?.({
                     value: value[key],
                     data: { label: v, value: value[key] },
-                    e,
+                    e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
@@ -371,18 +371,6 @@ const Select = forwardRefWithStatics(
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
-
-    const renderCollapsedItems = useMemo(
-      () =>
-        collapsedItems
-          ? parseContentTNode(collapsedItems, {
-              value: selectedLabel,
-              collapsedSelectedItems: selectedLabel.slice(minCollapsedNum, selectedLabel.length),
-              count: selectedLabel.length - minCollapsedNum,
-            })
-          : null,
-      [selectedLabel, collapsedItems, minCollapsedNum],
-    );
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
@@ -462,7 +450,7 @@ const Select = forwardRefWithStatics(
             ...inputProps,
           }}
           minCollapsedNum={minCollapsedNum}
-          collapsedItems={renderCollapsedItems}
+          collapsedItems={collapsedItems}
           updateScrollTop={updateScrollTop}
           popupProps={{
             overlayClassName: [`${name}__dropdown`, overlayClassName],

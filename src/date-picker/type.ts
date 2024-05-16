@@ -19,6 +19,11 @@ export interface TdDatePickerProps {
    */
   allowInput?: boolean;
   /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
+  /**
    * 是否显示清除按钮
    * @default false
    */

@@ -231,6 +231,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         value={inputValue}
         status={props.status}
         tips={props.tips}
+        borderless={props.borderless}
         popupProps={popupProps}
         inputProps={inputProps}
         popupVisible={popupVisible}

@@ -56,6 +56,7 @@ const Input = forwardRefWithStatics(
     const {
       type,
       autoWidth,
+      borderless,
       placeholder = t(local.placeholder),
       disabled,
       status,
@@ -248,6 +249,7 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-is-${tStatus}`]: tStatus && tStatus !== 'default',
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
+          [`${classPrefix}-input--borderless`]: borderless,
           [`${classPrefix}-input--focused`]: isFocused,
         })}
         onMouseEnter={handleMouseEnter}
