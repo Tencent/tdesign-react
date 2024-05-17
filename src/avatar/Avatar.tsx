@@ -119,10 +119,10 @@ const Avatar = forwardRefWithStatics(
         ref={composeRefs(ref, avatarRef) as any}
         className={avatarClass}
         style={{ ...numSizeStyle, ...style }}
-        {...avatarProps}
         onClick={(e) => onClick?.({ e })}
         onMouseEnter={(e) => onHover?.({ e })}
         onContextMenu={(e) => onContextmenu?.({ e })}
+        {...avatarProps}
       >
         {renderChildren}
       </div>
