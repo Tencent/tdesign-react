@@ -5,8 +5,10 @@ toc: false
 spline: explain
 ---
 
-## 🌈 1.7.2 `2024-05-17`
+## 🌈 1.7.3 `2024-05-18` 
 ### 🐞 Bug Fixes
+- `Menu`: 修复二级及以下 `SubMenu`没有处理classname的缺陷 @uyarn ([#2911](https://github.com/Tencent/tdesign-react/pull/2911))
+- `Upload`: 修复手动上传的bug @HaixingOoO ([#2912](https://github.com/Tencent/tdesign-react/pull/2912))
 - `Avatar`: 修复配合Popup使用浮层不展示的异常 @uyarn
 
 ## 🌈 1.7.1 `2024-05-16`
