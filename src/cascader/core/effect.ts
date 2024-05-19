@@ -175,12 +175,13 @@ export const treeNodesEffect = (
   treeStore: CascaderContextType['treeStore'],
   setTreeNodes: CascaderContextType['setTreeNodes'],
   filter: CascaderContextType['filter'],
+  checkStrictly: CascaderContextType['checkStrictly'],
 ) => {
   if (!treeStore) return;
   let nodes = [];
   if (inputVal) {
     const filterMethods = (node: TreeNode) => {
-      if (!node.isLeaf()) return;
+      if (!checkStrictly && !node.isLeaf()) return;
       if (isFunction(filter)) {
         return filter(`${inputVal}`, node as TreeNodeModel & TreeNode);
       }

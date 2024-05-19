@@ -33,7 +33,7 @@ export function getNodeStatusClass(
   STATUS: Record<string, string>,
   cascaderContext: CascaderContextType,
 ) {
-  const { checkStrictly, multiple, value, max } = cascaderContext;
+  const { checkStrictly, multiple, value, max, inputVal } = cascaderContext;
   const expandedActive =
     (!checkStrictly && node.expanded && (multiple ? !node.isLeaf() : true)) || (checkStrictly && node.expanded);
 
@@ -46,7 +46,7 @@ export function getNodeStatusClass(
   return [
     {
       [STATUS.selected]: !isDisabled && isSelected,
-      [STATUS.expanded]: !isDisabled && expandedActive,
+      [STATUS.expanded]: !isDisabled && !inputVal && expandedActive,
       [STATUS.disabled]: isDisabled,
     },
   ];
