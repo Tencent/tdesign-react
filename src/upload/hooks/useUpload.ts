@@ -272,12 +272,13 @@ export default function useUpload(props: TdUploadProps) {
       setUploading(false);
       if (status === 'success') {
         // 全部上传成功后，一次性添加（非自动上传已在上一步添加）
-        if (props.autoUpload) {
-          setUploadValue([...data.files], {
-            trigger: 'add',
-            file: data.files[0],
-          });
-        }
+        /**
+         * 手动上传或自动上传都应触发setUploadValue
+         */
+        setUploadValue([...data.files], {
+          trigger: 'add',
+          file: data.files[0],
+        });
         props.onSuccess?.({
           fileList: data.files,
           currentFiles: files,

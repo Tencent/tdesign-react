@@ -138,7 +138,8 @@ const Item = forwardRef(
         }}
       >
         {multiple ? RenderCheckBox(node, cascaderContext) : RenderLabelContent(node, cascaderContext)}
-        {node.children &&
+        {!cascaderContext.inputVal &&
+          node.children &&
           (node.loading ? (
             <TLoading className={iconClass} loading={true} size="small" />
           ) : (
