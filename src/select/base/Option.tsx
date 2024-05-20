@@ -60,6 +60,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   } = props;
 
   let selected: boolean;
+  let indeterminate: boolean;
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
 
@@ -98,6 +99,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     });
     if (props.checkAll) {
       selected = selectedValue.length === props.optionLength;
+      indeterminate = selectedValue.length > 0 && !selected;
     }
   }
 
@@ -115,6 +117,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       return (
         <label
           className={classNames(`${classPrefix}-checkbox`, {
+            [`${classPrefix}-is-indeterminate`]: indeterminate,
             [`${classPrefix}-is-disabled`]: disabled,
             [`${classPrefix}-is-checked`]: selected,
           })}
