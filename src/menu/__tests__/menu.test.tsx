@@ -94,13 +94,17 @@ describe('Menu 组件测试', () => {
         </SubMenu>
         <SubMenu value="sub-1" title="菜单2">
           <MenuItem value="3">子菜单3</MenuItem>
-          <MenuItem value="4">子菜单4</MenuItem>
+          <MenuItem value="4" className="menu-item-class">
+            子菜单4
+          </MenuItem>
         </SubMenu>
       </HeadMenu>,
     );
     expect(container.querySelector('.t-menu--dark')).toBeInTheDocument();
     expect(queryByText('我是operations')).toBeInTheDocument();
     expect(queryByText('菜单1')).toBeInTheDocument();
+
+    expect(container.querySelector('.t-tabs__nav-item.menu-item-class')).toBeInTheDocument();
 
     const element1 = await waitFor(() => container.querySelector('t-head-menu__submenu'));
     expect(element1).toBeNull();
