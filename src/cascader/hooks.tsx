@@ -95,7 +95,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
         onLoad: () => {
           setTimeout(() => {
             store.refreshNodes();
-            treeNodesEffect(inputVal, store, setTreeNodes, props.filter);
+            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, checkStrictly);
           });
         },
       });
@@ -105,7 +105,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       treeStore.reload(options);
       treeStore.refreshNodes();
       treeStoreExpendEffect(treeStore, scopeVal, []);
-      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
@@ -152,8 +152,8 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     if (!treeStore) return;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter);
-  }, [inputVal, treeStore, props.filter]);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
+  }, [inputVal, treeStore, props.filter, checkStrictly]);
 
   useEffect(() => {
     if (!treeStore) return;
@@ -168,7 +168,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputVal, scopeVal]);
 

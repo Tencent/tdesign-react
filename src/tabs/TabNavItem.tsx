@@ -3,14 +3,16 @@ import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import useRipple from '../_util/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
-import type { DragSortInnerProps } from '../_util/useDragSorter';
 
-import { TdTabPanelProps, TdTabsProps } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 
-export interface TabNavItemProps extends TdTabPanelProps {
+import type { StyledProps } from '../common';
+import type { DragSortInnerProps } from '../_util/useDragSorter';
+import type { TdTabPanelProps, TdTabsProps } from './type';
+
+export interface TabNavItemProps extends TdTabPanelProps, StyledProps {
   // 当前 item 是否处于激活态
   isActive: boolean;
   // 点击事件
@@ -52,7 +54,6 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
   // 斜八度动画
   const [navItemDom, setRefCurrent] = useDomRefCallback();
   useRipple(navItemDom);
-
   return (
     <div
       {...dragProps}
@@ -65,6 +66,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
         isActive ? tdClassGenerator('is-active') : '',
         tdClassGenerator(`is-${placement}`),
         disabled ? tdClassGenerator('is-disabled') : '',
+        props.className,
       )}
     >
       {/* 根据新的 dom 结构和样式进行改动，卡片类型情况下不需要 nav-item-wrapper 这个 div */}
