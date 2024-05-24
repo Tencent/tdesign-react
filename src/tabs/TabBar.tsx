@@ -1,7 +1,7 @@
 import React, { useEffect, useState, CSSProperties, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
-import useMutationObserver from '../_util/useMutationObserver';
+import useMutationObserver from '../hooks/useMutationObserver';
 
 interface TabBarProps {
   tabPosition: string;

@@ -14,7 +14,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
-import useRipple from '../_util/useRipple';
+import useRipple from '../hooks/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import TreeNode from '../_common/js/tree-v1/tree-node';

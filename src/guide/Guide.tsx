@@ -12,7 +12,7 @@ import setStyle from '../_common/js/utils/set-style';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useIsomorphicLayoutEffect from '../_util/useLayoutEffect';
+import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 
 export type GuideProps = TdGuideProps;
 

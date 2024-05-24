@@ -4,7 +4,7 @@ import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 import parseTNode from '../_util/parseTNode';

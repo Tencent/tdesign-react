@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import type { DebounceSettingsLeading } from 'lodash';
 import { useCallback, useEffect } from 'react';
-import { usePersistFn } from '../_util/usePersistFn';
+import { usePersistFn } from './usePersistFn';
 
 const useDebounce = <T extends (...args: any) => any>(func: T, delay: number, options?: DebounceSettingsLeading) => {
   const callback = usePersistFn(func);

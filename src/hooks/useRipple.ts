@@ -1,8 +1,8 @@
 import { useEffect, useCallback, useMemo } from 'react';
-import useConfig from '../hooks/useConfig';
+import useConfig from './useConfig';
 import useAnimation from './useAnimation';
-import setStyle from './setStyle';
-import { canUseDocument } from './dom';
+import setStyle from '../_util/setStyle';
+import { canUseDocument } from '../_util/dom';
 
 const period = 200;
 const noneRippleBg = 'rgba(0, 0, 0, 0)';
