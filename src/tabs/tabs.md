@@ -20,6 +20,8 @@ defaultValue | String / Number | - | 激活的选项卡值。非受控属性。T
 onAdd | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>添加选项卡时触发 | N
 onChange | Function |  | TS 类型：`(value: TabValue) => void`<br/>激活的选项卡发生变化时触发 | N
 onDragSort | Function |  | TS 类型：`(context: TabsDragSortContext) => void`<br/>拖拽排序时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tabs/type.ts)。<br/>`interface TabsDragSortContext { currentIndex: number; current: TabValue; targetIndex: number; target: TabValue }`<br/> | N
+onDragStart | Function |  | TS 类型：`(context: TabsDragSortContext) => void`<br/>拖拽排序开始时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tabs/type.ts)。<br/>`interface TabsDragSortContext { currentIndex: number; current: TabValue; targetIndex: number; target: TabValue }`<br/> | N
+onDragEnd | Function |  | TS 类型：`(context: TabsDragSortContext) => void`<br/>拖拽排序结束时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tabs/type.ts)。<br/>`interface TabsDragSortContext { currentIndex: number; current: TabValue; targetIndex: number; target: TabValue }`<br/> | N
 onRemove | Function |  | TS 类型：`(options: { value: TabValue; index: number; e: MouseEvent }) => void`<br/>删除选项卡时触发 | N
 
 ### TabPanel Props

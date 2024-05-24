@@ -208,11 +208,7 @@ npm run init
 
 # 运行全部单元测试用例(包括所有example的ssr测试)
 npm run test
-# 运行全部单元测试用例
-npm run test:unit
-# 运行指定组件单元测试用例，xxx表示组件目录名称, 多个组件用空格分开
-# eg: npm run test:unit button affix
-npm run test:unit xxx
+# 目前项目测试框架以采用 vitest， 如想单个测试，请下载对应的 vitest vscode插件，进行可视化操作
 
 # 运行全部e2e测试用例
 npm run test:e2e

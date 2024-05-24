@@ -41,6 +41,8 @@ const Tabs = forwardRefWithStatics(
         x: true,
         targetClassNameRegExp: new RegExp(targetClassNameRegExpStr),
       },
+      onCustomDragStart: props?.onDragStart,
+      onCustomDragEnd: props?.onDragEnd,
     });
 
     const memoChildren = React.useMemo<React.ReactNode | React.ReactNode[]>(() => {
