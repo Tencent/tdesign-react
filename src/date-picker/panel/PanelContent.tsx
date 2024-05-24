@@ -67,7 +67,7 @@ export default function PanelContent(props: PanelContentProps) {
       onMonthChange?.(val, { partial });
     },
     // eslint-disable-next-line
-    [partial],
+    [partial, onMonthChange],
   );
 
   const onYearChangeInner = useCallback(
@@ -75,7 +75,7 @@ export default function PanelContent(props: PanelContentProps) {
       onYearChange?.(val, { partial });
     },
     // eslint-disable-next-line
-    [partial],
+    [partial, onYearChange],
   );
 
   const onJumperClickInner = useCallback(
