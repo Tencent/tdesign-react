@@ -7,7 +7,7 @@ import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
 import { StyledProps } from '../common';
 import { tabsDefaultProps } from './defaultProps';
-import useDragSorter from '../_util/useDragSorter';
+import useDragSorter from '../hooks/useDragSorter';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TabsProps extends TdTabsProps, StyledProps {

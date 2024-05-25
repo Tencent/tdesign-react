@@ -6,7 +6,7 @@ import { PaginationProps } from '../../pagination';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
-import useLatest from '../../_util/useLatest';
+import useLatest from '../../hooks/useLatest';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
