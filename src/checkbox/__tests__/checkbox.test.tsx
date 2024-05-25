@@ -76,6 +76,7 @@ describe('CheckboxGroup', () => {
           { value: '广州', label: '广州', disabled: true },
           { value: '北京', label: '北京', name: '北京' },
           1,
+          0,
           '重庆',
           { label: '全选', checkAll: true },
         ]}
@@ -83,6 +84,9 @@ describe('CheckboxGroup', () => {
     );
     fireEvent.click(container.firstChild.lastChild);
     expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+    const options = container.firstChild.childNodes;
+    // 0 is rendered as string '0'
+    expect(options.item(4).textContent).toBe('0');
   });
 
   test('value is string', () => {
