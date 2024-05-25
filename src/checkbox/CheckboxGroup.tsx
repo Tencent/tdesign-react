@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import useConfig from '../hooks/useConfig';
@@ -64,12 +64,13 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
 
-  const checkedSet = useMemo(() => {
+  const getCheckedSet = useCallback(() => {
     if (!Array.isArray(internalValue)) {
       return new Set<ItemType>([]);
     }
     return new Set<ItemType>([].concat(internalValue));
   }, [internalValue]);
+  const checkedSet = useMemo(() => getCheckedSet(), [getCheckedSet]);
 
   // 用于决定全选状态的属性
   const indeterminate = useMemo(() => {
@@ -118,6 +119,7 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
             checkProps.onChange(checked, { e });
           }
 
+          const checkedSet = getCheckedSet();
           // 全选时的逻辑处理
           if (checkProps.checkAll) {
             checkedSet.clear();
