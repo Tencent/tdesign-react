@@ -152,21 +152,17 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
       <CheckContext.Provider value={context}>
         {useOptions
           ? options.map((v: any, index) => {
-              const type = typeof v;
-              switch (type) {
-                case 'string': {
-                  const vs = v as string;
+              switch (typeof v) {
+                case 'string':
                   return (
-                    <Checkbox key={index} label={vs} value={vs}>
+                    <Checkbox key={index} label={v} value={v}>
                       {v}
                     </Checkbox>
                   );
-                }
                 case 'number': {
-                  const vs = v as number;
                   return (
-                    <Checkbox key={index} label={vs} value={vs}>
-                      {v}
+                    <Checkbox key={index} label={v} value={v}>
+                      {String(v)}
                     </Checkbox>
                   );
                 }
