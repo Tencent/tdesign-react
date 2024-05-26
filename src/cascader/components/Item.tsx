@@ -9,7 +9,7 @@ import Checkbox from '../../checkbox';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
-import useCommonClassName from '../../_util/useCommonClassName';
+import useCommonClassName from '../../hooks/useCommonClassName';
 
 import { getFullPathLabel } from '../core/helper';
 import { getCascaderItemClass, getCascaderItemIconClass } from '../core/className';

@@ -13,7 +13,7 @@ import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
 import tabBase from '../_common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import type { DragSortInnerProps } from '../_util/useDragSorter';
+import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import parseTNode from '../_util/parseTNode';
 
 const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =

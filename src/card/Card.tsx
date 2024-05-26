@@ -4,7 +4,7 @@ import { TdCardProps } from './type';
 import Loading from '../loading';
 import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import { cardDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 

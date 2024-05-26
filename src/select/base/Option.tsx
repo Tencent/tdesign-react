@@ -6,7 +6,7 @@ import get from 'lodash/get';
 
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
-import useRipple from '../../_util/useRipple';
+import useRipple from '../../hooks/useRipple';
 import { StyledProps } from '../../common';
 import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType, SelectOption } from '../type';
 

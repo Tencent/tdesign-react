@@ -5,7 +5,7 @@ import { InputValue } from '../input';
 import Tag from '../tag';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { DragSortInnerProps } from '../_util/useDragSorter';
+import { DragSortInnerProps } from '../hooks/useDragSorter';
 
 export type ChangeParams = [TagInputChangeContext];
 
