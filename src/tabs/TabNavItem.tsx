@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
-import useRipple from '../_util/useRipple';
+import useRipple from '../hooks/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 
 import noop from '../_util/noop';
@@ -9,7 +9,7 @@ import { useTabClass } from './useTabClass';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 
 import type { StyledProps } from '../common';
-import type { DragSortInnerProps } from '../_util/useDragSorter';
+import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import type { TdTabPanelProps, TdTabsProps } from './type';
 
 export interface TabNavItemProps extends TdTabPanelProps, StyledProps {

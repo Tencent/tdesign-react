@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '../../const';
-import useDrag, { Coordinate } from '../../../_util/useDrag';
+import useDrag, { Coordinate } from '../../../hooks/useDrag';
 import { TdColorBaseProps } from '../../interface';
 import useStyles from '../../hooks/useStyles';
 
