@@ -5,6 +5,7 @@ import { TimePickerPanel } from '../../time-picker';
 import type { SinglePanelProps } from './SinglePanel';
 import type { RangePanelProps } from './RangePanel';
 import useConfig from '../../hooks/useConfig';
+import useEventCallback from '../../hooks/useEventCallback';
 import { getDefaultFormat } from '../../_common/js/date-picker/format';
 
 export interface PanelContentProps {
@@ -47,8 +48,6 @@ export default function PanelContent(props: PanelContentProps) {
     partial = 'start',
     time,
     tableData,
-    onMonthChange,
-    onYearChange,
     onJumperClick,
     onCellClick,
     onCellMouseEnter,
@@ -56,6 +55,9 @@ export default function PanelContent(props: PanelContentProps) {
     onTimePickerChange,
   } = props;
 
+  const onMonthChange = useEventCallback(props.onMonthChange);
+  const onYearChange = useEventCallback(props.onYearChange);
+  
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
   const showTimePicker = enableTimePicker && mode === 'date';
@@ -66,16 +68,14 @@ export default function PanelContent(props: PanelContentProps) {
     (val: number) => {
       onMonthChange?.(val, { partial });
     },
-    // eslint-disable-next-line
-    [partial],
+    [partial, onMonthChange],
   );
 
   const onYearChangeInner = useCallback(
     (val: number) => {
       onYearChange?.(val, { partial });
     },
-    // eslint-disable-next-line
-    [partial],
+    [partial, onYearChange],
   );
 
   const onJumperClickInner = useCallback(
