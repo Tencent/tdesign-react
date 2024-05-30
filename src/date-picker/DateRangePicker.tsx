@@ -314,12 +314,51 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     if (enableTimePicker) partialIndex = activeIndex;
 
     const nextYear = [...year];
+    const nextMonth = [...month];
     nextYear[partialIndex] = nextVal;
+    // 年/季度/月份场景下，头部只有年选择器
+    const onlyYearSelect = ['year', 'quarter', 'month'].includes(mode);
     // 保证左侧时间不大于右侧
-    if (partialIndex === 0) nextYear[1] = Math.max(nextYear[0], nextYear[1]);
-    if (partialIndex === 1) nextYear[0] = Math.min(nextYear[0], nextYear[1]);
+    if (partialIndex === 0) {
+      if (nextYear[1] <= nextYear[0]) {
+        if (onlyYearSelect) nextYear[1] = nextYear[0] + 1;
+        else {
+          // 日期，周选择场景，还有月份选择器，需要再处理月份选择器的边界问题
+          // eslint-disable-next-line prefer-destructuring
+          nextYear[1] = nextYear[0];
+          if (nextMonth[1] <= nextMonth[0]) {
+            nextMonth[1] = nextMonth[0] + 1;
+            if (nextMonth[1] === 12) {
+              // 处理跨年的边界场景
+              nextMonth[1] = 0;
+              nextYear[1] += 1;
+            }
+          }
+        }
+      }
+    }
+    if (partialIndex === 1) {
+      if (nextYear[0] >= nextYear[1]) {
+        // 年/季度/月份场景下，头部只有年选择器，直接 - 1
+        if (onlyYearSelect) nextYear[0] = nextYear[1] - 1;
+        else {
+          // 日期，周选择场景，还有月份选择器，需要再处理月份选择器的边界问题
+          // eslint-disable-next-line prefer-destructuring
+          nextYear[0] = nextYear[1];
+          if (nextMonth[0] >= nextMonth[1]) {
+            nextMonth[0] = nextMonth[1] - 1;
+            if (nextMonth[0] === -1) {
+              // 处理跨年的边界场景
+              nextMonth[0] = 11;
+              nextYear[0] -= 1;
+            }
+          }
+        }
+      }
+    }
 
     setYear(nextYear);
+    !onlyYearSelect && setMonth(nextMonth);
   }
 
   function onMonthChange(nextVal: number, { partial }) {
@@ -331,8 +370,29 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       nextMonth[partialIndex] = nextVal;
       // 保证左侧时间不大于右侧
       if (year[0] === year[1]) {
-        if (partialIndex === 0) nextMonth[1] = Math.max(nextMonth[0], nextMonth[1]);
-        if (partialIndex === 1) nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
+        if (partialIndex === 0) {
+          // 操作了左侧区间, 处理右侧区间小于或等于左侧区间的场景，交互上始终报错右侧比左侧大 1
+          if (nextMonth[1] <= nextMonth[0]) {
+            nextMonth[1] = nextMonth[0] + 1;
+            if (nextMonth[1] === 12) {
+              // 处理跨年的边界场景
+              nextMonth[1] = 0;
+              setYear((currentYear) => [currentYear[0], currentYear[1] + 1]);
+            }
+          }
+        }
+        if (partialIndex === 1) {
+          // 操作了右侧区间, 处理右侧区间小于或等于左侧区间的场景，交互上始终报错左侧比右侧小 1
+          nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
+          if (nextMonth[0] >= nextMonth[1]) {
+            nextMonth[0] -= 1;
+            if (nextMonth[0] === -1) {
+              // 处理跨年的边界场景
+              nextMonth[0] = 11;
+              setYear((currentYear) => [currentYear[0] - 1, currentYear[1]]);
+            }
+          }
+        }
       }
       return nextMonth;
     });
