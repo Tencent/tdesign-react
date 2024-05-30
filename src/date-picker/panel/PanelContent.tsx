@@ -57,7 +57,7 @@ export default function PanelContent(props: PanelContentProps) {
 
   const onMonthChange = useEventCallback(props.onMonthChange);
   const onYearChange = useEventCallback(props.onYearChange);
-  
+
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
   const showTimePicker = enableTimePicker && mode === 'date';
