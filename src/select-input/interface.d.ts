@@ -10,6 +10,7 @@ export interface SelectInputCommonProperties {
   readonly?: TdSelectInputProps['readonly'];
   suffix?: TdSelectInputProps['suffix'];
   suffixIcon?: TdSelectInputProps['suffixIcon'];
+  size?: TdSelectInputProps['size'];
   onPaste?: TdSelectInputProps['onPaste'];
   onEnter?: TdSelectInputProps['onEnter'];
   onMouseenter?: TdSelectInputProps['onMouseenter'];
