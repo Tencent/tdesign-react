@@ -5,7 +5,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
 import Portal from '../common/Portal';
-import useSetState from '../_util/useSetState';
+import useSetState from '../hooks/useSetState';
 import useConfig from '../hooks/useConfig';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';

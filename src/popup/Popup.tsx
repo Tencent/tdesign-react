@@ -6,15 +6,15 @@ import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import useControlled from '../hooks/useControlled';
-import useAnimation from '../_util/useAnimation';
+import useAnimation from '../hooks/useAnimation';
 import useConfig from '../hooks/useConfig';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
 import { getRefDom } from './utils/ref';
 import { getTransitionParams } from './utils/transition';
-import useMutationObserver from '../_util/useMutationObserver';
-import useWindowSize from '../_util/useWindowSize';
+import useMutationObserver from '../hooks/useMutationObserver';
+import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 

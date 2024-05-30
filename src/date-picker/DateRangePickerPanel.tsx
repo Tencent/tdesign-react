@@ -256,7 +256,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     setYear(nextYear);
 
-    props.onYearChange({
+    props.onYearChange?.({
       partial,
       year: nextYear[partialIndex],
       date: value.map((v) => dayjs(v).toDate()),
@@ -278,7 +278,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     setMonth(nextMonth);
 
-    props.onMonthChange({
+    props.onMonthChange?.({
       partial,
       month: nextMonth[partialIndex],
       date: value.map((v) => dayjs(v).toDate()),

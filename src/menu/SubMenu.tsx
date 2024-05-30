@@ -5,7 +5,7 @@ import { TdSubmenuProps } from './type';
 import useConfig from '../hooks/useConfig';
 import { MenuContext } from './MenuContext';
 import useDomRefCallback from '../hooks/useDomRefCallback';
-import useRipple from '../_util/useRipple';
+import useRipple from '../hooks/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import FakeArrow from '../common/FakeArrow';

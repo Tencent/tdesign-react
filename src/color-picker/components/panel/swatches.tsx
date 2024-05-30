@@ -4,7 +4,7 @@ import { DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-
 import useGlobalIcon from '../../../hooks/useGlobalIcon';
 import Color from '../../../_common/js/color-picker/color';
 import { TdColorBaseProps } from '../../interface';
-import useCommonClassName from '../../../_util/useCommonClassName';
+import useCommonClassName from '../../../hooks/useCommonClassName';
 
 export interface TdColorSwathcesProps extends TdColorBaseProps {
   colors?: string[];

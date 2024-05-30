@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import useDragSorter from '../_util/useDragSorter';
+import useDragSorter from '../hooks/useDragSorter';
 import TInput, { InputValue, InputRef } from '../input';
 import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';

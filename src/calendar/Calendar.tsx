@@ -6,7 +6,7 @@ import Radio from '../radio';
 import CheckTag from '../tag/CheckTag';
 import noop from '../_util/noop';
 import usePrefixClass from './hooks/usePrefixClass';
-import useLayoutEffect from '../_util/useLayoutEffect';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
 import { StyledProps } from '../common';
