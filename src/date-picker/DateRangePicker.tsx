@@ -133,7 +133,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   }
 
   // 日期点击
-  function onCellClick(date: Date, { e, partial }) {
+  function onCellClick(date: Date, { e }) {
     onPick?.(date, { e, partial: activeIndex ? 'end' : 'start' });
 
     setIsHoverCell(false);
@@ -143,18 +143,6 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     nextValue[activeIndex] = formatDate(date, { format });
     setCacheValue(nextValue);
     setInputValue(nextValue);
-
-    // date 模式自动切换年月
-    if (mode === 'date') {
-      // 选择了不属于面板中展示月份的日期
-      const partialIndex = partial === 'start' ? 0 : 1;
-      const isAdditional = dayjs(date).month() !== month[partialIndex];
-      if (isAdditional) {
-        // 保证左侧时间小于右侧
-        if (activeIndex === 0) setMonth([dayjs(date).month(), Math.min(dayjs(date).month() + 1, 11)]);
-        if (activeIndex === 1) setMonth([Math.max(dayjs(date).month() - 1, 0), dayjs(date).month()]);
-      }
-    }
 
     // 有时间选择器走 confirm 逻辑
     if (enableTimePicker) return;
@@ -326,13 +314,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
           // 日期，周选择场景，还有月份选择器，需要再处理月份选择器的边界问题
           // eslint-disable-next-line prefer-destructuring
           nextYear[1] = nextYear[0];
-          if (nextMonth[1] <= nextMonth[0]) {
-            nextMonth[1] = nextMonth[0] + 1;
-            if (nextMonth[1] === 12) {
-              // 处理跨年的边界场景
-              nextMonth[1] = 0;
-              nextYear[1] += 1;
-            }
+          nextMonth[1] = nextMonth[0] + 1;
+          if (nextMonth[1] === 12) {
+            // 处理跨年的边界场景
+            nextMonth[1] = 0;
+            nextYear[1] += 1;
           }
         }
       }
@@ -345,13 +331,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
           // 日期，周选择场景，还有月份选择器，需要再处理月份选择器的边界问题
           // eslint-disable-next-line prefer-destructuring
           nextYear[0] = nextYear[1];
-          if (nextMonth[0] >= nextMonth[1]) {
-            nextMonth[0] = nextMonth[1] - 1;
-            if (nextMonth[0] === -1) {
-              // 处理跨年的边界场景
-              nextMonth[0] = 11;
-              nextYear[0] -= 1;
-            }
+          nextMonth[0] = nextMonth[1] - 1;
+          if (nextMonth[0] === -1) {
+            // 处理跨年的边界场景
+            nextMonth[0] = 11;
+            nextYear[0] -= 1;
           }
         }
       }
@@ -364,7 +348,6 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   function onMonthChange(nextVal: number, { partial }) {
     let partialIndex = partial === 'start' ? 0 : 1;
     if (enableTimePicker) partialIndex = activeIndex;
-
     setMonth((currentMonth) => {
       const nextMonth = [...currentMonth];
       nextMonth[partialIndex] = nextVal;
