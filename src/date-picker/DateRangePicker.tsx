@@ -193,26 +193,40 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       next = addMonth(current, monthCount);
     }
 
-    const nextYear = [...year];
+    let nextYear = [...year];
     nextYear[partialIndex] = next.getFullYear();
     const nextMonth = [...month];
     nextMonth[partialIndex] = next.getMonth();
+    const onlyYearSelect = ['year', 'quarter', 'month'].includes(mode);
 
     // 保证左侧时间不大于右侧
     if (partialIndex === 0) {
-      nextYear[1] = Math.max(nextYear[0], nextYear[1]);
-
-      if (nextYear[0] === nextYear[1]) {
-        nextMonth[1] = Math.max(nextMonth[0], nextMonth[1]);
+      if (nextYear[1] <= nextYear[0]) {
+        if (onlyYearSelect) nextYear[1] = nextYear[0] + 1;
+        else if (nextMonth[1] <= nextMonth[0]) {
+          nextMonth[1] = nextMonth[0] + 1;
+          if (nextMonth[1] === 12) {
+            // 处理跨年的边界场景
+            nextMonth[1] = 0;
+            nextYear = [nextYear[0], nextYear[1] + 1];
+          }
+        }
       }
     }
 
     // 保证左侧时间不大于右侧
     if (partialIndex === 1) {
-      nextYear[0] = Math.min(nextYear[0], nextYear[1]);
-
-      if (nextYear[0] === nextYear[1]) {
-        nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
+      if (nextYear[0] >= nextYear[1]) {
+        // 年/季度/月份场景下，头部只有年选择器，直接 - 1
+        if (onlyYearSelect) nextYear[0] = nextYear[1] - 1;
+        else if (nextMonth[0] >= nextMonth[1]) {
+          nextMonth[0] -= 1;
+          if (nextMonth[0] === -1) {
+            // 处理跨年的边界场景
+            nextMonth[0] = 11;
+            nextYear = [nextYear[0] - 1, nextYear[1]];
+          }
+        }
       }
     }
 
