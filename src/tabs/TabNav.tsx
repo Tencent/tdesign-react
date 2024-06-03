@@ -113,9 +113,11 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // 当 activeTab 变化时，移动 activeTab 到可视区域
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       moveActiveTabIntoView();
     }, 100);
+
+    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, maxScrollLeft]);
 
@@ -147,6 +149,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   // 滚轮和触摸板
   useEffect(() => {
     const scrollBar = scrollBarRef.current;
+    if (!scrollBar) return;
 
     const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
       if (!canToLeft && !canToRight) return;
@@ -160,11 +163,10 @@ const TabNav: React.FC<TabNavProps> = (props) => {
       }
     };
 
-    if (scrollBar) {
-      scrollBar.addEventListener('wheel', handleWheel, { passive: false });
-    }
+    scrollBar.addEventListener('wheel', handleWheel, { passive: false });
+
     return () => {
-      scrollBar.removeEventListener('wheel', handleWheel);
+      scrollBar?.removeEventListener('wheel', handleWheel);
     };
   });
 
@@ -182,7 +184,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   useEffect(() => {
     getMaxScrollLeft();
-  }, [itemList.length, placement, children, getMaxScrollLeft]);
+  }, [itemList.length, children, getMaxScrollLeft]);
 
   // TabBar 组件逻辑层抽象，卡片类型时无需展示，故将逻辑整合到此处
   const TabBarCom = isCard ? null : (
