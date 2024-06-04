@@ -11,6 +11,7 @@ align | String | left | options: left/center/right | N
 allowInputOverMax | Boolean | false | \- | N
 autoWidth | Boolean | false | \- | N
 autocomplete | String | undefined | \- | N
+spellCheck | Boolean | false | \- | N
 autofocus | Boolean | false | \- | N
 borderless | Boolean | false | input without border | N
 clearable | Boolean | false | \- | N

@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.7.5 `2024-05-31` 
+### 🐞 Bug Fixes
+- `DatePicker`: 修复点击`jump`按钮的逻辑没有同步下拉选择的改动的缺陷 @uyarn ([#2934](https://github.com/Tencent/tdesign-react/pull/2934))
+
+## 🌈 1.7.4 `2024-05-30` 
+### 🚀 Features
+- `DatePicker`: 优化日期区间选择器头部区间的变化逻辑，选择后左侧区间大于右侧区间，则默认调整为左侧区间始终比右侧区间小 1 @uyarn ([#2932](https://github.com/Tencent/tdesign-react/pull/2932))
+### 🐞 Bug Fixes
+- `Cascader`: 修复 `Cascader` 搜索时 `checkStrictly` 模式父节点不显示 @HaixingOoO ([#2914](https://github.com/Tencent/tdesign-react/pull/2914))
+- `Select`: 修复半选状态的全选选项展示样式问题 @uyarn ([#2915](https://github.com/Tencent/tdesign-react/pull/2915))
+- `Menu`: 修复`HeadMenu`下`MenuItem` 类名透传失效的问题 @uyarn ([#2917](https://github.com/Tencent/tdesign-react/pull/2917))
+- `Tabs`: 修复`TabPanel` 类名透传失效的问题 @uyarn ([#2917](https://github.com/Tencent/tdesign-react/pull/2917))
+- `Breadcrumb`: 修复暗色模式下的分隔符不可见问题 @NWYLZW ([#2920](https://github.com/Tencent/tdesign-react/pull/2920))
+- `Checkbox`:
+   - 修复无法渲染为值为 0 的选项 @NWYLZW ([#2925](https://github.com/Tencent/tdesign-react/pull/2925))
+   - 修复受控状态无法被 onChange 回调中正确消费的问题 @NWYLZW ([#2926](https://github.com/Tencent/tdesign-react/pull/2926))
+- `SelectInput`: 修复`SelectInput` 的 `interface.d.ts` 文件缺少 `size` 类型的问题 @HaixingOoO ([#2930](https://github.com/Tencent/tdesign-react/pull/2930))
+- `DatePicker`: 
+   - 修复单独使用面板没有兼容无 `onMonthChange` 回调的场景的问题 @uyarn ([#2932](https://github.com/Tencent/tdesign-react/pull/2932))
+  - 修复DateRangePickerPanel组件，在下拉框中选择年/月时选择出现日期改变错乱的问题 @liyucang-git ([#2922](https://github.com/Tencent/tdesign-react/pull/2922))
+- `InputNumber`: 修复 `allowInputOverLimit=false` 大小值判断时，value 为 undefined 时，会出现显示 Infinity 的问题 @HaixingOoO ([common#1802](https://github.com/Tencent/tdesign-common/pull/1802))
+
 ## 🌈 1.7.3 `2024-05-18` 
 ### 🐞 Bug Fixes
 - `Menu`: 修复二级及以下 `SubMenu`没有处理classname的缺陷 @uyarn ([#2911](https://github.com/Tencent/tdesign-react/pull/2911))
