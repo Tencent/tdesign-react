@@ -5,6 +5,7 @@ import {
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
 } from 'tdesign-icons-react';
+import omit from 'lodash/omit';
 import debounce from 'lodash/debounce';
 import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import noop from '../_util/noop';
@@ -316,7 +317,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             )}
             {itemList.map((v, index) => (
               <TabNavItem
-                {...props}
+                {...omit(props, ['className', 'style'])}
                 {...v}
                 dragProps={{ ...getDragProps?.(index, v) }}
                 // 显式给 onRemove 赋值，防止 props 的 onRemove 事件透传
