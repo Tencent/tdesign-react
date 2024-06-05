@@ -28,10 +28,6 @@ export interface TdInputProps {
    */
   autocomplete?: string;
   /**
-   * 是否开启拼写检查，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
-   */
-  spellCheck?: boolean;
-  /**
    * 自动聚焦
    * @default false
    */
@@ -103,6 +99,10 @@ export interface TdInputProps {
    * @default medium
    */
   size?: SizeEnum;
+  /**
+   * 是否开启拼写检查，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
+   */
+  spellCheck?: boolean;
   /**
    * 输入框状态。默认情况会由组件内部根据实际情况呈现，如果文本过长引起的状态变化
    */
