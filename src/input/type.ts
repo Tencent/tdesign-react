@@ -28,10 +28,6 @@ export interface TdInputProps {
    */
   autocomplete?: string;
   /**
-   * 是否开启拼写检查，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
-   */
-  spellCheck?: boolean;
-  /**
    * 自动聚焦
    * @default false
    */
