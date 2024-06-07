@@ -110,14 +110,11 @@ const TabNav: React.FC<TabNavProps> = (props) => {
       scrollLeft,
       scrollPosition,
     );
-    console.log('moveActiveTabIntoView', offset, scrollLeft, maxScrollLeft);
     setOffset(offset);
   };
 
   // 当 activeTab 变化时，移动 activeTab 到可视区域
   useEffect(() => {
-    console.log('activeTab', activeTab, maxScrollLeft);
-
     const timeout = setTimeout(() => {
       moveActiveTabIntoView();
     }, 100);
