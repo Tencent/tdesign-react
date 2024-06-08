@@ -33,6 +33,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     theme,
     addable,
     onAdd,
+    scrollPosition = 'auto',
     size = 'medium',
     disabled = false,
     onRemove = noop,
@@ -107,7 +108,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         rightOperations: rightOperationsRef.current,
       },
       scrollLeft,
-      'auto',
+      scrollPosition,
     );
     setOffset(offset);
   };
@@ -120,7 +121,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab, maxScrollLeft]);
+  }, [activeTab, maxScrollLeft, scrollPosition]);
 
   // 左右滑动按钮的展示状态
   useEffect(() => {
