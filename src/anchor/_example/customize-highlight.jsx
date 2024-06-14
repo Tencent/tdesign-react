@@ -1,13 +1,25 @@
-import React from 'react';
-import { Anchor } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Anchor, Button } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;
 
 export default function AnchorBase() {
+  const [active, setActive] = useState('#自定义游标锚点');
+
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ flex: '1' }}></div>
-      <Anchor getCurrentAnchor={() => '#基础锚点'}>
+      <div style={{ flex: '1' }}>
+        <Button onClick={() => setActive('#基础锚点')}>基础锚点</Button>
+        <Button onClick={() => setActive('#多级锚点')} style={{ marginLeft: '8px' }}>
+          多级锚点
+        </Button>
+      </div>
+      <Anchor
+        getCurrentAnchor={(link) => {
+          console.log('link', link);
+          return active;
+        }}
+      >
         <AnchorItem href="#基础锚点" title="基础锚点" />
         <AnchorItem href="#多级锚点" title="多级锚点" />
         <AnchorItem href="#自定义游标锚点" title="自定义游标锚点" />
