@@ -70,7 +70,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const attchSvgElRef = useRef<HTMLDivElement>(null);
+  const attachSvgElRef = useRef<HTMLDivElement>(null);
 
   const imgStyle = {
     transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -91,7 +91,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
 
     const svgText = await response.text();
 
-    const element = attchSvgElRef.current;
+    const element = attachSvgElRef.current;
     element.innerHTML = '';
     element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
     const shadowRoot = element.attachShadow({ mode: 'closed' });
@@ -174,7 +174,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
         )}
         {!error && !!mainImagePreviewUrl && isSvg && (
           <div
-            ref={attchSvgElRef}
+            ref={attachSvgElRef}
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
               event.stopPropagation();
