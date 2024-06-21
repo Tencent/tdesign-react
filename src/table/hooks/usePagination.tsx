@@ -34,7 +34,6 @@ export default function usePagination(props: TdBaseTableProps) {
   useEffect(() => {
     if (!pagination) {
       setIsPaginateData(false);
-      setDataSource([]);
     }
   }, [pagination]);
 
