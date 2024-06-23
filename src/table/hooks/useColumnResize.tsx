@@ -208,7 +208,7 @@ export default function useColumnResize(params: {
     col: BaseTableCol<TableRowData>,
     index: number,
   ) => {
-    if (!resizeLineParams.draggingCol) return;
+    if (e.button === 2 || !resizeLineParams.draggingCol) return;
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
