@@ -14,6 +14,8 @@ const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;
 // 当离右边框的距离不超过 8 时，显示拖拽图标
 const distance = 8;
+// 鼠标右键 event.button = 2
+const CONTEXTMENU = 2;
 
 let originalSelectStart: (this: GlobalEventHandlers, ev: Event) => any;
 let originalDragStart: (this: GlobalEventHandlers, ev: Event) => any;
@@ -208,7 +210,7 @@ export default function useColumnResize(params: {
     col: BaseTableCol<TableRowData>,
     index: number,
   ) => {
-    if (e.button === 2 || !resizeLineParams.draggingCol) return;
+    if (e.button === CONTEXTMENU || !resizeLineParams.draggingCol) return;
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
