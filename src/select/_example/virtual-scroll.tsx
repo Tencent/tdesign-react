@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Space, Select, Input, Divider } from 'tdesign-react';
 
-import type { SelectProps } from 'tdesign-react';
-
 const { Option } = Select;
 
-const options: SelectProps['options'] = [];
+const options: Array<{ label: string; value: string }> = [];
 for (let i = 0; i < 10000; i++) {
   options.push({ label: `选项${i + 1}`, value: String(i) });
 }

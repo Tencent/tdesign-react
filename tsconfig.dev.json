@@ -1,37 +1,27 @@
 {
+  "extends": "./tsconfig",
+  "include": [
+    "./src",
+    "./globals.d.ts"
+  ],
+  "exclude": [
+    "**/**/__tests__/*",
+    "**/**/_example-js/*",
+    "**/config-provider/_example/*",
+    "**/**/_usage/*",
+    "node_modules",
+    "src/_common",
+    "dist",
+    "lib",
+    "esm",
+    "cjs",
+    "es"
+  ],
   "compilerOptions": {
-    "jsx": "react",
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "module": "esnext",
-    "target": "esnext",
-    "outDir": "lib",
-    "declaration": false,
-    "sourceMap": true,
-    "lib": ["esnext", "dom"],
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "baseUrl": "./",
     "paths": {
       "tdesign-react": ["src"],
       "@test/utils": ["test/utils"],
       "@common/*": ["src/_common/*"]
     },
-    "allowJs": true,
-    "checkJs": true,
-    "downlevelIteration": true,
-    "esModuleInterop": true
-  },
-  "include": ["./globals.d.ts","./test/config/index.d.ts"],
-  "exclude": ["**/*.jsx", "**/**/_usage/*", "**/**/__tests__/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es","./src/config-provider/_example"],
-  "types": [
-    "node",
-    "jest",
-    "vitest/globals",
-    "@testing-library/jest-dom",
-    "@testing-library/react-hooks",
-    "@testing-library/react"
-  ],
-  "compileOnSave": false
+  }
 }
