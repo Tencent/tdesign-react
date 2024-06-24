@@ -18,6 +18,7 @@
     "es"
   ],
   "compilerOptions": {
+    "declaration": false,
     "paths": {
       "tdesign-react": ["src"],
       "@test/utils": ["test/utils"],
