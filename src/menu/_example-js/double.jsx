@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Fragment, useState } from 'react';
 import { Menu } from 'tdesign-react';
 

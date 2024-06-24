@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { BackTop, List } from 'tdesign-react';
 
@@ -22,9 +21,11 @@ export default function BasicBackTop() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div id='demo_1' style={listWrapStyle} ref={setContainer}>
+      <div id="demo_1" style={listWrapStyle} ref={setContainer}>
         <List>
-          {Array.from(Array(50), () => '列表内容').map((item, index) => <List.ListItem key={index}>{item}</List.ListItem>) }
+          {Array.from(Array(50), () => '列表内容').map((item, index) => (
+            <List.ListItem key={index}>{item}</List.ListItem>
+          ))}
         </List>
       </div>
       <BackTop container={() => container} visibleHeight={46} style={style}></BackTop>

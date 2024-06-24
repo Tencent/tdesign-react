@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { Menu, Button } from 'tdesign-react';
 import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';

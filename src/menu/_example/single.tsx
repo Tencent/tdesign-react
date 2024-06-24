@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Fragment, useState } from 'react';
 import { Menu, MessagePlugin, Button } from 'tdesign-react';
 import { SearchIcon, MailIcon, UserIcon, EllipsisIcon } from 'tdesign-icons-react';

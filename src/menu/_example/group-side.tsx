@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { Menu, Button } from 'tdesign-react';
 import {
