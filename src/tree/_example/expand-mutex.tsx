@@ -74,10 +74,10 @@ export default () => {
     <Space direction="vertical">
       <Form labelWidth={120}>
         <Form.FormItem label="互斥展开" initialData={mutex}>
-          <Switch onChange={setMutex} />
+          <Switch onChange={(v: boolean) => setMutex(v)} />
         </Form.FormItem>
         <Form.FormItem label="整个节点可点击" initialData={expandOnClickNode}>
-          <Switch onChange={setExpandOnClickNode} />
+          <Switch onChange={(v: boolean) => setExpandOnClickNode(v)} />
         </Form.FormItem>
       </Form>
       <Tree

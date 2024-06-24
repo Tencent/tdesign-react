@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Menu } from 'tdesign-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { HeadMenu, SubMenu, MenuItem } = Menu;
 
 function Double() {
-  const [active, setActive] = useState('1');
-  const [darkActive, setDarkActive] = useState('1');
+  const [active, setActive] = useState<MenuValue>('1');
+  const [darkActive, setDarkActive] = useState<MenuValue>('1');
 
   return (
     <Fragment>

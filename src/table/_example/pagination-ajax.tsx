@@ -81,7 +81,7 @@ export default function TableBasic() {
       const url = new URL('https://randomuser.me/api');
       const params = { page: current, results: pageSize };
       Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
-      const response = await fetch(url).then((x) => x.json());
+      const response = await fetch(url.toString()).then((x) => x.json());
       setData(response.results);
       setTotal(120);
       setIsLoading(false);

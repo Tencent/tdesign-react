@@ -1,10 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Upload, Space, MessagePlugin, Checkbox, Button } from 'tdesign-react';
-import { getFileUrlByFileRaw } from 'tdesign-react/_common/js/upload/utils';
 
-// function UploadUI({ files = [] }) {
-//   return <div>{JSON.stringify(files)}</div>
-// }
+// @ts-ignore
+import { getFileUrlByFileRaw } from 'tdesign-react/_common/js/upload/utils';
 
 export default function UploadExample() {
   const uploadRef1 = useRef(null);

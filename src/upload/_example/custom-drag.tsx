@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { Button, message, Upload, Space, UploadProps, UploadFile } from 'tdesign-react';
 import { CloudUploadIcon } from 'tdesign-icons-react';
-
-import type { UploadRef } from 'tdesign-react/upload/interface';
+import type { UploadInstanceFunctions } from 'tdesign-react';
 
 export default function CustomDrag() {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState(0);
-  const uploadDom = React.useRef<UploadRef>();
+  const uploadDom = React.useRef();
 
   const handleChange = useCallback((files) => {
     setFiles(files.slice(-1));
@@ -19,7 +18,7 @@ export default function CustomDrag() {
     message.success(`文件 ${file.name} 上传成功`);
   }, []);
   const upload = useCallback(() => {
-    uploadDom.current.triggerUpload();
+    (uploadDom.current as UploadInstanceFunctions).triggerUpload();
   }, [uploadDom]);
   const onProgress = useCallback((val) => {
     setProgress(val);

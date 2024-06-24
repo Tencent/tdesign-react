@@ -112,9 +112,9 @@ export default function SelectInputCollapsedItems() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const handleCollapsedItems: SelectInputProps['collapsedItems'] = ({ collapsedTags }) => {
-    if (Array.isArray(collapsedTags)) {
-      return <Tag key={'More'}>More(+{collapsedTags.length})</Tag>;
+  const handleCollapsedItems: SelectInputProps['collapsedItems'] = ({ collapsedSelectedItems }) => {
+    if (Array.isArray(collapsedSelectedItems)) {
+      return <Tag key={'More'}>More(+{collapsedSelectedItems.length})</Tag>;
     }
     return null;
   };

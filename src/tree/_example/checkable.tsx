@@ -122,7 +122,7 @@ export default () => {
     console.info('onClick:', context);
   };
 
-  const handleMode: RadioGroupProps<Value>['onChange'] = (value: Value) => {
+  const handleMode: RadioGroupProps['onChange'] = (value: Value) => {
     setValueMode(value);
   };
 

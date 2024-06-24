@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs, Radio, Space, TabsProps } from 'tdesign-react';
+import { Tabs, Radio, Space } from 'tdesign-react';
+import type { TabsProps } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
@@ -7,6 +8,8 @@ type ITabsTheme = TabsProps['theme'];
 
 export default function AddTabs() {
   const [theme, setTheme] = useState<ITabsTheme>('normal');
+  const [scrollPosition, setScrollPosition] = useState<TabsProps['scrollPosition']>('auto');
+
   const panels = Array.from({ length: 20 }).map((item, index) => ({
     value: index + 1,
     label: `选项卡${index + 1}`,
@@ -17,7 +20,11 @@ export default function AddTabs() {
         <Radio.Button value="normal">常规型</Radio.Button>
         <Radio.Button value="card">卡片型</Radio.Button>
       </Radio.Group>
-      <Radio.Group variant="default-filled" defaultValue="auto" onChange={setScrollPosition}>
+      <Radio.Group
+        variant="default-filled"
+        defaultValue="auto"
+        onChange={(v: TabsProps['scrollPosition']) => setScrollPosition(v)}
+      >
         <Radio.Button value="auto">Auto</Radio.Button>
         <Radio.Button value="start">Start</Radio.Button>
         <Radio.Button value="center">Center</Radio.Button>

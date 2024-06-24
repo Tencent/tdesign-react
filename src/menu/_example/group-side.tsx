@@ -11,10 +11,12 @@ import {
   LoginIcon,
 } from 'tdesign-icons-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { MenuGroup, MenuItem, SubMenu } = Menu;
 
 function GroupSide() {
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState<MenuValue>('1');
   const [collapsed, setCollapsed] = useState(false);
 
   return (

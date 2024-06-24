@@ -2,11 +2,13 @@ import React, { Fragment, useState } from 'react';
 import { Menu } from 'tdesign-react';
 import { UserIcon } from 'tdesign-icons-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { HeadMenu, SubMenu, MenuItem } = Menu;
 
 function Multiple() {
-  const [active, setActive] = useState('0');
-  const [darkActive, setDarkActive] = useState('1');
+  const [active, setActive] = useState<MenuValue>('0');
+  const [darkActive, setDarkActive] = useState<MenuValue>('1');
 
   return (
     <Fragment>

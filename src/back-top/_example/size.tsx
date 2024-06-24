@@ -1,8 +1,9 @@
 import React from 'react';
 import { BackTop, Space } from 'tdesign-react';
+import type { CSSProperties } from 'react';
 
 export default function BasicBackTop() {
-  const style = {
+  const style: CSSProperties = {
     position: 'relative',
     insetInlineEnd: 0,
     insetBlockEnd: 0,

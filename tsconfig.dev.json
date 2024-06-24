@@ -7,6 +7,7 @@
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example-js/*",
+    "**/config-provider/_example/*",
     "**/**/_usage/*",
     "node_modules",
     "src/_common",
@@ -15,5 +16,12 @@
     "esm",
     "cjs",
     "es"
-  ]
+  ],
+  "compilerOptions": {
+    "paths": {
+      "tdesign-react": ["src"],
+      "@test/utils": ["test/utils"],
+      "@common/*": ["src/_common/*"]
+    },
+  }
 }

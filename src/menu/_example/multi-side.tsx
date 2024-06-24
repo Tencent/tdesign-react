@@ -2,16 +2,18 @@ import React, { Fragment, useState } from 'react';
 import { Menu, Button } from 'tdesign-react';
 import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { SubMenu, MenuItem } = Menu;
 
 function MultiSide() {
-  const [active, setActive] = useState('1-1');
+  const [active, setActive] = useState<MenuValue>('1-1');
   const [collapsed, setCollapsed] = useState(false);
-  const [expands, setExpands] = useState(['1', '2']);
+  const [expands, setExpands] = useState<MenuValue[]>(['1', '2']);
 
-  const [darkActive, setDarkActive] = useState('1-1');
+  const [darkActive, setDarkActive] = useState<MenuValue>('1-1');
   const [darkCollapsed, setDarkCollapsed] = useState(false);
-  const [darkExpands, setDarkExpands] = useState(['1', '2']);
+  const [darkExpands, setDarkExpands] = useState<MenuValue[]>(['1', '2']);
 
   return (
     <Fragment>

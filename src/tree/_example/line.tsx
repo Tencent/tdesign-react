@@ -1,7 +1,9 @@
-import { Tree, Form, Switch, Space, TreeProps } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Tree, Form, Switch, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+
+import type { TreeNodeModel } from 'tdesign-react';
 
 const items = [
   {
@@ -100,8 +102,8 @@ export default () => {
     return lineNodes;
   };
 
-  // todo(type): line need to defined type
-  const renderLine: TreeProps['line'] = (node) => {
+  // TODO: complete type
+  const renderLine: any = (node: TreeNodeModel) => {
     if (!showLine) return null;
 
     return (
@@ -125,6 +127,7 @@ export default () => {
       </div>
     );
   };
+
   return (
     <Space direction="vertical">
       <Form>

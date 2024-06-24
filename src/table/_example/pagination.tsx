@@ -71,6 +71,7 @@ export default function TableBasic() {
 
       <Table
         // todo(type): fix id props
+        // @ts-ignore
         id="pagination-table"
         data={data}
         columns={columns}

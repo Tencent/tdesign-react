@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Table, Button, DateRangePickerPanel, Space, Tag, TableProps } from 'tdesign-react';
 import isNumber from 'lodash/isNumber';
+import { Table, Button, DateRangePickerPanel, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableProps, FilterType } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -81,7 +83,7 @@ const columns: TableProps['columns'] = [
     // 自定义过滤组件：日期过滤配置，请确保自定义组件包含 value 和 onChange 属性
     filter: {
       // todo(type): 类型缺陷
-      type: 'custom' as const,
+      type: 'custom' as FilterType,
       component: DateRangePickerPanel,
       props: {
         firstDayOfWeek: 7,

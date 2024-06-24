@@ -2,11 +2,13 @@ import React, { Fragment, useState } from 'react';
 import { Menu, Button } from 'tdesign-react';
 import { SearchIcon, MailIcon, UserIcon, EllipsisIcon } from 'tdesign-icons-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { HeadMenu, MenuItem } = Menu;
 
 function Single() {
-  const [active, setActive] = useState('0');
-  const [darkActive, setDarkActive] = useState('1');
+  const [active, setActive] = useState<MenuValue>('0');
+  const [darkActive, setDarkActive] = useState<MenuValue>('1');
 
   const operations = () => (
     <div className="tdesign-demo-menu__operations">

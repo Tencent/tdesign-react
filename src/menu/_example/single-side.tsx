@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Menu } from 'tdesign-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { MenuItem } = Menu;
 
 function SingleSide() {
-  const [active, setActive] = useState('0');
-  const [darkActive, setDarkActive] = useState('1');
+  const [active, setActive] = useState<MenuValue>('0');
+  const [darkActive, setDarkActive] = useState<MenuValue>('1');
 
   return (
     <Fragment>

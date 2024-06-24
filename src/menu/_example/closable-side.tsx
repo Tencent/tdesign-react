@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Menu, Button } from 'tdesign-react';
 import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
 
+import type { MenuValue } from 'tdesign-react';
+
 const { SubMenu, MenuItem } = Menu;
 
 function ClosableSide() {
-  const [active, setActive] = useState('1-1');
+  const [active, setActive] = useState<MenuValue>('1-1');
   const [collapsed, setCollapsed] = useState(true);
 
   return (

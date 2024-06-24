@@ -10,7 +10,7 @@ const options = [
 
 const MultipleSelect = () => {
   const [value, setValue] = useState(['1', '3']);
-  const [size, setSize] = useState('medium');
+  const [size, setSize] = useState<'small' | 'medium' | 'large'>('medium');
   const [disabled, setDisabled] = useState(false);
   const [readonly, setReadOnly] = useState(false);
   const [minCollapsedNum] = useState(1);
@@ -62,7 +62,11 @@ const MultipleSelect = () => {
       <h3>use collapsedItems:</h3>
       <Space align="center">
         <div>size control:</div>
-        <RadioGroup value={size} options={['small', 'medium', 'large']} onChange={(value) => setSize(value)} />
+        <RadioGroup
+          value={size}
+          options={['small', 'medium', 'large']}
+          onChange={(value: 'small' | 'medium' | 'large') => setSize(value)}
+        />
       </Space>
       <Space align="center">
         <span>disabled control:</span>

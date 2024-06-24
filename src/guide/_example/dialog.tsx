@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button, Drawer, Guide, Input, Row } from 'tdesign-react';
+import type { GuideProps } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -102,7 +103,7 @@ export default function DialogGuide() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const steps = [
+  const steps: GuideProps['steps'] = [
     {
       element: '.main-title-dialog',
       title: '新手引导标题',

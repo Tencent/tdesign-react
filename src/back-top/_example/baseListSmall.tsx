@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { BackTop, List } from 'tdesign-react';
+import type { CSSProperties } from 'react';
 
 export default function BasicBackTop() {
   const [container, setContainer] = useState(null);
 
-  const style = {
+  const style: CSSProperties = {
     position: 'absolute',
     insetInlineEnd: 24,
     insetBlockEnd: 80,
   };
 
-  const listWrapStyle = {
+  const listWrapStyle: CSSProperties = {
     width: '100%',
     height: '280px',
     position: 'relative',
