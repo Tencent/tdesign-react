@@ -38,10 +38,40 @@ export const styleContent = `
   }
 `;
 
+export const tsconfigContent = `{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src"
+  ]
+}
+`;
+
 export const dependenciesContent = JSON.stringify({
   'tdesign-react': orgPkg.version,
   'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
   dayjs: orgPkg.dependencies.dayjs,
   react: orgPkg.devDependencies.react,
   'react-dom': orgPkg.devDependencies['react-dom'],
+  '@types/react': orgPkg.devDependencies['@types/react'],
+  '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
 });

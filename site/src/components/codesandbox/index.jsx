@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Tooltip from 'tdesign-react/tooltip';
 import Loading from 'tdesign-react/loading';
 
-import { mainJsContent, htmlContent, pkgContent, styleContent } from './content';
+import { mainJsContent, htmlContent, pkgContent, styleContent, tsconfigContent } from './content';
 import '../../styles/Codesandbox.less';
 
 export default function Codesandbox(props) {
@@ -34,6 +34,9 @@ export default function Codesandbox(props) {
           },
           'src/demo.tsx': {
             content: code,
+          },
+          'tsconfig.json': {
+            content: tsconfigContent,
           },
         },
       }),
