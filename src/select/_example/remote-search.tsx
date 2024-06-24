@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 
 import { Select } from 'tdesign-react';
 
+import type { SelectProps } from 'tdesign-react';
+
 const RemoteSearchSelect = () => {
-  const defaultOptions = [];
-  const [value, setValue] = useState();
+  const defaultOptions: SelectProps['options'] = [];
+  const [value, setValue] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState([
@@ -22,11 +24,11 @@ const RemoteSearchSelect = () => {
     },
   ]);
 
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
 
-  const handleRemoteSearch = (search) => {
+  const handleRemoteSearch = (search: string) => {
     setLoading(true);
 
     setTimeout(() => {

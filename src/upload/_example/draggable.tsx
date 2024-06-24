@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Upload, Radio, Switch, Space, MessagePlugin, SwitchProps, type TdRadioGroupProps } from 'tdesign-react';
+import {
+  Upload,
+  Radio,
+  Switch,
+  Space,
+  MessagePlugin,
+  SwitchProps,
+  type TdRadioGroupProps,
+  UploadProps,
+} from 'tdesign-react';
 
 function getCurrentDate(needTime = false) {
   const d = new Date();
@@ -37,7 +46,7 @@ export default function UploadExample() {
   };
 
   // res.url 图片地址；res.uploadTime 文件上传时间；res.error 上传失败的原因
-  const formatResponse = (res) => {
+  const formatResponse: UploadProps['formatResponse'] = (res) => {
     // 响应结果添加上传时间字段，用于 UI 显示
     res.uploadTime = getCurrentDate();
     return res;

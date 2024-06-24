@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Space, Select, Input, Divider } from 'tdesign-react';
 
+import type { SelectProps } from 'tdesign-react';
+
 const { Option } = Select;
 
-const options = [];
+const options: SelectProps['options'] = [];
 for (let i = 0; i < 10000; i++) {
   options.push({ label: `选项${i + 1}`, value: String(i) });
 }
 function VirtualScroll() {
   const [currentOptions, setCurrentOptions] = useState(options);
 
-  const handleOnSearch = (v) => {
+  const handleOnSearch = (v: string) => {
     const filteredOptions = options.filter((item) => item.label.indexOf(v) !== -1);
     setCurrentOptions(filteredOptions);
   };

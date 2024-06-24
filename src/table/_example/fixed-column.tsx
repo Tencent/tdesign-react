@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link, TableProps } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-const data = [];
+import type { TableProps } from 'tdesign-react';
+
+const data: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   data.push({
     index: i + 1,

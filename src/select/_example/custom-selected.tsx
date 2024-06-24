@@ -15,7 +15,7 @@ const options = [
 
 const CustomSelected = () => {
   const [value, setValue] = useState(['1', '2', '3']);
-  const onChange = (value) => {
+  const onChange = (value: string[]) => {
     setValue(value);
   };
   return (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Space, TagInputValue } from 'tdesign-react';
+import { TagInput, Space } from 'tdesign-react';
+import type { TagInputValue } from 'tdesign-react';
 
 export default function TagInputExcessExample() {
   const [tags, setTags] = useState<TagInputValue>(['Vue', 'React']);

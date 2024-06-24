@@ -1,7 +1,9 @@
 import React from 'react';
 import { Transfer } from 'tdesign-react';
 
-const list = [];
+import type { TransferProps } from 'tdesign-react';
+
+const list: TransferProps['data'] = [];
 for (let i = 0; i < 20; i++) {
   list.push({
     value: i.toString(),
@@ -13,7 +15,7 @@ export default function PaginationExample() {
   const pagination = [
     {
       pageSize: 10,
-      onPageChange: (current) => {
+      onPageChange: (current: number) => {
         console.log('current', current);
       },
     },
@@ -23,7 +25,7 @@ export default function PaginationExample() {
     },
   ];
 
-  const handlePageChange = (...args) => {
+  const handlePageChange: TransferProps['onPageChange'] = (...args) => {
     console.log('args', args);
   };
   return <Transfer data={list} pagination={pagination} onPageChange={handlePageChange}></Transfer>;

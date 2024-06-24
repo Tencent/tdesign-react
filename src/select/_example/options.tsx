@@ -4,7 +4,7 @@ import { Select } from 'tdesign-react';
 
 const SelectWithOptions = () => {
   const [value, setValue] = useState('apple');
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
   const options = [

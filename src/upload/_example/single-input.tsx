@@ -1,17 +1,19 @@
 import React, { useState, useRef } from 'react';
 import { Upload, MessagePlugin, Space, Button, Checkbox } from 'tdesign-react';
 
+import type { UploadProps } from 'tdesign-react';
+
 const UploadSingleInput = () => {
   const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [autoUpload, setAutoUpload] = useState(true);
   const [disabled, setDisabled] = useState(false);
 
-  const handleFail = ({ file }) => {
+  const handleFail: UploadProps['onFail'] = ({ file }) => {
     MessagePlugin.error(`${file.name} 上传失败`);
   };
 
-  const onSuccess = () => {
+  const onSuccess: UploadProps['onSuccess'] = () => {
     MessagePlugin.success('上传成功');
   };
 
@@ -21,7 +23,7 @@ const UploadSingleInput = () => {
   };
 
   return (
-    <Space direction='vertical'>
+    <Space direction="vertical">
       <Space>
         <Checkbox checked={autoUpload} onChange={setAutoUpload}>
           自动上传
@@ -51,7 +53,7 @@ const UploadSingleInput = () => {
         onSuccess={onSuccess}
       ></Upload>
     </Space>
-  )
+  );
 };
 
 UploadSingleInput.displayName = 'UploadSingleInput';

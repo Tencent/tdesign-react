@@ -37,18 +37,18 @@ export default function SelectInputAutocomplete() {
   const [selectValue, setSelectValue] = useState('');
   const [options, setOptions] = useState(OPTIONS);
 
-  const onOptionClick = (item) => {
+  const onOptionClick = (item: string) => {
     setSelectValue(item);
     setPopupVisible(false);
   };
 
-  const onInputChange = (keyword) => {
+  const onInputChange = (keyword: string) => {
     setSelectValue(keyword);
     const options = new Array(5).fill(null).map((t, index) => `${keyword} Student ${index}`);
     setOptions(options);
   };
 
-  const onPopupVisibleChange = (val) => {
+  const onPopupVisibleChange = (val: boolean) => {
     setPopupVisible(val);
   };
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { InputAdornment, Input, Tree, Space } from 'tdesign-react';
 
+import type { TreeProps } from 'tdesign-react';
+
 const items = [
   {
     value: '1',
@@ -96,13 +98,13 @@ export default () => {
   const [filterText, setFilterText] = useState('');
   const [filterText2, setFilterText2] = useState('');
 
-  const filterByText = (node) => {
-    const rs = node.data.label.indexOf(filterText) >= 0;
+  const filterByText: TreeProps['filter'] = (node) => {
+    const rs = (node.data.label as string).indexOf(filterText) >= 0;
     return rs;
   };
 
-  const filterByText2 = (node) => {
-    const rs = node.data.label.indexOf(filterText2) >= 0;
+  const filterByText2: TreeProps['filter'] = (node) => {
+    const rs = (node.data.label as string).indexOf(filterText2) >= 0;
     return rs;
   };
   return (

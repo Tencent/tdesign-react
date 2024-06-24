@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, Radio, Space, TreeSelectProps } from 'tdesign-react';
+import { TreeSelect, Radio, Space } from 'tdesign-react';
+
+import type { TreeSelectProps } from 'tdesign-react';
 
 const options: TreeSelectProps['data'] = [
   {
@@ -37,13 +39,11 @@ type TreeSelectType = 'default' | 'function';
 export default function Example() {
   const [type, setType] = useState<TreeSelectType>('default');
 
-  function handleEnter(ctx) {
+  const handleEnter: TreeSelectProps['onEnter'] = (ctx) => {
     console.log('onEnter api:', ctx);
-  }
+  };
 
-  function filterFunction(searchText, node) {
-    return node.data.label.indexOf(searchText) >= 0;
-  }
+  const filterFunction: TreeSelectProps['filter'] = (searchText, node) => node.data.label.indexOf(searchText) >= 0;
 
   return (
     <Space direction="vertical" style={{ width: 300 }}>

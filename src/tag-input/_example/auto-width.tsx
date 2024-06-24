@@ -4,7 +4,7 @@ import { TagInput } from 'tdesign-react';
 const TagInputAutoWidth = () => {
   const [tags, setTags] = useState(['Vue', 'React']);
 
-  const onChange = (val) => {
+  const onChange = (val: string[]) => {
     setTags(val);
   };
   return <TagInput value={tags} onChange={onChange} autoWidth clearable />;

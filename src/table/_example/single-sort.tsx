@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space, Tag, TableProps } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableProps, TableSort, SortInfo } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -42,7 +44,7 @@ const columns: TableProps['columns'] = [
   { colKey: 'createTime', title: '申请时间' },
 ];
 
-const initialData = new Array(4).fill(null).map((_, i) => ({
+const initialData: TableProps['data'] = new Array(4).fill(null).map((_, i) => ({
   index: i + 1,
   applicant: ['贾明', '张三', '王芳'][i % 3],
   status: i % 3,
@@ -57,7 +59,7 @@ const initialData = new Array(4).fill(null).map((_, i) => ({
 
 export default function TableSingleSort() {
   const [data, setData] = useState([...initialData]);
-  const [sort, setSort] = useState({
+  const [sort, setSort] = useState<TableSort>({
     // 按照 status 字段进行排序
     sortBy: 'status',
     // 是否按照降序进行排序
@@ -65,11 +67,7 @@ export default function TableSingleSort() {
   });
   const [hideSortTips, setHideSortTips] = useState(false);
 
-  function onSortChange(sort) {
-    setSort(sort);
-    request(sort);
-  }
-  function request(sort) {
+  const request = (sort: SortInfo) => {
     // 模拟异步请求，进行数据排序
     const timer = setTimeout(() => {
       if (!sort || !sort.sortBy) {
@@ -82,7 +80,11 @@ export default function TableSingleSort() {
       setData([...dataNew]);
       clearTimeout(timer);
     }, 100);
-  }
+  };
+  const onSortChange = (sort: SortInfo) => {
+    setSort(sort);
+    request(sort);
+  };
 
   return (
     <Space direction="vertical">

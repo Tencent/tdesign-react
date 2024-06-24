@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowUpIcon } from 'tdesign-icons-react';
 import { Button, Drawer, Guide, GuideStep, Input, Row } from 'tdesign-react';
+import type { GuideProps } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -77,7 +78,7 @@ const classStyles = `
 </style>
 `;
 
-function MyPopup(props) {
+function MyPopup(props: any) {
   useEffect(() => {
     // 添加示例代码所需样式
     document.head.insertAdjacentHTML('beforeend', classStyles);
@@ -129,25 +130,25 @@ export default function CustomPopupGuide() {
     }, 800);
   };
 
-  const handleChange = (current, { e, total }) => {
+  const handleChange: GuideProps['onChange'] = (current: number, { e, total }) => {
     setCurrent(current);
     console.log(current, e, total);
   };
 
-  const handlePrevStepClick = ({ e, prev, current, total }) => {
+  const handlePrevStepClick: GuideProps['onPrevStepClick'] = ({ e, prev, current, total }) => {
     console.log(e, prev, current, total);
   };
 
-  const handleNextStepClick = ({ e, next, current, total }) => {
+  const handleNextStepClick: GuideProps['onNextStepClick'] = ({ e, next, current, total }) => {
     console.log(e, next, current, total);
   };
 
-  const handleFinish = ({ e, current, total }) => {
+  const handleFinish: GuideProps['onFinish'] = ({ e, current, total }) => {
     setVisible(false);
     console.log(e, current, total);
   };
 
-  const handleSkip = ({ e, current, total }) => {
+  const handleSkip: GuideProps['onSkip'] = ({ e, current, total }) => {
     console.log('skip');
     setVisible(false);
     console.log(e, current, total);

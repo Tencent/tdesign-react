@@ -2,13 +2,15 @@ import React from 'react';
 import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
+import type { TableProps } from 'tdesign-react';
+
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const data = new Array(6).fill(null).map((_, i) => ({
+const data: TableProps['data'] = new Array(6).fill(null).map((_, i) => ({
   i,
   status: i % 3,
   applicant: ['贾明', '张三', '王芳'][i % 3],
@@ -28,7 +30,7 @@ const data = new Array(6).fill(null).map((_, i) => ({
   createTime: '2021-11-01',
 }));
 
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',
@@ -77,7 +79,7 @@ const columns = [
 ];
 
 export default function TableExample() {
-  function rowspanAndColspan({ col, rowIndex, colIndex }) {
+  const rowspanAndColspan: TableProps['rowspanAndColspan'] = ({ col, rowIndex, colIndex }) => {
     if (colIndex === 0 && rowIndex % 2 === 0) {
       return {
         rowspan: 2,
@@ -95,7 +97,9 @@ export default function TableExample() {
         rowspan: 2,
       };
     }
-  }
+  };
 
-  return <Table data={data} bordered={true} columns={columns} rowKey="i" rowspanAndColspan={rowspanAndColspan} lazyLoad/>;
+  return (
+    <Table data={data} bordered={true} columns={columns} rowKey="i" rowspanAndColspan={rowspanAndColspan} lazyLoad />
+  );
 }

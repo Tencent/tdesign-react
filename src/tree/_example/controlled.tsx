@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { InputAdornment, Input, Tree, Space } from 'tdesign-react';
 
+import type { TreeProps } from 'tdesign-react';
+
 const items = [
   {
     value: '1',
@@ -95,8 +97,8 @@ const items = [
   },
 ];
 
-const formatArrToString = (list) => {
-  let arr = [];
+const formatArrToString = (list: string[]) => {
+  let arr: string[] = [];
   if (Array.isArray(list)) {
     arr = list;
   }
@@ -112,29 +114,29 @@ export default () => {
   const allExpanded = formatArrToString(expanded);
   const allActived = formatArrToString(actived);
 
-  const handleClick = (context) => {
+  const handleClick: TreeProps['onClick'] = (context) => {
     console.info('onClick:', context);
   };
 
-  const handleChange = (vals, context) => {
+  const handleChange: TreeProps['onChange'] = (vals, context) => {
     console.info('onChange:', vals, context);
     const checked = vals.filter((val) => val !== '2.1');
     console.info('节点 2.1 不允许选中');
-    setChecked(checked);
+    setChecked(checked as string[]);
   };
 
-  const handleExpand = (vals, context) => {
+  const handleExpand: TreeProps['onExpand'] = (vals, context) => {
     console.info('onExpand:', vals, context);
     const expanded = vals.filter((val) => val !== '2');
     console.info('节点 2 不允许展开');
-    setExpanded(expanded);
+    setExpanded(expanded as string[]);
   };
 
-  const handleActive = (vals, context) => {
+  const handleActive: TreeProps['onActive'] = (vals, context) => {
     console.info('onActive:', vals, context);
     const actived = vals.filter((val) => val !== '2');
     console.info('节点 2 不允许激活');
-    setActived(actived);
+    setActived(actived as string[]);
   };
 
   return (

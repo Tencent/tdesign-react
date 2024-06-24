@@ -58,7 +58,7 @@ const SelectInputCustomTag = () => {
   const [selectValue2, setSelectValue2] = useState(['tdesign-vue', 'tdesign-react']);
   const [selectValue3, setSelectValue3] = useState(['tdesign-vue', 'tdesign-react', 'tdesign-mobile-vue']);
 
-  const onOptionClick = (item) => {
+  const onOptionClick = (item: { label: string; value: number }) => {
     setSelectValue1(item);
   };
 
@@ -66,11 +66,11 @@ const SelectInputCustomTag = () => {
     setSelectValue1(undefined);
   };
 
-  const onTagChange2 = (val) => {
+  const onTagChange2 = (val: string[]) => {
     setSelectValue2(val);
   };
 
-  const onTagChange3 = (val) => {
+  const onTagChange3 = (val: string[]) => {
     setSelectValue3(val);
   };
 

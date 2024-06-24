@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { Textarea } from 'tdesign-react';
+import type { TextareaProps } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');
 
-  function onKeypress(value, { e }) {
+  const onKeypress: TextareaProps['onKeypress'] = (value, { e }) => {
     console.log('onKeypress: ', value, e);
-  }
-  function onKeydown(value, { e }) {
+  };
+  const onKeydown: TextareaProps['onKeydown'] = (value, { e }) => {
     console.log('onKeydown: ', value, e);
-  }
-  function onKeyup(value, { e }) {
+  };
+  const onKeyup: TextareaProps['onKeyup'] = (value, { e }) => {
     console.log('onKeyup: ', value, e);
-  }
-  function onFocus(value, { e }) {
+  };
+  const onFocus: TextareaProps['onFocus'] = (value, { e }) => {
     console.log('onFocus: ', value, e);
-  }
-  function onBlur(value, { e }) {
+  };
+  const onBlur: TextareaProps['onBlur'] = (value, { e }) => {
     console.log('onBlur: ', value, e);
-  }
+  };
 
   return (
     <Textarea

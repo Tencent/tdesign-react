@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, TreeSelectProps } from 'tdesign-react';
+import { TreeSelect } from 'tdesign-react';
+
+import type { TreeSelectProps } from 'tdesign-react';
 
 const options: TreeSelectProps['data'] = [
   {
@@ -20,7 +22,7 @@ export default function Example() {
   const loadFunc: TreeSelectProps<{ label: string; value: string; children: boolean }>['treeProps']['load'] = (node) =>
     new Promise((resolve) => {
       setTimeout(() => {
-        let nodes = [];
+        let nodes: any = [];
         if (node.getLevel() < 2) {
           nodes = [
             {

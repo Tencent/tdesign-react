@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { InputAdornment, Input, Tree, Space, InputProps } from 'tdesign-react';
 
+import type { TreeProps } from 'tdesign-react';
+import { TreeNodeValue } from '../../cascader/interface';
+
 const items = [
   {
     value: '1',
@@ -95,17 +98,17 @@ const items = [
   },
 ];
 
-const formatArrToString = (list) => {
-  let arr = [];
+const formatArrToString = (list: TreeNodeValue[]) => {
+  let arr: TreeNodeValue[] = [];
   if (Array.isArray(list)) {
     arr = list;
   }
   return arr.map((val) => `{${val}}`).join(', ');
 };
 
-const getValueFromString = (val) => {
+const getValueFromString = (val: string) => {
   const arr = val.split(',');
-  const vals = [];
+  const vals: string[] = [];
   arr
     .map((str) => str.trim())
     .forEach((tag) => {
@@ -118,9 +121,9 @@ const getValueFromString = (val) => {
 };
 
 export default () => {
-  const [checked, setChecked] = useState(['1.1.1.1', '1.1.1.2']);
-  const [expanded, setExpanded] = useState(['1', '1.1', '1.1.1', '2']);
-  const [actived, setActived] = useState(['2']);
+  const [checked, setChecked] = useState<TreeNodeValue[]>(['1.1.1.1', '1.1.1.2']);
+  const [expanded, setExpanded] = useState<TreeNodeValue[]>(['1', '1.1', '1.1.1', '2']);
+  const [actived, setActived] = useState<TreeNodeValue[]>(['2']);
 
   const [allCheckedInput, setAllCheckedInput] = useState(() => formatArrToString(checked));
   const [allExpandedInput, setAllExpandedInput] = useState(() => formatArrToString(expanded));
@@ -143,22 +146,22 @@ export default () => {
     setAllActivedInput(allActived);
   }, [allActived]);
 
-  const handleClick = (context) => {
+  const handleClick: TreeProps['onClick'] = (context) => {
     console.info('onClick:', context);
   };
-  const handleChange = (vals, context) => {
+  const handleChange: TreeProps['onChange'] = (vals, context) => {
     console.info('onChange:', vals, context);
     const checked = vals.filter((val) => val !== '2.1');
     console.info('节点 2.1 不允许选中');
     setChecked(checked);
   };
-  const handleExpand = (vals, context) => {
+  const handleExpand: TreeProps['onExpand'] = (vals, context) => {
     console.info('onExpand:', vals, context);
     const expanded = vals.filter((val) => val !== '2');
     console.info('节点 2 不允许展开');
     setExpanded(expanded);
   };
-  const handleActive = (vals, context) => {
+  const handleActive: TreeProps['onActive'] = (vals, context) => {
     console.info('onActive:', vals, context);
     const actived = vals.filter((val) => val !== '2');
     console.info('节点 2 不允许激活');

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MessagePlugin, TagInput } from 'tdesign-react';
+import type { TagInputProps } from 'tdesign-react';
 
 export default function TagInputMaxExample() {
   const [tags] = useState([]);
-  const onEnter = (value, { inputValue }) => {
+
+  const onEnter: TagInputProps['onEnter'] = (value, { inputValue }) => {
     if (value.length >= 3 && inputValue) {
       MessagePlugin.warning('最多只能输入 3 个标签!');
     }

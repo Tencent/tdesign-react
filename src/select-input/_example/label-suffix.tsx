@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
+import type { PopupVisibleChangeContext } from 'tdesign-react';
+
 const classStyles = `
 
 <style>
@@ -48,7 +50,7 @@ export default function SelectInputSingle() {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupVisible2, setPopupVisible2] = useState(false);
 
-  const onOptionClick = (item) => {
+  const onOptionClick = (item: { label: string; value: number }) => {
     setSelectValue(item);
     // 选中后立即关闭浮层
     setPopupVisible(false);
@@ -59,12 +61,12 @@ export default function SelectInputSingle() {
     setSelectValue(undefined);
   };
 
-  const onPopupVisibleChange = (val, context) => {
+  const onPopupVisibleChange = (val: boolean, context: PopupVisibleChangeContext) => {
     console.log(context);
     setPopupVisible(val);
   };
 
-  const onPopupVisibleChange2 = (val) => {
+  const onPopupVisibleChange2 = (val: boolean) => {
     setPopupVisible2(val);
   };
 

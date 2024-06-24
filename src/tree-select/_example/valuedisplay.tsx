@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, Tag, Space, TreeSelectProps } from 'tdesign-react';
-import { TreeOptionData } from '../../common';
+import { TreeSelect, Tag, Space } from 'tdesign-react';
+
+import type { TreeSelectProps } from 'tdesign-react';
 
 const options: TreeSelectProps['data'] = [
   {
@@ -44,7 +45,7 @@ export default function Example() {
         placeholder="请选择"
         value={value}
         onChange={(val: string) => setValue(val)}
-        valueDisplay={({ value }: { value: TreeOptionData }) => `${value.label}(${value.value})`}
+        valueDisplay={({ value }: { value }) => `${value.label}(${value.value})`}
       />
       <TreeSelect
         data={options}
@@ -53,7 +54,7 @@ export default function Example() {
         placeholder="请选择"
         value={mulValue}
         valueDisplay={({ onClose, value }) =>
-          (value as TreeOptionData[]).map(({ label, value }, index) => (
+          value.map(({ label, value }, index: number) => (
             <Tag key={value} closable onClose={() => onClose(index)}>
               {label}({value})
             </Tag>

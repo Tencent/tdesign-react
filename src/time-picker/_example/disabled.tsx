@@ -2,7 +2,7 @@ import React from 'react';
 import { TimePicker, Space } from 'tdesign-react';
 
 export default function DisabledTimePicker() {
-  const disableTime = (h) => {
+  const disableTime = (h: number) => {
     const disableHour = [1, 2, 3];
     if (h > 4) {
       return {

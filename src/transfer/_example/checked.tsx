@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { TdTransferProps, Transfer, TransferValue } from 'tdesign-react';
+import { Transfer } from 'tdesign-react';
 
-const list = [];
+import type { TransferProps, TransferValue } from 'tdesign-react';
+
+const list: TransferProps['data'] = [];
 for (let i = 0; i < 20; i++) {
   list.push({
     value: i,
@@ -12,7 +14,7 @@ for (let i = 0; i < 20; i++) {
 
 export default function BaseExample() {
   const [checked, setChecked] = useState<TransferValue[]>([0, 1, 2, 3]);
-  const handleTransferCheckedChange: TdTransferProps<{ value: number }>['onCheckedChange'] = (options) => {
+  const handleTransferCheckedChange: TransferProps['onCheckedChange'] = (options) => {
     setChecked(options.checked);
   };
 

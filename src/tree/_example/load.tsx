@@ -16,7 +16,7 @@ export default () => {
   const load: TreeProps['load'] = (node) =>
     new Promise((resolve) => {
       setTimeout(() => {
-        let nodes = [];
+        let nodes: Array<{ label: string; children: boolean }> = [];
         if (node.getLevel() < 2) {
           nodes = [
             {

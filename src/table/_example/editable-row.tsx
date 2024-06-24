@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Link, TableProps } from 'tdesign-react';
+import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Link } from 'tdesign-react';
 import dayjs from 'dayjs';
+import type { TableProps } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -15,7 +16,7 @@ const classStyles = `
 </style>
 `;
 
-const initData = new Array(5).fill(null).map((_, i) => ({
+const initData: TableProps['data'] = new Array(5).fill(null).map((_, i) => ({
   key: String(i + 1),
   firstName: ['贾明', '张三', '王芳'][i % 3],
   status: i % 3,
@@ -59,7 +60,7 @@ export default function EditableRowTable() {
   };
 
   // 更新 editableRowKeys
-  const updateEditState = (id) => {
+  const updateEditState = (id: string) => {
     const index = editableRowKeys.findIndex((t) => t === id);
     editableRowKeys.splice(index, 1);
     setEditableRowKeys([...editableRowKeys]);
@@ -96,12 +97,12 @@ export default function EditableRowTable() {
     });
   };
 
-  const onRowValidate = (params) => {
+  const onRowValidate: TableProps['onRowValidate'] = (params) => {
     console.log('Event Row Validate:', params);
   };
 
   // 行数据编辑时触发，返回最新输入结果
-  const onRowEdit = (params) => {
+  const onRowEdit: TableProps['onRowEdit'] = (params) => {
     const { row, rowIndex, col, value } = params;
     const oldRowData = editMap[row.key]?.editedRow || row;
     const editedRow = { ...oldRowData, [col.colKey]: value };
@@ -130,9 +131,9 @@ export default function EditableRowTable() {
   }
 
   // 表格全量数据校验反馈事件，tableRef.current.validateTableData() 执行结束后触发
-  function onValidate(params) {
+  const onValidate: TableProps['onValidate'] = (params) => {
     console.log('Event Table Data Validate:', params);
-  }
+  };
 
   useEffect(() => {
     // 添加示例代码所需样式

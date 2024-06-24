@@ -1,7 +1,9 @@
 import React from 'react';
 import { Transfer, Tree } from 'tdesign-react';
 
-const list = [
+import type { TransferProps, TreeProps } from 'tdesign-react';
+
+const list: TransferProps['data'] = [
   {
     value: '1',
     label: '1',
@@ -49,6 +51,6 @@ const list = [
 ];
 
 export default function BaseExample() {
-  const TreeNode = (props) => <Tree {...props} checkable expandAll={true} hover={true} transition={true} />;
+  const TreeNode = (props: TreeProps) => <Tree {...props} checkable expandAll={true} hover={true} transition={true} />;
   return <Transfer data={list} tree={TreeNode}></Transfer>;
 }

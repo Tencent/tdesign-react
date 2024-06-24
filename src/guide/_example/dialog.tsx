@@ -134,25 +134,25 @@ export default function DialogGuide() {
     }, 800);
   };
 
-  const handleChange = (current, { e, total }) => {
+  const handleChange: GuideProps['onChange'] = (current: number, { e, total }) => {
     setCurrent(current);
     console.log(current, e, total);
   };
 
-  const handlePrevStepClick = ({ e, prev, current, total }) => {
+  const handlePrevStepClick: GuideProps['onPrevStepClick'] = ({ e, prev, current, total }) => {
     console.log(e, prev, current, total);
   };
 
-  const handleNextStepClick = ({ e, next, current, total }) => {
+  const handleNextStepClick: GuideProps['onNextStepClick'] = ({ e, next, current, total }) => {
     console.log(e, next, current, total);
   };
 
-  const handleFinish = ({ e, current, total }) => {
+  const handleFinish: GuideProps['onFinish'] = ({ e, current, total }) => {
     setVisible(false);
     console.log(e, current, total);
   };
 
-  const handleSkip = ({ e, current, total }) => {
+  const handleSkip: GuideProps['onSkip'] = ({ e, current, total }) => {
     console.log('skip');
     setVisible(false);
     console.log(e, current, total);

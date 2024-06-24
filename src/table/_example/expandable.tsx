@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link, TableProps } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
 import {
   ChevronRightCircleIcon,
   ChevronRightIcon,
@@ -7,6 +7,8 @@ import {
   ErrorCircleFilledIcon,
   CloseCircleFilledIcon,
 } from 'tdesign-icons-react';
+
+import type { TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -95,7 +97,7 @@ export default function TableExpandable() {
 
   const columns = getColumns(fixedColumns);
 
-  const expandedRow = ({ row }) => (
+  const expandedRow: TableProps['expandedRow'] = ({ row }) => (
     <div className="more-detail">
       <p className="title">
         <b>申请人:</b>
@@ -114,13 +116,13 @@ export default function TableExpandable() {
     </div>
   );
 
-  const rehandleExpandChange = (value, params) => {
-    setExpandedRowKeys(value);
+  const rehandleExpandChange: TableProps['onExpandChange'] = (value, params) => {
+    setExpandedRowKeys(value as string[]);
     console.log('rehandleExpandChange', value, params);
   };
 
   // 完全自由控制表格的每一行是否显示展开图标，以及显示什么内容
-  const tmpExpandIcon = ({ index }) => {
+  const tmpExpandIcon = ({ index }: { index: number }) => {
     // 第一行不显示展开图标
     if (index === 0) return false;
     // 第三行，使用自定义展开图标

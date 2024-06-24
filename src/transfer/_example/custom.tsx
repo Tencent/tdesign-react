@@ -1,7 +1,9 @@
 import React from 'react';
 import { Transfer } from 'tdesign-react';
 
-const list = [];
+import type { TransferProps } from 'tdesign-react';
+
+const list: TransferProps['data'] = [];
 for (let i = 0; i < 20; i++) {
   list.push({
     value: i.toString(),

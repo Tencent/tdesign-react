@@ -1,16 +1,17 @@
 import React from 'react';
 import { TimePicker } from 'tdesign-react';
+import type { TimePickerProps } from 'tdesign-react';
 
 export default function KeyboardTimePicker() {
-  const handleBlur = (param) => {
+  const handleBlur: TimePickerProps['onBlur'] = (param) => {
     console.log(param, 'onBlur');
   };
 
-  const handleInput = (param) => {
+  const handleInput: TimePickerProps['onInput'] = (param) => {
     console.log(param, 'onInput');
   };
 
-  const handleFocus = (param) => {
+  const handleFocus: TimePickerProps['onFocus'] = (param) => {
     console.log(param, 'onFocus');
   };
 

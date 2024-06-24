@@ -1,41 +1,43 @@
 import React, { useState } from 'react';
 import { TagInput, Space } from 'tdesign-react';
 
+import type { TagInputProps, TagInputChangeContext } from 'tdesign-react';
+
 export default function TagInputBaseExample() {
   const [tags1, setTags1] = useState(['Vue', 'React', 'Angular']);
   const [tags2, setTags2] = useState(['Vue', 'React', 'Angular', 'Miniprogram']);
 
-  const onTagInputEnter = (val, context) => {
+  const onTagInputEnter: TagInputProps['onEnter'] = (val, context) => {
     console.log(val, context);
   };
 
-  const onChange = (val, context) => {
+  const onChange = (val: string[], context: TagInputChangeContext) => {
     console.log(val, context);
     setTags1(val);
   };
 
-  const onChange2 = (val, context) => {
+  const onChange2 = (val: string[], context: TagInputChangeContext) => {
     console.log(val, context);
     setTags2(val);
   };
 
-  const onPaste = (context) => {
+  const onPaste: TagInputProps['onPaste'] = (context) => {
     console.log(context);
   };
 
-  function onDragSort({ currentIndex, targetIndex }) {
+  const onDragSort: TagInputProps['onDragSort'] = ({ currentIndex, targetIndex }) => {
     const temp = tags1[currentIndex];
     tags1[currentIndex] = tags1[targetIndex];
     tags1[targetIndex] = temp;
     setTags1([...tags1]);
-  }
+  };
 
-  function onDragSort2({ currentIndex, targetIndex }) {
+  const onDragSort2: TagInputProps['onDragSort'] = ({ currentIndex, targetIndex }) => {
     const temp = tags2[currentIndex];
     tags2[currentIndex] = tags2[targetIndex];
     tags2[targetIndex] = temp;
     setTags2([...tags2]);
-  }
+  };
 
   return (
     <Space direction="vertical" style={{ width: '80%' }}>

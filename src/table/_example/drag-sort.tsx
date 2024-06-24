@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Tag } from 'tdesign-react';
+import { Table, TableProps, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {
@@ -8,7 +8,7 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',
@@ -29,7 +29,7 @@ const columns = [
   { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
   { colKey: 'createTime', title: '申请时间' },
 ];
-const initialData = [];
+const initialData: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   initialData.push({
     index: i + 1,
@@ -48,11 +48,11 @@ export default function TableDragSort() {
   const [data, setData] = useState(initialData);
 
   // currentData is going to be deprecated.
-  function onDragSort({ currentIndex, targetIndex, current, target, data, newData, e }) {
+  const onDragSort: TableProps['onDragSort'] = ({ currentIndex, targetIndex, current, target, data, newData, e }) => {
     console.log('交换行', currentIndex, targetIndex, current, target, data, newData, e);
     // 数据受控实现
     setData(newData);
-  }
+  };
 
   // 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法
   return <Table rowKey="index" data={data} columns={columns} dragSort="row" onDragSort={onDragSort} lazyLoad />;

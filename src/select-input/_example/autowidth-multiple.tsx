@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { SelectInput, Checkbox, CheckboxOptionObj } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
+import type { TagInputValue, TagInputChangeContext, CheckboxGroupProps } from 'tdesign-react';
+
 const classStyles = `
 <style>
 .tdesign-demo__panel-options-autowidth-multiple {
@@ -63,7 +65,7 @@ export default function SelectInputAutocomplete() {
   }, [value]);
 
   // 直接 checkboxgroup 组件渲染输出下拉选项
-  const onCheckedChange = (val, { current, type }) => {
+  const onCheckedChange: CheckboxGroupProps['onChange'] = (val, { current, type }) => {
     // current 不存在，则表示操作全选
     if (!current) {
       setValue(type === 'check' ? options.slice(1) : []);
@@ -79,7 +81,7 @@ export default function SelectInputAutocomplete() {
   };
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
-  const onTagChange = (currentTags, context) => {
+  const onTagChange = (currentTags: TagInputValue, context: TagInputChangeContext) => {
     console.log(currentTags, context);
     const { trigger, index, item } = context;
     if (trigger === 'clear') {

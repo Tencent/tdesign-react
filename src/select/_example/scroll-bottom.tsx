@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Select } from 'tdesign-react';
 
-const options = [];
+import type { SelectProps } from 'tdesign-react';
+
+const options: SelectProps['options'] = [];
 for (let i = 0; i < 15; i++) {
   options.push({ label: `选项${i + 1}`, value: String(i) });
 }

@@ -4,7 +4,7 @@ import { BrowseIcon } from 'tdesign-icons-react';
 
 const SelectPrefix = () => {
   const [value, setValue] = useState('');
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
   return (

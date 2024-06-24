@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Switch, Tree, Space } from 'tdesign-react';
 
+import type { TreeProps } from 'tdesign-react';
+
 const items = [
   {
     label: '1',
@@ -62,11 +64,11 @@ export default () => {
   const [mutex, setMutex] = useState(true);
   const [expandOnClickNode, setExpandOnClickNode] = useState(true);
 
-  const handleClick = (context) => {
+  const handleClick: TreeProps['onClick'] = (context) => {
     console.info('onClick', context);
   };
 
-  const handleExpand = (value, context) => {
+  const handleExpand: TreeProps['onExpand'] = (value, context) => {
     console.info('onExpand', value, context);
   };
 

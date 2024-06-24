@@ -24,7 +24,7 @@ export default function ClosableTagExample() {
   /**
    * @param {number} i
    */
-  const deleteTag = (i) => {
+  const deleteTag = (i: number) => {
     const newtagList = [...tagList];
     newtagList.splice(i, 1);
     setTagList(newtagList);
@@ -34,7 +34,7 @@ export default function ClosableTagExample() {
     toggleInputVisible(true);
   };
 
-  const handleInputEnter = (value) => {
+  const handleInputEnter = (value: string) => {
     toggleInputVisible(false);
     if (value) setTagList((currentList) => currentList.concat([{ name: value, showClose: true }]));
   };

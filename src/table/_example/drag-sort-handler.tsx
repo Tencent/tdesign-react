@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon, MoveIcon } from 'tdesign-icons-react';
 
+import type { TableProps } from 'tdesign-react';
+
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const columns = [
+const columns: TableProps['columns'] = [
   {
     colKey: 'drag', // 列拖拽排序必要参数
     title: '排序',
@@ -41,7 +43,7 @@ const columns = [
   { colKey: 'createTime', title: '申请时间' },
 ];
 
-const initialData = [];
+const initialData: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   initialData.push({
     index: i + 1,
@@ -61,11 +63,11 @@ export default function TableDragSort() {
   const [loading, setLoading] = useState(false);
 
   // { currentIndex, targetIndex, current, target, data, newData, e }
-  function onDragSort(params) {
+  const onDragSort: TableProps['onDragSort'] = (params) => {
     console.log('交换行', params);
     // 数据受控实现
     setData(params.newData);
-  }
+  };
 
   return (
     <Space direction="vertical">

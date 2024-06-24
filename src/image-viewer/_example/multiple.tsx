@@ -1,6 +1,8 @@
 import React from 'react';
-import {Image, ImageViewer, Space} from 'tdesign-react';
-import {BrowseIcon} from 'tdesign-icons-react';
+import { Image, ImageViewer, Space } from 'tdesign-react';
+import { BrowseIcon } from 'tdesign-icons-react';
+
+import type { ImageViewerProps } from 'tdesign-react';
 
 const imgH = 'https://tdesign.gtimg.com/demo/demo-image-3.png';
 const imgV = 'https://tdesign.gtimg.com/demo/demo-image-2.png';
@@ -12,15 +14,15 @@ export default function BasicImageViewer() {
     {
       mainImage: imgH,
       download: true,
-      thumbnail: imgH
+      thumbnail: imgH,
     },
-    imgV
-  ]
+    imgV,
+  ];
 
   return (
     <Space breakLine size={16}>
       {images.map((imgSrc, index) => {
-        const trigger = ({open}) => {
+        const trigger: ImageViewerProps['trigger'] = ({ open }) => {
           const mask = (
             <div
               style={{
@@ -29,11 +31,13 @@ export default function BasicImageViewer() {
                 height: '100%',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
               onClick={open}
             >
-              <span><BrowseIcon size="16px" name={'browse'}/> 预览</span>
+              <span>
+                <BrowseIcon size="16px" name={'browse'} /> 预览
+              </span>
             </div>
           );
 
@@ -49,13 +53,13 @@ export default function BasicImageViewer() {
                 height: 160,
                 border: '4px solid var(--td-bg-color-secondarycontainer)',
                 borderRadius: 'var(--td-radius-medium)',
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
               }}
             />
-          )
-        }
+          );
+        };
 
-        return <ImageViewer key={index} trigger={trigger} images={images} defaultIndex={index}/>
+        return <ImageViewer key={index} trigger={trigger} images={images} defaultIndex={index} />;
       })}
     </Space>
   );

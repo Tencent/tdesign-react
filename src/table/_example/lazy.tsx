@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag, TableProps } from 'tdesign-react';
+import { Table, Button, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -35,7 +37,7 @@ export default function TableLazy() {
   ];
 
   // 本地数据排序，表示组件内部会对参数 data 进行数据排序。如果 data 数据为 10 条，就仅对这 10 条数据进行排序。
-  const initialData = [];
+  const initialData: TableProps['data'] = [];
   for (let i = 0; i < 10; i++) {
     initialData.push({
       id: i + 1,
@@ -51,7 +53,7 @@ export default function TableLazy() {
   }
 
   const times = Array.from(new Array(1000), () => ''); // 测试共计1k条数据
-  const testData = [];
+  const testData: TableProps['data'] = [];
   times.forEach((item, i) => {
     const k = i % 10;
     testData[i] = { ...initialData[k], id: i + 1 };

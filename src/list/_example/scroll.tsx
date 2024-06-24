@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { List } from 'tdesign-react';
 
+import type { ListProps } from 'tdesign-react';
+
 const { ListItem, ListItemMeta } = List;
 
 export default function BasicList() {
@@ -9,7 +11,7 @@ export default function BasicList() {
   const [pageNum, setPageNum] = useState(1);
   const pageSize = 5;
 
-  const dataSource = [];
+  const dataSource: any = [];
   const total = 30;
   for (let i = 0; i < total; i++) {
     dataSource.push({
@@ -28,7 +30,7 @@ export default function BasicList() {
   };
 
   // 模拟请求
-  const fetchData = async (pageInfo) => {
+  const fetchData = async (pageInfo: { pageNum: number; pageSize: number }) => {
     if (isLoading) return;
     setIsLoading(true);
     try {
@@ -44,7 +46,7 @@ export default function BasicList() {
     }
   };
 
-  const handleScroll = ({ scrollBottom }) => {
+  const handleScroll: ListProps['onScroll'] = ({ scrollBottom }) => {
     if (!scrollBottom && listData.length < total) {
       fetchData({ pageNum: pageNum + 1, pageSize });
     }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Select, Space } from 'tdesign-react';
 
-import { Select, SelectProps, Space } from 'tdesign-react';
+import type { SelectProps } from 'tdesign-react';
 
 const { Option } = Select;
 
@@ -8,11 +9,11 @@ const FilterableSelect = () => {
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState(['1']);
 
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
 
-  const onMultipleChange = (value) => {
+  const onMultipleChange = (value: string[]) => {
     setValue2(value);
   };
 
@@ -22,7 +23,7 @@ const FilterableSelect = () => {
     { label: '选项三', value: '3' },
   ];
 
-  const filterMethod = (search, option) => {
+  const filterMethod: SelectProps['filter'] = (search, option) => {
     console.log('search:', search, ', option:', option);
     return option.label.indexOf(search) !== -1;
   };
@@ -35,7 +36,7 @@ const FilterableSelect = () => {
     console.log('handleFocus: ', value, e);
   };
 
-  const handleEnter = (context) => {
+  const handleEnter: SelectProps['onEnter'] = (context) => {
     console.log('handleEnter: ', context);
   };
 

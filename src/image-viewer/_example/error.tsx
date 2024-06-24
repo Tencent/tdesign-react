@@ -1,6 +1,8 @@
 import React from 'react';
-import {Image, ImageViewer, Space} from 'tdesign-react';
-import {BrowseIcon} from "tdesign-icons-react";
+import { Image, ImageViewer, Space } from 'tdesign-react';
+import { BrowseIcon } from 'tdesign-icons-react';
+
+import type { ImageViewerProps } from 'tdesign-react';
 
 const img = 'https://tdesign.gtimg.com/demo/demo-image-1.png';
 
@@ -10,12 +12,12 @@ export default function BasicImageViewer() {
     'https://tdesign.gtimg.com/demo/demo-image-error1.png',
     'https://tdesign.gtimg.com/demo/demo-image-error2.png',
     'https://tdesign.gtimg.com/demo/demo-image-error3.png',
-  ]
+  ];
 
   return (
     <Space>
       {images.map((imgSrc, index) => {
-        const trigger = ({open}) => {
+        const trigger: ImageViewerProps['trigger'] = ({ open }) => {
           const mask = (
             <div
               style={{
@@ -24,11 +26,13 @@ export default function BasicImageViewer() {
                 height: '100%',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
               onClick={open}
             >
-              <span><BrowseIcon size="16px" name={'browse'}/> 预览</span>
+              <span>
+                <BrowseIcon size="16px" name={'browse'} /> 预览
+              </span>
             </div>
           );
 
@@ -44,13 +48,13 @@ export default function BasicImageViewer() {
                 height: 160,
                 border: '4px solid var(--td-bg-color-secondarycontainer)',
                 borderRadius: 'var(--td-radius-medium)',
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
               }}
             />
-          )
-        }
+          );
+        };
 
-        return <ImageViewer key={imgSrc} trigger={trigger} images={images} defaultIndex={index}/>
+        return <ImageViewer key={imgSrc} trigger={trigger} images={images} defaultIndex={index} />;
       })}
     </Space>
   );

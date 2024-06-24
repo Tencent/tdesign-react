@@ -2,8 +2,10 @@ import React from 'react';
 import { MessagePlugin, Table, Tag } from 'tdesign-react';
 import { FileCopyIcon, ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
+import type { TableProps } from 'tdesign-react';
+
 // thanks to https://www.zhangxinxu.com/wordpress/2021/10/js-copy-paste-clipboard/
-function copyToClipboard(text) {
+function copyToClipboard(text: string) {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text);
   } else {
@@ -21,7 +23,7 @@ function copyToClipboard(text) {
 }
 
 export default function TableEllipsis() {
-  const data = [];
+  const data: TableProps['data'] = [];
   const total = 5;
   for (let i = 0; i < total; i++) {
     data.push({
@@ -47,7 +49,7 @@ export default function TableEllipsis() {
     2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
   };
 
-  const columns = [
+  const columns: TableProps['columns'] = [
     {
       colKey: 'applicant',
       title: '申请人',

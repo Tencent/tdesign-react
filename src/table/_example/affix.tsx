@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Checkbox, Space, Link, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import type { TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -24,7 +25,7 @@ const classStyles = `
 </style>
 `;
 
-function getData(count) {
+function getData(count: number) {
   const data = [];
   for (let i = 0; i < count; i++) {
     data.push({
@@ -45,49 +46,47 @@ function getData(count) {
 
 const TOTAL = 38;
 
-function getColumns({ fixedLeftColumn, fixedRightColumn }) {
-  return [
-    {
-      align: 'left',
-      colKey: 'applicant',
-      title: '申请人',
-      foot: () => <b style={{ fontWeight: 'bold' }}>表尾信息</b>,
-      width: '120',
-      fixed: fixedLeftColumn ? 'left' : undefined,
-    },
-    {
-      colKey: 'status',
-      title: '申请状态',
-      width: '150',
-      cell: ({ row }) => (
-        <Tag
-          shape="round"
-          theme={statusNameListMap[row.status].theme}
-          variant="light-outline"
-          icon={statusNameListMap[row.status].icon}
-        >
-          {statusNameListMap[row.status].label}
-        </Tag>
-      ),
-    },
-    { colKey: 'channel', title: '签署方式', width: '120' },
-    { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
-    { colKey: 'matters', title: '申请事项', ellipsis: true },
-    { colKey: 'createTime', title: '申请时间' },
-    {
-      colKey: 'operation',
-      title: '操作',
-      cell: ({ row }) => (
-        <Link hover="color" theme="primary">
-          {row.status === 0 ? '查看详情' : '再次申请'}
-        </Link>
-      ),
-      width: 120,
-      foot: '-',
-      fixed: fixedRightColumn ? 'right' : undefined,
-    },
-  ];
-}
+const getColumns = ({ fixedLeftColumn, fixedRightColumn }) => [
+  {
+    align: 'left',
+    colKey: 'applicant',
+    title: '申请人',
+    foot: () => <b style={{ fontWeight: 'bold' }}>表尾信息</b>,
+    width: '120',
+    fixed: fixedLeftColumn ? 'left' : undefined,
+  },
+  {
+    colKey: 'status',
+    title: '申请状态',
+    width: '150',
+    cell: ({ row }) => (
+      <Tag
+        shape="round"
+        theme={statusNameListMap[row.status].theme}
+        variant="light-outline"
+        icon={statusNameListMap[row.status].icon}
+      >
+        {statusNameListMap[row.status].label}
+      </Tag>
+    ),
+  },
+  { colKey: 'channel', title: '签署方式', width: '120' },
+  { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
+  { colKey: 'matters', title: '申请事项', ellipsis: true },
+  { colKey: 'createTime', title: '申请时间' },
+  {
+    colKey: 'operation',
+    title: '操作',
+    cell: ({ row }) => (
+      <Link hover="color" theme="primary">
+        {row.status === 0 ? '查看详情' : '再次申请'}
+      </Link>
+    ),
+    width: 120,
+    foot: '-',
+    fixed: fixedRightColumn ? 'right' : undefined,
+  },
+];
 
 const TableAffixDemo = () => {
   const data = getData(TOTAL);
@@ -104,14 +103,14 @@ const TableAffixDemo = () => {
   const [paginationAffixedBottom, setPaginationAffixedBottom] = useState(false);
 
   // type 可选值：foot 和 body
-  function rowClassName({ type }) {
+  const rowClassName: TableProps['rowClassName'] = ({ type }) => {
     if (type === 'foot') return 't-tdesign__custom-footer-tr';
     return 't-tdesign__custom-body-tr';
-  }
+  };
 
-  function onDragSortChange({ newData }) {
+  const onDragSortChange: TableProps['onDragSort'] = ({ newData }) => {
     setColumns(newData);
-  }
+  };
 
   // 表尾吸顶和底部滚动条，二选一即可，也只能二选一
   useEffect(() => {

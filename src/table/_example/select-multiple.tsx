@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, TableProps, Tag } from 'tdesign-react';
+import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -43,7 +45,7 @@ const columns: TableProps['columns'] = [
   { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
   { colKey: 'createTime', title: '申请时间' },
 ];
-const initData = [];
+const initData: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   initData.push({
     index: i + 100,
@@ -63,10 +65,10 @@ export default function TableSingleSort() {
   const [data] = useState([...initData]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  function onSelectChange(value, { selectedRowData }) {
+  const onSelectChange: TableProps['onSelectChange'] = (value, { selectedRowData }) => {
     console.log(value, selectedRowData);
     setSelectedRowKeys(value);
-  }
+  };
 
   return (
     <Table

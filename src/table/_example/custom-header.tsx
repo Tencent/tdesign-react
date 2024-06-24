@@ -2,13 +2,15 @@ import React from 'react';
 import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
+import type { TableProps } from 'tdesign-react';
+
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const data = [];
+const data: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   data.push({
     index: i + 1,
@@ -24,7 +26,7 @@ for (let i = 0; i < 5; i++) {
   });
 }
 
-const columns = [
+const columns: TableProps['columns'] = [
   {
     colKey: 'applicant',
     title: '申请人',

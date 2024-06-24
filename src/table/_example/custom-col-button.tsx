@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, TableColumnController, CheckboxGroupValue } from 'tdesign-react';
+import { Table, Radio, Checkbox, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableColumnController, CheckboxGroupValue, TableProps } from 'tdesign-react';
 
 type ControlPlacement = TableColumnController['placement'];
 export default function TableCustomColButton() {
@@ -8,7 +10,7 @@ export default function TableCustomColButton() {
   const [bordered, setBordered] = useState(true);
   const [customText, setCustomText] = useState(false);
 
-  const initialData = [];
+  const initialData: TableProps['data'] = [];
   for (let i = 0; i < 100; i++) {
     initialData.push({
       index: i,
@@ -31,7 +33,7 @@ export default function TableCustomColButton() {
     staticColumn.concat(['channel', 'detail.email', 'createTime']),
   );
 
-  const columns = [
+  const columns: TableProps['columns'] = [
     { colKey: 'applicant', title: '申请人', width: '100' },
     {
       colKey: 'status',
@@ -61,7 +63,7 @@ export default function TableCustomColButton() {
     { colKey: 'createTime', title: '申请时间' },
   ];
 
-  const onColumnChange = (params) => {
+  const onColumnChange: TableProps['onColumnChange'] = (params) => {
     console.log(params);
   };
 

@@ -13,7 +13,7 @@ const style = {
 export default function BasicSkeleton() {
   const [checked, setChecked] = useState(true);
 
-  const onChange = (value) => {
+  const onChange = (value: boolean) => {
     console.log('value', value);
     setChecked(value);
   };

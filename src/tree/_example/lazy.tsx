@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tree, TreeProps } from 'tdesign-react';
+import { Tree } from 'tdesign-react';
+import type { TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -16,7 +17,7 @@ export default () => {
   const load: TreeProps['load'] = (node) =>
     new Promise((resolve) => {
       setTimeout(() => {
-        let nodes = [];
+        let nodes: Array<{ label: string; children: boolean }> = [];
         if (node.getLevel() < 2) {
           nodes = [
             {
@@ -33,7 +34,7 @@ export default () => {
       }, 1000);
     });
 
-  const handleLoad = (state) => {
+  const handleLoad: TreeProps['onLoad'] = (state) => {
     console.log('on load:', state);
   };
 

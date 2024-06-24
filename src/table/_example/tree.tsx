@@ -1,18 +1,10 @@
 import React, { useState, useRef, useMemo } from 'react';
-import {
-  EnhancedTable,
-  MessagePlugin,
-  Button,
-  Popconfirm,
-  Checkbox,
-  Space,
-  Loading,
-  Link,
-  TableProps,
-} from 'tdesign-react';
+import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from 'tdesign-react';
 import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 
-function getObject(i, currentPage) {
+import type { TableProps, EnhancedTableProps, TableRowData } from 'tdesign-react';
+
+function getObject(i: number, currentPage: number) {
   return {
     id: i,
     key: `申请人 ${i}_${currentPage} 号`,
@@ -29,7 +21,7 @@ function getObject(i, currentPage) {
 }
 
 function getData(currentPage = 1) {
-  const data = [];
+  const data: TableProps['data'] = [];
   const pageInfo = `第 ${currentPage} 页`;
   for (let i = 0; i < 5; i++) {
     const obj = getObject(i, currentPage);
@@ -100,7 +92,7 @@ export default function TableTree() {
     // tableRef.current.resetData(data);
   };
 
-  const onEditClick = (row) => {
+  const onEditClick = (row: TableRowData) => {
     const newData = {
       ...row,
       platform: '电子签署',
@@ -111,20 +103,20 @@ export default function TableTree() {
     MessagePlugin.success('数据已更新');
   };
 
-  const onDeleteConfirm = (row) => {
+  const onDeleteConfirm = (row: TableRowData) => {
     tableRef.current.remove(row.key);
     // tableRef.current.removeChildren(row.key);
     MessagePlugin.success('删除成功');
   };
 
-  const onLookUp = (row) => {
+  const onLookUp = (row: TableRowData) => {
     const allRowData = tableRef.current.getData(row.key);
     const message = '当前行全部数据，包含节点路径、父节点、子节点、是否展开、是否禁用等';
     MessagePlugin.success(`打开控制台查看${message}`);
     console.log(`${message}：`, allRowData);
   };
 
-  const appendTo = (row) => {
+  const appendTo = (row: TableRowData) => {
     const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
     tableRef.current.appendTo(row.key, {
       id: randomKey1,
@@ -138,7 +130,7 @@ export default function TableTree() {
     // appendMultipleDataTo(row);
   };
 
-  function appendMultipleDataTo(row) {
+  function appendMultipleDataTo(row: TableRowData) {
     const randomKey1 = Math.round(Math.random() * Math.random() * 1000) + 10000;
     const randomKey2 = Math.round(Math.random() * Math.random() * 1000) + 10000;
     const appendList = [
@@ -160,7 +152,7 @@ export default function TableTree() {
   }
 
   // 当前节点之前，新增兄弟节前
-  const insertBefore = (row) => {
+  const insertBefore = (row: TableRowData) => {
     const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
     tableRef.current.insertBefore(row.key, {
       id: randomKey,
@@ -172,7 +164,7 @@ export default function TableTree() {
   };
 
   // 当前节点之后，新增兄弟节前
-  const insertAfter = (row) => {
+  const insertAfter = (row: TableRowData) => {
     const randomKey = Math.round(Math.random() * Math.random() * 1000) + 10000;
     tableRef.current.insertAfter(row.key, {
       id: randomKey,
@@ -293,7 +285,7 @@ export default function TableTree() {
     return type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />;
   };
 
-  const onPageChange = (pageInfo) => {
+  const onPageChange: TableProps['onPageChange'] = (pageInfo) => {
     setPagination({ ...pagination, ...pageInfo });
     setData(getData(pageInfo.current));
   };
@@ -307,7 +299,7 @@ export default function TableTree() {
     return type === 'expand' ? <AddRectangleIcon /> : <MinusRectangleIcon />;
   }
 
-  const treeExpandIconRender = useMemo(() => {
+  const treeExpandIconRender: EnhancedTableProps['treeExpandAndFoldIcon'] = useMemo(() => {
     // 自定义展开图标
     if (customTreeExpandAndFoldIcon) {
       return renderTreeExpandAndFoldIcon;
@@ -316,7 +308,7 @@ export default function TableTree() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lazyLoadingData, customTreeExpandAndFoldIcon]);
 
-  function onTreeExpandChange(context) {
+  const onTreeExpandChange: EnhancedTableProps['onTreeExpandChange'] = (context) => {
     console.log(context.rowState.expanded ? '展开' : '收起', context);
     /**
      * 如果是懒加载，请确认自己完成了以下几个步骤
@@ -332,7 +324,7 @@ export default function TableTree() {
         clearTimeout(timer);
       }, 200);
     }
-  }
+  };
 
   return (
     <Space direction="vertical">

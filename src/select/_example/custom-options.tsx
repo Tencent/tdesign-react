@@ -20,7 +20,7 @@ const avatarUrl = 'https://tdesign.gtimg.com/site/avatar.jpg';
 
 export default function CustomOptions() {
   const [value, setValue] = useState('1');
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
 

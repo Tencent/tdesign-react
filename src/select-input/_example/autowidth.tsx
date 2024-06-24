@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
+import type { SelectInputValueChangeContext } from 'tdesign-react';
+
 const classStyles = `
 <style>
 .tdesign-demo__select-input-ul-auto-width {
@@ -45,7 +47,7 @@ export default function SelectInputAutocomplete() {
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectValue, setSelectValue] = useState({ label: 'tdesign-vue', value: 1 });
 
-  const onOptionClick = (item) => {
+  const onOptionClick = (item: { label: string; value: number }) => {
     setSelectValue(item);
     setPopupVisible(false);
   };
@@ -54,12 +56,11 @@ export default function SelectInputAutocomplete() {
     setSelectValue(undefined);
   };
 
-  const onPopupVisibleChange = (val, context) => {
-    console.log(context);
+  const onPopupVisibleChange = (val: boolean) => {
     setPopupVisible(val);
   };
 
-  const onInputChange = (val, context) => {
+  const onInputChange = (val: string, context: SelectInputValueChangeContext) => {
     // 过滤功能
     console.log(val, context);
   };

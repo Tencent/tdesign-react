@@ -9,7 +9,7 @@ const RequestMethod = () => {
   const uploadRef = useRef(null);
 
   // customize upload `file`, if success, return url
-  const requestSuccessMethod = useCallback(
+  const requestSuccessMethod: UploadProps['requestMethod'] = useCallback(
     (file) =>
       new Promise<RequestMethodReturn>((resolve) => {
         // 上传进度控制示例
@@ -38,7 +38,7 @@ const RequestMethod = () => {
   );
 
   // customize upload `file`, if fail, return error message
-  const requestFailMethod = useCallback(
+  const requestFailMethod: UploadProps['requestMethod'] = useCallback(
     () =>
       new Promise<RequestMethodReturn>((resolve) => {
         const errorResult = {
@@ -55,7 +55,7 @@ const RequestMethod = () => {
     [],
   );
 
-  const onChangeUploadMethod = useCallback((value) => {
+  const onChangeUploadMethod = useCallback((value: string) => {
     setUploadMethod(value);
     setFiles([]);
   }, []);

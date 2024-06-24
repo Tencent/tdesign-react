@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Switch, Tree, Space } from 'tdesign-react';
+import type { TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -31,11 +32,11 @@ export default () => {
   const [activeMultiple, setActiveMultiple] = useState(false);
   const [expandOnClickNode, setExpandOnClickNode] = useState(false);
 
-  const handleClick = (context) => {
+  const handleClick: TreeProps['onClick'] = (context) => {
     console.info('onClick', context);
   };
 
-  const handleActive = (value, context) => {
+  const handleActive: TreeProps['onActive'] = (value, context) => {
     console.info('onActive', value, context);
   };
 

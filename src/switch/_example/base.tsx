@@ -4,7 +4,7 @@ import { Switch, Space } from 'tdesign-react';
 export default function SwitchBasic() {
   const [checked, setChecked] = useState(true);
 
-  const onChange = (value) => {
+  const onChange = (value: boolean) => {
     console.log('value', value);
     setChecked(value);
   };

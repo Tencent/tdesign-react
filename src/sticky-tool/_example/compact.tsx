@@ -2,13 +2,15 @@ import React from 'react';
 import { StickyTool, Space } from 'tdesign-react';
 import { ChatIcon, AddIcon, QrcodeIcon } from 'tdesign-icons-react';
 
+import type { StickyToolProps } from 'tdesign-react';
+
 const { StickyItem } = StickyTool;
 
 export default function Compact() {
-  const handleClick = (context) => {
+  const handleClick: StickyToolProps['onClick'] = (context) => {
     console.log('click', context);
   };
-  const handleHover = (context) => {
+  const handleHover: StickyToolProps['onHover'] = (context) => {
     console.log('hover', context);
   };
 

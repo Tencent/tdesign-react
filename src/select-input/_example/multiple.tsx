@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Radio, Checkbox, CheckboxGroupProps, SelectInputProps, CheckboxOptionObj } from 'tdesign-react';
+import { SelectInput, Radio, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
+
+import type { CheckboxGroupProps, SelectInputProps, CheckboxOptionObj } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -90,7 +92,7 @@ export default function SelectInputMultiple() {
   };
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
-  const onTagChange = (currentTags, context) => {
+  const onTagChange: SelectInputProps['onTagChange'] = (currentTags, context) => {
     const { trigger, index } = context;
     if (trigger === 'clear') {
       setValue([]);
@@ -102,7 +104,7 @@ export default function SelectInputMultiple() {
     }
   };
 
-  const onInputChange = (val, context) => {
+  const onInputChange: SelectInputProps['onInputChange'] = (val, context) => {
     setInputValue(val);
     // 过滤功能
     console.log(val, context);
@@ -113,7 +115,7 @@ export default function SelectInputMultiple() {
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
-  const onInputEnter = (_, { inputValue }) => {
+  const onInputEnter: SelectInputProps['onEnter'] = (_, { inputValue }) => {
     // 如果允许创建新条目
     if (creatable) {
       const current = { label: inputValue, value: inputValue };

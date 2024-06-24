@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag, type TdPrimaryTableProps } from 'tdesign-react';
+import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { PrimaryTableProps, TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
-const columns: TdPrimaryTableProps['columns'] = [
+const columns: PrimaryTableProps['columns'] = [
   {
     colKey: 'row-select',
     type: 'multiple',
@@ -58,7 +60,7 @@ const columns: TdPrimaryTableProps['columns'] = [
 
 export default function TableBasic() {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<TableProps['data']>([]);
   const [total, setTotal] = useState(0);
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(5);

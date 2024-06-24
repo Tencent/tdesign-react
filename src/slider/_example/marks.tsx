@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Slider, SliderValue } from 'tdesign-react';
+import { Slider } from 'tdesign-react';
+import type { SliderValue } from 'tdesign-react';
 
 const MarksSlider = () => {
   const [value, setValue] = useState<SliderValue>(10);

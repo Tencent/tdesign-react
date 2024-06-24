@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag, CheckboxGroupValue } from 'tdesign-react';
+import { Table, Button, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
+import type { CheckboxGroupValue, TableProps } from 'tdesign-react';
+
 export default function TableCustomCol() {
-  const initialData = [];
+  const initialData: TableProps['data'] = [];
   for (let i = 0; i < 100; i++) {
     initialData.push({
       index: i,
@@ -28,7 +30,7 @@ export default function TableCustomCol() {
 
   const [columnControllerVisible, setColumnControllerVisible] = useState(false);
 
-  const columns = [
+  const columns: TableProps['columns'] = [
     { colKey: 'applicant', title: '申请人', width: '100' },
     {
       colKey: 'status',

@@ -2,6 +2,8 @@ import React from 'react';
 import { ImageViewer, Image } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
 
+import type { ImageViewerProps } from 'tdesign-react';
+
 const img = [
   {
     mainImage: 'https://tdesign.gtimg.com/demo/tdesign-logo.svg',
@@ -13,7 +15,7 @@ const img = [
 ];
 
 const Svg = () => {
-  const trigger = ({ open }) => {
+  const trigger: ImageViewerProps['trigger'] = ({ open }) => {
     const mask = (
       <div
         style={{

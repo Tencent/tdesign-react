@@ -88,7 +88,7 @@ export default () => {
   const [showLine, setShowLine] = useState(true);
   const [showIcon, setShowIcon] = useState(true);
 
-  const getLineNodes = (node) => {
+  const getLineNodes = (node: TreeNodeModel) => {
     const nodes = node.getParents().reverse();
     const lineNodes: ILine[] = [];
     nodes.forEach((item, index) => {

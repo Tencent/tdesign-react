@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox, CheckboxOptionObj, CheckboxGroupProps } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
+import type { TagInputValue, TagInputChangeContext } from 'tdesign-react';
+
 const classStyles = `
 <style>
 .tdesign-demo__panel-options-borderless-multiple {
@@ -83,7 +85,7 @@ export default function SelectInputMultiple() {
   };
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
-  const onTagChange = (currentTags, context) => {
+  const onTagChange = (currentTags: TagInputValue, context: TagInputChangeContext) => {
     const { trigger, index, item } = context;
     if (trigger === 'clear') {
       setValue([]);

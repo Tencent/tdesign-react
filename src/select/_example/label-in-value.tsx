@@ -5,19 +5,19 @@ const { Option } = Select;
 
 const LabelInValueSelect = () => {
   const [value, setValue] = useState({ label: 'Apple', value: 'apple' });
-  const onChange = (value) => {
+  const onChange = (value: { label: string; value: string }) => {
     console.log('Value', value);
     setValue(value);
   };
 
   const [value2, setValue2] = useState([{ text: 'Apple', data: 'apple', type: 'fruit' }]);
-  const onChange2 = (value) => {
+  const onChange2 = (value: { text: string; data: string; type: string }[]) => {
     console.log('Value', value);
     setValue2(value);
   };
 
   const [value3, setValue3] = useState({ text: 'Apple', data: 'apple', type: 'fruit' });
-  const onChange3 = (value) => {
+  const onChange3 = (value: { text: string; data: string; type: string }) => {
     console.log('Value', value);
     setValue3(value);
   };

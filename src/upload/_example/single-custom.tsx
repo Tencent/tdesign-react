@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload, Space, type TdUploadProps } from 'tdesign-react';
+import { Button, message, Upload, Space } from 'tdesign-react';
+
+import type { UploadProps } from 'tdesign-react';
 
 export default function SingleCustom() {
   const MAX_UPLOAD_SIZE = 1;
@@ -7,17 +9,17 @@ export default function SingleCustom() {
   const [files, setFiles] = useState([]);
   const [name, setName] = useState('name');
 
-  const handleChange = useCallback((files) => {
+  const handleChange: UploadProps['onChange'] = useCallback((files) => {
     setFiles(files);
   }, []);
-  const handleFail = useCallback(({ file }) => {
+  const handleFail: UploadProps['onFail'] = useCallback(({ file }) => {
     message.error(`文件 ${file.name} 上传失败`);
   }, []);
   const handleSuccess = useCallback(() => {
     setTips('');
     message.success('上传成功');
   }, []);
-  const beforeUpload: TdUploadProps['beforeUpload'] = useCallback(
+  const beforeUpload: UploadProps['beforeUpload'] = useCallback(
     () =>
       new Promise((resolve) => {
         setName('name2');

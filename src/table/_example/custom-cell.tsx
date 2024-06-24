@@ -2,7 +2,9 @@ import React from 'react';
 import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, UserIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-const data = [];
+import type { TableProps } from 'tdesign-react';
+
+const data: TableProps['data'] = [];
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
   1: { label: '审批失败', theme: 'danger', icon: <CloseCircleFilledIcon /> },
@@ -22,7 +24,7 @@ for (let i = 0; i < 5; i++) {
   });
 }
 
-const columns = [
+const columns: TableProps['columns'] = [
   {
     colKey: 'applicant',
     width: 120,

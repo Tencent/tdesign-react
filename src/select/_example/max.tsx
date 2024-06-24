@@ -5,7 +5,7 @@ const { Option } = Select;
 
 const SelectMax = () => {
   const [value, setValue] = useState(['1']);
-  const onChange = (value) => {
+  const onChange = (value: string[]) => {
     setValue(value);
   };
   return (

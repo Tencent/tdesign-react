@@ -1,15 +1,17 @@
 import React from 'react';
 import { Pagination } from 'tdesign-react';
 
+import type { PaginationProps } from 'tdesign-react';
+
 export default function PaginationExample() {
-  const onChange = (pageInfo) => {
+  const onChange: PaginationProps['onChange'] = (pageInfo) => {
     console.log(pageInfo);
   };
 
-  const onPageSizeChange = (size) => {
+  const onPageSizeChange: PaginationProps['onPageSizeChange'] = (size) => {
     console.log('page-size:', size);
   };
-  const onCurrentChange = (index, pageInfo) => {
+  const onCurrentChange: PaginationProps['onCurrentChange'] = (index, pageInfo) => {
     console.log(`转到第${index}页`);
     console.log(pageInfo);
   };

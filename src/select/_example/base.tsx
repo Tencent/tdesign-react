@@ -3,7 +3,7 @@ import { Select } from 'tdesign-react';
 
 export default function SingleSelect() {
   const [value, setValue] = useState('');
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
 

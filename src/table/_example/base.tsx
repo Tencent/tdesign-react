@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
-import { SizeEnum } from '../../common';
+
+import type { TableProps } from 'tdesign-react';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-const data = [];
+const data: TableProps['data'] = [];
 const total = 28;
+
+type SizeEnum = 'small' | 'medium' | 'large';
 for (let i = 0; i < total; i++) {
   data.push({
     index: i + 1,

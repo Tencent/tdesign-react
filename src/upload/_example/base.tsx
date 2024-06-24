@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
 import { CloseIcon } from 'tdesign-icons-react';
 
+import type { UploadProps } from 'tdesign-react';
+
 export default function UploadExample() {
   const uploadRef1 = useRef(null);
   const uploadRef2 = useRef(null);
@@ -56,26 +58,26 @@ export default function UploadExample() {
     );
   }, [multiple]);
 
-  const handleFail = ({ file }) => {
+  const handleFail: UploadProps['onFail'] = ({ file }) => {
     MessagePlugin.error(`文件 ${file.name} 上传失败`);
   };
 
-  const handleSelectChange = (files) => {
+  const handleSelectChange: UploadProps['onSelectChange'] = (files) => {
     console.log('onSelectChange', files);
   };
 
-  const handleSuccess = (params) => {
+  const handleSuccess: UploadProps['onSuccess'] = (params) => {
     console.log(params);
     MessagePlugin.success('上传成功');
   };
 
   // 多文件上传，一个文件一个请求场景，每个文件也会单独触发上传成功的事件
-  const onOneFileSuccess = (params) => {
+  const onOneFileSuccess: UploadProps['onOneFileSuccess'] = (params) => {
     console.log('onOneFileSuccess', params);
   };
 
   // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
-  const onValidate = (params) => {
+  const onValidate: UploadProps['onValidate'] = (params) => {
     const { files, type } = params;
     console.log('onValidate', type, files);
     const messageMap = {
@@ -92,7 +94,7 @@ export default function UploadExample() {
 
   // 仅自定义文件列表所需
   // eslint-disable-next-line
-  const outsideRemove = (index) => {
+  const outsideRemove = (index: number) => {
     const tmpFiles = [...files3];
     tmpFiles.splice(index, 1);
     setFiles3(tmpFiles);
@@ -119,13 +121,13 @@ export default function UploadExample() {
 
   // 非自动上传文件，需保存待上传文件列表
   const [waitingUploadFiles, setWaitingUploadFiles] = useState([]);
-  const onWaitingUploadFilesChange = (files) => {
+  const onWaitingUploadFilesChange: UploadProps['onWaitingUploadFilesChange'] = ({ files }) => {
     setWaitingUploadFiles(files);
     console.log('onWaitingUploadFilesChange', waitingUploadFiles, files);
   };
 
   // 用于格式化接口响应值，error 会被用于上传失败的提示文字；url 表示文件/图片地址
-  const formatResponse = (res) => ({ ...res, error: '上传失败，请重试', url: res?.url });
+  const formatResponse: UploadProps['formatResponse'] = (res) => ({ ...res, error: '上传失败，请重试', url: res?.url });
 
   /** 单个文件校验方法，示例代码有效，勿删 */
   // const beforeUpload = (file) => {

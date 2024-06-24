@@ -1,7 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
+
+import type { SelectInputProps } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -47,7 +48,7 @@ export default function SelectInputSingle() {
 
   const [popupVisible, setPopupVisible] = useState(false);
 
-  const onOptionClick = (item) => {
+  const onOptionClick = (item: { label: string; value: number }) => {
     setSelectValue(item);
     // 选中后立即关闭浮层
     setPopupVisible(false);
@@ -57,7 +58,7 @@ export default function SelectInputSingle() {
     setSelectValue(undefined);
   };
 
-  const onPopupVisibleChange = (val, context) => {
+  const onPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (val, context) => {
     console.log(context);
     setPopupVisible(val);
   };
@@ -81,7 +82,7 @@ export default function SelectInputSingle() {
         onClear={onClear}
         panel={
           <ul className="tdesign-demo__select-input-ul-single">
-            {OPTIONS.map(item => (
+            {OPTIONS.map((item) => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
                 {item.label}
               </li>
@@ -91,5 +92,5 @@ export default function SelectInputSingle() {
         suffixIcon={<ChevronDownIcon />}
       />
     </div>
-  )
+  );
 }

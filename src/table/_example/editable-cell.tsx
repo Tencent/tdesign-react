@@ -1,17 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import {
-  Table,
-  Input,
-  Select,
-  DatePicker,
-  MessagePlugin,
-  type TdPrimaryTableProps,
-  type TdBaseTableProps,
-} from 'tdesign-react';
+import { Table, Input, Select, DatePicker, MessagePlugin } from 'tdesign-react';
 import dayjs from 'dayjs';
+import type { PrimaryTableProps, BaseTableProps, TableRowData } from 'tdesign-react';
 
 export default function EditableCellTable() {
-  const initData = new Array(5).fill(null).map((_, i) => ({
+  const initData: BaseTableProps['data'] = new Array(5).fill(null).map((_, i) => ({
     key: String(i + 1),
     firstName: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
@@ -39,12 +32,12 @@ export default function EditableCellTable() {
   const [data, setData] = useState([...initData]);
   const [relationSelect, setRelationSelect] = useState({});
 
-  const editableCellState: TdPrimaryTableProps['editableCellState'] = (cellParams) =>
+  const editableCellState: PrimaryTableProps['editableCellState'] = (cellParams) =>
     // 第一行不允许编辑
     // return cellParams.status !== 2;
     cellParams.rowIndex !== 2;
 
-  const columns: TdBaseTableProps['columns'] = useMemo(
+  const columns: BaseTableProps['columns'] = useMemo(
     () => [
       {
         title: '申请人',
@@ -63,7 +56,7 @@ export default function EditableCellTable() {
           // 触发校验的时机（when to validate)
           validateTrigger: 'change',
           // 透传给 component: Input 的事件（也可以在 edit.props 中添加）
-          on: (editContext) => ({
+          on: (editContext: { rowIndex: number; newRowData: TableRowData }) => ({
             onBlur: () => {
               console.log('失去焦点', editContext);
             },
@@ -75,7 +68,7 @@ export default function EditableCellTable() {
           // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
           abortEditOnEvent: ['onEnter'],
           // 编辑完成，退出编辑态后触发
-          onEdited: (context) => {
+          onEdited: (context: { rowIndex: number; newRowData: TableRowData }) => {
             data.splice(context.rowIndex, 1, context.newRowData);
             setData([...data]);
             console.log('Edit firstName:', context);
@@ -104,7 +97,7 @@ export default function EditableCellTable() {
           // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
           // abortEditOnEvent: ['onChange'],
           // 编辑完成，退出编辑态后触发
-          onEdited: (context) => {
+          onEdited: (context: { rowIndex: number; newRowData: TableRowData }) => {
             data.splice(context.rowIndex, 1, context.newRowData);
             setData([...data]);
             console.log('Edit Framework:', context);
@@ -160,7 +153,7 @@ export default function EditableCellTable() {
           },
           // 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态
           abortEditOnEvent: ['onChange'],
-          onEdited: (context) => {
+          onEdited: (context: { rowIndex: number; newRowData: TableRowData }) => {
             data.splice(context.rowIndex, 1, context.newRowData);
             setData([...data]);
             console.log('Edit Date:', context);
@@ -169,7 +162,7 @@ export default function EditableCellTable() {
           // 校验规则，此处同 Form 表单
           rules: () => [
             {
-              validator: (val) => dayjs(val).isAfter(dayjs()),
+              validator: (val: string) => dayjs(val).isAfter(dayjs()),
               message: '只能选择今天以后日期',
             },
           ],

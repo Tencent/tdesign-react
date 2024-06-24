@@ -2,10 +2,12 @@ import React from 'react';
 import { ImageViewer, Image, Space } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
 
+import type { ImageViewerProps } from 'tdesign-react';
+
 const img = 'https://tdesign.gtimg.com/demo/demo-image-1.png';
 
 export default function BasicImageViewer() {
-  const trigger = ({ open }) => {
+  const trigger: ImageViewerProps['trigger'] = ({ open }) => {
     const mask = (
       <div
         style={{

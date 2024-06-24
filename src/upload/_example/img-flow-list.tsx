@@ -71,7 +71,7 @@ export default function TUploadImageFlow() {
   };
 
   // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
-  const onValidate = (params) => {
+  const onValidate: UploadProps['onValidate'] = (params) => {
     const { files, type } = params;
     console.log('onValidate', params);
     if (type === 'FILE_OVER_SIZE_LIMIT') {

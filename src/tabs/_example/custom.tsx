@@ -3,7 +3,7 @@ import { TabValue, Tabs } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
-const tabs = [];
+const tabs: Array<{ label: string; value: number }> = [];
 for (let i = 1, max = 10; i <= max; ++i) {
   tabs.push({
     value: i,

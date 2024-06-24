@@ -7,11 +7,11 @@ const OptionGroupSelect = () => {
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState([1]);
 
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
 
-  const onChange2 = (value) => {
+  const onChange2 = (value: number[]) => {
     setValue2(value);
   };
   const options1 = [

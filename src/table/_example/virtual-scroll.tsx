@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import { Table, Space, Button, Checkbox, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
+import type { TableProps } from 'tdesign-react';
+
 function getTableData() {
-  const initialData = [];
+  const initialData: TableProps['data'] = [];
   for (let i = 0; i < 10; i++) {
     initialData.push({
       id: i + 1,
@@ -19,7 +21,7 @@ function getTableData() {
   }
 
   const times = Array.from(new Array(1000), () => '');
-  const testData = [];
+  const testData: TableProps['data'] = [];
   times.forEach((item, i) => {
     const k = i % 10;
     testData[i] = { ...initialData[k], id: i + 1 };
@@ -59,7 +61,7 @@ const TableVirtualScroll = () => {
       colKey: 'status',
       title: '申请状态',
       width: '150',
-      cell: ({ rowIndex }) => {
+      cell: ({ rowIndex }: { rowIndex: number }) => {
         const status = rowIndex % 3;
         return (
           <Tag

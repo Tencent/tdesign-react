@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Pagination } from 'tdesign-react';
 
+import type { PaginationProps } from 'tdesign-react';
+
 export default function PaginationExample() {
   const [pageSize, changePageSize] = useState(5);
 
-  const onChange = (pageInfo) => {
+  const onChange: PaginationProps['onChange'] = (pageInfo) => {
     console.log(pageInfo);
   };
 

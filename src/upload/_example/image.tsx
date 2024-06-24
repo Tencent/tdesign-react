@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Upload, Space, MessagePlugin, Checkbox, Button } from 'tdesign-react';
 
+import type { UploadFile, UploadProps } from 'tdesign-react';
 // @ts-ignore
 import { getFileUrlByFileRaw } from 'tdesign-react/_common/js/upload/utils';
 
@@ -22,7 +23,7 @@ export default function UploadExample() {
   const [uploadInOneRequest, setUploadInOneRequest] = useState(false);
   const [autoUpload, setAutoUpload] = useState(true);
 
-  const setFormattedUrlFiles = (files) => {
+  const setFormattedUrlFiles = (files: UploadFile[]) => {
     const list = files.map(
       (file) =>
         new Promise((resolve) => {
@@ -37,13 +38,13 @@ export default function UploadExample() {
   };
 
   // 因上传请求始终返回固定的 url，为了让预览效果更加真实，故而将图片转为 base64 进行预览
-  const onSuccess = ({ currentFiles }) => {
+  const onSuccess: UploadProps['onSuccess'] = ({ currentFiles }) => {
     const files = autoUpload ? files3.concat(currentFiles) : currentFiles;
     setFormattedUrlFiles(files);
   };
 
   // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
-  const onValidate = (params) => {
+  const onValidate: UploadProps['onValidate'] = (params) => {
     const { files, type } = params;
     console.log('onValidate', params);
     if (type === 'FILE_OVER_SIZE_LIMIT') {
@@ -63,7 +64,7 @@ export default function UploadExample() {
     uploadRef3.current.uploadFiles();
   };
 
-  const onPreview = (params) => {
+  const onPreview: UploadProps['onPreview'] = (params) => {
     console.log('点击图片预览时触发', params);
   };
 

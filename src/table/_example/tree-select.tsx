@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { EnhancedTable, Radio, Space, Button, MessagePlugin, Tag, TableProps } from 'tdesign-react';
+import { EnhancedTable, Radio, Space, Button, MessagePlugin, Tag } from 'tdesign-react';
 import cloneDeep from 'lodash/cloneDeep';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import type { EnhancedTableProps, TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -11,7 +12,7 @@ const statusNameListMap = {
 
 const CHILDREN_KEY = 'childrenList';
 
-const initData = [];
+const initData: EnhancedTableProps['data'] = [];
 for (let i = 0; i < 500; i++) {
   const obj = {
     key: `first_level_${i}`,
@@ -79,11 +80,11 @@ const columns: TableProps['columns'] = [
   // { colKey: 'email', title: '邮箱地址' },
 ];
 
-const defaultSelectedRowKeys = [];
+const defaultSelectedRowKeys: EnhancedTableProps['selectedRowKeys'] = [];
 
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState(defaultSelectedRowKeys);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<EnhancedTableProps['selectedRowKeys']>(defaultSelectedRowKeys);
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
   const treeTableRef = useRef(null);
@@ -103,12 +104,12 @@ export default function TableSingleSort() {
   );
 
   // 可使用 treeTableRef.current.treeDataMap 判断是否为叶子结点，或任意结点的层级
-  function onSelectChange(value, selectOptions) {
+  const onSelectChange: EnhancedTableProps['onSelectChange'] = (value, selectOptions) => {
     console.log('onSelectChange', value, selectOptions);
     setSelectedRowKeys(value);
-  }
+  };
 
-  const onExpandChange = (val) => {
+  const onExpandChange: EnhancedTableProps['onExpandChange'] = (val) => {
     setExpandedRowKeys(val);
   };
 
@@ -125,7 +126,7 @@ export default function TableSingleSort() {
     MessagePlugin.success('获取成功，请打开控制台查看');
   };
 
-  const onRowClick = (data) => {
+  const onRowClick: EnhancedTableProps['onRowClick'] = (data) => {
     console.log(data);
   };
 

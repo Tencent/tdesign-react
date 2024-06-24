@@ -6,7 +6,7 @@ export default function TagInputCollapsedExample() {
   const renderCollapsedItems = ({ collapsedSelectedItems }) => (
     <Popup
       key={'tags'}
-      content={collapsedSelectedItems.map((item) => (
+      content={collapsedSelectedItems.map((item: string) => (
         <Tag key={item} style={{ marginRight: '4px' }}>
           {item}
         </Tag>

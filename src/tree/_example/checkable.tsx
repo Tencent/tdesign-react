@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Radio, Tree, Form, Switch, Space, RadioGroupProps } from 'tdesign-react';
 
+import type { TreeProps } from 'tdesign-react';
+
 const valueOptions = [
   {
     value: 'onlyLeaf',
@@ -114,11 +116,11 @@ export default () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [valueMode, setValueMode] = useState<Value>('onlyLeaf');
 
-  const handleChange = (checked, context) => {
+  const handleChange: TreeProps['onChange'] = (checked, context) => {
     console.info('onChange:', checked, context);
   };
 
-  const handleClick = (context) => {
+  const handleClick: TreeProps['onClick'] = (context) => {
     console.info('onClick:', context);
   };
 

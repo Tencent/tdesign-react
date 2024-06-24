@@ -11,6 +11,8 @@ import {
   TreeInstanceFunctions,
 } from 'tdesign-react';
 
+import type { TreeProps, TreeNodeValue } from 'tdesign-react';
+
 const items = [
   {
     value: 'node1',
@@ -26,47 +28,45 @@ export default () => {
   const [useActived, setUseActived] = useState(false);
   const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
-  const [activeId, setActiveId] = useState('');
+  const [activeId, setActiveId] = useState<TreeNodeValue>('');
   const [activeIds, setActiveIds] = useState([]);
 
-  type TreeOptionNodeModel = TreeNodeModel<{ value: string; label?: string }>;
-
-  const getLabelContent = (node: TreeOptionNodeModel) => {
+  const getLabelContent = (node: TreeNodeModel) => {
     const pathNodes = node.getPath();
     let label = pathNodes.map((itemNode) => itemNode.getIndex() + 1).join('.');
     label = `${label} | value: ${node.value}`;
     return label;
   };
 
-  const getLabel = (node) => {
+  const getLabel: TreeProps['label'] = (node) => {
     const label = getLabelContent(node);
     const { data } = node;
     data.label = label;
     return label;
   };
 
-  const renderOperations = (node) => `value: ${node.value}`;
+  const renderOperations: TreeProps['operations'] = (node) => `value: ${node.value}`;
 
-  const handleInputChange = (value) => {
+  const handleInputChange = (value: string) => {
     setFilterText(value);
     console.info('on input:', value);
   };
 
-  const filterByText = (node) => {
+  const filterByText: TreeProps['filter'] = (node) => {
     const label = node?.data?.label || '';
-    const rs = label.indexOf(filterText) >= 0;
+    const rs = (label as string).indexOf(filterText) >= 0;
     return rs;
   };
 
-  const handleExpand = (vals, state) => {
+  const handleExpand: TreeProps['onExpand'] = (vals, state) => {
     console.info('on expand:', vals, state);
   };
 
-  const handleChange = (vals, state) => {
+  const handleChange: TreeProps['onChange'] = (vals, state) => {
     console.info('on change:', vals, state);
   };
 
-  const handleActive = (vals, state) => {
+  const handleActive: TreeProps['onActive'] = (vals, state) => {
     console.info('on active:', vals, state);
     setActiveIds(vals);
     setActiveId(vals[0] || '');
@@ -75,7 +75,7 @@ export default () => {
   /* ======== 操作 api ======= */
   const treeRef = useRef<TreeInstanceFunctions<{ value: string; label?: string }>>(null);
 
-  const setLabel = (value) => {
+  const setLabel = (value: string) => {
     const node = treeRef.current.getItem(value);
     const label = getLabelContent(node);
     const { data } = node;
@@ -96,7 +96,7 @@ export default () => {
     };
     return item;
   };
-  const append = (node?: TreeOptionNodeModel) => {
+  const append = (node?: TreeNodeModel) => {
     const item = getInsertItem();
     if (item) {
       if (!node) {
@@ -111,7 +111,7 @@ export default () => {
     }
   };
 
-  const insertBefore = (node: TreeOptionNodeModel) => {
+  const insertBefore = (node: TreeNodeModel) => {
     const item = getInsertItem();
     if (item) {
       treeRef.current.insertBefore(node.value, item);
@@ -119,7 +119,7 @@ export default () => {
     }
   };
 
-  const insertAfter = (node: TreeOptionNodeModel) => {
+  const insertAfter = (node: TreeNodeModel) => {
     const item = getInsertItem();
     if (item) {
       treeRef.current.insertAfter(node.value, item);
@@ -127,11 +127,11 @@ export default () => {
     }
   };
 
-  const remove = (node: TreeOptionNodeModel) => {
+  const remove = (node: TreeNodeModel) => {
     treeRef.current.remove(node.value);
   };
 
-  const renderOperations2 = (node: TreeOptionNodeModel) => (
+  const renderOperations2 = (node: TreeNodeModel) => (
     <>
       <Button style={{ marginLeft: '10px' }} size="small" variant="base" onClick={() => append(node)}>
         添加子节点
@@ -166,7 +166,7 @@ export default () => {
     console.log(activeIds);
     const node = getActivedNode();
     if (!node) return;
-    let nodes = [];
+    let nodes: Array<TreeNodeModel> = [];
     if (node) {
       const child = node.getChildren(true);
       if (typeof child === 'boolean') {
@@ -236,10 +236,10 @@ export default () => {
     });
   };
 
-  const getPlainData = (item) => {
+  const getPlainData = (item: TreeNodeModel<{ value: string; label?: string }>) => {
     const root = item;
     if (!root) return null;
-    const children = item.getChildren(true) || [];
+    const children = (item.getChildren(true) || []) as Array<TreeNodeModel<{ value: string; label?: string }>>;
     const list = [root].concat(children);
     const nodeMap = {};
     const nodeList = list.map((item) => {

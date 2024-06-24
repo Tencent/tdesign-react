@@ -3,7 +3,7 @@ import { Input, InputProps } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, setValue] = useState('');
-  function format(val) {
+  function format(val: string) {
     const reg = /(\d)(?=(?:\d{3})+$)/g;
     const str = val.replace(reg, '$1,');
     return str;

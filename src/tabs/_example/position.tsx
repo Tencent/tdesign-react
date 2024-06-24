@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs, Radio, Space, TabsProps } from 'tdesign-react';
+import { Tabs, Radio, Space } from 'tdesign-react';
+import type { TabsProps } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 

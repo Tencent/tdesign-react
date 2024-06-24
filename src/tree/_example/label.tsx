@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tree } from 'tdesign-react';
+import type { TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -27,7 +28,7 @@ const items = [
 ];
 
 export default () => {
-  const renderLabel = (node) => <strong>{`value: ${node.value}, label: ${node.label}`}</strong>;
+  const renderLabel: TreeProps['label'] = (node) => <strong>{`value: ${node.value}, label: ${node.label}`}</strong>;
 
   return <Tree data={items} expandAll label={renderLabel} />;
 };

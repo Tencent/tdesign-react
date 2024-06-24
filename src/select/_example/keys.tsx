@@ -5,11 +5,11 @@ const SelectCustomKeys = () => {
   const [value, setValue] = useState('1');
   const [value2, setValue2] = useState(['shanghai']);
 
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
 
-  const onChange2 = (value) => {
+  const onChange2 = (value: string[]) => {
     setValue2(value);
   };
 

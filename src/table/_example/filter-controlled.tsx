@@ -3,7 +3,7 @@ import isNumber from 'lodash/isNumber';
 import { Table, Button, DateRangePickerPanel, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableProps, FilterType } from 'tdesign-react';
+import type { TableProps, FilterType, FilterValue } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -108,7 +108,7 @@ const columns: TableProps['columns'] = [
 //   return <i>Icon</i>;
 // }
 
-const initData = new Array(5).fill(null).map((_, i) => ({
+const initData: TableProps['data'] = new Array(5).fill(null).map((_, i) => ({
   key: String(i + 1),
   applicant: ['贾明', '张三', '王芳'][i % 3],
   status: i % 3,
@@ -126,7 +126,7 @@ export default function TableSingleSort() {
     lastName: [],
   });
 
-  const request = (filters) => {
+  const request = (filters: FilterValue) => {
     const timer = setTimeout(() => {
       clearTimeout(timer);
       const newData = initData.filter((item) => {
@@ -149,7 +149,7 @@ export default function TableSingleSort() {
     }, 100);
   };
 
-  function onFilterChange(filters, col) {
+  const onFilterChange: TableProps['onFilterChange'] = (filters, col) => {
     console.log(filters, col);
     setFilterValue({
       ...filters,
@@ -158,11 +158,11 @@ export default function TableSingleSort() {
     });
     // 在此处理过滤数据效果，以达到更真实的过滤效果
     request(filters);
-  }
+  };
 
-  function onChange(info, context) {
+  const onChange: TableProps['onChange'] = (info, context) => {
     console.log('onChange', info, context);
-  }
+  };
 
   // 受控方式，打开模拟排序（可用，勿删）
   // useEffect(() => {

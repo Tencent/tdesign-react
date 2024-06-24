@@ -1,6 +1,7 @@
 import React from 'react';
-import { Tree, Space, TreeProps } from 'tdesign-react';
+import { Tree, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
+import type { TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -19,7 +20,7 @@ export default () => {
     const maxLevel = 2;
     return new Promise((resolve) => {
       setTimeout(() => {
-        let nodes = [];
+        let nodes: any = [];
         if (node.getLevel() < maxLevel) {
           nodes = [
             {
@@ -37,9 +38,9 @@ export default () => {
     });
   };
 
-  const renderIcon = (node) => {
+  const renderIcon: TreeProps['icon'] = (node) => {
     let name = 'file';
-    if (node.getChildren()) {
+    if (node.getChildren(true)) {
       if (node.expanded) {
         name = 'folder-open';
         if (node.loading) {
@@ -52,9 +53,9 @@ export default () => {
     return <Icon name={name} />;
   };
 
-  const renderIcon2 = (node) => {
+  const renderIcon2: TreeProps['icon'] = (node) => {
     let name = 'attach';
-    if (node.getChildren()) {
+    if (node.getChildren(true)) {
       if (!node.expanded) {
         name = 'caret-right';
       } else if (node.loading) {

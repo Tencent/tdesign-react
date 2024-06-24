@@ -8,10 +8,10 @@ export default function SelectCreatable() {
     { label: '选项二', value: '2' },
     { label: '选项三', value: '3' },
   ]);
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setValue(value);
   };
-  const handleOnCreate = (value) => {
+  const handleOnCreate = (value: string) => {
     changeOptions(options.concat([{ value, label: value }]));
   };
   return (

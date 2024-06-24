@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Select, Divider, Button, Input, Space, SelectProps } from 'tdesign-react';
+import { Select, Divider, Button, Input, Space } from 'tdesign-react';
+import type { SelectProps } from 'tdesign-react';
 
 const OPTIONS: SelectProps['options'] = [
   { label: '架构云', value: '1' },
@@ -16,7 +17,7 @@ export default function PanelExample() {
 
   const [inputVal, changeInputVal] = useState('');
 
-  const handleOnSearch = (v) => {
+  const handleOnSearch = (v: string) => {
     const filteredValue = OPTIONS.filter((item) => item.label.indexOf(v) !== -1);
     setTopOptions(filteredValue);
   };

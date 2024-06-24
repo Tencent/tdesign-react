@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Space, Radio, Tag, TableProps } from 'tdesign-react';
+import { Table, Space, Radio, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -8,7 +10,7 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const data = [];
+const data: TableProps['data'] = [];
 const total = 59;
 for (let i = 0; i < total; i++) {
   data.push({

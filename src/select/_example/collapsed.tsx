@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
 import { Select, Space, RadioGroup, Checkbox, Popup, Tag } from 'tdesign-react';
+
+import type { SelectProps } from 'tdesign-react';
 
 const options = [
   { label: '选项一', value: '1' },
@@ -15,11 +16,11 @@ const MultipleSelect = () => {
   const [readonly, setReadOnly] = useState(false);
   const [minCollapsedNum] = useState(1);
 
-  const onChange = (value) => {
+  const onChange = (value: string[]) => {
     setValue(value);
   };
 
-  const renderCollapsedItems = ({ collapsedSelectedItems, onClose }) => (
+  const renderCollapsedItems: SelectProps['collapsedItems'] = ({ collapsedSelectedItems, onClose }) => (
     <Popup
       key={'tags'}
       overlayInnerStyle={{
@@ -29,13 +30,13 @@ const MultipleSelect = () => {
         <Space size={5} align="center">
           {collapsedSelectedItems.map((item, index) => (
             <Tag
-              key={item}
+              key={index}
               size={size}
               disabled={disabled}
               closable={!readonly && !disabled}
               onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
             >
-              {item}
+              {item.label}
             </Tag>
           ))}
         </Space>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Checkbox, Space, Tag, TableSort } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableSort, TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -8,7 +10,7 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const columns = [
+const columns: TableProps['columns'] = [
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
     colKey: 'status',
@@ -40,7 +42,7 @@ const columns = [
   { colKey: 'createTime', title: '申请时间' },
 ];
 
-const initialData = [];
+const initialData: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   initialData.push({
     index: i + 1,
@@ -69,17 +71,17 @@ export default function TableSingleSort() {
   const [sortInfo, setSortInfo] = useState<TableSort>(SINGLE_SORT);
   const [multipleSort, setMultipleSort] = useState(false);
 
-  function onSortChange(sort, options) {
+  const onSortChange: TableProps['onSortChange'] = (sort, options) => {
     console.log(sort, options);
     setSortInfo(sort);
     // 默认不存在排序时，也可以在这里设置 data 的值
     // setData(options.currentDataSource);
-  }
+  };
 
   // 默认存在排序时，必须在这里给 data 赋值
-  function onDataChange(newData) {
+  const onDataChange: TableProps['onDataChange'] = (newData) => {
     setData(newData);
-  }
+  };
 
   useEffect(() => {
     setSortInfo(multipleSort ? MULTIPLE_SORT : SINGLE_SORT);

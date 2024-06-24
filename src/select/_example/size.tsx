@@ -5,15 +5,15 @@ const { Option } = Select;
 
 const SelectSizes = () => {
   const [value1, setValue1] = useState('');
-  const onChangeValue1 = (value) => {
+  const onChangeValue1 = (value: string) => {
     setValue1(value);
   };
   const [value2, setValue2] = useState('');
-  const onChangeValue2 = (value) => {
+  const onChangeValue2 = (value: string) => {
     setValue2(value);
   };
   const [value3, setValue3] = useState('');
-  const onChangeValue3 = (value) => {
+  const onChangeValue3 = (value: string) => {
     setValue3(value);
   };
   return (

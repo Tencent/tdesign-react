@@ -1,30 +1,35 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload, Space, UploadProps, UploadFile } from 'tdesign-react';
+import { Button, message, Upload, Space } from 'tdesign-react';
 import { CloudUploadIcon } from 'tdesign-icons-react';
-import type { UploadInstanceFunctions } from 'tdesign-react';
+import type { UploadInstanceFunctions, UploadFile, UploadProps, TriggerContext } from 'tdesign-react';
 
 export default function CustomDrag() {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState(0);
   const uploadDom = React.useRef();
 
-  const handleChange = useCallback((files) => {
+  const handleChange: UploadProps['onChange'] = useCallback((files: UploadFile[]) => {
     setFiles(files.slice(-1));
   }, []);
-  const handleFail = useCallback(({ file }) => {
+
+  const handleFail: UploadProps['onFail'] = useCallback(({ file }) => {
     message.error(`文件 ${file.name} 上传失败`);
   }, []);
-  const handleSuccess = useCallback(({ file }) => {
+
+  const handleSuccess: UploadProps['onSuccess'] = useCallback(({ file }) => {
     message.success(`文件 ${file.name} 上传成功`);
   }, []);
+
   const upload = useCallback(() => {
     (uploadDom.current as UploadInstanceFunctions).triggerUpload();
   }, [uploadDom]);
-  const onProgress = useCallback((val) => {
-    setProgress(val);
+
+  const onProgress: UploadProps['onProgress'] = useCallback((val) => {
+    setProgress(val.percent);
   }, []);
+
   const customDraggerRender: UploadProps['dragContent'] = useCallback(
-    (triggerContext) => {
+    (triggerContext: TriggerContext) => {
       const { dragActive } = triggerContext;
       function renderCustomDrag() {
         if (dragActive) {

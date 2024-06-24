@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { CheckTagGroupValue, Space, Tag } from 'tdesign-react';
+import { Space, Tag } from 'tdesign-react';
+
+import type { CheckTagGroupValue } from 'tdesign-react';
 
 const { CheckTagGroup } = Tag;
 
@@ -20,7 +22,7 @@ const avatarStyle = {
   marginRight: '4px',
 };
 
-function CustomTag(option) {
+function CustomTag(option: { avatar: string; label: React.ReactNode; value: number | string }) {
   return (
     <div>
       <img src={option.avatar} style={avatarStyle} />

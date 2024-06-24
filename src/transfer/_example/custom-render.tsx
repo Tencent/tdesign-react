@@ -1,7 +1,9 @@
 import React from 'react';
 import { Transfer } from 'tdesign-react';
 
-const list = [];
+import type { TransferProps } from 'tdesign-react';
+
+const list: TransferProps['data'] = [];
 for (let i = 0; i < 20; i++) {
   list.push({
     value: i.toString(),
@@ -11,14 +13,13 @@ for (let i = 0; i < 20; i++) {
 }
 
 export default function BaseExample() {
-  // todo(type): fix transfer transferItem type.
   const renderTransferItems: any = () => [
-    ({ data }) => (
+    ({ data }: { data: { label: string; description: string } }) => (
       <span className="transfer-item">
         {data.label} - {data.description}
       </span>
     ),
-    ({ data, index }) => (
+    ({ data, index }: { data: { label: string; description: string }; index: number }) => (
       <span className="transfer-item">
         {index} - {data.label}
       </span>

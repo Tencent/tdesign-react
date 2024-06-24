@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space, Tag, TableProps } from 'tdesign-react';
+import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import type { TableProps, TableSort } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -8,7 +10,7 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
-const initialData = [];
+const initialData: TableProps['data'] = [];
 for (let i = 0; i < 20; i++) {
   initialData.push({
     index: i + 1,
@@ -43,9 +45,9 @@ export default function TableExample() {
   const [fixedLeftCol, setFixedLeftCol] = useState(false);
   const [fixedRightCol, setFixedRightCol] = useState(false);
   const [headerAffixedTop, setHeaderAffixedTop] = useState(false);
-  const [sort, setSort] = useState({ sortBy: 'default', descending: false });
+  const [sort, setSort] = useState<TableSort>({ sortBy: 'default', descending: false });
 
-  const onSortChange = (sortInfo, context) => {
+  const onSortChange: TableProps['onSortChange'] = (sortInfo, context) => {
     setSort(sortInfo);
     setData([...context.currentDataSource]);
     console.log(context);

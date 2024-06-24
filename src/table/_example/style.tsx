@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Table, TableProps, Tag } from 'tdesign-react';
+import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import type { TableProps } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -101,7 +102,7 @@ export default function TableStyle() {
     { colKey: 'createTime', title: '申请时间' },
   ];
 
-  const getRowClassName = ({ rowIndex }) => {
+  const getRowClassName = ({ rowIndex }: { rowIndex: number }) => {
     //  console.log(row, rowIndex);
     if (rowIndex === 2) return 'custom-third-class-name';
     return '';

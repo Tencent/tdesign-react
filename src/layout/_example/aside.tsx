@@ -1,12 +1,13 @@
 import React from 'react';
 import { Layout, Menu } from 'tdesign-react';
+import type { MenuProps } from 'tdesign-react';
 
 const { Content, Footer, Aside } = Layout;
 const { MenuItem } = Menu;
 
 const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />;
 
-function BasicUsage(props) {
+function BasicUsage(props: MenuProps) {
   return (
     <Menu style={{ width: '100%', height: '100%', boxShadow: 'none' }} logo={<Logo />} {...props}>
       <MenuItem value="1">侧边内容一</MenuItem>

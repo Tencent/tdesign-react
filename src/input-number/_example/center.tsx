@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { InputNumber, InputNumberValue, Space } from 'tdesign-react';
+import type { InputNumberProps } from 'tdesign-react';
 
 export default function InputNumberExample() {
   const [value1, setValue1] = useState<InputNumberValue>('');
-  const [value2, setValue2] = useState(100);
+  const [value2, setValue2] = useState<InputNumberValue>(100);
   const [decimalValue, setDecimalValue] = useState<InputNumberValue>(3.41);
-  const [error, setError] = useState();
+  const [error, setError] = useState<'exceed-maximum' | 'below-minimum'>();
 
   const tips = useMemo(() => {
     if (error === 'exceed-maximum') return 'number can not be exceed maximum';
@@ -13,31 +14,31 @@ export default function InputNumberExample() {
     return undefined;
   }, [error]);
 
-  function handleChange(v, ctx) {
+  const handleChange: InputNumberProps['onChange'] = (v, ctx) => {
     console.info('change', v, ctx);
     setValue2(v);
-  }
-  function onValidate({ error }) {
+  };
+  const onValidate: InputNumberProps['onValidate'] = ({ error }) => {
     setError(error);
-  }
-  function handleFocus(v, ctx) {
+  };
+  const handleFocus: InputNumberProps['onFocus'] = (v, ctx) => {
     console.info('focus', v, ctx);
-  }
-  function handleBlur(v, ctx) {
+  };
+  const handleBlur: InputNumberProps['onBlur'] = (v, ctx) => {
     console.info('blur', v, ctx);
-  }
-  function handleKeydown(v, ctx) {
+  };
+  const handleKeydown: InputNumberProps['onKeydown'] = (v, ctx) => {
     console.info('keydown', v, ctx);
-  }
-  function handleKeyup(v, ctx) {
+  };
+  const handleKeyup: InputNumberProps['onKeyup'] = (v, ctx) => {
     console.info('keyup', v, ctx);
-  }
-  function handleKeypress(v, ctx) {
+  };
+  const handleKeypress: InputNumberProps['onKeypress'] = (v, ctx) => {
     console.info('keypress', v, ctx);
-  }
-  function handleEnter(v, ctx) {
+  };
+  const handleEnter: InputNumberProps['onEnter'] = (v, ctx) => {
     console.info('enter', v, ctx);
-  }
+  };
 
   // inputProps={{ tips }} 和 tips={tips} 均可
   return (

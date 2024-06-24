@@ -28,8 +28,7 @@ const options2 = [
 const MultipleSelect = () => {
   const [value, setValue] = useState(['3', '5']);
 
-  const handleChange = (v, context) => {
-    console.log('context:', context);
+  const handleChange = (v: string[]) => {
     setValue(v);
   };
 

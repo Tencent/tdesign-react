@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Space } from 'tdesign-react';
-import { SearchIcon } from 'tdesign-icons-react';
 
 export default function BorderlessInputExample() {
   return (

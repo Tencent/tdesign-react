@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Upload, MessagePlugin, Space, Checkbox } from 'tdesign-react';
 
+import type { UploadProps } from 'tdesign-react';
+
 const ABRIDGE_NAME = [10, 7];
 
 export default function FileFlowList() {
@@ -14,7 +16,7 @@ export default function FileFlowList() {
   const [fileList, setFileList] = useState([]);
 
   // 有文件数量超出时会触发，文件大小超出限制、文件同名时会触发等场景。注意如果设置允许上传同名文件，则此事件不会触发
-  const onValidate = (params) => {
+  const onValidate: UploadProps['onValidate'] = (params) => {
     const { files, type } = params;
     console.log('onValidate', params);
     if (type === 'FILE_OVER_SIZE_LIMIT') {
@@ -28,7 +30,7 @@ export default function FileFlowList() {
     }
   };
 
-  const formatResponse = (res) => {
+  const formatResponse: UploadProps['formatResponse'] = (res) => {
     if (!res) {
       return { status: 'fail', error: '上传失败，原因：文件过大或网络不通' };
     }
@@ -38,9 +40,15 @@ export default function FileFlowList() {
   return (
     <Space direction="vertical">
       <Space breakLine>
-        <Checkbox checked={disabled} onChange={setDisabled}>禁用状态</Checkbox>
-        <Checkbox checked={autoUpload} onChange={setAutoUpload}>自动上传</Checkbox>
-        <Checkbox checked={showThumbnail} onChange={setShowThumbnail}>显示文件缩略图</Checkbox>
+        <Checkbox checked={disabled} onChange={setDisabled}>
+          禁用状态
+        </Checkbox>
+        <Checkbox checked={autoUpload} onChange={setAutoUpload}>
+          自动上传
+        </Checkbox>
+        <Checkbox checked={showThumbnail} onChange={setShowThumbnail}>
+          显示文件缩略图
+        </Checkbox>
         <Checkbox checked={allowUploadDuplicateFile} onChange={setAllowUploadDuplicateFile}>
           允许上传同名文件
         </Checkbox>
