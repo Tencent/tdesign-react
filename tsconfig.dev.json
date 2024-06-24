@@ -3,7 +3,6 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "noImplicitAny": true,
     "module": "esnext",
     "target": "esnext",
     "outDir": "lib",
@@ -16,7 +15,6 @@
     "baseUrl": "./",
     "paths": {
       "tdesign-react": ["src"],
-      "tdesign-react/*": ["src/*"],
       "@test/utils": ["test/utils"],
       "@common/*": ["src/_common/*"]
     },
@@ -25,7 +23,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/_example/*.tsx", "./globals.d.ts","./test/config/index.d.ts"],
+  "include": ["./globals.d.ts","./test/config/index.d.ts"],
   "exclude": ["**/*.jsx", "**/**/_usage/*", "**/**/__tests__/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es","./src/config-provider/_example"],
   "types": [
     "node",
