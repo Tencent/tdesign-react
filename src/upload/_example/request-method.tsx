@@ -1,5 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Radio, Upload, Space, MessagePlugin, type UploadProps } from 'tdesign-react';
+import { Radio, Upload, Space, MessagePlugin } from 'tdesign-react';
+
+import type { UploadProps } from 'tdesign-react';
 
 type RequestMethodReturn = Awaited<ReturnType<UploadProps['requestMethod']>>;
 
