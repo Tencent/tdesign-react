@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import Tooltip from 'tdesign-react/tooltip';
 import Loading from 'tdesign-react/loading';
 
-import { mainJsContent, htmlContent, pkgContent, styleContent } from './content';
+import { mainJsContent, htmlContent, pkgContent, styleContent, tsconfigContent } from './content';
 import '../../styles/Codesandbox.less';
 
 export default function Codesandbox(props) {
-  const { code } = props;
   const [loading, setLoading] = useState(false);
 
   function onRunOnline() {
+    const code = document.querySelector(`td-doc-demo[demo-name='${props.demoName}']`)?.currentRenderCode;
+
     setLoading(true);
     fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
       method: 'POST',
@@ -25,21 +26,24 @@ export default function Codesandbox(props) {
           'public/index.html': {
             content: htmlContent,
           },
-          'src/main.jsx': {
+          'src/main.tsx': {
             content: mainJsContent,
           },
           'src/index.css': {
             content: styleContent,
           },
-          'src/demo.jsx': {
+          'src/demo.tsx': {
             content: code,
+          },
+          'tsconfig.json': {
+            content: tsconfigContent,
           },
         },
       }),
     })
       .then((x) => x.json())
       .then(({ sandbox_id: sandboxId }) => {
-        window.open(`https://codesandbox.io/s/${sandboxId}?file=/src/demo.jsx`);
+        window.open(`https://codesandbox.io/s/${sandboxId}?file=/src/demo.tsx`);
       })
       .finally(() => {
         setLoading(false);

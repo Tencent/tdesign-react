@@ -1,8 +1,12 @@
 {
   "extends": "./tsconfig",
-  "include": ["./src", "./globals.d.ts"],
+  "include": [
+    "./src",
+    "./globals.d.ts"
+  ],
   "exclude": [
     "**/**/__tests__/*",
+    "**/**/_example-js/*",
     "**/**/_example/*",
     "**/**/_usage/*",
     "node_modules",
@@ -14,6 +18,6 @@
     "es"
   ],
   "compilerOptions": {
-    "paths":{}
+    "paths": {}
   }
 }
