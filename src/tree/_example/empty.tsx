@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tree, Space, TreeProps } from 'tdesign-react';
+import { Tree, Space } from 'tdesign-react';
+import type { TreeProps } from 'tdesign-react';
 
 export default () => {
   const empty: TreeProps['empty'] = <div>😊 空数据（ empty props ）</div>;

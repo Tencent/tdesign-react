@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tree, TreeProps } from 'tdesign-react';
+import { Tree } from 'tdesign-react';
+import type { TreeProps } from 'tdesign-react';
 
 const items = [
   {

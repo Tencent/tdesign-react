@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Radio, PaginationMini, Space, PaginationMiniProps } from 'tdesign-react';
+import { Radio, PaginationMini, Space } from 'tdesign-react';
+
+import type { PaginationMiniProps } from 'tdesign-react';
 
 type LayoutType = PaginationMiniProps['layout'];
 type SizeType = PaginationMiniProps['size'];
