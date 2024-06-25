@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, MouseEvent, KeyboardEvent } from 'react';
+import React, { useState, useEffect, useCallback, MouseEvent, KeyboardEvent, useRef } from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import {
@@ -51,6 +51,7 @@ interface ImageModalItemProps {
   preSrc?: string | File;
   errorText: string;
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  isSvg: boolean;
 }
 
 // 单个弹窗实例
@@ -62,12 +63,14 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   mirror,
   errorText,
   imageReferrerpolicy,
+  isSvg,
 }) => {
   const { classPrefix } = useConfig();
 
   const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const attachSvgElRef = useRef<HTMLDivElement>(null);
 
   const imgStyle = {
     transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -79,15 +82,67 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
   const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
 
+  const createSvgShadow = async (url: string) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      setError(true);
+      throw new Error(`Failed to fetch SVG: ${response.statusText}`);
+    }
+
+    const svgText = await response.text();
+
+    const element = attachSvgElRef.current;
+    element.innerHTML = '';
+    element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
+    const shadowRoot = element.attachShadow({ mode: 'closed' });
+
+    const container = document.createElement('div');
+    container.style.background = 'transparent';
+    container.innerHTML = svgText;
+    shadowRoot.appendChild(container);
+
+    const svgElement = container.querySelector('svg');
+    if (svgElement) {
+      const svgViewBox = svgElement.getAttribute('viewBox');
+      if (svgViewBox) {
+        const viewBoxValues = svgViewBox
+          .split(/[\s,]/)
+          .filter((v) => v)
+          .map(parseFloat);
+
+        // svg viewbox x(0) and y(1) offset, width(2) and height(3),eg
+        const svgViewBoxWidth = viewBoxValues[2];
+        const svgViewBoxHeight = viewBoxValues[3];
+        container.style.width = `${svgViewBoxWidth}px`;
+        container.style.height = `${svgViewBoxHeight}px`;
+      } else {
+        const bbox = svgElement.getBBox();
+        const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
+        svgElement.setAttribute('viewBox', calculatedViewBox);
+
+        container.style.width = `${bbox.width}px`;
+        container.style.height = `${bbox.height}px`;
+      }
+    }
+    setLoaded(true);
+  };
+
   useEffect(() => {
     setError(false);
   }, [preSrcImagePreviewUrl, mainImagePreviewUrl]);
+
+  useEffect(() => {
+    if (isSvg && mainImagePreviewUrl) {
+      createSvgShadow(mainImagePreviewUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainImagePreviewUrl]);
 
   return (
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
-        {!error && !!preSrc && (
+        {!error && !!preSrc && preSrcImagePreviewUrl && (
           <img
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
@@ -101,7 +156,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
             draggable="false"
           />
         )}
-        {!error && (
+        {!error && mainImagePreviewUrl && !isSvg && (
           <img
             className={`${classPrefix}-image-viewer__modal-image`}
             onMouseDown={(event) => {
@@ -109,10 +164,24 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
               onMouseDown(event);
             }}
             src={mainImagePreviewUrl}
+            style={imgStyle}
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}
-            style={imgStyle}
+            referrerPolicy={imageReferrerpolicy}
             alt="image"
+            draggable="false"
+          />
+        )}
+        {!error && !!mainImagePreviewUrl && isSvg && (
+          <div
+            ref={attachSvgElRef}
+            className={`${classPrefix}-image-viewer__modal-image`}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+              onMouseDown(event);
+            }}
+            style={imgStyle}
+            data-alt="svg"
             draggable="false"
           />
         )}
@@ -518,6 +587,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         src={currentImage.mainImage}
         errorText={errorText}
         imageReferrerpolicy={imageReferrerpolicy}
+        isSvg={currentImage.isSvg}
       />
     </div>
   );

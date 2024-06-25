@@ -1,23 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, WheelEvent } from 'react';
 import classNames from 'classnames';
 import {
   AddIcon as TdAddIcon,
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
 } from 'tdesign-icons-react';
+import omit from 'lodash/omit';
 import debounce from 'lodash/debounce';
 import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
-import tabBase from '../_common/js/tabs/base';
+import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '../_common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import parseTNode from '../_util/parseTNode';
 
-const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =
-  tabBase;
 export interface TabNavProps extends TdTabsProps, DragSortInnerProps {
   itemList: TdTabPanelProps[];
   tabClick: (s: TabValue) => void;
@@ -34,6 +33,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     theme,
     addable,
     onAdd,
+    scrollPosition = 'auto',
     size = 'medium',
     disabled = false,
     onRemove = noop,
@@ -80,94 +80,101 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const toRightBtnRef = useRef(null);
 
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [maxScrollLeft, setMaxScrollLeft] = useState(0);
   const [activeTab, setActiveTab] = useState<HTMLElement>(null);
 
-  useEffect(() => {
-    const left = moveActiveTabIntoView(
+  const setOffset = (offset: number) => {
+    setScrollLeft(calcValidOffset(offset, maxScrollLeft));
+  };
+
+  const getMaxScrollLeft = useCallback(() => {
+    if (['top', 'bottom'].includes(placement.toLowerCase())) {
+      const maxOffset = calcMaxOffset({
+        navsWrap: navsWrapRef.current,
+        navsContainer: navsContainerRef.current,
+        rightOperations: rightOperationsRef.current,
+        toRightBtn: toRightBtnRef.current,
+      });
+      setMaxScrollLeft(maxOffset);
+    }
+  }, [placement]);
+
+  const moveActiveTabIntoView = () => {
+    const offset = calculateOffset(
       {
         activeTab,
         navsContainer: navsContainerRef.current,
-        navsWrap: navsWrapRef.current,
-        toLeftBtn: toLeftBtnRef.current,
-        toRightBtn: toRightBtnRef.current,
         leftOperations: leftOperationsRef.current,
         rightOperations: rightOperationsRef.current,
       },
       scrollLeft,
+      scrollPosition,
     );
-    setScrollLeft(left);
-  }, [activeTab, scrollLeft]);
+    setOffset(offset);
+  };
 
-  // 调用检查函数，并设置左右滑动按钮的展示状态
-  const setScrollBtnVisibleHandler = useCallback(() => {
-    const canToleft = calculateCanToLeft(
-      {
-        navsContainer: navsContainerRef.current,
-        navsWrap: navsWrapRef.current,
-        leftOperations: leftOperationsRef.current,
-        toLeftBtn: toLeftBtnRef.current,
-      },
-      scrollLeft,
-      placement,
-    );
-    const canToRight = calculateCanToRight(
-      {
-        navsContainer: navsContainerRef.current,
-        navsWrap: navsWrapRef.current,
-        rightOperations: rightOperationsRef.current,
-        toRightBtn: toRightBtnRef.current,
-      },
-      scrollLeft,
-      placement,
-    );
+  // 当 activeTab 变化时，移动 activeTab 到可视区域
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      moveActiveTabIntoView();
+    }, 100);
 
-    setToLeftBtnVisible(canToleft);
-    setToRightBtnVisible(canToRight);
-    // children 发生变化也要触发一次切换箭头判断
+    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollLeft, placement, children]);
+  }, [activeTab, maxScrollLeft, scrollPosition]);
+
+  // 左右滑动按钮的展示状态
+  useEffect(() => {
+    if (['top', 'bottom'].includes(placement.toLowerCase())) {
+      // 这里的 1 是小数像素不精确误差修正
+      const canToLeft = scrollLeft > 1;
+      const canToRight = scrollLeft < maxScrollLeft - 1;
+
+      setToLeftBtnVisible(canToLeft);
+      setToRightBtnVisible(canToRight);
+    }
+  }, [placement, scrollLeft, maxScrollLeft]);
 
   // 滚动条处理逻辑
-  const handleScroll = (position: 'left' | 'right') => {
-    const val =
-      position === 'left'
-        ? scrollToLeft(
-            {
-              navsContainer: navsContainerRef.current,
-              leftOperations: leftOperationsRef.current,
-              toLeftBtn: toLeftBtnRef.current,
-            },
-            scrollLeft,
-          )
-        : scrollToRight(
-            {
-              navsWrap: navsWrapRef.current,
-              navsContainer: navsContainerRef.current,
-              rightOperations: rightOperationsRef.current,
-              toRightBtn: toRightBtnRef.current,
-            },
-            scrollLeft,
-          );
-
-    setScrollLeft(val);
+  const handleScroll = (action: 'prev' | 'next') => {
+    const offset = calcPrevOrNextOffset(
+      {
+        activeTab,
+        navsContainer: navsContainerRef.current,
+      },
+      scrollLeft,
+      action,
+    );
+    setOffset(offset);
   };
+
+  // 滚轮和触摸板
+  useEffect(() => {
+    const scrollBar = scrollBarRef.current;
+    if (!scrollBar) return;
+
+    const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
+      if (!canToLeft && !canToRight) return;
+      e.preventDefault();
+
+      const { deltaX, deltaY } = e;
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        setOffset(scrollLeft + deltaX);
+      } else {
+        setOffset(scrollLeft + deltaY);
+      }
+    };
+
+    scrollBar.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      scrollBar?.removeEventListener('wheel', handleWheel);
+    };
+  });
 
   // handle window resize
   useEffect(() => {
-    const onResize = debounce(() => {
-      if (['top', 'bottom'].includes(placement.toLowerCase())) {
-        const left = calcScrollLeft(
-          {
-            navsContainer: navsContainerRef.current,
-            navsWrap: navsWrapRef.current,
-            rightOperations: rightOperationsRef.current,
-          },
-          scrollLeft,
-        );
-        setScrollLeft(left);
-        setScrollBtnVisibleHandler();
-      }
-    }, 300);
+    const onResize = debounce(getMaxScrollLeft, 300);
 
     window.addEventListener('resize', onResize);
 
@@ -178,28 +185,13 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   });
 
   useEffect(() => {
-    if (['top', 'bottom'].includes(placement.toLowerCase())) {
-      const left = calcScrollLeft(
-        {
-          navsContainer: navsContainerRef.current,
-          navsWrap: navsWrapRef.current,
-          rightOperations: rightOperationsRef.current,
-        },
-        scrollLeft,
-      );
-      setScrollLeft(left);
-    }
-  }, [itemList.length, scrollLeft, placement]);
+    getMaxScrollLeft();
+  }, [itemList.length, children, getMaxScrollLeft]);
 
   // TabBar 组件逻辑层抽象，卡片类型时无需展示，故将逻辑整合到此处
   const TabBarCom = isCard ? null : (
     <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navsWrapRef} />
   );
-
-  // 组件初始化后判断当前是否需要展示滑动按钮
-  useEffect(() => {
-    setScrollBtnVisibleHandler();
-  }, [setScrollBtnVisibleHandler]);
 
   const handleTabItemRemove = (removeItem) => {
     const { value: removeValue, index: removeIndex } = removeItem;
@@ -230,7 +222,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         {canToLeft ? (
           <div
             onClick={() => {
-              handleScroll('left');
+              handleScroll('prev');
             }}
             className={classNames(
               tdTabsClassGenerator('btn'),
@@ -250,7 +242,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         {canToRight ? (
           <div
             onClick={() => {
-              handleScroll('right');
+              handleScroll('next');
             }}
             className={classNames(
               tdTabsClassGenerator('btn'),
@@ -316,7 +308,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             )}
             {itemList.map((v, index) => (
               <TabNavItem
-                {...props}
+                {...omit(props, ['className', 'style'])}
                 {...v}
                 dragProps={{ ...getDragProps?.(index, v) }}
                 // 显式给 onRemove 赋值，防止 props 的 onRemove 事件透传

@@ -114,28 +114,11 @@ export interface ImageScale {
   defaultScale?: number;
 }
 
-export interface ImageScale {
-  max: number;
-  min: number;
-  step: number;
-  defaultScale?: number;
-}
-
 export interface ImageInfo {
   mainImage: string | File;
   thumbnail?: string | File;
   download?: boolean;
-}
-
-export interface ImageInfo {
-  mainImage: string | File;
-  thumbnail?: string | File;
-  download?: boolean;
-}
-
-export interface ImageViewerScale {
-  minWidth: number;
-  minHeight: number;
+  isSvg?: boolean;
 }
 
 export interface ImageViewerScale {

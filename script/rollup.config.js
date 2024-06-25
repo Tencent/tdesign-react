@@ -32,6 +32,7 @@ const inputList = [
   'src/**/*.jsx',
   'src/**/*.tsx',
   '!src/**/_example',
+  '!src/**/_example-js',
   '!src/**/*.d.ts',
   '!src/**/__tests__',
   '!src/**/_usage',
