@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, IconProps } from 'tdesign-icons-react';
+import { Icon } from 'tdesign-icons-react';
+import type { IconProps } from 'tdesign-icons-react';
 
 const CustomUrlIcon = ({ name, size, style }: Partial<Pick<IconProps, 'name' | 'size' | 'style'>>) => (
   <Icon name={name} size={size} style={style} url="https://tdesign.gtimg.com/icon/default-demo/index.js" />

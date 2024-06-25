@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AutoComplete, Textarea, type AutoCompleteProps } from 'tdesign-react';
+import { AutoComplete, Textarea } from 'tdesign-react';
+import type { AutoCompleteProps } from 'tdesign-react';
 
 let timer: ReturnType<typeof setTimeout> = null;
 

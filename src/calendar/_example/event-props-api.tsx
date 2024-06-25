@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert, Switch, Calendar, List, type CalendarProps, type CalendarCell } from 'tdesign-react';
+import { Alert, Switch, Calendar, List } from 'tdesign-react';
+import type { CalendarProps, CalendarCell } from 'tdesign-react';
 
 const { ListItem } = List;
 

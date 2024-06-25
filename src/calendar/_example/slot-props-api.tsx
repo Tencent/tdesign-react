@@ -1,5 +1,7 @@
 import React from 'react';
-import { Calendar, Space, Tag, type CalendarCell, type ControllerOptions } from 'tdesign-react';
+import { Calendar, Space, Tag } from 'tdesign-react';
+import type { CalendarCell, ControllerOptions } from 'tdesign-react';
+
 import dayjs from 'dayjs';
 
 type TagTheme = 'default' | 'danger' | 'warning' | 'success' | 'primary';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { DateRangePicker, Space, type DateRangeValue, type DateRangePickerProps } from 'tdesign-react';
+import { DateRangePicker, Space } from 'tdesign-react';
+import type { DateRangeValue, DateRangePickerProps } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [presets] = useState<DateRangePickerProps['presets']>({

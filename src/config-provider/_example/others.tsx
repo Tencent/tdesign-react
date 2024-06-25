@@ -13,8 +13,8 @@ import {
   Steps,
   Space,
   Image,
-  type ImageProps,
 } from 'tdesign-react';
+import type { ImageProps } from 'tdesign-react';
 import { ChevronRightIcon, CloseIcon, CloseCircleIcon, ErrorIcon } from 'tdesign-icons-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 

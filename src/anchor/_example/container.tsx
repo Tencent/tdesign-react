@@ -1,5 +1,6 @@
 import React from 'react';
-import { Anchor, type TdAnchorProps } from 'tdesign-react';
+import { Anchor } from 'tdesign-react';
+import type { TdAnchorProps } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;
 

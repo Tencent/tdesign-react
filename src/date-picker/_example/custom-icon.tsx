@@ -1,5 +1,7 @@
 import React from 'react';
-import { DatePicker, Space, type DatePickerProps } from 'tdesign-react';
+import { DatePicker, Space } from 'tdesign-react';
+import type { DatePickerProps } from 'tdesign-react';
+
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 
 export default function YearDatePicker() {

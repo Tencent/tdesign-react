@@ -1,5 +1,7 @@
 import React from 'react';
-import { Calendar, Tag, type CalendarCell } from 'tdesign-react';
+import { Calendar, Tag } from 'tdesign-react';
+import type { CalendarCell } from 'tdesign-react';
+
 import dayjs from 'dayjs';
 
 export default function CalendarExample() {

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Dropdown, Button, MessagePlugin, type DropdownProps } from 'tdesign-react';
+import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
+import type { DropdownProps } from 'tdesign-react';
+
 import { Icon } from 'tdesign-icons-react';
 
 export default function LeftDropdown() {

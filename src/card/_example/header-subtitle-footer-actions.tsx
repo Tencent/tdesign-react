@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Row, Col, Button, Divider, Dropdown, MessagePlugin, type DropdownProps } from 'tdesign-react';
+import { Card, Row, Col, Button, Divider, Dropdown, MessagePlugin } from 'tdesign-react';
+import type { DropdownProps } from 'tdesign-react';
+
 import { ChatIcon, ShareIcon, ThumbUpIcon, Icon } from 'tdesign-icons-react';
 
 const options = [

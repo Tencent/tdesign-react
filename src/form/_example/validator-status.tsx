@@ -1,15 +1,6 @@
 import React, { useEffect } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  MessagePlugin,
-  Loading,
-  type FormProps,
-  type FormRules,
-  type FormInstanceFunctions,
-  type Data,
-} from 'tdesign-react';
+import { Form, Input, Button, MessagePlugin, Loading } from 'tdesign-react';
+import type { FormProps, FormRules, FormInstanceFunctions, Data } from 'tdesign-react';
 import { AddRectangleIcon, HelpCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
