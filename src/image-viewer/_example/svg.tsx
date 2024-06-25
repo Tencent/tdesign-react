@@ -52,18 +52,8 @@ const Svg = () => {
     );
   };
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <div>
-        <ImageViewer trigger={trigger} images={img} />
-      </div>
+    <div>
+      <ImageViewer trigger={trigger} images={img} />
     </div>
   );
 };

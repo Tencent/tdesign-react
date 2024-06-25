@@ -43,15 +43,9 @@ export default {
     // 替换成对应 demo 文件
     source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
       const tsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.tsx`);
-      const jsxDemoPath = path.resolve(resourceDir, `./_example-js/${demoFileName}.jsx`);
 
       if (!fs.existsSync(tsxDemoPath)) {
         console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.tsx 示例!`);
-        return '\n<h3>DEMO (🚧建设中）...</h3>';
-      }
-
-      if (!fs.existsSync(jsxDemoPath)) {
-        console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example-js/${demoFileName}.jsx 示例!`);
         return '\n<h3>DEMO (🚧建设中）...</h3>';
       }
 
@@ -68,6 +62,7 @@ export default {
       demoCodesImports[demoCodeDefName] = `import ${demoCodeDefName} from './${relativeDemoPath}?raw';`;
       if (fs.existsSync(path.resolve(resourceDir, `${jsxDemoPath}.jsx`)))
         demoCodesImports[demoJsxCodeDefName] = `import ${demoJsxCodeDefName} from './${jsxDemoPath}?raw'`;
+      else demoCodesImports[demoJsxCodeDefName] = `import ${demoJsxCodeDefName} from './${relativeDemoPath}?raw'`;
     });
 
     return source;
