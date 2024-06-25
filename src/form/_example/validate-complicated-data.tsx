@@ -36,6 +36,7 @@ const INITIAL_DATA = {
       status: true,
     },
   ],
+  courseType: undefined,
 };
 
 const rules = {
@@ -66,8 +67,8 @@ export default function BaseForm() {
   const [formData, setFormData] = useState<InitialData>(INITIAL_DATA);
 
   const courseOptions = COURSE_OPTIONS.filter((item) => {
-    if (!formData[0].courseType || !item.courseTypes) return true;
-    return item.courseTypes.includes(formData[0].courseType);
+    if (!formData.courseType || !item.courseTypes) return true;
+    return item.courseTypes.includes(formData.courseType);
   });
 
   const onSubmit: FormProps['onSubmit'] = ({ validateResult, firstError }) => {
