@@ -149,10 +149,10 @@ export default function useColumnResize(params: {
   };
 
   const getMinMaxColWidth = (targetCol: BaseTableCol<TableRowData>) => {
-    const propMinWidth = isNumber(targetCol.minWidth) ? targetCol.minWidth : parseInt(targetCol.minWidth || '0', 10);
+    const propMinWidth = isNumber(targetCol?.minWidth) ? targetCol.minWidth : parseInt(targetCol?.minWidth || '0', 10);
     return {
-      minColWidth: Math.max(targetCol.resize?.minWidth || DEFAULT_MIN_WIDTH, propMinWidth),
-      maxColWidth: targetCol.resize?.maxWidth || DEFAULT_MAX_WIDTH,
+      minColWidth: Math.max(targetCol?.resize?.minWidth || DEFAULT_MIN_WIDTH, propMinWidth),
+      maxColWidth: targetCol?.resize?.maxWidth || DEFAULT_MAX_WIDTH,
     };
   };
 

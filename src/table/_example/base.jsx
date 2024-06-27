@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -28,48 +28,40 @@ const statusNameListMap = {
 };
 
 export default function TableBasic() {
-  const [stripe, setStripe] = useState(false);
-  const [bordered, setBordered] = useState(false);
-  const [hover, setHover] = useState(false);
-  const [tableLayout, setTableLayout] = useState(false);
-  const [size, setSize] = useState('medium');
-  const [showHeader, setShowHeader] = useState(true);
-
   // <!-- 当数据为空需要占位时，会显示 cellEmptyContent -->
+  const [dynamicWidth, setDynamicWidth] = useState(null);
+
+  useEffect(() => {
+    setDynamicWidth(300);
+  }, []);
   const table = (
     <Table
       data={data}
       columns={[
-        { colKey: 'applicant', title: '申请人', width: '100' },
+        { colKey: 'applicant', title: '申请人', width: '100', resizable: false },
         {
           colKey: 'status',
           title: '申请状态',
-          cell: ({ row }) => (
-            <Tag
-              shape="round"
-              theme={statusNameListMap[row.status].theme}
-              variant="light-outline"
-              icon={statusNameListMap[row.status].icon}
-            >
-              {statusNameListMap[row.status].label}
-            </Tag>
-          ),
+          resizable: true,
         },
-        { colKey: 'channel', title: '签署方式' },
-        { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
-        { colKey: 'createTime', title: '申请时间' },
+        {
+          colKey: 'channel',
+          title: '签署方式',
+          resizable: false,
+          width: dynamicWidth || 200,
+          fixed: 'right',
+        },
+        { colKey: 'detail.email', title: '邮箱地址', ellipsis: true, resizable: false },
+        { colKey: 'createTime', title: '申请时间', resizable: false },
       ]}
+      width={600}
       rowKey="index"
       verticalAlign="top"
-      size={size}
-      bordered={bordered}
-      hover={hover}
-      stripe={stripe}
-      showHeader={showHeader}
-      tableLayout={tableLayout ? 'auto' : 'fixed'}
+      bordered={true}
+      stripe={true}
       rowClassName={({ rowIndex }) => `${rowIndex}-class`}
       cellEmptyContent={'-'}
-      resizable
+      resizable={true}
       // 与pagination对齐
       pagination={{
         defaultCurrent: 2,
@@ -95,32 +87,5 @@ export default function TableBasic() {
     />
   );
 
-  return (
-    <Space direction="vertical">
-      <RadioGroup value={size} variant="default-filled" onChange={setSize}>
-        <RadioButton value="small">小尺寸</RadioButton>
-        <RadioButton value="medium">中尺寸</RadioButton>
-        <RadioButton value="large">大尺寸</RadioButton>
-      </RadioGroup>
-      <Space>
-        <Checkbox value={stripe} onChange={setStripe}>
-          显示斑马纹
-        </Checkbox>
-        <Checkbox value={bordered} onChange={setBordered}>
-          显示表格边框
-        </Checkbox>
-        <Checkbox value={hover} onChange={setHover}>
-          显示悬浮效果
-        </Checkbox>
-        <Checkbox value={tableLayout} onChange={setTableLayout}>
-          宽度自适应
-        </Checkbox>
-        <Checkbox value={showHeader} onChange={setShowHeader}>
-          显示表头
-        </Checkbox>
-      </Space>
-
-      {table}
-    </Space>
-  );
+  return <Space direction="vertical">{table}</Space>;
 }
