@@ -114,6 +114,8 @@ export default function useColumnResize(params: {
     e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
     col: BaseTableCol<TableRowData>,
   ) => {
+    // 当前列是否可以拖拽宽度，因为外层有判断props.resizable，所以这里只需要确定col.resizable
+    const colResizable = col.resizable ?? true;
     // calculate mouse cursor before drag start
     if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) return;
     const target = (e.target as HTMLElement).closest('th');
@@ -126,7 +128,6 @@ export default function useColumnResize(params: {
     const thLeftCursor = e.pageX - targetBoundRect.left <= distance;
     const isFixedToRight = isColRightFixActive(col);
     if (thRightCursor || isFixedToRight) {
-      const colResizable = col.resizable ?? true;
       if (colResizable) {
         target.style.cursor = thRightCursor || (isFixedToRight && thLeftCursor) ? 'col-resize' : '';
         const isCurrent = (thRightCursor && !isFixedToRight) || (isFixedToRight && thLeftCursor);
@@ -136,15 +137,11 @@ export default function useColumnResize(params: {
       }
     } else if (thLeftCursor) {
       const prevEl = target.previousElementSibling;
-      if (prevEl) {
-        const effectPrevCol = effectColMap.current[col.colKey]?.prev;
-        const colResizable = effectPrevCol?.resizable ?? true;
-        if (colResizable) {
-          target.style.cursor = 'col-resize';
-          resizeLineParams.draggingCol = prevEl as HTMLElement;
-          resizeLineParams.effectCol = 'prev';
-          return;
-        }
+      if (prevEl && colResizable) {
+        target.style.cursor = 'col-resize';
+        resizeLineParams.draggingCol = prevEl as HTMLElement;
+        resizeLineParams.effectCol = 'prev';
+        return;
       }
     }
     // 重置记录值
@@ -154,10 +151,10 @@ export default function useColumnResize(params: {
   };
 
   const getMinMaxColWidth = (targetCol: BaseTableCol<TableRowData>) => {
-    const propMinWidth = isNumber(targetCol.minWidth) ? targetCol.minWidth : parseInt(targetCol.minWidth || '0', 10);
+    const propMinWidth = isNumber(targetCol?.minWidth) ? targetCol.minWidth : parseInt(targetCol?.minWidth || '0', 10);
     return {
-      minColWidth: Math.max(targetCol.resize?.minWidth || DEFAULT_MIN_WIDTH, propMinWidth),
-      maxColWidth: targetCol.resize?.maxWidth || DEFAULT_MAX_WIDTH,
+      minColWidth: Math.max(targetCol?.resize?.minWidth || DEFAULT_MIN_WIDTH, propMinWidth),
+      maxColWidth: targetCol?.resize?.maxWidth || DEFAULT_MAX_WIDTH,
     };
   };
 
@@ -267,14 +264,20 @@ export default function useColumnResize(params: {
       const tmpCurrentCol = col.resizable !== false ? col : currentSibling;
       // 是否允许调整相邻列宽：列宽未超出时，且并非是最后一列（最后一列的右侧拉伸会认为是表格整体宽度调整）
       const canResizeSiblingColWidth = !(isWidthOverflow || index === leafColumns.length - 1);
-      if (resizeLineParams.effectCol === 'next') {
+
+      if (!effectNextCol?.colKey) {
+        // 已经不存在最后一列，比如整个表格只有一列可以调整的场景，需要直接影响到表格本身的宽度
+        if (resizeLineParams.effectCol) newThWidthList[tmpCurrentCol?.colKey] -= moveDistance;
+        else newThWidthList[tmpCurrentCol?.colKey] += moveDistance;
+        newThWidthList.tableWidth = getTotalTableWidth(newThWidthList);
+      } else if (resizeLineParams.effectCol === 'next') {
         // 右侧激活态的固定列，需特殊调整
         if (isColRightFixActive(col)) {
           // 如果不相同，则表示改变相临的右侧列宽
           if (target.dataset.colkey !== col.colKey) {
             newThWidthList[effectNextCol.colKey] += moveDistance;
           } else {
-            newThWidthList[tmpCurrentCol.colKey] += moveDistance;
+            newThWidthList[tmpCurrentCol?.colKey] += moveDistance;
           }
         } else {
           // 非右侧激活态的固定列
