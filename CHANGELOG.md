@@ -7,17 +7,17 @@ spline: explain
 
 ## 🌈 1.7.6 `2024-06-27` 
 ### 🚀 Features
-- `Tabs`: 新增 `scrollPosition` API，支持配置选中滑块滚动最终停留位置 @oljc ([#2954](https://github.com/Tencent/tdesign-react/pull/2954))
-- `ImageViewer`: 支持原生 `SVG` 预览显示 @HaixingOoO ([#2958](https://github.com/Tencent/tdesign-react/pull/2958))
+- `Tabs`: 支持通过滚轮或者触摸板进行滚动操作，新增 `scrollPosition` API，支持配置选中滑块滚动最终停留位置 @oljc ([#2954](https://github.com/Tencent/tdesign-react/pull/2954))
+- `ImageViewer`: 新增 `isSvg` 属性，支持原生 `SVG` 预览显示，用于对 `SVG` 进行操作的场景 @HaixingOoO ([#2958](https://github.com/Tencent/tdesign-react/pull/2958))
 - `Input`: 新增 `spellCheck` API @NWYLZW ([#2941](https://github.com/Tencent/tdesign-react/pull/2941))
 
 ### 🐞 Bug Fixes
-- `DatePicker`: 修复单独使用`DateRangePickerPanel`面板头部点击逻辑与`DateRangePicker` 不一致的问题 @uyarn ([#2944](https://github.com/Tencent/tdesign-react/pull/2944))
-- `Form`: 修复嵌套表单场景下使用 `shouldUpdate` 导致循环渲染的问题 @moecasts ([#2948](https://github.com/Tencent/tdesign-react/pull/2948))
-- `Tabs`: 修复 `1.7.4` 版本后 `Tabs` 的 classname 影响`TabItem`的问题 @uyarn ([#2946](https://github.com/Tencent/tdesign-react/pull/2946))
+- `DatePicker`: 修复单独使用 `DateRangePickerPanel` 面板头部点击逻辑与 `DateRangePicker` 不一致的问题 @uyarn ([#2944](https://github.com/Tencent/tdesign-react/pull/2944))
+- `Form`: 修复嵌套 `FormList` 场景下使用 `shouldUpdate` 导致循环渲染的问题 @moecasts ([#2948](https://github.com/Tencent/tdesign-react/pull/2948))
+- `Tabs`: 修复 `1.7.4` 版本后，`Tabs` 的 className 影响 `TabItem` 的问题 @uyarn ([#2946](https://github.com/Tencent/tdesign-react/pull/2946))
 - `Table`: 修复 `usePagination` 中 `pagination` 动态变化的功能问题 @HaixingOoO ([#2960](https://github.com/Tencent/tdesign-react/pull/2960))
-- `Table`: 阻止鼠标右键表格也触发列宽拖拽的问题 @HaixingOoO ([#2961](https://github.com/Tencent/tdesign-react/pull/2961))
-- `Table`: 修复只存在一列可 resize 的使用场景下，拖拽功能异常的问题 @uyarn ([#2959](https://github.com/Tencent/tdesign-react/pull/2959))
+- `Table`: 修复鼠标右键表格也可以触发列宽拖拽的问题 @HaixingOoO ([#2961](https://github.com/Tencent/tdesign-react/pull/2961))
+- `Table`: 修复只存在一列可被 resize 的使用场景下，拖拽功能异常的问题 @uyarn ([#2959](https://github.com/Tencent/tdesign-react/pull/2959))
 
 ### 🚧 Others
 - 站点全量新增 TypeScript 示例代码 @uyarn @HaixingOoO @ZWkang  ([#2871](https://github.com/Tencent/tdesign-react/pull/2871))
