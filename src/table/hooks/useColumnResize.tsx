@@ -267,7 +267,7 @@ export default function useColumnResize(params: {
 
       if (!effectNextCol?.colKey) {
         // 已经不存在最后一列，比如整个表格只有一列可以调整的场景，需要直接影响到表格本身的宽度
-        if (resizeLineParams.effectCol) newThWidthList[tmpCurrentCol?.colKey] -= moveDistance;
+        if (resizeLineParams.effectCol === 'next') newThWidthList[tmpCurrentCol?.colKey] -= moveDistance;
         else newThWidthList[tmpCurrentCol?.colKey] += moveDistance;
         newThWidthList.tableWidth = getTotalTableWidth(newThWidthList);
       } else if (resizeLineParams.effectCol === 'next') {
