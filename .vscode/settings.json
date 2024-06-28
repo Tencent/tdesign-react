@@ -65,7 +65,7 @@
     "*.css": "$(capture).css.map, $(capture).*.css",
     "*.db": "*.db-shm, *.db-wal",
     "*.fs": "$(capture).fs.js, $(capture).fs.js.map, $(capture).fs.jsx, $(capture).fs.ts, $(capture).fs.tsx, $(capture).fs.rs, $(capture).fs.php, $(capture).fs.dart",
-    "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js, babel.config.js, postcss.config.js",
+    "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js",
     "*.jsx": "$(capture).js, $(capture).*.jsx, $(capture)_*.js, $(capture)_*.jsx, $(capture).less, $(capture).module.less",
     "*.md": "$(capture).*",
     "*.mjs": "$(capture).mjs.map, $(capture).*.mjs, $(capture)_*.mjs",
@@ -75,5 +75,6 @@
     "*.vue": "$(capture).*.ts, $(capture).*.js, $(capture).story.vue",
     "*.xaml": "$(capture).xaml.cs",
     "tsconfig.json": "tsconfig.*.json",
+    "vitest.config.ts": "babel.config.js, postcss.config.js"
   },
 }
