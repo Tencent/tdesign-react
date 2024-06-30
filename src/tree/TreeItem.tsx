@@ -359,9 +359,7 @@ const TreeItem = forwardRef(
         className={classNames(treeClassNames.treeNode, {
           [treeClassNames.treeNodeOpen]:
             node.expanded &&
-            (typeof node.data[childrenKey] === 'boolean'
-              ? node.data[childrenKey]
-              : node.data[childrenKey] !== undefined),
+            (typeof node[childrenKey] === 'boolean' ? node[childrenKey] : node[childrenKey] !== undefined),
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
           [treeClassNames.treeNodeDraggable]: node.isDraggable(),
