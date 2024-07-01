@@ -67,7 +67,8 @@ const Empty = (props: EmptyProps) => {
   } = useDefaultProps(props, emptyDefaultProps);
   const { classPrefix } = useConfig();
 
-  const name = cls(`${classPrefix}-empty`, className);
+  const name = `${classPrefix}-empty`;
+  const emptyClasses = cls(name, className);
   const titleClasses = cls(`${name}__title`);
   const imageClasses = cls(`${name}__image`);
   const descriptionClasses = cls(`${name}__description`);
@@ -98,7 +99,7 @@ const Empty = (props: EmptyProps) => {
   const imageContent = getImageIns(image);
 
   return (
-    <div className={name} style={style}>
+    <div className={emptyClasses} style={style}>
       {imageContent ? (
         <div className={imageClasses} style={imageStyle}>
           {imageContent}
