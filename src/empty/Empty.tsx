@@ -67,12 +67,12 @@ const Empty = (props: EmptyProps) => {
   } = useDefaultProps(props, emptyDefaultProps);
   const { classPrefix } = useConfig();
 
-  const name = `${classPrefix}-empty`;
-  const emptyClasses = cls(name, className);
-  const titleClasses = cls(`${name}__title`);
-  const imageClasses = cls(`${name}__image`);
-  const descriptionClasses = cls(`${name}__description`);
-  const actionCls = cls(`${name}__action`);
+  const prefix = `${classPrefix}-empty`;
+  const emptyClasses = cls(prefix, className);
+  const titleClasses = cls(`${prefix}__title`);
+  const imageClasses = cls(`${prefix}__image`);
+  const descriptionClasses = cls(`${prefix}__description`);
+  const actionCls = cls(`${prefix}__action`);
 
   const typeImageProps = defaultMaps[type] ?? null;
 
