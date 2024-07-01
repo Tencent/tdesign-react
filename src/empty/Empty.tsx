@@ -63,10 +63,11 @@ const Empty = (props: EmptyProps) => {
     type,
     action,
     style,
+    className,
   } = useDefaultProps(props, emptyDefaultProps);
   const { classPrefix } = useConfig();
 
-  const name = `${classPrefix}-empty`;
+  const name = cls(`${classPrefix}-empty`, className);
   const titleClasses = cls(`${name}__title`);
   const imageClasses = cls(`${name}__image`);
   const descriptionClasses = cls(`${name}__description`);
