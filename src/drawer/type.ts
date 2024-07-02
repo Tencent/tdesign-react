@@ -6,7 +6,7 @@
 
 import { ButtonProps } from '../button';
 import { TNode, Styles, AttachNode } from '../common';
-import { MouseEvent, KeyboardEvent } from 'react';
+import { MouseEvent as ReactMouseEvent, KeyboardEvent } from 'react';
 
 export interface TdDrawerProps {
   /**
@@ -107,7 +107,7 @@ export interface TdDrawerProps {
   /**
    * 如果“取消”按钮存在，点击“取消”按钮时触发，同时触发关闭事件
    */
-  onCancel?: (context: { e: MouseEvent<HTMLDivElement | HTMLButtonElement> }) => void;
+  onCancel?: (context: { e: ReactMouseEvent<HTMLDivElement | HTMLButtonElement> }) => void;
   /**
    * 关闭事件，取消按钮点击时、关闭按钮点击时、ESC 按下时、点击蒙层时均会触发
    */
@@ -115,11 +115,11 @@ export interface TdDrawerProps {
   /**
    * 如果关闭按钮存在，点击关闭按钮时触发该事件，同时触发关闭事件
    */
-  onCloseBtnClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onCloseBtnClick?: (context: { e: ReactMouseEvent<HTMLDivElement> }) => void;
   /**
    * 如果“确认”按钮存在，则点击“确认”按钮时触发
    */
-  onConfirm?: (context: { e: MouseEvent<HTMLDivElement | HTMLButtonElement> }) => void;
+  onConfirm?: (context: { e: ReactMouseEvent<HTMLDivElement | HTMLButtonElement> }) => void;
   /**
    * 按下 ESC 键时触发
    */
@@ -127,7 +127,11 @@ export interface TdDrawerProps {
   /**
    * 如果蒙层存在，点击蒙层时触发
    */
-  onOverlayClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onOverlayClick?: (context: { e: ReactMouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 抽屉大小调整结束事件
+   */
+  onSizeDragEnd?: (context: { e: MouseEvent; size: number }) => void;
 }
 
 export interface DrawerOptions extends Omit<TdDrawerProps, 'attach'> {
@@ -172,7 +176,7 @@ export type DrawerEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';
 
 export interface DrawerCloseContext {
   trigger: DrawerEventSource;
-  e: MouseEvent<HTMLDivElement | HTMLButtonElement> | KeyboardEvent<HTMLDivElement>;
+  e: ReactMouseEvent<HTMLDivElement | HTMLButtonElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type DrawerMethod = (options?: DrawerOptions) => void;
