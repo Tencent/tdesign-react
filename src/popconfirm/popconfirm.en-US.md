@@ -2,7 +2,7 @@
 
 ## FAQ
 
-### How to solve the problem that `Popconfirm` and related floating components based on `popup` may be offset when nested?
+### How to solve the problem that `Popconfirm` and related floating components based on `Popup` may be offset when nested?
 
 Currently, this can be solved by `Fragment` or other `HTML` elements
 
