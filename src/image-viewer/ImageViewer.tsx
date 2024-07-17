@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import isFunction from 'lodash/isFunction';
-import { TdImageViewerProps } from './type';
 import { ImageModal } from './ImageViewerModal';
-import { StyledProps, TNode } from '../common';
 import { imageViewerDefaultProps } from './defaultProps';
+import type { TdImageViewerProps } from './type';
+import type { ImageModalProps } from './ImageViewerModal';
+import type { StyledProps, TNode } from '../common';
 import useImageScale from './hooks/useImageScale';
 import useList from './hooks/useList';
 import useViewerScale from './hooks/useViewerScale';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { canUseDocument } from '../_util/dom';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
 const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   const props = useDefaultProps<ImageViewerProps>(originalProps, imageViewerDefaultProps);
-  const { mode, trigger, images, title, imageScale: imageScaleD, viewerScale: viewerScaleD } = props;
+  const { attach, mode, trigger, images, title, imageScale: imageScaleD, viewerScale: viewerScaleD } = props;
 
   const [visible, setVisible] = useControlled(props, 'visible', (visible, context) => {
     isFunction(props.onClose) && props.onClose(context);
@@ -28,7 +30,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
 
   const isMini = mode === 'modeless';
 
-  const close = (context) => {
+  const close: ImageModalProps['onClose'] = (context) => {
     setVisible(false, context);
     setTimeout(() => setVisibled(false), 196);
   };
@@ -41,6 +43,21 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   // todo 兼容旧api，新： open close 旧： onOpen, onClose
   // @ts-ignore TODO 待类型完善后移除
   const uiImage: TNode = isFunction(trigger) ? trigger({ open, close, onOpen: open, onClose: close }) : trigger;
+
+  const attachElement = useMemo(() => {
+    if (!canUseDocument || !attach) return null;
+
+    if (attach === 'body') {
+      return document.body;
+    }
+
+    if (typeof attach === 'string') {
+      return document.querySelector(attach);
+    }
+    if (isFunction(attach)) {
+      return attach();
+    }
+  }, [attach]);
 
   return (
     <>
@@ -67,7 +84,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
             onOpen={open}
             imageReferrerpolicy={props.imageReferrerpolicy}
           />,
-          document.body,
+          attachElement,
         )}
     </>
   );
