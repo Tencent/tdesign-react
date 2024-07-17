@@ -260,6 +260,7 @@ export default function useColumnResize(params: {
       const currentSibling = resizeLineParams.effectCol === 'next' ? currentCol.prevSibling : currentCol.nextSibling;
       // 多行表头，列宽为最后一层的宽度，即叶子结点宽度
       const newThWidthList = { ...thWidthList };
+      const initTableElmWidth = getTotalTableWidth(newThWidthList);
       // 当前列不允许修改宽度，就调整相邻列的宽度
       const tmpCurrentCol = col.resizable !== false ? col : currentSibling;
       // 是否允许调整相邻列宽：列宽未超出时，且并非是最后一列（最后一列的右侧拉伸会认为是表格整体宽度调整）
@@ -287,14 +288,16 @@ export default function useColumnResize(params: {
           }
         }
       } else if (resizeLineParams.effectCol === 'prev') {
-        if (canResizeSiblingColWidth) {
-          newThWidthList[tmpCurrentCol.colKey] += moveDistance;
+        if (canResizeSiblingColWidth && effectPrevCol) {
+          newThWidthList[effectPrevCol.colKey] -= moveDistance;
         }
-        newThWidthList[effectPrevCol.colKey] -= moveDistance;
+        newThWidthList[tmpCurrentCol.colKey] += moveDistance;
       }
       updateThWidthList(newThWidthList);
       const tableWidth = getTotalTableWidth(newThWidthList);
-      setTableElmWidth(Math.round(tableWidth));
+      // 整个表格只有一列可以调整的场景
+      if (!effectNextCol?.colKey) setTableElmWidth(Math.max(initTableElmWidth, Math.round(tableWidth)));
+      else setTableElmWidth(Math.round(tableWidth));
       updateTableAfterColumnResize();
 
       // 恢复设置
