@@ -90,8 +90,19 @@ describe('Input 组件测试', () => {
     expect(queryByPlaceholderText(InputPlaceholder).disabled).toBeTruthy();
   });
   test('password', async () => {
-    const { queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} type="password" />);
+    const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} type="password" />);
     expect(queryByPlaceholderText(InputPlaceholder).type).toEqual('password');
+
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
+    fireEvent.click(container.querySelector('.t-input__suffix-clear'));
+    expect(container.querySelector('.t-icon-browse')).toBeTruthy();
+  });
+  test('password can be toggle when disabled', async () => {
+    const { container } = render(<Input placeholder={InputPlaceholder} type="password" disabled />);
+
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
+    fireEvent.click(container.querySelector('.t-input__suffix-clear'));
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
   });
   test('status', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} status="error" />);

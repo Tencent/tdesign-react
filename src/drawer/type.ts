@@ -128,6 +128,10 @@ export interface TdDrawerProps {
    * 如果蒙层存在，点击蒙层时触发
    */
   onOverlayClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 抽屉大小调整结束事件
+   */
+  onSizeDragEnd?: (context: { e: globalThis.MouseEvent; size: number }) => void;
 }
 
 export interface DrawerOptions extends Omit<TdDrawerProps, 'attach'> {

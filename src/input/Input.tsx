@@ -279,6 +279,7 @@ const Input = forwardRefWithStatics(
     );
 
     function togglePasswordVisible() {
+      if (disabled) return;
       const toggleType = renderType === 'password' ? 'text' : 'password';
       setRenderType(toggleType);
     }

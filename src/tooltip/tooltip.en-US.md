@@ -1,5 +1,27 @@
 :: BASE_DOC ::
 
+### 模拟原生title
+
+{{ mouse }}
+
+### 定时消失
+
+{{ duration }}
+
+## FAQ
+
+### How to solve the problem that `Tooltip` and related floating components based on `Popup` may be offset when nested?
+
+Currently, this can be solved by `Fragment` or other `HTML` elements
+
+```js
+<Tooltip content="Tooltip Content">
+  <>
+    {children}
+  </>
+</Tooltip>
+```
+
 ## API
 ### Tooltip Props
 

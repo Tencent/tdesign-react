@@ -51,6 +51,50 @@ describe('ImageViewer', () => {
     const { getByText } = render(<BasicImageViewer />);
     expect(getByText(triggerText)).toBeTruthy();
   });
+
+  test('base:attach is default=body', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={open}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 点击前，没有元素存在
+    const imgContainer = document.body.querySelector('.t-image-viewer-preview-image');
+    expect(imgContainer).toBeNull();
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    // 鼠标点击后，有元素
+    const imgModal = document.body.querySelector('.t-image-viewer__modal-pic');
+    expect(imgModal).toBeTruthy();
+  });
+
+  test('base:attach is function', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={open}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} attach={() => document.body} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 点击前，没有元素存在
+    const imgContainer = document.body.querySelector('.t-image-viewer-preview-image');
+    expect(imgContainer).toBeNull();
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    act(() => {
+      // 鼠标点击后，有元素
+      const imgModal = document.body.querySelector('.t-image-viewer__modal-pic');
+      expect(imgModal).toBeTruthy();
+    });
+  });
 });
 
 describe('ImageViewerMini', () => {
