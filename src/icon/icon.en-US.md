@@ -70,7 +70,8 @@ if your project is in a no-network scenario, please use on-demand loading of ico
   <svg fill="none" viewBox="0 0 16 16" width="16px" height="16px" style={{ marginRight: '5px'}}>
     <path fill="#0052d9" d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z" fillOpacity="0.9"></path>
   </svg>
-  Most icons were added to the icon library after version 0.3.0. If you find that the icon cannot be displayed normally after being imported, please check the version of tdesign-icons-react you have installed</div>
+  <p>Most icons were added to the icon library after version 0.3.0. If you find that the icon cannot be displayed normally after being imported, please check the version of tdesign-icons-react you have installed</p>
+  </div>
 
 
 <td-icons-view />
