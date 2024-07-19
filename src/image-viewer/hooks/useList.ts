@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import type { ImageInfo, TdImageViewerProps } from '../type';
@@ -24,14 +24,6 @@ const checkImages = (images: TdImageViewerProps['images']) => {
   });
 };
 
-const useList = (images: TdImageViewerProps['images']) => {
-  const [list, setList] = useState(() => checkImages(images));
-
-  useEffect(() => {
-    setList(checkImages(images));
-  }, [images]);
-
-  return list;
-};
+const useList = (images: TdImageViewerProps['images']) => useMemo(() => checkImages(images), [images]);
 
 export default useList;
