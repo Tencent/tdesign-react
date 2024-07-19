@@ -12,6 +12,7 @@ import useViewerScale from './hooks/useViewerScale';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { canUseDocument } from '../_util/dom';
+import useAttach from '../hooks/useAttach';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
@@ -19,6 +20,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   const props = useDefaultProps<ImageViewerProps>(originalProps, imageViewerDefaultProps);
   const { attach, mode, trigger, images, title, imageScale: imageScaleD, viewerScale: viewerScaleD } = props;
 
+  const imageViewerAttach = useAttach('imageViewer', attach);
   const [visible, setVisible] = useControlled(props, 'visible', (visible, context) => {
     isFunction(props.onClose) && props.onClose(context);
   });
@@ -45,19 +47,15 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   const uiImage: TNode = isFunction(trigger) ? trigger({ open, close, onOpen: open, onClose: close }) : trigger;
 
   const attachElement = useMemo(() => {
-    if (!canUseDocument || !attach) return null;
+    if (!canUseDocument || !imageViewerAttach) return null;
 
-    if (attach === 'body') {
-      return document.body;
+    if (typeof imageViewerAttach === 'string') {
+      return document.querySelector(imageViewerAttach);
     }
-
-    if (typeof attach === 'string') {
-      return document.querySelector(attach);
+    if (isFunction(imageViewerAttach)) {
+      return imageViewerAttach();
     }
-    if (isFunction(attach)) {
-      return attach();
-    }
-  }, [attach]);
+  }, [imageViewerAttach]);
 
   return (
     <>

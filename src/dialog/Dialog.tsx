@@ -16,6 +16,7 @@ import useDialogDrag from './hooks/useDialogDrag';
 import { parseValueToPx } from './utils';
 import log from '../_common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useAttach from '../hooks/useAttach';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
@@ -66,6 +67,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     ...restState
   } = state;
 
+  const dialogAttach = useAttach('dialog', attach);
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
@@ -195,7 +197,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       onEntered={onOpened}
       onExited={onAnimateLeave}
     >
-      <Portal attach={attach} ref={portalRef}>
+      <Portal attach={dialogAttach} ref={portalRef}>
         <div
           ref={wrapRef}
           className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
