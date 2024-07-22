@@ -21,11 +21,11 @@ export default function PositionExample() {
   };
   return (
     <>
-      <Button theme="primary" onClick={() => handleClick('center')} style={{ marginRight: 16 }}>
+      <Button theme="primary" onClick={() => handleClick('top')} style={{ marginRight: 16 }}>
         默认
       </Button>
-      <Button theme="primary" onClick={() => handleClick('top')} style={{ marginRight: 16 }}>
-        顶部
+      <Button theme="primary" onClick={() => handleClick('center')} style={{ marginRight: 16 }}>
+        垂直居中
       </Button>
       <Button
         theme="primary"
