@@ -5,7 +5,6 @@
 import { TdImageViewerProps } from './type';
 
 export const imageViewerDefaultProps: TdImageViewerProps = {
-  attach: 'body',
   closeBtn: true,
   closeOnEscKeydown: true,
   draggable: undefined,
