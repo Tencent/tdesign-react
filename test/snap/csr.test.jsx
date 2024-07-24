@@ -31,8 +31,8 @@ function runTest() {
       it(`csr test ${file}`, async () => {
         const demo = await import(`../../${file}`);
         const RealDemoComp = demo.default ? demo.default : demo;
-        const wrapper = render(<RealDemoComp />);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<RealDemoComp />);
+        expect(container).toMatchSnapshot();
       });
     });
   });
