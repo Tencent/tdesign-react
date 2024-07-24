@@ -1,5 +1,5 @@
 import React, { ForwardedRef, forwardRef } from 'react';
-import { UploadIcon } from 'tdesign-icons-react';
+import { UploadIcon as TdUploadIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import NormalFile from './themes/NormalFile';
 import DraggerFile from './themes/DraggerFile';
@@ -13,7 +13,9 @@ import { UploadDragEvents } from './hooks/useDrag';
 import CustomFile from './themes/CustomFile';
 import { UploadFile } from './type';
 import parseTNode from '../_util/parseTNode';
+
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 
 // const Upload = forwardRef((props: UploadProps, ref) => {
 function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<T>, ref: ForwardedRef<UploadRef>) {
@@ -51,6 +53,10 @@ function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<
     uploadFiles,
     cancelUpload,
   }));
+
+  const { UploadIcon } = useGlobalIcon({
+    UploadIcon: TdUploadIcon,
+  });
 
   const renderTrigger = () => {
     const getDefaultTrigger = () => {
