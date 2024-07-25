@@ -41,6 +41,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     panelPreselection: true,
     enableTimePicker: false,
     presetsPlacement: 'bottom',
+    needConfirm: true,
   });
   const {
     value = [],
@@ -52,7 +53,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     disableDate: disableDateFromProps,
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
     isFirstValueSelected,
-
+    needConfirm,
     style,
     className,
     activeIndex,
@@ -153,6 +154,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           onPresetClick={onPresetClick}
           onConfirmClick={onConfirmClick}
           presetsPlacement={presetsPlacement}
+          needConfirm={needConfirm}
         />
       ) : null}
       <div className={`${panelName}-content-wrapper`}>
@@ -200,6 +202,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           onPresetClick={onPresetClick}
           onConfirmClick={onConfirmClick}
           presetsPlacement={presetsPlacement}
+          needConfirm={needConfirm}
         />
       ) : null}
     </div>

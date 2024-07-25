@@ -17,7 +17,11 @@ import useDefaultProps from '../hooks/useDefaultProps';
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 
 const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((originalProps, ref) => {
-  const props = useDefaultProps<DatePickerPanelProps>(originalProps, { mode: 'date', defaultValue: '' });
+  const props = useDefaultProps<DatePickerPanelProps>(originalProps, {
+    mode: 'date',
+    defaultValue: '',
+    needConfirm: true,
+  });
   const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
     useSingleValue(props);
 
@@ -31,6 +35,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     presets,
     timePickerProps,
     presetsPlacement,
+    needConfirm,
     onPanelClick,
   } = props;
 
@@ -174,6 +179,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     timePickerProps,
     enableTimePicker,
     presetsPlacement,
+    needConfirm,
     onCellClick,
     onJumperClick,
     onConfirmClick,
