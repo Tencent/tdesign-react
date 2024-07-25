@@ -12,6 +12,8 @@ import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '../_comm
 import { subtractMonth, addMonth, extractTimeObj, covertToDate } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLatest from '../hooks/useLatest';
+import useUpdateEffect from '../hooks/useUpdateEffect';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -32,6 +34,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     defaultTime,
     timePickerProps,
     presetsPlacement,
+    needConfirm,
     onPick,
   } = props;
 
@@ -62,6 +65,29 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     valueType: props.valueType,
     enableTimePicker,
   });
+
+  const onTriggerNeedConfirm = useLatest(() => {
+    if (!needConfirm && enableTimePicker && !popupVisible) {
+      const nextValue = formatDate(inputValue, { format });
+      if (nextValue) {
+        onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
+          dayjsValue: parseToDayjs(inputValue, format),
+          trigger: 'confirm',
+        });
+      } else {
+        setInputValue(
+          formatDate(value, {
+            format,
+          }),
+        );
+      }
+    }
+  });
+
+  useUpdateEffect(() => {
+    //  日期时间选择器不需要点击确认按钮完成的操作
+    onTriggerNeedConfirm.current();
+  }, [popupVisible]);
 
   useEffect(() => {
     // 面板展开重置数据
@@ -212,6 +238,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     enableTimePicker,
     presetsPlacement,
     popupVisible,
+    needConfirm,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,

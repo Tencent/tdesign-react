@@ -64,6 +64,11 @@ export interface TdDatePickerProps {
    */
   mode?: 'year' | 'quarter' | 'month' | 'week' | 'date';
   /**
+   * 决定在日期时间选择器的场景下是否需要点击确认按钮才完成选择动作，默认为`true`
+   * @default true
+   */
+  needConfirm?: boolean;
+  /**
    * 占位符
    */
   placeholder?: string;
