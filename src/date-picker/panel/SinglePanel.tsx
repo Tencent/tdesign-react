@@ -41,7 +41,7 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
     mode,
     presetsPlacement,
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
-
+    needConfirm,
     style,
     className,
     year,
@@ -95,6 +95,7 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
     onPresetClick: props.onPresetClick,
     onConfirmClick: props.onConfirmClick,
     selectedValue: props.value,
+    needConfirm,
   };
 
   return (
