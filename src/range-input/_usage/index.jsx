@@ -10,38 +10,24 @@ import BaseUsage, {
 } from "@site/src/components/BaseUsage";
 import jsxToString from "react-element-to-jsx-string";
 
-import TimePickerConfigProps from "./time-picker-props.json";
+import configProps from "./props.json";
 
-import TimeRangePickerConfigProps from "./time-range-picker-props.json";
-
-import { TimePicker, TimeRangePicker } from "tdesign-react";
+import { RangeInput } from "tdesign-react";
 
 export default function Usage() {
-  const [configList, setConfigList] = useState(TimePickerConfigProps);
+  const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [
-    { label: "timePicker", value: "timePicker", config: TimePickerConfigProps },
-    {
-      label: "timeRangePicker",
-      value: "timeRangePicker",
-      config: TimeRangePickerConfigProps,
-    },
-  ];
-
-  const panelMap = {
-    timePicker: <TimePicker {...changedProps} />,
-    timeRangePicker: <TimeRangePicker {...changedProps} />,
-  };
+  const panelList = [{ label: "rangeInput", value: "rangeInput" }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
   useEffect(() => {
-    setRenderComp(panelMap[panel]);
-  }, [changedProps, panel]);
+    setRenderComp(<RangeInput {...changedProps} />);
+  }, [changedProps]);
 
   const jsxStr = useMemo(() => {
     if (!renderComp) return "";
