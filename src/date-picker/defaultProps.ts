@@ -22,6 +22,7 @@ export const datePickerDefaultProps: TdDatePickerProps = {
 
 export const dateRangePickerDefaultProps: TdDateRangePickerProps = {
   allowInput: false,
+  borderless: false,
   cancelRangeSelectLimit: false,
   clearable: false,
   defaultTime: ['00:00:00', '23:59:59'],

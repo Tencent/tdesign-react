@@ -42,6 +42,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     className,
     style,
     activeIndex,
+    borderless,
     disabled,
     format,
     inputProps,
@@ -171,6 +172,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
         [`${classPrefix}-size-s`]: size === 'small',
         [`${name}--prefix`]: prefixIconContent || labelContent,
         [`${name}--suffix`]: suffixContent || suffixIconContent,
+        [`${name}--borderless`]: borderless,
       })}
       {...restProps}
       onMouseEnter={handleMouseEnter}

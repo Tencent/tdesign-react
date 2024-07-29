@@ -1,13 +1,15 @@
 :: BASE_DOC ::
 
 ## API
+
 ### RangeInput Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 activeIndex | Number | - | \- | N
+borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 disabled | Boolean | - | \- | N
 format | Array / Function | - | Typescript：`InputFormatType \| Array<InputFormatType>` | N
@@ -18,8 +20,8 @@ prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](http
 readonly | Boolean | false | \- | N
 separator | TNode | '-' | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 showClearIconOnEmpty | Boolean | false | \- | N
-size | String | medium | options：small/medium/large | N
-status | String | default | options：default/success/warning/error | N
+size | String | medium | options: small/medium/large | N
+status | String | default | options: default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 tips | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -38,18 +40,19 @@ onMouseleave | Function |  | Typescript：`(context: { e: MouseEvent }) => void`
 
 name | params | return | description
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 blur | `(options?: {position?: RangeInputPosition})` | \- | \-
 focus | `(options?: {position?: RangeInputPosition})` | \- | \-
 select | `(options?: {position?: RangeInputPosition})` | \- | \-
+
 
 ### RangeInputPopup Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 autoWidth | Boolean | false | \- | N
 disabled | Boolean | - | \- | N
 inputValue | Array | - | Typescript：`RangeInputValue` | N
@@ -59,7 +62,7 @@ popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./po
 popupVisible | Boolean | - | \- | N
 rangeInputProps | Object | - | Typescript：`RangeInputProps`，[RangeInput API Documents](./range-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/range-input/type.ts) | N
 readonly | Boolean | false | \- | N
-status | String | default | options：default/success/warning/error | N
+status | String | default | options: default/success/warning/error | N
 tips | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 onInputChange | Function |  | Typescript：`(value: RangeInputValue, context?: RangeInputValueChangeContext)  => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/range-input/type.ts)。<br/>`type RangeInputValueChangeContext = { e?: InputEvent \| MouseEvent; trigger?: 'input' \| 'clear', position?: RangeInputPosition }`<br/> | N
 onPopupVisibleChange | Function |  | Typescript：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/range-input/type.ts)。<br/>`import { PopupVisibleChangeContext } from '@Popup'`<br/> | N
