@@ -40,6 +40,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     status,
     suffixIcon,
     suffix,
+    prefixIcon,
     onClick,
     onPaste,
     onFocus,
@@ -154,6 +155,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       status={status}
       placeholder={tagInputPlaceholder}
       suffix={suffix}
+      prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
       showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}

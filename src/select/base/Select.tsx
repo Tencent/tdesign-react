@@ -97,6 +97,7 @@ const Select = forwardRefWithStatics(
       scroll,
       suffixIcon,
       onPopupVisibleChange,
+      label,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -434,8 +435,9 @@ const Select = forwardRefWithStatics(
           status={props.status}
           tips={props.tips}
           borderless={borderless}
-          label={prefixIcon}
+          label={label}
           suffix={props.suffix}
+          prefixIcon={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}

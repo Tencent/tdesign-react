@@ -28,6 +28,7 @@ const COMMON_PROPERTIES = [
   'onMouseenter',
   'onMouseleave',
   'size',
+  'prefixIcon',
 ];
 
 const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
