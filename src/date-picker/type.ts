@@ -359,7 +359,6 @@ export interface TdDatePickerPanelProps
     | 'presets'
     | 'presetsPlacement'
     | 'timePickerProps'
-    | 'timePickerProps'
     | 'needConfirm'
   > {
   /**
