@@ -40,6 +40,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     timePickerProps,
     presetsPlacement,
     panelPreselection,
+    label,
     onPick,
     cancelRangeSelectLimit,
   } = props;
@@ -375,6 +376,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         disabled={disabled}
         status={props.status}
         tips={props.tips}
+        label={label}
         inputValue={inputValue}
         popupProps={popupProps}
         rangeInputProps={rangeInputProps}

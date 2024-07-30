@@ -8,9 +8,12 @@ export const timePickerDefaultProps: TdTimePickerProps = {
   allowInput: false,
   borderless: false,
   clearable: false,
+  disabled: undefined,
   format: 'HH:mm:ss',
   hideDisabledTime: true,
+  placeholder: undefined,
   size: 'medium',
+  status: 'default',
   steps: [1, 1, 1],
 };
 
@@ -18,8 +21,11 @@ export const timeRangePickerDefaultProps: TdTimeRangePickerProps = {
   allowInput: false,
   borderless: false,
   clearable: false,
+  disabled: undefined,
   format: 'HH:mm:ss',
   hideDisabledTime: true,
+  placeholder: undefined,
   size: 'medium',
+  status: 'default',
   steps: [1, 1, 1],
 };

@@ -24,6 +24,7 @@ import { timePickerDefaultProps } from './defaultProps';
 import type { StyledProps } from '../common';
 import type { TdTimePickerProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { parseContentTNode } from '../_util/parseTNode';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);
@@ -41,6 +42,8 @@ const TimePicker = forwardRefWithStatics(
       clearable,
       disabled,
       style,
+      label,
+      selectInputProps,
       format = DEFAULT_FORMAT,
       hideDisabledTime = true,
       steps = DEFAULT_STEPS,
@@ -71,6 +74,11 @@ const TimePicker = forwardRefWithStatics(
     const effectVisibleCurrentValue = (visible: boolean) => {
       setPanelShow(visible);
       setCurrentValue(visible ? value ?? '' : '');
+    };
+
+    const renderValueDisplay = () => {
+      const valueDisplayParams = { value: isPanelShowed ? currentValue : value ?? undefined };
+      return parseContentTNode(props.valueDisplay, valueDisplayParams);
     };
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
@@ -135,6 +143,9 @@ const TimePicker = forwardRefWithStatics(
           popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
           tips={props.tips}
           status={props.status}
+          valueDisplay={renderValueDisplay()}
+          label={label}
+          {...selectInputProps}
           panel={
             <TimePickerPanel
               steps={steps}

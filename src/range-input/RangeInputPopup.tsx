@@ -25,6 +25,7 @@ const RangeInputPopup = React.forwardRef<HTMLDivElement, RangeInputPopupProps>((
     disabled,
     status,
     tips,
+    label,
   } = props;
 
   const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props);
@@ -54,6 +55,7 @@ const RangeInputPopup = React.forwardRef<HTMLDivElement, RangeInputPopupProps>((
           status={status}
           tips={tips}
           value={inputValue}
+          label={label}
           onChange={onInputChange}
           {...rangeInputProps}
         />

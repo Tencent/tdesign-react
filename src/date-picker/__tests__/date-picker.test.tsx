@@ -177,6 +177,14 @@ describe('DatePicker', () => {
     expect(queryByText(tips)).toBeInTheDocument();
   });
 
+  test('label', async () => {
+    const label = 'test-label';
+    const { container } = render(<DatePicker label={label} />);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
+  });
+
   test('onBlur onFocus', async () => {
     const blurFn = vi.fn();
     const focusFn = vi.fn();

@@ -6,6 +6,7 @@
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
+import { SelectInputProps } from '../select-input';
 import { TimePickerProps } from '../time-picker';
 import { Dayjs } from 'dayjs';
 import { RangeInputProps } from '../range-input';
@@ -59,6 +60,10 @@ export interface TdDatePickerProps {
    */
   inputProps?: InputProps;
   /**
+   * 左侧文本
+   */
+  label?: TNode;
+  /**
    * 选择器模式
    * @default date
    */
@@ -89,6 +94,10 @@ export interface TdDatePickerProps {
    * @default bottom
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
+   * 透传 SelectInput 筛选器输入框组件的全部属性
+   */
+  selectInputProps?: SelectInputProps;
   /**
    * 输入框尺寸
    * @default medium
@@ -121,6 +130,10 @@ export interface TdDatePickerProps {
    * @default ''
    */
   defaultValue?: DateValue;
+  /**
+   * 自定义选中项呈现的内容
+   */
+  valueDisplay?: string | TNode<{ value: DateValue; displayValue?: DateValue }>;
   /**
    * 用于格式化日期的值，仅支持部分格式，时间戳、日期等。⚠️ `YYYYMMDD` 这种格式不支持，请勿使用，如果希望支持可以给 `dayjs` 提个 PR。注意和 `format` 的区别，`format` 仅用于处理日期在页面中呈现的格式。`ValueTypeEnum` 即将废弃，请更为使用 `DatePickerValueType`
    * @default ''
@@ -200,6 +213,10 @@ export interface TdDateRangePickerProps {
    * @default ''
    */
   format?: string;
+  /**
+   * 左侧文本
+   */
+  label?: TNode;
   /**
    * 选择器模式
    * @default date
@@ -341,6 +358,7 @@ export interface TdDatePickerPanelProps
     | 'mode'
     | 'presets'
     | 'presetsPlacement'
+    | 'timePickerProps'
     | 'timePickerProps'
     | 'needConfirm'
   > {
