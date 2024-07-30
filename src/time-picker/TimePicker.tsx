@@ -77,6 +77,8 @@ const TimePicker = forwardRefWithStatics(
     };
 
     const renderValueDisplay = () => {
+      if (typeof props.valueDisplay === 'string') return props.valueDisplay;
+
       const valueDisplayParams = { value: isPanelShowed ? currentValue : value ?? undefined };
       return parseContentTNode(props.valueDisplay, valueDisplayParams);
     };

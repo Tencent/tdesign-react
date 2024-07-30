@@ -88,6 +88,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   });
   // render valueDisplay
   const renderValueDisplay = () => {
+    if (typeof props.valueDisplay === 'string') return props.valueDisplay;
+
     const valueDisplayParams = { value, displayValue: inputValue };
     return parseContentTNode(props.valueDisplay, valueDisplayParams);
   };
