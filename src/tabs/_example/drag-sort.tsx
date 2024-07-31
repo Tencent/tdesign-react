@@ -1,6 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Space, Tabs } from 'tdesign-react';
-import debounce from 'lodash/debounce';
 
 const { TabPanel } = Tabs;
 
@@ -14,27 +13,19 @@ export default function DragSortExample() {
   const [tabList1, setTabList1] = useState([...defaultList]);
   const [tabList2, setTabList2] = useState([...defaultList]);
 
-  const onDragSort1 = useCallback(
-    () =>
-      debounce(({ currentIndex, targetIndex }) => {
-        const temp = tabList1[currentIndex];
-        tabList1[currentIndex] = tabList1[targetIndex];
-        tabList1[targetIndex] = temp;
-        setTabList1([...tabList1]);
-      }, 500),
-    [tabList1],
-  );
+  const onDragSort1 = ({ currentIndex, targetIndex }) => {
+    const temp = tabList1[currentIndex];
+    tabList1[currentIndex] = tabList1[targetIndex];
+    tabList1[targetIndex] = temp;
+    setTabList1([...tabList1]);
+  };
 
-  const onDragSort2 = useCallback(
-    () =>
-      debounce(({ currentIndex, targetIndex }) => {
-        const temp = tabList2[currentIndex];
-        tabList2[currentIndex] = tabList2[targetIndex];
-        tabList2[targetIndex] = temp;
-        setTabList2([...tabList2]);
-      }, 500),
-    [tabList2],
-  );
+  const onDragSort2 = ({ currentIndex, targetIndex }) => {
+    const temp = tabList2[currentIndex];
+    tabList2[currentIndex] = tabList2[targetIndex];
+    tabList2[targetIndex] = temp;
+    setTabList2([...tabList2]);
+  };
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
