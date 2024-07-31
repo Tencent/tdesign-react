@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import useEventCallback from './useEventCallback';
 
 interface DragSortProps<T> {
   sortOnDraggable: boolean;
@@ -36,6 +37,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   const [dragStartData, setDragStartData] = useState(null);
   const [isDropped, setIsDropped] = useState(null);
   const [startInfo, setStartInfo] = useState({ nodeX: 0, nodeWidth: 0, mouseX: 0 });
+  const onDragSortEvent = useEventCallback(onDragSort);
 
   const onDragOver = useCallback(
     (e, index, record: T) => {
@@ -63,7 +65,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
         if (!overlap) return;
       }
 
-      onDragSort({
+      onDragSortEvent({
         currentIndex: draggingIndex,
         current: dragStartData,
         target: record,
@@ -79,7 +81,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
       startInfo.nodeWidth,
       startInfo.mouseX,
       startInfo.nodeX,
-      onDragSort,
+      onDragSortEvent,
     ],
   );
 
