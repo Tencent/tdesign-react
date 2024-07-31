@@ -108,6 +108,10 @@ export interface TdSelectInputProps {
    */
   defaultPopupVisible?: boolean;
   /**
+   * 组件前置图标
+   */
+  prefixIcon?: TElement;
+  /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
    */

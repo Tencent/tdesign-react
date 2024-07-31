@@ -57,7 +57,6 @@ const Select = forwardRefWithStatics(
       borderless,
       autoWidth,
       creatable,
-      filter,
       loadingText = emptyText,
       max,
       popupProps,
@@ -73,12 +72,6 @@ const Select = forwardRefWithStatics(
       options,
       filterable,
       loading,
-      onFocus,
-      onBlur,
-      onClear = noop,
-      onCreate,
-      onRemove,
-      onSearch,
       empty,
       valueType,
       keys,
@@ -86,7 +79,6 @@ const Select = forwardRefWithStatics(
       collapsedItems,
       minCollapsedNum,
       valueDisplay,
-      onEnter,
       showArrow,
       inputProps,
       panelBottomContent,
@@ -96,6 +88,15 @@ const Select = forwardRefWithStatics(
       tagProps,
       scroll,
       suffixIcon,
+      label,
+      filter,
+      onFocus,
+      onBlur,
+      onClear = noop,
+      onCreate,
+      onRemove,
+      onSearch,
+      onEnter,
       onPopupVisibleChange,
     } = props;
 
@@ -434,8 +435,9 @@ const Select = forwardRefWithStatics(
           status={props.status}
           tips={props.tips}
           borderless={borderless}
-          label={prefixIcon}
+          label={label}
           suffix={props.suffix}
+          prefixIcon={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}

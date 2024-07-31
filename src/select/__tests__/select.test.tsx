@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { render, fireEvent, mockTimeout } from '@test/utils';
+import { render, fireEvent, mockTimeout, act } from '@test/utils';
 import React, { useState } from 'react';
 import userEvent from '@testing-library/user-event';
 
@@ -52,7 +52,7 @@ describe('Select 组件测试', () => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        let options = [];
+        let options: typeof defaultOptions = [];
         if (search) {
           options = [
             {
@@ -313,5 +313,23 @@ describe('Select 组件测试', () => {
     // 已选的 123_test1 仍然保留
     await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test1'));
     await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test2'));
+  });
+
+  test('label display', async () => {
+    const text = 'test-label';
+    const { getByText } = await render(<Select options={[]} label={text} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
+  });
+
+  test('prefixIcon display', async () => {
+    const text = 'test-prefixIcon';
+    const { getByText } = await render(<Select options={[]} prefixIcon={<span>{text}</span>} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
   });
 });

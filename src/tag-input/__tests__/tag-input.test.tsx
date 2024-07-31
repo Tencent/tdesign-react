@@ -1,5 +1,6 @@
-import { fireEvent, vi } from '@test/utils';
-import { TagInput } from '..';
+import React from 'react';
+import { fireEvent, vi, render, act } from '@test/utils';
+import { TagInput } from '../index';
 import { getTagInputValueMount } from './mount';
 
 describe('TagInput Component', () => {
@@ -37,5 +38,23 @@ describe('TagInput Component', () => {
     // expect(onDragSort).toHaveBeenCalled(1);
     // expect(onDragSort.mock.calls[0][0].target).toEqual('Vue');
     // expect(container.querySelectorAll('.t-tag').item(0).firstChild.title).toEqual('React');
+  });
+
+  test('label display', async () => {
+    const text = 'test-label';
+    const { getByText } = await render(<TagInput label={text} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
+  });
+
+  test('prefixIcon display', async () => {
+    const text = 'test-prefixIcon';
+    const { getByText } = await render(<TagInput prefixIcon={<span>{text}</span>} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
   });
 });
