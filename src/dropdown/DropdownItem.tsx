@@ -41,7 +41,7 @@ const DropdownItem = forwardRef<HTMLLIElement, DropdownItemProps>((props, ref: R
   const { classPrefix } = useConfig();
   const [dropdownItemDom, setRefCurrent] = useDomRefCallback();
 
-  useRipple(isSubmenu ? null : ref?.current || dropdownItemDom);
+  useRipple(isSubmenu || disabled ? null : ref?.current || dropdownItemDom);
 
   const handleItemClick = (e: React.MouseEvent) => {
     if (disabled) return;
