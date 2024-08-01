@@ -12,5 +12,4 @@ export const rateDefaultProps: TdRateProps = {
   count: 5,
   gap: 4,
   showText: false,
-  texts: ['极差', '失望', '一般', '满意', '惊喜'],
 };
