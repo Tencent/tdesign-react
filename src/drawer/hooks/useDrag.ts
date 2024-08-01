@@ -2,7 +2,11 @@ import { useMemo, useState } from 'react';
 import { TdDrawerProps } from '../type';
 import { Styles } from '../../common';
 
-const useDrag = (placement: TdDrawerProps['placement'], sizeDraggable: TdDrawerProps['sizeDraggable']) => {
+const useDrag = (
+  placement: TdDrawerProps['placement'],
+  sizeDraggable: TdDrawerProps['sizeDraggable'],
+  onSizeDragEnd: TdDrawerProps['onSizeDragEnd'],
+) => {
   const [dragSizeValue, changeDragSizeValue] = useState<string>(null);
 
   const handleMousemove = (e: MouseEvent) => {
@@ -23,10 +27,6 @@ const useDrag = (placement: TdDrawerProps['placement'], sizeDraggable: TdDrawerP
       }
     }
   };
-  const handleMouseup = () => {
-    document.removeEventListener('mouseup', handleMouseup, true);
-    document.removeEventListener('mousemove', handleMousemove, true);
-  };
   const draggableLineStyles: Styles = useMemo(() => {
     // 设置拖拽control的样式
     const isHorizontal = ['right', 'left'].includes(placement);
@@ -46,6 +46,14 @@ const useDrag = (placement: TdDrawerProps['placement'], sizeDraggable: TdDrawerP
       cursor: isHorizontal ? 'col-resize' : 'row-resize',
     };
   }, [placement]);
+  const handleMouseup = (e: MouseEvent) => {
+    document.removeEventListener('mouseup', handleMouseup, true);
+    document.removeEventListener('mousemove', handleMousemove, true);
+    onSizeDragEnd?.({
+      e,
+      size: parseInt(dragSizeValue, 10),
+    });
+  };
 
   const enableDrag = () => {
     // mousedown绑定mousemove和mouseup事件

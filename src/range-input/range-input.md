@@ -1,13 +1,15 @@
 :: BASE_DOC ::
 
 ## API
+
 ### RangeInput Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 activeIndex | Number | - | 输入框高亮状态序号 | N
+borderless | Boolean | false | 无边框模式 | N
 clearable | Boolean | false | 是否可清空 | N
 disabled | Boolean | - | 是否禁用范围输入框 | N
 format | Array / Function | - | 指定输入框展示值的格式。TS 类型：`InputFormatType \| Array<InputFormatType>` | N
@@ -44,9 +46,10 @@ blur | `(options?: {position?: RangeInputPosition})` | \- | 使其中一个输�
 focus | `(options?: {position?: RangeInputPosition})` | \- | 使其中一个输入框获得焦点
 select | `(options?: {position?: RangeInputPosition})` | \- | 使其中一个输入框选中内容
 
+
 ### RangeInputPopup Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N

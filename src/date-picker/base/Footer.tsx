@@ -5,7 +5,8 @@ import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
 import { TdDatePickerProps, TdDateRangePickerProps, DateValue } from '../type';
 
-interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presetsPlacement'> {
+interface DatePickerFooterProps
+  extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presetsPlacement' | 'needConfirm'> {
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
   onPresetClick?: Function;
   onConfirmClick?: Function;
@@ -25,6 +26,7 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
     presets,
     onPresetClick,
     selectedValue,
+    needConfirm,
   } = props;
 
   const footerClass = classNames(
@@ -49,7 +51,7 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
             ))}
         </div>
       }
-      {enableTimePicker && (
+      {enableTimePicker && needConfirm && (
         <Button disabled={!selectedValue} size="small" theme="primary" onClick={(e) => onConfirmClick({ e })}>
           {confirmText}
         </Button>

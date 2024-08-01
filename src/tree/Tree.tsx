@@ -23,7 +23,7 @@ import { useStore } from './hooks/useStore';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import { TreeDraggableContext } from './hooks/TreeDraggableContext';
 import parseTNode from '../_util/parseTNode';
-import { usePersistFn } from '../_util/usePersistFn';
+import { usePersistFn } from '../hooks/usePersistFn';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 
 import type { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../_common/js/tree-v1/types';

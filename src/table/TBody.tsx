@@ -74,7 +74,7 @@ export default function TBody(props: TableBodyProps) {
       <td colSpan={columns.length}>
         <div
           className={classNames([tableBaseClass.empty, { [tableFullRowClasses.innerFullRow]: props.isWidthOverflow }])}
-          style={props.isWidthOverflow ? { width: `${props.tableWidth}px` } : {}}
+          style={props.isWidthOverflow ? { width: `${props.tableWidth.current}px` } : {}}
         >
           {props.empty || t(global.empty)}
         </div>
@@ -98,7 +98,7 @@ export default function TBody(props: TableBodyProps) {
         <td colSpan={columnLength}>
           <div
             className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft })}
-            style={isFixedToLeft ? { width: `${props.tableWidth}px` } : {}}
+            style={isFixedToLeft ? { width: `${props.tableWidth.current}px` } : {}}
           >
             <div className={tableFullRowClasses.innerFullElement}>{fullRowNode}</div>
           </div>
@@ -168,7 +168,7 @@ export default function TBody(props: TableBodyProps) {
           row,
           index: rowIndex,
           columns,
-          tableWidth: props.tableWidth,
+          tableWidth: props.tableWidth.current,
           isWidthOverflow: props.isWidthOverflow,
         };
         const expandedContent = props.renderExpandedRow(p);

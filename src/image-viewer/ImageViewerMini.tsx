@@ -50,6 +50,7 @@ export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
         preSrc={props.currentImage.thumbnail}
         errorText={props.errorText}
         imageReferrerpolicy={props.imageReferrerpolicy}
+        isSvg={props.currentImage.isSvg}
       />
     </div>
   );

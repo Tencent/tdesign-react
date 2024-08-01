@@ -9,6 +9,20 @@ Support functional calls `PopupPlugin` 。
 
 {{ plugin }}
 
+## FAQ
+
+### How to solve the problem of position offset when nesting `Popup` components?
+
+Currently, this can be solved by `Fragment` or other `HTML` elements
+
+```js
+<Popup content="Popup Content">
+  <>
+    {children}
+  </>
+</Popup>
+```
+
 ## API
 ### Popup Props
 

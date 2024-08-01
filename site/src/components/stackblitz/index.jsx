@@ -1,20 +1,37 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Tooltip from 'tdesign-react/tooltip';
 
-import { htmlContent, mainJsContent, styleContent, dependenciesContent } from './content';
+import { htmlContent, mainJsContent, styleContent, dependenciesContent, tsconfigContent } from './content';
+
+const TypeScriptType = 0;
 
 export default function Stackblitz(props) {
-  const { code } = props;
   const formRef = useRef(null);
-
+  const [isTypeScriptDemo, setIsTypeScriptDemo] = useState(false);
+  const [code, setCurrentCode] = useState('');
   function submit() {
-    formRef.current.submit();
+    const demoDom = document.querySelector(`td-doc-demo[demo-name='${props.demoName}']`);
+    const isTypeScriptDemo = demoDom?.currentLangIndex === TypeScriptType;
+
+    setCurrentCode(demoDom?.currentRenderCode);
+    setIsTypeScriptDemo(isTypeScriptDemo);
+
+    setTimeout(() => {
+      formRef.current.submit();
+    });
   }
 
   return (
     <Tooltip content="在 Stackblitz 中打开">
       <form ref={formRef} method="post" action="https://stackblitz.com/run" target="_blank" onClick={submit}>
-        <input type="hidden" name="project[files][src/demo.jsx]" value={code} />
+        {isTypeScriptDemo ? (
+          <>
+            <input type="hidden" name="project[files][src/demo.tsx]" value={code} />
+            <input type="hidden" name="project[tsconfig.json]" value={tsconfigContent} />
+          </>
+        ) : (
+          <input type="hidden" name="project[files][src/demo.jsx]" value={code} />
+        )}
         <input type="hidden" name="project[files][src/index.css]" value={styleContent} />
         <input type="hidden" name="project[files][src/index.js]" value={mainJsContent} />
         <input type="hidden" name="project[files][public/index.html]" value={htmlContent} />

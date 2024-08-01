@@ -8,7 +8,7 @@ import MessageClose from './MessageClose';
 import MessageIcon from './MessageIcon';
 import { useMessageClass } from './useMessageClass';
 import { StyledProps } from '../common';
-import { usePersistFn } from '../_util/usePersistFn';
+import { usePersistFn } from '../hooks/usePersistFn';
 import noop from '../_util/noop';
 
 // Message 组件参数，需在 api 定义上做部分扩展

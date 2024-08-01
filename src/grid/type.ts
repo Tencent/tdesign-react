@@ -97,9 +97,9 @@ export interface GutterObject {
 }
 
 export interface BaseColProps {
-  offset: number;
-  order: number;
-  pull: number;
-  push: number;
-  span: number;
+  offset?: number;
+  order?: number;
+  pull?: number;
+  push?: number;
+  span?: number;
 }

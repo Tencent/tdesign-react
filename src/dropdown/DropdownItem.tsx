@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
 import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';
-import useRipple from '../_util/useRipple';
+import useRipple from '../hooks/useRipple';
 import { dropdownItemDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
 import { pxCompat } from '../_util/helper';

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useContext, Ref } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import composeRefs from '../_util/composeRefs';
 import { TdAvatarProps } from './type';
 import { StyledProps } from '../common';
