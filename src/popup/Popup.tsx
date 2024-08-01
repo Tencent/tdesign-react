@@ -84,7 +84,13 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
 
   // 判断展示浮层
   const showOverlay = useMemo(() => {
-    if (hideEmptyPopup && !content) return false;
+    const isNullComponent =
+      React.Children.map(
+        content,
+        (child) =>
+          React.isValidElement(child) && typeof child.type === 'function' && (child.type as Function)(child.props),
+      ).length === 0;
+    if (hideEmptyPopup && (!content || isNullComponent)) return false;
     return visible || popupElement;
   }, [hideEmptyPopup, content, visible, popupElement]);
 
