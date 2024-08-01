@@ -99,6 +99,10 @@ export interface GlobalConfigProvider {
    */
   popconfirm?: PopconfirmConfig;
   /**
+   * 评分组件全局配置
+   */
+  rate?: RateConfig;
+  /**
    * 选择器组件全局配置
    */
   select?: SelectConfig;
@@ -910,6 +914,13 @@ export interface TypographyConfig {
    * @default ''
    */
   copiedText?: string;
+}
+
+export interface RateConfig {
+  /**
+   * 评分描述，默认值：['极差', '失望', '一般', '满意', '惊喜']
+   */
+  rateText?: string[];
 }
 
 export type AnimationType = 'ripple' | 'expand' | 'fade';

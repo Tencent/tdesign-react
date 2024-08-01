@@ -4,6 +4,8 @@ import { StarFilledIcon as TdStarFilledIcon } from 'tdesign-icons-react';
 import { TooltipLite } from '../tooltip';
 import { TdRateProps } from './type';
 import { StyledProps } from '../common';
+
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
@@ -31,7 +33,10 @@ const RateIcon: React.FC<RateIconProps> = ({ icon, ...props }) => {
 const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) => {
   const props = useDefaultProps<RateProps>(originalProps, rateDefaultProps);
 
-  const { allowHalf, color, count, disabled, gap, showText, size, texts, icon, className, style, onChange } = props;
+  const { allowHalf, color, count, disabled, gap, showText, size, icon, className, style, onChange, texts } = props;
+  const [locale, t] = useLocaleReceiver('rate');
+
+  const displayTexts = texts || t(locale.rateText);
 
   const { classPrefix } = useConfig();
   const [starValue = 0, setStarValue] = useControlled(props, 'value', onChange);
@@ -112,7 +117,7 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
             onMouseMove={(event) => mouseEnterHandler(event, index + 1)}
           >
             {showText ? (
-              <TooltipLite key={index} content={texts[displayValue - 1]}>
+              <TooltipLite key={index} content={displayTexts[displayValue - 1]}>
                 <div className={`${classPrefix}-rate__star-top`}>
                   <RateIcon size={size} color={activeColor} icon={icon} />
                 </div>
@@ -133,7 +138,7 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
           </li>
         ))}
       </ul>
-      {showText && <div className={`${classPrefix}-rate__text`}>{texts[displayValue - 1]}</div>}
+      {showText && <div className={`${classPrefix}-rate__text`}>{displayTexts[displayValue - 1]}</div>}
     </div>
   );
 });
