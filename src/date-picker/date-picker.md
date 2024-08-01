@@ -1,9 +1,10 @@
 :: BASE_DOC ::
 
 ## API
+
 ### DatePicker Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -18,6 +19,7 @@ firstDayOfWeek | Number | 7 | 第一天从星期几开始。可选项：1/2/3/4/
 format | String | 'YYYY-MM-DD' | 仅用于格式化日期显示的格式，不影响日期值。注意和 `valueType` 的区别，`valueType`会直接决定日期值 `value` 的格式。全局配置默认为：'YYYY-MM-DD'，[详细文档](https://day.js.org/docs/en/display/format) | N
 inputProps | Object | - | 透传给输入框（Input）组件的参数。TS 类型：`InputProps`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 mode | String | date | 选择器模式。可选项：year/quarter/month/week/date | N
+needConfirm | Boolean | true | 决定在日期时间选择器的场景下是否需要点击确认按钮才完成选择动作，默认为`true` | N
 placeholder | String / Array | undefined | 占位符。TS 类型：`string` | N
 popupProps | Object | - | 透传给 popup 组件的参数。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 prefixIcon | TElement | - | 用于自定义组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -38,13 +40,15 @@ onFocus | Function |  | TS 类型：`(context: { value: DateValue; e: FocusEvent
 onPick | Function |  | TS 类型：`(value: DateValue) => void`<br/>面板选中值后触发 | N
 onPresetClick | Function |  | TS 类型：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/>点击预设按钮后触发 | N
 
+
 ### DateRangePicker Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许输入日期 | N
+borderless | Boolean | false | 无边框模式 | N
 cancelRangeSelectLimit | Boolean | false | 默认的日期选择交互是根据点击前后日期的顺序来决定并且会加以限制。比如：用户先点击开始时间输入框，选择了一个日期例如2020-05-15，紧接着交互会自动将焦点跳到结束日期输入框，等待用户选择结束时间。此时用户只能选择大于2020-05-15的日期（之前的日期会被灰态禁止点击，限制用户的点击）。当该值传递`true`时，则取消该限制。 | N
 clearable | Boolean | false | 是否显示清除按钮 | N
 defaultTime | Array | ["00:00:00", "23:59:59"] | 时间选择器默认值，当 value/defaultValue 未设置值时有效。TS 类型：`string[]` | N
@@ -78,9 +82,10 @@ onInput | Function |  | TS 类型：`(context: { input: string; value: DateRange
 onPick | Function |  | TS 类型：`(value: DateValue, context: PickContext) => void`<br/>选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`interface PickContext { e: MouseEvent; partial: DateRangePickerPartial }`<br/> | N
 onPresetClick | Function |  | TS 类型：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/>点击预设按钮后触发 | N
 
+
 ### DatePickerPanel Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -95,9 +100,10 @@ onPresetClick | Function |  | TS 类型：`(context: { preset: PresetDate, e: Mo
 onTimeChange | Function |  | TS 类型：`(context: { time: string, date: Date, trigger: DatePickerTimeChangeTrigger, e?: MouseEvent }) => void`<br/>时间切换发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerTimeChangeTrigger = 'time-hour' \| 'time-minute' \| 'time-second'`<br/> | N
 onYearChange | Function |  | TS 类型：`(context: { year: number, date: Date, trigger: DatePickerYearChangeTrigger, e?: MouseEvent }) => void`<br/>年份切换发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerYearChangeTrigger = 'year-select' \| 'year-arrow-next' \| 'year-arrow-previous' \| 'today'`<br/> | N
 
+
 ### DateRangePickerPanel Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N

@@ -531,6 +531,31 @@ module.exports = {
       }, [changedProps]);
     `,
   },
+  'time-picker': {
+    importStr: `
+      import TimePickerConfigProps from './time-picker-props.json';\n
+      import TimeRangePickerConfigProps from './time-range-picker-props.json';\n
+      import { TimePicker, TimeRangePicker } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(TimePickerConfigProps);
+    `,
+    panelStr: `
+      const panelList = [
+        { label: 'timePicker', value: 'timePicker', config: TimePickerConfigProps },
+        { label: 'timeRangePicker', value: 'timeRangePicker', config: TimeRangePickerConfigProps }
+      ];
+
+      const panelMap = {
+        timePicker: <TimePicker {...changedProps} />,
+        timeRangePicker: <TimeRangePicker {...changedProps} />
+      };
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp(panelMap[panel]);
+      }, [changedProps, panel]);
+    `,
+  },
   'tree-select': {
     importStr: `
       import configProps from './props.json';\n
@@ -593,26 +618,6 @@ module.exports = {
       useEffect(() => {
         setRenderComp(<Transfer {...defaultProps} {...changedProps} />);
       }, [changedProps]);
-    `,
-  },
-  'time-picker': {
-    importStr: `
-      import configProps from './props.json';\n
-      import { TimePicker } from 'tdesign-react';\n`,
-    configStr: `
-      const [configList, setConfigList] = useState(configProps);
-    `,
-    panelStr: `
-      const panelList = [{ label: 'timePicker', value: 'timePicker' }, { label: 'timeRangePicker', value: 'timeRangePicker' }];
-      const panelMap = {
-        timePicker: <TimePicker {...changedProps} />,
-        timeRangePicker: <TimePicker.TimeRangePicker {...changedProps} />
-      };
-    `,
-    usageStr: `
-      useEffect(() => {
-        setRenderComp(panelMap[panel]);
-      }, [changedProps, panel]);
     `,
   },
   upload: {
@@ -1120,5 +1125,21 @@ module.exports = {
       ));
     }, [changedProps]);
   `,
+  },
+  'range-input': {
+    importStr: `
+      import configProps from './props.json';\n
+      import { RangeInput } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'rangeInput', value: 'rangeInput' }];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp(<RangeInput {...changedProps} />);
+      }, [changedProps]);
+    `,
   },
 };

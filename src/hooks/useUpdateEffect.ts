@@ -1,14 +1,12 @@
-import { useRef, DependencyList } from 'react';
-import useLayoutEffect from './useLayoutEffect';
+import { useEffect } from 'react';
+import type { DependencyList, EffectCallback } from 'react';
+import useIsFirstRender from './useIsFirstRender';
 
-const useUpdateEffect = (callback: () => void, dependency: DependencyList) => {
-  const ref = useRef(false);
+const useUpdateEffect = (callback: EffectCallback, dependency: DependencyList) => {
+  const isFirstRender = useIsFirstRender();
 
-  useLayoutEffect(() => {
-    if (!ref.current) {
-      ref.current = true;
-      return undefined;
-    }
+  useEffect(() => {
+    if (isFirstRender) return;
 
     return callback();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.7.8 `2024-08-01` 
+### 🚀 Features
+- `ConfigProvider`: 新增 `attach` API， 支持全局配置attach或全局配置部分组件的attach @HaixingOoO ([#3001](https://github.com/Tencent/tdesign-react/pull/3001))
+- `DatePicker`: 新增 `needConfirm` API，支持日期时间选择器不需要点击确认按钮保存选择时间 @HaixingOoO ([#3011](https://github.com/Tencent/tdesign-react/pull/3011))
+- `borderless`: `RangeInput` `DateRangePicker`  `TimeRangePicker` 支持无边框模式 @liweijie0812 ([#3015](https://github.com/Tencent/tdesign-react/pull/3015))
+- `Description`: layout 类型定义调整为字符串多类型 @liweijie0812 ([#3021](https://github.com/Tencent/tdesign-react/pull/3021))
+- `Rate`: 评分组件支持国际化配置 @uyarn ([#3023](https://github.com/Tencent/tdesign-react/pull/3023))
+### 🐞 Bug Fixes
+- `Upload`: 修复部分图标不支持全局替换的问题 @uyarn ([#3009](https://github.com/Tencent/tdesign-react/pull/3009))
+- `Select`: 修复 `Select` 的 `label` 和 `prefixIcon` 的多选状态下的显示问题 @HaixingOoO ([#3019](https://github.com/Tencent/tdesign-react/pull/3019))
+- `Tree`: 修复部分场景下首个子节点设置 `checked` 后导致整个树初始化状态异常的问题 @uyarn ([#3023](https://github.com/Tencent/tdesign-react/pull/3023))
+- `Dropdown`: 修复`DropdownItem`的禁用状态影响子组件本身响应行为的缺陷 @uyarn ([#3024](https://github.com/Tencent/tdesign-react/pull/3024))
+- `TagInput`: `onDragSort` 中使用 `useRef` 导致的上下文错误 @Heising ([#3003](https://github.com/Tencent/tdesign-react/pull/3003))
+### 🚧 Others
+- `Dialog`: 修复`Dialog`的位置示例错误问题 @novlan1 ([#3005](https://github.com/Tencent/tdesign-react/pull/3005))
+- `RangeInput`: 增加`liveDemo` @liweijie0812 ([#3015](https://github.com/Tencent/tdesign-react/pull/3015))
+
 ## 🌈 1.7.7 `2024-07-18` 
 ### 🚀 Features
 - `Icon`: 新增有序列表图标 `list-numbered`，优化`lock-off`的绘制路径 @

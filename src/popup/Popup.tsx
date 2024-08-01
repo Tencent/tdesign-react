@@ -17,6 +17,7 @@ import useMutationObserver from '../hooks/useMutationObserver';
 import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useAttach from '../hooks/useAttach';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -64,6 +65,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     updateScrollTop,
   } = props;
   const { classPrefix } = useConfig();
+  const popupAttach = useAttach('popup', attach);
 
   // 全局配置
   const { keepExpand, keepFade } = useAnimation();
@@ -170,7 +172,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
       onEnter={handleEnter}
       onExited={handleExited}
     >
-      <Portal triggerNode={getRefDom(triggerRef)} attach={attach} ref={portalRef}>
+      <Portal triggerNode={getRefDom(triggerRef)} attach={popupAttach} ref={portalRef}>
         <CSSTransition
           appear
           timeout={0}
