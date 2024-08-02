@@ -64,7 +64,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         break;
       }
     }
-    let lastIndex = -1;
+    let lastIndex = trScrollTopHeightList.length;
     const containerCurrentHeight = containerHeight.current || container.current.getBoundingClientRect().height;
     const scrollBottom = scrollTop + containerCurrentHeight;
     // 获取当前视窗的最后一个元素（大数据场景不建议使用 forEach 一类函数迭代）
