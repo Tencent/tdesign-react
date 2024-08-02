@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
+import { render, fireEvent, vi, act } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import Input from '../Input';
 
@@ -90,8 +90,19 @@ describe('Input 组件测试', () => {
     expect(queryByPlaceholderText(InputPlaceholder).disabled).toBeTruthy();
   });
   test('password', async () => {
-    const { queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} type="password" />);
+    const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} type="password" />);
     expect(queryByPlaceholderText(InputPlaceholder).type).toEqual('password');
+
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
+    fireEvent.click(container.querySelector('.t-input__suffix-clear'));
+    expect(container.querySelector('.t-icon-browse')).toBeTruthy();
+  });
+  test('password can be toggle when disabled', async () => {
+    const { container } = render(<Input placeholder={InputPlaceholder} type="password" disabled />);
+
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
+    fireEvent.click(container.querySelector('.t-input__suffix-clear'));
+    expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
   });
   test('status', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} status="error" />);
@@ -100,5 +111,22 @@ describe('Input 组件测试', () => {
   test('size', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} size="large" />);
     expect(container.firstChild.firstChild.classList.contains('t-size-l')).toBeTruthy();
+  });
+  test('label display', async () => {
+    const text = 'test-label';
+    const { getByText } = await render(<Input label={text} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
+  });
+
+  test('prefixIcon display', async () => {
+    const text = 'test-prefixIcon';
+    const { getByText } = await render(<Input prefixIcon={<span>{text}</span>} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
   });
 });

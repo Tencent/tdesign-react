@@ -6,7 +6,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
-import useLayoutEffect from '../_util/useLayoutEffect';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -279,6 +279,7 @@ const Input = forwardRefWithStatics(
     );
 
     function togglePasswordVisible() {
+      if (disabled) return;
       const toggleType = renderType === 'password' ? 'text' : 'password';
       setRenderType(toggleType);
     }

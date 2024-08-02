@@ -3,7 +3,7 @@ import { RefObject, DragEvent, useState, useRef } from 'react';
 import { TreeNode } from '../../_common/js/tree-v1/tree-node';
 import { useTreeDraggableContext } from './TreeDraggableContext';
 import { DropPosition } from '../interface';
-import { usePersistFn } from '../../_util/usePersistFn';
+import { usePersistFn } from '../../hooks/usePersistFn';
 
 export default function useDraggable(props: { nodeRef: RefObject<HTMLElement | undefined>; node: TreeNode }) {
   const { nodeRef, node } = props;

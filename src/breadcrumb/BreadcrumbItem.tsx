@@ -4,7 +4,7 @@ import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 import parseTNode from '../_util/parseTNode';
@@ -33,6 +33,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     className,
     content,
     onClick,
+    tooltipProps,
     ...restProps
   } = useDefaultProps<BreadcrumbItemProps>(props, breadcrumbItemDefaultProps);
 
@@ -86,9 +87,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
   }
 
   const separatorInProps = parseTNode(separator);
-  const separatorContent = separatorInProps || separatorInContext || (
-    <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />
-  );
+  const separatorContent = separatorInProps || separatorInContext || <ChevronRightIcon style={{ opacity: '.5' }} />;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (disabled) return;
@@ -97,7 +96,13 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
 
   return (
     <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} onClick={handleClick} {...restProps}>
-      {isCutOff ? <TooltipLite content={children || content}>{itemContent}</TooltipLite> : itemContent}
+      {isCutOff ? (
+        <TooltipLite content={children || content} {...tooltipProps}>
+          {itemContent}
+        </TooltipLite>
+      ) : (
+        itemContent
+      )}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
   );

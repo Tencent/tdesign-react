@@ -40,6 +40,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     onCloseBtnClick,
     onOverlayClick,
     onEscKeydown,
+    onSizeDragEnd,
     showInAttachedElement,
     closeOnOverlayClick,
     closeOnEscKeydown,
@@ -70,7 +71,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
   const prefixCls = `${classPrefix}-drawer`;
 
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
-  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
+  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable, onSizeDragEnd);
   const [animationStart, setAnimationStart] = useState(visible);
 
   const sizeValue = useMemo(() => {

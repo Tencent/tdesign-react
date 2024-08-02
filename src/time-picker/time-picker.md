@@ -1,9 +1,10 @@
 :: BASE_DOC ::
 
 ## API
+
 ### TimePicker Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -32,13 +33,15 @@ onInput | Function |  | TS 类型：`(context: { value: TimePickerValue; e: Inpu
 onOpen | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>面板打开时触发 | N
 onPick | Function |  | TS 类型：`(value: TimePickerValue, context: { e: MouseEvent }) => void`<br/>面板选中值后触发 | N
 
+
 ### TimeRangePicker Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许直接输入时间 | N
+borderless | Boolean | false | 无边框模式 | N
 clearable | Boolean | false | 是否允许清除选中值 | N
 disableTime | Function | - | 禁用时间项。TS 类型：`(h: number, m: number, s: number, context: { partial: TimeRangePickerPartial }) =>Partial<{ hour: Array<number>, minute: Array<number>, second: Array<number> }>` `type TimeRangePickerPartial = 'start' \| 'end'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/time-picker/type.ts) | N
 disabled | Boolean / Array | false | 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用。TS 类型：`boolean \| Array<boolean>` | N

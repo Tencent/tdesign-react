@@ -10,7 +10,7 @@ import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
 import { MessageOptions } from '../message';
 import { ImageProps } from '../image';
-import { TNode, TElement } from '../common';
+import { TNode, TElement, AttachNode } from '../common';
 
 export interface GlobalConfigProvider {
   /**
@@ -25,6 +25,10 @@ export interface GlobalConfigProvider {
    * 动画效果控制，`ripple` 指波纹动画， `expand` 指展开动画，`fade` 指渐变动画。默认为 `{ include: ['ripple','expand','fade'], exclude: [] }`
    */
   animation?: Partial<Record<'include' | 'exclude', Array<AnimationType>>>;
+  /**
+   * null
+   */
+  attach?: AttachNode | { imageViewer?: AttachNode; popup?: AttachNode; dialog?: AttachNode };
   /**
    * 日历组件全局配置
    */
@@ -94,6 +98,10 @@ export interface GlobalConfigProvider {
    * 气泡确认框全局配置
    */
   popconfirm?: PopconfirmConfig;
+  /**
+   * 评分组件全局配置
+   */
+  rate?: RateConfig;
   /**
    * 选择器组件全局配置
    */
@@ -906,6 +914,13 @@ export interface TypographyConfig {
    * @default ''
    */
   copiedText?: string;
+}
+
+export interface RateConfig {
+  /**
+   * 评分描述，默认值：['极差', '失望', '一般', '满意', '惊喜']
+   */
+  rateText?: string[];
 }
 
 export type AnimationType = 'ripple' | 'expand' | 'fade';

@@ -15,6 +15,20 @@
 
 {{ dynamic }}
 
+## FAQ
+
+### `Popup` 组件，嵌套使用可能出现位置偏移的情况，如何解决？
+
+目前暂时可通过 `Fragment` 或者其他 `HTML` 元素来解决
+
+```js
+<Popup content="Popup Content">
+  <>
+    {children}
+  </>
+</Popup>
+```
+
 ## API
 ### Popup Props
 

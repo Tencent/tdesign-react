@@ -1,26 +1,29 @@
-import { useEffect, useState } from 'react';
-import { ImageInfo } from '../type';
+import { useMemo } from 'react';
+import isString from 'lodash/isString';
+import isArray from 'lodash/isArray';
+import type { ImageInfo, TdImageViewerProps } from '../type';
 
-const checkImages = (images) =>
-  images.map((image) => {
-    let result: ImageInfo = { mainImage: '' };
-    if (typeof image === 'object' && !(image instanceof File)) {
-      result = image;
-    } else {
-      result.mainImage = image;
-      result.thumbnail = image;
+const isImageInfo = (image: string | File | ImageInfo): image is ImageInfo =>
+  !!image && !isString(image) && !(image instanceof File);
+
+const checkImages = (images: TdImageViewerProps['images']) => {
+  if (!isArray(images)) return [];
+  return images.map((item) => {
+    if (isImageInfo(item)) {
+      return {
+        download: true,
+        thumbnail: item.mainImage,
+        ...item,
+      };
     }
-    return result;
+    return {
+      mainImage: item,
+      thumbnail: item,
+      download: true,
+    };
   });
-
-const useList = (images) => {
-  const [list, setList] = useState(() => checkImages(images));
-
-  useEffect(() => {
-    setList(checkImages(images));
-  }, [images]);
-
-  return list;
 };
+
+const useList = (images: TdImageViewerProps['images']) => useMemo(() => checkImages(images), [images]);
 
 export default useList;

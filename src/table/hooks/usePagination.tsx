@@ -31,6 +31,12 @@ export default function usePagination(props: TdBaseTableProps) {
     [data, disableDataPage],
   );
 
+  useEffect(() => {
+    if (!pagination) {
+      setIsPaginateData(false);
+    }
+  }, [pagination]);
+
   // 受控情况，只有 pagination.current 或者 pagination.pageSize 变化，才对数据进行排序
   useEffect(() => {
     if (!pagination || !pagination.current) return;

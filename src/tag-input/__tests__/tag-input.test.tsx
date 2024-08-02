@@ -1,9 +1,7 @@
 import React from 'react';
-import { fireEvent, vi } from '@test/utils';
-import { render } from '@testing-library/react';
-import { TagInput } from '..';
+import { fireEvent, vi, render, act } from '@test/utils';
+import { TagInput } from '../index';
 import { getTagInputValueMount } from './mount';
-import Collapsed from '../_example/collapsed';
 
 describe('TagInput Component', () => {
   const mockFn = vi.spyOn(HTMLSpanElement.prototype, 'getBoundingClientRect');
@@ -42,9 +40,21 @@ describe('TagInput Component', () => {
     // expect(container.querySelectorAll('.t-tag').item(0).firstChild.title).toEqual('React');
   });
 
-  it('collapsedItems props', () => {
-    const { getByText } = render(<Collapsed />);
+  test('label display', async () => {
+    const text = 'test-label';
+    const { getByText } = await render(<TagInput label={text} />);
 
-    expect(getByText('More(4)')).toBeInTheDocument();
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
+  });
+
+  test('prefixIcon display', async () => {
+    const text = 'test-prefixIcon';
+    const { getByText } = await render(<TagInput prefixIcon={<span>{text}</span>} />);
+
+    act(() => {
+      expect(getByText(text)).toBeTruthy();
+    });
   });
 });

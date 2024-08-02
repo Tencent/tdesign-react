@@ -32,6 +32,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
 
   const {
     allowInput,
+    borderless,
     clearable,
     disabled,
     format,
@@ -167,6 +168,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
         inputValue={isPanelShowed ? currentValue : value ?? TIME_PICKER_EMPTY}
         rangeInputProps={{
           size,
+          borderless,
           clearable,
           className: inputClasses,
           value: isPanelShowed ? currentValue : value ?? undefined,

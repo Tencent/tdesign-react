@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import useClassName from '../../hooks/useClassNames';
 import { genGradientPoint, gradientColors2string } from '../../../_common/js/color-picker/color';
 import { GradientColorPoint } from '../../../_common/js/color-picker/gradient';
-import useCommonClassName from '../../../_util/useCommonClassName';
+import useCommonClassName from '../../../hooks/useCommonClassName';
 import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../const';
 import InputNumber from '../../../input-number';
 
