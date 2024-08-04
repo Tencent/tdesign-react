@@ -7,7 +7,7 @@ import { descriptionItemDefaultProps, descriptionsDefaultProps } from './default
 import useDefaultProps from '../hooks/useDefaultProps';
 import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../hooks/useCommonClassName';
-import { LayoutEnum, StyledProps } from '../common';
+import { StyledProps } from '../common';
 import { DescriptionsContext } from './DescriptionsContext';
 import DescriptionsItem from './DescriptionsItem';
 import Row from './Row';
@@ -81,11 +81,11 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
       }
     }
 
-    // 2. 判断布局，如果整体布局为 LayoutEnum.VERTICAL，那么直接返回即可。
-    if (layout === LayoutEnum.VERTICAL) {
+    // 2. 判断布局，如果整体布局为 'vertical'，那么直接返回即可。
+    if (layout === 'vertical') {
       return [items];
     }
-    // 3. 布局为 LayoutEnum.HORIZONTAL 时，需要计算每一行的 item 个数
+    // 3. 布局为 horizontal 时，需要计算每一行的 item 个数
     let temp: TdDescriptionItemProps[] = [];
     let reset = column;
     // 4. 记录结果

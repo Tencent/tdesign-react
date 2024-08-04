@@ -15,9 +15,9 @@ const Row: React.FC<RowProps> = (props) => {
   const COMPONENT_NAME = `${classPrefix}-descriptions`;
 
   // label
-  const label = (node: TdDescriptionItemProps, layout: LayoutEnum = LayoutEnum.HORIZONTAL, rowKey?: string) => {
+  const label = (node: TdDescriptionItemProps, layout: LayoutEnum = 'horizontal', rowKey?: string) => {
     const { span } = node;
-    const labelSpan = layout === LayoutEnum.HORIZONTAL ? 1 : span;
+    const labelSpan = layout === 'horizontal' ? 1 : span;
     return (
       <td
         key={rowKey}
@@ -32,9 +32,9 @@ const Row: React.FC<RowProps> = (props) => {
   };
 
   // content
-  const content = (node: TdDescriptionItemProps, layout: LayoutEnum = LayoutEnum.HORIZONTAL, rowKey?: string) => {
+  const content = (node: TdDescriptionItemProps, layout: LayoutEnum = 'horizontal', rowKey?: string) => {
     const { span } = node;
-    const contentSpan = span > 1 && layout === LayoutEnum.HORIZONTAL ? span * 2 - 1 : span;
+    const contentSpan = span > 1 && layout === 'horizontal' ? span * 2 - 1 : span;
     return (
       <td
         key={rowKey}
@@ -64,8 +64,8 @@ const Row: React.FC<RowProps> = (props) => {
 
   const hv = () => (
     <>
-      <tr>{row.map((node, i) => label(node, LayoutEnum.VERTICAL, `top_${i}`))}</tr>
-      <tr>{row.map((node, i) => content(node, LayoutEnum.VERTICAL, `bottom_${i}`))}</tr>
+      <tr>{row.map((node, i) => label(node, 'vertical', `top_${i}`))}</tr>
+      <tr>{row.map((node, i) => content(node, 'vertical', `bottom_${i}`))}</tr>
     </>
   );
 
@@ -91,13 +91,13 @@ const Row: React.FC<RowProps> = (props) => {
     </>
   );
 
-  if (descriptionsContext.layout === LayoutEnum.HORIZONTAL) {
-    if (descriptionsContext.itemLayout === LayoutEnum.HORIZONTAL) {
+  if (descriptionsContext.layout === 'horizontal') {
+    if (descriptionsContext.itemLayout === 'horizontal') {
       return hh();
     }
     return hv();
   }
-  if (descriptionsContext.itemLayout === LayoutEnum.HORIZONTAL) {
+  if (descriptionsContext.itemLayout === 'horizontal') {
     return vh();
   }
   return vv();
