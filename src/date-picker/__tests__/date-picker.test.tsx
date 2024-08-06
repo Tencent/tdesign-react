@@ -185,6 +185,13 @@ describe('DatePicker', () => {
     expect(prefix).toHaveTextContent(label);
   });
 
+  test('valueDisplay', async () => {
+    const value = '2022-09-14';
+    const valueDisplay = `test-${value}`;
+    const { queryByText } = render(<DatePicker defaultValue={value} valueDisplay={valueDisplay}></DatePicker>);
+    expect(queryByText(valueDisplay)).toBeTruthy();
+  });
+
   test('onBlur onFocus', async () => {
     const blurFn = vi.fn();
     const focusFn = vi.fn();

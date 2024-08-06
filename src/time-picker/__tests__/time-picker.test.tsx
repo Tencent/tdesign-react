@@ -36,6 +36,13 @@ describe('Timepicker 组件测试', () => {
     });
   });
 
+  test('props.valueDisplay works fine', async () => {
+    const value = '00:10:20';
+    const valueDisplay = `test-${value}`;
+    const { queryByText } = render(<TimePicker defaultValue={value} valueDisplay={valueDisplay}></TimePicker>);
+    expect(queryByText(valueDisplay)).toBeTruthy();
+  });
+
   test('props.defaultValue works fine', async () => {
     const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
     expect(container.querySelectorAll('input').length).toBe(1);
