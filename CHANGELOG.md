@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.7.9 `2024-08-07` 
+### 🐞 Bug Fixes
+- `Tree`:  修复`1.7.8`版本更新导致的展开收起功能的缺陷 @HaixingOoO ([#3039](https://github.com/Tencent/tdesign-react/pull/3039))
+
+
 ## 🌈 1.7.8 `2024-08-01` 
 ### 🚀 Features
 - `ConfigProvider`: 新增 `attach` API， 支持全局配置attach或全局配置部分组件的attach @HaixingOoO ([#3001](https://github.com/Tencent/tdesign-react/pull/3001))
