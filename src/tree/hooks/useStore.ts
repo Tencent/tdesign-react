@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import useUpdateEffect from '../../hooks/useUpdateEffect';
+import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
 import usePrevious from '../../hooks/usePrevious';
 import TreeStore from '../../_common/js/tree-v1/tree-store';
 import { usePersistFn } from '../../hooks/usePersistFn';
@@ -157,7 +157,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   /* ======== 由 props 引发的 store 更新 ======= */
   const store = storeRef.current;
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (data && Array.isArray(data)) {
       const expanded = store.getExpanded();
       const checked = store.getChecked();
@@ -170,7 +170,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     }
   }, [data, store]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     store.setConfig({
       keys,
       expandAll,
@@ -207,26 +207,26 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     valueMode,
   ]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
     }
   }, [store, value, data]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(expanded)) {
       const expandedArr = getExpandedArr(expanded, store);
       store.replaceExpanded(expandedArr);
     }
   }, [expanded, store]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(actived)) {
       store.replaceActived(actived);
     }
   }, [actived, store]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     store.setConfig({
       filter,
     });
