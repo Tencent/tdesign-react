@@ -19,7 +19,6 @@ const useDrag = (ref, options: DraggableProps) => {
   const { start, end, drag } = options;
 
   const isDraggingRef = useRef(false);
-  const mouseMoveXRef = useRef(0)
 
   const getCoordinate = (event: MouseEvent) => {
     try {
@@ -39,36 +38,21 @@ const useDrag = (ref, options: DraggableProps) => {
   };
 
   const handlePointerMove = (e: MouseEvent) => {
-    mouseMoveXRef.current = e.clientX
     if (isDraggingRef.current) drag(getCoordinate(e), e);
   };
-
-  const handlePointerLeave = (e: MouseEvent) => {
-    // 鼠标move横向出元素 卸载 mousemove mouseleave 事件
-    if(e.clientX !== mouseMoveXRef.current) {
-      isDraggingRef.current = false;
-      const element = ref.current;
-      element.removeEventListener('mousemove', handlePointerMove);
-      element.removeEventListener('mouseleave', handlePointerLeave);
-    }
-  }
 
   const handlePointerUp = (e: MouseEvent) => {
     isDraggingRef.current = false;
     end(getCoordinate(e), e);
-    const element = ref.current;
-    element.removeEventListener('mouseup', handlePointerUp);
-    element.removeEventListener('mousemove', handlePointerMove);
-    element.removeEventListener('mouseleave', handlePointerLeave);
+    document.removeEventListener('mouseup', handlePointerUp);
+    document.removeEventListener('mousemove', handlePointerMove);
   };
 
   const handlePointerDown = (e: MouseEvent) => {
     isDraggingRef.current = true;
     start(getCoordinate(e), e);
-    const element = ref.current;
-    element.addEventListener('mouseup', handlePointerUp);
-    element.addEventListener('mousemove', handlePointerMove);
-    element.addEventListener('mouseleave', handlePointerLeave);
+    document.addEventListener('mouseup', handlePointerUp);
+    document.addEventListener('mousemove', handlePointerMove);
   };
 
   useEffect(() => {
