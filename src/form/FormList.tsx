@@ -119,7 +119,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       formMapRef.current.delete(name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name]);
+  }, [snakeName]);
 
   useEffect(() => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
@@ -168,7 +168,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         if (data) callback(formItemRef, data);
       });
     });
-  }, [form, name, fields, formMapRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form, snakeName, fields, formMapRef]);
 
   useImperativeHandle(
     formListRef,

@@ -39,6 +39,11 @@ const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance =>
         dialogRef.current?.destroy();
       });
     },
+    setConfirmLoading: (loading: boolean) => {
+      requestAnimationFrame(() => {
+        dialogRef.current?.setConfirmLoading(loading);
+      });
+    },
     update: (updateOptions: DialogOptions) => {
       requestAnimationFrame(() => {
         dialogRef.current?.update(updateOptions);

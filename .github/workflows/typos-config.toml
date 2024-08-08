@@ -1,10 +1,7 @@
+default.check-filename = true
+
 [default.extend-words]
-actived = "actived"
-formated = "formated"
-formate = "formate"
-ba = "ba"
-Contrl = "Contrl"
-thead = "thead"
+actived="actived"
 
 [files]
-extend-exclude = ["CHANGELOG.md"]
+extend-exclude = ["CHANGELOG.md", "*.snap","jest.base.conf.js"]

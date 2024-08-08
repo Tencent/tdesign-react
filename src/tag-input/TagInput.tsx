@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import useDragSorter from '../_util/useDragSorter';
+import useDragSorter from '../hooks/useDragSorter';
 import TInput, { InputValue, InputRef } from '../input';
 import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
@@ -27,6 +27,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   const {
     excessTagsDisplayType,
     autoWidth,
+    borderless,
     readonly,
     disabled,
     clearable,
@@ -39,6 +40,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     status,
     suffixIcon,
     suffix,
+    prefixIcon,
     onClick,
     onPaste,
     onFocus,
@@ -116,7 +118,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   const displayNode = isFunction(valueDisplay)
     ? valueDisplay({
         value: tagValue,
-        onClose: (index, item) => onClose({ index, item }),
+        onClose: (index) => onClose({ index }),
       })
     : valueDisplay;
 
@@ -143,6 +145,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
       onWheel={onWheel}
       size={size}
+      borderless={borderless}
       readonly={readonly}
       disabled={disabled}
       label={renderLabel({ displayNode, label })}
@@ -152,6 +155,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       status={status}
       placeholder={tagInputPlaceholder}
       suffix={suffix}
+      prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
       showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}

@@ -80,7 +80,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const maskRef = useRef(null);
 
   const dayjsValue = useMemo(() => {
-    const isStepsSet = !!steps.filter((v) => v > 1).length;
+    const isStepsSet = !!steps.filter((v) => Number(v) > 1).length;
 
     if (value) return dayjs(value, format);
 
@@ -184,7 +184,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     (col: EPickerCols, time: number | string) => {
       if (col === EPickerCols.hour && /[h]{1}/.test(format))
         // eslint-disable-next-line no-param-reassign
-        (time as number) %= 12; // 一定是数字，直接 cast
+        time = (time as number) % 12; // 一定是数字，直接 cast
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const { offsetHeight, margin } = getItemHeight();
@@ -292,7 +292,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const updateTimeScrollPos = useCallback(
     (isAutoScroll = false) => {
       const behavior = value && !isAutoScroll ? 'smooth' : 'auto';
-      const isStepsSet = !!steps.filter((v) => v > 1).length;
+      const isStepsSet = !!steps.filter((v) => Number(v) > 1).length;
 
       cols.forEach((col: EPickerCols, idx: number) => {
         if (!isStepsSet || (isStepsSet && value)) {

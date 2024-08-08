@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import classNames from 'classnames';
 import tinyColor from 'tinycolor2';
-import useCommonClassName from '../../../_util/useCommonClassName';
+import useCommonClassName from '../../../hooks/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import useClassName from '../../hooks/useClassNames';

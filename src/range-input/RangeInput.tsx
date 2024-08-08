@@ -42,6 +42,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     className,
     style,
     activeIndex,
+    borderless,
     disabled,
     format,
     inputProps,
@@ -104,6 +105,8 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
   // https://github.com/Tencent/tdesign-react/issues/2320
   function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
     e.stopPropagation();
+    // 兼容React16
+    e.nativeEvent.stopImmediatePropagation();
   }
 
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
@@ -169,6 +172,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
         [`${classPrefix}-size-s`]: size === 'small',
         [`${name}--prefix`]: prefixIconContent || labelContent,
         [`${name}--suffix`]: suffixContent || suffixIconContent,
+        [`${name}--borderless`]: borderless,
       })}
       {...restProps}
       onMouseEnter={handleMouseEnter}

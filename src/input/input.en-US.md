@@ -12,6 +12,7 @@ allowInputOverMax | Boolean | false | \- | N
 autoWidth | Boolean | false | \- | N
 autocomplete | String | undefined | \- | N
 autofocus | Boolean | false | \- | N
+borderless | Boolean | false | input without border | N
 clearable | Boolean | false | \- | N
 disabled | Boolean | - | \- | N
 format | Function | - | Typescript：`InputFormatType` `type InputFormatType = (value: InputValue) => string`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/input/type.ts) | N
@@ -26,6 +27,7 @@ readonly | Boolean | false | \- | N
 showClearIconOnEmpty | Boolean | false | \- | N
 showLimitNumber | Boolean | false | show limit number text on the right | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+spellCheck | Boolean | false | \- | N
 status | String | undefined | options: default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

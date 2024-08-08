@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useContext, Ref } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import composeRefs from '../_util/composeRefs';
 import { TdAvatarProps } from './type';
 import { StyledProps } from '../common';
@@ -27,6 +27,9 @@ const Avatar = forwardRefWithStatics(
       shape,
       size: avatarSize,
       onError,
+      onClick,
+      onHover,
+      onContextmenu,
       children,
       content,
       style,
@@ -116,6 +119,9 @@ const Avatar = forwardRefWithStatics(
         ref={composeRefs(ref, avatarRef) as any}
         className={avatarClass}
         style={{ ...numSizeStyle, ...style }}
+        onClick={(e) => onClick?.({ e })}
+        onMouseEnter={(e) => onHover?.({ e })}
+        onContextMenu={(e) => onContextmenu?.({ e })}
         {...avatarProps}
       >
         {renderChildren}

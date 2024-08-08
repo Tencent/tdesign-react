@@ -16,9 +16,9 @@ const useStyles = (params: TdColorSliderStyleParams, panelRectRef) => {
     if (!width) {
       return;
     }
-    const left = Math.round((Number(value) / Number(maxValue)) * width);
+    const left = Math.round((Number(value) / Number(maxValue)) * 100);
     setStyles({
-      left: `${left}px`,
+      left: `${left}%`,
       color: color.rgb,
     });
     // eslint-disable-next-line

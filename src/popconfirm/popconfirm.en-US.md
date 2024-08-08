@@ -1,5 +1,19 @@
 :: BASE_DOC ::
 
+## FAQ
+
+### How to solve the problem that `Popconfirm` and related floating components based on `Popup` may be offset when nested?
+
+Currently, this can be solved by `Fragment` or other `HTML` elements
+
+```js
+<Popconfirm content="Popconfirm Content">
+  <>
+    {children}
+  </>
+</Popconfirm>
+```
+
 ## API
 
 ### Popconfirm Props

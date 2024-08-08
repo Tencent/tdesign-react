@@ -5,7 +5,7 @@ import { TdSubmenuProps } from './type';
 import useConfig from '../hooks/useConfig';
 import { MenuContext } from './MenuContext';
 import useDomRefCallback from '../hooks/useDomRefCallback';
-import useRipple from '../_util/useRipple';
+import useRipple from '../hooks/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import FakeArrow from '../common/FakeArrow';
@@ -21,7 +21,6 @@ export interface SubMenuWithCustomizeProps extends SubMenuProps {
 
 const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const { content, children = content, disabled, icon, title, value, className, style, level = 1, popupProps } = props;
-
   const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
   const { classPrefix } = useConfig();
@@ -57,6 +56,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         `${classPrefix}-menu__item--plain`,
         `${classPrefix}-submenu__item`,
         `${classPrefix}-submenu__item--icon`,
+        (child as ReactElement).props?.className,
       ),
     }),
   );

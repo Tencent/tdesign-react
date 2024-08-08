@@ -42,15 +42,10 @@ export default {
 
     // 替换成对应 demo 文件
     source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
-      const jsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.jsx`);
       const tsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.tsx`);
-      const localeDemoPath = path.resolve(resourceDir, `../_example/${demoFileName}.${localeName}.jsx`);
-      // localeDemo 优先级最高
-      if (fs.existsSync(localeDemoPath))
-        return `\n::: demo _example/${demoFileName}.${localeName} ${componentName}\n:::\n`;
 
-      if (!fs.existsSync(jsxDemoPath) && !fs.existsSync(tsxDemoPath)) {
-        console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.jsx 示例!`);
+      if (!fs.existsSync(tsxDemoPath)) {
+        console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.tsx 示例!`);
         return '\n<h3>DEMO (🚧建设中）...</h3>';
       }
 
@@ -58,11 +53,16 @@ export default {
     });
 
     source.replace(/:::\s*demo\s+([\\/.\w-]+)/g, (demoStr, relativeDemoPath) => {
+      const jsxDemoPath = `_example-js/${relativeDemoPath.split('/')?.[1]}`;
       const demoPathOnlyLetters = relativeDemoPath.replace(/[^a-zA-Z\d]/g, '');
       const demoDefName = `Demo${demoPathOnlyLetters}`;
+      const demoJsxCodeDefName = `Demo${demoPathOnlyLetters}JsxCode`;
       const demoCodeDefName = `Demo${demoPathOnlyLetters}Code`;
       demoImports[demoDefName] = `import ${demoDefName} from './${relativeDemoPath}';`;
       demoCodesImports[demoCodeDefName] = `import ${demoCodeDefName} from './${relativeDemoPath}?raw';`;
+      if (fs.existsSync(path.resolve(resourceDir, `${jsxDemoPath}.jsx`)))
+        demoCodesImports[demoJsxCodeDefName] = `import ${demoJsxCodeDefName} from './${jsxDemoPath}?raw'`;
+      else demoCodesImports[demoJsxCodeDefName] = `import ${demoJsxCodeDefName} from './${relativeDemoPath}?raw'`;
     });
 
     return source;

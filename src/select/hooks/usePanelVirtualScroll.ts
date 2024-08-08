@@ -54,7 +54,7 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     }
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
-    // 排除横向滚动出发的纵向虚拟滚动计算
+    // 排除横向滚动触发的纵向虚拟滚动计算
     if (Math.abs(lastScrollY - top) > 5) {
       handleVirtualScroll();
       // eslint-disable-next-line react-hooks/exhaustive-deps

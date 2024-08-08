@@ -8,6 +8,19 @@
 
 {{ duration }}
 
+## FAQ
+
+### `Tooltip` 及基于 `Popup` 的相关浮层组件，嵌套使用可能出现位置偏移的情况，如何解决？
+
+目前暂时可通过 `Fragment` 或者其他 `HTML` 元素来解决
+
+```js
+<Tooltip content="Tooltip Content">
+  <>
+    {children}
+  </>
+</Tooltip>
+```
 
 ## API
 ### Tooltip Props

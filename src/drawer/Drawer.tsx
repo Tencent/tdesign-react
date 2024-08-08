@@ -40,6 +40,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     onCloseBtnClick,
     onOverlayClick,
     onEscKeydown,
+    onSizeDragEnd,
     showInAttachedElement,
     closeOnOverlayClick,
     closeOnEscKeydown,
@@ -53,6 +54,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     zIndex,
     destroyOnClose,
     sizeDraggable,
+    forceRender,
   } = props;
 
   // 国际化文本初始化
@@ -69,7 +71,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
   const prefixCls = `${classPrefix}-drawer`;
 
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
-  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
+  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable, onSizeDragEnd);
   const [animationStart, setAnimationStart] = useState(visible);
 
   const sizeValue = useMemo(() => {
@@ -167,6 +169,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     <CSSTransition
       in={visible}
       nodeRef={drawerWrapperRef}
+      mountOnEnter={!forceRender}
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
       onEntered={() => setAnimationStart(true)}

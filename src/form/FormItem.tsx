@@ -429,7 +429,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       formMapRef.current.delete(name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, formListName]);
+  }, [snakeName, formListName]);
 
   useEffect(() => {
     // value 变化通知 watch 事件
@@ -456,7 +456,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     filterRules.length && validate('change');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValue]);
+  }, [formValue, snakeName]);
 
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {

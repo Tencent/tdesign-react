@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import get from 'lodash/get';
+import isUndefined from 'lodash/isUndefined';
 import type { NamePath } from '../type';
 import type { InternalFormInstance } from './interface';
 import { HOOK_MARK } from './useForm';
@@ -26,17 +27,17 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
       // Compare stringify in case it's nest object
       if (valueStrRef.current !== nextValueStr) {
         valueStrRef.current = nextValueStr;
-        setValue(newValue);
+        setValue(nextValueStr);
       }
     });
 
     const allFieldsValue = form.getFieldsValue?.(true);
     const initialValue = get(allFieldsValue, name);
-    setValue(initialValue);
+    setValue(JSON.stringify(initialValue));
 
     return cancelRegister;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return value;
+  return isUndefined(value) ? value : JSON.parse(value);
 }

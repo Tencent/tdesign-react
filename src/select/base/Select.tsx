@@ -57,7 +57,6 @@ const Select = forwardRefWithStatics(
       borderless,
       autoWidth,
       creatable,
-      filter,
       loadingText = emptyText,
       max,
       popupProps,
@@ -73,12 +72,6 @@ const Select = forwardRefWithStatics(
       options,
       filterable,
       loading,
-      onFocus,
-      onBlur,
-      onClear = noop,
-      onCreate,
-      onRemove,
-      onSearch,
       empty,
       valueType,
       keys,
@@ -86,7 +79,6 @@ const Select = forwardRefWithStatics(
       collapsedItems,
       minCollapsedNum,
       valueDisplay,
-      onEnter,
       showArrow,
       inputProps,
       panelBottomContent,
@@ -96,6 +88,15 @@ const Select = forwardRefWithStatics(
       tagProps,
       scroll,
       suffixIcon,
+      label,
+      filter,
+      onFocus,
+      onBlur,
+      onClear = noop,
+      onCreate,
+      onRemove,
+      onSearch,
+      onEnter,
       onPopupVisibleChange,
     } = props;
 
@@ -116,6 +117,7 @@ const Select = forwardRefWithStatics(
       children,
       valueType,
       value,
+      reserveKeyword,
     );
 
     const selectedLabel = useMemo(() => {
@@ -222,7 +224,6 @@ const Select = forwardRefWithStatics(
       if (filterable && isFunction(onSearch)) {
         return;
       }
-
       if (!value) {
         setCurrentOptions(tmpPropOptions);
         return;
@@ -275,7 +276,7 @@ const Select = forwardRefWithStatics(
         handleFilter(String(inputValue));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue]);
+    }, [inputValue, tmpPropOptions]);
 
     // 渲染后置图标
     const renderSuffixIcon = () => {
@@ -354,7 +355,7 @@ const Select = forwardRefWithStatics(
                   onRemove?.({
                     value: value[key],
                     data: { label: v, value: value[key] },
-                    e,
+                    e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
@@ -371,18 +372,6 @@ const Select = forwardRefWithStatics(
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
-
-    const renderCollapsedItems = useMemo(
-      () =>
-        collapsedItems
-          ? parseContentTNode(collapsedItems, {
-              value: selectedLabel,
-              collapsedSelectedItems: selectedLabel.slice(minCollapsedNum, selectedLabel.length),
-              count: selectedLabel.length - minCollapsedNum,
-            })
-          : null,
-      [selectedLabel, collapsedItems, minCollapsedNum],
-    );
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
@@ -446,8 +435,9 @@ const Select = forwardRefWithStatics(
           status={props.status}
           tips={props.tips}
           borderless={borderless}
-          label={prefixIcon}
+          label={label}
           suffix={props.suffix}
+          prefixIcon={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
@@ -462,7 +452,7 @@ const Select = forwardRefWithStatics(
             ...inputProps,
           }}
           minCollapsedNum={minCollapsedNum}
-          collapsedItems={renderCollapsedItems}
+          collapsedItems={collapsedItems}
           updateScrollTop={updateScrollTop}
           popupProps={{
             overlayClassName: [`${name}__dropdown`, overlayClassName],

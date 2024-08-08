@@ -7,7 +7,7 @@ import { descriptionItemDefaultProps, descriptionsDefaultProps } from './default
 import useDefaultProps from '../hooks/useDefaultProps';
 import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../hooks/useCommonClassName';
-import { LayoutEnum } from '../common';
+import { StyledProps } from '../common';
 import { DescriptionsContext } from './DescriptionsContext';
 import DescriptionsItem from './DescriptionsItem';
 import Row from './Row';
@@ -26,14 +26,15 @@ import Row from './Row';
  * TDescriptionsItem：获取 item 数据（span, label, content）
  */
 
-export type DescriptionsProps = TdDescriptionsProps & {
-  children?: React.ReactNode;
-};
+export type DescriptionsProps = TdDescriptionsProps &
+  StyledProps & {
+    children?: React.ReactNode;
+  };
 
 const Descriptions = (DescriptionsProps: DescriptionsProps) => {
   const props = useDefaultProps<DescriptionsProps>(DescriptionsProps, descriptionsDefaultProps);
 
-  const { title, bordered, column, layout, items: rowItems, children } = props;
+  const { className, style, title, bordered, column, layout, items: rowItems, children } = props;
 
   const { classPrefix } = useConfig();
 
@@ -80,11 +81,11 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
       }
     }
 
-    // 2. 判断布局，如果整体布局为 LayoutEnum.VERTICAL，那么直接返回即可。
-    if (layout === LayoutEnum.VERTICAL) {
+    // 2. 判断布局，如果整体布局为 'vertical'，那么直接返回即可。
+    if (layout === 'vertical') {
       return [items];
     }
-    // 3. 布局为 LayoutEnum.HORIZONTAL 时，需要计算每一行的 item 个数
+    // 3. 布局为 horizontal 时，需要计算每一行的 item 个数
     let temp: TdDescriptionItemProps[] = [];
     let reset = column;
     // 4. 记录结果
@@ -131,7 +132,7 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
 
   return (
     <DescriptionsContext.Provider value={props}>
-      <div className={COMPONENT_NAME}>
+      <div className={classNames(className, COMPONENT_NAME)} style={style}>
         {renderHeader()}
         {renderBody()}
       </div>

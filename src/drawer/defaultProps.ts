@@ -7,9 +7,10 @@ import { TdDrawerProps } from './type';
 export const drawerDefaultProps: TdDrawerProps = {
   closeOnEscKeydown: undefined,
   closeOnOverlayClick: undefined,
-  destroyOnClose: false,
   closeBtn: true,
+  destroyOnClose: false,
   footer: true,
+  forceRender: false,
   header: true,
   mode: 'overlay',
   placement: 'right',

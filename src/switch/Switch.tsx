@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Loading from '../loading';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import { SwitchValue, TdSwitchProps } from './type';
 import { switchDefaultProps } from './defaultProps';
 import log from '../_common/js/log';

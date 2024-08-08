@@ -6,7 +6,7 @@ import Panel from './components/Panel';
 import SelectInput from '../select-input';
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
-import useCommonClassName from '../_util/useCommonClassName';
+import useCommonClassName from '../hooks/useCommonClassName';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TagInputValue } from '../tag-input';
 import { TdCascaderProps } from './interface';
@@ -97,6 +97,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       className={classNames(COMPONENT_NAME, props.className)}
       style={props.style}
       value={displayValue}
+      borderless={props.borderless}
       inputValue={visible ? inputVal : ''}
       popupVisible={visible}
       allowInput={isFilterable}

@@ -94,12 +94,8 @@ describe('TreeSelect Component', () => {
     });
     expect(fn).toHaveBeenCalled();
     expect(fn.mock.calls[0][0].count).toBe(1);
-    expect(fn.mock.calls[0][0].value).toEqual([
-      { label: 'tdesign-vue', value: 1 },
-      { label: 'tdesign-miniprogram', value: 3 },
-      { label: 'tdesign-angular', value: '5' },
-    ]);
-    expect(fn.mock.calls[0][0].collapsedSelectedItems).toEqual([{ label: 'tdesign-angular', value: '5' }]);
+    expect(fn.mock.calls[0][0].value).toEqual(['tdesign-vue', 'tdesign-miniprogram', 'tdesign-angular']);
+    expect(fn.mock.calls[0][0].collapsedSelectedItems).toEqual(['tdesign-angular']);
   });
 
   it('props.data: empty data with panel content node', () => {

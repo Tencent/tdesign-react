@@ -97,6 +97,14 @@ export const docs = [
         component: () => import('tdesign-react/link/link.md'),
         componentEn: () => import('tdesign-react/link/link.en-US.md'),
       },
+      {
+        title: 'Typography 排版',
+        titleEn: 'Typography',
+        name: 'typography',
+        path: '/react/components/typography',
+        component: () => import('tdesign-react/typography/typography.md'),
+        componentEn: () => import('tdesign-react/typography/typography.en-US.md'),
+      },
     ],
   },
   {

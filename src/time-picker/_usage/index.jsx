@@ -10,22 +10,29 @@ import BaseUsage, {
 } from "@site/src/components/BaseUsage";
 import jsxToString from "react-element-to-jsx-string";
 
-import configProps from "./props.json";
+import TimePickerConfigProps from "./time-picker-props.json";
 
-import { TimePicker } from "tdesign-react";
+import TimeRangePickerConfigProps from "./time-range-picker-props.json";
+
+import { TimePicker, TimeRangePicker } from "tdesign-react";
 
 export default function Usage() {
-  const [configList, setConfigList] = useState(configProps);
+  const [configList, setConfigList] = useState(TimePickerConfigProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
   const panelList = [
-    { label: "timePicker", value: "timePicker" },
-    { label: "timeRangePicker", value: "timeRangePicker" },
+    { label: "timePicker", value: "timePicker", config: TimePickerConfigProps },
+    {
+      label: "timeRangePicker",
+      value: "timeRangePicker",
+      config: TimeRangePickerConfigProps,
+    },
   ];
+
   const panelMap = {
     timePicker: <TimePicker {...changedProps} />,
-    timeRangePicker: <TimePicker.TimeRangePicker {...changedProps} />,
+    timeRangePicker: <TimeRangePicker {...changedProps} />,
   };
 
   const { panel, onPanelChange } = usePanelChange(panelList);

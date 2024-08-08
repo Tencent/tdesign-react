@@ -1,13 +1,15 @@
 :: BASE_DOC ::
 
 ## API
+
 ### DatePicker Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
+borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 defaultTime | String | '00:00:00' | Time selector default value | N
 disableDate | Object / Array / Function | - | Typescript：`DisableDate` `type DisableDate = Array<DateValue> \| DisableDateObj \| ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
@@ -17,6 +19,7 @@ firstDayOfWeek | Number | 7 | options: 1/2/3/4/5/6/7 | N
 format | String | 'YYYY-MM-DD' | \- | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 mode | String | date | options: year/quarter/month/week/date | N
+needConfirm | Boolean | true | whether a confirmation button needs to be clicked to complete the action in the date-time picker scenario, default is true | N
 placeholder | String / Array | undefined | Typescript：`string` | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
 prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -37,13 +40,15 @@ onFocus | Function |  | Typescript：`(context: { value: DateValue; e: FocusEven
 onPick | Function |  | Typescript：`(value: DateValue) => void`<br/> | N
 onPresetClick | Function |  | Typescript：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/> | N
 
+
 ### DateRangePicker Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
+borderless | Boolean | false | \- | N
 cancelRangeSelectLimit | Boolean | false | The default date selection interaction is determined based on the order of dates clicked and will be restricted. For example, if a user first clicks on the start date input box and chooses a date, for instance, 2020-05-15, the interaction will automatically shift focus to the end date input box, waiting for the user to select the end time. At this point, the user can only select a date later than 2020-05-15 (previous dates will be grayed out and disabled, restricting the user's selection). When this value is set to `true`, this restriction is lifted. | N
 clearable | Boolean | false | \- | N
 defaultTime | Array | ["00:00:00", "23:59:59"] | Time selector default value。Typescript：`string[]` | N
@@ -77,12 +82,13 @@ onInput | Function |  | Typescript：`(context: { input: string; value: DateRang
 onPick | Function |  | Typescript：`(value: DateValue, context: PickContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`interface PickContext { e: MouseEvent; partial: DateRangePickerPartial }`<br/> | N
 onPresetClick | Function |  | Typescript：`(context: { preset: PresetDate, e: MouseEvent }) => void`<br/> | N
 
+
 ### DatePickerPanel Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 defaultTime | String | '00:00:00' | Time selector default value | N
 `Pick<DatePickerProps, 'value' \| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'timePickerProps'>` | \- | - | extends `Pick<DatePickerProps, 'value' \| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'timePickerProps'>` | N
 onCellClick | Function |  | Typescript：`(context: { date: Date, e: MouseEvent }) => void`<br/> | N
@@ -94,12 +100,13 @@ onPresetClick | Function |  | Typescript：`(context: { preset: PresetDate, e: M
 onTimeChange | Function |  | Typescript：`(context: { time: string, date: Date, trigger: DatePickerTimeChangeTrigger, e?: MouseEvent }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerTimeChangeTrigger = 'time-hour' \| 'time-minute' \| 'time-second'`<br/> | N
 onYearChange | Function |  | Typescript：`(context: { year: number, date: Date, trigger: DatePickerYearChangeTrigger, e?: MouseEvent }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts)。<br/>`type DatePickerYearChangeTrigger = 'year-select' \| 'year-arrow-next' \| 'year-arrow-previous' \| 'today'`<br/> | N
 
+
 ### DateRangePickerPanel Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 defaultTime | Array | ["00:00:00", "23:59:59"] | Time selector default value。Typescript：`string[]` | N
 `Pick<DateRangePickerProps, 'value'\| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'panelPreselection' \| 'timePickerProps'>` | \- | - | extends `Pick<DateRangePickerProps, 'value'\| 'defaultValue' \| 'disableDate' \| 'enableTimePicker' \| 'firstDayOfWeek' \| 'format' \| 'mode' \| 'presets' \| 'presetsPlacement' \| 'panelPreselection' \| 'timePickerProps'>` | N
 onCellClick | Function |  | Typescript：`(context: { date: Date[], partial: DateRangePickerPartial, e: MouseEvent }) => void`<br/> | N

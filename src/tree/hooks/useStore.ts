@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import useUpdateEffect from '../../_util/useUpdateEffect';
+import useUpdateEffect from '../../hooks/useUpdateEffect';
 import usePrevious from '../../hooks/usePrevious';
 import TreeStore from '../../_common/js/tree-v1/tree-store';
-import { usePersistFn } from '../../_util/usePersistFn';
+import { usePersistFn } from '../../hooks/usePersistFn';
 
 import type { TdTreeProps } from '../type';
 import type { TypeEventState } from '../interface';
@@ -181,6 +181,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       activeMultiple,
       disabled,
       checkable,
+      draggable,
       checkStrictly,
       load,
       lazy,
@@ -192,6 +193,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     activable,
     activeMultiple,
     checkStrictly,
+    draggable,
     checkable,
     disabled,
     expandAll,
