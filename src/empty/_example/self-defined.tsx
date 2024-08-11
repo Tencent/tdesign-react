@@ -15,10 +15,10 @@ export default function BasicGrid() {
   return (
     <Row gutter={40}>
       <Col>
-        <Empty image={<ErrorCircleIcon size={64} color="rgba(0, 0, 0, 0.26)" />} description="暂无数据" type="" />
+        <Empty image={<ErrorCircleIcon size={64} color="rgba(0, 0, 0, 0.26)" />} description="暂无数据" />
       </Col>
       <Col>
-        <Empty description="暂无数据" type="" image={CustomImageContainer} />
+        <Empty description="暂无数据" image={CustomImageContainer} />
       </Col>
     </Row>
   );
