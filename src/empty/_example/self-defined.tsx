@@ -9,6 +9,7 @@ export default function BasicGrid() {
         width: '64px',
         height: '64px',
         backgroundImage: 'url(https://tdesign.gtimg.com/demo/demo-image-1.png)',
+        backgroundSize: '100% 100%',
       }}
     />
   );

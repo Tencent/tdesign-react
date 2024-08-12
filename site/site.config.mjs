@@ -474,6 +474,14 @@ export const docs = [
         componentEn: () => import('tdesign-react/descriptions/descriptions.en-US.md'),
       },
       {
+        title: 'Empty 空状态',
+        titleEn: 'Empty',
+        name: 'Empty',
+        path: '/react/components/empty',
+        component: () => import('tdesign-react/empty/empty.md'),
+        componentEn: () => import('tdesign-react/empty/empty.en-US.md'),
+      },
+      {
         title: 'Image 图片',
         titleEn: 'Image',
         name: 'image',
