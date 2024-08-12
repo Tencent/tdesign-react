@@ -4,7 +4,7 @@ export default function EmptySvg() {
   return (
     <svg width="200" height="140" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M30 62H118V122H30V62Z" fill="#E7E7E7" />
-      <path d="M63 20H151V80H63V20Z" fill="#0052D9" />
+      <path d="M63 20H151V80H63V20Z" fill="var(--td-brand-color)" />
       <path d="M105.667 38H108.333V43.3333H105.667V38Z" fill="white" />
       <path d="M97.668 38.781L95.7824 40.6667L99.668 44.5523L101.554 42.6667L97.668 38.781Z" fill="white" />
       <path

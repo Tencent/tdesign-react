@@ -1,20 +1,22 @@
-import React, { isValidElement, type ReactNode } from 'react';
+import React, { isValidElement } from 'react';
+import type { ReactNode } from 'react';
 import cls from 'classnames';
-import { isObject, isString } from 'lodash';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { emptyDefaultProps } from './defaultProps';
-import { TdEmptyProps } from './type';
-import Image from '../image';
-import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
-
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { emptyDefaultProps } from './defaultProps';
+import type { TdEmptyProps } from './type';
+import type { StyledProps } from '../common';
+import Image from '../image';
 import MaintenanceSvg from './assets/MaintenanceSvg';
 import NetworkErrorSvg from './assets/NetworkErrorSvg';
 import EmptySvg from './assets/EmptySvg';
 import FailSvg from './assets/FailSvg';
 import SuccessSvg from './assets/SuccessSvg';
 
-export type EmptyProps = TdEmptyProps & StyledProps;
+export interface EmptyProps extends TdEmptyProps, StyledProps {}
 
 function getImageIns(data: EmptyProps['image']) {
   let result = data;
@@ -29,32 +31,7 @@ function getImageIns(data: EmptyProps['image']) {
   return data ? (result as ReactNode) : null;
 }
 
-const defaultMaps: {
-  [key in EmptyProps['type']]?: Pick<EmptyProps, 'image' | 'title'>;
-} = {
-  maintenance: {
-    image: <MaintenanceSvg />,
-    title: '建设中',
-  },
-  success: {
-    image: <SuccessSvg />,
-    title: '成功',
-  },
-  fail: {
-    image: <FailSvg />,
-    title: '失败',
-  },
-  'network-error': {
-    image: <NetworkErrorSvg />,
-    title: '网络错误',
-  },
-  empty: {
-    image: <EmptySvg />,
-    title: '暂无数据',
-  },
-};
-
-const Empty = (props: EmptyProps) => {
+const Empty: React.FC<EmptyProps> = (props) => {
   const {
     image: propsImage,
     imageStyle,
@@ -65,7 +42,33 @@ const Empty = (props: EmptyProps) => {
     style,
     className,
   } = useDefaultProps(props, emptyDefaultProps);
-  const { classPrefix } = useConfig();
+  const { classPrefix, empty } = useConfig();
+  const [local, t] = useLocaleReceiver('empty');
+
+  const defaultMaps: {
+    [key in EmptyProps['type']]?: Pick<EmptyProps, 'image' | 'title'>;
+  } = {
+    maintenance: {
+      image: empty.image.maintenance || <MaintenanceSvg />,
+      title: empty.titleText.maintenance || t(local.titleText.maintenance),
+    },
+    success: {
+      image: empty.image.success || <SuccessSvg />,
+      title: empty.titleText.success || t(local.titleText.success),
+    },
+    fail: {
+      image: empty.image.fail || <FailSvg />,
+      title: empty.titleText.fail || t(local.titleText.fail),
+    },
+    'network-error': {
+      image: empty.image.networkError || <NetworkErrorSvg />,
+      title: empty.titleText.networkError || t(local.titleText.networkError),
+    },
+    empty: {
+      image: empty.image.empty || <EmptySvg />,
+      title: empty.titleText.empty || t(local.titleText.empty),
+    },
+  };
 
   const prefix = `${classPrefix}-empty`;
   const emptyClasses = cls(prefix, className);

@@ -16,6 +16,7 @@ colorPicker | Object | - | ColorPicker global configs。Typescript：`ColorPicke
 datePicker | Object | - | DatePicker global configs。Typescript：`DatePickerConfig` | N
 dialog | Object | - | Dialog global configs。Typescript：`DialogConfig` | N
 drawer | Object | - | Drawer global configs。Typescript：`DrawerConfig` | N
+empty | Object | - | Empty global configs。Typescript：`EmptyConfig` | N
 form | Object | - | Form global configs。Typescript：`FormConfig` | N
 guide | Object | - | Guide global configs。Typescript：`GuideConfig` | N
 icon | Object | - | icon config。Typescript：`IconConfig` `type IconConfig = GlobalIconConfig` `import { GlobalIconConfig } from '@icon'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
@@ -26,6 +27,7 @@ list | Object | - | List global configs。Typescript：`ListConfig` | N
 message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript：`PaginationConfig` | N
 popconfirm | Object | - | Popconfirm global configs。Typescript：`PopconfirmConfig` | N
+rate | Object | - | Rate global configs。Typescript：`RateConfig` | N
 select | Object | - | Select global configs。Typescript：`SelectConfig` | N
 steps | Object | - | Steps global configs。Typescript：`StepsConfig` | N
 table | Object | - | Table global configs。Typescript：`TableConfig` | N
@@ -321,6 +323,19 @@ finishButtonProps | Object | - | finish button in last step. `{ content: 'Finish
 nextButtonProps | Object | - | next step button. `{ content: 'Next Button', theme: 'primary' }`。Typescript：`ButtonProps` | N
 prevButtonProps | Object | - | previous step button. `{ content: 'Previous Step', theme: 'default' }`。Typescript：`ButtonProps` | N
 skipButtonProps | Object | - | skip button. `{ content: 'Skip', theme: 'default' }`。Typescript：`ButtonProps` | N
+
+### RateConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+rateText | Array | - | \- | N
+
+### EmptyConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+image | Object | - | Typescript：`{ maintenance: TNode; success: TNode; fail: TNode; empty: TNode; networkError: TNode; }`。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/src/common.ts) | N
+titleText | Object | - | Typescript：`{ maintenance: string; success: string; fail: string; empty: string; networkError: string; }` | N
 
 ### TypographyConfig
 

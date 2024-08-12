@@ -10,7 +10,7 @@ import { ButtonProps } from '../button';
 import { FormErrorMessage } from '../form';
 import { MessageOptions } from '../message';
 import { ImageProps } from '../image';
-import { TNode, TElement, AttachNode } from '../common';
+import { TNode, TElement, SizeEnum, AttachNode } from '../common';
 
 export interface GlobalConfigProvider {
   /**
@@ -28,7 +28,7 @@ export interface GlobalConfigProvider {
   /**
    * null
    */
-  attach?: AttachNode | { imageViewer?: AttachNode; popup?: AttachNode; dialog?: AttachNode };
+  attach?: AttachNode | { imageViewer?: AttachNode; message?: AttachNode; popup?: AttachNode; dialog?: AttachNode };
   /**
    * 日历组件全局配置
    */
@@ -58,6 +58,10 @@ export interface GlobalConfigProvider {
    * 抽屉全局配置
    */
   drawer?: DrawerConfig;
+  /**
+   * 空状态全局配置
+   */
+  empty?: EmptyConfig;
   /**
    * 表单组件全局配置
    */
@@ -99,7 +103,7 @@ export interface GlobalConfigProvider {
    */
   popconfirm?: PopconfirmConfig;
   /**
-   * 评分组件全局配置
+   * 评分全局配置
    */
   rate?: RateConfig;
   /**
@@ -134,10 +138,6 @@ export interface GlobalConfigProvider {
    * 树选择器组件全局配置
    */
   treeSelect?: TreeSelectConfig;
-  /**
-   * 排版全局配置
-   */
-  typography?: TypographyConfig;
   /**
    * 上传组件全局配置
    */
@@ -589,6 +589,11 @@ export interface TableConfig {
    */
   selectAllText?: string;
   /**
+   * 全局表格尺寸配置
+   * @default medium
+   */
+  size?: SizeEnum;
+  /**
    * 语言配置，'点击升序' 描述文本
    * @default ''
    */
@@ -783,6 +788,11 @@ export interface UploadConfigFileList {
 
 export interface FormConfig {
   /**
+   * 字段旁边的冒号，中文为“：”
+   * @default ''
+   */
+  colon?: string;
+  /**
    * 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`
    */
   errorMessage?: FormErrorMessage;
@@ -802,10 +812,6 @@ export interface TagConfig {
 
 export interface StepsConfig {
   /**
-   * 已完成步骤图标，【注意】使用渲染函数输出图标组件
-   */
-  checkIcon?: TElement;
-  /**
    * 错误步骤图标，【注意】使用渲染函数输出图标组件
    */
   errorIcon?: TElement;
@@ -822,6 +828,14 @@ export interface AlertConfig {
    * @default ''
    */
   expandText?: string;
+}
+
+export interface DescriptionsConfig {
+  /**
+   * 字段旁边的冒号，中文为“：”
+   * @default ''
+   */
+  colon?: string;
 }
 
 export interface AnchorConfig {
@@ -898,29 +912,22 @@ export interface GuideConfig {
   skipButtonProps?: ButtonProps;
 }
 
-export interface TypographyConfig {
-  /**
-   * 语言配置，“收起”描述文本
-   * @default ''
-   */
-  collapseText?: string;
-  /**
-   * 语言配置，“展开”描述文本
-   * @default ''
-   */
-  expandText?: string;
-  /**
-   * 语言配置，“复制成功”描述文本
-   * @default ''
-   */
-  copiedText?: string;
-}
-
 export interface RateConfig {
   /**
    * 评分描述，默认值：['极差', '失望', '一般', '满意', '惊喜']
    */
-  rateText?: string[];
+  rateText?: Array<string>;
+}
+
+export interface EmptyConfig {
+  /**
+   * 空状态组件各类型的图片配置
+   */
+  image?: { maintenance: TNode; success: TNode; fail: TNode; empty: TNode; networkError: TNode };
+  /**
+   * 空状态组件各类型的标题文本配置
+   */
+  titleText?: { maintenance: string; success: string; fail: string; empty: string; networkError: string };
 }
 
 export type AnimationType = 'ripple' | 'expand' | 'fade';
