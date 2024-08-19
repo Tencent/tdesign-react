@@ -22,11 +22,11 @@ export default function useMutationObservable(
 ) {
   const observeRef = useRef(null);
   const optionsRef = useRef<Options>();
-  const singalRef = useRef(0);
+  const signalRen = useRef(0);
   const callbackRef = useLatest(cb);
 
   if (!isEqual(options, optionsRef.current)) {
-    singalRef.current += 1;
+    signalRen.current += 1;
   }
 
   optionsRef.current = options;
@@ -54,5 +54,5 @@ export default function useMutationObservable(
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetEl, singalRef.current]);
+  }, [targetEl, signalRen.current]);
 }
