@@ -1,4 +1,5 @@
-import React, { isValidElement, type ReactNode } from 'react';
+import React, { isValidElement } from 'react';
+import type { ReactNode } from 'react';
 import cls from 'classnames';
 import { isObject, isString } from 'lodash';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -14,7 +15,12 @@ import EmptySvg from './assets/EmptySvg';
 import FailSvg from './assets/FailSvg';
 import SuccessSvg from './assets/SuccessSvg';
 
-export type EmptyProps = TdEmptyProps & StyledProps;
+type SIZE = 'small' | 'medium' | 'large';
+
+export type EmptyProps = TdEmptyProps &
+  StyledProps & {
+    size: SIZE;
+  };
 
 function getImageIns(data: EmptyProps['image']) {
   let result = data;
@@ -64,13 +70,20 @@ const Empty = (props: EmptyProps) => {
     action,
     style,
     className,
+    size = 'medium',
   } = useDefaultProps(props, emptyDefaultProps);
   const { classPrefix } = useConfig();
+
+  const defaultSize = {
+    small: `${classPrefix}-size-s`,
+    medium: `${classPrefix}-size`,
+    large: `${classPrefix}-size-l`,
+  };
 
   const prefix = `${classPrefix}-empty`;
   const emptyClasses = cls(prefix, className);
   const titleClasses = cls(`${prefix}__title`);
-  const imageClasses = cls(`${prefix}__image`);
+  const imageClasses = cls(`${prefix}__image`, defaultSize[size]);
   const descriptionClasses = cls(`${prefix}__description`);
   const actionCls = cls(`${prefix}__action`);
 
