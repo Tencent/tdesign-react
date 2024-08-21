@@ -4,4 +4,4 @@
 
 import { TdEmptyProps } from './type';
 
-export const emptyDefaultProps: TdEmptyProps = { type: 'empty' };
+export const emptyDefaultProps: TdEmptyProps = { size: 'medium', type: 'empty' };

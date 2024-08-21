@@ -5,11 +5,11 @@
  * */
 
 import { ImageProps } from '../image';
-import { TNode, TElement, Styles } from '../common';
+import { TNode, TElement, SizeEnum, Styles } from '../common';
 
 export interface TdEmptyProps {
   /**
-   * 操作区域
+   * 操作按钮
    */
   action?: TElement;
   /**
@@ -25,6 +25,11 @@ export interface TdEmptyProps {
    */
   imageStyle?: Styles;
   /**
+   * 空状态的尺寸，默认为 `medium`
+   * @default medium
+   */
+  size?: SizeEnum;
+  /**
    * 错误标题
    */
   title?: TNode;
@@ -33,8 +38,4 @@ export interface TdEmptyProps {
    * @default empty
    */
   type?: 'empty' | 'success' | 'fail' | 'network-error' | 'maintenance';
-  /**
-   * 同 action
-   */
-  children?: TNode;
 }

@@ -16,12 +16,7 @@ import EmptySvg from './assets/EmptySvg';
 import FailSvg from './assets/FailSvg';
 import SuccessSvg from './assets/SuccessSvg';
 
-type SIZE = 'small' | 'medium' | 'large';
-
-export type EmptyProps = TdEmptyProps &
-  StyledProps & {
-    size: SIZE;
-  };
+export interface EmptyProps extends TdEmptyProps, StyledProps {}
 
 function getImageIns(data: EmptyProps['image']) {
   let result = data;
@@ -48,6 +43,7 @@ const Empty: React.FC<EmptyProps> = (props) => {
     className,
     size = 'medium',
   } = useDefaultProps(props, emptyDefaultProps);
+
   const { classPrefix, empty } = useConfig();
   const [local, t] = useLocaleReceiver('empty');
 
