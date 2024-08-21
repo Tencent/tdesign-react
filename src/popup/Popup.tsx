@@ -18,6 +18,7 @@ import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
+import { getCssVarsValue } from '../_util/dom';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -114,15 +115,20 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
 
   const updateTimeRef = useRef(null);
   // 监听 trigger 节点或内容变化动态更新 popup 定位
-  useMutationObserver(getRefDom(triggerRef), () => {
-    clearTimeout(updateTimeRef.current);
-    updateTimeRef.current = setTimeout(() => popperRef.current?.update?.(), 0);
+  useMutationObserver(getRefDom(triggerRef), ([mutation]) => {
+    const isDisplayNone = getCssVarsValue('display', mutation.target as HTMLElement) === 'none';
+    if (visible && !isDisplayNone) {
+      clearTimeout(updateTimeRef.current);
+      updateTimeRef.current = setTimeout(() => popperRef.current?.update?.(), 0);
+    }
   });
   useEffect(() => () => clearTimeout(updateTimeRef.current), []);
 
   // 窗口尺寸变化时调整位置
   useEffect(() => {
-    requestAnimationFrame(() => popperRef.current?.update?.());
+    if (visible) {
+      requestAnimationFrame(() => popperRef.current?.update?.());
+    }
   }, [visible, content, windowHeight, windowWidth]);
 
   // 下拉展开时更新内部滚动条
