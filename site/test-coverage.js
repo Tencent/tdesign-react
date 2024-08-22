@@ -151,7 +151,7 @@ module.exports = {
   },
   "empty": {
     "statements": "84.37%",
-    "branches": "61.36%",
+    "branches": "63.63%",
     "functions": "100%",
     "lines": "84.37%"
   },

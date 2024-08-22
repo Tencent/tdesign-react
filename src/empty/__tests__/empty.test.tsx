@@ -10,6 +10,13 @@ describe('Empty 组件测试', () => {
 
     expect(container.querySelector('.t-empty.t-size-s')).not.toBeNull();
   });
+
+  test('title', async () => {
+    const { container } = render(<Empty title="title" />);
+
+    expect(container.querySelector('.t-empty__title').innerHTML).toBe('title');
+  });
+
   test('description', async () => {
     const { container } = render(<Empty description="description" />);
 
