@@ -6,12 +6,5 @@ export default function Operation() {
     console.log('go to index');
     location.href = '/';
   }
-  return (
-    <Empty
-      type="empty"
-      action={<Button onClick={goToIndex}>返回首页</Button>}
-      description="description"
-      title="暂无数据"
-    />
-  );
+  return <Empty action={<Button onClick={goToIndex}>返回首页</Button>} description="description" />;
 }
