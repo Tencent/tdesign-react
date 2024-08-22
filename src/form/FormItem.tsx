@@ -29,6 +29,7 @@ import { formItemDefaultProps } from './defaultProps';
 import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 import { ValidateStatus } from './const';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | ((form: FormInstanceFunctions) => React.ReactElement);
@@ -50,6 +51,7 @@ export interface FormItemInstance {
 }
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref) => {
+  const [locale, t] = useLocaleReceiver('form');
   const { classPrefix, form: globalFormConfig } = useConfig();
   const { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     CheckCircleFilledIcon: TdCheckCircleFilledIcon,
@@ -153,7 +155,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       successList,
       layout,
       verifyStatus,
-      colon,
       label,
       labelWidth,
       labelAlign,
@@ -483,6 +484,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
+          {colon && t(locale.colonText)}
         </div>
       )}
       <div className={contentClass()} style={contentStyle}>

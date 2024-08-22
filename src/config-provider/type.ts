@@ -51,6 +51,10 @@ export interface GlobalConfigProvider {
    */
   datePicker?: DatePickerConfig;
   /**
+   * 描述全局配置
+   */
+  descriptions?: DescriptionsConfig;
+  /**
    * 对话框全局配置
    */
   dialog?: DialogConfig;
@@ -795,7 +799,7 @@ export interface FormConfig {
    * 字段旁边的冒号，中文为“：”
    * @default ''
    */
-  colon?: string;
+  colonText?: string;
   /**
    * 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`
    */
@@ -843,7 +847,7 @@ export interface DescriptionsConfig {
    * 字段旁边的冒号，中文为“：”
    * @default ''
    */
-  colon?: string;
+  colonText?: string;
 }
 
 export interface AnchorConfig {
@@ -924,7 +928,7 @@ export interface RateConfig {
   /**
    * 评分描述，默认值：['极差', '失望', '一般', '满意', '惊喜']
    */
-  rateText?: Array<string>;
+  rateText?: string[];
 }
 
 export interface EmptyConfig {

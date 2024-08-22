@@ -3,6 +3,7 @@ import { TdDescriptionItemProps } from './type';
 import { LayoutEnum } from '../common';
 import useConfig from '../hooks/useConfig';
 import { DescriptionsContext } from './DescriptionsContext';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export type RowProps = { row: TdDescriptionItemProps[] };
 
@@ -10,6 +11,7 @@ const Row: React.FC<RowProps> = (props) => {
   const { row } = props;
 
   const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('descriptions');
   const descriptionsContext = useContext(DescriptionsContext);
 
   const COMPONENT_NAME = `${classPrefix}-descriptions`;
@@ -26,7 +28,7 @@ const Row: React.FC<RowProps> = (props) => {
         style={descriptionsContext.labelStyle}
       >
         {node.label}
-        {descriptionsContext.colon && ':'}
+        {descriptionsContext.colon && t(locale.colonText)}
       </td>
     );
   };
