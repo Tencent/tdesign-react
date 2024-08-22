@@ -14,6 +14,7 @@ cascader | Object | - | Cascader global configs。Typescript：`CascaderConfig` 
 classPrefix | String | t | \- | N
 colorPicker | Object | - | ColorPicker global configs。Typescript：`ColorPickerConfig` | N
 datePicker | Object | - | DatePicker global configs。Typescript：`DatePickerConfig` | N
+descriptions | Object | - | Descriptions global configs。Typescript：`DescriptionsConfig` | N
 dialog | Object | - | Dialog global configs。Typescript：`DialogConfig` | N
 drawer | Object | - | Drawer global configs。Typescript：`DrawerConfig` | N
 empty | Object | - | Empty global configs。Typescript：`EmptyConfig` | N
@@ -264,7 +265,7 @@ fileStatusText | String | - | \- | N
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-colon | String | - | colon on the right of label ":" | N
+colonText | String | - | colon on the right of label ":" | N
 errorMessage | Object | - | Typescript：`FormErrorMessage`，[Form API Documents](./form?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/config-provider/type.ts) | N
 requiredMark | Boolean | true | \- | N
 
@@ -292,7 +293,7 @@ expandText | String | - | \- | N
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-colon | String | - | colon on the right of label, ":" | N
+colonText | String | - | colon on the right of label, ":" | N
 
 ### AnchorConfig
 
@@ -337,7 +338,7 @@ skipButtonProps | Object | - | skip button. `{ content: 'Skip', theme: 'default'
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-rateText | Array | - | Typescript：`Array<string>` | N
+rateText | Array | - | Typescript：`string[]` | N
 
 ### EmptyConfig
 

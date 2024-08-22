@@ -5,11 +5,13 @@
 import { TdRateProps } from './type';
 
 export const rateDefaultProps: TdRateProps = {
-  defaultValue: 0,
   allowHalf: false,
   color: '#ED7B2F',
-  size: '24px',
   count: 5,
+  disabled: undefined,
   gap: 4,
   showText: false,
+  size: '24px',
+  texts: [],
+  defaultValue: 0,
 };

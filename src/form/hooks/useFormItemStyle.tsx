@@ -18,7 +18,6 @@ export default function useFormItemStyle(props) {
     successList,
     layout,
     verifyStatus,
-    colon,
     label,
     labelWidth,
     labelAlign,
@@ -69,7 +68,6 @@ export default function useFormItemStyle(props) {
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]: needRequiredMark,
-    [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
     [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
     [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,
