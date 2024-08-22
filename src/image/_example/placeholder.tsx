@@ -59,7 +59,12 @@ export default function PlaceholderImage() {
           </Space>
           <Space direction="vertical">
             自定义错误
-            <Image src="error url" key={errorCount} style={{ width: 284, height: 160 }} error={<ImageErrorIcon size={24} />} />
+            <Image
+              src="error url"
+              key={errorCount}
+              style={{ width: 284, height: 160 }}
+              error={<ImageErrorIcon size={24} />}
+            />
           </Space>
         </Space>
       </div>

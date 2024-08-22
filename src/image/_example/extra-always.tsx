@@ -12,7 +12,7 @@ export default function ExtraAlwaysImage() {
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 14,
-        lineHeight: 22
+        lineHeight: 22,
       }}
     >
       <Tag
@@ -21,7 +21,7 @@ export default function ExtraAlwaysImage() {
         style={{
           borderRadius: 3,
           background: 'transparent',
-          color: '#fff'
+          color: '#fff',
         }}
       >
         <PrintIcon size={16} /> 高清
@@ -39,28 +39,28 @@ export default function ExtraAlwaysImage() {
         bottom: 8,
         borderRadius: 3,
         background: 'rgba(236,242,254,1)',
-        color: 'rgba(0,82,217,1)'
+        color: 'rgba(0,82,217,1)',
       }}
     >
       <PrintIcon size={16} /> 高清
     </Tag>
-  )
+  );
 
   return (
     <Space size={32}>
       <Space direction="vertical">
-        <strong style={{fontSize: 20}}>有遮罩</strong>
+        <strong style={{ fontSize: 20 }}>有遮罩</strong>
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style={{width: 284, height: 160}}
+          style={{ width: 284, height: 160 }}
           overlayContent={mask}
         />
       </Space>
       <Space direction="vertical">
-        <strong style={{fontSize: 20}}>无遮罩</strong>
+        <strong style={{ fontSize: 20 }}>无遮罩</strong>
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style={{width: 284, height: 160}}
+          style={{ width: 284, height: 160 }}
           overlayContent={button}
         />
       </Space>

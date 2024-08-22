@@ -7,7 +7,7 @@ const AutoCompleteStatus = () => {
   const [value, setValue] = useState('');
 
   return (
-    <Space direction='vertical' style={{ width: '100%' }} size="32px">
+    <Space direction="vertical" style={{ width: '100%' }} size="32px">
       <AutoComplete
         value={value}
         options={options}
