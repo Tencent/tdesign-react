@@ -24,7 +24,6 @@ function BasicUsage() {
         仪表盘
       </MenuItem>
       <MenuItem value="resource" icon={<ServerIcon />}>
-        
         资源列表
       </MenuItem>
       <MenuItem value="root">
@@ -32,27 +31,21 @@ function BasicUsage() {
         根目录
       </MenuItem>
       <MenuItem value="control-platform" icon={<ControlPlatformIcon />}>
-        
         调度平台
       </MenuItem>
       <MenuItem value="precise-monitor" icon={<PreciseMonitorIcon />}>
-        
         精准监控
       </MenuItem>
       <MenuItem value="mail" icon={<MailIcon />}>
-        
         消息区
       </MenuItem>
       <MenuItem value="user-circle" icon={<UserCircleIcon />}>
-        
         个人中心
       </MenuItem>
       <MenuItem value="play-circle" icon={<PlayCircleIcon />}>
-        
         视频区
       </MenuItem>
       <MenuItem value="edit1" icon={<Edit1Icon />}>
-        
         资源编辑
       </MenuItem>
     </Menu>

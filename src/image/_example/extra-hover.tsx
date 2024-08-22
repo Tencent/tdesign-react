@@ -20,7 +20,7 @@ export default function ExtraHoverImage() {
   return (
     <Image
       src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-      style={{width: 284, height: 160}}
+      style={{ width: 284, height: 160 }}
       overlayContent={mask}
       overlayTrigger="hover"
     />

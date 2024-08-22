@@ -19,7 +19,7 @@ export default function PluginModalExample() {
       },
       onCloseBtnClick: ({ e }) => {
         console.log('close btn: ', e);
-      }
+      },
     });
   };
   const handleDN = () => {

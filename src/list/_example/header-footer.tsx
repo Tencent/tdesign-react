@@ -12,7 +12,7 @@ export default function BasicList() {
   ];
   return (
     <>
-      <List header='这里是 Header' footer='这里是 Footer'>
+      <List header="这里是 Header" footer="这里是 Footer">
         {listData.map((item) => (
           <ListItem key={item.id}>{item.content}</ListItem>
         ))}
