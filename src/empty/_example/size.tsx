@@ -23,7 +23,7 @@ export default function StatusExample() {
   return (
     <Space direction="vertical">
       <Radio.Group variant="default-filled" options={options} value={size} onChange={(value: SIZE) => setSize(value)} />
-      <Space direction="vertical">
+      <div style={{ marginTop: '20px', height: '100px' }}>
         <Row gutter={40}>
           <Col>
             <Empty type="empty" size={size} />
@@ -41,7 +41,7 @@ export default function StatusExample() {
             <Empty type="fail" size={size} />
           </Col>
         </Row>
-      </Space>
+      </div>
     </Space>
   );
 }

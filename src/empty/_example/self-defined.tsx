@@ -16,7 +16,7 @@ export default function BasicGrid() {
   return (
     <Row gutter={40}>
       <Col>
-        <Empty image={<ErrorCircleIcon size={64} color="rgba(0, 0, 0, 0.26)" />} description="暂无数据" />
+        <Empty image={<ErrorCircleIcon size={64} color="var(--td-text-color-placeholder)" />} description="暂无数据" />
       </Col>
       <Col>
         <Empty description="暂无数据" image={CustomImageContainer} />

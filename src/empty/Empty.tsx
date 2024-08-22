@@ -79,9 +79,9 @@ const Empty: React.FC<EmptyProps> = (props) => {
   };
 
   const prefix = `${classPrefix}-empty`;
-  const emptyClasses = cls(prefix, className);
+  const emptyClasses = cls(prefix, className, defaultSize[size]);
   const titleClasses = cls(`${prefix}__title`);
-  const imageClasses = cls(`${prefix}__image`, defaultSize[size]);
+  const imageClasses = cls(`${prefix}__image`);
   const descriptionClasses = cls(`${prefix}__description`);
   const actionCls = cls(`${prefix}__action`);
 
