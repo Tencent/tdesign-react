@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select } from 'tdesign-react';
+import { Select, Tooltip } from 'tdesign-react';
 
 export default function SingleSelect() {
   const [value, setValue] = useState('');
@@ -18,7 +18,16 @@ export default function SingleSelect() {
         { label: '大数据', value: '2' },
         { label: '区块链', value: '3' },
         { label: '物联网', value: '4', disabled: true },
-        { label: '人工智能', value: '5', content: <span>人工智能（新）</span> },
+        {
+          label: '人工智能',
+          value: '5',
+          content: (
+            <Tooltip content="人工智能">
+              <span>人工智能（新）</span>
+            </Tooltip>
+          ),
+          title: null,
+        },
       ]}
     />
   );
