@@ -64,6 +64,10 @@ export default function useSingle(props: TdSelectInputProps) {
     }
   };
 
+  const handleEmptyPanelBlur = (value: string, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
+    props.onBlur?.(value, { e, inputValue: value });
+  };
+
   const renderSelectSingle = (popupVisible: boolean) => {
     // 单选，值的呈现方式
     const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
@@ -93,6 +97,8 @@ export default function useSingle(props: TdSelectInputProps) {
         onEnter={(val, context) => {
           props.onEnter?.(value, { ...context, inputValue: val });
         }}
+        // onBlur need to triggered by input when popup panel is null
+        onBlur={!props.panel ? handleEmptyPanelBlur : null}
         {...props.inputProps}
         inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
@@ -64,6 +64,15 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
 
+  const titleContent = useMemo(() => {
+    // 外部设置 props，说明希望受控
+    const controlledTitle = Reflect.has(props, 'title');
+    if (controlledTitle) return propTitle;
+    if (typeof label === 'string') return label;
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propTitle, label]);
+
   const { classPrefix } = useConfig();
 
   // 使用斜八角动画
@@ -121,7 +130,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
             [`${classPrefix}-is-disabled`]: disabled,
             [`${classPrefix}-is-checked`]: selected,
           })}
-          title={propTitle || (label as string)}
+          title={titleContent}
         >
           <input
             type="checkbox"
@@ -138,7 +147,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
         </label>
       );
     }
-    return <span title={propTitle || (label as string)}>{children || content || label}</span>;
+    return <span title={titleContent}>{children || content || label}</span>;
   };
 
   return (

@@ -83,6 +83,13 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;
 
+  // 处理切换 panel 为 null 和正常内容动态切换的情况
+  useEffect(() => {
+    if (!content && hideEmptyPopup) {
+      requestAnimationFrame(() => setPopupElement(null));
+    }
+  }, [content, hideEmptyPopup]);
+
   // 判断展示浮层
   const showOverlay = useMemo(() => {
     if (hideEmptyPopup && !content) return false;
