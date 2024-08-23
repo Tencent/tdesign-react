@@ -221,7 +221,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
             >
               {content}
               {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
             </div>
           </div>
         </CSSTransition>
