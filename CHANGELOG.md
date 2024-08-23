@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.8.1 `2024-08-23` 
+### 🐞 Bug Fixes
+- `Select`: 修复自定义`content`时的渲染的问题 @uyarn ([#3058](https://github.com/Tencent/tdesign-react/pull/3058))
+- `Rate`: 修复`1.8.0` 版本中评分描述不显示的问题 @liweijie0812 ([#3060](https://github.com/Tencent/tdesign-react/pull/3060))
+- `Popup`: 修复`panel` 为 null 场景下的部分事件回调缺失和错误的问题 @uyarn ([#3061](https://github.com/Tencent/tdesign-react/pull/3061))
+
 ## 🌈 1.8.0 `2024-08-22` 
 ### 🚀 Features
 - `Empty`: 新增 `Empty` 空状态组件 @ZWkang @HaixingOoO @double-deng ([#2817](https://github.com/Tencent/tdesign-react/pull/2817))
