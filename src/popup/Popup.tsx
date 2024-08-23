@@ -83,6 +83,11 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;
 
+  // 处理切换 panel 为 null 和正常内容动态切换的情况
+  useEffect(() => {
+    if (!visible) setPopupElement(null);
+  }, [visible, onVisibleChange]);
+
   // 判断展示浮层
   const showOverlay = useMemo(() => {
     if (hideEmptyPopup && !content) return false;
@@ -215,6 +220,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
               onScroll={handleScroll}
             >
               {content}
+              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
               {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
             </div>
           </div>
