@@ -36,7 +36,7 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
   const { allowHalf, color, count, disabled, gap, showText, size, icon, className, style, onChange, texts } = props;
   const [locale, t] = useLocaleReceiver('rate');
 
-  const displayTexts = texts || t(locale.rateText);
+  const displayTexts = texts.length ? texts : t(locale.rateText);
 
   const { classPrefix } = useConfig();
   const [starValue = 0, setStarValue] = useControlled(props, 'value', onChange);
