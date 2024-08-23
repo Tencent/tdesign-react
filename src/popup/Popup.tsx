@@ -85,8 +85,10 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
-    if (!visible) setPopupElement(null);
-  }, [visible, onVisibleChange]);
+    if (!content && hideEmptyPopup) {
+      requestAnimationFrame(() => setPopupElement(null));
+    }
+  }, [content, hideEmptyPopup]);
 
   // 判断展示浮层
   const showOverlay = useMemo(() => {
