@@ -18,6 +18,7 @@ maxWidth | String / Number | - | \- | N
 shape | String | square | options: square/round/mark | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | default | options: default/primary/warning/danger/success | N
+title | String | - | title of tag | N
 variant | String | dark | options: dark/light/outline/light-outline | N
 onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onClose | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
@@ -29,8 +30,8 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
-checked | Boolean | - | \- | N
-defaultChecked | Boolean | - | uncontrolled property | N
+checked | Boolean | undefined | \- | N
+defaultChecked | Boolean | undefined | uncontrolled property | N
 checkedProps | Object | - | used to set checked tag props。Typescript：`TdTagProps` | N
 children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 content | TNode | - | Typescript：`string \| number \| string[] \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -38,7 +39,7 @@ disabled | Boolean | false | \- | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 uncheckedProps | Object | - | used to set unchecked tag props。Typescript：`TdTagProps` | N
 value | String / Number | - | tag unique key | N
-onChange | Function |  | Typescript：`(checked: boolean, context: CheckTagChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tag/type.ts)。<br/>`interface CheckTagChangeContext { e: MouseEvent \| KeyboardEvent; value: string \| number }`<br/> | N
+onChange | Function |  | Typescript：`(checked: boolean, context: CheckTagChangeContext)  => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tag/type.ts)。<br/>`interface CheckTagChangeContext { e: MouseEvent \| KeyboardEvent; value: string \| number }`<br/> | N
 onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 
 
