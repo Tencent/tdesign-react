@@ -300,7 +300,7 @@ export interface FormRule {
    * 校验触发方式
    * @default change
    */
-  trigger?: 'change' | 'blur' | 'submit';
+  trigger?: ValidateTriggerType;
   /**
    * 校验未通过时呈现的错误信息类型，有 告警信息提示 和 错误信息提示 等两种
    * @default error
@@ -386,6 +386,11 @@ export interface FormErrorMessage {
    * @default ''
    */
   validator?: string;
+  /**
+   * 值为空格校验不通过时表单项显示文案，全局配置默认是：`'${name}不能为空`
+   * @default ''
+   */
+  whitespace?: string;
 }
 
 export type FormRules<T extends Data> = { [field in keyof T]?: Array<FormRule> };
@@ -443,7 +448,7 @@ export interface FormValidateParams {
   trigger?: ValidateTriggerType;
 }
 
-export type ValidateTriggerType = 'blur' | 'change' | 'all';
+export type ValidateTriggerType = 'blur' | 'change' | 'submit' | 'all';
 
 export type Data = { [key: string]: any };
 
