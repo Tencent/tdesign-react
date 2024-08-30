@@ -5,6 +5,13 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.8.2 `2024-08-30` 
+### 🚀 Features
+- `Tag`: 支持`title` api @HaixingOoO ([#3064](https://github.com/Tencent/tdesign-react/pull/3064))
+### 🐞 Bug Fixes
+- `TimePicker`: 修复format 仅支持 HH:mm:ss 格式的问题 @liweijie0812 ([#3066](https://github.com/Tencent/tdesign-react/pull/3066))
+
+
 ## 🌈 1.8.1 `2024-08-23` 
 ### 🐞 Bug Fixes
 - `Select`: 修复自定义`content`时的渲染的问题 @uyarn ([#3058](https://github.com/Tencent/tdesign-react/pull/3058))
