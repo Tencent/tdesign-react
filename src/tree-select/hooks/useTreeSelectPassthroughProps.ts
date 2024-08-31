@@ -1,8 +1,8 @@
 import pick from 'lodash/pick';
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import type { TreeSelectProps } from './TreeSelect';
-import type { SelectInputProps } from '../select-input';
+import useConfig from '../../hooks/useConfig';
+import type { TreeSelectProps } from '../TreeSelect';
+import type { SelectInputProps } from '../../select-input';
 
 const SelectInputPassthroughPropsKey: Array<keyof SelectInputProps> = [
   'multiple',
