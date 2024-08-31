@@ -133,20 +133,31 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   );
 
   const card = (
-    <div ref={ref} className={cardClass}>
+    <>
       {showHeader ? renderHeader() : null}
       {renderCover}
       {renderChildren}
       {renderFooter}
-    </div>
+    </>
   );
 
-  return loading ? (
-    <Loading {...loadingProps} style={style}>
-      {card}
-    </Loading>
-  ) : (
-    React.cloneElement(card, { style })
+  let childrenNode: React.ReactNode = null;
+  if (!Reflect.has(props, 'loading')) {
+    childrenNode = React.cloneElement(card, { style });
+  } else if (React.isValidElement(loading)) {
+    childrenNode = React.cloneElement(loading, null, card);
+  } else {
+    childrenNode = (
+      <Loading {...loadingProps} loading={!!loading}>
+        {card}
+      </Loading>
+    );
+  }
+
+  return (
+    <div ref={ref} className={cardClass} style={style}>
+      {childrenNode}
+    </div>
   );
 });
 
