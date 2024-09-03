@@ -17,7 +17,8 @@ export const inputDefaultProps: TdInputProps = {
   showClearIconOnEmpty: false,
   showLimitNumber: false,
   size: 'medium',
-  status: undefined,
+  spellCheck: false,
+  status: 'default',
   type: 'text',
   defaultValue: '',
 };
