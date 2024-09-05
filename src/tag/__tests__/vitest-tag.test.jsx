@@ -135,7 +135,7 @@ describe('Tag Component', () => {
     const domWrapper = container.firstChild;
     expect(domWrapper.style.maxWidth).toBe('150px');
     const domWrapper1 = container.querySelector('.t-tag--text');
-    expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
+    expect(domWrapper1.getAttribute('title')).toBeNull();
   });
   it(`props.title is equal to undefined`, () => {
     const { container } = render(
@@ -144,7 +144,7 @@ describe('Tag Component', () => {
     const domWrapper = container.firstChild;
     expect(domWrapper.style.maxWidth).toBe('150px');
     const domWrapper1 = container.querySelector('.t-tag--text');
-    expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
+    expect(domWrapper1.getAttribute('title')).toBeNull();
   });
 
   ['dark', 'light', 'outline', 'light-outline'].forEach((item) => {
