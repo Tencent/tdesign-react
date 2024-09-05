@@ -39,7 +39,7 @@ disabled | Boolean | false | 标签禁用态，失效标签不能触发事件。
 size | String | medium | 标签尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 uncheckedProps | Object | - | 透传标签未选态属性。TS 类型：`TdTagProps` | N
 value | String / Number | - | 标签唯一标识，一般用于标签组场景，单个可选择标签无需设置 | N
-onChange | Function |  | TS 类型：`(checked: boolean, context: CheckTagChangeContext)  => void`<br/>状态切换时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag/type.ts)。<br/>`interface CheckTagChangeContext { e: MouseEvent \| KeyboardEvent; value: string \| number }`<br/> | N
+onChange | Function |  | TS 类型：`(checked: boolean, context: CheckTagChangeContext) => void`<br/>状态切换时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag/type.ts)。<br/>`interface CheckTagChangeContext { e: MouseEvent \| KeyboardEvent; value: string \| number }`<br/> | N
 onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击标签时触发 | N
 
 
