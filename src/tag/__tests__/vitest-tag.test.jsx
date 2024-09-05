@@ -30,6 +30,36 @@ describe('Tag Component', () => {
     expect(container2.querySelector('.t-tag__icon-close')).toBeTruthy();
   });
 
+  it(`props.color is equal to #ff0000`, () => {
+    const { container } = render(<Tag color={'#ff0000'}></Tag>);
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.backgroundColor).toBe('rgb(255, 0, 0)');
+  });
+  it(`props.color expect variant='dark'`, () => {
+    const { container } = render(<Tag color={'#ff0000'} variant={'dark'} theme={'primary'}></Tag>);
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.backgroundColor).toBe('rgb(255, 0, 0)');
+    expect(domWrapper.style.color).toBe('white');
+  });
+  it(`props.color expect variant='light'`, () => {
+    const { container } = render(<Tag color={'#ff0000'} variant={'light'}></Tag>);
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
+    expect(domWrapper.style.backgroundColor).toBe('rgba(255, 0, 0, 0.1)');
+  });
+  it(`props.color expect variant='outline'`, () => {
+    const { container } = render(<Tag color={'#ff0000'} variant={'outline'}></Tag>);
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.borderColor).toBe('#ff0000');
+    expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
+  });
+  it(`props.color expect variant='light-outline'`, () => {
+    const { container } = render(<Tag color={'#ff0000'} variant={'light-outline'}></Tag>);
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.borderColor).toBe('#ff0000');
+    expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
+  });
+
   it('props.content works fine', () => {
     const { container } = render(<Tag content={<span className="custom-node">TNode</span>}></Tag>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
@@ -87,6 +117,34 @@ describe('Tag Component', () => {
       const { container } = render(<Tag theme={item}></Tag>);
       expect(container.firstChild).toHaveClass(`t-tag--${item}`);
     });
+  });
+
+  it(`props.title is equal to This is a long tag`, () => {
+    const { container } = render(
+      <Tag title={'This is a long tag'} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    const domWrapper1 = container.querySelector('.t-tag--text');
+    expect(domWrapper1.getAttribute('title')).toBe('This is a long tag');
+  });
+  it(`props.title is equal to `, () => {
+    const { container } = render(
+      <Tag title={''} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    const domWrapper1 = container.querySelector('.t-tag--text');
+    expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
+  });
+  it(`props.title is equal to undefined`, () => {
+    const { container } = render(
+      <Tag title={undefined} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    const domWrapper1 = container.querySelector('.t-tag--text');
+    expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
   });
 
   ['dark', 'light', 'outline', 'light-outline'].forEach((item) => {

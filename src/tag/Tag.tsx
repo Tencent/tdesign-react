@@ -82,7 +82,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
   );
 
   const title = useMemo(() => {
-    if (Reflect.has(props, 'title')) return titleAttr;
+    if (Reflect.has(props, 'title') && props.title) return titleAttr;
     if (children && typeof children === 'string') return children;
     if (content && typeof content === 'string') return content;
   }, [children, content, props, titleAttr]);
