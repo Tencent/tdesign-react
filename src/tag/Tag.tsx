@@ -122,14 +122,16 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
         if (disabled) return;
         onClick({ e });
       }}
-      style={
-        maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...getTagStyle } : getTagStyle
-      }
+      style={getTagStyle}
       {...otherTagProps}
     >
       <>
         {icon}
-        <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} {...titleAttribute}>
+        <span
+          className={maxWidth ? `${tagClassPrefix}--text` : undefined}
+          style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth } : {}}
+          {...titleAttribute}
+        >
           {children ?? content}
         </span>
         {closable && !disabled && deleteIcon}

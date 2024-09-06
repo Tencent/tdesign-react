@@ -30,8 +30,8 @@ onClose | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>�
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-checked | Boolean | undefined | 标签选中的状态，默认风格（theme=default）才有选中态 | N
-defaultChecked | Boolean | undefined | 标签选中的状态，默认风格（theme=default）才有选中态。非受控属性 | N
+checked | Boolean | - | 标签选中的状态，默认风格（theme=default）才有选中态 | N
+defaultChecked | Boolean | - | 标签选中的状态，默认风格（theme=default）才有选中态。非受控属性 | N
 checkedProps | Object | - | 透传标签选中态属性。TS 类型：`TdTagProps` | N
 children | TNode | - | 组件子元素。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 content | TNode | - | 组件子元素；传入数组时：[选中内容，非选中内容]。TS 类型：`string \| number \| string[] \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
