@@ -114,6 +114,14 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     return calculatedStyle;
   }, [color, variant, style]);
 
+  const getTextStyle = useMemo(() => {
+    if (!maxWidth) return {};
+
+    return {
+      maxWidth: isNaN(Number(maxWidth)) ? String(maxWidth) : `${maxWidth}px`,
+    };
+  }, [maxWidth]);
+
   const tag = (
     <div
       ref={ref}
@@ -127,11 +135,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     >
       <>
         {icon}
-        <span
-          className={maxWidth ? `${tagClassPrefix}--text` : undefined}
-          style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth } : {}}
-          {...titleAttribute}
-        >
+        <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} style={getTextStyle} {...titleAttribute}>
           {children ?? content}
         </span>
         {closable && !disabled && deleteIcon}
