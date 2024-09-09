@@ -40,6 +40,7 @@ const Form = forwardRefWithStatics(
       preventSubmitDefault,
       disabled,
       children,
+      id,
       onReset,
       onValuesChange = noop,
     } = props;
@@ -107,6 +108,7 @@ const Form = forwardRefWithStatics(
       >
         <form
           ref={formRef}
+          id={id}
           style={style}
           className={formClass}
           onSubmit={formInstance.submit}

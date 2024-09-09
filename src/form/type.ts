@@ -31,6 +31,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   formControlledComponents?: Array<string>;
   /**
+   * 表单原生的id属性，支持用于配合非表单内的按钮通过form属性来触发表单事件
+   */
+  id?: string;
+  /**
    * 表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData
    */
   initialData?: object;

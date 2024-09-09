@@ -7,6 +7,7 @@ import { TdFormProps, TdFormItemProps } from './type';
 export const formDefaultProps: TdFormProps = {
   colon: false,
   disabled: undefined,
+  id: undefined,
   labelAlign: 'right',
   labelWidth: '100px',
   layout: 'vertical',
