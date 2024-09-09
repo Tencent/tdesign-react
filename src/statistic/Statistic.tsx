@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isFunction from 'lodash/isFunction';
 import {
@@ -25,6 +26,8 @@ export interface StatisticRef {
 
 const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
   const {
+    className,
+    style,
     animation,
     animationStart,
     color,
@@ -139,7 +142,7 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
   const suffixRender = suffix || (trendIcon && trendPlacement === 'right' ? trendIcon : null);
 
   return (
-    <div className={`${classPrefix}-statistic`}>
+    <div className={classNames(`${classPrefix}-statistic`, className)} style={style}>
       {title && <div className={`${classPrefix}-statistic-title`}>{title}</div>}
       <Skeleton animation="gradient" theme="text" loading={!!loading}>
         <div className={`${classPrefix}-statistic-content`} style={valueStyle}>
