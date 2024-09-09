@@ -35,25 +35,25 @@ describe('Tag Component', () => {
     const domWrapper = container.firstChild;
     expect(domWrapper.style.backgroundColor).toBe('rgb(255, 0, 0)');
   });
-  it(`props.color expect variant='dark'`, () => {
+  it(`props.color expect variant=dark`, () => {
     const { container } = render(<Tag color={'#ff0000'} variant={'dark'} theme={'primary'}></Tag>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.backgroundColor).toBe('rgb(255, 0, 0)');
     expect(domWrapper.style.color).toBe('white');
   });
-  it(`props.color expect variant='light'`, () => {
+  it(`props.color expect variant=light`, () => {
     const { container } = render(<Tag color={'#ff0000'} variant={'light'}></Tag>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
     expect(domWrapper.style.backgroundColor).toBe('rgba(255, 0, 0, 0.1)');
   });
-  it(`props.color expect variant='outline'`, () => {
+  it(`props.color expect variant=outline`, () => {
     const { container } = render(<Tag color={'#ff0000'} variant={'outline'}></Tag>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.borderColor).toBe('#ff0000');
     expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
   });
-  it(`props.color expect variant='light-outline'`, () => {
+  it(`props.color expect variant=light-outline`, () => {
     const { container } = render(<Tag color={'#ff0000'} variant={'light-outline'}></Tag>);
     const domWrapper = container.firstChild;
     expect(domWrapper.style.borderColor).toBe('#ff0000');
@@ -80,10 +80,15 @@ describe('Tag Component', () => {
 
   it(`props.maxWidth is equal to 150px`, () => {
     const { container } = render(<Tag maxWidth={'150px'} content={'This is a long long long long long tag'}></Tag>);
-    const domWrapper = container.firstChild;
+    const domWrapper = container.querySelector('.t-tag--text');
+    expect(domWrapper.getAttribute('title')).toBe('This is a long long long long long tag');
     expect(domWrapper.style.maxWidth).toBe('150px');
-    const domWrapper1 = container.querySelector('.t-tag--text');
-    expect(domWrapper1.getAttribute('title')).toBe('This is a long long long long long tag');
+  });
+  it(`props.maxWidth is equal to 150`, () => {
+    const { container } = render(<Tag maxWidth={'150'} content={'This is a long long long long long tag'}></Tag>);
+    const domWrapper = container.querySelector('.t-tag--text');
+    expect(domWrapper.getAttribute('title')).toBe('This is a long long long long long tag');
+    expect(domWrapper.style.maxWidth).toBe('150px');
   });
 
   const shapeClassNameList = [{ 't-tag--square': false }, 't-tag--round', 't-tag--mark'];
@@ -123,28 +128,25 @@ describe('Tag Component', () => {
     const { container } = render(
       <Tag title={'This is a long tag'} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
     );
-    const domWrapper = container.firstChild;
+    const domWrapper = container.querySelector('.t-tag--text');
     expect(domWrapper.style.maxWidth).toBe('150px');
-    const domWrapper1 = container.querySelector('.t-tag--text');
-    expect(domWrapper1.getAttribute('title')).toBe('This is a long tag');
+    expect(domWrapper.getAttribute('title')).toBe('This is a long tag');
   });
   it(`props.title is equal to `, () => {
     const { container } = render(
       <Tag title={''} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
     );
-    const domWrapper = container.firstChild;
+    const domWrapper = container.querySelector('.t-tag--text');
     expect(domWrapper.style.maxWidth).toBe('150px');
-    const domWrapper1 = container.querySelector('.t-tag--text');
-    expect(domWrapper1.getAttribute('title')).toBeNull();
+    expect(domWrapper.getAttribute('title')).toBeNull();
   });
   it(`props.title is equal to undefined`, () => {
     const { container } = render(
       <Tag title={undefined} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
     );
-    const domWrapper = container.firstChild;
+    const domWrapper = container.querySelector('.t-tag--text');
     expect(domWrapper.style.maxWidth).toBe('150px');
-    const domWrapper1 = container.querySelector('.t-tag--text');
-    expect(domWrapper1.getAttribute('title')).toBeNull();
+    expect(domWrapper.getAttribute('title')).toBeNull();
   });
 
   ['dark', 'light', 'outline', 'light-outline'].forEach((item) => {
