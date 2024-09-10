@@ -41,7 +41,7 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
   const { classPrefix } = useConfig();
   const [starValue = 0, setStarValue] = useControlled(props, 'value', onChange);
 
-  const [hoverValue = undefined, setHoverValue] = useState<number | undefined>(undefined);
+  const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
   const displayValue = hoverValue || starValue;
 
   const rootRef = React.useRef<HTMLUListElement>(null);
