@@ -52,12 +52,6 @@ function Components() {
   const [version] = useState(currentVersion);
   const [globalConfig, setGlobalConfig] = useState({});
 
-  //  nextLang 'en' | 'zh'
-  document.addEventListener('tdesign_site_lang', () => {
-    const config = getLang() === 'en' ? enConfig : zhConfig;
-    setGlobalConfig(config);
-  });
-
   function initHistoryVersions() {
     fetch(registryUrl)
       .then((res) => res.json())
@@ -102,9 +96,8 @@ function Components() {
 
     initHistoryVersions();
 
-    const config = getLang() === 'en' ? enConfig : zhConfig;
-    setGlobalConfig(config);
-  }, []);
+    setGlobalConfig(getLang() === 'en' ? enConfig : zhConfig);
+  }, [navigate]);
 
   useEffect(() => {
     document.querySelector('td-stats')?.track?.();
