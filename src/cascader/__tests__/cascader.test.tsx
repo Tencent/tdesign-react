@@ -376,6 +376,26 @@ describe('Cascader 组件测试', () => {
     expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
     expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
   });
+
+  test('render panelTopContent', async () => {
+    const panelTopContent = 'panelTopContent';
+    const { getByText } = render(
+      <Cascader value={'1.1'} options={optionsData} panelTopContent={panelTopContent} clearable />,
+    );
+
+    await fireEvent.click(document.querySelector('input'));
+    expect(getByText(panelTopContent)).toBeInTheDocument();
+  });
+
+  test('render panelBottomContent', async () => {
+    const panelBottomContent = 'panelBottomContent';
+    const { getByText } = render(
+      <Cascader value={'1.1'} options={optionsData} panelBottomContent={panelBottomContent} clearable />,
+    );
+
+    await fireEvent.click(document.querySelector('input'));
+    expect(getByText(panelBottomContent)).toBeInTheDocument();
+  });
 });
 
 describe('Cascader Panel 组件测试', () => {
