@@ -37,7 +37,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   const snakeName = []
     .concat(name)
     .filter((item) => item !== undefined)
-    .join('_'); // 转化 name
+    .toString(); // 转化 name
 
   const isMounted = useRef(false);
 

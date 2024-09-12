@@ -30,8 +30,8 @@ function formatValidateResult(validateResultList) {
     }
 
     // 整理嵌套数据
-    if (result[key] && key.includes('_')) {
-      const keyList = key.split('_');
+    if (result[key] && key.includes(',')) {
+      const keyList = key.split(',');
       const fieldValue = calcFieldValue(keyList, result[key]);
       merge(result, fieldValue);
       delete result[key];
