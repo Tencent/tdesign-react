@@ -1,5 +1,7 @@
 import { useRef, useEffect } from 'react';
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
+import useLatest from './useLatest';
 
 const DEFAULT_OPTIONS = {
   debounceTime: 0,
@@ -11,31 +13,46 @@ const DEFAULT_OPTIONS = {
   } as MutationObserverInit,
 };
 
+type Options = typeof DEFAULT_OPTIONS;
+
 export default function useMutationObservable(
   targetEl: HTMLElement | null,
   cb: MutationCallback,
   options = DEFAULT_OPTIONS,
 ) {
   const observeRef = useRef(null);
+  const optionsRef = useRef<Options>();
+  const signalRen = useRef(0);
+  const callbackRef = useLatest(cb);
 
-  useEffect(() => {
-    if (!cb || typeof cb !== 'function') return;
-    const { debounceTime } = options;
-    observeRef.current = new MutationObserver(debounceTime > 0 ? debounce(cb, debounceTime) : cb);
-  }, [cb, options]);
+  if (!isEqual(options, optionsRef.current)) {
+    signalRen.current += 1;
+  }
+
+  optionsRef.current = options;
 
   useEffect(() => {
     if (!targetEl || !targetEl?.nodeType) return;
 
-    const { config } = options;
     try {
+      const { debounceTime, config } = optionsRef.current;
+      const mutationCallback: MutationCallback = (...args) => {
+        callbackRef.current(...args);
+      };
+      observeRef.current = new MutationObserver(
+        debounceTime > 0 ? debounce(mutationCallback, debounceTime) : mutationCallback,
+      );
       observeRef.current.observe(targetEl, config);
     } catch (e) {
       console.error(e);
     }
 
     return () => {
-      observeRef.current.disconnect();
+      if (observeRef.current) {
+        observeRef.current.disconnect();
+        observeRef.current = null;
+      }
     };
-  }, [targetEl, options]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetEl, signalRen.current]);
 }

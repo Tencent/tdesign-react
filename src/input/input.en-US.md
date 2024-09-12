@@ -1,12 +1,13 @@
 :: BASE_DOC ::
 
 ## API
+
 ### Input Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 align | String | left | options: left/center/right | N
 allowInputOverMax | Boolean | false | \- | N
 autoWidth | Boolean | false | \- | N
@@ -27,8 +28,8 @@ readonly | Boolean | false | \- | N
 showClearIconOnEmpty | Boolean | false | \- | N
 showLimitNumber | Boolean | false | show limit number text on the right | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-spellCheck | Boolean | false | \- | N
-status | String | undefined | options: default/success/warning/error | N
+spellCheck | Boolean | false | attribute of input element, [see here](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/spellcheck) | N
+status | String | default | options: default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 suffixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 tips | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -52,10 +53,11 @@ onPaste | Function |  | Typescript：`(context: { e: ClipboardEvent; pasteValue:
 onValidate | Function |  | Typescript：`(context: { error?: 'exceed-maximum' \| 'below-minimum' }) => void`<br/>trigger on text length being over max length or max character | N
 onWheel | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/>trigger on mouse wheel | N
 
+
 ### InputGroup Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 separate | Boolean | - | need separate between multiple inputs | N

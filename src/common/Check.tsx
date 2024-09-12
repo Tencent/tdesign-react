@@ -64,6 +64,8 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     [`${classPrefix}-is-indeterminate`]: indeterminate,
   });
 
+  const isDisabled = disabled || readonly;
+
   const input = (
     <input
       readOnly={readonly}
@@ -82,7 +84,10 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
           setInternalChecked(!e.currentTarget.checked, { e });
         }
       }}
-      onChange={(e) => setInternalChecked(e.currentTarget.checked, { e })}
+      onChange={(e) => {
+        if (isDisabled) return;
+        setInternalChecked(e.currentTarget.checked, { e });
+      }}
     />
   );
   // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
@@ -96,6 +101,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   };
 
   const onInnerClick = (e: MouseEvent<HTMLLabelElement>) => {
+    if (isDisabled) return;
     onClick?.({ e });
   };
 

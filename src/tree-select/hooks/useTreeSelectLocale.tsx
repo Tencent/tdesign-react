@@ -1,7 +1,7 @@
 import React from 'react';
-import type { TreeSelectProps } from './TreeSelect';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import useConfig from '../hooks/useConfig';
+import type { TreeSelectProps } from '../TreeSelect';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import useConfig from '../../hooks/useConfig';
 
 export const useTreeSelectLocale = (props: TreeSelectProps) => {
   const { classPrefix } = useConfig();

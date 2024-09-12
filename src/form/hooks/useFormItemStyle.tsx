@@ -60,8 +60,11 @@ export default function useFormItemStyle(props) {
     return extra;
   }, [showErrorMessage, errorList, successList, tips, classPrefix]);
 
+  // snake 在dom上显示的名字改成下划线拼接
+  const formSnakeName = snakeName.split(',').join('_');
+
   const formItemClass = classNames(`${classPrefix}-form__item`, className, {
-    [`${classPrefix}-form-item__${snakeName}`]: snakeName,
+    [`${classPrefix}-form-item__${formSnakeName}`]: formSnakeName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
   });
