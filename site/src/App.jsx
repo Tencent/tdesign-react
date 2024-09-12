@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
 import ConfigProvider from 'tdesign-react/config-provider';
-// import locale from 'tdesign-react/locale/zh_CN';
-// import locale from 'tdesign-react/locale/en_US';
+import zhConfig from 'tdesign-react/es/locale/zh_CN';
+import enConfig from 'tdesign-react/es/locale/en_US';
+import { getLang } from 'tdesign-site-components';
+
 import siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
 import packageJson from '@/package.json';
@@ -48,6 +50,13 @@ function Components() {
   const tdDocSearch = useRef();
 
   const [version] = useState(currentVersion);
+  const [globalConfig, setGlobalConfig] = useState({});
+
+  //  nextLang 'en' | 'zh'
+  document.addEventListener('tdesign_site_lang', () => {
+    const config = getLang() === 'en' ? enConfig : zhConfig;
+    setGlobalConfig(config);
+  });
 
   function initHistoryVersions() {
     fetch(registryUrl)
@@ -92,6 +101,9 @@ function Components() {
     };
 
     initHistoryVersions();
+
+    const config = getLang() === 'en' ? enConfig : zhConfig;
+    setGlobalConfig(config);
   }, []);
 
   useEffect(() => {
@@ -99,7 +111,7 @@ function Components() {
   }, [location]);
 
   return (
-    <ConfigProvider /* globalConfig={{ animation: { exclude: ['ripple'] }}} */>
+    <ConfigProvider globalConfig={globalConfig}>
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
