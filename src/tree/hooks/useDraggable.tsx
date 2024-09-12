@@ -5,8 +5,14 @@ import { useTreeDraggableContext } from './TreeDraggableContext';
 import { DropPosition } from '../interface';
 import { usePersistFn } from '../../hooks/usePersistFn';
 
-export default function useDraggable(props: { nodeRef: RefObject<HTMLElement | undefined>; node: TreeNode }) {
-  const { nodeRef, node } = props;
+import type { TdTreeProps } from '../type';
+
+export default function useDraggable(props: {
+  nodeRef: RefObject<HTMLElement | undefined>;
+  node: TreeNode;
+  allowDrop?: TdTreeProps['allowDrop'];
+}) {
+  const { nodeRef, node, allowDrop } = props;
   const { onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop } = useTreeDraggableContext();
 
   const [state, setState] = useState<{
@@ -83,7 +89,7 @@ export default function useDraggable(props: { nodeRef: RefObject<HTMLElement | u
         onDragLeave?.({ node, e });
         break;
       case 'drop':
-        onDrop?.({ node, dropPosition: state.dropPosition, e });
+        onDrop?.({ node, dropPosition: state.dropPosition, e, allowDrop });
         setPartialState({
           isDragOver: false,
         });
