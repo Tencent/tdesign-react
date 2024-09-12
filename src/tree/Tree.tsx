@@ -46,7 +46,6 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-
   const {
     empty,
     activable,
@@ -65,6 +64,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     scroll,
     className,
     style,
+    allowDrop,
   } = props;
 
   const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
@@ -290,6 +290,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
               icon={icon}
               label={label}
               line={line}
+              allowDrop={allowDrop}
               transition={transition}
               expandOnClickNode={expandOnClickNode}
               activable={activable}
@@ -323,6 +324,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
               icon={icon}
               label={label}
               line={line}
+              allowDrop={allowDrop}
               transition={transition}
               expandOnClickNode={expandOnClickNode}
               activable={activable}

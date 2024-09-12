@@ -10,6 +10,7 @@ style | Object | - | 样式，Typescript：`React.CSSProperties` | N
 activable | Boolean | false | \- | N
 activeMultiple | Boolean | false | \- | N
 actived | Array | - | Typescript：`Array<TreeNodeValue>` | N
+allowDrop | Function | - | Determine whether the node can execute the drop operation。Typescript：`(context: { e: DragEvent; dragNode: TreeNodeModel<T>; dropNode: TreeNodeModel<T>; dropPosition: number; }) => boolean` | N
 allowFoldNodeOnFilter | Boolean | false | \- | N
 checkProps | Object | - | Typescript：`CheckboxProps`，[Checkbox API Documents](./checkbox?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/tree/type.ts) | N
 checkStrictly | Boolean | false | \- | N
