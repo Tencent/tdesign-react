@@ -55,6 +55,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     resizable,
     lazyLoad,
     pagination,
+    expandedRowKeys,
   } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
@@ -470,6 +471,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     renderExpandedRow: props.renderExpandedRow,
     ...pick(props, extendTableProps),
     pagination: innerPagination,
+    expandedRowKeys,
   };
 
   const translate = `translate(0, ${virtualConfig.scrollHeight}px)`;

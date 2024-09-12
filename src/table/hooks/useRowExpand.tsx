@@ -29,6 +29,9 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     defaultExpandedRowKeys: props.defaultExpandedRowKeys || [],
   });
 
+  // 用于在可展开收起的场景给各行添加类名使用，如果没有配置则不加相关类名
+  const innerExpandedRowKeys = props.expandedRowKeys || props.defaultExpandedRowKeys ? tExpandedRowKeys : undefined;
+
   const showExpandedRow = Boolean(expandedRow);
 
   const showExpandIconColumn = props.expandIcon !== false && showExpandedRow;
@@ -117,5 +120,6 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     getExpandColumn,
     renderExpandedRow,
     onInnerExpandRowClick,
+    innerExpandedRowKeys,
   };
 }

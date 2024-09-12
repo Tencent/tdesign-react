@@ -36,8 +36,14 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props, { onColumnReduce });
   // 展开/收起行功能
-  const { showExpandedRow, showExpandIconColumn, getExpandColumn, renderExpandedRow, onInnerExpandRowClick } =
-    useRowExpand(props);
+  const {
+    innerExpandedRowKeys,
+    showExpandedRow,
+    showExpandIconColumn,
+    getExpandColumn,
+    renderExpandedRow,
+    onInnerExpandRowClick,
+  } = useRowExpand(props);
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
@@ -264,7 +270,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   if (props.expandOnRowClick || props.selectOnRowClick) {
     baseTableProps.onRowClick = onInnerRowClick;
   }
-
   return (
     <BaseTable
       ref={primaryTableRef}
@@ -272,6 +277,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
       className={classNames(primaryTableClasses, className)}
       style={style}
       onLeafColumnsChange={setDragSortColumns}
+      expandedRowKeys={innerExpandedRowKeys}
     />
   );
 });

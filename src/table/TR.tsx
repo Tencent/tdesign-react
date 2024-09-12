@@ -5,7 +5,7 @@ import { formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
-import { TableRowData, RowspanColspan, TdBaseTableProps } from './type';
+import { TableRowData, RowspanColspan } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
 import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 import Cell from './Cell';
@@ -13,7 +13,9 @@ import { PaginationProps } from '../pagination';
 import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import { InfinityScroll } from '../common';
 
-export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
+import type { BaseTableProps } from './interface';
+
+export type TrCommonProps = Pick<BaseTableProps, TrPropsKeys>;
 
 export const TABLE_PROPS = [
   'rowKey',
@@ -33,6 +35,7 @@ export const TABLE_PROPS = [
   'onRowMouseenter',
   'onRowMouseleave',
   'onRowMouseup',
+  'expandedRowKeys',
 ] as const;
 
 export type TrPropsKeys = (typeof TABLE_PROPS)[number];
@@ -76,6 +79,7 @@ export default function TR(props: TrProps) {
     rowAndColFixedPosition,
     virtualConfig,
     onRowMounted,
+    expandedRowKeys,
   } = props;
 
   const trRef = useRef<HTMLTableRowElement>();
@@ -96,10 +100,17 @@ export default function TR(props: TrProps) {
     [row, rowAttributes, rowIndex],
   );
 
+  const currentRowKey = useMemo(() => get(row, rowKey || 'id'), [row, rowKey]);
+
   const classes = useMemo(() => {
     const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, type: 'body' }, rowKey || 'id');
-    return [trStyles?.classes, customClasses];
-  }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes]);
+    if (!expandedRowKeys) return [trStyles?.classes, customClasses];
+    return [
+      trStyles?.classes,
+      classNames.tableExpandClasses[expandedRowKeys?.includes(currentRowKey) ? 'rowExpanded' : 'rowFolded'],
+      customClasses,
+    ];
+  }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes, currentRowKey, classNames, expandedRowKeys]);
 
   const useLazyLoadParams = useMemo(() => ({ ...scroll, rowIndex }), [scroll, rowIndex]);
   const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentRef.current, trRef, useLazyLoadParams);
@@ -113,7 +124,6 @@ export default function TR(props: TrProps) {
     }
     // eslint-disable-next-line
   }, [virtualConfig.isVirtualScroll, trRef, row]);
-
   const columnVNodeList = props.columns?.map((col, colIndex) => {
     const cellSpans: RowspanColspan = {};
     const params = {
