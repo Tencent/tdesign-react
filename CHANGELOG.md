@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.9.0 `2024-09-12` 
+
+### 🚀 Features
+
+- `Tag`: 修改 `maxWidth`生效的 DOM 节点，方便控制文本内容长度，有基于此特性修改样式的请注意此变更 @liweijie0812 ([#3083](https://github.com/Tencent/tdesign-react/pull/3083))
+- `Form`: 修复 `name` 使用下划线拼接的导致使用下划线做 `name` 的计算错误，有使用特殊字符做表单项的`name`的请注意此变更 @HaixingOoO ([#3095](https://github.com/Tencent/tdesign-react/pull/3095))
+- `Card`: `loading`属性增加 `TNode`支持 @huangchen1031 ([#3051](https://github.com/Tencent/tdesign-react/pull/3051))
+- `Cascader`: 新增`panelTopContent`和`panelBottomContent`，用于自定应该面板顶部和底部内容 @HaixingOoO ([#3096](https://github.com/Tencent/tdesign-react/pull/3096))
+- `Checkbox`: 修复 `readonly` 下的样式问题 @HaixingOoO ([#3077](https://github.com/Tencent/tdesign-react/pull/3077))
+- `Form`: 添加 `whitespace` 校验默认错误信息 @liweijie0812 ([#3067](https://github.com/Tencent/tdesign-react/pull/3067))
+- `Form`: 支持原生的`id`属性，用于配合`Button`原生`Form`属性实现表单提交的功能 @HaixingOoO ([#3084](https://github.com/Tencent/tdesign-react/pull/3084))
+- `Tag`: 新增支持`title` api，支持自定义`title`配置 @HaixingOoO ([#3064](https://github.com/Tencent/tdesign-react/pull/3064))
+- `Tree`: 新增 `allowDrop` API，用于限制拖拽的场景使用 @uyarn ([#3098](https://github.com/Tencent/tdesign-react/pull/3098))
+
+### 🐞 Bug Fixes
+
+- `Card`: 修复`loading` 切换状态会导致子节点重新渲染的问题 @huangchen1031 ([#3051](https://github.com/Tencent/tdesign-react/pull/3051))
+- `Dialog`: 修复`Header`为`null`，配置`closeBtn`仍然渲染`Header`的问题 @HaixingOoO ([#3081](https://github.com/Tencent/tdesign-react/pull/3081))
+- `Input`: 修复计算`emoji`字符错误的问题 @novlan1 ([#3065](https://github.com/Tencent/tdesign-react/pull/3065))
+- `Popup`: 修复`1.8.0`版本后针对`Popup`的优化导致 16.x 版本下的异常问题 @moecasts ([#3091](https://github.com/Tencent/tdesign-react/pull/3091))
+- `Statistic`: 修复`Statistic`组件 `classname` 和 `style` 未透传功能异常的问题 @liweijie0812 ([#3089](https://github.com/Tencent/tdesign-react/pull/3089))
+- `TimePicker`: 修复 `format` 仅支持 HH:mm:ss 格式的问题 @liweijie0812 ([#3066](https://github.com/Tencent/tdesign-react/pull/3066))
+
+
 ## 🌈 1.8.1 `2024-08-23` 
 ### 🐞 Bug Fixes
 - `Select`: 修复自定义`content`时的渲染的问题 @uyarn ([#3058](https://github.com/Tencent/tdesign-react/pull/3058))
