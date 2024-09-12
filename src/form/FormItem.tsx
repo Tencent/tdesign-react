@@ -133,7 +133,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const snakeName = []
     .concat(formListName, name)
     .filter((item) => item !== undefined)
-    .join('_'); // 转化 name
+    .toString(); // 转化 name
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
