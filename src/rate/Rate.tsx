@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { StarFilledIcon as TdStarFilledIcon } from 'tdesign-icons-react';
 import { TooltipLite } from '../tooltip';
@@ -7,6 +7,7 @@ import { StyledProps } from '../common';
 
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../hooks/useConfig';
+import useResetState from '../hooks/useResetState';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useControlled from '../hooks/useControlled';
 import { rateDefaultProps } from './defaultProps';
@@ -40,9 +41,7 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
 
   const { classPrefix } = useConfig();
   const [starValue = 0, setStarValue] = useControlled(props, 'value', onChange);
-
-  const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
-  const displayValue = hoverValue || starValue;
+  const [displayValue, setDisplayValue, resetDisplayValue] = useResetState(starValue);
 
   const rootRef = React.useRef<HTMLUListElement>(null);
 
@@ -72,14 +71,14 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
     if (disabled) {
       return;
     }
-    setHoverValue(getStarValue(event, index));
+    setDisplayValue(getStarValue(event, index));
   };
 
   const mouseLeaveHandler = () => {
     if (disabled) {
       return;
     }
-    setHoverValue(undefined);
+    resetDisplayValue();
   };
 
   const clickHandler = (event: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>, index: number) => {
