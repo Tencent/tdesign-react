@@ -10,7 +10,24 @@ export default function BasicDropdown() {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown minColumnWidth={100} trigger="click">
+    <Dropdown
+      minColumnWidth={100}
+      trigger="click"
+      panelTopContent={
+        <div
+          style={{
+            height: 48,
+            backgroundColor: 'var(--td-bg-color-component)',
+            borderRadius: '6px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          Top Content
+        </div>
+      }
+    >
       <Button variant="text" suffix={<Icon name="chevron-down" size="16" />}>
         更多
       </Button>
