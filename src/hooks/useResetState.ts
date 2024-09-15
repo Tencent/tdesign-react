@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import isFunction from 'lodash/isFunction';
-import useMemoizedFn from './useMemoizedFn';
+import usePersistFn from './usePersistFn';
 import useCreation from './useCreation';
 
 type ResetState = () => void;
@@ -15,7 +15,7 @@ const useResetState = <S>(initialState: S | (() => S)): [S, Dispatch<SetStateAct
 
   const [state, setState] = useState(initialStateMemo);
 
-  const resetState = useMemoizedFn(() => {
+  const resetState = usePersistFn(() => {
     setState(initialStateMemo);
   });
 
