@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import isFunction from 'lodash/isFunction';
-import usePersistFn from './usePersistFn';
+import { usePersistFn } from './usePersistFn';
 import useCreation from './useCreation';
 
 type ResetState = () => void;
