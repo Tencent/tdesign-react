@@ -10,6 +10,7 @@ import {
   PrimaryTableCellParams,
   TableExpandedRowParams,
   RowEventContext,
+  RowClassNameParams,
 } from '../type';
 import useClassName from './useClassName';
 import useControlled from '../../hooks/useControlled';
@@ -29,21 +30,19 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     defaultExpandedRowKeys: props.defaultExpandedRowKeys || [],
   });
 
-  // 用于在可展开收起的场景给各行添加类名使用，如果没有配置则不加相关类名
-  const innerExpandedRowKeys = props.expandedRowKeys || props.defaultExpandedRowKeys ? tExpandedRowKeys : undefined;
+  const showExpandedRow = Boolean(expandedRow);
 
   const getExpandedRowClass = useCallback(
-    (params) => {
-      if (!innerExpandedRowKeys) return null;
+    (params: RowClassNameParams<TableRowData>) => {
+      // 如果没有配置展开行，则不需要增加展开收起相关的类名
+      if (!showExpandedRow) return null;
       const { row } = params;
       const { rowKey } = row;
       const currentRowKey = get(row, rowKey || 'id');
       return tableExpandClasses[tExpandedRowKeys?.includes(currentRowKey) ? 'rowExpanded' : 'rowFolded'];
     },
-    [tExpandedRowKeys, innerExpandedRowKeys, tableExpandClasses],
+    [tExpandedRowKeys, tableExpandClasses, showExpandedRow],
   );
-
-  const showExpandedRow = Boolean(expandedRow);
 
   const showExpandIconColumn = props.expandIcon !== false && showExpandedRow;
 
@@ -131,7 +130,6 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     getExpandColumn,
     renderExpandedRow,
     onInnerExpandRowClick,
-    innerExpandedRowKeys,
     getExpandedRowClass,
   };
 }

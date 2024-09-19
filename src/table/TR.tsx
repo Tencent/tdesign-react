@@ -113,6 +113,7 @@ export default function TR(props: TrProps) {
     }
     // eslint-disable-next-line
   }, [virtualConfig.isVirtualScroll, trRef, row]);
+
   const columnVNodeList = props.columns?.map((col, colIndex) => {
     const cellSpans: RowspanColspan = {};
     const params = {

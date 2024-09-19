@@ -40,7 +40,7 @@ export const primaryTableDefaultProps: Pick<
   columnControllerVisible: undefined,
   columns: [],
   expandIcon: true,
-  defaultExpandedRowKeys: undefined,
+  defaultExpandedRowKeys: [],
   multipleSort: false,
   reserveSelectedRowOnPaginate: true,
   defaultSelectedRowKeys: [],
