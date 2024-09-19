@@ -30,12 +30,14 @@ const LinearGradient = (props) => {
   const [selectedId, setSelectedId] = useState(props.color.gradientSelectedId);
   const selectedRef = useRef(props.color.gradientSelectedId);
   const colors = useRef<GradientColorPoint[]>(cloneDeep(color.gradientColors));
+  const [colorsState, setColorsState] = useState<GradientColorPoint[]>(colors.current);
 
   useEffect(() => {
     degree.current = color?.gradientDegree;
     setSelectedId(color.gradientSelectedId);
     selectedRef.current = color.gradientSelectedId;
     colors.current = cloneDeep(color.gradientColors);
+    setColorsState(colors.current);
   }, [color.gradientColors, color?.gradientDegree, color.gradientSelectedId, color.value, color.saturation]);
 
   const updateSliderRect = () => {
@@ -83,6 +85,7 @@ const LinearGradient = (props) => {
         return;
       }
       colors.current = value;
+      setColorsState(value);
       handleChange('colors', value, isEnded);
     },
     [props.disabled, handleChange],
@@ -228,7 +231,7 @@ const LinearGradient = (props) => {
     e.stopPropagation();
   };
 
-  const allGradientColors = [...colors.current];
+  const allGradientColors = [...colorsState];
   const { color: leftColor } = genGradientPoint(0, allGradientColors[0]?.color);
   const { color: rightColor } = genGradientPoint(100, allGradientColors[allGradientColors.length - 1]?.color);
 
@@ -253,7 +256,7 @@ const LinearGradient = (props) => {
               background: thumbBackground,
             }}
           >
-            {colors.current.map((t) => {
+            {colorsState.map((t) => {
               const left = `${Math.round(t.left * 100) / 100}%`;
               return (
                 <li
