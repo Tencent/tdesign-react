@@ -27,10 +27,6 @@ export interface BaseTableProps<T extends TableRowData = TableRowData> extends T
    * 表头是否可拖拽。非公开属性，请勿在业务中使用
    */
   thDraggable?: boolean;
-  /**
-   * 当前展开行的 key 的数组。非公开属性，请勿在业务中使用
-   */
-  expandedRowKeys?: (string | number)[];
 }
 
 /**

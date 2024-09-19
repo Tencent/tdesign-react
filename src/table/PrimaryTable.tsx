@@ -37,7 +37,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   const { tDisplayColumns, renderColumnController } = useColumnController(props, { onColumnReduce });
   // 展开/收起行功能
   const {
-    innerExpandedRowKeys,
     showExpandedRow,
     showExpandIconColumn,
     getExpandColumn,
@@ -278,7 +277,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
       className={classNames(primaryTableClasses, className)}
       style={style}
       onLeafColumnsChange={setDragSortColumns}
-      expandedRowKeys={innerExpandedRowKeys}
     />
   );
 });

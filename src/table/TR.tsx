@@ -5,7 +5,7 @@ import { formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
-import { TableRowData, RowspanColspan } from './type';
+import { TableRowData, RowspanColspan, TdBaseTableProps } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
 import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 import Cell from './Cell';
@@ -13,9 +13,7 @@ import { PaginationProps } from '../pagination';
 import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import { InfinityScroll } from '../common';
 
-import type { BaseTableProps } from './interface';
-
-export type TrCommonProps = Pick<BaseTableProps, TrPropsKeys>;
+export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 
 export const TABLE_PROPS = [
   'rowKey',
@@ -35,7 +33,6 @@ export const TABLE_PROPS = [
   'onRowMouseenter',
   'onRowMouseleave',
   'onRowMouseup',
-  'expandedRowKeys',
 ] as const;
 
 export type TrPropsKeys = (typeof TABLE_PROPS)[number];
