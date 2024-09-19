@@ -43,6 +43,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     getExpandColumn,
     renderExpandedRow,
     onInnerExpandRowClick,
+    getExpandedRowClass,
   } = useRowExpand(props);
   // 排序功能
   const { renderSortIcon } = useSorter(props);
@@ -81,7 +82,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
 
   // 如果想给 TR 添加类名，请在这里补充，不要透传更多额外 Props 到 BaseTable
   const tRowClassNames = (() => {
-    const tClassNames = [props.rowClassName, selectedRowClassNames];
+    const tClassNames = [props.rowClassName, selectedRowClassNames, getExpandedRowClass];
     return tClassNames.filter((v) => v);
   })();
 

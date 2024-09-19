@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactNode } from 'react';
+import React, { MouseEvent, ReactNode, useCallback } from 'react';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -31,6 +31,17 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
 
   // 用于在可展开收起的场景给各行添加类名使用，如果没有配置则不加相关类名
   const innerExpandedRowKeys = props.expandedRowKeys || props.defaultExpandedRowKeys ? tExpandedRowKeys : undefined;
+
+  const getExpandedRowClass = useCallback(
+    (params) => {
+      if (!innerExpandedRowKeys) return null;
+      const { row } = params;
+      const { rowKey } = row;
+      const currentRowKey = get(row, rowKey || 'id');
+      return tableExpandClasses[tExpandedRowKeys?.includes(currentRowKey) ? 'rowExpanded' : 'rowFolded'];
+    },
+    [tExpandedRowKeys, innerExpandedRowKeys, tableExpandClasses],
+  );
 
   const showExpandedRow = Boolean(expandedRow);
 
@@ -121,5 +132,6 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     renderExpandedRow,
     onInnerExpandRowClick,
     innerExpandedRowKeys,
+    getExpandedRowClass,
   };
 }

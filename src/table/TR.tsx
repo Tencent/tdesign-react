@@ -79,7 +79,6 @@ export default function TR(props: TrProps) {
     rowAndColFixedPosition,
     virtualConfig,
     onRowMounted,
-    expandedRowKeys,
   } = props;
 
   const trRef = useRef<HTMLTableRowElement>();
@@ -100,17 +99,10 @@ export default function TR(props: TrProps) {
     [row, rowAttributes, rowIndex],
   );
 
-  const currentRowKey = useMemo(() => get(row, rowKey || 'id'), [row, rowKey]);
-
   const classes = useMemo(() => {
     const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, type: 'body' }, rowKey || 'id');
-    if (!expandedRowKeys) return [trStyles?.classes, customClasses];
-    return [
-      trStyles?.classes,
-      classNames.tableExpandClasses[expandedRowKeys?.includes(currentRowKey) ? 'rowExpanded' : 'rowFolded'],
-      customClasses,
-    ];
-  }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes, currentRowKey, classNames, expandedRowKeys]);
+    return [trStyles?.classes, customClasses];
+  }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes]);
 
   const useLazyLoadParams = useMemo(() => ({ ...scroll, rowIndex }), [scroll, rowIndex]);
   const { hasLazyLoadHolder, tRowHeight } = useLazyLoad(tableContentRef.current, trRef, useLazyLoadParams);
