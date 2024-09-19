@@ -21,6 +21,7 @@ const docsMap = {
 
 const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
 const currentVersion = packageJson.version.replace(/\./g, '_');
+const langConfig = getLang() === 'en' ? enConfig : zhConfig;
 
 const docRoutes = [...getRoute(siteConfig.docs, []), ...getRoute(siteConfig.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
@@ -50,7 +51,7 @@ function Components() {
   const tdDocSearch = useRef();
 
   const [version] = useState(currentVersion);
-  const [globalConfig, setGlobalConfig] = useState({});
+  const [globalConfig] = useState(getLang() === 'en' ? enConfig : zhConfig);
 
   function initHistoryVersions() {
     fetch(registryUrl)
@@ -96,8 +97,7 @@ function Components() {
 
     initHistoryVersions();
 
-    setGlobalConfig(getLang() === 'en' ? enConfig : zhConfig);
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     document.querySelector('td-stats')?.track?.();
