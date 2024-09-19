@@ -21,7 +21,6 @@ const docsMap = {
 
 const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
 const currentVersion = packageJson.version.replace(/\./g, '_');
-const langConfig = getLang() === 'en' ? enConfig : zhConfig;
 
 const docRoutes = [...getRoute(siteConfig.docs, []), ...getRoute(siteConfig.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
