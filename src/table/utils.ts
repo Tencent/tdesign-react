@@ -61,7 +61,7 @@ export function formatRowClassNames(
   let customClasses: ClassName = [];
   for (let i = 0, len = rowClassList.length; i < len; i++) {
     const rName = rowClassList[i];
-    let tClass = isFunction(rName) ? rName({ ...params, rowKey }) : rName;
+    let tClass = isFunction(rName) ? rName(params) : rName;
     if (isObject(tClass) && !(tClass instanceof Array)) {
       // 根据下标设置行类名
       tClass[rowIndex] && (tClass = tClass[rowIndex]);

@@ -963,7 +963,7 @@ export type TableRowAttributes<T> =
 export interface RowClassNameParams<T> {
   row: T;
   rowIndex: number;
-  rowKey: string;
+  rowKey?: string;
   type?: 'body' | 'foot';
 }
 
