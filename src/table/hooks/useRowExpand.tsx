@@ -36,8 +36,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     (params: RowClassNameParams<TableRowData>) => {
       // 如果没有配置展开行，则不需要增加展开收起相关的类名
       if (!showExpandedRow) return null;
-      const { row } = params;
-      const { rowKey } = row;
+      const { row, rowKey } = params;
       const currentRowKey = get(row, rowKey || 'id');
       return tableExpandClasses[tExpandedRowKeys?.includes(currentRowKey) ? 'rowExpanded' : 'rowFolded'];
     },
