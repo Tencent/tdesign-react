@@ -260,7 +260,7 @@ const TreeItem = forwardRef(
             name={String(node.value)}
             onChange={(checked, ctx) => onChange(node, ctx)}
             className={labelClasses}
-            stopLabelTrigger={!!node.children}
+            stopLabelTrigger={expandOnClickNode && !!node.children}
             {...checkProps}
           >
             <span date-target="label">{labelText}</span>
