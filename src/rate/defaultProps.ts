@@ -6,6 +6,7 @@ import { TdRateProps } from './type';
 
 export const rateDefaultProps: TdRateProps = {
   allowHalf: false,
+  clearable: false,
   color: '#ED7B2F',
   count: 5,
   disabled: undefined,

@@ -9,6 +9,7 @@ name | type | default | description | required
 className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 allowHalf | Boolean | false | \- | N
+clearable | Boolean | false | \- | N
 color | String / Array | '#ED7B2F' | Typescript：`string \| Array<string>` | N
 count | Number | 5 | \- | N
 disabled | Boolean | undefined | \- | N
