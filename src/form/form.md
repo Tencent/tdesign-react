@@ -2,15 +2,21 @@
 
 ### 复杂嵌套数据结构表单
 
-可给 `name` 传入数组整理成对象嵌套数据结构
+可给 `name` 传入数组整理成对象嵌套数据结构。
 
 {{ nested-data }}
 
 ### 动态增减嵌套表单
 
-可使用 `Form.FormList` 组件创建动态表单
+可使用 `Form.FormList` 组件创建动态表单。
 
 {{ form-list }}
+
+### 自定义表单控件
+
+可以使用 `Form.FormItem` 包裹自定义组件并在组件中接受 `value` 和 `onChange` 的入参，实现自定义表单控件。
+
+{{ customized-form-controls }}
 
 ## Hooks
 
