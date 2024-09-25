@@ -9,6 +9,7 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowHalf | Boolean | false | 是否允许半选 | N
+clearable | Boolean | false | 是否允许清除评分，如果允许，重新点击当前评分清除 | N
 color | String / Array | '#ED7B2F' | 评分图标的颜色，样式中默认为 #ED7B2F。一个值表示设置选中高亮的五角星颜色，示例：[选中颜色]。数组则表示分别设置 选中高亮的五角星颜色 和 未选中暗灰的五角星颜色，[选中颜色，未选中颜色]。示例：['#ED7B2F', '#E3E6EB']。TS 类型：`string \| Array<string>` | N
 count | Number | 5 | 评分的数量 | N
 disabled | Boolean | undefined | 是否禁用评分 | N
