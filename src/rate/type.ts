@@ -13,7 +13,7 @@ export interface TdRateProps {
    */
   allowHalf?: boolean;
   /**
-   * 是否允许清除
+   * 是否允许清除评分，如果允许，重新点击当前评分清除
    * @default false
    */
   clearable?: boolean;
