@@ -1,6 +1,9 @@
 export default {
   strategies: 'injectManifest',
-  includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png'],  
+  includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png'], 
+  injectManifest: {
+    maximumFileSizeToCacheInBytes: 5000000
+  }, 
   manifest: {
     name: 'TDesign for React',
     short_name: 'TDesign',
