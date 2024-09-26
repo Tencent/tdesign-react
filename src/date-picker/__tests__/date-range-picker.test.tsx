@@ -35,6 +35,14 @@ describe('DateRangePicker', () => {
     expect((inputElement as HTMLInputElement).disabled).toBe(true);
   });
 
+  test('label', async () => {
+    const label = 'test-label';
+    const { container } = render(<DateRangePicker label={label} />);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
+  });
+
   it('enableTimePicker', async () => {
     const { container } = render(<DateRangePicker enableTimePicker={true} />);
     act(() => {

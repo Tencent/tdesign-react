@@ -36,6 +36,13 @@ describe('Timepicker 组件测试', () => {
     });
   });
 
+  test('props.valueDisplay works fine', async () => {
+    const value = '00:10:20';
+    const valueDisplay = `test-${value}`;
+    const { queryByText } = render(<TimePicker defaultValue={value} valueDisplay={valueDisplay}></TimePicker>);
+    expect(queryByText(valueDisplay)).toBeTruthy();
+  });
+
   test('props.defaultValue works fine', async () => {
     const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
     expect(container.querySelectorAll('input').length).toBe(1);
@@ -47,6 +54,22 @@ describe('Timepicker 组件测试', () => {
       expect(scrollPanels.item(1).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('10');
       expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
     });
+  });
+
+  test('props.label for TimePicker  works fine', async () => {
+    const label = 'abc';
+    const { container } = render(<TimePicker label={label}></TimePicker>);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
+  });
+
+  test('props.label for TimeRangePicker  works fine', async () => {
+    const label = 'abc';
+    const { container } = render(<TimePicker.TimeRangePicker label={label}></TimePicker.TimeRangePicker>);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
   });
 
   test('props.defaultValue for TimePicker works fine', async () => {

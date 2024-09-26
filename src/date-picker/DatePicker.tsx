@@ -14,6 +14,7 @@ import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
+import { parseContentTNode } from '../_util/parseTNode';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -35,6 +36,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     timePickerProps,
     presetsPlacement,
     needConfirm,
+    selectInputProps,
+    label,
     onPick,
   } = props;
 
@@ -83,6 +86,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       }
     }
   });
+  // render valueDisplay
+  const renderValueDisplay = () => {
+    if (typeof props.valueDisplay === 'string') return props.valueDisplay;
+
+    const valueDisplayParams = { value, displayValue: inputValue };
+    return parseContentTNode(props.valueDisplay, valueDisplayParams);
+  };
 
   useUpdateEffect(() => {
     //  日期时间选择器不需要点击确认按钮完成的操作
@@ -256,12 +266,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       <SelectInput
         disabled={disabled}
         value={inputValue}
+        label={label}
         status={props.status}
         tips={props.tips}
         borderless={props.borderless}
         popupProps={popupProps}
         inputProps={inputProps}
         popupVisible={popupVisible}
+        valueDisplay={renderValueDisplay()}
+        {...selectInputProps}
         panel={<SinglePanel {...panelProps} />}
       />
     </div>

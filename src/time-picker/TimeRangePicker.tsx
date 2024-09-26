@@ -41,6 +41,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
     placeholder = TEXT_CONFIG.rangePlaceholder,
     size,
     steps,
+    label,
     disableTime,
     onBlur = noop,
     onFocus = noop,
@@ -165,6 +166,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
     <div className={classNames(name, className)} style={style}>
       <RangeInputPopup
         style={style}
+        label={label}
         disabled={disabled}
         popupVisible={isPanelShowed}
         onPopupVisibleChange={handleShowPopup}

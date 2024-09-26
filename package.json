@@ -52,6 +52,7 @@
     "test:ui": "vitest --ui",
     "test:snap": "cross-env NODE_ENV=test-snap vitest run",
     "test:snap-update": "cross-env NODE_ENV=test-snap vitest run -u",
+    "test:unit": "vitest run",
     "test:update": "vitest run -u && npm run test:snap-update",
     "test:coverage": "vitest run --coverage",
     "prebuild": "rimraf es/* lib/* dist/* esm/*",

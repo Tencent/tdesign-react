@@ -6,6 +6,7 @@
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
+import { SelectInputProps } from '../select-input';
 import { SelectInputBlurContext } from '../select-input';
 import { RangeInputProps } from '../range-input';
 import { TNode } from '../common';
@@ -55,6 +56,10 @@ export interface TdTimePickerProps {
    */
   inputProps?: InputProps;
   /**
+   * 左侧文本
+   */
+  label?: TNode;
+  /**
    * 占位符
    */
   placeholder?: string;
@@ -66,6 +71,10 @@ export interface TdTimePickerProps {
    * 预设快捷时间选择，示例：`{ '前一小时': '11:00:00' }`
    */
   presets?: PresetTime;
+  /**
+   * 透传 SelectInput 筛选器输入框组件的全部属性
+   */
+  selectInputProps?: SelectInputProps;
   /**
    * 尺寸
    * @default medium
@@ -95,6 +104,10 @@ export interface TdTimePickerProps {
    * @default ''
    */
   defaultValue?: TimePickerValue;
+  /**
+   * 自定义选中项呈现的内容
+   */
+  valueDisplay?: string | TNode<{ value: TimePickerValue }>;
   /**
    * 当输入框失去焦点时触发，value 表示组件当前有效值
    */
@@ -165,6 +178,10 @@ export interface TdTimeRangePickerProps {
    * @default true
    */
   hideDisabledTime?: boolean;
+  /**
+   * 左侧文本
+   */
+  label?: TNode;
   /**
    * 占位符，值为数组表示可分别为开始日期和结束日期设置占位符
    */
