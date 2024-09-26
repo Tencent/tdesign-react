@@ -295,7 +295,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           data={data}
           disabled={disabled}
           empty={empty}
-          expandOnClickNode={true}
+          expandOnClickNode={false}
           allowFoldNodeOnFilter
           keys={tKeys}
           {...(multiple

@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactNode } from 'react';
+import React, { MouseEvent, ReactNode, useCallback } from 'react';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -10,6 +10,7 @@ import {
   PrimaryTableCellParams,
   TableExpandedRowParams,
   RowEventContext,
+  RowClassNameParams,
 } from '../type';
 import useClassName from './useClassName';
 import useControlled from '../../hooks/useControlled';
@@ -30,6 +31,17 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
   });
 
   const showExpandedRow = Boolean(expandedRow);
+
+  const getExpandedRowClass = useCallback(
+    (params: RowClassNameParams<TableRowData>) => {
+      // 如果没有配置展开行，则不需要增加展开收起相关的类名
+      if (!showExpandedRow) return null;
+      const { row, rowKey } = params;
+      const currentRowKey = get(row, rowKey || 'id');
+      return tableExpandClasses[tExpandedRowKeys?.includes(currentRowKey) ? 'rowExpanded' : 'rowFolded'];
+    },
+    [tExpandedRowKeys, tableExpandClasses, showExpandedRow],
+  );
 
   const showExpandIconColumn = props.expandIcon !== false && showExpandedRow;
 
@@ -117,5 +129,6 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     getExpandColumn,
     renderExpandedRow,
     onInnerExpandRowClick,
+    getExpandedRowClass,
   };
 }

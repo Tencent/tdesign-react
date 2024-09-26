@@ -108,6 +108,8 @@ export default function useClassName() {
       tableExpandClasses: {
         iconBox: `${classPrefix}-table__expand-box`,
         iconCell: `${classPrefix}-table__expandable-icon-cell`,
+        rowExpanded: `${classPrefix}-table__row--expanded`,
+        rowFolded: `${classPrefix}-table__row--folded`,
         row: `${classPrefix}-table__expanded-row`,
         rowInner: `${classPrefix}-table__expanded-row-inner`,
         expanded: `${classPrefix}-table__row--expanded`,

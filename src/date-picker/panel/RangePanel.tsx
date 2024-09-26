@@ -165,7 +165,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
               partial={'start'}
               year={startYear}
               month={startMonth}
-              time={time[0]}
+              time={time[activeIndex]}
               tableData={startTableData}
               value={value}
               {...panelContentProps}
@@ -175,7 +175,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
               partial={'end'}
               year={endYear}
               month={endMonth}
-              time={time[1]}
+              time={time[activeIndex]}
               value={value}
               tableData={endTableData}
               {...panelContentProps}
