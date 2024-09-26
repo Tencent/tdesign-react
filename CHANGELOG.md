@@ -5,6 +5,24 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.9.1 `2024-09-26` 
+### 🚀 Features
+- `ImageViewer`: 优化图片预览旋转的重置效果 @sylsaint ([#3108](https://github.com/Tencent/tdesign-react/pull/3108))
+- `Table`: 可展开收起场景下新增 `t-table__row--expanded` 和 `t-table__row--folded` 用于区分展开和收起的行 @uyarn ([#3099](https://github.com/Tencent/tdesign-react/pull/3099))
+- `TimePicker`: 支持时间区间选择器自动调整左右区间 @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
+- `Rate`: 新增`clearable` API，用于清空评分 @HaixingOoO ([#3114](https://github.com/Tencent/tdesign-react/pull/3114))
+### 🐞 Bug Fixes
+- `Dropdown`: 修复设置`panelTopContent`后子菜单`top`计算错误的问题 @moecasts ([#3106](https://github.com/Tencent/tdesign-react/pull/3106))
+- `TreeSelect`: 修改多选状态下默认点击父节点选项的行为为选中，如果需要点击展开，请配置`treeProps.expandOnClickNode` @HaixingOoO ([#3111](https://github.com/Tencent/tdesign-react/pull/3111))
+- `Menu`: 修复二级菜单展开收起状态没有关联右侧箭头变化的问题 @uyarn ([#3110](https://github.com/Tencent/tdesign-react/pull/3110))
+- `DateRangePicker`: 修复日期区间选择器配置时间相关格式时，没有正确处理`defaultTime`的问题 @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
+- `DatePicker`: 修复周选择器下，年份边界日期返回格式错误的问题 @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
+- `ColorPicker`: 修复部分场景下子组件存在重复渲染的异常问题 @uyarn ([#3118](https://github.com/Tencent/tdesign-react/pull/3118))
+- `ColorPicker`: 修复渐变模式下，明度滑块和渐变滑块颜色不联动的问题 @huangchen1031  ([#3109](https://github.com/Tencent/tdesign-react/pull/3109))
+### 🚧 Others
+- `Site`: 站点切换语言时组件跟随切换语言 @RSS1102 ([#3100](https://github.com/Tencent/tdesign-react/pull/3100))
+- `Form`: 新增自定义表单控件的文档说明和示例 @miownag  ([#3112](https://github.com/Tencent/tdesign-react/pull/3112))
+
 ## 🌈 1.9.0 `2024-09-12` 
 
 ### 🚀 Features
