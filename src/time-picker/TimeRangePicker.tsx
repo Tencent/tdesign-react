@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import isArray from 'lodash/isArray';
@@ -109,6 +110,16 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
     handleOnPick(nextCurrentValue, context);
   };
 
+  const autoSwapTime = (valueBeforeConfirm: Array<string>) => {
+    const [startTime, endTime] = valueBeforeConfirm;
+    const startDayjs = dayjs(startTime, props.format);
+    const endDayjs = dayjs(endTime, props.format);
+
+    if (startDayjs.isAfter(endDayjs, 'second')) return [endTime, startTime];
+
+    return [startTime, endTime];
+  };
+
   const handleInputBlur = (value: TimeRangeValue, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
     if (allowInput) {
       const isValidTime = validateInputValue(currentValue[currentPanelIdx], format);
@@ -132,7 +143,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
 
   const handleClickConfirm = () => {
     const isValidTime = !currentValue.find((v) => !validateInputValue(v, format));
-    if (isValidTime) onChange(currentValue);
+    if (isValidTime) onChange(autoSwapTime(currentValue));
     setPanelShow(false);
   };
 
