@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, isValidElement, useCallback, useMemo } from 'react';
-import { isFragment } from 'react-is';
+import React, { useRef, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { supportRef, getRefDom } from '../utils/ref';
 import composeRefs from '../../_util/composeRefs';
@@ -11,7 +10,6 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   const hasPopupMouseDown = useRef(false);
   const mouseDownTimer = useRef(0);
   const visibleTimer = useRef(null);
-  const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
   const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
@@ -183,9 +181,6 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
     if (supportRef(triggerNode)) {
       triggerProps.ref = composeRefs(triggerRef, (triggerNode as any).ref);
-    } else {
-      // 标记 trigger 元素
-      triggerProps['data-popup'] = triggerDataKey.current;
     }
 
     return triggerProps;
@@ -193,21 +188,12 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
   // 整理 trigger 元素
   function getTriggerNode(children: React.ReactNode) {
-    const triggerNode =
-      isValidElement(children) && !isFragment(children) ? children : <span className="t-trigger">{children}</span>;
-
+    const triggerNode = <span className="t-trigger">{children}</span>;
     return React.cloneElement(triggerNode, getTriggerProps(triggerNode));
   }
-
-  // ref 透传失败时使用 dom 查找
-  const getTriggerDom = useCallback(() => {
-    if (typeof document === 'undefined') return {};
-    return document.querySelector(`[data-popup="${triggerDataKey.current}"]`);
-  }, []);
 
   return {
     getTriggerNode,
     getPopupProps,
-    getTriggerDom,
   };
 }
