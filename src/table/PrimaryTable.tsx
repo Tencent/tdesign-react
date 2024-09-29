@@ -30,7 +30,6 @@ export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
   const props = useDefaultProps<TPrimaryTableProps>(originalProps, primaryTableDefaultProps);
   const { columns, columnController, editableRowKeys, style, className, expandIconIndex } = props;
-  console.log('expandIconIndex', expandIconIndex);
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
   const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
