@@ -431,6 +431,10 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   expandIcon?: boolean | TNode<ExpandArrowRenderParams<T>>;
   /**
+   * 配置expandIcon的显示位置
+   */
+  expandIconIndex?: number;
+  /**
    * 是否允许点击行展开
    */
   expandOnRowClick?: boolean;

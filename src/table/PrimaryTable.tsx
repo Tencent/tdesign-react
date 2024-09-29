@@ -1,6 +1,7 @@
 import React, { useRef, forwardRef, useImperativeHandle, ReactNode, RefAttributes } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
+import { isNumber } from 'lodash';
 import BaseTable from './BaseTable';
 import useColumnController from './hooks/useColumnController';
 import useRowExpand from './hooks/useRowExpand';
@@ -28,7 +29,8 @@ export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
 const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
   const props = useDefaultProps<TPrimaryTableProps>(originalProps, primaryTableDefaultProps);
-  const { columns, columnController, editableRowKeys, style, className } = props;
+  const { columns, columnController, editableRowKeys, style, className, expandIconIndex } = props;
+  console.log('expandIconIndex', expandIconIndex);
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
   const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
@@ -182,7 +184,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   const tColumns = (() => {
     const cols = getColumns(columns);
     if (showExpandIconColumn) {
-      cols.unshift(getExpandColumn());
+      const iconColumns = getExpandColumn();
+      if (isNumber(expandIconIndex)) {
+        cols.splice(expandIconIndex, 0, iconColumns);
+        return cols;
+      }
+      cols.unshift(iconColumns);
     }
     return cols;
   })();
