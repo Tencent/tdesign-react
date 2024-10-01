@@ -219,6 +219,6 @@
     "tdesign-icons-react": "^0.3.4",
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
-    "validator": "~13.7.0"
+    "validator": "~13.12.0"
   }
 }
