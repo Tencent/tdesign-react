@@ -55,6 +55,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     resizable,
     lazyLoad,
     pagination,
+    isStatic = false,
   } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
@@ -69,7 +70,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
-    [spansAndLeafNodes?.leafColumns, columns],
+    isStatic ? [] : [spansAndLeafNodes?.leafColumns, columns],
   );
 
   const { showElement } = useElementLazyRender(tableRef, lazyLoad);
