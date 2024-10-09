@@ -1,7 +1,7 @@
 import React, { useRef, forwardRef, useImperativeHandle, ReactNode, RefAttributes } from 'react';
 import get from 'lodash/get';
 import classNames from 'classnames';
-import { isNumber } from 'lodash';
+import isNumber from 'lodash/isNumber';
 import BaseTable from './BaseTable';
 import useColumnController from './hooks/useColumnController';
 import useRowExpand from './hooks/useRowExpand';
