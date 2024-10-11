@@ -672,6 +672,14 @@ export const docs = [
         component: () => import('tdesign-react/popup/popup.md'),
         componentEn: () => import('tdesign-react/popup/popup.en-US.md'),
       },
+      {
+        title: 'Chat',
+        titleEn: 'Chat',
+        name: 'chat',
+        path: '/react/components/chat',
+        component: () => import('tdesign-react/chat/chat.md'),
+        componentEn: () => import('tdesign-react/chat/chat.en-US.md'),
+      },
     ],
   },
 ];
