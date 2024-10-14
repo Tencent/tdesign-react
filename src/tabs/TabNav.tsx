@@ -190,7 +190,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // TabBar 组件逻辑层抽象，卡片类型时无需展示，故将逻辑整合到此处
   const TabBarCom = isCard ? null : (
-    <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navsWrapRef} />
+    <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navsWrapRef} navsWrapRef={navsWrapRef} />
   );
 
   const handleTabItemRemove = (removeItem) => {
