@@ -62,7 +62,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     form,
     colon,
     layout,
-    initialData: FromContextInitialData,
+    initialData: FormContextInitialData,
     requiredMark: requiredMarkFromContext,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
@@ -118,7 +118,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       formListName,
       children,
       initialData,
-      FromContextInitialData,
+      FormContextInitialData,
       FormListInitialData,
     }),
   );
@@ -329,7 +329,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         formListName,
         children,
         initialData,
-        FromContextInitialData,
+        FormContextInitialData,
         FormListInitialData,
       });
     }

@@ -34,15 +34,15 @@ export function getDefaultInitialData({
   formListName,
   children,
   initialData,
-  FromContextInitialData,
+  FormContextInitialData,
   FormListInitialData,
 }) {
   let defaultInitialData;
-  if (FromContextInitialData) {
-    if (typeof name === 'string') defaultInitialData = get(FromContextInitialData, name);
+  if (FormContextInitialData) {
+    if (typeof name === 'string') defaultInitialData = get(FormContextInitialData, name);
     if (Array.isArray(name)) {
       const nameList = formListName ? [formListName, ...name] : name;
-      defaultInitialData = get(FromContextInitialData, nameList);
+      defaultInitialData = get(FormContextInitialData, nameList);
     }
   }
   if (FormListInitialData.length) {
