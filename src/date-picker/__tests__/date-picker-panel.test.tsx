@@ -1,20 +1,18 @@
-import MockDate from 'mockdate';
 import React from 'react';
 import dayjs from 'dayjs';
 
 import { render, vi, fireEvent } from '@test/utils';
 
 import { DatePickerPanel } from '..';
-// 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
-MockDate.set('2023-09-01');
 
 describe('DatePickerPanel', () => {
   beforeEach(() => {
-    MockDate.set('2023-09-01');
+    const mockDate = new Date(2023, 8, 1);
+    vi.setSystemTime(mockDate);
   });
 
   afterEach(() => {
-    MockDate.reset();
+    vi.useRealTimers();
   });
 
   test('value props', async () => {

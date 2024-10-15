@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Button from 'tdesign-react/button';
 import 'tdesign-react/style/index.js';
 
-const demoFiles = import.meta.globEager('../../../src/**/_example/*.jsx');
+const demoFiles = import.meta.glob('../../../src/**/_example/*.jsx', { eager: true });
 const demoObject = {};
 const componentList = new Set();
 Object.keys(demoFiles).forEach((key) => {

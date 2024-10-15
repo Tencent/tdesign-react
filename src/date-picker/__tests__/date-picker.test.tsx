@@ -1,4 +1,3 @@
-import MockDate from 'mockdate';
 import React from 'react';
 import dayjs from 'dayjs';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
@@ -7,16 +6,15 @@ import { render, fireEvent, waitFor, vi } from '@test/utils';
 
 import DatePicker from '..';
 import type { DateValue } from '../type';
-// 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
-MockDate.set('2022-08-27');
 
 describe('DatePicker', () => {
   beforeEach(() => {
-    MockDate.set('2022-08-27');
+    const mockDate = new Date(2022, 7, 27);
+    vi.setSystemTime(mockDate);
   });
 
   afterEach(() => {
-    MockDate.reset();
+    vi.useRealTimers();
   });
 
   test('clearable', async () => {
