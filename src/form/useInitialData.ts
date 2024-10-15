@@ -1,5 +1,6 @@
 import React from 'react';
 import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
 
 // 兼容特殊数据结构和受控 key
 import Tree from '../tree/Tree';
@@ -12,6 +13,9 @@ import Transfer from '../transfer/Transfer';
 import CheckboxGroup from '../checkbox/CheckboxGroup';
 import DateRangePicker from '../date-picker/DateRangePicker';
 import TimeRangePicker from '../time-picker/TimeRangePicker';
+
+import { FormItemProps } from './FormItem';
+import { TdFormListProps, TdFormProps } from './type';
 
 // FormItem 子组件受控 key
 export const ctrlKeyMap = new Map();
@@ -36,12 +40,19 @@ export function getDefaultInitialData({
   initialData,
   FormContextInitialData,
   FormListInitialData,
+}: {
+  name: FormItemProps['name'];
+  formListName: TdFormListProps['name'];
+  children: FormItemProps['children'];
+  initialData: FormItemProps['initialData'];
+  FormContextInitialData: TdFormProps['initialData'];
+  FormListInitialData: TdFormListProps['initialData'];
 }) {
   let defaultInitialData;
   if (FormContextInitialData) {
     if (typeof name === 'string') defaultInitialData = get(FormContextInitialData, name);
     if (Array.isArray(name)) {
-      const nameList = formListName ? [formListName, ...name] : name;
+      const nameList = formListName ? [formListName, name].flat() : name;
       defaultInitialData = get(FormContextInitialData, nameList);
     }
   }
@@ -49,12 +60,16 @@ export function getDefaultInitialData({
     defaultInitialData = get(FormListInitialData, name);
   }
   if (typeof initialData !== 'undefined') defaultInitialData = initialData;
-  React.Children.forEach(children, (child) => {
-    if (child && React.isValidElement(child) && typeof defaultInitialData === 'undefined') {
-      // @ts-ignore
-      const isMultiple = child?.props?.multiple;
-      defaultInitialData = isMultiple ? [] : initialDataMap.get(child.type);
-    }
-  });
+
+  if (!isFunction(children)) {
+    React.Children.forEach(children, (child) => {
+      if (child && React.isValidElement(child) && typeof defaultInitialData === 'undefined') {
+        // @ts-ignore
+        const isMultiple = child?.props?.multiple;
+        defaultInitialData = isMultiple ? [] : initialDataMap.get(child.type);
+      }
+    });
+  }
+
   return defaultInitialData;
 }

@@ -32,7 +32,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
-  children?: React.ReactNode | ((form: FormInstanceFunctions) => React.ReactElement);
+  children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);
 }
 
 export interface FormItemInstance {

@@ -47,7 +47,7 @@ export const FormListContext = React.createContext<{
   name: NamePath;
   rules: TdFormListProps['rules'];
   formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
-  initialData: TdFormProps['initialData'];
+  initialData: TdFormListProps['initialData'];
 }>({
   name: undefined,
   rules: undefined,
