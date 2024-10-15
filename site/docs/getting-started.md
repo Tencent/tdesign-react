@@ -22,6 +22,7 @@ npm i tdesign-react
 <link rel="stylesheet" href="https://unpkg.com/tdesign-react/dist/tdesign.min.css" />
 <script src="https://unpkg.com/tdesign-react/dist/tdesign.min.js"></script>
 ```
+
 > 请注意，我们不推荐使用这种方式，这样无法实现按需加载等优化手段，生产项目会直接受版本更新影响，同时也可能受到 CDN 的稳定性的影响。
 
 npm package 中提供了多种构建产物，可以阅读 [这里](https://github.com/Tencent/tdesign/blob/main/docs/develop-install.md) 了解不同目录下产物的差别。
@@ -42,6 +43,8 @@ import 'tdesign-react/es/style/index.css'; // 少量公共样式
 更多 less 变量定义 [查看这里](https://github.com/Tencent/tdesign-common/blob/main/style/web/_variables.less)
 
 ```javascript
+'use client';
+
 import { Button } from 'tdesign-react/esm/';
 import 'tdesign-react/esm/style/index.js'; // 少量公共样式
 ```
