@@ -2,6 +2,7 @@ import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect,
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
+import unset from 'lodash/unset';
 import merge from 'lodash/merge';
 import isFunction from 'lodash/isFunction';
 import {
@@ -25,8 +26,8 @@ import { HOOK_MARK } from './hooks/useForm';
 import { validate as validateModal, parseMessage } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
+import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
 import { formItemDefaultProps } from './defaultProps';
-import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 import { ValidateStatus } from './const';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -62,7 +63,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     form,
     colon,
     layout,
-    initialData: FormContextInitialData,
     requiredMark: requiredMarkFromContext,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
@@ -76,12 +76,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const {
-    name: formListName,
-    rules: formListRules,
-    formListMapRef,
-    initialData: FormListInitialData,
-  } = useFormListContext();
+  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
+
+  const { getDefaultInitialData } = useFormItemInitialData();
 
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
@@ -115,13 +112,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [formValue, setFormValue] = useState(
     getDefaultInitialData({
       name,
-      formListName,
       children,
       initialData,
-      FormContextInitialData,
-      FormListInitialData,
     }),
   );
+  // 组件渲染后删除对应游离值
+  useEffect(() => {
+    const nameList = formListName ? [formListName, name].flat() : name;
+    unset(form.floatingFormData, nameList);
+  }, [form.floatingFormData, formListName, name]);
 
   const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
@@ -326,11 +325,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (resetType === 'initial') {
       return getDefaultInitialData({
         name,
-        formListName,
         children,
         initialData,
-        FormContextInitialData,
-        FormListInitialData,
       });
     }
 

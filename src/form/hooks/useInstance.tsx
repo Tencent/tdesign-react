@@ -1,6 +1,9 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import { useRef } from 'react';
 import type {
   TdFormProps,
   FormValidateResult,
@@ -10,7 +13,7 @@ import type {
   NamePath,
 } from '../type';
 import useConfig from '../../hooks/useConfig';
-import { getMapValue, travelMapFromObject, calcFieldValue } from '../utils';
+import { getMapValue, objectToArray, travelMapFromObject, calcFieldValue } from '../utils';
 import log from '../../_common/js/log';
 
 // 检测是否需要校验 默认全量校验
@@ -42,6 +45,7 @@ function formatValidateResult(validateResultList) {
 
 export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
   const { classPrefix } = useConfig();
+  const floatingFormDataRef = useRef<Record<any, any>>({});
 
   const { scrollToFirstError, preventSubmitDefault = true, onSubmit, onReset } = props;
 
@@ -139,8 +143,16 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
-    travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef?.current?.setValue?.(fieldValue, fields);
+    const nameLists = objectToArray(fields);
+
+    nameLists.forEach((nameList) => {
+      const fieldValue = get(fields, nameList);
+      const formItemRef = formMapRef.current.get(nameList.length > 1 ? nameList : nameList[0]);
+      if (formItemRef?.current) {
+        formItemRef?.current?.setValue?.(fieldValue, fields);
+      } else {
+        set(floatingFormDataRef.current, nameList, fieldValue);
+      }
     });
   }
 
@@ -198,6 +210,11 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     });
   }
 
+  // 对外方法，清空 floatingFormData
+  function clearFloatingFormData() {
+    floatingFormDataRef.current = {};
+  }
+
   return {
     submit,
     reset,
@@ -211,5 +228,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     getFieldsValue,
     currentElement: formRef.current,
     getCurrentElement: () => formRef.current,
+    floatingFormData: floatingFormDataRef.current,
+    clearFloatingFormData,
   };
 }

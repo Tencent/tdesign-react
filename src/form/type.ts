@@ -153,6 +153,14 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    * 纯净的校验函数，仅返回校验结果，不对组件进行任何操作。泛型 `FormData` 表示表单数据 TS 类型。参数和返回值含义同 `validate` 方法
    */
   validateOnly: (params?: Pick<FormValidateParams, 'fields' | 'trigger'>) => Promise<FormValidateResult<FormData>>;
+  /**
+   * 游离 formData，若调用 setFieldsValue 设置值对应的组件还没渲染，会暂存为游离值
+   */
+  floatingFormData?: Record<any, any>;
+  /**
+   * 重置游离 formData
+   */
+  clearFloatingFormData?: () => void;
 }
 
 export interface TdFormItemProps {
