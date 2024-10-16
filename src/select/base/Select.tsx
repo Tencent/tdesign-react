@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
+import { getOffsetTopToContainer } from '../../_util/helper';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
@@ -385,12 +386,16 @@ const Select = forwardRefWithStatics(
         const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
         // 小于0时不需要特殊处理，会被设为0
         const updateValue =
-          firstSelectedNode.offsetTop -
+          getOffsetTopToContainer(firstSelectedNode, content) -
           content.offsetTop -
           (content.clientHeight - firstSelectedNode.clientHeight) +
           elementBottomHeight;
-        // eslint-disable-next-line no-param-reassign
-        content.scrollTop = updateValue;
+
+        // 通过 setTimeout 确保组件渲染完成后再设置 scrollTop
+        setTimeout(() => {
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        });
       }
     };
 
