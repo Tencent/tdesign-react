@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.9.2 `2024-10-17` 
+### 🚀 Features
+- `TimePicker`: 新增 `autoSwap` API，支持`1.9.0` 版本之后仍可以保持选定的左右侧时间大小顺序 @uyarn ([#3146](https://github.com/Tencent/tdesign-react/pull/3146))
+### 🐞 Bug Fixes
+- `Tabs`: 修复`TabPanel` 的`label`改变时，激活的选项卡底部横线没更新 @HaixingOoO ([#3134](https://github.com/Tencent/tdesign-react/pull/3134))
+- `Drawer`: 修复打开 `drawer` 时页面抖动的问题 @RSS1102 ([#3141](https://github.com/Tencent/tdesign-react/pull/3141))
+- `Dialog`: 修复打开 `dialog` 时页面抖动的问题 @RSS1102 ([#3141](https://github.com/Tencent/tdesign-react/pull/3141))
+- `Select`: 修复使用 `OptionGroup `时无法自动定位到选中项问题 @moecasts ([#3139](https://github.com/Tencent/tdesign-react/pull/3139))
+### 🚧 Others
+- `Loading`: 优化 live demo 展示效果 @uyarn ([#3144](https://github.com/Tencent/tdesign-react/pull/3144))
+- `DatePicker`: 移除文档中错误的`value` 类型描述 @uyarn ([#3144](https://github.com/Tencent/tdesign-react/pull/3144))
+
 ## 🌈 1.9.1 `2024-09-26` 
 ### 🚀 Features
 - `ImageViewer`: 优化图片预览旋转的重置效果 @sylsaint ([#3108](https://github.com/Tencent/tdesign-react/pull/3108))
