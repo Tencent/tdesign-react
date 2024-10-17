@@ -53,7 +53,7 @@ export default function useFormItemInitialData() {
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }
 
-    if (initialData) {
+    if (typeof initialData !== 'undefined') {
       return initialData;
     }
 
