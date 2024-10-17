@@ -63,6 +63,14 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
     }, [form]);
 
+    // form 卸载时清空 floatingFormData
+    React.useEffect(
+      () => () => {
+        form.clearFloatingFormData();
+      },
+      [form],
+    );
+
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();

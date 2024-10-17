@@ -1,3 +1,8 @@
+import has from 'lodash/has';
+import get from 'lodash/get';
+import isObject from 'lodash/isObject';
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
 import type { NamePath } from '../type';
 
 // 获取 formMap 管理的数据
@@ -10,6 +15,26 @@ export function getMapValue(name: NamePath, formMapRef: React.MutableRefObject<M
   const key = mapKeys.find((key) => String(key) === String(name));
   // 拿到 key 引用地址获取 value
   return formMapRef.current.get(key);
+}
+
+// { user: { name: '' } } => [['user', 'name']]
+// 不处理数组类型
+// { user: [{ name: '' }]} => [['user']]
+export function objectToArray(obj: Record<string | number, any>) {
+  const result: (string | number)[][] = [];
+
+  function traverse(current: any, path: string[] = []) {
+    if (isObject(current) && !isArray(current) && !isEmpty(current)) {
+      Object.keys(current).forEach((key) => {
+        traverse(current[key], [...path, key]);
+      });
+    } else {
+      result.push(path);
+    }
+  }
+
+  traverse(obj);
+  return result;
 }
 
 // 将数据整理成对象，数组 name 转化嵌套对象: ['user', 'name'] => { user: { name: '' } }
@@ -26,36 +51,15 @@ export function calcFieldValue(name: NamePath, value: any) {
   return { [name]: value };
 }
 
-// 通过对象数据类型获取 map 引用: { user: { name: '' } } => formMap.get(['user', 'name'])
+// // 通过对象数据类型获取 map 引用: { user: { name: '' } } => formMap.get(['user', 'name'])
 export function travelMapFromObject(
   obj: Record<any, any>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
   callback: Function,
 ) {
   for (const [mapName, formItemRef] of formMapRef.current.entries()) {
-    // 支持嵌套数据结构
-    if (Array.isArray(mapName)) {
-      // 创建唯一临时变量 symbol
-      const symbol = Symbol('name');
-      let fieldValue = null;
-
-      for (let i = 0; i < mapName.length; i++) {
-        const item = mapName[i];
-        if (Reflect.has(fieldValue || obj, item)) {
-          fieldValue = Reflect.get(fieldValue || obj, item);
-        } else {
-          // 当反射无法获取到值则重置为 symbol
-          fieldValue = symbol;
-          break;
-        }
-      }
-
-      // 非 symbol 说明获取到了值
-      if (fieldValue !== symbol) {
-        callback(formItemRef, fieldValue);
-      }
-    } else if (Reflect.has(obj, mapName)) {
-      callback(formItemRef, obj[mapName]);
+    if (has(obj, mapName)) {
+      callback(formItemRef, get(obj, mapName));
     }
   }
 }
