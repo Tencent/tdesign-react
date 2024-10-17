@@ -716,6 +716,16 @@ module.exports = {
       const panelList = [{ label: 'loading', value: 'loading' }];
     `,
     usageStr: `
+      const { fullscreen } = changedProps;
+      useEffect(() => {
+        if (fullscreen) {
+          setTimeout(() => {
+            onConfigChange({ detail: { name: 'fullscreen', value: false } });
+        }, 2000);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [fullscreen]);
+      
       useEffect(() => {
         setRenderComp(<Loading {...changedProps} />);
       }, [changedProps]);
