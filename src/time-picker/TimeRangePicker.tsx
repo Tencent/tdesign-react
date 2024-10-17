@@ -143,7 +143,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
 
   const handleClickConfirm = () => {
     const isValidTime = !currentValue.find((v) => !validateInputValue(v, format));
-    if (isValidTime) onChange(autoSwapTime(currentValue));
+    if (isValidTime) onChange(props.autoSwap ? autoSwapTime(currentValue) : currentValue);
     setPanelShow(false);
   };
 
