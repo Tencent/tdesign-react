@@ -102,7 +102,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     [placement],
   );
 
-  const { getTriggerNode, getPopupProps, getTriggerDom } = useTrigger({
+  const { getTriggerNode, getPopupProps } = useTrigger({
     triggerRef,
     content,
     disabled,
@@ -140,11 +140,10 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
 
   // 下拉展开时更新内部滚动条
   useEffect(() => {
-    if (!triggerRef.current) triggerRef.current = getTriggerDom();
     if (visible) {
       updateScrollTop?.(contentRef.current);
     }
-  }, [visible, updateScrollTop, getTriggerDom]);
+  }, [visible, updateScrollTop]);
 
   function handleExited() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
