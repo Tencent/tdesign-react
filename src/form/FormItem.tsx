@@ -2,7 +2,6 @@ import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect,
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
-import unset from 'lodash/unset';
 import merge from 'lodash/merge';
 import isFunction from 'lodash/isFunction';
 import {
@@ -78,8 +77,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
   const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
 
-  const { getDefaultInitialData } = useFormItemInitialData();
-
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
@@ -102,6 +99,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
+  const { getDefaultInitialData } = useFormItemInitialData(name);
+
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
@@ -111,16 +110,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(
     getDefaultInitialData({
-      name,
       children,
       initialData,
     }),
   );
-  // 组件渲染后删除对应游离值
-  useEffect(() => {
-    const nameList = formListName ? [formListName, name].flat() : name;
-    unset(form.floatingFormData, nameList);
-  }, [form.floatingFormData, formListName, name]);
 
   const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
@@ -324,7 +317,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   function getResetValue(resetType: string): ValueType {
     if (resetType === 'initial') {
       return getDefaultInitialData({
-        name,
         children,
         initialData,
       });

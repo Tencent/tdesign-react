@@ -19,6 +19,7 @@ const FormContext = React.createContext<{
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
+  floatingFormDataRef: React.RefObject<Record<any, any>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   form: undefined,
@@ -37,6 +38,7 @@ const FormContext = React.createContext<{
   statusIcon: undefined,
   onFormItemValueChange: undefined,
   formMapRef: undefined,
+  floatingFormDataRef: undefined,
 });
 
 export const useFormContext = () => React.useContext(FormContext);

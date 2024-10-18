@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import get from 'lodash/get';
+import unset from 'lodash/unset';
+import isEmpty from 'lodash/isEmpty';
 
 // 兼容特殊数据结构和受控 key
 import Tree from '../../tree/Tree';
@@ -31,26 +33,36 @@ export const initialDataMap = new Map();
   initialDataMap.set(component, false);
 });
 
-export default function useFormItemInitialData() {
-  const { form, initialData: formContextInitialData } = useFormContext();
-  const { floatingFormData } = form;
+export default function useFormItemInitialData(name: FormItemProps['name']) {
+  let hadReadFloatingFormData = false;
+
+  const { floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
 
   const { name: formListName, initialData: formListInitialData } = useFormListContext();
 
+  // 组件渲染后删除对应游离值
+  useEffect(() => {
+    if (hadReadFloatingFormData) {
+      const nameList = formListName ? [formListName, name].flat() : name;
+      unset(floatingFormDataRef.current, nameList);
+    }
+  }, [hadReadFloatingFormData, floatingFormDataRef, formListName, name]);
+
   // 整理初始值 优先级：Form.initialData < FormList.initialData < FormItem.initialData < floatFormData
   function getDefaultInitialData({
-    name,
     children,
     initialData,
   }: {
-    name: FormItemProps['name'];
     children: FormItemProps['children'];
     initialData: FormItemProps['initialData'];
   }) {
-    if (name && floatingFormData) {
+    if (name && !isEmpty(floatingFormDataRef.current)) {
       const nameList = formListName ? [formListName, name].flat() : name;
-      const defaultInitialData = get(floatingFormData, nameList);
-      if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
+      const defaultInitialData = get(floatingFormDataRef.current, nameList);
+      if (typeof defaultInitialData !== 'undefined') {
+        hadReadFloatingFormData = true;
+        return defaultInitialData;
+      }
     }
 
     if (typeof initialData !== 'undefined') {
