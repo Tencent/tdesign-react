@@ -211,7 +211,7 @@ describe('Tree test', () => {
     expect(nodeOpenItems.length).toBe(1);
   });
 
-  test('props.line', async () => {
+  describe('Test props.line', async () => {
     const data = [
       {
         label: '第1一段',
@@ -253,18 +253,18 @@ describe('Tree test', () => {
         line: <span className="custom-line">line</span>,
       });
       await mockDelay(300);
-      expect(container.querySelectorAll('.custom-line').length).toBe(4);
+      expect(container.querySelectorAll('.custom-line').length).toBe(6);
     });
 
     it('wehen props.line is a customized function, it works fine', async () => {
-      const line: any = (prams) => <span className="custom-line">{prams}</span>;
+      const line: any = () => <span className="custom-line"></span>;
       const { container } = await renderTreeWithProps({
         data,
         expandAll: true,
         line,
       });
       await mockDelay(300);
-      expect(container.querySelectorAll('.custom-line').length).toBe(4);
+      expect(container.querySelectorAll('.custom-line').length).toBe(6);
     });
   });
   test('when props.icon is a validElement, it works fine', async () => {

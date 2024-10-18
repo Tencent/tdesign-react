@@ -225,14 +225,20 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   };
 
   // format选择格式变化
-  const handleFormatModeChange = (format: TdColorPickerProps['format']) => (formatRef.current = format);
+  const handleFormatModeChange = useCallback(
+    (format: TdColorPickerProps['format']) => (formatRef.current = format),
+    [],
+  );
 
   // format输入变化
-  const handleInputChange = (input: string, alpha?: number) => {
-    update(input);
-    colorInstanceRef.current.alpha = alpha;
-    emitColorChange('input');
-  };
+  const handleInputChange = useCallback(
+    (input: string, alpha?: number) => {
+      update(input);
+      colorInstanceRef.current.alpha = alpha;
+      emitColorChange('input');
+    },
+    [emitColorChange, update],
+  );
 
   // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {

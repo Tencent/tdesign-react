@@ -26,7 +26,7 @@ const ImageViewerIconList = ({
   onClick,
 }: {
   list: Array<{ label: string }>;
-  onClick: ({ label: string }, index: number) => void;
+  onClick: ({ label }, index: number) => void;
 }) => (
   <ul style={{ padding: '2px' }}>
     {list.map((it, index) => (
