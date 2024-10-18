@@ -25,14 +25,14 @@ import { HOOK_MARK } from './hooks/useForm';
 import { validate as validateModal, parseMessage } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
+import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
 import { formItemDefaultProps } from './defaultProps';
-import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 import { ValidateStatus } from './const';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
-  children?: React.ReactNode | ((form: FormInstanceFunctions) => React.ReactElement);
+  children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);
 }
 
 export interface FormItemInstance {
@@ -62,7 +62,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     form,
     colon,
     layout,
-    initialData: FromContextInitialData,
     requiredMark: requiredMarkFromContext,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
@@ -76,12 +75,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const {
-    name: formListName,
-    rules: formListRules,
-    formListMapRef,
-    initialData: FormListInitialData,
-  } = useFormListContext();
+  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
 
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
@@ -105,6 +99,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
+  const { getDefaultInitialData } = useFormItemInitialData(name);
+
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
@@ -114,12 +110,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(
     getDefaultInitialData({
-      name,
-      formListName,
       children,
       initialData,
-      FromContextInitialData,
-      FormListInitialData,
     }),
   );
 
@@ -325,12 +317,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   function getResetValue(resetType: string): ValueType {
     if (resetType === 'initial') {
       return getDefaultInitialData({
-        name,
-        formListName,
         children,
         initialData,
-        FromContextInitialData,
-        FormListInitialData,
       });
     }
 
