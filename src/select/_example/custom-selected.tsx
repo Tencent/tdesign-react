@@ -49,8 +49,19 @@ const CustomSelected = () => {
           { label: '选项八', value: '8' },
           { label: '选项九', value: '9' },
         ]}
-        valueDisplay={({ value }) =>
-          Array.isArray(value) && value.length > 0 ? value.map((v, idx) => <Tag key={idx}>{`${v}选项`}</Tag>) : null
+        valueDisplay={({ value, onClose }) =>
+          Array.isArray(value) && value.length > 0
+            ? value.map((v: string, idx: number) => (
+                <Tag
+                  key={idx}
+                  onClose={(context) => {
+                    context.e && context.e.stopPropagation();
+                    onClose(idx);
+                  }}
+                  closable
+                >{`${v}选项`}</Tag>
+              ))
+            : null
         }
       />
     </Space>

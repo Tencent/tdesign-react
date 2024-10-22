@@ -169,7 +169,7 @@ const Select = forwardRefWithStatics(
       }
 
       if (trigger === 'tag-remove') {
-        e.stopPropagation();
+        e?.stopPropagation?.();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         // 处理onChange回调中的selectedOptions参数
         const currentSelectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
