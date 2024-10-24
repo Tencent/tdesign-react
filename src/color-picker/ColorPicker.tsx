@@ -42,6 +42,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
             colorModes={colorModes}
             onChange={(value: string, context: TdColorContext) => setInnerValue(value, context)}
             ref={colorPanelRef}
+            key={innerValue}
           />
         )
       }
