@@ -248,7 +248,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
     const lines = [];
     const text = innerText(elements.text);
 
-    const textLines = text.split('\n').map((line) => line.split(' '));
+    const textLines = text.split('\n').map((line) => line.split(''));
     let didTruncate = true;
     const ellipsisWidth = this.ellipsisWidth(this.elements.ellipsis);
 
@@ -263,7 +263,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
         continue;
       }
 
-      let resultLine: string | React.JSX.Element = textWords.join(' ');
+      let resultLine: string | React.JSX.Element = textWords.join('');
       if (measureWidth(resultLine) <= targetWidth) {
         if (textLines.length === 1) {
           // Line is end of text and fits without truncating
@@ -278,7 +278,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
       if (line === numLines) {
         // Binary search determining the longest possible line including truncate string
-        const textRest = textWords.join(' ');
+        const textRest = textWords.join('');
 
         let lower = 0;
         let upper = textRest.length - 1;
@@ -329,7 +329,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
         while (lower <= upper) {
           const middle = Math.floor((lower + upper) / 2);
 
-          const testLine = textWords.slice(0, middle + 1).join(' ');
+          const testLine = textWords.slice(0, middle + 1).join('');
 
           if (measureWidth(testLine) <= targetWidth) {
             lower = middle + 1;
@@ -345,7 +345,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
           continue;
         }
 
-        resultLine = textWords.slice(0, lower).join(' ');
+        resultLine = textWords.slice(0, lower).join('');
 
         resultLine = restoreReplacedLinks(resultLine);
 
