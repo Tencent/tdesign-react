@@ -20,7 +20,6 @@
     "CHANGELOG.md"
   ],
   "sideEffects": [
-    "src/**/style/**",
     "dist/*",
     "site/*",
     "es/**/style/**",
