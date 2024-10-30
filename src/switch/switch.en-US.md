@@ -7,6 +7,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+beforeChange | Function | - | stop checked change。Typescript：`() => boolean \| Promise<boolean>` | N
 customValue | Array | - | Typescript：`Array<SwitchValue>` | N
 disabled | Boolean | - | \- | N
 label | TNode | [] | Typescript：`Array<string \| TNode> \| TNode<{ value: SwitchValue }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

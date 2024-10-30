@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import Loading from '../loading';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
@@ -34,13 +35,36 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
     return parseTNode(label, { value });
   }, [label, innerChecked, value]);
 
+  const handleChange = (e: React.MouseEvent) => {
+    !isControlled && setInnerChecked(!innerChecked);
+    const changedValue = !innerChecked ? activeValue : inactiveValue;
+    onChange?.(changedValue, { e });
+  };
+
   const onInternalClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     if (disabled) {
       return;
     }
-    !isControlled && setInnerChecked(!innerChecked);
-    const changedValue = !innerChecked ? activeValue : inactiveValue;
-    onChange?.(changedValue, { e });
+    const { beforeChange } = props;
+
+    if (!beforeChange) {
+      handleChange(e);
+      return;
+    }
+    if (!isFunction(beforeChange)) {
+      log.error('Switch', `beforeChange is not a function: ${isFunction.toString()}`);
+      return;
+    }
+    const shouldChange = beforeChange();
+    Promise.resolve(shouldChange)
+      .then((v) => {
+        if (v) {
+          handleChange(e);
+        }
+      })
+      .catch((e) => {
+        log.error('Switch', `some error occurred: ${e}`);
+      });
   };
 
   useEffect(() => {
