@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash/isFunction';
 import Loading from '../loading';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
@@ -19,7 +18,19 @@ export interface SwitchProps<T extends SwitchValue = SwitchValue> extends TdSwit
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
   const props = useDefaultProps<SwitchProps<SwitchValue>>(originalProps, switchDefaultProps);
-  const { className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps } = props;
+  const {
+    className,
+    value,
+    defaultValue,
+    disabled,
+    loading,
+    size,
+    label,
+    customValue,
+    onChange,
+    beforeChange,
+    ...restProps
+  } = props;
   const [activeValue = true, inactiveValue = false] = customValue || [];
 
   const isControlled = typeof value !== 'undefined';
@@ -45,18 +56,12 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
     if (disabled) {
       return;
     }
-    const { beforeChange } = props;
 
     if (!beforeChange) {
       handleChange(e);
       return;
     }
-    if (!isFunction(beforeChange)) {
-      log.error('Switch', `beforeChange is not a function: ${isFunction.toString()}`);
-      return;
-    }
-    const shouldChange = beforeChange();
-    Promise.resolve(shouldChange)
+    Promise.resolve(beforeChange())
       .then((v) => {
         if (v) {
           handleChange(e);
