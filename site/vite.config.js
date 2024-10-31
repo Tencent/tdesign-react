@@ -13,6 +13,17 @@ const publicPathMap = {
   production: 'https://static.tdesign.tencent.com/react/',
 };
 
+const disableTreeShakingPlugin = (paths) => ({
+  name: 'disable-treeshake',
+  transform(code, id) {
+    for (const path of paths) {
+      if (id.includes(path)) {
+        return { code, map: null, moduleSideEffects: 'no-treeshake' };
+      }
+    }
+  },
+});
+
 export default ({ mode }) =>
   defineConfig({
     base: publicPathMap[mode],
@@ -50,5 +61,5 @@ export default ({ mode }) =>
     test: {
       environment: 'jsdom',
     },
-    plugins: [react(), tdocPlugin(), VitePWA(pwaConfig)],
+    plugins: [react(), tdocPlugin(), VitePWA(pwaConfig), disableTreeShakingPlugin(['style/'])],
   });

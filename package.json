@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -20,7 +20,6 @@
     "CHANGELOG.md"
   ],
   "sideEffects": [
-    "src/**/style/**",
     "dist/*",
     "site/*",
     "es/**/style/**",
@@ -142,7 +141,6 @@
     "camelcase": "^6.2.1",
     "chalk": "^4.1.0",
     "cross-env": "^5.2.1",
-    "cssnano": "^4.0.1",
     "cz-conventional-changelog": "^3.3.0",
     "dom-parser": "^0.1.6",
     "esbuild": "^0.14.9",
