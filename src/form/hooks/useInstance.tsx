@@ -117,7 +117,12 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (nameList === true) {
       // 嵌套数组子节点先添加导致外层数据覆盖因而需要倒序遍历
       for (const [name, formItemRef] of [...formMapRef.current.entries()].reverse()) {
-        const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
+        let fieldValue = null;
+        if (formItemRef?.current.isFormList) {
+          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
+        } else {
+          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), false);
+        }
         merge(fieldsValue, fieldValue);
       }
     } else {
