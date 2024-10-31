@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Form, { TdFormProps } from '../index';
 import Input from '../../input';
 import Button from '../../button';
+import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
@@ -340,5 +341,61 @@ describe('Form 组件测试', () => {
     fireEvent.blur(getByPlaceholderText('username'));
     await mockDelay();
     expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
+  });
+
+  test('动态渲染并初始赋值', () => {
+    const TestForm = () => {
+      const [form] = Form.useForm();
+      const setMessage = () => {
+        form.setFieldsValue({
+          gender: 'female',
+          radio2: '3',
+        });
+      };
+
+      return (
+        <Form form={form} colon labelWidth={100}>
+          <FormItem label="性别" name="gender" initialData="male">
+            <Radio.Group>
+              <Radio value="male">男性</Radio>
+              <Radio value="female">女性</Radio>
+            </Radio.Group>
+          </FormItem>
+          <FormItem shouldUpdate={(prev, next) => prev.gender !== next.gender}>
+            {({ getFieldValue }) => {
+              if (getFieldValue('gender') === 'female') {
+                return (
+                  <FormItem label="动态选项2" key="radio2" name="radio2">
+                    <Radio.Group className="radio-group-2">
+                      <Radio value="2">选项三</Radio>
+                      <Radio value="3" className="radio-value-3">
+                        选项四
+                      </Radio>
+                    </Radio.Group>
+                  </FormItem>
+                );
+              }
+              return (
+                <FormItem label="动态选项1" key="radio1" name="radio1" initialData="0">
+                  <Radio.Group>
+                    <Radio value="0">选项一</Radio>
+                    <Radio value="1">选项二</Radio>
+                  </Radio.Group>
+                </FormItem>
+              );
+            }}
+          </FormItem>
+
+          <FormItem style={{ marginLeft: 100 }}>
+            <Button onClick={setMessage}>设置信息</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+
+    const { container, getByText } = render(<TestForm />);
+    fireEvent.click(getByText('设置信息'));
+
+    expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
   });
 });
