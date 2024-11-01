@@ -142,6 +142,10 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   setValidateMessage: (message: FormValidateMessage<FormData>) => void;
   /**
+   * 获取校验结果
+   */
+  getValidateMessage: (fields?: Array<keyof FormData>) => Array<FormRule> | void;
+  /**
    * 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
    */
   submit: (params?: { showErrorMessage?: boolean }) => void;

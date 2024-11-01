@@ -45,6 +45,7 @@ export interface FormItemInstance {
   validate?: Function;
   resetField?: Function;
   setValidateMessage?: Function;
+  getValidateMessage?: Function;
   resetValidate?: Function;
   validateOnly?: Function;
   isFormList?: boolean;
@@ -382,6 +383,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     setVerifyStatus(status);
   }
 
+  function getValidateMessage() {
+    return errorList;
+  }
+
   useEffect(() => {
     // 注册自定义更新回调
     if (!shouldUpdate || !form) return;
@@ -459,6 +464,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     validateOnly,
     resetField,
     setValidateMessage,
+    getValidateMessage,
     resetValidate: resetHandler,
   };
   useImperativeHandle(ref, (): FormItemInstance => instance);
