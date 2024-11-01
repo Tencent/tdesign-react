@@ -150,7 +150,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-react": "~7.28.0",
     "eslint-plugin-react-hooks": "^4.0.0",
-    "glob": "^8.0.3",
+    "glob": "^11.0.0",
     "gray-matter": "^4.0.3",
     "happy-dom": "^7.5.7",
     "husky": "^7.0.4",
