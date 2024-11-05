@@ -18,7 +18,19 @@ export interface SwitchProps<T extends SwitchValue = SwitchValue> extends TdSwit
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
   const props = useDefaultProps<SwitchProps<SwitchValue>>(originalProps, switchDefaultProps);
-  const { className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps } = props;
+  const {
+    className,
+    value,
+    defaultValue,
+    disabled,
+    loading,
+    size,
+    label,
+    customValue,
+    onChange,
+    beforeChange,
+    ...restProps
+  } = props;
   const [activeValue = true, inactiveValue = false] = customValue || [];
 
   const isControlled = typeof value !== 'undefined';
@@ -34,13 +46,30 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
     return parseTNode(label, { value });
   }, [label, innerChecked, value]);
 
+  const handleChange = (e: React.MouseEvent) => {
+    !isControlled && setInnerChecked(!innerChecked);
+    const changedValue = !innerChecked ? activeValue : inactiveValue;
+    onChange?.(changedValue, { e });
+  };
+
   const onInternalClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     if (disabled) {
       return;
     }
-    !isControlled && setInnerChecked(!innerChecked);
-    const changedValue = !innerChecked ? activeValue : inactiveValue;
-    onChange?.(changedValue, { e });
+
+    if (!beforeChange) {
+      handleChange(e);
+      return;
+    }
+    Promise.resolve(beforeChange())
+      .then((v) => {
+        if (v) {
+          handleChange(e);
+        }
+      })
+      .catch((e) => {
+        log.error('Switch', `some error occurred: ${e}`);
+      });
   };
 
   useEffect(() => {
