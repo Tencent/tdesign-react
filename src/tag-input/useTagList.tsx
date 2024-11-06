@@ -9,7 +9,9 @@ import { DragSortInnerProps } from '../hooks/useDragSorter';
 
 export type ChangeParams = [TagInputChangeContext];
 
-interface TagInputProps extends TdTagInputProps, DragSortInnerProps {}
+interface TagInputProps extends TdTagInputProps, DragSortInnerProps {
+  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput在 multiple 模式下使用
+}
 
 // handle tag add and remove
 export default function useTagList(props: TagInputProps) {
@@ -103,7 +105,7 @@ export default function useTagList(props: TagInputProps) {
         value: tagValue,
         count: tagValue.length - minCollapsedNum,
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
-        collapsedSelectedItems: tagValue.slice(minCollapsedNum, tagValue.length),
+        collapsedSelectedItems: props.options.slice(minCollapsedNum, tagValue.length),
         onClose,
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;

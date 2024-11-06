@@ -46,6 +46,13 @@ export default function useMultiple(props: TdSelectInputProps) {
     props.onTagChange?.(val, context);
   };
 
+  const getOptions = () => {
+    if (props.multiple && Array.isArray(props.value)) {
+      return props.value;
+    }
+    return [];
+  };
+
   const renderSelectMultiple = (p: RenderSelectMultipleParams) => (
     <TagInput
       ref={tagInputRef}
@@ -57,6 +64,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       tag={props.tag}
       valueDisplay={props.valueDisplay}
       placeholder={tPlaceholder}
+      options={getOptions()}
       value={tags}
       inputValue={p.popupVisible && p.allowInput ? tInputValue : ''}
       onChange={onTagInputChange}
