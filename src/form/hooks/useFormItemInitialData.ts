@@ -56,7 +56,7 @@ export default function useFormItemInitialData(name: FormItemProps['name']) {
     children: FormItemProps['children'];
     initialData: FormItemProps['initialData'];
   }) {
-    if (name && !isEmpty(floatingFormDataRef.current)) {
+    if (name && floatingFormDataRef?.current && !isEmpty(floatingFormDataRef.current)) {
       const nameList = formListName ? [formListName, name].flat() : name;
       const defaultInitialData = get(floatingFormDataRef.current, nameList);
       if (typeof defaultInitialData !== 'undefined') {
