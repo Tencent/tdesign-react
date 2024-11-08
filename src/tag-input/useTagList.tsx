@@ -10,7 +10,7 @@ import { DragSortInnerProps } from '../hooks/useDragSorter';
 export type ChangeParams = [TagInputChangeContext];
 
 interface TagInputProps extends TdTagInputProps, DragSortInnerProps {
-  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput在 multiple 模式下使用
+  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
 }
 
 // handle tag add and remove

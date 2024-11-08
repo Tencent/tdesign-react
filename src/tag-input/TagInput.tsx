@@ -16,7 +16,7 @@ import { tagInputDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
-  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput在 multiple 模式下使用
+  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
 }
 
 const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
