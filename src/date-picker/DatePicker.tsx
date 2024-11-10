@@ -285,7 +285,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         inputProps={omit(inputProps, ['ref'])}
         popupVisible={popupVisible}
         panel={<SinglePanel {...panelProps} />}
-        multiple
+        multiple={multiple}
       />
     </div>
   );
