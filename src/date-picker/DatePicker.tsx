@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import isDate from 'lodash/isDate';
+import { omit } from 'lodash';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps, PresetDate } from './type';
@@ -9,7 +10,7 @@ import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
 import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '../_common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj, covertToDate } from '../_common/js/date-picker/utils';
+import { subtractMonth, addMonth, extractTimeObj, covertToDate, isSame } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
@@ -35,6 +36,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     timePickerProps,
     presetsPlacement,
     needConfirm,
+    multiple,
     onPick,
   } = props;
 
@@ -63,7 +65,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     mode,
     format: props.format,
     valueType: props.valueType,
-    enableTimePicker,
+    enableTimePicker: multiple ? false : enableTimePicker,
   });
 
   const onTriggerNeedConfirm = useLatest(() => {
@@ -90,6 +92,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }, [popupVisible]);
 
   useEffect(() => {
+    if (multiple) return;
     // 面板展开重置数据
     // Date valueType、week mode 、quarter mode nad empty string don't need to be parsed
     const dateValue =
@@ -100,8 +103,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
-      setYear(parseToDayjs(value, format).year());
-      setMonth(parseToDayjs(value, format).month());
+      setYear(parseToDayjs(value as string | number | Date, format).year());
+      setMonth(parseToDayjs(value as string | number | Date, format).month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
@@ -111,12 +114,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
+    if (multiple) return;
     setIsHoverCell(true);
     setInputValue(formatDate(date, { format }));
   }
 
   // 日期 leave
   function onCellMouseLeave() {
+    if (multiple) return;
     setIsHoverCell(false);
     setInputValue(formatDate(cacheValue, { format }));
   }
@@ -133,10 +138,26 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (enableTimePicker) {
       setCacheValue(formatDate(date, { format }));
     } else {
-      onChange(formatDate(date, { format, targetFormat: valueType }), {
-        dayjsValue: parseToDayjs(date, format),
-        trigger: 'pick',
-      });
+      if (multiple) {
+        const isSameDate = (value as (string | number | Date)[]).some((val) => isSame(dayjs(val).toDate(), date));
+        console.log('isSameDate', isSameDate);
+        const newDate = !isSameDate
+          ? [...(value as (string | number | Date)[]), formatDate(date, { format, targetFormat: valueType })]
+          : (value as (string | number | Date)[]).filter(
+              (val) =>
+                formatDate(val, { format, targetFormat: valueType }) !==
+                formatDate(date, { format, targetFormat: valueType }),
+            );
+        onChange(newDate, {
+          dayjsValue: parseToDayjs(date, format),
+          trigger: 'pick',
+        });
+      } else {
+        onChange(formatDate(date, { format, targetFormat: valueType }), {
+          dayjsValue: parseToDayjs(date, format),
+          trigger: 'pick',
+        });
+      }
       setPopupVisible(false);
     }
   }
@@ -231,14 +252,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     mode,
     format,
     presets,
-    time,
+    time: multiple ? false : time,
     disableDate,
     firstDayOfWeek,
     timePickerProps,
-    enableTimePicker,
+    enableTimePicker: multiple ? false : enableTimePicker,
     presetsPlacement,
     popupVisible,
     needConfirm,
+    multiple,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
@@ -259,10 +281,11 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         status={props.status}
         tips={props.tips}
         borderless={props.borderless}
-        popupProps={popupProps}
-        inputProps={inputProps}
+        popupProps={{ ...popupProps, trigger: multiple ? 'click' : 'mousedown' }}
+        inputProps={omit(inputProps, ['ref'])}
         popupVisible={popupVisible}
         panel={<SinglePanel {...panelProps} />}
+        multiple
       />
     </div>
   );

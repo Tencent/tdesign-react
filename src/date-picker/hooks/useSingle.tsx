@@ -24,7 +24,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     mode: props.mode,
     format: props.format,
     valueType: props.valueType,
-    enableTimePicker: props.enableTimePicker,
+    enableTimePicker: props.multiple ? false : props.enableTimePicker,
   });
 
   const inputRef = useRef<HTMLInputElement>();

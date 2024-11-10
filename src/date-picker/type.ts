@@ -6,6 +6,7 @@
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
+import { SelectInputProps } from '../select-input';
 import { TimePickerProps } from '../time-picker';
 import { Dayjs } from 'dayjs';
 import { RangeInputProps } from '../range-input';
@@ -38,6 +39,12 @@ export interface TdDatePickerProps {
    */
   disableDate?: DisableDate;
   /**
+   * 禁用时间项的配置函数，仅在日期时间选择器中可用
+   */
+  disableTime?: (
+    time: Date,
+  ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number>; millisecond: Array<number> }>;
+  /**
    * 是否禁用组件
    */
   disabled?: boolean;
@@ -59,10 +66,19 @@ export interface TdDatePickerProps {
    */
   inputProps?: InputProps;
   /**
+   * 左侧文本
+   */
+  label?: TNode;
+  /**
    * 选择器模式
    * @default date
    */
   mode?: 'year' | 'quarter' | 'month' | 'week' | 'date';
+  /**
+   * 支持多选日期，但不支持在range-picker中，或与enableTimePicker、allowInput 一起使用
+   * @default false
+   */
+  multiple?: boolean;
   /**
    * 决定在日期时间选择器的场景下是否需要点击确认按钮才完成选择动作，默认为`true`
    * @default true
@@ -89,6 +105,10 @@ export interface TdDatePickerProps {
    * @default bottom
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
+   * 透传 SelectInput 筛选器输入框组件的全部属性
+   */
+  selectInputProps?: SelectInputProps;
   /**
    * 输入框尺寸
    * @default medium
@@ -121,6 +141,10 @@ export interface TdDatePickerProps {
    * @default ''
    */
   defaultValue?: DateValue;
+  /**
+   * 自定义选中项呈现的内容
+   */
+  valueDisplay?: string | TNode<{ value: DateValue; displayValue?: DateValue }>;
   /**
    * 用于格式化日期的值，仅支持部分格式，时间戳、日期等。⚠️ `YYYYMMDD` 这种格式不支持，请勿使用，如果希望支持可以给 `dayjs` 提个 PR。注意和 `format` 的区别，`format` 仅用于处理日期在页面中呈现的格式。`ValueTypeEnum` 即将废弃，请更为使用 `DatePickerValueType`
    * @default ''
@@ -164,7 +188,7 @@ export interface TdDateRangePickerProps {
    */
   borderless?: boolean;
   /**
-   * 默认的日期选择交互是根据点击前后日期的顺序来决定并且会加以限制。比如：用户先点击开始时间输入框，选择了一个日期例如2020-05-15，紧接着交互会自动将焦点跳到结束日期输入框，等待用户选择结束时间。此时用户只能选择大于2020-05-15的日期（之前的日期会被灰态禁止点击，限制用户的点击）。当该值传递`true`时，则取消该限制。
+   * 默认的日期选择交互是根据点击前后日期的顺序来决定并且会加以限制。比如：用户先点击开始时间输入框，选择了一个日期例如2020-05-15，紧接着交互会自动将焦点跳到结束日期输入框，等待用户选择结束时间。此时用户只能选择大于2020-05-15的日期（之前的日期会被灰态禁止点击，限制用户的点击）。当该值传递`true`时，则取消该限制
    * @default false
    */
   cancelRangeSelectLimit?: boolean;
@@ -183,6 +207,13 @@ export interface TdDateRangePickerProps {
    */
   disableDate?: DisableRangeDate;
   /**
+   * 禁用时间项的配置函数，仅在日期区间选择器中开启时间展示时可用
+   */
+  disableTime?: (
+    times: Array<Date | null>,
+    context: { partial: DateRangePickerPartial },
+  ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
+  /**
    * 是否禁用组件
    */
   disabled?: boolean;
@@ -200,6 +231,10 @@ export interface TdDateRangePickerProps {
    * @default ''
    */
   format?: string;
+  /**
+   * 左侧文本
+   */
+  label?: TNode;
   /**
    * 选择器模式
    * @default date
@@ -335,6 +370,7 @@ export interface TdDatePickerPanelProps
     | 'value'
     | 'defaultValue'
     | 'disableDate'
+    | 'disableTime'
     | 'enableTimePicker'
     | 'firstDayOfWeek'
     | 'format'
@@ -494,7 +530,7 @@ export interface PresetDate {
   [name: string]: DateValue | (() => DateValue);
 }
 
-export type DateValue = string | number | Date;
+export type DateValue = string | number | Date | Array<string | number | Date>;
 
 export type DatePickerValueType =
   | 'time-stamp'
