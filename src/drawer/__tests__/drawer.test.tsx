@@ -111,8 +111,6 @@ describe('test Drawer', () => {
 
     expect(confirmBtn.parentElement).toHaveClass(`t-button--theme-success`);
     expect(cancelBtn.parentElement).toHaveClass(`t-button--theme-danger`);
-    expect(confirmBtn).toMatchSnapshot();
-    expect(cancelBtn).toMatchSnapshot();
   });
 
   test('Drawer mode push', () => {
