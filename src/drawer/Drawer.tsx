@@ -162,12 +162,10 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
         <div style={footerStyle}>
           {placement === 'right' ? (
             <>
-              {' '}
-              {renderConfirmBtn} {renderCancelBtn}{' '}
+              {renderConfirmBtn} {renderCancelBtn}
             </>
           ) : (
             <>
-              {' '}
               {renderCancelBtn} {renderConfirmBtn}
             </>
           )}
