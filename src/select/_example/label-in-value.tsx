@@ -47,6 +47,7 @@ const LabelInValueSelect = () => {
         valueType="object"
         keys={{ label: 'text', value: 'data' }}
         options={[
+          { text: 'Select All', checkAll: true },
           { text: 'Apple', data: 'apple', type: 'fruit' },
           { text: 'Orange', data: 'orange', type: 'fruit' },
           { text: 'Banana', data: 'banana', type: 'fruit' },
