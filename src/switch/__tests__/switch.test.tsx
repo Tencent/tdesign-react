@@ -46,4 +46,30 @@ describe('Switch 组件测试', () => {
     expect(logSpy).toBeCalledTimes(1);
     logSpy.mockRestore();
   });
+  test('beforeChange resolve', async () => {
+    const clickFn = vi.fn();
+    const beforeChangeResolve = (): Promise<boolean> =>
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(true);
+        }, 80);
+      });
+    const { container } = render(<Switch onChange={clickFn} beforeChange={beforeChangeResolve} />);
+    fireEvent.click(container.firstChild);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    expect(container.firstChild.classList.contains('t-is-checked')).toBeTruthy();
+  });
+  test('beforeChange reject', async () => {
+    const clickFn = vi.fn();
+    const beforeChangeResolve = (): Promise<boolean> =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject();
+        }, 80);
+      });
+    const { container } = render(<Switch onChange={clickFn} beforeChange={beforeChangeResolve} />);
+    fireEvent.click(container.firstChild);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    expect(container.firstChild.classList.contains('t-is-checked')).toBeFalsy();
+  });
 });

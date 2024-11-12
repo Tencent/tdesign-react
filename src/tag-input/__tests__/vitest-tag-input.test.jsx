@@ -163,6 +163,16 @@ describe('TagInput Component', () => {
     const wrapper3 = render(<TagInput readonly={false}></TagInput>);
     const container3 = wrapper3.container.querySelector('.t-input');
     expect(container3.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
+    // readonly = false backspace able
+    const onRemoveFn = vi.fn();
+    const wrapper4 = getTagInputValueMount(TagInput, { readonly: false }, { onRemove: onRemoveFn });
+    fireEvent.keyDown(wrapper4.container.querySelector('input'), { key: 'Backspace', code: 'Backspace', charCode: 8 });
+    expect(onRemoveFn).toHaveBeenCalled();
+    // readonly = false backspace disable
+    const onRemoveFnUn = vi.fn();
+    const wrapper5 = getTagInputValueMount(TagInput, { readonly: true }, { onRemove: onRemoveFnUn });
+    fireEvent.keyDown(wrapper5.container.querySelector('input'), { key: 'Backspace', code: 'Backspace', charCode: 8 });
+    expect(onRemoveFnUn).not.toHaveBeenCalled();
   });
 
   it('props.readonly: readonly TagInput does not need clearIcon', async () => {
