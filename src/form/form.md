@@ -12,6 +12,12 @@
 
 {{ form-list }}
 
+### 字段联动的表单
+
+在某些特定场景，例如修改某个字段值后出现新的字段选项、或者纯粹希望表单任意变化都对某一个区域进行渲染。你可以通过 `shouldUpdate` 修改 `FormItem` 的更新逻辑。
+
+{{ form-field-linkage }}
+
 ### 自定义表单控件
 
 可以使用 `Form.FormItem` 包裹自定义组件并在组件中接受 `value` 和 `onChange` 的入参，实现自定义表单控件。
@@ -72,26 +78,6 @@ Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onC
 ```js
 // ['user', 'name'] => { user: { name: '' } }
 <Form.FormItem label="姓名" name={['user', 'name']}>
-  <Input />
-</Form.FormItem>
-```
-
-### 如何根据某个字段变化动态展示数据
-
-而在某些特定场景，例如修改某个字段值后出现新的字段选项、或者纯粹希望表单任意变化都对某一个区域进行渲染。你可以通过 `shouldUpdate` 修改 `FormItem` 的更新逻辑。
-
-```js
-<Form.FormItem shouldUpdate={(prev, next) => prev.additional !== next.additional}>
-  {({ getFieldValue }) => {
-    if (getFieldValue('additional') === 'test') {
-      return (
-        <Form.FormItem name="test">
-          <Input />
-        </Form.FormItem>
-      );
-    }
-    return null;
-  }}
   <Input />
 </Form.FormItem>
 ```
