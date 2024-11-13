@@ -2,7 +2,6 @@ import React, { forwardRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import isDate from 'lodash/isDate';
-import { omit } from 'lodash';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps, PresetDate } from './type';
@@ -15,6 +14,7 @@ import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
+import type { TagInputRemoveContext } from '../tag-input';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -37,6 +37,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     presetsPlacement,
     needConfirm,
     multiple,
+    clearable,
     onPick,
   } = props;
 
@@ -139,25 +140,17 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setCacheValue(formatDate(date, { format }));
     } else {
       if (multiple) {
-        const isSameDate = (value as (string | number | Date)[]).some((val) => isSame(dayjs(val).toDate(), date));
-        console.log('isSameDate', isSameDate);
-        const newDate = !isSameDate
-          ? [...(value as (string | number | Date)[]), formatDate(date, { format, targetFormat: valueType })]
-          : (value as (string | number | Date)[]).filter(
-              (val) =>
-                formatDate(val, { format, targetFormat: valueType }) !==
-                formatDate(date, { format, targetFormat: valueType }),
-            );
+        const newDate = processDate(date);
         onChange(newDate, {
           dayjsValue: parseToDayjs(date, format),
           trigger: 'pick',
         });
-      } else {
-        onChange(formatDate(date, { format, targetFormat: valueType }), {
-          dayjsValue: parseToDayjs(date, format),
-          trigger: 'pick',
-        });
+        return;
       }
+      onChange(formatDate(date, { format, targetFormat: valueType }), {
+        dayjsValue: parseToDayjs(date, format),
+        trigger: 'pick',
+      });
       setPopupVisible(false);
     }
   }
@@ -245,6 +238,29 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     // eslint-disable-next-line
   }, []);
 
+  function processDate(date: Date) {
+    const isSameDate = (value as (string | number | Date)[]).some((val) => isSame(dayjs(val).toDate(), date));
+
+    if (!isSameDate) {
+      return (value as (string | number | Date)[]).concat(formatDate(date, { format, targetFormat: valueType }));
+    }
+
+    return (value as (string | number | Date)[]).filter(
+      (val) =>
+        formatDate(val, { format, targetFormat: valueType }) !== formatDate(date, { format, targetFormat: valueType }),
+    );
+  }
+
+  const onTagRemoveClick = (ctx: TagInputRemoveContext) => {
+    const removeDate = dayjs(ctx.item).toDate();
+    const newDate = processDate(removeDate);
+    onChange?.(newDate, {
+      dayjsValue: parseToDayjs(removeDate, format),
+      trigger: 'pick',
+    });
+    // props?.tagInputProps?.onRemove?.(ctx);
+  };
+
   const panelProps = {
     value: cacheValue,
     year,
@@ -281,11 +297,20 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         status={props.status}
         tips={props.tips}
         borderless={props.borderless}
-        popupProps={{ ...popupProps, trigger: multiple ? 'click' : 'mousedown' }}
-        inputProps={omit(inputProps, ['ref'])}
+        popupProps={popupProps}
+        inputProps={inputProps}
         popupVisible={popupVisible}
         panel={<SinglePanel {...panelProps} />}
         multiple={multiple}
+        tagInputProps={{
+          onRemove: onTagRemoveClick,
+          clearable,
+        }}
+        onClear={(context) => {
+          console.log('onClear', context);
+        }}
+        clearable={clearable}
+        // tagProps={{}}
       />
     </div>
   );

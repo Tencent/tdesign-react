@@ -25,30 +25,12 @@ export default function useSingleValue(props: TdDatePickerProps) {
       log.error('DatePicker', `format: ${format} is invalid，time selection must include time formatting HH:mm:ss`);
   }
 
-  const [time, setTime] = useState(() => {
-    if (props.multiple) {
-      return formatTime(value[0], format, timeFormat, props.defaultTime);
-    }
-    return formatTime(value, format, timeFormat, props.defaultTime);
-  });
-  const [month, setMonth] = useState<number>(() => {
-    if (props.multiple) {
-      return parseToDayjs(value[0], format).month();
-    }
-    return parseToDayjs(value as string | number | Date, format).month();
-  });
-  const [year, setYear] = useState<number>(() => {
-    if (props.multiple) {
-      return parseToDayjs(value[0], format).year();
-    }
-    return parseToDayjs(value as string | number | Date, format).year();
-  });
-  const [cacheValue, setCacheValue] = useState(() => {
-    if (props.multiple) {
-      return formatDate(value[0], { format });
-    }
-    return formatDate(value, { format });
-  }); // 缓存选中值，panel 点击时更改
+  const [time, setTime] = useState(() =>
+    formatTime(props.multiple ? value[0] : value, format, timeFormat, props.defaultTime),
+  );
+  const [month, setMonth] = useState<number>(() => parseToDayjs(props.multiple ? value[0] : value, format).month());
+  const [year, setYear] = useState<number>(() => parseToDayjs(props.multiple ? value[0] : value, format).year());
+  const [cacheValue, setCacheValue] = useState(() => formatDate(props.multiple ? value[0] : value, { format })); // 缓存选中值，panel 点击时更改
 
   // 输入框响应 value 变化
   useEffect(() => {
