@@ -9,6 +9,20 @@ Support functional calls `PopupPlugin` 。
 
 {{ plugin }}
 
+### Dynamic Adaptation
+
+When the trigger or popup display content changes dynamically, the position is adjusted adaptively
+
+{{ dynamic }}
+
+### popperOptions usage
+
+https://popper.js.org/docs/v2/constructors/#types
+
+- `popperOptions` = `Options`
+
+{{ popper-options }}
+
 ## FAQ
 
 ### How to solve the problem of position offset when nesting `Popup` components?
