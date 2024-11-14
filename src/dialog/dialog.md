@@ -49,6 +49,7 @@ confirmLoading | Boolean | undefined | 确认按钮加载状态 | N
 confirmOnEnter | Boolean | - | 是否在按下回车键时，触发确认事件 | N
 destroyOnClose | Boolean | false | 是否在关闭弹框的时候销毁子元素 | N
 dialogClassName | String | - | 弹框元素类名，示例：'t-class-dialog-first t-class-dialog-second' | N
+dialogStyle | Object | - | 作用于对话框本身的样式。TS 类型：`Styles`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 draggable | Boolean | false | 对话框是否可以拖拽（仅在非模态对话框时有效） | N
 footer | TNode | true | 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 不显示任何内容，值类型为 Function 表示自定义底部内容。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 forceRender | Boolean | false | 是否强制渲染Dialog | N
@@ -63,6 +64,8 @@ top | String / Number | - | 用于弹框具体窗口顶部的距离，优先级�
 visible | Boolean | - | 控制对话框是否显示 | N
 width | String / Number | - | 对话框宽度，示例：320, '500px', '80%' | N
 zIndex | Number | - | 对话框层级，Web 侧样式默认为 2500，移动端和小程序样式默认为 1500 | N
+onBeforeClose | Function |  | TS 类型：`() => void`<br/>对话框执行消失动画效果前触发 | N
+onBeforeOpen | Function |  | TS 类型：`() => void`<br/>对话框执行弹出动画效果前触发 | N
 onCancel | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果“取消”按钮存在，则点击“取消”按钮时触发，同时触发关闭事件 | N
 onClose | Function |  | TS 类型：`(context: DialogCloseContext) => void`<br/>关闭事件，点击取消按钮、点击关闭按钮、点击蒙层、按下 ESC 等场景下触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/dialog/type.ts)。<br/>`type DialogEventSource = 'esc' \| 'close-btn' \| 'cancel' \| 'overlay'`<br/><br/>`interface DialogCloseContext { trigger: DialogEventSource; e: MouseEvent \| KeyboardEvent }`<br/> | N
 onCloseBtnClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击右上角关闭按钮时触发 | N

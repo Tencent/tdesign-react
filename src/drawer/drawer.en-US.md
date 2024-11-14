@@ -28,13 +28,15 @@ size | String | 'small' | \- | N
 sizeDraggable | Boolean / Object | false | allow resizing drawer width/height, set `max` or `min` to limit size。Typescript：`boolean \| SizeDragLimit` `interface SizeDragLimit { max: number, min: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/drawer/type.ts) | N
 visible | Boolean | false | \- | N
 zIndex | Number | - | \- | N
+onBeforeClose | Function |  | Typescript：`() => void`<br/> | N
+onBeforeOpen | Function |  | Typescript：`() => void`<br/> | N
 onCancel | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onClose | Function |  | Typescript：`(context: DrawerCloseContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/drawer/type.ts)。<br/>`type DrawerEventSource = 'esc' \| 'close-btn' \| 'cancel' \| 'overlay'`<br/><br/>`interface DrawerCloseContext { trigger: DrawerEventSource; e: MouseEvent \| KeyboardEvent }`<br/> | N
 onCloseBtnClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onConfirm | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onEscKeydown | Function |  | Typescript：`(context: { e: KeyboardEvent }) => void`<br/> | N
 onOverlayClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
-onSizeDragEnd | Function |  | Typescript：`(context: { e: globalThis.MouseEvent; size: number  }) => void`<br/>trigger on size drag end | N
+onSizeDragEnd | Function |  | Typescript：`(context: { e: MouseEvent; size: number  }) => void`<br/>trigger on size drag end | N
 
 ### DrawerOptions
 

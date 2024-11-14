@@ -28,6 +28,7 @@ confirmLoading | Boolean | undefined | confirm button loading status | N
 confirmOnEnter | Boolean | - | confirm on enter | N
 destroyOnClose | Boolean | false | \- | N
 dialogClassName | String | - | \- | N
+dialogStyle | Object | - | Styles that apply to the dialog box itself。Typescript：`Styles`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 draggable | Boolean | false | \- | N
 footer | TNode | true | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 forceRender | Boolean | false | to force render Dialog | N
@@ -42,6 +43,8 @@ top | String / Number | - | \- | N
 visible | Boolean | - | \- | N
 width | String / Number | - | \- | N
 zIndex | Number | - | \- | N
+onBeforeClose | Function |  | Typescript：`() => void`<br/> | N
+onBeforeOpen | Function |  | Typescript：`() => void`<br/> | N
 onCancel | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onClose | Function |  | Typescript：`(context: DialogCloseContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/dialog/type.ts)。<br/>`type DialogEventSource = 'esc' \| 'close-btn' \| 'cancel' \| 'overlay'`<br/><br/>`interface DialogCloseContext { trigger: DialogEventSource; e: MouseEvent \| KeyboardEvent }`<br/> | N
 onCloseBtnClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N

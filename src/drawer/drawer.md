@@ -28,13 +28,15 @@ size | String | 'small' | 尺寸，支持 'small', 'medium', 'large'，'35px', '
 sizeDraggable | Boolean / Object | false | 抽屉大小可拖拽调整，横向抽屉调整宽度，纵向抽屉调整高度。`sizeDraggable.max` 和 `sizeDraggable.min` 用于控制拖拽尺寸大小限制。TS 类型：`boolean \| SizeDragLimit` `interface SizeDragLimit { max: number, min: number }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/drawer/type.ts) | N
 visible | Boolean | false | 组件是否可见 | N
 zIndex | Number | - | 抽屉层级，样式默认为 1500 | N
+onBeforeClose | Function |  | TS 类型：`() => void`<br/>对话框执行消失动画效果前触发 | N
+onBeforeOpen | Function |  | TS 类型：`() => void`<br/>对话框执行弹出动画效果前触发 | N
 onCancel | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果“取消”按钮存在，点击“取消”按钮时触发，同时触发关闭事件 | N
 onClose | Function |  | TS 类型：`(context: DrawerCloseContext) => void`<br/>关闭事件，取消按钮点击时、关闭按钮点击时、ESC 按下时、点击蒙层时均会触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/drawer/type.ts)。<br/>`type DrawerEventSource = 'esc' \| 'close-btn' \| 'cancel' \| 'overlay'`<br/><br/>`interface DrawerCloseContext { trigger: DrawerEventSource; e: MouseEvent \| KeyboardEvent }`<br/> | N
 onCloseBtnClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果关闭按钮存在，点击关闭按钮时触发该事件，同时触发关闭事件 | N
 onConfirm | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果“确认”按钮存在，则点击“确认”按钮时触发 | N
 onEscKeydown | Function |  | TS 类型：`(context: { e: KeyboardEvent }) => void`<br/>按下 ESC 键时触发 | N
 onOverlayClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果蒙层存在，点击蒙层时触发 | N
-onSizeDragEnd | Function |  | TS 类型：`(context: { e: globalThis.MouseEvent; size: number  }) => void`<br/>抽屉大小拖拽结束时触发，事件参数 `size` 在横向抽屉中表示宽度，在纵向抽屉中表示高度 | N
+onSizeDragEnd | Function |  | TS 类型：`(context: { e: MouseEvent; size: number  }) => void`<br/>抽屉大小拖拽结束时触发，事件参数 `size` 在横向抽屉中表示宽度，在纵向抽屉中表示高度 | N
 
 ### DrawerOptions
 

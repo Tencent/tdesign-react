@@ -36,6 +36,7 @@ export interface TdDialogProps {
   closeOnEscKeydown?: boolean;
   /**
    * 点击蒙层时是否触发关闭事件
+   * @default false
    */
   closeOnOverlayClick?: boolean;
   /**
@@ -60,6 +61,10 @@ export interface TdDialogProps {
    * @default ''
    */
   dialogClassName?: string;
+  /**
+   * 作用于对话框本身的样式
+   */
+  dialogStyle?: Styles;
   /**
    * 对话框是否可以拖拽（仅在非模态对话框时有效）
    * @default false
@@ -127,6 +132,14 @@ export interface TdDialogProps {
    */
   zIndex?: number;
   /**
+   * 对话框执行消失动画效果前触发
+   */
+  onBeforeClose?: () => void;
+  /**
+   * 对话框执行弹出动画效果前触发
+   */
+  onBeforeOpen?: () => void;
+  /**
    * 如果“取消”按钮存在，则点击“取消”按钮时触发，同时触发关闭事件
    */
   onCancel?: (context: { e: MouseEvent<HTMLButtonElement> }) => void;
@@ -173,7 +186,6 @@ export interface TdDialogCardProps
     | 'onCancel'
     | 'onCloseBtnClick'
     | 'onConfirm'
-    | 'confirmLoading'
   > {}
 
 export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
