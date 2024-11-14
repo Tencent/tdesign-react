@@ -67,7 +67,7 @@ const MenuItem: FC<MenuItemProps> = (props) => {
   // 菜单收起，且只有本身为一级菜单才需要显示 tooltip
   if (collapsed && !disabled && !/submenu/i.test(className)) {
     return (
-      <TooltipLite content={children} placement="right">
+      <TooltipLite content={children} placement="right" {...props.tooltipProps}>
         {liContent}
       </TooltipLite>
     );

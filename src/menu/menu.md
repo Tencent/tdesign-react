@@ -64,6 +64,7 @@ disabled | Boolean | - | 是否禁用菜单项展开/收起/跳转等功能 | N
 href | String | - | 跳转链接 | N
 icon | TElement | - | 图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 target | String | - | 链接或路由跳转方式。可选项：_blank/_self/_parent/_top | N
+tooltipProps | Object | - | 透传 Tooltip 组件的特性，作用于一级菜单收起下聚焦时出现的节点。TS 类型：`TooltipProps`，[Tooltip API Documents](./tooltip?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/menu/type.ts) | N
 value | String / Number | - | 菜单项唯一标识。TS 类型：`MenuValue` | N
 onClick | Function |  | TS 类型：`(context: { e: MouseEvent, value: MenuValue }) => void`<br/>点击时触发 | N
 
