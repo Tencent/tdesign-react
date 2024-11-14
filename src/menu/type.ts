@@ -7,6 +7,7 @@
 import { TNode, TElement } from '../common';
 import { MouseEvent } from 'react';
 import { PopupProps } from '../popup';
+import { TooltipProps } from '../tooltip';
 
 export interface TdMenuProps {
   /**
@@ -170,6 +171,10 @@ export interface TdMenuItemProps {
    * 链接或路由跳转方式
    */
   target?: '_blank' | '_self' | '_parent' | '_top';
+  /**
+   * 透传 Tooltip 组件的特性，作用于一级菜单收起下聚焦时出现的节点
+   */
+  tooltipProps?: TooltipProps;
   /**
    * 菜单项唯一标识
    */
