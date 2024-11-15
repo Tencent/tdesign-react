@@ -46,7 +46,6 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     style,
     readonly,
     onClick,
-    title,
     ...htmlProps
   } = props;
 
@@ -75,7 +74,6 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       checked={internalChecked}
       disabled={disabled}
       name={name}
-      title={title}
       tabIndex={-1}
       value={isBoolean(value) ? Number(value) : value}
       data-value={typeof value === 'string' ? `'${value}'` : value}
