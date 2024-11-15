@@ -6,6 +6,7 @@ import { TdDialogCardProps, TdDialogProps } from './type';
 
 export const dialogCardDefaultProps: TdDialogCardProps = {
   closeBtn: true,
+  confirmLoading: undefined,
   footer: true,
   header: true,
   theme: 'default',

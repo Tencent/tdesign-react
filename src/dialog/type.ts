@@ -186,6 +186,7 @@ export interface TdDialogCardProps
     | 'onCancel'
     | 'onCloseBtnClick'
     | 'onConfirm'
+    | 'confirmLoading'
   > {}
 
 export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
