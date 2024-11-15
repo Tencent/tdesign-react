@@ -369,7 +369,7 @@ const Select = forwardRefWithStatics(
         return valueDisplay;
       }
       if (multiple) {
-        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedLabel, onClose });
+        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedOptions, onClose });
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
@@ -434,6 +434,7 @@ const Select = forwardRefWithStatics(
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
           value={selectedLabel}
+          options={props.options}
           valueDisplay={renderValueDisplay()}
           clearable={clearable}
           disabled={disabled}

@@ -208,6 +208,19 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   ]);
 
   useUpdateLayoutEffect(() => {
+    if (expandAll) {
+      const valueList = store
+        .getNodes()
+        .filter((node) => Array.isArray(node.children) && node.children.length)
+        .map((node) => node.value);
+      store.setExpanded(valueList);
+    } else {
+      store.replaceExpanded(prevExpanded);
+      changePrevExpanded(null);
+    }
+  }, [store, expandAll]);
+
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
     }
