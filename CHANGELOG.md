@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.10.0 `2024-11-15` 
+### 🚀 Features
+- `Select`: `collapsedItems` 方法的参数 `collapsedSelectedItems` 扩充为 `options`，使用`collapsedItems`请注意此变更 @RSS1102 ([#3185](https://github.com/Tencent/tdesign-react/pull/3185))
+- `Icon`: 图标库发布 `0.4.0`版本，新增 907 个新图标；命名优化`blockchain` 重命名改为`transform-1`,`gesture-pray-1`重命名为`gesture-open`,`gesture-ranslation-1`重命名为`wave-bye`, `gesture-up-1`重命名为`gesture-typing`,`gesture-up-2`重命名为`gesture-right-slip`,`logo-wechat`重命名为`logo-wechat-stroke-filled`，移除`tree-list`、`logo-adobe-photoshop-1` 等错误图标 @uyarn ([#3194](https://github.com/Tencent/tdesign-react/pull/3194))
+- `Cascader`: 单选模式下当`trigger`为`hover`时，选中选项后自动关闭面板 @uyarn ([#3188](https://github.com/Tencent/tdesign-react/pull/3188))
+- `Checkbox`: 新增 `title` API, 用于在选项展示禁用原因等场景 @uyarn ([#3207](https://github.com/Tencent/tdesign-react/pull/3207))
+- `Menu`: 新增`tooltipProps` API，作用于一级菜单收起聚焦出现的节点 @uyarn ([#3201](https://github.com/Tencent/tdesign-react/pull/3201))
+- `Switch`: 新增 `before-change` API @centuryPark ([#3167](https://github.com/Tencent/tdesign-react/pull/3167))
+- `Form`: 新增 `getValidateMessage` 实例方法 @moecasts ([#3180](https://github.com/Tencent/tdesign-react/pull/3180))
+
+### 🐞 Bug Fixes
+- `TagInput`: 修复在`readonly`模式下仍可以通过Backspace按键删除已选项的缺陷 @RSS1102 ([#3172](https://github.com/Tencent/tdesign-react/pull/3172))
+- `Form`: 修复`1.9.3`版本 `FormItem` 在`Form`外设置了`name`属性有异常的问题 @l123wx ([#3183](https://github.com/Tencent/tdesign-react/pull/3183))
+- `Select`: 修复 valueType 为 object 时，点击全选按钮后 onChange 回调参数类型错误的问题 @l123wx ([#3193](https://github.com/Tencent/tdesign-react/pull/3193))
+- `Table`: 修复动态设置`expandTreeNode`没有正常展示子节点的问题 @uyarn ([#3202](https://github.com/Tencent/tdesign-react/pull/3202))
+- `Tree`: 修复动态切换`expandAll`的功能异常问题 @uyarn ([#3204](https://github.com/Tencent/tdesign-react/pull/3204))
+- `Drawer`: 修复无法自定义`confirmBtn` 和 `closeBtn`内容的问题 @RSS1102 ([#3191](https://github.com/Tencent/tdesign-react/pull/3191))
+### 📝 Documentation
+- `Icon`: 优化图标检索功能，支持中英文搜索图标 @uyarn ([#3194](https://github.com/Tencent/tdesign-react/pull/3194))
+- `Popup`: 新增`popperOption`使用示例 @HaixingOoO  ([#3200](https://github.com/Tencent/tdesign-react/pull/3200))
+
+
 ## 🌈 1.9.3 `2024-10-31` 
 ### 🐞 Bug Fixes
 - `Select`: 修复`valueDisplay`下的`onClose`回调问题 @uyarn ([#3154](https://github.com/Tencent/tdesign-react/pull/3154))
