@@ -35,7 +35,6 @@ export interface TdDrawerProps {
   closeOnEscKeydown?: boolean;
   /**
    * 点击蒙层时是否触发抽屉关闭事件
-   * @default true
    */
   closeOnOverlayClick?: boolean;
   /**
@@ -95,7 +94,7 @@ export interface TdDrawerProps {
    * 抽屉大小可拖拽调整，横向抽屉调整宽度
    * @default false
    */
-  sizeDraggable?: boolean | SizeDragLimit;
+  sizeDraggable?: boolean;
   /**
    * 组件是否可见
    * @default false
