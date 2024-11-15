@@ -15,6 +15,14 @@
 
 {{ dynamic }}
 
+### popperOptions 使用
+
+https://popper.js.org/docs/v2/constructors/#types
+
+- `popperOptions` = `Options`
+
+{{ popper-options }}
+
 ## FAQ
 
 ### `Popup` 组件，嵌套使用可能出现位置偏移的情况，如何解决？
