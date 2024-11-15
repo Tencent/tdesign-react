@@ -36,7 +36,6 @@ export interface TdDialogProps {
   closeOnEscKeydown?: boolean;
   /**
    * 点击蒙层时是否触发关闭事件
-   * @default false
    */
   closeOnOverlayClick?: boolean;
   /**
@@ -61,10 +60,6 @@ export interface TdDialogProps {
    * @default ''
    */
   dialogClassName?: string;
-  /**
-   * 作用于对话框本身的样式
-   */
-  dialogStyle?: Styles;
   /**
    * 对话框是否可以拖拽（仅在非模态对话框时有效）
    * @default false

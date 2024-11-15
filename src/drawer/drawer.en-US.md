@@ -36,7 +36,7 @@ onCloseBtnClick | Function |  | Typescript：`(context: { e: MouseEvent }) => vo
 onConfirm | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
 onEscKeydown | Function |  | Typescript：`(context: { e: KeyboardEvent }) => void`<br/> | N
 onOverlayClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
-onSizeDragEnd | Function |  | Typescript：`(context: { e: MouseEvent; size: number  }) => void`<br/>trigger on size drag end | N
+onSizeDragEnd | Function |  | Typescript：`(context: { e: globalThis.MouseEvent; size: number  }) => void`<br/>trigger on size drag end | N
 
 ### DrawerOptions
 

@@ -12,19 +12,13 @@ export const dialogCardDefaultProps: TdDialogCardProps = {
 };
 
 export const dialogDefaultProps: TdDialogProps = {
-  closeBtn: true,
   closeOnEscKeydown: undefined,
-  closeOnOverlayClick: false,
-  confirmLoading: undefined,
+  closeOnOverlayClick: undefined,
   destroyOnClose: false,
   draggable: false,
-  footer: true,
-  forceRender: false,
-  header: true,
   mode: 'modal',
   placement: 'top',
   preventScrollThrough: true,
   showInAttachedElement: false,
   showOverlay: true,
-  theme: 'default',
 };
