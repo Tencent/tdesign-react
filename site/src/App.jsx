@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
+import semver from 'semver';
 import Loading from 'tdesign-react/loading';
 import ConfigProvider from 'tdesign-react/config-provider';
 import zhConfig from 'tdesign-react/es/locale/zh_CN';
@@ -65,7 +66,8 @@ function Components() {
 
           options.unshift({ label: v, value: v.replace(/\./g, '_') });
         });
-        tdSelectRef.current.options = options;
+
+        tdSelectRef.current.options = options.sort((a, b) => (semver.gt(a.label, b.label) ? -1 : 1));
       });
   }
 
@@ -95,7 +97,6 @@ function Components() {
     };
 
     initHistoryVersions();
-
   }, []);
 
   useEffect(() => {
