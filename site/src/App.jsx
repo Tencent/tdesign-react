@@ -20,7 +20,7 @@ const docsMap = {
   en: enDocs,
 };
 
-const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
+const registryUrl = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/npm/versions/tdesign-react';
 const currentVersion = packageJson.version.replace(/\./g, '_');
 
 const docRoutes = [...getRoute(siteConfig.docs, []), ...getRoute(siteConfig.enDocs, [])];
