@@ -75,4 +75,9 @@
     "tsconfig.json": "tsconfig.*.json",
     "vitest.config.ts": "babel.config.js, postcss.config.js"
   },
+  "i18n-ally.localesPaths": [
+    "src/locale",
+    "src/_common/js/global-config/locale",
+    "src/_common/js/global-config/mobile/locale"
+  ],
 }
