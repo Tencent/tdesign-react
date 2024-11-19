@@ -45,6 +45,8 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     showOverlay,
     size: propsSize,
     placement,
+    onBeforeOpen,
+    onBeforeClose,
     onCancel,
     onConfirm,
     onClose,
@@ -196,7 +198,9 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
       mountOnEnter={!forceRender}
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
+      onEnter={() => onBeforeOpen?.()}
       onEntered={() => setAnimationStart(true)}
+      onExit={() => onBeforeClose?.()}
       onExited={() => setAnimationStart(false)}
     >
       <Portal attach={attach} ref={drawerWrapperRef}>
