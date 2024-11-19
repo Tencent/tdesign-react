@@ -240,15 +240,19 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   function processDate(date: Date) {
     const isSameDate = (value as (string | number | Date)[]).some((val) => isSame(dayjs(val).toDate(), date));
+    let currentDate: (string | number | Date)[];
 
     if (!isSameDate) {
-      return (value as (string | number | Date)[]).concat(formatDate(date, { format, targetFormat: valueType }));
+      currentDate = (value as (string | number | Date)[]).concat(formatDate(date, { format, targetFormat: valueType }));
+    } else {
+      currentDate = (value as (string | number | Date)[]).filter(
+        (val) =>
+          formatDate(val, { format, targetFormat: valueType }) !==
+          formatDate(date, { format, targetFormat: valueType }),
+      );
     }
 
-    return (value as (string | number | Date)[]).filter(
-      (val) =>
-        formatDate(val, { format, targetFormat: valueType }) !== formatDate(date, { format, targetFormat: valueType }),
-    );
+    return currentDate.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
   }
 
   const onTagRemoveClick = (ctx: TagInputRemoveContext) => {
