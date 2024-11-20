@@ -37,7 +37,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     presetsPlacement,
     needConfirm,
     multiple,
-    clearable,
     onPick,
   } = props;
 
@@ -46,6 +45,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     popupVisible,
     inputProps,
     popupProps,
+    tagInputProps,
     value,
     year,
     month,
@@ -265,6 +265,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     // props?.tagInputProps?.onRemove?.(ctx);
   };
 
+  const onTagClearClick = ({ e }) => {
+    e.stopPropagation();
+    setPopupVisible(false);
+    onChange([], { dayjsValue: dayjs(), trigger: 'clear' });
+    // props?.tagInputProps?.onClear?.(e);
+  };
+
   const panelProps = {
     value: cacheValue,
     year,
@@ -308,13 +315,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         multiple={multiple}
         tagInputProps={{
           onRemove: onTagRemoveClick,
-          clearable,
+          ...tagInputProps,
         }}
-        onClear={(context) => {
-          console.log('onClear', context);
-        }}
-        clearable={clearable}
-        // tagProps={{}}
+        onClear={onTagClearClick}
       />
     </div>
   );

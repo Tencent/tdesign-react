@@ -54,7 +54,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange(props.multiple ? [] : '', { dayjsValue: dayjs(), trigger: 'clear' });
+      onChange('', { dayjsValue: dayjs(), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
       props.onBlur?.({ value: val, e });
@@ -117,13 +117,21 @@ export default function useSingleInput(props: TdDatePickerProps) {
     },
   };
 
+  // tag-input 设置
+  let tagInputProps = {};
+
   //  multiple
   if (props.multiple) {
-    inputProps = omit({ ...inputProps, showClearIconOnEmpty: true }, ['ref', 'className']);
+    inputProps = omit(inputProps, ['ref', 'className', 'suffixIcon']);
 
     popupProps = {
       ...popupProps,
       trigger: 'click',
+    };
+
+    tagInputProps = {
+      clearable: props.clearable,
+      suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     };
   }
 
@@ -148,6 +156,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     popupVisible,
     inputProps,
     popupProps,
+    tagInputProps,
     inputRef,
     cacheValue,
     onChange,
