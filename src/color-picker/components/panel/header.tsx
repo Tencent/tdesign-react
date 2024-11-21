@@ -26,17 +26,13 @@ const Header = (props: ColorPanelHeaderProps) => {
   return (
     <div className={`${baseClassName}__head`}>
       <div className={`${baseClassName}__mode`}>
-        {colorModes?.length === 1 ? (
-          COLOR_MODES[colorModes[0]]
-        ) : (
-          <Radio.Group variant="default-filled" size="small" value={mode} onChange={onModeChange}>
-            {Object.keys(COLOR_MODES).map((key) => (
-              <Radio.Button key={key} value={key}>
-                {t(local[COLOR_MODES[key]])}
-              </Radio.Button>
-            ))}
-          </Radio.Group>
-        )}
+        <Radio.Group variant="default-filled" size="small" value={mode} onChange={onModeChange}>
+          {Object.keys(COLOR_MODES).map((key) => (
+            <Radio.Button key={key} value={key}>
+              {t(local[COLOR_MODES[key]])}
+            </Radio.Button>
+          ))}
+        </Radio.Group>
       </div>
     </div>
   );
