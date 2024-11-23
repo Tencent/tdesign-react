@@ -192,8 +192,10 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      const values = currentOptions.filter((option) => !option.checkAll && !option.disabled)
-      const selectableOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions)
+      const values = currentOptions
+        .filter((option) => !option.checkAll && !option.disabled)
+        .map((option) => option[keys?.value || 'value']);
+      const selectableOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
 
       const checkAllValue =
         !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>)?.length ? selectableOptions : [];
