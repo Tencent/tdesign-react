@@ -46,6 +46,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     zIndex,
     visible,
     attach,
+    onBeforeOpen,
+    onBeforeClose,
     onOpened,
     onCancel,
     onConfirm,
@@ -155,6 +157,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   const onAnimateStart = () => {
     if (!wrapRef.current) return;
+    onBeforeOpen?.()
     wrapRef.current.style.display = 'block';
   };
 
@@ -195,6 +198,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       nodeRef={portalRef}
       onEnter={onAnimateStart}
       onEntered={onOpened}
+      onExit={() => onBeforeClose?.()}
       onExited={onAnimateLeave}
     >
       <Portal attach={dialogAttach} ref={portalRef}>

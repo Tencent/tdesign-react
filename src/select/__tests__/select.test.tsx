@@ -180,6 +180,39 @@ describe('Select 组件测试', () => {
     });
   });
 
+  test('多选全选测试', async () => {
+    const MultipleSelect = () => {
+      const [value, setValue] = useState(['apple']);
+      const onChange = (value) => {
+        setValue(value);
+      };
+      return (
+        <Select value={value} onChange={onChange} multiple>
+          <Option key="all" label="All" value="all" checkAll />
+          <Option key="apple" label="Apple" value="apple" />
+          <Option key="orange" label="Orange" value="orange" />
+          <Option key="banana" label="Banana" value="banana" />
+        </Select>
+      );
+    };
+
+    const { getByText } = render(<MultipleSelect />);
+
+    fireEvent.click(document.querySelector('.t-input'));
+
+    // 点击全选，input 展示 Apple、Banana、Orange 选项
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+
+    // 再次点击全选，input 清空选项
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
+  });
+
   test('分组选择器测试', async () => {
     const OptionGroupSelect = () => {
       const [value, setValue] = useState('apple');
