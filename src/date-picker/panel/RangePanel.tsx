@@ -1,15 +1,17 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
 import { TdDateRangePickerProps } from '../type';
-import type { TdTimePickerProps } from '../../time-picker';
+import type { TdTimePickerProps, TdTimeRangePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
+import { parseToDateTime } from '../utils';
 
 export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];
@@ -61,10 +63,11 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     month,
     time = [],
     panelPreselection,
-    onClick,
-    onConfirmClick,
     onPresetClick,
     cancelRangeSelectLimit,
+    onClick,
+    onConfirmClick,
+    disableTime,
   } = props;
 
   const { format } = getDefaultFormat({
@@ -86,6 +89,23 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
         ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59))
         : undefined,
   });
+
+  const disableTimeOptions: TdTimeRangePickerProps['disableTime'] = (h, m, s, ms, context) => {
+    if (!isFunction(disableTime)) {
+      return {};
+    }
+
+    const [startTime, endTime] = value || [];
+
+    if (context.partial) {
+      return disableTime(
+        [parseToDateTime(startTime, format, [h, m, s, ms]), parseToDateTime(endTime, format)],
+        context,
+      );
+    }
+
+    return disableTime([parseToDateTime(startTime, format), parseToDateTime(endTime, format, [h, m, s, ms])], context);
+  };
 
   const [startYear, endYear] = year;
   const [startMonth, endMonth] = month;
@@ -127,7 +147,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
 
     popupVisible: props.popupVisible,
     enableTimePicker: props.enableTimePicker,
-    timePickerProps: props.timePickerProps,
+    timePickerProps: {
+      disableTime: disableTimeOptions as TdTimePickerProps['disableTime'],
+      ...props.timePickerProps,
+    },
     onMonthChange: props.onMonthChange,
     onYearChange: props.onYearChange,
     onJumperClick: props.onJumperClick,
