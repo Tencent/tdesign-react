@@ -192,9 +192,11 @@ const Select = forwardRefWithStatics(
         return;
       }
 
+
       const values = currentOptions
         .filter((option) => !option.checkAll && !option.disabled)
         .map((option) => option[keys?.value || 'value']);
+
       const selectableOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
 
       const checkAllValue =
@@ -436,7 +438,7 @@ const Select = forwardRefWithStatics(
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
           value={selectedLabel}
-          options={props.options}
+          options={selectedOptions}
           valueDisplay={renderValueDisplay()}
           clearable={clearable}
           disabled={disabled}
