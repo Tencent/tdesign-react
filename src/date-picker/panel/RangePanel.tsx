@@ -6,7 +6,7 @@ import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
 import { TdDateRangePickerProps } from '../type';
-import type { TdTimePickerProps, TdTimeRangePickerProps } from '../../time-picker';
+import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
@@ -90,21 +90,16 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
         : undefined,
   });
 
-  const disableTimeOptions: TdTimeRangePickerProps['disableTime'] = (h, m, s, ms, context) => {
+  const disableTimeOptions: TdTimePickerProps['disableTime'] = (h, m, s, ms) => {
     if (!isFunction(disableTime)) {
       return {};
     }
 
     const [startTime, endTime] = value || [];
 
-    if (context.partial) {
-      return disableTime(
-        [parseToDateTime(startTime, format, [h, m, s, ms]), parseToDateTime(endTime, format)],
-        context,
-      );
-    }
-
-    return disableTime([parseToDateTime(startTime, format), parseToDateTime(endTime, format, [h, m, s, ms])], context);
+    return disableTime([parseToDateTime(startTime, format), parseToDateTime(endTime, format, [h, m, s, ms])], {
+      partial: activeIndex === 0 ? 'start' : 'end',
+    });
   };
 
   const [startYear, endYear] = year;
@@ -148,7 +143,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     popupVisible: props.popupVisible,
     enableTimePicker: props.enableTimePicker,
     timePickerProps: {
-      disableTime: disableTimeOptions as TdTimePickerProps['disableTime'],
+      disableTime: disableTimeOptions,
       ...props.timePickerProps,
     },
     onMonthChange: props.onMonthChange,
