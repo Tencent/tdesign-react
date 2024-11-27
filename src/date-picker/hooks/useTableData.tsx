@@ -3,7 +3,7 @@ import { getWeeks, getQuarters, getYears, getMonths, flagActive } from '../../_c
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
 export interface TableDataProps extends SinglePanelProps {
-  isRange?: Boolean;
+  isRange?: boolean;
   start: Date | undefined;
   end?: Date | undefined;
   hoverStart?: Date | undefined;
