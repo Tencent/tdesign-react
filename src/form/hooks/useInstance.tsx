@@ -218,6 +218,32 @@ export default function useInstance(
     });
   }
 
+  // 对外方法，获取 formItem 的错误信息
+  function getValidateMessage(fields?: Array<keyof FormData>) {
+    const message = {};
+
+    if (typeof fields === 'undefined') {
+      [...formMapRef.current.values()].forEach((formItemRef) => {
+        const item = formItemRef?.current?.getValidateMessage?.();
+        if (isEmpty(item)) return;
+        message[formItemRef?.current?.name] = item;
+      });
+    } else {
+      if (!Array.isArray(fields)) throw new Error('getValidateMessage 参数需要 Array 类型');
+
+      fields.forEach((name) => {
+        const formItemRef = getMapValue(name, formMapRef);
+        const item = formItemRef?.current?.getValidateMessage?.();
+        if (isEmpty(item)) return;
+        message[formItemRef?.current?.name] = item;
+      });
+    }
+
+    if (isEmpty(message)) return;
+
+    return message;
+  }
+
   return {
     submit,
     reset,
@@ -227,6 +253,7 @@ export default function useInstance(
     setFields,
     setFieldsValue,
     setValidateMessage,
+    getValidateMessage,
     getFieldValue,
     getFieldsValue,
     currentElement: formRef.current,

@@ -127,6 +127,14 @@ export interface TdDialogProps {
    */
   zIndex?: number;
   /**
+   * 对话框执行消失动画效果前触发
+   */
+  onBeforeClose?: () => void;
+  /**
+   * 对话框执行弹出动画效果前触发
+   */
+  onBeforeOpen?: () => void;
+  /**
    * 如果“取消”按钮存在，则点击“取消”按钮时触发，同时触发关闭事件
    */
   onCancel?: (context: { e: MouseEvent<HTMLButtonElement> }) => void;

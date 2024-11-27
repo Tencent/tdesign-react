@@ -7,8 +7,8 @@ export const TD_COLOR_USED_COLORS_MAX_SIZE = 100; // 每行10个
 
 // 颜色模式options配置
 export const COLOR_MODES = {
-  monochrome: '单色',
-  'linear-gradient': '渐变',
+  monochrome: 'singleColor',
+  'linear-gradient': 'gradientColor',
 };
 
 // 非透明色格式化类型

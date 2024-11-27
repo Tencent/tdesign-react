@@ -191,9 +191,13 @@ const Select = forwardRefWithStatics(
       if (!multiple) {
         return;
       }
-      const selectableOptions = currentOptions
+
+
+      const values = currentOptions
         .filter((option) => !option.checkAll && !option.disabled)
-        .map((option) => option.value);
+        .map((option) => option[keys?.value || 'value']);
+
+      const selectableOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
 
       const checkAllValue =
         !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>)?.length ? selectableOptions : [];
@@ -369,7 +373,7 @@ const Select = forwardRefWithStatics(
         return valueDisplay;
       }
       if (multiple) {
-        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedLabel, onClose });
+        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedOptions, onClose });
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
@@ -434,6 +438,7 @@ const Select = forwardRefWithStatics(
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
           value={selectedLabel}
+          options={selectedOptions}
           valueDisplay={renderValueDisplay()}
           clearable={clearable}
           disabled={disabled}

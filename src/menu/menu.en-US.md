@@ -65,6 +65,7 @@ disabled | Boolean | - | \- | N
 href | String | - | \- | N
 icon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 target | String | - | options：_blank/_self/_parent/_top | N
+tooltipProps | Object | - | Transparent all feature props of the Tooltip。Typescript：`TooltipProps`，[Tooltip API Documents](./tooltip?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/menu/type.ts) | N
 value | String / Number | - | Typescript：`MenuValue` | N
 onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/>trigger on click | N
 
