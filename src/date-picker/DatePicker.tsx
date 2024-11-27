@@ -4,16 +4,17 @@ import dayjs from 'dayjs';
 import isDate from 'lodash/isDate';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
-import { TdDatePickerProps, PresetDate } from './type';
+import { TdDatePickerProps, PresetDate, DateMultipleValue, DateValue } from './type';
 import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
 import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '../_common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj, covertToDate } from '../_common/js/date-picker/utils';
+import { subtractMonth, addMonth, extractTimeObj, covertToDate, isSame } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
+import type { TagInputRemoveContext } from '../tag-input';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -35,6 +36,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     timePickerProps,
     presetsPlacement,
     needConfirm,
+    multiple,
     onPick,
   } = props;
 
@@ -43,6 +45,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     popupVisible,
     inputProps,
     popupProps,
+    tagInputProps,
     value,
     year,
     month,
@@ -63,7 +66,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     mode,
     format: props.format,
     valueType: props.valueType,
-    enableTimePicker,
+    enableTimePicker: multiple ? false : enableTimePicker,
   });
 
   const onTriggerNeedConfirm = useLatest(() => {
@@ -90,6 +93,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }, [popupVisible]);
 
   useEffect(() => {
+    if (multiple) return;
     // 面板展开重置数据
     // Date valueType、week mode 、quarter mode nad empty string don't need to be parsed
     const dateValue =
@@ -100,8 +104,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
-      setYear(parseToDayjs(value, format).year());
-      setMonth(parseToDayjs(value, format).month());
+      setYear(parseToDayjs(value as DateValue, format).year());
+      setMonth(parseToDayjs(value as DateValue, format).month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
@@ -111,12 +115,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
+    if (multiple) return;
     setIsHoverCell(true);
     setInputValue(formatDate(date, { format }));
   }
 
   // 日期 leave
   function onCellMouseLeave() {
+    if (multiple) return;
     setIsHoverCell(false);
     setInputValue(formatDate(cacheValue, { format }));
   }
@@ -133,6 +139,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (enableTimePicker) {
       setCacheValue(formatDate(date, { format }));
     } else {
+      if (multiple) {
+        const newDate = processDate(date);
+        onChange(newDate, {
+          dayjsValue: parseToDayjs(date, format),
+          trigger: 'pick',
+        });
+        return;
+      }
       onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
@@ -224,6 +238,38 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     // eslint-disable-next-line
   }, []);
 
+  function processDate(date: Date) {
+    const isSameDate = (value as DateMultipleValue).some((val) => isSame(dayjs(val).toDate(), date));
+    let currentDate: DateMultipleValue;
+
+    if (!isSameDate) {
+      currentDate = (value as DateMultipleValue).concat(formatDate(date, { format, targetFormat: valueType }));
+    } else {
+      currentDate = (value as DateMultipleValue).filter(
+        (val) =>
+          formatDate(val, { format, targetFormat: valueType }) !==
+          formatDate(date, { format, targetFormat: valueType }),
+      );
+    }
+
+    return currentDate.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+  }
+
+  const onTagRemoveClick = (ctx: TagInputRemoveContext) => {
+    const removeDate = dayjs(ctx.item).toDate();
+    const newDate = processDate(removeDate);
+    onChange?.(newDate, {
+      dayjsValue: parseToDayjs(removeDate, format),
+      trigger: 'pick',
+    });
+  };
+
+  const onTagClearClick = ({ e }) => {
+    e.stopPropagation();
+    setPopupVisible(false);
+    onChange([], { dayjsValue: dayjs(), trigger: 'clear' });
+  };
+
   const panelProps = {
     value: cacheValue,
     year,
@@ -231,14 +277,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     mode,
     format,
     presets,
-    time,
+    time: multiple ? false : time,
     disableDate,
     firstDayOfWeek,
     timePickerProps,
-    enableTimePicker,
+    enableTimePicker: multiple ? false : enableTimePicker,
     presetsPlacement,
     popupVisible,
     needConfirm,
+    multiple,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
@@ -263,6 +310,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         inputProps={inputProps}
         popupVisible={popupVisible}
         panel={<SinglePanel {...panelProps} />}
+        multiple={multiple}
+        tagInputProps={{
+          onRemove: onTagRemoveClick,
+          ...tagInputProps,
+        }}
+        onClear={onTagClearClick}
       />
     </div>
   );

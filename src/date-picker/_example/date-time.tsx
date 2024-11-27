@@ -6,7 +6,7 @@ export default function YearDatePicker() {
   const [value, setValue] = useState<DateValue>('2022-02-02 12:11:11');
   const [value2, setValue2] = useState<DateValue>('2022-02-02 am 12:11:11');
 
-  const handleChange: DatePickerProps['onChange'] = (value) => {
+  const handleChange: DatePickerProps['onChange'] = (value: DateValue) => {
     console.log(value);
     setValue(value);
   };
@@ -18,7 +18,7 @@ export default function YearDatePicker() {
       <DatePicker
         enableTimePicker
         value={value2}
-        onChange={(v) => setValue2(v)}
+        onChange={(v: DateValue) => setValue2(v)}
         allowInput
         clearable
         format="YYYY-MM-DD a hh:mm:ss"

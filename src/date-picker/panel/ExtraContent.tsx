@@ -1,14 +1,14 @@
 import React from 'react';
 import DateFooter from '../base/Footer';
 import type { SinglePanelProps } from './SinglePanel';
-import type { TdDatePickerProps, TdDateRangePickerProps, DateValue } from '../type';
+import type { TdDatePickerProps, TdDateRangePickerProps, DateValue, DateMultipleValue } from '../type';
 
 export interface ExtraContentProps
   extends Pick<
     SinglePanelProps,
     'enableTimePicker' | 'presetsPlacement' | 'onPresetClick' | 'onConfirmClick' | 'needConfirm'
   > {
-  selectedValue?: DateValue;
+  selectedValue?: DateValue | DateMultipleValue;
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
 }
 

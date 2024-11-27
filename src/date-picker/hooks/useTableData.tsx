@@ -3,7 +3,7 @@ import { getWeeks, getQuarters, getYears, getMonths, flagActive } from '../../_c
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
 export interface TableDataProps extends SinglePanelProps {
-  isRange?: Boolean;
+  isRange?: boolean;
   start: Date | undefined;
   end?: Date | undefined;
   hoverStart?: Date | undefined;
@@ -32,6 +32,8 @@ export default function useTableData(props: TableDataProps) {
     minDate,
     maxDate,
     isRange,
+    value,
+    multiple,
   } = props;
 
   // 列表数据
@@ -61,5 +63,5 @@ export default function useTableData(props: TableDataProps) {
     data = getYears(year, options);
   }
 
-  return flagActive(data, { start, end, hoverStart, hoverEnd, type: mode, isRange });
+  return flagActive(data, { start, end, hoverStart, hoverEnd, type: mode, isRange, value, multiple });
 }
