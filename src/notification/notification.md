@@ -1,5 +1,12 @@
 :: BASE_DOC ::
 
+### 函数式调用
+支持函数式调用`NotifyPlugin`。
+
+示例：`NotifyPlugin.warning('请输入信息')`
+
+{{ plugin }}
+
 ## API
 ### Notification Props
 
