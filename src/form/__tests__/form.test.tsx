@@ -41,6 +41,8 @@ describe('Form 组件测试', () => {
   });
 
   test('form instance', async () => {
+    const fn = vi.fn();
+
     const TestForm = () => {
       const [form] = Form.useForm();
 
@@ -71,7 +73,7 @@ describe('Form 组件测试', () => {
       }
 
       return (
-        <Form form={form} labelWidth={100} colon>
+        <Form form={form} labelWidth={100} colon onValuesChange={fn}>
           <FormItem label="input1" name="input1" rules={[{ required: true, message: 'input1 未填写', type: 'error' }]}>
             <Input placeholder="input1" />
           </FormItem>
@@ -93,8 +95,12 @@ describe('Form 组件测试', () => {
     expect(getByPlaceholderText('input1').value).toEqual('');
     fireEvent.click(getByText('setFields'));
     expect(getByPlaceholderText('input1').value).toEqual('setFields');
+    expect(fn).toHaveBeenCalled();
+
     fireEvent.click(getByText('setFieldsValue'));
     expect(getByPlaceholderText('input1').value).toEqual('setFieldsValue');
+    expect(fn).toHaveBeenCalled();
+
     fireEvent.click(getByText('setValidateMessage'));
     expect(queryByText('message: setValidateMessage')).toBeTruthy();
 
