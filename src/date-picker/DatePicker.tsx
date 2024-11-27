@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import isDate from 'lodash/isDate';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
-import { TdDatePickerProps, PresetDate } from './type';
+import { TdDatePickerProps, PresetDate, DateMultipleValue } from './type';
 import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
@@ -239,13 +239,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }, []);
 
   function processDate(date: Date) {
-    const isSameDate = (value as (string | number | Date)[]).some((val) => isSame(dayjs(val).toDate(), date));
+    const isSameDate = (value as DateMultipleValue).some((val) => isSame(dayjs(val).toDate(), date));
     let currentDate: (string | number | Date)[];
 
     if (!isSameDate) {
-      currentDate = (value as (string | number | Date)[]).concat(formatDate(date, { format, targetFormat: valueType }));
+      currentDate = (value as DateMultipleValue).concat(formatDate(date, { format, targetFormat: valueType }));
     } else {
-      currentDate = (value as (string | number | Date)[]).filter(
+      currentDate = (value as DateMultipleValue).filter(
         (val) =>
           formatDate(val, { format, targetFormat: valueType }) !==
           formatDate(date, { format, targetFormat: valueType }),

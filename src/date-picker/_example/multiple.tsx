@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { DatePicker } from 'tdesign-react';
-import type { DatePickerProps, DateValue } from 'tdesign-react';
+import type { DatePickerProps, DateMultipleValue } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  const [defaultValue, setDefaultValue] = useState<DateValue>(['2000-01-04', '2000-01-03', '2000-01-05']);
+  const [defaultValue, setDefaultValue] = useState<DateMultipleValue>(['2000-01-04', '2000-01-03', '2000-01-05']);
 
-  const handleChange: DatePickerProps['onChange'] = (value, context) => {
+  const handleChange: DatePickerProps['onChange'] = (value: DateMultipleValue, context) => {
     console.log('onChange:', value, context);
     setDefaultValue(value);
   };
