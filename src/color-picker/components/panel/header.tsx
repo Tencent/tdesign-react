@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLOR_MODES } from '../../const';
+import { COLOR_MODES } from '../../../_common/js/color-picker/constants';
 import Radio, { RadioValue } from '../../../radio';
 import { TdColorModes } from '../../interface';
 import { TdColorPickerProps } from '../../type';

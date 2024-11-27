@@ -13,7 +13,7 @@ import {
   DEFAULT_LINEAR_GRADIENT,
   TD_COLOR_USED_COLORS_MAX_SIZE,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-} from '../../const';
+} from '../../../_common/js/color-picker/constants';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';
