@@ -47,7 +47,7 @@ export default function NotModalExample() {
       </Button>
 
       <Dialog
-        width="800"
+        width={800}
         header="模态对话框"
         visible={visible}
         onClose={handleClose}

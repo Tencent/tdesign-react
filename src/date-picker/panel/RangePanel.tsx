@@ -5,13 +5,14 @@ import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
-import { TdDateRangePickerProps } from '../type';
-import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import { parseToDateTime } from '../utils';
+
+import type { TdDateRangePickerProps } from '../type';
+import type { TdTimePickerProps } from '../../time-picker';
 
 export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];

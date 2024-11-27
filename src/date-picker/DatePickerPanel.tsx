@@ -86,7 +86,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     if (year !== nextYear) {
       props.onYearChange?.({
         year: nextYear,
-        date: parseToDayjs(value, format).toDate(),
+        date: parseToDayjs(value as DateValue, format).toDate(),
         trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
       });
     }
@@ -94,7 +94,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     if (month !== nextMonth) {
       props.onMonthChange?.({
         month: nextMonth,
-        date: parseToDayjs(value, format).toDate(),
+        date: parseToDayjs(value as DateValue, format).toDate(),
         trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
       });
     }
@@ -118,7 +118,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
 
     props.onTimeChange?.({
       time: val,
-      date: parseToDayjs(value, format).toDate(),
+      date: parseToDayjs(value as DateValue, format).toDate(),
       trigger: 'time-hour',
     });
   }
@@ -130,7 +130,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
       trigger: 'confirm',
     });
 
-    props.onConfirm?.({ date: dayjs(value).toDate(), e });
+    props.onConfirm?.({ date: dayjs(value as DateValue).toDate(), e });
   }
 
   // 预设
@@ -152,7 +152,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
 
     props.onYearChange?.({
       year,
-      date: parseToDayjs(value, format).toDate(),
+      date: parseToDayjs(value as DateValue, format).toDate(),
       trigger: 'year-select',
     });
   }
@@ -162,7 +162,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
 
     props.onMonthChange?.({
       month,
-      date: parseToDayjs(value, format).toDate(),
+      date: parseToDayjs(value as DateValue, format).toDate(),
       trigger: 'month-select',
     });
   }

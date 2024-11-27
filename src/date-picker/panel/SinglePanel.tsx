@@ -69,11 +69,13 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
   };
 
   const tableData = useTableData({
+    value,
     year,
     month,
     mode,
-    start: value ? parseToDayjs(value, format).toDate() : undefined,
+    start: value ? parseToDayjs(props.multiple ? value[0] : value, format).toDate() : undefined,
     firstDayOfWeek,
+    multiple: props.multiple,
     ...disableDateOptions,
   });
 
@@ -86,7 +88,7 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
     firstDayOfWeek,
     tableData,
     popupVisible: props.popupVisible,
-
+    multiple: props.multiple,
     time: props.time,
     timePickerProps: {
       disableTime: disableTimeOptions,
