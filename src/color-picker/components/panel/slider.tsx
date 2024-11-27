@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
-import { SLIDER_DEFAULT_WIDTH } from '../../const';
+import { SLIDER_DEFAULT_WIDTH } from '../../../_common/js/color-picker/constants';
 import useDrag, { Coordinate } from '../../../hooks/useDrag';
 import { TdColorBaseProps } from '../../interface';
 import useStyles from '../../hooks/useStyles';

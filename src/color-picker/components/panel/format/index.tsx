@@ -3,7 +3,7 @@ import upperCase from 'lodash/upperCase';
 import Select from '../../../../select';
 import FormatInput from './inputs';
 import Color from '../../../../_common/js/color-picker/color';
-import { FORMATS } from '../../../const';
+import { FORMATS } from '../../../../_common/js/color-picker/constants';
 import { TdColorPickerProps } from '../../../type';
 
 export interface TdColorFormatProps extends TdColorPickerProps {
@@ -21,8 +21,6 @@ const FormatPanel = (props: TdColorFormatProps) => {
     onModeChange(v);
   };
 
-  const formats: TdColorPickerProps['format'][] = [...FORMATS];
-
   return (
     <div className={`${baseClassName}__format`}>
       <div className={`${baseClassName}__format--item`}>
@@ -37,7 +35,7 @@ const FormatPanel = (props: TdColorFormatProps) => {
           value={formatMode}
           onChange={handleModeChange}
         >
-          {formats.map((item) => (
+          {FORMATS.map((item) => (
             <Select.Option key={item} value={item} label={upperCase(item)} style={{ fontSize: '12px' }} />
           ))}
         </Select>
