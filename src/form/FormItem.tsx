@@ -367,7 +367,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     }
     if (typeof value !== 'undefined') {
       // 手动设置 status 则不需要校验 交给用户判断
-      updateFormValue(value, typeof status === 'undefined' ? true : false);
+      updateFormValue(value, typeof status === 'undefined' ? true : false, true);
     }
   }
 
