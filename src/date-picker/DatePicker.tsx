@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import isDate from 'lodash/isDate';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
-import { TdDatePickerProps, PresetDate, DateMultipleValue } from './type';
+import { TdDatePickerProps, PresetDate, DateMultipleValue, DateValue } from './type';
 import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
@@ -104,8 +104,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
-      setYear(parseToDayjs(value as string | number | Date, format).year());
-      setMonth(parseToDayjs(value as string | number | Date, format).month());
+      setYear(parseToDayjs(value as DateValue, format).year());
+      setMonth(parseToDayjs(value as DateValue, format).month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
@@ -240,7 +240,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   function processDate(date: Date) {
     const isSameDate = (value as DateMultipleValue).some((val) => isSame(dayjs(val).toDate(), date));
-    let currentDate: (string | number | Date)[];
+    let currentDate: DateMultipleValue;
 
     if (!isSameDate) {
       currentDate = (value as DateMultipleValue).concat(formatDate(date, { format, targetFormat: valueType }));
