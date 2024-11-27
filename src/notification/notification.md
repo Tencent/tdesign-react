@@ -3,7 +3,7 @@
 ### 函数式调用
 支持函数式调用`NotifyPlugin`。
 
-示例：`NotifyPlugin.warning('请输入信息')`
+示例：`NotifyPlugin.warning({ title: '标题', content: '这是一条警告消息' })`
 
 {{ plugin }}
 
