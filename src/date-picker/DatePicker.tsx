@@ -262,14 +262,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       dayjsValue: parseToDayjs(removeDate, format),
       trigger: 'pick',
     });
-    // props?.tagInputProps?.onRemove?.(ctx);
   };
 
   const onTagClearClick = ({ e }) => {
     e.stopPropagation();
     setPopupVisible(false);
     onChange([], { dayjsValue: dayjs(), trigger: 'clear' });
-    // props?.tagInputProps?.onClear?.(e);
   };
 
   const panelProps = {
