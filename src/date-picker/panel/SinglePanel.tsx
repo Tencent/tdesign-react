@@ -5,7 +5,7 @@ import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
-import { TdDatePickerProps } from '../type';
+import type { DateValue, TdDatePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
@@ -65,7 +65,7 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
       return {};
     }
 
-    return disableTime(parseToDateTime(value, format, [h, m, s, ms]));
+    return disableTime(parseToDateTime(value as DateValue, format, [h, m, s, ms]));
   };
 
   const tableData = useTableData({
