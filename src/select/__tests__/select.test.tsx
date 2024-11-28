@@ -1,9 +1,12 @@
 /* eslint-disable */
-import { render, fireEvent, mockTimeout, act } from '@test/utils';
+import { render, fireEvent, mockTimeout, mockDelay, act } from '@test/utils';
 import React, { useState } from 'react';
 import userEvent from '@testing-library/user-event';
 
-import { Select } from '../index';
+import { Select, SelectProps } from '../index';
+import Popup from '../../popup';
+import Space from '../../space';
+import Tag from '../../tag';
 
 const { Option, OptionGroup } = Select;
 
@@ -177,6 +180,39 @@ describe('Select 组件测试', () => {
     });
   });
 
+  test('多选全选测试', async () => {
+    const MultipleSelect = () => {
+      const [value, setValue] = useState(['apple']);
+      const onChange = (value) => {
+        setValue(value);
+      };
+      return (
+        <Select value={value} onChange={onChange} multiple>
+          <Option key="all" label="All" value="all" checkAll />
+          <Option key="apple" label="Apple" value="apple" />
+          <Option key="orange" label="Orange" value="orange" />
+          <Option key="banana" label="Banana" value="banana" />
+        </Select>
+      );
+    };
+
+    const { getByText } = render(<MultipleSelect />);
+
+    fireEvent.click(document.querySelector('.t-input'));
+
+    // 点击全选，input 展示 Apple、Banana、Orange 选项
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+
+    // 再次点击全选，input 清空选项
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
+  });
+
   test('分组选择器测试', async () => {
     const OptionGroupSelect = () => {
       const [value, setValue] = useState('apple');
@@ -331,5 +367,185 @@ describe('Select 组件测试', () => {
     act(() => {
       expect(getByText(text)).toBeTruthy();
     });
+  });
+
+  test('collapsedItems all select', async () => {
+    const minCollapsedNum = 1;
+    const renderCollapsedItems: SelectProps['collapsedItems'] = ({ collapsedSelectedItems, onClose }) => (
+      <Popup
+        key={'tags'}
+        overlayInnerStyle={{
+          padding: '5px',
+        }}
+        content={
+          <Space size={5} align="center">
+            {collapsedSelectedItems.map((item, index) => (
+              <Tag
+                color="red"
+                key={index}
+                onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
+              >
+                {item.label}
+              </Tag>
+            ))}
+          </Space>
+        }
+      >
+        <Tag>More({collapsedSelectedItems?.length})</Tag>
+      </Popup>
+    );
+
+    const MultipleSelect = () => {
+      const selectAllValue = ['apple', 'banana', 'orange'];
+
+      return (
+        <Select
+          options={options}
+          multiple
+          minCollapsedNum={1}
+          value={selectAllValue}
+          collapsedItems={renderCollapsedItems}
+        />
+      );
+    };
+    const { container } = render(<MultipleSelect />);
+
+    const tags = container.querySelectorAll('.t-tag');
+    expect(tags[0]).toHaveTextContent('Apple');
+    expect(tags[1]).toHaveTextContent('More(2)');
+
+    // collapsedItems popup 未展示
+    const selectPopups = document.querySelectorAll(popupSelector);
+    expect(selectPopups.length).toBe(0);
+
+    // collapsedItems popup 展示
+    fireEvent.mouseEnter(tags[1]);
+    const collapsedPopups = document.querySelectorAll(popupSelector);
+    expect(collapsedPopups.length).toBe(1);
+    // 判断展示的tag
+    const collapsedTags = collapsedPopups[0].querySelectorAll('.t-tag');
+    expect(collapsedTags.length).toBe(2);
+    expect(collapsedTags[0]).toHaveTextContent('Banana');
+    expect(collapsedTags[1]).toHaveTextContent('Orange');
+  });
+
+  test('collapsedItems click select', async () => {
+    const minCollapsedNum = 1;
+    const renderCollapsedItems: SelectProps['collapsedItems'] = ({ collapsedSelectedItems, onClose }) => (
+      <Popup
+        key={'tags'}
+        overlayInnerStyle={{
+          padding: '5px',
+        }}
+        content={
+          <Space size={5} align="center" className="collapsed-items-popup">
+            {collapsedSelectedItems.map((item, index) => (
+              <Tag
+                color="red"
+                key={index}
+                onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
+              >
+                {item.label}
+              </Tag>
+            ))}
+          </Space>
+        }
+      >
+        <Tag>More({collapsedSelectedItems?.length})</Tag>
+      </Popup>
+    );
+
+    const MultipleSelect = () => {
+      const [value, setValue] = useState([]);
+      const onChange = (value) => {
+        setValue(value);
+      };
+      return (
+        <Select
+          options={options}
+          multiple
+          minCollapsedNum={1}
+          onChange={onChange}
+          value={value}
+          collapsedItems={renderCollapsedItems}
+        />
+      );
+    };
+    const { getByText, container } = render(<MultipleSelect />);
+    const tags0 = container.querySelectorAll('.t-tag');
+    expect(tags0.length).toBe(0);
+
+    // 检测第一次select value
+    expect(document.querySelectorAll(popupSelector).length).toBe(0);
+    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(getByText('Apple'));
+    const tags1 = container.querySelectorAll('.t-tag');
+    expect(tags1.length).toBe(1);
+    expect(tags1[0]).toHaveTextContent('Apple');
+    //input popup 消失
+    fireEvent.click(document.querySelector('.t-input'));
+    expect(document.querySelectorAll(popupSelector).length).toBe(1);
+    await mockTimeout(() => {
+      expect(document.querySelector(popupSelector)).toHaveStyle({
+        display: 'none',
+      });
+    });
+
+    // 检测第二次 select value
+    fireEvent.click(document.querySelector('.t-input'));
+    await mockTimeout(() => {
+      expect(document.querySelector(popupSelector)).toHaveStyle({
+        display: 'block',
+      });
+    });
+    fireEvent.click(getByText('Orange'));
+    const tags2 = container.querySelectorAll('.t-tag');
+    expect(tags2.length).toBe(2);
+    expect(tags2[0]).toHaveTextContent('Apple');
+    expect(tags2[1]).toHaveTextContent('More(1)');
+    //input popup 消失
+    fireEvent.click(document.querySelector('.t-input'));
+    await mockTimeout(() => {
+      expect(document.querySelectorAll(popupSelector).length).toBe(1);
+      expect(document.querySelector(popupSelector)).toHaveStyle({
+        display: 'none',
+      });
+    });
+    // collapsedItems popup 展示
+    fireEvent.mouseEnter(tags2[1]);
+    expect(document.querySelectorAll(popupSelector).length).toBe(2);
+    // 判断展示的tag
+    const collapsedTags2 = document.querySelectorAll('.collapsed-items-popup .t-tag');
+    expect(collapsedTags2.length).toBe(1);
+    expect(collapsedTags2[0]).toHaveTextContent('Orange');
+
+    // 检测第三次 select value
+    fireEvent.click(document.querySelector('.t-input'));
+    await mockTimeout(() => {
+      expect(document.querySelector(popupSelector)).toHaveStyle({
+        display: 'block',
+      });
+    });
+    fireEvent.click(getByText('Banana'));
+    const tags3 = container.querySelectorAll('.t-tag');
+    expect(tags3.length).toBe(2);
+    expect(tags3[0]).toHaveTextContent('Apple');
+    expect(tags3[1]).toHaveTextContent('More(2)');
+    //input popup 消失
+    fireEvent.click(document.querySelector('.t-input'));
+    await mockTimeout(() => {
+      expect(document.querySelectorAll(popupSelector).length).toBe(2);
+      expect(document.querySelector(popupSelector)).toHaveStyle({
+        display: 'none',
+      });
+    });
+    // collapsedItems popup 展示
+    fireEvent.mouseEnter(tags3[1]);
+    expect(document.querySelectorAll(popupSelector).length).toBe(2);
+    // 判断展示的tag
+    const collapsedTags3 = document.querySelectorAll('.collapsed-items-popup .t-tag');
+    expect(collapsedTags3.length).toBe(2);
+    expect(collapsedTags3[0]).toHaveTextContent('Orange');
+    expect(collapsedTags3[1]).toHaveTextContent('Banana');
   });
 });

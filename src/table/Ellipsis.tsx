@@ -46,7 +46,7 @@ export default function Ellipsis(props: EllipsisProps) {
     e.type === 'mouseleave' ? onTriggerMouseleave() : onTriggerMouseenter();
   }, 80);
 
-  const cellNode = props.children || props.content;
+  const cellNode = props.content || props.children;
   const ellipsisContent = (
     <div ref={root} className={ellipsisClasses} onMouseEnter={onMouseAround} onMouseLeave={onMouseAround}>
       {cellNode}

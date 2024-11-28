@@ -1,15 +1,18 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
-import { TdDateRangePickerProps } from '../type';
-import type { TdTimePickerProps } from '../../time-picker';
 import { getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
+import { parseToDateTime } from '../utils';
+
+import type { TdDateRangePickerProps } from '../type';
+import type { TdTimePickerProps } from '../../time-picker';
 
 export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];
@@ -61,10 +64,11 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     month,
     time = [],
     panelPreselection,
-    onClick,
-    onConfirmClick,
     onPresetClick,
     cancelRangeSelectLimit,
+    onClick,
+    onConfirmClick,
+    disableTime,
   } = props;
 
   const { format } = getDefaultFormat({
@@ -86,6 +90,18 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
         ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59))
         : undefined,
   });
+
+  const disableTimeOptions: TdTimePickerProps['disableTime'] = (h, m, s, ms) => {
+    if (!isFunction(disableTime)) {
+      return {};
+    }
+
+    const [startTime, endTime] = value || [];
+
+    return disableTime([parseToDateTime(startTime, format), parseToDateTime(endTime, format, [h, m, s, ms])], {
+      partial: activeIndex === 0 ? 'start' : 'end',
+    });
+  };
 
   const [startYear, endYear] = year;
   const [startMonth, endMonth] = month;
@@ -127,7 +143,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
 
     popupVisible: props.popupVisible,
     enableTimePicker: props.enableTimePicker,
-    timePickerProps: props.timePickerProps,
+    timePickerProps: {
+      disableTime: disableTimeOptions,
+      ...props.timePickerProps,
+    },
     onMonthChange: props.onMonthChange,
     onYearChange: props.onYearChange,
     onJumperClick: props.onJumperClick,

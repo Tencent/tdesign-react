@@ -1,8 +1,9 @@
 import React from 'react';
-import { COLOR_MODES } from '../../const';
+import { COLOR_MODES } from '../../../_common/js/color-picker/constants';
 import Radio, { RadioValue } from '../../../radio';
 import { TdColorModes } from '../../interface';
 import { TdColorPickerProps } from '../../type';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 
 export interface ColorPanelHeaderProps extends TdColorPickerProps {
   mode?: TdColorModes;
@@ -12,6 +13,8 @@ export interface ColorPanelHeaderProps extends TdColorPickerProps {
 }
 
 const Header = (props: ColorPanelHeaderProps) => {
+  const [local, t] = useLocaleReceiver('colorPicker');
+
   const { baseClassName, mode = 'monochrome', colorModes, onModeChange } = props;
 
   const isSingleMode = colorModes?.length === 1;
@@ -23,17 +26,13 @@ const Header = (props: ColorPanelHeaderProps) => {
   return (
     <div className={`${baseClassName}__head`}>
       <div className={`${baseClassName}__mode`}>
-        {colorModes?.length === 1 ? (
-          COLOR_MODES[colorModes[0]]
-        ) : (
-          <Radio.Group variant="default-filled" size="small" value={mode} onChange={onModeChange}>
-            {Object.keys(COLOR_MODES).map((key) => (
-              <Radio.Button key={key} value={key}>
-                {COLOR_MODES[key]}
-              </Radio.Button>
-            ))}
-          </Radio.Group>
-        )}
+        <Radio.Group variant="default-filled" size="small" value={mode} onChange={onModeChange}>
+          {Object.keys(COLOR_MODES).map((key) => (
+            <Radio.Button key={key} value={key}>
+              {t(local[COLOR_MODES[key]])}
+            </Radio.Button>
+          ))}
+        </Radio.Group>
       </div>
     </div>
   );
