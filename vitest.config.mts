@@ -1,6 +1,6 @@
 import path from 'path';
 import { defineConfig } from 'vitest/config';
-import { InlineConfig } from 'vitest';
+import { InlineConfig } from 'vitest/node';
 
 // 单元测试相关配置
 const testConfig: InlineConfig = {
@@ -11,8 +11,8 @@ const testConfig: InlineConfig = {
   globals: true,
   environment: 'jsdom',
   testTimeout: 16000,
-  transformMode: {
-    web: [/\.[jt]sx$/],
+  testTransformMode: {
+    web: ['\\.[jt]sx$'],
   },
   coverage: {
     provider: 'istanbul',
