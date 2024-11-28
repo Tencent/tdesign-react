@@ -36,6 +36,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     timePickerProps,
     presetsPlacement,
     needConfirm,
+    disableTime,
     multiple,
     onPick,
   } = props;
@@ -296,6 +297,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     onMonthChange,
     onTimePickerChange,
     onPanelClick: () => inputRef.current?.focus?.(),
+    disableTime,
   };
 
   return (

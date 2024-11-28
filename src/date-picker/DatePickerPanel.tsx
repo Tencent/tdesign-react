@@ -37,6 +37,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     presetsPlacement,
     needConfirm,
     onPanelClick,
+    disableTime,
   } = props;
 
   const { format } = getDefaultFormat({
@@ -188,6 +189,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     onMonthChange,
     onTimePickerChange,
     onPanelClick,
+    disableTime,
   };
 
   return <SinglePanel ref={ref} className={className} style={style} {...panelProps} />;

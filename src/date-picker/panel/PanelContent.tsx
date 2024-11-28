@@ -115,6 +115,7 @@ export default function PanelContent(props: PanelContentProps) {
           <div className={`${panelName}-time-viewer`}>{time || defaultTime}</div>
           <TimePickerPanel
             key={partial}
+            position={partial}
             format={timeFormat}
             value={time || defaultTime}
             onChange={onTimePickerChange}
