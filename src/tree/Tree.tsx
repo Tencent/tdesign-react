@@ -175,7 +175,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           log.error('Tree', 'scrollToElement: one of `index` or `key` must exist.');
           return;
         }
-        const data = isVirtual ? visibleData : visibleNodes;
+        const data = visibleNodes;
         index = data?.findIndex((item) => [get(item.data, 'key'), get(item.data, 'value')].includes(params.key));
         if (index < 0) {
           log.error('Tree', `${params.key} does not exist in data, check \`key\` or \`data\` please.`);
@@ -183,7 +183,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       }
       scrollToElement({ ...params, index });
     },
-    [scrollToElement, isVirtual, visibleData, visibleNodes],
+    [scrollToElement, visibleNodes],
   );
   /** 对外暴露的公共方法 * */
   useImperativeHandle<unknown, TreeInstanceFunctions>(
