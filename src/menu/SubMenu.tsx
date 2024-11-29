@@ -34,7 +34,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
-  const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     onExpand(value, expanded);
     setOpen(false);
@@ -96,7 +96,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-opened`]: isOpen,
       })}
-      onClick={handleClick}
       style={style}
       onMouseEnter={() => handleMouseEvent('enter')}
       onMouseLeave={() => handleMouseEvent('leave')}
@@ -106,6 +105,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
           [`${classPrefix}-is-opened`]: isOpen,
           [`${classPrefix}-is-active`]: checkSubMenuChildrenActive(children, active),
         })}
+        onClick={handleClick}
       >
         {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
         <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
