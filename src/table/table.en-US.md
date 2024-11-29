@@ -1,6 +1,7 @@
 :: BASE_DOC ::
 
 ## API
+
 ### BaseTable Props
 
 name | type | default | description | required
@@ -11,6 +12,7 @@ attach | String / Function | - | elements with popup would be attached to `attac
 bordered | Boolean | false | show table bordered | N
 bottomContent | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 cellEmptyContent | TNode | - | Typescript：`string \| TNode<BaseTableCellParams<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+isStatic | Boolean | false | Static table,used in scenarios where the columns attribute of the table does not change dynamically。Typescript：`boolean`。| N
 columns | Array | [] | table column configs。Typescript：`Array<BaseTableCol<T>>` | N
 data | Array | [] | table data。Typescript：`Array<T>` | N
 disableDataPage | Boolean | false | \- | N
