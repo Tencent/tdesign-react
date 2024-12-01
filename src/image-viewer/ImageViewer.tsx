@@ -22,7 +22,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
 
   const imageViewerAttach = useAttach('imageViewer', attach);
   const [visible, setVisible] = useControlled(props, 'visible', (visible, context) => {
-    !visible && props.onClose?.(context);
+    !visible && props?.onClose?.(context);
   });
 
   const [visibled, setVisibled] = useState(false);
