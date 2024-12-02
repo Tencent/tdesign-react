@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
-import { TdDatePickerProps, TdDateRangePickerProps, DateValue } from '../type';
+import { TdDatePickerProps, TdDateRangePickerProps, DateValue, DateMultipleValue } from '../type';
 
 interface DatePickerFooterProps
   extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presetsPlacement' | 'needConfirm'> {
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
   onPresetClick?: Function;
   onConfirmClick?: Function;
-  selectedValue?: DateValue;
+  selectedValue?: DateValue | DateMultipleValue;
 }
 
 const DatePickerFooter = (props: DatePickerFooterProps) => {

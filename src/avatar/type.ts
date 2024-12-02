@@ -7,7 +7,8 @@
 import { MouseEvent } from 'react';
 import { ImageProps } from '../image';
 import { PopupProps } from '../popup';
-import { TNode, TElement, ImageEvent } from '../common';
+
+import { TNode, TElement, ImageEvent, ShapeEnum } from '../common';
 
 export interface TdAvatarProps {
   /**
@@ -93,7 +94,5 @@ export interface TdAvatarGroupProps {
    */
   size?: string;
 }
-
-export type ShapeEnum = 'circle' | 'round';
 
 export type CascadingValue = 'left-up' | 'right-up';

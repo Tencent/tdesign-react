@@ -5,6 +5,15 @@ import { render, vi, fireEvent } from '@test/utils';
 
 import { DatePickerPanel } from '..';
 
+const disableTime = (time: Date) => {
+  if (dayjs(time).format('YYYY-MM-DD') === dayjs('2024-11-26').format('YYYY-MM-DD')) {
+    return {
+      hour: [0, 1, 2, 3, 4, 5, 6],
+    };
+  }
+  return {};
+};
+
 describe('DatePickerPanel', () => {
   beforeEach(() => {
     const mockDate = new Date(2023, 8, 1);
@@ -142,5 +151,14 @@ describe('DatePickerPanel', () => {
     fireEvent.click(yearSelect);
     const monthSelect = container.querySelector('.t-date-picker__header-controller-month');
     fireEvent.click(monthSelect);
+  });
+
+  test('disableTime', async () => {
+    const { container } = render(
+      <DatePickerPanel value="2024-11-26 07:00:00" enableTimePicker disableTime={disableTime} />,
+    );
+
+    expect(container.querySelector('.t-date-picker__cell--active').firstChild.firstChild).toHaveTextContent('26');
+    expect(container.querySelectorAll('.t-time-picker__panel-body-scroll')[0].children).toHaveLength(17);
   });
 });

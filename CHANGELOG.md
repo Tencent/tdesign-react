@@ -5,6 +5,49 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.10.1 `2024-11-28` 
+### 🚀 Features
+- `DatePicker`: 新增`multiple` API，用于支持日期选择器多选功能，具体使用请参考示例 @HaixingOoO ([#3199](https://github.com/Tencent/tdesign-react/pull/3199))
+- `DatePicker`: 新增`disableTime` API，用于更方便地设置禁用时间部分 @HaixingOoO ([#3226](https://github.com/Tencent/tdesign-react/pull/3226))
+- `Dialog`: 新增 `beforeClose` 和 `beforeOpen` API，用于在打开和关闭弹窗时执行更多回调操作 @Wesley-0808  ([#3203](https://github.com/Tencent/tdesign-react/pull/3203))
+- `Drawer`: 新增 `beforeClose` 和 `beforeOpen` API，用于在打开和关闭抽屉时执行更多回调操作 @Wesley-0808  ([#3203](https://github.com/Tencent/tdesign-react/pull/3203))
+### 🐞 Bug Fixes
+
+- `ColorPicker`: 修复 `colorMode` 部分文案没有支持国际化的问题 @l123wx ([#3221](https://github.com/Tencent/tdesign-react/pull/3221))
+- `Form`: 修复`setFieldsValue`和`setFields` 没有触发`onValuesChange`的问题 @uyarn ([#3232](https://github.com/Tencent/tdesign-react/pull/3232))
+- `Notification`: 修改 `NotificationPlugin` 的 `offset` 属性默认值，使其更符合常规习惯 @huangchen1031  ([#3231](https://github.com/Tencent/tdesign-react/pull/3231))
+- `Select`: 修复 `collapsedItems`  的参数  `collapsedSelectedItems` 的错误 @RSS1102 ([#3214](https://github.com/Tencent/tdesign-react/pull/3214))
+- `Select`: 修复多选下拉框全选功能失效的问题 @huangchen1031 ([#3216](https://github.com/Tencent/tdesign-react/pull/3216))
+- `Table`: 修复可过滤表格在处理`null`类型的异常问题 @2ue ([#3197](https://github.com/Tencent/tdesign-react/pull/3197))
+- `Table`: 修复单元格为数字 0 且开启省略时渲染异常的问题 @uyarn ([#3233](https://github.com/Tencent/tdesign-react/pull/3233))
+- `Tree`: 修复`scrollTo`方法滚动的异常行为 @uyarn ([#3235](https://github.com/Tencent/tdesign-react/pull/3235))
+### 📝 Documentation
+- `Dialog`: 修复代码示例的错误 @RSS1102 ([#3229](https://github.com/Tencent/tdesign-react/pull/3229))
+### 🚧 Others
+- `TextArea`: 优化 `TextArea` 事件类型 @HaixingOoO ([#3211](https://github.com/Tencent/tdesign-react/pull/3211))
+
+## 🌈 1.10.0 `2024-11-15` 
+### 🚀 Features
+- `Select`: `collapsedItems` 方法的参数 `collapsedSelectedItems` 扩充为 `options`，使用`collapsedItems`请注意此变更 @RSS1102 ([#3185](https://github.com/Tencent/tdesign-react/pull/3185))
+- `Icon`: 图标库发布 `0.4.0`版本，新增 907 个新图标；命名优化`blockchain` 重命名改为`transform-1`,`gesture-pray-1`重命名为`gesture-open`,`gesture-ranslation-1`重命名为`wave-bye`, `gesture-up-1`重命名为`gesture-typing`,`gesture-up-2`重命名为`gesture-right-slip`,`logo-wechat`重命名为`logo-wechat-stroke-filled`，移除`tree-list`、`logo-adobe-photoshop-1` 等错误图标 @uyarn ([#3194](https://github.com/Tencent/tdesign-react/pull/3194))
+- `Cascader`: 单选模式下当`trigger`为`hover`时，选中选项后自动关闭面板 @uyarn ([#3188](https://github.com/Tencent/tdesign-react/pull/3188))
+- `Checkbox`: 新增 `title` API, 用于在选项展示禁用原因等场景 @uyarn ([#3207](https://github.com/Tencent/tdesign-react/pull/3207))
+- `Menu`: 新增`tooltipProps` API，作用于一级菜单收起聚焦出现的节点 @uyarn ([#3201](https://github.com/Tencent/tdesign-react/pull/3201))
+- `Switch`: 新增 `before-change` API @centuryPark ([#3167](https://github.com/Tencent/tdesign-react/pull/3167))
+- `Form`: 新增 `getValidateMessage` 实例方法 @moecasts ([#3180](https://github.com/Tencent/tdesign-react/pull/3180))
+
+### 🐞 Bug Fixes
+- `TagInput`: 修复在`readonly`模式下仍可以通过Backspace按键删除已选项的缺陷 @RSS1102 ([#3172](https://github.com/Tencent/tdesign-react/pull/3172))
+- `Form`: 修复`1.9.3`版本 `FormItem` 在`Form`外设置了`name`属性有异常的问题 @l123wx ([#3183](https://github.com/Tencent/tdesign-react/pull/3183))
+- `Select`: 修复 valueType 为 object 时，点击全选按钮后 onChange 回调参数类型错误的问题 @l123wx ([#3193](https://github.com/Tencent/tdesign-react/pull/3193))
+- `Table`: 修复动态设置`expandTreeNode`没有正常展示子节点的问题 @uyarn ([#3202](https://github.com/Tencent/tdesign-react/pull/3202))
+- `Tree`: 修复动态切换`expandAll`的功能异常问题 @uyarn ([#3204](https://github.com/Tencent/tdesign-react/pull/3204))
+- `Drawer`: 修复无法自定义`confirmBtn` 和 `closeBtn`内容的问题 @RSS1102 ([#3191](https://github.com/Tencent/tdesign-react/pull/3191))
+### 📝 Documentation
+- `Icon`: 优化图标检索功能，支持中英文搜索图标 @uyarn ([#3194](https://github.com/Tencent/tdesign-react/pull/3194))
+- `Popup`: 新增`popperOption`使用示例 @HaixingOoO  ([#3200](https://github.com/Tencent/tdesign-react/pull/3200))
+
+
 ## 🌈 1.9.3 `2024-10-31` 
 ### 🐞 Bug Fixes
 - `Select`: 修复`valueDisplay`下的`onClose`回调问题 @uyarn ([#3154](https://github.com/Tencent/tdesign-react/pull/3154))

@@ -7,6 +7,15 @@ import { render, fireEvent, waitFor, vi } from '@test/utils';
 import DatePicker from '..';
 import type { DateValue } from '../type';
 
+const disableTime = (time: Date) => {
+  if (dayjs(time).format('YYYY-MM-DD') === dayjs('2024-11-26').format('YYYY-MM-DD')) {
+    return {
+      hour: [0, 1, 2, 3, 4, 5, 6],
+    };
+  }
+  return {};
+};
+
 describe('DatePicker', () => {
   beforeEach(() => {
     const mockDate = new Date(2022, 7, 27);
@@ -325,5 +334,16 @@ describe('DatePicker', () => {
 
     const monthSelect = await waitFor(() => document.querySelector('.t-date-picker__header-controller-month'));
     fireEvent.click(monthSelect);
+  });
+
+  test('disableTime', async () => {
+    const { container } = render(<DatePicker value="2024-11-26 07:00:00" enableTimePicker disableTime={disableTime} />);
+
+    fireEvent.mouseDown(container.querySelector('input'));
+
+    await waitFor(() => {
+      expect(document.querySelector('.t-date-picker__cell--active')?.firstChild?.firstChild).toHaveTextContent('26');
+      expect(document.querySelectorAll('.t-time-picker__panel-body-scroll')[0].children).toHaveLength(17);
+    });
   });
 });

@@ -40,8 +40,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     timePickerProps,
     presetsPlacement,
     panelPreselection,
-    onPick,
     cancelRangeSelectLimit,
+    onPick,
+    disableTime,
   } = props;
 
   const {
@@ -367,6 +368,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     onYearChange,
     onMonthChange,
     onTimePickerChange,
+    disableTime,
   };
 
   return (

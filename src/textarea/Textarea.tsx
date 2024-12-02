@@ -13,7 +13,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 export interface TextareaProps
   extends Omit<
       React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-      'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus'
+      'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus' | 'onKeyDown' | 'onKeyPress' | 'onKeyUp'
     >,
     TdTextareaProps,
     StyledProps {}

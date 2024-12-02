@@ -45,6 +45,7 @@ export interface FormItemInstance {
   validate?: Function;
   resetField?: Function;
   setValidateMessage?: Function;
+  getValidateMessage?: Function;
   resetValidate?: Function;
   validateOnly?: Function;
   isFormList?: boolean;
@@ -366,7 +367,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     }
     if (typeof value !== 'undefined') {
       // 手动设置 status 则不需要校验 交给用户判断
-      updateFormValue(value, typeof status === 'undefined' ? true : false);
+      updateFormValue(value, typeof status === 'undefined' ? true : false, true);
     }
   }
 
@@ -380,6 +381,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     setErrorList(validateMessage);
     const status = validateMessage?.[0]?.type || ValidateStatus.ERROR;
     setVerifyStatus(status);
+  }
+
+  function getValidateMessage() {
+    return errorList;
   }
 
   useEffect(() => {
@@ -453,12 +458,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     value: formValue,
     isUpdated: isUpdatedRef.current,
     getValue: () => valueRef.current,
-    setValue: (newVal: any) => updateFormValue(newVal),
+    setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,
     validate,
     validateOnly,
     resetField,
     setValidateMessage,
+    getValidateMessage,
     resetValidate: resetHandler,
   };
   useImperativeHandle(ref, (): FormItemInstance => instance);

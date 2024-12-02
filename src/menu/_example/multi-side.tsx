@@ -29,7 +29,7 @@ function MultiSide() {
         }
         style={{ marginRight: 20 }}
       >
-        <MenuItem value="0" icon={<AppIcon />}>
+        <MenuItem value="0" icon={<AppIcon />} tooltipProps={{ theme: 'light' }}>
           仪表盘
         </MenuItem>
         <SubMenu value="1" title={<span>资源列表</span>} icon={<CodeIcon />}>
