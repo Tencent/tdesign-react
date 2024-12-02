@@ -104,6 +104,21 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       return expanded;
     },
   );
+
+  // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
+  const setIndeterminate = usePersistFn(
+    (
+      node: TreeNode,
+      isIndeterminate: boolean,
+      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+    ) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { e, trigger } = ctx;
+      const indeterminate = node.setIndeterminate(isIndeterminate);
+      return indeterminate;
+    },
+  );
+
   const treeRef = useRef(null);
 
   const {
@@ -254,11 +269,15 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
             setChecked(node, spec.checked, { trigger: 'setItem' });
             delete spec.checked;
           }
+          if ('indeterminate' in options) {
+            setIndeterminate(node, spec.indeterminate, { trigger: 'setItem' });
+            delete spec.indeterminate;
+          }
           node.set(spec);
         }
       },
     }),
-    [store, setExpanded, setActived, setChecked, handleScrollToElement],
+    [store, setExpanded, setActived, setChecked, setIndeterminate, handleScrollToElement],
   );
 
   /* ======== render ======= */

@@ -19,6 +19,7 @@ const items = [
   },
   {
     value: 'node2',
+    children: [],
   },
 ];
 
@@ -43,13 +44,6 @@ export default () => {
     const { data } = node;
     data.label = label;
     return label;
-  };
-
-  const renderOperations: TreeProps['operations'] = (node) => `value: ${node.value}`;
-
-  const handleInputChange = (value: string) => {
-    setFilterText(value);
-    console.info('on input:', value);
   };
 
   const filterByText: TreeProps['filter'] = (node) => {
@@ -182,56 +176,16 @@ export default () => {
     );
   };
 
-  const getAllActived = () => {
-    console.info('getActived value:', activeIds.slice(0));
-  };
-
-  const getActiveChecked = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const nodes = treeRef.current.getItems(node.value);
-    console.info(
-      'getChecked:',
-      nodes.filter((node) => node.checked).map((node) => node.value),
-    );
-  };
-
-  const getActiveParent = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const parent = treeRef.current.getParent(node.value);
-    console.info('getParent', parent?.value);
-  };
-
-  const getActiveParents = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const parents = treeRef.current.getParents(node.value);
-    console.info(
-      'getParents',
-      parents.map((node) => node.value),
-    );
-  };
-
-  const getActiveIndex = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const index = treeRef.current.getIndex(node.value);
-    console.info('getIndex', index);
-  };
-
   const setActiveChecked = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    treeRef.current.setItem(node.value, {
-      checked: true,
+    treeRef.current.setItem('node2', {
+      indeterminate: true,
     });
   };
 
   const setActiveExpanded = () => {
     const node = getActivedNode();
     if (!node) return;
-    treeRef.current.setItem(node?.value, {
+    treeRef.current.setItem('node2', {
       expanded: true,
     });
   };
@@ -279,24 +233,6 @@ export default () => {
 
   return (
     <Space direction="vertical">
-      <h3 className="title">render:</h3>
-      <Tree hover expandAll data={items} label={getLabel} operations={renderOperations} />
-      <h3 className="title">api:</h3>
-      <div className="operations">
-        <Form labelWidth={200}>
-          <Form.FormItem label="插入节点使用高亮节点" initialData={useActived}>
-            <Switch<boolean> onChange={setUseActived} />
-          </Form.FormItem>
-          <Form.FormItem label="子节点展开触发父节点展开" initialData={expandParent}>
-            <Switch<boolean> onChange={setExpandParent} />
-          </Form.FormItem>
-        </Form>
-      </div>
-      <div className="operations">
-        <InputAdornment prepend="filter:">
-          <Input value={filterText} onChange={handleInputChange} />
-        </InputAdornment>
-      </div>
       <Tree
         ref={treeRef}
         hover
@@ -316,35 +252,7 @@ export default () => {
         onChange={handleChange}
         onActive={handleActive}
       />
-      <h3 className="title">api:</h3>
       <Space breakLine>
-        <Button theme="primary" onClick={getItem}>
-          {"获取 value 为 'node1' 的单个节点"}
-        </Button>
-        <Button theme="primary" onClick={getAllItems}>
-          获取所有节点
-        </Button>
-        <Button theme="primary" onClick={getActiveChildren}>
-          获取高亮节点的所有子节点
-        </Button>
-        <Button theme="primary" onClick={getAllActived}>
-          获取所有高亮节点
-        </Button>
-        <Button theme="primary" onClick={getActiveChecked}>
-          获取高亮节点下的选中节点
-        </Button>
-        <Button theme="primary" onClick={() => append()}>
-          插入一个根节点
-        </Button>
-        <Button theme="primary" onClick={getActiveParent}>
-          获取高亮节点的父节点
-        </Button>
-        <Button theme="primary" onClick={getActiveParents}>
-          获取高亮节点的所有父节点
-        </Button>
-        <Button theme="primary" onClick={getActiveIndex}>
-          获取高亮节点在子节点中的位置
-        </Button>
         <Button theme="primary" onClick={setActiveChecked}>
           选中高亮节点
         </Button>
