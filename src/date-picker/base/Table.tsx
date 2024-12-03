@@ -57,7 +57,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   }, [mode, value, format]);
 
   const multipleValueYearWeek = useMemo(() => {
-    if (mode !== 'week' || (Array.isArray(value) && !value.length)) return [];
+    if (mode !== 'week' || !Array.isArray(value) || (Array.isArray(value) && !value.length)) return [];
 
     const DateMultipleValue = (value as DateMultipleValue).map((v) => v && parseToDayjs(v, format));
 
@@ -68,7 +68,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
       return { year, week };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, value, format]);
+  }, [mode, value, format, props.multiple]);
 
   // 高亮周区间
   const weekRowClass = (value: DateValue | DateRangeValue, targetDayjs: Dayjs) => {
