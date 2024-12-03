@@ -67,7 +67,8 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     style,
   } = props;
 
-  const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
+  const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
+    useControllable(props);
 
   // 国际化文本初始化
   const emptyText = locale('empty');
@@ -81,6 +82,8 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       onExpand,
       onActive,
       actived,
+      indeterminate,
+      setTreeIndeterminate,
     },
     initial,
   );
@@ -270,6 +273,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
             delete spec.checked;
           }
           if ('indeterminate' in options) {
+            setTreeIndeterminate([...indeterminate, value]);
             setIndeterminate(node, spec.indeterminate, { trigger: 'setItem' });
             delete spec.indeterminate;
           }
@@ -277,7 +281,16 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
         }
       },
     }),
-    [store, setExpanded, setActived, setChecked, setIndeterminate, handleScrollToElement],
+    [
+      store,
+      setExpanded,
+      setActived,
+      setTreeIndeterminate,
+      indeterminate,
+      setChecked,
+      setIndeterminate,
+      handleScrollToElement,
+    ],
   );
 
   /* ======== render ======= */
