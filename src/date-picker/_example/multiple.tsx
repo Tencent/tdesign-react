@@ -12,13 +12,13 @@ export default function YearDatePicker() {
 
   return (
     <Space direction="vertical">
-      {/* <DatePicker
+      <DatePicker
         value={defaultValue}
         placeholder="可清除、可输入的日期选择器"
         onChange={handleChange}
         clearable
         multiple
-      /> */}
+      />
       <DatePicker
         value={defaultValue}
         placeholder="可清除、可输入的日期选择器"
@@ -27,14 +27,14 @@ export default function YearDatePicker() {
         multiple
         mode="week"
       />
-      {/* <DatePicker
+      <DatePicker
         value={defaultValue}
         placeholder="可清除、可输入的日期选择器"
         onChange={handleChange}
         clearable
         multiple
         mode="year"
-      /> */}
+      />
     </Space>
   );
 }
