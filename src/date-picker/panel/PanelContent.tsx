@@ -19,7 +19,7 @@ export interface PanelContentProps {
   timePickerProps: SinglePanelProps['timePickerProps'];
   firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
   time: SinglePanelProps['time'];
-  multiple: SinglePanelProps['multiple'];
+  multiple?: SinglePanelProps['multiple'];
   popupVisible?: boolean;
   tableData: any[];
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
