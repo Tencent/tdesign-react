@@ -233,7 +233,6 @@ const Input = forwardRefWithStatics(
         onBlur={handleBlur}
         onPaste={handlePaste}
         name={name}
-        maxLength={maxlength && !allowInputOverMax ? maxlength : null}
       />
     );
 

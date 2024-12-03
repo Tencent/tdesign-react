@@ -2,7 +2,6 @@ import React, { ForwardRefRenderFunction, FocusEvent, forwardRef, useMemo } from
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import tinycolor from 'tinycolor2';
-
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -18,7 +17,6 @@ export interface TagProps extends TdTagProps, StyledProps {
   /**
    * 标签内容
    */
-  children?: React.ReactNode;
   tabIndex?: number;
   onFocus?: (e: FocusEvent<HTMLDivElement>) => void;
   onBlur?: (e: FocusEvent<HTMLDivElement>) => void;
@@ -42,6 +40,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     disabled,
     children,
     color,
+    title: titleAttr,
     ...otherTagProps
   } = props;
 
@@ -82,10 +81,11 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     />
   );
 
-  const title = (() => {
+  const title = useMemo(() => {
+    if (Reflect.has(props, 'title')) return titleAttr;
     if (children && typeof children === 'string') return children;
     if (content && typeof content === 'string') return content;
-  })();
+  }, [children, content, props, titleAttr]);
   const titleAttribute = title ? { title } : undefined;
 
   const getTagStyle = useMemo(() => {
@@ -114,6 +114,14 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     return calculatedStyle;
   }, [color, variant, style]);
 
+  const getTextStyle = useMemo(() => {
+    if (!maxWidth) return {};
+
+    return {
+      maxWidth: isNaN(Number(maxWidth)) ? String(maxWidth) : `${maxWidth}px`,
+    };
+  }, [maxWidth]);
+
   const tag = (
     <div
       ref={ref}
@@ -122,14 +130,12 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
         if (disabled) return;
         onClick({ e });
       }}
-      style={
-        maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...getTagStyle } : getTagStyle
-      }
+      style={getTagStyle}
       {...otherTagProps}
     >
       <>
         {icon}
-        <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} {...titleAttribute}>
+        <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} style={getTextStyle} {...titleAttribute}>
           {children ?? content}
         </span>
         {closable && !disabled && deleteIcon}

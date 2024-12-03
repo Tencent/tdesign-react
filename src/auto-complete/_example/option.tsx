@@ -32,7 +32,7 @@ const TEXTS = ['第一个默认联想词', '第二个默认联想词', '第三�
 const AutoCompleteOption = () => {
   const [value, setValue] = useState('');
 
-  const options = TEXTS.map(text => ({
+  const options = TEXTS.map((text) => ({
     text,
     label: (
       <div className="custom-option">
@@ -42,7 +42,7 @@ const AutoCompleteOption = () => {
           <small className="description">这是关于联想词的描述，使用 label 渲染</small>
         </div>
       </div>
-    )
+    ),
   }));
 
   useEffect(() => {

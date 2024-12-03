@@ -9,5 +9,5 @@ export default function BasicRate() {
       <Rate defaultValue={2} icon={<LogoGithubIcon />} />
       <Rate defaultValue={2.5} allowHalf icon={<HeartFilledIcon />} color={'var(--td-error-color-7)'} />
     </Space>
-  )
+  );
 }

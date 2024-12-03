@@ -1,6 +1,8 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
+import get from 'lodash/get';
+import set from 'lodash/set';
 import type {
   TdFormProps,
   FormValidateResult,
@@ -10,7 +12,7 @@ import type {
   NamePath,
 } from '../type';
 import useConfig from '../../hooks/useConfig';
-import { getMapValue, travelMapFromObject, calcFieldValue } from '../utils';
+import { getMapValue, objectToArray, travelMapFromObject, calcFieldValue } from '../utils';
 import log from '../../_common/js/log';
 
 // 检测是否需要校验 默认全量校验
@@ -30,8 +32,8 @@ function formatValidateResult(validateResultList) {
     }
 
     // 整理嵌套数据
-    if (result[key] && key.includes('_')) {
-      const keyList = key.split('_');
+    if (result[key] && key.includes(',')) {
+      const keyList = key.split(',');
       const fieldValue = calcFieldValue(keyList, result[key]);
       merge(result, fieldValue);
       delete result[key];
@@ -40,7 +42,12 @@ function formatValidateResult(validateResultList) {
   return isEmpty(result) ? true : result;
 }
 
-export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
+export default function useInstance(
+  props: TdFormProps,
+  formRef,
+  formMapRef: React.MutableRefObject<Map<any, any>>,
+  floatingFormDataRef: React.RefObject<Record<any, any>>,
+) {
   const { classPrefix } = useConfig();
 
   const { scrollToFirstError, preventSubmitDefault = true, onSubmit, onReset } = props;
@@ -117,7 +124,12 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (nameList === true) {
       // 嵌套数组子节点先添加导致外层数据覆盖因而需要倒序遍历
       for (const [name, formItemRef] of [...formMapRef.current.entries()].reverse()) {
-        const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
+        let fieldValue = null;
+        if (formItemRef?.current.isFormList) {
+          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
+        } else {
+          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), false);
+        }
         merge(fieldsValue, fieldValue);
       }
     } else {
@@ -139,8 +151,16 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
-    travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
-      formItemRef?.current?.setValue?.(fieldValue, fields);
+    const nameLists = objectToArray(fields);
+
+    nameLists.forEach((nameList) => {
+      const fieldValue = get(fields, nameList);
+      const formItemRef = formMapRef.current.get(nameList.length > 1 ? nameList : nameList[0]);
+      if (formItemRef?.current) {
+        formItemRef?.current?.setValue?.(fieldValue, fields);
+      } else {
+        set(floatingFormDataRef.current, nameList, fieldValue);
+      }
     });
   }
 
@@ -198,6 +218,32 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     });
   }
 
+  // 对外方法，获取 formItem 的错误信息
+  function getValidateMessage(fields?: Array<keyof FormData>) {
+    const message = {};
+
+    if (typeof fields === 'undefined') {
+      [...formMapRef.current.values()].forEach((formItemRef) => {
+        const item = formItemRef?.current?.getValidateMessage?.();
+        if (isEmpty(item)) return;
+        message[formItemRef?.current?.name] = item;
+      });
+    } else {
+      if (!Array.isArray(fields)) throw new Error('getValidateMessage 参数需要 Array 类型');
+
+      fields.forEach((name) => {
+        const formItemRef = getMapValue(name, formMapRef);
+        const item = formItemRef?.current?.getValidateMessage?.();
+        if (isEmpty(item)) return;
+        message[formItemRef?.current?.name] = item;
+      });
+    }
+
+    if (isEmpty(message)) return;
+
+    return message;
+  }
+
   return {
     submit,
     reset,
@@ -207,6 +253,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     setFields,
     setFieldsValue,
     setValidateMessage,
+    getValidateMessage,
     getFieldValue,
     getFieldsValue,
     currentElement: formRef.current,

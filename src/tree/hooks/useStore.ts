@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import useUpdateEffect from '../../hooks/useUpdateEffect';
+import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
 import usePrevious from '../../hooks/usePrevious';
 import TreeStore from '../../_common/js/tree-v1/tree-store';
 import { usePersistFn } from '../../hooks/usePersistFn';
@@ -162,7 +162,7 @@ export function useStore(
   /* ======== 由 props 引发的 store 更新 ======= */
   const store = storeRef.current;
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (data && Array.isArray(data)) {
       const expanded = store.getExpanded();
       const checked = store.getChecked();
@@ -175,7 +175,7 @@ export function useStore(
     }
   }, [data, store]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     store.setConfig({
       keys,
       expandAll,
@@ -212,7 +212,20 @@ export function useStore(
     valueMode,
   ]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
+    if (expandAll) {
+      const valueList = store
+        .getNodes()
+        .filter((node) => Array.isArray(node.children) && node.children.length)
+        .map((node) => node.value);
+      store.setExpanded(valueList);
+    } else {
+      store.replaceExpanded(prevExpanded);
+      changePrevExpanded(null);
+    }
+  }, [store, expandAll]);
+
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
       const checkedValue = store.getCheckedNodes().map((v: TreeNode) => v.data.value);
@@ -223,26 +236,26 @@ export function useStore(
     }
   }, [store, value, data]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(expanded)) {
       const expandedArr = getExpandedArr(expanded, store);
       store.replaceExpanded(expandedArr);
     }
   }, [expanded, store]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(actived)) {
       store.replaceActived(actived);
     }
   }, [actived, store]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     if (Array.isArray(indeterminate)) {
       store.replaceIndeterminate(indeterminate);
     }
   }, [indeterminate, store, data]);
 
-  useUpdateEffect(() => {
+  useUpdateLayoutEffect(() => {
     store.setConfig({
       filter,
     });

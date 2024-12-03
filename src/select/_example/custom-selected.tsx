@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Tag, Space } from 'tdesign-react';
+import { Select, Tag, Space, SelectOption } from 'tdesign-react';
 
 const options = [
   { label: '选项一', value: '1' },
@@ -49,8 +49,19 @@ const CustomSelected = () => {
           { label: '选项八', value: '8' },
           { label: '选项九', value: '9' },
         ]}
-        valueDisplay={({ value }) =>
-          Array.isArray(value) && value.length > 0 ? value.map((v, idx) => <Tag key={idx}>{`${v}选项`}</Tag>) : null
+        valueDisplay={({ value, onClose }) =>
+          Array.isArray(value) && value.length > 0
+            ? value.map((v: SelectOption, idx: number) => (
+                <Tag
+                  key={idx}
+                  onClose={(context) => {
+                    context.e && context.e.stopPropagation();
+                    onClose(idx);
+                  }}
+                  closable
+                >{`${v.label}选项`}</Tag>
+              ))
+            : null
         }
       />
     </Space>

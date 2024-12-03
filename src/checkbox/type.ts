@@ -51,6 +51,11 @@ export interface TdCheckboxProps {
    */
   readonly?: boolean;
   /**
+   * HTML 原生属性
+   * @default ''
+   */
+  title?: string;
+  /**
    * 多选框的值
    */
   value?: string | number | boolean;

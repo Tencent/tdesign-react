@@ -1,3 +1,8 @@
+import has from 'lodash/has';
+import get from 'lodash/get';
+import isObject from 'lodash/isObject';
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
 import type { NamePath } from '../type';
 
 // 获取 formMap 管理的数据
@@ -12,15 +17,43 @@ export function getMapValue(name: NamePath, formMapRef: React.MutableRefObject<M
   return formMapRef.current.get(key);
 }
 
+// { user: { name: '' } } => [['user', 'name']]
+// 不处理数组类型
+// { user: [{ name: '' }]} => [['user']]
+export function objectToArray(obj: Record<string | number, any>) {
+  const result: (string | number)[][] = [];
+
+  function traverse(current: any, path: string[] = []) {
+    if (isObject(current) && !isArray(current) && !isEmpty(current)) {
+      Object.keys(current).forEach((key) => {
+        traverse(current[key], [...path, key]);
+      });
+    } else {
+      result.push(path);
+    }
+  }
+
+  traverse(obj);
+  return result;
+}
+
 // 将数据整理成对象，数组 name 转化嵌套对象: ['user', 'name'] => { user: { name: '' } }
-export function calcFieldValue(name: NamePath, value: any) {
+export function calcFieldValue(name: NamePath, value: any, isFormList = true) {
   if (Array.isArray(name)) {
-    const fieldValue = name.reduceRight((prev, curr) => {
-      const arr = [];
-      if (/^\d+$/.test(String(curr))) arr[curr] = prev;
-      return arr.length ? arr : { [curr]: prev };
-    }, value);
-    return { ...fieldValue };
+    if (isFormList) {
+      const fieldValue = name.reduceRight((prev, curr) => {
+        const arr = [];
+        if (/^\d+$/.test(String(curr))) arr[curr] = prev;
+        return arr.length ? arr : { [curr]: prev };
+      }, value);
+      return { ...fieldValue };
+    }
+    return name.reduceRight((prev, curr, currentIndex) => {
+      if (currentIndex === name.length - 1) {
+        return { [curr]: value };
+      }
+      return { [curr]: prev };
+    }, {});
   }
 
   return { [name]: value };
@@ -33,29 +66,8 @@ export function travelMapFromObject(
   callback: Function,
 ) {
   for (const [mapName, formItemRef] of formMapRef.current.entries()) {
-    // 支持嵌套数据结构
-    if (Array.isArray(mapName)) {
-      // 创建唯一临时变量 symbol
-      const symbol = Symbol('name');
-      let fieldValue = null;
-
-      for (let i = 0; i < mapName.length; i++) {
-        const item = mapName[i];
-        if (Reflect.has(fieldValue || obj, item)) {
-          fieldValue = Reflect.get(fieldValue || obj, item);
-        } else {
-          // 当反射无法获取到值则重置为 symbol
-          fieldValue = symbol;
-          break;
-        }
-      }
-
-      // 非 symbol 说明获取到了值
-      if (fieldValue !== symbol) {
-        callback(formItemRef, fieldValue);
-      }
-    } else if (Reflect.has(obj, mapName)) {
-      callback(formItemRef, obj[mapName]);
+    if (has(obj, mapName)) {
+      callback(formItemRef, get(obj, mapName));
     }
   }
 }

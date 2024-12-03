@@ -46,7 +46,6 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-
   const {
     empty,
     activable,
@@ -65,6 +64,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     scroll,
     className,
     style,
+    allowDrop,
   } = props;
 
   const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
@@ -193,7 +193,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           log.error('Tree', 'scrollToElement: one of `index` or `key` must exist.');
           return;
         }
-        const data = isVirtual ? visibleData : visibleNodes;
+        const data = visibleNodes;
         index = data?.findIndex((item) => [get(item.data, 'key'), get(item.data, 'value')].includes(params.key));
         if (index < 0) {
           log.error('Tree', `${params.key} does not exist in data, check \`key\` or \`data\` please.`);
@@ -201,7 +201,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       }
       scrollToElement({ ...params, index });
     },
-    [scrollToElement, isVirtual, visibleData, visibleNodes],
+    [scrollToElement, visibleNodes],
   );
   /** 对外暴露的公共方法 * */
   useImperativeHandle<unknown, TreeInstanceFunctions>(
@@ -322,6 +322,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
               icon={icon}
               label={label}
               line={line}
+              allowDrop={allowDrop}
               transition={transition}
               expandOnClickNode={expandOnClickNode}
               activable={activable}
@@ -355,6 +356,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
               icon={icon}
               label={label}
               line={line}
+              allowDrop={allowDrop}
               transition={transition}
               expandOnClickNode={expandOnClickNode}
               activable={activable}

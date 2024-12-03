@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
+import { getOffsetTopToContainer } from '../../_util/helper';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
@@ -168,7 +169,7 @@ const Select = forwardRefWithStatics(
       }
 
       if (trigger === 'tag-remove') {
-        e.stopPropagation();
+        e?.stopPropagation?.();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         // 处理onChange回调中的selectedOptions参数
         const currentSelectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
@@ -190,9 +191,12 @@ const Select = forwardRefWithStatics(
       if (!multiple) {
         return;
       }
-      const selectableOptions = currentOptions
+
+      const values = currentOptions
         .filter((option) => !option.checkAll && !option.disabled)
-        .map((option) => option.value);
+        .map((option) => option[keys?.value || 'value']);
+
+      const selectableOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
 
       const checkAllValue =
         !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>)?.length ? selectableOptions : [];
@@ -368,7 +372,7 @@ const Select = forwardRefWithStatics(
         return valueDisplay;
       }
       if (multiple) {
-        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedLabel, onClose });
+        return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedOptions, onClose });
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
     };
@@ -385,12 +389,16 @@ const Select = forwardRefWithStatics(
         const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
         // 小于0时不需要特殊处理，会被设为0
         const updateValue =
-          firstSelectedNode.offsetTop -
+          getOffsetTopToContainer(firstSelectedNode, content) -
           content.offsetTop -
           (content.clientHeight - firstSelectedNode.clientHeight) +
           elementBottomHeight;
-        // eslint-disable-next-line no-param-reassign
-        content.scrollTop = updateValue;
+
+        // 通过 setTimeout 确保组件渲染完成后再设置 scrollTop
+        setTimeout(() => {
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        });
       }
     };
 
@@ -429,6 +437,7 @@ const Select = forwardRefWithStatics(
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
           value={selectedLabel}
+          options={selectedOptions}
           valueDisplay={renderValueDisplay()}
           clearable={clearable}
           disabled={disabled}

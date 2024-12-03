@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
+import omit from 'lodash/omit';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { TdDatePickerProps } from '../type';
@@ -24,7 +25,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     mode: props.mode,
     format: props.format,
     valueType: props.valueType,
-    enableTimePicker: props.enableTimePicker,
+    enableTimePicker: props.multiple ? false : props.enableTimePicker,
   });
 
   const inputRef = useRef<HTMLInputElement>();
@@ -38,7 +39,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const [inputValue, setInputValue] = useState(formatDate(value, { format }));
 
   // input 设置
-  const inputProps = {
+  let inputProps: TdDatePickerProps['inputProps'] & { ref?: React.MutableRefObject<HTMLInputElement> } = {
     ...props.inputProps,
     ref: inputRef,
     size: props.size,
@@ -99,7 +100,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   };
 
   // popup 设置
-  const popupProps = {
+  let popupProps = {
     expandAnimation: true,
     ...props.popupProps,
     trigger: 'mousedown' as TdPopupProps['trigger'],
@@ -115,6 +116,24 @@ export default function useSingleInput(props: TdDatePickerProps) {
       setPopupVisible(visible);
     },
   };
+
+  // tag-input 设置
+  let tagInputProps = {};
+
+  //  multiple
+  if (props.multiple) {
+    inputProps = omit(inputProps, ['ref', 'className', 'suffixIcon']);
+
+    popupProps = {
+      ...popupProps,
+      trigger: 'click',
+    };
+
+    tagInputProps = {
+      clearable: props.clearable,
+      suffixIcon: props.suffixIcon ?? <CalendarIcon />,
+    };
+  }
 
   // 输入框响应 value 变化
   useEffect(() => {
@@ -137,6 +156,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     popupVisible,
     inputProps,
     popupProps,
+    tagInputProps,
     inputRef,
     cacheValue,
     onChange,

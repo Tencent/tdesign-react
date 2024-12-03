@@ -19,7 +19,7 @@ export interface UseSwapParams<T> extends SwapParams<T> {
 }
 
 export default function useTreeData(props: TdEnhancedTableProps) {
-  const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
+  const { data, columns, tree, rowKey, treeExpandAndFoldIcon, expandedTreeNodes } = props;
   const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
   const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>(() => getTreeNodeColumnCol());
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
@@ -70,7 +70,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data],
+    [data, expandedTreeNodes],
   );
 
   useEffect(

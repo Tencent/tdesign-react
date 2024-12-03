@@ -6,7 +6,7 @@ export interface ChangeHandler<T, P extends any[]> {
   (value: T, ...args: P);
 }
 
-type Defaultoptions<T extends string> = `default${Capitalize<T>}`;
+type DefaultOptions<T extends string> = `default${Capitalize<T>}`;
 
 type ToString<T extends string | number | symbol> = T extends string ? T : `${Extract<T, number>}`;
 
@@ -16,7 +16,7 @@ const useControlled: <P extends any[], R extends object, K extends keyof R>(
   onChange: ChangeHandler<R[K], P>,
   defaultOptions?:
     | {
-        [key in Defaultoptions<ToString<K>>]: R[K];
+        [key in DefaultOptions<ToString<K>>]: R[K];
       }
     | object,
 ) => [R[K], ChangeHandler<R[K], P>] = (props = {} as any, valueKey, onChange, defaultOptions = {}) => {

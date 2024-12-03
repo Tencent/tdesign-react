@@ -9,7 +9,9 @@ import { DragSortInnerProps } from '../hooks/useDragSorter';
 
 export type ChangeParams = [TagInputChangeContext];
 
-interface TagInputProps extends TdTagInputProps, DragSortInnerProps {}
+interface TagInputProps extends TdTagInputProps, DragSortInnerProps {
+  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
+}
 
 // handle tag add and remove
 export default function useTagList(props: TagInputProps) {
@@ -57,7 +59,7 @@ export default function useTagList(props: TagInputProps) {
   // 按下回退键，删除标签
   const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const { e } = context;
-    if (!tagValue || !tagValue.length) return;
+    if (!tagValue || !tagValue.length || readonly) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
     if (!value && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
@@ -99,11 +101,13 @@ export default function useTagList(props: TagInputProps) {
     // 超出省略
     if (newList.length !== tagValue.length) {
       const len = tagValue.length - newList.length;
+      // 这里会从selectInput/SelectInput中传递options参数，用于自定义选中项呈现的内容和多选状态下设置折叠项内容
+      const options = Array.isArray(props?.options) ? props.options : tagValue;
       const params = {
         value: tagValue,
         count: tagValue.length - minCollapsedNum,
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
-        collapsedSelectedItems: tagValue.slice(minCollapsedNum, tagValue.length),
+        collapsedSelectedItems: options.slice(minCollapsedNum, tagValue.length),
         onClose,
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;

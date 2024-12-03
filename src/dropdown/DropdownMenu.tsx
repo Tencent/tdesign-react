@@ -70,6 +70,9 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
       const optionItem = { ...(menu as DropdownOption) };
       const onViewIdx = Math.ceil(calcScrollTopMap[deep] / 30);
       const isOverflow = idx >= onViewIdx;
+      // 只有第一层子节点需要加上 panelTopContent 的高度
+      const shouldCalcPanelTopContent = panelTopContent && deep > 0;
+
       const itemIdx = isOverflow ? idx - onViewIdx : idx;
       if (optionItem.children) {
         optionItem.children = renderOptions(optionItem.children, deep + 1);
@@ -97,7 +100,7 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
                 })}
                 style={{
                   position: 'absolute',
-                  top: `${itemIdx * 30 + (isOverflow ? 0 : panelTopContentHeight)}px`,
+                  top: `${itemIdx * 30 + (shouldCalcPanelTopContent ? 0 : panelTopContentHeight)}px`,
                 }}
               >
                 <div

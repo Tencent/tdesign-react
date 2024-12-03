@@ -78,5 +78,21 @@ describe('Rate 组件测试', () => {
       });
       expect(document.querySelector('.t-rate__item--half')).toBeTruthy();
     });
+
+    test('clearable', () => {
+      const { container } = render(<Rate defaultValue={1} clearable />);
+
+      // 默认展示
+      expect(container.querySelectorAll('.t-rate__item--full')).toHaveLength(1);
+
+      // 点击不同区域选中
+      fireEvent.click(container.querySelectorAll('.t-rate__item')[1]);
+      expect(container.querySelectorAll('.t-rate__item--full')).toHaveLength(2);
+
+      // 点击相同区域清除选中
+      fireEvent.click(container.querySelectorAll('.t-rate__item')[1]);
+
+      expect(container.querySelectorAll('.t-rate__item--full')).toHaveLength(0);
+    });
   });
 });

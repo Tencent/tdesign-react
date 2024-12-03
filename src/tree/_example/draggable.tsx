@@ -54,7 +54,7 @@ const items = [
       },
       {
         value: '2.2',
-        label: '2.2',
+        label: '2.2 不允许拖放为 2.2 的子节点',
       },
     ],
   },
@@ -77,6 +77,13 @@ export default () => {
     console.log(dragNode, dropPosition, e);
   };
 
+  const handleAllowDrop: TreeProps['allowDrop'] = (ctx) => {
+    const { dropNode, dropPosition } = ctx;
+    if (dropNode.value === '2.2' && dropPosition === 0) {
+      return false;
+    }
+  };
+
   return (
     <Space direction="vertical">
       <Tree
@@ -91,6 +98,7 @@ export default () => {
         onDragEnd={handleDragEnd}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
+        allowDrop={handleAllowDrop}
       />
     </Space>
   );

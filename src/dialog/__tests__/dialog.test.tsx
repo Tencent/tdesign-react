@@ -177,4 +177,14 @@ describe('Dialog组件测试', () => {
     fireEvent.click(document.querySelector('#test'));
     await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
   });
+
+  test('Dislog props.header render', async () => {
+    const { container } = render(
+      <Dialog header={false} visible>
+        <p>This is a dialog</p>
+      </Dialog>,
+    );
+
+    expect(container.querySelector('.t-dialog__header')).toBeNull();
+  });
 });

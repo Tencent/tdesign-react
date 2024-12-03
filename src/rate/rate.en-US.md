@@ -1,16 +1,18 @@
 :: BASE_DOC ::
 
 ## API
+
 ### Rate Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 allowHalf | Boolean | false | \- | N
+clearable | Boolean | false | \- | N
 color | String / Array | '#ED7B2F' | Typescript：`string \| Array<string>` | N
 count | Number | 5 | \- | N
-disabled | Boolean | - | \- | N
+disabled | Boolean | undefined | \- | N
 gap | Number | 4 | \- | N
 icon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 showText | Boolean | false | \- | N

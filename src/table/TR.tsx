@@ -97,7 +97,7 @@ export default function TR(props: TrProps) {
   );
 
   const classes = useMemo(() => {
-    const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, type: 'body' }, rowKey || 'id');
+    const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, rowKey, type: 'body' }, rowKey || 'id');
     return [trStyles?.classes, customClasses];
   }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes]);
 

@@ -33,15 +33,16 @@ const RateIcon: React.FC<RateIconProps> = ({ icon, ...props }) => {
 const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) => {
   const props = useDefaultProps<RateProps>(originalProps, rateDefaultProps);
 
-  const { allowHalf, color, count, disabled, gap, showText, size, icon, className, style, onChange, texts } = props;
+  const { allowHalf, color, count, disabled, gap, showText, size, icon, className, style, onChange, texts, clearable } =
+    props;
   const [locale, t] = useLocaleReceiver('rate');
 
-  const displayTexts = texts || t(locale.rateText);
+  const displayTexts = texts.length ? texts : t(locale.rateText);
 
   const { classPrefix } = useConfig();
-  const [starValue = 0, setStarValue] = useControlled(props, 'value', onChange);
+  const [starValue, setStarValue] = useControlled(props, 'value', onChange);
 
-  const [hoverValue = undefined, setHoverValue] = useState<number | undefined>(undefined);
+  const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
   const displayValue = hoverValue || starValue;
 
   const rootRef = React.useRef<HTMLUListElement>(null);
@@ -86,7 +87,14 @@ const Rate = React.forwardRef<HTMLDivElement, RateProps>((originalProps, ref) =>
     if (disabled) {
       return;
     }
-    setStarValue(getStarValue(event, index));
+
+    let value = getStarValue(event, index);
+    if (clearable && value === starValue) {
+      value = 0;
+      setHoverValue(undefined);
+    }
+
+    setStarValue(value);
   };
 
   const getStarCls = (index: number) => {

@@ -2,15 +2,17 @@ import React, { useEffect, useState, CSSProperties, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../hooks/useMutationObserver';
+import useResizeObserver from '../hooks/useResizeObserver';
 
 interface TabBarProps {
   tabPosition: string;
   activeId: string | number;
   containerRef: React.MutableRefObject<HTMLDivElement>;
+  navsWrapRef: React.MutableRefObject<HTMLDivElement>;
 }
 
 const TabBar: React.FC<TabBarProps> = (props) => {
-  const { tabPosition, activeId, containerRef } = props;
+  const { tabPosition, activeId, containerRef, navsWrapRef } = props;
   const { classPrefix } = useConfig();
   const [barStyle, setBarStyle] = useState<CSSProperties>({});
   const tabsClassPrefix = `${classPrefix}-tabs`;
@@ -65,6 +67,8 @@ const TabBar: React.FC<TabBarProps> = (props) => {
   );
 
   useMutationObserver(containerRef.current, handleMutationObserver);
+
+  useResizeObserver(navsWrapRef.current, computeStyle);
 
   return (
     <div

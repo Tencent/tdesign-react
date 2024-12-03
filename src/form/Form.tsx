@@ -40,6 +40,7 @@ const Form = forwardRefWithStatics(
       preventSubmitDefault,
       disabled,
       children,
+      id,
       onReset,
       onValuesChange = noop,
     } = props;
@@ -51,7 +52,8 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>();
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
-    const formInstance = useInstance(props, formRef, formMapRef);
+    const floatingFormDataRef = useRef({}); // 储存游离值的 formData
+    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
@@ -102,11 +104,13 @@ const Form = forwardRefWithStatics(
           rules,
           disabled,
           formMapRef,
+          floatingFormDataRef,
           onFormItemValueChange,
         }}
       >
         <form
           ref={formRef}
+          id={id}
           style={style}
           className={formClass}
           onSubmit={formInstance.submit}

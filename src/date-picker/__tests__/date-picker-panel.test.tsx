@@ -1,20 +1,27 @@
-import MockDate from 'mockdate';
 import React from 'react';
 import dayjs from 'dayjs';
 
 import { render, vi, fireEvent } from '@test/utils';
 
 import { DatePickerPanel } from '..';
-// 固定时间，当使用 new Date() 时，返回固定时间，防止“当前时间”的副作用影响，导致 snapshot 变更，mockdate 插件见 https://github.com/boblauer/MockDate
-MockDate.set('2023-09-01');
+
+const disableTime = (time: Date) => {
+  if (dayjs(time).format('YYYY-MM-DD') === dayjs('2024-11-26').format('YYYY-MM-DD')) {
+    return {
+      hour: [0, 1, 2, 3, 4, 5, 6],
+    };
+  }
+  return {};
+};
 
 describe('DatePickerPanel', () => {
   beforeEach(() => {
-    MockDate.set('2023-09-01');
+    const mockDate = new Date(2023, 8, 1);
+    vi.setSystemTime(mockDate);
   });
 
   afterEach(() => {
-    MockDate.reset();
+    vi.useRealTimers();
   });
 
   test('value props', async () => {
@@ -144,5 +151,14 @@ describe('DatePickerPanel', () => {
     fireEvent.click(yearSelect);
     const monthSelect = container.querySelector('.t-date-picker__header-controller-month');
     fireEvent.click(monthSelect);
+  });
+
+  test('disableTime', async () => {
+    const { container } = render(
+      <DatePickerPanel value="2024-11-26 07:00:00" enableTimePicker disableTime={disableTime} />,
+    );
+
+    expect(container.querySelector('.t-date-picker__cell--active').firstChild.firstChild).toHaveTextContent('26');
+    expect(container.querySelectorAll('.t-time-picker__panel-body-scroll')[0].children).toHaveLength(17);
   });
 });
