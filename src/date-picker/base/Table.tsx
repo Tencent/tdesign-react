@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import type { Dayjs } from 'dayjs';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import DatePickerCell from './Cell';
-import { TdDatePickerProps } from '../type';
+import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } from '../type';
 import { SinglePanelProps } from '../panel/SinglePanel';
 import { PanelContentProps } from '../panel/PanelContent';
 import { parseToDayjs } from '../../_common/js/date-picker/format';
 
 export interface DatePickerTableProps
-  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format'>,
+  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple'>,
     Pick<SinglePanelProps, 'onCellClick' | 'onCellMouseEnter' | 'onCellMouseLeave'>,
     Pick<PanelContentProps, 'value'> {
   data?: Array<any>;
@@ -55,8 +56,22 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, value, format]);
 
+  const multipleValueYearWeek = useMemo(() => {
+    if (mode !== 'week' || (Array.isArray(value) && !value.length)) return [];
+
+    const DateMultipleValue = (value as DateMultipleValue).map((v) => v && parseToDayjs(v, format));
+
+    return DateMultipleValue.map((item) => {
+      const year = item?.year?.();
+      const week = item?.locale?.(local.dayjsLocale)?.week?.();
+
+      return { year, week };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, value, format]);
+
   // 高亮周区间
-  const weekRowClass = (value, targetDayjs) => {
+  const weekRowClass = (value: DateValue | DateRangeValue, targetDayjs: Dayjs) => {
     if (mode !== 'week' || !value) return {};
 
     if (Array.isArray(value)) {
@@ -85,6 +100,20 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     };
   };
 
+  // multiple
+  const multipleWeekRowClass = (value: DateMultipleValue, targetDayjs: Dayjs) => {
+    if (mode !== 'week' || (Array.isArray(value) && !value.length)) return {};
+
+    const isSomeYearWeek = multipleValueYearWeek.some(
+      (item) => item.year === targetDayjs.year() && item.week === targetDayjs.week(),
+    );
+    return {
+      [`${classPrefix}-date-picker__table-${mode}-row--active`]: isSomeYearWeek,
+    };
+  };
+
+  const activeRowCss = props.multiple ? multipleWeekRowClass : weekRowClass;
+
   return (
     <div className={`${classPrefix}-date-picker__table`} onMouseLeave={(e) => onCellMouseLeave?.({ e })}>
       <table>
@@ -102,7 +131,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
             <tr
               key={i}
               className={classNames(`${classPrefix}-date-picker__table-${mode}-row`, {
-                ...weekRowClass(value, row[0].dayjsObj),
+                ...activeRowCss(value, row[0].dayjsObj),
               })}
             >
               {row.map((col: any, j: number) => (

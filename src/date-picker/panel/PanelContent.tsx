@@ -19,7 +19,7 @@ export interface PanelContentProps {
   timePickerProps: SinglePanelProps['timePickerProps'];
   firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
   time: SinglePanelProps['time'];
-
+  multiple: SinglePanelProps['multiple'];
   popupVisible?: boolean;
   tableData: any[];
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
@@ -104,6 +104,7 @@ export default function PanelContent(props: PanelContentProps) {
           time={time}
           format={format}
           firstDayOfWeek={firstDayOfWeek}
+          multiple={props.multiple}
           onCellClick={(date: Date, { e }) => onCellClick?.(date, { e, partial })}
           onCellMouseEnter={(date: Date) => onCellMouseEnter?.(date, { partial })}
           onCellMouseLeave={onCellMouseLeave}
