@@ -8,7 +8,7 @@ export default function ShapeImage() {
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
           shape="square"
-          style={{width: 160, height: 160}}
+          style={{ width: 160, height: 160 }}
           fit="cover"
         />
         square
@@ -16,7 +16,7 @@ export default function ShapeImage() {
       <Space direction="vertical" align="center">
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style={{width: 160, height: 160}}
+          style={{ width: 160, height: 160 }}
           fit="cover"
           shape="round"
         />
@@ -25,7 +25,7 @@ export default function ShapeImage() {
       <Space direction="vertical" align="center">
         <Image
           src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style={{width: 160, height: 160}}
+          style={{ width: 160, height: 160 }}
           shape="circle"
           fit="cover"
         />

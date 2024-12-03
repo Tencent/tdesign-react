@@ -43,7 +43,7 @@ describe('Descriptions 组件测试', () => {
   test('colon', () => {
     const { container } = render(<Descriptions items={items} title="Shipping address" bordered colon />);
 
-    expect(container.querySelector('.t-descriptions__label')).toHaveTextContent(':');
+    expect(container.querySelector('.t-descriptions__label')).toHaveTextContent('：');
   });
 
   // column

@@ -44,17 +44,15 @@ const useDrag = (ref, options: DraggableProps) => {
   const handlePointerUp = (e: MouseEvent) => {
     isDraggingRef.current = false;
     end(getCoordinate(e), e);
-    const element = ref.current;
-    element.removeEventListener('mouseup', handlePointerUp);
-    element.removeEventListener('mousemove', handlePointerMove);
+    document.removeEventListener('mouseup', handlePointerUp);
+    document.removeEventListener('mousemove', handlePointerMove);
   };
 
   const handlePointerDown = (e: MouseEvent) => {
     isDraggingRef.current = true;
     start(getCoordinate(e), e);
-    const element = ref.current;
-    element.addEventListener('mouseup', handlePointerUp);
-    element.addEventListener('mousemove', handlePointerMove);
+    document.addEventListener('mouseup', handlePointerUp);
+    document.addEventListener('mousemove', handlePointerMove);
   };
 
   useEffect(() => {

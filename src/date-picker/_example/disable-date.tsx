@@ -1,23 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import { DatePicker, DateRangePicker, Space } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  const [pickDate, setPickDate] = useState('');
-
-  const timePickerProps = useMemo(
-    () => ({
-      disableTime: () => {
-        if (pickDate === dayjs().format('YYYY-MM-DD')) {
-          return {
-            hour: [0, 1, 2, 3, 4, 5, 6],
-          };
-        }
-        return {};
-      },
-    }),
-    [pickDate],
-  );
+  const disableTime = (time: Date) => {
+    if (dayjs(time).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')) {
+      return {
+        hour: [0, 1, 2, 3, 4, 5, 6],
+      };
+    }
+    return {};
+  };
 
   return (
     <Space direction="vertical">
@@ -44,8 +37,7 @@ export default function YearDatePicker() {
         placeholder="禁用日期精确到时间"
         enableTimePicker
         disableDate={{ before: dayjs().subtract(1, 'day').format() }}
-        timePickerProps={timePickerProps}
-        onPick={(date) => setPickDate(dayjs(date).format('YYYY-MM-DD'))}
+        disableTime={disableTime}
       />
       <DateRangePicker
         placeholder="禁用最近 5 天外的日期"

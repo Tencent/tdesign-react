@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'tdesign-react/button';
 import { Link, useLocation } from 'react-router-dom';
 
-export const demoFiles = import.meta.globEager('../../../src/**/_example/*.tsx');
+export const demoFiles = import.meta.glob('../../../src/**/_example/*.tsx', { eager: true });
 
 const demoObject = {};
 Object.keys(demoFiles).forEach((key) => {

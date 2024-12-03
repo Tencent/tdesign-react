@@ -13,7 +13,7 @@ import {
   DEFAULT_LINEAR_GRADIENT,
   TD_COLOR_USED_COLORS_MAX_SIZE,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-} from '../../const';
+} from '../../../_common/js/color-picker/constants';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';
@@ -225,14 +225,20 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   };
 
   // format选择格式变化
-  const handleFormatModeChange = (format: TdColorPickerProps['format']) => (formatRef.current = format);
+  const handleFormatModeChange = useCallback(
+    (format: TdColorPickerProps['format']) => (formatRef.current = format),
+    [],
+  );
 
   // format输入变化
-  const handleInputChange = (input: string, alpha?: number) => {
-    update(input);
-    colorInstanceRef.current.alpha = alpha;
-    emitColorChange('input');
-  };
+  const handleInputChange = useCallback(
+    (input: string, alpha?: number) => {
+      update(input);
+      colorInstanceRef.current.alpha = alpha;
+      emitColorChange('input');
+    },
+    [emitColorChange, update],
+  );
 
   // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {

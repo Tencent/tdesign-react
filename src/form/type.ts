@@ -31,6 +31,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   formControlledComponents?: Array<string>;
   /**
+   * 表单原生的id属性，支持用于配合非表单内的按钮通过form属性来触发表单事件
+   */
+  id?: string;
+  /**
    * 表单初始数据，重置时所需初始数据，优先级小于 FormItem 设置的 initialData
    */
   initialData?: object;
@@ -137,6 +141,10 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    * 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型
    */
   setValidateMessage: (message: FormValidateMessage<FormData>) => void;
+  /**
+   * 获取校验结果
+   */
+  getValidateMessage: (fields?: Array<keyof FormData>) => Array<FormRule> | void;
   /**
    * 提交表单，表单里面没有提交按钮`<button type=\"submit\" />`时可以使用该方法。`showErrorMessage` 表示是否在提交校验不通过时显示校验不通过的原因，默认显示。该方法会触发 `submit` 事件
    */
@@ -300,7 +308,7 @@ export interface FormRule {
    * 校验触发方式
    * @default change
    */
-  trigger?: 'change' | 'blur' | 'submit';
+  trigger?: ValidateTriggerType;
   /**
    * 校验未通过时呈现的错误信息类型，有 告警信息提示 和 错误信息提示 等两种
    * @default error
@@ -386,6 +394,11 @@ export interface FormErrorMessage {
    * @default ''
    */
   validator?: string;
+  /**
+   * 值为空格校验不通过时表单项显示文案，全局配置默认是：`'${name}不能为空`
+   * @default ''
+   */
+  whitespace?: string;
 }
 
 export type FormRules<T extends Data> = { [field in keyof T]?: Array<FormRule> };
@@ -443,7 +456,7 @@ export interface FormValidateParams {
   trigger?: ValidateTriggerType;
 }
 
-export type ValidateTriggerType = 'blur' | 'change' | 'all';
+export type ValidateTriggerType = 'blur' | 'change' | 'submit' | 'all';
 
 export type Data = { [key: string]: any };
 

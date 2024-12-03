@@ -18,7 +18,6 @@ export default function useFormItemStyle(props) {
     successList,
     layout,
     verifyStatus,
-    colon,
     label,
     labelWidth,
     labelAlign,
@@ -61,15 +60,17 @@ export default function useFormItemStyle(props) {
     return extra;
   }, [showErrorMessage, errorList, successList, tips, classPrefix]);
 
+  // snake 在dom上显示的名字改成下划线拼接
+  const formSnakeName = snakeName.split(',').join('_');
+
   const formItemClass = classNames(`${classPrefix}-form__item`, className, {
-    [`${classPrefix}-form-item__${snakeName}`]: snakeName,
+    [`${classPrefix}-form-item__${formSnakeName}`]: formSnakeName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
   });
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]: needRequiredMark,
-    [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
     [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
     [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,

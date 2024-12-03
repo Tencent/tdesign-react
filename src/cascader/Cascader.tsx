@@ -175,10 +175,14 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         'onClear',
       ])}
       panel={
-        <Panel
-          cascaderContext={cascaderContext}
-          {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText'])}
-        ></Panel>
+        <>
+          {props.panelTopContent && parseTNode(props.panelTopContent)}
+          <Panel
+            cascaderContext={cascaderContext}
+            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText'])}
+          ></Panel>
+          {props.panelBottomContent && parseTNode(props.panelBottomContent)}
+        </>
       }
     />
   );

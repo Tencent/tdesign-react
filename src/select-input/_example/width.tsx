@@ -49,11 +49,12 @@ const SelectInputWidth = () => {
           value={selectValue}
           placeholder="Please Select"
           className="t-demo-normal"
-          panel={(
+          panel={
             <div className="tdesign-demo__select-empty-width">
-              下拉框宽度和触发元素宽度保持一致，但是当下拉框内容宽度超出时，自动撑开下拉框宽度，最大不超过 1000px（默认）
+              下拉框宽度和触发元素宽度保持一致，但是当下拉框内容宽度超出时，自动撑开下拉框宽度，最大不超过
+              1000px（默认）
             </div>
-          )}
+          }
         ></SelectInput>
       </div>
       <br />
@@ -86,8 +87,8 @@ const SelectInputWidth = () => {
       </div>
       <br />
     </div>
-  )
-}
+  );
+};
 
 SelectInputWidth.displayName = 'SelectInputWidth';
 

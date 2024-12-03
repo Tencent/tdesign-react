@@ -66,4 +66,5 @@ export * from './guide';
 export * from './back-top';
 export * from './statistic';
 export * from './descriptions';
+export * from './empty';
 export * from './typography';

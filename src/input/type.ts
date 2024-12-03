@@ -33,7 +33,7 @@ export interface TdInputProps {
    */
   autofocus?: boolean;
   /**
-   * 无边框模式
+   * 是否开启无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -100,11 +100,13 @@ export interface TdInputProps {
    */
   size?: SizeEnum;
   /**
-   * 是否开启拼写检查，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
+   * 是否开启拼写检查，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/spellcheck)
+   * @default false
    */
   spellCheck?: boolean;
   /**
-   * 输入框状态。默认情况会由组件内部根据实际情况呈现，如果文本过长引起的状态变化
+   * 输入框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**
@@ -139,7 +141,7 @@ export interface TdInputProps {
    */
   onBlur?: (value: InputValue, context: { e: FocusEvent<HTMLInputElement> }) => void;
   /**
-   * 输入框值发生变化时触发。`trigger=initial` 表示传入的数据不符合预期，组件自动处理后触发 change 告知父组件。如：初始值长度超过 `maxlength` 限制
+   * 输入框值发生变化时触发。参数 `trigger=initial` 表示传入的数据不符合预期，组件自动处理后触发 change 告知父组件。如：初始值长度超过 `maxlength` 限制
    */
   onChange?: (
     value: InputValue,

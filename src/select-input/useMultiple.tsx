@@ -7,6 +7,7 @@ import { SelectInputCommonProperties } from './interface';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
 import { InputRef } from '../input';
+import { StyledProps } from '../common';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
@@ -21,7 +22,11 @@ const DEFAULT_KEYS = {
   children: 'children',
 };
 
-export default function useMultiple(props: TdSelectInputProps) {
+export interface SelectInputProps extends TdSelectInputProps, StyledProps {
+  options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
+}
+
+export default function useMultiple(props: SelectInputProps) {
   const { value } = props;
   const { classPrefix } = useConfig();
   const tagInputRef = useRef<InputRef>();
@@ -57,6 +62,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       tag={props.tag}
       valueDisplay={props.valueDisplay}
       placeholder={tPlaceholder}
+      options={props.options}
       value={tags}
       inputValue={p.popupVisible && p.allowInput ? tInputValue : ''}
       onChange={onTagInputChange}
@@ -71,6 +77,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
+      onBlur={!props.panel ? props.onBlur : null}
       {...props.tagInputProps}
       inputProps={{
         ...props.inputProps,

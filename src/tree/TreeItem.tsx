@@ -37,6 +37,7 @@ const TreeItem = forwardRef(
       onTreeItemMounted?: (rowData: { ref: HTMLElement; data: TreeNode }) => void;
       isVirtual?: boolean;
       keys: TdTreeProps['keys'];
+      allowDrop?: TdTreeProps['allowDrop'];
     },
     ref: React.Ref<HTMLDivElement>,
   ) => {
@@ -54,6 +55,7 @@ const TreeItem = forwardRef(
       onChange,
       isVirtual,
       onTreeItemMounted,
+      allowDrop,
     } = props;
 
     const { CaretRightSmallIcon } = useGlobalIcon({
@@ -258,7 +260,7 @@ const TreeItem = forwardRef(
             name={String(node.value)}
             onChange={(checked, ctx) => onChange(node, ctx)}
             className={labelClasses}
-            stopLabelTrigger={!!node.children}
+            stopLabelTrigger={expandOnClickNode && !!node.children}
             {...checkProps}
           >
             <span date-target="label">{labelText}</span>
@@ -308,6 +310,7 @@ const TreeItem = forwardRef(
     const { setDragStatus, isDragging, dropPosition, isDragOver } = useDraggable({
       node,
       nodeRef,
+      allowDrop,
     });
 
     const handleDragStart: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
@@ -344,6 +347,7 @@ const TreeItem = forwardRef(
     };
     const handleDrop: DragEventHandler<HTMLDivElement> = (evt: DragEvent<HTMLDivElement>) => {
       const { node } = props;
+
       if (!node.isDraggable()) return;
       evt.stopPropagation();
       evt.preventDefault();

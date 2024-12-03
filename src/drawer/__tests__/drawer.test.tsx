@@ -65,18 +65,54 @@ describe('test Drawer', () => {
     fireEvent.click(getByText('Open'));
     expect(document.querySelector('.t-drawer__mask')).not.toBeInTheDocument();
   });
-  test('Drawer header and footer', () => {
+  test('Drawer header and footer custom', () => {
     const { getByText } = render(<DrawerDemo header={<div>自定义头部</div>} footer={<div>自定义底部</div>} />);
     fireEvent.click(getByText('Open'));
     expect(getByText('自定义头部').parentElement).toHaveClass('t-drawer__header');
     expect(getByText('自定义底部').parentElement).toHaveClass('t-drawer__footer');
   });
-  test('Drawer cancelBtn and confirmBtn', () => {
+  test('Drawer cancelBtn and confirmBtn custom', () => {
     const { getByText } = render(<DrawerDemo cancelBtn={<div>cancelBtn</div>} confirmBtn={<div>confirmBtn</div>} />);
     fireEvent.click(getByText('Open'));
-    expect(getByText('cancelBtn').parentElement.parentElement).toHaveClass('t-drawer__footer');
-    expect(getByText('confirmBtn').parentElement.parentElement).toHaveClass('t-drawer__footer');
+
+    const cancelBtn = getByText('cancelBtn');
+    const confirmBtn = getByText('confirmBtn');
+
+    expect(cancelBtn.parentElement.parentElement).toHaveClass('t-drawer__footer');
+    expect(confirmBtn.parentElement.parentElement).toHaveClass('t-drawer__footer');
   });
+
+  test('Drawer cancelBtn and confirmBtn props', () => {
+    const { getByText } = render(
+      <DrawerDemo
+        confirmBtn={{
+          content: '确认按钮',
+          theme: 'success',
+        }}
+        cancelBtn={{
+          content: '取消按钮',
+          theme: 'danger',
+        }}
+      />,
+    );
+    fireEvent.click(getByText('Open'));
+
+    const confirmBtn = getByText('确认按钮');
+    const cancelBtn = getByText('取消按钮');
+
+    // 是否有这两个元素
+    expect(cancelBtn).toBeInTheDocument();
+    expect(confirmBtn).toBeInTheDocument();
+
+    expect(confirmBtn.parentElement).toHaveClass('t-drawer__confirm');
+    expect(cancelBtn.parentElement).toHaveClass('t-drawer__cancel');
+    expect(confirmBtn.parentElement.parentElement.parentElement).toHaveClass('t-drawer__footer');
+    expect(cancelBtn.parentElement.parentElement.parentElement).toHaveClass('t-drawer__footer');
+
+    expect(confirmBtn.parentElement).toHaveClass(`t-button--theme-success`);
+    expect(cancelBtn.parentElement).toHaveClass(`t-button--theme-danger`);
+  });
+
   test('Drawer mode push', () => {
     const { getByText } = render(<DrawerDemo attach="body" mode="push" />);
     fireEvent.click(getByText('Open'));

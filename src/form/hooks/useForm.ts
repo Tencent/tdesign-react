@@ -47,6 +47,9 @@ class FormStore {
     setValidateMessage: (...args) => {
       this.taskQueue.push({ args, name: 'setValidateMessage' });
     },
+    getValidateMessage: (...args) => {
+      this.taskQueue.push({ args, name: 'getValidateMessage' });
+    },
     getFieldValue: null,
     getFieldsValue: null,
     _init: true,

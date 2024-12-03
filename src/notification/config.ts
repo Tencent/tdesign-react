@@ -5,7 +5,7 @@ let pluginDefaultConfig: NotificationOptions = {
   ...notificationDefaultProps,
   zIndex: 6000,
   placement: 'top-right',
-  offset: ['16px', '16px'],
+  offset: ['-16px', '16px'],
 };
 
 export const getConfig = (options: NotificationOptions): NotificationOptions => {

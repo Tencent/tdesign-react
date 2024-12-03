@@ -9,7 +9,7 @@ const AutoCompleteSize = () => {
   const [value3, setValue3] = useState('');
 
   return (
-    <Space direction='vertical' style={{ width: '100%' }}>
+    <Space direction="vertical" style={{ width: '100%' }}>
       <AutoComplete
         value={value1}
         options={options}
@@ -17,12 +17,7 @@ const AutoCompleteSize = () => {
         size="small"
         inputProps={{ label: '小尺寸：' }}
       />
-      <AutoComplete
-        value={value2}
-        options={options}
-        onChange={setValue2}
-        inputProps={{ label: '中尺寸：' }}
-      />
+      <AutoComplete value={value2} options={options} onChange={setValue2} inputProps={{ label: '中尺寸：' }} />
       <AutoComplete
         value={value3}
         options={options}
