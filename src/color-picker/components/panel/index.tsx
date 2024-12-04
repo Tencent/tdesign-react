@@ -47,7 +47,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     onRecentColorsChange,
   } = props;
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
-  const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : 'monochrome');
+  const [mode, setMode] = useState<TdColorModes>(() => (colorModes?.length === 1 ? colorModes[0] : 'monochrome'));
   const [updateId, setUpdateId] = useState(0);
 
   const isGradient = mode === 'linear-gradient'; // 判断是否为 linear-gradient 模式

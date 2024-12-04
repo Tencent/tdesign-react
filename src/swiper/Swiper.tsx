@@ -74,7 +74,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
 
   const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
   const [needAnimation, setNeedAnimation] = useState(false);
-  const [arrowShow, setArrowShow] = useState(navigationConfig.showSlideBtn === 'always');
+  const [arrowShow, setArrowShow] = useState(() => navigationConfig.showSlideBtn === 'always');
   const swiperTimer = useRef<ReturnType<typeof setTimeout>>(null); // 计时器指针
   const swiperAnimationTimer = useRef<ReturnType<typeof setTimeout>>(null); // 计时器指针
   const isHovering = useRef<boolean>(false);

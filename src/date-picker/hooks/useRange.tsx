@@ -45,7 +45,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); // 确定当前选中的输入框序号
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value, { format }));
+  const [inputValue, setInputValue] = useState(() => formatDate(value, { format }));
 
   // input 设置
   const rangeInputProps = {

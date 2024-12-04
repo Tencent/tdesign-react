@@ -58,7 +58,7 @@ const Tabs = forwardRefWithStatics(
     });
 
     // 当未设置默认值时，默认选中第一个。
-    const [value, setValue] = React.useState<TabValue>(
+    const [value, setValue] = React.useState<TabValue>(() =>
       defaultValue === undefined && Array.isArray(itemList) && itemList.length !== 0 ? itemList[0].value : defaultValue,
     );
 
