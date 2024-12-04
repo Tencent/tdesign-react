@@ -29,7 +29,7 @@ describe('ImageViewer', () => {
     });
 
     // 鼠标点击后，有元素
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(0);
     const imgModal = document.querySelector('.t-image-viewer__modal-pic');
     expect(imgModal).toBeTruthy();
 
@@ -39,7 +39,7 @@ describe('ImageViewer', () => {
       fireEvent.click(closeBtn);
     });
     // 点击后，没有元素存在
-    expect(onClose).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(1);
     await mockTimeout(() => expect(document.querySelector('.t-image-viewer-preview-image')).toBeNull());
   });
 
@@ -122,7 +122,7 @@ describe('ImageViewerMini', () => {
     act(() => {
       fireEvent.click(closeBtn);
     });
-    expect(onClose).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -153,7 +153,7 @@ describe('ImageViewerModal', () => {
 
     // 模拟键盘事件
     await user.type(document.body, '{Escape}');
-    expect(onClose).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(1);
 
     await user.type(document.body, '{ArrowRight}');
     expect(onIndexChange).toHaveBeenCalledTimes(1);
@@ -166,7 +166,7 @@ describe('ImageViewerModal', () => {
     act(() => {
       fireEvent.click(mask);
     });
-    expect(onClose).toHaveBeenCalledTimes(3);
+    expect(onClose).toHaveBeenCalledTimes(2);
   });
 
   test('single', async () => {

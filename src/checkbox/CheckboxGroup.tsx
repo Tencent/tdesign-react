@@ -52,7 +52,10 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   const intervalOptions =
     Array.isArray(options) && options.length > 0
       ? options
-      : React.Children.map(children, (child) => (child as ReactElement).props) || [];
+      : React.Children.map(
+          children,
+          (child: JSX.Element) => child?.type?.displayName === Checkbox.displayName && (child as ReactElement).props,
+        ) || [];
 
   const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
   const optionsWithoutCheckAllValues = [];
