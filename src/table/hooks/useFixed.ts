@@ -97,7 +97,7 @@ export default function useFixed(
   // CSS 样式设置了固定 6px
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息
-  const [rowAndColFixedPosition, setRowAndColFixedPosition] = useState<RowAndColFixedPosition>(new Map());
+  const [rowAndColFixedPosition, setRowAndColFixedPosition] = useState<RowAndColFixedPosition>(() => new Map());
   const [showColumnShadow, setShowColumnShadow] = useState({
     left: false,
     right: false,

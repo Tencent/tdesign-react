@@ -51,7 +51,7 @@ function Components() {
   const tdDocSearch = useRef();
 
   const [version] = useState(currentVersion);
-  const [globalConfig] = useState(getLang() === 'en' ? enConfig : zhConfig);
+  const [globalConfig] = useState(() => getLang() === 'en' ? enConfig : zhConfig);
 
   function initHistoryVersions() {
     fetch(registryUrl)

@@ -36,7 +36,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
   // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(formatDate(value, { format }));
+  const [inputValue, setInputValue] = useState(() => formatDate(value, { format }));
 
   // input 设置
   let inputProps: TdDatePickerProps['inputProps'] & { ref?: React.MutableRefObject<HTMLInputElement> } = {

@@ -43,7 +43,7 @@ const EditableCell = (props: EditableCellProps) => {
   const { Edit1Icon } = useGlobalIcon({ Edit1Icon: TdEdit1Icon });
   const tableEditableCellRef = useRef(null);
   const isKeepEditMode = Boolean(col.edit?.keepEditMode);
-  const [isEdit, setIsEdit] = useState(isKeepEditMode || props.col.edit?.defaultEditable || false);
+  const [isEdit, setIsEdit] = useState(() => isKeepEditMode || props.col.edit?.defaultEditable || false);
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState<AllValidateResult[]>([]);
   const { classPrefix } = useConfig();
