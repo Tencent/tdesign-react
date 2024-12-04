@@ -273,7 +273,8 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
             delete spec.checked;
           }
           if ('indeterminate' in options) {
-            setTreeIndeterminate([...indeterminate, value]);
+            // @ts-ignore
+            setTreeIndeterminate((prevIndeterminate: TreeNodeValue[]) => [...prevIndeterminate, value]);
             setIndeterminate(node, spec.indeterminate, { trigger: 'setItem' });
             delete spec.indeterminate;
           }
@@ -281,16 +282,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
         }
       },
     }),
-    [
-      store,
-      setExpanded,
-      setActived,
-      setTreeIndeterminate,
-      indeterminate,
-      setChecked,
-      setIndeterminate,
-      handleScrollToElement,
-    ],
+    [store, setExpanded, setActived, setTreeIndeterminate, setChecked, setIndeterminate, handleScrollToElement],
   );
 
   /* ======== render ======= */

@@ -228,7 +228,7 @@ export function useStore(
   useUpdateLayoutEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
-      const checkedValue = store.getCheckedNodes().map((v: TreeNode) => v.data.value);
+      const checkedValue = store.getCheckedNodes().map((v: TreeNode) => v.data[keys.value || 'value']);
       const indeterminateConflict = checkedValue.filter((v) => indeterminate.includes(v));
       if (indeterminateConflict.length) {
         setTreeIndeterminate(indeterminate.filter((v: TreeNodeValue) => !indeterminateConflict.includes(v)));
