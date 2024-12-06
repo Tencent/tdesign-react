@@ -44,16 +44,16 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
         }
 
         const calcTop = wrapToTop - containerToTop; // 节点顶部到 container 顶部的距离
-        const containerHeight =
-          scrollContainer.current[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
-          wrapHeight;
+        const isWindow = typeof window !== 'undefined' && scrollContainer.current === window;
+
+        const containerHeight = scrollContainer.current[isWindow ? 'innerHeight' : 'clientHeight'] - wrapHeight;
         const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
 
         let fixedTop: number | false;
-        if (offsetTop !== undefined && calcTop <= offsetTop) {
+        if (props.offsetTop !== undefined && calcTop <= offsetTop) {
           // top 的触发
           fixedTop = containerToTop + offsetTop;
-        } else if (offsetBottom !== undefined && wrapToTop >= calcBottom) {
+        } else if (props?.offsetBottom !== undefined && wrapToTop >= calcBottom) {
           // bottom 的触发
           fixedTop = calcBottom;
         } else {
@@ -102,7 +102,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
       });
     }
     ticking.current = true;
-  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, zIndex]);
+  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, props?.offsetBottom, props.offsetTop, zIndex]);
 
   useImperativeHandle(ref, () => ({
     handleScroll,
