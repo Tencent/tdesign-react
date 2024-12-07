@@ -28,7 +28,7 @@ export interface GlobalConfigProvider {
   /**
    * null
    */
-  attach?: AttachNode | { imageViewer?: AttachNode; popup?: AttachNode; dialog?: AttachNode };
+  attach?: AttachNode | { imageViewer?: AttachNode; popup?: AttachNode; dialog?: AttachNode; drawer?: AttachNode };
   /**
    * 日历组件全局配置
    */
