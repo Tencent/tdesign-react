@@ -19,7 +19,7 @@ export default function useLazyLoad(
 ) {
   // useMemo 用意：1. 为了实时响应数据；2. 表格的计算量容易过大，提前存储
   const tRowHeight = useMemo(() => Math.max(params.rowHeight || 48, 48), [params.rowHeight]);
-  const [isInit, setIsInit] = useState(params.rowIndex === -1);
+  const [isInit, setIsInit] = useState(() => params.rowIndex === -1);
   const hasLazyLoadHolder = useMemo(() => params?.type === 'lazy' && !isInit, [isInit, params?.type]);
 
   const requestAnimationFrame =

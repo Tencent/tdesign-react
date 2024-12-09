@@ -101,7 +101,7 @@ const Row = forwardRef<HTMLElement, RowProps>((props, ref) => {
     ...otherRowProps
   } = useDefaultProps<RowProps>(props, rowDefaultProps);
 
-  const [size, setSize] = useState(canUseDocument ? calcSize(window.innerWidth) : 'md');
+  const [size, setSize] = useState(() => (canUseDocument ? calcSize(window.innerWidth) : 'md'));
 
   const updateSize = () => {
     const currentSize = calcSize(window.innerWidth);
