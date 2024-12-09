@@ -19,6 +19,7 @@ import Portal from '../common/Portal';
 import useLockStyle from './hooks/useLockStyle';
 import useDefaultProps from '../hooks/useDefaultProps';
 import parseTNode from '../_util/parseTNode';
+import useAttach from '../hooks/useAttach';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -72,6 +73,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
+  const drawerAttach = useAttach('drawer', attach);
   const maskRef = useRef<HTMLDivElement>();
   const containerRef = useRef<HTMLDivElement>();
   const drawerWrapperRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
@@ -203,7 +205,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
       onExit={() => onBeforeClose?.()}
       onExited={() => setAnimationStart(false)}
     >
-      <Portal attach={attach} ref={drawerWrapperRef}>
+      <Portal attach={drawerAttach} ref={drawerWrapperRef}>
         <div
           ref={containerRef}
           className={classnames(prefixCls, className, `${prefixCls}--${placement}`, {
