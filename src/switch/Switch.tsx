@@ -73,7 +73,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
   };
 
   useEffect(() => {
-    if (Array.isArray(customValue) && !customValue.includes(value)) {
+    if (isControlled && Array.isArray(customValue) && !customValue.includes(value)) {
       log.error('Switch', `value is not in customValue: ${JSON.stringify(customValue)}`);
     }
     isControlled && setInnerChecked(value === activeValue);
