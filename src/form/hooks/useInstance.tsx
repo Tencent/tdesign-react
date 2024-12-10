@@ -128,7 +128,7 @@ export default function useInstance(
         if (formItemRef?.current.isFormList) {
           fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
         } else {
-          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), false);
+          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), !props.supportNumberKey);
         }
         merge(fieldsValue, fieldValue);
       }
