@@ -36,8 +36,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     timePickerProps,
     presetsPlacement,
     needConfirm,
-    disableTime,
     multiple,
+    label,
+    disableTime,
     onPick,
   } = props;
 
@@ -308,6 +309,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         status={props.status}
         tips={props.tips}
         borderless={props.borderless}
+        label={label}
         popupProps={popupProps}
         inputProps={inputProps}
         popupVisible={popupVisible}
