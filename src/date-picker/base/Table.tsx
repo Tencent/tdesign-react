@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import DatePickerCell from './Cell';
@@ -7,6 +9,8 @@ import { TdDatePickerProps } from '../type';
 import { SinglePanelProps } from '../panel/SinglePanel';
 import { PanelContentProps } from '../panel/PanelContent';
 import { parseToDayjs } from '../../_common/js/date-picker/format';
+
+dayjs.extend(isoWeek);
 
 export interface DatePickerTableProps
   extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format'>,
@@ -62,8 +66,17 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     if (Array.isArray(value)) {
       if (!value.length) return {};
 
-      const targetYear = targetDayjs.year();
-      const targetWeek = targetDayjs.week();
+      /**
+       * 原来的计算结果：
+       * dayjs('2024-12-30').year(); // 2024
+       * dayjs('2024-12-30').week(); // 1
+       *
+       * 引入 isoWeek 插件后, 使用 isoWeekYear 和 isoWeek 方法：
+       * dayjs('2024-12-30').isoWeekYear(); // 2025
+       * dayjs('2024-12-30').isoWeek(); // 1
+       */
+      const targetYear = targetDayjs.isoWeekYear();
+      const targetWeek = targetDayjs.isoWeek();
       const isActive =
         (targetYear === valueYearWeek.startYear && targetWeek === valueYearWeek.startWeek) ||
         (targetYear === valueYearWeek.endYear && targetWeek === valueYearWeek.endWeek);
