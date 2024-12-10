@@ -57,6 +57,7 @@ autoWidth | Boolean | false | \- | N
 disabled | Boolean | - | \- | N
 inputValue | Array | - | Typescript：`RangeInputValue` | N
 defaultInputValue | Array | - | uncontrolled property。Typescript：`RangeInputValue` | N
+label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 panel | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/range-input/type.ts) | N
 popupVisible | Boolean | - | \- | N
