@@ -154,6 +154,14 @@ describe('DateRangePicker', () => {
     expect(queryByText(tips)).toBeInTheDocument();
   });
 
+  it('label', async () => {
+    const label = 'test-label';
+    const { container } = render(<DateRangePicker label={label} />);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
+  });
+
   it('onBlur onFocus', async () => {
     const blurFn = vi.fn();
     const focusFn = vi.fn();

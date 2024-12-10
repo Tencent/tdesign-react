@@ -135,6 +135,7 @@ const TimePicker = forwardRefWithStatics(
           popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
           tips={props.tips}
           status={props.status}
+          label={props.label}
           panel={
             <TimePickerPanel
               steps={steps}

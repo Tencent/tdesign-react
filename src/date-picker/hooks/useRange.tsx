@@ -60,6 +60,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     activeIndex: popupVisible ? activeIndex : undefined,
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,
+    label: props.label,
     className: classNames({
       [`${name}__input--placeholder`]: isHoverCell,
     }),

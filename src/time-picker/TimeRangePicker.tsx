@@ -48,6 +48,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
     style,
     className,
     presets,
+    label,
   } = props;
 
   const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -191,6 +192,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
           onBlur: handleInputBlur,
           readonly: !allowInput,
           activeIndex: currentPanelIdx,
+          label,
           ...props.rangeInputProps,
         }}
         tips={props.tips}
