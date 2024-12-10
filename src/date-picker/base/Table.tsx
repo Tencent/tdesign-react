@@ -68,10 +68,11 @@ const DatePickerTable = (props: DatePickerTableProps) => {
         (targetYear === valueYearWeek.startYear && targetWeek === valueYearWeek.startWeek) ||
         (targetYear === valueYearWeek.endYear && targetWeek === valueYearWeek.endWeek);
       const isRange =
-        targetYear >= valueYearWeek.startYear &&
-        targetYear <= valueYearWeek.endYear &&
-        targetWeek > valueYearWeek.startWeek &&
-        targetWeek < valueYearWeek.endWeek;
+        (targetYear > valueYearWeek.startYear ||
+          (targetYear === valueYearWeek.startYear && targetWeek > valueYearWeek.startWeek)) &&
+        (targetYear < valueYearWeek.endYear ||
+          (targetYear === valueYearWeek.endYear && targetWeek < valueYearWeek.endWeek));
+
       return {
         // 同年同周
         [`${classPrefix}-date-picker__table-${mode}-row--active`]: isActive,
