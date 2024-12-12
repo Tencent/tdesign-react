@@ -80,10 +80,12 @@ export default function useSingle(props: TdSelectInputProps) {
         placeholder={singleValueDisplay ? '' : props.placeholder}
         value={singleValueDisplay ? ' ' : displayedValue}
         label={
-          <>
-            {props.label}
-            {singleValueDisplay}
-          </>
+          (props.label || singleValueDisplay) && (
+            <>
+              {props.label}
+              {singleValueDisplay}
+            </>
+          )
         }
         onChange={onInnerInputChange}
         readonly={!props.allowInput}
