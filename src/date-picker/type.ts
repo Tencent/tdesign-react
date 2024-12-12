@@ -66,6 +66,10 @@ export interface TdDatePickerProps {
    */
   inputProps?: InputProps;
   /**
+   * 左侧文本
+   */
+  label?: TNode;
+  /**
    * 选择器模式
    * @default date
    */
@@ -222,6 +226,10 @@ export interface TdDateRangePickerProps {
    * @default ''
    */
   format?: string;
+  /**
+   * 左侧文本
+   */
+  label?: TNode;
   /**
    * 选择器模式
    * @default date
@@ -518,6 +526,7 @@ export interface PresetDate {
 }
 
 export type DateValue = string | number | Date;
+
 export type DateMultipleValue = Array<DateValue>;
 
 export type DatePickerValueType =

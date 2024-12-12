@@ -8,7 +8,7 @@ import Button from '../../button';
 import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
 
-const { FormItem } = Form;
+const { FormItem, FormList } = Form;
 
 describe('Form 组件测试', () => {
   const submitFn = vi.fn();
@@ -114,6 +114,80 @@ describe('Form 组件测试', () => {
     expect(queryByText('input1 未填写')).toBeTruthy();
     fireEvent.click(getByText('clearValidate'));
     expect(queryByText('input1 未填写')).not.toBeTruthy();
+  });
+
+  test('form setFieldsValue', () => {
+    const mockName = 'name';
+    const mockName1 = 'name1';
+    const mockBirthday = '1996-01-24';
+    const mockBirthday1 = '1996-01-25';
+    const mockArea = '北京';
+    const mockArea1 = '北京';
+    const TestForm = () => {
+      const [form] = Form.useForm();
+      const handleSetFormData = () => {
+        form.setFieldsValue({
+          user: {
+            name: mockName1,
+          },
+          birthday: mockBirthday1,
+          address: [
+            {
+              area: mockArea1,
+            },
+          ],
+        });
+      };
+      return (
+        <Form
+          form={form}
+          initialData={{
+            user: {
+              name: mockName,
+            },
+            birthday: mockBirthday,
+            address: [
+              {
+                area: mockArea,
+              },
+            ],
+          }}
+        >
+          <FormItem label="姓名" name={['user', 'name']}>
+            <Input placeholder="name" />
+          </FormItem>
+          <FormItem label="生日" name="birthday">
+            <Input placeholder="birthday" />
+          </FormItem>
+          <FormList name="address">
+            {(fields) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <FormItem key={key}>
+                    <FormItem {...restField} name={[name, 'area']} label="地区">
+                      <Input placeholder="area" />
+                    </FormItem>
+                  </FormItem>
+                ))}
+              </>
+            )}
+          </FormList>
+          <FormItem>
+            <Button onClick={handleSetFormData}>SetFormData</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+
+    const { getByPlaceholderText, getByText } = render(<TestForm />);
+    expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName);
+    expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirthday);
+    expect((getByPlaceholderText('area') as HTMLInputElement).value).toBe(mockArea);
+
+    fireEvent.click(getByText('SetFormData'));
+    expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName1);
+    expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirthday1);
+    expect((getByPlaceholderText('area') as HTMLInputElement).value).toBe(mockArea1);
   });
 
   test('Form.reset works fine', async () => {

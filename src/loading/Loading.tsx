@@ -30,7 +30,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
     style,
   } = useDefaultProps<LoadingProps>(props, loadingDefaultProps);
 
-  const [showLoading, setShowLoading] = useState(delay ? false : loading);
+  const [showLoading, setShowLoading] = useState(() => (delay ? false : loading));
 
   const { classPrefix } = useConfig();
 

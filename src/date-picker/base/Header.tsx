@@ -63,7 +63,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     },
     [mode],
   );
-  const [yearOptions, setYearOptions] = useState(initOptions(year));
+  const [yearOptions, setYearOptions] = useState(() => initOptions(year));
 
   // 年份选择展示区间
   const nearestYear: number = useMemo(
