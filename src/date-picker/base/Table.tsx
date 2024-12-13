@@ -66,15 +66,6 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     if (Array.isArray(value)) {
       if (!value.length) return {};
 
-      /**
-       * 原来的计算结果：
-       * dayjs('2024-12-30').year(); // 2024
-       * dayjs('2024-12-30').week(); // 1
-       *
-       * 引入 isoWeek 插件后, 使用 isoWeekYear 和 isoWeek 方法：
-       * dayjs('2024-12-30').isoWeekYear(); // 2025
-       * dayjs('2024-12-30').isoWeek(); // 1
-       */
       const targetYear = targetDayjs.isoWeekYear();
       const targetWeek = targetDayjs.isoWeek();
       const isActive =
