@@ -253,8 +253,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     } else {
       currentDate = (value as DateMultipleValue).filter(
         (val) =>
-          formatDate(val, { format, targetFormat: valueType, dayjsLocale: local.dayjsLocale }) !==
-          formatDate(date, { format, targetFormat: valueType, dayjsLocale: local.dayjsLocale }),
+          formatDate(val, { format, targetFormat: valueType }) !==
+          formatDate(date, { format, targetFormat: valueType }),
       );
     }
 
