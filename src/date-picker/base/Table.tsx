@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
 import DatePickerCell from './Cell';
@@ -7,6 +9,8 @@ import { TdDatePickerProps } from '../type';
 import { SinglePanelProps } from '../panel/SinglePanel';
 import { PanelContentProps } from '../panel/PanelContent';
 import { parseToDayjs } from '../../_common/js/date-picker/format';
+
+dayjs.extend(isoWeek);
 
 export interface DatePickerTableProps
   extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format'>,
@@ -62,16 +66,17 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     if (Array.isArray(value)) {
       if (!value.length) return {};
 
-      const targetYear = targetDayjs.year();
-      const targetWeek = targetDayjs.week();
+      const targetYear = targetDayjs.isoWeekYear();
+      const targetWeek = targetDayjs.isoWeek();
       const isActive =
         (targetYear === valueYearWeek.startYear && targetWeek === valueYearWeek.startWeek) ||
         (targetYear === valueYearWeek.endYear && targetWeek === valueYearWeek.endWeek);
       const isRange =
-        targetYear >= valueYearWeek.startYear &&
-        targetYear <= valueYearWeek.endYear &&
-        targetWeek > valueYearWeek.startWeek &&
-        targetWeek < valueYearWeek.endWeek;
+        (targetYear > valueYearWeek.startYear ||
+          (targetYear === valueYearWeek.startYear && targetWeek > valueYearWeek.startWeek)) &&
+        (targetYear < valueYearWeek.endYear ||
+          (targetYear === valueYearWeek.endYear && targetWeek < valueYearWeek.endWeek));
+
       return {
         // 同年同周
         [`${classPrefix}-date-picker__table-${mode}-row--active`]: isActive,
