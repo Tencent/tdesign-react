@@ -111,9 +111,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   const multipleWeekRowClass = (value: DateMultipleValue, targetDayjs: Dayjs) => {
     if (mode !== 'week' || (Array.isArray(value) && !value.length)) return {};
 
-    const isSomeYearWeek = multipleValueYearWeek.some(
-      (item) => item.year === targetDayjs.year() && item.week === targetDayjs.week(),
-    );
+    const isSomeYearWeek = multipleValueYearWeek.some((item) => item.week === targetDayjs.week());
     return {
       [`${classPrefix}-date-picker__table-${mode}-row--active`]: isSomeYearWeek,
     };
