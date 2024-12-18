@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, mockTimeout, act, vi } from '../../../test/utils';
+import { render, fireEvent, waitFor, mockTimeout, act, vi } from '@test/utils';
 import Alert from '../Alert';
 
 describe('Alert 组件测试', () => {
