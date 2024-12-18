@@ -157,6 +157,22 @@ describe('Timepicker 组件测试', () => {
     expect(inputs.item(0).value).toBe(date);
   });
 
+  test('props.label for TimePicker  works fine', async () => {
+    const label = 'abc';
+    const { container } = render(<TimePicker label={label}></TimePicker>);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
+  });
+
+  test('props.label for TimeRangePicker  works fine', async () => {
+    const label = 'abc';
+    const { container } = render(<TimePicker.TimeRangePicker label={label}></TimePicker.TimeRangePicker>);
+    const prefix = container.querySelector('.t-input__prefix');
+    expect(prefix).toBeTruthy();
+    expect(prefix).toHaveTextContent(label);
+  });
+
   test('TimeRangePick presets test', async () => {
     const date = ['11:00:00', '12:00:00'];
     const defaultValue = ['00:00:01', '00:00:02'];

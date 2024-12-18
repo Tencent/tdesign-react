@@ -84,17 +84,20 @@ describe('Alert 组件测试', () => {
   });
 
   test('message not collapsed', () => {
-    const massage = [
+    const message = [
       <div key={0}>{text}</div>,
       <div key={1}>{text}</div>,
       <div key={2} data-testid={testId}>
         {text}
       </div>,
     ];
-    const { container } = render(<Alert title="title content" message={massage} />);
+    const { container } = render(<Alert title="title content" message={message} />);
+    const { container: container1 } = render(<Alert title="title content" message={message} maxLine={4} />);
 
     expect(container.querySelector('.t-alert__collapse')).toBeNull();
     expect(container.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
+    expect(container1.querySelector('.t-alert__collapse')).toBeNull();
+    expect(container1.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
   });
 
   test('Alert 展开收起操作', async () => {
