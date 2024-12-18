@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, describe, vi, mockTimeout } from '../../../test/utils';
+import { render, describe, vi, mockTimeout } from '@test/utils';
 import Affix from '../index';
 
 describe('Affix 组件测试', () => {
