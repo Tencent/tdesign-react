@@ -105,7 +105,7 @@ describe('DatePicker', () => {
   });
 
   test('mode week', async () => {
-    const { container: container1 } = render(<DatePicker mode={'week'} />);
+    const { container: container1 } = render(<DatePicker mode={'week'} value={'2022-37th'} />);
     fireEvent.mouseDown(container1.querySelector('input'));
     const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-week'));
     expect(weekEle).not.toBeNull();
