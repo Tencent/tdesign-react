@@ -23,8 +23,8 @@
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./globals.d.ts","./test/config/index.d.ts"],
-  "exclude": ["**/*.jsx", "**/**/_usage/*", "**/**/__tests__/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
+  "include": ["./src", "./globals.d.ts", "./test/config/index.d.ts", "**/**/__tests__/*"],
+  "exclude": ["**/*.jsx", "**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
   "types": [
     "node",
     "jest",

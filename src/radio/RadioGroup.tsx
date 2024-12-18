@@ -27,7 +27,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
 
-  const { disabled, children, onChange, size, variant, options = [], className, style } = props;
+  const { disabled, readonly, children, onChange, size, variant, options = [], className, style } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState({});
@@ -54,11 +54,12 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
         allowUncheck: checkProps.allowUncheck || props.allowUncheck,
         checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
+        readonly: checkProps.readonly || readonly,
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
           }
-          setInternalValue(checked ? checkValue : undefined, { e });
+          setInternalValue(checked ? checkValue : undefined, { e, name: props.name });
         },
       };
     },
@@ -97,9 +98,9 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
   const renderOptions = () => {
     const Comp = variant.includes('filled') ? Radio.Button : Radio;
-    return options.map((item) => {
+    return options.map((item, index) => {
       let label: ReactNode;
-      let value: string | number;
+      let value: string | number | boolean;
       let disabled: boolean | undefined;
       if (typeof item === 'string' || typeof item === 'number') {
         label = item;
@@ -110,7 +111,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
         disabled = item.disabled;
       }
       return (
-        <Comp value={value} key={value} disabled={disabled}>
+        <Comp value={value} key={index} disabled={disabled}>
           {label}
         </Comp>
       );
