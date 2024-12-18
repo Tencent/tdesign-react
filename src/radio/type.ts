@@ -28,7 +28,7 @@ export interface TdRadioProps<T = RadioValue> {
    */
   children?: TNode;
   /**
-   * 是否为禁用态。如果存在父组件 RadioGroup，默认值由 RadioGroup.disabled 控制。Radio.disabled 优先级高于 RadioGroup.disabled
+   * 是否为禁用态。如果存在父组件 RadioGroup，默认值由 RadioGroup.disabled 控制。优先级：Radio.disabled > RadioGroup.disabled
    */
   disabled?: boolean;
   /**
@@ -41,6 +41,10 @@ export interface TdRadioProps<T = RadioValue> {
    */
   name?: string;
   /**
+   * 只读状态
+   */
+  readonly?: boolean;
+  /**
    * 单选按钮的值
    */
   value?: T;
@@ -49,7 +53,7 @@ export interface TdRadioProps<T = RadioValue> {
    */
   onChange?: (checked: boolean, context: { e: ChangeEvent<HTMLDivElement> }) => void;
   /**
-   * 点击触发，一般用于外层阻止冒泡场景
+   * 点击时触发，一般用于外层阻止冒泡场景
    */
   onClick?: (context: { e: MouseEvent<HTMLLabelElement> }) => void;
 }
@@ -61,8 +65,7 @@ export interface TdRadioGroupProps<T = RadioValue> {
    */
   allowUncheck?: boolean;
   /**
-   * 是否禁用全部子单选框。默认为 false。RadioGroup.disabled 优先级低于 Radio.disabled
-   * @default false
+   * 是否禁用全部子单选框。优先级：Radio.disabled > RadioGroup.disabled
    */
   disabled?: boolean;
   /**
@@ -74,6 +77,10 @@ export interface TdRadioGroupProps<T = RadioValue> {
    * 单选组件按钮形式。RadioOption 数据类型为 string 或 number 时，表示 label 和 value 值相同
    */
   options?: Array<RadioOption>;
+  /**
+   * 只读状态
+   */
+  readonly?: boolean;
   /**
    * 组件尺寸【讨论中】
    * @default medium
@@ -93,17 +100,17 @@ export interface TdRadioGroupProps<T = RadioValue> {
    */
   variant?: 'outline' | 'primary-filled' | 'default-filled';
   /**
-   * 选中值发生变化时触发
+   * 选中值发生变化时触发, `context.name` 指 RadioGroup 的 name 属性
    */
-  onChange?: (value: T, context: { e: ChangeEvent<HTMLInputElement> }) => void;
+  onChange?: (value: T, context: { e: ChangeEvent<HTMLDivElement>; name?: string }) => void;
 }
-
-export type RadioValue = string | number | boolean;
 
 export type RadioOption = string | number | RadioOptionObj;
 
 export interface RadioOptionObj {
   label?: string | TNode;
-  value?: string | number;
+  value?: string | number | boolean;
   disabled?: boolean;
 }
+
+export type RadioValue = string | number | boolean;
