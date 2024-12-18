@@ -30,9 +30,13 @@ describe('Alert 组件测试', () => {
     expect(container.querySelector('.t-alert--error')).not.toBeNull();
     expect(container.querySelector('.t-alert--error')).toBeInTheDocument();
 
-    act(() => {
-      fireEvent.click(queryByTestId(testId));
-    });
+    const element = queryByTestId(testId);
+    if (element) {
+      // 在 react 18.3.1之后 可以在 react 中导出 act,且在18.3.1 之后应该在react中使用 act
+      act(() => fireEvent.click(element));
+    } else {
+      throw new Error(`Element with testId ${testId} not found`);
+    }
     expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
     expect(onClose).toHaveBeenCalledTimes(1);
 
@@ -116,9 +120,11 @@ describe('Alert 组件测试', () => {
     expect(element).toBeNull();
 
     const btn = await waitFor(() => queryByText('展开更多'));
-    act(() => {
-      fireEvent.click(btn);
-    });
+    if (btn) {
+      act(() => fireEvent.click(btn));
+    } else {
+      throw new Error(`Button with text '展开更多' not found`);
+    }
 
     expect(queryByText('收起')).not.toBeNull();
     expect(queryByText('收起')).toBeInTheDocument();
@@ -126,11 +132,23 @@ describe('Alert 组件测试', () => {
     expect(element1).not.toBeNull();
 
     const btn1 = await waitFor(() => queryByText('收起'));
-    act(() => {
-      fireEvent.click(btn1);
-    });
-
+    if (btn1) {
+      act(() => fireEvent.click(btn1));
+    } else {
+      throw new Error(`Button with text '收起' not found`);
+    }
     const element3 = await waitFor(() => queryByTestId(testId));
     expect(element3).toBeNull();
+  });
+
+  test('className', () => {
+    const { container } = render(<Alert theme="success" message="这是一条成功的消息提示" className="custom-class" />);
+    expect(container.querySelector('.custom-class')).not.toBeNull();
+  });
+
+  test('style', () => {
+    const { container } = render(<Alert theme="success" message="这是一条成功的消息提示" style={{ color: 'red' }} />);
+    const element = container.querySelector('.t-alert') as HTMLElement;
+    expect(element?.style.color).toBe('red');
   });
 });
