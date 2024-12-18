@@ -9,6 +9,7 @@ import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 import { textareaDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 
 export interface TextareaProps
   extends Omit<
@@ -22,7 +23,7 @@ export interface TextareaRefInterface extends React.RefObject<unknown> {
   textareaElement: HTMLTextAreaElement;
 }
 
-const Textarea = forwardRef((originalProps: TextareaProps, ref: TextareaRefInterface) => {
+const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps, ref) => {
   const props = useDefaultProps<TextareaProps>(originalProps, textareaDefaultProps);
   const {
     disabled,
@@ -92,11 +93,6 @@ const Textarea = forwardRef((originalProps: TextareaProps, ref: TextareaRefInter
     }
   }, [autosize]);
 
-  useEffect(() => {
-    adjustTextareaHeight();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textareaRef?.current]);
-
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
@@ -114,7 +110,7 @@ const Textarea = forwardRef((originalProps: TextareaProps, ref: TextareaRefInter
     composingRef.current = true;
   }
 
-  function handleCompositionEnd(e) {
+  function handleCompositionEnd(e: React.FormEvent<HTMLTextAreaElement>) {
     if (composingRef.current) {
       composingRef.current = false;
       inputValueChangeHandle(e);
@@ -132,7 +128,12 @@ const Textarea = forwardRef((originalProps: TextareaProps, ref: TextareaRefInter
     </span>
   );
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
+    adjustTextareaHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textareaRef?.current]);
+
+  useIsomorphicLayoutEffect(() => {
     // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
     if (autosize === false) {
       setTextareaStyle({ height: 'auto', minHeight: 'auto' });
