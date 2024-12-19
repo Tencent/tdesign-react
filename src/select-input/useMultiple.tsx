@@ -35,12 +35,12 @@ export default function useMultiple(props: SelectInputProps) {
 
   const getTags = () => {
     if (!(value instanceof Array)) {
+      if (['', null, undefined].includes(value as any)) return [];
       return isObject(value) ? [value[iKeys.label]] : [value];
     }
     return value.map((item: SelectInputValue) => (isObject(item) ? item[iKeys.label] : item));
   };
   const tags = getTags();
-
   const tPlaceholder = !tags || !tags.length ? props.placeholder : '';
 
   const onTagInputChange = (val: TagInputValue, context: SelectInputChangeContext) => {

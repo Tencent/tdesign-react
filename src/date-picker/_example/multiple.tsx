@@ -3,7 +3,7 @@ import { DatePicker, Space } from 'tdesign-react';
 import type { DatePickerProps, DateMultipleValue } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  const [dateValue, setDateValue] = useState<DateMultipleValue>();
+  const [dateValue, setDateValue] = useState<DateMultipleValue>(['2024-10-01', '2024-10-24']);
   const [weekValue, setWeekValue] = useState<DateMultipleValue>(['2024-50周', '2024-51周']);
   const [yearValue, setYearValue] = useState<DateMultipleValue>(['2022', '2023', '2024']);
 
@@ -24,7 +24,13 @@ export default function YearDatePicker() {
 
   return (
     <Space direction="vertical">
-      <DatePicker value={dateValue} onChange={handleDateChange} clearable multiple />
+      <DatePicker
+        value={dateValue}
+        placeholder="可清除、可输入的日期选择器"
+        onChange={handleDateChange}
+        clearable
+        multiple
+      />
       <DatePicker
         value={weekValue}
         placeholder="可清除、可输入的日期选择器"
