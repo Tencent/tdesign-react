@@ -157,7 +157,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   const onAnimateStart = () => {
     if (!wrapRef.current) return;
-    onBeforeOpen?.()
+    onBeforeOpen?.();
     wrapRef.current.style.display = 'block';
   };
 

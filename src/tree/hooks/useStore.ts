@@ -7,9 +7,13 @@ import { usePersistFn } from '../../hooks/usePersistFn';
 
 import type { TdTreeProps } from '../type';
 import type { TypeEventState } from '../interface';
-import type { TypeTreeNodeData } from '../../_common/js/tree-v1/types';
+import type { TreeNodeValue, TypeTreeNodeData } from '../../_common/js/tree-v1/types';
+import TreeNode from '../../_common/js/tree-v1/tree-node';
 
-export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
+export function useStore(
+  props: TdTreeProps & { indeterminate: any; setTreeIndeterminate: any },
+  refresh: () => void,
+): TreeStore {
   const storeRef = useRef<TreeStore>();
   const [filterChanged, toggleFilterChanged] = useState(false);
   const [prevExpanded, changePrevExpanded] = useState(null);
@@ -34,6 +38,8 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     valueMode,
     filter,
     onLoad,
+    indeterminate,
+    setTreeIndeterminate,
     allowFoldNodeOnFilter = false,
   } = props;
 
@@ -129,7 +135,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     // 刷新节点，必须在配置选中之前执行
     // 这样选中态联动判断才能找到父节点
     store.refreshNodes();
-
     // 初始化选中状态
     if (Array.isArray(value)) {
       store.setChecked(value);
@@ -223,6 +228,11 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   useUpdateLayoutEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
+      const checkedValue = store.getCheckedNodes().map((v: TreeNode) => v.data[keys?.value || 'value']);
+      const indeterminateConflict = checkedValue.filter((v) => indeterminate.includes(v));
+      if (indeterminateConflict.length) {
+        setTreeIndeterminate(indeterminate.filter((v: TreeNodeValue) => !indeterminateConflict.includes(v)));
+      }
     }
   }, [store, value, data]);
 
@@ -238,6 +248,12 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       store.replaceActived(actived);
     }
   }, [actived, store]);
+
+  useUpdateLayoutEffect(() => {
+    if (Array.isArray(indeterminate)) {
+      store.replaceIndeterminate(indeterminate);
+    }
+  }, [indeterminate, store, data]);
 
   useUpdateLayoutEffect(() => {
     store.setConfig({

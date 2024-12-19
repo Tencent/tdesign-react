@@ -192,7 +192,6 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-
       const values = currentOptions
         .filter((option) => !option.checkAll && !option.disabled)
         .map((option) => option[keys?.value || 'value']);
