@@ -24,7 +24,7 @@ spline: explain
 - `ImageViewer`: 修复不受控时，`visable`改变时都会触发`onClose`的问题 @HaixingOoO ([#3244](https://github.com/Tencent/tdesign-react/pull/3244))
 - `CheckboxGroup`: 修复复选框组的子元素不是复选框导致的问题 @HaixingOoO ([#3253](https://github.com/Tencent/tdesign-react/pull/3253))
 - `Form`: 修复`1.9.3`版本后，多级表单字段使用 `setFieldValues` 功能异常的问题 @l123wx ([#3279](https://github.com/Tencent/tdesign-react/pull/3279))
-- `Form`: 修复当规则为 `value: [{ min: 0 }]` 时，验证不生效的问题 @RSS1102 ([#3283](https://github.com/Tencent/tdesign-react/pull/3283))
+- `Form`: 修复当规则为中涉及 `0` 判断时，验证不生效的问题 @RSS1102 ([#3283](https://github.com/Tencent/tdesign-react/pull/3283))
 - `Select`: 修复 `valueType` 为 `object`选中全选的展示异常及回调参数缺少的问题 @uyarn ([#3287](https://github.com/Tencent/tdesign-react/pull/3287))
 - `SelectInput`: 修复没有 `label` 都会渲染节点导致垂直对齐的问题 @huangchen1031 ([#3278](https://github.com/Tencent/tdesign-react/pull/3278))
 - `TextArea`: 优化 `TextArea` 初始化时 `autosize` 下计算高度的逻辑 @HaixingOoO ([#3286](https://github.com/Tencent/tdesign-react/pull/3286))
