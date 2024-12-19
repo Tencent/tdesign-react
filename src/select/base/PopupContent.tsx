@@ -30,6 +30,7 @@ interface SelectPopupProps
     value: SelectValue,
     context?: {
       label?: string | number;
+      value?: SelectValue;
       restData?: Record<string, any>;
       e: React.MouseEvent<HTMLLIElement>;
       trigger: SelectValueChangeTrigger;
@@ -109,12 +110,12 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     if (multiple) {
       // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label, e: event, trigger: 'check' });
+      onChange(values, { label, value: selectedValue, e: event, trigger: 'check' });
     } else {
       // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
 
-      onChange(selectVal, { label, e: event, trigger: 'check' });
+      onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
       setShowPopup(!showPopup);
     }
   };

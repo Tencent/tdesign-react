@@ -28,7 +28,7 @@ import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 import Tag from '../../tag';
-import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger } from '../type';
+import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger, SelectValue } from '../type';
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 import { PopupVisibleChangeContext } from '../../popup';
@@ -157,7 +157,7 @@ const Select = forwardRefWithStatics(
         const values = getSelectValueArr(value, value[closest], true, valueType, keys);
 
         // 处理onChange回调中的selectedOptions参数
-        const currentSelectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
         onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         return;
       }
@@ -172,7 +172,7 @@ const Select = forwardRefWithStatics(
         e?.stopPropagation?.();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         // 处理onChange回调中的selectedOptions参数
-        const currentSelectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
 
         onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         if (isFunction(onRemove)) {
@@ -194,19 +194,22 @@ const Select = forwardRefWithStatics(
 
       const values = currentOptions
         .filter((option) => !option.checkAll && !option.disabled)
-        .map((option) => option[keys?.value || 'value']);
+        .map((option) => (valueType === 'object' ? option : option[keys?.value || 'value']));
 
-      const selectableOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+      const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
 
       const checkAllValue =
-        !checkAll && selectableOptions.length !== (props.value as Array<SelectOption>)?.length ? selectableOptions : [];
+        !checkAll && currentSelectedOptions.length !== (props.value as Array<SelectOption>)?.length
+          ? currentSelectedOptions
+          : [];
+
       onChange?.(checkAllValue, { e, trigger: checkAll ? 'check' : 'uncheck', selectedOptions: checkAllValue });
     };
 
     // 选中 Popup 某项
     const handleChange = (
       value: string | number | Array<string | number | Record<string, string | number>>,
-      context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger },
+      context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger; value?: SelectValue },
     ) => {
       if (multiple) {
         !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
@@ -217,9 +220,22 @@ const Select = forwardRefWithStatics(
         }
       }
       // 处理onChange回调中的selectedOptions参数
-      const currentSelectedOptions = getSelectedOptions(value, multiple, valueType, keys, tmpPropOptions);
+      const selectedValue = multiple ? context.value : value;
+      const { currentSelectedOptions, currentOption } = getSelectedOptions(
+        value,
+        multiple,
+        valueType,
+        keys,
+        tmpPropOptions,
+        selectedValue,
+      );
 
-      onChange?.(value, { ...context, selectedOptions: currentSelectedOptions });
+      onChange?.(value, {
+        e: context.e,
+        trigger: context.trigger,
+        selectedOptions: currentSelectedOptions,
+        option: currentOption,
+      });
     };
 
     // 处理filter逻辑
@@ -352,8 +368,19 @@ const Select = forwardRefWithStatics(
                   e.stopPropagation();
                   const values = getSelectValueArr(value, value[key], true, valueType, keys);
 
-                  const selectedOptions = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
-                  onChange(values, { e, selectedOptions, trigger: 'uncheck' });
+                  const { currentSelectedOptions } = getSelectedOptions(
+                    values,
+                    multiple,
+                    valueType,
+                    keys,
+                    tmpPropOptions,
+                    value,
+                  );
+                  onChange(values, {
+                    e,
+                    selectedOptions: currentSelectedOptions,
+                    trigger: 'uncheck',
+                  });
                   tagProps?.onClose?.({ e });
 
                   onRemove?.({
