@@ -7,6 +7,7 @@ import Input from '../../input';
 import Button from '../../button';
 import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
+import InputNumber from '../../input-number';
 
 const { FormItem, FormList } = Form;
 
@@ -421,6 +422,62 @@ describe('Form 组件测试', () => {
     fireEvent.blur(getByPlaceholderText('username'));
     await mockDelay();
     expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
+  });
+
+  test('FormItem rules min max', async () => {
+    const TestForm = () => {
+      const initialValues = {
+        year1: -2,
+        year2: 1,
+        year3: 4,
+        year4: -4,
+        year5: -1,
+        year6: 2,
+      };
+      return (
+        <Form initialData={initialValues}>
+          <FormItem name="year1" rules={[{ min: -3, message: 'year1  error' }]}>
+            <InputNumber placeholder="year1" />
+          </FormItem>
+          <FormItem name="year2" rules={[{ min: 0, message: 'year2  error' }]}>
+            <InputNumber placeholder="year2" />
+          </FormItem>
+          <FormItem name="year3" rules={[{ min: 3, message: 'year3  error' }]}>
+            <InputNumber placeholder="year3" />
+          </FormItem>
+          <FormItem name="year4" rules={[{ max: -3, message: 'year4  error' }]}>
+            <InputNumber placeholder="year4" />
+          </FormItem>
+          <FormItem name="year5" rules={[{ max: 0, message: 'year5  error' }]}>
+            <InputNumber placeholder="year5" />
+          </FormItem>
+          <FormItem name="year6" rules={[{ max: 3, message: 'year6  error' }]}>
+            <InputNumber placeholder="year6" />
+          </FormItem>
+          <FormItem>
+            <Button type="submit">提交</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+    const { container, getByText, getByPlaceholderText } = render(<TestForm />);
+    fireEvent.click(getByText('提交'));
+    await mockDelay();
+    expect(container.querySelector('.t-input__extra')).toBeNull();
+
+    // 错误验证
+    fireEvent.change(getByPlaceholderText('year1'), { target: { value: -4 } });
+    fireEvent.change(getByPlaceholderText('year2'), { target: { value: -1 } });
+    fireEvent.change(getByPlaceholderText('year3'), { target: { value: 2 } });
+    fireEvent.change(getByPlaceholderText('year4'), { target: { value: -2 } });
+    fireEvent.change(getByPlaceholderText('year5'), { target: { value: 1 } });
+    fireEvent.change(getByPlaceholderText('year6'), { target: { value: 4 } });
+    fireEvent.click(getByText('提交'));
+    await mockDelay();
+    const input__extraList = container.querySelectorAll('.t-input__extra');
+    input__extraList.forEach((item: { innerHTML: string }, index: number) => {
+      expect(item.innerHTML).toBe(`year${index + 1}  error`);
+    });
   });
 
   test('动态渲染并初始赋值', () => {

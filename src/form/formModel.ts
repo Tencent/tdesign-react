@@ -54,7 +54,7 @@ const VALIDATE_MAP = {
   validator: (val: ValueType, validate: CustomValidator): ReturnType<CustomValidator> => validate(val),
 };
 
-export type ValidateFuncType = typeof VALIDATE_MAP[keyof typeof VALIDATE_MAP];
+export type ValidateFuncType = (typeof VALIDATE_MAP)[keyof typeof VALIDATE_MAP];
 
 /**
  * 校验某一条数据的某一条规则，一种校验规则不满足则不再进行校验。
@@ -75,7 +75,7 @@ export async function validateOneRule(value: ValueType, rule: FormRule): Promise
     }
     const validateRule: ValidateFuncType = VALIDATE_MAP[key];
     // 找到一个校验规则，则无需再找，因为参数只允许对一个规则进行校验
-    if (validateRule && rule[key]) {
+    if (validateRule && ![undefined, null].includes(rule[key])) {
       // rule 值为 true 则表示没有校验参数，只是对值进行默认规则校验
       vOptions = rule[key] === true ? undefined : rule[key];
       vValidateFun = validateRule;
