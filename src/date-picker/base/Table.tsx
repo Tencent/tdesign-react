@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
+
 import type { Dayjs } from 'dayjs';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../hooks/useConfig';
@@ -62,20 +63,6 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, value, format]);
 
-  const multipleValueYearWeek = useMemo(() => {
-    if (mode !== 'week' || !Array.isArray(value) || (Array.isArray(value) && !value.length)) return [];
-
-    const DateMultipleValue = (value as DateMultipleValue).map((v) => v && parseToDayjs(v, format));
-
-    return DateMultipleValue.map((item) => {
-      const year = item?.year?.();
-      const week = item?.locale?.(local.dayjsLocale)?.week?.();
-
-      return { year, week };
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, value, format, props.multiple]);
-
   // 高亮周区间
   const weekRowClass = (value: DateValue | DateRangeValue, targetDayjs: Dayjs) => {
     if (mode !== 'week' || !value) return {};
@@ -110,8 +97,10 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   // multiple
   const multipleWeekRowClass = (value: DateMultipleValue, targetDayjs: Dayjs) => {
     if (mode !== 'week' || (Array.isArray(value) && !value.length)) return {};
+    const isSomeYearWeek = value
+      .map((v) => parseToDayjs(v, format))
+      .some((item) => item.isoWeek() === targetDayjs.isoWeek() && item.isoWeekYear() === targetDayjs.isoWeekYear());
 
-    const isSomeYearWeek = multipleValueYearWeek.some((item) => item.week === targetDayjs.week());
     return {
       [`${classPrefix}-date-picker__table-${mode}-row--active`]: isSomeYearWeek,
     };
