@@ -197,7 +197,8 @@ export const getSelectedOptions = (
   const isObjectType = valueType === 'object';
   // 当前所有选中的选项
   let currentSelectedOptions = [];
-  let currentOption;
+  // 当前选中的选项
+  let currentOption: SelectValue;
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)
