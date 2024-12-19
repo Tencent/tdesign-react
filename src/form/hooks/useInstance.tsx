@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
+import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import get from 'lodash/get';
 import set from 'lodash/set';
@@ -128,7 +129,7 @@ export default function useInstance(
         if (formItemRef?.current.isFormList) {
           fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
         } else {
-          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), false);
+          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), !props.supportNumberKey);
         }
         merge(fieldsValue, fieldValue);
       }
@@ -155,7 +156,20 @@ export default function useInstance(
 
     nameLists.forEach((nameList) => {
       const fieldValue = get(fields, nameList);
-      const formItemRef = formMapRef.current.get(nameList.length > 1 ? nameList : nameList[0]);
+
+      let formItemRef;
+      if (nameList.length > 1) {
+        // 如果是数组，由于内存地址不一致，不能直接使用 Map.get 获取到 formItemRef
+        for (const [mapNameList, _formItemRef] of formMapRef.current.entries()) {
+          if (isEqual(nameList, mapNameList)) {
+            formItemRef = _formItemRef;
+            break;
+          }
+        }
+      } else {
+        formItemRef = formMapRef.current.get(nameList[0]);
+      }
+
       if (formItemRef?.current) {
         formItemRef?.current?.setValue?.(fieldValue, fields);
       } else {

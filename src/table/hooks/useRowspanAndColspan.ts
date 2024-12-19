@@ -23,7 +23,7 @@ export default function useRowspanAndColspan(
   rowKey: string,
   rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
 ) {
-  const [skipSpansMap, setKipSnapsMap] = useState(new Map<string, SkipSpansValue>());
+  const [skipSpansMap, setKipSnapsMap] = useState(() => new Map<string, SkipSpansValue>());
 
   // 计算单元格是否跳过渲染
   const onTrRowspanOrColspan = (

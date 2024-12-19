@@ -80,9 +80,11 @@ export const pkgContent = JSON.stringify(
       'react-scripts': '^5.0.0',
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
+      lodash: orgPkg.dependencies.lodash,
     },
     devDependencies: {
       typescript: '^4.4.4',
+      '@types/lodash': orgPkg.devDependencies['@types/lodash'],
     },
     scripts: {
       start: 'react-scripts start',

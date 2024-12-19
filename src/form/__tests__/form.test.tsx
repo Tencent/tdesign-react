@@ -7,8 +7,9 @@ import Input from '../../input';
 import Button from '../../button';
 import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
+import InputNumber from '../../input-number';
 
-const { FormItem } = Form;
+const { FormItem, FormList } = Form;
 
 describe('Form 组件测试', () => {
   const submitFn = vi.fn();
@@ -114,6 +115,80 @@ describe('Form 组件测试', () => {
     expect(queryByText('input1 未填写')).toBeTruthy();
     fireEvent.click(getByText('clearValidate'));
     expect(queryByText('input1 未填写')).not.toBeTruthy();
+  });
+
+  test('form setFieldsValue', () => {
+    const mockName = 'name';
+    const mockName1 = 'name1';
+    const mockBirthday = '1996-01-24';
+    const mockBirthday1 = '1996-01-25';
+    const mockArea = '北京';
+    const mockArea1 = '北京';
+    const TestForm = () => {
+      const [form] = Form.useForm();
+      const handleSetFormData = () => {
+        form.setFieldsValue({
+          user: {
+            name: mockName1,
+          },
+          birthday: mockBirthday1,
+          address: [
+            {
+              area: mockArea1,
+            },
+          ],
+        });
+      };
+      return (
+        <Form
+          form={form}
+          initialData={{
+            user: {
+              name: mockName,
+            },
+            birthday: mockBirthday,
+            address: [
+              {
+                area: mockArea,
+              },
+            ],
+          }}
+        >
+          <FormItem label="姓名" name={['user', 'name']}>
+            <Input placeholder="name" />
+          </FormItem>
+          <FormItem label="生日" name="birthday">
+            <Input placeholder="birthday" />
+          </FormItem>
+          <FormList name="address">
+            {(fields) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <FormItem key={key}>
+                    <FormItem {...restField} name={[name, 'area']} label="地区">
+                      <Input placeholder="area" />
+                    </FormItem>
+                  </FormItem>
+                ))}
+              </>
+            )}
+          </FormList>
+          <FormItem>
+            <Button onClick={handleSetFormData}>SetFormData</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+
+    const { getByPlaceholderText, getByText } = render(<TestForm />);
+    expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName);
+    expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirthday);
+    expect((getByPlaceholderText('area') as HTMLInputElement).value).toBe(mockArea);
+
+    fireEvent.click(getByText('SetFormData'));
+    expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName1);
+    expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirthday1);
+    expect((getByPlaceholderText('area') as HTMLInputElement).value).toBe(mockArea1);
   });
 
   test('Form.reset works fine', async () => {
@@ -347,6 +422,62 @@ describe('Form 组件测试', () => {
     fireEvent.blur(getByPlaceholderText('username'));
     await mockDelay();
     expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
+  });
+
+  test('FormItem rules min max', async () => {
+    const TestForm = () => {
+      const initialValues = {
+        year1: -2,
+        year2: 1,
+        year3: 4,
+        year4: -4,
+        year5: -1,
+        year6: 2,
+      };
+      return (
+        <Form initialData={initialValues}>
+          <FormItem name="year1" rules={[{ min: -3, message: 'year1  error' }]}>
+            <InputNumber placeholder="year1" />
+          </FormItem>
+          <FormItem name="year2" rules={[{ min: 0, message: 'year2  error' }]}>
+            <InputNumber placeholder="year2" />
+          </FormItem>
+          <FormItem name="year3" rules={[{ min: 3, message: 'year3  error' }]}>
+            <InputNumber placeholder="year3" />
+          </FormItem>
+          <FormItem name="year4" rules={[{ max: -3, message: 'year4  error' }]}>
+            <InputNumber placeholder="year4" />
+          </FormItem>
+          <FormItem name="year5" rules={[{ max: 0, message: 'year5  error' }]}>
+            <InputNumber placeholder="year5" />
+          </FormItem>
+          <FormItem name="year6" rules={[{ max: 3, message: 'year6  error' }]}>
+            <InputNumber placeholder="year6" />
+          </FormItem>
+          <FormItem>
+            <Button type="submit">提交</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+    const { container, getByText, getByPlaceholderText } = render(<TestForm />);
+    fireEvent.click(getByText('提交'));
+    await mockDelay();
+    expect(container.querySelector('.t-input__extra')).toBeNull();
+
+    // 错误验证
+    fireEvent.change(getByPlaceholderText('year1'), { target: { value: -4 } });
+    fireEvent.change(getByPlaceholderText('year2'), { target: { value: -1 } });
+    fireEvent.change(getByPlaceholderText('year3'), { target: { value: 2 } });
+    fireEvent.change(getByPlaceholderText('year4'), { target: { value: -2 } });
+    fireEvent.change(getByPlaceholderText('year5'), { target: { value: 1 } });
+    fireEvent.change(getByPlaceholderText('year6'), { target: { value: 4 } });
+    fireEvent.click(getByText('提交'));
+    await mockDelay();
+    const input__extraList = container.querySelectorAll('.t-input__extra');
+    input__extraList.forEach((item: { innerHTML: string }, index: number) => {
+      expect(item.innerHTML).toBe(`year${index + 1}  error`);
+    });
   });
 
   test('动态渲染并初始赋值', () => {

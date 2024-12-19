@@ -67,7 +67,8 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     allowDrop,
   } = props;
 
-  const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
+  const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
+    useControllable(props);
 
   // 国际化文本初始化
   const emptyText = locale('empty');
@@ -81,6 +82,8 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       onExpand,
       onActive,
       actived,
+      indeterminate,
+      setTreeIndeterminate,
     },
     initial,
   );
@@ -104,6 +107,21 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       return expanded;
     },
   );
+
+  // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
+  const setIndeterminate = usePersistFn(
+    (
+      node: TreeNode,
+      isIndeterminate: boolean,
+      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+    ) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { e, trigger } = ctx;
+      const indeterminate = node.setIndeterminate(isIndeterminate);
+      return indeterminate;
+    },
+  );
+
   const treeRef = useRef(null);
 
   const {
@@ -254,11 +272,17 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
             setChecked(node, spec.checked, { trigger: 'setItem' });
             delete spec.checked;
           }
+          if ('indeterminate' in options) {
+            // @ts-ignore
+            setTreeIndeterminate((prevIndeterminate: TreeNodeValue[]) => [...prevIndeterminate, value]);
+            setIndeterminate(node, spec.indeterminate, { trigger: 'setItem' });
+            delete spec.indeterminate;
+          }
           node.set(spec);
         }
       },
     }),
-    [store, setExpanded, setActived, setChecked, handleScrollToElement],
+    [store, setExpanded, setActived, setTreeIndeterminate, setChecked, setIndeterminate, handleScrollToElement],
   );
 
   /* ======== render ======= */

@@ -109,7 +109,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(
+  const [formValue, setFormValue] = useState(() =>
     getDefaultInitialData({
       children,
       initialData,
