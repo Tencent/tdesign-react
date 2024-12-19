@@ -383,11 +383,8 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
                 value="5 条/页"
               >
                 <div
-                  class="t-input t-is-readonly t-align-left t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-align-left t-input--suffix"
                 >
-                  <div
-                    class="t-input__prefix"
-                  />
                   <input
                     class="t-input__inner"
                     placeholder="请选择"

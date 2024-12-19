@@ -90,6 +90,11 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   submitWithWarningMessage?: boolean;
   /**
+   * 是否支持使用数字作为表单键值，在1.9.3版本后表单组件支持数字作为键值，若仍需要保留数字作为数组下标，请关闭此API
+   * @default true
+   */
+  supportNumberKey?: boolean;
+  /**
    * 表单重置时触发
    */
   onReset?: (context: { e?: FormResetEvent }) => void;

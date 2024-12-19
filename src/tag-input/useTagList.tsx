@@ -73,6 +73,7 @@ export default function useTagList(props: TagInputProps) {
 
   const renderLabel = ({ displayNode, label }: { displayNode: ReactNode; label: ReactNode }) => {
     const newList = minCollapsedNum ? tagValue.slice(0, minCollapsedNum) : tagValue;
+
     const list = displayNode
       ? [<Fragment key="display-node">{displayNode}</Fragment>]
       : newList?.map((item, index) => {

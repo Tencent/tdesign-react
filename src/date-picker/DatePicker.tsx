@@ -15,6 +15,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
 import type { TagInputRemoveContext } from '../tag-input';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -36,8 +37,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     timePickerProps,
     presetsPlacement,
     needConfirm,
-    disableTime,
     multiple,
+    label,
+    disableTime,
     onPick,
   } = props;
 
@@ -63,6 +65,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setCacheValue,
   } = useSingle(props);
 
+  const [local] = useLocaleReceiver('datePicker');
   const { format, timeFormat, valueType } = getDefaultFormat({
     mode,
     format: props.format,
@@ -240,20 +243,28 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }, []);
 
   function processDate(date: Date) {
-    const isSameDate = (value as DateMultipleValue).some((val) => isSame(dayjs(val).toDate(), date));
+    let isSameDate: boolean;
+    const currentValue = (value || []) as DateMultipleValue;
+    if (mode !== 'week')
+      isSameDate = currentValue.some((val) =>
+        isSame(parseToDayjs(val, format).toDate(), date, mode, local.dayjsLocale),
+      );
+    else {
+      isSameDate = currentValue.some((val) => val === dayjs(date).locale(local.dayjsLocale).format(format));
+    }
     let currentDate: DateMultipleValue;
 
     if (!isSameDate) {
-      currentDate = (value as DateMultipleValue).concat(formatDate(date, { format, targetFormat: valueType }));
+      currentDate = currentValue.concat(formatDate(date, { format, targetFormat: valueType }));
     } else {
-      currentDate = (value as DateMultipleValue).filter(
+      currentDate = currentValue.filter(
         (val) =>
           formatDate(val, { format, targetFormat: valueType }) !==
           formatDate(date, { format, targetFormat: valueType }),
       );
     }
 
-    return currentDate.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+    return currentDate?.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
   }
 
   const onTagRemoveClick = (ctx: TagInputRemoveContext) => {
@@ -308,6 +319,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         status={props.status}
         tips={props.tips}
         borderless={props.borderless}
+        label={label}
         popupProps={popupProps}
         inputProps={inputProps}
         popupVisible={popupVisible}
