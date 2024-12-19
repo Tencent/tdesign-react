@@ -244,28 +244,27 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   function processDate(date: Date) {
     let isSameDate: boolean;
+    const currentValue = (value || []) as DateMultipleValue;
     if (mode !== 'week')
-      isSameDate = (value as DateMultipleValue).some((val) =>
+      isSameDate = currentValue.some((val) =>
         isSame(parseToDayjs(val, format).toDate(), date, mode, local.dayjsLocale),
       );
     else {
-      isSameDate = (value as DateMultipleValue).some(
-        (val) => val === dayjs(date).locale(local.dayjsLocale).format(format),
-      );
+      isSameDate = currentValue.some((val) => val === dayjs(date).locale(local.dayjsLocale).format(format));
     }
     let currentDate: DateMultipleValue;
 
     if (!isSameDate) {
-      currentDate = (value as DateMultipleValue).concat(formatDate(date, { format, targetFormat: valueType }));
+      currentDate = currentValue.concat(formatDate(date, { format, targetFormat: valueType }));
     } else {
-      currentDate = (value as DateMultipleValue).filter(
+      currentDate = currentValue.filter(
         (val) =>
           formatDate(val, { format, targetFormat: valueType }) !==
           formatDate(date, { format, targetFormat: valueType }),
       );
     }
 
-    return currentDate.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+    return currentDate?.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
   }
 
   const onTagRemoveClick = (ctx: TagInputRemoveContext) => {

@@ -57,6 +57,12 @@
     ]
   },
   {
+    "name": "multiple",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
     "name": "presetsPlacement",
     "type": "enum",
     "defaultValue": "bottom",
