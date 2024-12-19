@@ -243,9 +243,16 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }, []);
 
   function processDate(date: Date) {
-    const isSameDate = (value as DateMultipleValue).some((val) =>
-      isSame(parseToDayjs(val, format).toDate(), date, mode, local.dayjsLocale),
-    );
+    let isSameDate: boolean;
+    if (mode !== 'week')
+      isSameDate = (value as DateMultipleValue).some((val) =>
+        isSame(parseToDayjs(val, format).toDate(), date, mode, local.dayjsLocale),
+      );
+    else {
+      isSameDate = (value as DateMultipleValue).some(
+        (val) => val === dayjs(date).locale(local.dayjsLocale).format(format),
+      );
+    }
     let currentDate: DateMultipleValue;
 
     if (!isSameDate) {

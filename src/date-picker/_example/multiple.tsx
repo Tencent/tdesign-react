@@ -3,9 +3,9 @@ import { DatePicker, Space } from 'tdesign-react';
 import type { DatePickerProps, DateMultipleValue } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  const [dateValue, setDateValue] = useState<DateMultipleValue>(['2000-01-04', '2000-01-03', '2000-01-10']);
+  const [dateValue, setDateValue] = useState<DateMultipleValue>(['2024-10-01', '2024-10-24']);
   const [weekValue, setWeekValue] = useState<DateMultipleValue>(['2024-50周', '2024-51周']);
-  const [yearValue, setYearValue] = useState<DateMultipleValue>(['2000', '2001', '2002']);
+  const [yearValue, setYearValue] = useState<DateMultipleValue>(['2022', '2023', '2024']);
 
   const handleDateChange: DatePickerProps['onChange'] = (value: DateMultipleValue, context) => {
     console.log('onChange:', value, context);
