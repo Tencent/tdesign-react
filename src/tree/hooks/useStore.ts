@@ -8,7 +8,7 @@ import { usePersistFn } from '../../hooks/usePersistFn';
 import type { TdTreeProps } from '../type';
 import type { TypeEventState } from '../interface';
 import type { TreeNodeValue, TypeTreeNodeData } from '../../_common/js/tree-v1/types';
-import { TreeNode } from '../../cascader/interface';
+import TreeNode from '../../_common/js/tree-v1/tree-node';
 
 export function useStore(
   props: TdTreeProps & { indeterminate: any; setTreeIndeterminate: any },
@@ -228,7 +228,7 @@ export function useStore(
   useUpdateLayoutEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
-      const checkedValue = store.getCheckedNodes().map((v: TreeNode) => v.data[keys.value || 'value']);
+      const checkedValue = store.getCheckedNodes().map((v: TreeNode) => v.data[keys?.value || 'value']);
       const indeterminateConflict = checkedValue.filter((v) => indeterminate.includes(v));
       if (indeterminateConflict.length) {
         setTreeIndeterminate(indeterminate.filter((v: TreeNodeValue) => !indeterminateConflict.includes(v)));
