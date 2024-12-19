@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps } from '../type';
+import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
@@ -198,7 +198,7 @@ export const getSelectedOptions = (
   // 当前所有选中的选项
   let currentSelectedOptions = [];
   // 当前选中的选项
-  let currentOption: SelectValue;
+  let currentOption: SelectOption;
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)
