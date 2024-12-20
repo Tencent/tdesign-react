@@ -879,7 +879,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 class="t-image__wrapper t-image__wrapper--shape-square t-upload__card-image"
               >
                 <img
-                  class="t-image t-image--fit-fill t-image--position-center"
+                  class="t-image t-image--fit-contain t-image--position-center"
                   src=""
                 />
                 <div
@@ -958,7 +958,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 class="t-image__wrapper t-image__wrapper--shape-square t-upload__card-image"
               >
                 <img
-                  class="t-image t-image--fit-fill t-image--position-center"
+                  class="t-image t-image--fit-contain t-image--position-center"
                   src="https://img1.txt"
                 />
                 <div
@@ -1060,7 +1060,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 class="t-image__wrapper t-image__wrapper--shape-square t-upload__card-image"
               >
                 <img
-                  class="t-image t-image--fit-fill t-image--position-center"
+                  class="t-image t-image--fit-contain t-image--position-center"
                   src="https://img2.txt"
                 />
                 <div
