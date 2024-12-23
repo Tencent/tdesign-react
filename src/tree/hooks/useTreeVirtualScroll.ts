@@ -3,6 +3,7 @@ import useVirtualScroll from '../../hooks/useVirtualScroll';
 import TreeNode from '../../_common/js/tree-v1/tree-node';
 import { TScroll } from '../../common';
 import type { TdTreeProps } from '../type';
+import useLatest from '../../hooks/useLatest';
 
 export default function useTreeVirtualScroll({
   treeRef,
@@ -34,6 +35,7 @@ export default function useTreeVirtualScroll({
       } as const),
     [scroll, scrollThreshold],
   );
+  const onScrollLatest = useLatest(onScroll);
 
   const {
     visibleData = null,
@@ -49,7 +51,7 @@ export default function useTreeVirtualScroll({
 
   let lastScrollY = -1;
   const onInnerVirtualScroll = (e: WheelEvent) => {
-    onScroll?.({ e });
+    onScrollLatest.current?.({ e });
     if (!isVirtual) {
       return;
     }
