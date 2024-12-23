@@ -3,7 +3,6 @@ import useVirtualScroll from '../../hooks/useVirtualScroll';
 import TreeNode from '../../_common/js/tree-v1/tree-node';
 import { TScroll } from '../../common';
 import type { TdTreeProps } from '../type';
-import useLatest from '../../hooks/useLatest';
 
 export default function useTreeVirtualScroll({
   treeRef,
@@ -35,7 +34,6 @@ export default function useTreeVirtualScroll({
       } as const),
     [scroll, scrollThreshold],
   );
-  const onScrollLatest = useLatest(onScroll);
 
   const {
     visibleData = null,
@@ -51,7 +49,7 @@ export default function useTreeVirtualScroll({
 
   let lastScrollY = -1;
   const onInnerVirtualScroll = (e: WheelEvent) => {
-    onScrollLatest.current?.({ e });
+    onScroll?.({ e });
     if (!isVirtual) {
       return;
     }
@@ -75,7 +73,7 @@ export default function useTreeVirtualScroll({
       treeList?.removeEventListener?.('scroll', onInnerVirtualScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVirtual, onInnerVirtualScroll]);
+  }, [onInnerVirtualScroll]);
 
   const cursorStyle = {
     position: 'absolute',
