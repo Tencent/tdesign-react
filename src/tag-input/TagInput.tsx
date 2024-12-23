@@ -43,6 +43,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     suffixIcon,
     suffix,
     prefixIcon,
+    maxRows,
     onClick,
     onPaste,
     onFocus,
@@ -133,9 +134,17 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
       [`${prefix}-is-empty`]: isEmpty,
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
+      [`${prefix}-tag-input--max-rows`]: excessTagsDisplayType === 'break-line' && maxRows,
     },
     props.className,
   ];
+
+  const maxRowsStyle = maxRows
+    ? ({
+        '--max-rows': maxRows,
+        '--tag-input-size': size,
+      } as React.CSSProperties)
+    : {};
 
   return (
     <TInput
@@ -152,7 +161,10 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       disabled={disabled}
       label={renderLabel({ displayNode, label })}
       className={classnames(classes)}
-      style={props.style}
+      style={{
+        ...props.style,
+        ...maxRowsStyle,
+      }}
       tips={tips}
       status={status}
       placeholder={tagInputPlaceholder}
