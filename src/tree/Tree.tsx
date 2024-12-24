@@ -65,6 +65,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     className,
     style,
     allowDrop,
+    onScroll,
   } = props;
 
   const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
@@ -135,6 +136,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     treeRef,
     scroll,
     data: visibleNodes,
+    onScroll,
   });
 
   const setActived = usePersistFn(

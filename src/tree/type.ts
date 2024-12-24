@@ -6,7 +6,7 @@
 
 import { CheckboxProps } from '../checkbox';
 import { TNode, TreeOptionData, TScroll, ComponentScrollToElementParams } from '../common';
-import { MouseEvent, WheelEvent, DragEvent } from 'react';
+import { MouseEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
@@ -238,7 +238,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
    * 滚动事件
    */
-  onScroll?: (params: { e: WheelEvent<HTMLDivElement> }) => void;
+  onScroll?: (params: { e: WheelEvent }) => void;
 }
 
 /** 组件实例方法 */

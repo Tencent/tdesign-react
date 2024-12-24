@@ -46,7 +46,13 @@ const ImageCard = (props: ImageCardUploadProps) => {
 
   const renderMainContent = (file: UploadFile, index: number) => (
     <div className={`${classPrefix}-upload__card-content ${classPrefix}-upload__card-box`}>
-      <Image className={`${classPrefix}-upload__card-image`} src={file.url || file.raw} error="" loading="" />
+      <Image
+        className={`${classPrefix}-upload__card-image`}
+        fit="contain"
+        src={file.url || file.raw}
+        error=""
+        loading=""
+      />
       <div className={`${classPrefix}-upload__card-mask`}>
         <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
           <ImageViewer
