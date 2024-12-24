@@ -25,7 +25,6 @@ export default function Stackblitz(props) {
     setIsTypeScriptDemo(isTypeScriptDemo);
 
     setTimeout(() => {
-      console.log(formRef.current, 111);
       formRef.current.submit();
     });
   }
@@ -35,7 +34,7 @@ export default function Stackblitz(props) {
       <form
         ref={formRef}
         method="post"
-        action="https://stackblitz.com/run?file=package.json,src%2Fdemo.tsx"
+        action={`https://stackblitz.com/run?file=src%2F${isTypeScriptDemo ? 'demo.tsx' : 'demo.jsx'}`}
         target="_blank"
         onClick={submit}
       >
@@ -48,11 +47,12 @@ export default function Stackblitz(props) {
           <input type="hidden" name="project[files][src/demo.jsx]" value={code} />
         )}
         <input type="hidden" name="project[files][src/index.css]" value={styleContent} />
-        <input type="hidden" name="project[files][src/index.js]" value={mainJsContent} />
+        <input type="hidden" name="project[files][src/index.jsx]" value={mainJsContent} />
         <input type="hidden" name="project[files][index.html]" value={htmlContent} />
         <input type="hidden" name="project[files][vite.config.js]" value={viteConfigContent} />
         <input type="hidden" name="project[files][.stackblitzrc]" value={stackblitzRc} />
         <input type="hidden" name="project[files][package.json]" value={packageJSONContent} />
+        <input type="hidden" name="project[template]" value="node" />
 
         <div className="action-online">
           <svg viewBox="0 0 28 28" height="20">

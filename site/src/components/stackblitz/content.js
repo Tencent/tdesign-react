@@ -1,11 +1,12 @@
 import orgPkg from '../../../../package.json';
 
 export const htmlContent = `
-  <div id="app" style="padding: 24px;"></div>
+  <div id="app"></div>
+  <script type="module" src="/src/index.jsx"></script>
 `;
 
 export const mainJsContent = `
-  import React from 'react';
+  import React, { StrictMode } from 'react';
   import { createRoot } from 'react-dom/client';
 
   import Demo from './demo';
@@ -105,10 +106,13 @@ export const packageJSONContent = JSON.stringify(
       'react-dom': orgPkg.devDependencies['react-dom'],
       'tdesign-react': orgPkg.version,
       'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+      '@types/react': orgPkg.devDependencies['@types/react'],
+      '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
     },
     devDependencies: {
       vite: orgPkg.devDependencies.vite,
       '@vitejs/plugin-react': orgPkg.devDependencies['@vitejs/plugin-react'],
+      typescript: orgPkg.devDependencies.typescript,
     },
   },
   null,
