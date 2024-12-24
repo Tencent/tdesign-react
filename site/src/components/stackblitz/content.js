@@ -6,13 +6,20 @@ export const htmlContent = `
 
 export const mainJsContent = `
   import React from 'react';
-  import ReactDOM from 'react-dom';
+  import { createRoot } from 'react-dom/client';
+
   import Demo from './demo';
   import './index.css';
   import 'tdesign-react/dist/tdesign.css';
 
   const rootElement = document.getElementById('app');
-  ReactDOM.render(<Demo />, rootElement);
+  const root = createRoot(rootElement);
+
+  root.render(
+  <React.StrictMode>
+    <Demo />
+  </React.StrictMode>,
+  );
 `;
 
 export const styleContent = `
@@ -66,12 +73,44 @@ export const tsconfigContent = `{
 }
 `;
 
-export const dependenciesContent = JSON.stringify({
-  'tdesign-react': orgPkg.version,
-  'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
-  dayjs: orgPkg.dependencies.dayjs,
-  react: orgPkg.devDependencies.react,
-  'react-dom': orgPkg.devDependencies['react-dom'],
-  '@types/react': orgPkg.devDependencies['@types/react'],
-  '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
-});
+export const stackblitzRc = `
+  {
+    "installDependencies": true,
+    "startCommand": "npm run dev"
+  }
+`;
+
+export const viteConfigContent = `
+  import { defineConfig } from 'vite';
+  import react from '@vitejs/plugin-react';
+
+  export default defineConfig({
+    plugins: [react()],
+  });
+`;
+
+export const packageJSONContent = JSON.stringify(
+  {
+    name: 'tdesign-react-demo',
+    version: '0.0.0',
+    private: true,
+    scripts: {
+      dev: 'vite',
+      build: 'vite build',
+      serve: 'vite preview',
+    },
+    dependencies: {
+      react: orgPkg.devDependencies.react,
+      dayjs: orgPkg.dependencies.dayjs,
+      'react-dom': orgPkg.devDependencies['react-dom'],
+      'tdesign-react': orgPkg.version,
+      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+    },
+    devDependencies: {
+      vite: orgPkg.devDependencies.vite,
+      '@vitejs/plugin-react': orgPkg.devDependencies['@vitejs/plugin-react'],
+    },
+  },
+  null,
+  2,
+);
