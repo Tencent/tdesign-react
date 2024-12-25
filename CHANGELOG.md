@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.10.3 `2024-12-25` 
+### 🚀 Features
+- `Tree`:  支持 `onScroll` API，用于处理滚动事件回调 @HaixingOoO ([#3295](https://github.com/Tencent/tdesign-react/pull/3295))
+- `Tooltip`: tooltip-lite 的`mouse` 模式下优化为完全跟随鼠标位置，更符合 API 描述 @moecasts ([#3267](https://github.com/Tencent/tdesign-react/pull/3267))
+### 🐞 Bug Fixes
+- `Select`: 修复全选默认返回值错误的问题 @uyarn ([#3298](https://github.com/Tencent/tdesign-react/pull/3298))
+- `Upload`: 优化部分尺寸上传组件图片展示的样式问题 @huangchen1031 ([#3290](https://github.com/Tencent/tdesign-react/pull/3290))
+### 📝 Documentation
+- `Stackblitz`: 调整`Stackblitz`示例的启动方式，并修复部分示例无法使用`stackblitz`或`codesandbox`运行的问题 @uyarn ([#3297](https://github.com/Tencent/tdesign-react/pull/3297))
+
+
+
 ## 🌈 1.10.2 `2024-12-19`
 
 ### 🚀 Features
