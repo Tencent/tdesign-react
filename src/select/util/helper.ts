@@ -207,14 +207,14 @@ export const getSelectedOptions = (
           .map((v) => v[keys?.value || 'value']);
     currentOption = isObjectType
       ? (value as Array<SelectValue>).find((v) => v[keys?.value || 'value'] === selectedValue)
-      : currentSelectedOptions.find((option) => option[keys?.value || 'value'] === selectedValue);
+      : currentSelectedOptions?.find((option) => option[keys?.value || 'value'] === selectedValue);
   } else {
     currentSelectedOptions = isObjectType
       ? [value]
       : tmpPropOptions?.filter?.((v) => value === v[keys?.value || 'value']) || [];
     currentOption = isObjectType
       ? value
-      : currentSelectedOptions.find((option) => option[keys?.value || 'value'] === selectedValue);
+      : currentSelectedOptions?.find((option) => option[keys?.value || 'value'] === selectedValue);
   }
 
   return { currentSelectedOptions, currentOption };
