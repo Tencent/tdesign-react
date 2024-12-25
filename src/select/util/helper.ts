@@ -202,7 +202,9 @@ export const getSelectedOptions = (
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)
-      : tmpPropOptions?.filter?.((v) => (value as Array<string | number>).includes?.(v[keys?.value || 'value']));
+      : tmpPropOptions
+          ?.filter?.((v) => (value as Array<string | number>).includes?.(v[keys?.value || 'value']))
+          .map((v) => v[keys?.value || 'value']);
     currentOption = isObjectType
       ? (value as Array<SelectValue>).find((v) => v[keys?.value || 'value'] === selectedValue)
       : currentSelectedOptions.find((option) => option[keys?.value || 'value'] === selectedValue);
