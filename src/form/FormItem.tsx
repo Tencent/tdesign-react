@@ -9,6 +9,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import isEqual from 'lodash/isEqual';
 import { calcFieldValue } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -165,7 +166,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
-    setFormValue(newVal);
+    if (!isEqual(formValue, newVal)) {
+      setFormValue(newVal);
+    }
   };
 
   // 初始化 rules，最终以 formItem 上优先级最高
