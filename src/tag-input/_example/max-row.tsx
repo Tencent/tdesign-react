@@ -1,71 +1,62 @@
 import React, { useState } from 'react';
 import { TagInput, Space } from 'tdesign-react';
-import type { TagInputProps, TagInputValue } from 'tdesign-react';
 
 export default function TagInputMaxRowExample() {
-  const [tags1, setTags1] = useState<TagInputValue>(['Vue', 'React', 'Angular', 'Svelte', 'Solid', 'Preact']);
-  const [tags2, setTags2] = useState<TagInputValue>(['Ember', 'Backbone']);
-  const [tags3, setTags3] = useState<TagInputValue>(['Alpine', 'Lit']);
-
-  const onTagInputEnter: TagInputProps['onEnter'] = (val, context) => {
-    console.log(val, context);
-  };
-
-  const onChange1: TagInputProps['onChange'] = (val, context) => {
-    console.log(val, context);
-    setTags1(val);
-  };
-
-  const onChange2: TagInputProps['onChange'] = (val, context) => {
-    console.log(val, context);
-    setTags2(val);
-  };
-
-  const onChange3: TagInputProps['onChange'] = (val, context) => {
-    console.log(val, context);
-    setTags3(val);
-  };
-
-  const onPaste: TagInputProps['onPaste'] = (context) => {
-    console.log(context);
-  };
+  const [tags, setTags] = useState<string[]>([
+    'Vue',
+    'React',
+    'Angular',
+    'Svelte',
+    'Solid',
+    'MiniProgram',
+    'Flutter',
+    'UniApp',
+    'Html5',
+    'Css3',
+    'JavaScript',
+    'TypeScript',
+    'Node.js',
+    'Python',
+    'Java',
+    'Go',
+    'Rust',
+    'C++',
+  ]);
 
   return (
     <Space direction="vertical" style={{ width: '80%' }}>
-      <h3>Small Size with 2 Max Rows</h3>
+      <h3>最大高度为2</h3>
       <TagInput
         size="small"
         maxRows={2}
-        value={tags1}
-        onChange={onChange1}
-        excessTagsDisplayType="break-line"
+        value={tags}
+        onChange={(val) => setTags(val.map(String))}
         clearable
-        onPaste={onPaste}
-        onEnter={onTagInputEnter}
-        placeholder="Small Size, Max 2 Rows"
+        onPaste={(context) => console.log(context)}
+        onEnter={(val, context) => console.log(val, context)}
+        label="小尺寸: "
+        placeholder="最大高度为2行，超出部分滚动显示"
       />
 
-      <h3>Default Size with 3 Max Rows</h3>
+      <h3>最大高度为3</h3>
       <TagInput
         maxRows={3}
-        value={tags2}
-        onChange={onChange2}
-        excessTagsDisplayType="break-line"
-        label="Default Size: "
+        value={tags}
+        onChange={(val) => setTags(val.map(String))}
+        label="中等尺寸: "
         clearable
-        placeholder="Default Size, Max 3 Rows"
+        placeholder="最大高度为3行，超出部分滚动显示"
       />
 
-      <h3>Large Size with 4 Max Rows</h3>
+      <h3>最大高度为4</h3>
       <TagInput
         size="large"
         maxRows={4}
-        value={tags3}
-        onChange={onChange3}
-        excessTagsDisplayType="break-line"
-        label="Large Size: "
+        value={tags}
+        onChange={(val) => setTags(val.map(String))}
+        label="大尺寸: "
         clearable
-        placeholder="Large Size, Max 4 Rows"
+        placeholder="最大高度为4行，超出部分换行显示"
       />
     </Space>
   );
