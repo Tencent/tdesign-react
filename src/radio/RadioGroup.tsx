@@ -27,7 +27,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
 
-  const { disabled, readonly, children, onChange, size, variant, options = [], className, style } = props;
+  const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState({});
@@ -97,7 +97,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   };
 
   const renderOptions = () => {
-    const Comp = variant.includes('filled') ? Radio.Button : Radio;
+    const Comp = theme === 'button' ? Radio.Button : Radio;
     return options.map((item, index) => {
       let label: ReactNode;
       let value: string | number | boolean;

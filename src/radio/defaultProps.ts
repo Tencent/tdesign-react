@@ -18,4 +18,5 @@ export const radioGroupDefaultProps: TdRadioGroupProps = {
   readonly: undefined,
   size: 'medium',
   variant: 'outline',
+  theme: 'radio',
 };
