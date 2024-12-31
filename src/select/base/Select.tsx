@@ -196,14 +196,22 @@ const Select = forwardRefWithStatics(
         .filter((option) => !option.checkAll && !option.disabled)
         .map((option) => (valueType === 'object' ? option : option[keys?.value || 'value']));
 
-      const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+      const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
+        values,
+        multiple,
+        valueType,
+        keys,
+        tmpPropOptions,
+      );
 
       const checkAllValue =
-        !checkAll && currentSelectedOptions.length !== (props.value as Array<SelectOption>)?.length
-          ? currentSelectedOptions
-          : [];
+        !checkAll && allSelectedValue.length !== (props.value as Array<SelectOption>)?.length ? allSelectedValue : [];
 
-      onChange?.(checkAllValue, { e, trigger: checkAll ? 'check' : 'uncheck', selectedOptions: checkAllValue });
+      onChange?.(checkAllValue, {
+        e,
+        trigger: checkAll ? 'check' : 'uncheck',
+        selectedOptions: currentSelectedOptions,
+      });
     };
 
     // 选中 Popup 某项

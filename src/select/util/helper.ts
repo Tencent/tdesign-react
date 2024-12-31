@@ -199,12 +199,17 @@ export const getSelectedOptions = (
   let currentSelectedOptions = [];
   // 当前选中的选项
   let currentOption: SelectOption;
+  // 全选值
+  let allSelectedValue: Array<SelectValue>;
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)
-      : tmpPropOptions
-          ?.filter?.((v) => (value as Array<string | number>).includes?.(v[keys?.value || 'value']))
-          .map((v) => v[keys?.value || 'value']);
+      : tmpPropOptions?.filter?.((v) => (value as Array<string | number>).includes?.(v[keys?.value || 'value']));
+
+    allSelectedValue = isObjectType
+      ? currentSelectedOptions
+      : currentSelectedOptions?.map((v) => v[keys?.value || 'value']);
+
     currentOption = isObjectType
       ? (value as Array<SelectValue>).find((v) => v[keys?.value || 'value'] === selectedValue)
       : currentSelectedOptions?.find((option) => option[keys?.value || 'value'] === selectedValue);
@@ -212,10 +217,11 @@ export const getSelectedOptions = (
     currentSelectedOptions = isObjectType
       ? [value]
       : tmpPropOptions?.filter?.((v) => value === v[keys?.value || 'value']) || [];
+    allSelectedValue = currentSelectedOptions;
     currentOption = isObjectType
       ? value
       : currentSelectedOptions?.find((option) => option[keys?.value || 'value'] === selectedValue);
   }
 
-  return { currentSelectedOptions, currentOption };
+  return { currentSelectedOptions, currentOption, allSelectedValue };
 };
