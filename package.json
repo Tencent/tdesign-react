@@ -139,7 +139,7 @@
     "autoprefixer": "^10.4.0",
     "babel-polyfill": "^6.26.0",
     "camelcase": "^6.2.1",
-    "chalk": "^4.1.0",
+    "chalk": "^5.4.1",
     "cross-env": "^5.2.1",
     "cz-conventional-changelog": "^3.3.0",
     "dom-parser": "^0.1.6",
