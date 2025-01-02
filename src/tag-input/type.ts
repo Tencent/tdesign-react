@@ -49,6 +49,11 @@ export interface TdTagInputProps {
    */
   excessTagsDisplayType?: 'scroll' | 'break-line';
   /**
+   * 标签最大换行数
+   * @default 1
+   */
+  maxRows?: number;
+  /**
    * 透传 Input 输入框组件全部属性
    */
   inputProps?: InputProps;
