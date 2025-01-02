@@ -148,6 +148,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
       sizeClassNames={sizeClassNames}
       onSelect={onInnerSelect}
       popupVisible={popupVisible}
+      onVisible={setPopupVisible}
       highlightKeyword={props.highlightKeyword}
       filterable={props.filterable}
       filter={props.filter}

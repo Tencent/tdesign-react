@@ -18,7 +18,8 @@ export interface OptionsListProps {
   highlightKeyword: boolean;
   filterable: boolean;
   filter: TdAutoCompleteProps['filter'];
-  onSelect?: (keyword: string, context: { e: MouseEvent<HTMLLIElement> | KeyboardEvent | any }) => void;
+  onSelect: (keyword: string, context: { e: MouseEvent<HTMLLIElement> | KeyboardEvent | any }) => void;
+  onVisible: (visible: boolean) => void;
 }
 
 export interface OptionsListRef {
@@ -27,7 +28,7 @@ export interface OptionsListRef {
 }
 
 const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: OptionsListProps, ref) => {
-  const { value, popupVisible, onSelect } = props;
+  const { value, popupVisible, onSelect, onVisible } = props;
   const { classPrefix } = useConfig();
   const [active, setActive] = useState('');
   const activeIndexRef = useRef(-1);
@@ -81,7 +82,7 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
     }
     const keyword = liNode.getAttribute('title');
     setActive(keyword);
-    onSelect?.(keyword, { e });
+    onSelect(keyword, { e });
   };
 
   // 键盘事件，上下选择
@@ -90,10 +91,10 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
       const currentIndex = activeIndexRef.current;
 
       if (currentIndex === -1) {
-        return
+        return;
       }
 
-      onSelect?.(tOptions[activeIndexRef.current].text, { e });
+      onSelect(tOptions[activeIndexRef.current].text, { e });
     } else {
       const index = activeIndexRef.current;
       let newIndex;
@@ -141,7 +142,10 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
     activeIndexRef.current = tOptions.findIndex((item) => item.text === active);
   }, [active, tOptions]);
 
-  if (!tOptions.length) return null;
+  if (!tOptions.length) {
+    onVisible(false);
+    return null;
+  }
   return (
     <ul className={classes}>
       {tOptions.map((item) => {
