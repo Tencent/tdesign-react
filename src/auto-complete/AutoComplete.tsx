@@ -157,7 +157,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   const bottomContent = props.panelBottomContent;
   const panelContent =
     topContent || listContent || bottomContent ? (
-      <div className={`${classPrefix}-autocomplete__panel`}>
+      <div className={`${classPrefix}-auto-complete__panel`}>
         {topContent}
         {listContent}
         {bottomContent}
