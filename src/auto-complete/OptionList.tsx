@@ -19,6 +19,7 @@ export interface OptionsListProps {
   highlightKeyword: boolean;
   filterable: boolean;
   filter: TdAutoCompleteProps['filter'];
+  empty: TdAutoCompleteProps['empty'];
   onSelect: (keyword: string, context: { e: MouseEvent<HTMLLIElement> | KeyboardEvent | any }) => void;
 }
 
@@ -144,7 +145,9 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
     activeIndexRef.current = tOptions.findIndex((item) => item.text === active);
   }, [active, tOptions]);
 
-  if (!tOptions.length) return <div className={`${classPrefix}-auto-complete__panel--empty`}>{global.empty}</div>;
+  if (!tOptions.length) {
+    return <div className={`${classPrefix}-auto-complete__panel--empty`}>{props.empty || global.empty}</div>;
+  }
   return (
     <ul className={classes}>
       {tOptions.map((item) => {
