@@ -146,9 +146,7 @@ const OptionsList = forwardRef<OptionsListRef, OptionsListProps>((props: Options
   }, [active, tOptions]);
 
   if (!tOptions.length) {
-    return (
-      <div className={`${classPrefix}-auto-complete__panel--empty`}>{props.empty ? props.empty : global.empty}</div>
-    );
+    return <div className={`${classPrefix}-auto-complete__panel--empty`}>{props.empty || global.empty}</div>;
   }
   return (
     <ul className={classes}>
