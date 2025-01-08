@@ -108,7 +108,8 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         })}
         onClick={handleClick}
       >
-        {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
+        {parseTNode(icon)}
+        <span className={`${classPrefix}-menu__content`}>{title}</span>
         <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
       </div>
       {!isPopUp && (
