@@ -151,6 +151,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
       highlightKeyword={props.highlightKeyword}
       filterable={props.filterable}
       filter={props.filter}
+      empty={props.empty}
     />
   );
   const topContent = props.panelTopContent;
