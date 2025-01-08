@@ -9,6 +9,7 @@ import { UploadConfig } from '../config-provider/type';
 import { ButtonProps } from '../button';
 import { PlainObject, TNode, UploadDisplayDragEvents } from '../common';
 import { CSSProperties, MouseEvent, DragEvent } from 'react';
+import { ImageProps } from '../image';
 
 export interface TdUploadProps<T extends UploadFile = UploadFile> {
   /**
@@ -100,6 +101,10 @@ export interface TdUploadProps<T extends UploadFile = UploadFile> {
    * 设置上传的请求头部，`action` 存在时有效
    */
   headers?: { [key: string]: string };
+  /**
+   * 用于在上传图片场景下，透传属性配置至 Image 组件
+   */
+  imageProps?: ImageProps;
   /**
    * 透传图片预览组件全部属性
    */
