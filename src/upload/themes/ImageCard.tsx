@@ -47,7 +47,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
     DeleteIcon: TdDeleteIcon,
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
-  const { className: ImageClassName, ...restImageProps } = imageProps;
+  const { className: imageClassName, ...restImageProps } = imageProps;
 
   const showTrigger = React.useMemo(() => {
     if (multiple) {
@@ -60,7 +60,7 @@ const ImageCard = (props: ImageCardUploadProps) => {
     <div className={`${classPrefix}-upload__card-content ${classPrefix}-upload__card-box`}>
       <Image
         fit="contain"
-        className={classNames(`${classPrefix}-upload__card-image`, ImageClassName)}
+        className={classNames(`${classPrefix}-upload__card-image`, imageClassName)}
         {...restImageProps}
         src={file.url || file.raw}
       />
