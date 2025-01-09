@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption } from '../type';
+import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption, SelectOptionGroup } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
@@ -32,7 +32,13 @@ export const getValueToOption = (
   // options 优先级高于 children
   if (Array.isArray(options)) {
     options.forEach((option) => {
-      valueToOption[get(option, keys?.value || 'value')] = option;
+      if ((option as SelectOptionGroup).group) {
+        (option as SelectOptionGroup)?.children?.forEach((child) => {
+          valueToOption[get(child, keys?.value || 'value')] = child;
+        });
+      } else {
+        valueToOption[get(option, keys?.value || 'value')] = option;
+      }
     });
     return valueToOption;
   }

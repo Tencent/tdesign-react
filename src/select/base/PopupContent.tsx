@@ -2,12 +2,20 @@ import React, { Children, isValidElement, cloneElement, useRef, CSSProperties } 
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
-import { TdSelectProps, SelectValue, TdOptionProps, SelectValueChangeTrigger, SelectOption } from '../type';
+import {
+  TdSelectProps,
+  SelectValue,
+  TdOptionProps,
+  SelectValueChangeTrigger,
+  SelectOption,
+  SelectOptionGroup,
+} from '../type';
 import useConfig from '../../hooks/useConfig';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import Option, { SelectOptionProps } from './Option';
+import OptionGroup from './OptionGroup';
 
-type OptionsType = TdOptionProps[];
+// type OptionsType = TdOptionProps[];
 
 interface SelectPopupProps
   extends Pick<
@@ -142,8 +150,18 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
-          {(uniqueOptions as OptionsType).map(
-            ({ value: optionValue, label, disabled, content, children, ...restData }, index) => (
+          {options.map((item, index) => {
+            const { group, divider, ...rest } = item as SelectOptionGroup;
+            if (group) {
+              return (
+                <OptionGroup label={group || rest.label} divider={divider}>
+                  {renderOptions(rest.children)}
+                </OptionGroup>
+              );
+            }
+
+            const { value: optionValue, label, disabled, content, children, ...restData } = item as TdOptionProps;
+            return (
               <Option
                 key={index}
                 max={max}
@@ -171,8 +189,8 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
               >
                 {children}
               </Option>
-            ),
-          )}
+            );
+          })}
         </ul>
       );
     }
