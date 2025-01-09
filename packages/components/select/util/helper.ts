@@ -60,8 +60,11 @@ export const getValueToOption = (
     }
   }
 
+  /**
+   * children如果存在ReactElement和map函数混写的情况，会出现嵌套数组
+   */
   if (Array.isArray(children)) {
-    children.forEach((item: ReactElement) => {
+    const handlerElement = (item: ReactElement) => {
       if (item.type === Option) {
         setValueToOptionFormOptionDom(item, valueToOption, keys);
       }
@@ -74,7 +77,14 @@ export const getValueToOption = (
           });
         }
       }
-    });
+
+      if (Array.isArray(item)) {
+        item.forEach((child) => {
+          handlerElement(child);
+        });
+      }
+    };
+    children.forEach((item: ReactElement) => handlerElement(item));
   }
 
   return valueToOption;
