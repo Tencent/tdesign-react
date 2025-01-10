@@ -157,7 +157,7 @@ const Select = forwardRefWithStatics(
         const values = getSelectValueArr(value, value[closest], true, valueType, keys);
 
         // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
         onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         return;
       }
@@ -172,7 +172,7 @@ const Select = forwardRefWithStatics(
         e?.stopPropagation?.();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
 
         onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         if (isFunction(onRemove)) {
@@ -192,16 +192,29 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      const values = currentOptions
-        .filter((option) => !option.checkAll && !option.disabled)
-        .map((option) => (valueType === 'object' ? option : option[keys?.value || 'value']));
+      // const values = currentOptions
+      //   .filter((option) => !option.checkAll && !option.disabled)
+      //   .map((option) => (valueType === 'object' ? option : option[keys?.value || 'value']));
+
+      const values = [];
+      currentOptions.forEach((option) => {
+        if (option.group) {
+          option.children.forEach((item) => {
+            if (!item.disabled && !item.checkAll) {
+              values.push(valueType === 'object' ? item : item[keys?.value || 'value']);
+            }
+          });
+        } else if (!option.disabled && !option.checkAll) {
+          values.push(valueType === 'object' ? option : option[keys?.value || 'value']);
+        }
+      });
 
       const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
         values,
         multiple,
         valueType,
         keys,
-        tmpPropOptions,
+        valueToOption,
       );
 
       const checkAllValue =
@@ -234,7 +247,7 @@ const Select = forwardRefWithStatics(
         multiple,
         valueType,
         keys,
-        tmpPropOptions,
+        valueToOption,
         selectedValue,
       );
 
@@ -381,7 +394,7 @@ const Select = forwardRefWithStatics(
                     multiple,
                     valueType,
                     keys,
-                    tmpPropOptions,
+                    valueToOption,
                     value,
                   );
                   onChange(values, {

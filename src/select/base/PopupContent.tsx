@@ -1,4 +1,4 @@
-import React, { Children, isValidElement, cloneElement, useRef, CSSProperties } from 'react';
+import React, { Children, isValidElement, cloneElement, useRef, CSSProperties, useMemo } from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
@@ -94,6 +94,23 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
   });
 
+  // 全部可选选项
+  const selectableOptions = useMemo(() => {
+    const uniqueOptions = {};
+    propsOptions.forEach((option: SelectOption) => {
+      if ((option as SelectOptionGroup).group) {
+        (option as SelectOptionGroup).children.forEach((item) => {
+          if (!item.disabled && !item.checkAll) {
+            uniqueOptions[item.value] = item;
+          }
+        });
+      } else if (!(option as TdOptionProps).disabled && !(option as TdOptionProps).checkAll) {
+        uniqueOptions[(option as TdOptionProps).value] = option;
+      }
+    });
+    return Object.values(uniqueOptions);
+  }, [propsOptions]);
+
   const { classPrefix } = useConfig();
   if (!children && !propsOptions) {
     return null;
@@ -139,14 +156,6 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   // 渲染 options
   const renderOptions = (options: SelectOption[]) => {
     if (options) {
-      const uniqueOptions = [];
-      options.forEach((option: SelectOptionProps) => {
-        const index = uniqueOptions.findIndex((item) => item.label === option.label && item.value === option.value);
-        if (index === -1) {
-          uniqueOptions.push(option);
-        }
-      });
-      const selectableOption = uniqueOptions.filter((v) => !v.disabled && !v.checkAll);
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
@@ -169,7 +178,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={selectableOption.length}
+                optionLength={selectableOptions.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
