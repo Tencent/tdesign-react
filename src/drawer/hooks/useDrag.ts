@@ -38,21 +38,6 @@ const useDrag = (
 
     if (typeof moveSize === 'undefined') return;
     changeDragSizeValue(`${moveSize}px`);
-
-    // if (sizeDraggable) {
-    //   if (placement === 'right') {
-    //     changeDragSizeValue(`${document.documentElement.clientWidth - x + 8}px`);
-    //   }
-    //   if (placement === 'left') {
-    //     changeDragSizeValue(`${x + 8}px`);
-    //   }
-    //   if (placement === 'top') {
-    //     changeDragSizeValue(`${y + 8}px`);
-    //   }
-    //   if (placement === 'bottom') {
-    //     changeDragSizeValue(`${document.documentElement.clientHeight - y + 8}px`);
-    //   }
-    // }
   };
   const draggableLineStyles: Styles = useMemo(() => {
     // 设置拖拽control的样式
