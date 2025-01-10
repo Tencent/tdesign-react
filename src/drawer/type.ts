@@ -94,7 +94,7 @@ export interface TdDrawerProps {
    * 抽屉大小可拖拽调整，横向抽屉调整宽度
    * @default false
    */
-  sizeDraggable?: boolean;
+  sizeDraggable?: boolean | SizeDragLimit;
   /**
    * 组件是否可见
    * @default false
@@ -179,6 +179,11 @@ export interface DrawerInstance {
 }
 
 export type FooterButton = string | ButtonProps | TNode;
+
+export interface SizeDragLimit {
+  max: number;
+  min: number;
+}
 
 export type DrawerEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';
 

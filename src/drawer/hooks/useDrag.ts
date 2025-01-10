@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { TdDrawerProps } from '../type';
 import { Styles } from '../../common';
+import { getSizeDraggable, calcMoveSize } from '../../_common/js/drawer/utils';
 
 const useDrag = (
   placement: TdDrawerProps['placement'],
@@ -12,20 +13,46 @@ const useDrag = (
   const handleMousemove = (e: MouseEvent) => {
     // 鼠标移动时计算draggedSizeValue的值
     const { x, y } = e;
-    if (sizeDraggable) {
-      if (placement === 'right') {
-        changeDragSizeValue(`${document.documentElement.clientWidth - x + 8}px`);
-      }
-      if (placement === 'left') {
-        changeDragSizeValue(`${x + 8}px`);
-      }
-      if (placement === 'top') {
-        changeDragSizeValue(`${y + 8}px`);
-      }
-      if (placement === 'bottom') {
-        changeDragSizeValue(`${document.documentElement.clientHeight - y + 8}px`);
-      }
-    }
+
+    const maxHeight = document.documentElement.clientHeight;
+    const maxWidth = document.documentElement.clientWidth;
+    const offsetHeight = 8;
+    const offsetWidth = 8;
+    // x 轴方向使用最大宽度，y轴方向使用最大高度
+    const max = placement === 'left' || placement === 'right' ? maxWidth : maxHeight;
+    // x 轴方向使用默认最小宽度，y轴方向使用默认最小高度
+    const min = placement === 'left' || placement === 'right' ? offsetWidth : offsetHeight;
+
+    const { allowSizeDraggable, max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, { max, min });
+
+    if (!allowSizeDraggable) return;
+
+    const moveSize = calcMoveSize(placement, {
+      x,
+      y,
+      maxWidth,
+      maxHeight,
+      max: limitMax,
+      min: limitMin,
+    });
+
+    if (typeof moveSize === 'undefined') return;
+    changeDragSizeValue(`${moveSize}px`);
+
+    // if (sizeDraggable) {
+    //   if (placement === 'right') {
+    //     changeDragSizeValue(`${document.documentElement.clientWidth - x + 8}px`);
+    //   }
+    //   if (placement === 'left') {
+    //     changeDragSizeValue(`${x + 8}px`);
+    //   }
+    //   if (placement === 'top') {
+    //     changeDragSizeValue(`${y + 8}px`);
+    //   }
+    //   if (placement === 'bottom') {
+    //     changeDragSizeValue(`${document.documentElement.clientHeight - y + 8}px`);
+    //   }
+    // }
   };
   const draggableLineStyles: Styles = useMemo(() => {
     // 设置拖拽control的样式
