@@ -33,10 +33,18 @@ export const getValueToOption = (
     options.forEach((option) => {
       if ((option as SelectOptionGroup).group) {
         (option as SelectOptionGroup)?.children?.forEach((child) => {
-          valueToOption[get(child, keys?.value || 'value')] = child;
+          valueToOption[get(child, keys?.value || 'value')] = {
+            ...child,
+            value: get(option, keys?.value || 'value'),
+            label: get(option, keys?.label || 'label'),
+          };
         });
       } else {
-        valueToOption[get(option, keys?.value || 'value')] = option;
+        valueToOption[get(option, keys?.value || 'value')] = {
+          ...option,
+          value: get(option, keys?.value || 'value'),
+          label: get(option, keys?.label || 'label'),
+        };
       }
     });
     return valueToOption;
@@ -206,7 +214,7 @@ export const getSelectedOptions = (
   multiple: TdSelectProps['multiple'],
   valueType: TdSelectProps['valueType'],
   keys: SelectKeysType,
-  tmpPropOptions: Array<unknown>,
+  valueToOption: ValueToOption,
   selectedValue?: SelectValue,
 ) => {
   const isObjectType = valueType === 'object';
@@ -216,6 +224,8 @@ export const getSelectedOptions = (
   let currentOption: SelectOption;
   // 全选值
   let allSelectedValue: Array<SelectValue>;
+  // 所有可选项
+  const tmpPropOptions = Object.values(valueToOption);
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)
