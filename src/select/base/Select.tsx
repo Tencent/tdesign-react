@@ -270,18 +270,45 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      if (filter && isFunction(filter)) {
-        // 如果有自定义的filter方法 使用自定义的filter方法
-        if (Array.isArray(tmpPropOptions)) {
-          filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
-        } else if (Array.isArray(Object.values(valueToOption))) {
-          filteredOptions = Object.values(valueToOption).filter((option) => filter(value, option));
+      // if (filter && isFunction(filter)) {
+      //   // 如果有自定义的filter方法 使用自定义的filter方法
+      //   if (Array.isArray(tmpPropOptions)) {
+      //     filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
+      //   } else if (Array.isArray(Object.values(valueToOption))) {
+      //     filteredOptions = Object.values(valueToOption).filter((option) => filter(value, option));
+      //   }
+      // } else if (Array.isArray(tmpPropOptions)) {
+      //   const upperValue = value.toUpperCase();
+      //   filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
+      // }
+
+      const filterLabels = [];
+      const filterMethods = (option: SelectOption) => {
+        if (filter && isFunction(filter)) {
+          return filter(value, option);
         }
-      } else if (Array.isArray(tmpPropOptions)) {
         const upperValue = value.toUpperCase();
-        filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
-      }
-      const isSameLabelOptionExist = filteredOptions.find((option) => option.label === value);
+        return (option?.label || '').toUpperCase().includes(upperValue);
+      };
+
+      tmpPropOptions.forEach((option) => {
+        if (option.group) {
+          filteredOptions.push({
+            ...option,
+            children: option.children?.filter((child) => {
+              if (filterMethods(child)) {
+                filterLabels.push(child.label);
+                return true;
+              }
+              return false;
+            }),
+          });
+        } else if (filterMethods(option)) {
+          filterLabels.push(option.label);
+          filteredOptions.push(option);
+        }
+      });
+      const isSameLabelOptionExist = filterLabels.includes(value);
       if (creatable && !isSameLabelOptionExist) {
         filteredOptions = filteredOptions.concat([{ label: value, value }]);
       }
