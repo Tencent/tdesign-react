@@ -163,7 +163,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             const { group, divider, ...rest } = item as SelectOptionGroup;
             if (group) {
               return (
-                <OptionGroup label={group || rest.label} divider={divider}>
+                <OptionGroup label={group} divider={divider} key={index}>
                   {renderOptions(rest.children)}
                 </OptionGroup>
               );

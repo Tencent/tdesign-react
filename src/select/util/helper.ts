@@ -36,8 +36,8 @@ export const getValueToOption = (
         (option as SelectOptionGroup)?.children?.forEach((child) => {
           valueToOption[get(child, keys?.value || 'value')] = {
             ...child,
-            value: get(option, keys?.value || 'value'),
-            label: get(option, keys?.label || 'label'),
+            value: get(child, keys?.value || 'value'),
+            label: get(child, keys?.label || 'label'),
           };
         });
       } else {
