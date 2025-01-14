@@ -16,7 +16,7 @@ import useIsFirstRender from '../hooks/useIsFirstRender';
 
 import Skeleton from '../skeleton';
 import Tween from '../_common/js/statistic/tween';
-import { COLOR_MAP } from '../_common/js/statistic/utils';
+import { COLOR_MAP, getFormatValue } from '../_common/js/statistic/utils';
 
 export interface StatisticProps extends TdStatisticProps, StyledProps {}
 
@@ -85,13 +85,9 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
     if (isFunction(format)) {
       return format(formatInnerValue);
     }
-    const options = {
-      minimumFractionDigits: decimalPlaces ?? 0,
-      maximumFractionDigits: decimalPlaces ?? 20,
-      useGrouping: !!separator,
-    };
+
     // replace的替换的方案仅能应对大部分地区
-    formatInnerValue = formatInnerValue.toLocaleString(undefined, options).replace(/,|，/g, separator);
+    formatInnerValue = getFormatValue(formatInnerValue, decimalPlaces, separator);
 
     return formatInnerValue;
   }, [innerValue, decimalPlaces, separator, format]);
