@@ -101,7 +101,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     </div>
   );
 
-  const nodeRef = useRef<HTMLDivElement>();
+  const nodeRef = useRef<HTMLDivElement>(null);
 
   return (
     <CSSTransition

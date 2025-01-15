@@ -17,7 +17,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   const name = `${classPrefix}-date-range-picker`;
 
   const isMountedRef = useRef(false);
-  const inputRef = useRef<RangeInputRefInterface>();
+  const inputRef = useRef<RangeInputRefInterface>(null);
 
   const {
     value,

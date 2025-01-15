@@ -114,10 +114,10 @@ const Input = forwardRefWithStatics(
 
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
-    const inputRef: React.RefObject<HTMLInputElement> = useRef();
+    const inputRef = useRef<HTMLInputElement>(null);
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
-    const inputPreRef: React.RefObject<HTMLInputElement> = useRef();
-    const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
+    const inputPreRef = useRef<HTMLInputElement>(null);
+    const wrapperRef = useRef<HTMLInputElement>(null);
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);

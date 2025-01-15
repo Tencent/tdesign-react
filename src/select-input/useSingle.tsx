@@ -1,4 +1,4 @@
-import React, { useRef, MouseEvent } from 'react';
+import React, { useRef, MouseEvent, Fragment } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
@@ -44,7 +44,7 @@ function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputPr
 export default function useSingle(props: TdSelectInputProps) {
   const { value, keys, loading } = props;
   const { classPrefix } = useConfig();
-  const inputRef = useRef<InputRef>();
+  const inputRef = useRef<InputRef>(null);
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const commonInputProps: SelectInputCommonProperties = {
@@ -70,7 +70,7 @@ export default function useSingle(props: TdSelectInputProps) {
 
   const renderSelectSingle = (popupVisible: boolean) => {
     // 单选，值的呈现方式
-    const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
+    const singleValueDisplay: any = !props.multiple ? props.valueDisplay : null;
     const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
     return (
       <Input

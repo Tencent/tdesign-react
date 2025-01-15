@@ -51,11 +51,11 @@ const Collapse = forwardRefWithStatics(
     ];
 
     const childrenList = React.Children.toArray(children).filter(
-      (child: JSX.Element) => child.type.displayName === CollapsePanel.displayName,
+      (child: React.JSX.Element) => child.type.displayName === CollapsePanel.displayName,
     );
 
     const collapsePanelList = () =>
-      childrenList.map((child: React.ReactElement, index: number) => {
+      childrenList.map((child: React.ReactElement<any>, index: number) => {
         const key = child.key || String(index);
         const childProps = {
           key,

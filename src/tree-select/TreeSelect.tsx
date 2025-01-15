@@ -79,8 +79,8 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   const [hover, hoverAction] = useSwitch();
   const [filterInput, setFilterInput] = useControlled(props, 'inputValue', onInputChange);
 
-  const treeRef = useRef<ElementRef<typeof Tree>>();
-  const selectInputRef = useRef<Partial<PopupRef & InputRef>>();
+  const treeRef = useRef(null);
+  const selectInputRef = useRef<PopupRef & InputRef>(null);
 
   const tKeys = useMemo(
     () => ({

@@ -10,7 +10,7 @@ import { TdTagInputProps } from './type';
 let mouseEnterTimer = null;
 
 export default function useTagScroll(props: TdTagInputProps) {
-  const tagInputRef: RefObject<{ currentElement: HTMLDivElement }> = useRef();
+  const tagInputRef: RefObject<{ currentElement: HTMLDivElement }> = useRef(null);
   const { excessTagsDisplayType = 'scroll', readonly, disabled } = props;
   // 允许向右滚动的最大距离
   const [scrollDistance, setScrollDistance] = useState(0);

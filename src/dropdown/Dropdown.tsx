@@ -67,7 +67,9 @@ const Dropdown: React.FC<DropdownProps> & {
   };
 
   const child = arrayChildren?.[0];
-  const dropDownTrigger = isValidElement(child) ? React.cloneElement(child as React.ReactElement, { disabled }) : child;
+  const dropDownTrigger = isValidElement(child)
+    ? React.cloneElement(child as React.ReactElement<{ disabled: boolean }>, { disabled })
+    : child;
 
   return (
     <Popup
