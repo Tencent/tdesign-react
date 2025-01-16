@@ -12,6 +12,7 @@ import FakeArrow from '../common/FakeArrow';
 import { checkIsSubMenu, checkIsMenuGroup } from './_util/checkMenuType';
 import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 import { Popup, PopupPlacement } from '../popup';
+import parseTNode from '../_util/parseTNode';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 
@@ -107,7 +108,8 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         })}
         onClick={handleClick}
       >
-        {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
+        {parseTNode(icon)}
+        <span className={`${classPrefix}-menu__content`}>{title}</span>
         <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
       </div>
       {!isPopUp && (
@@ -153,7 +155,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 };
 
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
-  const { className, style, children, disabled, title, value, level = 1, popupProps } = props;
+  const { className, style, children, disabled, icon, title, value, level = 1, popupProps } = props;
 
   const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
@@ -224,6 +226,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
         onClick={handleClick}
         style={style}
       >
+        {parseTNode(icon)}
         <span>{title}</span>
         {isPopUp && <FakeArrow style={fakeArrowStyle} isActive={level === 1 && open} />}
       </div>

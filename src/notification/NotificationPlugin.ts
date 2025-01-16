@@ -39,13 +39,6 @@ const renderNotification = (theme: NotificationThemeList, options: NotificationI
   const { placement } = configs;
 
   const attach: HTMLElement = (() => {
-    if (options.attach && typeof options.attach === 'string') {
-      const element: Element = document.querySelector(options.attach);
-      if (element instanceof HTMLElement) return element;
-    }
-
-    if (options.attach instanceof HTMLElement) return options.attach;
-
     const containerId = `tdesign-notification-${placement}`;
     const container = document.querySelector(`#${containerId}`);
     if (container && container instanceof HTMLElement) {
@@ -54,6 +47,13 @@ const renderNotification = (theme: NotificationThemeList, options: NotificationI
 
     const element: HTMLDivElement = document.createElement('div');
     element.setAttribute('id', containerId);
+
+    if (options.attach && typeof options.attach === 'string') {
+      const container: Element = document.querySelector(options.attach);
+      if (container instanceof HTMLElement) return container.appendChild(element);
+    }
+
+    if (options.attach instanceof HTMLElement) return options.attach.appendChild(element);
     document.body.appendChild(element);
     return element;
   })();

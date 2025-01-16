@@ -43,14 +43,16 @@ export default function RadioExample() {
       <Radio.Group value={city2} options={objOptions} allowUncheck onChange={(val: FirstCityType) => setCity2(val)} />
       <Radio.Group
         variant="default-filled"
+        theme="button"
         value={city2}
         options={objOptions}
         onChange={(val: FirstCityType) => setCity2(val)}
       />
 
-      <Radio.Group value={city3} options={itemOptions} onChange={(val: ValueType) => setCity3(val)} />
+      <Radio.Group theme="button" value={city3} options={itemOptions} onChange={(val: ValueType) => setCity3(val)} />
       <Radio.Group
         variant="primary-filled"
+        theme="button"
         value={city3}
         options={itemOptions}
         onChange={(val: ValueType) => setCity3(val)}

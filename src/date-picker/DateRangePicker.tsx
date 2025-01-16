@@ -168,11 +168,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (!isFirstValueSelected) {
+    if (!isFirstValueSelected || !activeIndex) {
       let nextIndex = notValidIndex;
       if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
       setActiveIndex(nextIndex);
-      setIsFirstValueSelected(true);
+      setIsFirstValueSelected(!!nextValue[0]);
     } else {
       setPopupVisible(false);
     }
@@ -258,11 +258,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (!isFirstValueSelected || nextValue.length === 1) {
+    if (!isFirstValueSelected || !activeIndex) {
       let nextIndex = notValidIndex;
       if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
       setActiveIndex(nextIndex);
-      setIsFirstValueSelected(true);
+      setIsFirstValueSelected(!!nextValue[0]);
     } else if (nextValue.length === 2) {
       setPopupVisible(false);
     }
