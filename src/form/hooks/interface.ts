@@ -15,6 +15,6 @@ export interface InternalHooks {
 
 export interface InternalFormInstance extends FormInstanceFunctions {
   _init?: boolean;
-
+  store?: Store;
   getInternalHooks?: (secret: string) => InternalHooks | null;
 }
