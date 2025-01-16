@@ -56,7 +56,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
     defaultRecentColors: colorPickerDefaultProps.recentColors,
   });
-
   const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
   const getModeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
   const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : format ?? 'RGB');
@@ -80,12 +79,14 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
-      setInnerValue(formatValue(), {
+      const value = formatValue();
+      setInnerValue(value, {
         color: getColorObject(colorInstanceRef.current),
         trigger: trigger || 'palette-saturation-brightness',
       });
+      update(value);
     },
-    [formatValue, setInnerValue],
+    [formatValue, setInnerValue, update],
   );
 
   useEffect(() => {
