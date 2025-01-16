@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.10.5 `2025-01-16` 
+### 🚀 Features
+- `Radio`: `RadioGroup` 新增 `theme` API，用于决定使用 options 时渲染的子组件样式 @HaixingOoO ([#3303](https://github.com/Tencent/tdesign-react/pull/3303))
+- `Upload`: 新增`imageProps` API，用于在上传图片场景下透传 `Image` 组件的相关属性 @HaixingOoO ([#3317](https://github.com/Tencent/tdesign-react/pull/3317))
+- `AutoComplete`: 新增 `empty` API ，用于支持自定义空节点内容 @liweijie0812 ([#3319](https://github.com/Tencent/tdesign-react/pull/3319))
+- `drawer`: `sizeDraggable`新增支持`SizeDragLimit`类型的功能实现 @huangchen1031 ([#3323](https://github.com/Tencent/tdesign-react/pull/3323))
+- `Icon`: 新增`logo-alipay`、`logo-behance-filled`等图标，修改`logo-wecom`图标，移除不合理的`logo-wecom-filled`图标 @uyarn ([#3326](https://github.com/Tencent/tdesign-react/pull/3326))
+### 🐞 Bug Fixes
+- `Select`: 修复`onChange`回调 `context` 中的全部选项的值没有包含选项本身全部内容的问题 @uyarn ([#3305](https://github.com/Tencent/tdesign-react/pull/3305))
+- `DateRangePicker`: 开始结束值同时存在的逻辑判断错误问题 @betavs ([#3301](https://github.com/Tencent/tdesign-react/pull/3301))
+- `Notification`: 修复使用`attach`属性配置导致渲染节点异常的问题 @centuryPark ([#3306](https://github.com/Tencent/tdesign-react/pull/3306))
+- `AutoComplete`: 修复当选项为空时显示效果异常的问题 @betavs ([#3316](https://github.com/Tencent/tdesign-react/pull/3316))
+- `Menu`: 修复 `head-menu` 不渲染 `icon` 的问题 @HaixingOoO ([#3320](https://github.com/Tencent/tdesign-react/pull/3320))
+- `Statistic`: 修复`decimalPlaces=0`时数值动画期间精度错误的问题 @huangchen1031 ([#3327](https://github.com/Tencent/tdesign-react/pull/3327))
+- `ImageVewer`: 修复开启`closeOnOverlay`时，点击蒙层关闭存在闪烁情况的问题 @huangchen1031
+
+
 ## 🌈 1.10.4 `2024-12-25` 
 ### 🚀 Features
 - `Tree`:  支持 `onScroll` API，用于处理滚动事件回调 @HaixingOoO ([#3295](https://github.com/Tencent/tdesign-react/pull/3295))
