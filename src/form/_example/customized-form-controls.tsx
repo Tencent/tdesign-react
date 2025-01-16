@@ -60,14 +60,6 @@ export default function BaseForm() {
       MessagePlugin.info('提交成功');
     }
   };
-  const setData = () => {
-    form.setFieldsValue?.({
-      course: {
-        type: 'math',
-        name: '线性代数',
-      },
-    });
-  };
 
   return (
     <Form form={form} onSubmit={onSubmit} colon labelWidth={100}>
@@ -77,9 +69,6 @@ export default function BaseForm() {
       <FormItem style={{ marginLeft: 100 }}>
         <Button type="submit" theme="primary">
           提交
-        </Button>
-        <Button theme="primary" onClick={setData} style={{ marginLeft: 12 }}>
-          设置信息
         </Button>
       </FormItem>
     </Form>
