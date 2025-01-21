@@ -1,4 +1,4 @@
-import React, { isValidElement, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
@@ -13,6 +13,7 @@ import Checkbox from '../checkbox';
 import Input from '../input';
 import Pagination, { PaginationProps } from '../pagination';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { parseContentTNode } from '../_util/parseTNode';
 
 interface TransferListProps
   extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>,
@@ -129,20 +130,13 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     }
     return (
       <Checkbox.Group value={checked} onChange={handleCheckbox} disabled={disabled}>
-        {viewData.map((item, index) => {
-          let transferItemNode: TransferListProps['transferItem'] = item.label;
-
-          if (typeof transferItem === 'function') {
-            transferItemNode = transferItem({ data: item, index, type: listType });
-          } else if (isValidElement(transferItem)) {
-            transferItemNode = React.cloneElement<any>(transferItem, { data: item, index, type: listType });
-          }
-          return (
-            <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
-              <span>{transferItemNode}</span>
-            </Checkbox>
-          );
-        })}
+        {viewData.map((item, index) => (
+          <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
+            <span>
+              {transferItem ? parseContentTNode(transferItem, { data: item, index, type: listType }) : item.label}
+            </span>
+          </Checkbox>
+        ))}
       </Checkbox.Group>
     );
   };
