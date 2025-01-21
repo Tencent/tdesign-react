@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { isValidElement, useMemo, useState } from 'react';
 import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
@@ -7,7 +7,7 @@ import { SearchIcon as TdSearchIcon } from 'tdesign-icons-react';
 import { getLeafNodes } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdTransferProps, TransferValue } from './type';
+import { TdTransferProps, TransferListType, TransferValue } from './type';
 import { TNode, StyledProps } from '../common';
 import Checkbox from '../checkbox';
 import Input from '../input';
@@ -26,6 +26,7 @@ interface TransferListProps
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;
   showCheckAll?: boolean;
+  listType: TransferListType;
 }
 
 const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
@@ -46,6 +47,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     transferItem,
     tree: treeNode,
     showCheckAll,
+    listType,
   } = props;
   const notDisabledData = !treeNode
     ? data.filter((item) => !item.disabled)
@@ -127,13 +129,20 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     }
     return (
       <Checkbox.Group value={checked} onChange={handleCheckbox} disabled={disabled}>
-        {viewData.map((item, index) => (
-          <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
-            <span>
-              {typeof transferItem === 'function' ? transferItem({ data: item, index, type: 'source' }) : item.label}
-            </span>
-          </Checkbox>
-        ))}
+        {viewData.map((item, index) => {
+          let transferItemNode: TransferListProps['transferItem'] = item.label;
+
+          if (typeof transferItem === 'function') {
+            transferItemNode = transferItem({ data: item, index, type: listType });
+          } else if (isValidElement(transferItem)) {
+            transferItemNode = React.cloneElement<any>(transferItem, { data: item, index, type: listType });
+          }
+          return (
+            <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
+              <span>{transferItemNode}</span>
+            </Checkbox>
+          );
+        })}
       </Checkbox.Group>
     );
   };
