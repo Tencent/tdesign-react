@@ -52,7 +52,8 @@ describe('Menu 组件测试', () => {
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
     expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
-    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+    // expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.parentElement.style.height).toBe('0px');
   });
 
   test('menu expanded works fine', () => {
@@ -60,7 +61,8 @@ describe('Menu 组件测试', () => {
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
     expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
-    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+    // expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.parentElement.style.height).toBe('0px');
   });
 
   test('menu 测试单层导航', () => {
@@ -170,10 +172,14 @@ describe('Menu 组件测试', () => {
     expect(container.querySelectorAll('.t-submenu').length).toBe(1);
     fireEvent.click(getByText('仪表盘'));
     expect(clickFn).toHaveBeenCalledTimes(1);
-    const ulNode = queryByText('基础列表项').parentElement.parentElement;
-    expect(ulNode.style.maxHeight).toBe('0');
+    // const ulNode = queryByText('基础列表项').parentElement.parentElement;
+    // expect(ulNode.style.maxHeight).toBe('0');
+    // fireEvent.click(getByText('列表项'));
+    // expect(ulNode.style.maxHeight).not.toBe('0');
+    const slideNode = queryByText('基础列表项').parentElement.parentElement.parentElement;
+    expect(slideNode.style.height).toBe('0px');
     fireEvent.click(getByText('列表项'));
-    expect(ulNode.style.maxHeight).not.toBe('0');
+    expect(slideNode.style.maxHeight).not.toBe('0');
   });
 
   test('menu 測試 menuItem onClick事件', () => {
