@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { render, fireEvent, waitFor } from '@test/utils';
 import Transfer from '../index';
+import type { TransferValue, DataOption } from '../index';
 import Tree from '../../tree';
 
 describe('Transfer 测试', () => {
@@ -16,7 +17,7 @@ describe('Transfer 测试', () => {
       });
     }
     function TestComponent() {
-      const [value, setValue] = useState(['2']);
+      const [value, setValue] = useState<TransferValue[]>(['2']);
       return (
         <Transfer
           data={list}
@@ -59,7 +60,7 @@ describe('Transfer 测试', () => {
       });
     }
     function TestComponent() {
-      const [value, setValue] = useState(['2', '5']);
+      const [value, setValue] = useState<TransferValue[]>(['2', '5']);
       return <Transfer data={list} value={value} operation={['加入', '移除']} onChange={(v) => setValue(v)}></Transfer>;
     }
     const { container, getByText } = render(<TestComponent />);
@@ -118,4 +119,52 @@ describe('Transfer 测试', () => {
   //   fireEvent.click(getByText('加入'));
   //   fireEvent.click(getByText('移除'));
   // });
+
+  test('Transfer transferItem ReactElement', async () => {
+    const list = [
+      {
+        value: '0',
+        label: `点击test0`,
+      },
+      {
+        value: '1',
+        label: `点击test1`,
+      },
+    ];
+
+    const TransferItem = ({ data }: { data?: DataOption }) => <div>{data.label}</div>;
+
+    function TestComponent() {
+      const [value, setValue] = useState<TransferValue[]>(['1']);
+      return <Transfer data={list} value={value} onChange={(v) => setValue(v)} transferItem={<TransferItem />} />;
+    }
+    const { getByText } = render(<TestComponent />);
+
+    expect(getByText('点击test0')).toBeInTheDocument();
+    expect(getByText('点击test1')).toBeInTheDocument();
+  });
+
+  test('Transfer transferItem Function', async () => {
+    const list = [
+      {
+        value: '0',
+        label: `点击test0`,
+      },
+      {
+        value: '1',
+        label: `点击test1`,
+      },
+    ];
+
+    const TransferItem = ({ data }: { data?: DataOption }) => <div>{data.label}</div>;
+
+    function TestComponent() {
+      const [value, setValue] = useState<TransferValue[]>(['1']);
+      return <Transfer data={list} value={value} onChange={(v) => setValue(v)} transferItem={TransferItem} />;
+    }
+    const { getByText } = render(<TestComponent />);
+
+    expect(getByText('点击test0')).toBeInTheDocument();
+    expect(getByText('点击test1')).toBeInTheDocument();
+  });
 });

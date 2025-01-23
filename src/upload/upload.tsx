@@ -20,7 +20,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 // const Upload = forwardRef((props: UploadProps, ref) => {
 function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<T>, ref: ForwardedRef<UploadRef>) {
   const props = useDefaultProps<UploadProps<T>>(originalProps, uploadDefaultProps);
-  const { theme } = props;
+  const { theme, imageProps } = props;
   const {
     locale,
     classPrefix,
@@ -141,6 +141,7 @@ function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<
       cancelUpload={cancelUpload}
       onPreview={props.onPreview}
       showImageFileName={props.showImageFileName}
+      imageProps={imageProps}
     />
   );
 

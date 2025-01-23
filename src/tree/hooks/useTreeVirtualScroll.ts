@@ -2,15 +2,19 @@ import { useMemo, useEffect, CSSProperties } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import TreeNode from '../../_common/js/tree-v1/tree-node';
 import { TScroll } from '../../common';
+import type { TdTreeProps } from '../type';
+import useEventCallback from '../../hooks/useEventCallback';
 
 export default function useTreeVirtualScroll({
   treeRef,
   scroll,
   data = [],
+  onScroll,
 }: {
   data: TreeNode[];
   scroll: TScroll;
   treeRef: React.MutableRefObject<HTMLElement>;
+  onScroll: TdTreeProps['onScroll'];
 }) {
   const scrollThreshold = scroll?.threshold || 100;
   const scrollType = scroll?.type;
@@ -45,7 +49,8 @@ export default function useTreeVirtualScroll({
   });
 
   let lastScrollY = -1;
-  const onInnerVirtualScroll = (e: WheelEvent) => {
+  const onInnerVirtualScroll = useEventCallback((e: WheelEvent) => {
+    onScroll?.({ e });
     if (!isVirtual) {
       return;
     }
@@ -58,21 +63,17 @@ export default function useTreeVirtualScroll({
       lastScrollY = -1;
     }
     lastScrollY = top;
-  };
+  });
 
   useEffect(() => {
     const treeList = treeRef?.current;
-    if (isVirtual) {
-      treeList?.addEventListener?.('scroll', onInnerVirtualScroll);
-    }
+    treeList?.addEventListener?.('scroll', onInnerVirtualScroll);
+
     return () => {
       // 卸载时取消监听
-      if (isVirtual) {
-        treeList?.removeEventListener?.('scroll', onInnerVirtualScroll);
-      }
+      treeList?.removeEventListener?.('scroll', onInnerVirtualScroll);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVirtual, onInnerVirtualScroll]);
+  }, [treeRef, onInnerVirtualScroll]);
 
   const cursorStyle = {
     position: 'absolute',

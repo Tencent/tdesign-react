@@ -13,6 +13,7 @@ borderless | Boolean | false | \- | N
 children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 clearable | Boolean | - | \- | N
 disabled | Boolean | - | \- | N
+empty | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 filter | Function | - | Typescript：`(filterWords: string, option: T) => boolean \| Promise<boolean>` | N
 filterable | Boolean | true | \- | N
 highlightKeyword | Boolean | true | \- | N

@@ -1,6 +1,7 @@
-import React, { ReactNode, useState, useRef, useEffect } from 'react';
+import React, { ReactNode, useState, useRef, useEffect, useCallback } from 'react';
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
+import throttle from 'lodash/throttle';
 import { StyledProps } from '../common';
 import useSwitch from '../hooks/useSwitch';
 import useAnimation from '../hooks/useAnimation';
@@ -27,26 +28,39 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
   const { classPrefix } = useConfig();
   const [hover, hoverAction] = useSwitch();
   const [clientX, setHoverClientX] = useState(0);
+  const [clientY, setHoverClientY] = useState(0);
   const [position, setPosition] = useState(null);
   const { keepFade } = useAnimation();
 
   useEffect(() => {
     if (triggerRef.current && contentRef.current) {
-      setPosition(getPosition(triggerRef.current, contentRef.current, placement, clientX));
+      setPosition(getPosition(triggerRef.current, contentRef.current, placement, clientX, clientY));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [triggerRef.current, contentRef.current, placement, hover]);
+  }, [triggerRef.current, contentRef.current, placement, hover, clientX, clientY]);
+
+  const updatePosition = (e: MouseEvent) => {
+    setHoverClientX(e.clientX);
+    setHoverClientY(e.clientY);
+  };
 
   const onSwitchHover = (action: String, e: MouseEvent) => {
-    setHoverClientX(e.clientX);
+    updatePosition(e);
     hoverAction.set(action === 'on');
   };
 
   const showTipArrow = showArrow && placement !== 'mouse';
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onSwitchMove = useCallback(
+    throttle((e) => updatePosition(e), 16.7, { trailing: true }),
+    [],
+  );
+
   const getTriggerChildren = (children) => {
     const appendProps = {
       ref: triggerRef,
+      onMouseMove: onSwitchMove,
       onMouseEnter: (e) => onSwitchHover('on', e),
       onMouseLeave: (e) => onSwitchHover('off', e),
     };

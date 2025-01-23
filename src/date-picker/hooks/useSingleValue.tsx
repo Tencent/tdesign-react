@@ -26,11 +26,11 @@ export default function useSingleValue(props: TdDatePickerProps) {
   }
 
   const [time, setTime] = useState(() =>
-    formatTime(props.multiple ? value[0] : value, format, timeFormat, props.defaultTime),
+    formatTime(props.multiple ? value?.[0] : value, format, timeFormat, props.defaultTime),
   );
-  const [month, setMonth] = useState<number>(() => parseToDayjs(props.multiple ? value[0] : value, format).month());
-  const [year, setYear] = useState<number>(() => parseToDayjs(props.multiple ? value[0] : value, format).year());
-  const [cacheValue, setCacheValue] = useState(() => formatDate(props.multiple ? value[0] : value, { format })); // 缓存选中值，panel 点击时更改
+  const [month, setMonth] = useState<number>(() => parseToDayjs(props.multiple ? value?.[0] : value, format).month());
+  const [year, setYear] = useState<number>(() => parseToDayjs(props.multiple ? value?.[0] : value, format).year());
+  const [cacheValue, setCacheValue] = useState(() => formatDate(props.multiple ? value?.[0] : value, { format })); // 缓存选中值，panel 点击时更改
 
   // 输入框响应 value 变化
   useEffect(() => {

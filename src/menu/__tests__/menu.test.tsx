@@ -1,5 +1,6 @@
 import { render, fireEvent, vi, waitFor } from '@test/utils';
 import React from 'react';
+import { UserIcon } from 'tdesign-icons-react';
 import Menu from '../index';
 
 describe('Menu 组件测试', () => {
@@ -191,5 +192,20 @@ describe('Menu 组件测试', () => {
     );
     fireEvent.click(getByText('仪表盘'));
     expect(clickFn).toHaveBeenCalledTimes(1);
+  });
+
+  test('menu head-menu render icon', async () => {
+    const { container, getByText } = render(
+      <HeadMenu>
+        <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
+          <MenuItem value="5">
+            <span>苹果</span>
+          </MenuItem>
+        </SubMenu>
+      </HeadMenu>,
+    );
+
+    expect(getByText('水果蔬菜')).toBeInTheDocument();
+    expect(container.querySelector('.t-icon-user')).toBeInTheDocument();
   });
 });

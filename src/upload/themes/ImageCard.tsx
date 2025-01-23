@@ -26,16 +26,28 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
   onPreview?: TdUploadProps['onPreview'];
   showImageFileName?: boolean;
+  imageProps?: TdUploadProps['imageProps'];
 }
 
 const ImageCard = (props: ImageCardUploadProps) => {
-  const { displayFiles, locale, classPrefix, multiple, max = 0, onRemove, disabled, fileListDisplay } = props;
+  const {
+    displayFiles,
+    locale,
+    classPrefix,
+    multiple,
+    max = 0,
+    onRemove,
+    disabled,
+    fileListDisplay,
+    imageProps = {},
+  } = props;
   const { BrowseIcon, DeleteIcon, AddIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     AddIcon: TdAddIcon,
     BrowseIcon: TdBrowseIcon,
     DeleteIcon: TdDeleteIcon,
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
+  const { className: imageClassName, ...restImageProps } = imageProps;
 
   const showTrigger = React.useMemo(() => {
     if (multiple) {
@@ -46,7 +58,12 @@ const ImageCard = (props: ImageCardUploadProps) => {
 
   const renderMainContent = (file: UploadFile, index: number) => (
     <div className={`${classPrefix}-upload__card-content ${classPrefix}-upload__card-box`}>
-      <Image className={`${classPrefix}-upload__card-image`} src={file.url || file.raw} error="" loading="" />
+      <Image
+        fit="contain"
+        className={classNames(`${classPrefix}-upload__card-image`, imageClassName)}
+        {...restImageProps}
+        src={file.url || file.raw}
+      />
       <div className={`${classPrefix}-upload__card-mask`}>
         <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
           <ImageViewer
