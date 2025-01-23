@@ -16,6 +16,7 @@ const fullClone = {
 
 type CreateRoot = (container: ContainerType) => Root;
 
+// @ts-ignore
 const { version, render: reactRender, unmountComponentAtNode } = fullClone;
 
 let createRoot: CreateRoot;
@@ -58,7 +59,7 @@ function modernRender(node: React.ReactElement, container: ContainerType) {
 }
 
 function legacyRender(node: React.ReactElement, container: ContainerType) {
-  reactRender(node, container);
+  reactRender?.(node, container);
 }
 
 export function render(node: React.ReactElement, container: ContainerType) {

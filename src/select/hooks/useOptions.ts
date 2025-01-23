@@ -28,7 +28,7 @@ function UseOptions(
     if (reserveKeyword && currentOptions.length && isChildrenFilterable) return;
 
     if (isChildrenFilterable) {
-      transformedOptions = arrayChildren?.map<SelectOption>((v) => {
+      transformedOptions = arrayChildren?.map((v: React.ReactElement<SelectOption>) => {
         if (React.isValidElement<SelectOption>(v)) {
           return {
             ...v.props,

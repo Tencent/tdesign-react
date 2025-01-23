@@ -12,7 +12,7 @@ type ValueToOption = {
   [value: string | number]: TdOptionProps;
 };
 
-function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueToOption, keys: SelectKeysType) {
+function setValueToOptionFormOptionDom(dom: ReactElement<any>, valueToOption: ValueToOption, keys: SelectKeysType) {
   const { value, label, children } = dom.props;
   // eslint-disable-next-line no-param-reassign
   valueToOption[value] = {
@@ -23,7 +23,7 @@ function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueTo
 
 // 获取 value => option，用于快速基于 value 找到对应的 option
 export const getValueToOption = (
-  children: ReactElement,
+  children: ReactElement<any>,
   options: TdOptionProps[],
   keys: SelectKeysType,
 ): ValueToOption => {
@@ -56,7 +56,7 @@ export const getValueToOption = (
   }
 
   if (Array.isArray(children)) {
-    children.forEach((item: ReactElement) => {
+    children.forEach((item) => {
       if (item.type === Option) {
         setValueToOptionFormOptionDom(item, valueToOption, keys);
       }
@@ -77,7 +77,7 @@ export const getValueToOption = (
 
 // 获取单选的 label
 export const getLabel = (
-  children: ReactElement,
+  children: ReactElement<any>,
   value: SelectValue<TdOptionProps>,
   options: TdOptionProps[],
   keys: SelectKeysType,
@@ -116,7 +116,7 @@ export const getLabel = (
   }
 
   if (Array.isArray(children)) {
-    children.some((item: ReactElement) => {
+    children.some((item) => {
       // 处理分组
       if (item.type === OptionGroup) {
         const groupChildren = item.props.children;

@@ -78,7 +78,7 @@ export default function TR(props: TrProps) {
     onRowMounted,
   } = props;
 
-  const trRef = useRef<HTMLTableRowElement>();
+  const trRef = useRef<HTMLTableRowElement>(null);
 
   const classNames = useClassName();
 

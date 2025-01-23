@@ -65,11 +65,11 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
     } else {
       // 2.2 b 方式 获取 TDescriptionsItem
       const childrenList = React.Children.toArray(children).filter(
-        (child: JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
+        (child: React.JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
       );
 
       if (childrenList.length !== 0) {
-        items = (childrenList as React.ReactElement[]).map(({ props: child }) => {
+        items = (childrenList as React.ReactElement<any>[]).map(({ props: child }) => {
           const { span } = assign({}, descriptionItemDefaultProps, child);
 
           return {
