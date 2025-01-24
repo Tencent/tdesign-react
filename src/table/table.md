@@ -1,6 +1,7 @@
 :: BASE_DOC ::
 
 ## API
+
 ### BaseTable Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -11,6 +12,7 @@ attach | String / Function | - | 超出省略等所有浮层元素统一绑定�
 bordered | Boolean | false | 是否显示表格边框 | N
 bottomContent | TNode | - | 表格底部内容，可以用于自定义列设置等。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 cellEmptyContent | TNode | - | 单元格数据为空时呈现的内容。TS 类型：`string \| TNode<BaseTableCellParams<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+isStatic | Boolean | false | 静态的表格，用于表格的columns属性不会动态变化的场景。TS 类型：`boolean`。| N
 columns | Array | [] | 列配置，泛型 T 指表格数据类型。TS 类型：`Array<BaseTableCol<T>>` | N
 data | Array | [] | 数据源，泛型 T 指表格数据类型。TS 类型：`Array<T>` | N
 disableDataPage | Boolean | false | 是否禁用本地数据分页。当 `data` 数据长度超过分页大小时，会自动进行本地数据分页。如果 `disableDataPage` 设置为 true，则无论何时，都不会进行本地数据分页 | N
