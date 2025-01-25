@@ -1,6 +1,6 @@
 import React, { forwardRef, useContext, MouseEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
-import isBoolean from 'lodash/isBoolean';
+import { isBoolean } from 'lodash-es';
 import { omit } from '../_util/helper';
 import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';

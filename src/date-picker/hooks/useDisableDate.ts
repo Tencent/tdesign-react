@@ -1,4 +1,4 @@
-import isObject from 'lodash/isObject';
+import { isObject } from 'lodash-es';
 import type { TdDatePickerProps, TdDateRangePickerProps } from '../type';
 import { isEnabledDate } from '../../_common/js/date-picker/utils';
 

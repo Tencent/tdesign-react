@@ -1,5 +1,5 @@
 import React from 'react';
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 import classNames from 'classnames';
 import Panel from './components/Panel';
 import { TdCascaderProps } from './interface';

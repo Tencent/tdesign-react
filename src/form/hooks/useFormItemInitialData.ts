@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import get from 'lodash/get';
-import unset from 'lodash/unset';
-import isEmpty from 'lodash/isEmpty';
+import { get , unset , isEmpty } from 'lodash-es';
 
 // 兼容特殊数据结构和受控 key
 import Tree from '../../tree/Tree';

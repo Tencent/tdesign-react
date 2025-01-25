@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { FC, ReactElement, useMemo } from 'react';
-import isObject from 'lodash/isObject';
+import { isObject } from 'lodash-es';
 import Tabs from '../tabs';
 import { StyledProps } from '../common';
 import { TdHeadMenuProps } from './type';

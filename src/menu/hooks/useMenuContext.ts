@@ -1,4 +1,4 @@
-import noop from 'lodash/noop';
+import { noop } from 'lodash-es';
 import { useState, ReactNode } from 'react';
 import { MenuState, SetMenuState, MenuMode } from '../MenuContext';
 import checkSubMenuChildExpanded from '../_util/checkSubMenuChildExpanded';

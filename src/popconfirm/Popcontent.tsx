@@ -1,5 +1,5 @@
 import React from 'react';
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon as TdInfoCircleFilledIcon } from 'tdesign-icons-react';
 import Button, { ButtonProps } from '../button';

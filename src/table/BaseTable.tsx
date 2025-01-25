@@ -8,7 +8,7 @@ import React, {
   WheelEvent,
   RefAttributes,
 } from 'react';
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 import classNames from 'classnames';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
 import { Affix, AffixRef } from '../affix';

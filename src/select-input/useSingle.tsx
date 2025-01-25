@@ -1,6 +1,5 @@
 import React, { useRef, MouseEvent } from 'react';
-import isObject from 'lodash/isObject';
-import pick from 'lodash/pick';
+import { isObject , pick } from 'lodash-es';
 import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
 import Input, { InputRef, TdInputProps } from '../input';

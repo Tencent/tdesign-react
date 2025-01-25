@@ -3,7 +3,7 @@
  * https://github.com/pablosichert/react-truncate/blob/master/LICENSE.md
  *
  * ISC License
- * 
+ *
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is
 hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
@@ -14,7 +14,7 @@ DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS 
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 import React from 'react';
-import omit from 'lodash/omit';
+import { omit } from 'lodash-es';
 import PropTypes from 'prop-types';
 
 export type TruncateProps = {

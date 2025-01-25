@@ -5,8 +5,7 @@ import {
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
 } from 'tdesign-icons-react';
-import omit from 'lodash/omit';
-import debounce from 'lodash/debounce';
+import { omit , debounce } from 'lodash-es';
 import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';

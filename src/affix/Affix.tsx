@@ -1,5 +1,5 @@
 import React, { useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';

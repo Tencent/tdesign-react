@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import pick from 'lodash/pick';
-import omit from 'lodash/omit';
+import { pick , omit } from 'lodash-es';
 import Panel from './components/Panel';
 import SelectInput from '../select-input';
 import FakeArrow from '../common/FakeArrow';

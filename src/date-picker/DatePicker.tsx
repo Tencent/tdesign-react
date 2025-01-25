@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import isDate from 'lodash/isDate';
+import { isDate } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps, PresetDate, DateMultipleValue, DateValue } from './type';

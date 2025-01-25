@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactNode, ReactElement } from 'react';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { SelectKeysType, SelectOption, SelectValue } from '../type';
 import { getValueToOption } from '../util/helper';
 import Option from '../base/Option';
