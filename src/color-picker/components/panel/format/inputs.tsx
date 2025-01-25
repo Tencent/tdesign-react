@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash-es';
 import Color from '../../../../_common/js/color-picker/color';
 import Input from '../../../../input';
 import InputNumber from '../../../../input-number';

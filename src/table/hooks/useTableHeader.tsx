@@ -1,5 +1,5 @@
 import React, { ReactNode, useMemo } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import classNames from 'classnames';
 import { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { TableColumns, getThRowspanAndColspan, getThList } from './useMultiHeader';

@@ -1,5 +1,5 @@
 import React from 'react';
-import _mergeWith from 'lodash/mergeWith';
+import { mergeWith as _mergeWith } from 'lodash-es';
 import ConfigContext, { defaultGlobalConfig, Config } from './ConfigContext';
 import { GlobalConfigProvider } from './type';
 

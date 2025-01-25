@@ -121,7 +121,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/estree": "1.0.6",
     "@types/hoist-non-react-statics": "^3.3.1",
-    "@types/lodash": "4.17.13",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.7.0",
     "@types/raf": "^3.4.0",
     "@types/react": "~18.2.0",
@@ -208,7 +208,7 @@
     "classnames": "~2.5.1",
     "dayjs": "1.11.10",
     "hoist-non-react-statics": "~3.3.2",
-    "lodash": "~4.17.15",
+    "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
     "raf": "~3.4.1",
     "react-is": "^18.2.0",
@@ -219,5 +219,6 @@
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "validator": "~13.7.0"
-  }
+  },
+  "packageManager": "pnpm@7.33.5+sha512.4e499f22fffe5845aa8f9463e1386b2d72c3134e0ebef9409360ad844fef0290e82b479b32eb2ec0f30e56607e1820c22167829fd62656d41a8fd0cc4a0f4267"
 }

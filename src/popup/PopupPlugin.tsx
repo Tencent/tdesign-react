@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPopper, Instance, Placement } from '@popperjs/core';
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { render, unmount } from '../_util/react-render';

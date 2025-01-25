@@ -1,7 +1,6 @@
 import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
-import omit from 'lodash/omit';
-import isNaN from 'lodash/isNaN';
+import { omit , isNaN } from 'lodash-es';
 
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';

@@ -1,7 +1,7 @@
 import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useCommonClassName from '../hooks/useCommonClassName';

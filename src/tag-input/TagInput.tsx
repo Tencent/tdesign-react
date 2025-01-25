@@ -1,6 +1,6 @@
 import React, { CompositionEvent, KeyboardEvent, useRef, useImperativeHandle, forwardRef, MouseEvent } from 'react';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';

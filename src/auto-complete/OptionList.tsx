@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useRef, MouseEvent, useEffect, useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash/isFunction';
-import escapeRegExp from 'lodash/escapeRegExp';
+import { isFunction , escapeRegExp } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import log from '../_common/js/log';
 import { CommonClassNameType } from '../hooks/useCommonClassName';

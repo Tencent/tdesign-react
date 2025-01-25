@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, MouseEvent, useEffect, MutableRefObject } from 'react';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import classnames from 'classnames';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles } from './hooks/useFixed';

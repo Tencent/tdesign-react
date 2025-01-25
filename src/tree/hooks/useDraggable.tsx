@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash-es';
 import { RefObject, DragEvent, useState, useRef } from 'react';
 import { TreeNode } from '../../_common/js/tree-v1/tree-node';
 import { useTreeDraggableContext } from './TreeDraggableContext';

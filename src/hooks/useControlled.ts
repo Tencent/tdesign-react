@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import upperFirst from 'lodash/upperFirst';
+import { upperFirst } from 'lodash-es';
 import noop from '../_util/noop';
 
 export interface ChangeHandler<T, P extends any[]> {

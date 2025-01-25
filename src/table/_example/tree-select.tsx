@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { EnhancedTable, Radio, Space, Button, MessagePlugin, Tag } from 'tdesign-react';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import type { EnhancedTableProps, TableProps } from 'tdesign-react';
 

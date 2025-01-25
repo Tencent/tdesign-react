@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash-es';
 import type { DebounceSettingsLeading } from 'lodash';
 import { useCallback, useEffect } from 'react';
 import { usePersistFn } from './usePersistFn';
