@@ -26,16 +26,16 @@ const banner = `/**
  * @license ${pkg.license}
  */
 `;
-const input = 'src/index-lib.ts';
+const input = 'packages/web/index-lib.ts';
 const inputList = [
-  'src/**/*.ts',
-  'src/**/*.jsx',
-  'src/**/*.tsx',
-  '!src/**/_example',
-  '!src/**/_example-js',
-  '!src/**/*.d.ts',
-  '!src/**/__tests__',
-  '!src/**/_usage',
+  'packages/web/**/*.ts',
+  'packages/web/**/*.jsx',
+  'packages/web/**/*.tsx',
+  '!packages/web/**/_example',
+  '!packages/web/**/_example-js',
+  '!packages/web/**/*.d.ts',
+  '!packages/web/**/__tests__',
+  '!packages/web/**/_usage',
 ];
 
 const getPlugins = ({
@@ -84,10 +84,11 @@ const getPlugins = ({
   } else if (extractMultiCss) {
     plugins.push(
       staticImport({
-        include: ['src/**/style/css.js'],
+        baseDir: 'packages/web',
+        include: ['packages/web/**/style/css.js'],
       }),
       ignoreImport({
-        include: ['src/*/style/*', 'src/*/*/style/*'],
+        include: ['packages/web/*/style/*', 'packages/web/*/*/style/*'],
         body: 'import "./css.js";',
       }),
     );
@@ -96,10 +97,11 @@ const getPlugins = ({
   } else {
     plugins.push(
       staticImport({
-        include: ['src/**/style/index.js', 'src/_common/style/web/**/*.less'],
+        baseDir: 'packages/web',
+        include: ['packages/web/**/style/index.js', 'packages/web/_common/style/web/**/*.less'],
       }),
       ignoreImport({
-        include: ['src/*/style/*'],
+        include: ['packages/web/*/style/*'],
         body: 'import "./index.js";',
       }),
     );
@@ -132,8 +134,8 @@ const getPlugins = ({
 };
 
 const cssConfig = {
-  input: ['src/**/style/index.js'],
-  plugins: [multiInput(), styles({ mode: 'extract' })],
+  input: ['packages/web/**/style/index.js'],
+  plugins: [multiInput({ relative: 'packages/web/' }), styles({ mode: 'extract' })],
   output: {
     banner,
     dir: 'es/',
@@ -144,9 +146,9 @@ const cssConfig = {
 
 // 按需加载组件 不带 css 样式
 const libConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/web/index-lib.ts'),
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/web/' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
     dir: 'lib/',
@@ -158,11 +160,11 @@ const libConfig = {
 
 // 按需加载组件 带 css 样式
 const esConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/web/index-lib.ts'),
   // 为了保留 style/css.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/web/' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
     dir: 'es/',
@@ -174,11 +176,11 @@ const esConfig = {
 
 // 按需加载组件 带原始 less 文件，可定制主题
 const esmConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/web/index-lib.ts'),
   // 为了保留 style/index.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ ignoreLess: false })),
+  plugins: [multiInput({ relative: 'packages/web/' })].concat(getPlugins({ ignoreLess: false })),
   output: {
     banner,
     dir: 'esm/',
@@ -192,7 +194,7 @@ const esmConfig = {
 const cjsConfig = {
   input: inputList,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins()),
+  plugins: [multiInput({ relative: 'packages/web/' })].concat(getPlugins()),
   output: {
     banner,
     dir: 'cjs/',
@@ -242,11 +244,13 @@ const umdMinConfig = {
 
 // 单独导出 reset.css 到 dist 目录，兼容旧版本样式
 const resetCss = {
-  input: 'src/_common/style/web/_reset.less',
+  input: 'packages/web/_common/style/web/_reset.less',
   output: {
     file: 'dist/reset.css',
   },
   plugins: [postcss({ extract: true })],
 };
 
-export default [cssConfig, libConfig, cjsConfig, esConfig, esmConfig, umdConfig, umdMinConfig, resetCss];
+export default [cssConfig, esConfig];
+
+// export default [cssConfig, libConfig, cjsConfig, esConfig, esmConfig, umdConfig, umdMinConfig, resetCss];

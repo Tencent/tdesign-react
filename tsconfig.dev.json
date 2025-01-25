@@ -20,9 +20,9 @@
   "compilerOptions": {
     "declaration": false,
     "paths": {
-      "tdesign-react": ["src"],
+      "tdesign-react": ["packages/web"],
       "@test/utils": ["test/utils"],
-      "@common/*": ["src/_common/*"]
+      "@common/*": ["packages/web/_common/*"]
     },
   }
 }

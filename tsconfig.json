@@ -13,18 +13,18 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
-      "tdesign-react": ["src"],
-      "tdesign-react/*": ["src/*"],
+      "tdesign-react": ["packages/web"],
+      "tdesign-react/*": ["packages/web/*"],
       "@test/utils": ["test/utils"],
-      "@common/*": ["src/_common/*"]
+      "@common/*": ["packages/web/_common/*"]
     },
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./globals.d.ts", "./test/config/index.d.ts", "**/**/__tests__/*"],
-  "exclude": ["**/*.jsx", "**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
+  "include": ["./packages/web", "./globals.d.ts", "./test/config/index.d.ts", "**/**/__tests__/*"],
+  "exclude": ["**/*.jsx", "**/**/_usage/*", "node_modules", "packages/web/_common", "dist", "lib", "esm", "cjs", "es"],
   "types": [
     "node",
     "jest",
