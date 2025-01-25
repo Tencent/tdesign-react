@@ -16,5 +16,5 @@ module.exports = {
   ],
   coverageDirectory: '<rootDir>/test/unit/coverage',
   modulePathIgnorePatterns: ['<rootDir>/test/unit/coverage/'],
-  testMatch: ['<rootDir>/src/**/__tests__/**/*.test.{ts,tsx}'],
+  testMatch: ['<rootDir>/packages/web/**/__tests__/**/*.test.{ts,tsx}'],
 };

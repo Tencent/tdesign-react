@@ -26,4 +26,4 @@ cypress-coverage
 instrumented
 cy-report
 .history
-src/**/_example-js/
+packages/web/**/_example-js/

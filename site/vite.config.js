@@ -32,7 +32,7 @@ export default ({ mode }) =>
         '@': resolvePath('../'),
         '@site': resolvePath('./'),
         '@docs': resolvePath('./docs'),
-        '@components': resolvePath('./packages/web'),
+        '@components': resolvePath('./src/components'),
         '@common': resolvePath('../packages/web/_common'),
         'tdesign-react/es': resolvePath('../packages/web'),
         'tdesign-react': resolvePath('../packages/web'),

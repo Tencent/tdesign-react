@@ -194,7 +194,7 @@ async function customRender({ source, file, md }) {
   };
 
   // md filename
-  const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
+  const reg = file.match(/packages\/web\/(\w+-?\w+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
   const componentName = reg && reg[1];
 
   // split md
@@ -221,7 +221,7 @@ async function customRender({ source, file, md }) {
     const usageObj = compileUsage({
       componentName,
       usage: pageData.usage,
-      demoPath: path.posix.resolve(__dirname, `../../src/${componentName}/_usage/index.jsx`),
+      demoPath: path.posix.resolve(__dirname, `../../packages/web/${componentName}/_usage/index.jsx`),
     });
     if (usageObj) {
       mdSegment.usage = usageObj;
@@ -247,7 +247,7 @@ async function customRender({ source, file, md }) {
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
-    const designDocPath = path.resolve(__dirname, `../../src/_common/docs/web/design/${componentName}.md`);
+    const designDocPath = path.resolve(__dirname, `../../packages/web/_common/docs/web/design/${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
       const designDocLastUpdated =
