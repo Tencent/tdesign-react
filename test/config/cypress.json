@@ -1,8 +1,8 @@
 {
   "baseUrl": "http://127.0.0.1:15000",
   "integrationFolder": "./",
-  "componentFolder": "./src",
-  "testFiles": ["./src/**/*.spec.*"],
+  "componentFolder": "./packages/web",
+  "testFiles": ["./packages/web/**/*.spec.*"],
   "fileServerFolder": "test/scripts/cypress",
   "fixturesFolder": "test/scripts/cypress/fixtures",
   "pluginsFile": "test/scripts/cypress/plugins/index.js",
