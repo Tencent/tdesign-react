@@ -1,6 +1,4 @@
-import isFunction from 'lodash/isFunction';
-import get from 'lodash/get';
-import isObject from 'lodash/isObject';
+import { isFunction , get , isObject } from 'lodash-es';
 import {
   BaseTableCellParams,
   CellData,

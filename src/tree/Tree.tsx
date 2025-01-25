@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 
 import TreeNode from '../_common/js/tree-v1/tree-node';
 import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';

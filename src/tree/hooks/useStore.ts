@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
 import usePrevious from '../../hooks/usePrevious';
 import TreeStore from '../../_common/js/tree-v1/tree-store';

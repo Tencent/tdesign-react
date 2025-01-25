@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useRef, useState } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
 import Button from '../button';

@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 
 export default function useResizeObserver(container: HTMLElement, callback: (data: [ResizeObserverEntry]) => void) {
   let containerObserver: ResizeObserver = null;

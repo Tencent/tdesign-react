@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash-es';
 import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
 import useConfig from '../hooks/useConfig';
 import { DropdownProps } from './Dropdown';

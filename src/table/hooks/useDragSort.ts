@@ -1,7 +1,7 @@
 // 表格 行拖拽 + 列拖拽功能
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { PaginationProps } from '../../pagination';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';

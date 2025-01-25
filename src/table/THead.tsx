@@ -1,5 +1,5 @@
 import React, { useRef, MutableRefObject, CSSProperties, useMemo } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import classNames from 'classnames';
 import { getColumnFixedStyles } from './hooks/useFixed';
 import { RowAndColFixedPosition } from './interface';

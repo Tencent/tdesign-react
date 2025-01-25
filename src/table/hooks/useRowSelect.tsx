@@ -1,9 +1,7 @@
 // 行选中相关功能：单选 + 多选
 
 import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
-import intersection from 'lodash/intersection';
-import get from 'lodash/get';
-import isFunction from 'lodash/isFunction';
+import { intersection , get , isFunction } from 'lodash-es';
 import useControlled from '../../hooks/useControlled';
 import {
   PrimaryTableCellParams,

@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import isNumber from 'lodash/isNumber';
-import isFunction from 'lodash/isFunction';
+import { isNumber , isFunction } from 'lodash-es';
 import {
   ArrowTriangleDownFilledIcon as TDArrowTriangleDownFilledIcon,
   ArrowTriangleUpFilledIcon as TDArrowTriangleUpFilledIcon,

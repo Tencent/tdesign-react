@@ -5,7 +5,7 @@ import {
   BrowseOffIcon as TdBrowseOffIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';

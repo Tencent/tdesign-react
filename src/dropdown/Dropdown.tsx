@@ -1,6 +1,6 @@
 import React, { isValidElement, useState } from 'react';
 import classNames from 'classnames';
-import omit from 'lodash/omit';
+import { omit } from 'lodash-es';
 import { DropdownOption, TdDropdownProps } from './type';
 import { StyledProps } from '../common';
 import Popup, { PopupVisibleChangeContext } from '../popup';

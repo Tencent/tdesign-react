@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash-es';
 import classNames from 'classnames';
 import Popup, { PopupProps } from '../popup';
 import Checkbox from '../checkbox';

@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
 import Tag from '../tag';

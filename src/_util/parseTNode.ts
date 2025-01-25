@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { TNode } from '../common';
 import log from '../_common/js/log';
 

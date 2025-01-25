@@ -11,9 +11,7 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash/isFunction';
-import get from 'lodash/get';
-import debounce from 'lodash/debounce';
+import { isFunction , get , debounce } from 'lodash-es';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';

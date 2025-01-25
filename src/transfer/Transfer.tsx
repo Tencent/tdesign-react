@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import difference from 'lodash/difference';
+import { difference , isArray } from 'lodash-es';
 import classnames from 'classnames';
-import isArray from 'lodash/isArray';
 import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
 import useConfig from '../hooks/useConfig';
