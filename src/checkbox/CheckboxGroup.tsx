@@ -138,11 +138,14 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
             checkedSet.delete(checkValue);
           }
 
+          const currentOptionChecked = optionsWithoutCheckAll.find((item) => item.value === checkValue);
+
           // 此处 `as` 是因为 `Array.from` 会导致 `checkSet` 的 generic type 丢失
           setInternalValue(Array.from(checkedSet) as T, {
             e,
             current: checkProps.checkAll ? undefined : (checkValue as TdCheckboxProps),
             type: checked ? 'check' : 'uncheck',
+            option: checkProps.checkAll ? undefined : currentOptionChecked,
           });
         },
       };
