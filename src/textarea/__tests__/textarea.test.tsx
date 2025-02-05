@@ -85,4 +85,11 @@ describe('Textarea 组件测试', () => {
     expect(changeValue).not.toBeNull();
     expect(event).not.toBeNull();
   });
+
+  test('autofocus cursor end', async () => {
+    const value = 'test autofocus';
+    const { container } = render(<Textarea value={value} autofocus />);
+
+    expect(container.getElementsByTagName('textarea')[0].selectionStart).toBe(value.length);
+  });
 });
