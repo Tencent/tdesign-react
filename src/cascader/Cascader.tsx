@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { pick , omit } from 'lodash-es';
+import { pick, omit } from 'lodash-es';
 import Panel from './components/Panel';
 import SelectInput from '../select-input';
 import FakeArrow from '../common/FakeArrow';
@@ -91,6 +91,30 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
   const renderValueDisplay = () => parseContentTNode(props.valueDisplay, valueDisplayParams);
 
   const { setVisible, visible, inputVal, setInputVal } = cascaderContext;
+
+  const updateScrollTop = (content: HTMLDivElement) => {
+    const cascaderMenuList = content.querySelectorAll(`.${COMPONENT_NAME}__menu`);
+    requestAnimationFrame(() => {
+      cascaderMenuList.forEach((menu: HTMLDivElement) => {
+        const firstSelectedNode: HTMLDivElement =
+          menu?.querySelector(`.${classPrefix}-is-selected`) || menu?.querySelector(`.${classPrefix}-is-expanded`);
+        if (!firstSelectedNode || !menu) return;
+
+        const { paddingBottom } = getComputedStyle(firstSelectedNode);
+        const { marginBottom } = getComputedStyle(menu);
+        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+
+        const updateValue =
+          firstSelectedNode.offsetTop -
+          menu.offsetTop -
+          (menu.clientHeight - firstSelectedNode.clientHeight) +
+          elementBottomHeight;
+        // eslint-disable-next-line no-param-reassign
+        menu.scrollTop = updateValue;
+      });
+    });
+  };
+
   return (
     <SelectInput
       className={classNames(COMPONENT_NAME, props.className)}
@@ -114,6 +138,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       valueDisplay={renderValueDisplay()}
       suffix={props.suffix}
       suffixIcon={renderSuffixIcon()}
+      updateScrollTop={updateScrollTop}
       popupProps={{
         ...props.popupProps,
         overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},
