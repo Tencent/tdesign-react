@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash-es';
 import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';

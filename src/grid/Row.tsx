@@ -1,6 +1,6 @@
 import React, { useEffect, useState, forwardRef, createContext } from 'react';
 import classNames from 'classnames';
-import isObject from 'lodash/isObject';
+import { isObject } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';

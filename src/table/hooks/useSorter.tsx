@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent, useEffect } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
 import SorterButton from '../SorterButton';
 import useControlled from '../../hooks/useControlled';

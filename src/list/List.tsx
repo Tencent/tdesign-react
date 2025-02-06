@@ -1,7 +1,7 @@
 import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
 
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';

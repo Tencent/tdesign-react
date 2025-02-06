@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 
-import isEqual from 'lodash/isEqual';
-import isFunction from 'lodash/isFunction';
+import { isEqual , isFunction } from 'lodash-es';
 
 import TreeStore from '../_common/js/tree-v1/tree-store';
 import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from './core/helper';

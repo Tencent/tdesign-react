@@ -1,5 +1,5 @@
 import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import PrimaryTable from './PrimaryTable';
 import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
 import useTreeData from './hooks/useTreeData';

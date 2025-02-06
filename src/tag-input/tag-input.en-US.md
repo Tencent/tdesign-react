@@ -20,6 +20,7 @@ inputValue | String / Number | '' | input value。Typescript：`string` | N
 defaultInputValue | String / Number | '' | input value。uncontrolled property。Typescript：`string` | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | - | max tag number | N
+maxRows | Number | - | max tag rows | N
 minCollapsedNum | Number | 0 | \- | N
 placeholder | String | undefined | placeholder description | N
 prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

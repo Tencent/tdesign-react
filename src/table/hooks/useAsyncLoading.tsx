@@ -1,5 +1,5 @@
 import React from 'react';
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import classNames from 'classnames';
 import { TdPrimaryTableProps } from '../type';
 import Loading from '../../loading';

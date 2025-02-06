@@ -130,8 +130,14 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   useIsomorphicLayoutEffect(() => {
     adjustTextareaHeight();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textareaRef?.current]);
+    if (autofocus && textareaRef.current) {
+      const textarea = textareaRef.current;
+      textarea.focus();
+      // 将光标移到内容的末尾
+      textarea.selectionStart = textarea.value.length;
+      textarea.selectionEnd = textarea.value.length;
+    }
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
     // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性

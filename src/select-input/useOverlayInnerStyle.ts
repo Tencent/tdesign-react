@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import isObject from 'lodash/isObject';
-import isFunction from 'lodash/isFunction';
+import { isObject , isFunction } from 'lodash-es';
 
 import useControlled from '../hooks/useControlled';
 

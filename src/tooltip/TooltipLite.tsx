@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useRef, useEffect, useCallback } from 'react';
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash-es';
 import { StyledProps } from '../common';
 import useSwitch from '../hooks/useSwitch';
 import useAnimation from '../hooks/useAnimation';

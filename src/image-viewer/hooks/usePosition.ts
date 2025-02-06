@@ -1,5 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 
 export type PositionType = [number, number];
 

@@ -20,6 +20,7 @@ inputValue | String / Number | '' | 输入框的值。TS 类型：`string` | N
 defaultInputValue | String / Number | '' | 输入框的值。非受控属性。TS 类型：`string` | N
 label | TNode | - | 左侧文本。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | - | 最大允许输入的标签数量 | N
+maxRows | Number | - | 最大允许显示的行数，超出会出现滚动条，默认为不限制。  | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于标签数量过多的情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 placeholder | String | undefined | 占位符 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

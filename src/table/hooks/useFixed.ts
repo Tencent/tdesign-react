@@ -1,7 +1,5 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
-import get from 'lodash/get';
-import pick from 'lodash/pick';
-import xorWith from 'lodash/xorWith';
+import { get , pick , xorWith } from 'lodash-es';
 import { getIEVersion } from '../../_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';

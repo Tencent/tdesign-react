@@ -1,5 +1,5 @@
 import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect, ClipboardEventHandler } from 'react';
-import merge from 'lodash/merge';
+import { merge } from 'lodash-es';
 import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
   getFilesAndErrors,

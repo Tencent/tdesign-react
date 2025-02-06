@@ -1,4 +1,4 @@
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 import classNames from 'classnames';
 import useConfig from '../../hooks/useConfig';
 import type { TreeSelectProps } from '../TreeSelect';

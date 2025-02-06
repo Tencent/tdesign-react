@@ -1,7 +1,6 @@
 import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import isFunction from 'lodash/isFunction';
-import debounce from 'lodash/debounce';
+import { isFunction , debounce } from 'lodash-es';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';

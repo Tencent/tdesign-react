@@ -2,7 +2,7 @@ import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import TLoading from '../../loading';
 import Checkbox from '../../checkbox';
 

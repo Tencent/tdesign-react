@@ -1,18 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import classnames from 'classnames';
-import isFunction from 'lodash/isFunction';
-import isEmpty from 'lodash/isEmpty';
-import isString from 'lodash/isString';
+import { isFunction , isEmpty , isString } from 'lodash-es';
 import { SearchIcon as TdSearchIcon } from 'tdesign-icons-react';
 import { getLeafNodes } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdTransferProps, TransferValue } from './type';
+import { TdTransferProps, TransferListType, TransferValue } from './type';
 import { TNode, StyledProps } from '../common';
 import Checkbox from '../checkbox';
 import Input from '../input';
 import Pagination, { PaginationProps } from '../pagination';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { parseContentTNode } from '../_util/parseTNode';
 
 interface TransferListProps
   extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>,
@@ -26,6 +25,7 @@ interface TransferListProps
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;
   showCheckAll?: boolean;
+  listType: TransferListType;
 }
 
 const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
@@ -46,6 +46,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     transferItem,
     tree: treeNode,
     showCheckAll,
+    listType,
   } = props;
   const notDisabledData = !treeNode
     ? data.filter((item) => !item.disabled)
@@ -130,7 +131,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
         {viewData.map((item, index) => (
           <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
             <span>
-              {typeof transferItem === 'function' ? transferItem({ data: item, index, type: 'source' }) : item.label}
+              {transferItem ? parseContentTNode(transferItem, { data: item, index, type: listType }) : item.label}
             </span>
           </Checkbox>
         ))}

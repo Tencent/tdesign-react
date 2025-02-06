@@ -1,8 +1,7 @@
 import React, { isValidElement } from 'react';
 import type { ReactNode } from 'react';
 import cls from 'classnames';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import { isObject , isString } from 'lodash-es';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
