@@ -52,9 +52,10 @@ const List = forwardRefWithStatics(
     const [local, t] = useLocaleReceiver('list');
 
     const listItems = useMemo(
-      () => React.Children.map(children, (child: React.ReactElement) => child.props),
+      () => React.Children.map(children, (child: React.ReactElement) => child.props) ?? [],
       [children],
     );
+
     const { virtualConfig, cursorStyle, listStyle, isVirtualScroll, onInnerVirtualScroll, scrollToElement } =
       useListVirtualScroll(scroll, wrapperRef, listItems);
 
@@ -98,29 +99,22 @@ const List = forwardRefWithStatics(
       scrollTo: scrollToElement,
     }));
 
-    const renderContent = () => {
-      const propsHeaderContent = parseTNode(header);
-      const propsFooterContent = parseTNode(footer);
-
-      return (
-        <>
-          {propsHeaderContent ? <div className={`${COMPONENT_NAME}__header`}>{propsHeaderContent}</div> : null}
-          {isVirtualScroll ? (
-            <>
-              <div style={cursorStyle}></div>
-              <ul className={`${COMPONENT_NAME}__inner`} style={listStyle}>
-                {virtualConfig.visibleData.map((item, index) => (
-                  <ListItem key={index} content={item.children}></ListItem>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <ul className={`${COMPONENT_NAME}__inner`}>{children}</ul>
-          )}
-          {propsFooterContent ? <div className={`${COMPONENT_NAME}__footer`}>{propsFooterContent}</div> : null}
-        </>
-      );
-    };
+    const renderContent = () => (
+      <>
+        {isVirtualScroll ? (
+          <>
+            <div style={cursorStyle}></div>
+            <ul className={`${COMPONENT_NAME}__inner`} style={listStyle}>
+              {virtualConfig.visibleData.map((item, index) => (
+                <ListItem key={index} content={item.children}></ListItem>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <ul className={`${COMPONENT_NAME}__inner`}>{children}</ul>
+        )}
+      </>
+    );
 
     return (
       <div
@@ -138,10 +132,10 @@ const List = forwardRefWithStatics(
           [`${classPrefix}-size-l`]: size === 'large',
         })}
       >
-        {header && <div className={`${COMPONENT_NAME}__header`}>{header}</div>}
+        {header && <div className={`${COMPONENT_NAME}__header`}>{parseTNode(header)}</div>}
         {renderContent()}
         {asyncLoading && loadElement}
-        {footer && <div className={`${COMPONENT_NAME}__footer`}>{footer}</div>}
+        {footer && <div className={`${COMPONENT_NAME}__footer`}>{parseTNode(footer)}</div>}
       </div>
     );
   },
