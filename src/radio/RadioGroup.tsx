@@ -7,7 +7,6 @@ import useCommonClassName from '../hooks/useCommonClassName';
 import { StyledProps } from '../common';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import Radio from './Radio';
-import useMutationObservable from '../hooks/useMutationObserver';
 import { radioGroupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useKeyboard from './useKeyboard';
@@ -86,8 +85,6 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   useEffect(() => {
     calcBarStyle();
   }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useMutationObservable(radioGroupRef.current, calcBarStyle);
 
   const renderBlock = () => {
     if (!variant.includes('filled')) {
