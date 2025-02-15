@@ -27,7 +27,7 @@ const VirtualScroll = () => {
   }, []);
 
   return (
-    <Space direction="vertical">
+    <Space style={{ width: '100%' }} direction="vertical">
       <List
         ref={listRef}
         style={{ height: '300px' }}
