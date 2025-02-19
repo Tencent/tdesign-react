@@ -143,7 +143,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
   let childrenNode: React.ReactNode = null;
   if (!Reflect.has(props, 'loading')) {
-    childrenNode = React.cloneElement(card, { style });
+    childrenNode = card;
   } else if (React.isValidElement(loading)) {
     childrenNode = React.cloneElement(loading, null, card);
   } else {
