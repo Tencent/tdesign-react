@@ -1,4 +1,4 @@
-import { isFunction , get , isObject } from 'lodash-es';
+import { isFunction, get, isObject } from 'lodash-es';
 import {
   BaseTableCellParams,
   CellData,
@@ -9,6 +9,7 @@ import {
 } from './type';
 import { ClassName, HTMLElementAttributes } from '../common';
 import { AffixProps } from '../affix';
+import { getIEVersion } from '../_common/js/utils/helper';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
@@ -111,3 +112,29 @@ export function getAffixProps(mainAffixProps: boolean | Partial<AffixProps>, sub
   if (typeof subAffixProps === 'object') return subAffixProps;
   return {};
 }
+
+// 判断是否小于 ie11 版本 或者没有 ResizeObserver 对象
+export const isLessThanIE11OrNotHaveResizeObserver = () =>
+  typeof window === 'undefined' || getIEVersion() < 11 || typeof window.ResizeObserver === 'undefined';
+
+/**
+ * IE 11 版本以上或者支持 ResizeObserver API 的浏览器中，
+ * 使用 ResizeObserver API 来监听元素的尺寸变化
+ *
+ * 注意：建议 callback 使用前经过 useDebounce 包裹
+ *
+ * @param tableElement - 要监听的表格元素
+ * @param callback - 尺寸变化时调用的回调函数
+ */
+export const resizeObserverElement = (tableElement: HTMLDivElement, callback: () => void) => {
+  if (isLessThanIE11OrNotHaveResizeObserver()) return;
+  const resizeObserver = new window.ResizeObserver(() => {
+    // 注意：这里的回调会比较频繁，建议 callback 使用前经过 useDebounce 包裹
+    callback?.();
+  });
+  resizeObserver.observe(tableElement);
+  return () => {
+    resizeObserver?.unobserve?.(tableElement);
+    resizeObserver?.disconnect?.();
+  };
+};

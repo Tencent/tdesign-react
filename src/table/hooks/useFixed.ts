@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo, useRef, WheelEvent } from 'react';
-import { get , pick , xorWith } from 'lodash-es';
+import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback } from 'react';
+import { get, pick, xorWith } from 'lodash-es';
 import { getIEVersion } from '../../_common/js/utils/helper';
 import log from '../../_common/js/log';
 import { ClassName, Styles } from '../../common';
@@ -9,6 +9,7 @@ import { on, off } from '../../_util/dom';
 import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
 import usePrevious from '../../hooks/usePrevious';
+import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -342,9 +343,11 @@ export default function useFixed(
     };
   };
 
-  const updateFixedHeader = () => {
+  // 使用 useCallback 来优化性能
+  const updateFixedHeader = useCallback(() => {
     const tRef = tableContentRef?.current;
     if (!tRef) return;
+
     const isHeightOverflow = tRef.scrollHeight > tRef.clientHeight;
     setIsFixedHeader(isHeightOverflow);
     setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
@@ -356,7 +359,7 @@ export default function useFixed(
 
     // updateTableWidth(isHeightOverflow);
     // updateThWidthListHandler();
-  };
+  }, []);
 
   const setTableElmWidth = (width: number) => {
     if (tableElmWidth.current === width) return;
@@ -490,8 +493,30 @@ export default function useFixed(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, columns, tableContentRef]);
 
+  // 使用防抖函数，避免频繁触发
+  const updateFixedHeaderByUseDebounce = useDebounce(() => {
+    updateFixedHeader();
+  }, 30);
+
+  /**
+   * 通过监测表格大小变化，来调用 updateFixedHeader 修改状态
+   * 
+   * 这个问题已经定位到原因了，table在初始化后，会调用useEffect，动态计算表格滚动高度等变量，来动态设置isFixedHeader变量（暂且叫它悬浮变量），
+   * 如果悬浮变量为true的时候，会在表格页脚（footer）上增加fixed定位的样式，这样咱们就能看到底部的总数表页脚了。
+   * 现在的问题是，第二个TabPanel下的table在useEffect执行的时候，滚动高度为0（因为内容尚未初始化），导致悬浮变量是false，所以就看不到页脚。
+   * 此刻点击排序就能看到页脚汇总行，是因为排序会引起useEffect重新执行，此刻滚动高度是正常的数值（大于0），所以悬浮变量的值为true。
+
+   * [Table] Tabs 组件中的表格设置 maxHeight 属性，非默认 Tab 下的表格的表尾行显示不正常 #3365
+   * fixed: https://github.com/Tencent/tdesign-react/issues/3365
+   */
+  useEffect(() => {
+    if (tableContentRef.current) {
+      return resizeObserverElement(tableContentRef.current, updateFixedHeaderByUseDebounce);
+    }
+  }, [updateFixedHeaderByUseDebounce]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
+  useEffect(updateFixedHeaderByUseDebounce, [maxHeight, data, columns, bordered, tableContentRef]);
 
   useEffect(() => {
     updateTableElmWidthOnColumnChange(finalColumns, preFinalColumns);
@@ -537,22 +562,20 @@ export default function useFixed(
   }, 30);
 
   function addTableResizeObserver(tableElement: HTMLDivElement) {
-    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-    if (typeof window === 'undefined') return;
-    if (getIEVersion() < 11 || typeof window.ResizeObserver === 'undefined') return;
+    /**
+     * IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+     * 抽离相关判断为单独的方法
+     */
+    if (isLessThanIE11OrNotHaveResizeObserver()) return;
     off(window, 'resize', onResize);
     if (!tableElmWidth.current) return;
-    const resizeObserver = new window.ResizeObserver(() => {
+    // 抽离 resize 为单独的方法，通过回调来执行操作
+    return resizeObserverElement(tableElement, () => {
       const timer = setTimeout(() => {
         refreshTable();
         clearTimeout(timer);
       }, 60);
     });
-    resizeObserver.observe(tableElement);
-    return () => {
-      resizeObserver?.unobserve?.(tableElement);
-      resizeObserver?.disconnect?.();
-    };
   }
 
   useEffect(() => {
