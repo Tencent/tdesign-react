@@ -6,7 +6,11 @@ interface DebounceSettingsLeading extends DebounceSettings {
   leading: true;
 }
 
-const useDebounce = <T extends (...args: any) => any>(func: T, delay: number, options?: DebounceSettingsLeading) => {
+const useDebounce = <T extends (...args: any) => any>(
+  func: T,
+  delay: number,
+  options?: DebounceSettingsLeading,
+): ((...args: Parameters<T>) => ReturnType<T>) => {
   const callback = usePersistFn(func);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
