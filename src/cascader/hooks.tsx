@@ -1,12 +1,13 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 
-import { isEqual , isFunction } from 'lodash-es';
+import { isEqual, isFunction } from 'lodash-es';
 
 import TreeStore from '../_common/js/tree-v1/tree-store';
 import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from './core/helper';
 import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 
 import useControlled from '../hooks/useControlled';
+
 import type {
   TreeNode,
   TreeNodeValue,
@@ -83,6 +84,15 @@ export const useCascaderContext = (props: TdCascaderProps) => {
    */
 
   const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
+
+  const optionCurrent = useRef(options);
+
+  useEffect(() => {
+    if (!isEqual(optionCurrent.current, options)) {
+      optionCurrent.current = options;
+    }
+  }, [options]);
+
   useEffect(() => {
     if (!treeStore) {
       if (!options.length) return;
@@ -99,6 +109,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
         },
       });
       store.append(options as Array<TypeTreeNodeData>);
+
       setTreeStore(store);
     } else {
       treeStore.reload(options);
@@ -107,7 +118,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [optionCurrent.current]);
 
   useEffect(() => {
     if (!treeStore) return;
