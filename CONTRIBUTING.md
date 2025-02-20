@@ -108,6 +108,18 @@ TDesign 的项目都会以子仓库的形式引入 `tdesign-common` 公共仓库
 - 先进入 `src/\_common` 文件夹，正常将样式修改添加提交
 - 回到主仓库，此时应该会看到 `src/\_common` 文件夹是修改状态，按照正常步骤添加提交即可
 
+### 涉及子仓库的开发
+
+1. Fork 并克隆子仓库 https://github.com/Tencent/tdesign-common
+2. 新建分支，并进行开发
+3. 提交子仓库的 PR，等待代码合入
+4. 如果仅涉及子仓库改动，项目维护方会通过评论触发 CI，自动更新主仓库的子仓库指向；
+   
+   如果需要配合子仓库改动，需要在步骤 3 完成后，在主仓库的开发过程中，将子仓库的指向改为合并后的主干的 commit id，主仓库代码开发完后正常提交发起PR即可
+   ```bash
+   git submodule update --init --remote
+   ```
+
 ### 组件库 UI
 
 UI 是多个框架共用的，比如 PC 端的 react/vue/vue-next 都是复用子仓库的 UI 代码。
