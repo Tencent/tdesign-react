@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import { TdCardProps } from './type';
 import Loading from '../loading';
@@ -86,20 +86,20 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     [`${classPrefix}-card__description`]: description,
   });
 
-  const renderTitle = title ? <div className={titleClass}>{title}</div> : null;
+  const renderTitle = useMemo(()=>title ? <div className={titleClass}>{title}</div> : null,[title, titleClass]);
 
-  const renderSubtitle = subtitle ? <div className={subtitleClass}>{subtitle}</div> : null;
+  const renderSubtitle = useMemo(()=>subtitle ? <div className={subtitleClass}>{subtitle}</div> : null,[subtitle, subtitleClass]);
 
-  const renderDescription = description ? <p className={descriptionClass}>{description}</p> : null;
+  const renderDescription = useMemo(()=>description ? <p className={descriptionClass}>{description}</p> : null,[description, descriptionClass]);
 
-  const renderAvatar = avatar && <div className={avatarClass}>{avatar}</div>;
+  const renderAvatar = useMemo(()=>avatar && <div className={avatarClass}>{avatar}</div>,[avatar, avatarClass]);
 
-  const renderHeaderActions = actions && !isPoster2 && <div className={actionClass}>{actions}</div>;
-  const renderFooterActions = actions && isPoster2 && <div className={actionClass}>{actions}</div>;
+  const renderHeaderActions = useMemo(()=>actions && !isPoster2 && <div className={actionClass}>{actions}</div>,[actionClass, actions, isPoster2]);
+  const renderFooterActions = useMemo(()=>actions && isPoster2 && <div className={actionClass}>{actions}</div>,[actionClass, actions, isPoster2]);
 
-  const renderStatus = status && isPoster2 && <div className={actionClass}>{status}</div>;
+  const renderStatus = useMemo(()=>status && isPoster2 && <div className={actionClass}>{status}</div>,[actionClass, isPoster2, status]);
 
-  const renderHeader = () => {
+  const renderHeader = useCallback(() => {
     if (header) {
       return <div className={headerClass}>{header}</div>;
     }
@@ -117,42 +117,42 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         {renderStatus}
       </div>
     );
-  };
+  },[classPrefix, header, headerClass, renderAvatar, renderDescription, renderHeaderActions, renderStatus, renderSubtitle, renderTitle]);
 
-  const renderCover = cover ? (
-    <div className={coverClass}>{typeof cover === 'string' ? <img src={cover} alt=""></img> : cover}</div>
-  ) : null;
+  const childrenNode = useMemo<React.ReactNode>(()=>{
 
-  const renderChildren = children && <div className={bodyClass}>{children}</div>;
+    const renderCover = cover ? (
+      <div className={coverClass}>{typeof cover === 'string' ? <img src={cover} alt=""></img> : cover}</div>
+    ) : null;
+  
+    const renderChildren = children && <div className={bodyClass}>{children}</div>;
+  
+    const renderFooter = footer && (
+      <div className={footerClass}>
+        <div className={`${classPrefix}-card__footer-wrapper`}>{footer}</div>
+        {renderFooterActions}
+      </div>
+    );
 
-  const renderFooter = footer && (
-    <div className={footerClass}>
-      <div className={`${classPrefix}-card__footer-wrapper`}>{footer}</div>
-      {renderFooterActions}
-    </div>
-  );
-
-  const card = (
-    <>
-      {showHeader ? renderHeader() : null}
-      {renderCover}
-      {renderChildren}
-      {renderFooter}
-    </>
-  );
-
-  let childrenNode: React.ReactNode = null;
-  if (!Reflect.has(props, 'loading')) {
-    childrenNode = React.cloneElement(card, { style });
-  } else if (React.isValidElement(loading)) {
-    childrenNode = React.cloneElement(loading, null, card);
-  } else {
-    childrenNode = (
+    const card = (
+      <>
+        {showHeader ? renderHeader() : null}
+        {renderCover}
+        {renderChildren}
+        {renderFooter}
+      </>
+    );
+    if (!Reflect.has(props, 'loading')) {
+      return card;
+    } if (React.isValidElement(loading)) {
+      return React.cloneElement(loading, null, card);
+    } 
+    return  (
       <Loading {...loadingProps} loading={!!loading}>
         {card}
       </Loading>
     );
-  }
+  },[bodyClass, children, classPrefix, cover, coverClass, footer, footerClass, loading, loadingProps, props, renderFooterActions, renderHeader, showHeader]);
 
   return (
     <div ref={ref} className={cardClass} style={style}>
