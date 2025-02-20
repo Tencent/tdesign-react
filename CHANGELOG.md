@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.0 `2025-02-20` 
+### 🚀 Features
+- `Cascader`:  新增支持在打开菜单时，自动滚动到首个已选项所在节点的能力 @uyarn ([#3357](https://github.com/Tencent/tdesign-react/pull/3357))
+-  `DatePicker`: 调整组件禁用日期`before`和`after`参数的逻辑，调整为禁用`before`定义之前和`after`定义之后的日期选择，此前有使用相关 API 请注意此改动 @lifeiFront ([#3362](https://github.com/Tencent/tdesign-react/pull/3362))
+- `List`: 新增 `scroll` API，用于大数据量下支持开启虚拟滚动 @HaixingOoO ([#3363](https://github.com/Tencent/tdesign-react/pull/3363))
+- `Menu`: 菜单新增折叠收起的动画效果 @hd10180 ([#3342](https://github.com/Tencent/tdesign-react/pull/3342))
+- `TagInput`: 新增 `maxRows` API，用于设置最大展示行数 @Shabi-x ([#3293](https://github.com/Tencent/tdesign-react/pull/3293))
+
+### 🐞 Bug Fixes
+- `Card`: 修复 React 19 中的告警问题 @HaixingOoO ([#3369](https://github.com/Tencent/tdesign-react/pull/3369))
+- `Cascader`: 修复多选动态加载使用异常的问题 @uyarn ([#3376](https://github.com/Tencent/tdesign-react/pull/3376))
+- `CheckboxGroup`: 修复 `onChange` 的 `context` 参数缺少`option`的问题 @HaixingOoO ([#3349](https://github.com/Tencent/tdesign-react/pull/3349))
+-  `DatePicker`: 修复日期选择在负数时区的异常问题 @lifeiFront ([#3362](https://github.com/Tencent/tdesign-react/pull/3362))
+- `Dropdown`: 修复点击事件回调context参数返回不符合文档描述的问题 @uyarn ([#3372](https://github.com/Tencent/tdesign-react/pull/3372))
+- `Radio`: 修复 `RadioGroup` 在 React 19 版本下异常的问题 @HaixingOoO ([#3364](https://github.com/Tencent/tdesign-react/pull/3364))
+- `Tabs`: 修复可滑动`Tabs`配合`action`使用的样式问题 @Wesley-0808([#3343](https://github.com/Tencent/tdesign-react/pull/3343))
+- `Table`: 修复配合`Tabs`使用，切换 tab 时，Table 的 footer 不显示的问题 @wonkzhang ([#3370](https://github.com/Tencent/tdesign-react/pull/3370))
+- `Textarea`: 修复使用 `autofocus` API 且 `value` 有值时，光标没有跟随内容末尾的问题 @HaixingOoO ([#3358](https://github.com/Tencent/tdesign-react/pull/3358))
+- `Transfer`: 修复 `TransferItem` 无效的问题 @HaixingOoO ([#3339](https://github.com/Tencent/tdesign-react/pull/3339))
+
+
+### 🚧 Others
+-  调整组件依赖 `lodash` 依赖为`lodash-es` @zhangpaopao0609  ([#3345](https://github.com/Tencent/tdesign-react/pull/3345))
+
 ## 🌈 1.10.5 `2025-01-16` 
 ### 🚀 Features
 - `Radio`: `RadioGroup` 新增 `theme` API，用于决定使用 options 时渲染的子组件样式 @HaixingOoO ([#3303](https://github.com/Tencent/tdesign-react/pull/3303))
