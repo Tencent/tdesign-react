@@ -132,6 +132,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {renderFooterActions}
     </div>
   );
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const card = (
     <>
       {showHeader ? renderHeader() : null}
