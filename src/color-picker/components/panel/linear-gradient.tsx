@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import classNames from 'classnames';
 import useClassName from '../../hooks/useClassNames';
 import { genGradientPoint, gradientColors2string } from '../../../_common/js/color-picker/color';

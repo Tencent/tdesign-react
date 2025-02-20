@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
-import get from 'lodash/get';
-import set from 'lodash/set';
-import isFunction from 'lodash/isFunction';
-import cloneDeep from 'lodash/cloneDeep';
+import { get , set , isFunction , cloneDeep } from 'lodash-es';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import {

@@ -1,18 +1,19 @@
-import React, { MouseEvent, WheelEvent } from 'react';
+import React, { MouseEvent, useImperativeHandle, useMemo, useRef, WheelEvent } from 'react';
 import classNames from 'classnames';
-
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import { TdListProps } from './type';
-import { StyledProps } from '../common';
+import { ComponentScrollToElementParams, StyledProps } from '../common';
 import Loading from '../loading';
 import ListItem from './ListItem';
 import ListItemMeta from './ListItemMeta';
 import { listDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { useListVirtualScroll } from './hooks/useListVirtualScroll';
+import parseTNode from '../_util/parseTNode';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**
@@ -21,11 +22,15 @@ export interface ListProps extends TdListProps, StyledProps {
   children?: React.ReactNode;
 }
 
+export type ListRef = {
+  scrollTo: (params: ComponentScrollToElementParams) => void;
+};
+
 /**
  * 列表组件
  */
 const List = forwardRefWithStatics(
-  (props: ListProps, ref: React.Ref<HTMLDivElement>) => {
+  (props: ListProps, ref: React.Ref<ListRef>) => {
     const {
       header,
       footer,
@@ -39,10 +44,22 @@ const List = forwardRefWithStatics(
       onLoadMore = noop,
       onScroll = noop,
       style,
+      scroll,
     } = useDefaultProps<ListProps>(props, listDefaultProps);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const { classPrefix } = useConfig();
     const [local, t] = useLocaleReceiver('list');
+
+    const listItems = useMemo(
+      () => React.Children.map(children, (child: React.ReactElement) => child.props) ?? [],
+      [children],
+    );
+
+    const { virtualConfig, cursorStyle, listStyle, isVirtualScroll, onInnerVirtualScroll, scrollToElement } =
+      useListVirtualScroll(scroll, wrapperRef, listItems);
+
+    const COMPONENT_NAME = `${classPrefix}-list`;
 
     const handleClickLoad = (e: MouseEvent<HTMLDivElement>) => {
       if (asyncLoading === 'load-more') {
@@ -54,6 +71,7 @@ const List = forwardRefWithStatics(
       const { currentTarget } = event;
       const { scrollTop, offsetHeight, scrollHeight } = currentTarget;
       const scrollBottom = scrollHeight - scrollTop - offsetHeight;
+      if (isVirtualScroll) onInnerVirtualScroll(event as unknown as globalThis.WheelEvent);
       onScroll({ e: event, scrollTop, scrollBottom });
     };
 
@@ -77,23 +95,47 @@ const List = forwardRefWithStatics(
       asyncLoading
     );
 
+    useImperativeHandle(ref, () => ({
+      scrollTo: scrollToElement,
+    }));
+
+    const renderContent = () => (
+      <>
+        {isVirtualScroll ? (
+          <>
+            <div style={cursorStyle}></div>
+            <ul className={`${COMPONENT_NAME}__inner`} style={listStyle}>
+              {virtualConfig.visibleData.map((item, index) => (
+                <ListItem key={index} content={item.children}></ListItem>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <ul className={`${COMPONENT_NAME}__inner`}>{children}</ul>
+        )}
+      </>
+    );
+
     return (
       <div
-        ref={ref}
-        style={style}
+        ref={wrapperRef}
+        style={{
+          ...style,
+          position: isVirtualScroll ? 'relative' : undefined,
+        }}
         onScroll={handleScroll}
-        className={classNames(`${classPrefix}-list`, className, {
-          [`${classPrefix}-list--split`]: split,
-          [`${classPrefix}-list--stripe`]: stripe,
-          [`${classPrefix}-list--vertical-action`]: layout === 'vertical',
+        className={classNames(`${COMPONENT_NAME}`, className, {
+          [`${COMPONENT_NAME}--split`]: split,
+          [`${COMPONENT_NAME}--stripe`]: stripe,
+          [`${COMPONENT_NAME}--vertical-action`]: layout === 'vertical',
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
         })}
       >
-        {header && <div className={`${classPrefix}-list__header`}>{header}</div>}
-        <ul className={`${classPrefix}-list__inner`}>{children}</ul>
+        {header && <div className={`${COMPONENT_NAME}__header`}>{parseTNode(header)}</div>}
+        {renderContent()}
         {asyncLoading && loadElement}
-        {footer && <div className={`${classPrefix}-list__footer`}>{footer}</div>}
+        {footer && <div className={`${COMPONENT_NAME}__footer`}>{parseTNode(footer)}</div>}
       </div>
     );
   },

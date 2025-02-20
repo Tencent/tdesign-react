@@ -1,6 +1,6 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import isObject from 'lodash/isObject';
+import { isObject } from 'lodash-es';
 import {
   RoundIcon as TdRoundIcon,
   ChevronUpIcon as TdChevronUpIcon,

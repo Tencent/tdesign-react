@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
-import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
+import { debounce , isEqual } from 'lodash-es';
 import useLatest from './useLatest';
 
 const DEFAULT_OPTIONS = {

@@ -1,9 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
-import isFunction from 'lodash/isFunction';
-import isEqual from 'lodash/isEqual';
-import merge from 'lodash/merge';
-import get from 'lodash/get';
-import set from 'lodash/set';
+import { isEmpty , isFunction , isEqual , merge , get , set } from 'lodash-es';
 import type {
   TdFormProps,
   FormValidateResult,

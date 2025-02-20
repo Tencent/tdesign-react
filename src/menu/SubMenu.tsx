@@ -1,5 +1,6 @@
-import React, { FC, useContext, useState, ReactElement, useMemo } from 'react';
+import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from 'react';
 import classNames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import { StyledProps } from '../common';
 import { TdSubmenuProps } from './type';
 import useConfig from '../hooks/useConfig';
@@ -79,6 +80,23 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
+  const contentRef = useRef<HTMLUListElement>();
+
+  const transitionCallbacks = {
+    onEnter: () => {
+      contentRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+    },
+    onEntered: () => {
+      contentRef.current.style.height = 'auto';
+    },
+    onExit: () => {
+      contentRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+    },
+    onExiting: () => {
+      contentRef.current.style.height = '0px';
+    },
+  };
+
   const pupContent = (
     <ul
       className={classNames(`${classPrefix}-menu__popup-wrapper`, {
@@ -113,13 +131,22 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
       </div>
       {!isPopUp && (
-        <ul
-          key="normal"
-          style={{ ...childStyle, '--padding-left': `${menuPaddingLeft}px` } as React.CSSProperties}
-          className={`${classPrefix}-menu__sub`}
-        >
-          {childrens}
-        </ul>
+        <CSSTransition in={isOpen} appear timeout={300} nodeRef={contentRef} {...transitionCallbacks}>
+          <ul
+            key="normal"
+            style={
+              {
+                ...childStyle,
+                '--padding-left': `${menuPaddingLeft}px`,
+                overflow: 'hidden',
+              } as React.CSSProperties
+            }
+            className={classNames(`${classPrefix}-menu__sub`, `${classPrefix}-slide-down-enter-active`)}
+            ref={contentRef}
+          >
+            {childrens}
+          </ul>
+        </CSSTransition>
       )}
     </li>
   );

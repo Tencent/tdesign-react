@@ -1,8 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import difference from 'lodash/difference';
+import { difference , isArray } from 'lodash-es';
 import classnames from 'classnames';
-import isFunction from 'lodash/isFunction';
-import isArray from 'lodash/isArray';
 import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
 import { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
 import useConfig from '../hooks/useConfig';
@@ -98,9 +96,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (originalProps) => {
     () => <ChevronLeftIcon />,
   ]).map((item) => getJSX(item));
   const [sourceFooter, targetFooter] = getDefaultValue(footer as any).map((item) => getJSX(item));
-  const [sourceTransferItem, targetTransferItem] = getDefaultValue(
-    isFunction(transferItem) ? transferItem({ data, index: undefined, type: undefined }) : transferItem,
-  );
+
   const [sourceContent, targetContent] = getDefaultValue(content);
 
   const [showCheckAllSource, showCheckAllTarget] = useMemo(
@@ -243,6 +239,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (originalProps) => {
     >
       <TransferList
         className={`${transferClassName}__list-source`}
+        listType="source"
         data={sourceData}
         search={search}
         checked={checkeds.source}
@@ -251,7 +248,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (originalProps) => {
         pagination={sourcePagination}
         title={sourceTitle}
         footer={sourceFooter}
-        transferItem={sourceTransferItem}
+        transferItem={transferItem}
         content={sourceContent}
         onCheckbox={(value) => handleCheckChange(value, 'source')}
         onSearch={(val: string) => setSearchState({ ...searchState, source: val })}
@@ -261,6 +258,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (originalProps) => {
       {OperationsCmp()}
       <TransferList
         className={`${transferClassName}__list-target`}
+        listType="target"
         data={targetData}
         search={search}
         checked={checkeds.target}
@@ -269,7 +267,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (originalProps) => {
         pagination={targetPagination}
         title={targetTitle}
         footer={targetFooter}
-        transferItem={targetTransferItem}
+        transferItem={transferItem}
         content={targetContent}
         onCheckbox={(value) => handleCheckChange(value, 'target')}
         onSearch={(val: string) => setSearchState({ ...searchState, target: val })}

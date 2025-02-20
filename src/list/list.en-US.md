@@ -12,6 +12,7 @@ asyncLoading | TNode | - | Typescript：`string \| TNode`。[see more ts definit
 footer | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 header | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 layout | String | horizontal | options：horizontal/vertical | N
+scroll | Object | - | lazy load and virtual scroll。Typescript：`TScroll`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 size | String | medium | options：small/medium/large | N
 split | Boolean | false | \- | N
 stripe | Boolean | false | \- | N

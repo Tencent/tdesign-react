@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useRef, useState } from 'react';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
 import Button from '../button';
@@ -8,7 +8,7 @@ import Popup, { PopupProps } from '../popup';
 import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
 import { addClass, removeClass, isFixed, getWindowScroll, canUseDocument } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
-import setStyle from '../_common/js/utils/set-style';
+import setStyle from '../_common/js/utils/setStyle';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';

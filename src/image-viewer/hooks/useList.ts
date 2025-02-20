@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import isString from 'lodash/isString';
-import isArray from 'lodash/isArray';
+import { isString , isArray } from 'lodash-es';
 import type { ImageInfo, TdImageViewerProps } from '../type';
 
 const isImageInfo = (image: string | File | ImageInfo): image is ImageInfo =>

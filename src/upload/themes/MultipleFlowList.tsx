@@ -1,7 +1,6 @@
 import React, { MouseEvent, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash/isFunction';
-import isObject from 'lodash/isObject';
+import { isFunction , isObject } from 'lodash-es';
 import {
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,

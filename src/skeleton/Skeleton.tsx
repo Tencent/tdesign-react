@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import isNumber from 'lodash/isNumber';
+import { isNumber } from 'lodash-es';
 import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 

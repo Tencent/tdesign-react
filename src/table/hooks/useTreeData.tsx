@@ -3,7 +3,7 @@ import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-react';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import classNames from 'classnames';
 import TableTreeStore, { SwapParams } from '../../_common/js/table/tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';

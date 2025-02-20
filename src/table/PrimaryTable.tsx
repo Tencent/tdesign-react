@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle, ReactNode, RefAttributes } from 'react';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import classNames from 'classnames';
 import BaseTable from './BaseTable';
 import useColumnController from './hooks/useColumnController';

@@ -12,8 +12,7 @@ import React, {
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import padStart from 'lodash/padStart';
-import range from 'lodash/range';
+import { padStart , range } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
 import noop from '../../_util/noop';

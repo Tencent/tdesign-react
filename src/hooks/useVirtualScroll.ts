@@ -127,8 +127,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
   const addIndexToData = (data: any[]) => {
     data.forEach((item, index) => {
-      // eslint-disable-next-line
-      item['__VIRTUAL_SCROLL_INDEX'] = index;
+      Reflect.set(item, '__VIRTUAL_SCROLL_INDEX', index);
     });
   };
 

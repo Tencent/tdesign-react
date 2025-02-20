@@ -1,7 +1,5 @@
 import React, { CSSProperties, MutableRefObject, ReactNode, useMemo } from 'react';
-import camelCase from 'lodash/camelCase';
-import get from 'lodash/get';
-import pick from 'lodash/pick';
+import { camelCase , get , pick } from 'lodash-es';
 import classNames from 'classnames';
 import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 import { useLocaleReceiver } from '../locale/LocalReceiver';

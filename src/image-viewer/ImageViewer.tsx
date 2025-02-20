@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { ImageModal } from './ImageViewerModal';
 import { imageViewerDefaultProps } from './defaultProps';
 import type { TdImageViewerProps } from './type';

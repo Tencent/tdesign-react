@@ -118,5 +118,6 @@ export type CheckboxGroupValue = Array<string | number | boolean>;
 export interface CheckboxGroupChangeContext {
   e: ChangeEvent<HTMLDivElement>;
   current: CheckboxOption | TdCheckboxProps;
+  option: CheckboxOption | TdCheckboxProps;
   type: 'check' | 'uncheck';
 }

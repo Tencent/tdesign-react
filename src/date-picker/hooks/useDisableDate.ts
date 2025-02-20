@@ -1,4 +1,5 @@
-import isObject from 'lodash/isObject';
+import { isObject } from 'lodash-es';
+import dayjs from 'dayjs';
 import type { TdDatePickerProps, TdDateRangePickerProps } from '../type';
 import { isEnabledDate } from '../../_common/js/date-picker/utils';
 
@@ -15,7 +16,7 @@ export default function useDisableDate(props: disableDateProps) {
 
   return {
     disableDate: (value: Date) => !isEnabledDate({ disableDate, format, mode, value }),
-    minDate: isObject(disableDate) && 'before' in disableDate ? new Date(disableDate.before) : start,
-    maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : end,
+    minDate: isObject(disableDate) && 'before' in disableDate ? new Date(dayjs(disableDate.before).startOf('day').format()) : start,
+    maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(dayjs(disableDate.after).endOf('day').format()) : end,
   };
 }

@@ -11,7 +11,7 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
 import useRipple from '../hooks/useRipple';
