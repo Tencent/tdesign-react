@@ -101,12 +101,6 @@ TDesign 的项目都会以子仓库的形式引入 `tdesign-common` 公共仓库
 - 如开发部分提到的，初次克隆代码后需要初始化子仓库： `git submodule init && git submodule update`
 - git submodule update 之后子仓库不指向任何分支，只是一个指向某一个提交的游离状态
 
-### 子仓库开发
-
-子仓库组件分支从 `develop checkout` 示例：`feature/button`，提交代码时先进入子仓库完成提交，然在回到主仓库完成提交
-
-- 先进入 `src/\_common` 文件夹，正常将样式修改添加提交
-- 回到主仓库，此时应该会看到 `src/\_common` 文件夹是修改状态，按照正常步骤添加提交即可
 
 ### 涉及子仓库的开发
 
