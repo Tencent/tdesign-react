@@ -18,7 +18,7 @@ type DropdownItemProps = Pick<DropdownOption, 'value'> &
     children?: React.ReactNode;
     theme?: DropdownItemTheme;
     prefixIcon?: React.ReactNode;
-    onClick?: (value: DropdownOption['value'], e: unknown) => void;
+    onClick?: (value: DropdownOption['value'], context: { e: React.MouseEvent }) => void;
     isSubmenu?: boolean;
     divider?: boolean;
   };
@@ -45,7 +45,7 @@ const DropdownItem = forwardRef<HTMLLIElement, DropdownItemProps>((props, ref: R
 
   const handleItemClick = (e: React.MouseEvent) => {
     if (disabled) return;
-    onClick?.(value, e);
+    onClick?.(value, { e });
   };
   return (
     <>
