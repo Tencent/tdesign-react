@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
+import { Cascader, Space } from 'tdesign-react';
 import type { CascaderProps, CascaderValue } from 'tdesign-react';
 
 import type { TreeOptionData } from '../../common';
 
 export default function Example() {
-  const [value1, setValue1] = useState<CascaderValue>([]);
+  const [singleValue, setSingleValue] = useState<CascaderValue>('');
+  const [multipleValue, setMultipleValue] = useState<CascaderValue>([]);
+
   const options = [
     {
       label: '选项1',
@@ -19,8 +21,12 @@ export default function Example() {
     },
   ];
 
-  const onChange1: CascaderProps['onChange'] = (value) => {
-    setValue1(value);
+  const onSingleChange: CascaderProps['onChange'] = (value) => {
+    setSingleValue(value);
+  };
+
+  const onMultipleChange: CascaderProps['onChange'] = (value) => {
+    setMultipleValue(value);
   };
 
   const load: CascaderProps['load'] = (node) =>
@@ -40,8 +46,13 @@ export default function Example() {
           ];
         }
         resolve(nodes);
-      }, 1000);
+      }, 300);
     });
 
-  return <Cascader options={options} value={value1} onChange={onChange1} load={load} />;
+  return (
+    <Space direction="vertical">
+      <Cascader options={options} value={singleValue} onChange={onSingleChange} load={load} />
+      <Cascader multiple options={options} value={multipleValue} onChange={onMultipleChange} load={load} />
+    </Space>
+  );
 }
