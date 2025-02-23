@@ -2,6 +2,7 @@
 // @ts-ignore
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { createRoot as createRootClient } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage
@@ -16,13 +17,16 @@ const fullClone = {
 
 type CreateRoot = (container: ContainerType) => Root;
 
+// @ts-ignore
 const { version, render: reactRender, unmountComponentAtNode } = fullClone;
 
 let createRoot: CreateRoot;
 try {
   const mainVersion = Number((version || '').split('.')[0]);
-  if (mainVersion >= 18) {
+  if (mainVersion >= 18 && mainVersion < 19) {
     ({ createRoot } = fullClone);
+  } else if (mainVersion >= 19) {
+    createRoot = createRootClient;
   }
 } catch (e) {
   // Do nothing;

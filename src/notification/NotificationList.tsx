@@ -110,8 +110,8 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
           return (
             <NotificationComponent
               ref={props.ref}
-              key={props.key}
               {...props}
+              key={props.key}
               onDurationEnd={() => {
                 remove(props.key);
                 onDurationEnd();
