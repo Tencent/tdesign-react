@@ -53,4 +53,3 @@ const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
 };
 
 export const DrawerPlugin = createDrawer;
-export default DrawerPlugin;
