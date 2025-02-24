@@ -6,4 +6,7 @@ export type { DrawerProps } from './Drawer';
 export * from './type';
 
 export const Drawer = _Drawer;
+
+export { default as DrawerPlugin } from './plugin';
+
 export default Drawer;
