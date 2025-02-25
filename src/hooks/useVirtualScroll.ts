@@ -167,7 +167,11 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
       // 给数据添加下标
       addIndexToData(data);
-      setScrollHeight(data.length * tScroll.rowHeight);
+
+      const scrollTopHeightList = trScrollTopHeightList.current;
+      const lastIndex = scrollTopHeightList.length - 1;
+      setScrollHeight(scrollTopHeightList[lastIndex]);
+
       const [startIndex, endIndex] = startAndEndIndex;
       const tmpData = data.slice(startIndex, endIndex);
 
