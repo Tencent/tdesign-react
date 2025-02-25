@@ -156,6 +156,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
         </tbody>
         <tfoot
           class="t-table__footer"
+          style="visibility: visible;"
         >
           <tr
             class=""
@@ -356,6 +357,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
         </tbody>
         <tfoot
           class="t-table__footer"
+          style="visibility: visible;"
         >
           <tr
             class=""
@@ -556,6 +558,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
         </tbody>
         <tfoot
           class="t-table__footer"
+          style="visibility: visible;"
         >
           <tr
             class=""
@@ -756,6 +759,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
         </tbody>
         <tfoot
           class="t-table__footer"
+          style="visibility: visible;"
         >
           <tr
             class=""
@@ -950,6 +954,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
         </tbody>
         <tfoot
           class="t-table__footer"
+          style="visibility: visible;"
         >
           <tr
             class=""
@@ -1150,6 +1155,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
         </tbody>
         <tfoot
           class="t-table__footer"
+          style="visibility: visible;"
         >
           <tr
             class=""
