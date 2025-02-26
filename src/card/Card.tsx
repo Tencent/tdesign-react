@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { TdCardProps } from './type';
 import Loading from '../loading';
@@ -99,6 +99,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
   const renderStatus = status && isPoster2 && <div className={actionClass}>{status}</div>;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const renderHeader = () => {
     if (header) {
       return <div className={headerClass}>{header}</div>;
@@ -118,7 +119,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       </div>
     );
   };
-
+  
   const renderCover = cover ? (
     <div className={coverClass}>{typeof cover === 'string' ? <img src={cover} alt=""></img> : cover}</div>
   ) : null;
@@ -131,7 +132,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {renderFooterActions}
     </div>
   );
-
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const card = (
     <>
       {showHeader ? renderHeader() : null}
@@ -140,19 +142,20 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {renderFooter}
     </>
   );
-
-  let childrenNode: React.ReactNode = null;
-  if (!Reflect.has(props, 'loading')) {
-    childrenNode = card;
-  } else if (React.isValidElement(loading)) {
-    childrenNode = React.cloneElement(loading, null, card);
-  } else {
-    childrenNode = (
+  
+  const childrenNode = useMemo<React.ReactNode>(()=>{
+    
+    if (!Reflect.has(props, 'loading')) {
+      return card;
+    } if (React.isValidElement(loading)) {
+      return React.cloneElement(loading, null, card);
+    } 
+    return  (
       <Loading {...loadingProps} loading={!!loading}>
         {card}
       </Loading>
     );
-  }
+  },[card, loading, loadingProps, props]);
 
   return (
     <div ref={ref} className={cardClass} style={style}>
