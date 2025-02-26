@@ -4,6 +4,7 @@ import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdLayoutProps, TdHeaderProps, TdFooterProps } from './type';
 import Aside from './Aside';
+import parseTNode from '../_util/parseTNode';
 
 export interface LayoutProps extends TdLayoutProps, StyledProps, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -25,7 +26,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const headerClassNames = classNames(`${classPrefix}-layout__header`, className);
   return (
     <header className={headerClassNames} style={{ height: renderHeight, ...style }} {...others}>
-      {children}
+      {parseTNode(children)}
     </header>
   );
 };
@@ -37,18 +38,18 @@ const Footer: React.FC<FooterProps> = (props) => {
   const footerClassNames = classNames(`${classPrefix}-layout__footer`, className);
   return (
     <footer className={footerClassNames} style={{ height: renderHeight, ...style }} {...others}>
-      {children}
+      {parseTNode(children)}
     </footer>
   );
 };
 
 const Content: React.FC<ContentProps> = (props) => {
   const { classPrefix } = useConfig();
-  const { className, style, children, ...others } = props;
+  const { className, style, children, content, ...others } = props;
   const contentClassNames = classNames(`${classPrefix}-layout__content`, className);
   return (
     <main className={contentClassNames} style={style} {...others}>
-      {children}
+      {parseTNode(content) || parseTNode(children)}
     </main>
   );
 };
@@ -89,7 +90,7 @@ const Layout: React.FC<LayoutProps> & {
 
   return (
     <div className={layoutClassNames} style={style} {...otherLayoutProps}>
-      {children}
+      {parseTNode(children)}
     </div>
   );
 };
