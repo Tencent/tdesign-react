@@ -12,6 +12,13 @@ import { MessageOptions } from '../message';
 import { ImageProps } from '../image';
 import { TNode, TElement, SizeEnum, AttachNode } from '../common';
 
+export interface TdConfigProviderProps {
+  /**
+   * 全局配置
+   */
+  globalConfig?: GlobalConfigProvider;
+}
+
 export interface GlobalConfigProvider {
   /**
    * 警告全局配置
