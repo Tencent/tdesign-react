@@ -654,6 +654,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       props.footerSummary,
       props.footerAffixedBottom,
       props.rowspanAndColspanInFooter,
+      tableWidth.current,
     ],
   );
 
