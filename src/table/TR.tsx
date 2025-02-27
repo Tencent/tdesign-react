@@ -89,6 +89,7 @@ export default function TR(props: TrProps) {
     fixedRows,
     rowAndColFixedPosition,
     classNames.tableRowFixedClasses,
+    virtualConfig.isVirtualScroll ? virtualConfig.translateY : 0,
   );
 
   const trAttributes = useMemo(

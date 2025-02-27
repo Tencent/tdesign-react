@@ -135,7 +135,10 @@ export default function TBody(props: TableBodyProps) {
       'rowHeight',
       'scrollType',
     ];
-    data?.forEach((row, rowIndex) => {
+
+    const renderData = virtualConfig.isVirtualScroll ? virtualConfig.visibleData : data;
+
+    renderData?.forEach((row, rowIndex) => {
       const trProps = {
         ...pick(props, TABLE_PROPS),
         rowKey: props.rowKey || 'id',
