@@ -5,6 +5,16 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.1 `2025-02-28` 
+### 🚀 Features
+- `Layout`: 子组件 `Content` 新增  `content` API  @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
+### 🐞 Bug Fixes
+- `reactRender`: fix `React19` `reactRender` error @HaixingOoO ([#3380](https://github.com/Tencent/tdesign-react/pull/3380))
+- `table`: 修复虚拟滚动下的footer渲染问题 @huangchen1031 ([#3383](https://github.com/Tencent/tdesign-react/pull/3383))
+- `fix`: 修复`1.11.0` cjs 产物的异常 @uyarn ([#3392](https://github.com/Tencent/tdesign-react/pull/3392))
+### 📝 Documentation
+- `ConfigProvider`: 增加 `globalConfig` API文档  @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
+
 ## 🌈 1.11.0 `2025-02-20` 
 ### 🚀 Features
 - `Cascader`:  新增支持在打开菜单时，自动滚动到首个已选项所在节点的能力 @uyarn ([#3357](https://github.com/Tencent/tdesign-react/pull/3357))
