@@ -188,10 +188,12 @@ const esmConfig = {
   },
 };
 
+const cjsExternalException = ['lodash-es'];
+const cjsExternal = externalDeps.concat(externalPeerDeps).filter((value) => !cjsExternalException.includes(value));
 // commonjs 导出规范，不带 css 样式
 const cjsConfig = {
   input: inputList,
-  external: externalDeps.concat(externalPeerDeps),
+  external: cjsExternal,
   plugins: [multiInput()].concat(getPlugins()),
   output: {
     banner,
