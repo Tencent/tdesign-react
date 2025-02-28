@@ -332,19 +332,18 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   // 多级表头左边线缺失
   const affixedLeftBorder = props.bordered ? 1 : 0;
 
+  // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
+  const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
+  const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
   /**
    * Affixed Header
    */
   const renderFixedHeader = () => {
     if (!showHeader) return null;
-    // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
-    const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
-    const barWidth = isWidthOverflow ? scrollbarWidth : 0;
-    // const headerBarWidth = isFixedHeader ? scrollbarWidth : 0;
-    const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
-    const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
     const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
+    const barWidth = isWidthOverflow ? scrollbarWidth : 0;
+    const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     const affixHeaderWrapHeightStyle = {
       width: `${tableWidth.current}px`,
       height: `${affixHeaderWrapHeight}px`,
@@ -409,7 +408,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       marginScrollbarWidth += 1;
     }
     // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
-    const affixedFooter = Boolean(props.footerAffixedBottom && props.footData?.length && tableWidth.current) && (
+    const affixedFooter = Boolean(
+      (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && props.footData?.length && tableWidth.current,
+    ) && (
       <Affix
         className={tableBaseClass.affixedFooterWrap}
         onFixedChange={onFixedChange}
@@ -472,7 +473,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     pagination: innerPagination,
   };
 
-  const translate = `translate(0, ${virtualConfig.scrollHeight}px)`;
+  const translate = `translate(0, ${virtualConfig.scrollHeight + affixHeaderHeight + tableFootHeight}px)`;
   const virtualStyle = {
     transform: translate,
     msTransform: translate,
@@ -549,6 +550,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
               thWidthList={thWidthList.current}
               footerSummary={props.footerSummary}
               rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
+              virtualScroll={virtualConfig.isVirtualScroll}
             ></TFoot>
           ),
           // eslint-disable-next-line
@@ -563,6 +565,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
             props.rowAttributes,
             props.rowClassName,
             props.footerSummary,
+            virtualConfig.isVirtualScroll,
           ],
         )}
       </table>

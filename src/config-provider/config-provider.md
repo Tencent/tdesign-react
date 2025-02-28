@@ -31,6 +31,13 @@ import 'tdesign-react/esm/style/index.js'
 ```
 
 ## API
+
+### ConfigProvider Props
+
+名称 | 类型 | 默认值 | 描述 | 必传
+-- | -- | -- | -- | --
+globalConfig | Object | - | 全局配置。TS 类型：`GlobalConfigProvider` | N
+
 ### GlobalConfigProvider
 
 名称 | 类型 | 默认值 | 描述 | 必传

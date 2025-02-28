@@ -1,5 +1,5 @@
 import React, { CSSProperties, useRef } from 'react';
-import { isFunction , get } from 'lodash-es';
+import { isFunction, get } from 'lodash-es';
 import classNames from 'classnames';
 import { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 import { formatRowAttributes, formatRowClassNames } from './utils';
@@ -22,10 +22,11 @@ export interface TFootProps {
   thWidthList?: { [colKey: string]: number };
   footerSummary?: TdBaseTableProps['footerSummary'];
   rowspanAndColspanInFooter: TdBaseTableProps['rowspanAndColspanInFooter'];
+  virtualScroll?: Boolean;
 }
 
 export default function TFoot(props: TFootProps) {
-  const { footData, columns, rowKey, footerSummary } = props;
+  const { footData, columns, rowKey, footerSummary, virtualScroll } = props;
   const tfooterRef = useRef<HTMLTableSectionElement>();
   const classnames = useClassName();
 
@@ -101,7 +102,12 @@ export default function TFoot(props: TFootProps) {
   // 都不存在，则不需要渲染 footer
   if (!footerSummary && (!props.footData || !props.footData.length)) return null;
   return (
-    <tfoot ref={tfooterRef} className={classNames(theadClasses)}>
+    // 虚拟滚动下，不显示 footer，但预留元素，用于高度计算
+    <tfoot
+      ref={tfooterRef}
+      className={classNames(theadClasses)}
+      style={{ visibility: virtualScroll ? 'hidden' : 'visible' }}
+    >
       {footerSummary && (
         <tr className={classnames.tableFullRowClasses.base}>
           <td colSpan={columns.length}>
