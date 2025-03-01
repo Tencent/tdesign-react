@@ -153,7 +153,7 @@
     "glob": "^8.0.3",
     "gray-matter": "^4.0.3",
     "happy-dom": "^15.11.0",
-    "husky": "^7.0.4",
+    "husky": "^9.1.7",
     "jest-canvas-mock": "^2.4.0",
     "jsdom": "^20.0.1",
     "less": "^4.1.2",
