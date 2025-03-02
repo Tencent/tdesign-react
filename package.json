@@ -65,7 +65,8 @@
     "changelog": "node script/generate-changelog.js",
     "init:component": "node script/init-component",
     "robot": "publish-cli robot-msg",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm"
   },
   "config": {
     "commitizen": {
