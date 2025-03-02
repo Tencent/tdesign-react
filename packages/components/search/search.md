@@ -8,23 +8,23 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 autoWidth | Boolean | false | 搜索框宽度自适应 | N
-autocompleteOptions | Array | - | 联想词列表，如果不存在或长度为 0 则不显示联想框。支持自定义联想词为任意内容。如果 `group` 值为 `true` 则表示当前项为分组标题。TS 类型：`Array<AutocompleteOption>` `type AutocompleteOption = string \| { label: string \| TNode; group?: boolean }`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/search/type.ts) | N
+autocompleteOptions | Array | - | 联想词列表，如果不存在或长度为 0 则不显示联想框。支持自定义联想词为任意内容。如果 `group` 值为 `true` 则表示当前项为分组标题。TS 类型：`Array<AutocompleteOption>` `type AutocompleteOption = string \| { label: string \| TNode; group?: boolean }`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
 autofocus | Boolean | false | 是否默认聚焦 | N
 borderless | Boolean | true | 无边框模式 | N
 clearable | Boolean | true | 是否可清空 | N
 disabled | Boolean | - | 禁用状态 | N
 filter | Function | - | 自定义过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据。其中参数 `keyword` 指当前的搜索词，参数 `option` 指每一项联想词，函数返回 true 则显示当前联想词，函数返回 `false` 则隐藏当前联想词。TS 类型：`(keyword: string, option: any) => boolean \| Promise<boolean>` | N
-inputProps | Object | - | 透传 Input 组件全部属性。TS 类型：`InputProps`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/search/type.ts) | N
-label | TNode | '' | 搜索框内部左侧内容，位于 `prefixIcon` 左侧。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+inputProps | Object | - | 透传 Input 组件全部属性。TS 类型：`InputProps`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
+label | TNode | '' | 搜索框内部左侧内容，位于 `prefixIcon` 左侧。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 multiline | Boolean | false | 批量搜索模式，也叫多行搜索，输入框表现为类似 `textarea`，允许输入多行搜索内容 | N
 placeholder | String | '' | 占位符 | N
-popupProps | Object | - | 透传 Popup 组件全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/search/type.ts) | N
-prefixIcon | TElement | - | 前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+popupProps | Object | - | 透传 Popup 组件全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
+prefixIcon | TElement | - | 前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 readonly | Boolean | false | 只读状态 | N
-selectInputProps | Object | - | 基于 SelectInput 组件开发，透传组件全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/search/type.ts) | N
-suffix | TNode | '' | 搜索框内部右侧内容，位于 `suffixIcon` 右侧。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-suffixIcon | TElement | - | 后置图标，默认为搜索图标。值为 `null` 时则不显示。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-textareaProps | Object | - | 透传 Textarea 组件全部属性。TS 类型：`TextareaProps`，[Textarea API Documents](./textarea?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/search/type.ts) | N
+selectInputProps | Object | - | 基于 SelectInput 组件开发，透传组件全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
+suffix | TNode | '' | 搜索框内部右侧内容，位于 `suffixIcon` 右侧。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+suffixIcon | TElement | - | 后置图标，默认为搜索图标。值为 `null` 时则不显示。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+textareaProps | Object | - | 透传 Textarea 组件全部属性。TS 类型：`TextareaProps`，[Textarea API Documents](./textarea?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
 value | String | - | 值，搜索关键词 | N
 defaultValue | String | - | 值，搜索关键词。非受控属性 | N
 onBlur | Function |  | TS 类型：`(context: { value: string; e: FocusEvent }) => void`<br/>失去焦点时触发 | N
