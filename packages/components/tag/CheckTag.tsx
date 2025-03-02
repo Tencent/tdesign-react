@@ -7,7 +7,7 @@ import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import { checkTagDefaultProps } from './defaultProps';
 import Tag from './Tag';
-import { ENTER_REG, SPACE_REG } from '../_common/js/common';
+import { ENTER_REG, SPACE_REG } from '../../common/js/common';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 /**

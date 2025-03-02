@@ -10,8 +10,8 @@ import {
 } from './type';
 import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
-import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
+import { formatDate, getDefaultFormat, parseToDayjs } from '../../common/js/date-picker/format';
+import { subtractMonth, addMonth, extractTimeObj } from '../../common/js/date-picker/utils';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}

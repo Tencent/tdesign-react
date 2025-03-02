@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react';
 import useLayoutEffect from '../../hooks/useLayoutEffect';
-import { getScrollbarWidth } from '../../_common/js/utils/getScrollbarWidth';
+import { getScrollbarWidth } from '../../../common/js/utils/getScrollbarWidth';
 
 let key = 1;
 

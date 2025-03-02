@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-param-reassign */
 import { get } from 'lodash-es';
-import { isRowSelectedDisabled } from '../../_common/js/table/utils';
+import { isRowSelectedDisabled } from '../../../common/js/table/utils';
 import { PrimaryTableCol, TableRowState, TableRowValue, TableRowData } from '../type';
-import log from '../../_common/js/log';
+import log from '../../../common/js/log';
 
 export type TableTreeDataMap = Map<string | number, TableRowState>;
 

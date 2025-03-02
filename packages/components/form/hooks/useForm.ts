@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import type { NamePath } from '../type';
 import type { WatchCallBack, InternalHooks, InternalFormInstance, Store } from './interface';
-import log from '../../_common/js/log';
+import log from '../../../common/js/log';
 
 export const HOOK_MARK = 'TD_FORM_INTERNAL_HOOKS';
 

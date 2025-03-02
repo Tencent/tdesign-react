@@ -13,8 +13,8 @@ import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
 import TimePickerPanel from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
-import { TIME_PICKER_EMPTY } from '../_common/js/time-picker/const';
+import { formatInputValue, validateInputValue } from '../../common/js/time-picker/utils';
+import { TIME_PICKER_EMPTY } from '../../common/js/time-picker/const';
 
 import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import { StyledProps } from '../common';

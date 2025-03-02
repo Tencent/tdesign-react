@@ -6,10 +6,10 @@ import {
   getDefaultFormat,
   parseToDayjs,
   extractTimeFormat,
-} from '../../_common/js/date-picker/format';
+} from '../../../common/js/date-picker/format';
 import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps } from '../type';
-import log from '../../_common/js/log';
+import log from '../../../common/js/log';
 
 export default function useSingleValue(props: TdDatePickerProps) {
   const [value, onChange] = useControlled(props, 'value', props.onChange);

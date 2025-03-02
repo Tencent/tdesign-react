@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { TdInputProps } from './type';
-import log from '../_common/js/log';
-import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
+import log from '../../common/js/log';
+import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../../common/js/utils/helper';
 
 export interface UseLengthLimitParams {
   value: string;

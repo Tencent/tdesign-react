@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
-import { getIEVersion } from '../../_common/js/utils/helper';
-import log from '../../_common/js/log';
+import { getIEVersion } from '../../../common/js/utils/helper';
+import log from '../../../common/js/log';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { getScrollbarWidthWithCSS } from '../../_common/js/utils/getScrollbarWidth';
+import { getScrollbarWidthWithCSS } from '../../../common/js/utils/getScrollbarWidth';
 import { on, off } from '../../_util/dom';
 import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';

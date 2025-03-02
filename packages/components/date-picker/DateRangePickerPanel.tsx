@@ -10,9 +10,9 @@ import {
 } from './type';
 import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
-import { formatDate, getDefaultFormat, parseToDayjs } from '../_common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
-import log from '../_common/js/log';
+import { formatDate, getDefaultFormat, parseToDayjs } from '../../common/js/date-picker/format';
+import { subtractMonth, addMonth, extractTimeObj } from '../../common/js/date-picker/utils';
+import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { dateCorrection } from './utils';
 

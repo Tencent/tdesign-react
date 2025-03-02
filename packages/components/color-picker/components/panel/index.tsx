@@ -6,14 +6,14 @@ import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import useClassName from '../../hooks/useClassNames';
 import PanelHeader from './header';
-import Color, { getColorObject } from '../../../_common/js/color-picker/color';
-import { GradientColorPoint } from '../../../_common/js/color-picker/gradient';
+import Color, { getColorObject } from '../../../../common/js/color-picker/color';
+import { GradientColorPoint } from '../../../../common/js/color-picker/gradient';
 import {
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
   TD_COLOR_USED_COLORS_MAX_SIZE,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-} from '../../../_common/js/color-picker/constants';
+} from '../../../../common/js/color-picker/constants';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';

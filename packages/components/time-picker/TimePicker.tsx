@@ -17,8 +17,8 @@ import TimePickerPanel from './panel/TimePickerPanel';
 import type { TimePickerPanelProps } from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
-import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../_common/js/time-picker/const';
+import { formatInputValue, validateInputValue } from '../../common/js/time-picker/utils';
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../common/js/time-picker/const';
 import { timePickerDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';

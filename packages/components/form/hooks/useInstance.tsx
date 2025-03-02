@@ -9,7 +9,7 @@ import type {
 } from '../type';
 import useConfig from '../../hooks/useConfig';
 import { getMapValue, objectToArray, travelMapFromObject, calcFieldValue } from '../utils';
-import log from '../../_common/js/log';
+import log from '../../../common/js/log';
 
 // 检测是否需要校验 默认全量校验
 function needValidate(name: NamePath, fields: string[]) {

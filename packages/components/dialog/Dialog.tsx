@@ -14,7 +14,7 @@ import useLockStyle from './hooks/useLockStyle';
 import useDialogPosition from './hooks/useDialogPosition';
 import useDialogDrag from './hooks/useDialogDrag';
 import { parseValueToPx } from './utils';
-import log from '../_common/js/log';
+import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
 

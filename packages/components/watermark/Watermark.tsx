@@ -2,9 +2,9 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../common';
-import generateBase64Url from '../_common/js/watermark/generateBase64Url';
-import randomMovingStyle from '../_common/js/watermark/randomMovingStyle';
-import injectStyle from '../_common/js/utils/injectStyle';
+import generateBase64Url from '../../common/js/watermark/generateBase64Url';
+import randomMovingStyle from '../../common/js/watermark/randomMovingStyle';
+import injectStyle from '../../common/js/utils/injectStyle';
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../hooks/useMutationObserver';
 import { TdWatermarkProps } from './type';

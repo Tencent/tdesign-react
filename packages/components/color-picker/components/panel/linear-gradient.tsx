@@ -2,10 +2,10 @@ import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEf
 import { cloneDeep } from 'lodash-es';
 import classNames from 'classnames';
 import useClassName from '../../hooks/useClassNames';
-import { genGradientPoint, gradientColors2string } from '../../../_common/js/color-picker/color';
-import { GradientColorPoint } from '../../../_common/js/color-picker/gradient';
+import { genGradientPoint, gradientColors2string } from '../../../../common/js/color-picker/color';
+import { GradientColorPoint } from '../../../../common/js/color-picker/gradient';
 import useCommonClassName from '../../../hooks/useCommonClassName';
-import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../../_common/js/color-picker/constants';
+import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../../../common/js/color-picker/constants';
 import InputNumber from '../../../input-number';
 
 const DELETE_KEYS: string[] = ['delete', 'backspace'];

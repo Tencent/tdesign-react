@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import log from '../_common/js/log';
+import log from '../../common/js/log';
 
 const DefaultAlign = {
   vertical: ['left', 'right'],

@@ -5,7 +5,7 @@ import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '../../_common/js/date-picker/format';
+import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '../../../common/js/date-picker/format';
 import useRangeValue from './useRangeValue';
 import type { TdPopupProps } from '../../popup/type';
 

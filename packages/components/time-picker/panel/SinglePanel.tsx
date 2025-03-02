@@ -17,8 +17,8 @@ import { padStart , range } from 'lodash-es';
 import useConfig from '../../hooks/useConfig';
 import noop from '../../_util/noop';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
-import { AM, PM, EPickerCols, MERIDIEM_LIST, TWELVE_HOUR_FORMAT } from '../../_common/js/time-picker/const';
-import { closestLookup, getPickerCols } from '../../_common/js/time-picker/utils';
+import { AM, PM, EPickerCols, MERIDIEM_LIST, TWELVE_HOUR_FORMAT } from '../../../common/js/time-picker/const';
+import { closestLookup, getPickerCols } from '../../../common/js/time-picker/utils';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 import useDebounce from '../../hooks/useDebounce';

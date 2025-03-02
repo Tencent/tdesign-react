@@ -7,10 +7,10 @@ import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/dom';
 import useLatest from '../../hooks/useLatest';
-import log from '../../_common/js/log';
-import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
+import log from '../../../common/js/log';
+import swapDragArrayElement from '../../../common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
-import { getColumnDataByKey, getColumnIndexByKey } from '../../_common/js/table/utils';
+import { getColumnDataByKey, getColumnIndexByKey } from '../../../common/js/table/utils';
 
 export default function useDragSort(
   props: TdPrimaryTableProps,

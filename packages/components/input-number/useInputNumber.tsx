@@ -15,7 +15,7 @@ import {
   getStepValue,
   formatThousandths,
   largeNumberToFixed,
-} from '../_common/js/input-number/number';
+} from '../../common/js/input-number/number';
 import { InputProps } from '../input';
 
 export const specialCode = ['-', '.', 'e', 'E'];

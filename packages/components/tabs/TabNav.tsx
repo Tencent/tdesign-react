@@ -11,7 +11,7 @@ import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
-import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '../_common/js/tabs/base';
+import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '../../common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import parseTNode from '../_util/parseTNode';

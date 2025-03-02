@@ -1,1 +1,1 @@
-import '../../_common/style/web/components/auto-complete/_index.less';
+import '../../../common/style/web/components/auto-complete/_index.less';

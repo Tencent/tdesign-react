@@ -5,7 +5,7 @@ import useConfig from '../hooks/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';
-import { getFlexGapPolyFill } from '../_common/js/utils/helper';
+import { getFlexGapPolyFill } from '../../common/js/utils/helper';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 // export for test

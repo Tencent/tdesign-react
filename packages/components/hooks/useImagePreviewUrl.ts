@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import log from '../_common/js/log';
-import { getFileUrlByFileRaw } from '../_common/js/upload/utils';
+import log from '../../common/js/log';
+import { getFileUrlByFileRaw } from '../../common/js/upload/utils';
 
 export function useImagePreviewUrl(imgUrl: string | File) {
   const [previewUrl, setPreviewUrl] = useState('');

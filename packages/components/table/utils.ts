@@ -9,7 +9,7 @@ import {
 } from './type';
 import { ClassName, HTMLElementAttributes } from '../common';
 import { AffixProps } from '../affix';
-import { getIEVersion } from '../_common/js/utils/helper';
+import { getIEVersion } from '../../common/js/utils/helper';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();

@@ -30,8 +30,8 @@ import { baseTableDefaultProps } from './defaultProps';
 import { Styles } from '../common';
 import { TableRowData } from './type';
 import useVirtualScroll from '../hooks/useVirtualScroll';
-import { getIEVersion } from '../_common/js/utils/helper';
-import log from '../_common/js/log';
+import { getIEVersion } from '../../common/js/utils/helper';
+import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
