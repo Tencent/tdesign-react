@@ -1,0 +1,3 @@
+[submodule "tdesign-common"]
+	path = packages/common
+	url = https://github.com/Tencent/tdesign-common.git
