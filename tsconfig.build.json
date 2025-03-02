@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig",
   "include": [
-    "./src",
+    "./packages/components",
     "./globals.d.ts"
   ],
   "exclude": [
@@ -10,7 +10,6 @@
     "**/**/_example/*",
     "**/**/_usage/*",
     "node_modules",
-    "src/_common",
     "dist",
     "lib",
     "esm",
