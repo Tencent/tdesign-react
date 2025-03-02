@@ -19,11 +19,11 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-dot | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+dot | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 dotColor | String | primary | Typescript：`string` | N
-label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 labelAlign | String | - | options：left/right/top/bottom | N
 loading | Boolean | - | Whether it is in the loading state | N
-onClick | Function |  | Typescript：`(context: { e: MouseEvent; item: TdTimelineItemProps }) => void` [TdTimelineItemProps 详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/timeline/type.ts) <br/>  trigger on click. | N
+onClick | Function |  | Typescript：`(context: { e: MouseEvent; item: TdTimelineItemProps }) => void` [TdTimelineItemProps 详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/timeline/type.ts) <br/>  trigger on click. | N
