@@ -1,9 +1,8 @@
 {
-  "name": "tdesign-react-mono",
-  "purename": "tdesign",
+  "name": "tdesign-react",
   "version": "1.11.1",
-  "description": "TDesign Component for React",
   "title": "tdesign-react",
+  "description": "TDesign Component for React",
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
@@ -34,39 +33,16 @@
     "excludeAfterRemap": false
   },
   "scripts": {
-    "pnpm:devPreinstall": "pnpm run init",
-    "init": "git submodule init && git submodule update",
     "start": "pnpm dev",
-    "dev": "pnpm -C packages/tdesign-react/site dev",
-    "site": "pnpm -C packages/tdesign-react/site build",
-    "site:intranet": "pnpm -C packages/tdesign-react/site intranet",
-    "site:preview": "pnpm -C packages/tdesign-react/site preview",
-    "lint": "pnpm lint:tsc && eslint --ext .ts,.tsx ./ --max-warnings 0",
-    "lint:fix": "eslint --ext .ts,.tsx ./packages/components --ignore-pattern packages/components/__tests__ --max-warnings 0 --fix",
-    "lint:tsc": "tsc -p ./tsconfig.dev.json ",
-    "generate:usage": "node script/generate-usage/index.js",
-    "generate:coverage-badge": "pnpm test:coverage && node script/generate-coverage.js",
-    "generate:jsx-demo": "npx babel packages/components/**/_example --extensions '.tsx' --config-file ./babel.config.demo.js --relative --out-dir ../_example-js --out-file-extension=.jsx",
-    "format:jsx-demo": "npx eslint packages/components/**/_example-js/*.jsx --fix && npx prettier --write packages/components/**/_example-js/*.jsx",
-    "test": "vitest run && pnpm test:snap",
-    "test:ui": "vitest --ui",
-    "test:snap": "cross-env NODE_ENV=test-snap vitest run",
-    "test:snap-update": "cross-env NODE_ENV=test-snap vitest run -u",
-    "test:update": "vitest run -u && pnpm test:snap-update",
-    "test:coverage": "vitest run --coverage",
+    "dev": "vite",
     "prebuild": "rimraf es/* lib/* dist/* esm/*",
-    "build": "cross-env NODE_ENV=production rollup -c script/rollup.config.js && pnpm build:tsc",
+    "build": "cross-env NODE_ENV=production rollup -c script/rollup.config.js && npm run build:tsc",
     "build:tsc": "run-p build:tsc-*",
     "build:tsc-es": "tsc --emitDeclarationOnly -d -p ./tsconfig.build.json --outDir es/",
     "build:tsc-esm": "tsc --emitDeclarationOnly -d -p ./tsconfig.build.json --outDir esm/",
     "build:tsc-cjs": "tsc --emitDeclarationOnly -d -p ./tsconfig.build.json --outDir cjs/",
     "build:tsc-lib": "tsc --emitDeclarationOnly -d -p ./tsconfig.build.json --outDir lib/",
-    "build:jsx-demo": "pnpm generate:jsx-demo && pnpm format:jsx-demo",
-    "changelog": "node script/generate-changelog.js",
-    "init:component": "node script/init-component",
-    "robot": "publish-cli robot-msg",
-    "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm"
+    "build:jsx-demo": "npm run generate:jsx-demo && npm run format:jsx-demo"
   },
   "config": {
     "commitizen": {
@@ -76,7 +52,7 @@
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "prettier --write",
-      "pnpm lint:fix"
+      "npm run lint:fix"
     ]
   },
   "keywords": [
@@ -96,9 +72,6 @@
   "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
   "bugs": {
     "url": "https://github.com/Tencent/tdesign-react/issues"
-  },
-  "resolutions": {
-    "react-popper": "~2.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
