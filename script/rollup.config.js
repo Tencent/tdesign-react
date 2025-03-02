@@ -26,16 +26,16 @@ const banner = `/**
  * @license ${pkg.license}
  */
 `;
-const input = 'src/index-lib.ts';
+const input = 'packages/components/index-lib.ts';
 const inputList = [
-  'src/**/*.ts',
-  'src/**/*.jsx',
-  'src/**/*.tsx',
-  '!src/**/_example',
-  '!src/**/_example-js',
-  '!src/**/*.d.ts',
-  '!src/**/__tests__',
-  '!src/**/_usage',
+  'packages/components/**/*.ts',
+  'packages/components/**/*.jsx',
+  'packages/components/**/*.tsx',
+  '!packages/components/**/_example',
+  '!packages/components/**/_example-js',
+  '!packages/components/**/*.d.ts',
+  '!packages/components/**/__tests__',
+  '!packages/components/**/_usage',
 ];
 
 const getPlugins = ({
@@ -46,7 +46,9 @@ const getPlugins = ({
   extractMultiCss = false,
 } = {}) => {
   const plugins = [
-    nodeResolve(),
+    nodeResolve({
+      extensions: ['.mjs', '.js', '.json', '.node', '.ts', '.tsx'],
+    }),
     commonjs(),
     esbuild({
       include: /\.[jt]sx?$/,
@@ -84,10 +86,11 @@ const getPlugins = ({
   } else if (extractMultiCss) {
     plugins.push(
       staticImport({
-        include: ['src/**/style/css.js'],
+        baseDir: 'packages/components',
+        include: ['packages/components/**/style/css.js'],
       }),
       ignoreImport({
-        include: ['src/*/style/*', 'src/*/*/style/*'],
+        include: ['packages/components/*/style/*'],
         body: 'import "./css.js";',
       }),
     );
@@ -96,11 +99,16 @@ const getPlugins = ({
   } else {
     plugins.push(
       staticImport({
-        include: ['src/**/style/index.js', 'src/_common/style/web/**/*.less'],
+        baseDir: 'packages/components',
+        include: ['packages/components/**/style/index.js'],
+      }),
+      staticImport({
+        baseDir: 'packages/common',
+        include: ['packages/common/style/web/**/*.less'],
       }),
       ignoreImport({
-        include: ['src/*/style/*'],
-        body: 'import "./index.js";',
+        include: ['packages/components/*/style/*'],
+        body: 'import "./style/index.js";',
       }),
     );
   }
@@ -132,11 +140,11 @@ const getPlugins = ({
 };
 
 const cssConfig = {
-  input: ['src/**/style/index.js'],
-  plugins: [multiInput(), styles({ mode: 'extract' })],
+  input: ['packages/components/**/style/index.js'],
+  plugins: [multiInput({ relative: 'packages/components/' }), styles({ mode: 'extract' })],
   output: {
     banner,
-    dir: 'es/',
+    dir: './es',
     sourcemap: true,
     assetFileNames: '[name].css',
   },
@@ -144,9 +152,9 @@ const cssConfig = {
 
 // 按需加载组件 不带 css 样式
 const libConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/components/index-lib.ts'),
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
     dir: 'lib/',
@@ -158,11 +166,11 @@ const libConfig = {
 
 // 按需加载组件 带 css 样式
 const esConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/components/index-lib.ts'),
   // 为了保留 style/css.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
     dir: 'es/',
@@ -174,11 +182,11 @@ const esConfig = {
 
 // 按需加载组件 带原始 less 文件，可定制主题
 const esmConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/components/index-lib.ts'),
   // 为了保留 style/index.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ ignoreLess: false })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ ignoreLess: false })),
   output: {
     banner,
     dir: 'esm/',
@@ -194,7 +202,7 @@ const cjsExternal = externalDeps.concat(externalPeerDeps).filter((value) => !cjs
 const cjsConfig = {
   input: inputList,
   external: cjsExternal,
-  plugins: [multiInput()].concat(getPlugins()),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
     dir: 'cjs/',
@@ -244,7 +252,7 @@ const umdMinConfig = {
 
 // 单独导出 reset.css 到 dist 目录，兼容旧版本样式
 const resetCss = {
-  input: 'src/_common/style/web/_reset.less',
+  input: 'packages/common/style/web/_reset.less',
   output: {
     file: 'dist/reset.css',
   },

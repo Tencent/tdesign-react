@@ -7,7 +7,7 @@ const testConfig: InlineConfig = {
   include:
     process.env.NODE_ENV === 'test-snap'
       ? ['test/snap/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
-      : ['src/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      : ['packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   globals: true,
   environment: 'jsdom',
   testTimeout: 16000,
@@ -16,7 +16,6 @@ const testConfig: InlineConfig = {
   },
   coverage: {
     provider: 'istanbul',
-    exclude: ['src/_common'],
     reporter: ['text', 'json', 'html'],
     reportsDirectory: 'test/coverage',
   },
@@ -25,8 +24,8 @@ const testConfig: InlineConfig = {
 export default defineConfig({
   resolve: {
     alias: {
-      'tdesign-react/es': path.resolve(__dirname, './src/'),
-      'tdesign-react': path.resolve(__dirname, './src/'),
+      'tdesign-react/es': path.resolve(__dirname, './packages/components'),
+      'tdesign-react': path.resolve(__dirname, './packages/components'),
       '@test/utils': path.resolve(__dirname, './test/utils'),
     },
   },
