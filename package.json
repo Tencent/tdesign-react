@@ -1,5 +1,6 @@
 {
   "name": "tdesign-react",
+  "packageManager": "pnpm@9.5.0",
   "purename": "tdesign",
   "version": "1.11.1",
   "description": "TDesign Component for React",
