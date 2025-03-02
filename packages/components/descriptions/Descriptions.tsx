@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { isArray , assign } from 'lodash-es';
+import { isArray, assign } from 'lodash-es';
 import { TdDescriptionItemProps, TdDescriptionsProps } from './type';
 import { descriptionItemDefaultProps, descriptionsDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';

@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useMemo, isValidElement } from 'react';
 import classnames from 'classnames';
-import { isString , isObject , isFunction } from 'lodash-es';
+import { isString, isObject, isFunction } from 'lodash-es';
 
 import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';

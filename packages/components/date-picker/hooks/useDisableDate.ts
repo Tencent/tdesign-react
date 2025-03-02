@@ -16,7 +16,11 @@ export default function useDisableDate(props: disableDateProps) {
 
   return {
     disableDate: (value: Date) => !isEnabledDate({ disableDate, format, mode, value }),
-    minDate: isObject(disableDate) && 'before' in disableDate ? new Date(dayjs(disableDate.before).startOf('day').format()) : start,
-    maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(dayjs(disableDate.after).endOf('day').format()) : end,
+    minDate:
+      isObject(disableDate) && 'before' in disableDate
+        ? new Date(dayjs(disableDate.before).startOf('day').format())
+        : start,
+    maxDate:
+      isObject(disableDate) && 'after' in disableDate ? new Date(dayjs(disableDate.after).endOf('day').format()) : end,
   };
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, MouseEvent, KeyboardEvent, useRef } from 'react';
-import { isArray , isFunction } from 'lodash-es';
+import { isArray, isFunction } from 'lodash-es';
 import {
   ImageErrorIcon as TdImageErrorIcon,
   ImageIcon as TdImageIcon,
