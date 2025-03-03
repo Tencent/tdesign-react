@@ -8,7 +8,7 @@ import enConfig from '@tdesign/components/locale/en_US';
 import { getLang } from 'tdesign-site-components';
 
 import packageJson from '../../package.json';
-import siteConfig from '../site.config';
+import * as siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
 
 const LazyDemo = lazy(() => import('./components/Demo'));

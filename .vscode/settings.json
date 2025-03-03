@@ -75,7 +75,4 @@
     "tsconfig.json": "tsconfig.*.json",
     "vitest.config.ts": "babel.config.js, postcss.config.js"
   },
-  "i18n-ally.localesPaths": [
-    "packages/components/locale"
-  ],
 }
