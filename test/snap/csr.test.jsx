@@ -19,7 +19,7 @@ class ResizeObserver {
 }
 
 function runTest() {
-  const files = glob.sync('src/**/_example/*.tsx', {
+  const files = glob.sync('packages/components/**/_example/*.tsx', {
     ignore: IGNORE_ASYNC_EXAMPLE_LIST,
   });
 

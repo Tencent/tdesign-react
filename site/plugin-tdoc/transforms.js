@@ -11,20 +11,21 @@ let demoCodesImports = {};
 export default {
   before({ source, file }) {
     const resourceDir = path.dirname(file);
-    const reg = file.match(/src\/([\w-]+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
+    const reg = file.match(/packages\/components\/([\w-]+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
 
     const fileName = reg && reg[0];
     const componentName = reg && reg[1];
     const localeName = reg && reg[3];
-
+    console.log(fileName, 'fileName');
     demoImports = {};
     demoCodesImports = {};
     // 统一换成 common 公共文档内容
     if (fileName && source.includes(':: BASE_DOC ::')) {
-      const localeDocPath = path.resolve(__dirname, `../../src/_common/docs/web/api/${fileName}`);
+      const localeDocPath = path.resolve(__dirname, `../../packages/common/docs/web/api/${fileName}`);
+
       const defaultDocPath = path.resolve(
         __dirname,
-        `../../src/_common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
+        `../../packages/common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
       );
       let baseDoc = '';
 
