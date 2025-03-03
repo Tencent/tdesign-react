@@ -4,7 +4,7 @@ import DrawerComponent, { DrawerProps } from './Drawer';
 
 import { getAttach } from '../_util/dom';
 import { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
-import log from '../_common/js/log';
+import log from '../../common/js/log';
 
 const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const drawerRef = React.createRef<DrawerInstance>();
