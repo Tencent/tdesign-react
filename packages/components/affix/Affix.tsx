@@ -50,10 +50,10 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
         const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
 
         let fixedTop: number | false;
-        if (props.offsetTop !== undefined && calcTop <= offsetTop) {
+        if (calcTop <= offsetTop) {
           // top 的触发
           fixedTop = containerToTop + offsetTop;
-        } else if (props?.offsetBottom !== undefined && wrapToTop >= calcBottom) {
+        } else if (wrapToTop >= calcBottom) {
           // bottom 的触发
           fixedTop = calcBottom;
         } else {
@@ -102,7 +102,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
       });
     }
     ticking.current = true;
-  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, props?.offsetBottom, props.offsetTop, zIndex]);
+  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, zIndex]);
 
   useImperativeHandle(ref, () => ({
     handleScroll,
