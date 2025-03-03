@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import semver from 'semver';
-import Loading from 'tdesign-react/loading';
-import ConfigProvider from 'tdesign-react/config-provider';
-import zhConfig from 'tdesign-react/es/locale/zh_CN';
-import enConfig from 'tdesign-react/es/locale/en_US';
+import Loading from '@tdesign/components/loading';
+import ConfigProvider from '@tdesign/components/config-provider';
+import zhConfig from '@tdesign/components/locale/zh_CN';
+import enConfig from '@tdesign/components/locale/en_US';
 import { getLang } from 'tdesign-site-components';
 
+import packageJson from '../../package.json';
 import siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
-import packageJson from '@/package.json';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
@@ -51,7 +51,7 @@ function Components() {
   const tdDocSearch = useRef();
 
   const [version] = useState(currentVersion);
-  const [globalConfig] = useState(() => getLang() === 'en' ? enConfig : zhConfig);
+  const [globalConfig] = useState(() => (getLang() === 'en' ? enConfig : zhConfig));
 
   function initHistoryVersions() {
     fetch(registryUrl)
@@ -97,7 +97,7 @@ function Components() {
     };
 
     initHistoryVersions();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

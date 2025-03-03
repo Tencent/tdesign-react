@@ -2,7 +2,7 @@
     "name": "@tdesign/react-site",
     "private":true,
     "scripts": {
-      "start": "pnpm dev",
+      "start": "pnpm run dev",
       "dev": "vite",
       "build": "vite build",
       "intranet": "vite build --mode intranet",
@@ -132,4 +132,3 @@
       "validator": "~13.7.0"
     }
   }
-  

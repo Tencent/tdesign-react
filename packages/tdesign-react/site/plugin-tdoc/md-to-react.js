@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import camelCase from 'camelcase';
-import { compileUsage, getGitTimestamp } from '@common/docs/compile';
+import { compileUsage, getGitTimestamp } from '../../../../packages/common/docs/compile';
 
 import testCoverage from '../test-coverage';
 
