@@ -234,6 +234,7 @@ interface ImageViewerUtilsProps {
     rotate: string;
     originsize: string;
   };
+  onDownload?:TdImageViewerProps['onDownload'];
 }
 
 export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
@@ -245,6 +246,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   onMirror,
   onReset,
   tipText,
+  onDownload,
 }) => {
   const { classPrefix } = useConfig();
   const { MirrorIcon, RotationIcon, ImageIcon } = useGlobalIcon({
@@ -293,6 +295,11 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
             size="medium"
             name="download"
             onClick={() => {
+              if(isFunction(onDownload)){
+                // 自定义图片预览下载
+                onDownload(currentImage.mainImage);
+                return;
+              }
               downloadFile(currentImage.mainImage);
             }}
           />
@@ -387,6 +394,7 @@ export interface ImageModalProps {
   draggable: boolean;
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
+  onDownload?:TdImageViewerProps['onDownload'];
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
 }
@@ -409,6 +417,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     title,
     closeOnEscKeydown,
     imageReferrerpolicy,
+    onDownload,
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
@@ -576,6 +585,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         onMirror={onMirror}
         onReset={onReset}
         tipText={tipText}
+        onDownload={onDownload}
       />
       {closeNode}
       <ImageModalItem
