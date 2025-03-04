@@ -208,6 +208,7 @@
     "@tdesign/common-js": "workspace:^",
     "@tdesign/common-style": "workspace:^",
     "@tdesign/components": "workspace:^",
+    "@tdesign/react-site": "workspace:^",
     "@types/sortablejs": "^1.10.7",
     "@types/tinycolor2": "^1.4.3",
     "@types/validator": "^13.1.3",
