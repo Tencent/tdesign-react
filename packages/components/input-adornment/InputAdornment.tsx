@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { isString , isNumber } from 'lodash-es';
+import { isString, isNumber } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { TdInputAdornmentProps } from './type';
 import { StyledProps } from '../common';

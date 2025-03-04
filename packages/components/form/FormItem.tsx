@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
-import { isObject , isString , get , merge , isFunction } from 'lodash-es';
+import { isObject, isString, get, merge, isFunction } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,

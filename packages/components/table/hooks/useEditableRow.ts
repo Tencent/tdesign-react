@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { get , isFunction } from 'lodash-es';
+import { get, isFunction } from 'lodash-es';
 import { PrimaryTableProps } from '../interface';
 import { validate } from '../../form/formModel';
 import { AllValidateResult } from '../../form';

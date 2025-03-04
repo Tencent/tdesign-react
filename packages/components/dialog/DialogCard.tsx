@@ -1,6 +1,6 @@
 import React, { forwardRef, isValidElement } from 'react';
 import classNames from 'classnames';
-import { isString , isObject , isFunction } from 'lodash-es';
+import { isString, isObject, isFunction } from 'lodash-es';
 import {
   CloseIcon as TdCloseIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,

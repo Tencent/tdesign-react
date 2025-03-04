@@ -1,4 +1,4 @@
-import { isEmpty , isFunction , isString } from 'lodash-es';
+import { isEmpty, isFunction, isString } from 'lodash-es';
 import React from 'react';
 import { DataOption, TransferValue } from './type';
 import { TNode } from '../common';

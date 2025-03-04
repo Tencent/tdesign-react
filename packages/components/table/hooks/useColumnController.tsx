@@ -3,7 +3,7 @@
  */
 import React, { useEffect, ChangeEvent, useRef } from 'react';
 import { SettingIcon as TdSettingIcon } from 'tdesign-icons-react';
-import { intersection , xorWith } from 'lodash-es';
+import { intersection, xorWith } from 'lodash-es';
 import classNames from 'classnames';
 import Checkbox, { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
 import { DialogPlugin } from '../../dialog/plugin';

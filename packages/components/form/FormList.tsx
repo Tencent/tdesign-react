@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
-import { merge , get } from 'lodash-es';
+import { merge, get } from 'lodash-es';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
 import { HOOK_MARK } from './hooks/useForm';
