@@ -1,6 +1,6 @@
 import React from 'react';
-import { Calendar } from 'tdesign-react';
-import type { CalendarWeek } from 'tdesign-react';
+import { Calendar } from '@tdesign/components';
+import type { CalendarWeek } from '@tdesign/components';
 
 export default function CalendarExample() {
   const getWeekText = React.useCallback((calendarWeek: CalendarWeek) => {

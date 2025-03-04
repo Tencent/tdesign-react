@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio, Space } from 'tdesign-react';
+import { Radio, Space } from '@tdesign/components';
 
 export default function RadioControlledExample() {
   return (

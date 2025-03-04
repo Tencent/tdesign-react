@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Button, Divider } from 'tdesign-react';
+import { Space, Button, Divider } from '@tdesign/components';
 
 const BaseSpace = () => (
   <Space align="center" separator={<Divider layout="vertical" />}>

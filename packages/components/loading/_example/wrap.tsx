@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Loading, Button, Space } from 'tdesign-react';
+import { Loading, Button, Space } from '@tdesign/components';
 
 export default function WrapLoading() {
   const [loading, setLoading] = useState(true);

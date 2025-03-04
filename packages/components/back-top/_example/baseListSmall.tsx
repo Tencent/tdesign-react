@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BackTop, List } from 'tdesign-react';
+import { BackTop, List } from '@tdesign/components';
 import type { CSSProperties } from 'react';
 
 export default function BasicBackTop() {

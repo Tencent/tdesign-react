@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Affix, Button } from 'tdesign-react';
-import type { AffixProps } from 'tdesign-react';
+import { Affix, Button } from '@tdesign/components';
+import type { AffixProps } from '@tdesign/components';
 
 export default function ContainerExample() {
   const [container, setContainer] = useState(null);

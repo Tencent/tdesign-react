@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableProps, Tag } from 'tdesign-react';
+import { Table, TableProps, Tag } from '@tdesign/components';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 const statusNameListMap = {

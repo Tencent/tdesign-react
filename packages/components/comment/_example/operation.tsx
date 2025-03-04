@@ -1,5 +1,5 @@
 import React from 'react';
-import { Comment } from 'tdesign-react';
+import { Comment } from '@tdesign/components';
 import { ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 export default function OperationComment() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider } from 'tdesign-react';
+import { Divider } from '@tdesign/components';
 
 export default function BasicDivider() {
   return (

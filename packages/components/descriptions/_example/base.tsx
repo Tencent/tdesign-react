@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, Space } from 'tdesign-react';
+import { Descriptions, Space } from '@tdesign/components';
 
 // const { DescriptionsItem } = Descriptions;
 

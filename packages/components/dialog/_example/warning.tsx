@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, Space } from 'tdesign-react';
+import { Dialog, Button, Space } from '@tdesign/components';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 export default function WarningExample() {

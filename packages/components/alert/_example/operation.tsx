@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Space } from 'tdesign-react';
+import { Alert, Space } from '@tdesign/components';
 
 export default function AlertOperation() {
   const operation = <span>相关操作</span>;

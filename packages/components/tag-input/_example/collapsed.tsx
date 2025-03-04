@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Popup, Tag, Space } from 'tdesign-react';
-import type { TagInputValue } from 'tdesign-react';
+import { TagInput, Popup, Tag, Space } from '@tdesign/components';
+import type { TagInputValue } from '@tdesign/components';
 
 export default function TagInputCollapsedExample() {
   const [tags, setTags] = useState<TagInputValue>(['Vue', 'React', 'Miniprogram', 'Angular', 'Flutter']);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Calendar, Select, Switch, Space } from 'tdesign-react';
+import { Button, Calendar, Select, Switch, Space } from '@tdesign/components';
 
 type Theme = 'card' | 'full';
 

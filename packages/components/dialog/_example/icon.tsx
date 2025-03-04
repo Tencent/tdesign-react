@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from 'tdesign-react';
+import { Dialog, Button } from '@tdesign/components';
 import { ErrorCircleFilledIcon } from 'tdesign-icons-react';
 
 export default function BasicUsage() {

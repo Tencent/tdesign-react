@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Tag } from 'tdesign-react';
+import { Space, Tag } from '@tdesign/components';
 
 export default function ThemeTagExample() {
   return (

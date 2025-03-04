@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Select } from 'tdesign-react';
+import { Select } from '@tdesign/components';
 
-import type { SelectProps } from 'tdesign-react';
+import type { SelectProps } from '@tdesign/components';
 
 const RemoteSearchSelect = () => {
   const defaultOptions: SelectProps['options'] = [];

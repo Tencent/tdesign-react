@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Space, Tag } from 'tdesign-react';
+import { Space, Tag } from '@tdesign/components';
 
 const { CheckTag } = Tag;
 

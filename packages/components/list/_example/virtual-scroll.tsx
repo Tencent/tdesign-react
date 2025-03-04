@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { List, Space, Button } from 'tdesign-react';
+import { List, Space, Button } from '@tdesign/components';
 import type { ListRef } from '../List';
 
 const { ListItem, ListItemMeta } = List;

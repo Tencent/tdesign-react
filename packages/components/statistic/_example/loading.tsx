@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Switch, Statistic } from 'tdesign-react';
+import { Space, Switch, Statistic } from '@tdesign/components';
 
 const LoadingStatistic = () => {
   const [loading, setLoading] = React.useState(true);

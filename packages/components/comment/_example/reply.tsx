@@ -1,5 +1,5 @@
 import React from 'react';
-import { Comment } from 'tdesign-react';
+import { Comment } from '@tdesign/components';
 import { CaretRightSmallIcon, ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 const classStyles = `

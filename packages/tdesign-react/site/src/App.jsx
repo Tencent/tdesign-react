@@ -13,7 +13,7 @@ import { getRoute, filterVersions } from './utils';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
-const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
+const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig.default).replace(/component:.+/g, ''));
 
 const docsMap = {
   zh: docs,
@@ -23,7 +23,7 @@ const docsMap = {
 const registryUrl = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/npm/versions/tdesign-react';
 const currentVersion = packageJson.version.replace(/\./g, '_');
 
-const docRoutes = [...getRoute(siteConfig.docs, []), ...getRoute(siteConfig.enDocs, [])];
+const docRoutes = [...getRoute(siteConfig.default.docs, []), ...getRoute(siteConfig.default.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
   const LazyCom = lazy(nav.component);
 

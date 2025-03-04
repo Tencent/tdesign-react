@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { Menu } from 'tdesign-react';
+import { Menu } from '@tdesign/components';
 import { UserIcon } from 'tdesign-icons-react';
 
-import type { MenuValue } from 'tdesign-react';
+import type { MenuValue } from '@tdesign/components';
 
 const { HeadMenu, SubMenu, MenuItem } = Menu;
 

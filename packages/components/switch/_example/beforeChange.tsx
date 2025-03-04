@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Space } from 'tdesign-react';
+import { Switch, Space } from '@tdesign/components';
 
 export default function SwitchBeforeChange() {
   const [resolveChecked, setResolveChecked] = useState(true);

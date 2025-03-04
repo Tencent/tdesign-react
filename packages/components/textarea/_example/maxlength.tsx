@@ -1,5 +1,5 @@
 import React from 'react';
-import { Textarea, Space } from 'tdesign-react';
+import { Textarea, Space } from '@tdesign/components';
 
 export default function InputExample() {
   return (

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Button, Tree, Space, TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
+import { Button, Tree, Space, TreeInstanceFunctions, TreeNodeModel } from '@tdesign/components';
 import { Icon } from 'tdesign-icons-react';
 import { cloneDeepWith } from 'lodash-es';
 import { TreeOptionData } from '../../common';

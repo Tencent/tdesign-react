@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Message, Button, Space } from 'tdesign-react';
+import { Message, Button, Space } from '@tdesign/components';
 
 export default function () {
   const [successLoading, setSuccessLoading] = useState(false);

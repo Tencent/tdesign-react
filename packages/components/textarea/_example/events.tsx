@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Textarea } from 'tdesign-react';
-import type { TextareaProps } from 'tdesign-react';
+import { Textarea } from '@tdesign/components';
+import type { TextareaProps } from '@tdesign/components';
 
 export default function InputExample() {
   const [value, onChange] = useState('');

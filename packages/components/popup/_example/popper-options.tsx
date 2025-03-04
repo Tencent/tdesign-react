@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Input, Popup, Space } from 'tdesign-react';
+import { Button, Input, Popup, Space } from '@tdesign/components';
 
 export default function PopperOptions() {
   const [offsetX, setOffsetX] = useState('0');

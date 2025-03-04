@@ -1,5 +1,5 @@
 import React from 'react';
-import { Timeline } from 'tdesign-react';
+import { Timeline } from '@tdesign/components';
 
 const CommonStyle = {
   fontSize: 12,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from 'tdesign-react';
+import { TagInput, Space } from '@tdesign/components';
 
 export default function TagInputMaxRowExample() {
   const [tags, setTags] = useState<string[]>([

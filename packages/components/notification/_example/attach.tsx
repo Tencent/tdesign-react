@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { NotificationPlugin, Button, Space } from 'tdesign-react';
+import { NotificationPlugin, Button, Space } from '@tdesign/components';
 
 export default function NotificationExample() {
   const timerRef = useRef<any>();

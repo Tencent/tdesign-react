@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'tdesign-react';
+import { Row, Col } from '@tdesign/components';
 
 const demoCols = [
   Array(12).fill(1),

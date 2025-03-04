@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Space } from 'tdesign-react';
+import { Button, Space } from '@tdesign/components';
 import { CalendarIcon } from 'tdesign-icons-react';
 
 export default function ButtonExample() {

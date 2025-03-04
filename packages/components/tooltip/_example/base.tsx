@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip } from 'tdesign-react';
+import { Button, Tooltip } from '@tdesign/components';
 
 // const Absolute = Position.absolute as const;
 const Position = {

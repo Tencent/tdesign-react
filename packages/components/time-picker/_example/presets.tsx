@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TimePicker, Space } from 'tdesign-react';
+import { TimePicker, Space } from '@tdesign/components';
 
 const { TimeRangePicker } = TimePicker;
 

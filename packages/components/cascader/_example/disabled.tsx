@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader, Space } from 'tdesign-react';
+import { Cascader, Space } from '@tdesign/components';
 
 export default function Example() {
   const value1 = '1.1';

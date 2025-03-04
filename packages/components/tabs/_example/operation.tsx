@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs } from 'tdesign-react';
+import { Tabs } from '@tdesign/components';
 
 const { TabPanel } = Tabs;
 let index = 2;

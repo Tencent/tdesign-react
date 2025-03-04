@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Loading, Button, Space } from 'tdesign-react';
+import { Loading, Button, Space } from '@tdesign/components';
 
 export default function LoadingDelay() {
   const [data, setData] = useState('');

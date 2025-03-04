@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select } from 'tdesign-react';
+import { Select } from '@tdesign/components';
 
 const SelectCustomKeys = () => {
   const [value, setValue] = useState('1');

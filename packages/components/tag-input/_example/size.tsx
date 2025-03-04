@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from 'tdesign-react';
-import type { TagInputValue } from 'tdesign-react';
+import { TagInput, Space } from '@tdesign/components';
+import type { TagInputValue } from '@tdesign/components';
 
 export default function TagInputSize() {
   const [tags1, setTags1] = useState<TagInputValue>(['Vue', 'React']);

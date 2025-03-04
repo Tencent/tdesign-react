@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'tdesign-react';
+import { Image } from '@tdesign/components';
 
 export default function AvifImage() {
   return (

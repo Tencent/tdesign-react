@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Select, Space, RadioGroup, Checkbox, Popup, Tag } from 'tdesign-react';
+import { Select, Space, RadioGroup, Checkbox, Popup, Tag } from '@tdesign/components';
 
-import type { SelectProps } from 'tdesign-react';
+import type { SelectProps } from '@tdesign/components';
 
 const options = [
   { label: '选项一', value: '1' },

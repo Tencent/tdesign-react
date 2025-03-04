@@ -1,5 +1,5 @@
 import React from 'react';
-import { Swiper } from 'tdesign-react';
+import { Swiper } from '@tdesign/components';
 
 const { SwiperItem } = Swiper;
 

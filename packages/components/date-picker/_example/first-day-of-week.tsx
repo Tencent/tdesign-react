@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DatePicker, Radio, Space } from 'tdesign-react';
+import { DatePicker, Radio, Space } from '@tdesign/components';
 
 export default function YearDatePicker() {
   const [startWeek, setStartWeek] = useState(1);

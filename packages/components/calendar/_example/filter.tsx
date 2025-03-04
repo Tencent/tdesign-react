@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Calendar } from 'tdesign-react';
+import { Switch, Calendar } from '@tdesign/components';
 
 export default function CalendarExample() {
   const [isShowWeekendDefault, setIsShowWeekendDefault] = React.useState(true);

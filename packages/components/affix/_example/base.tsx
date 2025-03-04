@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Affix, Button } from 'tdesign-react';
+import { Affix, Button } from '@tdesign/components';
 
 export default function BaseExample() {
   const [top, setTop] = useState(150);

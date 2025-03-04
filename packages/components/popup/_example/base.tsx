@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popup } from 'tdesign-react';
+import { Button, Popup } from '@tdesign/components';
 
 export default function BasicUsage() {
   return (

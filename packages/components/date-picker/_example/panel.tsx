@@ -1,6 +1,6 @@
 import React from 'react';
-import { DatePickerPanel, DateRangePickerPanel, Space } from 'tdesign-react';
-import type { DatePickerPanelProps, DateRangePickerPanelProps } from 'tdesign-react';
+import { DatePickerPanel, DateRangePickerPanel, Space } from '@tdesign/components';
+import type { DatePickerPanelProps, DateRangePickerPanelProps } from '@tdesign/components';
 
 export default function PanelExample() {
   const handleChange: DatePickerPanelProps['onChange'] = (value) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, RadioOption, Space } from 'tdesign-react';
+import { Radio, RadioOption, Space } from '@tdesign/components';
 
 const objOptions: RadioOption[] = [
   {

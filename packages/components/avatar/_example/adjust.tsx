@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Space } from 'tdesign-react';
+import { Avatar, Space } from '@tdesign/components';
 
 export default function AdjustAvatar() {
   return (

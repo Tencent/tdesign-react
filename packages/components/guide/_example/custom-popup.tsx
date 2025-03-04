@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowUpIcon } from 'tdesign-icons-react';
-import { Button, Drawer, Guide, GuideStep, Input, Row } from 'tdesign-react';
-import type { GuideProps } from 'tdesign-react';
+import { Button, Drawer, Guide, GuideStep, Input, Row } from '@tdesign/components';
+import type { GuideProps } from '@tdesign/components';
 
 const classStyles = `
 <style>

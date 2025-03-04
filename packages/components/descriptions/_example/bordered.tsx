@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions } from 'tdesign-react';
+import { Descriptions } from '@tdesign/components';
 
 export default function Bordered() {
   const items = [

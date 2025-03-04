@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Space } from 'tdesign-react';
+import { Image, Space } from '@tdesign/components';
 
-import type { ImageProps } from 'tdesign-react';
+import type { ImageProps } from '@tdesign/components';
 
 export default function FillModeImage() {
   const [src, setSrc] = useState('');

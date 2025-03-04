@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput } from 'tdesign-react';
+import { SelectInput } from '@tdesign/components';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
-import type { SelectInputProps } from 'tdesign-react';
+import type { SelectInputProps } from '@tdesign/components';
 
 const classStyles = `
 <style>

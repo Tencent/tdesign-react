@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popconfirm, Space } from 'tdesign-react';
+import { Button, Popconfirm, Space } from '@tdesign/components';
 
 export default function PlacementExample() {
   const $content = '请确认您要进行此操作';

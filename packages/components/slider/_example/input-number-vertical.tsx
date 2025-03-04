@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Slider } from 'tdesign-react';
-import type { SliderProps, SliderValue } from 'tdesign-react';
+import { Slider } from '@tdesign/components';
+import type { SliderProps, SliderValue } from '@tdesign/components';
 
 const InputNumberVerticalSlider = () => {
   const [value, setValue] = useState<SliderValue>(10);

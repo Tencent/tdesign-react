@@ -15,7 +15,7 @@ import {
   ComponentRadioIcon,
   ComponentStepsIcon,
 } from 'tdesign-icons-react';
-import { Space } from 'tdesign-react';
+import { Space } from '@tdesign/components';
 
 export default function IconExample() {
   return (

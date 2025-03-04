@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Cascader } from 'tdesign-react';
-import type { CascaderProps, CascaderValue } from 'tdesign-react';
+import { Cascader } from '@tdesign/components';
+import type { CascaderProps, CascaderValue } from '@tdesign/components';
 
 export default function Example() {
   const [value1, setValue1] = useState<CascaderValue>([]);

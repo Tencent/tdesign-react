@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorPickerPanel } from 'tdesign-react';
+import { ColorPickerPanel } from '@tdesign/components';
 
 export default function StatusReadonly() {
   const color = '#0052d9';

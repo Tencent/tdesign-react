@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
+import { Table, Checkbox, Radio, Space, Tag } from '@tdesign/components';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableProps } from 'tdesign-react';
+import type { TableProps } from '@tdesign/components';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Checkbox } from 'tdesign-react';
+import { SelectInput, Checkbox } from '@tdesign/components';
 
 import type {
   TagInputValue,
   TagInputChangeContext,
   CheckboxGroupChangeContext,
   CheckboxOptionObj,
-} from 'tdesign-react';
+} from '@tdesign/components';
 
 const classStyles = `
 <style>

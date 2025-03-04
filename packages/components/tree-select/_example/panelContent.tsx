@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, Input, Space } from 'tdesign-react';
+import { TreeSelect, Input, Space } from '@tdesign/components';
 
-import type { TreeSelectProps } from 'tdesign-react';
+import type { TreeSelectProps } from '@tdesign/components';
 
 const options: TreeSelectProps['data'] = [
   {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Space, Tag, ColorPicker } from 'tdesign-react';
+import { Space, Tag, ColorPicker } from '@tdesign/components';
 
 export default function CustomColor() {
   const [selfDefinedColor, changeSelfDefinedColor] = useState('#0052D9');

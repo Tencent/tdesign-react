@@ -1,8 +1,8 @@
 import React from 'react';
 import { merge } from 'lodash-es';
-import { ConfigProvider, Table, Space } from 'tdesign-react';
+import { ConfigProvider, Table, Space } from '@tdesign/components';
 import { ChevronRightIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
-import enConfig from 'tdesign-react/es/locale/en_US';
+import enConfig from '@tdesign/components/locale/en_US';
 
 const columns = [
   {

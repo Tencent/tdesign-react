@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Breadcrumb } from 'tdesign-react';
+import { Breadcrumb } from '@tdesign/components';
 
 const { BreadcrumbItem } = Breadcrumb;
 

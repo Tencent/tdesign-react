@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Skeleton, Switch } from 'tdesign-react';
+import { Skeleton, Switch } from '@tdesign/components';
 
 const style = {
   'mb-20': {
