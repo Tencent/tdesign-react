@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { isNumber , isString , get } from 'lodash-es';
+import { isNumber, isString, get } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';

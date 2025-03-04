@@ -217,7 +217,7 @@ const Input = forwardRefWithStatics(
         ref={inputRef}
         placeholder={placeholder}
         type={renderType}
-        className={`${classPrefix}-input__inner`}
+        className={`${classPrefix}-input__inner${showInput ? '' : ` ${classPrefix}-input--soft-hidden`}`}
         value={formatDisplayValue}
         readOnly={readonly}
         disabled={disabled}
@@ -261,7 +261,7 @@ const Input = forwardRefWithStatics(
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
-        {showInput && renderInput}
+        {renderInput}
         {autoWidth && (
           <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
             {innerValue || placeholder}
