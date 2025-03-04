@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Space, Button, Loading } from 'tdesign-react';
+import { Image, Space, Button, Loading } from '@tdesign/components';
 import { RefreshIcon } from 'tdesign-icons-react';
 
 export default function LazySingleImage() {

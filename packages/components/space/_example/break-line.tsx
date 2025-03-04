@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Button } from 'tdesign-react';
+import { Space, Button } from '@tdesign/components';
 
 const BaseSpace = () => (
   <Space breakLine>

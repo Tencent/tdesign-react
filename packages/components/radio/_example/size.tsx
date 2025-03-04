@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Space } from 'tdesign-react';
+import { Radio, Space } from '@tdesign/components';
 
 type GeneratorGender<T extends string, Num extends string> = `${T}${Num}`;
 type Gender1 = 'bj' | 'sz' | 'gz' | 'sh';

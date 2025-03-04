@@ -1,6 +1,6 @@
 import React from 'react';
-import { DatePicker, Space } from 'tdesign-react';
-import type { DatePickerProps } from 'tdesign-react';
+import { DatePicker, Space } from '@tdesign/components';
+import type { DatePickerProps } from '@tdesign/components';
 
 export default function YearDatePicker() {
   const handleChange: DatePickerProps['onChange'] = (value, context) => {

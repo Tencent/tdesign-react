@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Tag } from 'tdesign-react';
+import { Image, Tag } from '@tdesign/components';
 
 export default function AlbumCoverImage() {
   const label = (

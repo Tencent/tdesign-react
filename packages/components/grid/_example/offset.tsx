@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'tdesign-react';
+import { Row, Col } from '@tdesign/components';
 
 export default function OffsetGrid() {
   return (

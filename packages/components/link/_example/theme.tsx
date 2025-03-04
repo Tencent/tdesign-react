@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Link } from 'tdesign-react';
+import { Space, Link } from '@tdesign/components';
 
 export default function LinkExample() {
   return (

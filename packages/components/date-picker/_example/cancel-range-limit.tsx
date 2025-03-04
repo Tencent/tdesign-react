@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateRangePicker, Space } from 'tdesign-react';
+import { DateRangePicker, Space } from '@tdesign/components';
 
 export default function CancelRangeLimitDatePicker() {
   return (

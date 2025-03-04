@@ -1,5 +1,5 @@
 import React from 'react';
-import { Empty, Row, Col } from 'tdesign-react';
+import { Empty, Row, Col } from '@tdesign/components';
 import { ErrorCircleIcon } from 'tdesign-icons-react';
 
 export default function BasicGrid() {

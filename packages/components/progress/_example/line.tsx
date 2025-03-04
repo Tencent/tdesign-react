@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Progress, Space } from 'tdesign-react';
+import { Progress, Space } from '@tdesign/components';
 
 export default function LineProgress() {
   const [percent, setPercent] = useState(0);

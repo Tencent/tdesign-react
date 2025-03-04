@@ -1,11 +1,8 @@
-import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import pwaConfig from './pwaConfig';
 import tdocPlugin from './plugin-tdoc';
-
-const resolvePath = (r) => path.resolve(__dirname, r);
 
 const publicPathMap = {
   preview: '/',
@@ -27,18 +24,6 @@ const disableTreeShakingPlugin = (paths) => ({
 export default ({ mode }) =>
   defineConfig({
     base: publicPathMap[mode],
-    resolve: {
-      alias: {
-        '@': resolvePath('../'),
-        '@site': resolvePath('./'),
-        '@docs': resolvePath('./docs'),
-        '@components': resolvePath('./src/components'),
-        '@common': resolvePath('../packages/common'),
-        'tdesign-react/es': resolvePath('../packages/components'),
-        'tdesign-react': resolvePath('../packages/components'),
-        '@test/utils': resolvePath('../test/utils'),
-      },
-    },
     build: {
       outDir: '../_site',
       rollupOptions: {

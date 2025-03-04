@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Button, Dropdown, MessagePlugin, Comment } from 'tdesign-react';
-import type { TdDropdownProps } from 'tdesign-react';
+import { Card, Button, Dropdown, MessagePlugin, Comment } from '@tdesign/components';
+import type { TdDropdownProps } from '@tdesign/components';
 
 import { Icon } from 'tdesign-icons-react';
 

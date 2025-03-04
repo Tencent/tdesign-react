@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, Space, Radio } from 'tdesign-react';
+import { Descriptions, Space, Radio } from '@tdesign/components';
 
 export default function Column() {
   const [column, setColumn] = React.useState(2);

@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashRouter, Routes, Navigate, Route, useLocation, Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import Button from 'tdesign-react/button';
-import 'tdesign-react/style/index.js';
+import { Button } from '@tdesign/components';
+import '@tdesign/components/style/index.js';
 
 const demoFiles = import.meta.glob('../../../src/**/_example/*.jsx', { eager: true });
 const demoObject = {};

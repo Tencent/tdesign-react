@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
-import { Input } from 'tdesign-react';
-import type { InputProps } from 'tdesign-react';
+import { Input } from '@tdesign/components';
+import type { InputProps } from '@tdesign/components';
 
 export default function InputExample() {
   const [value, setValue] = useState('');

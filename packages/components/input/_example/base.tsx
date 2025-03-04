@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Space } from 'tdesign-react';
+import { Input, Space } from '@tdesign/components';
 
 export default function InputExample() {
   const [value, onChange] = useState('Welcome to TDesign');

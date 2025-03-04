@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'tdesign-react';
+import { Card } from '@tdesign/components';
 
 export default function HeaderAllPropsCard() {
   return (

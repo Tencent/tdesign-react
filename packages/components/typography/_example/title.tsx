@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'tdesign-react';
+import { Typography } from '@tdesign/components';
 
 const { Title } = Typography;
 

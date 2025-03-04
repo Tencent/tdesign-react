@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Space } from 'tdesign-react';
+import { Select, Space } from '@tdesign/components';
 
 function Status() {
   return (

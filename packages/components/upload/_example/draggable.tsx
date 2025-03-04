@@ -8,7 +8,7 @@ import {
   SwitchProps,
   type TdRadioGroupProps,
   UploadProps,
-} from 'tdesign-react';
+} from '@tdesign/components';
 
 function getCurrentDate(needTime = false) {
   const d = new Date();

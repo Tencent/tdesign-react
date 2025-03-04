@@ -1,6 +1,6 @@
 import React from 'react';
 import { AngryIcon, SmileIcon } from 'tdesign-icons-react';
-import { Typography } from 'tdesign-react';
+import { Typography } from '@tdesign/components';
 
 const { Text } = Typography;
 

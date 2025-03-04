@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Space, Link, Button } from 'tdesign-react';
+import { List, Space, Link, Button } from '@tdesign/components';
 import { EditIcon, DownloadIcon } from 'tdesign-icons-react';
 
 const { ListItem, ListItemMeta } = List;

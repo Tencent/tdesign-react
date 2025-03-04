@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from 'tdesign-react';
+import { Skeleton } from '@tdesign/components';
 
 const themes = [
   { label: '文本', value: 'text' },

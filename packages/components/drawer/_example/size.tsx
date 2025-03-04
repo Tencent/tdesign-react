@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button, Space } from 'tdesign-react';
+import { Drawer, Radio, Button, Space } from '@tdesign/components';
 
 export default function () {
   const [visible, setVisible] = useState(false);

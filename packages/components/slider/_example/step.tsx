@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Slider } from 'tdesign-react';
-import type { SliderValue } from 'tdesign-react';
+import { Slider } from '@tdesign/components';
+import type { SliderValue } from '@tdesign/components';
 
 const StepSlider = () => {
   const [value, setValue] = useState<SliderValue>(10);

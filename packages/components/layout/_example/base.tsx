@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'tdesign-react';
+import { Layout } from '@tdesign/components';
 
 const { Header, Content, Footer, Aside } = Layout;
 

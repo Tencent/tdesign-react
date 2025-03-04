@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Tree, Form, Switch, Space } from 'tdesign-react';
+import { Tree, Form, Switch, Space } from '@tdesign/components';
 import { Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 
-import type { TreeNodeModel } from 'tdesign-react';
+import type { TreeNodeModel } from '@tdesign/components';
 
 const items = [
   {

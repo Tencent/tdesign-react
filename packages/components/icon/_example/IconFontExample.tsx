@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from 'tdesign-react';
+import { Space } from '@tdesign/components';
 import { IconFont } from 'tdesign-icons-react';
 
 export default function SvgSpriteExample() {

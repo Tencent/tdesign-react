@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb } from 'tdesign-react';
+import { Breadcrumb } from '@tdesign/components';
 import { BookmarkIcon } from 'tdesign-icons-react';
 
 const { BreadcrumbItem } = Breadcrumb;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Timeline, Space, Radio } from 'tdesign-react';
+import { Timeline, Space, Radio } from '@tdesign/components';
 
 export default function LayoutTimeLine() {
   const [direction, setDirection] = useState<'left' | 'right' | 'alternate'>('left');

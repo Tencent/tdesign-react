@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Select, Divider, Button, Input, Space } from 'tdesign-react';
-import type { SelectProps } from 'tdesign-react';
+import { Select, Divider, Button, Input, Space } from '@tdesign/components';
+import type { SelectProps } from '@tdesign/components';
 
 const OPTIONS: SelectProps['options'] = [
   { label: '架构云', value: '1' },

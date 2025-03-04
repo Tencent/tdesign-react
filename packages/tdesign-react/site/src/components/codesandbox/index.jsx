@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Tooltip from 'tdesign-react/tooltip';
-import Loading from 'tdesign-react/loading';
+import { Tooltip, Loading } from '@tdesign/components';
 
 import { mainJsContent, htmlContent, pkgContent, styleContent, tsconfigContent } from './content';
 import '../../styles/Codesandbox.less';

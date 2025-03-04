@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimePicker, Space } from 'tdesign-react';
+import { TimePicker, Space } from '@tdesign/components';
 
 export default function DisabledTimePicker() {
   const disableTime = (h: number) => {

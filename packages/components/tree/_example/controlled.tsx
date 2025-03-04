@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { InputAdornment, Input, Tree, Space } from 'tdesign-react';
+import { InputAdornment, Input, Tree, Space } from '@tdesign/components';
 
-import type { TreeProps } from 'tdesign-react';
+import type { TreeProps } from '@tdesign/components';
 
 const items = [
   {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Statistic, Card, Divider } from 'tdesign-react';
+import { Space, Statistic, Card, Divider } from '@tdesign/components';
 import { IconFont } from 'tdesign-icons-react';
 
 const CombinationStatistic = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Space } from 'tdesign-react';
+import { Button, Space } from '@tdesign/components';
 
 export default function ButtonExample() {
   return (

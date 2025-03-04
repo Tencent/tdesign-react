@@ -1,5 +1,5 @@
 import React from 'react';
-import { RangeInputPopup } from 'tdesign-react';
+import { RangeInputPopup } from '@tdesign/components';
 
 export default function BaseExample() {
   return <RangeInputPopup panel={<div>hello world</div>} />;

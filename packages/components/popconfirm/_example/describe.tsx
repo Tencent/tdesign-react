@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Popconfirm, Space } from 'tdesign-react';
+import { Button, Popconfirm, Space } from '@tdesign/components';
 
 const classStyles = `
 <style>

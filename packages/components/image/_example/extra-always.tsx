@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Space, Tag } from 'tdesign-react';
+import { Image, Space, Tag } from '@tdesign/components';
 import { PrintIcon } from 'tdesign-icons-react';
 
 export default function ExtraAlwaysImage() {

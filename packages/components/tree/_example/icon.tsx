@@ -1,7 +1,7 @@
 import React from 'react';
-import { Tree, Space } from 'tdesign-react';
+import { Tree, Space } from '@tdesign/components';
 import { Icon } from 'tdesign-icons-react';
-import type { TreeProps } from 'tdesign-react';
+import type { TreeProps } from '@tdesign/components';
 
 const items = [
   {

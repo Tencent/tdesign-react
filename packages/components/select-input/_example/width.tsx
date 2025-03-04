@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SelectInput } from 'tdesign-react';
+import { SelectInput } from '@tdesign/components';
 
 const classStyles = `
 <style>

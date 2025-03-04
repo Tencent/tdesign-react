@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Space } from 'tdesign-react';
+import { Input, Space } from '@tdesign/components';
 
 export default function BorderlessInputExample() {
   return (

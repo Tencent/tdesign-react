@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Calendar, Space } from 'tdesign-react';
+import { Select, Calendar, Space } from '@tdesign/components';
 
 export default function CalendarExample() {
   const [firstDayOfWeek, setFirstDayOfWeek] = React.useState(3);

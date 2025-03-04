@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from 'tdesign-react';
+import { Dialog, Button } from '@tdesign/components';
 
 export default function CustomFooterExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);

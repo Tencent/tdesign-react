@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popup, Input, Space } from 'tdesign-react';
+import { Button, Popup, Input, Space } from '@tdesign/components';
 
 export default function Triggers() {
   return (

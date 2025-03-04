@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Comment } from 'tdesign-react';
+import { Card, Comment } from '@tdesign/components';
 
 export default function FooterContentCard() {
   return (

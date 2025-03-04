@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Statistic } from 'tdesign-react';
+import { Space, Statistic } from '@tdesign/components';
 
 const ColorStatistic = () => (
   <Space>

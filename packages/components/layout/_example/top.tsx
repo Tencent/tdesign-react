@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu } from 'tdesign-react';
+import { Layout, Menu } from '@tdesign/components';
 import { SearchIcon, NotificationFilledIcon, HomeIcon } from 'tdesign-icons-react';
 
 const { Header, Content, Footer } = Layout;

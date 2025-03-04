@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
-import type { FormProps, InternalFormInstance, CustomValidator, FormRules, Data } from 'tdesign-react';
+import { Form, Input, Button, MessagePlugin } from '@tdesign/components';
+import type { FormProps, InternalFormInstance, CustomValidator, FormRules, Data } from '@tdesign/components';
 
 const { FormItem } = Form;
 

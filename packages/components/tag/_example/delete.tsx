@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tag, Input, Space } from 'tdesign-react';
+import { Tag, Input, Space } from '@tdesign/components';
 import { DiscountIcon, AddIcon } from 'tdesign-icons-react';
 
 export default function ClosableTagExample() {

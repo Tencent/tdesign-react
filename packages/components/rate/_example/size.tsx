@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Rate } from 'tdesign-react';
+import { Space, Rate } from '@tdesign/components';
 
 export default function BasicRate() {
   return (

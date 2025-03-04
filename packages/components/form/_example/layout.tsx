@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Radio, Input, Space } from 'tdesign-react';
+import { Form, Radio, Input, Space } from '@tdesign/components';
 
 const { FormItem } = Form;
 

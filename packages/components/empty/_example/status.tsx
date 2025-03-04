@@ -1,5 +1,5 @@
 import React from 'react';
-import { Empty, Row, Col } from 'tdesign-react';
+import { Empty, Row, Col } from '@tdesign/components';
 
 export default function StatusExample() {
   return (
