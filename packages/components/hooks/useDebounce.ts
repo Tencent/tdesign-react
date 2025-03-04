@@ -13,7 +13,6 @@ interface DebouncedFuncLeading<T extends (...args: unknown[]) => unknown> {
   cancel(): void;
   flush(): ReturnType<T>;
   (...args): ReturnType<T>;
-  (...args): ReturnType<T>;
 }
 const useDebounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
