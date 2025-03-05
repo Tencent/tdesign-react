@@ -1,6 +1,6 @@
 import React, { forwardRef, isValidElement } from 'react';
 import classNames from 'classnames';
-import { isString , isObject , isFunction } from 'lodash-es';
+import { isString, isObject, isFunction } from 'lodash-es';
 import {
   CloseIcon as TdCloseIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,
@@ -115,11 +115,13 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
       const renderCancelBtn = renderDialogButton(cancelBtn, {
         variant: 'outline',
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => onCancel?.({ e }),
+        className: `${componentCls}__cancel`,
       });
       const renderConfirmBtn = renderDialogButton(confirmBtn, {
         theme: 'primary',
         loading: confirmLoading,
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => onConfirm?.({ e }),
+        className: `${componentCls}__confirm`,
       });
 
       return (
