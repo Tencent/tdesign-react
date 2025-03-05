@@ -16,7 +16,7 @@ export default {
     const fileName = reg && reg[0];
     const componentName = reg && reg[1];
     const localeName = reg && reg[3];
-    console.log(fileName, 'fileName');
+
     demoImports = {};
     demoCodesImports = {};
     // 统一换成 common 公共文档内容
