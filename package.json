@@ -1,5 +1,6 @@
 {
   "name": "tdesign-react-mono",
+  "packageManager": "pnpm@9.5.0",
   "private": true,
   "purename": "tdesign",
   "version": "1.11.1",
@@ -66,8 +67,7 @@
     "changelog": "node script/generate-changelog.js",
     "init:component": "node script/init-component",
     "robot": "publish-cli robot-msg",
-    "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm"
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {
