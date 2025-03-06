@@ -53,6 +53,7 @@ upload | Object | - | Upload global configs。Typescript：`UploadConfig` | N
 name | type | default | description | required
 -- | -- | -- | -- | --
 autocomplete | String | - | \- | N
+clearTrigger | String | focus | Trigger to show a clear icon, valid when the input has a value。options: always / focus | N
 placeholder | String | - | \- | N
 
 ### PaginationConfig
