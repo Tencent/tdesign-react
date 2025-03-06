@@ -84,6 +84,7 @@ upload | Object | - | 上传组件全局配置。TS 类型：`UploadConfig` | N
 -- | -- | -- | -- | --
 autocomplete | String | - | 是否开启自动填充功能 | N
 placeholder | String | - | 语言配置，“请输入”占位符描述文本 | N
+showClearIconWithValue | Boolean | false | 输入框内容不为空时，始终显示清空按钮，默认只在悬浮状态显示  | N
 
 ### PaginationConfig
 

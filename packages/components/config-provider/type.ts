@@ -174,6 +174,11 @@ export interface InputConfig {
    * @default ''
    */
   placeholder?: string;
+  /**
+   * 输入框内容不为空时，始终显示清空按钮，默认只在悬浮状态显示
+   * @default false
+   */
+  showClearIconWithValue?: boolean;
 }
 
 export interface PaginationConfig {

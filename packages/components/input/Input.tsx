@@ -112,7 +112,7 @@ const Input = forwardRefWithStatics(
       onValidate,
     });
 
-    const { classPrefix } = useConfig();
+    const { classPrefix, input: inputConfig } = useConfig();
     const composingRef = useRef(false);
     const inputRef: React.RefObject<HTMLInputElement> = useRef();
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
@@ -123,7 +123,9 @@ const Input = forwardRefWithStatics(
     const [renderType, setRenderType] = useState(type);
 
     const [composingValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
+
+    const isValueEnabled = value && !disabled;
+    const isShowClearIcon = (((clearable && isValueEnabled) || showClearIconOnEmpty) && isHover) || (isValueEnabled && inputConfig?.showClearIconWithValue);
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
     let suffixIconNew = suffixIcon;
