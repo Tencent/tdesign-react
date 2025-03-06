@@ -115,13 +115,13 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
       const renderCancelBtn = renderDialogButton(cancelBtn, {
         variant: 'outline',
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => onCancel?.({ e }),
-        className: `${componentCls}__cancel`,
+        className: classNames(`${componentCls}__cancel`, cancelBtn?.props?.className),
       });
       const renderConfirmBtn = renderDialogButton(confirmBtn, {
         theme: 'primary',
         loading: confirmLoading,
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => onConfirm?.({ e }),
-        className: `${componentCls}__confirm`,
+        className: classNames(`${componentCls}__confirm`, confirmBtn?.className),
       });
 
       return (
