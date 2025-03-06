@@ -139,6 +139,8 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
       unmount(div);
       div.remove();
       message.closed = true;
+      // 关闭消息实例时，从全局的消息列表中移除该实例
+      MessageList.splice(MessageList.indexOf(message), 1);
     },
     key: keyIndex,
     closed: false,
