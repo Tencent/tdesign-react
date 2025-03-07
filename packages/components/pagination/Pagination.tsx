@@ -29,6 +29,10 @@ const { Option } = Select;
 
 const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, ref) => {
   const props = useDefaultProps<PaginationProps>(originalProps, paginationDefaultProps);
+
+  const { classPrefix, pagination: paginationConfig } = useConfig();
+  const name = `${classPrefix}-pagination`; // t-pagination
+
   const {
     theme,
     size,
@@ -44,8 +48,8 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
     maxPageBtn,
     totalContent,
     pageSizeOptions,
-    onChange = noop,
-    onCurrentChange,
+    onChange = paginationConfig?.onChange || noop,
+    onCurrentChange = paginationConfig?.onCurrentChange,
     onPageSizeChange,
     style,
     className,
@@ -61,16 +65,13 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
   const [current, setCurrent] = useControlled(props, 'current', onCurrentChange);
   const [jumpValue, setJumpValue] = useState(current);
 
-  const min = 1;
-  const { classPrefix } = useConfig();
-  const name = `${classPrefix}-pagination`; // t-pagination
-
   const pageCount = useMemo<number>(() => {
     const calCount = Math.ceil(total / pageSize);
     return calCount > 0 ? calCount : 1;
   }, [pageSize, total]);
 
   // 处理改变当前页的逻辑
+  const min = 1;
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
     if (disabled || current === _nextCurrent) {
       return;

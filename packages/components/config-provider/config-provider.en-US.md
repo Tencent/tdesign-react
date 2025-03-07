@@ -53,6 +53,7 @@ upload | Object | - | Upload global configs。Typescript：`UploadConfig` | N
 name | type | default | description | required
 -- | -- | -- | -- | --
 autocomplete | String | - | \- | N
+clearTrigger | String | focus | Trigger to show a clear icon, valid when the input has a value。options: always / focus | N
 placeholder | String | - | \- | N
 
 ### PaginationConfig
@@ -63,6 +64,8 @@ itemsPerPage | String | - | \- | N
 jumpTo | String | - | \- | N
 page | String | - | \- | N
 total | String | - | \- | N
+onChange | Function |  | Typescript：`(pageInfo: PageInfo) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface PageInfo { current: number; previous: number; pageSize: number }`<br/> | N
+onCurrentChange | Function |  | Typescript：`(current: number, pageInfo: PageInfo) => void`<br/> | N
 
 ### CalendarConfig
 

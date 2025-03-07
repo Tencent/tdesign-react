@@ -170,6 +170,11 @@ export interface InputConfig {
    */
   autocomplete?: string;
   /**
+   * 清空图标触发方式，仅在输入框有值时有效
+   * @default focus
+   */
+  clearTrigger?: 'always' | 'focus';
+  /**
    * 语言配置，“请输入”占位符描述文本
    * @default ''
    */
@@ -197,6 +202,14 @@ export interface PaginationConfig {
    * @default ''
    */
   total?: string;
+  /**
+   * 当前页或分页大小发生变化时触发
+   */
+  onChange?: (pageInfo: PageInfo) => void;
+  /**
+   * 当前页发生变化时触发
+   */
+  onCurrentChange?: (current: number, pageInfo: PageInfo) => void;
 }
 
 export interface CalendarConfig {
@@ -982,6 +995,12 @@ export interface AutoCompleteConfig {
 export type AnimationType = 'ripple' | 'expand' | 'fade';
 
 export type IconConfig = GlobalIconConfig;
+
+export interface PageInfo {
+  current: number;
+  previous: number;
+  pageSize: number;
+}
 
 export interface ConfigPresetDate {
   [name: string]: DateConfigValue | (() => DateConfigValue);

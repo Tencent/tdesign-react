@@ -83,6 +83,7 @@ upload | Object | - | 上传组件全局配置。TS 类型：`UploadConfig` | N
 名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 autocomplete | String | - | 是否开启自动填充功能 | N
+clearTrigger | String | focus | 清空图标触发方式，仅在输入框有值时有效。可选项：always / focus | N
 placeholder | String | - | 语言配置，“请输入”占位符描述文本 | N
 
 ### PaginationConfig
@@ -93,6 +94,8 @@ itemsPerPage | String | - | 语言配置，每页条数文本，示例：`'{size
 jumpTo | String | - | 语言配置，页码跳转文本，示例：'跳至' | N
 page | String | - | 语言配置，“页”描述文本 | N
 total | String | - | 语言配置，数据总条数文本，示例：`'共 {total} 项数据'` | N
+onChange | Function |  | TS 类型：`(pageInfo: PageInfo) => void`<br/>当前页或分页大小发生变化时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface PageInfo { current: number; previous: number; pageSize: number }`<br/> | N
+onCurrentChange | Function |  | TS 类型：`(current: number, pageInfo: PageInfo) => void`<br/>当前页发生变化时触发 | N
 
 ### CalendarConfig
 
