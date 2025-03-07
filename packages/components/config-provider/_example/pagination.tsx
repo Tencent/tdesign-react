@@ -13,10 +13,11 @@ const GlobalJumper: React.FC<JumperProps> = ({ current, pageCount, onJump }) => 
 
   return (
     <>
-      <div style={{ marginLeft: 10 }}>
+      <div className="t-pagination__jump">
         <input
+          className="t-input__inner"
           type="text"
-          style={{ width: 20 }}
+          style={{ width: 10 }}
           value={jumpValue}
           onChange={(e) => setJumpValue(Number(e.target.value))}
         />
