@@ -62,7 +62,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
   const [jumpValue, setJumpValue] = useState(current);
 
   const min = 1;
-  const { classPrefix } = useConfig();
+  const { classPrefix, pagination: paginationConfig } = useConfig();
   const name = `${classPrefix}-pagination`; // t-pagination
 
   const pageCount = useMemo<number>(() => {
@@ -170,7 +170,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
       </div>
     ) : null;
 
-  const Jumper = (
+  const DefaultJumper = (
     <div className={`${name}__jump`}>
       {t(locale.jumpTo)}
       <InputAdornment append={`/ ${pageCount} ${t(locale.page)}`}>
@@ -190,6 +190,14 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
       </InputAdornment>
     </div>
   );
+
+  const globalJumper = paginationConfig.jumper;
+  const onJump = (current: number) => {
+    changeCurrent(current);
+  };
+  const Jumper = globalJumper
+    ? globalJumper({ current, pageCount, onJump })
+    : DefaultJumper;
 
   return (
     <div
