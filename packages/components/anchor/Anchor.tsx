@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import { isEmpty , isFunction } from 'lodash-es';
+import { isEmpty, isFunction } from 'lodash-es';
 import { StyledProps } from '../common';
 import { TdAnchorProps } from './type';
 import useConfig from '../hooks/useConfig';

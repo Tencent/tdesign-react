@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { isPlainObject , get } from 'lodash-es';
+import { isPlainObject, get } from 'lodash-es';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
