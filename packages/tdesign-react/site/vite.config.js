@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -24,8 +25,12 @@ const disableTreeShakingPlugin = (paths) => ({
 export default ({ mode }) =>
   defineConfig({
     base: publicPathMap[mode],
+    resolve: {
+      alias: {
+        'tdesign-react': path.resolve(__dirname, '../../components'),
+      },
+    },
     build: {
-      outDir: '../_site',
       rollupOptions: {
         input: {
           index: 'index.html',

@@ -3,18 +3,15 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Menu } from "tdesign-react";
+import { Menu } from 'tdesign-react';
 
-import { CodeIcon, AppIcon, FileIcon } from "tdesign-icons-react";
+import { CodeIcon, AppIcon, FileIcon } from 'tdesign-icons-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
@@ -22,23 +19,18 @@ export default function Usage() {
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
   const panelList = [
-    { label: "menu", value: "menu" },
-    { label: "headMenu", value: "headMenu" },
+    { label: 'menu', value: 'menu' },
+    { label: 'headMenu', value: 'headMenu' },
   ];
   const defaultProps = {
-    logo: (
-      <img
-        src="https://www.tencent.com/img/index/menu_logo_hover.png"
-        width="136"
-      />
-    ),
+    logo: <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" />,
   };
   const panelMap = {
     menu: (
       <div
         style={{
           padding: 24,
-          background: "var(--bg-color-page)",
+          background: 'var(--bg-color-page)',
           borderRadius: 3,
         }}
       >
@@ -46,20 +38,12 @@ export default function Usage() {
           <Menu.MenuItem value="0" icon={<AppIcon />}>
             仪表盘
           </Menu.MenuItem>
-          <Menu.SubMenu
-            value="1"
-            title={<span>资源列表</span>}
-            icon={<CodeIcon />}
-          >
+          <Menu.SubMenu value="1" title={<span>资源列表</span>} icon={<CodeIcon />}>
             <Menu.MenuItem value="1-1" disabled>
               <span>菜单二</span>
             </Menu.MenuItem>
           </Menu.SubMenu>
-          <Menu.SubMenu
-            value="2"
-            title={<span>调度平台</span>}
-            icon={<FileIcon />}
-          >
+          <Menu.SubMenu value="2" title={<span>调度平台</span>} icon={<FileIcon />}>
             <Menu.SubMenu value="2-1" title="二级菜单-1">
               <Menu.MenuItem value="3-1">三级菜单-1</Menu.MenuItem>
               <Menu.MenuItem value="3-2">三级菜单-2</Menu.MenuItem>
@@ -76,7 +60,7 @@ export default function Usage() {
       <div
         style={{
           padding: 24,
-          background: "var(--bg-color-page)",
+          background: 'var(--bg-color-page)',
           borderRadius: 3,
         }}
       >
@@ -101,7 +85,7 @@ export default function Usage() {
   }, [changedProps, panel]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

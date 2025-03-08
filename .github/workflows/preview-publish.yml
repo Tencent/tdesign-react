@@ -24,14 +24,14 @@ jobs:
       - name: save PR id
         id: pr
         run: echo "id=$(<pr-id.txt)" >> $GITHUB_OUTPUT
-      - name: download _site artifact
+      - name: download site artifact
         uses: dawidd6/action-download-artifact@v6
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
-          name: _site
+          name: site
       - run: |
-          unzip _site.zip
+          unzip site.zip
 
       - name: Upload surge service and generate preview URL
         id: deploy
@@ -39,7 +39,7 @@ jobs:
           repository=${{github.repository}}
           project_name=${repository#*/}
           export DEPLOY_DOMAIN=https://preview-pr-${{ steps.pr.outputs.id }}-$project_name.surge.sh
-          npx surge --project ./_site --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}
+          npx surge --project ./packages/tdesign-react/site/dist --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}
           echo the preview URL is $DEPLOY_DOMAIN
           echo "url=$DEPLOY_DOMAIN" >> $GITHUB_OUTPUT
       - name: update status comment
@@ -52,9 +52,6 @@ jobs:
             <!-- AUTO_PREVIEW_HOOK -->
           number: ${{ steps.pr.outputs.id }}
           body-include: "<!-- AUTO_PREVIEW_HOOK -->"
-
-      - run: |
-          rm -rf _site/
 
       - name: The job failed
         if: ${{ failure() }}

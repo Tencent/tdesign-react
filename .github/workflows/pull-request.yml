@@ -114,13 +114,13 @@ jobs:
         run: pnpm site:preview
 
       - run: |
-          zip -r _site.zip _site
+          zip -r site.zip packages/tdesign-react/site/dist
 
-      - name: upload _site artifact
+      - name: upload site artifact
         uses: actions/upload-artifact@v4
         with:
-          name: _site
-          path: _site.zip
+          name: site
+          path: site.zip
           retention-days: 5
 
       - name: Save PR number
