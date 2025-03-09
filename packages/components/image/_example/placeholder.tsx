@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Space, Button } from '@tdesign/components';
+import { Image, Space, Button } from 'tdesign-react';
 import { RefreshIcon, ImageErrorIcon } from 'tdesign-icons-react';
 
 export default function PlaceholderImage() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '@tdesign/components';
+import { Card } from 'tdesign-react';
 
 export default function HeaderSubtitleCard() {
   return (

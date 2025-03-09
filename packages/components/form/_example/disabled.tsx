@@ -15,8 +15,8 @@ import {
   Cascader,
   Textarea,
   Space,
-} from '@tdesign/components';
-import type { FormProps } from '@tdesign/components';
+} from 'tdesign-react';
+import type { FormProps } from 'tdesign-react';
 
 const { FormItem } = Form;
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Transfer, Tree } from '@tdesign/components';
+import { Transfer, Tree } from 'tdesign-react';
 
-import type { TransferProps, TreeProps } from '@tdesign/components';
+import type { TransferProps, TreeProps } from 'tdesign-react';
 
 const list: TransferProps['data'] = [
   {

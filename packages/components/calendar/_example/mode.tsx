@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Calendar, Space } from '@tdesign/components';
+import { Select, Calendar, Space } from 'tdesign-react';
 
 type Mode = 'year' | 'month';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RangeInput, Space } from '@tdesign/components';
+import { RangeInput, Space } from 'tdesign-react';
 
 export default function BaseExample() {
   return (

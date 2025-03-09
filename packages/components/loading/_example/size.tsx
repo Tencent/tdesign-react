@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading, Space } from '@tdesign/components';
+import { Loading, Space } from 'tdesign-react';
 
 export default function LoadingSize() {
   return (

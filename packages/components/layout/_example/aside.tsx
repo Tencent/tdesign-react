@@ -1,6 +1,6 @@
 import React from 'react';
-import { Layout, Menu } from '@tdesign/components';
-import type { MenuProps } from '@tdesign/components';
+import { Layout, Menu } from 'tdesign-react';
+import type { MenuProps } from 'tdesign-react';
 
 const { Content, Footer, Aside } = Layout;
 const { MenuItem } = Menu;

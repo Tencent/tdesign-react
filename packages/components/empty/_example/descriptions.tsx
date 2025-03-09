@@ -1,5 +1,5 @@
 import React from 'react';
-import { Empty, Button } from '@tdesign/components';
+import { Empty, Button } from 'tdesign-react';
 
 export default function Operation() {
   function goToIndex() {

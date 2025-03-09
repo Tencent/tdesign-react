@@ -1,8 +1,8 @@
 import React from 'react';
-import { ImageViewer, Image, Space } from '@tdesign/components';
+import { ImageViewer, Image, Space } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
 
-import type { ImageViewerProps } from '@tdesign/components';
+import type { ImageViewerProps } from 'tdesign-react';
 
 const img = 'https://tdesign.gtimg.com/demo/demo-image-1.png';
 

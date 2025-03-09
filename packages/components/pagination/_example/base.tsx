@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pagination } from '@tdesign/components';
+import { Pagination } from 'tdesign-react';
 
-import type { PaginationProps } from '@tdesign/components';
+import type { PaginationProps } from 'tdesign-react';
 
 export default function PaginationExample() {
   const onChange: PaginationProps['onChange'] = (pageInfo) => {

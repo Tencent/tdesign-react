@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '@tdesign/components';
+import { Input } from 'tdesign-react';
 
 export default function InputAutoWidth() {
   return (

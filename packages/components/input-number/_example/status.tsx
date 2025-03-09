@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, InputNumber, Space, Radio } from '@tdesign/components';
+import { Form, InputNumber, Space, Radio } from 'tdesign-react';
 
 type AlignType = 'hide' | 'align-left' | 'align-input';
 

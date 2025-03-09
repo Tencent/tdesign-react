@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TimePicker } from '@tdesign/components';
-import type { TimePickerProps } from '@tdesign/components';
+import { TimePicker } from 'tdesign-react';
+import type { TimePickerProps } from 'tdesign-react';
 
 export default function BasicTimePicker() {
   const [value, setValue] = useState('12:00:00');

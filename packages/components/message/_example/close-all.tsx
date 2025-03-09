@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessagePlugin, Button, Space } from '@tdesign/components';
+import { MessagePlugin, Button, Space } from 'tdesign-react';
 
 export default function () {
   return (

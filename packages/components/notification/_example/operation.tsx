@@ -1,5 +1,5 @@
 import React from 'react';
-import { Notification, Button, Space } from '@tdesign/components';
+import { Notification, Button, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
   return (

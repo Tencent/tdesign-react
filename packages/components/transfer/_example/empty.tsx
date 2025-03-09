@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transfer } from '@tdesign/components';
+import { Transfer } from 'tdesign-react';
 
 export default function BaseExample() {
   return (

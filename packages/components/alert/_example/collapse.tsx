@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from '@tdesign/components';
+import { Alert } from 'tdesign-react';
 
 export default function AlertCollapsed() {
   const message = [

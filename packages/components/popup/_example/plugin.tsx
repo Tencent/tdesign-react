@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Button, PopupPlugin } from '@tdesign/components';
+import { Space, Button, PopupPlugin } from 'tdesign-react';
 
 const Plugin = () => {
   const ref = React.useRef();

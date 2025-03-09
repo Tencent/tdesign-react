@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Select } from '@tdesign/components';
+import { Form, Input, Button, Select } from 'tdesign-react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem, FormList } = Form;

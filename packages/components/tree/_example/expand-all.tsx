@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Switch, Tree, Space } from '@tdesign/components';
+import { Form, Switch, Tree, Space } from 'tdesign-react';
 
 const data1 = [
   {

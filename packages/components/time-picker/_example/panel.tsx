@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TimePicker } from '@tdesign/components';
+import { TimePicker } from 'tdesign-react';
 
 const { TimePickerPanel } = TimePicker;
 

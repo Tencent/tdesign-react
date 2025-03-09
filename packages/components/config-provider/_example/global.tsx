@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { merge } from 'lodash-es';
-import { ConfigProvider, Space } from '@tdesign/components';
-import enConfig from '@tdesign/components/locale/en_US';
+import { ConfigProvider, Space } from 'tdesign-react';
+import enConfig from 'tdesign-react/locale/en_US';
 
 export default function GlobalDemo() {
   // 全局特性配置，引入英文语言配置包 enConfig

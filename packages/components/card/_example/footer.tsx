@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Tag, Avatar, Row, Col, Button, Divider } from '@tdesign/components';
+import { Card, Tag, Avatar, Row, Col, Button, Divider } from 'tdesign-react';
 import { UserIcon, ChatIcon, ShareIcon, ThumbUpIcon } from 'tdesign-icons-react';
 
 export default function FooterCard() {

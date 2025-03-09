@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
-import { Button, MessagePlugin, Input, Space } from '@tdesign/components';
+import { Button, MessagePlugin, Input, Space } from 'tdesign-react';
 
-import type { InputValue } from '@tdesign/components';
+import type { InputValue } from 'tdesign-react';
 
 const placementStyle: CSSProperties = {
   position: 'relative',

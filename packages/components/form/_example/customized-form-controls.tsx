@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, MessagePlugin, Space, Select } from '@tdesign/components';
-import type { FormProps } from '@tdesign/components';
+import { Form, Input, Button, MessagePlugin, Space, Select } from 'tdesign-react';
+import type { FormProps } from 'tdesign-react';
 
 interface ICourseSelect {
   value?: {

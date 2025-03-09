@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, Space, Row, Col, Radio } from '@tdesign/components';
+import { Descriptions, Space, Row, Col, Radio } from 'tdesign-react';
 
 type Layout = 'horizontal' | 'vertical';
 

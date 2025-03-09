@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button, Space } from '@tdesign/components';
+import { Drawer, Radio, Button, Space } from 'tdesign-react';
 
 type Mode = 'push' | 'overlay';
 

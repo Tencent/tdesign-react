@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, Button, Space } from '@tdesign/components';
+import { Checkbox, Button, Space } from 'tdesign-react';
 
 export default function CheckboxControlledExample() {
   const [checked, setChecked] = useState(false);

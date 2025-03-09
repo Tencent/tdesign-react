@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from '@tdesign/components';
+import { Skeleton } from 'tdesign-react';
 
 const animations = [
   { label: '渐变加载动画', value: 'gradient' },

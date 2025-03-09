@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip } from '@tdesign/components';
+import { Button, Tooltip } from 'tdesign-react';
 
 export default function BasicUsage() {
   return (

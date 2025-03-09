@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popconfirm, Space } from '@tdesign/components';
+import { Button, Popconfirm, Space } from 'tdesign-react';
 
 export default function ThemeExample() {
   const $content = '请确认您要进行此操作';

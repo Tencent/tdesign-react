@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, MessagePlugin } from '@tdesign/components';
+import { Card, MessagePlugin } from 'tdesign-react';
 
 const clickHandler = () => {
   MessagePlugin.success('操作');

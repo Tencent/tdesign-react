@@ -1,5 +1,5 @@
 import React from 'react';
-import { TooltipLite } from '@tdesign/components';
+import { TooltipLite } from 'tdesign-react';
 
 export default function MouseTitle() {
   return (

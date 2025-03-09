@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Space } from '@tdesign/components';
+import { Input, Space } from 'tdesign-react';
 import { LockOnIcon } from 'tdesign-icons-react';
 
 export default function InputExample() {

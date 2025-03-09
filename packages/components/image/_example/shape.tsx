@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Space } from '@tdesign/components';
+import { Image, Space } from 'tdesign-react';
 
 export default function ShapeImage() {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu } from '@tdesign/components';
+import { Layout, Menu } from 'tdesign-react';
 import {
   SearchIcon,
   NotificationFilledIcon,

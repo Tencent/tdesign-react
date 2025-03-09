@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Transfer } from '@tdesign/components';
+import { Transfer } from 'tdesign-react';
 
-import type { TransferProps, TransferValue } from '@tdesign/components';
+import type { TransferProps, TransferValue } from 'tdesign-react';
 
 const list: TransferProps['data'] = [];
 for (let i = 0; i < 20; i++) {

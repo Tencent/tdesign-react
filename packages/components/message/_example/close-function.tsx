@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessagePlugin, Button } from '@tdesign/components';
+import { MessagePlugin, Button } from 'tdesign-react';
 
 export default function () {
   const [instance, setInstance] = useState(null);

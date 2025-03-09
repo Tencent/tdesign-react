@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, DialogPlugin } from '@tdesign/components';
+import { Dialog, Button, DialogPlugin } from 'tdesign-react';
 
 async function delay(time) {
   return new Promise((resolve) => setTimeout(resolve, time * 1000));

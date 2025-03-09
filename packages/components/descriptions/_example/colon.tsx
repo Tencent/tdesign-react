@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, Space, Switch } from '@tdesign/components';
+import { Descriptions, Space, Switch } from 'tdesign-react';
 
 export default function Colon() {
   const [checked, setChecked] = React.useState(false);

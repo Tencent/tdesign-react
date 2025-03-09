@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, Space } from '@tdesign/components';
+import { Checkbox, Space } from 'tdesign-react';
 
 const options = [
   {

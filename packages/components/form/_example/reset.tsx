@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, Popup, Space } from '@tdesign/components';
-import type { FormProps } from '@tdesign/components';
+import { Form, Input, Radio, Checkbox, Button, MessagePlugin, Popup, Space } from 'tdesign-react';
+import type { FormProps } from 'tdesign-react';
 
 const { FormItem } = Form;
 

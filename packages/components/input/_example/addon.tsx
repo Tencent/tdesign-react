@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, InputAdornment, Space } from '@tdesign/components';
+import { Input, InputAdornment, Space } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');

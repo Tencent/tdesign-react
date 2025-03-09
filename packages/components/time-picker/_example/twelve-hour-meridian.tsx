@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TimePicker } from '@tdesign/components';
+import { TimePicker } from 'tdesign-react';
 
 export default function TwelveHourTimePicker() {
   const [value, setValue] = useState(null);

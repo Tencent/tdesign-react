@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tree } from '@tdesign/components';
+import { Tree } from 'tdesign-react';
 
 const items = [
   {

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Button, Popup } from '@tdesign/components';
+import { Button, Popup } from 'tdesign-react';
 
 export default function Controlled() {
   const [spanVisible, setVisible] = useState(false);

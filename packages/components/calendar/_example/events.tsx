@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch, Calendar } from '@tdesign/components';
-import type { CalendarProps } from '@tdesign/components';
+import { Switch, Calendar } from 'tdesign-react';
+import type { CalendarProps } from 'tdesign-react';
 
 export default function CalendarExample() {
   const [preventCellContextmenu, setPreventCellContextmenu] = React.useState(false);

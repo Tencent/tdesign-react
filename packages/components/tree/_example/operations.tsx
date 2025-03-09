@@ -9,9 +9,9 @@ import {
   Space,
   TreeNodeModel,
   TreeInstanceFunctions,
-} from '@tdesign/components';
+} from 'tdesign-react';
 
-import type { TreeProps, TreeNodeValue } from '@tdesign/components';
+import type { TreeProps, TreeNodeValue } from 'tdesign-react';
 
 const items = [
   {

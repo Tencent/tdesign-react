@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, MessagePlugin } from '@tdesign/components';
-import type { FormRules, FormValidateMessage, Data, FormProps } from '@tdesign/components';
+import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
+import type { FormRules, FormValidateMessage, Data, FormProps } from 'tdesign-react';
 
 const { FormItem } = Form;
 

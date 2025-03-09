@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Button, Drawer, Guide, GuideStep, Input, Row } from '@tdesign/components';
-import type { GuideProps } from '@tdesign/components';
+import { Button, Drawer, Guide, GuideStep, Input, Row } from 'tdesign-react';
+import type { GuideProps } from 'tdesign-react';
 
 const classStyles = `
 <style>

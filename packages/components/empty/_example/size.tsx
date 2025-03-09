@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Empty, Row, Col, Space, Radio } from '@tdesign/components';
+import { Empty, Row, Col, Space, Radio } from 'tdesign-react';
 
 type SIZE = 'small' | 'medium' | 'large';
 

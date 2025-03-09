@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { InputNumber, InputNumberValue, Space } from '@tdesign/components';
-import type { InputNumberProps } from '@tdesign/components';
+import { InputNumber, InputNumberValue, Space } from 'tdesign-react';
+import type { InputNumberProps } from 'tdesign-react';
 
 export default function InputNumberExample() {
   const [value1, setValue1] = useState<InputNumberValue>('');

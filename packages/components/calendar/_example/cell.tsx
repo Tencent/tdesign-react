@@ -1,6 +1,6 @@
 import React from 'react';
-import { Calendar, Tag, Space } from '@tdesign/components';
-import type { CalendarCell } from '@tdesign/components';
+import { Calendar, Tag, Space } from 'tdesign-react';
+import type { CalendarCell } from 'tdesign-react';
 import dayjs from 'dayjs';
 
 type TagTheme = 'default' | 'danger' | 'warning' | 'success' | 'primary';

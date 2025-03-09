@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AutoComplete, Space } from '@tdesign/components';
+import { AutoComplete, Space } from 'tdesign-react';
 
 const options = ['第一个联想词', '第二个联想词', '第三个联想词'];
 
