@@ -32,7 +32,7 @@ pnpm install
 pnpm run dev
 ```
 
-完成以上 3 个步骤，浏览器访问 <http://127.0.0.1:17000> 即可调试该框架的任何内容。
+完成以上 3 个步骤，浏览器访问 <http://127.0.0.1:15000> 即可调试该框架的任何内容。
 
 ## 目录结构
 
@@ -98,11 +98,11 @@ pnpm run dev
 
 我们可以通过打开组件的路由页进行开发调试。
 
-如 `button`，则打开<http://127.0.0.1:17000/react/components/button> 进行开发调试。
+如 `button`，则打开<http://127.0.0.1:15000/react/components/button> 进行开发调试。
 
 但当组件的 `Markdown` 文件插入了很多个 `demo` 之后，一些组件生命周期方法调试起来会变得困难，若想对某个 `demo` 单独调试，可以访问路由：`/demos/组件名/demo` 名。
 
-如：<http://127.0.0.1:17000/react/demos/button/base>
+如：<http://127.0.0.1:15000/react/demos/button/base>
 
 ### 单元测试
 
