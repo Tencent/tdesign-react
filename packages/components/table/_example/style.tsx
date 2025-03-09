@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Table, Tag } from '@tdesign/components';
+import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
-import type { TableProps } from '@tdesign/components';
+import type { TableProps } from 'tdesign-react';
 
 const classStyles = `
 <style>

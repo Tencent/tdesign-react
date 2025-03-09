@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload, Space } from '@tdesign/components';
+import { Button, message, Upload, Space } from 'tdesign-react';
 
-import type { UploadProps } from '@tdesign/components';
+import type { UploadProps } from 'tdesign-react';
 
 export default function SingleCustom() {
   const MAX_UPLOAD_SIZE = 1;

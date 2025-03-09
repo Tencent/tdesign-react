@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { DatePicker, Space } from '@tdesign/components';
-import type { DatePickerProps, DateValue } from '@tdesign/components';
+import { DatePicker, Space } from 'tdesign-react';
+import type { DatePickerProps, DateValue } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [value, setValue] = useState<DateValue>('2022-02-02 12:11:11');

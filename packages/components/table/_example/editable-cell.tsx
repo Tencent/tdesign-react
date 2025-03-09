@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Table, Input, Select, DatePicker, MessagePlugin } from '@tdesign/components';
+import { Table, Input, Select, DatePicker, MessagePlugin } from 'tdesign-react';
 import dayjs from 'dayjs';
-import type { PrimaryTableProps, BaseTableProps, TableRowData } from '@tdesign/components';
+import type { PrimaryTableProps, BaseTableProps, TableRowData } from 'tdesign-react';
 
 export default function EditableCellTable() {
   const initData: BaseTableProps['data'] = new Array(5).fill(null).map((_, i) => ({

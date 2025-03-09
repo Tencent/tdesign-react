@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorPicker, Space } from '@tdesign/components';
+import { ColorPicker, Space } from 'tdesign-react';
 
 export default function ColorMode() {
   const color1 = 'rgba(0, 82, 217, 1)';

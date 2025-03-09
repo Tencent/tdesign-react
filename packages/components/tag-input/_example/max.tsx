@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { MessagePlugin, TagInput } from '@tdesign/components';
-import type { TagInputProps } from '@tdesign/components';
+import { MessagePlugin, TagInput } from 'tdesign-react';
+import type { TagInputProps } from 'tdesign-react';
 
 export default function TagInputMaxExample() {
   const [tags] = useState([]);

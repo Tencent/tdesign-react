@@ -1,8 +1,8 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from '@tdesign/components';
+import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from 'tdesign-react';
 import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 
-import type { TableProps, EnhancedTableProps, TableRowData } from '@tdesign/components';
+import type { TableProps, EnhancedTableProps, TableRowData } from 'tdesign-react';
 
 function getObject(i: number, currentPage: number) {
   return {

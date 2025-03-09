@@ -1,5 +1,5 @@
 import React from 'react';
-import { List } from '@tdesign/components';
+import { List } from 'tdesign-react';
 
 const { ListItem, ListItemMeta } = List;
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Select, Space } from '@tdesign/components';
+import { Select, Space } from 'tdesign-react';
 
-import type { SelectProps } from '@tdesign/components';
+import type { SelectProps } from 'tdesign-react';
 
 const { Option } = Select;
 

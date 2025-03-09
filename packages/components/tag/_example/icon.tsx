@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag } from '@tdesign/components';
+import { Tag } from 'tdesign-react';
 import { DiscountIcon } from 'tdesign-icons-react';
 
 export default function ThemeTagExample() {

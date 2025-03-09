@@ -1,8 +1,8 @@
 import React from 'react';
-import { MessagePlugin, Table, Tag } from '@tdesign/components';
+import { MessagePlugin, Table, Tag } from 'tdesign-react';
 import { FileCopyIcon, ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableProps } from '@tdesign/components';
+import type { TableProps } from 'tdesign-react';
 
 // thanks to https://www.zhangxinxu.com/wordpress/2021/10/js-copy-paste-clipboard/
 function copyToClipboard(text: string) {

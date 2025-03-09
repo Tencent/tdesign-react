@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag } from '@tdesign/components';
+import { Table, Radio, Checkbox, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableColumnController, CheckboxGroupValue, TableProps } from '@tdesign/components';
+import type { TableColumnController, CheckboxGroupValue, TableProps } from 'tdesign-react';
 
 type ControlPlacement = TableColumnController['placement'];
 export default function TableCustomColButton() {

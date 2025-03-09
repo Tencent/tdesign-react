@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag } from '@tdesign/components';
+import { Table, Button, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { CheckboxGroupValue, TableProps } from '@tdesign/components';
+import type { CheckboxGroupValue, TableProps } from 'tdesign-react';
 
 export default function TableCustomCol() {
   const initialData: TableProps['data'] = [];

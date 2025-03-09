@@ -8,7 +8,7 @@ import {
   Divider,
   SwitchProps,
   type UploadProps,
-} from '@tdesign/components';
+} from 'tdesign-react';
 
 const ABRIDGE_NAME = [4, 6];
 

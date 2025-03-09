@@ -1,6 +1,6 @@
 import React from 'react';
-import { Space, Button, Statistic } from '@tdesign/components';
-import type { StatisticRef } from '@tdesign/components';
+import { Space, Button, Statistic } from 'tdesign-react';
+import type { StatisticRef } from 'tdesign-react';
 
 const AnimationStatistic = () => {
   const [start, setStart] = React.useState(false);

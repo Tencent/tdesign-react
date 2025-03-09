@@ -1,8 +1,8 @@
 import React from 'react';
-import { Table, Tag } from '@tdesign/components';
+import { Table, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, UserIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableProps } from '@tdesign/components';
+import type { TableProps } from 'tdesign-react';
 
 const data: TableProps['data'] = [];
 const statusNameListMap = {

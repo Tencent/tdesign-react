@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select } from '@tdesign/components';
+import { Select } from 'tdesign-react';
 
 export default function SelectCreatable() {
   const [value, setValue] = useState('');

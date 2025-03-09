@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ColorPickerPanel } from '@tdesign/components';
-import type { ColorPickerProps } from '@tdesign/components';
+import { ColorPickerPanel } from 'tdesign-react';
+import type { ColorPickerProps } from 'tdesign-react';
 
 export default function PanelExample() {
   const [recentColors, setRecentColors] = useState([]);

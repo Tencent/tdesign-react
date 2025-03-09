@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorPickerPanel, Space } from '@tdesign/components';
+import { ColorPickerPanel, Space } from 'tdesign-react';
 
 export default function SwatchColor() {
   const color = '#0052d9';

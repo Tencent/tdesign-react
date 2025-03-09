@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Badge, Checkbox } from '@tdesign/components';
+import { Badge, Checkbox } from 'tdesign-react';
 
 const colors = [
   '#f44336',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Space, Tag } from '@tdesign/components';
+import { Space, Tag } from 'tdesign-react';
 
-import type { CheckTagGroupValue } from '@tdesign/components';
+import type { CheckTagGroupValue } from 'tdesign-react';
 
 const { CheckTagGroup } = Tag;
 

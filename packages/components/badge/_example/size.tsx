@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Button } from '@tdesign/components';
+import { Badge, Button } from 'tdesign-react';
 
 export default function BadgeExample() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Space } from '@tdesign/components';
+import { Switch, Space } from 'tdesign-react';
 
 export default function SwitchBasic() {
   const [checked, setChecked] = useState(true);

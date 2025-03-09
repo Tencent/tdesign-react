@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Upload, MessagePlugin, Space, Button, Checkbox } from '@tdesign/components';
+import { Upload, MessagePlugin, Space, Button, Checkbox } from 'tdesign-react';
 
-import type { UploadProps } from '@tdesign/components';
+import type { UploadProps } from 'tdesign-react';
 
 const UploadSingleInput = () => {
   const uploadRef = useRef(null);

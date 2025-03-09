@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ColorPickerPanel, Space } from '@tdesign/components';
+import { ColorPickerPanel, Space } from 'tdesign-react';
 
 export default function RecentColor() {
   const color = '#0052d9';

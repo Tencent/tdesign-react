@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { Table, Space, Button, Checkbox, Tag } from '@tdesign/components';
+import { Table, Space, Button, Checkbox, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableProps } from '@tdesign/components';
+import type { TableProps } from 'tdesign-react';
 
 function getTableData() {
   const initialData: TableProps['data'] = [];

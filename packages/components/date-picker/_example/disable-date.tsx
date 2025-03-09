@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { DatePicker, DateRangePicker, Space } from '@tdesign/components';
+import { DatePicker, DateRangePicker, Space } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const disableTime = (time: Date) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TagInput } from '@tdesign/components';
+import { TagInput } from 'tdesign-react';
 
 const TagInputAutoWidth = () => {
   const [tags, setTags] = useState(['Vue', 'React']);

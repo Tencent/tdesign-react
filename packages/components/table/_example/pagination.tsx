@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Space, Radio, Tag } from '@tdesign/components';
+import { Table, Space, Radio, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import type { TableProps } from '@tdesign/components';
+import type { TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },

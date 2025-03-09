@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { List } from '@tdesign/components';
+import { List } from 'tdesign-react';
 
-import type { ListProps } from '@tdesign/components';
+import type { ListProps } from 'tdesign-react';
 
 const { ListItem, ListItemMeta } = List;
 

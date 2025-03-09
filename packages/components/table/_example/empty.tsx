@@ -1,7 +1,7 @@
 import React from 'react';
-import { Table } from '@tdesign/components';
+import { Table } from 'tdesign-react';
 
-import type { TableProps } from '@tdesign/components';
+import type { TableProps } from 'tdesign-react';
 
 export default function EmptyTable() {
   const TableData: TableProps['data'] = [];

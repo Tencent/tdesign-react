@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { Menu, MessagePlugin, Button } from '@tdesign/components';
+import { Menu, MessagePlugin, Button } from 'tdesign-react';
 import { SearchIcon, MailIcon, UserIcon, EllipsisIcon } from 'tdesign-icons-react';
 
-import type { MenuValue } from '@tdesign/components';
+import type { MenuValue } from 'tdesign-react';
 
 const { HeadMenu, MenuItem } = Menu;
 

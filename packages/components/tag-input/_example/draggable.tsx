@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from '@tdesign/components';
+import { TagInput, Space } from 'tdesign-react';
 
-import type { TagInputProps, TagInputChangeContext } from '@tdesign/components';
+import type { TagInputProps, TagInputChangeContext } from 'tdesign-react';
 
 export default function TagInputBaseExample() {
   const [tags1, setTags1] = useState(['Vue', 'React', 'Angular']);

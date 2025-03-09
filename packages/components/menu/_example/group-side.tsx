@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, Button } from '@tdesign/components';
+import { Menu, Button } from 'tdesign-react';
 import {
   ViewListIcon,
   ServerIcon,
@@ -11,7 +11,7 @@ import {
   LoginIcon,
 } from 'tdesign-icons-react';
 
-import type { MenuValue } from '@tdesign/components';
+import type { MenuValue } from 'tdesign-react';
 
 const { MenuGroup, MenuItem, SubMenu } = Menu;
 

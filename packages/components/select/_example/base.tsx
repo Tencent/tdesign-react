@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Tooltip } from '@tdesign/components';
+import { Select, Tooltip } from 'tdesign-react';
 
 export default function SingleSelect() {
   const [value, setValue] = useState('');

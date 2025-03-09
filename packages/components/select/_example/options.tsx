@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tdesign/components';
+import { Select } from 'tdesign-react';
 
 const SelectWithOptions = () => {
   const [value, setValue] = useState('apple');

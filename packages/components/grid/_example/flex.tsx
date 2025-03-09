@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from '@tdesign/components';
+import { Row, Col } from 'tdesign-react';
 
 export default function OrderGrid() {
   return (

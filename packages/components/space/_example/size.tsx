@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Space, Slider, Button } from '@tdesign/components';
-import type { SliderValue } from '@tdesign/components';
+import { Space, Slider, Button } from 'tdesign-react';
+import type { SliderValue } from 'tdesign-react';
 
 const BaseSpace = () => {
   const [size, setSize] = useState<SliderValue>(8);

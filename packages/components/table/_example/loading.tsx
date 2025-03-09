@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from '@tdesign/components';
+import { Table } from 'tdesign-react';
 import { LoadingIcon } from 'tdesign-icons-react';
 
 export default function EmptyTable() {

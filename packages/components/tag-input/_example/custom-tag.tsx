@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Tag, Space } from '@tdesign/components';
-import type { TagInputValue } from '@tdesign/components';
+import { TagInput, Tag, Space } from 'tdesign-react';
+import type { TagInputValue } from 'tdesign-react';
 
 export default function CustomTagExample() {
   const [tags, setTags] = useState<TagInputValue>(['StudentA', 'StudentB', 'StudentC']);

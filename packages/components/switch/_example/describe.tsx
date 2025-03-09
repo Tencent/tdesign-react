@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Space } from '@tdesign/components';
+import { Switch, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 
 export default function SwitchBasic() {

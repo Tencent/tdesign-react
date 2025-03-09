@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Select } from '@tdesign/components';
+import { Select } from 'tdesign-react';
 
-import type { SelectProps } from '@tdesign/components';
+import type { SelectProps } from 'tdesign-react';
 
 const options: SelectProps['options'] = [];
 for (let i = 0; i < 100; i++) {

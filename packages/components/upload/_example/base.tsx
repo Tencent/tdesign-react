@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from '@tdesign/components';
+import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
 import { CloseIcon } from 'tdesign-icons-react';
 
-import type { UploadProps } from '@tdesign/components';
+import type { UploadProps } from 'tdesign-react';
 
 export default function UploadExample() {
   const uploadRef1 = useRef(null);
