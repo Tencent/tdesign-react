@@ -3,23 +3,20 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Drawer, Button } from "tdesign-react";
+import { Drawer, Button } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "drawer", value: "drawer" }];
+  const panelList = [{ label: 'drawer', value: 'drawer' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
@@ -38,12 +35,12 @@ export default function Usage() {
         <Drawer {...defaultProps} {...changedProps} visible={visible}>
           <p>This is a Drawer</p>
         </Drawer>
-      </div>
+      </div>,
     );
   }, [changedProps, visible]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

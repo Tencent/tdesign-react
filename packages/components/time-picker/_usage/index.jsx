@@ -3,18 +3,15 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import TimePickerConfigProps from "./time-picker-props.json";
+import TimePickerConfigProps from './time-picker-props.json';
 
-import TimeRangePickerConfigProps from "./time-range-picker-props.json";
+import TimeRangePickerConfigProps from './time-range-picker-props.json';
 
-import { TimePicker, TimeRangePicker } from "tdesign-react";
+import { TimePicker, TimeRangePicker } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(TimePickerConfigProps);
@@ -22,10 +19,10 @@ export default function Usage() {
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
   const panelList = [
-    { label: "timePicker", value: "timePicker", config: TimePickerConfigProps },
+    { label: 'timePicker', value: 'timePicker', config: TimePickerConfigProps },
     {
-      label: "timeRangePicker",
-      value: "timeRangePicker",
+      label: 'timeRangePicker',
+      value: 'timeRangePicker',
       config: TimeRangePickerConfigProps,
     },
   ];
@@ -44,7 +41,7 @@ export default function Usage() {
   }, [changedProps, panel]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 
