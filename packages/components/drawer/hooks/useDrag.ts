@@ -10,10 +10,13 @@ const useDrag = (
 ) => {
   const [dragSizeValue, changeDragSizeValue] = useState<string>(null);
   // 使用 ref 来存储当前拖拽的宽度值
-  const dragSizeNumberRef = useRef<number>(0);
+  const dragSizeRef = useRef<number>(0);
 
   const handleMousemove = useCallback(
     (e: MouseEvent) => {
+      // 如果 sizeDraggable 是 boolean 值的 false，则不进行后续的计算
+      if (sizeDraggable === false) return;
+
       // 鼠标移动时计算draggedSizeValue的值
       const { x, y } = e;
 
@@ -26,9 +29,7 @@ const useDrag = (
       // x 轴方向使用默认最小宽度，y轴方向使用默认最小高度
       const min = placement === 'left' || placement === 'right' ? offsetWidth : offsetHeight;
 
-      const { allowSizeDraggable, max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, { max, min });
-
-      if (!allowSizeDraggable) return;
+      const { max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, { max, min });
 
       const moveSize = calcMoveSize(placement, {
         x,
@@ -41,7 +42,7 @@ const useDrag = (
 
       if (typeof moveSize === 'undefined') return;
       changeDragSizeValue(`${moveSize}px`);
-      dragSizeNumberRef.current = moveSize;
+      dragSizeRef.current = moveSize;
     },
     [placement, sizeDraggable],
   );
@@ -73,7 +74,7 @@ const useDrag = (
       onSizeDragEnd?.({
         e,
         // 此处不要使用 dragSizeValue，useState 的更新是异步的，在鼠标拖拽的同步操作中取不到最新的值
-        size: dragSizeNumberRef.current,
+        size: dragSizeRef.current,
       });
     },
     [handleMousemove, onSizeDragEnd],
