@@ -15,15 +15,15 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
   const { lazy, activeValue, value, destroyOnHide } = props;
   const { tdTabPanelClassPrefix } = useTabClass();
   const { className, style } = useDefaultProps<TabPanelProps>(props, tabPanelDefaultProps);
-  const shouldRenderRef = useRef(!lazy);
+  const lazyRenderRef = useRef(lazy);
 
   const isActive = value === activeValue;
 
-  if (lazy && isActive && !shouldRenderRef.current) {
-    shouldRenderRef.current = true;
+  if (lazy && isActive && lazyRenderRef.current) {
+    lazyRenderRef.current = false;
   }
 
-  if ((!isActive && destroyOnHide) || !shouldRenderRef.current) {
+  if ((!isActive && destroyOnHide) || lazyRenderRef.current) {
     return null;
   }
 
