@@ -187,7 +187,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       addIndexToData(data);
 
       const scrollTopHeightList = trScrollTopHeightList.current;
-      if (scrollTopHeightList?.length) {
+      if (scrollTopHeightList?.length === data?.length) {
         // 数据初始化后，根据计算结果更新
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
@@ -197,9 +197,9 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         // 数据初始化
         setScrollHeight(data.length * tScroll.rowHeight);
 
-        const [startIndex, endIndex] = startAndEndIndex;
-        const tmpData = data.slice(startIndex, endIndex);
+        const tmpData = data.slice(0, (scroll?.bufferSize || 10) * 3);
         setVisibleData(tmpData);
+        setTranslateY(0);
       }
 
       const timer = setTimeout(() => {
