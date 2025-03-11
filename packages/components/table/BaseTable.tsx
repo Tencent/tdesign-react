@@ -281,7 +281,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     [tableRef],
   );
 
-  useEffect(getTFootHeight, [tableElmRef]);
+  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
 
   const newData = isPaginateData ? dataSource : data;
 
@@ -424,7 +424,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         offsetBottom={marginScrollbarWidth || 0}
         {...getAffixProps(props.footerAffixedBottom)}
         ref={footerBottomAffixRef}
-        style={{ marginTop: `${-1 * (tableFootHeight + marginScrollbarWidth)}px` }}
+        style={{ marginTop: `${-1 * ((tableFootHeight || 0) + marginScrollbarWidth)}px` }}
       >
         <div
           ref={affixFooterRef}
