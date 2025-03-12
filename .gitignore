@@ -1,29 +1,42 @@
-node_modules
+
 .DS_Store
+.idea
+temp*
+robotMsg.json
+.history
+
+## node modules
+node_modules
+
+# bundle files
+es/
+esm/
+cjs/
+lib/
+dist/
+
+
+## test files
 coverage
+cypress-coverage
+cy-report
 test/scripts/cypress/screenshots
 test/scripts/cypress/videos
 test/scripts/cypress/results
 test/scripts/cypress/support
 results/
+
+## site files
 site/dist
-.idea
-es
-lib
-dist
-yarn.lock
-esm
-cjs
-robotMsg
-.gitlogmap
-_site/
+_static_site
+packages/components/**/_example-js/
+
+
+## lock files
 package-lock.json
+yarn.lock
 pnpm-lock.yaml
-temp*
-robotMsg.json
-.nyc_output
-cypress-coverage
-instrumented
-cy-report
-.history
-src/**/_example-js/
+
+
+
+
