@@ -227,13 +227,15 @@ jobs:
           git status
           git commit -am "chore: merge develop"
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - run: npm install
+      - run: pnpm install
 
-      - run: npm run test:update
+      - run: pnpm run test:update
 
       - name: Commit Snapshot
         run: |
@@ -285,13 +287,15 @@ jobs:
             })
             return comment.id
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - run: npm install
+      - run: pnpm install
 
-      - run: npm run generate:coverage-badge
+      - run: pnpm run generate:coverage-badge
 
       - name: commit coverage badge
         run: |
