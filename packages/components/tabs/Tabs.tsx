@@ -1,4 +1,4 @@
-import React, { cloneElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { TabValue, TdTabsProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -121,12 +121,7 @@ const Tabs = forwardRefWithStatics(
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(memoChildren, (child: any) => {
             if (child && child.type === TabPanel) {
-              const isActive = child.props.value === value;
-
-              if (isActive) {
-                return cloneElement(child, { isActive });
-              }
-              return <TabPanel {...child.props} isActive={isActive} style={{ display: 'none' }}></TabPanel>;
+              return <TabPanel {...child.props} isActive={child.props.value === value} />;
             }
             return null;
           })}
