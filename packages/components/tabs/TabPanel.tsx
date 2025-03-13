@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import classNames from 'classnames';
-import type { TabValue, TdTabPanelProps } from './type';
+import type { TdTabPanelProps } from './type';
 import { StyledProps } from '../common';
 import { useTabClass } from './useTabClass';
 import { tabPanelDefaultProps } from './defaultProps';
@@ -8,7 +8,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TabPanelProps extends TdTabPanelProps, StyledProps {
   children?: React.ReactNode;
-  isActive?: TabValue;
+  isActive?: boolean;
 }
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
