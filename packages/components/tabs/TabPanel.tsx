@@ -8,16 +8,16 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface TabPanelProps extends TdTabPanelProps, StyledProps {
   children?: React.ReactNode;
-  activeValue?: TabValue;
+  isActive?: TabValue;
 }
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
-  const { lazy, activeValue, value, destroyOnHide } = props;
   const { tdTabPanelClassPrefix } = useTabClass();
-  const { className, style } = useDefaultProps<TabPanelProps>(props, tabPanelDefaultProps);
+  const { className, style, lazy, isActive, destroyOnHide } = useDefaultProps<TabPanelProps>(
+    props,
+    tabPanelDefaultProps,
+  );
   const lazyRenderRef = useRef(lazy);
-
-  const isActive = value === activeValue;
 
   if (lazy && isActive && lazyRenderRef.current) {
     lazyRenderRef.current = false;
