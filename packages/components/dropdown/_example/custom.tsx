@@ -30,7 +30,12 @@ export default function BasicDropdown() {
       options={options}
       onClick={clickHandler}
       trigger="click"
-      popupProps={{ overlayInnerStyle: { padding: 4 } }}
+      popupProps={{
+        overlayStyle: { padding: 2 },
+        overlayInnerStyle: { padding: 2 },
+        overlayClassName: 'dropdown-custom-overlay-class',
+        overlayInnerClassName: 'dropdown-custom-overlay-inner-class',
+      }}
     >
       <Button>点击我试试</Button>
     </Dropdown>

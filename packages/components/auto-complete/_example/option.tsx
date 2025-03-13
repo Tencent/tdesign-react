@@ -58,7 +58,12 @@ const AutoCompleteOption = () => {
         onChange={setValue}
         highlightKeyword
         placeholder="请输入关键词搜索"
-        popupProps={{ overlayClassName: 't-demo-autocomplete-option-list' }}
+        popupProps={{
+          overlayStyle: { padding: 2 },
+          overlayInnerStyle: { padding: 2 },
+          overlayClassName: 't-demo-autocomplete-option-list',
+          overlayInnerClassName: 'autocomplete-custom-overlay-inner-class',
+        }}
       />
     </div>
   );

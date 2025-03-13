@@ -24,6 +24,12 @@ export default function PanelExample() {
       recentColors={recentColors}
       defaultValue="#0052d9"
       format="HEX"
+      popupProps={{
+        overlayStyle: { padding: 2 },
+        overlayInnerStyle: { padding: 2 },
+        overlayClassName: 'color-picker-panel-custom-overlay-class',
+        overlayInnerClassName: 'color-picker-panel-custom-overlay-inner-class',
+      }}
     />
   );
 }

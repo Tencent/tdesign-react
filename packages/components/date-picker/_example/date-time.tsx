@@ -13,7 +13,19 @@ export default function YearDatePicker() {
 
   return (
     <Space direction="vertical">
-      <DatePicker enableTimePicker value={value} onChange={handleChange} allowInput clearable />
+      <DatePicker
+        enableTimePicker
+        value={value}
+        onChange={handleChange}
+        allowInput
+        clearable
+        popupProps={{
+          overlayStyle: { padding: 2 },
+          overlayInnerStyle: { padding: 2 },
+          overlayClassName: 'date-picker-custom-overlay-class',
+          overlayInnerClassName: 'date-picker-custom-overlay-inner-class',
+        }}
+      />
 
       <DatePicker
         enableTimePicker

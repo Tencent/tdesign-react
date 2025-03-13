@@ -29,6 +29,12 @@ export default function BasicTimePicker() {
       onPick={handleOnPick}
       onClose={handleClose}
       onOpen={handleOpen}
+      popupProps={{
+        overlayInnerStyle: { padding: 2 },
+        overlayStyle: { padding: 2 },
+        overlayClassName: 'time-picker-custom-overlay-class',
+        overlayInnerClassName: 'time-picker-custom-overlay-inner-class',
+      }}
     />
   );
 }

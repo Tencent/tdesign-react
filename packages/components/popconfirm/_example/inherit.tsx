@@ -14,6 +14,10 @@ export default function InheritExample() {
         content="透传属性到 Popup 组件进行设置"
         popupProps={{
           placement: 'right',
+          overlayStyle: { padding: 2 },
+          overlayInnerStyle: { padding: 2 },
+          overlayClassName: 'popconfirm-custom-overlay-class',
+          overlayInnerClassName: 'popconfirm-custom-overlay-inner-class',
         }}
         confirmBtn={
           <Button theme={'primary'} size={'small'}>
