@@ -4,7 +4,7 @@ import { ConfigProvider, Pagination } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 import { JumperProps } from '../type';
 
-const GlobalJumper: React.FC<JumperProps> = ({ current, pageCount, onJump }) => {
+const GlobalJumper: React.FC<JumperProps> = ({ current, pageCount, onChange }) => {
   const [jumpValue, setJumpValue] = useState<number>(current);
 
   useEffect(() => {
@@ -22,11 +22,11 @@ const GlobalJumper: React.FC<JumperProps> = ({ current, pageCount, onJump }) => 
           onChange={(e) => setJumpValue(Number(e.target.value))}
         />
         <span> / {pageCount} 页 </span>
-        <button onClick={() => onJump(jumpValue)}> 跳转 </button>
+        <button onClick={() => onChange(jumpValue)}> 跳转 </button>
       </div>
     </>
   );
-} 
+};
 
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置

@@ -1001,7 +1001,7 @@ export type DateConfigValue = string | Date | Array<DateConfigValue>;
 export interface JumperProps {
   current: number;
   pageCount: number;
-  onJump: (current: number) => void;
+  onChange: (current: number) => void;
 }
 
 export interface UploadTriggerUploadText {

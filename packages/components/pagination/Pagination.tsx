@@ -192,12 +192,9 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
   );
 
   const globalJumper = paginationConfig.jumper;
-  const onJump = (current: number) => {
-    changeCurrent(current);
-  };
   const Jumper = globalJumper
-    ? globalJumper({ current, pageCount, onJump })
-    : DefaultJumper;
+  ? globalJumper({ current, pageCount, onChange: changeCurrent })
+  : DefaultJumper;
 
   return (
     <div

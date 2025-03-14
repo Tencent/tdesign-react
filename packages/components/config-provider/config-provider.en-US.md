@@ -231,7 +231,7 @@ total | String | - | \- | N
 
 name | params | return | description
 -- | -- | -- | --
-jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onJump: (current: number) => void; }`<br/>
+jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onChange: (current: number) => void; }`<br/>
 
 ### PopconfirmConfig
 
