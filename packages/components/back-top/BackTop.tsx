@@ -5,7 +5,7 @@ import useConfig from '../hooks/useConfig';
 import { TdBackTopProps } from './type';
 import { backTopDefaultProps } from './defaultProps';
 import useScroll from './useScroll';
-import { scrollTo } from '../_util/dom';
+import { scrollTo } from '../_util/scroll';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export type BackTopProps = TdBackTopProps;

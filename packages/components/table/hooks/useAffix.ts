@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect } from 'react';
 import { TdBaseTableProps } from '../type';
-import { on, off } from '../../_util/dom';
 import { AffixProps } from '../../affix';
+import { off, on } from '../../_util/listener';
 
 /**
  * 1. 表头吸顶（普通表头吸顶 和 虚拟滚动表头吸顶）

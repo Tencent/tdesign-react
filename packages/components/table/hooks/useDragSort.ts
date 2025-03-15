@@ -5,7 +5,7 @@ import { get } from 'lodash-es';
 import { PaginationProps } from '../../pagination';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
-import { hasClass } from '../../_util/dom';
+import { hasClass } from '../../_util/style';
 import useLatest from '../../hooks/useLatest';
 import log from '../../../common/js/log';
 import swapDragArrayElement from '../../../common/js/utils/swapDragArrayElement';

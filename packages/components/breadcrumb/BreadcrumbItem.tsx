@@ -9,9 +9,9 @@ import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 import parseTNode from '../_util/parseTNode';
 import { breadcrumbItemDefaultProps } from './defaultProps';
-import { isNodeOverflow } from '../_util/dom';
 import { TooltipLite } from '../tooltip';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { isNodeOverflow } from '../_util/scroll';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const { classPrefix } = useConfig();

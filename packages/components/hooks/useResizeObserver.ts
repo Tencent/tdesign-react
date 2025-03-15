@@ -1,5 +1,6 @@
-import { useLayoutEffect } from 'react';
 import { isFunction } from 'lodash-es';
+import useIsomorphicLayoutEffect from './useLayoutEffect';
+import { canUseDocument } from '../_util/dom';
 
 export default function useResizeObserver(container: HTMLElement, callback: (data: [ResizeObserverEntry]) => void) {
   let containerObserver: ResizeObserver = null;
@@ -16,8 +17,8 @@ export default function useResizeObserver(container: HTMLElement, callback: (dat
     containerObserver.observe(el);
   };
 
-  useLayoutEffect(() => {
-    const isSupport = typeof window !== 'undefined' && window.ResizeObserver;
+  useIsomorphicLayoutEffect(() => {
+    const isSupport = canUseDocument && window.ResizeObserver;
     if (!isSupport) return;
 
     cleanupObserver();
