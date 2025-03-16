@@ -27,7 +27,7 @@ export default function useResizeObserver(
     return () => {
       if (observer && element) {
         observer.unobserve(element);
-        observer.disconnect();
+        observer.disconnect?.();
         observer = null;
       }
     };
