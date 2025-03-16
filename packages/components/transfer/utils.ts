@@ -48,8 +48,7 @@ export const filterCheckedTreeNodes = (nodes: DataOption[], checkeds: TransferVa
         newItem.children = filterCheckedTreeNodes(item.children, checkeds);
       }
       return newItem;
-    })
-    .filter((item) => (item.children && item.children.length !== 0) || !item.children);
+    });
 
 // 获取目的树结构
 export const getTargetNodes = (sourceNodes: DataOption[], data: DataOption[]): DataOption[] => {
