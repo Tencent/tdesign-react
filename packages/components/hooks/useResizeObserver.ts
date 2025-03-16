@@ -1,32 +1,36 @@
-import { isFunction } from 'lodash-es';
 import useIsomorphicLayoutEffect from './useLayoutEffect';
 import { canUseDocument } from '../_util/dom';
+import useLatest from './useLatest';
 
-export default function useResizeObserver(container: HTMLElement, callback: (data: [ResizeObserverEntry]) => void) {
-  let containerObserver: ResizeObserver = null;
-
-  const cleanupObserver = () => {
-    if (!containerObserver || !container) return;
-    containerObserver.unobserve(container);
-    isFunction(containerObserver.disconnect) && containerObserver.disconnect();
-    containerObserver = null;
-  };
-
-  const addObserver = (el: HTMLElement) => {
-    containerObserver = new ResizeObserver(callback);
-    containerObserver.observe(el);
-  };
+export default function useResizeObserver(
+  container: React.MutableRefObject<HTMLElement | null>,
+  callback: (data: ResizeObserverEntry[]) => void,
+  enabled = true,
+) {
+  const callbackRef = useLatest(callback);
 
   useIsomorphicLayoutEffect(() => {
     const isSupport = canUseDocument && window.ResizeObserver;
-    if (!isSupport) return;
+    const element = container.current;
+    let observer: ResizeObserver = null;
 
-    cleanupObserver();
-    container && addObserver(container);
+    if (!enabled) return;
+
+    if (isSupport && element) {
+      const resizeCallback: ResizeObserverCallback = (entries) => {
+        callbackRef.current(entries);
+      };
+      observer = new ResizeObserver(resizeCallback);
+      observer.observe(element);
+    }
 
     return () => {
-      cleanupObserver();
+      if (observer && element) {
+        observer.unobserve(element);
+        observer.disconnect();
+        observer = null;
+      }
     };
     // eslint-disable-next-line
-  }, [container, containerObserver]);
+  }, [container, enabled]);
 }
