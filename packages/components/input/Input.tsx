@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useState, useRef, useImperativeHandle, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import {
   BrowseIcon as TdBrowseIcon,
@@ -123,7 +123,12 @@ const Input = forwardRefWithStatics(
     const [renderType, setRenderType] = useState(type);
 
     const [composingValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
+
+    // 是否展示清除图标
+    const isShowClearIcon = useMemo(
+      () => ((clearable && value && !disabled && !readonly) || showClearIconOnEmpty) && isHover,
+      [clearable, disabled, isHover, readonly, showClearIconOnEmpty, value],
+    );
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
     let suffixIconNew = suffixIcon;
