@@ -126,8 +126,8 @@ const Input = forwardRefWithStatics(
 
     // 是否展示清除图标
     const isShowClearIcon = useMemo(
-      () => ((clearable && value && !disabled && !readonly) || showClearIconOnEmpty) && isHover,
-      [clearable, disabled, isHover, readonly, showClearIconOnEmpty, value],
+      () => ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover,
+      [clearable, disabled, isHover, showClearIconOnEmpty, value],
     );
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
