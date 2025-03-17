@@ -6,7 +6,7 @@ import type { UploadInstanceFunctions, UploadFile, UploadProps, TriggerContext }
 export default function CustomDrag() {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState(0);
-  const uploadDom = React.useRef();
+  const uploadDom = React.useRef(null);
 
   const handleChange: UploadProps['onChange'] = useCallback((files: UploadFile[]) => {
     setFiles(files.slice(-1));

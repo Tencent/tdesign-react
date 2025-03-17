@@ -18,7 +18,7 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
 
 const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputProps>((originalProps, ref) => {
   const props = useDefaultProps<SelectInputProps>(originalProps, selectInputDefaultProps);
-  const selectInputRef = useRef<PopupRef>();
+  const selectInputRef = useRef<PopupRef>(null);
   const selectInputWrapRef = useRef<HTMLDivElement>(null);
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;

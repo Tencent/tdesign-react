@@ -26,7 +26,7 @@ export default function BaseForm() {
     warningB: [{ required: true, type: 'warning' }],
   };
 
-  const form = React.useRef<FormInstanceFunctions>();
+  const form = React.useRef<FormInstanceFunctions>(null);
   useEffect(() => {
     form.current.validate();
   }, [form]);

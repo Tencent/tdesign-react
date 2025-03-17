@@ -21,7 +21,7 @@ export interface EllipsisProps {
 /** 超出省略显示 */
 export default function Ellipsis(props: EllipsisProps) {
   const { classPrefix } = props;
-  const root = useRef<HTMLDivElement>();
+  const root = useRef<HTMLDivElement>(null);
   const [isOverflow, setIsOverflow] = useState(false);
 
   const ellipsisClasses = classNames([`${classPrefix}-table__ellipsis`, `${classPrefix}-text-ellipsis`]);

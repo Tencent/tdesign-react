@@ -28,10 +28,13 @@ const Timeline = forwardRefWithStatics(
     const renderAlign = useAlign(labelAlign, layout);
 
     const timelineItems = React.Children.toArray(children).filter(
-      (child: JSX.Element) => child.type.displayName === TimelineItem.displayName,
+      (child: React.JSX.Element) => child.type.displayName === TimelineItem.displayName,
     );
     // 获取所有子节点类型
-    const itemsStatus = React.Children.map(timelineItems, (child: JSX.Element) => child.props?.dotColor || 'primary');
+    const itemsStatus = React.Children.map(
+      timelineItems,
+      (child: React.JSX.Element) => child.props?.dotColor || 'primary',
+    );
     const hasLabelItem = timelineItems.some((item: React.ReactElement<any>) => !!item?.props?.label);
 
     if (reverse) {
@@ -55,7 +58,7 @@ const Timeline = forwardRefWithStatics(
     return (
       <TimelineContext.Provider value={{ theme, reverse, itemsStatus, layout, globalAlign: labelAlign, mode }}>
         <ul className={timelineClassName} style={style} ref={ref}>
-          {React.Children.map(timelineItems, (ele: JSX.Element, index) =>
+          {React.Children.map(timelineItems, (ele: React.JSX.Element, index) =>
             React.cloneElement(ele, {
               index,
               className: classNames([ele?.props?.className], {

@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
-import { getRefDom } from './utils/ref';
+import { getRefDom } from '../_util/ref';
 import { getTransitionParams } from './utils/transition';
 import useMutationObserver from '../hooks/useMutationObserver';
 import useWindowSize from '../hooks/useWindowSize';

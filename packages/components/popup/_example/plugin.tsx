@@ -2,7 +2,7 @@ import React from 'react';
 import { Space, Button, PopupPlugin } from 'tdesign-react';
 
 const Plugin = () => {
-  const ref = React.useRef();
+  const ref = React.useRef(null);
 
   const handleElement1 = () => {
     PopupPlugin(ref.current, 'Tdesign React PopupPlugin');

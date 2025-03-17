@@ -86,7 +86,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   const childrenList = useMemo<React.ReactNode[]>(
     () =>
       React.Children.toArray(children).filter(
-        (child: JSX.Element) => child.type.displayName === SwiperItem.displayName,
+        (child: React.JSX.Element) => child.type.displayName === SwiperItem.displayName,
       ),
     [children],
   );
@@ -94,7 +94,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   const childrenLength = childrenList.length;
 
   // 创建渲染用的节点列表
-  const swiperItemList = childrenList.map((child: JSX.Element, index) =>
+  const swiperItemList = childrenList.map((child: React.JSX.Element, index) =>
     React.cloneElement(child, {
       key: index,
       index,
@@ -303,7 +303,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
           `${classPrefix}-swiper__navigation-${navigationConfig.type}`,
         )}
       >
-        {childrenList.map((_: JSX.Element, i: number) => (
+        {childrenList.map((_: React.JSX.Element, i: number) => (
           <li
             key={i}
             className={classnames(`${classPrefix}-swiper__navigation-item`, {

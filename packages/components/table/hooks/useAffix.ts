@@ -10,15 +10,15 @@ import { AffixProps } from '../../affix';
  * 4. 分页器吸底
  */
 export default function useAffix(props: TdBaseTableProps, { showElement }: { showElement: boolean }) {
-  const tableContentRef = useRef<HTMLDivElement>();
+  const tableContentRef = useRef<HTMLDivElement>(null);
   // 吸顶表头
-  const affixHeaderRef = useRef<HTMLDivElement>();
+  const affixHeaderRef = useRef<HTMLDivElement>(null);
   // 吸底表尾
-  const affixFooterRef = useRef<HTMLDivElement>();
+  const affixFooterRef = useRef<HTMLDivElement>(null);
   // 吸底滚动条
-  const horizontalScrollbarRef = useRef<HTMLDivElement>();
+  const horizontalScrollbarRef = useRef<HTMLDivElement>(null);
   // 吸底分页器
-  const paginationRef = useRef<HTMLDivElement>();
+  const paginationRef = useRef<HTMLDivElement>(null);
   // 当表格完全滚动消失在视野时，需要隐藏吸顶表头
   const [showAffixHeader, setShowAffixHeader] = useState(true);
   // 当表格完全滚动消失在视野时，需要隐藏吸底尾部

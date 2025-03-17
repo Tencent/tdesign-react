@@ -31,7 +31,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     })),
   );
   const formListMapRef = useRef(new Map()); // 收集 formItem 实例
-  const formListRef = useRef<FormItemInstance>(); // 当前 formList 实例
+  const formListRef = useRef<FormItemInstance>(null); // 当前 formList 实例
   const fieldsTaskQueueRef = useRef([]); // 记录更改 fields 数据后 callback 队列
   const snakeName = []
     .concat(name)

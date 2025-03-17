@@ -89,10 +89,10 @@ export default function useFixed(
   } = props;
   const preFinalColumns = usePrevious(finalColumns);
   const [data, setData] = useState<TableRowData[]>([]);
-  const tableContentRef = useRef<HTMLDivElement>();
+  const tableContentRef = useRef<HTMLDivElement>(null);
   const [isFixedHeader, setIsFixedHeader] = useState(false);
   const [isWidthOverflow, setIsWidthOverflow] = useState(false);
-  const tableElmRef = useRef<HTMLTableElement>();
+  const tableElmRef = useRef<HTMLTableElement>(null);
   // CSS 样式设置了固定 6px
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息

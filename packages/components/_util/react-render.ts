@@ -71,7 +71,7 @@ export function render(node: React.ReactElement, container: ContainerType) {
     return;
   }
 
-  legacyRender(node, container);
+  legacyRender?.(node, container);
 }
 
 // ========================= Unmount ==========================

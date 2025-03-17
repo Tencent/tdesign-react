@@ -41,10 +41,10 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
   const componentName = `${classPrefix}-collapse-panel`;
   const innerValue = value || index;
   const finalExpandIcon = (expandIcon === undefined ? expandIconAll : expandIcon) || null;
-  const headRef = useRef();
-  const iconRef = useRef();
-  const contentRef = useRef<HTMLDivElement>();
-  const bodyRef = useRef<HTMLDivElement>();
+  const headRef = useRef(null);
+  const iconRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const isDisabled = disabled || !!disableAll;
 
   useEffect(() => {
