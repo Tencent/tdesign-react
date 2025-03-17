@@ -12,8 +12,11 @@ export interface TabPanelProps extends TdTabPanelProps, StyledProps {
 }
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
+  const { className, lazy, isActive, destroyOnHide, style } = useDefaultProps<TabPanelProps>(
+    props,
+    tabPanelDefaultProps,
+  );
   const { tdTabPanelClassPrefix } = useTabClass();
-  const { className, lazy, isActive, destroyOnHide } = useDefaultProps<TabPanelProps>(props, tabPanelDefaultProps);
   const lazyRenderRef = useRef(lazy);
 
   if (lazy && isActive && lazyRenderRef.current) {
@@ -25,7 +28,10 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
   }
 
   return (
-    <div className={classNames(tdTabPanelClassPrefix, className)} style={{ display: !isActive ? 'none' : undefined }}>
+    <div
+      className={classNames(tdTabPanelClassPrefix, className)}
+      style={{ ...style, display: !isActive ? 'none' : undefined }}
+    >
       {props.children || props.panel}
     </div>
   );
