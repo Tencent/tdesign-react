@@ -37,7 +37,6 @@ type InputContextTrigger = 'input' | 'clear' | 'initial';
 
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode | TElement) => {
   const result = parseTNode(icon);
-
   const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : '';
 
   return result ? <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span> : null;
@@ -134,40 +133,91 @@ const Input = forwardRefWithStatics(
       [clearable, disabled, isHover, readonly, showClearIconOnEmpty, value],
     );
 
-    const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
-    let suffixIconNew = suffixIcon;
+    // 前缀图标
+    const prefixIconContent = useMemo(
+      () => renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon)),
+      [classPrefix, prefixIcon],
+    );
 
-    if (isShowClearIcon)
-      suffixIconNew = (
-        <CloseCircleFilledIcon
-          className={`${classPrefix}-input__suffix-clear`}
-          onMouseDown={handleMouseDown}
-          onClick={handleClear}
-        />
-      );
-    if (type === 'password' && typeof suffixIcon === 'undefined') {
-      if (renderType === 'password') {
-        suffixIconNew = (
-          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+    // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
+    // https://github.com/Tencent/tdesign-react/issues/2320
+    const handleMouseDown = useCallback((e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) => {
+      e.stopPropagation();
+      // 兼容React16
+      e.nativeEvent.stopImmediatePropagation();
+    }, []);
+
+    const handleClear = useCallback(
+      (e: React.MouseEvent<SVGSVGElement>) => {
+        onChange?.('', { e, trigger: 'clear' });
+        onClear?.({ e });
+      },
+      [onChange, onClear],
+    );
+
+    const togglePasswordVisible = useCallback(() => {
+      if (disabled) return;
+      const toggleType = renderType === 'password' ? 'text' : 'password';
+      setRenderType(toggleType);
+    }, [disabled, renderType]);
+
+    const suffixIconNew = useMemo(() => {
+      let resultSuffixIcon = suffixIcon;
+
+      if (isShowClearIcon)
+        resultSuffixIcon = (
+          <CloseCircleFilledIcon
+            className={`${classPrefix}-input__suffix-clear`}
+            onMouseDown={handleMouseDown}
+            onClick={handleClear}
+          />
         );
-      } else if (renderType === 'text') {
-        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
+      if (type === 'password' && typeof suffixIcon === 'undefined') {
+        if (renderType === 'password') {
+          resultSuffixIcon = (
+            <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+          );
+        } else if (renderType === 'text') {
+          resultSuffixIcon = (
+            <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+          );
+        }
       }
-    }
 
-    const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
-    const labelContent = isFunction(label) ? label() : label;
-    const suffixContent = isFunction(suffix) ? suffix() : suffix;
-    const limitNumberNode =
-      limitNumber && showLimitNumber ? (
-        <div
-          className={classNames(`${classPrefix}-input__limit-number`, {
-            [`${classPrefix}-is-disabled`]: disabled,
-          })}
-        >
-          {limitNumber}
-        </div>
-      ) : null;
+      return resultSuffixIcon;
+    }, [
+      BrowseIcon,
+      BrowseOffIcon,
+      CloseCircleFilledIcon,
+      classPrefix,
+      handleClear,
+      handleMouseDown,
+      isShowClearIcon,
+      renderType,
+      suffixIcon,
+      togglePasswordVisible,
+      type,
+    ]);
+
+    const suffixIconContent = useMemo(
+      () => renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew)),
+      [classPrefix, suffixIconNew],
+    );
+    const labelContent = useMemo(() => (isFunction(label) ? label() : label), [label]);
+    const suffixContent = useMemo(() => (isFunction(suffix) ? suffix() : suffix), [suffix]);
+    const limitNumberNode = useMemo(
+      () =>
+        limitNumber && showLimitNumber ? (
+          <div
+            className={classNames(`${classPrefix}-input__limit-number`, {
+              [`${classPrefix}-is-disabled`]: disabled,
+            })}
+          >
+            {limitNumber}
+          </div>
+        ) : null,
+      [classPrefix, disabled, limitNumber, showLimitNumber],
+    );
 
     const updateInputWidth = () => {
       if (!autoWidth || !inputRef.current) return;
@@ -245,6 +295,108 @@ const Input = forwardRefWithStatics(
       [isInnerInputReadonly, onBlur],
     );
 
+    const handleChange = useCallback(
+      (
+        e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>,
+        trigger: InputContextTrigger = 'input',
+      ) => {
+        let { value: newStr } = e.currentTarget;
+        if (composingRef.current) {
+          setComposingValue(newStr);
+        } else {
+          if (props.type !== 'number') {
+            newStr = getValueByLimitNumber(newStr);
+          }
+          // 完成中文输入时同步一次 composingValue
+          setComposingValue(newStr);
+          onChange(newStr, { e, trigger });
+        }
+      },
+      [getValueByLimitNumber, onChange, props.type],
+    );
+
+    const handleKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const {
+          key,
+          currentTarget: { value },
+        } = e;
+        key === 'Enter' && onEnter?.(value, { e });
+        onKeydown?.(value, { e });
+      },
+      [onEnter, onKeydown],
+    );
+
+    const handleKeyUp = useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const {
+          currentTarget: { value },
+        } = e;
+        onKeyup?.(value, { e });
+      },
+      [onKeyup],
+    );
+
+    const handleKeyPress = useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const {
+          currentTarget: { value },
+        } = e;
+        onKeypress?.(value, { e });
+      },
+      [onKeypress],
+    );
+
+    const handleCompositionStart = useCallback(
+      (e: React.CompositionEvent<HTMLInputElement>) => {
+        composingRef.current = true;
+        const {
+          currentTarget: { value },
+        } = e;
+        onCompositionstart?.(value, { e });
+      },
+      [onCompositionstart],
+    );
+
+    const handleCompositionEnd = useCallback(
+      (e: React.CompositionEvent<HTMLInputElement>) => {
+        const {
+          currentTarget: { value },
+        } = e;
+        if (composingRef.current) {
+          composingRef.current = false;
+          handleChange(e);
+        }
+        onCompositionend?.(value, { e });
+      },
+      [handleChange, onCompositionend],
+    );
+
+    const handlePaste = useCallback(
+      (e: React.ClipboardEvent<HTMLInputElement>) => {
+        const clipData = e.clipboardData;
+        const pasteValue = clipData?.getData('text/plain');
+        onPaste?.({ e, pasteValue });
+      },
+      [onPaste],
+    );
+
+    const handleMouseEnter = useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        toggleIsHover(true);
+        onMouseenter?.({ e });
+      },
+      [onMouseenter],
+    );
+
+    const handleMouseLeave = useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        toggleIsHover(false);
+        onMouseleave?.({ e });
+      },
+      [onMouseleave],
+    );
+
     const renderInput = useMemo(
       () => (
         <input
@@ -292,133 +444,74 @@ const Input = forwardRefWithStatics(
       ],
     );
 
-    const renderInputNode = (
-      <div
-        className={classNames(inputClass, `${classPrefix}-input`, {
-          [`${classPrefix}-is-readonly`]: readonly,
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-is-focused`]: isFocused,
-          [`${classPrefix}-size-s`]: size === 'small',
-          [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-align-${align}`]: align,
-          [`${classPrefix}-is-${tStatus}`]: tStatus && tStatus !== 'default',
-          [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
-          [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
-          [`${classPrefix}-input--borderless`]: borderless,
-          [`${classPrefix}-input--focused`]: isFocused,
-        })}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onWheel={(e) => onWheel?.({ e })}
-        onClick={(e) => {
-          inputRef.current?.focus();
-          onClick?.({ e });
-        }}
-      >
-        {prefixIconContent}
-        {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
-        {showInput && renderInput}
-        {autoWidth && (
-          <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
-            {innerValue || placeholder}
-          </span>
-        )}
-        {suffixContent || limitNumberNode ? (
-          <div className={`${classPrefix}-input__suffix`}>
-            {suffixContent}
-            {limitNumberNode}
-          </div>
-        ) : null}
-        {suffixIconContent}
-      </div>
+    const renderInputNode = useMemo(
+      () => (
+        <div
+          className={classNames(inputClass, `${classPrefix}-input`, {
+            [`${classPrefix}-is-readonly`]: readonly,
+            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-is-focused`]: isFocused,
+            [`${classPrefix}-size-s`]: size === 'small',
+            [`${classPrefix}-size-l`]: size === 'large',
+            [`${classPrefix}-align-${align}`]: align,
+            [`${classPrefix}-is-${tStatus}`]: tStatus && tStatus !== 'default',
+            [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
+            [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
+            [`${classPrefix}-input--borderless`]: borderless,
+            [`${classPrefix}-input--focused`]: isFocused,
+          })}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onWheel={(e) => onWheel?.({ e })}
+          onClick={(e) => {
+            inputRef.current?.focus();
+            onClick?.({ e });
+          }}
+        >
+          {prefixIconContent}
+          {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
+          {showInput && renderInput}
+          {autoWidth && (
+            <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
+              {innerValue || placeholder}
+            </span>
+          )}
+          {suffixContent || limitNumberNode ? (
+            <div className={`${classPrefix}-input__suffix`}>
+              {suffixContent}
+              {limitNumberNode}
+            </div>
+          ) : null}
+          {suffixIconContent}
+        </div>
+      ),
+      [
+        align,
+        autoWidth,
+        borderless,
+        classPrefix,
+        disabled,
+        handleMouseEnter,
+        handleMouseLeave,
+        innerValue,
+        inputClass,
+        isFocused,
+        labelContent,
+        limitNumberNode,
+        onClick,
+        onWheel,
+        placeholder,
+        prefixIcon,
+        prefixIconContent,
+        readonly,
+        renderInput,
+        showInput,
+        size,
+        suffixContent,
+        suffixIconContent,
+        tStatus,
+      ],
     );
-
-    function togglePasswordVisible() {
-      if (disabled) return;
-      const toggleType = renderType === 'password' ? 'text' : 'password';
-      setRenderType(toggleType);
-    }
-
-    function handleChange(
-      e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>,
-      trigger: InputContextTrigger = 'input',
-    ) {
-      let { value: newStr } = e.currentTarget;
-      if (composingRef.current) {
-        setComposingValue(newStr);
-      } else {
-        if (props.type !== 'number') {
-          newStr = getValueByLimitNumber(newStr);
-        }
-        // 完成中文输入时同步一次 composingValue
-        setComposingValue(newStr);
-        onChange(newStr, { e, trigger });
-      }
-    }
-    // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
-    // https://github.com/Tencent/tdesign-react/issues/2320
-    function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
-      e.stopPropagation();
-      // 兼容React16
-      e.nativeEvent.stopImmediatePropagation();
-    }
-    function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-      onChange?.('', { e, trigger: 'clear' });
-      onClear?.({ e });
-    }
-    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-      const {
-        key,
-        currentTarget: { value },
-      } = e;
-      key === 'Enter' && onEnter?.(value, { e });
-      onKeydown?.(value, { e });
-    }
-    function handleKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
-      const {
-        currentTarget: { value },
-      } = e;
-      onKeyup?.(value, { e });
-    }
-    function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
-      const {
-        currentTarget: { value },
-      } = e;
-      onKeypress?.(value, { e });
-    }
-    function handleCompositionStart(e: React.CompositionEvent<HTMLInputElement>) {
-      composingRef.current = true;
-      const {
-        currentTarget: { value },
-      } = e;
-      onCompositionstart?.(value, { e });
-    }
-    function handleCompositionEnd(e: React.CompositionEvent<HTMLInputElement>) {
-      const {
-        currentTarget: { value },
-      } = e;
-      if (composingRef.current) {
-        composingRef.current = false;
-        handleChange(e);
-      }
-      onCompositionend?.(value, { e });
-    }
-
-    function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
-      const clipData = e.clipboardData;
-      const pasteValue = clipData?.getData('text/plain');
-      onPaste?.({ e, pasteValue });
-    }
-
-    function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(true);
-      onMouseenter?.({ e });
-    }
-
-    function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(false);
-      onMouseleave?.({ e });
-    }
 
     useImperativeHandle(ref as InputRef, () => ({
       currentElement: wrapperRef.current,
