@@ -45,7 +45,8 @@ export default function useSingleInput(props: TdDatePickerProps) {
     size: props.size,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
-    readonly: !props.allowInput,
+    // 输入框是否允许输入
+    allowInput: props.allowInput,
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     className: classNames({

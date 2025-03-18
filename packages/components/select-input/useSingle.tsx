@@ -71,8 +71,6 @@ export default function useSingle(props: TdSelectInputProps) {
     // 单选，值的呈现方式
     const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
     const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
-    // 是否是只读模式，如果是只读状态，或者不允许输入，则为只读模式
-    const isReadonly = props.readonly || !props.allowInput;
     return (
       <Input
         ref={inputRef}
@@ -89,7 +87,6 @@ export default function useSingle(props: TdSelectInputProps) {
           )
         }
         onChange={onInnerInputChange}
-        readonly={isReadonly}
         onClear={onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
         onFocus={(val, context) => {

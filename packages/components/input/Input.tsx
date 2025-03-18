@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useImperativeHandle, useEffect, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import {
   BrowseIcon as TdBrowseIcon,
@@ -80,6 +80,7 @@ const Input = forwardRefWithStatics(
       showInput = true,
       keepWrapperWidth,
       showLimitNumber,
+      allowInput,
       allowInputOverMax,
       name,
       format,
@@ -124,10 +125,13 @@ const Input = forwardRefWithStatics(
 
     const [composingValue, setComposingValue] = useState<string>('');
 
+    // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
+    const isInnerInputReadonly = useMemo(() => readonly || !allowInput, [allowInput, readonly]);
+
     // 是否展示清除图标
     const isShowClearIcon = useMemo(
-      () => ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover,
-      [clearable, disabled, isHover, showClearIconOnEmpty, value],
+      () => ((clearable && value) || showClearIconOnEmpty) && !disabled && !readonly && isHover,
+      [clearable, disabled, isHover, readonly, showClearIconOnEmpty, value],
     );
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
@@ -217,28 +221,75 @@ const Input = forwardRefWithStatics(
     const innerValue = composingRef.current ? composingValue : value ?? '';
     const formatDisplayValue = format && !isFocused ? format(innerValue) : innerValue;
 
-    const renderInput = (
-      <input
-        ref={inputRef}
-        placeholder={placeholder}
-        type={renderType}
-        className={`${classPrefix}-input__inner`}
-        value={formatDisplayValue}
-        readOnly={readonly}
-        disabled={disabled}
-        autoComplete={autocomplete ?? (local.autocomplete || undefined)}
-        autoFocus={autofocus}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
-        onKeyPress={handleKeyPress}
-        onCompositionStart={handleCompositionStart}
-        onCompositionEnd={handleCompositionEnd}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onPaste={handlePaste}
-        name={name}
-      />
+    const handleFocus = useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        if (isInnerInputReadonly) return;
+        const {
+          currentTarget: { value },
+        } = e;
+        onFocus?.(value, { e });
+        toggleIsFocused(true);
+      },
+      [isInnerInputReadonly, onFocus],
+    );
+
+    const handleBlur = useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        if (isInnerInputReadonly) return;
+        const {
+          currentTarget: { value },
+        } = e;
+        onBlur?.(value, { e });
+        toggleIsFocused(false);
+      },
+      [isInnerInputReadonly, onBlur],
+    );
+
+    const renderInput = useMemo(
+      () => (
+        <input
+          ref={inputRef}
+          placeholder={placeholder}
+          type={renderType}
+          className={`${classPrefix}-input__inner`}
+          value={formatDisplayValue}
+          readOnly={isInnerInputReadonly}
+          disabled={disabled}
+          autoComplete={autocomplete ?? (local.autocomplete || undefined)}
+          autoFocus={autofocus}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
+          onCompositionStart={handleCompositionStart}
+          onCompositionEnd={handleCompositionEnd}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onPaste={handlePaste}
+          name={name}
+        />
+      ),
+      [
+        autocomplete,
+        autofocus,
+        classPrefix,
+        disabled,
+        formatDisplayValue,
+        handleBlur,
+        handleChange,
+        handleCompositionEnd,
+        handleCompositionStart,
+        handleFocus,
+        handleKeyDown,
+        handleKeyPress,
+        handleKeyUp,
+        handlePaste,
+        isInnerInputReadonly,
+        local.autocomplete,
+        name,
+        placeholder,
+        renderType,
+      ],
     );
 
     const renderInputNode = (
@@ -351,24 +402,6 @@ const Input = forwardRefWithStatics(
         handleChange(e);
       }
       onCompositionend?.(value, { e });
-    }
-
-    function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-      if (readonly) return;
-      const {
-        currentTarget: { value },
-      } = e;
-      onFocus?.(value, { e });
-      toggleIsFocused(true);
-    }
-
-    function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-      if (readonly) return;
-      const {
-        currentTarget: { value },
-      } = e;
-      onBlur?.(value, { e });
-      toggleIsFocused(false);
     }
 
     function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
