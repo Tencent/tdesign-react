@@ -388,6 +388,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
                   <input
                     class="t-input__inner"
                     placeholder="请选择"
+                    readonly=""
                     type="text"
                     value="5 条/页"
                   />
