@@ -16,19 +16,18 @@ export default {
     const fileName = reg && reg[0];
     const componentName = reg && reg[1];
     const localeName = reg && reg[3];
-    console.log(fileName, 'fileName');
+
     demoImports = {};
     demoCodesImports = {};
     // 统一换成 common 公共文档内容
     if (fileName && source.includes(':: BASE_DOC ::')) {
-      const localeDocPath = path.resolve(__dirname, `../../packages/common/docs/web/api/${fileName}`);
-
+      const localeDocPath = path.resolve(__dirname, `../../../${fileName}`);
       const defaultDocPath = path.resolve(
         __dirname,
-        `../../packages/common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
+        `../../../common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
       );
-      let baseDoc = '';
 
+      let baseDoc = '';
       if (fs.existsSync(localeDocPath)) {
         // 优先载入语言版本
         baseDoc = fs.readFileSync(localeDocPath, 'utf-8');

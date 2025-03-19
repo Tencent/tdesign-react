@@ -3,23 +3,20 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Progress } from "tdesign-react";
+import { Progress } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "progress", value: "progress" }];
+  const panelList = [{ label: 'progress', value: 'progress' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
@@ -29,10 +26,7 @@ export default function Usage() {
   const defaultProps = { percentage: percent };
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setPercent((percent) => (percent % 100) + 10),
-      1000
-    );
+    const timer = setInterval(() => setPercent((percent) => (percent % 100) + 10), 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -40,12 +34,12 @@ export default function Usage() {
     setRenderComp(
       <div style={{ width: 200 }}>
         <Progress {...defaultProps} {...changedProps} />
-      </div>
+      </div>,
     );
   }, [changedProps, percent]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

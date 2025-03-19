@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { get , intersection } from 'lodash-es';
+import { get, intersection } from 'lodash-es';
 import { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
 import { KeysType, TableTreeDataMap, TreeDataMapType } from '../../../common/js/table/tree-store';
 import useControlled from '../../hooks/useControlled';
