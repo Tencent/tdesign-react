@@ -2,7 +2,7 @@
 import React from 'react';
 import { merge } from 'lodash-es';
 import { ConfigProvider, Space } from 'tdesign-react';
-import enConfig from 'tdesign-react/locale/en_US';
+import enConfig from 'tdesign-react/es/locale/en_US';
 
 export default function GlobalDemo() {
   // 全局特性配置，引入英文语言配置包 enConfig
