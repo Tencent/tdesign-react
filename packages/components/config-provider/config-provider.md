@@ -83,6 +83,7 @@ upload | Object | - | 上传组件全局配置。TS 类型：`UploadConfig` | N
 名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 autocomplete | String | - | 是否开启自动填充功能 | N
+clearTrigger | String | focus | 清空图标触发方式，仅在输入框有值时有效。可选项：always / focus | N
 placeholder | String | - | 语言配置，“请输入”占位符描述文本 | N
 
 ### PaginationConfig
