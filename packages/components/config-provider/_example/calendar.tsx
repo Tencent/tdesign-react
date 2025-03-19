@@ -1,7 +1,7 @@
 import React from 'react';
 import { merge } from 'lodash-es';
 import { ConfigProvider, Calendar } from 'tdesign-react';
-import enConfig from 'tdesign-react/locale/en_US';
+import enConfig from 'tdesign-react/es/locale/en_US';
 
 const MONTHS = [
   'January',
