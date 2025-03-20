@@ -444,7 +444,8 @@ export default function useFixed(
     preFinalColumns: BaseTableCol<TableRowData>[] = [],
   ) => {
     const finalColKeys = finalColumns.map((t) => t.colKey);
-    const preColKeys = preFinalColumns.map((t) => t.colKey);
+    const preColKeys = (preFinalColumns ?? []).map((t) => t.colKey);
+
     if (finalColKeys.length < preColKeys.length) {
       const reduceKeys = xorWith(preColKeys, finalColKeys);
       const thWidthList = getThWidthList('calculate');

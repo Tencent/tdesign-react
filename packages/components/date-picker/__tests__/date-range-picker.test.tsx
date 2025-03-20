@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 
-import { render, fireEvent, act, waitFor, vi } from '@test/utils';
+import { render, fireEvent, act, vi } from '@test/utils';
 
 import { DateRangePicker } from '..';
 
@@ -38,7 +38,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time'));
+    const panelElement = document.querySelector('.t-date-picker__panel-time');
     expect(panelElement).toBeInTheDocument();
   });
 
@@ -48,7 +48,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const weekElement = await waitFor(() => document.querySelector('.t-date-picker__table table thead tr th'));
+    const weekElement = document.querySelector('.t-date-picker__table table thead tr th');
     expect(weekElement).toHaveTextContent('三');
   });
 
@@ -70,7 +70,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const pickerTable = await waitFor(() => document.querySelector('.t-date-picker__table'));
+    const pickerTable = document.querySelector('.t-date-picker__table');
     expect(pickerTable).toHaveTextContent('一季度');
   });
 
@@ -80,7 +80,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-week'));
+    const weekEle = document.querySelector('.t-date-picker__panel-week');
     expect(weekEle).not.toBeNull();
   });
 
@@ -95,7 +95,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const popupArrow = await waitFor(() => document.querySelector('.t-popup__arrow'));
+    const popupArrow = document.querySelector('.t-popup__arrow');
     expect(popupArrow).toBeInTheDocument();
   });
 
@@ -114,7 +114,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const pickerPresets = await waitFor(() => document.querySelector('.t-date-picker__presets'));
+    const pickerPresets = document.querySelector('.t-date-picker__presets');
     expect(pickerPresets).toHaveTextContent('特定日期范围');
   });
 
@@ -144,7 +144,7 @@ describe('DateRangePicker', () => {
       fireEvent.mouseDown(container.querySelector('input'));
       vi.runAllTimers();
     });
-    const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time .t-is-current'));
+    const panelElement = document.querySelector('.t-date-picker__panel-time .t-is-current');
     expect(panelElement).toHaveTextContent('13');
   });
 
@@ -182,7 +182,7 @@ describe('DateRangePicker', () => {
     );
     fireEvent.mouseDown(container.querySelector('input'));
 
-    const firstTBody = await waitFor(() => document.querySelector('tbody'));
+    const firstTBody = document.querySelector('tbody');
     fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
     fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
 
@@ -194,27 +194,22 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker defaultValue={['2022-08-29', '2022-09-14']} />);
     fireEvent.mouseDown(container.querySelector('input'));
 
-    const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
+    const panelEle = document.querySelector('.t-date-picker__panel-date');
 
     const monthPanel = panelEle.querySelector('.t-date-picker__header-controller-month .t-input');
     fireEvent.click(monthPanel);
-    const monthPopup = await waitFor(() => document.querySelector('.t-select__list'));
+    const monthPopup = document.querySelector('.t-select__list');
     fireEvent.click(monthPopup.firstChild);
 
-    const monthInput = await waitFor(() =>
-      document.querySelector('.t-date-picker__header-controller-month .t-input__inner'),
-    );
+    const monthInput = document.querySelector('.t-date-picker__header-controller-month .t-input__inner');
+
     expect((monthInput as HTMLInputElement).value).toEqual('1 月');
 
     const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
     fireEvent.click(yearPanel);
-    const yearPopup = await waitFor(() =>
-      document.querySelector('.t-date-picker__header-controller-year .t-select__list .t-is-selected'),
-    );
+    const yearPopup = document.querySelector('.t-date-picker__header-controller-year .t-select__list .t-is-selected');
     fireEvent.click(yearPopup.nextElementSibling);
-    const yearInput = await waitFor(() =>
-      document.querySelector('.t-date-picker__header-controller-year .t-input__inner'),
-    );
+    const yearInput = document.querySelector('.t-date-picker__header-controller-year .t-input__inner');
     expect((yearInput as HTMLInputElement).value).toEqual('2023');
   });
 
@@ -250,11 +245,11 @@ describe('DateRangePicker', () => {
     const inputEle = container.querySelector('.t-input__inner');
     fireEvent.mouseDown(inputEle);
 
-    const jumperPrev = await waitFor(() => document.querySelector('.t-pagination-mini__prev'));
+    const jumperPrev = document.querySelector('.t-pagination-mini__prev');
     fireEvent.click(jumperPrev);
-    const jumperNext = await waitFor(() => document.querySelector('.t-pagination-mini__next'));
+    const jumperNext = document.querySelector('.t-pagination-mini__next');
     fireEvent.click(jumperNext);
-    const jumperCurrent = await waitFor(() => document.querySelector('.t-pagination-mini__current'));
+    const jumperCurrent = document.querySelector('.t-pagination-mini__current');
     fireEvent.click(jumperCurrent);
   });
 
@@ -262,7 +257,7 @@ describe('DateRangePicker', () => {
     const { container, getByText } = render(<DateRangePicker enableTimePicker />);
     fireEvent.mouseDown(container.querySelector('input'));
 
-    const timePickerItem = await waitFor(() => document.querySelector('.t-time-picker__panel-body-scroll-item'));
+    const timePickerItem = document.querySelector('.t-time-picker__panel-body-scroll-item');
     fireEvent.click(timePickerItem);
     const confirmBtn = getByText('确定');
     fireEvent.click(confirmBtn);
@@ -275,7 +270,7 @@ describe('DateRangePicker', () => {
     const inputEle = container.querySelector('.t-input__inner');
     fireEvent.mouseDown(inputEle);
 
-    const christmasBtn = await waitFor(() => document.querySelector('.t-date-picker__presets .t-button'));
+    const christmasBtn = document.querySelector('.t-date-picker__presets .t-button');
     fireEvent.click(christmasBtn);
     expect(christmasBtn).toBeTruthy();
   });
@@ -285,10 +280,10 @@ describe('DateRangePicker', () => {
     const inputEle = container.querySelector('.t-input__inner');
     fireEvent.mouseDown(inputEle);
 
-    const yearSelect = await waitFor(() => document.querySelector('.t-date-picker__header-controller-year'));
+    const yearSelect = document.querySelector('.t-date-picker__header-controller-year');
     fireEvent.click(yearSelect);
 
-    const monthSelect = await waitFor(() => document.querySelector('.t-date-picker__header-controller-month'));
+    const monthSelect = document.querySelector('.t-date-picker__header-controller-month');
     fireEvent.click(monthSelect);
   });
 });
