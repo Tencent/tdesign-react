@@ -8,7 +8,9 @@ import useResizeObserver from './useResizeObserver';
 export type UseVirtualScrollParams = {
   /** 列数据 */
   data: { [key: string]: any }[];
-  scroll: TScroll;
+  scroll: TScroll & {
+    fixedRows?: Array<number>;
+  };
 };
 
 const requestAnimationFrame =
@@ -38,6 +40,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       rowHeight: scroll.rowHeight || 47,
       threshold: scroll.threshold || 100,
       type: scroll.type,
+      fixedRows: scroll.fixedRows ?? [0, 0],
     };
   }, [scroll]);
 
@@ -77,12 +80,27 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     if (currentIndex < 0) return;
     const startIndex = Math.max(currentIndex - tScroll.bufferSize, 0);
     const endIndex = Math.min(lastIndex + tScroll.bufferSize, trScrollTopHeightList.length);
+
+    // 计算固定行情况
+    const { fixedRows } = tScroll;
+    const [fixedStart, fixedEnd] = fixedRows;
+    let fixedStartData = fixedStart ? data.slice(0, fixedStart) : [];
+    if (fixedStart && startIndex < fixedStart) {
+      fixedStartData = fixedStartData.slice(0, startIndex);
+    }
+    let fixedEndData = fixedEnd ? data.slice(data.length - fixedEnd) : [];
+    const bottomStartIndex = endIndex - data.length + 1 + (fixedEnd ?? 0);
+    if (fixedEnd && bottomStartIndex > 0) {
+      fixedEndData = fixedEndData.slice(bottomStartIndex);
+    }
+
     if (startAndEndIndex.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
-      const tmpVisibleData = data.slice(startIndex, endIndex);
+      const tmpVisibleData = fixedStartData.concat(data.slice(startIndex, endIndex)).concat(fixedEndData);
       setVisibleData(tmpVisibleData);
       const lastScrollTop = trScrollTopHeightList[startIndex - 1];
       const top = lastScrollTop > 0 ? lastScrollTop : 0;
-      setTranslateY(top);
+      const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
+      setTranslateY(top - stickyHeight);
       setStartAndEndIndex([startIndex, endIndex]);
     }
   };
@@ -169,13 +187,20 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       addIndexToData(data);
 
       const scrollTopHeightList = trScrollTopHeightList.current;
-      const lastIndex = scrollTopHeightList.length - 1;
-      setScrollHeight(scrollTopHeightList[lastIndex]);
+      if (scrollTopHeightList?.length === data?.length) {
+        // 数据初始化后，根据计算结果更新
+        const lastIndex = scrollTopHeightList.length - 1;
+        setScrollHeight(scrollTopHeightList[lastIndex]);
 
-      const [startIndex, endIndex] = startAndEndIndex;
-      const tmpData = data.slice(startIndex, endIndex);
+        updateVisibleData(scrollTopHeightList, container.current.scrollTop);
+      } else {
+        // 数据初始化
+        setScrollHeight(data.length * tScroll.rowHeight);
 
-      setVisibleData(tmpData);
+        const tmpData = data.slice(0, (scroll?.bufferSize || 10) * 3);
+        setVisibleData(tmpData);
+        setTranslateY(0);
+      }
 
       const timer = setTimeout(() => {
         if (container.current) {
