@@ -26,7 +26,7 @@ type Attributes = {
 };
 
 type State = {
-  styles: Styles;
+  styles: Record<string, Styles>;
   attributes: Attributes;
 };
 
