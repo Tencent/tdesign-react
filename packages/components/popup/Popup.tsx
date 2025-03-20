@@ -2,7 +2,6 @@ import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeH
 import { CSSTransition } from 'react-transition-group';
 import { isFunction, debounce } from 'lodash-es';
 import classNames from 'classnames';
-import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import useControlled from '../hooks/useControlled';
 import useAnimation from '../hooks/useAnimation';
@@ -17,6 +16,8 @@ import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
+import usePopper from '../hooks/usePopper';
+
 import { getCssVarsValue } from '../_util/dom';
 
 export interface PopupProps extends TdPopupProps {

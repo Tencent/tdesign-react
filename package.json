@@ -98,9 +98,6 @@
   "bugs": {
     "url": "https://github.com/Tencent/tdesign-react/issues"
   },
-  "resolutions": {
-    "react-popper": "~2.3.0"
-  },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.16.5",
@@ -219,8 +216,8 @@
     "mitt": "^3.0.0",
     "raf": "~3.4.1",
     "react-is": "^19.0.0",
-    "react-popper": "~2.3.0",
     "react-transition-group": "~4.4.1",
+    "react-fast-compare": "^3.2.2",
     "sortablejs": "^1.15.0",
     "tdesign-icons-react": "0.5.0-alpha.1",
     "tinycolor2": "^1.4.2",
