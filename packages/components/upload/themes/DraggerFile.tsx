@@ -33,7 +33,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const drag = useDrag({ ...props.dragEvents, accept });
   const { dragActive } = drag;
 
-  const draggerFileRef = useRef();
+  const draggerFileRef = useRef(null);
 
   const { CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     CheckCircleFilledIcon: TdCheckCircleFilledIcon,

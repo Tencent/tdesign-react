@@ -3,7 +3,7 @@ import { checkIsSubMenu, checkIsMenuGroup } from './checkMenuType';
 
 export const getSubMenuChildCount = (children: React.ReactNode) => {
   let count = 0;
-  React.Children.forEach(children, (child: React.ReactElement) => {
+  React.Children.forEach(children, (child: React.ReactElement<any>) => {
     if (checkIsSubMenu(child) || checkIsMenuGroup(child)) {
       count += getSubMenuChildCount(child.props.children) + 1;
     } else {

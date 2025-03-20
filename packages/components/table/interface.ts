@@ -1,4 +1,4 @@
-import { ReactFragment } from 'react';
+import { ReactNode } from 'react';
 import { StyledProps } from '../common';
 import { TableTreeDataMap } from './hooks/tree-store';
 import { UseTreeDataReturnType } from './hooks/useTreeData';
@@ -18,7 +18,7 @@ export interface BaseTableProps<T extends TableRowData = TableRowData> extends T
   /**
    * 渲染展开行。非公开属性，请勿在业务中使用
    */
-  renderExpandedRow?: (params: TableExpandedRowParams<TableRowData>) => ReactFragment;
+  renderExpandedRow?: (params: TableExpandedRowParams<TableRowData>) => ReactNode;
   /**
    * 多级表头场景，叶子结点变化时执行。非公开属性，请勿在业务中使用
    */
