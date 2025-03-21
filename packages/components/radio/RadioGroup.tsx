@@ -84,6 +84,26 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
   useEffect(() => {
     calcBarStyle();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          calcBarStyle();
+        }
+      },
+      {
+        threshold: 0,
+      },
+    );
+
+    if (radioGroupRef.current) {
+      observer.observe(radioGroupRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+
   }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderBlock = () => {
