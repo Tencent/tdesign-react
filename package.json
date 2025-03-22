@@ -187,7 +187,7 @@
     "rollup-plugin-typescript2": "^0.31.2",
     "semver": "^7.6.3",
     "start-server-and-test": "^1.14.0",
-    "tdesign-icons-view": "^0.3.4",
+    "tdesign-icons-view": "^0.3.5",
     "tdesign-publish-cli": "^0.0.12",
     "tdesign-site-components": "^0.15.3",
     "tdesign-theme-generator": "^1.0.0",
@@ -222,7 +222,7 @@
     "react-popper": "~2.3.0",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
-    "tdesign-icons-react": "^0.4.3",
+    "tdesign-icons-react": "^0.4.4",
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "validator": "~13.7.0"
