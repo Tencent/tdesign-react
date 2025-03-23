@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react-mono",
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.15.9",
   "private": true,
   "purename": "tdesign",
   "version": "1.11.1",
@@ -36,7 +36,7 @@
     "excludeAfterRemap": false
   },
   "scripts": {
-    "pnpm:devPreinstall": "pnpm run init",
+    "pnpm:devPreinstall": "node script/pnpm-dev-preinstall.js",
     "init": "git submodule init && git submodule update",
     "start": "pnpm run dev",
     "dev": "pnpm -C packages/tdesign-react/site dev",
