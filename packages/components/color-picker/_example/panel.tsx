@@ -25,8 +25,8 @@ export default function PanelExample() {
       defaultValue="#0052d9"
       format="HEX"
       popupProps={{
-        overlayStyle: { padding: 2 },
-        overlayInnerStyle: { padding: 2 },
+        overlayStyle: { fontWeight: 'normal' },
+        overlayInnerStyle: { fontWeight: 'normal' },
         overlayClassName: 'color-picker-panel-custom-overlay-class',
         overlayInnerClassName: 'color-picker-panel-custom-overlay-inner-class',
       }}

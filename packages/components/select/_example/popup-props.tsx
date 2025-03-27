@@ -29,7 +29,7 @@ const SelectPopupProps = () => {
         style={{ width: '300px' }}
         popupProps={{
           overlayInnerStyle: { width: '300px' },
-          overlayStyle: { padding: 2 },
+          overlayStyle: { fontWeight: 'normal' },
           overlayClassName: 'select-custom-overlay-class',
           overlayInnerClassName: 'select-custom-overlay-inner-class',
         }}

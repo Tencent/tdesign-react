@@ -49,7 +49,7 @@ export default function Shape() {
           icon={<QrcodeIcon />}
           popup={<img alt="TDesign Logo" width="120" height="120" src="https://tdesign.gtimg.com/site/site.jpg" />}
           popupProps={{
-            overlayStyle: { padding: 2 },
+            overlayStyle: { fontWeight: 'normal' },
             overlayInnerStyle: { padding: '4px', height: '128px' },
             overlayClassName: 'sticky-item-custom-overlay-class',
             overlayInnerClassName: 'sticky-item-custom-overlay-inner-class',

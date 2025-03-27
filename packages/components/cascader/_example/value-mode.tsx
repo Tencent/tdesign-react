@@ -62,8 +62,8 @@ export default function Example() {
         multiple
         valueMode="onlyLeaf"
         popupProps={{
-          overlayStyle: { padding: 2 },
-          overlayInnerStyle: { padding: 2 },
+          overlayStyle: { fontWeight: 'normal' },
+          overlayInnerStyle: { fontWeight: 'normal' },
           overlayClassName: 'cascader-custom-overlay-class',
           overlayInnerClassName: 'cascader-custom-overlay-inner-class',
         }}

@@ -31,8 +31,8 @@ export default function BasicDropdown() {
       onClick={clickHandler}
       trigger="click"
       popupProps={{
-        overlayStyle: { padding: 2 },
-        overlayInnerStyle: { padding: 2 },
+        overlayStyle: { fontWeight: 'normal' },
+        overlayInnerStyle: { fontWeight: 'normal' },
         overlayClassName: 'dropdown-custom-overlay-class',
         overlayInnerClassName: 'dropdown-custom-overlay-inner-class',
       }}

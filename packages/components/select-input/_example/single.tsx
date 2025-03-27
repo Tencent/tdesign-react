@@ -79,7 +79,7 @@ export default function SelectInputSingle() {
         allowInput
         popupProps={{
           overlayInnerStyle: { padding: 6 },
-          overlayStyle: { padding: 2 },
+          overlayStyle: { fontWeight: 'normal' },
           overlayClassName: 'select-custom-overlay-class',
           overlayInnerClassName: 'select-custom-overlay-inner-class',
         }}

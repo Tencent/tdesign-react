@@ -20,8 +20,8 @@ export default function YearDatePicker() {
         allowInput
         clearable
         popupProps={{
-          overlayStyle: { padding: 2 },
-          overlayInnerStyle: { padding: 2 },
+          overlayStyle: { fontWeight: 'normal' },
+          overlayInnerStyle: { fontWeight: 'normal' },
           overlayClassName: 'date-picker-custom-overlay-class',
           overlayInnerClassName: 'date-picker-custom-overlay-inner-class',
         }}

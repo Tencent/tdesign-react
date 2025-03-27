@@ -61,7 +61,7 @@ export default function BasicGuide() {
       placement: 'bottom-right',
       stepOverlayClass: 't-test-guide-step-overlay',
       popupProps: {
-        overlayStyle: { padding: 2 },
+        overlayStyle: { fontWeight: 'normal' },
         overlayInnerStyle: { padding: '4px', height: '128px' },
         overlayClassName: 'guide-custom-overlay-class',
         overlayInnerClassName: 'guide-custom-overlay-inner-class',

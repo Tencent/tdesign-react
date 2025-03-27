@@ -29,8 +29,8 @@ export default function PaginationExample() {
       onPageSizeChange={onPageSizeChange}
       selectProps={{
         popupProps: {
-          overlayStyle: { padding: 2 },
-          overlayInnerStyle: { padding: 2 },
+          overlayStyle: { fontWeight: 'normal' },
+          overlayInnerStyle: { fontWeight: 'normal' },
           overlayClassName: 'pagination-num-custom-overlay-class',
           overlayInnerClassName: 'pagination-num-custom-overlay-inner-class',
         },

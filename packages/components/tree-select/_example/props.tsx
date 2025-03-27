@@ -51,7 +51,7 @@ export default function Example() {
       style={{ width: 300 }}
       popupProps={{
         overlayStyle: { width: '500px' },
-        overlayInnerStyle: { padding: 2 },
+        overlayInnerStyle: { fontWeight: 'normal' },
         overlayClassName: 'tree-select-custom-overlay-class',
         overlayInnerClassName: 'tree-select-custom-overlay-inner-class',
       }}

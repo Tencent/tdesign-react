@@ -65,8 +65,8 @@ function Multiple() {
           title="水果蔬菜"
           icon={<UserIcon />}
           popupProps={{
-            overlayStyle: { padding: 2 },
-            overlayInnerStyle: { padding: 2 },
+            overlayStyle: { fontWeight: 'normal' },
+            overlayInnerStyle: { fontWeight: 'normal' },
             overlayClassName: 'sub-menu-custom-overlay-class',
             overlayInnerClassName: 'sub-menu-custom-overlay-inner-class',
           }}

@@ -30,8 +30,8 @@ export default function BasicTimePicker() {
       onClose={handleClose}
       onOpen={handleOpen}
       popupProps={{
-        overlayInnerStyle: { padding: 2 },
-        overlayStyle: { padding: 2 },
+        overlayInnerStyle: { fontWeight: 'normal' },
+        overlayStyle: { fontWeight: 'normal' },
         overlayClassName: 'time-picker-custom-overlay-class',
         overlayInnerClassName: 'time-picker-custom-overlay-inner-class',
       }}
