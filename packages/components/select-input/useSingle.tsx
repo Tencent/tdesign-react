@@ -87,7 +87,6 @@ export default function useSingle(props: TdSelectInputProps) {
           )
         }
         onChange={onInnerInputChange}
-        readonly={!props.allowInput}
         onClear={onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
         onFocus={(val, context) => {
