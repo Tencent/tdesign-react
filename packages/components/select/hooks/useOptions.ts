@@ -3,6 +3,7 @@ import { get } from 'lodash-es';
 import { SelectKeysType, SelectOption, SelectValue } from '../type';
 import { getValueToOption } from '../util/helper';
 import Option from '../base/Option';
+import OptionGroup from '../base/OptionGroup';
 
 // 处理 options 的逻辑
 function UseOptions(
@@ -23,20 +24,28 @@ function UseOptions(
     let transformedOptions = options;
 
     const arrayChildren = React.Children.toArray(children);
-    const optionChildren = arrayChildren.filter((v: ReactElement) => v.type === Option);
+    const optionChildren = arrayChildren.filter((v: ReactElement) => v.type === Option || v.type === OptionGroup);
     const isChildrenFilterable = arrayChildren.length > 0 && optionChildren.length === arrayChildren.length;
     if (reserveKeyword && currentOptions.length && isChildrenFilterable) return;
 
     if (isChildrenFilterable) {
-      transformedOptions = arrayChildren?.map<SelectOption>((v) => {
+      const handlerOptionElement = (v) => {
         if (React.isValidElement<SelectOption>(v)) {
+          if (v.type === OptionGroup) {
+            return {
+              ...v.props,
+              group: v.props.label,
+              children: v.props.children?.map((v) => handlerOptionElement(v)),
+            };
+          }
           return {
             ...v.props,
             label: v.props.label || v.props.children,
           };
         }
         return { label: v };
-      });
+      };
+      transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
     if (keys) {
       // 如果有定制 keys 先做转换

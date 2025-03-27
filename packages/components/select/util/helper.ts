@@ -3,7 +3,7 @@ import { isPlainObject, get } from 'lodash-es';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption } from '../type';
+import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption, SelectOptionGroup } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
@@ -31,7 +31,21 @@ export const getValueToOption = (
   // options 优先级高于 children
   if (Array.isArray(options)) {
     options.forEach((option) => {
-      valueToOption[get(option, keys?.value || 'value')] = option;
+      if ((option as SelectOptionGroup).group) {
+        (option as SelectOptionGroup)?.children?.forEach((child) => {
+          valueToOption[get(child, keys?.value || 'value')] = {
+            ...child,
+            value: get(child, keys?.value || 'value'),
+            label: get(child, keys?.label || 'label'),
+          };
+        });
+      } else {
+        valueToOption[get(option, keys?.value || 'value')] = {
+          ...option,
+          value: get(option, keys?.value || 'value'),
+          label: get(option, keys?.label || 'label'),
+        };
+      }
     });
     return valueToOption;
   }
@@ -54,8 +68,11 @@ export const getValueToOption = (
     }
   }
 
+  /**
+   * children如果存在ReactElement和map函数混写的情况，会出现嵌套数组
+   */
   if (Array.isArray(children)) {
-    children.forEach((item: ReactElement) => {
+    const handlerElement = (item: ReactElement) => {
       if (item.type === Option) {
         setValueToOptionFormOptionDom(item, valueToOption, keys);
       }
@@ -68,7 +85,14 @@ export const getValueToOption = (
           });
         }
       }
-    });
+
+      if (Array.isArray(item)) {
+        item.forEach((child) => {
+          handlerElement(child);
+        });
+      }
+    };
+    children.forEach((item: ReactElement) => handlerElement(item));
   }
 
   return valueToOption;
@@ -190,7 +214,7 @@ export const getSelectedOptions = (
   multiple: TdSelectProps['multiple'],
   valueType: TdSelectProps['valueType'],
   keys: SelectKeysType,
-  tmpPropOptions: Array<unknown>,
+  valueToOption: ValueToOption,
   selectedValue?: SelectValue,
 ) => {
   const isObjectType = valueType === 'object';
@@ -200,6 +224,8 @@ export const getSelectedOptions = (
   let currentOption: SelectOption;
   // 全选值
   let allSelectedValue: Array<SelectValue>;
+  // 所有可选项
+  const tmpPropOptions = Object.values(valueToOption);
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)
