@@ -40,6 +40,7 @@ export function useEditableRow(props: PrimaryTableProps) {
   // 校验一行的数据
   const validateOneRowData = (rowValue: any) => {
     const rowRules = cellRuleMap.get(rowValue);
+
     if (!rowRules) return;
     const list = rowRules.map(
       (item) =>
@@ -106,7 +107,9 @@ export function useEditableRow(props: PrimaryTableProps) {
   const onRuleChange = (context: PrimaryTableRowEditContext<TableRowData>) => {
     // 编辑行，预存校验信息，方便最终校验
     if (props.editableRowKeys) {
-      const rowValue = get(context.row, props.rowKey || 'id');
+      let rowValue = get(context.row, props.rowKey || 'id');
+      // 兼容 rowKey 为number类型的情况
+      if (typeof rowValue === 'number') rowValue = rowValue.toString();
       const rules = cellRuleMap.get(rowValue);
       if (rules) {
         const index = rules.findIndex((t) => t.col.colKey === context.col.colKey);
