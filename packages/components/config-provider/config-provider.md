@@ -83,6 +83,7 @@ upload | Object | - | 上传组件全局配置。TS 类型：`UploadConfig` | N
 名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 autocomplete | String | - | 是否开启自动填充功能 | N
+clearTrigger | String | focus | 清空图标触发方式，仅在输入框有值时有效。可选项：always / focus | N
 placeholder | String | - | 语言配置，“请输入”占位符描述文本 | N
 
 ### PaginationConfig
@@ -104,7 +105,7 @@ fillWithZero | Boolean | true | 当日期数字小于 10 时，是否使用 '0' 
 firstDayOfWeek | Number | 1 | 第一天从星期几开始。可选项：1/2/3/4/5/6/7 | N
 hideWeekend | String | - | 语言配置，“隐藏周末”描述文本 | N
 monthRadio | String | - | 语言配置，模式切换时的“月”描述文本 | N
-monthSelection | String | - | 语言配置，\"月\"选择描述文本。示例：`'{month} 月'` | N
+monthSelection | String / Function | - | 语言配置，“月”选择描述文本。示例：`'{month} 月'`。TS 类型：`string \| (( data: { month: number })=>string)` | N
 showWeekend | String | - | 语言配置，“显示周末”描述文本 | N
 thisMonth | String | - | 语言配置，“本月”描述文本 | N
 today | String | - | 语言配置，“今天”描述文本 | N

@@ -362,4 +362,68 @@ describe('Tabs 组件测试', () => {
     expect(container.querySelector('.t-tabs__nav-action')).not.toBeNull();
     expect(container.querySelector('.t-tabs__nav-action')).toBeInTheDocument();
   });
+
+  test('Tabs lazy render', async () => {
+    const testId = 'tab bar test id';
+    const { getByTestId } = render(
+      <div data-testid={testId}>
+        <Tabs
+          defaultValue="a"
+          size={'medium'}
+          list={[
+            {
+              label: 'a',
+              value: 'a',
+              panel: <span>a</span>,
+              lazy: true,
+              destroyOnHide: false,
+            },
+            {
+              label: 'b',
+              value: 'b',
+              panel: <span>b</span>,
+              lazy: true,
+              destroyOnHide: false,
+            },
+          ]}
+        />
+      </div>,
+    );
+
+    const tabInstance = await waitFor(() => getByTestId(testId));
+    expect(tabInstance.querySelector('.t-tabs__content').children.length).toBe(1);
+    fireEvent.click(tabInstance.querySelectorAll('.t-tabs__nav-item')[1]);
+    expect(tabInstance.querySelector('.t-tabs__content').children.length).toBe(2);
+    fireEvent.click(tabInstance.querySelectorAll('.t-tabs__nav-item')[0]);
+    expect(tabInstance.querySelector('.t-tabs__content').children.length).toBe(2);
+  });
+
+  test('Tabs destroyOnHide render', async () => {
+    const testId = 'tab bar test id';
+    const { getByTestId } = render(
+      <div data-testid={testId}>
+        <Tabs
+          defaultValue="a"
+          size={'medium'}
+          list={[
+            {
+              label: 'a',
+              value: 'a',
+              panel: <span>a</span>,
+            },
+            {
+              label: 'b',
+              value: 'b',
+              panel: <span>b</span>,
+            },
+          ]}
+        />
+      </div>,
+    );
+
+    const tabInstance = await waitFor(() => getByTestId(testId));
+    expect(tabInstance.querySelector('.t-tabs__content').children.length).toBe(1);
+    fireEvent.click(tabInstance.querySelectorAll('.t-tabs__nav-item')[1]);
+    expect(tabInstance.querySelector('.t-tabs__content').children.length).toBe(1);
+  });
 });
