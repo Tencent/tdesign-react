@@ -2,7 +2,7 @@ import React, { useRef, useState, MouseEvent } from 'react';
 import classNames from 'classnames';
 
 import { TNode } from '../common';
-import { isNodeOverflow } from '../_util/dom';
+import { isNodeOverflow } from '../_util/scroll';
 import Tooltip, { TooltipProps } from '../tooltip';
 import useDebounce from '../hooks/useDebounce';
 

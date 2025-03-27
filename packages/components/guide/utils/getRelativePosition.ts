@@ -1,4 +1,6 @@
-import { getElmCssPropValue, isFixed, getWindowScroll } from '../../_util/dom';
+import { isFixed } from '../../_util/dom';
+import { getWindowScroll } from '../../_util/scroll';
+import { getCssVarsValue } from '../../_util/style';
 
 /**
  * 获取元素相对于另一个元素的位置（或者说相对于 body）
@@ -8,7 +10,7 @@ export default function getRelativePosition(elm: HTMLElement, relativeElm: HTMLE
   const { scrollTop, scrollLeft } = getWindowScroll();
   const { top: elmTop, left: elmLeft } = elm.getBoundingClientRect();
   const { top: relElmTop, left: relElmLeft } = relativeElm.getBoundingClientRect();
-  const relativeElmPosition = getElmCssPropValue(relativeElm, 'position');
+  const relativeElmPosition = getCssVarsValue('position', relativeElm);
 
   if (
     (relativeElm.tagName.toLowerCase() !== 'body' && relativeElmPosition === 'relative') ||

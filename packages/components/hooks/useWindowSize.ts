@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { debounce } from 'lodash-es';
+import { getWindowSize } from '../_util/dom';
 
 export interface WindowSize {
   width: number;
@@ -7,33 +8,22 @@ export interface WindowSize {
 }
 
 function useWindowSize(): WindowSize {
-  const validWindow = typeof window === 'object';
-
-  const getSize = useCallback(
-    () => ({
-      width: validWindow ? window.innerWidth : undefined,
-      height: validWindow ? window.innerHeight : undefined,
-    }),
-    [validWindow],
-  );
-
-  const [size, setSize] = useState(getSize);
+  const [size, setSize] = useState(getWindowSize);
 
   useEffect(() => {
     function handleResize() {
-      setSize(getSize());
+      setSize(getWindowSize());
     }
 
     const debounceResize = debounce(handleResize, 400);
-    if (validWindow) {
-      window.addEventListener('resize', debounceResize);
 
-      return () => {
-        window.removeEventListener('resize', debounceResize);
-        debounceResize.cancel();
-      };
-    }
-  }, [getSize, validWindow]);
+    window.addEventListener('resize', debounceResize);
+
+    return () => {
+      window.removeEventListener('resize', debounceResize);
+      debounceResize.cancel();
+    };
+  }, []);
 
   return size;
 }

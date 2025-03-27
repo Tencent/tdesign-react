@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useMemo } from 'react';
 import useConfig from './useConfig';
 import useAnimation from './useAnimation';
-import setStyle from '../_util/setStyle';
+import setStyle from '../../common/js/utils/setStyle';
 import { canUseDocument } from '../_util/dom';
 
 const period = 200;

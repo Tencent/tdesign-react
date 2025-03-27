@@ -3,7 +3,7 @@ import { isFragment } from 'react-is';
 import classNames from 'classnames';
 import { supportRef, getRefDom } from '../utils/ref';
 import composeRefs from '../../_util/composeRefs';
-import { on, off } from '../../_util/dom';
+import { off, on } from '../../_util/listener';
 
 const ESC_KEY = 'Escape';
 

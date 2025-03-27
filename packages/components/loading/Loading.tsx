@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, CSSProperties } from 'react';
 import classnames from 'classnames';
-import { addClass, canUseDocument, removeClass } from '../_util/dom';
+import { canUseDocument } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdLoadingProps } from './type';
@@ -8,6 +8,7 @@ import Portal from '../common/Portal';
 import Gradient from './gradient';
 import { loadingDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { addClass, removeClass } from '../_util/style';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {}
 
