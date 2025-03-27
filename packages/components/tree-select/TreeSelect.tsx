@@ -148,26 +148,23 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   }, [multiple, normalizedValue, filterable, popupVisible, filterInput]);
 
   // @ts-ignore TODO: remove it
-  const normalizedValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
-    if (!valueDisplay) {
-      return;
-    }
+  const normalizedValueDisplay = usePersistFn(({ onClose }) => {
+    if (!valueDisplay) return null;
     if (multiple) {
-      return ({ onClose }) =>
-        isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
+      return isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
     }
     const displayNode = isFunction(valueDisplay)
       ? valueDisplay({ value: normalizedValue[0], onClose: noop })
       : valueDisplay;
-    return normalizedValue.length ? displayNode : '';
-  }, [valueDisplay, multiple, normalizedValue, popupVisible]);
+    return normalizedValue.length ? displayNode : null;
+  });
 
   const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
-    // 只有单选且下拉展开时需要隐藏 valueDisplay
+    // 只有单选且下拉展开时隐藏 valueDisplay
     if (filterable && !multiple && popupVisible) {
       return undefined;
     }
-    return normalizedValueDisplay;
+    return normalizedValueDisplay({ onClose: noop });
   }, [filterable, popupVisible, multiple, normalizedValueDisplay]);
 
   const inputPlaceholder = useMemo(() => {
@@ -194,9 +191,10 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
-    const $value = Array.isArray(value) && value.length ? value[0] : undefined;
+    console.log('handleSingleChange', value, context);
+    if (value.length) {
+      const $value = Array.isArray(value) ? value[0] : undefined;
 
-    if ($value !== undefined) {
       onChange(formatValue($value, context.node.label), {
         ...context,
         data: context.node.data,
