@@ -39,6 +39,8 @@ export function useEditableRow(props: PrimaryTableProps) {
 
   // 校验一行的数据
   const validateOneRowData = (rowValue: any) => {
+    // eslint-disable-next-line no-param-reassign
+    if (typeof rowValue === 'number') rowValue = rowValue.toString();
     const rowRules = cellRuleMap.get(rowValue);
 
     if (!rowRules) return;
