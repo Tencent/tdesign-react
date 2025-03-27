@@ -10,7 +10,7 @@ export const descriptionsDefaultProps: TdDescriptionsProps = {
   itemLayout: 'horizontal',
   layout: 'horizontal',
   size: 'medium',
-  tableLayout: 'fixed',
+  tableLayout: 'auto',
 };
 
 export const descriptionsItemDefaultProps: TdDescriptionsItemProps = { span: 1 };
