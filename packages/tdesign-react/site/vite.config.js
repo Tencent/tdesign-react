@@ -27,6 +27,7 @@ export default ({ mode }) =>
     base: publicPathMap[mode],
     resolve: {
       alias: {
+        'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
       },
     },

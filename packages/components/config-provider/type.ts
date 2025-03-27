@@ -170,6 +170,11 @@ export interface InputConfig {
    */
   autocomplete?: string;
   /**
+   * 清空图标触发方式，仅在输入框有值时有效
+   * @default focus
+   */
+  clearTrigger?: 'always' | 'focus';
+  /**
    * 语言配置，“请输入”占位符描述文本
    * @default ''
    */
@@ -233,7 +238,7 @@ export interface CalendarConfig {
    * 语言配置，\"月\"选择描述文本。示例：`'{month} 月'`
    * @default ''
    */
-  monthSelection?: string;
+  monthSelection?: string | ((data: { month: number }) => string);
   /**
    * 语言配置，“显示周末”描述文本
    * @default ''
