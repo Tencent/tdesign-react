@@ -149,14 +149,14 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   // @ts-ignore TODO: remove it
   const normalizedValueDisplay = usePersistFn(({ onClose }) => {
-    if (!valueDisplay) return null;
+    if (!valueDisplay) return '';
     if (multiple) {
       return isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
     }
     const displayNode = isFunction(valueDisplay)
       ? valueDisplay({ value: normalizedValue[0], onClose: noop })
       : valueDisplay;
-    return normalizedValue.length ? displayNode : null;
+    return normalizedValue.length ? displayNode : '';
   });
 
   const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
