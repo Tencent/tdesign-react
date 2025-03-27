@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Table, Input, Radio, Select, DatePicker, MessagePlugin, Button, Link } from 'tdesign-react';
 import dayjs from 'dayjs';
-import type { TableProps, TableRowData } from 'tdesign-react';
+import type { TableProps } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -52,10 +52,10 @@ export default function EditableRowTable() {
 
   const [openCheckAll, setOpenCheckAll] = useState(false);
 
-  const onEdit = (row: TableRowData) => {
-    const { key } = row;
-    if (!editableRowKeys.includes(key)) {
-      setEditableRowKeys(editableRowKeys.concat(key));
+  const onEdit = (e) => {
+    const { id } = e.currentTarget.dataset;
+    if (!editableRowKeys.includes(id)) {
+      setEditableRowKeys(editableRowKeys.concat(id));
     }
   };
 
@@ -66,17 +66,17 @@ export default function EditableRowTable() {
     setEditableRowKeys([...editableRowKeys]);
   };
 
-  const onCancel = (row: TableRowData) => {
-    const { key } = row;
-    updateEditState(key);
+  const onCancel = (e) => {
+    const { id } = e.currentTarget.dataset;
+    updateEditState(id);
     tableRef.current.clearValidateData();
   };
 
-  const onSave = (row: TableRowData) => {
-    const { key } = row;
-    currentSaveId = key;
+  const onSave = (e) => {
+    const { id } = e.currentTarget.dataset;
+    currentSaveId = id;
     // 触发内部校验，可异步接收校验结果，也可在 onRowValidate 中接收异步校验结果
-    tableRef.current.validateRowData(key).then((params) => {
+    tableRef.current.validateRowData(id).then((params) => {
       console.log('Promise Row Validate:', params);
       if (params.result.length) {
         const r = params.result[0];
@@ -236,17 +236,17 @@ export default function EditableRowTable() {
           return (
             <div className="table-operations">
               {!editable && (
-                <Link theme="primary" hover="color" onClick={() => onEdit(row)}>
+                <Link theme="primary" hover="color" data-id={row.key} onClick={onEdit}>
                   编辑
                 </Link>
               )}
               {editable && (
-                <Link theme="primary" hover="color" onClick={() => onSave(row)}>
+                <Link theme="primary" hover="color" data-id={row.key} onClick={onSave}>
                   保存
                 </Link>
               )}
               {editable && (
-                <Link theme="primary" hover="color" onClick={() => onCancel(row)}>
+                <Link theme="primary" hover="color" data-id={row.key} onClick={onCancel}>
                   取消
                 </Link>
               )}
