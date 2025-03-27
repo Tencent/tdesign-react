@@ -17,9 +17,7 @@ export const defaultAnimation = {
   exclude: [],
 };
 
-type DefaultGlobalConfig = Partial<GlobalConfigProvider>;
-
-export const defaultGlobalConfig: DefaultGlobalConfig = {
+export const defaultGlobalConfig: GlobalConfigProvider = {
   animation: defaultAnimation,
   classPrefix: defaultClassPrefix,
   ...merge({}, defaultLocale, defaultConfig),
