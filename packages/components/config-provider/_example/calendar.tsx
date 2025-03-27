@@ -1,7 +1,7 @@
 import React from 'react';
-import { merge } from 'lodash-es';
 import { ConfigProvider, Calendar } from 'tdesign-react';
-import enConfig from 'tdesign-react/locale/en_US';
+import type { GlobalConfigProvider } from 'tdesign-react';
+import enConfig from 'tdesign-react/es/locale/en_US';
 
 const MONTHS = [
   'January',
@@ -20,12 +20,13 @@ const MONTHS = [
 
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置
-  const globalConfig = merge(enConfig, {
+  const globalConfig: GlobalConfigProvider = {
+    ...enConfig,
     calendar: {
       yearSelection: '{year}',
       // 1 表示周一；7 表示周日
       firstDayOfWeek: 7,
-      monthSelection: ({ month }: { month: number }) => MONTHS[month - 1],
+      monthSelection: ({ month }) => MONTHS[month - 1],
       yearRadio: 'Year',
       monthRadio: 'Month',
       hideWeekend: 'Hide Weekend',
@@ -76,7 +77,7 @@ export default function configDemo() {
         },
       },
     },
-  });
+  };
 
   return (
     <ConfigProvider globalConfig={globalConfig}>

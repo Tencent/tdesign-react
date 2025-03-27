@@ -141,7 +141,8 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     >
       <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyleMerge()}>
         {content}
-        {showArrow && <div className={`${componentName}__arrow`}></div>}
+        {/* popper.js 修饰符(modifiers)的高级功能 arrow 会自动根据属性 data-popper-arrow 来识别箭头元素，从而支持调整箭头位置(padding) */}
+        {showArrow && <div className={`${componentName}__arrow`} data-popper-arrow></div>}
       </div>
     </div>
   );
