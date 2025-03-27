@@ -148,23 +148,26 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   }, [multiple, normalizedValue, filterable, popupVisible, filterInput]);
 
   // @ts-ignore TODO: remove it
-  const normalizedValueDisplay = usePersistFn(({ onClose }) => {
-    if (!valueDisplay) return '';
+  const normalizedValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
+    if (!valueDisplay) {
+      return;
+    }
     if (multiple) {
-      return isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
+      return ({ onClose }) =>
+        isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
     }
     const displayNode = isFunction(valueDisplay)
       ? valueDisplay({ value: normalizedValue[0], onClose: noop })
       : valueDisplay;
     return normalizedValue.length ? displayNode : '';
-  });
+  }, [valueDisplay, multiple, normalizedValue]);
 
   const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
-    // 只有单选且下拉展开时隐藏 valueDisplay
+    // 只有单选且下拉展开时需要隐藏 valueDisplay
     if (filterable && !multiple && popupVisible) {
       return undefined;
     }
-    return normalizedValueDisplay({ onClose: noop });
+    return normalizedValueDisplay;
   }, [filterable, popupVisible, multiple, normalizedValueDisplay]);
 
   const inputPlaceholder = useMemo(() => {
@@ -191,10 +194,8 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
-    console.log('handleSingleChange', value, context);
-    if (value.length) {
-      const $value = Array.isArray(value) ? value[0] : undefined;
-
+    if (value.length > 0) {
+      const $value = Array.isArray(value) && value.length ? value[0] : undefined;
       onChange(formatValue($value, context.node.label), {
         ...context,
         data: context.node.data,
