@@ -365,7 +365,11 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         zIndex={zIndex}
         placement={currentStepInfo.placement as StepPopupPlacement}
         {...currentStepInfo.popupProps}
-        overlayClassName={[`${prefixCls}__popup`, currentStepInfo.stepOverlayClass]}
+        overlayClassName={[
+          `${prefixCls}__popup`,
+          currentStepInfo.stepOverlayClass,
+          currentStepInfo.popupProps?.overlayClassName,
+        ]}
         overlayInnerClassName={innerClassName.concat(currentStepInfo.popupProps?.overlayInnerClassName)}
       >
         <div ref={referenceLayerRef} className={cx(classes)} />
