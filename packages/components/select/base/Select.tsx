@@ -190,10 +190,6 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      // const values = currentOptions
-      //   .filter((option) => !option.checkAll && !option.disabled)
-      //   .map((option) => (valueType === 'object' ? option : option[keys?.value || 'value']));
-
       const values = [];
       currentOptions.forEach((option) => {
         if (option.group) {
@@ -267,18 +263,6 @@ const Select = forwardRefWithStatics(
         setCurrentOptions(tmpPropOptions);
         return;
       }
-
-      // if (filter && isFunction(filter)) {
-      //   // 如果有自定义的filter方法 使用自定义的filter方法
-      //   if (Array.isArray(tmpPropOptions)) {
-      //     filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
-      //   } else if (Array.isArray(Object.values(valueToOption))) {
-      //     filteredOptions = Object.values(valueToOption).filter((option) => filter(value, option));
-      //   }
-      // } else if (Array.isArray(tmpPropOptions)) {
-      //   const upperValue = value.toUpperCase();
-      //   filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
-      // }
 
       const filterLabels = [];
       const filterMethods = (option: SelectOption) => {

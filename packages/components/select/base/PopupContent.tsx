@@ -15,8 +15,6 @@ import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import Option, { SelectOptionProps } from './Option';
 import OptionGroup from './OptionGroup';
 
-// type OptionsType = TdOptionProps[];
-
 interface SelectPopupProps
   extends Pick<
     TdSelectProps,
