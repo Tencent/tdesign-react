@@ -60,6 +60,12 @@ export default function BasicGuide() {
       body: '新手引导的说明文案',
       placement: 'bottom-right',
       stepOverlayClass: 't-test-guide-step-overlay',
+      popupProps: {
+        overlayStyle: { fontWeight: 'normal' },
+        overlayInnerStyle: { padding: '4px', height: '128px' },
+        overlayClassName: 'guide-custom-overlay-class',
+        overlayInnerClassName: 'guide-custom-overlay-inner-class',
+      },
     },
     {
       element: '.label-field-base',

@@ -1,4 +1,4 @@
-import { has , get , isObject , isArray , isEmpty } from 'lodash-es';
+import { has, get, isObject, isArray, isEmpty } from 'lodash-es';
 import type { NamePath } from '../type';
 
 // 获取 formMap 管理的数据

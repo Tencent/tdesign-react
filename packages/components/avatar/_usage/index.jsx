@@ -3,35 +3,31 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
-
-import { Avatar } from "tdesign-react";
+import { Avatar } from 'tdesign-react';
+import configProps from './props.json';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "avatar", value: "avatar" }];
+  const panelList = [{ label: 'avatar', value: 'avatar' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
-  const defaultProps = { image: "https://tdesign.gtimg.com/site/avatar.jpg" };
+  const defaultProps = { image: 'https://tdesign.gtimg.com/site/avatar.jpg' };
   useEffect(() => {
     setRenderComp(<Avatar {...defaultProps} {...changedProps} />);
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

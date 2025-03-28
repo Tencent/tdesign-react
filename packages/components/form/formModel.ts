@@ -2,9 +2,9 @@
 
 import isDate from 'validator/lib/isDate';
 import isEmail from 'validator/lib/isEmail';
-import { isEmpty , isNumber } from 'lodash-es';
+import { isEmpty, isNumber } from 'lodash-es';
 import isURL from 'validator/lib/isURL';
-import { getCharacterLength } from '../../common/js/utils/helper';
+import { getCharacterLength } from '@tdesign/common-js/utils/helper';
 import {
   CustomValidator,
   FormRule,

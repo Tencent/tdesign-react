@@ -1,11 +1,12 @@
 import React from 'react';
-import { merge } from 'lodash-es';
 import { ConfigProvider, Popconfirm, Button, Space } from 'tdesign-react';
+import type { GlobalConfigProvider } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置
-  const globalConfig = merge(enConfig, {
+  const globalConfig: GlobalConfigProvider = {
+    ...enConfig,
     popconfirm: {
       confirmBtnTheme: {
         default: 'primary',
@@ -19,7 +20,7 @@ export default function configDemo() {
         content: 'Cancel',
       },
     },
-  });
+  };
 
   return (
     <ConfigProvider globalConfig={globalConfig}>

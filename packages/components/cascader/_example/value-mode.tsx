@@ -55,7 +55,19 @@ export default function Example() {
 
   return (
     <Space direction="vertical">
-      <Cascader options={options} value={value1} onChange={onChange1} multiple valueMode="onlyLeaf" />
+      <Cascader
+        options={options}
+        value={value1}
+        onChange={onChange1}
+        multiple
+        valueMode="onlyLeaf"
+        popupProps={{
+          overlayStyle: { fontWeight: 'normal' },
+          overlayInnerStyle: { fontWeight: 'normal' },
+          overlayClassName: 'cascader-custom-overlay-class',
+          overlayInnerClassName: 'cascader-custom-overlay-inner-class',
+        }}
+      />
       <Cascader options={options} value={value2} onChange={onChange2} multiple valueMode="parentFirst" />
       <Cascader options={options} value={value3} onChange={onChange3} multiple valueMode="all" />
     </Space>

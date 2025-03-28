@@ -54,6 +54,8 @@ export default function EditableRowTable() {
 
   const onEdit = (e) => {
     const { id } = e.currentTarget.dataset;
+    // 如果rowKey本身是number类型，在这里进行number转换,保证功能正常
+    // id = Number(id);
     if (!editableRowKeys.includes(id)) {
       setEditableRowKeys(editableRowKeys.concat(id));
     }
@@ -68,12 +70,16 @@ export default function EditableRowTable() {
 
   const onCancel = (e) => {
     const { id } = e.currentTarget.dataset;
+    // 如果rowKey本身是number类型，在这里进行number转换,保证功能正常
+    // id = Number(id);
     updateEditState(id);
     tableRef.current.clearValidateData();
   };
 
   const onSave = (e) => {
     const { id } = e.currentTarget.dataset;
+    // 如果rowKey本身是number类型，在这里进行number转换,保证功能正常
+    // id = Number(id);
     currentSaveId = id;
     // 触发内部校验，可异步接收校验结果，也可在 onRowValidate 中接收异步校验结果
     tableRef.current.validateRowData(id).then((params) => {

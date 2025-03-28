@@ -3,23 +3,20 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { TreeSelect } from "tdesign-react";
+import { TreeSelect } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "tree", value: "tree" }];
+  const panelList = [{ label: 'tree', value: 'tree' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
@@ -28,30 +25,30 @@ export default function Usage() {
   const defaultProps = {
     data: [
       {
-        label: "广东省",
-        value: "guangdong",
+        label: '广东省',
+        value: 'guangdong',
         children: [
           {
-            label: "广州市",
-            value: "guangzhou",
+            label: '广州市',
+            value: 'guangzhou',
           },
           {
-            label: "深圳市",
-            value: "shenzhen",
+            label: '深圳市',
+            value: 'shenzhen',
           },
         ],
       },
       {
-        label: "江苏省",
-        value: "jiangsu",
+        label: '江苏省',
+        value: 'jiangsu',
         children: [
           {
-            label: "南京市",
-            value: "nanjing",
+            label: '南京市',
+            value: 'nanjing',
           },
           {
-            label: "苏州市",
-            value: "suzhou",
+            label: '苏州市',
+            value: 'suzhou',
           },
         ],
       },
@@ -62,7 +59,7 @@ export default function Usage() {
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

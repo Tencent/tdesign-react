@@ -1,4 +1,5 @@
-import orgPkg from '../../../../package.json';
+import orgPkg from '../../../package.json';
+import tdesignReactPkg from '../../../../package.json';
 
 export const htmlContent = '<div id="app" style="padding: 24px;"></div>';
 
@@ -72,19 +73,18 @@ export const pkgContent = JSON.stringify(
     keywords: ['react', 'starter'],
     main: 'src/main.tsx',
     dependencies: {
-      dayjs: orgPkg.dependencies.dayjs,
-      react: orgPkg.devDependencies.react,
-      'react-dom': orgPkg.devDependencies['react-dom'],
-      'tdesign-react': orgPkg.version,
-      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
-      'react-scripts': '^5.0.0',
+      react: orgPkg.dependencies.react,
+      'react-dom': orgPkg.dependencies['react-dom'],
+      'tdesign-react': tdesignReactPkg.version,
+      'tdesign-icons-react': tdesignReactPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
-      'lodash-es': orgPkg.dependencies['lodash-es'],
+      dayjs: tdesignReactPkg.dependencies.dayjs,
+      'lodash-es': tdesignReactPkg.dependencies['lodash-es'],
     },
     devDependencies: {
       typescript: '^4.4.4',
-      '@types/lodash-es': orgPkg.devDependencies['@types/lodash-es'],
+      'react-scripts': '^5.0.0',
     },
     scripts: {
       start: 'react-scripts start',

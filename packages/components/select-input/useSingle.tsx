@@ -1,5 +1,5 @@
 import React, { useRef, MouseEvent } from 'react';
-import { isObject , pick } from 'lodash-es';
+import { isObject, pick } from 'lodash-es';
 import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
 import Input, { InputRef, TdInputProps } from '../input';
@@ -87,7 +87,6 @@ export default function useSingle(props: TdSelectInputProps) {
           )
         }
         onChange={onInnerInputChange}
-        readonly={!props.allowInput}
         onClear={onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
         onFocus={(val, context) => {

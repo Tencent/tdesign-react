@@ -2,12 +2,12 @@ import React, { ReactNode, useState, useRef, useEffect, useCallback } from 'reac
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { throttle } from 'lodash-es';
+import getPosition from '@tdesign/common-js/utils/getPosition';
 import { StyledProps } from '../common';
 import useSwitch from '../hooks/useSwitch';
 import useAnimation from '../hooks/useAnimation';
 import Portal from '../common/Portal';
 import useConfig from '../hooks/useConfig';
-import getPosition from '../../common/js/utils/getPosition';
 import { TdTooltipLiteProps } from './type';
 import { tooltipLiteDefaultProps } from './defaultProps';
 import { getTransitionParams } from '../popup/utils/transition';

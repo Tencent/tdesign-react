@@ -1,7 +1,9 @@
 // 行选中相关功能：单选 + 多选
 
 import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
-import { intersection , get , isFunction } from 'lodash-es';
+import { intersection, get, isFunction } from 'lodash-es';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import log from '@tdesign/common-js/log/index';
 import useControlled from '../../hooks/useControlled';
 import {
   PrimaryTableCellParams,
@@ -11,12 +13,10 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { isRowSelectedDisabled } from '../../../common/js/table/utils';
 import { TableClassName } from './useClassName';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
 import { ClassName } from '../../common';
-import log from '../../../common/js/log';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 

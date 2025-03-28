@@ -5,8 +5,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 import pwaConfig from './pwaConfig';
 import tdocPlugin from './plugin-tdoc';
 
-const resolvePath = (r) => path.resolve(__dirname, r);
-
 const publicPathMap = {
   preview: '/',
   intranet: '/react/',
@@ -29,18 +27,11 @@ export default ({ mode }) =>
     base: publicPathMap[mode],
     resolve: {
       alias: {
-        '@': resolvePath('../'),
-        '@site': resolvePath('./'),
-        '@docs': resolvePath('./docs'),
-        '@components': resolvePath('./src/components'),
-        '@common': resolvePath('../packages/common'),
-        'tdesign-react/es': resolvePath('../packages/components'),
-        'tdesign-react': resolvePath('../packages/components'),
-        '@test/utils': resolvePath('../test/utils'),
+        'tdesign-react/es': path.resolve(__dirname, '../../components'),
+        'tdesign-react': path.resolve(__dirname, '../../components'),
       },
     },
     build: {
-      outDir: '../_site',
       rollupOptions: {
         input: {
           index: 'index.html',

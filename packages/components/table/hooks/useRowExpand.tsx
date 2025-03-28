@@ -1,6 +1,6 @@
 import React, { MouseEvent, ReactNode, useCallback } from 'react';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
-import { get , isFunction } from 'lodash-es';
+import { get, isFunction } from 'lodash-es';
 import classNames from 'classnames';
 import {
   TdPrimaryTableProps,

@@ -1,9 +1,6 @@
 {
   "extends": "./tsconfig",
-  "include": [
-    "./packages/components",
-    "./globals.d.ts"
-  ],
+  "include": ["packages/components"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example-js/*",
@@ -17,6 +14,7 @@
     "es"
   ],
   "compilerOptions": {
-    "paths": {}
-  }
+    "emitDeclarationOnly": true,
+    "rootDir": "packages/components"
+  },
 }

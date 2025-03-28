@@ -2,13 +2,13 @@ import React, { useMemo, useEffect, useRef, useState } from 'react';
 import { isFunction } from 'lodash-es';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
+import setStyle from '@tdesign/common-js/utils/setStyle';
 import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupProps } from '../popup';
 import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
 import { addClass, removeClass, isFixed, getWindowScroll, canUseDocument } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
-import setStyle from '../../common/js/utils/setStyle';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -365,7 +365,11 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         zIndex={zIndex}
         placement={currentStepInfo.placement as StepPopupPlacement}
         {...currentStepInfo.popupProps}
-        overlayClassName={[`${prefixCls}__popup`, currentStepInfo.stepOverlayClass]}
+        overlayClassName={[
+          `${prefixCls}__popup`,
+          currentStepInfo.stepOverlayClass,
+          currentStepInfo.popupProps?.overlayClassName,
+        ]}
         overlayInnerClassName={innerClassName.concat(currentStepInfo.popupProps?.overlayInnerClassName)}
       >
         <div ref={referenceLayerRef} className={cx(classes)} />

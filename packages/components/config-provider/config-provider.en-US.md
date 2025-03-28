@@ -53,6 +53,7 @@ upload | Object | - | Upload global configs。Typescript：`UploadConfig` | N
 name | type | default | description | required
 -- | -- | -- | -- | --
 autocomplete | String | - | \- | N
+clearTrigger | String | focus | Trigger to show a clear icon, valid when the input has a value。options: always / focus | N
 placeholder | String | - | \- | N
 
 ### PaginationConfig
@@ -74,7 +75,7 @@ fillWithZero | Boolean | true | \- | N
 firstDayOfWeek | Number | 1 | options: 1/2/3/4/5/6/7 | N
 hideWeekend | String | - | \- | N
 monthRadio | String | - | \- | N
-monthSelection | String | - | \- | N
+monthSelection | String / Function | - | Typescript：`string \| (( data: { month: number })=>string)` | N
 showWeekend | String | - | \- | N
 thisMonth | String | - | \- | N
 today | String | - | \- | N
