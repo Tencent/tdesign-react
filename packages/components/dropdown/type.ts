@@ -70,7 +70,7 @@ export interface TdDropdownProps {
     | 'right-top'
     | 'right-bottom';
   /**
-   * 透传  Popup 组件属性，方便更加自由地控制。比如使用 popupProps.overlayStyle 设置浮层样式
+   * 透传  Popup 组件属性，方便更加自由地控制。比如使用 `popupProps.overlayStyle` 设置浮层样式
    */
   popupProps?: PopupProps;
   /**
