@@ -6,7 +6,7 @@ import type { SinglePanelProps } from './SinglePanel';
 import type { RangePanelProps } from './RangePanel';
 import useConfig from '../../hooks/useConfig';
 import useEventCallback from '../../hooks/useEventCallback';
-import { getDefaultFormat } from '../../../common/js/date-picker/format';
+import { getDefaultFormat } from '@tdesign/common-js/date-picker/format';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';

@@ -14,7 +14,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TableClassName } from './hooks/useClassName';
 import { renderCell } from './Cell';
 import { validate } from '../form/formModel';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import { AllValidateResult } from '../form/type';
 import useConfig from '../hooks/useConfig';
 

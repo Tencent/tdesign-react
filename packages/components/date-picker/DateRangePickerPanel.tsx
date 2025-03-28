@@ -10,9 +10,9 @@ import {
 } from './type';
 import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
-import { formatDate, getDefaultFormat, parseToDayjs } from '../../common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '../../common/js/date-picker/utils';
-import log from '../../common/js/log';
+import { formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import log from '@tdesign/common-js/log/index';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { dateCorrection } from './utils';
 

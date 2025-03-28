@@ -10,7 +10,7 @@ import TButton from '../button';
 import { PrimaryTableCol, FilterValue, TableRowData, TdPrimaryTableProps } from './type';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import { parseContentTNode } from '../_util/parseTNode';
 
 const CheckboxGroup = Checkbox.Group;

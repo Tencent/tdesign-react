@@ -14,10 +14,10 @@ import {
   isValidDate,
   getDefaultFormat,
   initYearMonthTime,
-} from '../../common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '../../common/js/date-picker/utils';
+} from '@tdesign/common-js/date-picker/format';
+import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
 import { dateRangePickerDefaultProps } from './defaultProps';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { dateCorrection } from './utils';
 

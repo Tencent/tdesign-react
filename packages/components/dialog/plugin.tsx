@@ -4,7 +4,7 @@ import DialogComponent, { DialogProps } from './Dialog';
 
 import { getAttach } from '../_util/dom';
 import { DialogOptions, DialogMethod, DialogConfirmMethod, DialogAlertMethod, DialogInstance } from './type';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 
 export interface DialogPluginType extends DialogMethod {
   alert: DialogAlertMethod;

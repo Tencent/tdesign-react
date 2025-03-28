@@ -8,8 +8,8 @@ import { TdDatePickerProps, PresetDate, DateMultipleValue, DateValue } from './t
 import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
-import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '../../common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj, covertToDate, isSame } from '../../common/js/date-picker/utils';
+import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '@tdesign/common-js/date-picker/format';
+import { subtractMonth, addMonth, extractTimeObj, covertToDate, isSame } from '@tdesign/common-js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';

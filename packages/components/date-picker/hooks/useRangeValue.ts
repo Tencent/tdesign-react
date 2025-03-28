@@ -8,8 +8,8 @@ import {
   getDefaultFormat,
   initYearMonthTime,
   extractTimeFormat,
-} from '../../../common/js/date-picker/format';
-import log from '../../../common/js/log';
+} from '@tdesign/common-js/date-picker/format';
+import log from '@tdesign/common-js/log/index';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 

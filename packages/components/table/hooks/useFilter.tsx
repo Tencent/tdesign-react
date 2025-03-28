@@ -6,7 +6,7 @@ import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue, TableF
 import useControlled from '../../hooks/useControlled';
 import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { getColumnsResetValue } from '../../../common/js/table/utils';
+import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;

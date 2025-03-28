@@ -10,7 +10,7 @@ import DatePickerCell from './Cell';
 
 import { SinglePanelProps } from '../panel/SinglePanel';
 import { PanelContentProps } from '../panel/PanelContent';
-import { parseToDayjs } from '../../../common/js/date-picker/format';
+import { parseToDayjs } from '@tdesign/common-js/date-picker/format';
 
 import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } from '../type';
 

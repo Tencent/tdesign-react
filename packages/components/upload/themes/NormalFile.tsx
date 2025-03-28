@@ -11,7 +11,7 @@ import parseTNode from '../../_util/parseTNode';
 import TLoading from '../../loading';
 import Link from '../../link';
 import { UploadFile } from '../type';
-import { abridgeName } from '../../../common/js/upload/utils';
+import { abridgeName } from '@tdesign/common-js/upload/utils';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { CommonDisplayFileProps } from '../interface';
 

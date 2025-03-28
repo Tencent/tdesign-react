@@ -1,4 +1,4 @@
-import koKR from '../../common/js/global-config/locale/ko_KR';
+import koKR from '@tdesign/common-js/global-config/locale/ko_KR';
 import { GlobalConfigProvider } from '../config-provider/type';
 
 // 需要 GlobalConfigProvider 保证数据类型正确

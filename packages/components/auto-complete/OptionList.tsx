@@ -2,7 +2,7 @@ import React, { useMemo, useState, useRef, MouseEvent, useEffect, useImperativeH
 import classNames from 'classnames';
 import { isFunction, escapeRegExp } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
 import { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import HighlightOption from './HighlightOption';

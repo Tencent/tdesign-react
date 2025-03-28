@@ -6,7 +6,7 @@ import { StyledProps } from '../common';
 import useCommonClassName from '../hooks/useCommonClassName';
 import { SwitchValue, TdSwitchProps } from './type';
 import { switchDefaultProps } from './defaultProps';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
 

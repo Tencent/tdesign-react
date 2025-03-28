@@ -7,7 +7,7 @@ import useSwitch from '../hooks/useSwitch';
 import useAnimation from '../hooks/useAnimation';
 import Portal from '../common/Portal';
 import useConfig from '../hooks/useConfig';
-import getPosition from '../../common/js/utils/getPosition';
+import getPosition from '@tdesign/common-js/utils/getPosition';
 import { TdTooltipLiteProps } from './type';
 import { tooltipLiteDefaultProps } from './defaultProps';
 import { getTransitionParams } from '../popup/utils/transition';

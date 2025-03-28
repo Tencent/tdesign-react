@@ -14,8 +14,8 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useIsFirstRender from '../hooks/useIsFirstRender';
 
 import Skeleton from '../skeleton';
-import Tween from '../../common/js/statistic/tween';
-import { COLOR_MAP, getFormatValue } from '../../common/js/statistic/utils';
+import Tween from '@tdesign/common-js/statistic/tween';
+import { COLOR_MAP, getFormatValue } from '@tdesign/common-js/statistic/utils';
 
 export interface StatisticProps extends TdStatisticProps, StyledProps {}
 

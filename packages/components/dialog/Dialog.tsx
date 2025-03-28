@@ -14,7 +14,7 @@ import useLockStyle from './hooks/useLockStyle';
 import useDialogPosition from './hooks/useDialogPosition';
 import useDialogDrag from './hooks/useDialogDrag';
 import { parseValueToPx } from './utils';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
 

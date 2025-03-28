@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import usePrevious from '../../hooks/usePrevious';
 import { TdEnhancedTableProps, TableRowData } from '../type';
 import useControlled from '../../hooks/useControlled';
-import TableTreeStore, { diffExpandedTreeNode, getUniqueRowValue } from '../../../common/js/table/tree-store';
+import TableTreeStore, { diffExpandedTreeNode, getUniqueRowValue } from '@tdesign/common-js/table/tree-store';
 import { TableTreeExpandType } from '../interface';
 
 export function useTreeDataExpand(

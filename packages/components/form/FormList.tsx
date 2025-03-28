@@ -5,7 +5,7 @@ import { FormItemInstance } from './FormItem';
 import { HOOK_MARK } from './hooks/useForm';
 import { TdFormListProps, FormListFieldOperation, FormListField } from './type';
 import { calcFieldValue } from './utils';
-import log from '../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 
 let key = 0;
 

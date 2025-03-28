@@ -17,7 +17,7 @@ import Loading from '../loading';
 import useRipple from '../hooks/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TreeNode from '../../common/js/tree-v1/tree-node';
+import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import Checkbox from '../checkbox';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import useDraggable from './hooks/useDraggable';
@@ -26,7 +26,7 @@ import useConfig from '../hooks/useConfig';
 
 import type { TdTreeProps } from './type';
 import type { TreeItemProps } from './interface';
-import type { TypeTreeNodeData } from '../../common/js/tree-v1/types';
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 
 /**
  * 树节点组件

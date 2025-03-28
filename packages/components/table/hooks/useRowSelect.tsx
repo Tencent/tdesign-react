@@ -11,12 +11,12 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { isRowSelectedDisabled } from '../../../common/js/table/utils';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import { TableClassName } from './useClassName';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
 import { ClassName } from '../../common';
-import log from '../../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 

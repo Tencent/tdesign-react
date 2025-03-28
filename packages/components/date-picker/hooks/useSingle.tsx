@@ -12,7 +12,7 @@ import {
   formatTime,
   getDefaultFormat,
   parseToDayjs,
-} from '../../../common/js/date-picker/format';
+} from '@tdesign/common-js/date-picker/format';
 import useSingleValue from './useSingleValue';
 import type { TdPopupProps } from '../../popup/type';
 
