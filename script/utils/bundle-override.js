@@ -7,7 +7,7 @@ const { dirname, posix } = require('path');
 function getWorkspaceRoot() {
   let dir = process.cwd();
   while (dir !== '/') {
-    if (existsSync(`${dir}/pnpm-workspace.yaml`)) {
+    if (existsSync(posix.resolve(dir, 'pnpm-workspace.yaml'))) {
       return dir;
     }
     dir = dirname(dir);
@@ -16,8 +16,8 @@ function getWorkspaceRoot() {
 }
 
 async function bundlePathOverride() {
-  const a = getWorkspaceRoot();
-  const esmPath = posix.resolve(a, 'packages/tdesign-react/esm/**/style/index.js');
+  const workspaceRoot = getWorkspaceRoot();
+  const esmPath = posix.resolve(workspaceRoot, 'packages/tdesign-react/esm/**/style/index.js');
   const files = glob.sync(esmPath);
 
   files.forEach(async (filePath) => {
