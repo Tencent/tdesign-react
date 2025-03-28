@@ -89,7 +89,7 @@ export function useStore(
       expandedMap.set(val, true);
       if (expandParent) {
         const node = store.getNode(val);
-        node.getParents().forEach((tn) => {
+        node?.getParents?.()?.forEach?.((tn) => {
           expandedMap.set(tn.value, true);
         });
       }
