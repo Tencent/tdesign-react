@@ -156,8 +156,18 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       return ({ onClose }) =>
         isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
     }
+
     const displayNode = isFunction(valueDisplay)
-      ? valueDisplay({ value: normalizedValue[0], onClose: noop })
+      ? valueDisplay({
+          value:
+            normalizedValue.length > 0
+              ? normalizedValue[0]
+              : {
+                  [tKeys.label]: '',
+                  [tKeys.value]: undefined,
+                },
+          onClose: noop,
+        })
       : valueDisplay;
     return normalizedValue.length ? displayNode : '';
   }, [valueDisplay, multiple, normalizedValue]);
