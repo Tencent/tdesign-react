@@ -1,3 +1,4 @@
+import { TreeOptionData } from '@tdesign/common-js/common';
 import React, { useState } from 'react';
 import { TreeSelect, Tag, Space } from 'tdesign-react';
 
@@ -45,7 +46,7 @@ export default function Example() {
         placeholder="请选择"
         value={value}
         onChange={(val: string) => setValue(val)}
-        valueDisplay={({ value }: { value }) => `${value.label}(${value.value})`}
+        valueDisplay={({ value }: { value: TreeOptionData }) => `${value.label}(${value.value})`}
       />
       <TreeSelect
         data={options}
