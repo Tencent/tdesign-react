@@ -1,7 +1,7 @@
 import { isObject } from 'lodash-es';
 import dayjs from 'dayjs';
+import { isEnabledDate } from '@tdesign/common-js/date-picker/utils';
 import type { TdDatePickerProps, TdDateRangePickerProps } from '../type';
-import { isEnabledDate } from '../../../common/js/date-picker/utils';
 
 export interface disableDateProps {
   disableDate?: TdDatePickerProps['disableDate'] | TdDateRangePickerProps['disableDate'];

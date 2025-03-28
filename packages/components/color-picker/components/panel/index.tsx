@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import classNames from 'classnames';
 import tinyColor from 'tinycolor2';
-import useCommonClassName from '../../../hooks/useCommonClassName';
-import useControlled from '../../../hooks/useControlled';
-import { useLocaleReceiver } from '../../../locale/LocalReceiver';
-import useClassName from '../../hooks/useClassNames';
-import PanelHeader from './header';
-import Color, { getColorObject } from '../../../../common/js/color-picker/color';
-import { GradientColorPoint } from '../../../../common/js/color-picker/gradient';
+import Color, { getColorObject } from '@tdesign/common-js/color-picker/color';
+import { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
 import {
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
   TD_COLOR_USED_COLORS_MAX_SIZE,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-} from '../../../../common/js/color-picker/constants';
+} from '@tdesign/common-js/color-picker/constants';
+import useCommonClassName from '../../../hooks/useCommonClassName';
+import useControlled from '../../../hooks/useControlled';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
+import useClassName from '../../hooks/useClassNames';
+import PanelHeader from './header';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';
