@@ -380,12 +380,12 @@ const Input = forwardRefWithStatics(
     }
 
     function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(true);
+      !readonly && toggleIsHover(true);
       onMouseenter?.({ e });
     }
 
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(false);
+      !readonly && toggleIsHover(false);
       onMouseleave?.({ e });
     }
 
