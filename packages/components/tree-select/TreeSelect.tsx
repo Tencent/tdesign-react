@@ -164,7 +164,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         })
       : valueDisplay;
     return normalizedValue.length ? displayNode : '';
-  }, [valueDisplay, multiple, normalizedValue]);
+  }, [valueDisplay, multiple, normalizedValue, tKeys]);
 
   const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
     // 只有单选且下拉展开时需要隐藏 valueDisplay
