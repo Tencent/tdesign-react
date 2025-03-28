@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import { getSizeDraggable, calcMoveSize } from '@tdesign/common-js/drawer/utils';
 import { TdDrawerProps } from '../type';
 import { Styles } from '../../common';
-import { getSizeDraggable, calcMoveSize } from '@tdesign/common-js/drawer/utils';
 
 const useDrag = (
   placement: TdDrawerProps['placement'],

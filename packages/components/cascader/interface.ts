@@ -1,8 +1,8 @@
-import { TdCascaderProps, CascaderValue, CascaderChangeSource } from './type';
-import { TdSelectInputProps } from '../select-input/type';
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+import { TdSelectInputProps } from '../select-input/type';
+import { TdCascaderProps, CascaderValue, CascaderChangeSource } from './type';
 
 export * from './type';
 export interface CascaderContextType

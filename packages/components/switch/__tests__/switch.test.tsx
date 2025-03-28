@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, vi } from '@test/utils';
-import Switch from '../Switch';
 import log from '@tdesign/common-js/log/index';
+import Switch from '../Switch';
 import noop from '../../_util/noop';
 
 describe('Switch 组件测试', () => {

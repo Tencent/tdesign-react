@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import useControlled from '../../hooks/useControlled';
-import { TdDateRangePickerProps } from '../type';
 import {
   isValidDate,
   formatDate,
@@ -10,6 +8,8 @@ import {
   extractTimeFormat,
 } from '@tdesign/common-js/date-picker/format';
 import log from '@tdesign/common-js/log/index';
+import useControlled from '../../hooks/useControlled';
+import { TdDateRangePickerProps } from '../type';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 

@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { merge } from 'lodash-es';
-import defaultLocale from '../locale/zh_CN';
 import defaultConfig from '@tdesign/common-js/global-config/default-config';
+import defaultLocale from '../locale/zh_CN';
 import { GlobalConfigProvider } from './type';
 
 export enum EAnimationType {

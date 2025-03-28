@@ -7,9 +7,9 @@ import {
   parseToDayjs,
   extractTimeFormat,
 } from '@tdesign/common-js/date-picker/format';
+import log from '@tdesign/common-js/log/index';
 import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps } from '../type';
-import log from '@tdesign/common-js/log/index';
 
 export default function useSingleValue(props: TdDatePickerProps) {
   const [value, onChange] = useControlled(props, 'value', props.onChange);

@@ -10,6 +10,8 @@ import React, {
 } from 'react';
 import { pick } from 'lodash-es';
 import classNames from 'classnames';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import log from '@tdesign/common-js/log/index';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
 import { Affix, AffixRef } from '../affix';
 import { ROW_LISTENERS } from './TR';
@@ -30,8 +32,6 @@ import { baseTableDefaultProps } from './defaultProps';
 import { Styles } from '../common';
 import { TableRowData } from './type';
 import useVirtualScroll from '../hooks/useVirtualScroll';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
-import log from '@tdesign/common-js/log/index';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];

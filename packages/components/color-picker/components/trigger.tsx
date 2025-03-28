@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Input } from '../../input';
 import ColorLib from '@tdesign/common-js/color-picker/color';
+import { Input } from '../../input';
 import { TdColorPickerProps } from '..';
 import useClassName from '../hooks/useClassNames';
 import useControlled from '../../hooks/useControlled';

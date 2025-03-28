@@ -1,6 +1,5 @@
 import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect, ClipboardEventHandler } from 'react';
 import { merge } from 'lodash-es';
-import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
   getFilesAndErrors,
   validateFile,
@@ -10,8 +9,9 @@ import {
   formatToUploadFile,
 } from '@tdesign/common-js/upload/main';
 import { getFileList } from '@tdesign/common-js/upload/utils';
-import useControlled from '../../hooks/useControlled';
 import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '@tdesign/common-js/upload/types';
+import useControlled from '../../hooks/useControlled';
+import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 

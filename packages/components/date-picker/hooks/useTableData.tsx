@@ -1,5 +1,5 @@
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getWeeks, getQuarters, getYears, getMonths, flagActive } from '@tdesign/common-js/date-picker/utils';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
 export interface TableDataProps extends SinglePanelProps {

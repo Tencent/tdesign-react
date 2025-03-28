@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import useConfig from '../../hooks/useConfig';
 import { extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import useConfig from '../../hooks/useConfig';
 
 export interface DatePickerCellProps {
   time?: string;

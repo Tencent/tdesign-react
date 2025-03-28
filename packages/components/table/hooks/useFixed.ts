@@ -2,9 +2,9 @@ import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback } from 'r
 import { get, pick, xorWith } from 'lodash-es';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import log from '@tdesign/common-js/log/index';
+import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { on, off } from '../../_util/dom';
 import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
