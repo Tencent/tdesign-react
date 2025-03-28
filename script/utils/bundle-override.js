@@ -22,7 +22,9 @@ async function bundlePathOverride() {
 
   files.forEach(async (filePath) => {
     const content = await readFile(filePath, 'utf8');
-    writeFile(filePath, content.replace(/..\/..\/..\/common/g, '../../common'), 'utf8');
+    const isStylePath = /packages\/tdesign-react\/esm\/style/.test(filePath);
+    if (!isStylePath) writeFile(filePath, content.replace(/..\/..\/..\/common/g, '../../common'), 'utf8');
+    else writeFile(filePath, content.replace(/..\/..\/common/g, '../common'), 'utf8');
   });
 }
 
