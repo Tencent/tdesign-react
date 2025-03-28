@@ -5,6 +5,27 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.2 `2025-03-28` 
+### 🚀 Features
+- `ImageViewer`: 增加download 预览图片下载回调 @lifeiFront ([#3408](https://github.com/Tencent/tdesign-react/pull/3408))
+- `ConfigProvider`: Input新增 `clearTrigger` 配置，用于在有值时长显关闭按钮 @RylanBot ([#3412](https://github.com/Tencent/tdesign-react/pull/3412))
+- `Descriptions`: 新增 `tableLayout` 属性 @liweijie0812 ([#3434](https://github.com/Tencent/tdesign-react/pull/3434))
+- `select`: 分组选项器支持过滤 @huangchen1031 ([#3430](https://github.com/Tencent/tdesign-react/pull/3430))
+### 🐞 Bug Fixes
+- `Dialog`: 为取消和确认按钮添加类名 @RSS1102 ([#3417](https://github.com/Tencent/tdesign-react/pull/3417))
+- `transfer`: 删除在自定义 tree 节点时对于 tree 子节点的不必要过滤 @RSS1102 ([#3431](https://github.com/Tencent/tdesign-react/pull/3431))
+- `table`: 开启虚拟滚动时fixedRows的渲染问题 @huangchen1031 ([#3427](https://github.com/Tencent/tdesign-react/pull/3427))
+- `ConfigProvider`: 修复全局配置二级配置影响非`Context`范围的问题 @uyarn ([#3441](https://github.com/Tencent/tdesign-react/pull/3441))
+- `Guide`:  `popupProps` 穿透属性 `overlayClassName` 无效  @RSS1102 ([#3433](https://github.com/Tencent/tdesign-react/pull/3433))
+- `Tabs`: fix Tabs lazy not working @HaixingOoO ([#3426](https://github.com/Tencent/tdesign-react/pull/3426))
+### 📝 Documentation
+- `Card`: 修复文档内容的文案错误问题 @betavs ([#3448](https://github.com/Tencent/tdesign-react/pull/3448))
+- `Table`: 优化可编辑表单的示例代码 @uyarn ([#3453](https://github.com/Tencent/tdesign-react/pull/3453))
+- `Table`: 优化可编辑表单的示例代码 @uyarn ([#3455](https://github.com/Tencent/tdesign-react/pull/3455))
+### 🚧 Others
+- `chore`: 修复大仓调整后 `config-provider` 部分示例异常影响其他PR合入的问题 @uyarn ([#3441](https://github.com/Tencent/tdesign-react/pull/3441))
+- Revert "chore: update table demo" @uyarn ([#3454](https://github.com/Tencent/tdesign-react/pull/3454))
+
 ## 🌈 1.11.1 `2025-02-28` 
 ### 🚀 Features
 - `Layout`: 子组件 `Content` 新增  `content` API  @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
