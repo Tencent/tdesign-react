@@ -43,7 +43,7 @@ export default function usePagination(props: TdBaseTableProps) {
     const { current, pageSize } = pagination;
     updateDataSourceAndPaginate(current, pageSize);
     setInnerPagination({ current, pageSize });
-  }, [pagination, updateDataSourceAndPaginate]);
+  }, [pagination?.current, pagination?.pageSize, updateDataSourceAndPaginate]);
 
   // 非受控情况
   useEffect(() => {
