@@ -80,6 +80,7 @@ const Input = forwardRefWithStatics(
       showInput = true,
       keepWrapperWidth,
       showLimitNumber,
+      allowInput,
       allowInputOverMax,
       name,
       format,
@@ -124,9 +125,12 @@ const Input = forwardRefWithStatics(
 
     const [composingValue, setComposingValue] = useState<string>('');
 
+    // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
+    const isInnerInputReadonly = readonly || !allowInput;
     const isValueEnabled = value && !disabled;
     const alwaysShowClearIcon = inputConfig?.clearTrigger === 'always';
-    const isShowClearIcon = (((clearable && isValueEnabled) || showClearIconOnEmpty) && isHover) || (isValueEnabled && alwaysShowClearIcon);
+    const isShowClearIcon =
+      (((clearable && isValueEnabled) || showClearIconOnEmpty) && isHover) || (isValueEnabled && alwaysShowClearIcon);
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
     let suffixIconNew = suffixIcon;
@@ -222,7 +226,7 @@ const Input = forwardRefWithStatics(
         type={renderType}
         className={`${classPrefix}-input__inner`}
         value={formatDisplayValue}
-        readOnly={readonly}
+        readOnly={isInnerInputReadonly}
         disabled={disabled}
         autoComplete={autocomplete ?? (local.autocomplete || undefined)}
         autoFocus={autofocus}
@@ -352,7 +356,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-      if (readonly) return;
+      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -361,7 +365,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-      if (readonly) return;
+      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -376,12 +380,12 @@ const Input = forwardRefWithStatics(
     }
 
     function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(true);
+      !readonly && toggleIsHover(true);
       onMouseenter?.({ e });
     }
 
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(false);
+      !readonly && toggleIsHover(false);
       onMouseleave?.({ e });
     }
 
