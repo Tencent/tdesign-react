@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useMemo, useRef, useCallback, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
@@ -10,6 +10,9 @@ import useControlled from '../hooks/useControlled';
 import { textareaDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import useEventCallback from '../hooks/useEventCallback';
+
+const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
 
 export interface TextareaProps
   extends Omit<
@@ -46,7 +49,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
   const [isFocused, setIsFocused] = useState(false);
   const [isOvermax, setIsOvermax] = useState(false);
-  const [textareaStyle, setTextareaStyle] = useState({});
+  const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
   const composingRef = useRef(false);
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
@@ -85,13 +88,13 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     [`${classPrefix}-resize-none`]: typeof autosize === 'object',
   });
 
-  const adjustTextareaHeight = useCallback(() => {
+  const adjustTextareaHeight = useEventCallback(() => {
     if (autosize === true) {
       setTextareaStyle(calcTextareaHeight(textareaRef.current));
     } else if (typeof autosize === 'object') {
       setTextareaStyle(calcTextareaHeight(textareaRef.current, autosize?.minRows, autosize?.maxRows));
     }
-  }, [autosize]);
+  });
 
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
@@ -129,26 +132,37 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   );
 
   useIsomorphicLayoutEffect(() => {
+    // #https://github.com/Tencent/tdesign-react/issues/3470#issuecomment-2764889102
+    // 修復 Dialog 下 autofocus 無效 和 textarea 取值 invalid
     adjustTextareaHeight();
-    if (autofocus && textareaRef.current) {
-      const textarea = textareaRef.current;
-      textarea.focus();
-      // 将光标移到内容的末尾
-      textarea.selectionStart = textarea.value.length;
-      textarea.selectionEnd = textarea.value.length;
-    }
-  }, []);
+    const rafId = requestAnimationFrame(() => {
+      if (autofocus && textareaRef.current) {
+        const textarea = textareaRef.current;
+        textarea.focus();
+        // 将光标移到内容的末尾
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+      }
+    });
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
+  }, [textareaRef.current]);
 
   useIsomorphicLayoutEffect(() => {
     // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
     if (autosize === false) {
-      setTextareaStyle({ height: 'auto', minHeight: 'auto' });
+      setTextareaStyle(DEFAULT_TEXTAREA_STYLE);
     }
-  }, [adjustTextareaHeight, autosize]);
+  }, [autosize]);
 
-  useEffect(() => {
-    adjustTextareaHeight();
-  }, [adjustTextareaHeight, value]);
+  useEffect(
+    () => {
+      adjustTextareaHeight();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
   useEffect(() => {
     if (allowInputOverMax) {
