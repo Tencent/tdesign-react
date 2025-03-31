@@ -43,6 +43,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     status,
     tips,
     allowInputOverMax,
+    rows,
     ...otherProps
   } = props;
 
@@ -96,6 +97,18 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   });
 
+  const handleAutoFocus = useEventCallback(() => {
+    requestAnimationFrame(() => {
+      if (autofocus && textareaRef.current) {
+        const textarea = textareaRef.current;
+        textarea.focus();
+        // 将光标移到内容的末尾
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+      }
+    });
+  });
+
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
@@ -132,22 +145,8 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   );
 
   useIsomorphicLayoutEffect(() => {
-    // #https://github.com/Tencent/tdesign-react/issues/3470#issuecomment-2764889102
-    // 修復 Dialog 下 autofocus 無效 和 textarea 取值 invalid
     adjustTextareaHeight();
-    const rafId = requestAnimationFrame(() => {
-      if (autofocus && textareaRef.current) {
-        const textarea = textareaRef.current;
-        textarea.focus();
-        // 将光标移到内容的末尾
-        textarea.selectionStart = textarea.value.length;
-        textarea.selectionEnd = textarea.value.length;
-      }
-    });
-    return () => {
-      cancelAnimationFrame(rafId);
-    };
-  }, [textareaRef.current]);
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
     // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
@@ -156,13 +155,13 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }, [autosize]);
 
-  useEffect(
-    () => {
-      adjustTextareaHeight();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value],
-  );
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [adjustTextareaHeight, value]);
+
+  useEffect(() => {
+    handleAutoFocus();
+  }, [handleAutoFocus]);
 
   useEffect(() => {
     if (allowInputOverMax) {
@@ -195,6 +194,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
       <textarea
         {...textareaProps}
         {...eventProps}
+        rows={rows}
         value={value}
         style={textareaStyle}
         className={textareaClassNames}
