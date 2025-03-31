@@ -257,11 +257,6 @@ itemsPerPage | String | - | 语言配置，每页条数文本，示例：`'{size
 jumpTo | String | - | 语言配置，页码跳转文本，示例：'跳至' | N
 page | String | - | 语言配置，“页”描述文本 | N
 total | String | - | 语言配置，数据总条数文本，示例：`'共 {total} 项数据'` | N
-### PaginationConfig
-
-名称 | 参数 | 返回值 | 描述
--- | -- | -- | --
-jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | 自定义跳转组件。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onChange: (current: number) => void; }`<br/>
 
 ### PopconfirmConfig
 

@@ -620,10 +620,6 @@ export interface PaginationConfig {
    * @default ''
    */
   total?: string;
-  /**
-   * 自定义跳转组件
-   */
-  jumper?: (jumperProps: JumperProps) => TNode<JumperProps>;
 }
 
 export interface PopconfirmConfig {
