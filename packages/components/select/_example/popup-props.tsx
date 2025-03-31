@@ -27,7 +27,12 @@ const SelectPopupProps = () => {
         value={value}
         onChange={onChange}
         style={{ width: '300px' }}
-        popupProps={{ overlayInnerStyle: { width: '300px' } }}
+        popupProps={{
+          overlayInnerStyle: { width: '300px' },
+          overlayStyle: { fontWeight: 'normal' },
+          overlayClassName: 'select-custom-overlay-class',
+          overlayInnerClassName: 'select-custom-overlay-inner-class',
+        }}
         options={[
           {
             label: '下拉框强制和输入框同宽',

@@ -2,12 +2,12 @@ import React, { ReactNode, useState, useRef, useEffect, useCallback } from 'reac
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { throttle } from 'lodash-es';
+import getPosition from '@tdesign/common-js/utils/getPosition';
 import { StyledProps } from '../common';
 import useSwitch from '../hooks/useSwitch';
 import useAnimation from '../hooks/useAnimation';
 import Portal from '../common/Portal';
 import useConfig from '../hooks/useConfig';
-import getPosition from '../../common/js/utils/getPosition';
 import { TdTooltipLiteProps } from './type';
 import { tooltipLiteDefaultProps } from './defaultProps';
 import { getTransitionParams } from '../popup/utils/transition';
@@ -39,13 +39,15 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerRef.current, contentRef.current, placement, hover, clientX, clientY]);
 
-  const updatePosition = (e: MouseEvent) => {
-    setHoverClientX(e.clientX);
-    setHoverClientY(e.clientY);
+  const updatePosition = (position: Pick<MouseEvent, 'clientX' | 'clientY'>) => {
+    const { clientX, clientY } = position;
+    setHoverClientX(clientX);
+    setHoverClientY(clientY);
   };
 
   const onSwitchHover = (action: String, e: MouseEvent) => {
-    updatePosition(e);
+    const { clientX, clientY } = e;
+    updatePosition({ clientX, clientY });
     hoverAction.set(action === 'on');
   };
 
@@ -60,7 +62,10 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
   const getTriggerChildren = (children) => {
     const appendProps = {
       ref: triggerRef,
-      onMouseMove: onSwitchMove,
+      onMouseMove: (e) => {
+        const { clientX, clientY } = e;
+        return onSwitchMove({ clientX, clientY });
+      },
       onMouseEnter: (e) => onSwitchHover('on', e),
       onMouseLeave: (e) => onSwitchHover('off', e),
     };
