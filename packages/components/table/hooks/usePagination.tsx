@@ -40,7 +40,7 @@ export default function usePagination(props: TdBaseTableProps) {
   // 受控情况，只有 pagination.current 或者 pagination.pageSize 变化，才对数据进行排序
   useEffect(() => {
     if (!pagination || !pagination.current) return;
-    const { current, pageSize } = pagination;
+    const [current, pageSize] = [pagination?.current, pagination?.pageSize ?? 10];
     updateDataSourceAndPaginate(current, pageSize);
     setInnerPagination({ current, pageSize });
   }, [pagination?.current, pagination?.pageSize, updateDataSourceAndPaginate]);
