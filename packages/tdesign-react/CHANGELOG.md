@@ -5,6 +5,14 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.3 `2025-04-01` 
+### 🚀 Features
+- `ConfigProvider`: Pagination新增 `Jumper` 配置，用于自定义跳转部分样式 @RylanBot ([#3421](https://github.com/Tencent/tdesign-react/pull/3421))
+### 🐞 Bug Fixes
+- `Textarea`: 修復 `TextArea`在 `Dialog` 的 `autofocus` 的bug 和 `autosize` 不生效 @HaixingOoO ([#3471](https://github.com/Tencent/tdesign-react/pull/3471))
+- `lib`: 修复 `1.11.2` 版本中 `lib` 产物冗余样式导致`next.js`中使用异常及版本号缺失的问题 @uyarn ([#3474](https://github.com/Tencent/tdesign-react/pull/3474))
+- `Table`: 修复受控方法下`pagination`状态计算错误的问题 @huangchen1031 ([#3473](https://github.com/Tencent/tdesign-react/pull/3473))
+
 ## 🌈 1.11.2 `2025-03-28` 
 ### 🚀 Features
 - `ImageViewer`: 新增 `onDownload` API，用于自定义预览图片下载的回调功能 @lifeiFront ([#3408](https://github.com/Tencent/tdesign-react/pull/3408))
