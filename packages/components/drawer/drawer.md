@@ -1,5 +1,24 @@
 :: BASE_DOC ::
 
+### 函数式调用
+
+- 函数调用方式一： `DrawerPlugin(options)`
+- 函数调用方式二： `drawer(options)`
+
+<br />
+
+组件实例：`DrawerInstance = DrawerPlugin(options)`
+
+- 销毁抽屉：`DrawerInstance.destroy()`
+
+- 隐藏抽屉：`DrawerInstance.hide()`
+
+- 显示抽屉：`DrawerInstance.show()`
+
+- 更新抽屉：`DrawerInstance.update()`
+
+{{ plugin }}
+
 ## API
 ### Drawer Props
 
