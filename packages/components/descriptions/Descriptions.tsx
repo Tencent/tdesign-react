@@ -64,19 +64,27 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
     } else {
       // 2.2 b 方式 获取 TDescriptionsItem
       const childrenList = React.Children.toArray(children).filter(
-        (child: JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
+        (child: React.JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
       );
 
       if (childrenList.length !== 0) {
-        items = (childrenList as React.ReactElement[]).map(({ props: child }) => {
-          const { span } = assign({}, descriptionsItemDefaultProps, child);
+        items = (childrenList as React.ReactElement[]).map(
+          ({
+            props: child,
+          }: {
+            props: TdDescriptionsItemProps & {
+              children?: React.ReactNode;
+            };
+          }) => {
+            const { span } = assign({}, descriptionsItemDefaultProps, child);
 
-          return {
-            label: child.label,
-            content: child.content ?? child.children,
-            span,
-          };
-        });
+            return {
+              label: child.label,
+              content: child.content ?? child.children,
+              span,
+            };
+          },
+        );
       }
     }
 

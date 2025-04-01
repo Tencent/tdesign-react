@@ -38,7 +38,7 @@ export default function useColumnController(
   const { classPrefix, table } = useConfig();
   const { SettingIcon } = useGlobalIcon({ SettingIcon: TdSettingIcon });
   const { columns, columnController, displayColumns = [], columnControllerVisible } = props;
-  const dialogInstance = useRef<DialogInstance>();
+  const dialogInstance = useRef<DialogInstance>(null);
 
   const enabledColKeys = (() => {
     const arr = (columnController?.fields || [...getColumnKeys(columns)] || []).filter((v) => v);

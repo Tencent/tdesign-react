@@ -72,7 +72,7 @@ const StickyTool = forwardRefWithStatics(
 
       const childrenList = React.Children.toArray(children);
 
-      return childrenList.map((child: JSX.Element) => {
+      return childrenList.map((child: React.JSX.Element) => {
         const itemProps = {
           ...child.props,
           type,

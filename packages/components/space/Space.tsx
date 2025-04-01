@@ -29,7 +29,7 @@ const toArray = (children: React.ReactNode): React.ReactElement[] => {
     if (Array.isArray(child)) {
       ret = ret.concat(toArray(child));
     } else if (isFragment(child) && child.props) {
-      ret = ret.concat(toArray(child.props.children));
+      ret = ret.concat(toArray((child as any).props.children));
     } else {
       ret.push(child);
     }

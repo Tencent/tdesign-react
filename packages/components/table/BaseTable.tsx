@@ -56,9 +56,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     lazyLoad,
     pagination,
   } = props;
-  const tableRef = useRef<HTMLDivElement>();
-  const tableElmRef = useRef<HTMLTableElement>();
-  const bottomContentRef = useRef<HTMLDivElement>();
+  const tableRef = useRef<HTMLDivElement>(null);
+  const tableElmRef = useRef<HTMLTableElement>(null);
+  const bottomContentRef = useRef<HTMLDivElement>(null);
   const [tableFootHeight, setTableFootHeight] = useState(0);
   const allTableClasses = useClassName();
 
@@ -73,10 +73,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   );
 
   const { showElement } = useElementLazyRender(tableRef, lazyLoad);
-  const paginationAffixRef = useRef<AffixRef>();
-  const horizontalScrollAffixRef = useRef<AffixRef>();
-  const headerTopAffixRef = useRef<AffixRef>();
-  const footerBottomAffixRef = useRef<AffixRef>();
+  const paginationAffixRef = useRef<AffixRef>(null);
+  const horizontalScrollAffixRef = useRef<AffixRef>(null);
+  const headerTopAffixRef = useRef<AffixRef>(null);
+  const footerBottomAffixRef = useRef<AffixRef>(null);
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {

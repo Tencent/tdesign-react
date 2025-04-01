@@ -48,6 +48,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(true);
+  const nodeRef = useRef<HTMLDivElement>(null);
 
   const iconMap = {
     success: CheckCircleFilledIcon,
@@ -100,8 +101,6 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
       {typeof close === 'boolean' ? <CloseIcon /> : parseTNode(close)}
     </div>
   );
-
-  const nodeRef = useRef<HTMLDivElement>();
 
   return (
     <CSSTransition

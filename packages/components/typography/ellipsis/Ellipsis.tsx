@@ -55,7 +55,7 @@ const Ellipsis = ({
     }
   };
 
-  const truncateRef = useRef<Truncate>();
+  const truncateRef = useRef<Truncate>(null);
   const [isTruncated, setTruncated] = useState(false);
   const handleTruncate = (truncated) => {
     if (isMountRef.current && truncated !== isTruncated) {

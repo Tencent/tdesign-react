@@ -22,7 +22,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = (props) => {
   const childrenList = React.Children.toArray(children);
   let allChildrenList: React.ReactElement[];
   if (childrenList.length > 0) {
-    allChildrenList = childrenList.map((child: JSX.Element, index: number) =>
+    allChildrenList = childrenList.map((child: React.JSX.Element, index: number) =>
       React.cloneElement(child, { key: `avatar-group-item-${index}`, ...child.props }),
     );
   }

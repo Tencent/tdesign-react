@@ -27,7 +27,7 @@ export interface TFootProps {
 
 export default function TFoot(props: TFootProps) {
   const { footData, columns, rowKey, footerSummary, virtualScroll } = props;
-  const tfooterRef = useRef<HTMLTableSectionElement>();
+  const tfooterRef = useRef<HTMLTableSectionElement>(null);
   const classnames = useClassName();
 
   const { skipSpansMap } = useRowspanAndColspan(footData, columns, rowKey, props.rowspanAndColspanInFooter);

@@ -15,8 +15,8 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
-  const triggerRef = useRef<HTMLDivElement>();
-  const colorPanelRef = useRef();
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const colorPanelRef = useRef(null);
 
   const popProps: PopupProps = {
     placement: 'bottom-left',

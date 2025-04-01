@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { throttle } from 'lodash-es';
 import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
@@ -28,7 +28,7 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
     ChevronRightIcon: TdIconChevronRight,
   });
 
-  const menuRef = useRef<HTMLDivElement>();
+  const menuRef = useRef<HTMLDivElement>(null);
   const [isOverMaxHeight, setIsOverMaxHeight] = useState(false);
   const [calcScrollTopMap, setScrollTopMap] = useState({});
 
@@ -63,9 +63,9 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
   const throttleUpdate = throttle(handleScroll, 100);
 
   // 处理options渲染的场景
-  const renderOptions = (data: Array<DropdownOption | React.ReactChild>, deep: number) => {
+  const renderOptions = (data: Array<DropdownOption | React.ReactElement>, deep: number) => {
     const arr = [];
-    let renderContent: ReactElement;
+    let renderContent: React.ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
       const onViewIdx = Math.ceil(calcScrollTopMap[deep] / 30);

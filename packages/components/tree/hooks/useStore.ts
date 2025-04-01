@@ -14,7 +14,7 @@ export function useStore(
   props: TdTreeProps & { indeterminate: any; setTreeIndeterminate: any },
   refresh: () => void,
 ): TreeStore {
-  const storeRef = useRef<TreeStore>();
+  const storeRef = useRef<TreeStore>(null);
   const [filterChanged, toggleFilterChanged] = useState(false);
   const [prevExpanded, changePrevExpanded] = useState(null);
   const {
