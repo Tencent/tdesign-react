@@ -98,6 +98,10 @@ export default function TableBasic() {
           selectProps: {
             popupProps: {
               attach: () => document.getElementById('pagination-table'),
+              overlayInnerStyle: { fontWeight: 'normal' },
+              overlayStyle: { fontWeight: 'normal' },
+              overlayClassName: 'table-pagination-custom-overlay-class',
+              overlayInnerClassName: 'table-pagination-custom-overlay-inner-class',
             },
           },
         }}

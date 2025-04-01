@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
+import log from '@tdesign/common-js/log/index';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
@@ -14,7 +15,6 @@ import useLockStyle from './hooks/useLockStyle';
 import useDialogPosition from './hooks/useDialogPosition';
 import useDialogDrag from './hooks/useDialogDrag';
 import { parseValueToPx } from './utils';
-import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
 

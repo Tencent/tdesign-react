@@ -78,7 +78,7 @@ fillWithZero | Boolean | true | \- | N
 firstDayOfWeek | Number | 1 | options: 1/2/3/4/5/6/7 | N
 hideWeekend | String | - | \- | N
 monthRadio | String | - | \- | N
-monthSelection | String | - | \- | N
+monthSelection | String / Function | - | Typescript：`string \| (( data: { month: number })=>string)` | N
 showWeekend | String | - | \- | N
 thisMonth | String | - | \- | N
 today | String | - | \- | N
@@ -227,6 +227,7 @@ itemsPerPage | String | - | \- | N
 jumpTo | String | - | \- | N
 page | String | - | \- | N
 total | String | - | \- | N
+
 ### PaginationConfig
 
 name | params | return | description

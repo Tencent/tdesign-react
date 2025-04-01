@@ -231,7 +231,7 @@ export interface CalendarConfig {
    * 语言配置，“月”选择描述文本。示例：`'{month} 月'`
    * @default ''
    */
-  monthSelection?: string;
+  monthSelection?: string | ((data: { month: number }) => string);
   /**
    * 语言配置，“显示周末”描述文本
    * @default ''

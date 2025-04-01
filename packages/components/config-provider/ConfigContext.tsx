@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { merge } from 'lodash-es';
+import defaultConfig from '@tdesign/common-js/global-config/default-config';
 import defaultLocale from '../locale/zh_CN';
-import defaultConfig from '../../common/js/global-config/default-config';
 import { GlobalConfigProvider } from './type';
 
 export enum EAnimationType {
@@ -17,9 +17,7 @@ export const defaultAnimation = {
   exclude: [],
 };
 
-type DefaultGlobalConfig = Partial<GlobalConfigProvider>;
-
-export const defaultGlobalConfig: DefaultGlobalConfig = {
+export const defaultGlobalConfig: GlobalConfigProvider = {
   animation: defaultAnimation,
   classPrefix: defaultClassPrefix,
   ...merge({}, defaultLocale, defaultConfig),

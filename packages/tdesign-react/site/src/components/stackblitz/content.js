@@ -1,4 +1,5 @@
-import orgPkg from '../../../../package.json';
+import orgPkg from '../../../package.json';
+import tdesignReactPkg from '../../../../package.json';
 
 export const htmlContent = `
   <div id="app"></div>
@@ -101,13 +102,14 @@ export const packageJSONContent = JSON.stringify(
       serve: 'vite preview',
     },
     dependencies: {
-      react: orgPkg.devDependencies.react,
-      dayjs: orgPkg.dependencies.dayjs,
-      'react-dom': orgPkg.devDependencies['react-dom'],
-      'tdesign-react': orgPkg.version,
-      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+      react: orgPkg.dependencies.react,
+      'react-dom': orgPkg.dependencies['react-dom'],
+      'tdesign-react': tdesignReactPkg.version,
+      'tdesign-icons-react': tdesignReactPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
+      dayjs: tdesignReactPkg.dependencies.dayjs,
+      'lodash-es': tdesignReactPkg.dependencies['lodash-es'],
     },
     devDependencies: {
       vite: orgPkg.devDependencies.vite,

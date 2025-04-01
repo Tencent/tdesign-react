@@ -1,8 +1,9 @@
-import React, { forwardRef, useEffect, useMemo, useImperativeHandle } from 'react';
+import React, { forwardRef, useMemo, useImperativeHandle } from 'react';
 import { createPortal } from 'react-dom';
 import { AttachNode, AttachNodeReturnValue } from '../common';
 import { canUseDocument } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
+import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 
 export interface PortalProps {
   /**
@@ -47,7 +48,7 @@ const Portal = forwardRef((props: PortalProps, ref) => {
     return el;
   }, [classPrefix]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const parentElement = getAttach(attach, triggerNode);
     parentElement?.appendChild?.(container);
 
