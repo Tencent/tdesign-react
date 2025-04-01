@@ -1,10 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import generateBase64Url from '@tdesign/common-js/watermark/generateBase64Url';
+import randomMovingStyle from '@tdesign/common-js/watermark/randomMovingStyle';
+import injectStyle from '@tdesign/common-js/utils/injectStyle';
 import { StyledProps } from '../common';
-import generateBase64Url from '../../common/js/watermark/generateBase64Url';
-import randomMovingStyle from '../../common/js/watermark/randomMovingStyle';
-import injectStyle from '../../common/js/utils/injectStyle';
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../hooks/useMutationObserver';
 import { TdWatermarkProps } from './type';

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
 import { get, set, isFunction, cloneDeep } from 'lodash-es';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import log from '@tdesign/common-js/log/index';
 import {
   TableRowData,
   PrimaryTableCol,
@@ -14,7 +15,6 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TableClassName } from './hooks/useClassName';
 import { renderCell } from './Cell';
 import { validate } from '../form/formModel';
-import log from '../../common/js/log';
 import { AllValidateResult } from '../form/type';
 import useConfig from '../hooks/useConfig';
 

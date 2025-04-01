@@ -49,7 +49,12 @@ export default function Example() {
         console.log(val);
       }}
       style={{ width: 300 }}
-      popupProps={{ overlayStyle: { width: '500px' } }}
+      popupProps={{
+        overlayStyle: { width: '500px' },
+        overlayInnerStyle: { fontWeight: 'normal' },
+        overlayClassName: 'tree-select-custom-overlay-class',
+        overlayInnerClassName: 'tree-select-custom-overlay-inner-class',
+      }}
       treeProps={{
         keys: {
           label: 'name',
