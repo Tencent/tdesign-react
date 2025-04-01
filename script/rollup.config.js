@@ -16,7 +16,7 @@ import staticImport from 'rollup-plugin-static-import';
 import ignoreImport from 'rollup-plugin-ignore-import';
 import { resolve } from 'path';
 
-import pkg from '../package.json';
+import pkg from '../packages/tdesign-react/package.json';
 
 // TODO: replace path with utils
 
@@ -157,7 +157,7 @@ const cssConfig = {
 const libConfig = {
   input: inputList.concat('!packages/components/index-lib.ts'),
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
     dir: 'packages/tdesign-react/lib/',
