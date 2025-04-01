@@ -2,8 +2,6 @@
   "name": "tdesign-react-mono",
   "packageManager": "pnpm@9.15.9",
   "private": true,
-  "purename": "tdesign",
-  "version": "1.11.1",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
