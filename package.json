@@ -2,37 +2,6 @@
   "name": "tdesign-react-mono",
   "packageManager": "pnpm@9.15.9",
   "private": true,
-  "description": "TDesign Component for React",
-  "title": "tdesign-react",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "typings": "es/index.d.ts",
-  "unpkg": "dist/tdesign.min.js",
-  "jsdelivr": "dist/tdesign.min.js",
-  "files": [
-    "esm",
-    "es",
-    "lib",
-    "cjs",
-    "dist",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "sideEffects": [
-    "dist/*",
-    "site/*",
-    "es/**/style/**",
-    "esm/**/style/**"
-  ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "nyc": {
-    "report-dir": "test/e2e/cy-report/coverage",
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "excludeAfterRemap": false
-  },
   "scripts": {
     "pnpm:devPreinstall": "node script/pnpm-dev-preinstall.js",
     "init": "git submodule init && git submodule update",
@@ -87,14 +56,6 @@
   "peerDependencies": {
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tencent/tdesign-react.git"
-  },
-  "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
-  "bugs": {
-    "url": "https://github.com/Tencent/tdesign-react/issues"
   },
   "resolutions": {
     "react-popper": "~2.3.0"
