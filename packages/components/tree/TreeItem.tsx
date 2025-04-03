@@ -105,6 +105,7 @@ const TreeItem = forwardRef(
     };
 
     const handleIconClick = (evt: MouseEvent<HTMLDivElement>) => {
+      if (!icon) return;
       evt.stopPropagation();
       handleItemClick(evt);
     };
