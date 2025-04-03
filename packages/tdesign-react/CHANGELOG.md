@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.4 `2025-04-03` 
+### 🐞 Bug Fixes
+- `Select`: 修复 `options`为空时会导致报错引发白屏的问题 @2ue ([#3484](https://github.com/Tencent/tdesign-react/pull/3484))
+- `Tree`:  修复 icon 为 false 仍然触发点击和展开相关逻辑的问题 @uyarn ([#3485](https://github.com/Tencent/tdesign-react/pull/3485))
+
 ## 🌈 1.11.3 `2025-04-01` 
 ### 🚀 Features
 - `ConfigProvider`: Pagination新增 `Jumper` 配置，用于自定义跳转部分样式 @RylanBot ([#3421](https://github.com/Tencent/tdesign-react/pull/3421))
