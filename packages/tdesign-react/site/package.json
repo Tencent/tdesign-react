@@ -13,7 +13,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.2.2",
+    "react-router-dom": "^7.4.1",
     "tdesign-icons-view": "^0.3.5",
     "tdesign-site-components": "^0.15.3",
     "tdesign-theme-generator": "^1.0.0",
