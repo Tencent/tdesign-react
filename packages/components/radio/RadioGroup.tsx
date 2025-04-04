@@ -1,5 +1,6 @@
 import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import observe from '@tdesign/common-js/utils/observe';
 import useConfig from '../hooks/useConfig';
 import { TdRadioGroupProps } from './type';
 import useControlled from '../hooks/useControlled';
@@ -31,6 +32,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState({});
   const radioGroupRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver>(null);
 
   useKeyboard(radioGroupRef, setInternalValue);
 
@@ -84,6 +86,17 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
   useEffect(() => {
     calcBarStyle();
+
+    if (!radioGroupRef.current) return;
+
+    const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
+    observerRef.current = observer;
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      observerRef.current?.unobserve(radioGroupRef.current);
+      observerRef.current = null;
+    };
   }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderBlock = () => {
