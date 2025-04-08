@@ -102,7 +102,7 @@ export interface GlobalConfigProvider {
    */
   input?: InputConfig;
   /**
-   * 全局上下文透传给函数式调用的组件
+   * 全局配置是否影响函数式调用方法使用的组件
    * @default false
    */
   isContextEffectPlugin?: boolean;
