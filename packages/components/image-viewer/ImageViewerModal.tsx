@@ -24,6 +24,8 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIconMap from './hooks/useIconMap';
 import Image from '../image';
 
+import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
+
 import type { TdImageViewerProps } from './type';
 import { ImageViewerProps } from './ImageViewer';
 
@@ -234,7 +236,7 @@ interface ImageViewerUtilsProps {
     rotate: string;
     originsize: string;
   };
-  onDownload?:TdImageViewerProps['onDownload'];
+  onDownload?: TdImageViewerProps['onDownload'];
 }
 
 export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
@@ -272,7 +274,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
         <ImageModalIcon
           className={`${classPrefix}-image-viewer__utils-scale`}
           size="medium"
-          label={`${scale * 100}%`}
+          label={`${largeNumberToFixed(String(scale * 100))}%`}
         />
         <ImageModalIcon size="medium" name="zoom-in" onClick={onZoom} />
         <TooltipLite
@@ -295,7 +297,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
             size="medium"
             name="download"
             onClick={() => {
-              if(isFunction(onDownload)){
+              if (isFunction(onDownload)) {
                 // 自定义图片预览下载
                 onDownload(currentImage.mainImage);
                 return;
@@ -394,7 +396,7 @@ export interface ImageModalProps {
   draggable: boolean;
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
-  onDownload?:TdImageViewerProps['onDownload'];
+  onDownload?: TdImageViewerProps['onDownload'];
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
 }

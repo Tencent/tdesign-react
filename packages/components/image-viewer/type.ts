@@ -117,9 +117,9 @@ export interface TdImageViewerProps {
 }
 
 export interface ImageScale {
-  max: number;
-  min: number;
-  step: number;
+  max?: number;
+  min?: number;
+  step?: number;
   defaultScale?: number;
 }
 
