@@ -32,7 +32,7 @@ icon | Object | - | icon config。Typescript：`IconConfig` `type IconConfig = G
 image | Object | - | image global configs。Typescript：`ImageConfig` | N
 imageViewer | Object | - | imageViewer global configs。Typescript：`ImageViewerConfig` | N
 input | Object | - | Input global configs。Typescript：`InputConfig` | N
-isSyncContextPlugin | Boolean | false | The global context is synchronized to the component that is called functionally | N
+isContextEffectPlugin | Boolean | false | The global context is synchronized to the component that is called functionally | N
 list | Object | - | List global configs。Typescript：`ListConfig` | N
 message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript：`PaginationConfig` | N

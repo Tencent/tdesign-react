@@ -105,7 +105,7 @@ export interface GlobalConfigProvider {
    * 全局上下文透传给函数式调用的组件
    * @default false
    */
-  isSyncContextPlugin?: boolean;
+  isContextEffectPlugin?: boolean;
   /**
    * 列表组件全局配置
    */
