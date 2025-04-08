@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect, useRef } from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import observe from '@tdesign/common-js/utils/observe';
 import useConfig from '../hooks/useConfig';
@@ -30,7 +30,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
-  const [barStyle, setBarStyle] = useState({});
+  const [barStyle, setBarStyle] = useState<Partial<CSSProperties>>({});
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver>(null);
 
@@ -89,13 +89,21 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
     if (!radioGroupRef.current) return;
 
+    const clearObserver = () => {
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+    }
+
+    if(barStyle.width !== '0px' && barStyle.width !== 0) {
+      clearObserver();
+      return;
+    }
+
     const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
     observerRef.current = observer;
 
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      observerRef.current?.unobserve(radioGroupRef.current);
-      observerRef.current = null;
+      clearObserver();
     };
   }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
