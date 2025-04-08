@@ -7,6 +7,7 @@ import {
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import { TooltipLite } from '../tooltip';
 import useConfig from '../hooks/useConfig';
@@ -23,8 +24,6 @@ import useScale from './hooks/useScale';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIconMap from './hooks/useIconMap';
 import Image from '../image';
-
-import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 
 import type { TdImageViewerProps } from './type';
 import { ImageViewerProps } from './ImageViewer';
