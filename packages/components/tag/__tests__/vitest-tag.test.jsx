@@ -60,6 +60,14 @@ describe('Tag Component', () => {
     expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
   });
 
+  it(`priority of the style is higher than props.color calculation result`, () => {
+    const { container } = render(
+      <Tag color={'#ff0000'} variant={'light-outline'} style={{ borderColor: '#0052d9' }}></Tag>,
+    );
+    const domWrapper = container.firstChild;
+    expect(domWrapper.style.borderColor).toBe('#0052d9');
+  });
+
   it('props.content works fine', () => {
     const { container } = render(<Tag content={<span className="custom-node">TNode</span>}></Tag>);
     expect(container.querySelector('.custom-node')).toBeTruthy();
