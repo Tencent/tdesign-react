@@ -25,6 +25,7 @@
     "test:coverage": "vitest run --coverage",
     "prebuild": "rimraf packages/tdesign-react/es/* packages/tdesign-react/lib/* packages/tdesign-react/dist/* packages/tdesign-react/esm/* packages/tdesign-react/cjs/*",
     "build": "cross-env NODE_ENV=production rollup -c script/rollup.config.js && node script/utils/bundle-override.js && pnpm run build:tsc",
+    "build:watch": "cross-env NODE_ENV=production rollup -c script/rollup.config.js --watch && node script/utils/bundle-override.js && pnpm run build:tsc",
     "build:tsc": "run-p build:tsc-*",
     "build:tsc-es": "tsc -p ./tsconfig.build.json --outDir packages/tdesign-react/es/",
     "build:tsc-esm": "tsc -p ./tsconfig.build.json --outDir packages/tdesign-react/esm/",
