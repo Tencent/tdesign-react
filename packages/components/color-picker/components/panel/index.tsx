@@ -70,12 +70,12 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   const formatValue = useCallback(() => {
     // 渐变模式下直接输出css样式
-    if (mode === 'linear-gradient') {
+    if (colorInstanceRef.current.isGradient) {
       return colorInstanceRef.current.linearGradient;
     }
     const finalFormat = format === 'HEX' && enableAlpha ? 'HEX8' : format; // hex should transfer to hex8 when alpha channel is opened
     return colorInstanceRef.current.getFormatsColorMap()[finalFormat] || colorInstanceRef.current.css;
-  }, [format, enableAlpha, mode]);
+  }, [format, enableAlpha]);
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
@@ -129,10 +129,12 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     const { rgba, gradientColors, linearGradient } = colorInstanceRef.current;
     if (value === 'linear-gradient') {
       colorInstanceRef.current = new Color(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
-      return;
+    } else {
+      colorInstanceRef.current = new Color(rgba);
     }
-    colorInstanceRef.current = new Color(rgba);
+    emitColorChange();
   };
+
   // 最近使用颜色变更时触发
   const handleRecentlyUsedColorsChange = (colors: string[]) => {
     setRecentlyUsedColors(colors);
