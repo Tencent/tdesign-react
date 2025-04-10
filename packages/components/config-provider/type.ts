@@ -102,6 +102,11 @@ export interface GlobalConfigProvider {
    */
   input?: InputConfig;
   /**
+   * 全局配置是否影响函数式调用方法使用的组件
+   * @default false
+   */
+  isContextEffectPlugin?: boolean;
+  /**
    * 列表组件全局配置
    */
   list?: ListConfig;
@@ -229,7 +234,6 @@ export interface CalendarConfig {
   monthRadio?: string;
   /**
    * 语言配置，“月”选择描述文本。示例：`'{month} 月'`
-   * @default ''
    */
   monthSelection?: string | ((data: { month: number }) => string);
   /**
