@@ -96,7 +96,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-istanbul": "^2.1.1",
     "@vitest/coverage-v8": "^2.1.1",
-    "@vitest/ui": "^2.1.1",
+    "@vitest/ui": "^3.1.1",
     "autoprefixer": "^10.4.0",
     "babel-polyfill": "^6.26.0",
     "camelcase": "^6.2.1",

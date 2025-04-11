@@ -92,7 +92,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     if (!color) return style;
     const luminance = tinycolor(color).getLuminance();
 
-    const calculatedStyle = style || {};
+    const calculatedStyle: React.CSSProperties = {};
 
     calculatedStyle.color = luminance > 0.5 ? 'black' : 'white';
     if (variant === 'outline' || variant === 'light-outline') {
@@ -111,7 +111,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     if (variant !== 'dark') {
       calculatedStyle.color = color;
     }
-    return calculatedStyle;
+    return { ...calculatedStyle, ...style };
   }, [color, variant, style]);
 
   const getTextStyle = useMemo(() => {
