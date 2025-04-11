@@ -87,6 +87,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
         onChange(tmpUserInput as T, { type: 'props', e: undefined });
       }
     }
+    // eslint-disable-next-line
   }, [tValue]);
 
   useEffect(() => {
