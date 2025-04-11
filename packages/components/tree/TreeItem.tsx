@@ -19,7 +19,7 @@ import Loading from '../loading';
 import useRipple from '../hooks/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import Checkbox from '../checkbox';
+import Checkbox, { CheckboxProps } from '../checkbox';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import useDraggable from './hooks/useDraggable';
 import composeRefs from '../_util/composeRefs';
@@ -252,6 +252,13 @@ const TreeItem = forwardRef(
           checkboxDisabled = true;
         }
 
+        let checkboxProps: CheckboxProps;
+        if (typeof checkProps === 'function') {
+          checkboxProps = checkProps(node.getModel());
+        } else {
+          checkboxProps = checkProps;
+        }
+
         return (
           <Checkbox
             ref={setRefCurrent}
@@ -262,7 +269,7 @@ const TreeItem = forwardRef(
             onChange={(checked, ctx) => onChange(node, ctx)}
             className={labelClasses}
             stopLabelTrigger={expandOnClickNode && !!node.children}
-            {...checkProps}
+            {...checkboxProps}
           >
             <span date-target="label">{labelText}</span>
           </Checkbox>
