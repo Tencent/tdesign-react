@@ -28,7 +28,6 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   const { classPrefix } = useConfig();
   const [tValue, onChange] = useControlled(props, 'value', props.onChange);
   const [userInput, setUserInput] = useState('');
-  const [displayValue, setDisplayValue] = useState('');
   const [isError, setIsError] = useState<'exceed-maximum' | 'below-minimum'>();
 
   const inputRef = useRef(null);
@@ -88,7 +87,6 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
         onChange(tmpUserInput as T, { type: 'props', e: undefined });
       }
     }
-    // eslint-disable-next-line
   }, [tValue]);
 
   useEffect(() => {
@@ -182,6 +180,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     });
     setUserInput(getUserInput(newValue));
     if (newValue !== tValue) {
+      setUserInput(tValue as string);
       onChange(newValue as T, { type: 'blur', e: ctx.e });
     }
     props.onBlur?.(newValue, ctx);
@@ -256,8 +255,6 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     addClasses,
     inputRef,
     listeners,
-    displayValue,
-    setDisplayValue,
     isError,
     setIsError,
     userInput,
