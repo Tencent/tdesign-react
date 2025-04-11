@@ -30,7 +30,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
-  const [barStyle, setBarStyle] = useState<Partial<CSSProperties>>({});
+  const [barStyle, setBarStyle] = useState<Partial<CSSProperties> | null>(null);
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver>(null);
 
@@ -67,13 +67,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   };
 
   const calcBarStyle = () => {
-    if (!variant.includes('filled')) {
-      return;
-    }
+    if (!variant.includes('filled')) return;
+
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
-    if (!checkedRadio) {
-      return setBarStyle({ width: 0 });
-    }
+    if (!checkedRadio) return;
 
     const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
     setBarStyle({
@@ -94,7 +91,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
       observerRef.current = null;
     }
 
-    if(barStyle.width !== '0px' && barStyle.width !== 0) {
+    if (barStyle && barStyle.width !== '0px') {
       clearObserver();
       return;
     }
