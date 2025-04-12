@@ -18,6 +18,9 @@ spline: explain
 ### 📝 Documentation
 - `Swiper`: 优化`Swiper` 组件跳转沙箱演示缺失示例样式的问题 @uyarn ([#3490](https://github.com/Tencent/tdesign-react/pull/3490))
 
+### 🚧 Others
+-  `1.12.0` 版本将全面兼容 React 19 的使用，有 React 19相关使用场景需求，可升级 `1.12.0-alpha.3` 版本进行试用
+
 ## 🌈 1.11.4 `2025-04-03` 
 ### 🐞 Bug Fixes
 - `Select`: 修复 `options`为空时会导致报错引发白屏的问题 @2ue ([#3484](https://github.com/Tencent/tdesign-react/pull/3484))
