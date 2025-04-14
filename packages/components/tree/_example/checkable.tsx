@@ -28,6 +28,7 @@ const items = [
       {
         value: '1.1',
         label: '1.1',
+        disabled: true,
         children: [
           {
             value: '1.1.1',
@@ -74,6 +75,7 @@ const items = [
               {
                 value: '1.2.1.2',
                 label: '1.2.1.2',
+                disabled: true,
               },
             ],
           },
@@ -156,6 +158,9 @@ export default () => {
         valueMode={valueMode}
         onChange={handleChange}
         onClick={handleClick}
+        checkProps={(node) => ({
+          title: node.data.disabled ? 'Disabled' : 'Enabled',
+        })}
       />
     </Space>
   );
