@@ -19,12 +19,13 @@ import Loading from '../loading';
 import useRipple from '../hooks/useRipple';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import Checkbox, { CheckboxProps } from '../checkbox';
+import Checkbox from '../checkbox';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import useDraggable from './hooks/useDraggable';
 import composeRefs from '../_util/composeRefs';
 import useConfig from '../hooks/useConfig';
 
+import type { CheckboxProps } from '../checkbox'
 import type { TdTreeProps } from './type';
 import type { TreeItemProps } from './interface';
 
