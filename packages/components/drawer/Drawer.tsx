@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdDrawerProps, DrawerEventSource, DrawerInstance } from './type';
+import type { TdDrawerProps, DrawerEventSource, DrawerInstance } from './type';
 import { StyledProps } from '../common';
 import Button, { ButtonProps } from '../button';
 import useConfig from '../hooks/useConfig';
