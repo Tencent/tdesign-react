@@ -11,6 +11,8 @@ import {
 import { Styles } from '../common';
 import noop from '../_util/noop';
 import NotificationComponent from './Notification';
+import ConfigProvider from '../config-provider';
+import PluginContainer from '../common/PluginContainer';
 
 interface NotificationListInstance extends TdNotificationProps {
   push: (theme: NotificationThemeList, options: NotificationInfoOptions) => Promise<NotificationInstance>;
@@ -145,17 +147,20 @@ export const fetchListInstance = (
       }
       if (!renderNotification) {
         renderNotification = true;
+        const nGlobalConfig = ConfigProvider.getGlobalConfig();
         render(
-          <NotificationList
-            attach={attach}
-            placement={placement}
-            zIndex={Number(zIndex)}
-            renderCallback={(instance) => {
-              renderNotification = false;
-              listMap.set(placement, instance);
-              resolve(instance);
-            }}
-          />,
+          <PluginContainer globalConfig={nGlobalConfig}>
+            <NotificationList
+              attach={attach}
+              placement={placement}
+              zIndex={Number(zIndex)}
+              renderCallback={(instance) => {
+                renderNotification = false;
+                listMap.set(placement, instance);
+                resolve(instance);
+              }}
+            />
+          </PluginContainer>,
           attach,
         );
         return;
