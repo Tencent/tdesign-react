@@ -24,6 +24,8 @@ import MessageComponent from './MessageComponent';
 
 import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
 import { useMessageClass } from './useMessageClass';
+import ConfigProvider from '../config-provider';
+import PluginContainer from '../common/PluginContainer';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
@@ -160,21 +162,30 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
     };
   }
 
+  /**
+   * message plugin 调用时走的渲染逻辑
+   * 调用获取全局上下文的方法获取信息，可传递当前组件自身信息（ConfigProvider.getGlobalConfig({message:config})）
+   * message组件不用穿，自身的配置信息都在props中
+   */
+  const mGlobalConfig = ConfigProvider.getGlobalConfig();
+
   return new Promise((resolve) => {
     // 渲染组件
     render(
-      <MessageComponent
-        key={keyIndex}
-        {...config}
-        theme={theme}
-        style={style}
-        onClose={(ctx) => {
-          onClose(ctx);
-          message.close();
-        }}
-      >
-        {content}
-      </MessageComponent>,
+      <PluginContainer globalConfig={mGlobalConfig}>
+        <MessageComponent
+          key={keyIndex}
+          {...config}
+          theme={theme}
+          style={style}
+          onClose={(ctx) => {
+            onClose(ctx);
+            message.close();
+          }}
+        >
+          {content}
+        </MessageComponent>
+      </PluginContainer>,
       div,
     );
 

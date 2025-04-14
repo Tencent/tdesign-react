@@ -32,6 +32,7 @@ icon | Object | - | icon config。Typescript：`IconConfig` `type IconConfig = G
 image | Object | - | image global configs。Typescript：`ImageConfig` | N
 imageViewer | Object | - | imageViewer global configs。Typescript：`ImageViewerConfig` | N
 input | Object | - | Input global configs。Typescript：`InputConfig` | N
+isContextEffectPlugin | Boolean | false | Whether the global configuration affects the components used by the functional invocation method | N
 list | Object | - | List global configs。Typescript：`ListConfig` | N
 message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript：`PaginationConfig` | N
@@ -227,7 +228,6 @@ itemsPerPage | String | - | \- | N
 jumpTo | String | - | \- | N
 page | String | - | \- | N
 total | String | - | \- | N
-
 ### PaginationConfig
 
 name | params | return | description

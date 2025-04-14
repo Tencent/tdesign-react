@@ -2,37 +2,6 @@
   "name": "tdesign-react-mono",
   "packageManager": "pnpm@9.15.9",
   "private": true,
-  "description": "TDesign Component for React",
-  "title": "tdesign-react",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "typings": "es/index.d.ts",
-  "unpkg": "dist/tdesign.min.js",
-  "jsdelivr": "dist/tdesign.min.js",
-  "files": [
-    "esm",
-    "es",
-    "lib",
-    "cjs",
-    "dist",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "sideEffects": [
-    "dist/*",
-    "site/*",
-    "es/**/style/**",
-    "esm/**/style/**"
-  ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "nyc": {
-    "report-dir": "test/e2e/cy-report/coverage",
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "excludeAfterRemap": false
-  },
   "scripts": {
     "pnpm:devPreinstall": "node script/pnpm-dev-preinstall.js",
     "init": "git submodule init && git submodule update",
@@ -88,14 +57,6 @@
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tencent/tdesign-react.git"
-  },
-  "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
-  "bugs": {
-    "url": "https://github.com/Tencent/tdesign-react/issues"
-  },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.16.5",
@@ -132,7 +93,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-istanbul": "^2.1.1",
     "@vitest/coverage-v8": "^2.1.1",
-    "@vitest/ui": "^2.1.1",
+    "@vitest/ui": "^3.1.1",
     "autoprefixer": "^10.4.0",
     "babel-polyfill": "^6.26.0",
     "camelcase": "^6.2.1",
@@ -184,10 +145,7 @@
     "rollup-plugin-typescript2": "^0.31.2",
     "semver": "^7.6.3",
     "start-server-and-test": "^1.14.0",
-    "tdesign-icons-view": "^0.3.5",
     "tdesign-publish-cli": "^0.0.12",
-    "tdesign-site-components": "^0.15.3",
-    "tdesign-theme-generator": "^1.0.0",
     "ts-morph": "^13.0.02",
     "ts-node": "^10.4.0",
     "typescript": "5.6.2",

@@ -95,7 +95,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   // 全部可选选项
   const selectableOptions = useMemo(() => {
     const uniqueOptions = {};
-    propsOptions.forEach((option: SelectOption) => {
+    propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
         (option as SelectOptionGroup).children.forEach((item) => {
           if (!item.disabled && !item.checkAll) {

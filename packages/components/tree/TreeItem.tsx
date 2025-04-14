@@ -25,6 +25,7 @@ import useDraggable from './hooks/useDraggable';
 import composeRefs from '../_util/composeRefs';
 import useConfig from '../hooks/useConfig';
 
+import type { CheckboxProps } from '../checkbox'
 import type { TdTreeProps } from './type';
 import type { TreeItemProps } from './interface';
 
@@ -105,6 +106,7 @@ const TreeItem = forwardRef(
     };
 
     const handleIconClick = (evt: MouseEvent<HTMLDivElement>) => {
+      if (!icon) return;
       evt.stopPropagation();
       handleItemClick(evt);
     };
@@ -251,6 +253,13 @@ const TreeItem = forwardRef(
           checkboxDisabled = true;
         }
 
+        let checkboxProps: CheckboxProps;
+        if (typeof checkProps === 'function') {
+          checkboxProps = checkProps(node.getModel());
+        } else {
+          checkboxProps = checkProps;
+        }
+
         return (
           <Checkbox
             ref={setRefCurrent}
@@ -261,7 +270,7 @@ const TreeItem = forwardRef(
             onChange={(checked, ctx) => onChange(node, ctx)}
             className={labelClasses}
             stopLabelTrigger={expandOnClickNode && !!node.children}
-            {...checkProps}
+            {...checkboxProps}
           >
             <span date-target="label">{labelText}</span>
           </Checkbox>
