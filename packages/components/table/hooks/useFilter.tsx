@@ -1,12 +1,12 @@
 import React, { useEffect, useState, MutableRefObject } from 'react';
 import { isFunction } from 'lodash-es';
+import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 import useClassName from './useClassName';
 import TButton from '../../button';
 import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue, TableFilterChangeContext } from '../type';
 import useControlled from '../../hooks/useControlled';
 import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { getColumnsResetValue } from '../../../common/js/table/utils';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;

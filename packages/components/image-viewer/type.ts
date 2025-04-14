@@ -9,7 +9,7 @@ import { MouseEvent, KeyboardEvent } from 'react';
 
 export interface TdImageViewerProps {
   /**
-   * 制定挂载节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
+   * 指定挂载节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
    * @default 'body'
    */
   attach?: AttachNode;
@@ -106,6 +106,10 @@ export interface TdImageViewerProps {
    * 关闭时触发，事件参数包含触发关闭的来源：关闭按钮、遮罩层、ESC 键
    */
   onClose?: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  /**
+   * 自定义预览图片下载操作，url为图片链接
+   */
+  onDownload?: (url: string | File) => void;
   /**
    * 预览图片切换时触发，`context.prev` 切换到上一张图片，`context.next` 切换到下一张图片
    */

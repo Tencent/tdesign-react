@@ -1,5 +1,6 @@
 import React, { forwardRef, MouseEvent, useMemo, FocusEvent } from 'react';
 import classNames from 'classnames';
+import { ENTER_REG, SPACE_REG } from '@tdesign/common-js/common';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
 import { TdCheckTagProps, TdTagProps } from './type';
@@ -7,7 +8,6 @@ import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import { checkTagDefaultProps } from './defaultProps';
 import Tag from './Tag';
-import { ENTER_REG, SPACE_REG } from '../../common/js/common';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 /**

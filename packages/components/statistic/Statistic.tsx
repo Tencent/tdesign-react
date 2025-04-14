@@ -1,10 +1,12 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { isNumber , isFunction } from 'lodash-es';
+import { isNumber, isFunction } from 'lodash-es';
 import {
   ArrowTriangleDownFilledIcon as TDArrowTriangleDownFilledIcon,
   ArrowTriangleUpFilledIcon as TDArrowTriangleUpFilledIcon,
 } from 'tdesign-icons-react';
+import Tween from '@tdesign/common-js/statistic/tween';
+import { COLOR_MAP, getFormatValue } from '@tdesign/common-js/statistic/utils';
 import { TdStatisticProps } from './type';
 import { statisticDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
@@ -14,8 +16,6 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useIsFirstRender from '../hooks/useIsFirstRender';
 
 import Skeleton from '../skeleton';
-import Tween from '../../common/js/statistic/tween';
-import { COLOR_MAP, getFormatValue } from '../../common/js/statistic/utils';
 
 export interface StatisticProps extends TdStatisticProps, StyledProps {}
 

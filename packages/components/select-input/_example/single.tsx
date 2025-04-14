@@ -77,7 +77,12 @@ export default function SelectInputSingle() {
         placeholder="Please Select"
         clearable
         allowInput
-        popupProps={{ overlayInnerStyle: { padding: 6 } }}
+        popupProps={{
+          overlayInnerStyle: { padding: 6 },
+          overlayStyle: { fontWeight: 'normal' },
+          overlayClassName: 'select-custom-overlay-class',
+          overlayInnerClassName: 'select-custom-overlay-inner-class',
+        }}
         onPopupVisibleChange={onPopupVisibleChange}
         onClear={onClear}
         panel={

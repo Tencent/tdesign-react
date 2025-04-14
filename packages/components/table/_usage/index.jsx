@@ -3,38 +3,33 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import baseTableConfigProps from "./base-table-props.json";
+import baseTableConfigProps from './base-table-props.json';
 
-import { Table } from "tdesign-react";
+import { Table } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(baseTableConfigProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [
-    { label: "Table", value: "baseTable", config: baseTableConfigProps },
-  ];
+  const panelList = [{ label: 'Table', value: 'baseTable', config: baseTableConfigProps }];
 
   const data = Array(30)
     .fill(0)
     .map((_, i) => ({
       index: i,
-      platform: "公有",
-      description: "数据源",
+      platform: '公有',
+      description: '数据源',
     }));
 
   const columns = [
-    { colKey: "index", title: "index" },
-    { colKey: "platform", title: "平台" },
-    { colKey: "description", title: "说明" },
+    { colKey: 'index', title: 'index' },
+    { colKey: 'platform', title: '平台' },
+    { colKey: 'description', title: '说明' },
   ];
 
   const defaultProps = {
@@ -57,7 +52,7 @@ export default function Usage() {
   }, [changedProps, panel]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

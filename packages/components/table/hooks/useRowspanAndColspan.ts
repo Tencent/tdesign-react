@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { get } from 'lodash-es';
-import log from '../../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
 
 export interface SkipSpansValue {

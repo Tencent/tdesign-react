@@ -3,35 +3,32 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Input } from "tdesign-react";
+import { Input } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "input", value: "input" }];
+  const panelList = [{ label: 'input', value: 'input' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
-  const defaultProps = { tips: "这是 tips 文本信息" };
+  const defaultProps = { tips: '这是 tips 文本信息' };
   useEffect(() => {
     setRenderComp(<Input {...defaultProps} {...changedProps} />);
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

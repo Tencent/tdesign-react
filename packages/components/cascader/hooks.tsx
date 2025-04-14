@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 
 import { isEqual, isFunction } from 'lodash-es';
 
-import TreeStore from '../../common/js/tree-v1/tree-store';
+import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from './core/helper';
 import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 
@@ -17,7 +18,6 @@ import type {
   CascaderValue,
 } from './interface';
 
-import type { TypeTreeNodeData } from '../../common/js/tree-v1/types';
 import { TreeOptionData } from '../common';
 
 export const useCascaderContext = (props: TdCascaderProps) => {

@@ -2,6 +2,7 @@ import url from '@rollup/plugin-url';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import styles from 'rollup-plugin-styles';
+import copy from 'rollup-plugin-copy';
 import esbuild from 'rollup-plugin-esbuild';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
@@ -15,7 +16,9 @@ import staticImport from 'rollup-plugin-static-import';
 import ignoreImport from 'rollup-plugin-ignore-import';
 import { resolve } from 'path';
 
-import pkg from '../package.json';
+import pkg from '../packages/tdesign-react/package.json';
+
+// TODO: replace path with utils
 
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
@@ -144,7 +147,7 @@ const cssConfig = {
   plugins: [multiInput({ relative: 'packages/components/' }), styles({ mode: 'extract' })],
   output: {
     banner,
-    dir: './es',
+    dir: './packages/tdesign-react/es',
     sourcemap: true,
     assetFileNames: '[name].css',
   },
@@ -154,10 +157,10 @@ const cssConfig = {
 const libConfig = {
   input: inputList.concat('!packages/components/index-lib.ts'),
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
-    dir: 'lib/',
+    dir: 'packages/tdesign-react/lib/',
     format: 'esm',
     sourcemap: true,
     chunkFileNames: '_chunks/dep-[hash].js',
@@ -173,7 +176,7 @@ const esConfig = {
   plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
-    dir: 'es/',
+    dir: 'packages/tdesign-react/es/',
     format: 'esm',
     sourcemap: true,
     chunkFileNames: '_chunks/dep-[hash].js',
@@ -186,10 +189,22 @@ const esmConfig = {
   // 为了保留 style/index.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ ignoreLess: false })),
+  plugins: [
+    multiInput({ relative: 'packages/components/' }),
+    copy({
+      targets: [
+        {
+          src: 'packages/common/style/web/**/*.less',
+          dest: 'packages/tdesign-react/esm/common',
+          rename: (_, __, fullPath) => `${fullPath.replace('packages/common', '')}`,
+        },
+      ],
+      verbose: true,
+    }),
+  ].concat(getPlugins({ ignoreLess: false })),
   output: {
     banner,
-    dir: 'esm/',
+    dir: 'packages/tdesign-react/esm/',
     format: 'esm',
     sourcemap: true,
     chunkFileNames: '_chunks/dep-[hash].js',
@@ -205,7 +220,7 @@ const cjsConfig = {
   plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
-    dir: 'cjs/',
+    dir: 'packages/tdesign-react/cjs/',
     format: 'cjs',
     sourcemap: true,
     exports: 'named',
@@ -227,7 +242,7 @@ const umdConfig = {
     exports: 'named',
     globals: { react: 'React' },
     sourcemap: true,
-    file: `dist/${name}.js`,
+    file: `packages/tdesign-react/dist/${name}.js`,
   },
 };
 
@@ -246,7 +261,7 @@ const umdMinConfig = {
     exports: 'named',
     globals: { react: 'React' },
     sourcemap: true,
-    file: `dist/${name}.min.js`,
+    file: `packages/tdesign-react/dist/${name}.min.js`,
   },
 };
 
@@ -254,7 +269,7 @@ const umdMinConfig = {
 const resetCss = {
   input: 'packages/common/style/web/_reset.less',
   output: {
-    file: 'dist/reset.css',
+    file: 'packages/tdesign-react/dist/reset.css',
   },
   plugins: [postcss({ extract: true })],
 };

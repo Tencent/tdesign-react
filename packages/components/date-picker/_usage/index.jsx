@@ -3,18 +3,15 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import DatePickerConfigProps from "./date-picker-props.json";
+import DatePickerConfigProps from './date-picker-props.json';
 
-import DateRangePickerConfigProps from "./date-range-picker-props.json";
+import DateRangePickerConfigProps from './date-range-picker-props.json';
 
-import { DatePicker, DateRangePicker } from "tdesign-react";
+import { DatePicker, DateRangePicker } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(DatePickerConfigProps);
@@ -22,10 +19,10 @@ export default function Usage() {
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
   const panelList = [
-    { label: "datePicker", value: "datePicker", config: DatePickerConfigProps },
+    { label: 'datePicker', value: 'datePicker', config: DatePickerConfigProps },
     {
-      label: "dateRangePicker",
-      value: "dateRangePicker",
+      label: 'dateRangePicker',
+      value: 'dateRangePicker',
       config: DateRangePickerConfigProps,
     },
   ];
@@ -44,7 +41,7 @@ export default function Usage() {
   }, [changedProps, panel]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

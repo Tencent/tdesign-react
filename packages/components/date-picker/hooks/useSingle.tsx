@@ -3,16 +3,16 @@ import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
-import useConfig from '../../hooks/useConfig';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { TdDatePickerProps } from '../type';
 import {
   isValidDate,
   formatDate,
   formatTime,
   getDefaultFormat,
   parseToDayjs,
-} from '../../../common/js/date-picker/format';
+} from '@tdesign/common-js/date-picker/format';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { TdDatePickerProps } from '../type';
 import useSingleValue from './useSingleValue';
 import type { TdPopupProps } from '../../popup/type';
 
@@ -45,7 +45,8 @@ export default function useSingleInput(props: TdDatePickerProps) {
     size: props.size,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
-    readonly: !props.allowInput,
+    // 输入框是否允许输入
+    allowInput: props.allowInput,
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     className: classNames({

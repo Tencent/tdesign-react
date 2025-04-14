@@ -3,23 +3,20 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Swiper } from "tdesign-react";
+import { Swiper } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "swiper", value: "swiper" }];
+  const panelList = [{ label: 'swiper', value: 'swiper' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
@@ -31,27 +28,21 @@ export default function Usage() {
       <div style={{ width: 500 }}>
         <Swiper {...defaultProps} {...changedProps}>
           <Swiper.SwiperItem>
-            <div
-              style={{ height: 200, background: "var(--td-success-color-7)" }}
-            ></div>
+            <div style={{ height: 200, background: 'var(--td-success-color-7)' }}></div>
           </Swiper.SwiperItem>
           <Swiper.SwiperItem>
-            <div
-              style={{ height: 200, background: "var(--td-warning-color-7)" }}
-            ></div>
+            <div style={{ height: 200, background: 'var(--td-warning-color-7)' }}></div>
           </Swiper.SwiperItem>
           <Swiper.SwiperItem>
-            <div
-              style={{ height: 200, background: "var(--td-error-color-7)" }}
-            ></div>
+            <div style={{ height: 200, background: 'var(--td-error-color-7)' }}></div>
           </Swiper.SwiperItem>
         </Swiper>
-      </div>
+      </div>,
     );
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

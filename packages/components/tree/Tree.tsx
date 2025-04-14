@@ -12,11 +12,17 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 
-import TreeNode from '../../common/js/tree-v1/tree-node';
+import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import log from '@tdesign/common-js/log/index';
+import type {
+  TreeNodeState,
+  TreeNodeValue,
+  TypeTreeNodeData,
+  TypeTreeNodeModel,
+} from '@tdesign/common-js/tree-v1/types';
 import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
 import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
-import log from '../../common/js/log';
 
 import useControllable from './hooks/useControllable';
 import { useStore } from './hooks/useStore';
@@ -26,7 +32,6 @@ import parseTNode from '../_util/parseTNode';
 import { usePersistFn } from '../hooks/usePersistFn';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 
-import type { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '../../common/js/tree-v1/types';
 import type { TreeInstanceFunctions, TdTreeProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
 

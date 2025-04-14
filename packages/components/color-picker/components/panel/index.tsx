@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import classNames from 'classnames';
 import tinyColor from 'tinycolor2';
-import useCommonClassName from '../../../hooks/useCommonClassName';
-import useControlled from '../../../hooks/useControlled';
-import { useLocaleReceiver } from '../../../locale/LocalReceiver';
-import useClassName from '../../hooks/useClassNames';
-import PanelHeader from './header';
-import Color, { getColorObject } from '../../../../common/js/color-picker/color';
-import { GradientColorPoint } from '../../../../common/js/color-picker/gradient';
+import Color, { getColorObject } from '@tdesign/common-js/color-picker/color';
+import { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
 import {
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
   TD_COLOR_USED_COLORS_MAX_SIZE,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-} from '../../../../common/js/color-picker/constants';
+} from '@tdesign/common-js/color-picker/constants';
+import useCommonClassName from '../../../hooks/useCommonClassName';
+import useControlled from '../../../hooks/useControlled';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
+import useClassName from '../../hooks/useClassNames';
+import PanelHeader from './header';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';
@@ -70,12 +70,12 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   const formatValue = useCallback(() => {
     // 渐变模式下直接输出css样式
-    if (mode === 'linear-gradient') {
+    if (colorInstanceRef.current.isGradient) {
       return colorInstanceRef.current.linearGradient;
     }
     const finalFormat = format === 'HEX' && enableAlpha ? 'HEX8' : format; // hex should transfer to hex8 when alpha channel is opened
     return colorInstanceRef.current.getFormatsColorMap()[finalFormat] || colorInstanceRef.current.css;
-  }, [format, enableAlpha, mode]);
+  }, [format, enableAlpha]);
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
@@ -129,10 +129,12 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     const { rgba, gradientColors, linearGradient } = colorInstanceRef.current;
     if (value === 'linear-gradient') {
       colorInstanceRef.current = new Color(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
-      return;
+    } else {
+      colorInstanceRef.current = new Color(rgba);
     }
-    colorInstanceRef.current = new Color(rgba);
+    emitColorChange();
   };
+
   // 最近使用颜色变更时触发
   const handleRecentlyUsedColorsChange = (colors: string[]) => {
     setRecentlyUsedColors(colors);

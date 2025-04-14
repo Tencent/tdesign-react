@@ -2,8 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Upload, Space, MessagePlugin, Checkbox, Button } from 'tdesign-react';
 
 import type { UploadFile, UploadProps } from 'tdesign-react';
-// @ts-ignore
-import { getFileUrlByFileRaw } from 'tdesign-react/es/../common/js/upload/utils';
+import { getFileUrlByFileRaw } from '@tdesign/common-js/upload/utils';
 
 export default function UploadExample() {
   const uploadRef1 = useRef(null);

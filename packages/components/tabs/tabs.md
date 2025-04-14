@@ -35,7 +35,7 @@ destroyOnHide | Boolean | true | 选项卡内容隐藏时是否销毁 | N
 disabled | Boolean | false | 是否禁用当前选项卡 | N
 draggable | Boolean | true | 选项卡组件开启允许拖动排序时，当前选项卡是否允许拖动 | N
 label | TNode | - | 选项卡名称，可自定义选项卡导航内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-lazy | Boolean | false | 是否启用选项卡懒加载 | N
+lazy | Boolean | - | 是否启用选项卡懒加载，默认为懒加载效果，如果需要关闭，请配合 `lazy` 设置为 false 和 `destroyOnHide` 设置为 false 使用 | N
 panel | TNode | - | 用于自定义选项卡面板内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 removable | Boolean | false | 当前选项卡是否允许移除 | N
 value | String / Number | - | 选项卡的值，唯一标识。TS 类型：`TabValue` | N

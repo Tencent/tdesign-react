@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import observe from '../../common/js/utils/observe';
+import observe from '@tdesign/common-js/utils/observe';
 
 export function useElementLazyRender(labelRef: MutableRefObject<HTMLElement>, lazyLoad: boolean) {
   const ioObserver = useRef<IntersectionObserver>();

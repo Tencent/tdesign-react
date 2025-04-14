@@ -7,4 +7,5 @@ export interface BreadcrumbProps extends StyledProps, React.PropsWithChildren<Td
 export interface BreadcrumbItemProps extends StyledProps, React.PropsWithChildren<TdBreadcrumbItemProps> {
   separator?: TdBreadcrumbProps['separator'];
   maxItemWidth?: TdBreadcrumbProps['maxItemWidth'];
+  readOnly?: boolean;
 }

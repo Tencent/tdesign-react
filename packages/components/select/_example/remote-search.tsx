@@ -1,28 +1,11 @@
 import React, { useState } from 'react';
-
 import { Select } from 'tdesign-react';
 
-import type { SelectProps } from 'tdesign-react';
-
 const RemoteSearchSelect = () => {
-  const defaultOptions: SelectProps['options'] = [];
   const [value, setValue] = useState('');
 
   const [loading, setLoading] = useState(false);
-  const [options, setOptions] = useState([
-    {
-      value: `test1`,
-      label: `Test1`,
-    },
-    {
-      value: `test2`,
-      label: `Test2`,
-    },
-    {
-      value: `test3`,
-      label: `Test3`,
-    },
-  ]);
+  const [options, setOptions] = useState([]);
 
   const onChange = (value: string) => {
     setValue(value);
@@ -48,13 +31,11 @@ const RemoteSearchSelect = () => {
             value: `腾讯_test3`,
             label: `腾讯_test3`,
           },
-        ];
-      } else {
-        options = defaultOptions;
+        ].filter((item) => item.label.includes(search));
       }
 
       setOptions(options);
-    }, 1000);
+    }, 500);
   };
 
   return (

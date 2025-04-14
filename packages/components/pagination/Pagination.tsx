@@ -1,6 +1,6 @@
 import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
-import { omit , isNaN } from 'lodash-es';
+import { omit, isNaN } from 'lodash-es';
 
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
@@ -62,7 +62,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
   const [jumpValue, setJumpValue] = useState(current);
 
   const min = 1;
-  const { classPrefix } = useConfig();
+  const { classPrefix, pagination: paginationConfig } = useConfig();
   const name = `${classPrefix}-pagination`; // t-pagination
 
   const pageCount = useMemo<number>(() => {
@@ -170,7 +170,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
       </div>
     ) : null;
 
-  const Jumper = (
+  const DefaultJumper = (
     <div className={`${name}__jump`}>
       {t(locale.jumpTo)}
       <InputAdornment append={`/ ${pageCount} ${t(locale.page)}`}>
@@ -190,6 +190,11 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
       </InputAdornment>
     </div>
   );
+
+  const globalJumper = paginationConfig.jumper;
+  const Jumper = globalJumper
+  ? globalJumper({ current, pageCount, onChange: changeCurrent })
+  : DefaultJumper;
 
   return (
     <div

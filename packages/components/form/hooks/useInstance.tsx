@@ -1,4 +1,5 @@
-import { isEmpty , isFunction , isEqual , merge , get , set } from 'lodash-es';
+import { isEmpty, isFunction, isEqual, merge, get, set } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 import type {
   TdFormProps,
   FormValidateResult,
@@ -9,7 +10,6 @@ import type {
 } from '../type';
 import useConfig from '../../hooks/useConfig';
 import { getMapValue, objectToArray, travelMapFromObject, calcFieldValue } from '../utils';
-import log from '../../../common/js/log';
 
 // 检测是否需要校验 默认全量校验
 function needValidate(name: NamePath, fields: string[]) {

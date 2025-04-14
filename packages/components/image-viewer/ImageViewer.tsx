@@ -73,6 +73,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
             defaultIndex={props.defaultIndex}
             index={props.index}
             onIndexChange={props.onIndexChange}
+            onDownload={props.onDownload}
             draggable={props.draggable}
             closeOnOverlay={props.closeOnOverlay}
             closeBtn={props.closeBtn}

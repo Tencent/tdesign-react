@@ -10,6 +10,8 @@ import React, {
 } from 'react';
 import { pick } from 'lodash-es';
 import classNames from 'classnames';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import log from '@tdesign/common-js/log/index';
 import TBody, { extendTableProps, TableBodyProps } from './TBody';
 import { Affix, AffixRef } from '../affix';
 import { ROW_LISTENERS } from './TR';
@@ -30,8 +32,6 @@ import { baseTableDefaultProps } from './defaultProps';
 import { Styles } from '../common';
 import { TableRowData } from './type';
 import useVirtualScroll from '../hooks/useVirtualScroll';
-import { getIEVersion } from '../../common/js/utils/helper';
-import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
@@ -201,7 +201,14 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     }, 0);
   };
 
-  const virtualConfig = useVirtualScroll(tableContentRef, { data, scroll: props.scroll });
+  const virtualScrollParams = useMemo(
+    () => ({
+      data,
+      scroll: { ...props.scroll, fixedRows: props.fixedRows },
+    }),
+    [data, props.scroll, props.fixedRows],
+  );
+  const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
   let lastScrollY = -1;
   const onInnerVirtualScroll = (e: WheelEvent<HTMLDivElement>) => {
@@ -274,7 +281,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     [tableRef],
   );
 
-  useEffect(getTFootHeight, [tableElmRef]);
+  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
 
   const newData = isPaginateData ? dataSource : data;
 
@@ -417,7 +424,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         offsetBottom={marginScrollbarWidth || 0}
         {...getAffixProps(props.footerAffixedBottom)}
         ref={footerBottomAffixRef}
-        style={{ marginTop: `${-1 * (tableFootHeight + marginScrollbarWidth)}px` }}
+        style={{ marginTop: `${-1 * ((tableFootHeight || 0) + marginScrollbarWidth)}px` }}
       >
         <div
           ref={affixFooterRef}
@@ -456,7 +463,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     rowAndColFixedPosition,
     showColumnShadow,
-    data: virtualConfig.isVirtualScroll ? virtualConfig.visibleData : newData,
+    data: newData,
     virtualConfig,
     handleRowMounted: virtualConfig.handleRowMounted,
     columns: spansAndLeafNodes?.leafColumns || columns,
@@ -472,8 +479,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     ...pick(props, extendTableProps),
     pagination: innerPagination,
   };
-
-  const translate = `translate(0, ${virtualConfig.scrollHeight + affixHeaderHeight + tableFootHeight}px)`;
+  const translate = `translate(0, ${virtualConfig.scrollHeight + (affixHeaderHeight || 0) + (tableFootHeight || 0)}px)`;
   const virtualStyle = {
     transform: translate,
     msTransform: translate,
@@ -523,6 +529,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
             tableContentRef,
             tableWidth,
             isWidthOverflow,
+            virtualConfig,
             props.rowKey,
             props.rowClassName,
             props.rowAttributes,
@@ -647,6 +654,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       props.footerSummary,
       props.footerAffixedBottom,
       props.rowspanAndColspanInFooter,
+      tableWidth.current,
     ],
   );
 

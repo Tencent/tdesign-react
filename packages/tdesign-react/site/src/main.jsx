@@ -4,8 +4,8 @@ import { registerLocaleChange } from 'tdesign-site-components';
 import App from './App';
 
 // import tdesign style;
-import 'tdesign-react/style/index.js';
-import '@common/style/web/docs.less';
+import '@tdesign/components/style/index.js';
+import '@tdesign/common-style/web/docs.less';
 
 import 'tdesign-site-components/lib/styles/style.css';
 import 'tdesign-site-components/lib/styles/prism-theme.less';

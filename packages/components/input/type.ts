@@ -14,6 +14,11 @@ export interface TdInputProps {
    */
   align?: 'left' | 'center' | 'right';
   /**
+   * 输入框是否可输入内容
+   * @default true
+   */
+  allowInput?: boolean;
+  /**
    * 超出 `maxlength` 或 `maxcharacter` 之后是否允许继续输入
    * @default false
    */

@@ -121,12 +121,7 @@ const Tabs = forwardRefWithStatics(
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(memoChildren, (child: any) => {
             if (child && child.type === TabPanel) {
-              if (child.props.value === value) {
-                return child;
-              }
-              if (child.props.destroyOnHide === false) {
-                return <TabPanel {...child.props} style={{ display: 'none' }}></TabPanel>;
-              }
+              return <TabPanel {...child.props} isActive={child.props.value === value} />;
             }
             return null;
           })}

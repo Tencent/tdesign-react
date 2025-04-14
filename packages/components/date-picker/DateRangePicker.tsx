@@ -1,12 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdDateRangePickerProps, PresetDate } from './type';
-import { RangeInputPopup } from '../range-input';
-import RangePanel from './panel/RangePanel';
-import useRange from './hooks/useRange';
 import {
   parseToDayjs,
   formatTime,
@@ -14,10 +8,16 @@ import {
   isValidDate,
   getDefaultFormat,
   initYearMonthTime,
-} from '../../common/js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '../../common/js/date-picker/utils';
+} from '@tdesign/common-js/date-picker/format';
+import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import log from '@tdesign/common-js/log/index';
+import useConfig from '../hooks/useConfig';
+import { StyledProps } from '../common';
+import { TdDateRangePickerProps, PresetDate } from './type';
+import { RangeInputPopup } from '../range-input';
+import RangePanel from './panel/RangePanel';
+import useRange from './hooks/useRange';
 import { dateRangePickerDefaultProps } from './defaultProps';
-import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { dateCorrection } from './utils';
 

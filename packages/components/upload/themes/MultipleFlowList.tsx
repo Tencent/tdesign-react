@@ -1,6 +1,6 @@
 import React, { MouseEvent, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { isFunction , isObject } from 'lodash-es';
+import { isFunction, isObject } from 'lodash-es';
 import {
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,
@@ -14,12 +14,6 @@ import {
   FileIcon as TdFileIcon,
   VideoIcon as TdVideoIcon,
 } from 'tdesign-icons-react';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import ImageViewer from '../../image-viewer';
-import { CommonDisplayFileProps } from '../interface';
-import TButton, { ButtonProps } from '../../button';
-import { UploadFile, TdUploadProps } from '../type';
-import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import {
   abridgeName,
   returnFileSize,
@@ -29,7 +23,13 @@ import {
   FILE_WORD_REGEXP,
   FILE_PPT_REGEXP,
   VIDEO_REGEXP,
-} from '../../../common/js/upload/utils';
+} from '@tdesign/common-js/upload/utils';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import ImageViewer from '../../image-viewer';
+import { CommonDisplayFileProps } from '../interface';
+import TButton, { ButtonProps } from '../../button';
+import { UploadFile, TdUploadProps } from '../type';
+import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import TLoading from '../../loading';
 import Link from '../../link';
 import parseTNode from '../../_util/parseTNode';

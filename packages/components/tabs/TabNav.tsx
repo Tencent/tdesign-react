@@ -5,13 +5,13 @@ import {
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
 } from 'tdesign-icons-react';
-import { omit , debounce } from 'lodash-es';
+import { omit, debounce } from 'lodash-es';
+import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '@tdesign/common-js/tabs/base';
 import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
-import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '../../common/js/tabs/base';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import parseTNode from '../_util/parseTNode';

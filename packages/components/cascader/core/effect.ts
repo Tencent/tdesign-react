@@ -1,4 +1,4 @@
-import { isNumber , isFunction , cloneDeep } from 'lodash-es';
+import { isNumber, isFunction, cloneDeep } from 'lodash-es';
 import { TreeNode, CascaderContextType, TdCascaderProps, TreeNodeValue, TreeNodeModel } from '../interface';
 import { getFullPathLabel, getTreeValue } from './helper';
 

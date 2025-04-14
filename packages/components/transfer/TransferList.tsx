@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import classnames from 'classnames';
-import { isFunction , isEmpty , isString } from 'lodash-es';
+import { isFunction, isEmpty, isString } from 'lodash-es';
 import { SearchIcon as TdSearchIcon } from 'tdesign-icons-react';
 import { getLeafNodes } from './utils';
 import useConfig from '../hooks/useConfig';

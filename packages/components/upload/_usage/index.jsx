@@ -3,38 +3,34 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Upload } from "tdesign-react";
+import { Upload } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "upload", value: "upload" }];
+  const panelList = [{ label: 'upload', value: 'upload' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
   const defaultProps = {
-    action:
-      "https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo",
+    action: 'https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo',
   };
   useEffect(() => {
     setRenderComp(<Upload {...defaultProps} {...changedProps} />);
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

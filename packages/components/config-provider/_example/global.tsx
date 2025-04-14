@@ -1,19 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { merge } from 'lodash-es';
 import { ConfigProvider, Space } from 'tdesign-react';
+import type { GlobalConfigProvider } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 export default function GlobalDemo() {
   // 全局特性配置，引入英文语言配置包 enConfig
-  const globalConfig = merge(enConfig, {
+  const globalConfig: GlobalConfigProvider = {
+    ...enConfig,
     // 可以在此处定义更多自定义配置，具体可配置内容参看 API 文档
     calendar: {},
     table: {},
     pagination: {},
     // 全局动画设置
     animation: { exclude: [] },
-  });
+  };
 
   return (
     <ConfigProvider globalConfig={globalConfig}>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { upperCase } from 'lodash-es';
+import Color from '@tdesign/common-js/color-picker/color';
+import { FORMATS } from '@tdesign/common-js/color-picker/constants';
 import Select from '../../../../select';
 import FormatInput from './inputs';
-import Color from '../../../../../common/js/color-picker/color';
-import { FORMATS } from '../../../../../common/js/color-picker/constants';
 import { TdColorPickerProps } from '../../../type';
 
 export interface TdColorFormatProps extends TdColorPickerProps {

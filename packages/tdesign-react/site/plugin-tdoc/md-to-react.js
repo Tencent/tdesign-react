@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import camelCase from 'camelcase';
-import { compileUsage, getGitTimestamp } from '../../packages/common/docs/compile';
+import { compileUsage, getGitTimestamp } from '../../../../packages/common/docs/compile';
 
 import testCoverage from '../test-coverage';
 
@@ -23,8 +23,8 @@ export default async function mdToReact(options) {
     import { useLocation, useNavigate } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
-    import Stackblitz from '@components/stackblitz/index.jsx';
-    import Codesandbox from '@components/codesandbox/index.jsx';
+    import Stackblitz from '@tdesign/react-site/src/components/stackblitz/index.jsx';
+    import Codesandbox from '@tdesign/react-site/src/components/codesandbox/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
     ${mdSegment.usage.importStr}
@@ -221,7 +221,7 @@ async function customRender({ source, file, md }) {
     const usageObj = compileUsage({
       componentName,
       usage: pageData.usage,
-      demoPath: path.posix.resolve(__dirname, `../../packages/components/${componentName}/_usage/index.jsx`),
+      demoPath: path.posix.resolve(__dirname, `../../../components/${componentName}/_usage/index.jsx`),
     });
     if (usageObj) {
       mdSegment.usage = usageObj;
@@ -247,7 +247,7 @@ async function customRender({ source, file, md }) {
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
-    const designDocPath = path.resolve(__dirname, `../../packages/common/docs/web/design/${componentName}.md`);
+    const designDocPath = path.resolve(__dirname, `../../../common/docs/web/design/${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
       const designDocLastUpdated =

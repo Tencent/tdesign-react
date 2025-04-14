@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
-import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '../../../common/js/date-picker/format';
 import useRangeValue from './useRangeValue';
 import type { TdPopupProps } from '../../popup/type';
 

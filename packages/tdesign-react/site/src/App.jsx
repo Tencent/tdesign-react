@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import semver from 'semver';
-import Loading from 'tdesign-react/loading';
-import ConfigProvider from 'tdesign-react/config-provider';
-import zhConfig from 'tdesign-react/es/locale/zh_CN';
-import enConfig from 'tdesign-react/es/locale/en_US';
+import Loading from '@tdesign/components/loading';
+import ConfigProvider from '@tdesign/components/config-provider';
+import zhConfig from '@tdesign/components/locale/zh_CN';
+import enConfig from '@tdesign/components/locale/en_US';
 import { getLang } from 'tdesign-site-components';
 
-import siteConfig from '../site.config';
+import packageJson from '../../package.json';
+import * as siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
-import packageJson from '@/package.json';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
-const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
+const isDev = import.meta.env.DEV;
+
+const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig.default).replace(/component:.+/g, ''));
 
 const docsMap = {
   zh: docs,
@@ -23,7 +25,7 @@ const docsMap = {
 const registryUrl = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/npm/versions/tdesign-react';
 const currentVersion = packageJson.version.replace(/\./g, '_');
 
-const docRoutes = [...getRoute(siteConfig.docs, []), ...getRoute(siteConfig.enDocs, [])];
+const docRoutes = [...getRoute(siteConfig.default.docs, []), ...getRoute(siteConfig.default.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
   const LazyCom = lazy(nav.component);
 
@@ -51,7 +53,7 @@ function Components() {
   const tdDocSearch = useRef();
 
   const [version] = useState(currentVersion);
-  const [globalConfig] = useState(() => getLang() === 'en' ? enConfig : zhConfig);
+  const [globalConfig] = useState(() => (getLang() === 'en' ? enConfig : zhConfig));
 
   function initHistoryVersions() {
     fetch(registryUrl)
@@ -96,8 +98,10 @@ function Components() {
       tdSelectRef.current.value = currentVersion;
     };
 
+    if (isDev) return;
+
     initHistoryVersions();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

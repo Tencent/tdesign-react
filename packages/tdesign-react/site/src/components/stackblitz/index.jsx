@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import Tooltip from 'tdesign-react/tooltip';
+import { Tooltip } from '@tdesign/components';
 
 import {
   htmlContent,

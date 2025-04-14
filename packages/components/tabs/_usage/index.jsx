@@ -3,35 +3,32 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Tabs } from "tdesign-react";
+import { Tabs } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "tabs", value: "tabs" }];
+  const panelList = [{ label: 'tabs', value: 'tabs' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
-  const defaultProps = { defaultValue: "1" };
+  const defaultProps = { defaultValue: '1' };
   useEffect(() => {
     setRenderComp(
       <div
         style={{
           padding: 24,
-          background: "var(--bg-color-page)",
+          background: 'var(--bg-color-page)',
           borderRadius: 3,
         }}
       >
@@ -46,12 +43,12 @@ export default function Usage() {
             <div style={{ margin: 20 }}>选项卡3内容区</div>
           </Tabs.TabPanel>
         </Tabs>
-      </div>
+      </div>,
     );
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

@@ -3,23 +3,20 @@
  */
 
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
-import BaseUsage, {
-  useConfigChange,
-  usePanelChange,
-} from "@site/src/components/BaseUsage";
-import jsxToString from "react-element-to-jsx-string";
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from "./props.json";
+import configProps from './props.json';
 
-import { Divider } from "tdesign-react";
+import { Divider } from 'tdesign-react';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "divider", value: "divider" }];
+  const panelList = [{ label: 'divider', value: 'divider' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
@@ -35,12 +32,12 @@ export default function Usage() {
         <span>合作</span>
         <Divider {...changedProps}>TDesign</Divider>
         <span>创新</span>
-      </div>
+      </div>,
     );
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {
-    if (!renderComp) return "";
+    if (!renderComp) return '';
     return jsxToString(renderComp);
   }, [renderComp]);
 

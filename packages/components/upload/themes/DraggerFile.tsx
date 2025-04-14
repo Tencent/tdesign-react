@@ -4,7 +4,7 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { abridgeName, getFileSizeText } from '../../../common/js/upload/utils';
+import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
 import { TdUploadProps, UploadFile } from '../type';
 import Link from '../../link';
 import { CommonDisplayFileProps } from '../interface';

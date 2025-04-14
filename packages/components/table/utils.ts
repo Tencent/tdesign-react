@@ -1,4 +1,5 @@
 import { isFunction, get, isObject } from 'lodash-es';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import {
   BaseTableCellParams,
   CellData,
@@ -9,7 +10,6 @@ import {
 } from './type';
 import { ClassName, HTMLElementAttributes } from '../common';
 import { AffixProps } from '../affix';
-import { getIEVersion } from '../../common/js/utils/helper';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
