@@ -1,24 +1,23 @@
 import React from 'react';
+import log from '@tdesign/common-js/log/index';
 import { render } from '../_util/react-render';
 import DrawerComponent, { DrawerProps } from './Drawer';
 
 import { getAttach } from '../_util/dom';
-import { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
-import log from '../../common/js/log';
+import type { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
 
 const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const drawerRef = React.createRef<DrawerInstance>();
-  const options = { ...props };
 
-  // 默认先不出现。如有更好的方法，请代替↓
-  const { visible = false } = options;
+  // 默认先不打开。如有更好的方法，请代替↓
+  const { visible = false } = props;
 
   const fragment = document.createDocumentFragment();
-  render(<DrawerComponent {...(options as DrawerProps)} visible={visible} ref={drawerRef} isPlugin />, fragment);
+  render(<DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin />, fragment);
 
-  const container = getAttach(options.attach);
+  const container = getAttach(props.attach);
   if (container) {
-    // 抽屉加载出来了再设置出现，才有出现动画。如有更好的方法，请代替↓
+    // 加载出来了再设置打开，打开才有动画。如有更好的方法，请代替↓
     requestAnimationFrame(() => {
       drawerRef.current?.show();
     });
