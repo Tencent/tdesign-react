@@ -112,11 +112,14 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
       containerRef.current?.focus?.();
     }
+  }, [visible]);
+
+  useEffect(() => {
     // 非插件式调用 更新props
     if (!isPlugin) {
       setState((prevState) => ({ ...prevState, ...props }));
     }
-  }, [visible, isPlugin, props, setState]);
+  }, [isPlugin, props, setState]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
