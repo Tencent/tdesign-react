@@ -40,6 +40,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     multiple,
     label,
     disableTime,
+    onClear,
     onPick,
   } = props;
 
@@ -280,6 +281,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     e.stopPropagation();
     setPopupVisible(false);
     onChange([], { dayjsValue: dayjs(), trigger: 'clear' });
+    onClear?.({ e });
   };
 
   const panelProps = {
