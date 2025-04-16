@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, useRef, useImperativeHandle, useMemo } from 'react';
 import { merge, get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
 import { HOOK_MARK } from './hooks/useForm';
 import { TdFormListProps, FormListFieldOperation, FormListField } from './type';
-import { calcFieldValue } from './utils';
+import { calcFieldValue, convertNamePathToString } from './utils';
 
 let key = 0;
 
@@ -17,7 +17,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     initialData: initialDataFromForm,
     resetType: resetTypeFromContext,
   } = useFormContext();
-  const { name, rules, children } = props;
+  const { name: propName, rules, children } = props;
+
+  const name = useMemo(() => convertNamePathToString(propName), [propName]);
 
   const initialData = props.initialData || get(initialDataFromForm, name) || [];
 

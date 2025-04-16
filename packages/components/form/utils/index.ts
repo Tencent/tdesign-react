@@ -67,3 +67,21 @@ export function travelMapFromObject(
     }
   }
 }
+
+/**
+ * 将表单名成路径中的数字转化为字符串
+ *
+ * 将 name 是 number 类型，转化为字符串
+ * 当 name 是数组格式时，需要将数组中的 number 元素转化为字符串
+ * 覆盖：路径中，数字 1 和字符串 '1' 会被视为同一路径，后者会覆盖前者的值。
+ *
+ * @param {NamePath} name
+ * @returns
+ */
+export function convertNamePathToString(name: NamePath) {
+  if (typeof name === 'number') return `${name}`;
+  if (Array.isArray(name)) {
+    return name.map((item) => (typeof item === 'number' ? `${item}` : item));
+  }
+  return name;
+}
