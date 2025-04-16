@@ -1,5 +1,5 @@
 import React from 'react';
-import { DrawerPlugin, Button, Space, ConfigProvider } from 'tdesign-react';
+import { DrawerPlugin, Button, Space } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 
