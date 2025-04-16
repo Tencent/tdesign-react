@@ -21,19 +21,14 @@ describe('ColorPicker 组件测试', () => {
 
   test('ColorPicker 线性渐变 测试', () => {
     const { container } = render(
-      <ColorPicker
-        defaultValue="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
-        format="CSS"
-        colorModes={['linear-gradient']}
-      />,
+      <ColorPicker defaultValue="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)" format="CSS" />,
     );
     fireEvent.click(container.querySelector('.t-input '));
     expect(document.querySelector('.t-color-picker__gradient')).toBeInTheDocument();
-    // 渐变直接输出对应的 css
+    // 点击系统预设颜色的第一个
     fireEvent.click(document.querySelector('.t-color-picker__swatches--item'));
-    expect(container.querySelector('.t-input__inner')).toHaveValue(
-      'linear-gradient(45deg,rgba(236, 242, 254, 1) 0%,rgb(0, 242, 254) 100%)',
-    );
+    // 渐变模式下切换为对应的纯色
+    expect(container.querySelector('.t-input__inner')).toHaveValue('rgba(236, 242, 254, 1)');
   });
 
   test(':disabled 测试', () => {

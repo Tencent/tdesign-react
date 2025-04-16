@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import ColorLib from '@tdesign/common-js/color-picker/color';
+import { Color, getColorObject } from '@tdesign/common-js/color-picker/color';
 import { Input } from '../../input';
 import { TdColorPickerProps } from '..';
 import useClassName from '../hooks/useClassNames';
@@ -18,9 +18,12 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
 
   const [value, setValue] = useControlled(props, 'value', props.onChange);
 
-  const handleChange = (input: string, ctx: any) => {
-    if (ColorLib.isValid(input)) {
-      setValue(input, ctx);
+  const handleChange = (input: string) => {
+    if (input !== value) {
+      setValue(input, {
+        color: getColorObject(new Color(input)),
+        trigger: 'input',
+      });
     }
   };
 
@@ -36,8 +39,7 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
             <span className={'color-inner'} style={{ background: value }}></span>
           </div>
         }
-        onBlur={handleChange}
-        onChange={(v: string) => setValue(v)}
+        onChange={handleChange}
       />
     </div>
   );
