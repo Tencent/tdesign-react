@@ -1,5 +1,24 @@
 :: BASE_DOC ::
 
+### Function invocations
+
+- `DrawerPlugin(options)`, or
+- `drawer(options)`
+
+<br />
+
+A component instance: `DrawerInstance = DrawerPlugin(options)`.
+
+- Destroying a drawer: `DrawerInstance.destroy()`
+
+- Hiding a drawer: `DrawerInstance.hide()`
+
+- Showing a drawer: `DrawerInstance.show()`
+
+- Updating a drawer: `DrawerInstance.update()`
+
+{{ plugin }}
+
 ## API
 ### Drawer Props
 

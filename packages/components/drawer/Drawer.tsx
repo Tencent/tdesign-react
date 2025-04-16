@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdDrawerProps, DrawerEventSource } from './type';
+import type { TdDrawerProps, DrawerEventSource, DrawerInstance } from './type';
 import { StyledProps } from '../common';
 import Button, { ButtonProps } from '../button';
 import useConfig from '../hooks/useConfig';
@@ -18,6 +18,7 @@ import useLockStyle from './hooks/useLockStyle';
 import useDefaultProps from '../hooks/useDefaultProps';
 import parseTNode from '../_util/parseTNode';
 import useAttach from '../hooks/useAttach';
+import useSetState from '../hooks/useSetState';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -26,9 +27,11 @@ export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   KEYDOWN_ESC: 'esc',
 };
 
-export interface DrawerProps extends TdDrawerProps, StyledProps {}
+export interface DrawerProps extends TdDrawerProps, StyledProps {
+  isPlugin?: boolean; // 是否以插件形式调用
+}
 
-const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
+const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
   const { CloseIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon });
@@ -36,6 +39,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
   const cancelText = t(local.cancel);
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
+  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...props });
   const {
     className,
     style,
@@ -67,7 +71,8 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     destroyOnClose,
     sizeDraggable,
     forceRender,
-  } = props;
+    isPlugin,
+  } = state;
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
@@ -86,14 +91,35 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>((originalProps, ref) => {
     return dragSizeValue || sizeMap[size] || size;
   }, [dragSizeValue, size]);
 
-  useLockStyle({ ...props, sizeValue, drawerWrapper: drawerWrapperRef.current });
-  useImperativeHandle(ref, () => containerRef.current);
+  useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
+  useImperativeHandle(ref, () => ({
+    show() {
+      setState({ visible: true });
+    },
+    hide() {
+      setState({ visible: false });
+    },
+    destroy() {
+      setState({ visible: false, destroyOnClose: true });
+    },
+    update(options) {
+      setState((prevState) => ({ ...prevState, ...options }));
+    },
+  }));
 
   useEffect(() => {
-    if (!visible) return;
-    // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
-    containerRef.current?.focus?.();
+    if (visible) {
+      // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
+      containerRef.current?.focus?.();
+    }
   }, [visible]);
+
+  useEffect(() => {
+    // 非插件式调用 更新props
+    if (!isPlugin) {
+      setState((prevState) => ({ ...prevState, ...props }));
+    }
+  }, [isPlugin, props, setState]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
