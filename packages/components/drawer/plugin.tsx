@@ -5,6 +5,8 @@ import DrawerComponent, { DrawerProps } from './Drawer';
 
 import { getAttach } from '../_util/dom';
 import type { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
+import ConfigProvider from '../config-provider';
+import PluginContainer from '../common/PluginContainer';
 
 const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const drawerRef = React.createRef<DrawerInstance>();
@@ -13,7 +15,9 @@ const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const { visible = false } = props;
 
   const fragment = document.createDocumentFragment();
-  render(<DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin />, fragment);
+
+  const dGlobalConfig = ConfigProvider.getGlobalConfig();
+  render(<PluginContainer globalConfig={dGlobalConfig}><DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin /></PluginContainer>, fragment);
 
   const container = getAttach(props.attach);
   if (container) {
