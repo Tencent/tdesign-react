@@ -237,6 +237,10 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    */
   onChange?: (value: CascaderValue<CascaderOption>, context: CascaderChangeContext<CascaderOption>) => void;
   /**
+   * 清空按钮点击时触发
+   */
+  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
    * 获得焦点时触发
    */
   onFocus?: (context: { value: CascaderValue<CascaderOption>; e: FocusEvent<HTMLDivElement> }) => void;

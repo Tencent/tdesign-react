@@ -186,9 +186,10 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         });
         props?.selectInputProps?.onFocus?.(val, context);
       }}
-      onClear={(context) => {
+      onClear={(context: { e }) => {
         closeIconClickEffect(cascaderContext);
         props?.selectInputProps?.onClear?.(context);
+        props.onClear?.(context);
       }}
       {...omit(props.selectInputProps, [
         'onTagChange',
