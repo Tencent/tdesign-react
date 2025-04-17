@@ -52,6 +52,7 @@ const TimePicker = forwardRefWithStatics(
       onOpen = noop,
       onInput = noop,
       onPick = noop,
+      onClear = noop,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -78,11 +79,12 @@ const TimePicker = forwardRefWithStatics(
       visible ? onOpen(context) : onClose(context); // trigger on-open and on-close
     };
 
-    const handleClear = (context: { e: React.MouseEvent }) => {
+    const handleClear = (context: { e }) => {
       const { e } = context;
       e.stopPropagation();
       setCurrentValue('');
       onChange(null);
+      onClear(context);
     };
 
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
