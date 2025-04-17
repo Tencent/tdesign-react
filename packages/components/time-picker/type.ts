@@ -110,7 +110,7 @@ export interface TdTimePickerProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
   /**
    * 面板关闭时触发
    */

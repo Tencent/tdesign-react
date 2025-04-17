@@ -186,7 +186,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         });
         props?.selectInputProps?.onFocus?.(val, context);
       }}
-      onClear={(context: { e }) => {
+      onClear={(context) => {
         closeIconClickEffect(cascaderContext);
         props?.selectInputProps?.onClear?.(context);
         props.onClear?.(context);

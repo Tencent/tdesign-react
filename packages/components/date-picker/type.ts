@@ -156,7 +156,7 @@ export interface TdDatePickerProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
   /**
    * 如果存在“确定”按钮，则点击“确定”按钮时触发
    */

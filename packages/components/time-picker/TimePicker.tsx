@@ -79,7 +79,7 @@ const TimePicker = forwardRefWithStatics(
       visible ? onOpen(context) : onClose(context); // trigger on-open and on-close
     };
 
-    const handleClear = (context: { e }) => {
+    const handleClear = (context: { e: React.MouseEvent<SVGSVGElement> }) => {
       const { e } = context;
       e.stopPropagation();
       setCurrentValue('');
