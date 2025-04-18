@@ -333,6 +333,10 @@ export interface TdDateRangePickerProps {
    */
   onChange?: (value: DateRangeValue, context: { dayjsValue?: Dayjs[]; trigger?: DatePickerTriggerSource }) => void;
   /**
+   * 清空按钮点击时触发
+   */
+  onClear?: (context: { e: MouseEvent<SVGSVGElement> }) => void;
+  /**
    * 如果存在“确定”按钮，则点击“确定”按钮时触发
    */
   onConfirm?: (context: { date: Date[]; e: MouseEvent<HTMLDivElement>; partial: DateRangePickerPartial }) => void;

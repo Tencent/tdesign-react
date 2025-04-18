@@ -76,6 +76,7 @@ export default function useRange(props: TdDateRangePickerProps) {
       e.stopPropagation();
       handlePopupInvisible();
       onChange([], { dayjsValue: [], trigger: 'clear' });
+      props.onClear?.({ e });
     },
     onBlur: (newVal: string[], { e, position }) => {
       props.onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
