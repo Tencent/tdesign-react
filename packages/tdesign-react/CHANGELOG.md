@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.6 `2025-04-11` 
+### 🚀 Features
+- `Breadcrumb`: 新增`ellipsis`、`maxItems`、`itemsAfterCollapse`、`itemsBeforeCollapse`相关API，用于折叠选项的场景，具体使用参考示例 @moecasts ([#3487](https://github.com/Tencent/tdesign-react/pull/3487))
+
+### 🐞 Bug Fixes
+- `RadioGroup`: 优化`RadioGroup` 切换展示的高亮效果问题 @RylanBot ([#3446](https://github.com/Tencent/tdesign-react/pull/3446))
+- `Tag`: 修复 `style` 优先级低于 `color` ，导致无法强制覆盖标签样式的场景 @uyarn ([#3492](https://github.com/Tencent/tdesign-react/pull/3492))
+- `ColorPicker`：修复单色和渐变切换使用的效果异常问题 @RylanBot ([#3493](https://github.com/Tencent/tdesign-react/pull/3493))
+- `Table`: 修复可调整列宽表格右侧拖拽调整的异常问题 @uyarn ([#3496](https://github.com/Tencent/tdesign-react/pull/3496))
+- `Swiper`: 优化默认容器高度，避免 navigator 位置异常的问题 @uyarn ([#3490](https://github.com/Tencent/tdesign-react/pull/3490))
+### 📝 Documentation
+- `Swiper`: 优化`Swiper` 组件跳转沙箱演示缺失示例样式的问题 @uyarn ([#3490](https://github.com/Tencent/tdesign-react/pull/3490))
+
+### 🚧 Others
+-  `1.12.0` 版本将全面兼容 React 19 的使用，有 React 19相关使用场景需求，可升级 `1.12.0-alpha.3` 版本进行试用
+
 ## 🌈 1.11.4 `2025-04-03` 
 ### 🐞 Bug Fixes
 - `Select`: 修复 `options`为空时会导致报错引发白屏的问题 @2ue ([#3484](https://github.com/Tencent/tdesign-react/pull/3484))

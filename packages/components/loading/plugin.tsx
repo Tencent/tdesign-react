@@ -2,6 +2,8 @@ import React from 'react';
 import { render, unmount } from '../_util/react-render';
 import Loading, { LoadingProps } from './Loading';
 import { LoadingInstance, TdLoadingProps } from './type';
+import PluginContainer from '../common/PluginContainer';
+import ConfigProvider from '../config-provider';
 
 function createContainer(attach?: TdLoadingProps['attach']) {
   if (typeof attach === 'string') return document.querySelector(attach);
@@ -28,7 +30,9 @@ export const LoadingPlugin: LoadingPluginMethod = (options) => {
     showOverlay: !!attach,
   };
 
-  render(<Loading {...defaultProps} {...props} attach={null}></Loading>, div);
+  const dGlobalConfig = ConfigProvider.getGlobalConfig();
+
+  render(<PluginContainer globalConfig={dGlobalConfig}><Loading {...defaultProps} {...props} attach={null}></Loading></PluginContainer>, div);
 
   container.appendChild(div);
 

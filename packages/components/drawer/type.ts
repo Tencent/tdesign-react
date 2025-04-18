@@ -192,4 +192,4 @@ export interface DrawerCloseContext {
   e: MouseEvent<HTMLDivElement | HTMLButtonElement> | KeyboardEvent<HTMLDivElement>;
 }
 
-export type DrawerMethod = (options?: DrawerOptions) => void;
+export type DrawerMethod = (options?: DrawerOptions) => DrawerInstance;
