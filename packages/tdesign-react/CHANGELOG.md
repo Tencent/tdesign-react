@@ -13,6 +13,7 @@ spline: explain
 - `ColorPicker`: 新增 `clearable` API @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
 ### 🐞 Bug Fixes
 - `DatePicker`: 确保外部组件主动关闭 Popup 的时候，能有对应的 onVisibleChange 回调 @RylanBot ([#3510](https://github.com/Tencent/tdesign-react/pull/3510))
+- `Drawer`: 新增 `DrawerPlugin`，支持函数式调用，具体使用参考示例 @Wesley-0808 ([#3381](https://github.com/Tencent/tdesign-react/pull/3381))
 - `InputNumber`: 修复组件未受 value 属性控制的问题 @RSS1102 ([#3499](https://github.com/Tencent/tdesign-react/pull/3499))
 - `ImageViewer`
      - 修复设置`step` 存在精度展示异常的问题 @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
