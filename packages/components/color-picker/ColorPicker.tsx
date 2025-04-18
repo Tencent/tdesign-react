@@ -10,7 +10,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassName();
-  const { popupProps, disabled, borderless, inputProps, onChange, colorModes, ...rest } =
+  const { popupProps, clearable, disabled, borderless, inputProps, onChange, onClear, colorModes, ...rest } =
     useDefaultProps<ColorPickerProps>(props, colorPickerDefaultProps);
   const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
@@ -48,11 +48,13 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     >
       <div className={`${baseClassName}__trigger`} ref={triggerRef}>
         <ColorTrigger
+          clearable={clearable}
           disabled={disabled}
           borderless={borderless}
           inputProps={inputProps}
           value={innerValue}
           onChange={setInnerValue}
+          onClear={onClear}
         />
       </div>
     </Popup>

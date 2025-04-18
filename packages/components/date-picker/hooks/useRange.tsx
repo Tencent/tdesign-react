@@ -47,6 +47,11 @@ export default function useRange(props: TdDateRangePickerProps) {
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(() => formatDate(value, { format }));
 
+  const handlePopupInvisible = () => {
+    setPopupVisible(false);
+    props.popupProps?.onVisibleChange?.(false, {});
+  };
+
   // input 设置
   const rangeInputProps = {
     ...props.rangeInputProps,
@@ -69,8 +74,9 @@ export default function useRange(props: TdDateRangePickerProps) {
     },
     onClear: ({ e }) => {
       e.stopPropagation();
-      setPopupVisible(false);
+      handlePopupInvisible();
       onChange([], { dayjsValue: [], trigger: 'clear' });
+      props.onClear?.({ e });
     },
     onBlur: (newVal: string[], { e, position }) => {
       props.onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
@@ -103,7 +109,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onEnter: (newVal: string[]) => {
       if (!isValidDate(newVal, format) && !isValidDate(value, format)) return;
 
-      setPopupVisible(false);
+      handlePopupInvisible();
       if (isValidDate(newVal, format)) {
         onChange(formatDate(newVal, { format, targetFormat: valueType, autoSwap: true }) as DateValue[], {
           dayjsValue: newVal.map((v) => parseToDayjs(v, format)),

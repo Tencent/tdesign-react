@@ -80,6 +80,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   // 记录面板是否选中过
   const [isSelected, setIsSelected] = useState(false);
 
+  const handlePopupInvisible = () => {
+    setPopupVisible(false);
+    props.popupProps?.onVisibleChange?.(false, {});
+  };
+
   useEffect(() => {
     // 面板展开重置数据
     if (popupVisible) {
@@ -174,7 +179,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setActiveIndex(nextIndex);
       setIsFirstValueSelected(!!nextValue[0]);
     } else {
-      setPopupVisible(false);
+      handlePopupInvisible();
     }
   }
 
@@ -264,7 +269,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setActiveIndex(nextIndex);
       setIsFirstValueSelected(!!nextValue[0]);
     } else if (nextValue.length === 2) {
-      setPopupVisible(false);
+      handlePopupInvisible();
     }
   }
 
@@ -282,7 +287,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         trigger: 'preset',
       });
       props.onPresetClick?.(context);
-      setPopupVisible(false);
+      handlePopupInvisible();
     }
   }
 
