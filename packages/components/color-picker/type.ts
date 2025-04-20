@@ -8,6 +8,7 @@ import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { SelectInputProps } from '../select-input';
 import { TNode } from '../common';
+import { MouseEvent } from 'react';
 
 export interface TdColorPickerProps {
   /**
@@ -15,6 +16,11 @@ export interface TdColorPickerProps {
    * @default false
    */
   borderless?: boolean;
+  /**
+   * 是否可清空
+   * @default false
+   */
+  clearable?: boolean;
   /**
    * 关闭按钮，值为 `true` 显示默认关闭按钮；值为 `false` 或 `undefined` 则不显示关闭按钮；值类型为函数，则表示自定义关闭按钮
    * @default true
@@ -89,6 +95,10 @@ export interface TdColorPickerProps {
    * 选中的色值发生变化时触发，第一个参数 `value` 表示新色值，`context.color` 表示当前调色板控制器的色值，`context.trigger` 表示触发颜色变化的来源
    */
   onChange?: (value: string, context: { color: ColorObject; trigger: ColorPickerChangeTrigger }) => void;
+  /**
+   * 清空按钮点击时触发
+   */
+  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
   /**
    * 调色板控制器的值变化时触发，`context.color` 指调色板控制器的值
    */

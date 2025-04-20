@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.7 `2025-04-18` 
+### 🚀 Features
+- `ConfigProvider`: 新增`isContextEffectPlugin` API，默认关闭，开启后全局配置会影响到`Dialog`、`Loading`、`Drawer`、`Notification` 和`Popup`组件的函数式调用 @lifeiFront ([#3488](https://github.com/Tencent/tdesign-react/pull/3488)) ([#3504](https://github.com/Tencent/tdesign-react/pull/3504))
+- `Tree`: `checkProps`参数支持函数传入，支持不同节点设置不同checkProps @phalera ([#3501](https://github.com/Tencent/tdesign-react/pull/3501))
+- `Clear`: Cascader、ColorPicker、DatePicker、TimePicker 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
+- `ColorPicker`: 新增 `clearable` API @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
+### 🐞 Bug Fixes
+- `DatePicker`: 确保外部组件主动关闭 Popup 的时候，能有对应的 onVisibleChange 回调 @RylanBot ([#3510](https://github.com/Tencent/tdesign-react/pull/3510))
+- `Drawer`: 新增 `DrawerPlugin`，支持函数式调用，具体使用参考示例 @Wesley-0808 ([#3381](https://github.com/Tencent/tdesign-react/pull/3381))
+- `InputNumber`: 修复组件未受 value 属性控制的问题 @RSS1102 ([#3499](https://github.com/Tencent/tdesign-react/pull/3499))
+- `ImageViewer`
+     - 修复设置`step` 存在精度展示异常的问题 @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
+     - 修复 `imageScale` 中参数必填的类型错误 @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
+- `Slider`: 修复打开了输入框模式下，使用 `theme` 为 `col` 的输入框的场景下没有限制大小的问题 @RSS1102 ([#3500](https://github.com/Tencent/tdesign-react/pull/3500))
+- `Tabs`:  优化 `Tabs` 选项卡 `label` 过长时滑动按钮失效的问题 @wonkzhang ([#3507](https://github.com/Tencent/tdesign-react/pull/3507))
+
 ## 🌈 1.11.6 `2025-04-11` 
 ### 🚀 Features
 - `Breadcrumb`: 新增`ellipsis`、`maxItems`、`itemsAfterCollapse`、`itemsBeforeCollapse`相关API，用于折叠选项的场景，具体使用参考示例 @moecasts ([#3487](https://github.com/Tencent/tdesign-react/pull/3487))
@@ -17,6 +33,9 @@ spline: explain
 - `Swiper`: 优化默认容器高度，避免 navigator 位置异常的问题 @uyarn ([#3490](https://github.com/Tencent/tdesign-react/pull/3490))
 ### 📝 Documentation
 - `Swiper`: 优化`Swiper` 组件跳转沙箱演示缺失示例样式的问题 @uyarn ([#3490](https://github.com/Tencent/tdesign-react/pull/3490))
+
+### 🚧 Others
+-  `1.12.0` 版本将全面兼容 React 19 的使用，有 React 19相关使用场景需求，可升级 `1.12.0-alpha.3` 版本进行试用
 
 ## 🌈 1.11.4 `2025-04-03` 
 ### 🐞 Bug Fixes

@@ -5,15 +5,17 @@ import { Input } from '../../input';
 import { TdColorPickerProps } from '..';
 import useClassName from '../hooks/useClassNames';
 import { TdColorContext } from '../interface';
+import noop from '../../_util/noop';
 
-export interface ColorTriggerProps extends Pick<TdColorPickerProps, 'disabled' | 'inputProps' | 'borderless'> {
+export interface ColorTriggerProps
+  extends Pick<TdColorPickerProps, 'disabled' | 'inputProps' | 'borderless' | 'clearable' | 'onClear'> {
   value?: string;
   onChange?: (v?: string, context?: TdColorContext) => {};
 }
 
 const ColorPickerTrigger = (props: ColorTriggerProps) => {
   const baseClassName = useClassName();
-  const { disabled = false, borderless = false, inputProps = { autoWidth: true } } = props;
+  const { disabled = false, borderless = false, inputProps = { autoWidth: true }, clearable, onClear } = props;
 
   const handleChange = (input: string) => {
     if (input !== props.value) {
@@ -28,6 +30,7 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
     <div className={`${baseClassName}__trigger--default`}>
       <Input
         borderless={borderless}
+        clearable={clearable}
         {...inputProps}
         value={props.value}
         disabled={disabled}
@@ -37,6 +40,7 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
           </div>
         }
         onChange={handleChange}
+        onClear={onClear || noop}
       />
     </div>
   );
