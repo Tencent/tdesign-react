@@ -75,13 +75,13 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       return colorInstanceRef.current.linearGradient;
     }
 
-    // 处理开启通明通道时的格式
-    let finalFormat = format as keyof ReturnType<Color['getFormatsColorMap']>;
+    // 处理开启透明通道时的格式
+    let finalFormat = formatRef.current as keyof ReturnType<Color['getFormatsColorMap']>;
     if (enableAlpha) {
       if (format === 'HEX') finalFormat = 'HEX8';
-      if (format === 'RGB' || format === 'RGBA') finalFormat = 'RGBA';
+      if (format === 'RGB') finalFormat = 'RGBA';
       if (format === 'HSL') finalFormat = 'HSLA';
-      if (format === 'HSV') finalFormat = 'HSLA';
+      if (format === 'HSV') finalFormat = 'HSVA';
     }
     return colorInstanceRef.current.getFormatsColorMap()[finalFormat];
   }, [format, enableAlpha]);
