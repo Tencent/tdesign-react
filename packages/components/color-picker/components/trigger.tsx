@@ -4,7 +4,6 @@ import { Color, getColorObject } from '@tdesign/common-js/color-picker/color';
 import { Input } from '../../input';
 import { TdColorPickerProps } from '..';
 import useClassName from '../hooks/useClassNames';
-import useControlled from '../../hooks/useControlled';
 import { TdColorContext } from '../interface';
 
 export interface ColorTriggerProps extends Pick<TdColorPickerProps, 'disabled' | 'inputProps' | 'borderless'> {
@@ -16,11 +15,9 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
   const baseClassName = useClassName();
   const { disabled = false, borderless = false, inputProps = { autoWidth: true } } = props;
 
-  const [value, setValue] = useControlled(props, 'value', props.onChange);
-
   const handleChange = (input: string) => {
-    if (input !== value) {
-      setValue(input, {
+    if (input !== props.value) {
+      props.onChange?.(input, {
         color: getColorObject(new Color(input)),
         trigger: 'input',
       });
@@ -32,11 +29,11 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
       <Input
         borderless={borderless}
         {...inputProps}
-        value={value}
+        value={props.value}
         disabled={disabled}
         label={
           <div className={classNames(`${baseClassName}__trigger--default__color`, `${baseClassName}--bg-alpha`)}>
-            <span className={'color-inner'} style={{ background: value }}></span>
+            <span className={'color-inner'} style={{ background: props.value }}></span>
           </div>
         }
         onChange={handleChange}

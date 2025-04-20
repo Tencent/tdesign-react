@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import classNames from 'classnames';
-import tinyColor from 'tinycolor2';
 import Color, { getColorObject } from '@tdesign/common-js/color-picker/color';
 import { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
 import {
@@ -24,14 +23,11 @@ import AlphaSlider from './alpha';
 import FormatPanel from './format';
 import SwatchesPanel from './swatches';
 
-const mathRound = Math.round;
-
 const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const baseClassName = useClassName();
   const { STATUS } = useCommonClassName();
   const [local, t] = useLocaleReceiver('colorPicker');
   const {
-    value,
     disabled,
     onChange,
     enableAlpha = false,
@@ -53,9 +49,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     if (colorModes.length === 1) return colorModes[0];
     return colorModes.includes('linear-gradient') && Color.isGradientColor(input) ? 'linear-gradient' : 'monochrome';
   };
-  const [mode, setMode] = useState<TdColorModes>(getModeByColor(innerValue));
+  const [mode, setMode] = useState<TdColorModes>(() => getModeByColor(innerValue));
 
-  const isGradient = mode === 'linear-gradient'; // 判断是否为 linear-gradient 模式
+  const isGradient = mode === 'linear-gradient';
   const defaultEmptyColor = isGradient ? DEFAULT_LINEAR_GRADIENT : DEFAULT_COLOR;
 
   const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
@@ -67,18 +63,27 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const update = useCallback(
     (value: string) => {
       colorInstanceRef.current.update(value);
+      // 确保 UI 同步更新
       setUpdateId(updateId + 1);
     },
     [updateId],
   );
 
   const formatValue = useCallback(() => {
-    // 渐变模式下直接输出css样式
+    // 渐变模式下直接输出 CSS 格式
     if (colorInstanceRef.current.isGradient) {
       return colorInstanceRef.current.linearGradient;
     }
-    const finalFormat = format === 'HEX' && enableAlpha ? 'HEX8' : format; // hex should transfer to hex8 when alpha channel is opened
-    return colorInstanceRef.current.getFormatsColorMap()[finalFormat] || colorInstanceRef.current.css;
+
+    // 处理开启通明通道时的格式
+    let finalFormat = format as keyof ReturnType<Color['getFormatsColorMap']>;
+    if (enableAlpha) {
+      if (format === 'HEX') finalFormat = 'HEX8';
+      if (format === 'RGB' || format === 'RGBA') finalFormat = 'RGBA';
+      if (format === 'HSL') finalFormat = 'HSLA';
+      if (format === 'HSV') finalFormat = 'HSLA';
+    }
+    return colorInstanceRef.current.getFormatsColorMap()[finalFormat];
   }, [format, enableAlpha]);
 
   const emitColorChange = useCallback(
@@ -88,39 +93,19 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         color: getColorObject(colorInstanceRef.current),
         trigger: trigger || 'palette-saturation-brightness',
       });
-      update(value);
     },
-    [formatValue, setInnerValue, update],
+    [formatValue, setInnerValue],
   );
 
   useEffect(() => {
-    // 处理单色模式的色值
-    if (typeof value === 'undefined' || mode === 'linear-gradient') return;
-
-    // common Color new 的时候使用 hsv ，一个 rgba 可以对应两个 hsv ，这里先直接用 tinycolor 比较下颜色是否修改了
-    const newUniqColor = tinyColor(value).toRgb();
-    const { r, g, b, a } = newUniqColor;
-    const newUniqRgbaColor = `rgba(${mathRound(r)}, ${mathRound(g)}, ${mathRound(b)}, ${a})`;
-
-    const newColor = new Color(value);
-    const formattedColor = newUniqRgbaColor || DEFAULT_COLOR;
-    const currentColor = colorInstanceRef.current.rgba;
-
-    const isInRightMode = mode === 'monochrome' && !newColor.isGradient;
-
-    if (formattedColor !== currentColor && isInRightMode) {
-      update(value);
-      setMode(getModeByColor(value));
-    }
-  }, [value, formatValue, setInnerValue, mode, update]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    // 根据输入框的数值自动切换模式
-    if (colorModes.length === 1) return;
-
-    update(value);
-    setMode(getModeByColor(value));
-  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+    // 根据颜色自动切换模式
+    if (colorModes.length === 1 || innerValue === formatValue()) return;
+    const newMode = getModeByColor(innerValue);
+    setMode(newMode);
+    // 确保 Format 的 CSS 能同步切换
+    colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
+    update(innerValue);
+  }, [innerValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const baseProps = {
     color: colorInstanceRef.current,
@@ -128,13 +113,17 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     baseClassName,
   };
 
-  const handleModeChange = (value: TdColorModes) => {
-    setMode(value);
+  const handleModeChange = (newMode: TdColorModes) => {
+    setMode(newMode);
+
+    const isGradientMode = newMode === 'linear-gradient';
+    colorInstanceRef.current.isGradient = isGradientMode;
+
     const { rgba, gradientColors, linearGradient } = colorInstanceRef.current;
-    if (value === 'linear-gradient') {
-      colorInstanceRef.current = new Color(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
+    if (isGradientMode) {
+      update(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
     } else {
-      colorInstanceRef.current = new Color(rgba);
+      update(rgba);
     }
     emitColorChange();
   };
@@ -239,9 +228,8 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   // format输入变化
   const handleInputChange = useCallback(
-    (input: string, alpha?: number) => {
+    (input: string) => {
       update(input);
-      colorInstanceRef.current.alpha = alpha;
       emitColorChange('input');
     },
     [emitColorChange, update],
@@ -265,8 +253,11 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
     // 色块点击
     const handleSetColor = (value: string, trigger: ColorPickerChangeTrigger) => {
-      setMode(getModeByColor(value));
-      colorInstanceRef.current = new Color(value);
+      const newMode = getModeByColor(value);
+      setMode(newMode);
+      // 确保在渐变模式下选择纯色块，能切换回单色模式
+      colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
+      update(value);
       emitColorChange(trigger);
     };
 
