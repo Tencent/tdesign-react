@@ -69,6 +69,21 @@ export const docs = [
     ],
   },
   {
+    title: 'AIGC',
+    titleEn: 'aigc',
+    type: 'component',
+    children: [
+      {
+        title: 'Chatbot 智能对话',
+        titleEn: 'Chatbot',
+        name: 'chatbot',
+        path: '/react/components/chatbot',
+        component: () => import('@tdesign/components/chatbot/chatbot.md'),
+        componentEn: () => import('@tdesign/components/chatbot/chatbot.en-US.md'),
+      },
+    ],
+  },
+  {
     title: '基础',
     titleEn: 'Base',
     type: 'component', // 组件文档
