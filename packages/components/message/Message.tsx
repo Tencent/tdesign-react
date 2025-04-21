@@ -106,17 +106,21 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions):
     const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
     if (container.length < 1) {
       const div = document.createElement('div');
+      const mGlobalConfig = ConfigProvider.getGlobalConfig();
+      
       render(
-        <MessageContainer
-          id={containerId}
-          placement={placement}
-          zIndex={zIndex}
-          renderCallback={() => {
-            mountedDom.appendChild(div);
-            const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-            resolve(container[0]);
-          }}
-        />,
+        <PluginContainer globalConfig={mGlobalConfig}>
+          <MessageContainer
+            id={containerId}
+            placement={placement}
+            zIndex={zIndex}
+            renderCallback={() => {
+              mountedDom.appendChild(div);
+              const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+              resolve(container[0]);
+            }}
+          />
+        </PluginContainer>,
         div,
       );
     } else {
