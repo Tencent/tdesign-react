@@ -5,11 +5,13 @@ import '@tencent/tdesign-chatbot/lib/chat-message/content/suggestion-content';
 import '@tencent/tdesign-chatbot/lib/chat-message/content/markdown-content';
 import reactify from '../_util/reactify';
 import '@tencent/tdesign-chatbot/lib/style/index.css';
-import { TdChatProps } from '@tencent/tdesign-chatbot/lib/chatbot/type';
-import { TdChatThinkContentProps } from '@tencent/tdesign-chatbot/lib/chat-message';
-import { TdChatSearchContentProps } from '@tencent/tdesign-chatbot/lib/chat-message';
-import { TdChatSuggestionContentProps } from '@tencent/tdesign-chatbot/lib/chat-message';
-import { TdChatMarkdownContentProps } from '@tencent/tdesign-chatbot/lib/chat-message';
+import {
+  TdChatProps,
+  TdChatThinkContentProps,
+  TdChatSearchContentProps,
+  TdChatSuggestionContentProps,
+  TdChatMarkdownContentProps,
+} from '@tencent/tdesign-chatbot';
 
 const ChatBot: React.ForwardRefExoticComponent<
   Omit<TdChatProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
@@ -32,5 +34,4 @@ const ChatMarkdownContent: React.ForwardRefExoticComponent<
 > = reactify<TdChatMarkdownContentProps>('t-chat-md-content');
 
 export { ChatBot, ChatThinkContent, ChatSearchContent, ChatSuggestionContent, ChatMarkdownContent };
-export type * from '@tencent/tdesign-chatbot/lib/chatbot';
-export type * from '@tencent/tdesign-chatbot/lib/chat-message';
+export type * from '@tencent/tdesign-chatbot';
