@@ -30,9 +30,9 @@ destroyOnClose | Boolean | false | \- | N
 dialogClassName | String | - | \- | N
 draggable | Boolean | false | \- | N
 footer | TNode | true | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-forceRender | Boolean | false | to force render Dialog | N
+forceRender | Boolean | false | to force render Dialog, deprecated, please use `lazy` compatibility support | N
 header | TNode | true | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-lazy | Boolean | false | Enable Dialog lazy loading, the contents of the dialog box are not rendered when enable | N
+lazy | Boolean | true | Enable Dialog lazy loading, the contents of the dialog box are not rendered when enable | N
 mode | String | modal | options: modal/modeless/full-screen | N
 placement | String | top | options: top/center | N
 preventScrollThrough | Boolean | true | \- | N

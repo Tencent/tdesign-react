@@ -66,10 +66,23 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     preventScrollThrough,
     onCloseBtnClick,
     forceRender = false,
+    lazy,
     ...restState
   } = state;
 
+  const hasForceRender = Reflect.has(originalProps, 'forceRender');
+  const hasLazy = Reflect.has(originalProps, 'lazy');
+
+  // 兼容 forceRender，优先级 lazy > forceRender
+  function getCompatibleLazy(hasLazy: boolean, lazy: boolean, hasForceRender: boolean, forceRender: boolean) {
+    if (hasLazy) return lazy;
+    if (hasForceRender) return forceRender;
+    return lazy;
+  }
+
+  const compatibleLazy = getCompatibleLazy(hasLazy, lazy, hasForceRender, forceRender);
   const dialogAttach = useAttach('dialog', attach);
+
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
@@ -193,7 +206,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       in={visible}
       appear
       timeout={300}
-      mountOnEnter={!forceRender}
+      mountOnEnter={compatibleLazy}
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}
