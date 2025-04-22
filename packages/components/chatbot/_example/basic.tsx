@@ -4,14 +4,15 @@ import type {
   TdChatMessageConfig,
   AIMessageContent,
   RequestParams,
-  ChatMessage,
+  ChatMessageType,
   ChatServiceConfig,
   TdChatCustomRenderConfig,
-} from 'tdesign-react';
+  BaseContent,
+} from '@tencent/tdesign-chatbot';
 import { ChatBot } from 'tdesign-react';
 
 // 扩展自定义消息体类型
-declare module '@tencent/tdesign-chatbot-dev/lib/chatbot/core/type.d.ts' {
+declare module '@tencent/tdesign-chatbot' {
   interface AIContentTypeOverrides {
     weather: BaseContent<
       'weather',
@@ -25,7 +26,7 @@ declare module '@tencent/tdesign-chatbot-dev/lib/chatbot/core/type.d.ts' {
 }
 
 // 默认初始化消息
-const mockData: ChatMessage[] = [
+const mockData: ChatMessageType[] = [
   {
     id: '123',
     role: 'user',
@@ -184,9 +185,9 @@ const customRenderConfig: TdChatCustomRenderConfig = {
   }),
 };
 
-const ChatBotReact: React.FC<any> = () => {
+export default function chatSample() {
   const chatRef = useRef<HTMLElement>(null);
-  const [mockMessage, setMockMessage] = React.useState<ChatMessage[]>(mockData);
+  const [mockMessage, setMockMessage] = React.useState<ChatMessageType[]>(mockData);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
@@ -204,14 +205,18 @@ const ChatBotReact: React.FC<any> = () => {
         bad: async ({ message, active }) => {
           // 点踩
         },
-        // suggestion: ({ prompt }) => {
-        //   // 点建议问题
-        //   chatRef?.current?.addPrompt(prompt);
-        // },
+        suggestion: ({ content }) => {
+          console.log('======prompt', content);
+          // 点建议问题
+          // chatRef?.current?.addPrompt(content.prompt);
+        },
       },
       chatContentProps: {
         search: {
           expandable: true,
+        },
+        thinking: {
+          maxHeight: 100,
         },
       },
       customRenderConfig,
@@ -249,6 +254,7 @@ const ChatBotReact: React.FC<any> = () => {
         case 'think':
           return {
             type: 'thinking',
+            status: (status) => (/耗时/.test(rest?.title) ? 'complete' : status),
             data: {
               title: rest.title || '深度思考中',
               text: rest.content || '',
@@ -313,7 +319,7 @@ const ChatBotReact: React.FC<any> = () => {
   return (
     <ChatBot
       ref={chatRef}
-      style={{ height: '100%' }}
+      style={{ height: '400px' }}
       messages={mockData}
       messageProps={messageProps}
       chatServiceConfig={chatServiceConfig}
@@ -322,6 +328,4 @@ const ChatBotReact: React.FC<any> = () => {
       <div slot="input-footer-left" />
     </ChatBot>
   );
-};
-
-export default ChatBotReact;
+}

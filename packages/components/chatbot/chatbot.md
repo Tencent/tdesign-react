@@ -6,9 +6,26 @@ usage: { title: '', description: '' }
 spline: navigation
 ---
 
-### 基础用法
+## 基础用法
 
 {{ basic }}
+
+
+## 消息内容
+
+### 思考过程
+{{ thinkContent }}
+
+
+### markdown消息内容
+{{ markdownContent }}
+
+### 搜索内容
+{{ searchContent }}
+
+### 推荐问题
+{{ suggestionContent }}
+
 
 ## API
 ### Chatbot Props

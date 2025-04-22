@@ -85,7 +85,6 @@ const reactify = <T extends AnyProps = AnyProps>(
         }
         // Complex object
         if (typeof val === 'object') {
-          console.log('====prop', prop);
           if (prop === 'style') {
             this.ref.current?.setAttribute('style', styleObjectToString(val));
           } else {
