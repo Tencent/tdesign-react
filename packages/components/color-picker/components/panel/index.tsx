@@ -99,10 +99,8 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   useEffect(() => {
     // 根据颜色自动切换模式
-    if (colorModes.length === 1 || innerValue === formatValue()) return;
     const newMode = getModeByColor(innerValue);
     setMode(newMode);
-    // 确保 Format 的 CSS 能同步切换
     colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
     update(innerValue);
   }, [innerValue]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -211,7 +209,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         break;
       case 'selectedId':
         colorInstanceRef.current.gradientSelectedId = payload as string;
-        setUpdateId((prevId) => prevId + 1);
         break;
       case 'colors':
         colorInstanceRef.current.gradientColors = payload as GradientColorPoint[];

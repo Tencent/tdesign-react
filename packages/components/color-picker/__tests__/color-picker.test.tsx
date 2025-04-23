@@ -72,11 +72,10 @@ describe('ColorPickerPanel 组件测试', () => {
 
     // 获取移动后的色值
     const { color } = getComputedStyle(thumb);
-    const rgbaColor = color.replace(/rgb\((\d+), (\d+), (\d+)\)/, 'rgba($1, $2, $3, 1)');
 
     // 检查 CSS Input 生成的新渐变色
     expect(container.querySelectorAll('.t-input__inner')[2]).toHaveValue(
-      `linear-gradient(45deg,rgb(79, 172, 255) 0%,${rgbaColor} 100%)`,
+      `linear-gradient(45deg,rgb(79, 172, 255) 0%,${color} 100%)`,
     );
   });
 
