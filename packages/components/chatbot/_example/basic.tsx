@@ -186,7 +186,7 @@ const customRenderConfig: TdChatCustomRenderConfig = {
 };
 
 export default function chatSample() {
-  const chatRef = useRef<HTMLElement>(null);
+  const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
   const [mockMessage, setMockMessage] = React.useState<ChatMessageType[]>(mockData);
 
   // 消息属性配置
