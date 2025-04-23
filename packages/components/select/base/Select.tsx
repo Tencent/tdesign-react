@@ -190,6 +190,8 @@ const Select = forwardRefWithStatics(
         return;
       }
 
+      !reserveKeyword && inputValue && onInputChange('', { e, trigger: 'change' });
+
       const values = [];
       currentOptions.forEach((option) => {
         if (option.group) {
@@ -269,6 +271,7 @@ const Select = forwardRefWithStatics(
         if (filter && isFunction(filter)) {
           return filter(value, option);
         }
+        if ((option as TdOptionProps)?.checkAll === true) return true;
         const upperValue = value.toUpperCase();
         return (option?.label || '').toUpperCase().includes(upperValue);
       };

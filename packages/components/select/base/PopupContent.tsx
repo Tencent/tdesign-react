@@ -93,7 +93,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   });
 
   // 全部可选选项
-  const selectableOptions = useMemo(() => {
+  const selectableOptions = useMemo<TdOptionProps[]>(() => {
     const uniqueOptions = {};
     propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
@@ -108,6 +108,21 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     });
     return Object.values(uniqueOptions);
   }, [propsOptions]);
+
+  // 全选是否选中
+  const checkAllStatus = useMemo(() => {
+    if (!multiple) {
+      return { checked: false, indeterminate: false };
+    }
+    const checked =
+      selectableOptions.length === (value as SelectValue[]).length &&
+      selectableOptions.every((option) => (value as SelectValue[]).includes(option.value));
+
+    const indeterminate =
+      !checked && selectableOptions.some((option) => (value as SelectValue[]).includes(option.value));
+
+    return { checked, indeterminate };
+  }, [multiple, value, selectableOptions]);
 
   const { classPrefix } = useConfig();
   if (!children && !propsOptions) {
@@ -176,7 +191,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={selectableOptions.length}
+                checkAllStatus={checkAllStatus}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
