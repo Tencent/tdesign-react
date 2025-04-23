@@ -115,11 +115,11 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       return { checked: false, indeterminate: false };
     }
     const checked =
-      selectableOptions.length === (value as SelectValue[]).length &&
-      selectableOptions.every((option) => (value as SelectValue[]).includes(option.value));
+      selectableOptions?.length === (value as SelectValue[])?.length &&
+      selectableOptions?.every((option) => (value as SelectValue[])?.includes(option.value));
 
     const indeterminate =
-      !checked && selectableOptions.some((option) => (value as SelectValue[]).includes(option.value));
+      !checked && selectableOptions?.some((option) => (value as SelectValue[])?.includes(option.value));
 
     return { checked, indeterminate };
   }, [multiple, value, selectableOptions]);
