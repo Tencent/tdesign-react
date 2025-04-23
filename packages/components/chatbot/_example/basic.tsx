@@ -205,6 +205,10 @@ export default function chatSample() {
         bad: async ({ message, active }) => {
           // 点踩
         },
+        searchItem: ({ content, event }) => {
+          event.preventDefault();
+          console.log('======searchItem', content);
+        },
         suggestion: ({ content }) => {
           console.log('======prompt', content);
           // 点建议问题

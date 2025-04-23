@@ -18,7 +18,7 @@ export default function SuggestionSample() {
           prompt: '《六姊妹》有哪些负面的评价？',
         },
       ]}
-      onPromptClick={({ content }) => {
+      handlePromptClick={({ content }) => {
         console.log('点击', content);
       }}
     />
