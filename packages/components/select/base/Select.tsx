@@ -214,7 +214,9 @@ const Select = forwardRefWithStatics(
       );
 
       const checkAllValue =
-        !checkAll && allSelectedValue.length !== (props.value as Array<SelectOption>)?.length ? allSelectedValue : [];
+        !checkAll && allSelectedValue.some((value) => !(props.value as Array<SelectValue>).includes(value))
+          ? allSelectedValue
+          : [];
 
       onChange?.(checkAllValue, {
         e,

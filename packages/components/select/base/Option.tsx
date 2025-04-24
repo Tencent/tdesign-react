@@ -107,8 +107,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       return get(item, keys?.value || 'value') === value;
     });
     if (props.checkAll) {
-      selected = checkAllStatus.checked;
-      indeterminate = checkAllStatus.indeterminate;
+      selected = checkAllStatus?.checked;
+      indeterminate = checkAllStatus?.indeterminate;
     }
   }
 
