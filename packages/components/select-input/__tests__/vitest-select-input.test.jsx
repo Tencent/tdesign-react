@@ -36,7 +36,7 @@ describe('SelectInput Component', () => {
   });
 
   it('props.clearable: show clear icon on mouse enter in single select input', async () => {
-    const { container } = render(<SelectInput value={'tdesign'} clearable={true}></SelectInput>);
+    const { container } = render(<SelectInput value={'tdesign'} clearable={true} allowInput></SelectInput>);
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
     expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();

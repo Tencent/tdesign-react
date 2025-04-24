@@ -49,6 +49,7 @@ export default function useSingle(props: TdSelectInputProps) {
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
     suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
+    readonly: !props.allowInput || props.readonly,
   };
 
   const onInnerClear = (context: { e: MouseEvent<SVGSVGElement> }) => {
@@ -82,7 +83,7 @@ export default function useSingle(props: TdSelectInputProps) {
           (props.label || singleValueDisplay) && (
             <>
               {props.label}
-              {singleValueDisplay}
+              {singleValueDisplay as React.ReactNode}
             </>
           )
         }
