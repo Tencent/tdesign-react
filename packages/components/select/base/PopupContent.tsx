@@ -111,16 +111,26 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
 
   // 全选是否选中
   const checkAllStatus = useMemo(() => {
-    if (!multiple) {
+    if (!multiple || !value) {
       return { checked: false, indeterminate: false };
     }
-    const checked = selectableOptions?.every((option) => (value as SelectValue[])?.includes(option.value));
+
+    if (!selectableOptions?.length) {
+      return { checked: true, indeterminate: false };
+    }
+
+    const isValObj = valueType === 'object';
+    const selectedValues: SelectValue[] = isValObj
+      ? (value as SelectValue[])?.map((item) => item[keys?.value || 'value'])
+      : (value as SelectValue[]);
+
+    const checked = selectableOptions?.every((option) => selectedValues?.includes?.(option[keys?.value || 'value']));
 
     const indeterminate =
-      !checked && selectableOptions?.some((option) => (value as SelectValue[])?.includes(option.value));
+      !checked && selectableOptions?.some((option) => selectedValues?.includes?.(option[keys?.value || 'value']));
 
     return { checked, indeterminate };
-  }, [multiple, value, selectableOptions]);
+  }, [multiple, value, selectableOptions, valueType, keys]);
 
   const { classPrefix } = useConfig();
   if (!children && !propsOptions) {
