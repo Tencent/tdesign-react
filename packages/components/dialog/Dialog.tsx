@@ -74,7 +74,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   function getCompatibleLazy(lazy: boolean, forceRender: boolean) {
     const hasLazy = Reflect.has(originalProps, 'lazy');
     if (hasLazy) return lazy;
-    if (forceRender) return forceRender;
+    if (forceRender) return !forceRender;
     return lazy;
   }
 
