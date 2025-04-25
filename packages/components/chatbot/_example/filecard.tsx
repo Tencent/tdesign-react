@@ -22,7 +22,7 @@ const filesList: TdAttachmentItem[] = [
     name: 'pdf-file.pdf',
     size: 444444,
     extension: '.docx',
-    description: 'Custom extension',
+    description: '自定义文件扩展类型',
   },
   {
     name: 'ppt-file.pptx',
@@ -57,7 +57,12 @@ export default function Cards() {
   return (
     <Space breakLine>
       {filesList.map((file, index) => (
-        <Filecard key={index} item={file} onRemove={(e) => console.log('remove', e.detail)}></Filecard>
+        <Filecard
+          key={index}
+          item={file}
+          onRemove={(e) => console.log('remove', e.detail)}
+          removable={index % 2 === 0}
+        ></Filecard>
       ))}
     </Space>
   );
