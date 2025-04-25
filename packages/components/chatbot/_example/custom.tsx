@@ -79,6 +79,11 @@ export default function ChatBotReact() {
     assistant: {
       placement: 'left',
       customRenderConfig,
+      chatContentProps: {
+        thinking: {
+          maxHeight: 100,
+        },
+      },
     },
   };
 
@@ -173,6 +178,7 @@ export default function ChatBotReact() {
       chat.removeEventListener('message_change', update);
     };
   }, []);
+
   return (
     <ChatBot
       ref={chatRef}

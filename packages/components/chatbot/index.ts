@@ -11,6 +11,7 @@ import {
   TdChatSuggestionContentProps,
   TdChatMarkdownContentProps,
   TdChatSenderProps,
+  TdChatbotApi,
 } from '@tencent/tdesign-chatbot';
 import { TdChatLoadingProps } from '@tencent/tdesign-chatbot/lib/chat-loading';
 import { TdChatActionProps } from '@tencent/tdesign-chatbot/lib/chat-action';
@@ -23,7 +24,7 @@ const ChatBot: React.ForwardRefExoticComponent<
 > = reactify<TdChatProps>('t-chatbot');
 
 const ChatSender: React.ForwardRefExoticComponent<
-  Omit<TdChatSenderProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
+  Omit<TdChatSenderProps & TdChatbotApi, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatSenderProps>('t-chat-sender');
 
 const ChatActionBar: React.ForwardRefExoticComponent<
