@@ -8,6 +8,7 @@ import {
   TdChatSearchContentProps,
   TdChatSuggestionContentProps,
   TdChatMarkdownContentProps,
+  TdChatbotApi,
 } from '@tencent/tdesign-chatbot';
 import { TdChatActionProps } from '@tencent/tdesign-chatbot/lib/chat-action';
 import { TdAttachmentsProps } from '@tencent/tdesign-chatbot/lib/attachments';
@@ -15,7 +16,7 @@ import { TdFileCardProps } from '@tencent/tdesign-chatbot/lib/filecard';
 import reactify from '../_util/reactify';
 
 const ChatBot: React.ForwardRefExoticComponent<
-  Omit<TdChatProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
+  Omit<TdChatProps & TdChatbotApi, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatProps>('t-chatbot');
 
 const ChatActionBar: React.ForwardRefExoticComponent<

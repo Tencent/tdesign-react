@@ -24,7 +24,6 @@ const filesList: TdAttachmentItem[] = [
     size: 555555,
   },
   {
-    uid: '6',
     name: 'video-file.mp4',
     size: 666666,
   },
@@ -50,16 +49,16 @@ const filesList: TdAttachmentItem[] = [
 ];
 
 const ChatAttachmentExample = () => {
-  const [list, setlist] = useState<TdAttachmentItem[]>(filesList.map((item, index) => ({ ...item, uid: index + 1 })));
+  const [list, setlist] = useState<TdAttachmentItem[]>(filesList);
 
   const onRemove = (item) => {
     console.log('remove', item);
-    setlist(list.filter((a) => a.uid !== item.detail.uid));
+    setlist(list.filter((a) => a.name !== item.detail.name));
   };
 
   return (
     <Space style={{ width: '680px' }}>
-      <Attachments items={list} overflow="scrollX" onRemove={onRemove}></Attachments>
+      <Attachments items={list} overflow="scrollX" onRemove={onRemove} imageViewer={true}></Attachments>
     </Space>
   );
 };

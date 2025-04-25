@@ -18,11 +18,10 @@ const customRenderConfig: TdChatCustomRenderConfig = {
   }),
 };
 
-const CustomWeather = ({ city, conditions, test }) => {
-  console.log('====city, conditions', city, conditions);
+const CustomWeather = ({ city, conditions }) => {
   return (
     <div>
-      今天{city}天气{conditions}-{test}
+      今天{city}天气{conditions}
     </div>
   );
 };
@@ -69,7 +68,6 @@ const mockData: ChatMessagesData[] = [
 
 export default function ChatBotReact() {
   const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
-  const [test, settest] = useState(1);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
   // 消息属性配置
@@ -81,6 +79,11 @@ export default function ChatBotReact() {
     assistant: {
       placement: 'left',
       customRenderConfig,
+      chatContentProps: {
+        thinking: {
+          maxHeight: 100,
+        },
+      },
     },
   };
 
@@ -175,6 +178,7 @@ export default function ChatBotReact() {
       chat.removeEventListener('message_change', update);
     };
   }, []);
+
   return (
     <ChatBot
       ref={chatRef}
@@ -194,11 +198,7 @@ export default function ChatBotReact() {
               case 'weather':
                 return (
                   <div slot={`${data.id}-${item.type}-${item.id}`} key={`${data.id}-${item.type}-${item.id}`}>
-                    <CustomWeather
-                      city={item.data.city}
-                      conditions={item.data.conditions}
-                      test={JSON.stringify(data.content).length}
-                    />
+                    <CustomWeather city={item.data.city} conditions={item.data.conditions} />
                   </div>
                 );
             }

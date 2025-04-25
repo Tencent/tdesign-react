@@ -6,9 +6,8 @@ import type {
   RequestParams,
   ChatMessagesData,
   ChatServiceConfig,
-  TdChatCustomRenderConfig,
 } from 'tdesign-react';
-import { ChatBot } from 'tdesign-react';
+import { ChatBot, type TdChatbotApi } from 'tdesign-react';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -155,8 +154,7 @@ const mockData: ChatMessagesData[] = [
 ];
 
 export default function chatSample() {
-  const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
-  const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
+  const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
@@ -169,18 +167,26 @@ export default function chatSample() {
       onActions: {
         good: async ({ message, active }) => {
           // 点赞
+          console.log('点赞', message, active);
         },
         bad: async ({ message, active }) => {
           // 点踩
+          console.log('点踩', message, active);
+        },
+        replay: ({ message, active }) => {
+          console.log('自定义重新回复', message, active);
+          chatRef?.current?.regenerate();
         },
         searchItem: ({ content, event }) => {
           event.preventDefault();
-          console.log('======searchItem', content);
+          console.log('点击搜索条目', content);
         },
         suggestion: ({ content }) => {
-          console.log('======prompt', content);
-          // 点建议问题
-          // chatRef?.current?.addPrompt(content.prompt);
+          console.log('点击建议问题', content);
+          // 点建议问题自动填入输入框
+          chatRef?.current?.addPrompt(content.prompt);
+          // 点建议问题直接发送消息
+          // chatRef?.current?.sendUserMessage({ prompt: content.prompt });
         },
       },
       chatContentProps: {
@@ -272,20 +278,6 @@ export default function chatSample() {
       };
     },
   };
-
-  // useEffect(() => {
-  //   if (!chatRef?.current) {
-  //     return;
-  //   }
-  //   const chat = chatRef.current;
-  //   const update = (e: CustomEvent) => {
-  //     setMockMessage(e.detail);
-  //   }
-  //   chat.addEventListener('message_change', update);
-  //   return () => {
-  //     chat.removeEventListener('message_change', update)
-  //   }
-  // }, []);
 
   return (
     <ChatBot

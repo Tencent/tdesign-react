@@ -175,6 +175,7 @@ const reactify = <T extends AnyProps = AnyProps>(
             // 其他函数
             (this.ref.current as any)[prop] = val;
           }
+          (this.ref.current as any)[prop] = val;
           return;
         }
         // Complex object

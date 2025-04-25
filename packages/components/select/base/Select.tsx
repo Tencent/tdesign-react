@@ -396,6 +396,7 @@ const Select = forwardRefWithStatics(
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
+                  e?.nativeEvent?.stopImmediatePropagation?.();
                   const values = getSelectValueArr(value, value[key], true, valueType, keys);
 
                   const { currentSelectedOptions } = getSelectedOptions(
