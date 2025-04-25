@@ -133,7 +133,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     if (multiple) {
       // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label, value: selectedValue, e: event, trigger: 'check' });
+      onChange(values, { label, value: selectedValue, e: event, trigger: selected ? 'uncheck' : 'check' });
     } else {
       // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
