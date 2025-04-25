@@ -4,7 +4,7 @@ import type {
   TdChatMessageConfig,
   AIMessageContent,
   RequestParams,
-  ChatMessageType,
+  ChatMessagesData,
   ChatServiceConfig,
   TdChatCustomRenderConfig,
   BaseContent,
@@ -26,7 +26,7 @@ declare module '@tencent/tdesign-chatbot' {
 }
 
 // 默认初始化消息
-const mockData: ChatMessageType[] = [
+const mockData: ChatMessagesData[] = [
   {
     id: '123',
     role: 'user',
@@ -187,7 +187,7 @@ const customRenderConfig: TdChatCustomRenderConfig = {
 
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
-  const [mockMessage, setMockMessage] = React.useState<ChatMessageType[]>(mockData);
+  const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
