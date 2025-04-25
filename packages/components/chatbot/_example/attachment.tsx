@@ -24,7 +24,6 @@ const filesList: TdAttachmentItem[] = [
     size: 555555,
   },
   {
-    uid: '6',
     name: 'video-file.mp4',
     size: 666666,
   },

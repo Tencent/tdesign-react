@@ -141,11 +141,12 @@ const reactify = <T extends AnyProps = AnyProps>(
         if (['innerRef', 'children'].includes(prop)) return;
         // event handler
         if (typeof val === 'function') {
-          if (prop.match(/^on[A-Za-z]/)) {
-            const eventName = prop.slice(2);
-            const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
-            this.setEvent(omiEventName, val);
-          } else if (prop.match(/^render[A-Za-z]/)) {
+          // if (prop.match(/^on[A-Za-z]/)) {
+          //   const eventName = prop.slice(2);
+          //   const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
+          //   this.setEvent(omiEventName, val);
+          // } else
+          if (prop.match(/^render[A-Za-z]/)) {
             // Handle React function component
             const ReactComponent = val;
             const renderComponent = (params?: any, container?: any) => {
@@ -175,6 +176,7 @@ const reactify = <T extends AnyProps = AnyProps>(
             // 其他函数
             (this.ref.current as any)[prop] = val;
           }
+          (this.ref.current as any)[prop] = val;
           return;
         }
         // Complex object
