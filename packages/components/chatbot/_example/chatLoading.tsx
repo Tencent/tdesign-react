@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { ChatLoading } from '..';
-import Space from '../../space/Space';
+import React from 'react';
+import { ChatLoading, Space } from 'tdesign-react';
 
 const ChatLoadingExample = () => (
   <>

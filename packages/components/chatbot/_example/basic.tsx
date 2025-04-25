@@ -7,23 +7,8 @@ import type {
   ChatMessagesData,
   ChatServiceConfig,
   TdChatCustomRenderConfig,
-  BaseContent,
-} from '@tencent/tdesign-chatbot';
+} from 'tdesign-react';
 import { ChatBot } from 'tdesign-react';
-
-// 扩展自定义消息体类型
-declare module '@tencent/tdesign-chatbot' {
-  interface AIContentTypeOverrides {
-    weather: BaseContent<
-      'weather',
-      {
-        temp: number;
-        city: string;
-        conditions: string;
-      }
-    >;
-  }
-}
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -70,15 +55,6 @@ const mockData: ChatMessagesData[] = [
           text: 'mock分析语境，首先，Omi是一个基于Web Components的前端框架，和Vue的用法可能不太一样。Vue里的v-html指令用于将字符串作为HTML渲染，防止XSS攻击的话需要信任内容。Omi有没有类似的功能呢？mock分析语境，首先，Omi是一个基于Web Components的前端框架，和Vue的用法可能不太一样。Vue里的v-html指令用于将字符串作为HTML渲染，防止XSS攻击的话需要信任内容。Omi有没有类似的功能呢？',
         },
       },
-      // {
-      //   type: 'weather',
-      //   id: 'w1',
-      //   data: {
-      //     temp: 1,
-      //     city: '北京',
-      //     conditions: '多云',
-      //   },
-      // },
       {
         type: 'text',
         data: '它叫 [McMurdo Station ATM](#promptId=atm)，是美国富国银行安装在南极洲最大科学中心麦克默多站的一台自动提款机。',
@@ -178,13 +154,6 @@ const mockData: ChatMessagesData[] = [
   },
 ];
 
-// 自定义渲染-注册插槽规则
-const customRenderConfig: TdChatCustomRenderConfig = {
-  weather: (content) => ({
-    slotName: `${content.type}-${content.id}`,
-  }),
-};
-
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
@@ -194,7 +163,6 @@ export default function chatSample() {
     user: {
       variant: 'base',
       placement: 'right',
-      customRenderConfig,
     },
     assistant: {
       placement: 'left',
@@ -223,7 +191,6 @@ export default function chatSample() {
           maxHeight: 100,
         },
       },
-      customRenderConfig,
     },
   };
 

@@ -6,8 +6,9 @@ import type {
   RequestParams,
   ChatServiceConfig,
   BaseContent,
-  ChatMessageType,
-} from '@tencent/tdesign-chatbot';
+  ChatMessagesData,
+  TdChatCustomRenderConfig,
+} from 'tdesign-react';
 import { ChatBot } from 'tdesign-react';
 
 // 自定义渲染-注册插槽规则
@@ -27,7 +28,7 @@ const CustomWeather = ({ city, conditions, test }) => {
 };
 
 // 扩展自定义消息体类型
-declare module '@tencent/tdesign-chatbot' {
+declare module 'tdesign-react' {
   interface AIContentTypeOverrides {
     weather: BaseContent<
       'weather',
@@ -41,7 +42,7 @@ declare module '@tencent/tdesign-chatbot' {
 }
 
 // 默认初始化消息
-const mockData: ChatMessageType[] = [
+const mockData: ChatMessagesData[] = [
   {
     id: '123',
     role: 'user',
@@ -69,7 +70,7 @@ const mockData: ChatMessageType[] = [
 export default function ChatBotReact() {
   const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
   const [test, settest] = useState(1);
-  const [mockMessage, setMockMessage] = React.useState<ChatMessageType[]>(mockData);
+  const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {

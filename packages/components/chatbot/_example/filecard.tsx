@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { Filecard } from '..';
-import Space from '../../space/Space';
-import { TdAttachmentItem } from '@tencent/tdesign-chatbot/lib/filecard';
+import React from 'react';
+import { Filecard, Space, type TdAttachmentItem } from 'tdesign-react';
 
 const filesList: TdAttachmentItem[] = [
   {

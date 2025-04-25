@@ -1,6 +1,5 @@
 import React from 'react';
-import { ChatActionBar } from '..';
-import Space from '../../space/Space';
+import { Space, ChatActionBar } from 'tdesign-react';
 
 const ChatActionBarExample = () => {
   const onActions = (name, data) => {

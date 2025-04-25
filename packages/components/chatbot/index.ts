@@ -3,7 +3,6 @@ import '@tencent/tdesign-chatbot/lib/chat-message/content/thinking-content';
 import '@tencent/tdesign-chatbot/lib/chat-message/content/search-content';
 import '@tencent/tdesign-chatbot/lib/chat-message/content/suggestion-content';
 import '@tencent/tdesign-chatbot/lib/chat-message/content/markdown-content';
-import reactify from '../_util/reactify';
 import '@tencent/tdesign-chatbot/lib/style/index.css';
 import {
   TdChatProps,
@@ -17,6 +16,7 @@ import { TdChatLoadingProps } from '@tencent/tdesign-chatbot/lib/chat-loading';
 import { TdChatActionProps } from '@tencent/tdesign-chatbot/lib/chat-action';
 import { TdAttachmentsProps } from '@tencent/tdesign-chatbot/lib/attachments';
 import { TdFileCardProps } from '@tencent/tdesign-chatbot/lib/filecard';
+import reactify from '../_util/reactify';
 
 const ChatBot: React.ForwardRefExoticComponent<
   Omit<TdChatProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
