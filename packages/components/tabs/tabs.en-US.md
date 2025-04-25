@@ -35,7 +35,7 @@ destroyOnHide | Boolean | true | \- | N
 disabled | Boolean | false | \- | N
 draggable | Boolean | true | \- | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-lazy | Boolean | false | Enable tab lazy loading | N
+lazy | Boolean | | Enable tab lazy loading | N
 panel | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 removable | Boolean | false | \- | N
 value | String / Number | - | Typescript：`TabValue` | N

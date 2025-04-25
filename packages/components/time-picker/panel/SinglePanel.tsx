@@ -14,11 +14,11 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { padStart, range } from 'lodash-es';
 
+import { AM, PM, EPickerCols, MERIDIEM_LIST, TWELVE_HOUR_FORMAT } from '@tdesign/common-js/time-picker/const';
+import { closestLookup, getPickerCols } from '@tdesign/common-js/time-picker/utils';
 import useConfig from '../../hooks/useConfig';
 import noop from '../../_util/noop';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
-import { AM, PM, EPickerCols, MERIDIEM_LIST, TWELVE_HOUR_FORMAT } from '../../../common/js/time-picker/const';
-import { closestLookup, getPickerCols } from '../../../common/js/time-picker/utils';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 import useDebounce from '../../hooks/useDebounce';

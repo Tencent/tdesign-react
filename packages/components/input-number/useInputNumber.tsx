@@ -1,10 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import useControlled from '../hooks/useControlled';
-import useCommonClassName from '../hooks/useCommonClassName';
-import { InputNumberValue, TdInputNumberProps } from './type';
-// 计算逻辑，统一到 common 中，方便各框架复用（如超过 16 位的大数处理）
 import {
   canAddNumber,
   canInputNumber,
@@ -15,7 +10,12 @@ import {
   getStepValue,
   formatThousandths,
   largeNumberToFixed,
-} from '../../common/js/input-number/number';
+} from '@tdesign/common-js/input-number/number';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useCommonClassName from '../hooks/useCommonClassName';
+import { InputNumberValue, TdInputNumberProps } from './type';
+// 计算逻辑，统一到 common 中，方便各框架复用（如超过 16 位的大数处理）
 import { InputProps } from '../input';
 
 export const specialCode = ['-', '.', 'e', 'E'];
@@ -28,7 +28,6 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   const { classPrefix } = useConfig();
   const [tValue, onChange] = useControlled(props, 'value', props.onChange);
   const [userInput, setUserInput] = useState('');
-  const [displayValue, setDisplayValue] = useState('');
   const [isError, setIsError] = useState<'exceed-maximum' | 'below-minimum'>();
 
   const inputRef = useRef(null);
@@ -182,6 +181,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     });
     setUserInput(getUserInput(newValue));
     if (newValue !== tValue) {
+      setUserInput(tValue as string);
       onChange(newValue as T, { type: 'blur', e: ctx.e });
     }
     props.onBlur?.(newValue, ctx);
@@ -256,8 +256,6 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
     addClasses,
     inputRef,
     listeners,
-    displayValue,
-    setDisplayValue,
     isError,
     setIsError,
     userInput,

@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { isFunction } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 import { TNode } from '../common';
-import log from '../../common/js/log';
 
 // 解析 TNode 数据结构
 export default function parseTNode(

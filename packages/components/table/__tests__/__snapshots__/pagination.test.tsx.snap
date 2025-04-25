@@ -383,12 +383,11 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
                 value="5 条/页"
               >
                 <div
-                  class="t-input t-is-readonly t-align-left t-input--suffix"
+                  class="t-input t-align-left t-input--suffix"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择"
-                    readonly=""
                     type="text"
                     value="5 条/页"
                   />
@@ -432,7 +431,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             width="1em"
           >
             <path
-              d="M15.91 17.5l-5.5-5.5 5.5-5.5-1.41-1.41L7.59 12l6.91 6.91 1.41-1.41z"
+              d="M15.9144 17.5L10.4144 12L15.9144 6.50003L14.5002 5.08582L7.58594 12L14.5002 18.9142L15.9144 17.5Z"
               fill="currentColor"
             />
           </svg>
@@ -456,7 +455,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
               width="1em"
             >
               <path
-                d="M3 10.5h3v3H3v-3zm7.5 0h3v3h-3v-3zm7.5 0h3v3h-3v-3z"
+                d="M3 10.5H6V13.5H3V10.5ZM10.5 10.5H13.5V13.5H10.5V10.5ZM18 10.5H21V13.5H18V10.5Z"
                 fill="currentColor"
               />
             </svg>
@@ -497,7 +496,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
               width="1em"
             >
               <path
-                d="M3 10.5h3v3H3v-3zm7.5 0h3v3h-3v-3zm7.5 0h3v3h-3v-3z"
+                d="M3 10.5H6V13.5H3V10.5ZM10.5 10.5H13.5V13.5H10.5V10.5ZM18 10.5H21V13.5H18V10.5Z"
                 fill="currentColor"
               />
             </svg>
@@ -519,7 +518,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             width="1em"
           >
             <path
-              d="M8.09 17.5l5.5-5.5-5.5-5.5L9.5 5.09 16.41 12 9.5 18.91 8.09 17.5z"
+              d="M8.08594 17.5L13.5859 12L8.08594 6.50003L9.50015 5.08582L16.4144 12L9.50015 18.9142L8.08594 17.5Z"
               fill="currentColor"
             />
           </svg>

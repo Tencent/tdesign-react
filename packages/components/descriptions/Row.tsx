@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { TdDescriptionItemProps } from './type';
+import { TdDescriptionsItemProps } from './type';
 import { LayoutEnum } from '../common';
 import useConfig from '../hooks/useConfig';
 import { DescriptionsContext } from './DescriptionsContext';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
-export type RowProps = { row: TdDescriptionItemProps[] };
+export type RowProps = { row: TdDescriptionsItemProps[] };
 
 const Row: React.FC<RowProps> = (props) => {
   const { row } = props;
@@ -17,7 +17,7 @@ const Row: React.FC<RowProps> = (props) => {
   const COMPONENT_NAME = `${classPrefix}-descriptions`;
 
   // label
-  const label = (node: TdDescriptionItemProps, layout: LayoutEnum = 'horizontal', rowKey?: string) => {
+  const label = (node: TdDescriptionsItemProps, layout: LayoutEnum = 'horizontal', rowKey?: string) => {
     const { span } = node;
     const labelSpan = layout === 'horizontal' ? 1 : span;
     return (
@@ -34,7 +34,7 @@ const Row: React.FC<RowProps> = (props) => {
   };
 
   // content
-  const content = (node: TdDescriptionItemProps, layout: LayoutEnum = 'horizontal', rowKey?: string) => {
+  const content = (node: TdDescriptionsItemProps, layout: LayoutEnum = 'horizontal', rowKey?: string) => {
     const { span } = node;
     const contentSpan = span > 1 && layout === 'horizontal' ? span * 2 - 1 : span;
     return (

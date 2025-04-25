@@ -21,9 +21,9 @@ function Multiple() {
       >
         <SubMenu value="0" title="电器">
           <SubMenu value="0-1" title="电视">
-            <MenuItem value="xiaomi">小米电视</MenuItem>
-            <MenuItem value="soni">索尼电视</MenuItem>
-            <MenuItem value="huawei">华为电视</MenuItem>
+            <MenuItem value="xiaomi">小米电视</MenuItem>
+            <MenuItem value="soni">索尼电视</MenuItem>
+            <MenuItem value="huawei">华为电视</MenuItem>
           </SubMenu>
           <MenuItem value="0-2">
             <span>冰箱</span>
@@ -64,7 +64,12 @@ function Multiple() {
           value="sub-2"
           title="水果蔬菜"
           icon={<UserIcon />}
-          popupProps={{ overlayClassName: 'custom-popup-class' }}
+          popupProps={{
+            overlayStyle: { fontWeight: 'normal' },
+            overlayInnerStyle: { fontWeight: 'normal' },
+            overlayClassName: 'sub-menu-custom-overlay-class',
+            overlayInnerClassName: 'sub-menu-custom-overlay-inner-class',
+          }}
         >
           <MenuItem value="5">
             <span>苹果</span>

@@ -3,16 +3,16 @@ import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
-import useConfig from '../../hooks/useConfig';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { TdDatePickerProps } from '../type';
 import {
   isValidDate,
   formatDate,
   formatTime,
   getDefaultFormat,
   parseToDayjs,
-} from '../../../common/js/date-picker/format';
+} from '@tdesign/common-js/date-picker/format';
+import useConfig from '../../hooks/useConfig';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { TdDatePickerProps } from '../type';
 import useSingleValue from './useSingleValue';
 import type { TdPopupProps } from '../../popup/type';
 
@@ -38,6 +38,11 @@ export default function useSingleInput(props: TdDatePickerProps) {
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(() => formatDate(value, { format }));
 
+  const handlePopupInvisible = () => {
+    setPopupVisible(false);
+    props.popupProps?.onVisibleChange?.(false, {});
+  };
+
   // input 设置
   let inputProps: TdDatePickerProps['inputProps'] & { ref?: React.MutableRefObject<HTMLInputElement> } = {
     ...props.inputProps,
@@ -45,7 +50,8 @@ export default function useSingleInput(props: TdDatePickerProps) {
     size: props.size,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
-    readonly: !props.allowInput,
+    // 输入框是否允许输入
+    allowInput: props.allowInput,
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     className: classNames({
@@ -53,7 +59,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     }),
     onClear: ({ e }) => {
       e.stopPropagation();
-      setPopupVisible(false);
+      handlePopupInvisible();
       onChange('', { dayjsValue: dayjs(), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
@@ -79,13 +85,13 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onEnter: (val: string) => {
       if (!val) {
         onChange('', { dayjsValue: dayjs(), trigger: 'enter' });
-        setPopupVisible(false);
+        handlePopupInvisible();
         return;
       }
 
       if (!isValidDate(val, format) && !isValidDate(value, format)) return;
 
-      setPopupVisible(false);
+      handlePopupInvisible();
       if (isValidDate(val, format)) {
         onChange(formatDate(val, { format, targetFormat: valueType }), {
           dayjsValue: parseToDayjs(val, format),

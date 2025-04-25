@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import {
   SATURATION_PANEL_DEFAULT_HEIGHT,
   SATURATION_PANEL_DEFAULT_WIDTH,
-} from '../../../../common/js/color-picker/constants';
+} from '@tdesign/common-js/color-picker/constants';
 import { TdColorBaseProps } from '../../interface';
 import useDrag, { Coordinate } from '../../../hooks/useDrag';
 

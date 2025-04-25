@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
+import { getSizeDraggable, calcMoveSize } from '@tdesign/common-js/drawer/utils';
 import { TdDrawerProps } from '../type';
 import { Styles } from '../../common';
-import { getSizeDraggable, calcMoveSize } from '../../../common/js/drawer/utils';
 
 const useDrag = (
   placement: TdDrawerProps['placement'],
@@ -9,36 +9,44 @@ const useDrag = (
   onSizeDragEnd: TdDrawerProps['onSizeDragEnd'],
 ) => {
   const [dragSizeValue, changeDragSizeValue] = useState<string>(null);
+  // 使用 ref 来存储当前拖拽的宽度值
+  const dragSizeRef = useRef<number>(0);
 
-  const handleMousemove = (e: MouseEvent) => {
-    // 鼠标移动时计算draggedSizeValue的值
-    const { x, y } = e;
+  const handleMousemove = useCallback(
+    (e: MouseEvent) => {
+      // 如果 sizeDraggable 是 boolean 值的 false，则不进行后续的计算
+      if (sizeDraggable === false) return;
 
-    const maxHeight = document.documentElement.clientHeight;
-    const maxWidth = document.documentElement.clientWidth;
-    const offsetHeight = 8;
-    const offsetWidth = 8;
-    // x 轴方向使用最大宽度，y轴方向使用最大高度
-    const max = placement === 'left' || placement === 'right' ? maxWidth : maxHeight;
-    // x 轴方向使用默认最小宽度，y轴方向使用默认最小高度
-    const min = placement === 'left' || placement === 'right' ? offsetWidth : offsetHeight;
+      // 鼠标移动时计算draggedSizeValue的值
+      const { x, y } = e;
 
-    const { allowSizeDraggable, max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, { max, min });
+      const maxHeight = document.documentElement.clientHeight;
+      const maxWidth = document.documentElement.clientWidth;
+      const offsetHeight = 8;
+      const offsetWidth = 8;
+      // x 轴方向使用最大宽度，y轴方向使用最大高度
+      const max = placement === 'left' || placement === 'right' ? maxWidth : maxHeight;
+      // x 轴方向使用默认最小宽度，y轴方向使用默认最小高度
+      const min = placement === 'left' || placement === 'right' ? offsetWidth : offsetHeight;
 
-    if (!allowSizeDraggable) return;
+      const { max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, { max, min });
 
-    const moveSize = calcMoveSize(placement, {
-      x,
-      y,
-      maxWidth,
-      maxHeight,
-      max: limitMax,
-      min: limitMin,
-    });
+      const moveSize = calcMoveSize(placement, {
+        x,
+        y,
+        maxWidth,
+        maxHeight,
+        max: limitMax,
+        min: limitMin,
+      });
 
-    if (typeof moveSize === 'undefined') return;
-    changeDragSizeValue(`${moveSize}px`);
-  };
+      if (typeof moveSize === 'undefined') return;
+      changeDragSizeValue(`${moveSize}px`);
+      dragSizeRef.current = moveSize;
+    },
+    [placement, sizeDraggable],
+  );
+
   const draggableLineStyles: Styles = useMemo(() => {
     // 设置拖拽control的样式
     const isHorizontal = ['right', 'left'].includes(placement);
@@ -58,20 +66,25 @@ const useDrag = (
       cursor: isHorizontal ? 'col-resize' : 'row-resize',
     };
   }, [placement]);
-  const handleMouseup = (e: MouseEvent) => {
-    document.removeEventListener('mouseup', handleMouseup, true);
-    document.removeEventListener('mousemove', handleMousemove, true);
-    onSizeDragEnd?.({
-      e,
-      size: parseInt(dragSizeValue, 10),
-    });
-  };
 
-  const enableDrag = () => {
-    // mousedown绑定mousemove和mouseup事件
+  const handleMouseup = useCallback(
+    (e: MouseEvent) => {
+      document.removeEventListener('mouseup', handleMouseup, true);
+      document.removeEventListener('mousemove', handleMousemove, true);
+      onSizeDragEnd?.({
+        e,
+        // 此处不要使用 dragSizeValue，useState 的更新是异步的，在鼠标拖拽的同步操作中取不到最新的值
+        size: dragSizeRef.current,
+      });
+    },
+    [handleMousemove, onSizeDragEnd],
+  );
+
+  const enableDrag = useCallback(() => {
+    // mousedown 绑定 mousemove 和 mouseup 事件
     document.addEventListener('mouseup', handleMouseup, true);
     document.addEventListener('mousemove', handleMousemove, true);
-  };
+  }, [handleMousemove, handleMouseup]);
 
   return { dragSizeValue, enableDrag, draggableLineStyles };
 };

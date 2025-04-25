@@ -9,6 +9,8 @@ import { TNode } from '../common';
 import { TdPopupProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
+import PluginContainer from '../common/PluginContainer';
+import ConfigProvider from '../config-provider';
 
 export interface PopupPluginApi {
   config: TdPopupProps;
@@ -141,7 +143,8 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     >
       <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyleMerge()}>
         {content}
-        {showArrow && <div className={`${componentName}__arrow`}></div>}
+        {/* popper.js 修饰符(modifiers)的高级功能 arrow 会自动根据属性 data-popper-arrow 来识别箭头元素，从而支持调整箭头位置(padding) */}
+        {showArrow && <div className={`${componentName}__arrow`} data-popper-arrow></div>}
       </div>
     </div>
   );
@@ -169,7 +172,8 @@ export type PluginMethod = (triggerEl: TriggerEl, content: TNode, popupProps?: T
 
 const renderInstance = (props, attach: HTMLElement): Promise<HTMLElement> =>
   new Promise((resolve) => {
-    render(<Overlay {...props} renderCallback={(instance) => resolve(instance)} />, attach);
+    const pGlobalConfig = ConfigProvider.getGlobalConfig();
+    render(<PluginContainer globalConfig={pGlobalConfig}><Overlay {...props} renderCallback={(instance) => resolve(instance)} /></PluginContainer>, attach);
   });
 
 const createPopupInstance: PluginMethod = async (trigger, content, popupProps) => {

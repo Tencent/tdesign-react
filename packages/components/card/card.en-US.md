@@ -1,12 +1,13 @@
 :: BASE_DOC ::
 
 ## API
+
 ### Card Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 actions | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 avatar | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 bordered | Boolean | true | \- | N

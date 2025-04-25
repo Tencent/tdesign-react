@@ -34,6 +34,7 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
     content,
     onClick,
     tooltipProps,
+    readOnly: readonly,
     ...restProps
   } = useDefaultProps<BreadcrumbItemProps>(props, breadcrumbItemDefaultProps);
 
@@ -45,7 +46,8 @@ const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, r
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;
   const textClassName = `${classPrefix}-breadcrumb__inner-text`;
 
-  const textClassNames = classNames(`${classPrefix}-breadcrumb--text-overflow`, {
+  const textClassNames = classNames({
+    [`${classPrefix}-breadcrumb--text-overflow`]: !readonly,
     [commonClassNames.STATUS.disabled]: disabled,
   });
   const separatorClassName = `${classPrefix}-breadcrumb__separator`;

@@ -1,6 +1,7 @@
 :: BASE_DOC ::
 
 ## API
+
 ### Card Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
@@ -12,7 +13,7 @@ avatar | TNode | - | 卡片中的用户头像，仅在海报风格的卡片中�
 bordered | Boolean | true | 是否有边框 | N
 children | TNode | - | 卡片内容，同 content。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 content | TNode | - | 卡片内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-cover | TNode | - | 卡片封面图。值类型为字符串，会自动使用 `img` 标签输出封面图；也可以完全最定义封面图。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+cover | TNode | - | 卡片封面图。值类型为字符串，会自动使用 `img` 标签输出封面图；也可以完全自定义封面图。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 description | TNode | - | 卡片描述文案。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 footer | TNode | - | 卡片底部内容，可完全自定义。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 header | TNode | - | 卡片顶部内容，优先级高于其他所有元素。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

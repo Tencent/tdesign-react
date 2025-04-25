@@ -13,6 +13,8 @@ import { getRoute, filterVersions } from './utils';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
+const isDev = import.meta.env.DEV;
+
 const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig.default).replace(/component:.+/g, ''));
 
 const docsMap = {
@@ -95,6 +97,8 @@ function Components() {
       window.open(historyUrl, '_blank');
       tdSelectRef.current.value = currentVersion;
     };
+
+    if (isDev) return;
 
     initHistoryVersions();
     // eslint-disable-next-line react-hooks/exhaustive-deps

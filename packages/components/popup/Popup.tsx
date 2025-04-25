@@ -221,7 +221,10 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
               onScroll={handleScroll}
             >
               {content}
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
+              {showArrow ? (
+                // popper.js 修饰符(modifiers)的高级功能 arrow 会自动根据属性 data-popper-arrow 来识别箭头元素，从而支持调整箭头位置(padding)
+                <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} data-popper-arrow />
+              ) : null}
             </div>
           </div>
         </CSSTransition>

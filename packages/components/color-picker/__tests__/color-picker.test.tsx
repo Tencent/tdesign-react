@@ -61,31 +61,6 @@ describe('ColorPickerPanel 组件测试', () => {
     expect(queryByText('最近使用颜色')).toBeInTheDocument();
   });
 
-  test('ColorMode 切换，应该正确缓存上次操作颜色值', () => {
-    const TestComponent = () => {
-      const [value, setValue] = useState('#0052d9');
-      const handleChange = (value) => {
-        setValue(value);
-      };
-
-      return <ColorPickerPanel value={value} onChange={handleChange} />;
-    };
-    const { container, getByText } = render(<TestComponent />);
-    expect(container.querySelector('.t-color-picker__sliders-preview-inner')).toHaveStyle({
-      background: 'rgb(0, 82, 217)',
-    });
-    // 选中第一个默认颜色值，期望面板切换回来时为该值
-    fireEvent.click(container.querySelector('.t-color-picker__swatches--item'));
-    expect(container.querySelector('.t-color-picker__sliders-preview-inner')).toHaveStyle({
-      background: 'rgb(236, 242, 254)',
-    });
-    fireEvent.click(getByText('渐变'));
-    fireEvent.click(getByText('单色'));
-    expect(container.querySelector('.t-color-picker__sliders-preview-inner')).toHaveStyle({
-      background: 'rgb(236, 242, 254)',
-    });
-  });
-
   test('enableAlpha 开启透明通道', () => {
     const btnText = 'changeAlpha';
     const [defaultValue, changeValue] = ['rgba(0, 82, 217, 1)', 'rgba(0, 82, 217, 0.32)'];

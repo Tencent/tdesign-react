@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import log from '../../../common/js/log';
+import log from '@tdesign/common-js/log/index';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 import { TdListProps } from '../type';
 import { Styles, type ComponentScrollToElementParams } from '../../common';
