@@ -38,6 +38,7 @@ destroyOnClose | Boolean | false | \- | N
 footer | TNode | true | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 forceRender | Boolean | false | to force render Drawer | N
 header | TNode | true | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+lazy | Boolean | false | Enable Drawer lazy loading, the contents of the Drawer are not rendered when enable | N
 mode | String | overlay | options: overlay/push | N
 placement | String | right | options: left/right/top/bottom | N
 preventScrollThrough | Boolean | true | \- | N
