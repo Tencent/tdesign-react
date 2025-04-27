@@ -38,6 +38,11 @@ export default function useSingleInput(props: TdDatePickerProps) {
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(() => formatDate(value, { format }));
 
+  const handlePopupInvisible = () => {
+    setPopupVisible(false);
+    props.popupProps?.onVisibleChange?.(false, {});
+  };
+
   // input 设置
   let inputProps: TdDatePickerProps['inputProps'] & { ref?: React.MutableRefObject<HTMLInputElement> } = {
     ...props.inputProps,
@@ -54,7 +59,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     }),
     onClear: ({ e }) => {
       e.stopPropagation();
-      setPopupVisible(false);
+      handlePopupInvisible();
       onChange('', { dayjsValue: dayjs(), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
@@ -80,13 +85,13 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onEnter: (val: string) => {
       if (!val) {
         onChange('', { dayjsValue: dayjs(), trigger: 'enter' });
-        setPopupVisible(false);
+        handlePopupInvisible();
         return;
       }
 
       if (!isValidDate(val, format) && !isValidDate(value, format)) return;
 
-      setPopupVisible(false);
+      handlePopupInvisible();
       if (isValidDate(val, format)) {
         onChange(formatDate(val, { format, targetFormat: valueType }), {
           dayjsValue: parseToDayjs(val, format),

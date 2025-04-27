@@ -1237,6 +1237,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 </div>
                 <p>
                   上传中
+                   90%
                 </p>
               </div>
               <div

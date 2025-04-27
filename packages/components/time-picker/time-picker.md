@@ -28,6 +28,7 @@ value | String | - | 选中值。TS 类型：`TimePickerValue` `type TimePickerV
 defaultValue | String | - | 选中值。非受控属性。TS 类型：`TimePickerValue` `type TimePickerValue = string`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/time-picker/type.ts) | N
 onBlur | Function |  | TS 类型：`(context: { value: TimePickerValue } & SelectInputBlurContext) => void`<br/>当输入框失去焦点时触发，value 表示组件当前有效值。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/time-picker/type.ts)。<br/>`import { SelectInputBlurContext } from '@SelectInput'`<br/> | N
 onChange | Function |  | TS 类型：`(value: TimePickerValue) => void`<br/>选中值发生变化时触发 | N
+onClear | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>清空按钮点击时触发 | N
 onClose | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>面板关闭时触发 | N
 onFocus | Function |  | TS 类型：`(context: { value: TimePickerValue; e: FocusEvent }) => void`<br/>输入框获得焦点时触发，value 表示组件当前有效值 | N
 onInput | Function |  | TS 类型：`(context: { value: TimePickerValue; e: InputEvent }) => void`<br/>当输入框内容发生变化时触发，参数 value 表示组件当前有效值 | N

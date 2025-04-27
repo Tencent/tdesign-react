@@ -9,6 +9,8 @@ import { TNode } from '../common';
 import { TdPopupProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
+import PluginContainer from '../common/PluginContainer';
+import ConfigProvider from '../config-provider';
 
 export interface PopupPluginApi {
   config: TdPopupProps;
@@ -170,7 +172,8 @@ export type PluginMethod = (triggerEl: TriggerEl, content: TNode, popupProps?: T
 
 const renderInstance = (props, attach: HTMLElement): Promise<HTMLElement> =>
   new Promise((resolve) => {
-    render(<Overlay {...props} renderCallback={(instance) => resolve(instance)} />, attach);
+    const pGlobalConfig = ConfigProvider.getGlobalConfig();
+    render(<PluginContainer globalConfig={pGlobalConfig}><Overlay {...props} renderCallback={(instance) => resolve(instance)} /></PluginContainer>, attach);
   });
 
 const createPopupInstance: PluginMethod = async (trigger, content, popupProps) => {

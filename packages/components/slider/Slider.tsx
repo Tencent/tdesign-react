@@ -123,6 +123,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
         className={classNames(`${classPrefix}-slider-input`, { 'is-vertical': isVertical })}
         disabled={disabled}
         theme="column"
+        min={min}
+        max={max}
         {...inputProps}
       />
     );

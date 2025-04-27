@@ -40,6 +40,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     multiple,
     label,
     disableTime,
+    onClear,
     onPick,
   } = props;
 
@@ -90,6 +91,11 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       }
     }
   });
+
+  const handlePopupInvisible = () => {
+    setPopupVisible(false);
+    props.popupProps?.onVisibleChange?.(false, {});
+  };
 
   useUpdateEffect(() => {
     //  日期时间选择器不需要点击确认按钮完成的操作
@@ -155,7 +161,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
-      setPopupVisible(false);
+      handlePopupInvisible();
     }
   }
   // 头部快速切换
@@ -215,7 +221,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     } else {
       setInputValue(formatDate(value, { format }));
     }
-    setPopupVisible(false);
+    handlePopupInvisible();
   }
 
   // 预设
@@ -229,7 +235,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       trigger: 'preset',
     });
     props.onPresetClick?.(context);
-    setPopupVisible(false);
+    handlePopupInvisible();
   }
 
   const onYearChange = useCallback((year: number) => {
@@ -278,8 +284,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   const onTagClearClick = ({ e }) => {
     e.stopPropagation();
-    setPopupVisible(false);
+    handlePopupInvisible();
     onChange([], { dayjsValue: dayjs(), trigger: 'clear' });
+    onClear?.({ e });
   };
 
   const panelProps = {
