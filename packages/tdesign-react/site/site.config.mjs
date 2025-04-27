@@ -106,6 +106,14 @@ export const docs = [
         componentEn: () => import('@tdesign/components/chat-actionbar/chat-actionbar.en-US.md'),
       },
       {
+        title: 'ChatMarkdown 消息内容',
+        titleEn: 'ChatMarkdown',
+        name: 'chat-markdown',
+        path: '/react/components/chat-markdown',
+        component: () => import('@tdesign/components/chat-markdown/chat-markdown.md'),
+        componentEn: () => import('@tdesign/components/chat-markdown/chat-markdown.en-US.md'),
+      },
+      {
         title: 'ChatThinking 思考过程',
         titleEn: 'ChatThinking',
         name: 'chat-thinking',
@@ -113,6 +121,7 @@ export const docs = [
         component: () => import('@tdesign/components/chat-thinking/chat-thinking.md'),
         componentEn: () => import('@tdesign/components/chat-thinking/chat-thinking.en-US.md'),
       },
+
       {
         title: 'ChatLoading 对话加载',
         titleEn: 'ChatLoading',
