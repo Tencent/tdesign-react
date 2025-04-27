@@ -72,3 +72,7 @@ export * from './chatbot';
 export * from './chat-loading';
 export * from './chat-thinking';
 export * from './chat-sender';
+export * from './chat-message';
+export * from './chat-actionbar';
+export * from './chat-attachment';
+export * from './chat-filecard';

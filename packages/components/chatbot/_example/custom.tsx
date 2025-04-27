@@ -180,44 +180,46 @@ export default function ChatBotReact() {
   }, []);
 
   return (
-    <ChatBot
-      ref={chatRef}
-      style={{ height: '100%' }}
-      messages={mockData}
-      messageProps={messageProps}
-      chatServiceConfig={chatServiceConfig}
-    >
-      {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
-      <div slot="input-footer-left" />
-      {/* 自定义消息体渲染-植入插槽 */}
-      {mockMessage
-        ?.map((data) =>
-          data.content.map((item) => {
-            switch (item.type) {
-              // 示例：天气消息体
-              case 'weather':
-                return (
-                  <div slot={`${data.id}-${item.type}-${item.id}`} key={`${data.id}-${item.type}-${item.id}`}>
-                    <CustomWeather city={item.data.city} conditions={item.data.conditions} />
-                  </div>
-                );
-            }
-            return null;
-          }),
-        )
-        .flat()}
-      {/* 自定义消息操作区 */}
-      {mockMessage?.map((data) => {
-        // 示例：给用户消息配置操作区
-        if (data.role === 'user') {
-          return (
-            <div slot={`${data.id}-actions`} key={`${data.id}-actions`}>
-              操作区
-            </div>
-          );
-        }
-        return null;
-      })}
-    </ChatBot>
+    <div style={{ height: '600px' }}>
+      <ChatBot
+        ref={chatRef}
+        style={{ height: '100%' }}
+        messages={mockData}
+        messageProps={messageProps}
+        chatServiceConfig={chatServiceConfig}
+      >
+        {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
+        <div slot="input-footer-left" />
+        {/* 自定义消息体渲染-植入插槽 */}
+        {mockMessage
+          ?.map((data) =>
+            data.content.map((item) => {
+              switch (item.type) {
+                // 示例：天气消息体
+                case 'weather':
+                  return (
+                    <div slot={`${data.id}-${item.type}-${item.id}`} key={`${data.id}-${item.type}-${item.id}`}>
+                      <CustomWeather city={item.data.city} conditions={item.data.conditions} />
+                    </div>
+                  );
+              }
+              return null;
+            }),
+          )
+          .flat()}
+        {/* 自定义消息操作区 */}
+        {mockMessage?.map((data) => {
+          // 示例：给用户消息配置操作区
+          if (data.role === 'user') {
+            return (
+              <div slot={`${data.id}-actions`} key={`${data.id}-actions`}>
+                操作区
+              </div>
+            );
+          }
+          return null;
+        })}
+      </ChatBot>
+    </div>
   );
 }

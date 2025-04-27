@@ -14,47 +14,13 @@ spline: navigation
 
 {{ custom }}
 
-## 输入框
-
-{{ chatSender }}
-
-## 消息体
-
-{{ message }}
-
-## 消息加载
-
-{{ chatLoading }}
-
-
-## 消息操作
-
-{{ chatActionBar }} 
-
-## 文件卡片
-
-{{ filecard }} 
-
-## 附件列表
-
-{{ attachment }} 
-
-
-
-## 消息内容
-
-### 思考过程
-{{ thinkContent }}
-
-
-### markdown消息内容
-{{ markdownContent }}
+<!-- ## 消息内容
 
 ### 搜索内容
 {{ searchContent }}
 
 ### 推荐问题
-{{ suggestionContent }}
+{{ suggestionContent }} -->
 
 
 ## API

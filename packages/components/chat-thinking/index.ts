@@ -1,9 +1,5 @@
-import {
-  TdChatThinkContentProps,
-} from '@tencent/tdesign-chatbot';
+import { TdChatThinkContentProps } from '@tencent/tdesign-chatbot';
 import reactify from '../_util/reactify';
-
-
 
 const ChatThinkContent: React.ForwardRefExoticComponent<
   Omit<TdChatThinkContentProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
@@ -13,4 +9,4 @@ export const ChatThinking = ChatThinkContent;
 
 export default ChatThinking;
 
-export type * from '@tencent/tdesign-chatbot';
+export type { TdChatThinkContentProps } from '@tencent/tdesign-chatbot';

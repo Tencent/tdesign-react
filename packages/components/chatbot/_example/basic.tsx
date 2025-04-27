@@ -280,15 +280,11 @@ export default function chatSample() {
   };
 
   return (
-    <ChatBot
-      ref={chatRef}
-      style={{ height: '400px' }}
-      messages={mockData}
-      messageProps={messageProps}
-      chatServiceConfig={chatServiceConfig}
-    >
-      {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
-      <div slot="input-footer-left" />
-    </ChatBot>
+    <div style={{ height: '600px' }}>
+      <ChatBot ref={chatRef} messages={mockData} messageProps={messageProps} chatServiceConfig={chatServiceConfig}>
+        {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
+        <div slot="input-footer-left" />
+      </ChatBot>
+    </div>
   );
 }
