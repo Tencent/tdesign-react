@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { throttle } from 'lodash-es';
-import { getColorFormatInputs, getColorFormatMap } from '@tdesign/common-js/color-picker/format';
+import { Color, getColorFormatInputs, getColorFormatMap } from '@tdesign/common-js/color-picker/index';
 import Input from '../../../../input';
 import InputNumber from '../../../../input-number';
 
 const FormatInputs = (props) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;
+  const modelValueRef = useRef({});
   const lastModelValue = useRef({});
-  const formatValueRef = useRef<any>({});
 
   const updateModelValue = () => {
     const value = getColorFormatMap(color, 'encode')[format];
@@ -16,14 +16,14 @@ const FormatInputs = (props) => {
 
     const changedFormatValue = {};
     Object.keys(value).forEach((key) => {
-      if (value[key] !== formatValueRef.current[key]) {
+      if (value[key] !== modelValueRef.current[key]) {
         changedFormatValue[key] = value[key];
       }
       lastModelValue.current[key] = value[key];
     });
 
     if (Object.keys(changedFormatValue).length > 0) {
-      formatValueRef.current = value;
+      modelValueRef.current = value;
     }
   };
 
@@ -32,15 +32,21 @@ const FormatInputs = (props) => {
     lastModelValue.current[key] = v;
 
     const newFormatValue = {
-      ...formatValueRef.current,
+      ...modelValueRef.current,
       [key]: v,
     };
-    formatValueRef.current = newFormatValue;
+    modelValueRef.current = newFormatValue;
 
+    // 对应 COLOR_FORMAT_INPUTS 中的 key
     if (key === 'a') {
+      // 透明通道
       color.alpha = (v as number) / 100;
-    } else {
+    } else if (key === 'hex' || key === 'css') {
+      // 纯字符串类型的格式
       color.update(v);
+    } else {
+      // 需要进一步转换的格式
+      color.update(Color.object2color(newFormatValue, format));
     }
 
     const value = getColorFormatMap(color, 'decode')[format];
@@ -60,8 +66,8 @@ const FormatInputs = (props) => {
       {getColorFormatInputs(format, enableAlpha).map((config) => {
         const commonProps = {
           ...inputProps,
-          title: formatValueRef.current[config.key],
-          [config.type === 'input' ? 'defaultValue' : 'value']: formatValueRef.current[config.key],
+          title: modelValueRef.current[config.key],
+          [config.type === 'input' ? 'defaultValue' : 'value']: modelValueRef.current[config.key],
           align: 'center',
           disabled,
           size: 'small',

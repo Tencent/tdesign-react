@@ -5,18 +5,16 @@ import FormatInputs from './inputs';
 import { TdColorPickerProps } from '../../../type';
 
 export interface TdColorFormatProps extends TdColorPickerProps {
-  onModeChange: Function;
   onInputChange: Function;
   baseClassName: string;
   color: Color;
 }
 
 const FormatPanel = (props: TdColorFormatProps) => {
-  const { enableAlpha, baseClassName, format, onModeChange, selectInputProps } = props;
+  const { enableAlpha, baseClassName, format, selectInputProps } = props;
   const [formatMode, setFormatMode] = useState(format);
   const handleModeChange = (v: TdColorPickerProps['format']) => {
     setFormatMode(v);
-    onModeChange(v);
   };
 
   return (

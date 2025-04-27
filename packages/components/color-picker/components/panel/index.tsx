@@ -16,8 +16,8 @@ import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import useClassName from '../../hooks/useClassNames';
 import PanelHeader from './header';
-import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
-import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
+import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
+import type { ColorPickerChangeTrigger } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';
 import LinearGradient from './linear-gradient';
 import SaturationPanel from './saturation';
@@ -203,13 +203,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     emitColorChange(trigger);
   };
 
-  // format选择格式变化
-  const handleFormatModeChange = useCallback(
-    (format: TdColorPickerProps['format']) => (formatRef.current = format),
-    [],
-  );
-
-  // format输入变化
+  // format 输入变化
   const handleInputChange = useCallback(
     (input: string) => {
       update(input);
@@ -307,13 +301,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
           ) : null}
         </div>
 
-        <FormatPanel
-          {...props}
-          {...baseProps}
-          format={formatRef.current}
-          onModeChange={handleFormatModeChange}
-          onInputChange={handleInputChange}
-        />
+        <FormatPanel {...props} {...baseProps} format={formatRef.current} onInputChange={handleInputChange} />
         <SwatchesArea />
       </div>
     </div>
