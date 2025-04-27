@@ -4,7 +4,6 @@ import { ChatSender, TdAttachmentItem, UploadFile } from 'tdesign-react';
 const ChatSenderExample = () => {
   const [inputValue, setInputValue] = useState('输入内容');
   const [loading, setLoading] = useState(false);
-  const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [files, setFiles] = useState<TdAttachmentItem[]>([
     {
       name: 'excel-file.xlsx',
@@ -39,7 +38,7 @@ const ChatSenderExample = () => {
     setLoading(false);
   };
 
-  const onAttachmentsRemove = (e: CustomEvent<File[]>) => {
+  const onAttachmentsRemove = (e: CustomEvent<TdAttachmentItem[]>) => {
     console.log('onAttachmentsRemove', e);
     setFiles(e.detail);
   };
