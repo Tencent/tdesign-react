@@ -98,7 +98,7 @@ describe('Affix 组件测试', () => {
     expect(getByText('固钉').parentElement?.style.zIndex).toBe('');
 
     // offsetBottom
-    const isWindow = typeof window !== 'undefined' && window.innerHeight !== undefined;
+    const isWindow = getByText('固钉').parentElement && window instanceof Window;
     const { clientHeight } = document.documentElement;
     const { innerHeight } = window;
     await mockScrollTo((isWindow ? innerHeight : clientHeight) - 40);
