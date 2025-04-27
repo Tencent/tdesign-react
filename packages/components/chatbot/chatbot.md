@@ -18,6 +18,10 @@ spline: navigation
 
 {{ chatSender }}
 
+## 消息体
+
+{{ message }}
+
 ## 消息加载
 
 {{ chatLoading }}
@@ -34,6 +38,7 @@ spline: navigation
 ## 附件列表
 
 {{ attachment }} 
+
 
 
 ## 消息内容
