@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import classNames from 'classnames';
-import Color, { getColorObject } from '@tdesign/common-js/color-picker/color';
-import { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
 import {
+  Color,
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
-  TD_COLOR_USED_COLORS_MAX_SIZE,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-} from '@tdesign/common-js/color-picker/constants';
+  TD_COLOR_USED_COLORS_MAX_SIZE,
+  getColorObject,
+  GradientColorPoint,
+  initColorFormat,
+  type ColorFormat,
+} from '@tdesign/common-js/color-picker/index';
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
@@ -31,7 +34,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     disabled,
     onChange,
     enableAlpha = false,
-    format,
+    format = 'RGB',
     onPaletteBarChange,
     swatchColors,
     className,
@@ -58,7 +61,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     defaultRecentColors: colorPickerDefaultProps.recentColors,
   });
   const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
-  const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : format ?? 'RGB');
+  const formatRef = useRef<ColorFormat>(initColorFormat(format, enableAlpha));
 
   const update = useCallback(
     (value: string) => {
@@ -69,32 +72,15 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     [updateId],
   );
 
-  const formatValue = useCallback(() => {
-    // 渐变模式下直接输出 CSS 格式
-    if (colorInstanceRef.current.isGradient) {
-      return colorInstanceRef.current.linearGradient;
-    }
-
-    // 处理开启透明通道时的格式
-    let finalFormat = formatRef.current as keyof ReturnType<Color['getFormatsColorMap']>;
-    if (enableAlpha) {
-      if (format === 'HEX') finalFormat = 'HEX8';
-      if (format === 'RGB') finalFormat = 'RGBA';
-      if (format === 'HSL') finalFormat = 'HSLA';
-      if (format === 'HSV') finalFormat = 'HSVA';
-    }
-    return colorInstanceRef.current.getFormatsColorMap()[finalFormat];
-  }, [format, enableAlpha]);
-
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
-      const value = formatValue();
+      const value = colorInstanceRef.current.getFormattedColor(formatRef.current, enableAlpha);
       setInnerValue(value, {
         color: getColorObject(colorInstanceRef.current),
         trigger: trigger || 'palette-saturation-brightness',
       });
     },
-    [formatValue, setInnerValue],
+    [enableAlpha, setInnerValue],
   );
 
   useEffect(() => {

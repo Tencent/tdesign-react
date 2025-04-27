@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { upperCase } from 'lodash-es';
-import Color from '@tdesign/common-js/color-picker/color';
-import { FORMATS } from '@tdesign/common-js/color-picker/constants';
+import { Color, getColorFormatOptions } from '@tdesign/common-js/color-picker/index';
 import Select from '../../../../select';
-import FormatInput from './inputs';
+import FormatInputs from './inputs';
 import { TdColorPickerProps } from '../../../type';
 
 export interface TdColorFormatProps extends TdColorPickerProps {
@@ -14,7 +12,7 @@ export interface TdColorFormatProps extends TdColorPickerProps {
 }
 
 const FormatPanel = (props: TdColorFormatProps) => {
-  const { baseClassName, format, onModeChange, selectInputProps } = props;
+  const { enableAlpha, baseClassName, format, onModeChange, selectInputProps } = props;
   const [formatMode, setFormatMode] = useState(format);
   const handleModeChange = (v: TdColorPickerProps['format']) => {
     setFormatMode(v);
@@ -35,13 +33,13 @@ const FormatPanel = (props: TdColorFormatProps) => {
           value={formatMode}
           onChange={handleModeChange}
         >
-          {FORMATS.map((item) => (
-            <Select.Option key={item} value={item} label={upperCase(item)} style={{ fontSize: '12px' }} />
+          {getColorFormatOptions(enableAlpha).map((item) => (
+            <Select.Option key={item} value={item} label={item} style={{ fontSize: '12px' }} />
           ))}
         </Select>
       </div>
       <div className={`${baseClassName}__format--item`}>
-        <FormatInput {...props} format={formatMode} />
+        <FormatInputs {...props} format={formatMode} />
       </div>
     </div>
   );
