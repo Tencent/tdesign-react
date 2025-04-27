@@ -1,9 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { EnterIcon, InternetIcon, AttachIcon } from 'tdesign-icons-react';
 import { ChatSender, Space, Button, Tag } from 'tdesign-react';
 
+const classStyles = `
+<style>
+  :root {
+    --td-text-color-placeholder: #DFE2E7;
+    --td-bg-color-secondarycontainer: #fff;
+  }
+</style>
+`;
+
 const ChatSenderExample = () => {
-  const [inputValue, setInputValue] = useState('输入内容');
+  const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const senderRef = useRef(null);
 
@@ -35,11 +44,22 @@ const ChatSenderExample = () => {
     console.log('===selectfile', e.detail);
   };
 
+  useEffect(() => {
+    // 创建样式元素并添加
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = classStyles;
+    document.head.appendChild(styleElement);
+
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+
   return (
     <ChatSender
       ref={senderRef}
       value={inputValue}
-      placeholder="请输入问题，Enter发送"
+      placeholder="输入你要撰写的主题"
       loading={loading}
       autosize={{ minRows: 2 }}
       onChange={handleChange}
@@ -80,7 +100,7 @@ const ChatSenderExample = () => {
       {/* 自定义输入框左侧区域slot，实现触发附件上传 */}
       <div slot="prefix">
         <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4 }} onClick={onAttachClick}>
-          AI编程
+          帮我写作
         </Tag>
       </div>
     </ChatSender>
