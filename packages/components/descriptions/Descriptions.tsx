@@ -11,6 +11,8 @@ import { DescriptionsContext } from './DescriptionsContext';
 import DescriptionsItem from './DescriptionsItem';
 import Row from './Row';
 
+import type { DescriptionsItemProps } from './DescriptionsItem';
+
 /**
  * 实现思路
  * 1. 基于 table tbody tr td 来实现布局
@@ -64,7 +66,8 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
     } else {
       // 2.2 b 方式 获取 TDescriptionsItem
       const childrenList = React.Children.toArray(children).filter(
-        (child: React.JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
+        (child: React.ReactElement<DescriptionsItemProps>) =>
+          (child.type as any)?.displayName === DescriptionsItem.displayName,
       );
 
       if (childrenList.length !== 0) {

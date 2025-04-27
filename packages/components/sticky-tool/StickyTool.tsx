@@ -8,6 +8,8 @@ import StickyItem from './StickyItem';
 import { stickyToolDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { StickyItemProps } from './StickyItem';
+
 export interface StickyToolProps extends TdStickyToolProps, StyledProps {
   children?: React.ReactNode;
 }
@@ -72,7 +74,7 @@ const StickyTool = forwardRefWithStatics(
 
       const childrenList = React.Children.toArray(children);
 
-      return childrenList.map((child: React.JSX.Element) => {
+      return childrenList.map((child: React.ReactElement<StickyItemProps>) => {
         const itemProps = {
           ...child.props,
           type,

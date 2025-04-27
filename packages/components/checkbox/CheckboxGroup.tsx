@@ -10,6 +10,8 @@ import Checkbox from './Checkbox';
 import { checkboxGroupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { CheckboxProps } from './Checkbox';
+
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
   extends TdCheckboxGroupProps<T>,
     StyledProps {
@@ -54,13 +56,13 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
       ? options
       : React.Children.map(
           children,
-          (child: React.JSX.Element) =>
-            child?.type?.displayName === Checkbox.displayName && (child as ReactElement<any>).props,
+          (child: ReactElement<CheckboxProps>) =>
+            (child?.type as any)?.displayName === Checkbox.displayName && child.props,
         ) || [];
 
   const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
   const optionsWithoutCheckAllValues = [];
-  optionsWithoutCheckAll.forEach((v) => {
+  optionsWithoutCheckAll.forEach((v: string | number) => {
     const vs = getCheckboxValue(v);
     optionsWithoutCheckAllValues.push(vs);
   });
@@ -139,7 +141,7 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
             checkedSet.delete(checkValue);
           }
 
-          const currentOptionChecked = optionsWithoutCheckAll.find((item) => item.value === checkValue);
+          const currentOptionChecked = optionsWithoutCheckAll.find((item: CheckboxProps) => item.value === checkValue);
 
           // 此处 `as` 是因为 `Array.from` 会导致 `checkSet` 的 generic type 丢失
           setInternalValue(Array.from(checkedSet) as T, {

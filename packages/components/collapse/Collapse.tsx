@@ -10,6 +10,8 @@ import CollapseContext from './CollapseContext';
 import { collapseDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { CollapsePanelProps } from './CollapsePanel';
+
 export interface CollapseProps extends TdCollapseProps, StyledProps {
   children?: React.ReactNode;
 }
@@ -51,7 +53,7 @@ const Collapse = forwardRefWithStatics(
     ];
 
     const childrenList = React.Children.toArray(children).filter(
-      (child: React.JSX.Element) => child.type.displayName === CollapsePanel.displayName,
+      (child: React.ReactElement<CollapsePanelProps>) => (child.type as any).displayName === CollapsePanel.displayName,
     );
 
     const collapsePanelList = () =>
