@@ -10,7 +10,6 @@ export const drawerDefaultProps: TdDrawerProps = {
   closeBtn: true,
   destroyOnClose: false,
   footer: true,
-  forceRender: false,
   header: true,
   lazy: true,
   mode: 'overlay',
