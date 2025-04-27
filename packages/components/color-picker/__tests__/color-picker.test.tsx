@@ -58,7 +58,10 @@ describe('ColorPickerPanel 组件测试', () => {
 
   test('渐变颜色更新 测试', async () => {
     const { container } = render(
-      <ColorPickerPanel defaultValue="linear-gradient(45deg,rgb(79, 172, 255) 0%,rgb(0, 242, 251) 100%)" />,
+      <ColorPickerPanel
+        format="CSS"
+        defaultValue="linear-gradient(45deg,rgb(79, 172, 255) 0%,rgb(0, 242, 251) 100%)"
+      />,
     );
 
     // 点击第二个渐变点
