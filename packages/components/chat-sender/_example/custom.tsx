@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { EnterIcon, InternetIcon, AttachIcon, CloseIcon } from 'tdesign-icons-react';
+import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
 import { ChatSender, Space, Button, Tag, Dropdown } from 'tdesign-react';
 
 const options = [
@@ -50,7 +50,6 @@ const ChatSenderExample = () => {
     if (senderRef.current) {
       senderRef.current.classList.add(styleId.current);
     }
-
     return () => {
       document.head.removeChild(styleElement);
       if (senderRef.current) {
@@ -88,7 +87,6 @@ const ChatSenderExample = () => {
   };
 
   const switchScene = (data) => {
-    console.log('switchScene', data.value);
     setScene(data.value);
   };
 
@@ -164,6 +162,14 @@ const ChatSenderExample = () => {
             {options.filter((item) => item.value === scene)[0].content}
           </Tag>
         </Dropdown>
+      </div>
+      {/* 自定义提交区域slot */}
+      <div slot="actions">
+        {!loading ? (
+          <Button shape="circle" icon={<ArrowUpIcon size={24} />} onClick={handleSend}></Button>
+        ) : (
+          <Button shape="circle" icon={<StopIcon size={32} />} onClick={handleStop}></Button>
+        )}
       </div>
     </ChatSender>
   );
