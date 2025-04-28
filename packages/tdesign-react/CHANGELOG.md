@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.12.0 `2025-04-28` 
+### 🚀 Features
+- `React`: 全面升级相关依赖，兼容在 React19 中使用 @HaixingOoO ([#3438](https://github.com/Tencent/tdesign-react/pull/3438))
+- `ColorPicker`： @RylanBot ([#3503](https://github.com/Tencent/tdesign-react/pull/3503)) 
+  - 自动根据「触发器 / 最近颜色 / 预设颜色」的色值进行切换单色和渐变模式；只开启渐变模式时，过滤「预设颜色 / 当前颜色」中的非渐变色值；新增 format `HEX8`，移除 `HSB`；使用渐变模式的业务请注意此变更 ⚠️  
+  - 新增 `enableMultipleGradient` API，默认开启
+- `Drawer`: 新增 `lazy` 属性，用于懒加载场景，`forceRender` 已声明废弃，未来版本将被移除 @RSS1102 ([#3527](https://github.com/Tencent/tdesign-react/pull/3527))
+- `Dialog`: 新增 `lazy` 属性，用于懒加载场景，`forceRender` 已声明废弃，未来版本将被移除 @RSS1102 ([#3515](https://github.com/Tencent/tdesign-react/pull/3515))
+
+
+### 🐞 Bug Fixes
+- `ColorPicker`：@RylanBot ([#3503](https://github.com/Tencent/tdesign-react/pull/3503))
+  - 修复渐变点无法正常更新颜色和位置的问题
+  - 修复开启透明通道时的返回值格式化异常
+
+
 ## 🌈 1.11.8 `2025-04-28` 
 ### 🚀 Features
 - `ConfigProvider `:  支持全局上下文配置作用于 Message 相关插件 @lifeiFront ([#3513](https://github.com/Tencent/tdesign-react/pull/3513))
