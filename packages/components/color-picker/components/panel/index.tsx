@@ -13,9 +13,9 @@ import {
 } from '@tdesign/common-js/color-picker/index';
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
+import useDefaultProps from '../../../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import useClassName from '../../hooks/useClassNames';
-import PanelHeader from './header';
 import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import type { ColorPickerChangeTrigger } from '../../type';
 import { colorPickerDefaultProps } from '../../defaultProps';
@@ -24,6 +24,7 @@ import SaturationPanel from './saturation';
 import HUESlider from './hue';
 import AlphaSlider from './alpha';
 import FormatPanel from './format';
+import PanelHeader from './header';
 import SwatchesPanel from './swatches';
 
 const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
@@ -31,19 +32,20 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const { STATUS } = useCommonClassName();
   const [local, t] = useLocaleReceiver('colorPicker');
   const {
-    disabled,
-    onChange,
-    enableAlpha = false,
-    format = 'RGB',
-    onPaletteBarChange,
-    swatchColors,
     className,
-    style = {},
+    colorModes,
     closeBtn,
-    colorModes = ['linear-gradient', 'monochrome'],
-    showPrimaryColorPreview = true,
+    defaultRecentColors,
+    disabled,
+    enableAlpha,
+    format,
+    style,
+    swatchColors,
+    showPrimaryColorPreview,
+    onChange,
+    onPaletteBarChange,
     onRecentColorsChange,
-  } = props;
+  } = useDefaultProps(props, colorPickerDefaultProps);
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
 
   const [updateId, setUpdateId] = useState(0);
@@ -58,7 +60,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const defaultEmptyColor = isGradient ? DEFAULT_LINEAR_GRADIENT : DEFAULT_COLOR;
 
   const [recentlyUsedColors, setRecentlyUsedColors] = useControlled(props, 'recentColors', onRecentColorsChange, {
-    defaultRecentColors: colorPickerDefaultProps.recentColors,
+    defaultRecentColors,
   });
   const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
   const formatRef = useRef<ColorFormat>(initColorFormat(format, enableAlpha));
