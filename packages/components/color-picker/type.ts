@@ -50,11 +50,6 @@ export interface TdColorPickerProps {
    */
   inputProps?: InputProps;
   /**
-   * 【开发中】是否允许选中多个颜色
-   * @default false
-   */
-  multiple?: boolean;
-  /**
    * 透传 Popup 组件全部属性，如 `placement` `overlayStyle` `overlayClassName` `trigger`等
    */
   popupProps?: PopupProps;

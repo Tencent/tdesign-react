@@ -11,7 +11,6 @@ export const colorPickerDefaultProps: TdColorPickerProps = {
   colorModes: ['monochrome', 'linear-gradient'],
   enableAlpha: false,
   format: 'RGB',
-  multiple: false,
   defaultRecentColors: [],
   showPrimaryColorPreview: true,
 };
