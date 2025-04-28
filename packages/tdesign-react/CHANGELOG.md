@@ -5,6 +5,21 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.11.8 `2025-04-28` 
+### 🚀 Features
+- `ConfigProvider `:  支持全局上下文配置作用于 Message 相关插件 @lifeiFront ([#3513](https://github.com/Tencent/tdesign-react/pull/3513))
+- `Icon`: 新增 `logo-miniprogram` 小程序、`logo-cnb` 云原生构建、`seal` 印章、`quote`引号等图标 @taowensheng1997 @uyarn ([#3517](https://github.com/Tencent/tdesign-react/pull/3517))
+- `Upload`: `image-flow`模式下支持进度及自定义错误文本 @ngyyuusora ([#3525](https://github.com/Tencent/tdesign-react/pull/3525))
+- `Select`: 多选通过面板移除选项新增onRemove回调 @QuentinHsu ([#3526](https://github.com/Tencent/tdesign-react/pull/3526))
+### 🐞 Bug Fixes
+- `InputNumber`: 优化数字输入框的边界问题 @Sight-wcg([#3519](https://github.com/Tencent/tdesign-react/pull/3519))
+- `Select`
+     - 修复 `1.11.2` 版本后光标异常及子组件方式回调函数中缺失完整 option 信息的问题 @HaixingOoO @uyarn ([#3520](https://github.com/Tencent/tdesign-react/pull/3520))  ([#3529](https://github.com/Tencent/tdesign-react/pull/3529))
+    -  优化多选移除标签相关事件修正为不同的`trigger`,  不同触发场景分别调整为`clear`、`remove-tag`和 `uncheck`，修正全选选项的 `trigger`错误 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
+     -  修复单选情况下再次点击选中的选项会触发 `change` 事件的问题 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
+     - 修复多选情况下按下 `backspace` 无法触发 `change` 事件的问题 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
+
+
 ## 🌈 1.11.7 `2025-04-18` 
 ### 🚀 Features
 - `ConfigProvider`: 新增`isContextEffectPlugin` API，默认关闭，开启后全局配置会影响到`Dialog`、`Loading`、`Drawer`、`Notification` 和`Popup`组件的函数式调用 @lifeiFront ([#3488](https://github.com/Tencent/tdesign-react/pull/3488)) ([#3504](https://github.com/Tencent/tdesign-react/pull/3504))
