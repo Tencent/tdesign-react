@@ -7,11 +7,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
 import jsxToString from 'react-element-to-jsx-string';
 
-import configProps from './props.json';
-
 import { Menu } from 'tdesign-react';
 
 import { CodeIcon, AppIcon, FileIcon } from 'tdesign-icons-react';
+import configProps from './props.json';
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
@@ -23,7 +22,7 @@ export default function Usage() {
     { label: 'headMenu', value: 'headMenu' },
   ];
   const defaultProps = {
-    logo: <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" />,
+    logo: <img src="https://tdesign.gtimg.com/site/baseLogo-light.png" height="28" alt="logo" />,
   };
   const panelMap = {
     menu: (
@@ -64,13 +63,25 @@ export default function Usage() {
           borderRadius: 3,
         }}
       >
-        <Menu.HeadMenu {...defaultProps} {...changedProps}>
-          <Menu.MenuItem value="0">
-            <span>菜单1</span>
+        <Menu.HeadMenu style={{ marginBottom: '20px' }} {...defaultProps} {...changedProps}>
+          <Menu.MenuItem value="0" icon={<AppIcon />}>
+            仪表盘
           </Menu.MenuItem>
-          <Menu.MenuItem value="1">
-            <span>菜单2</span>
-          </Menu.MenuItem>
+          <Menu.SubMenu value="1" title={<span>资源列表</span>} icon={<CodeIcon />}>
+            <Menu.MenuItem value="1-1" disabled>
+              <span>菜单二</span>
+            </Menu.MenuItem>
+          </Menu.SubMenu>
+          <Menu.SubMenu value="2" title={<span>调度平台</span>} icon={<FileIcon />}>
+            <Menu.SubMenu value="2-1" title="二级菜单-1">
+              <Menu.MenuItem value="3-1">三级菜单-1</Menu.MenuItem>
+              <Menu.MenuItem value="3-2">三级菜单-2</Menu.MenuItem>
+              <Menu.MenuItem value="3-3">三级菜单-3</Menu.MenuItem>
+            </Menu.SubMenu>
+            <Menu.MenuItem value="2-2">
+              <span>二级菜单-2</span>
+            </Menu.MenuItem>
+          </Menu.SubMenu>
         </Menu.HeadMenu>
       </div>
     ),
