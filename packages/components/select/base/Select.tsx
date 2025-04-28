@@ -219,7 +219,12 @@ const Select = forwardRefWithStatics(
     // 选中 Popup 某项
     const handleChange = (
       value: string | number | Array<string | number | Record<string, string | number>>,
-      context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger; value?: SelectValue },
+      context: {
+        e: React.MouseEvent<HTMLLIElement>;
+        trigger: SelectValueChangeTrigger;
+        value?: SelectValue;
+        label?: string;
+      },
     ) => {
       if (multiple) {
         !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
@@ -246,6 +251,16 @@ const Select = forwardRefWithStatics(
         selectedOptions: currentSelectedOptions,
         option: currentOption,
       });
+
+      if (multiple && context?.trigger === 'uncheck' && isFunction(onRemove)) {
+        const value = context?.value;
+        const option = (options as OptionsType).find((option) => option.value === value);
+        onRemove({
+          value,
+          data: option,
+          e: context.e,
+        });
+      }
     };
 
     // 处理filter逻辑
