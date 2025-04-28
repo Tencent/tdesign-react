@@ -59,7 +59,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
     return Object.entries(componentMap).find(([, condition]) => !!condition)?.[0] as keyof HTMLElementTagNameMap;
   };
 
-  const currentRef = useRef();
+  const currentRef = useRef(null);
   const { ellipsisProps } = useEllipsis(ellipsis);
   const Component = getComponent();
 

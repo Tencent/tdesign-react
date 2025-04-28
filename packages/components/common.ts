@@ -17,7 +17,7 @@ export type ScrollContainer = (() => ScrollContainerElement) | CSSSelector;
 export type FormResetEvent = FormEvent<HTMLFormElement>;
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
-// 组件 TS 类型，暂定 any，可能调整为 () => JSX.Element
+// 组件 TS 类型，暂定 any，可能调整为 () => React.ReactElement
 export type ComponentType = any;
 
 export type Styles = CSSProperties;

@@ -11,6 +11,8 @@ import { swiperDefaultProps } from './defaultProps';
 import SwiperItem from './SwiperItem';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { SwiperItemProps } from './SwiperItem';
+
 export interface SwiperProps extends TdSwiperProps, StyledProps {
   children?: React.ReactNode;
 }
@@ -86,7 +88,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   const childrenList = useMemo<React.ReactNode[]>(
     () =>
       React.Children.toArray(children).filter(
-        (child: JSX.Element) => child.type.displayName === SwiperItem.displayName,
+        (child: React.ReactElement<SwiperItemProps>) => (child.type as any)?.displayName === SwiperItem.displayName,
       ),
     [children],
   );
@@ -94,7 +96,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   const childrenLength = childrenList.length;
 
   // 创建渲染用的节点列表
-  const swiperItemList = childrenList.map((child: JSX.Element, index) =>
+  const swiperItemList = childrenList.map((child: React.ReactElement<any>, index) =>
     React.cloneElement(child, {
       key: index,
       index,
@@ -303,7 +305,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
           `${classPrefix}-swiper__navigation-${navigationConfig.type}`,
         )}
       >
-        {childrenList.map((_: JSX.Element, i: number) => (
+        {childrenList.map((_: React.ReactElement, i: number) => (
           <li
             key={i}
             className={classnames(`${classPrefix}-swiper__navigation-item`, {

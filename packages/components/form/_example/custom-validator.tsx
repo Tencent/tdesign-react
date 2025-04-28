@@ -5,7 +5,7 @@ import type { FormProps, InternalFormInstance, CustomValidator, FormRules, Data 
 const { FormItem } = Form;
 
 export default function BaseForm() {
-  const form = React.useRef<InternalFormInstance>();
+  const form = React.useRef<InternalFormInstance>(null);
 
   const onSubmit: FormProps['onSubmit'] = (e) => {
     console.log(e);

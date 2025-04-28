@@ -62,8 +62,8 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
   } = props;
 
   const [visibleState, setVisibleState] = useState(false);
-  const popperRef = useRef<HTMLDivElement>();
-  const overlayRef = useRef<HTMLDivElement>();
+  const popperRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const hidePopup = hideEmptyPopup && isString(content) && ['', undefined, null].includes(content);
 

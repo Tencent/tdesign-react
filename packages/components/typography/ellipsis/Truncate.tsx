@@ -263,7 +263,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
         continue;
       }
 
-      let resultLine: string | React.JSX.Element = textWords.join('');
+      let resultLine: string | React.ReactElement = textWords.join('');
       if (measureWidth(resultLine) <= targetWidth) {
         if (textLines.length === 1) {
           // Line is end of text and fits without truncating

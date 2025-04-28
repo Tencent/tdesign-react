@@ -112,7 +112,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     }),
   );
 
-  const formItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
+  const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
   const isUpdatedRef = useRef(false); // 校验开关
@@ -496,18 +496,19 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
               if (typeof child.type === 'object') {
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
+              const childProps = child.props as any;
               return React.cloneElement(child, {
                 disabled: disabledFromContext,
-                ...child.props,
+                ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
                   const newValue = valueFormat ? valueFormat(value) : value;
                   updateFormValue(newValue, true, true);
-                  child.props.onChange?.call?.(null, value, ...args);
+                  childProps?.onChange?.call?.(null, value, ...args);
                 },
                 onBlur: (value: any, ...args: any[]) => {
                   handleItemBlur();
-                  child.props.onBlur?.call?.(null, value, ...args);
+                  childProps?.onBlur?.call?.(null, value, ...args);
                 },
               });
             }

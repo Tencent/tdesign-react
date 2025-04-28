@@ -338,7 +338,9 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     return cols.map((col, idx) => (
       <ul
         key={`${col}_${idx}`}
-        ref={(el) => (colsRef.current[idx] = el)}
+        ref={(el) => {
+          colsRef.current[idx] = el;
+        }}
         className={`${panelClassName}-body-scroll`}
         onScroll={(e) => handleScroll(col, idx, e)}
         style={

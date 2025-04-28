@@ -60,7 +60,7 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
 
     if (React.isValidElement(ele)) {
       return React.cloneElement<any>(ele, {
-        className: classNames(ele?.props?.className, `${classPrefix}-timeline-item__dot-content`),
+        className: classNames((ele as any)?.props?.className, `${classPrefix}-timeline-item__dot-content`),
       });
     }
     return ele;
