@@ -34,7 +34,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const {
     className,
     colorModes,
-    closeBtn,
     defaultRecentColors,
     disabled,
     enableAlpha,
@@ -287,7 +286,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         baseClassName={baseClassName}
         mode={mode}
         colorModes={colorModes}
-        closeBtn={closeBtn}
         onModeChange={handleModeChange}
       />
       <div className={`${baseClassName}__body`}>

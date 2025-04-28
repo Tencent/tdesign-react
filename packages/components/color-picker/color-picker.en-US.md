@@ -10,18 +10,18 @@ className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
 borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
-closeBtn | TNode | true | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 colorModes | Array | ["monochrome", "linear-gradient"] | Typescript：`Array<'monochrome' \| 'linear-gradient'>` | N
 disabled | Boolean | undefined | \- | N
 enableAlpha | Boolean | false | \- | N
+enableMultipleGradient | Boolean | true | \- | N
 format | String | RGB | When `enableAlpha` is true, `HEX8/RGBA/HSLA/HSVA` are valid。options: HEX/HEX8/RGB/RGBA/HSL/HSLA/HSV/HSVA/CMYK/CSS | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts) | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts) | N
-recentColors | Array | [] | used color recently。Typescript：`boolean \| Array<string> \| null` | N
-defaultRecentColors | Array | [] | used color recently。uncontrolled property。Typescript：`boolean \| Array<string> \| null` | N
+recentColors | Array | [] | used color recently。Typescript：`Array<string> \| boolean \| null` | N
+defaultRecentColors | Array | [] | used color recently。uncontrolled property。Typescript：`Array<string> \| boolean \| null` | N
 selectInputProps | Object | - | Typescript：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts) | N
 showPrimaryColorPreview | Boolean | true | \- | N
-swatchColors | Array | - | swatch colors。Typescript：`Array<string> \| null` | N
+swatchColors | Array | undefined | swatch colors。Typescript：`Array<string> \| null \| undefined` | N
 value | String | - | color value | N
 defaultValue | String | - | color value。uncontrolled property | N
 onChange | Function |  | Typescript：`(value: string, context: { color: ColorObject; trigger: ColorPickerChangeTrigger }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts)。<br/>`type ColorPickerChangeTrigger = 'palette-saturation-brightness' \| 'palette-saturation' \| 'palette-brightness' \| 'palette-hue-bar' \| 'palette-alpha-bar' \| 'input' \| 'preset' \| 'recent' `<br/> | N
