@@ -188,7 +188,7 @@ const LinearGradient = (props) => {
   };
 
   const handleThumbBarClick = (e: ReactMouseEvent) => {
-    if (props.disabled) {
+    if (props.disabled || !props.enableMultipleGradient) {
       return;
     }
     updateSliderRect();

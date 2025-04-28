@@ -37,6 +37,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     defaultRecentColors,
     disabled,
     enableAlpha,
+    enableMultipleGradient,
     format,
     style,
     swatchColors,
@@ -227,7 +228,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
     // 系统预设颜色
     let systemColors = swatchColors;
-    console.log('systemColors', systemColors);
     if (systemColors === undefined) {
       systemColors = [...DEFAULT_SYSTEM_SWATCH_COLORS];
     }
@@ -282,14 +282,15 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       style={{ ...style }}
       ref={ref}
     >
-      <PanelHeader
-        baseClassName={baseClassName}
-        mode={mode}
-        colorModes={colorModes}
-        onModeChange={handleModeChange}
-      />
+      <PanelHeader baseClassName={baseClassName} mode={mode} colorModes={colorModes} onModeChange={handleModeChange} />
       <div className={`${baseClassName}__body`}>
-        {isGradient && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
+        {isGradient && (
+          <LinearGradient
+            {...baseProps}
+            enableMultipleGradient={enableMultipleGradient}
+            onChange={handleGradientChange}
+          />
+        )}
         <SaturationPanel {...baseProps} onChange={handleSatAndValueChange} />
         <div className={`${baseClassName}__sliders-wrapper`}>
           <div className={`${baseClassName}__sliders`}>
