@@ -216,19 +216,26 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {
+    // 只支持渐变模式
+    const onlySupportGradient = colorModes.length === 1 && colorModes.includes('linear-gradient');
+
     // 最近使用颜色
-    const showUsedColors = recentlyUsedColors !== null && recentlyUsedColors !== false;
-    // 系统颜色
+    let recentColors = recentlyUsedColors;
+    if (onlySupportGradient && Array.isArray(recentColors)) {
+      recentColors = recentColors.filter((color) => Color.isGradientColor(color));
+    }
+    const showUsedColors = Array.isArray(recentColors) || recentColors === true;
+
+    // 系统预设颜色
     let systemColors = swatchColors;
+    console.log('systemColors', systemColors);
     if (systemColors === undefined) {
       systemColors = [...DEFAULT_SYSTEM_SWATCH_COLORS];
     }
-    // 如果只支持渐变模式，则过滤掉非渐变色值
-    const onlySupportGradient = colorModes.length === 1 && colorModes.includes('linear-gradient');
     if (onlySupportGradient) {
       systemColors = systemColors.filter((color) => Color.isGradientColor(color));
     }
-    const showSystemColors = systemColors?.length > 0;
+    const showSystemColors = Array.isArray(systemColors);
 
     // 色块点击
     const handleSetColor = (value: string, trigger: ColorPickerChangeTrigger) => {
@@ -251,7 +258,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
               title={t(local.recentColorTitle)}
               editable
               handleAddColor={addRecentlyUsedColor}
-              colors={recentlyUsedColors as string[]}
+              colors={recentColors as string[]}
               onSetColor={(color: string) => handleSetColor(color, 'recent')}
               onChange={handleRecentlyUsedColorsChange}
             />
