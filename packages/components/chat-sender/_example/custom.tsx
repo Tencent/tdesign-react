@@ -2,19 +2,37 @@ import React, { useRef, useState, useEffect } from 'react';
 import { EnterIcon, InternetIcon, AttachIcon } from 'tdesign-icons-react';
 import { ChatSender, Space, Button, Tag } from 'tdesign-react';
 
-const classStyles = `
-<style>
-  :root {
-    --td-text-color-placeholder: #DFE2E7;
-    --td-bg-color-secondarycontainer: #fff;
-  }
-</style>
-`;
-
 const ChatSenderExample = () => {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const senderRef = useRef(null);
+  const styleId = useRef(`chat-sender-styles-${Math.random().toString(36).substr(2, 9)}`);
+
+  // 使用变量生成自定义组件样式
+  const generateScopedStyles = () => `
+    .${styleId.current} {
+      --td-text-color-placeholder: #DFE2E7;
+      --td-bg-color-secondarycontainer: #fff;
+    }
+  `;
+
+  useEffect(() => {
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = generateScopedStyles();
+    document.head.appendChild(styleElement);
+
+    // 为容器添加唯一类名
+    if (senderRef.current) {
+      senderRef.current.classList.add(styleId.current);
+    }
+
+    return () => {
+      document.head.removeChild(styleElement);
+      if (senderRef.current) {
+        senderRef.current.classList.remove(styleId.current);
+      }
+    };
+  }, []);
 
   // 输入变化处理
   const handleChange = (e) => {
@@ -43,17 +61,6 @@ const ChatSenderExample = () => {
   const onFileSelect = (e: CustomEvent<File[]>) => {
     console.log('===selectfile', e.detail);
   };
-
-  useEffect(() => {
-    // 创建样式元素并添加
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = classStyles;
-    document.head.appendChild(styleElement);
-
-    return () => {
-      document.head.removeChild(styleElement);
-    };
-  }, []);
 
   return (
     <ChatSender
