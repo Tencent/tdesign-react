@@ -13,6 +13,7 @@ const filesList: TdAttachmentItem[] = [
   {
     name: 'image-file.png',
     size: 333333,
+    url: 'https://tdesign.gtimg.com/site/avatar.jpg',
   },
   {
     name: 'pdf-file.pdf',
