@@ -44,7 +44,7 @@ export default function useColumnResize(params: {
     onColumnResizeChange,
   } = params;
 
-  const resizeLineRef = useRef<HTMLDivElement>();
+  const resizeLineRef = useRef<HTMLDivElement>(null);
   const effectColMap = useRef<{ [colKey: string]: any }>({});
   const [leafColumns, setLeafColumns] = useState([]);
 

@@ -86,10 +86,10 @@
     "mitt": "^3.0.0",
     "raf": "~3.4.1",
     "react-is": "^18.2.0",
-    "react-popper": "~2.3.0",
+    "react-fast-compare":"^3.2.2",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
-    "tdesign-icons-react": "^0.4.5",
+    "tdesign-icons-react": "0.5.0",
     "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "validator": "~13.7.0"

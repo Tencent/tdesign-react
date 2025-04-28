@@ -5,7 +5,7 @@ import type { StatisticRef } from 'tdesign-react';
 const AnimationStatistic = () => {
   const [start, setStart] = React.useState(false);
   const [value, setValue] = React.useState(56.32);
-  const statisticRef = React.useRef<StatisticRef>();
+  const statisticRef = React.useRef<StatisticRef>(null);
 
   return (
     <Space direction="vertical">

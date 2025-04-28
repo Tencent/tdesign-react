@@ -78,9 +78,9 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
   const drawerAttach = useAttach('drawer', attach);
-  const maskRef = useRef<HTMLDivElement>();
-  const containerRef = useRef<HTMLDivElement>();
-  const drawerWrapperRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
+  const maskRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const drawerWrapperRef = useRef<HTMLElement>(null); // 即最终的 attach dom，默认为 document.body
   const prefixCls = `${classPrefix}-drawer`;
 
   const closeIcon = isValidElement(closeBtn) ? closeBtn : <CloseIcon />;

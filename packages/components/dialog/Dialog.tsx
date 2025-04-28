@@ -29,12 +29,12 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
 
   const componentCls = `${classPrefix}-dialog`;
-  const wrapRef = useRef<HTMLDivElement>();
-  const maskRef = useRef<HTMLDivElement>();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const maskRef = useRef<HTMLDivElement>(null);
   const contentClickRef = useRef(false);
-  const dialogCardRef = useRef<HTMLDivElement>();
-  const dialogPosition = useRef();
-  const portalRef = useRef();
+  const dialogCardRef = useRef<HTMLDivElement>(null);
+  const dialogPosition = useRef(null);
+  const portalRef = useRef(null);
   const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
   const [local] = useLocaleReceiver('dialog');
 

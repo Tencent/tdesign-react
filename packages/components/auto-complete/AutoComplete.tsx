@@ -22,8 +22,8 @@ export interface AutoCompleteRef {
 
 const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalProps, ref) => {
   const props = useDefaultProps(originalProps, autoCompleteDefaultProps);
-  const inputRef = useRef();
-  const popupRef = useRef();
+  const inputRef = useRef(null);
+  const popupRef = useRef(null);
   const [tValue, setTValue] = useControlled(props, 'value', props.onChange);
   const { classPrefix, sizeClassNames } = useCommonClassName();
   const [global] = useLocaleReceiver('input');

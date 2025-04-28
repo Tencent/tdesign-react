@@ -9,6 +9,7 @@ import StepItem from './StepItem';
 import StepsContext from './StepsContext';
 import { stepsDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import type { StepItemProps } from './StepItem';
 
 export interface StepsProps extends TdStepsProps, StyledProps {
   children?: React.ReactNode;
@@ -36,8 +37,8 @@ const Steps = forwardRefWithStatics(
           if (!React.isValidElement(child)) {
             return;
           }
-          if (child.props.value !== undefined) {
-            map[child.props.value] = index;
+          if ((child as React.ReactElement<any>).props.value !== undefined) {
+            map[(child as React.ReactElement<any>).props.value] = index;
           }
         });
       }
@@ -97,7 +98,7 @@ const Steps = forwardRefWithStatics(
       const childrenList = React.Children.toArray(children);
       const childrenDisplayList = sequence === 'reverse' ? childrenList.reverse() : childrenList;
 
-      return childrenList.map((child: JSX.Element, index: number) => {
+      return childrenList.map((child: React.ReactElement<StepItemProps>, index: number) => {
         const stepIndex = sequence === 'reverse' ? childrenDisplayList.length - index - 1 : index;
         return React.cloneElement(child, {
           ...child.props,
