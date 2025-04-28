@@ -14,16 +14,13 @@ closeBtn | TNode | true | Typescript：`string \| boolean \| TNode`。[see more 
 colorModes | Array | ["monochrome", "linear-gradient"] | Typescript：`Array<'monochrome' \| 'linear-gradient'>` | N
 disabled | Boolean | undefined | \- | N
 enableAlpha | Boolean | false | \- | N
-enableMultipleGradient | Boolean | true | \- | N
 format | String | RGB | When `enableAlpha` is true, `HEX8/RGBA/HSLA/HSVA` are valid。options: HEX/HEX8/RGB/RGBA/HSL/HSLA/HSV/HSVA/CMYK/CSS | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts) | N
-multiple | Boolean | false | \- | N
 popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts) | N
 recentColors | Array | [] | used color recently。Typescript：`boolean \| Array<string> \| null` | N
 defaultRecentColors | Array | [] | used color recently。uncontrolled property。Typescript：`boolean \| Array<string> \| null` | N
 selectInputProps | Object | - | Typescript：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/color-picker/type.ts) | N
 showPrimaryColorPreview | Boolean | true | \- | N
-size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 swatchColors | Array | - | swatch colors。Typescript：`Array<string> \| null` | N
 value | String | - | color value | N
 defaultValue | String | - | color value。uncontrolled property | N

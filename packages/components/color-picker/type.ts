@@ -41,11 +41,6 @@ export interface TdColorPickerProps {
    */
   enableAlpha?: boolean;
   /**
-   * 是否允许开启通过点击渐变轴增加渐变梯度，默认开启，关闭时只会存在起始和结束两个颜色
-   * @default true
-   */
-  enableMultipleGradient?: boolean;
-  /**
    * 格式化色值。`enableAlpha` 为真时，`HEX8/RGBA/HSLA/HSVA` 有效
    * @default RGB
    */
