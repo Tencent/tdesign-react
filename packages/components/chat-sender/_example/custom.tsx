@@ -1,15 +1,40 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { EnterIcon, InternetIcon, AttachIcon } from 'tdesign-icons-react';
-import { ChatSender, Space, Button, Tag } from 'tdesign-react';
+import { EnterIcon, InternetIcon, AttachIcon, CloseIcon } from 'tdesign-icons-react';
+import { ChatSender, Space, Button, Tag, Dropdown } from 'tdesign-react';
+
+const options = [
+  {
+    content: '帮我写作',
+    value: 1,
+    placeholder: '输入你要撰写的主题',
+  },
+  {
+    content: '图像生成',
+    value: 2,
+    placeholder: '说说你的创作灵感',
+  },
+  {
+    content: '网页摘要',
+    value: 3,
+    placeholder: '输入你要解读的网页地址',
+  },
+];
 
 const ChatSenderExample = () => {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const senderRef = useRef(null);
+  const [scene, setScene] = useState(1);
+  const [showRef, setShowRef] = useState(true);
+  const [activeR1, setR1Active] = useState(true);
+  const [activeSearch, setSearchActive] = useState(true);
   const styleId = useRef(`chat-sender-styles-${Math.random().toString(36).substr(2, 9)}`);
 
   // 使用变量生成自定义组件样式
   const generateScopedStyles = () => `
+    .t-popup__content {
+      padding: 0;
+    }
     .${styleId.current} {
       --td-text-color-placeholder: #DFE2E7;
       --td-bg-color-secondarycontainer: #fff;
@@ -62,11 +87,20 @@ const ChatSenderExample = () => {
     console.log('===selectfile', e.detail);
   };
 
+  const switchScene = (data) => {
+    console.log('switchScene', data.value);
+    setScene(data.value);
+  };
+
+  const onRemoveRef = () => {
+    setShowRef(false);
+  };
+
   return (
     <ChatSender
       ref={senderRef}
       value={inputValue}
-      placeholder="输入你要撰写的主题"
+      placeholder={options.filter((item) => item.value === scene)[0].placeholder}
       loading={loading}
       autosize={{ minRows: 2 }}
       onChange={handleChange}
@@ -75,40 +109,61 @@ const ChatSenderExample = () => {
       onFileSelect={onFileSelect}
     >
       {/* 自定义输入框上方区域，可用来引用内容或提示场景 */}
-      <div slot="inner-header">
-        <Space
-          style={{
-            width: '100%',
-            marginBottom: '12px',
-            padding: '4px 6px',
-            background: '#f3f3f3',
-            borderRadius: 4,
-            boxSizing: 'border-box',
-          }}
-        >
-          <Space align="start" size={'small'}>
-            <EnterIcon size="14px" style={{ color: 'rgba(0, 0, 0, 0.26)' }} />
-            <span style={{ fontSize: 14, color: 'rgba(0, 0, 0, 0.4)' }}>引用一段文字</span>
+      {showRef && (
+        <div slot="inner-header">
+          <Space
+            style={{
+              width: '100%',
+              marginBottom: '12px',
+              padding: '4px 6px',
+              background: '#f3f3f3',
+              borderRadius: 4,
+              boxSizing: 'border-box',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Space size="small">
+              <EnterIcon size="14px" style={{ color: 'rgba(0, 0, 0, 0.26)' }} />
+              <span style={{ fontSize: 14, color: 'rgba(0, 0, 0, 0.4)' }}>引用一段文字</span>
+            </Space>
+            <div style={{ marginLeft: 'auto', width: '16px' }} onClick={onRemoveRef}>
+              <CloseIcon size="14px" style={{ color: 'rgba(0, 0, 0, 0.26)' }} />
+            </div>
           </Space>
-        </Space>
-      </div>
+        </div>
+      )}
       {/* 自定义输入框底部区域slot，可以增加模型选项 */}
       <div slot="footer-left">
         <Space align="center" size={'small'}>
           <Button shape="round" variant="outline" size="small" icon={<AttachIcon />} onClick={onAttachClick} />
-          <Button variant="outline" shape="round" size="small">
+          <Button
+            variant="outline"
+            shape="round"
+            theme={activeR1 ? 'primary' : 'default'}
+            size="small"
+            onClick={() => setR1Active(!activeR1)}
+          >
             R1.深度思考
           </Button>
-          <Button variant="outline" icon={<InternetIcon />} size="small" shape="round">
+          <Button
+            variant="outline"
+            theme={activeSearch ? 'primary' : 'default'}
+            icon={<InternetIcon />}
+            size="small"
+            shape="round"
+            onClick={() => setSearchActive(!activeSearch)}
+          >
             联网查询
           </Button>
         </Space>
       </div>
-      {/* 自定义输入框左侧区域slot，实现触发附件上传 */}
+      {/* 自定义输入框左侧区域slot，可以用来触发工具场景切换 */}
       <div slot="prefix">
-        <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4 }} onClick={onAttachClick}>
-          帮我写作
-        </Tag>
+        <Dropdown options={options} onClick={switchScene} trigger="click">
+          <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4, cursor: 'pointer' }}>
+            {options.filter((item) => item.value === scene)[0].content}
+          </Tag>
+        </Dropdown>
       </div>
     </ChatSender>
   );
