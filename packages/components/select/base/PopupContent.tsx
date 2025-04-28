@@ -1,5 +1,6 @@
 import React, { Children, isValidElement, cloneElement, useRef, CSSProperties, useMemo } from 'react';
 import classNames from 'classnames';
+import { isEqual } from 'lodash-es';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
 import {
@@ -130,15 +131,18 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     if (!Object.keys(objVal).length) {
       Object.assign(objVal, { [keys?.label || 'label']: label, [keys?.value || 'value']: selectedValue });
     }
+
     if (multiple) {
       // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label, value: selectedValue, e: event, trigger: 'check' });
+      onChange(values, { label, value: selectedValue, e: event, trigger: selected ? 'uncheck' : 'check' });
     } else {
       // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
 
-      onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
+      if (!isEqual(value, selectVal)) {
+        onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
+      }
       setShowPopup(!showPopup);
     }
   };
