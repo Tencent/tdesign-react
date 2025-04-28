@@ -15,6 +15,7 @@ function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueTo
   const { value, label, children } = dom.props;
   // eslint-disable-next-line no-param-reassign
   valueToOption[value] = {
+    ...dom.props,
     [keys?.value || 'value']: value,
     [keys?.label || 'label']: label || children || value,
   };
