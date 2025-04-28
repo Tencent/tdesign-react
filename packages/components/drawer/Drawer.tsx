@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useMemo, isValidElement } from 'react';
 import classnames from 'classnames';
-import { isString, isObject, isFunction } from 'lodash-es';
+import { isString, isObject, isFunction, isUndefined } from 'lodash-es';
 
 import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
@@ -72,6 +72,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     sizeDraggable,
     forceRender,
     isPlugin,
+    lazy,
   } = state;
 
   const size = propsSize ?? local.size;
@@ -221,7 +222,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     <CSSTransition
       in={visible}
       nodeRef={drawerWrapperRef}
-      mountOnEnter={!forceRender}
+      mountOnEnter={isUndefined(forceRender) ? lazy : !forceRender}
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
       onEnter={() => onBeforeOpen?.()}
