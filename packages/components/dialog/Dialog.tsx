@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import log from '@tdesign/common-js/log/index';
+import { isUndefined } from 'lodash-es';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
@@ -65,11 +66,13 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     destroyOnClose,
     preventScrollThrough,
     onCloseBtnClick,
-    forceRender = false,
+    forceRender,
+    lazy,
     ...restState
   } = state;
 
   const dialogAttach = useAttach('dialog', attach);
+
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
@@ -193,7 +196,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       in={visible}
       appear
       timeout={300}
-      mountOnEnter={!forceRender}
+      mountOnEnter={isUndefined(forceRender) ? lazy : !forceRender}
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}

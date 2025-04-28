@@ -325,9 +325,9 @@ export type SelectValue<T extends SelectOption = SelectOption> = string | number
 export type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck' | 'default';
 
 export interface SelectRemoveContext<T> {
-  value: string | number;
+  value: SelectValue;
   data: T;
-  e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>;
+  e: MouseEvent<HTMLDivElement | HTMLLIElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type SelectOption = TdOptionProps | SelectOptionGroup | PlainObject;
