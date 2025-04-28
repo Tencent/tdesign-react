@@ -160,12 +160,6 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      if (trigger === 'clear') {
-        e.stopPropagation();
-        onChange([], { e, trigger, selectedOptions: [] });
-        return;
-      }
-
       if (trigger === 'tag-remove') {
         e?.stopPropagation?.();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
@@ -185,6 +179,7 @@ const Select = forwardRefWithStatics(
         }
       }
     };
+
     const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
       if (!multiple) {
         return;
@@ -216,7 +211,7 @@ const Select = forwardRefWithStatics(
 
       onChange?.(checkAllValue, {
         e,
-        trigger: checkAll ? 'check' : 'uncheck',
+        trigger: !checkAll ? 'check' : 'uncheck',
         selectedOptions: currentSelectedOptions,
       });
     };
@@ -311,12 +306,12 @@ const Select = forwardRefWithStatics(
       }
     };
 
-    const onClearValue = (context) => {
+    const handleClear = (context) => {
       context.e.stopPropagation();
       if (Array.isArray(value)) {
-        onChange([], { ...context, selectedOptions: [] });
+        onChange([], { ...context, trigger: 'clear', selectedOptions: [] });
       } else {
-        onChange(null, { ...context, selectedOptions: [] });
+        onChange(null, { ...context, trigger: 'clear', selectedOptions: [] });
       }
       onClear(context);
     };
@@ -410,7 +405,7 @@ const Select = forwardRefWithStatics(
                   onChange(values, {
                     e,
                     selectedOptions: currentSelectedOptions,
-                    trigger: 'uncheck',
+                    trigger: 'tag-remove',
                   });
                   tagProps?.onClose?.({ e });
 
@@ -535,7 +530,7 @@ const Select = forwardRefWithStatics(
           onBlur={(_, context) => {
             onBlur?.({ value, e: context.e as React.FocusEvent<HTMLDivElement> });
           }}
-          onClear={onClearValue}
+          onClear={handleClear}
           {...selectInputProps}
         />
       </div>
