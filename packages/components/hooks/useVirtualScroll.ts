@@ -29,7 +29,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   const [trHeightList, setTrHeightList] = useState<number[]>([]);
   const containerWidth = useRef(0);
   const containerHeight = useRef(0);
-  const [startAndEndIndex, setStartAndEndIndex] = useState<[number, number]>(() => [0, (scroll?.bufferSize || 10) * 3]);
+  const startAndEndIndex = useRef<[number, number]>([0, (scroll?.bufferSize || 10) * 3]);
 
   // 设置初始值
   const tScroll = useMemo(() => {
@@ -94,14 +94,14 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       fixedEndData = fixedEndData.slice(bottomStartIndex);
     }
 
-    if (startAndEndIndex.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
+    if (startAndEndIndex.current.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
       const tmpVisibleData = fixedStartData.concat(data.slice(startIndex, endIndex)).concat(fixedEndData);
       setVisibleData(tmpVisibleData);
       const lastScrollTop = trScrollTopHeightList[startIndex - 1];
       const top = lastScrollTop > 0 ? lastScrollTop : 0;
       const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
       setTranslateY(top - stickyHeight);
-      setStartAndEndIndex([startIndex, endIndex]);
+      startAndEndIndex.current = [startIndex, endIndex];
     }
   };
 
@@ -192,6 +192,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
 
+        startAndEndIndex.current = [0, 0];
         updateVisibleData(scrollTopHeightList, container.current.scrollTop);
       } else {
         // 数据初始化
@@ -213,8 +214,10 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       }, 1);
     },
     // eslint-disable-next-line
-    [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList],
+    [container, data, tScroll, isVirtualScroll, trHeightList],
   );
+
+  console.log(data[0], visibleData[0]);
 
   return {
     visibleData,
