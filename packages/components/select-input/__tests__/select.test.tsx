@@ -20,4 +20,10 @@ describe('SelectInput Test', () => {
       expect(getByText(text)).toBeTruthy();
     });
   });
+
+  test('default select-input readonly', async () => {
+    const { container } = await render(<SelectInput />);
+
+    expect(container.querySelector('input')).toHaveAttribute('readonly');
+  });
 });

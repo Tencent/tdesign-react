@@ -76,13 +76,14 @@ export default function useSingle(props: TdSelectInputProps) {
         ref={inputRef}
         {...commonInputProps}
         autoWidth={props.autoWidth}
+        allowInput={props.allowInput}
         placeholder={singleValueDisplay ? '' : props.placeholder}
         value={singleValueDisplay ? ' ' : displayedValue}
         label={
           (props.label || singleValueDisplay) && (
             <>
               {props.label}
-              {singleValueDisplay}
+              {singleValueDisplay as React.ReactNode}
             </>
           )
         }
