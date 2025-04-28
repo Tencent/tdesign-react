@@ -224,7 +224,9 @@ const Input = forwardRefWithStatics(
         ref={inputRef}
         placeholder={placeholder}
         type={renderType}
-        className={`${classPrefix}-input__inner${showInput ? '' : ` ${classPrefix}-input--soft-hidden`}`}
+        className={classNames(`${classPrefix}-input__inner`, {
+          [`${classPrefix}-input--soft-hidden`]: !showInput,
+        })}
         value={formatDisplayValue}
         readOnly={isInnerInputReadonly}
         disabled={disabled}
