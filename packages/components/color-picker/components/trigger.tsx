@@ -1,10 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import ColorLib from '@tdesign/common-js/color-picker/color';
+import { Color, getColorObject } from '@tdesign/common-js/color-picker/color';
 import { Input } from '../../input';
 import { TdColorPickerProps } from '..';
 import useClassName from '../hooks/useClassNames';
-import useControlled from '../../hooks/useControlled';
 import { TdColorContext } from '../interface';
 import noop from '../../_util/noop';
 
@@ -18,11 +17,12 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
   const baseClassName = useClassName();
   const { disabled = false, borderless = false, inputProps = { autoWidth: true }, clearable, onClear } = props;
 
-  const [value, setValue] = useControlled(props, 'value', props.onChange);
-
-  const handleChange = (input: string, ctx: any) => {
-    if (ColorLib.isValid(input)) {
-      setValue(input, ctx);
+  const handleChange = (input: string) => {
+    if (input !== props.value) {
+      props.onChange?.(input, {
+        color: getColorObject(new Color(input)),
+        trigger: 'input',
+      });
     }
   };
 
@@ -32,15 +32,14 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
         borderless={borderless}
         clearable={clearable}
         {...inputProps}
-        value={value}
+        value={props.value}
         disabled={disabled}
         label={
           <div className={classNames(`${baseClassName}__trigger--default__color`, `${baseClassName}--bg-alpha`)}>
-            <span className={'color-inner'} style={{ background: value }}></span>
+            <span className={'color-inner'} style={{ background: props.value }}></span>
           </div>
         }
-        onBlur={handleChange}
-        onChange={(v: string) => setValue(v)}
+        onChange={handleChange}
         onClear={onClear || noop}
       />
     </div>

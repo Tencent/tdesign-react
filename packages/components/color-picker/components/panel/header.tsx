@@ -7,7 +7,6 @@ import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 
 export interface ColorPanelHeaderProps extends TdColorPickerProps {
   mode?: TdColorModes;
-  togglePopup?: Function;
   onModeChange?: (value: RadioValue, context: { e: React.ChangeEvent<HTMLInputElement> }) => void;
   baseClassName?: string;
 }

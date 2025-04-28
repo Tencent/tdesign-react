@@ -86,21 +86,12 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
     if (!radioGroupRef.current) return;
 
-    const clearObserver = () => {
-      observerRef.current?.disconnect();
-      observerRef.current = null;
-    }
-
-    if (barStyle && barStyle.width !== '0px') {
-      clearObserver();
-      return;
-    }
-
     const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
     observerRef.current = observer;
 
     return () => {
-      clearObserver();
+      observerRef.current?.disconnect();
+      observerRef.current = null;
     };
   }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
