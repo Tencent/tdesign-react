@@ -1,26 +1,18 @@
 ---
-title: ChatSender 对话输入
-description: 用于构建智能对话场景下的输入框组件
+title: ChatActionBar 对话操作栏
+description: 对话操作栏
 isComponent: true
 usage: { title: '', description: '' }
-spline: navigation
+spline: aigc
 ---
 
 ## 基础用法
 
 {{ base }}
 
-## 附件输入
-
-{{ attachment }}
-
-
-## 自定义
-
-{{ custom }}
 
 ## API
-### Chatbot Props
+### ChatActionBar Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --

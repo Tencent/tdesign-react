@@ -1,4 +1,4 @@
-import { TdChatLoadingProps } from '@tencent/tdesign-chatbot/lib/chat-loading';
+import { TdChatLoadingProps } from '@tencent/tdesign-chatbot';
 import reactify from '../_util/reactify';
 
 export const ChatLoading: React.ForwardRefExoticComponent<
@@ -6,5 +6,4 @@ export const ChatLoading: React.ForwardRefExoticComponent<
 > = reactify<TdChatLoadingProps>('t-chat-loading');
 
 export default ChatLoading;
-
-export type * from '@tencent/tdesign-chatbot';
+export type { TdChatLoadingProps } from '@tencent/tdesign-chatbot';

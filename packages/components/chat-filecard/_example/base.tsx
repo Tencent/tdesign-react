@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { ChatAttachments, TdAttachmentItem } from 'tdesign-react';
-import Space from '../../space/Space';
+import React from 'react';
+import { Filecard, Space, type TdAttachmentItem } from 'tdesign-react';
 
 const filesList: TdAttachmentItem[] = [
   {
@@ -18,6 +17,12 @@ const filesList: TdAttachmentItem[] = [
   {
     name: 'pdf-file.pdf',
     size: 444444,
+  },
+  {
+    name: 'pdf-file.pdf',
+    size: 444444,
+    extension: '.docx',
+    description: '自定义文件扩展类型',
   },
   {
     name: 'ppt-file.pptx',
@@ -48,19 +53,17 @@ const filesList: TdAttachmentItem[] = [
   },
 ];
 
-const ChatAttachmentExample = () => {
-  const [list, setlist] = useState<TdAttachmentItem[]>(filesList);
-
-  const onRemove = (item) => {
-    console.log('remove', item);
-    setlist(list.filter((a) => a.name !== item.detail.name));
-  };
-
+export default function Cards() {
   return (
-    <Space style={{ width: '680px' }}>
-      <ChatAttachments items={list} overflow="scrollX" onRemove={onRemove} imageViewer={true}></ChatAttachments>
+    <Space breakLine>
+      {filesList.map((file, index) => (
+        <Filecard
+          key={index}
+          item={file}
+          onRemove={(e) => console.log('remove', e.detail)}
+          removable={index % 2 === 0}
+        ></Filecard>
+      ))}
     </Space>
   );
-};
-
-export default ChatAttachmentExample;
+}

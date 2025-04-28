@@ -1,23 +1,15 @@
 ---
-title: ChatSender 对话输入
-description: 用于构建智能对话场景下的输入框组件
+title: FileCard 文件缩略卡片
+description: 文件缩略卡片
 isComponent: true
 usage: { title: '', description: '' }
-spline: navigation
+spline: aigc
 ---
 
 ## 基础用法
 
 {{ base }}
 
-## 附件输入
-
-{{ attachment }}
-
-
-## 自定义
-
-{{ custom }}
 
 ## API
 ### Chatbot Props
