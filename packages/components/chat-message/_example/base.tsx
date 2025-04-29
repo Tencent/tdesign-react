@@ -1,42 +1,21 @@
 import React from 'react';
 import { ChatMessage, Space } from 'tdesign-react';
 
+const message = {
+  content: [
+    {
+      type: 'text',
+      data: '牛顿第一定律是否适用于所有参考系？',
+    },
+  ],
+};
+
 export default function ChatMessageExample() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <ChatMessage
-        variant="text"
-        avatar="https://tdesign.gtimg.com/site/avatar.jpg"
-        datetime="今天16:38"
-        name="张三"
-        message={{
-          id: '123123',
-          role: 'user',
-          content: [
-            {
-              type: 'text',
-              data: '牛顿第一定律是否适用于所有参考系？',
-            },
-          ],
-        }}
-      ></ChatMessage>
-      <ChatMessage
-        variant="text"
-        placement="right"
-        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
-        datetime="今天16:43"
-        name="TDesignAI"
-        message={{
-          id: '123123',
-          role: 'assistant',
-          content: [
-            {
-              type: 'text',
-              data: '牛顿第一定律并不适用于所有参考系，它只适用于惯性参考系。在质点不受外力作用时，能够判断出质点静止或作匀速直线运动的参考系一定是惯性参考系，因此只有在惯性参考系中牛顿第一定律才适用。',
-            },
-          ],
-        }}
-      ></ChatMessage>
+      <ChatMessage message={message}></ChatMessage>
+      <ChatMessage variant="base" message={message}></ChatMessage>
+      <ChatMessage variant="outline" message={message}></ChatMessage>
     </Space>
   );
 }

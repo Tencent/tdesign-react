@@ -166,7 +166,13 @@ const ChatSenderExample = () => {
       {/* 自定义提交区域slot */}
       <div slot="actions">
         {!loading ? (
-          <Button shape="circle" icon={<ArrowUpIcon size={24} />} onClick={handleSend}></Button>
+          <Button
+            shape="circle"
+            disabled={inputValue === ''}
+            icon={<ArrowUpIcon size={24} />}
+            onClick={handleSend}
+            style={{ opacity: inputValue ? '1' : '0.5' }}
+          ></Button>
         ) : (
           <Button shape="circle" icon={<StopIcon size={32} />} onClick={handleStop}></Button>
         )}
