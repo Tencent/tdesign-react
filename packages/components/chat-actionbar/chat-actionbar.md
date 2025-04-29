@@ -10,6 +10,12 @@ spline: aigc
 
 {{ base }}
 
+## 自定义
+
+支持调整顺序，展示指定项
+
+{{ custom }}
+
 
 ## API
 ### ChatActionBar Props

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ChatMessage, Space } from 'tdesign-react';
+import { ChatMessage, Space, UserMessage } from 'tdesign-react';
 
-const message = {
+const message: UserMessage = {
   content: [
     {
       type: 'text',

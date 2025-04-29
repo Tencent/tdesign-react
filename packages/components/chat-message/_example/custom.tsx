@@ -1,6 +1,6 @@
 import React from 'react';
 import TvisionTcharts from 'tvision-charts-react';
-import { AIMessage, BaseContent, ChatMessage, Space } from 'tdesign-react';
+import { BaseContent, ChatMessage, Space } from 'tdesign-react';
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
@@ -74,29 +74,21 @@ const ChartDemo = ({ data }) => (
   </div>
 );
 
-const customRenderConfig = {
-  chart: (content) => ({
-    slotName: `${content.type}-${content.data.id}`,
-  }),
-};
-
 export default function ChatMessageExample() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <ChatMessage
         variant="text"
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
-        datetime="今天16:43"
         name="TDesignAI"
-        customRenderConfig={customRenderConfig}
         message={message}
       >
         {/* 自定义渲染-植入插槽 */}
-        {message.content.map(({ type, data }) => {
+        {message.content.map(({ type, data }, index) => {
           switch (type) {
             case 'chart':
               return (
-                <div slot={`${type}-${data.id}`} key={data.id}>
+                <div slot={`${type}-${index}`} key={data.id}>
                   <ChartDemo data={data} />
                 </div>
               );

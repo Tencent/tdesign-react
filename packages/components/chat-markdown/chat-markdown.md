@@ -1,6 +1,6 @@
 ---
-title: ChatMDContent Markdown消息内容
-description: Markdown 消息体
+title: ChatMarkdown 消息内容
+description: Markdown格式的消息内容
 isComponent: true
 usage: { title: '', description: '' }
 spline: aigc
@@ -12,7 +12,7 @@ spline: aigc
 
 
 ## API
-### ChatMDContent Props
+### ChatMarkdown Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
