@@ -11,7 +11,7 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { isFunction, get, debounce } from 'lodash-es';
+import { isFunction, get, debounce, union, difference } from 'lodash-es';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
@@ -213,10 +213,17 @@ const Select = forwardRefWithStatics(
         valueToOption,
       );
 
-      const checkAllValue =
+      let checkAllValue =
         !checkAll && allSelectedValue.some((value) => !(props.value as Array<SelectValue>).includes(value))
           ? allSelectedValue
           : [];
+
+      // 处理搜索全选特殊场景
+      if (filterable && inputValue) {
+        checkAllValue = !checkAll
+          ? union(value as Array<SelectValue>, allSelectedValue)
+          : difference(value as Array<SelectValue>, allSelectedValue);
+      }
 
       onChange?.(checkAllValue, {
         e,
