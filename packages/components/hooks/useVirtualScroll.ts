@@ -58,28 +58,31 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
   // const tripleBufferSize = useMemo(() => tScroll.bufferSize * 3, [tScroll.bufferSize]);
 
-  const updateVisibleData = (trScrollTopHeightList: number[], scrollTop: number) => {
+  const updateVisibleData = () => {
+    const scrollTopHeightList = trScrollTopHeightList.current;
+    const { scrollTop } = container.current;
+
     let currentIndex = -1;
     // 获取当前滚动到哪一个元素（大数据场景不建议使用 forEach 一类函数迭代）
-    for (let i = 0, len = trScrollTopHeightList.length; i < len; i++) {
-      if (trScrollTopHeightList[i] >= scrollTop) {
+    for (let i = 0, len = scrollTopHeightList.length; i < len; i++) {
+      if (scrollTopHeightList[i] >= scrollTop) {
         currentIndex = i;
         break;
       }
     }
-    let lastIndex = trScrollTopHeightList.length;
+    let lastIndex = scrollTopHeightList.length;
     const containerCurrentHeight = containerHeight.current || container.current.getBoundingClientRect().height;
     const scrollBottom = scrollTop + containerCurrentHeight;
     // 获取当前视窗的最后一个元素（大数据场景不建议使用 forEach 一类函数迭代）
-    for (let i = currentIndex, len = trScrollTopHeightList.length; i < len; i++) {
-      if (trScrollTopHeightList[i] >= scrollBottom) {
+    for (let i = currentIndex, len = scrollTopHeightList.length; i < len; i++) {
+      if (scrollTopHeightList[i] >= scrollBottom) {
         lastIndex = i;
         break;
       }
     }
     if (currentIndex < 0) return;
     const startIndex = Math.max(currentIndex - tScroll.bufferSize, 0);
-    const endIndex = Math.min(lastIndex + tScroll.bufferSize, trScrollTopHeightList.length);
+    const endIndex = Math.min(lastIndex + tScroll.bufferSize, scrollTopHeightList.length);
 
     // 计算固定行情况
     const { fixedRows } = tScroll;
@@ -97,9 +100,9 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     if (startAndEndIndex.current.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
       const tmpVisibleData = fixedStartData.concat(data.slice(startIndex, endIndex)).concat(fixedEndData);
       setVisibleData(tmpVisibleData);
-      const lastScrollTop = trScrollTopHeightList[startIndex - 1];
+      const lastScrollTop = scrollTopHeightList[startIndex - 1];
       const top = lastScrollTop > 0 ? lastScrollTop : 0;
-      const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
+      const stickyHeight = scrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
       setTranslateY(top - stickyHeight);
       startAndEndIndex.current = [startIndex, endIndex];
     }
@@ -120,14 +123,14 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       trScrollTopHeightList.current = scrollTopHeightList;
 
       const lastIndex = scrollTopHeightList.length - 1;
-      setScrollHeight(scrollTopHeightList[lastIndex] - containerHeight.current);
-      updateVisibleData(scrollTopHeightList, container.current.scrollTop);
+      setScrollHeight(scrollTopHeightList[lastIndex]);
+      updateVisibleData();
     }
   };
 
   const handleScroll = () => {
     if (!isVirtualScroll) return;
-    updateVisibleData(trScrollTopHeightList.current, container.current.scrollTop);
+    updateVisibleData();
   };
 
   const refreshVirtualScroll = ([{ contentRect }]: [ResizeObserverEntry]) => {
@@ -193,7 +196,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         setScrollHeight(scrollTopHeightList[lastIndex]);
 
         startAndEndIndex.current = [0, 0];
-        updateVisibleData(scrollTopHeightList, container.current.scrollTop);
+        updateVisibleData();
       } else {
         // 数据初始化
         setScrollHeight(data.length * tScroll.rowHeight);
@@ -216,8 +219,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     // eslint-disable-next-line
     [container, data, tScroll, isVirtualScroll, trHeightList],
   );
-
-  console.log(data[0], visibleData[0]);
 
   return {
     visibleData,
