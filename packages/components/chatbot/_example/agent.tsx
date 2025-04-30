@@ -17,33 +17,31 @@ import './index.css';
 
 // 自定义渲染-注册插槽规则
 const customRenderConfig: TdChatCustomRenderConfig = {
-  "agent": (content) => ({
+  agent: (content) => ({
     slotName: `${content.state}-${content.id}`,
   }),
 };
 
 const RenderAgent = ({ steps }) => {
-  console.log('=====steps', steps);
-
   return (
     <div style={{ paddingLeft: 10 }}>
       <Timeline mode="same" theme="dot">
         {steps.map((step) => (
-            <Timeline.Item 
-              key={step.agent_id} 
-              label="" 
-              dot={<CheckCircleFilledIcon size="medium" color={step?.status === 'finish' ? 'green' : '#ccc'} />}
-            >
-              <div className={'step'}>
-                <div className={'title'}>{step.step}</div>
-                {step?.tasks?.map((task, taskIndex) => (<div key={`${step.agent_id}_task_${taskIndex}`}>
-                  <div className={task.type}>
-                    {task.text}
-                  </div>
-                  </div>))}
-              </div>
-            </Timeline.Item>
-          ))}
+          <Timeline.Item
+            key={step.agent_id}
+            label=""
+            dot={<CheckCircleFilledIcon size="medium" color={step?.status === 'finish' ? 'green' : '#ccc'} />}
+          >
+            <div className={'step'}>
+              <div className={'title'}>{step.step}</div>
+              {step?.tasks?.map((task, taskIndex) => (
+                <div key={`${step.agent_id}_task_${taskIndex}`}>
+                  <div className={task.type}>{task.text}</div>
+                </div>
+              ))}
+            </div>
+          </Timeline.Item>
+        ))}
       </Timeline>
     </div>
   );
@@ -52,7 +50,7 @@ const RenderAgent = ({ steps }) => {
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
   interface AIContentTypeOverrides {
-    "agent": BaseContent<
+    agent: BaseContent<
       'agent',
       {
         steps: any[];
@@ -83,28 +81,35 @@ const mockData: ChatMessagesData[] = [
     id: '222',
     role: 'assistant',
     status: 'complete',
-    content: [{
-      type: "agent",
-      state: "agent_init",
-      id: "111111",
-      content: {
-        text: "家庭聚会规划任务已分解为3个执行阶段",
-        steps: [
-          { "step": "① 餐饮方案", "agent_id": "a1", "time": "2分钟",
-            status: "finish",
-            tasks: [
-              { type: 'command', text: "开始生成餐饮方案：正在分析用户饮食偏好..." },
-              { type: 'command', text: "已筛选出3种高性价比菜单方案，正在进行营养匹配..." },
-              { type: 'result', text: "🍴 推荐餐饮方案:主菜是香草烤鸡（无麸质），准备耗时45分钟；饮品是智能调酒机方案B，酒精浓度12%" },
-
-            ] },
-          { "step": "② 设备调度", "agent_id": "a2", "time": "3分钟" },
-          { "step": "③ 安全监测", "agent_id": "a3", "time": "1分钟" }
-        ]
-      }
-    }]
-  }
-  
+    content: [
+      {
+        type: 'agent',
+        state: 'agent_init',
+        id: '111111',
+        content: {
+          text: '家庭聚会规划任务已分解为3个执行阶段',
+          steps: [
+            {
+              step: '① 餐饮方案',
+              agent_id: 'a1',
+              time: '2分钟',
+              status: 'finish',
+              tasks: [
+                { type: 'command', text: '开始生成餐饮方案：正在分析用户饮食偏好...' },
+                { type: 'command', text: '已筛选出3种高性价比菜单方案，正在进行营养匹配...' },
+                {
+                  type: 'result',
+                  text: '🍴 推荐餐饮方案:主菜是香草烤鸡（无麸质），准备耗时45分钟；饮品是智能调酒机方案B，酒精浓度12%',
+                },
+              ],
+            },
+            { step: '② 设备调度', agent_id: 'a2', time: '3分钟' },
+            { step: '③ 安全监测', agent_id: 'a3', time: '1分钟' },
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default function ChatBotReact() {
@@ -146,21 +151,22 @@ export default function ChatBotReact() {
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
       switch (type) {
-      // 正文
-      case 'text':
-        return {
-          type: 'markdown',
-          data: rest?.msg || '',
-        };
-      case 'agent':
-        return {
-          ...chunk.data,
-        };
-      default:
-        return {
-          ...chunk.data,
-          data: { ...chunk.data.content },
-        };
+        // 正文
+        case 'text':
+          return {
+            type: 'markdown',
+            data: rest?.msg || '',
+          };
+        case 'agent':
+          return {
+            type: 'agent',
+            ...chunk.data,
+          };
+        default:
+          return {
+            ...chunk.data,
+            data: { ...chunk.data.content },
+          };
       }
     },
     // 自定义请求参数
@@ -184,31 +190,29 @@ export default function ChatBotReact() {
       return;
     }
     const chat = chatRef.current;
-    chat.registerMergeStrategy('agent', (newchunk, existing)=>{
-      const newExisting = {...existing};
-      newExisting.content = {...existing.content};
+    chat.registerMergeStrategy('agent', (newchunk, existing) => {
+      const newExisting = { ...existing };
+      newExisting.content = { ...existing.content };
       newExisting.content.steps = [...existing.content.steps];
-      
-      const stepIndex = newExisting.content.steps.findIndex(
-        step => step.agent_id === newchunk.content.agent_id
-      );
-      
+
+      const stepIndex = newExisting.content.steps.findIndex((step) => step.agent_id === newchunk.content.agent_id);
+
       if (stepIndex >= 0) {
-        const step = {...newExisting.content.steps[stepIndex]};
-        
+        const step = { ...newExisting.content.steps[stepIndex] };
+
         if (['agent_update', 'agent_result'].includes(newchunk.state)) {
           step.tasks = [...(step.tasks || [])];
           step.tasks.push({
             type: newchunk.state === 'agent_update' ? 'command' : 'result',
-            text: newchunk.content.text
+            text: newchunk.content.text,
           });
         }
-        
+
         // 设置step状态
         step.status = newchunk.state === 'agent_finish' ? 'finish' : 'pending';
         newExisting.content.steps[stepIndex] = step;
       }
-      
+
       return newExisting;
     });
 
@@ -221,8 +225,6 @@ export default function ChatBotReact() {
       chat.removeEventListener('message_change', update);
     };
   }, []);
-  console.log('==mockMessage', mockMessage);
-
 
   return (
     <div style={{ height: '600px' }}>
@@ -248,9 +250,7 @@ export default function ChatBotReact() {
                 case 'agent_update':
                   return (
                     <div slot={`${item.content.agent_id}`} key={`${data.id}-${item.state}-${item.id}`}>
-                      <div style={{ paddingLeft: 10, marginTop: 4 }}>
-                        {item.content.text}
-                      </div>
+                      <div style={{ paddingLeft: 10, marginTop: 4 }}>{item.content.text}</div>
                     </div>
                   );
               }

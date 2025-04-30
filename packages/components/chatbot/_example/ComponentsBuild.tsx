@@ -14,7 +14,7 @@ import {
   isAIMessage,
   useChat,
 } from 'tdesign-react';
-import { getCopyContent, TdChatActionsName } from '@tencent/tdesign-chatbot';
+import { getMessageContentForCopy, TdChatActionsName } from '@tencent/tdesign-chatbot';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -311,7 +311,7 @@ export default function ComponentsBuild() {
           slot="actionbar"
           actionBar={getChatActionBar(isLast) as TdChatActionsName[]}
           handleAction={actionHandler}
-          copyText={getCopyContent(message)}
+          copyText={getMessageContentForCopy(message)}
           comment={message.role === 'assistant' ? message.comment : undefined}
         />
       ) : null}
