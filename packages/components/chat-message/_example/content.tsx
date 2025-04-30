@@ -1,76 +1,57 @@
 import React from 'react';
-import { AIMessage, ChatMessage, Divider, Space, SystemMessage, UserMessage } from 'tdesign-react';
+import { AIMessage, ChatMessage, Space } from 'tdesign-react';
 
-const messages = {
-  thinking: {
-    id: '11111',
-    role: 'assistant',
-    status: 'streaming',
-    content: [
-      {
-        type: 'thinking',
-        data: {
-          title: '深度思考中...',
-          text: '好的，我现在需要回答用户关于近三年当代偶像爱情剧创作中需要规避的因素的问题。首先，我需要确定用户的问题类型，使用answer_framework_search查询对应的回答框架',
-        },
+const messages: AIMessage = {
+  id: '11111',
+  role: 'assistant',
+  status: 'complete',
+  content: [
+    {
+      type: 'thinking',
+      status: 'complete',
+      data: {
+        title: '已完成思考（耗时3秒）',
+        text: '好的，我现在需要回答用户关于对比近3年当代偶像爱情剧并总结创作经验的问题\n查询网络信息中...\n根据网络搜索结果，成功案例包括《春色寄情人》《要久久爱》《你也有今天》等，但缺乏具体播放数据，需要结合行业报告总结共同特征。2022-2024年偶像爱情剧的创作经验主要集中在题材创新、现实元素融入、快节奏叙事等方面。结合行业报告和成功案例，总结出以下创作经验。',
       },
-    ],
-  } as AIMessage,
-  search: {
-    id: '22222',
-    role: 'assistant',
-    content: [
-      {
-        type: 'search',
-        data: {
-          title: '搜索到10篇相关内容',
-          references: [
-            {
-              title: '10本高口碑悬疑推理小说,情节高能刺激,看得让人汗毛直立!',
-              url: '',
-            },
-            {
-              title: '悬疑小说下载:免费畅读最新悬疑大作!',
-              url: '',
-            },
-          ],
-        },
-      },
-    ],
-  } as AIMessage,
-  suggestion: {
-    id: '33333',
-    role: 'assistant',
-    content: [
-      {
-        type: 'suggestion',
-        data: [
+    },
+    {
+      type: 'search',
+      data: {
+        title: '搜索到2篇相关内容',
+        references: [
           {
-            title: '《六姊妹》中有哪些观众喜欢的剧情点？',
-            prompt: '《六姊妹》中有哪些观众喜欢的剧情点？',
+            title: '《传媒内参2024剧集市场分析报告》',
+            url: '',
           },
           {
-            title: '两部剧在演员表现上有什么不同？',
-            prompt: '两部剧在演员表现上有什么不同？',
-          },
-          {
-            title: '《六姊妹》有哪些负面的评价？',
-            prompt: '《六姊妹》有哪些负面的评价？',
+            title: '2024年国产剧市场分析:优质内容的消失与未来展望_观众_剧集_平台',
+            url: '',
           },
         ],
       },
-    ],
-  } as AIMessage,
-  markdown: {
-    id: '4444',
-    role: 'assistant',
-    content: [
-      {
-        type: 'markdown',
-        data: '**牛顿第一定律** 并不适用于所有参考系，它只适用于 `惯性参考系`',
-      },
-    ],
-  } as AIMessage,
+    },
+    {
+      type: 'markdown',
+      data: '**数据支撑：** 据《传媒内参2024报告》，2024年偶像爱情剧完播率`提升12%`，其中“职业创新”类`占比达65%`，豆瓣评分7+作品数量同比`增加40%`。',
+    },
+    {
+      type: 'suggestion',
+      data: [
+        {
+          title: '近3年偶像爱情剧的市场反馈如何',
+          prompt: '近3年偶像爱情剧的市场反馈如何',
+        },
+        {
+          title: '偶像爱情剧的观众群体分析',
+          prompt: '偶像爱情剧的观众群体分析',
+        },
+        {
+          title: '偶像爱情剧的创作趋势是什么',
+          prompt: '偶像爱情剧的创作趋势是什么',
+        },
+      ],
+    },
+  ],
 };
 
 export default function ChatMessageExample() {
@@ -86,22 +67,15 @@ export default function ChatMessageExample() {
   };
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Divider>渲染思考内容</Divider>
       <ChatMessage
-        message={messages.thinking}
+        message={messages}
         animation="gradient"
-        chatContentProps={{ thinking: { maxHeight: 100, collapsed: true } }}
-      ></ChatMessage>
-      <Divider>渲染搜索内容</Divider>
-      <ChatMessage
-        message={messages.search}
-        chatContentProps={{ search: { expandable: true } }}
+        chatContentProps={{
+          thinking: { maxHeight: 100, collapsed: true },
+          search: { expandable: true },
+        }}
         handleActions={onActions}
       ></ChatMessage>
-      <Divider>渲染建议问题</Divider>
-      <ChatMessage message={messages.suggestion} handleActions={onActions}></ChatMessage>
-      <Divider>渲染Markdown内容</Divider>
-      <ChatMessage message={messages.markdown}></ChatMessage>
     </Space>
   );
 }

@@ -10,6 +10,13 @@ spline: aigc
 
 {{ base }}
 
+## 配置项及加载插件
+
+{{ plugin }}
+
+<!-- ## 自定义渲染
+
+{{ custom }} -->
 
 ## API
 ### ChatMarkdown Props

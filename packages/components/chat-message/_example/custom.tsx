@@ -1,6 +1,6 @@
 import React from 'react';
 import TvisionTcharts from 'tvision-charts-react';
-import { BaseContent, ChatMessage, Space } from 'tdesign-react';
+import { BaseContent, ChatActionBar, ChatMessage, Space } from 'tdesign-react';
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
@@ -83,9 +83,9 @@ export default function ChatMessageExample() {
         name="TDesignAI"
         message={message}
       >
-        {/* 自定义渲染-植入插槽 */}
         {message.content.map(({ type, data }, index) => {
           switch (type) {
+            /* 自定义渲染chart类型的消息内容--植入插槽 */
             case 'chart':
               return (
                 <div slot={`${type}-${index}`} key={data.id}>
@@ -95,6 +95,9 @@ export default function ChatMessageExample() {
           }
           return null;
         })}
+        <div slot="actionbar">
+          <ChatActionBar></ChatActionBar>
+        </div>
       </ChatMessage>
     </Space>
   );
