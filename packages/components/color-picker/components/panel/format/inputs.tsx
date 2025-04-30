@@ -1,108 +1,73 @@
 import React, { useRef, useEffect } from 'react';
 import { throttle } from 'lodash-es';
-import Color from '../../../../../common/js/color-picker/color';
+import { Color, getColorFormatInputs, getColorFormatMap } from '@tdesign/common-js/color-picker/index';
 import Input from '../../../../input';
 import InputNumber from '../../../../input-number';
-import { FORMAT_INPUT_CONFIG } from './config';
 
 const FormatInputs = (props) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;
+  const modelValueRef = useRef({});
   const lastModelValue = useRef({});
-  const formatValueRef = useRef<any>({});
 
-  const object2color = (f: string) => Color.object2color(formatValueRef.current, f);
-
-  // 获取不同格式的输入输出值
-  const getFormatColorMap = (type: 'encode' | 'decode') => {
-    if (type === 'encode') {
-      return {
-        HSV: color.getHsva(),
-        HSL: color.getHsla(),
-        RGB: color.getRgba(),
-        CMYK: color.getCmyk(),
-        CSS: {
-          css: color.css,
-        },
-        HEX: {
-          hex: color.hex,
-        },
-      };
-    }
-    // decode
-    return {
-      HSV: object2color('HSV'),
-      HSL: object2color('HSL'),
-      RGB: object2color('RGB'),
-      CMYK: object2color('CMYK'),
-      CSS: formatValueRef.current.css,
-      HEX: formatValueRef.current.hex,
-    };
-  };
-
-  // 更新 modelValue
   const updateModelValue = () => {
-    const values: any = getFormatColorMap('encode')[format];
-    values.a = Math.round(color.alpha * 100);
+    const value = getColorFormatMap(color, 'encode')[format];
+    if (!value) return;
+    value.a = Math.round(color.alpha * 100);
 
     const changedFormatValue = {};
-    Object.keys(values).forEach((key) => {
-      if (values[key] !== formatValueRef.current[key]) {
-        changedFormatValue[key] = values[key];
+    Object.keys(value).forEach((key) => {
+      if (value[key] !== modelValueRef.current[key]) {
+        changedFormatValue[key] = value[key];
       }
-      lastModelValue.current[key] = values[key];
+      lastModelValue.current[key] = value[key];
     });
 
     if (Object.keys(changedFormatValue).length > 0) {
-      formatValueRef.current = values;
+      modelValueRef.current = value;
     }
-  };
-
-  updateModelValue();
-
-  const throttleUpdate = throttle(updateModelValue, 100);
-
-  const inputConfigs = () => {
-    const configs = [...FORMAT_INPUT_CONFIG[format]];
-    if (enableAlpha) {
-      configs.push({
-        type: 'inputNumber',
-        key: 'a',
-        min: 0,
-        max: 100,
-        format: (value: number) => `${value}%`,
-        flex: 1.15,
-      });
-    }
-    return configs;
   };
 
   const handleInputChange = (key: string, v: number | string) => {
-    if (v === lastModelValue.current[key]) {
-      return;
-    }
+    if (v === lastModelValue.current[key]) return;
+    lastModelValue.current[key] = v;
 
     const newFormatValue = {
-      ...formatValueRef.current,
+      ...modelValueRef.current,
       [key]: v,
     };
-    formatValueRef.current = newFormatValue;
-    lastModelValue.current[key] = v;
-    const value = getFormatColorMap('decode')[format];
-    onInputChange(value, formatValueRef.current.a / 100, key, v);
+    modelValueRef.current = newFormatValue;
+
+    // 对应 COLOR_FORMAT_INPUTS 中的 key
+    if (key === 'a') {
+      // 透明通道
+      color.alpha = (v as number) / 100;
+    } else if (key === 'hex' || key === 'css') {
+      // 纯字符串类型的格式
+      color.update(v);
+    } else {
+      // 需要进一步转换的格式
+      color.update(Color.object2color(newFormatValue, format));
+    }
+
+    const value = getColorFormatMap(color, 'decode')[format];
+    onInputChange(value, color.alpha, key, v);
   };
 
+  updateModelValue();
   useEffect(() => {
+    const throttleUpdate = throttle(updateModelValue, 100);
     throttleUpdate();
+    return () => throttleUpdate.cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color.saturation, color.hue, color.value, color.alpha, format]);
 
   return (
     <div className="input-group">
-      {inputConfigs().map((config) => {
+      {getColorFormatInputs(format, enableAlpha).map((config) => {
         const commonProps = {
           ...inputProps,
-          title: formatValueRef.current[config.key],
-          [config.type === 'input' ? 'defaultValue' : 'value']: formatValueRef.current[config.key],
+          title: modelValueRef.current[config.key],
+          [config.type === 'input' ? 'defaultValue' : 'value']: modelValueRef.current[config.key],
           align: 'center',
           disabled,
           size: 'small',

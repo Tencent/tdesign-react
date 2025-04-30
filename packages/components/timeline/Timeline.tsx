@@ -8,6 +8,8 @@ import TimelineContext from './TimelineContext';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { useAlign } from './useAlign';
 
+import type { TimelineItemProps } from './TimelineItem';
+
 export interface TimelineProps extends TdTimelineProps, StyledProps {
   children?: React.ReactNode;
 }
@@ -28,11 +30,14 @@ const Timeline = forwardRefWithStatics(
     const renderAlign = useAlign(labelAlign, layout);
 
     const timelineItems = React.Children.toArray(children).filter(
-      (child: JSX.Element) => child.type.displayName === TimelineItem.displayName,
+      (child: React.ReactElement<TimelineItemProps>) => (child.type as any)?.displayName === TimelineItem.displayName,
     );
     // 获取所有子节点类型
-    const itemsStatus = React.Children.map(timelineItems, (child: JSX.Element) => child.props?.dotColor || 'primary');
-    const hasLabelItem = timelineItems.some((item: React.ReactElement<any>) => !!item?.props?.label);
+    const itemsStatus = React.Children.map(
+      timelineItems,
+      (child: React.ReactElement<TimelineItemProps>) => child.props?.dotColor || 'primary',
+    );
+    const hasLabelItem = timelineItems.some((item: React.ReactElement<TimelineItemProps>) => !!item?.props?.label);
 
     if (reverse) {
       timelineItems.reverse();
@@ -55,7 +60,7 @@ const Timeline = forwardRefWithStatics(
     return (
       <TimelineContext.Provider value={{ theme, reverse, itemsStatus, layout, globalAlign: labelAlign, mode }}>
         <ul className={timelineClassName} style={style} ref={ref}>
-          {React.Children.map(timelineItems, (ele: JSX.Element, index) =>
+          {React.Children.map(timelineItems, (ele: React.ReactElement<TimelineItemProps>, index) =>
             React.cloneElement(ele, {
               index,
               className: classNames([ele?.props?.className], {

@@ -1,11 +1,12 @@
 import React from 'react';
-import { merge } from 'lodash-es';
 import { ConfigProvider, DatePicker, DateRangePicker, Space } from 'tdesign-react';
-import enConfig from 'tdesign-react/locale/en_US';
+import type { GlobalConfigProvider } from 'tdesign-react';
+import enConfig from 'tdesign-react/es/locale/en_US';
 
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置
-  const globalConfig = merge(enConfig, {
+  const globalConfig: GlobalConfigProvider = {
+    ...enConfig,
     datePicker: {
       placeholder: {
         date: 'select date',
@@ -21,7 +22,7 @@ export default function configDemo() {
       selectTime: 'Select Time',
       selectDate: 'Select Date',
     },
-  });
+  };
 
   return (
     <ConfigProvider globalConfig={globalConfig}>

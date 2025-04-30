@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import { isArray } from 'lodash-es';
+import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
+import { TIME_PICKER_EMPTY } from '@tdesign/common-js/time-picker/const';
 import noop from '../_util/noop';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
@@ -13,8 +15,6 @@ import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
 import TimePickerPanel from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-import { formatInputValue, validateInputValue } from '../../common/js/time-picker/utils';
-import { TIME_PICKER_EMPTY } from '../../common/js/time-picker/const';
 
 import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import { StyledProps } from '../common';

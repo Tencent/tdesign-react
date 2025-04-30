@@ -32,13 +32,14 @@ const InputAdornment = forwardRef<HTMLDivElement, InputAdornmentProps>((props, r
     React.Children.map(children, (child) => {
       if (!child) return null;
       if (React.isValidElement(child)) {
+        const childProps = (child as React.ReactElement<any>).props;
         return React.cloneElement(child, {
           ...wrapperProps,
-          ...child.props,
+          ...childProps,
           onChange: (...args) => {
             // @ts-ignore
             wrapperProps?.onChange?.call?.(null, ...args);
-            child.props?.onChange?.call?.(null, ...args);
+            childProps?.onChange?.call?.(null, ...args);
           },
         });
       }

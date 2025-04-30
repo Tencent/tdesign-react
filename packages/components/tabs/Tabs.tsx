@@ -50,7 +50,7 @@ const Tabs = forwardRefWithStatics(
       return list.map<React.ReactNode>((panelProps) => <TabPanel key={panelProps.value} {...panelProps} />);
     }, [children, list]);
 
-    const itemList = React.Children.map(memoChildren, (child: React.ReactElement) => {
+    const itemList = React.Children.map(memoChildren, (child: React.ReactElement<any>) => {
       if (child && child.type === TabPanel) {
         return child.props;
       }
@@ -121,12 +121,7 @@ const Tabs = forwardRefWithStatics(
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(memoChildren, (child: any) => {
             if (child && child.type === TabPanel) {
-              if (child.props.value === value) {
-                return child;
-              }
-              if (child.props.destroyOnHide === false) {
-                return <TabPanel {...child.props} style={{ display: 'none' }}></TabPanel>;
-              }
+              return <TabPanel {...child.props} isActive={child.props.value === value} />;
             }
             return null;
           })}

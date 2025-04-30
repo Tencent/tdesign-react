@@ -5,7 +5,7 @@ import checkSubMenuChildrenActive from './checkSubMenuChildrenActive';
 
 const checkSubMenuActive = (children: React.ReactNode, active: MenuValue): ReactElement =>
   React.Children.toArray(children).find(
-    (child: React.ReactElement) =>
+    (child: React.ReactElement<any>) =>
       checkIsSubMenu(child) &&
       (child.props.value === active || checkSubMenuChildrenActive(child.props.children, active)),
   ) as ReactElement;

@@ -52,6 +52,7 @@ const MultipleSelect = () => {
           console.log('onRemove', options);
         }}
       >
+        <Option value="all" label="全选" checkAll></Option>
         {options2.map((item) => (
           <Option value={item.value} label={item.label} key={item.value} content={item.content}></Option>
         ))}

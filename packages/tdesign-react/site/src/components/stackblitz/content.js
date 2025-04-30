@@ -1,4 +1,5 @@
 import orgPkg from '../../../package.json';
+import tdesignReactPkg from '../../../../package.json';
 
 export const htmlContent = `
   <div id="app"></div>
@@ -43,6 +44,18 @@ export const styleContent = `
     display: flex;
     column-gap: 16px;
     align-items: center;
+  }
+
+  /* swiper 组件示例展示 */
+  .tdesign-demo-block--swiper .demo-item {
+    display: flex;
+    height: 280px;
+    background-color: #4b5b76;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 20px;
   }
 `;
 
@@ -101,13 +114,14 @@ export const packageJSONContent = JSON.stringify(
       serve: 'vite preview',
     },
     dependencies: {
-      react: orgPkg.devDependencies.react,
-      dayjs: orgPkg.dependencies.dayjs,
-      'react-dom': orgPkg.devDependencies['react-dom'],
-      'tdesign-react': orgPkg.version,
-      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+      react: orgPkg.dependencies.react,
+      'react-dom': orgPkg.dependencies['react-dom'],
+      'tdesign-react': tdesignReactPkg.version,
+      'tdesign-icons-react': tdesignReactPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
+      dayjs: tdesignReactPkg.dependencies.dayjs,
+      'lodash-es': tdesignReactPkg.dependencies['lodash-es'],
     },
     devDependencies: {
       vite: orgPkg.devDependencies.vite,

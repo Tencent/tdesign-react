@@ -27,6 +27,14 @@ export default function PaginationExample() {
       pageSizeOptions={[20, 30, 100, 200]}
       onChange={onChange}
       onPageSizeChange={onPageSizeChange}
+      selectProps={{
+        popupProps: {
+          overlayStyle: { fontWeight: 'normal' },
+          overlayInnerStyle: { fontWeight: 'normal' },
+          overlayClassName: 'pagination-num-custom-overlay-class',
+          overlayInnerClassName: 'pagination-num-custom-overlay-inner-class',
+        },
+      }}
     />
   );
 }

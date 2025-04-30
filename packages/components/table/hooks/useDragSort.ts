@@ -2,15 +2,15 @@
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import { get } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
+import swapDragArrayElement from '@tdesign/common-js/utils/swapDragArrayElement';
+import { getColumnDataByKey, getColumnIndexByKey } from '@tdesign/common-js/table/utils';
 import { PaginationProps } from '../../pagination';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
 import useClassName from './useClassName';
 import { hasClass } from '../../_util/style';
 import useLatest from '../../hooks/useLatest';
-import log from '../../../common/js/log';
-import swapDragArrayElement from '../../../common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
-import { getColumnDataByKey, getColumnIndexByKey } from '../../../common/js/table/utils';
 
 export default function useDragSort(
   props: TdPrimaryTableProps,
@@ -39,7 +39,7 @@ export default function useDragSort(
   // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
-  const tData = useRef<TableRowData[]>();
+  const tData = useRef<TableRowData[]>(null);
   const lastColList = useRef([]);
   const dragColumns = useRef([]);
   const originalColumns = useRef([]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
+import { render, fireEvent, vi, mockDelay } from '@test/utils';
 import { Textarea } from '..';
 
 describe('Textarea 组件测试', () => {
@@ -89,6 +89,8 @@ describe('Textarea 组件测试', () => {
   test('autofocus cursor end', async () => {
     const value = 'test autofocus';
     const { container } = render(<Textarea value={value} autofocus />);
+
+    await mockDelay(100);
 
     expect(container.getElementsByTagName('textarea')[0].selectionStart).toBe(value.length);
   });

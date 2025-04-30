@@ -4,7 +4,7 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { abridgeName, getFileSizeText } from '../../../common/js/upload/utils';
+import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
 import { TdUploadProps, UploadFile } from '../type';
 import Link from '../../link';
 import { CommonDisplayFileProps } from '../interface';
@@ -33,7 +33,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   const drag = useDrag({ ...props.dragEvents, accept });
   const { dragActive } = drag;
 
-  const draggerFileRef = useRef();
+  const draggerFileRef = useRef(null);
 
   const { CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
     CheckCircleFilledIcon: TdCheckCircleFilledIcon,

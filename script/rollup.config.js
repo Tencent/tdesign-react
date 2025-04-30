@@ -2,6 +2,7 @@ import url from '@rollup/plugin-url';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import styles from 'rollup-plugin-styles';
+import copy from 'rollup-plugin-copy';
 import esbuild from 'rollup-plugin-esbuild';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
@@ -15,13 +16,13 @@ import staticImport from 'rollup-plugin-static-import';
 import ignoreImport from 'rollup-plugin-ignore-import';
 import { resolve } from 'path';
 
-import pkg from '../package.json';
+import pkg from '../packages/tdesign-react/package.json';
 
-// TODO: replace packages/tdesign-react
+// TODO: replace path with utils
 
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
-const externalPeerDeps = Object.keys(pkg.peerDependencies || {});
+const externalPeerDeps = Object.keys(pkg.peerDependencies || {}).concat(['react-dom/client']);
 const banner = `/**
  * ${name} v${pkg.version}
  * (c) ${new Date().getFullYear()} ${pkg.author}
@@ -156,7 +157,7 @@ const cssConfig = {
 const libConfig = {
   input: inputList.concat('!packages/components/index-lib.ts'),
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
     dir: 'packages/tdesign-react/lib/',
@@ -188,7 +189,19 @@ const esmConfig = {
   // 为了保留 style/index.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ ignoreLess: false })),
+  plugins: [
+    multiInput({ relative: 'packages/components/' }),
+    copy({
+      targets: [
+        {
+          src: 'packages/common/style/web/**/*.less',
+          dest: 'packages/tdesign-react/esm/common',
+          rename: (_, __, fullPath) => `${fullPath.replace('packages/common', '')}`,
+        },
+      ],
+      verbose: true,
+    }),
+  ].concat(getPlugins({ ignoreLess: false })),
   output: {
     banner,
     dir: 'packages/tdesign-react/esm/',

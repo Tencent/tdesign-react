@@ -1,8 +1,8 @@
 import React from 'react';
-import { merge } from 'lodash-es';
 import { ConfigProvider, Table, Space } from 'tdesign-react';
+import type { GlobalConfigProvider } from 'tdesign-react';
 import { ChevronRightIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
-import enConfig from 'tdesign-react/locale/en_US';
+import enConfig from 'tdesign-react/es/locale/en_US';
 
 const columns = [
   {
@@ -35,7 +35,8 @@ const data = [
 
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置
-  const globalConfig = merge(enConfig, {
+  const globalConfig: GlobalConfigProvider = {
+    ...enConfig,
     table: {
       // 支持 String 和 Function 两种数据类型
       empty: 'Empty Data',
@@ -52,7 +53,7 @@ export default function configDemo() {
       // sortDescendingOperationText: 'descending sort',
       // treeExpandAndFoldIcon: (h, { type }) => type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />,
     },
-  });
+  };
 
   return (
     <ConfigProvider globalConfig={globalConfig}>

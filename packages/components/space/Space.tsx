@@ -1,11 +1,11 @@
 import React, { CSSProperties, ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
 import { isFragment } from 'react-is';
+import { getFlexGapPolyFill } from '@tdesign/common-js/utils/helper';
 import useConfig from '../hooks/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';
-import { getFlexGapPolyFill } from '../../common/js/utils/helper';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 // export for test
@@ -29,7 +29,7 @@ const toArray = (children: React.ReactNode): React.ReactElement[] => {
     if (Array.isArray(child)) {
       ret = ret.concat(toArray(child));
     } else if (isFragment(child) && child.props) {
-      ret = ret.concat(toArray(child.props.children));
+      ret = ret.concat(toArray((child as any).props.children));
     } else {
       ret.push(child);
     }

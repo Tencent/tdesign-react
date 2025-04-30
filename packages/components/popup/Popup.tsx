@@ -2,7 +2,6 @@ import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeH
 import { CSSTransition } from 'react-transition-group';
 import { isFunction, debounce } from 'lodash-es';
 import classNames from 'classnames';
-import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import useControlled from '../hooks/useControlled';
 import useAnimation from '../hooks/useAnimation';
@@ -10,7 +9,7 @@ import useConfig from '../hooks/useConfig';
 import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTrigger from './hooks/useTrigger';
-import { getRefDom } from './utils/ref';
+import { getRefDom } from '../_util/ref';
 import { getTransitionParams } from './utils/transition';
 import useMutationObserver from '../hooks/useMutationObserver';
 import useWindowSize from '../hooks/useWindowSize';
@@ -18,6 +17,7 @@ import { popupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
 import { getCssVarsValue } from '../_util/style';
+import usePopper from '../hooks/usePopper';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -221,7 +221,10 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
               onScroll={handleScroll}
             >
               {content}
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
+              {showArrow ? (
+                // popper.js 修饰符(modifiers)的高级功能 arrow 会自动根据属性 data-popper-arrow 来识别箭头元素，从而支持调整箭头位置(padding)
+                <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} data-popper-arrow />
+              ) : null}
             </div>
           </div>
         </CSSTransition>

@@ -1,8 +1,8 @@
 import React, { useMemo, useState, useRef, MouseEvent, useEffect, useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
 import { isFunction, escapeRegExp } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 import useConfig from '../hooks/useConfig';
-import log from '../../common/js/log';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
 import { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import HighlightOption from './HighlightOption';

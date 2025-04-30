@@ -14,12 +14,6 @@ import {
   FileIcon as TdFileIcon,
   VideoIcon as TdVideoIcon,
 } from 'tdesign-icons-react';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import ImageViewer from '../../image-viewer';
-import { CommonDisplayFileProps } from '../interface';
-import TButton, { ButtonProps } from '../../button';
-import { UploadFile, TdUploadProps } from '../type';
-import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import {
   abridgeName,
   returnFileSize,
@@ -29,7 +23,13 @@ import {
   FILE_WORD_REGEXP,
   FILE_PPT_REGEXP,
   VIDEO_REGEXP,
-} from '../../../common/js/upload/utils';
+} from '@tdesign/common-js/upload/utils';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import ImageViewer from '../../image-viewer';
+import { CommonDisplayFileProps } from '../interface';
+import TButton, { ButtonProps } from '../../button';
+import { UploadFile, TdUploadProps } from '../type';
+import useDrag, { UploadDragEvents } from '../hooks/useDrag';
 import TLoading from '../../loading';
 import Link from '../../link';
 import parseTNode from '../../_util/parseTNode';
@@ -160,15 +160,19 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             { [`${classPrefix}-is-bordered`]: file.status !== 'waiting' },
           ])}
         >
-          {['fail', 'progress'].includes(file.status) && (
-            <div
-              className={classNames([
-                `${uploadPrefix}__card-status-wrap`,
-                `${uploadPrefix}__${props.theme}-${file.status}`,
-              ])}
-            >
-              {iconMap[file.status as 'fail' | 'progress']}
-              <p>{textMap[file.status as 'fail' | 'progress']}</p>
+          {file.status === 'progress' && (
+            <div className={`${uploadPrefix}__card-status-wrap ${uploadPrefix}__${props.theme}-progress`}>
+              {iconMap[file.status as 'progress']}
+              <p>
+                {textMap[file.status as 'progress']}
+                {props.showUploadProgress && ` ${file.percent}%`}
+              </p>
+            </div>
+          )}
+          {file.status === 'fail' && (
+            <div className={`${uploadPrefix}__card-status-wrap ${uploadPrefix}__${props.theme}-fail`}>
+              {iconMap[file.status as 'fail']}
+              <p>{file.response?.error || textMap[file.status as 'fail']}</p>
             </div>
           )}
           {(['waiting', 'success'].includes(file.status) || (!file.status && file.url)) && (

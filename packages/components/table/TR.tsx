@@ -78,7 +78,7 @@ export default function TR(props: TrProps) {
     onRowMounted,
   } = props;
 
-  const trRef = useRef<HTMLTableRowElement>();
+  const trRef = useRef<HTMLTableRowElement>(null);
 
   const classNames = useClassName();
 
@@ -89,6 +89,7 @@ export default function TR(props: TrProps) {
     fixedRows,
     rowAndColFixedPosition,
     classNames.tableRowFixedClasses,
+    virtualConfig.isVirtualScroll ? virtualConfig.translateY : 0,
   );
 
   const trAttributes = useMemo(

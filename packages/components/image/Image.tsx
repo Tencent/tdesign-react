@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState, SyntheticEvent, MouseEven
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
-import observe from '../../common/js/utils/observe';
+import observe from '@tdesign/common-js/utils/observe';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdImageProps } from './type';
@@ -120,7 +120,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     onError?.({ e });
   };
 
-  const imgRef = useRef();
+  const imgRef = useRef(null);
   useEffect(() => {
     if (hasError && previewUrl) {
       setHasError(false);

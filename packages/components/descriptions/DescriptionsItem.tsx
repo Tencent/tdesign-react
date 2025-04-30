@@ -1,9 +1,9 @@
 import React from 'react';
-import { TdDescriptionItemProps } from './type';
+import { TdDescriptionsItemProps } from './type';
 
-export type DescriptionsItem = TdDescriptionItemProps & { children?: React.ReactNode };
+export type DescriptionsItemProps = TdDescriptionsItemProps & { children?: React.ReactNode };
 
-const DescriptionsItem: React.FC<DescriptionsItem> = () => null;
+const DescriptionsItem: React.FC<DescriptionsItemProps> = () => null;
 
 DescriptionsItem.displayName = 'DescriptionsItem';
 

@@ -2,7 +2,6 @@
   "extends": "./tsconfig",
   "include": [
     "./packages/components",
-    "./globals.d.ts"
   ],
   "exclude": [
     "**/**/__tests__/*",

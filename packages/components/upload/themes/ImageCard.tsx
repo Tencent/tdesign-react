@@ -6,12 +6,12 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import { abridgeName } from '@tdesign/common-js/upload/utils';
 import Loading from '../../loading';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import ImageViewer from '../../image-viewer';
 import { CommonDisplayFileProps } from '../interface';
 import { TdUploadProps, UploadFile } from '../type';
-import { abridgeName } from '../../../common/js/upload/utils';
 import parseTNode from '../../_util/parseTNode';
 import Link from '../../link';
 import Image from '../../image';

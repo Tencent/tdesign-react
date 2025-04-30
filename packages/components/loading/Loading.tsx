@@ -102,7 +102,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
     let renderIndicator = <Gradient />;
 
     if (indicator && typeof indicator !== 'boolean') {
-      renderIndicator = indicator as JSX.Element;
+      renderIndicator = indicator as React.ReactElement;
     }
     return (
       <>

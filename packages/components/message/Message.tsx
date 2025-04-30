@@ -24,6 +24,8 @@ import MessageComponent from './MessageComponent';
 
 import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
 import { useMessageClass } from './useMessageClass';
+import ConfigProvider from '../config-provider';
+import PluginContainer from '../common/PluginContainer';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
@@ -104,17 +106,21 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions):
     const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
     if (container.length < 1) {
       const div = document.createElement('div');
+      const mGlobalConfig = ConfigProvider.getGlobalConfig();
+      
       render(
-        <MessageContainer
-          id={containerId}
-          placement={placement}
-          zIndex={zIndex}
-          renderCallback={() => {
-            mountedDom.appendChild(div);
-            const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-            resolve(container[0]);
-          }}
-        />,
+        <PluginContainer globalConfig={mGlobalConfig}>
+          <MessageContainer
+            id={containerId}
+            placement={placement}
+            zIndex={zIndex}
+            renderCallback={() => {
+              mountedDom.appendChild(div);
+              const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
+              resolve(container[0]);
+            }}
+          />
+        </PluginContainer>,
         div,
       );
     } else {
@@ -161,20 +167,28 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
   }
 
   return new Promise((resolve) => {
+    /**
+     * message plugin 调用时走的渲染逻辑
+     * 调用获取全局上下文的方法获取信息，可传递当前组件自身信息（ConfigProvider.getGlobalConfig({message:config})）
+     * message组件不用穿，自身的配置信息都在props中
+     */
+    const mGlobalConfig = ConfigProvider.getGlobalConfig();
     // 渲染组件
     render(
-      <MessageComponent
-        key={keyIndex}
-        {...config}
-        theme={theme}
-        style={style}
-        onClose={(ctx) => {
-          onClose(ctx);
-          message.close();
-        }}
-      >
-        {content}
-      </MessageComponent>,
+      <PluginContainer globalConfig={mGlobalConfig}>
+        <MessageComponent
+          key={keyIndex}
+          {...config}
+          theme={theme}
+          style={style}
+          onClose={(ctx) => {
+            onClose(ctx);
+            message.close();
+          }}
+        >
+          {content}
+        </MessageComponent>
+      </PluginContainer>,
       div,
     );
 

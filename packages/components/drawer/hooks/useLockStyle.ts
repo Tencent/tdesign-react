@@ -1,6 +1,6 @@
 import { useRef, useCallback, useMemo, useEffect } from 'react';
+import { getScrollbarWidth } from '@tdesign/common-js/utils/getScrollbarWidth';
 import useLayoutEffect from '../../hooks/useLayoutEffect';
-import { getScrollbarWidth } from '../../../common/js/utils/getScrollbarWidth';
 import { hasBodyScrollbar } from '../../_util/scroll';
 
 let key = 1;

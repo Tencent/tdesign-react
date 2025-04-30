@@ -3,7 +3,7 @@ import { isPlainObject, get } from 'lodash-es';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption } from '../type';
+import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption, SelectOptionGroup } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
@@ -11,10 +11,11 @@ type ValueToOption = {
   [value: string | number]: TdOptionProps;
 };
 
-function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueToOption, keys: SelectKeysType) {
+function setValueToOptionFormOptionDom(dom: ReactElement<any>, valueToOption: ValueToOption, keys: SelectKeysType) {
   const { value, label, children } = dom.props;
   // eslint-disable-next-line no-param-reassign
   valueToOption[value] = {
+    ...dom.props,
     [keys?.value || 'value']: value,
     [keys?.label || 'label']: label || children || value,
   };
@@ -22,7 +23,7 @@ function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueTo
 
 // 获取 value => option，用于快速基于 value 找到对应的 option
 export const getValueToOption = (
-  children: ReactElement,
+  children: ReactElement<any>,
   options: TdOptionProps[],
   keys: SelectKeysType,
 ): ValueToOption => {
@@ -31,7 +32,21 @@ export const getValueToOption = (
   // options 优先级高于 children
   if (Array.isArray(options)) {
     options.forEach((option) => {
-      valueToOption[get(option, keys?.value || 'value')] = option;
+      if ((option as SelectOptionGroup).group) {
+        (option as SelectOptionGroup)?.children?.forEach((child) => {
+          valueToOption[get(child, keys?.value || 'value')] = {
+            ...child,
+            value: get(child, keys?.value || 'value'),
+            label: get(child, keys?.label || 'label'),
+          };
+        });
+      } else {
+        valueToOption[get(option, keys?.value || 'value')] = {
+          ...option,
+          value: get(option, keys?.value || 'value'),
+          label: get(option, keys?.label || 'label'),
+        };
+      }
     });
     return valueToOption;
   }
@@ -54,21 +69,31 @@ export const getValueToOption = (
     }
   }
 
+  /**
+   * children如果存在ReactElement和map函数混写的情况，会出现嵌套数组
+   */
   if (Array.isArray(children)) {
-    children.forEach((item: ReactElement) => {
+    const handlerElement = (item: ReactElement) => {
       if (item.type === Option) {
         setValueToOptionFormOptionDom(item, valueToOption, keys);
       }
 
       if (item.type === OptionGroup) {
-        const groupChildren = item.props.children;
+        const groupChildren = (item.props as SelectOption).children;
         if (Array.isArray(groupChildren)) {
           groupChildren.forEach((groupItem) => {
             setValueToOptionFormOptionDom(groupItem, valueToOption, keys);
           });
         }
       }
-    });
+
+      if (Array.isArray(item)) {
+        item.forEach((child) => {
+          handlerElement(child);
+        });
+      }
+    };
+    children.forEach((item: ReactElement) => handlerElement(item));
   }
 
   return valueToOption;
@@ -76,7 +101,7 @@ export const getValueToOption = (
 
 // 获取单选的 label
 export const getLabel = (
-  children: ReactElement,
+  children: ReactElement<any>,
   value: SelectValue<TdOptionProps>,
   options: TdOptionProps[],
   keys: SelectKeysType,
@@ -115,7 +140,7 @@ export const getLabel = (
   }
 
   if (Array.isArray(children)) {
-    children.some((item: ReactElement) => {
+    children.some((item: ReactElement<any>) => {
       // 处理分组
       if (item.type === OptionGroup) {
         const groupChildren = item.props.children;
@@ -190,7 +215,7 @@ export const getSelectedOptions = (
   multiple: TdSelectProps['multiple'],
   valueType: TdSelectProps['valueType'],
   keys: SelectKeysType,
-  tmpPropOptions: Array<unknown>,
+  valueToOption: ValueToOption,
   selectedValue?: SelectValue,
 ) => {
   const isObjectType = valueType === 'object';
@@ -200,6 +225,8 @@ export const getSelectedOptions = (
   let currentOption: SelectOption;
   // 全选值
   let allSelectedValue: Array<SelectValue>;
+  // 所有可选项
+  const tmpPropOptions = Object.values(valueToOption);
   if (multiple) {
     currentSelectedOptions = isObjectType
       ? (value as Array<SelectValue>)

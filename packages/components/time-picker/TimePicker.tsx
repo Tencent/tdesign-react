@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 
+import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
@@ -17,8 +19,6 @@ import TimePickerPanel from './panel/TimePickerPanel';
 import type { TimePickerPanelProps } from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-import { formatInputValue, validateInputValue } from '../../common/js/time-picker/utils';
-import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../common/js/time-picker/const';
 import { timePickerDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
@@ -52,6 +52,7 @@ const TimePicker = forwardRefWithStatics(
       onOpen = noop,
       onInput = noop,
       onPick = noop,
+      onClear = noop,
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -78,11 +79,12 @@ const TimePicker = forwardRefWithStatics(
       visible ? onOpen(context) : onClose(context); // trigger on-open and on-close
     };
 
-    const handleClear = (context: { e: React.MouseEvent }) => {
+    const handleClear = (context: { e: React.MouseEvent<SVGSVGElement> }) => {
       const { e } = context;
       e.stopPropagation();
       setCurrentValue('');
       onChange(null);
+      onClear(context);
     };
 
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {

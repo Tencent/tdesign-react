@@ -1,6 +1,6 @@
 import { throttle } from 'lodash-es';
 import { RefObject, DragEvent, useState, useRef } from 'react';
-import { TreeNode } from '../../../common/js/tree-v1/tree-node';
+import { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
 import { useTreeDraggableContext } from './TreeDraggableContext';
 import { DropPosition } from '../interface';
 import { usePersistFn } from '../../hooks/usePersistFn';

@@ -1,6 +1,5 @@
 import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect, ClipboardEventHandler } from 'react';
 import { merge } from 'lodash-es';
-import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import {
   getFilesAndErrors,
   validateFile,
@@ -8,10 +7,11 @@ import {
   getTriggerTextField,
   getDisplayFiles,
   formatToUploadFile,
-} from '../../../common/js/upload/main';
-import { getFileList } from '../../../common/js/upload/utils';
+} from '@tdesign/common-js/upload/main';
+import { getFileList } from '@tdesign/common-js/upload/utils';
+import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '@tdesign/common-js/upload/types';
 import useControlled from '../../hooks/useControlled';
-import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '../../../common/js/upload/types';
+import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
@@ -19,7 +19,7 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件
  */
 export default function useUpload(props: TdUploadProps) {
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
   // TODO: Form 表单控制上传组件是否禁用
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();

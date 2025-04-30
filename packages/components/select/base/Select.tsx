@@ -155,14 +155,8 @@ const Select = forwardRefWithStatics(
         const values = getSelectValueArr(value, value[closest], true, valueType, keys);
 
         // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
         onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
-        return;
-      }
-
-      if (trigger === 'clear') {
-        e.stopPropagation();
-        onChange([], { e, trigger, selectedOptions: [] });
         return;
       }
 
@@ -170,7 +164,7 @@ const Select = forwardRefWithStatics(
         e?.stopPropagation?.();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, tmpPropOptions);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
 
         onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         if (isFunction(onRemove)) {
@@ -185,21 +179,31 @@ const Select = forwardRefWithStatics(
         }
       }
     };
+
     const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
       if (!multiple) {
         return;
       }
 
-      const values = currentOptions
-        .filter((option) => !option.checkAll && !option.disabled)
-        .map((option) => (valueType === 'object' ? option : option[keys?.value || 'value']));
+      const values = [];
+      currentOptions.forEach((option) => {
+        if (option.group) {
+          option.children.forEach((item) => {
+            if (!item.disabled && !item.checkAll) {
+              values.push(valueType === 'object' ? item : item[keys?.value || 'value']);
+            }
+          });
+        } else if (!option.disabled && !option.checkAll) {
+          values.push(valueType === 'object' ? option : option[keys?.value || 'value']);
+        }
+      });
 
       const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
         values,
         multiple,
         valueType,
         keys,
-        tmpPropOptions,
+        valueToOption,
       );
 
       const checkAllValue =
@@ -207,7 +211,7 @@ const Select = forwardRefWithStatics(
 
       onChange?.(checkAllValue, {
         e,
-        trigger: checkAll ? 'check' : 'uncheck',
+        trigger: !checkAll ? 'check' : 'uncheck',
         selectedOptions: currentSelectedOptions,
       });
     };
@@ -215,7 +219,12 @@ const Select = forwardRefWithStatics(
     // 选中 Popup 某项
     const handleChange = (
       value: string | number | Array<string | number | Record<string, string | number>>,
-      context: { e: React.MouseEvent<HTMLLIElement>; trigger: SelectValueChangeTrigger; value?: SelectValue },
+      context: {
+        e: React.MouseEvent<HTMLLIElement>;
+        trigger: SelectValueChangeTrigger;
+        value?: SelectValue;
+        label?: string;
+      },
     ) => {
       if (multiple) {
         !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
@@ -232,7 +241,7 @@ const Select = forwardRefWithStatics(
         multiple,
         valueType,
         keys,
-        tmpPropOptions,
+        valueToOption,
         selectedValue,
       );
 
@@ -242,6 +251,16 @@ const Select = forwardRefWithStatics(
         selectedOptions: currentSelectedOptions,
         option: currentOption,
       });
+
+      if (multiple && context?.trigger === 'uncheck' && isFunction(onRemove)) {
+        const value = context?.value;
+        const option = (options as OptionsType).find((option) => option.value === value);
+        onRemove({
+          value,
+          data: option,
+          e: context.e,
+        });
+      }
     };
 
     // 处理filter逻辑
@@ -255,18 +274,33 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      if (filter && isFunction(filter)) {
-        // 如果有自定义的filter方法 使用自定义的filter方法
-        if (Array.isArray(tmpPropOptions)) {
-          filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
-        } else if (Array.isArray(Object.values(valueToOption))) {
-          filteredOptions = Object.values(valueToOption).filter((option) => filter(value, option));
+      const filterLabels = [];
+      const filterMethods = (option: SelectOption) => {
+        if (filter && isFunction(filter)) {
+          return filter(value, option);
         }
-      } else if (Array.isArray(tmpPropOptions)) {
         const upperValue = value.toUpperCase();
-        filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
-      }
-      const isSameLabelOptionExist = filteredOptions.find((option) => option.label === value);
+        return (option?.label || '').toUpperCase().includes(upperValue);
+      };
+
+      tmpPropOptions.forEach((option) => {
+        if (option.group) {
+          filteredOptions.push({
+            ...option,
+            children: option.children?.filter((child) => {
+              if (filterMethods(child)) {
+                filterLabels.push(child.label);
+                return true;
+              }
+              return false;
+            }),
+          });
+        } else if (filterMethods(option)) {
+          filterLabels.push(option.label);
+          filteredOptions.push(option);
+        }
+      });
+      const isSameLabelOptionExist = filterLabels.includes(value);
       if (creatable && !isSameLabelOptionExist) {
         filteredOptions = filteredOptions.concat([{ label: value, value }]);
       }
@@ -287,12 +321,12 @@ const Select = forwardRefWithStatics(
       }
     };
 
-    const onClearValue = (context) => {
+    const handleClear = (context) => {
       context.e.stopPropagation();
       if (Array.isArray(value)) {
-        onChange([], { ...context, selectedOptions: [] });
+        onChange([], { ...context, trigger: 'clear', selectedOptions: [] });
       } else {
-        onChange(null, { ...context, selectedOptions: [] });
+        onChange(null, { ...context, trigger: 'clear', selectedOptions: [] });
       }
       onClear(context);
     };
@@ -372,6 +406,7 @@ const Select = forwardRefWithStatics(
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
+                  e?.nativeEvent?.stopImmediatePropagation?.();
                   const values = getSelectValueArr(value, value[key], true, valueType, keys);
 
                   const { currentSelectedOptions } = getSelectedOptions(
@@ -379,13 +414,13 @@ const Select = forwardRefWithStatics(
                     multiple,
                     valueType,
                     keys,
-                    tmpPropOptions,
+                    valueToOption,
                     value,
                   );
                   onChange(values, {
                     e,
                     selectedOptions: currentSelectedOptions,
-                    trigger: 'uncheck',
+                    trigger: 'tag-remove',
                   });
                   tagProps?.onClose?.({ e });
 
@@ -510,7 +545,7 @@ const Select = forwardRefWithStatics(
           onBlur={(_, context) => {
             onBlur?.({ value, e: context.e as React.FocusEvent<HTMLDivElement> });
           }}
-          onClear={onClearValue}
+          onClear={handleClear}
           {...selectInputProps}
         />
       </div>

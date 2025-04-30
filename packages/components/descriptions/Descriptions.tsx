@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import { isArray, assign } from 'lodash-es';
-import { TdDescriptionItemProps, TdDescriptionsProps } from './type';
-import { descriptionItemDefaultProps, descriptionsDefaultProps } from './defaultProps';
+import { TdDescriptionsItemProps, TdDescriptionsProps } from './type';
+import { descriptionsItemDefaultProps, descriptionsDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useConfig from '../hooks/useConfig';
 import useCommonClassName from '../hooks/useCommonClassName';
@@ -10,6 +10,8 @@ import { StyledProps } from '../common';
 import { DescriptionsContext } from './DescriptionsContext';
 import DescriptionsItem from './DescriptionsItem';
 import Row from './Row';
+
+import type { DescriptionsItemProps } from './DescriptionsItem';
 
 /**
  * 实现思路
@@ -33,7 +35,7 @@ export type DescriptionsProps = TdDescriptionsProps &
 const Descriptions = (DescriptionsProps: DescriptionsProps) => {
   const props = useDefaultProps<DescriptionsProps>(DescriptionsProps, descriptionsDefaultProps);
 
-  const { className, style, title, bordered, column, layout, items: rowItems, children } = props;
+  const { className, style, title, bordered, column, layout, items: rowItems, children, tableLayout } = props;
 
   const { classPrefix } = useConfig();
 
@@ -45,7 +47,7 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
   const getRows = () => {
     // 1. 两种方式：a. props 传 items b. slots t-descriptions-item; a 优先级更高
 
-    let items: TdDescriptionItemProps[] = [];
+    let items: TdDescriptionsItemProps[] = [];
 
     if (isArray(rowItems)) {
       /**
@@ -54,7 +56,7 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
        * ! 暂时没有这样一个全局的方法，所以先在组件内部写一个临时方法，无论之后是有了更好的处理方式要删除掉，还是其它组件也需要时再放到公共方法里面，都是可行的
        */
       items = rowItems.map((item) => {
-        const { span } = assign({}, descriptionItemDefaultProps, item);
+        const { span } = assign({}, descriptionsItemDefaultProps, item);
         return {
           label: item.label,
           content: item.content,
@@ -64,19 +66,28 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
     } else {
       // 2.2 b 方式 获取 TDescriptionsItem
       const childrenList = React.Children.toArray(children).filter(
-        (child: JSX.Element) => child.type.displayName === DescriptionsItem.displayName,
+        (child: React.ReactElement<DescriptionsItemProps>) =>
+          (child.type as any)?.displayName === DescriptionsItem.displayName,
       );
 
       if (childrenList.length !== 0) {
-        items = (childrenList as React.ReactElement[]).map(({ props: child }) => {
-          const { span } = assign({}, descriptionItemDefaultProps, child);
+        items = (childrenList as React.ReactElement[]).map(
+          ({
+            props: child,
+          }: {
+            props: TdDescriptionsItemProps & {
+              children?: React.ReactNode;
+            };
+          }) => {
+            const { span } = assign({}, descriptionsItemDefaultProps, child);
 
-          return {
-            label: child.label,
-            content: child.content ?? child.children,
-            span,
-          };
-        });
+            return {
+              label: child.label,
+              content: child.content ?? child.children,
+              span,
+            };
+          },
+        );
       }
     }
 
@@ -85,10 +96,10 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
       return [items];
     }
     // 3. 布局为 horizontal 时，需要计算每一行的 item 个数
-    let temp: TdDescriptionItemProps[] = [];
+    let temp: TdDescriptionsItemProps[] = [];
     let reset = column;
     // 4. 记录结果
-    const res: TdDescriptionItemProps[][] = [];
+    const res: TdDescriptionsItemProps[][] = [];
     items.forEach((item, index) => {
       const { span } = item;
       if (reset >= span) {
@@ -117,7 +128,12 @@ const Descriptions = (DescriptionsProps: DescriptionsProps) => {
 
   // Body
   const renderBody = () => {
-    const tableClass = [`${COMPONENT_NAME}__body`, SIZE[props.size], { [`${COMPONENT_NAME}__body--border`]: bordered }];
+    const tableClass = [
+      `${COMPONENT_NAME}__body`,
+      SIZE[props.size],
+      { [`${COMPONENT_NAME}__body--fixed`]: tableLayout === 'fixed' },
+      { [`${COMPONENT_NAME}__body--border`]: bordered },
+    ];
     return (
       <table className={classNames(tableClass)}>
         <tbody>

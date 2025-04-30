@@ -1,6 +1,8 @@
 import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
+import log from '@tdesign/common-js/log/index';
+import { isUndefined } from 'lodash-es';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
@@ -14,7 +16,6 @@ import useLockStyle from './hooks/useLockStyle';
 import useDialogPosition from './hooks/useDialogPosition';
 import useDialogDrag from './hooks/useDialogDrag';
 import { parseValueToPx } from './utils';
-import log from '../../common/js/log';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
 
@@ -28,12 +29,12 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
 
   const componentCls = `${classPrefix}-dialog`;
-  const wrapRef = useRef<HTMLDivElement>();
-  const maskRef = useRef<HTMLDivElement>();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const maskRef = useRef<HTMLDivElement>(null);
   const contentClickRef = useRef(false);
-  const dialogCardRef = useRef<HTMLDivElement>();
-  const dialogPosition = useRef();
-  const portalRef = useRef();
+  const dialogCardRef = useRef<HTMLDivElement>(null);
+  const dialogPosition = useRef(null);
+  const portalRef = useRef(null);
   const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
   const [local] = useLocaleReceiver('dialog');
 
@@ -65,11 +66,13 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     destroyOnClose,
     preventScrollThrough,
     onCloseBtnClick,
-    forceRender = false,
+    forceRender,
+    lazy,
     ...restState
   } = state;
 
   const dialogAttach = useAttach('dialog', attach);
+
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
@@ -193,7 +196,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       in={visible}
       appear
       timeout={300}
-      mountOnEnter={!forceRender}
+      mountOnEnter={isUndefined(forceRender) ? lazy : !forceRender}
       unmountOnExit={destroyOnClose}
       nodeRef={portalRef}
       onEnter={onAnimateStart}

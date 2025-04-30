@@ -28,7 +28,11 @@ export default function Shape() {
           label="qrcode"
           icon={<QrcodeIcon />}
           popup={<img alt="TDesign Logo" width="120" height="120" src="https://tdesign.gtimg.com/site/site.jpg" />}
-          popupProps={{ overlayInnerStyle: { padding: '4px', height: '128px' } }}
+          popupProps={{
+            overlayInnerStyle: { padding: '4px', height: '128px' },
+            overlayClassName: 'sticky-item-custom-overlay-class',
+            overlayInnerClassName: 'sticky-item-custom-overlay-inner-class',
+          }}
         ></StickyItem>
       </StickyTool>
       <StickyTool
@@ -44,7 +48,12 @@ export default function Shape() {
           label="qrcode"
           icon={<QrcodeIcon />}
           popup={<img alt="TDesign Logo" width="120" height="120" src="https://tdesign.gtimg.com/site/site.jpg" />}
-          popupProps={{ overlayInnerStyle: { padding: '4px', height: '128px' } }}
+          popupProps={{
+            overlayStyle: { fontWeight: 'normal' },
+            overlayInnerStyle: { padding: '4px', height: '128px' },
+            overlayClassName: 'sticky-item-custom-overlay-class',
+            overlayInnerClassName: 'sticky-item-custom-overlay-inner-class',
+          }}
         ></StickyItem>
       </StickyTool>
     </Space>

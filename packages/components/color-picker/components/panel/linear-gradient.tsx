@@ -1,11 +1,11 @@
 import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash-es';
 import classNames from 'classnames';
-import useClassName from '../../hooks/useClassNames';
-import { genGradientPoint, gradientColors2string } from '../../../../common/js/color-picker/color';
-import { GradientColorPoint } from '../../../../common/js/color-picker/gradient';
+import { genGradientPoint, gradientColors2string } from '@tdesign/common-js/color-picker/color';
+import { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
+import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '@tdesign/common-js/color-picker/constants';
 import useCommonClassName from '../../../hooks/useCommonClassName';
-import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../../../common/js/color-picker/constants';
+import useClassName from '../../hooks/useClassNames';
 import InputNumber from '../../../input-number';
 
 const DELETE_KEYS: string[] = ['delete', 'backspace'];
@@ -188,7 +188,7 @@ const LinearGradient = (props) => {
   };
 
   const handleThumbBarClick = (e: ReactMouseEvent) => {
-    if (props.disabled) {
+    if (props.disabled || !props.enableMultipleGradient) {
       return;
     }
     updateSliderRect();

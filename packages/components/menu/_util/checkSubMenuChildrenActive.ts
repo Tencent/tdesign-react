@@ -4,7 +4,7 @@ import { checkIsMenuItem, checkIsSubMenu } from './checkMenuType';
 
 const checkSubMenuChildrenActive = (children: React.ReactNode, active: MenuValue) => {
   let activeFlag = false;
-  React.Children.forEach(children, (child: React.ReactElement) => {
+  React.Children.forEach(children, (child: React.ReactElement<any>) => {
     if (activeFlag) return;
     if (checkIsSubMenu(child)) {
       activeFlag = checkSubMenuChildrenActive(child.props.children, active);

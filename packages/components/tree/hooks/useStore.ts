@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash-es';
+import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+import type { TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
 import usePrevious from '../../hooks/usePrevious';
-import TreeStore from '../../../common/js/tree-v1/tree-store';
 import { usePersistFn } from '../../hooks/usePersistFn';
 
 import type { TdTreeProps } from '../type';
 import type { TypeEventState } from '../interface';
-import type { TreeNodeValue, TypeTreeNodeData } from '../../../common/js/tree-v1/types';
-import TreeNode from '../../../common/js/tree-v1/tree-node';
 
 export function useStore(
   props: TdTreeProps & { indeterminate: any; setTreeIndeterminate: any },
   refresh: () => void,
 ): TreeStore {
-  const storeRef = useRef<TreeStore>();
+  const storeRef = useRef<TreeStore>(null);
   const [filterChanged, toggleFilterChanged] = useState(false);
   const [prevExpanded, changePrevExpanded] = useState(null);
   const {
@@ -89,7 +89,7 @@ export function useStore(
       expandedMap.set(val, true);
       if (expandParent) {
         const node = store.getNode(val);
-        node.getParents().forEach((tn) => {
+        node?.getParents().forEach((tn) => {
           expandedMap.set(tn.value, true);
         });
       }

@@ -14,7 +14,7 @@ export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, ref) => {
   const { tree, columns, style, className } = props;
   const { classPrefix } = useConfig();
-  const primaryTableRef = useRef<EnhancedTableRef>();
+  const primaryTableRef = useRef<EnhancedTableRef>(null);
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions } =

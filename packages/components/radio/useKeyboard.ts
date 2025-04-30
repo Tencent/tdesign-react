@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, ChangeEvent, KeyboardEvent } from 'react';
-import { CHECKED_CODE_REG } from '../../common/js/common';
+import { CHECKED_CODE_REG } from '@tdesign/common-js/common';
 import { off, on } from '../_util/listener';
 
 /** 键盘操作 */

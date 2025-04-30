@@ -44,7 +44,7 @@ export default function useColumnResize(params: {
     onColumnResizeChange,
   } = params;
 
-  const resizeLineRef = useRef<HTMLDivElement>();
+  const resizeLineRef = useRef<HTMLDivElement>(null);
   const effectColMap = useRef<{ [colKey: string]: any }>({});
   const [leafColumns, setLeafColumns] = useState([]);
 
@@ -127,6 +127,8 @@ export default function useColumnResize(params: {
     const thRightCursor = targetBoundRect.right - e.pageX <= distance;
     const thLeftCursor = e.pageX - targetBoundRect.left <= distance;
     const isFixedToRight = isColRightFixActive(col);
+
+    // 在单元格分割线的右侧
     if (thRightCursor || isFixedToRight) {
       if (colResizable) {
         target.style.cursor = thRightCursor || (isFixedToRight && thLeftCursor) ? 'col-resize' : '';
@@ -135,7 +137,8 @@ export default function useColumnResize(params: {
         resizeLineParams.effectCol = 'next';
         return;
       }
-    } else if (thLeftCursor) {
+    } // 在单元格分割线的左侧操作
+    else if (thLeftCursor) {
       const prevEl = target.previousElementSibling;
       if (prevEl && colResizable) {
         target.style.cursor = 'col-resize';
@@ -201,6 +204,21 @@ export default function useColumnResize(params: {
     return tableWidth;
   };
 
+  const getSiblingColCanResizable = (
+    newThWidthList: { [key: string]: number },
+    effectNextCol: BaseTableCol,
+    distance: number,
+    index: number,
+  ) => {
+    let isWidthAbnormal = true;
+    if (effectNextCol) {
+      const { minColWidth, maxColWidth } = getMinMaxColWidth(effectNextCol);
+      const targetNextColWidth = newThWidthList[effectNextCol.colKey] + distance;
+      isWidthAbnormal = targetNextColWidth < minColWidth || targetNextColWidth > maxColWidth;
+    }
+    return !(isWidthAbnormal || isWidthOverflow || index === leafColumns.length - 1);
+  };
+
   // 调整表格列宽
   const onColumnMousedown = (
     e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
@@ -264,21 +282,17 @@ export default function useColumnResize(params: {
       // 当前列不允许修改宽度，就调整相邻列的宽度
       const tmpCurrentCol = col.resizable !== false ? col : currentSibling;
       // 是否允许调整相邻列宽：列宽未超出时，且并非是最后一列（最后一列的右侧拉伸会认为是表格整体宽度调整）
-      const canResizeSiblingColWidth = !(isWidthOverflow || index === leafColumns.length - 1);
+      const rightCol = resizeLineParams.effectCol === 'next' ? currentCol.nextSibling : col;
+      const canResizeSiblingColWidth = getSiblingColCanResizable(newThWidthList, rightCol, moveDistance, index);
 
-      if (!effectNextCol?.colKey) {
-        // 已经不存在最后一列，比如整个表格只有一列可以调整的场景，需要直接影响到表格本身的宽度
-        if (resizeLineParams.effectCol === 'next') newThWidthList[tmpCurrentCol?.colKey] -= moveDistance;
-        else newThWidthList[tmpCurrentCol?.colKey] += moveDistance;
-        newThWidthList.tableWidth = getTotalTableWidth(newThWidthList);
-      } else if (resizeLineParams.effectCol === 'next') {
+      if (resizeLineParams.effectCol === 'next') {
         // 右侧激活态的固定列，需特殊调整
         if (isColRightFixActive(col)) {
           // 如果不相同，则表示改变相临的右侧列宽
           if (target.dataset.colkey !== col.colKey) {
             newThWidthList[effectNextCol.colKey] += moveDistance;
           } else {
-            newThWidthList[tmpCurrentCol?.colKey] += moveDistance;
+            newThWidthList[tmpCurrentCol.colKey] += moveDistance;
           }
         } else {
           // 非右侧激活态的固定列
@@ -288,11 +302,12 @@ export default function useColumnResize(params: {
           }
         }
       } else if (resizeLineParams.effectCol === 'prev') {
-        if (canResizeSiblingColWidth && effectPrevCol) {
-          newThWidthList[effectPrevCol.colKey] -= moveDistance;
+        if (canResizeSiblingColWidth) {
+          newThWidthList[tmpCurrentCol.colKey] += moveDistance;
         }
-        newThWidthList[tmpCurrentCol.colKey] += moveDistance;
+        effectPrevCol && (newThWidthList[effectPrevCol.colKey] -= moveDistance);
       }
+
       updateThWidthList(newThWidthList);
       const tableWidth = getTotalTableWidth(newThWidthList);
       // 整个表格只有一列可以调整的场景

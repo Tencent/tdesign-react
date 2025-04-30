@@ -80,6 +80,7 @@ const Input = forwardRefWithStatics(
       showInput = true,
       keepWrapperWidth,
       showLimitNumber,
+      allowInput,
       allowInputOverMax,
       name,
       format,
@@ -112,18 +113,24 @@ const Input = forwardRefWithStatics(
       onValidate,
     });
 
-    const { classPrefix } = useConfig();
+    const { classPrefix, input: inputConfig } = useConfig();
     const composingRef = useRef(false);
-    const inputRef: React.RefObject<HTMLInputElement> = useRef();
+    const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
-    const inputPreRef: React.RefObject<HTMLInputElement> = useRef();
-    const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
+    const inputPreRef: React.RefObject<HTMLInputElement> = useRef(null);
+    const wrapperRef: React.RefObject<HTMLDivElement> = useRef(null);
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
 
     const [composingValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
+
+    // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
+    const isInnerInputReadonly = readonly || !allowInput;
+    const isValueEnabled = value && !disabled;
+    const alwaysShowClearIcon = inputConfig?.clearTrigger === 'always';
+    const isShowClearIcon =
+      (((clearable && isValueEnabled) || showClearIconOnEmpty) && isHover) || (isValueEnabled && alwaysShowClearIcon);
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
     let suffixIconNew = suffixIcon;
@@ -217,9 +224,11 @@ const Input = forwardRefWithStatics(
         ref={inputRef}
         placeholder={placeholder}
         type={renderType}
-        className={`${classPrefix}-input__inner`}
+        className={classNames(`${classPrefix}-input__inner`, {
+          [`${classPrefix}-input--soft-hidden`]: !showInput,
+        })}
         value={formatDisplayValue}
-        readOnly={readonly}
+        readOnly={isInnerInputReadonly}
         disabled={disabled}
         autoComplete={autocomplete ?? (local.autocomplete || undefined)}
         autoFocus={autofocus}
@@ -261,7 +270,7 @@ const Input = forwardRefWithStatics(
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
-        {showInput && renderInput}
+        {renderInput}
         {autoWidth && (
           <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
             {innerValue || placeholder}
@@ -349,7 +358,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-      if (readonly) return;
+      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -358,7 +367,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-      if (readonly) return;
+      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -373,12 +382,12 @@ const Input = forwardRefWithStatics(
     }
 
     function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(true);
+      !readonly && toggleIsHover(true);
       onMouseenter?.({ e });
     }
 
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(false);
+      !readonly && toggleIsHover(false);
       onMouseleave?.({ e });
     }
 

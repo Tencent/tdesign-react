@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
 import { isEmpty } from 'lodash-es';
 import classNames from 'classnames';
+import log from '@tdesign/common-js/log/index';
 import Popup, { PopupProps } from '../popup';
 import Checkbox from '../checkbox';
 import Radio from '../radio';
@@ -10,7 +11,6 @@ import TButton from '../button';
 import { PrimaryTableCol, FilterValue, TableRowData, TdPrimaryTableProps } from './type';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import log from '../../common/js/log';
 import { parseContentTNode } from '../_util/parseTNode';
 
 const CheckboxGroup = Checkbox.Group;

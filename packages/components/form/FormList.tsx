@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { merge, get } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
 import { HOOK_MARK } from './hooks/useForm';
 import { TdFormListProps, FormListFieldOperation, FormListField } from './type';
 import { calcFieldValue } from './utils';
-import log from '../../common/js/log';
 
 let key = 0;
 
@@ -31,7 +31,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     })),
   );
   const formListMapRef = useRef(new Map()); // 收集 formItem 实例
-  const formListRef = useRef<FormItemInstance>(); // 当前 formList 实例
+  const formListRef = useRef<FormItemInstance>(null); // 当前 formList 实例
   const fieldsTaskQueueRef = useRef([]); // 记录更改 fields 数据后 callback 队列
   const snakeName = []
     .concat(name)

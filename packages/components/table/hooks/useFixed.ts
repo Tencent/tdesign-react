@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
-import { getIEVersion } from '../../../common/js/utils/helper';
-import log from '../../../common/js/log';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import log from '@tdesign/common-js/log/index';
+import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { getScrollbarWidthWithCSS } from '../../../common/js/utils/getScrollbarWidth';
 import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
 import usePrevious from '../../hooks/usePrevious';
@@ -44,6 +44,8 @@ export function getRowFixedStyles(
   fixedRows: TdBaseTableProps['fixedRows'],
   rowAndColFixedPosition: RowAndColFixedPosition,
   tableRowFixedClasses: TableRowFixedClasses,
+  // 和虚拟滚动搭配使用时，需要增加 style 的偏移量
+  virtualTranslateY = 0,
 ): { style: Styles; classes: ClassName } {
   if (!fixedRows || !fixedRows.length) return { style: undefined, classes: undefined };
   const fixedTop = rowIndex < fixedRows[0];
@@ -57,8 +59,8 @@ export function getRowFixedStyles(
     [tableRowFixedClasses.withoutBorderBottom]: rowIndex === firstFixedBottomRow - 1,
   };
   const rowStyles = {
-    top: fixedTop ? `${fixedPos.top}px` : undefined,
-    bottom: fixedBottom ? `${fixedPos.bottom}px` : undefined,
+    top: fixedTop ? `${fixedPos.top - virtualTranslateY}px` : undefined,
+    bottom: fixedBottom ? `${fixedPos.bottom + virtualTranslateY}px` : undefined,
   };
   return {
     style: rowStyles,
@@ -89,10 +91,10 @@ export default function useFixed(
   } = props;
   const preFinalColumns = usePrevious(finalColumns);
   const [data, setData] = useState<TableRowData[]>([]);
-  const tableContentRef = useRef<HTMLDivElement>();
+  const tableContentRef = useRef<HTMLDivElement>(null);
   const [isFixedHeader, setIsFixedHeader] = useState(false);
   const [isWidthOverflow, setIsWidthOverflow] = useState(false);
-  const tableElmRef = useRef<HTMLTableElement>();
+  const tableElmRef = useRef<HTMLTableElement>(null);
   // CSS 样式设置了固定 6px
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息
@@ -444,7 +446,8 @@ export default function useFixed(
     preFinalColumns: BaseTableCol<TableRowData>[] = [],
   ) => {
     const finalColKeys = finalColumns.map((t) => t.colKey);
-    const preColKeys = preFinalColumns.map((t) => t.colKey);
+    const preColKeys = (preFinalColumns ?? []).map((t) => t.colKey);
+
     if (finalColKeys.length < preColKeys.length) {
       const reduceKeys = xorWith(preColKeys, finalColKeys);
       const thWidthList = getThWidthList('calculate');

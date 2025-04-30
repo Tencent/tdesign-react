@@ -1,10 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import generateBase64Url from '@tdesign/common-js/watermark/generateBase64Url';
+import randomMovingStyle from '@tdesign/common-js/watermark/randomMovingStyle';
+import injectStyle from '@tdesign/common-js/utils/injectStyle';
 import { StyledProps } from '../common';
-import generateBase64Url from '../../common/js/watermark/generateBase64Url';
-import randomMovingStyle from '../../common/js/watermark/randomMovingStyle';
-import injectStyle from '../../common/js/utils/injectStyle';
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../hooks/useMutationObserver';
 import { TdWatermarkProps } from './type';
@@ -50,8 +50,8 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   const clsName = `${classPrefix}-watermark`;
   const [base64Url, setBase64Url] = useState('');
   const styleStr = useRef('');
-  const watermarkRef = useRef<HTMLDivElement>();
-  const watermarkImgRef = useRef<HTMLDivElement>();
+  const watermarkRef = useRef<HTMLDivElement>(null);
+  const watermarkImgRef = useRef<HTMLDivElement>(null);
   const stopObservation = useRef(false);
   const offsetLeft = offset[0] || gapX / 2;
   const offsetTop = offset[1] || gapY / 2;
@@ -142,7 +142,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   });
 
   // 组件父节点 - 增加keyframes
-  const parent = useRef<HTMLElement>();
+  const parent = useRef<HTMLElement>(null);
   useEffect(() => {
     parent.current = watermarkRef.current.parentElement;
     const keyframesStyle = randomMovingStyle();
