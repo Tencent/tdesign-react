@@ -7,7 +7,7 @@ import { TdChatProps, TdChatSearchContentProps, TdChatSuggestionContentProps } f
 import reactify from '../_util/reactify';
 
 const ChatBot: React.ForwardRefExoticComponent<
-  Omit<TdChatProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
+  Omit<TdChatProps & TdChatbotApi, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatProps>('t-chatbot');
 
 const ChatSearchContent: React.ForwardRefExoticComponent<
