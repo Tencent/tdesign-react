@@ -14,6 +14,10 @@ spline: navigation
 
 {{ custom }}
 
+## 智能体
+
+{{ agent }}
+
 <!-- ## 消息内容
 
 ### 搜索内容
