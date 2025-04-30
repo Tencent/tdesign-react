@@ -21,9 +21,9 @@ export default function Usage() {
     { label: 'menu', value: 'menu' },
     { label: 'headMenu', value: 'headMenu' },
   ];
-  const getLogo = (theme) => (
-    <img src={`https://tdesign.gtimg.com/site/baseLogo-${theme}.png`} height="28" alt="logo" />
-  );
+  const defaultProps = {
+    logo: <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" />,
+  };
   const panelMap = {
     menu: (
       <div
@@ -63,7 +63,7 @@ export default function Usage() {
           borderRadius: 3,
         }}
       >
-        <Menu.HeadMenu style={{ marginBottom: '20px' }} logo={getLogo(changedProps.theme)} {...changedProps}>
+        <Menu.HeadMenu style={{ marginBottom: '20px' }} {...defaultProps} {...changedProps}>
           <Menu.MenuItem value="0" icon={<AppIcon />}>
             仪表盘
           </Menu.MenuItem>
