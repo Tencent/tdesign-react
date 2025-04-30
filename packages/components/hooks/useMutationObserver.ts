@@ -19,7 +19,7 @@ export default function useMutationObservable(
   cb: MutationCallback,
   options = DEFAULT_OPTIONS,
 ) {
-  const optionsRef = useRef<Options>();
+  const optionsRef = useRef<Options>(null);
   const signalRef = useRef(0);
   const callbackRef = useLatest(cb);
 
