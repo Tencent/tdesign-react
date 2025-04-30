@@ -357,10 +357,7 @@ export default function ComponentsBuild() {
         onChange={inputChangeHandler}
         onSend={sendHandler}
         onStop={stopHandler}
-      >
-        {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
-        <div slot="footer-left">左侧插槽</div>
-      </ChatSender>
+      ></ChatSender>
     </div>
   );
 }

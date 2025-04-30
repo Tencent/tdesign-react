@@ -95,9 +95,6 @@ export default function ChatMessageExample() {
           }
           return null;
         })}
-        <div slot="actionbar">
-          <ChatActionBar></ChatActionBar>
-        </div>
       </ChatMessage>
     </Space>
   );

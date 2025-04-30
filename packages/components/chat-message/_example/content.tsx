@@ -1,8 +1,58 @@
 import React from 'react';
-import { AIMessage, ChatMessage, Space } from 'tdesign-react';
+import { AIMessage, ChatMessage, Space, UserMessage } from 'tdesign-react';
 
-const messages: AIMessage = {
+const userMessage1: UserMessage = {
   id: '11111',
+  role: 'user',
+  status: 'complete',
+  content: [
+    {
+      type: 'text',
+      data: '分析以下内容，总结一篇广告策划方案',
+    },
+    {
+      type: 'attachment',
+      data: [
+        {
+          fileType: 'doc',
+          name: 'demo.docx',
+          url: 'https://tdesign.gtimg.com/site/demo.docx',
+          size: 12312,
+        },
+        {
+          fileType: 'pdf',
+          name: 'demo2.pdf',
+          url: 'https://tdesign.gtimg.com/site/demo.pdf',
+          size: 34333,
+        },
+      ],
+    },
+  ],
+};
+const userMessage2: UserMessage = {
+  id: '22222',
+  role: 'user',
+  status: 'complete',
+  content: [
+    {
+      type: 'text',
+      data: '这个图里的帅哥是谁？',
+    },
+    {
+      type: 'attachment',
+      data: [
+        {
+          fileType: 'image',
+          name: 'avatar.jpg',
+          size: 234234,
+          url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+        },
+      ],
+    },
+  ],
+};
+const aiMessages: AIMessage = {
+  id: '33333',
   role: 'assistant',
   status: 'complete',
   content: [
@@ -67,8 +117,9 @@ export default function ChatMessageExample() {
   };
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
+      <ChatMessage variant="base" placement="right" message={userMessage1}></ChatMessage>
       <ChatMessage
-        message={messages}
+        message={aiMessages}
         animation="gradient"
         chatContentProps={{
           thinking: { maxHeight: 100, collapsed: true },
@@ -76,6 +127,7 @@ export default function ChatMessageExample() {
         }}
         handleActions={onActions}
       ></ChatMessage>
+      <ChatMessage variant="base" placement="right" message={userMessage2}></ChatMessage>
     </Space>
   );
 }

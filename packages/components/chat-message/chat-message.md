@@ -21,7 +21,7 @@ spline: aigc
 
 ## 消息内容渲染
 ### 内置支持的几种消息内容
-通过配置 `message type`属性，可以渲染内置的几种消息内容：**Markdown格式内容**、**思考过程**、**搜索结果**、**建议问题**, 通过`chatContentProps`属性来配置对应类型的属性
+通过配置 `message type`属性，可以渲染内置的几种消息内容：**Markdown格式内容**、**思考过程**、**搜索结果**、**建议问题**、**附件列表**、**图片**, 通过`chatContentProps`属性来配置对应类型的属性
 {{ content }}
 
 ### 消息内容自定义
@@ -29,7 +29,7 @@ spline: aigc
 {{ custom }}
 
 ### 消息操作栏
-消息底部操作栏，可以通过`植入插槽actionbar`的方式实现，可以直接使用`ChatActionBar`组件，也可以完全自定义实现
+消息底部操作栏，通过`植入插槽actionbar`的方式实现，可以直接使用`ChatActionBar`组件，也可以完全自定义实现
 {{ action }}
 
 
