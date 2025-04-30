@@ -18,6 +18,10 @@ spline: navigation
 
 {{ agent }}
 
+## 组件拼装
+
+{{ ComponentsBuild }}
+
 <!-- ## 消息内容
 
 ### 搜索内容
