@@ -20,7 +20,7 @@ export default async function mdToReact(options) {
 
   const reactSource = `
     import React, { useEffect, useRef, useState, useMemo } from 'react';\n
-    import { useLocation, useNavigate } from 'react-router-dom';
+    import { useLocation, useNavigate } from 'react-router';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
     import Stackblitz from '@tdesign/react-site/src/components/stackblitz/index.jsx';

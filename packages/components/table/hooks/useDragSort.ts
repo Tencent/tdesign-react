@@ -39,7 +39,7 @@ export default function useDragSort(
   // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
-  const tData = useRef<TableRowData[]>();
+  const tData = useRef<TableRowData[]>(null);
   const lastColList = useRef([]);
   const dragColumns = useRef([]);
   const originalColumns = useRef([]);

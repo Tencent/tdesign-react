@@ -4,13 +4,13 @@
  */
 
 import { isFunction } from 'lodash-es';
-import { useRef, useEffect, RefObject, useState, WheelEvent } from 'react';
+import { useRef, useEffect, useState, WheelEvent } from 'react';
 import { TdTagInputProps } from './type';
 
 let mouseEnterTimer = null;
 
 export default function useTagScroll(props: TdTagInputProps) {
-  const tagInputRef: RefObject<{ currentElement: HTMLDivElement }> = useRef();
+  const tagInputRef = useRef<{ currentElement: HTMLDivElement }>(null);
   const { excessTagsDisplayType = 'scroll', readonly, disabled } = props;
   // 允许向右滚动的最大距离
   const [scrollDistance, setScrollDistance] = useState(0);

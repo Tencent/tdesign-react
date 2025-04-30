@@ -120,7 +120,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     onError?.({ e });
   };
 
-  const imgRef = useRef();
+  const imgRef = useRef(null);
   useEffect(() => {
     if (hasError && previewUrl) {
       setHasError(false);

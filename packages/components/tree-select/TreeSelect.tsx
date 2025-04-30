@@ -5,7 +5,8 @@ import type { TdTreeSelectProps, TreeSelectValue } from './type';
 import type { StyledProps, TreeOptionData } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import Tree, { TreeProps } from '../tree';
+import Tree from '../tree';
+import type { TreeInstanceFunctions, TreeProps } from '../tree';
 import SelectInput, { SelectInputProps } from '../select-input/SelectInput';
 import { usePersistFn } from '../hooks/usePersistFn';
 import useSwitch from '../hooks/useSwitch';
@@ -79,8 +80,8 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   const [hover, hoverAction] = useSwitch();
   const [filterInput, setFilterInput] = useControlled(props, 'inputValue', onInputChange);
 
-  const treeRef = useRef<ElementRef<typeof Tree>>();
-  const selectInputRef = useRef<Partial<PopupRef & InputRef>>();
+  const treeRef = useRef<TreeInstanceFunctions<TreeOptionData>>(null);
+  const selectInputRef = useRef<Partial<PopupRef & InputRef>>(null);
 
   const tKeys = useMemo(
     () => ({

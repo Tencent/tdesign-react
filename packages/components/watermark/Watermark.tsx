@@ -50,8 +50,8 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   const clsName = `${classPrefix}-watermark`;
   const [base64Url, setBase64Url] = useState('');
   const styleStr = useRef('');
-  const watermarkRef = useRef<HTMLDivElement>();
-  const watermarkImgRef = useRef<HTMLDivElement>();
+  const watermarkRef = useRef<HTMLDivElement>(null);
+  const watermarkImgRef = useRef<HTMLDivElement>(null);
   const stopObservation = useRef(false);
   const offsetLeft = offset[0] || gapX / 2;
   const offsetTop = offset[1] || gapY / 2;
@@ -142,7 +142,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   });
 
   // 组件父节点 - 增加keyframes
-  const parent = useRef<HTMLElement>();
+  const parent = useRef<HTMLElement>(null);
   useEffect(() => {
     parent.current = watermarkRef.current.parentElement;
     const keyframesStyle = randomMovingStyle();

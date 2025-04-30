@@ -8,6 +8,7 @@ import { StyledProps } from '../common';
 import { avatarGroupDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
+import type { AvatarProps } from './Avatar';
 
 export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {
   children?: React.ReactNode;
@@ -22,7 +23,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = (props) => {
   const childrenList = React.Children.toArray(children);
   let allChildrenList: React.ReactElement[];
   if (childrenList.length > 0) {
-    allChildrenList = childrenList.map((child: JSX.Element, index: number) =>
+    allChildrenList = childrenList.map((child: React.ReactElement<AvatarProps>, index: number) =>
       React.cloneElement(child, { key: `avatar-group-item-${index}`, ...child.props }),
     );
   }

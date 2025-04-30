@@ -222,7 +222,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     ];
     const showOverlay = getCurrentCrossProps('showOverlay');
     const maskClass = [`${prefixCls}__highlight--${showOverlay ? 'mask' : 'nomask'}`];
-    const { highlightContent } = currentStepInfo;
+    const { highlightContent }: any = currentStepInfo;
     const showHighlightContent = highlightContent && isPopup;
     return createPortal(
       <div

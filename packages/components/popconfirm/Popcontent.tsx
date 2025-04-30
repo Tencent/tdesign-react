@@ -42,7 +42,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
     if (React.isValidElement(icon)) {
       iconComponent = React.cloneElement(icon, {
         style: { color },
-        ...icon.props,
+        ...(icon.props as any),
       });
     } else if (defaultIcon) {
       iconComponent = React.cloneElement(defaultIcon, {
@@ -57,7 +57,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
       return React.cloneElement<any>(cancelBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'cancel' });
-          cancelBtn.props?.onClick?.(e);
+          (cancelBtn as any).props?.onClick?.(e);
         },
       });
     }
@@ -87,7 +87,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
       return React.cloneElement<any>(confirmBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'confirm' });
-          confirmBtn.props?.onClick?.(e);
+          (confirmBtn as any).props?.onClick?.(e);
         },
       });
     }

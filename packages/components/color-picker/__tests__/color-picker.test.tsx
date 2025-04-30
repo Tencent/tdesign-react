@@ -19,21 +19,16 @@ describe('ColorPicker 组件测试', () => {
     expect(container.querySelector('.t-input__inner')).toHaveValue('rgb(236, 242, 254)');
   });
 
-  test('ColorPicker 线性渐变 测试', () => {
+  test('ColorPicker 预设颜色切换 测试', () => {
     const { container } = render(
-      <ColorPicker
-        defaultValue="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
-        format="CSS"
-        colorModes={['linear-gradient']}
-      />,
+      <ColorPicker defaultValue="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)" format="CSS" />,
     );
-    fireEvent.click(container.querySelector('.t-input '));
+    fireEvent.click(container.querySelector('.t-input'));
     expect(document.querySelector('.t-color-picker__gradient')).toBeInTheDocument();
-    // 渐变直接输出对应的 css
+    // 点击系统预设颜色的第一个
     fireEvent.click(document.querySelector('.t-color-picker__swatches--item'));
-    expect(container.querySelector('.t-input__inner')).toHaveValue(
-      'linear-gradient(45deg,rgba(236, 242, 254, 1) 0%,rgb(0, 242, 254) 100%)',
-    );
+    // 渐变模式下切换为对应的纯色
+    expect(container.querySelector('.t-input__inner')).toHaveValue('rgba(236, 242, 254, 1)');
   });
 
   test(':disabled 测试', () => {
@@ -59,6 +54,32 @@ describe('ColorPickerPanel 组件测试', () => {
   test('ColorPickerPanel 测试', () => {
     const { queryByText } = render(<ColorPickerPanel defaultValue={'#0052d9'} />);
     expect(queryByText('最近使用颜色')).toBeInTheDocument();
+  });
+
+  test('渐变颜色更新 测试', async () => {
+    const { container } = render(
+      <ColorPickerPanel
+        format="CSS"
+        defaultValue="linear-gradient(45deg,rgb(79, 172, 255) 0%,rgb(0, 242, 251) 100%)"
+      />,
+    );
+
+    // 点击第二个渐变点
+    fireEvent.click(container.querySelectorAll('li.t-color-picker__thumb')[1]);
+
+    // 点击 Saturation 板上的点，并模拟鼠标移动
+    const thumb = container.querySelector('span.t-color-picker__thumb');
+    fireEvent.mouseDown(thumb);
+    fireEvent.mouseMove(thumb, { clientX: 50, clientY: 50 });
+    fireEvent.mouseUp(thumb);
+
+    // 获取移动后的色值
+    const { color } = getComputedStyle(thumb);
+
+    // 检查 CSS Input 生成的新渐变色
+    expect(container.querySelectorAll('.t-input__inner')[2]).toHaveValue(
+      `linear-gradient(45deg,rgb(79, 172, 255) 0%,${color} 100%)`,
+    );
   });
 
   test('enableAlpha 开启透明通道', () => {

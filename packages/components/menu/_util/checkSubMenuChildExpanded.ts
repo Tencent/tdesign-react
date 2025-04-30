@@ -8,7 +8,7 @@ export default function checkSubMenuChildExpanded(
   value: MenuValue,
   resultExpanded: MenuValue[] = [],
 ) {
-  const childValues = React.Children.map(children, (child: React.ReactElement) => child.props.value);
+  const childValues = React.Children.map(children, (child: React.ReactElement<any>) => child.props.value);
   // 直接找到了目标节点
   const index = childValues.indexOf(value);
   // 找到对应的子节点
