@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChatMarkdown } from 'tdesign-react';
+import { Button, ChatMarkdown } from 'tdesign-react';
+import Space from '../../space/Space';
 
 const doc = `
 # This is TDesign
@@ -66,29 +67,55 @@ app.use(TDesignChat);
 `;
 
 export default function ThinkContentDemo() {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState(doc);
+  const [isTyping, setIsTyping] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
-  const currentIndex = useRef(0);
+  const currentIndex = useRef(doc.length);
   const startTimeRef = useRef(Date.now());
 
   useEffect(() => {
     // 模拟打字效果
     const typeEffect = () => {
+      if (!isTyping) return;
+
       if (currentIndex.current < doc.length) {
         const char = doc[currentIndex.current];
         currentIndex.current += 1;
         setDisplayText((prev) => prev + char);
-        timerRef.current = setTimeout(typeEffect, 50);
+        timerRef.current = setTimeout(typeEffect, 10);
+      } else {
+        // 输入完成时自动停止
+        setIsTyping(false);
       }
     };
 
-    startTimeRef.current = Date.now();
-    timerRef.current = setTimeout(typeEffect, 500);
+    if (isTyping) {
+      // 如果已经完成输入，点击开始则重置
+      if (currentIndex.current >= doc.length) {
+        currentIndex.current = 0;
+        setDisplayText('');
+      }
+      startTimeRef.current = Date.now();
+      timerRef.current = setTimeout(typeEffect, 500);
+    }
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, []);
+  }, [isTyping]);
 
-  return <ChatMarkdown content={displayText} />;
+  const toggleTyping = () => {
+    if (currentIndex.current >= doc.length) {
+      currentIndex.current = 0;
+      setDisplayText('');
+    }
+    setIsTyping(!isTyping);
+  };
+
+  return (
+    <Space direction="vertical">
+      <Button onClick={toggleTyping}>{isTyping ? '暂停' : '流式输出'}</Button>
+      <ChatMarkdown content={displayText} />
+    </Space>
+  );
 }
