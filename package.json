@@ -107,7 +107,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-react": "~7.28.0",
-    "eslint-plugin-react-hooks": "^4.0.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "fs-extra": "^11.3.0",
     "glob": "^8.0.3",
     "gray-matter": "^4.0.3",
