@@ -2,10 +2,10 @@ import React, { useEffect, forwardRef, useCallback, useImperativeHandle, useRef 
 import { isFunction } from 'lodash-es';
 import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
-import { getScrollContainer } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import { affixDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { getScrollContainer } from '../_util/scroll';
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
 

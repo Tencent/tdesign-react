@@ -7,12 +7,14 @@ import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupProps } from '../popup';
 import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
-import { addClass, removeClass, isFixed, getWindowScroll, canUseDocument } from '../_util/dom';
+import { isFixed, canUseDocument } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import { getWindowScroll } from '../_util/scroll';
+import { addClass, removeClass } from '../_util/style';
 
 export type GuideProps = TdGuideProps;
 

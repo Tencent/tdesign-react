@@ -173,7 +173,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     }
   };
 
-  useResizeObserver(isVirtualScroll ? container.current : undefined, refreshVirtualScroll);
+  useResizeObserver(container, refreshVirtualScroll, isVirtualScroll);
 
   // 固定高度场景，可直接通过数据长度计算出最大滚动高度
   useEffect(

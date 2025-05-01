@@ -4,11 +4,12 @@ import { isString } from 'lodash-es';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { render, unmount } from '../_util/react-render';
-import { on, off, getAttach } from '../_util/dom';
+import { getAttach } from '../_util/dom';
 import { TNode } from '../common';
 import { TdPopupProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
+import { off, on } from '../_util/listener';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
 
@@ -173,7 +174,12 @@ export type PluginMethod = (triggerEl: TriggerEl, content: TNode, popupProps?: T
 const renderInstance = (props, attach: HTMLElement): Promise<HTMLElement> =>
   new Promise((resolve) => {
     const pGlobalConfig = ConfigProvider.getGlobalConfig();
-    render(<PluginContainer globalConfig={pGlobalConfig}><Overlay {...props} renderCallback={(instance) => resolve(instance)} /></PluginContainer>, attach);
+    render(
+      <PluginContainer globalConfig={pGlobalConfig}>
+        <Overlay {...props} renderCallback={(instance) => resolve(instance)} />
+      </PluginContainer>,
+      attach,
+    );
   });
 
 const createPopupInstance: PluginMethod = async (trigger, content, popupProps) => {

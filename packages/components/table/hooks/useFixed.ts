@@ -5,11 +5,11 @@ import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { on, off } from '../../_util/dom';
 import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
+import { off, on } from '../../_util/listener';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
