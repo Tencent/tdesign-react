@@ -59,7 +59,7 @@ const Avatar = forwardRefWithStatics(
         }
       }
     };
-    useResizeObserver(avatarChildrenRef.current, handleScale);
+    useResizeObserver(avatarChildrenRef, handleScale);
 
     const handleImgLoadError: ImageProps['onError'] = (ctx) => {
       onError?.(ctx);
