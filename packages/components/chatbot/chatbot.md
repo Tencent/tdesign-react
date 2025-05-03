@@ -6,21 +6,28 @@ usage: { title: '', description: '' }
 spline: navigation
 ---
 
-## 基础用法
-
+## 基本用法
+### 标准化集成
+组件内置状态管理，SSE解析，自动处理消息内容渲染与交互逻辑，开箱即用快速集成实现标准聊天界面
 {{ basic }}
 
-## 自定义
+### 组合式用法
+可以通过 `useChat` Hook提供的对话引擎实例及状态控制方法，也可以完全自行实现状态管理逻辑，同时自行组合拼装`ChatMessage`, `ChatSender`等组件，适合需要深度定制组件结构和消息处理流程的场景
+{{ hookComponent }}
 
+### 自定义
 {{ custom }}
 
-## 智能体
+## 场景化示例
+### 代码助手
+{{ developer }}
 
+### 自主任务规划
 {{ agent }}
 
-## 组件拼装
+### 多模态交付
+{{ multimedia }}
 
-{{ ComponentsBuild }}
 
 <!-- ## 消息内容
 

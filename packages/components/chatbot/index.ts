@@ -18,7 +18,7 @@ export * from '@tencent/tdesign-chatbot/lib/chatbot/core/utils';
 export * from './useChat';
 
 const ChatBot: React.ForwardRefExoticComponent<
-  Omit<TdChatProps & TdChatbotApi, 'ref'> & React.RefAttributes<HTMLElement | undefined>
+  Omit<TdChatProps & Partial<TdChatbotApi>, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatProps>('t-chatbot');
 
 const ChatSearchContent: React.ForwardRefExoticComponent<
