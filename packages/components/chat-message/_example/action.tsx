@@ -22,9 +22,7 @@ export default function ChatMessageExample() {
         message={message}
       >
         {/* 植入插槽用来追加消息底部操作栏 */}
-        <div slot="actionbar">
-          <ChatActionBar copyText={getMessageContentForCopy(message)}></ChatActionBar>
-        </div>
+        <ChatActionBar slot="actionbar" copyText={getMessageContentForCopy(message)}></ChatActionBar>
       </ChatMessage>
     </Space>
   );

@@ -4,6 +4,7 @@ import '@tencent/tdesign-chatbot/lib/chat-message/content/suggestion-content';
 import '@tencent/tdesign-chatbot/lib/chat-message/content/markdown-content';
 import '@tencent/tdesign-chatbot/lib/style/index.css';
 import type {
+  TdChatbotApi,
   TdChatListApi,
   TdChatListProps,
   TdChatProps,
@@ -33,4 +34,4 @@ const ChatList: React.ForwardRefExoticComponent<
 > = reactify<TdChatProps>('t-chat-list');
 
 export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };
-export type * from '@tencent/tdesign-chatbot/lib/chatbot/type';
+// export type * from '@tencent/tdesign-chatbot/lib/chatbot/type';
