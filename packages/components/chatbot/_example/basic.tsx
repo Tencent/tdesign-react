@@ -164,6 +164,7 @@ export default function chatSample() {
     },
     assistant: {
       placement: 'left',
+      actions: ['replay', 'copy', 'good', 'bad'],
       onActions: {
         good: async ({ message, active }) => {
           // 点赞

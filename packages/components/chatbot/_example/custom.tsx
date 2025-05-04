@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type {
   SSEChunkData,
   TdChatMessageConfig,
@@ -10,21 +10,37 @@ import type {
   TdChatCustomRenderConfig,
 } from 'tdesign-react';
 import { ChatBot } from 'tdesign-react';
+import TvisionTcharts from 'tvision-charts-react';
 
 // 自定义渲染-注册插槽规则
 const customRenderConfig: TdChatCustomRenderConfig = {
   weather: (content) => ({
     slotName: `${content.type}-${content.id}`,
   }),
+  chart: (content) => ({
+    slotName: `${content.type}-${content.data.id}`,
+  }),
 };
 
 const CustomWeather = ({ city, conditions }) => {
   return (
-    <div>
+    <div style={{ background: 'orange', color: 'white', padding: '16px', borderRadius: '8px' }}>
       今天{city}天气{conditions}
     </div>
   );
 };
+
+const ChartDemo = ({ data }) => (
+  <div
+    style={{
+      width: '600px',
+      height: '400px',
+    }}
+  >
+    <p style={{ margin: 0 }}>{data.description}</p>
+    <TvisionTcharts chartType={data.chartType} options={data.options} theme={data.theme} />
+  </div>
+);
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
@@ -40,27 +56,49 @@ declare module 'tdesign-react' {
   }
 }
 
-// 默认初始化消息
-const mockData: ChatMessagesData[] = [
+const initMessage = [
   {
     id: '123',
-    role: 'user',
+    role: 'assistant',
     status: 'complete',
     content: [
       {
-        type: 'text',
-        data: '南极的自动提款机叫什么名字？',
-      },
-    ],
-  },
-  {
-    id: '456',
-    status: 'error',
-    role: 'assistant',
-    content: [
-      {
-        type: 'text',
-        data: '出错了',
+        type: 'chart',
+        data: {
+          id: 'c1',
+          description:
+            '昨日上午北京道路车辆通行状况，9:00的峰值（1330）可能显示早高峰拥堵最严重时段，10:00后缓慢回落，可以得出如下折线图：',
+          chartType: 'line',
+          options: {
+            xAxis: {
+              type: 'category',
+              data: [
+                '0:00',
+                '1:00',
+                '2:00',
+                '3:00',
+                '4:00',
+                '5:00',
+                '6:00',
+                '7:00',
+                '8:00',
+                '9:00',
+                '10:00',
+                '11:00',
+                '12:00',
+              ],
+            },
+            yAxis: {
+              axisLabel: { inside: false },
+            },
+            series: [
+              {
+                data: [820, 932, 901, 934, 600, 500, 700, 900, 1330, 1320, 1200, 1300, 1100],
+                type: 'line',
+              },
+            ],
+          },
+        },
       },
     ],
   },
@@ -68,7 +106,7 @@ const mockData: ChatMessagesData[] = [
 
 export default function ChatBotReact() {
   const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
-  const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
+  const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(initMessage);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
@@ -78,6 +116,7 @@ export default function ChatBotReact() {
     },
     assistant: {
       placement: 'left',
+      avatar: 'https://tdesign.gtimg.com/site/chat-avatar.png',
       customRenderConfig,
       chatContentProps: {
         thinking: {
@@ -184,12 +223,12 @@ export default function ChatBotReact() {
       <ChatBot
         ref={chatRef}
         style={{ height: '100%' }}
-        messages={mockData}
+        messages={mockMessage}
         messageProps={messageProps}
         chatServiceConfig={chatServiceConfig}
       >
         {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
-        <div slot="input-footer-left" />
+        <div slot="sender-footer-left" />
         {/* 自定义消息体渲染-植入插槽 */}
         {mockMessage
           ?.map((data) =>
@@ -198,12 +237,17 @@ export default function ChatBotReact() {
                 // 示例：天气消息体
                 case 'weather':
                   return (
-                    <div slot={`${data.id}-${item.type}-${item.id}`} key={`${data.id}-${item.type}-${item.id}`}>
+                    <div slot={`${data.id}-${item.type}-${item.id}`} key={`${item.id}`}>
                       <CustomWeather city={item.data.city} conditions={item.data.conditions} />
                     </div>
                   );
+                case 'chart':
+                  return (
+                    <div slot={`${data.id}-${item.type}-${item.data.id}`} key={`${item.data.id}`}>
+                      <ChartDemo data={item.data} />
+                    </div>
+                  );
               }
-              return null;
             }),
           )
           .flat()}
@@ -212,7 +256,7 @@ export default function ChatBotReact() {
           // 示例：给用户消息配置操作区
           if (data.role === 'user') {
             return (
-              <div slot={`${data.id}-actions`} key={`${data.id}-actions`}>
+              <div slot={`${data.id}-actionbar`} key={`${data.id}-actions`}>
                 操作区
               </div>
             );

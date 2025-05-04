@@ -1,6 +1,6 @@
 import React from 'react';
 import TvisionTcharts from 'tvision-charts-react';
-import { BaseContent, ChatActionBar, ChatMessage, Space } from 'tdesign-react';
+import { BaseContent, ChatMessage, Space } from 'tdesign-react';
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
