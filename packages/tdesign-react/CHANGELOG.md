@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.12.1 `2025-05-07` 
+### 🐞 Bug Fixes
+-  修复 1.12.0 兼容 React 18 以下的问题 @uyarn ([#3545](https://github.com/Tencent/tdesign-react/pull/3545))
+
+
+
 ## 🌈 1.12.0 `2025-04-28` 
 ### 🚀 Features
 - `React`: 全面升级相关依赖，兼容在 React19 中使用 @HaixingOoO ([#3438](https://github.com/Tencent/tdesign-react/pull/3438))
