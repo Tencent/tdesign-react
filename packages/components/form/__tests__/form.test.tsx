@@ -96,11 +96,14 @@ describe('Form 组件测试', () => {
     expect(getByPlaceholderText('input1').value).toEqual('');
     fireEvent.click(getByText('setFields'));
     expect(getByPlaceholderText('input1').value).toEqual('setFields');
-    expect(fn).toHaveBeenCalled();
+    expect(fn).toHaveBeenCalledTimes(1);
 
     fireEvent.click(getByText('setFieldsValue'));
     expect(getByPlaceholderText('input1').value).toEqual('setFieldsValue');
-    expect(fn).toHaveBeenCalled();
+    expect(fn).toHaveBeenCalledTimes(2);
+
+    fireEvent.click(getByText('reset'));
+    expect(fn).toHaveBeenCalledTimes(3);
 
     fireEvent.click(getByText('setValidateMessage'));
     expect(queryByText('message: setValidateMessage')).toBeTruthy();
