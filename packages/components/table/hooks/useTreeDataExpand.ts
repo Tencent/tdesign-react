@@ -108,7 +108,7 @@ export function useTreeDataExpand(
     tExpandedTreeNode: (string | number)[],
     oldExpandedTreeNode: (string | number)[] = [],
   ) {
-    const { addedList, removedList } = diffExpandedTreeNode(tExpandedTreeNode, oldExpandedTreeNode);
+    const { addedList, removedList } = diffExpandedTreeNode(tExpandedTreeNode, oldExpandedTreeNode || []);
     store.expandTreeNode(addedList, data, rowDataKeys);
     store.foldTreeNode(removedList, data, rowDataKeys);
     return data;
