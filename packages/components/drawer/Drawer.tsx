@@ -39,7 +39,8 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const cancelText = t(local.cancel);
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
-  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...props });
+  const { children, body, ...restProps } = props;
+  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...restProps });
   const {
     className,
     style,
@@ -60,9 +61,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     showInAttachedElement,
     closeOnOverlayClick,
     closeOnEscKeydown,
-    children,
     header,
-    body,
     footer,
     closeBtn,
     cancelBtn = cancelText,
