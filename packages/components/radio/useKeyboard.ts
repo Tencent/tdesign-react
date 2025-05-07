@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { CHECKED_CODE_REG } from '@tdesign/common-js/common';
-import { off, on } from '../_util/dom';
+import { off, on } from '../_util/listener';
 
 /** 键盘操作 */
 export default function useKeyboard(

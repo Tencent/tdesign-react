@@ -880,6 +880,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
               >
                 <img
                   class="t-image t-image--fit-contain t-image--position-center"
+                  src=""
                 />
                 <div
                   class="t-image__loading"

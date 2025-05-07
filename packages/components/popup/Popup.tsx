@@ -16,9 +16,8 @@ import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useAttach from '../hooks/useAttach';
+import { getCssVarsValue } from '../_util/style';
 import usePopper from '../hooks/usePopper';
-
-import { getCssVarsValue } from '../_util/dom';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
