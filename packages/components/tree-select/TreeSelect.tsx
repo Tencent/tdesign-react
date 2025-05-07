@@ -157,11 +157,15 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       return ({ onClose }) =>
         isFunction(valueDisplay) ? valueDisplay({ value: normalizedValue, onClose }) : valueDisplay;
     }
+
     const displayNode = isFunction(valueDisplay)
-      ? valueDisplay({ value: normalizedValue[0], onClose: noop })
+      ? valueDisplay({
+          value: normalizedValue[0] || { [tKeys.label]: '', [tKeys.value]: undefined },
+          onClose: noop,
+        })
       : valueDisplay;
     return normalizedValue.length ? displayNode : '';
-  }, [valueDisplay, multiple, normalizedValue]);
+  }, [valueDisplay, multiple, normalizedValue, tKeys]);
 
   const internalInputValueDisplay: SelectInputProps['valueDisplay'] = useMemo(() => {
     // 只有单选且下拉展开时需要隐藏 valueDisplay
@@ -195,12 +199,14 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
-    const $value = Array.isArray(value) && value.length ? value[0] : undefined;
-    onChange(formatValue($value, context.node.label), {
-      ...context,
-      data: context.node.data,
-      trigger: 'check',
-    });
+    if (value.length > 0) {
+      const $value = Array.isArray(value) && value.length ? value[0] : undefined;
+      onChange(formatValue($value, context.node.label), {
+        ...context,
+        data: context.node.data,
+        trigger: 'check',
+      });
+    }
     // 单选选择后收起弹框
     setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
   });
