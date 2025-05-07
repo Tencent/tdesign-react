@@ -22,7 +22,7 @@ import pkg from '../packages/tdesign-react/package.json';
 
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
-const externalPeerDeps = Object.keys(pkg.peerDependencies || {}).concat(['react-dom/client']);
+const externalPeerDeps = Object.keys(pkg.peerDependencies || {});
 const banner = `/**
  * ${name} v${pkg.version}
  * (c) ${new Date().getFullYear()} ${pkg.author}
