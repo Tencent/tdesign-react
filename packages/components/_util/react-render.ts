@@ -1,6 +1,5 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
 // @ts-ignore
-import { isUndefined } from 'lodash-es';
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createRoot as createRootClient } from 'react-dom/client';
@@ -24,6 +23,7 @@ const { version, render: reactRender, unmountComponentAtNode } = fullClone;
 let createRoot: CreateRoot;
 try {
   const mainVersion = Number((version || '').split('.')[0]);
+  console.log('mainVersion', mainVersion);
   if (mainVersion >= 18 && mainVersion < 19) {
     ({ createRoot } = fullClone);
   } else if (mainVersion >= 19) {
@@ -35,11 +35,15 @@ try {
 
 function toggleWarning(skip: boolean) {
   const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = fullClone;
+  console.log('fullClone', fullClone);
+  console.log('__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED', __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED);
+
+  const mainVersion = Number((version || '').split('.')[0]);
+  if (mainVersion >= 19) return;
 
   if (
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED &&
-    typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object' &&
-    !isUndefined(__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint)
+    typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object'
   ) {
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint = skip;
   }
