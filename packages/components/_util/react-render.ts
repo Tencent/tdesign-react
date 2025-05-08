@@ -1,5 +1,6 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
 // @ts-ignore
+import { isUndefined } from 'lodash-es';
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createRoot as createRootClient } from 'react-dom/client';
@@ -33,13 +34,12 @@ try {
 }
 
 function toggleWarning(skip: boolean) {
-  const mainVersion = Number((version || '').split('.')[0]);
-  if (mainVersion >= 19) return;
   const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = fullClone;
 
   if (
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED &&
-    typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object'
+    typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object' &&
+    !isUndefined(__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint)
   ) {
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint = skip;
   }
