@@ -87,6 +87,11 @@ Contributing is welcome. Read [guidelines for contributing](https://github.com/T
 
 ## Contributors
 
+<a href="https://openomy.app/github/tencent/tdesign-react" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=tencent/tdesign-react&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
+
 <a href="https://github.com/tencent/tdesign-react/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=tencent/tdesign-react" />
 </a>
