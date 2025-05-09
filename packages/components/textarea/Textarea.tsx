@@ -52,6 +52,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
   const composingRef = useRef(false);
+  const [composingValue, setComposingValue] = useState<string>('');
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -112,14 +113,20 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
-    if (!allowInputOverMax && !composingRef.current) {
-      val = limitUnicodeMaxLength(val, maxlength);
-      if (maxcharacter && maxcharacter >= 0) {
-        const stringInfo = getCharacterLength(val, maxcharacter);
-        val = typeof stringInfo === 'object' && stringInfo.characters;
+
+    if (composingRef.current) {
+      setComposingValue(val);
+    } else {
+      if (!allowInputOverMax) {
+        val = limitUnicodeMaxLength(val, maxlength);
+        if (maxcharacter && maxcharacter >= 0) {
+          const stringInfo = getCharacterLength(val, maxcharacter);
+          val = typeof stringInfo === 'object' && stringInfo.characters;
+        }
       }
+      setComposingValue(val);
+      setValue(val, { e });
     }
-    setValue(val, { e });
   }
 
   function handleCompositionStart() {
@@ -195,7 +202,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         {...textareaProps}
         {...eventProps}
         rows={rows}
-        value={value}
+        value={composingRef.current ? composingValue : value}
         style={textareaStyle}
         className={textareaClassNames}
         readOnly={readonly}
