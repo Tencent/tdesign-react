@@ -93,6 +93,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       handleTreeStore();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   const handleTreeStore = () => {
