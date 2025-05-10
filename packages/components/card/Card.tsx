@@ -15,7 +15,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     actions,
     avatar,
     bordered,
-    children,
     className,
     cover,
     description,
@@ -33,6 +32,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     status,
     loadingProps,
   } = useDefaultProps<CardProps>(props, cardDefaultProps);
+
+  const children = props.children ?? props.content;
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
