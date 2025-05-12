@@ -85,7 +85,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
-  const optionCurrent = useRef(options);
+  const optionCurrent = useRef([]);
 
   useEffect(() => {
     if (!isEqual(optionCurrent.current, options)) {
