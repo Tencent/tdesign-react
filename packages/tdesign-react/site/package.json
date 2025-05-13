@@ -34,7 +34,7 @@
     "semver": "^7.6.3",
     "typescript": "5.6.2",
     "vite": "^5.4.7",
-    "vite-plugin-istanbul": "^6.0.2",
+    "vite-plugin-istanbul": "^7.0.0",
     "vite-plugin-pwa": "^0.20.5",
     "vite-plugin-tdoc": "^2.0.4",
     "vitest": "^2.1.1",
