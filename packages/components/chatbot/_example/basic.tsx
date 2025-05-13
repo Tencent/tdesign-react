@@ -15,12 +15,11 @@ const mockData: ChatMessagesData[] = [
   {
     id: '123',
     role: 'assistant',
-    status: 'complete',
     content: [
       {
         type: 'text',
         status: 'complete',
-        data: '你可以这样问我：',
+        data: '欢迎使用TDesign Chatbot智能助手，你可以这样问我：',
       },
       {
         type: 'suggestion',
@@ -51,6 +50,7 @@ export default function chatSample() {
     user: {
       variant: 'base',
       placement: 'right',
+      avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
     },
     assistant: {
       placement: 'left',
@@ -162,7 +162,15 @@ export default function chatSample() {
 
   return (
     <div style={{ height: '600px' }}>
-      <ChatBot ref={chatRef} messages={mockData} messageProps={messageProps} chatServiceConfig={chatServiceConfig}>
+      <ChatBot
+        ref={chatRef}
+        messages={mockData}
+        messageProps={messageProps}
+        senderProps={{
+          placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
+        }}
+        chatServiceConfig={chatServiceConfig}
+      >
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
         <div slot="sender-footer-left">
           <Space align="center" size={'small'}>
