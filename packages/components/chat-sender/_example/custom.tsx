@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
-import { ChatSender, Space, Button, Tag, Dropdown } from 'tdesign-react';
+import { ChatSender, Space, Button, Tag, Dropdown, Tooltip } from 'tdesign-react';
 
 const options = [
   {
@@ -26,8 +26,8 @@ const ChatSenderExample = () => {
   const senderRef = useRef(null);
   const [scene, setScene] = useState(1);
   const [showRef, setShowRef] = useState(true);
-  const [activeR1, setR1Active] = useState(true);
-  const [activeSearch, setSearchActive] = useState(true);
+  const [activeR1, setR1Active] = useState(false);
+  const [activeSearch, setSearchActive] = useState(false);
   const styleId = useRef(`chat-sender-styles-${Math.random().toString(36).substr(2, 9)}`);
 
   // 使用变量生成自定义组件样式
@@ -133,7 +133,13 @@ const ChatSenderExample = () => {
       {/* 自定义输入框底部区域slot，可以增加模型选项 */}
       <div slot="footer-left">
         <Space align="center" size={'small'}>
-          <Button shape="round" variant="outline" size="small" icon={<AttachIcon />} onClick={onAttachClick} />
+          <Tooltip
+            content="支持上传图片、视频文件，总大小不超过200M"
+            showArrow={false}
+            overlayInnerStyle={{ padding: 6 }}
+          >
+            <Button shape="round" variant="outline" size="small" icon={<AttachIcon />} onClick={onAttachClick} />
+          </Tooltip>
           <Button
             variant="outline"
             shape="round"
