@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { InternetIcon } from 'tdesign-icons-react';
 import type {
   SSEChunkData,
   TdChatMessageConfig,
@@ -7,18 +8,33 @@ import type {
   ChatMessagesData,
   ChatServiceConfig,
 } from 'tdesign-react';
-import { ChatBot, type TdChatbotApi } from 'tdesign-react';
+import { Button, ChatBot, Space, type TdChatbotApi } from 'tdesign-react';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
   {
     id: '123',
-    role: 'user',
+    role: 'assistant',
     status: 'complete',
     content: [
       {
         type: 'text',
-        data: '南极的自动提款机叫什么名字？',
+        status: 'complete',
+        data: '你可以这样问我：',
+      },
+      {
+        type: 'suggestion',
+        status: 'complete',
+        data: [
+          {
+            title: '南极的自动提款机叫什么名字',
+            prompt: '南极的自动提款机叫什么名字？',
+          },
+          {
+            title: '南极自动提款机在哪里',
+            prompt: '南极自动提款机在哪里',
+          },
+        ],
       },
     ],
   },
@@ -26,6 +42,8 @@ const mockData: ChatMessagesData[] = [
 
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
+  const [activeR1, setR1Active] = useState(false);
+  const [activeSearch, setSearchActive] = useState(false);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
@@ -36,7 +54,7 @@ export default function chatSample() {
     assistant: {
       placement: 'left',
       actions: ['replay', 'copy', 'good', 'bad'],
-      onActions: {
+      handleActions: {
         good: async ({ message, active }) => {
           // 点赞
           console.log('点赞', message, active);
@@ -62,9 +80,6 @@ export default function chatSample() {
         },
       },
       chatContentProps: {
-        search: {
-          expandable: true,
-        },
         thinking: {
           maxHeight: 100,
         },
@@ -73,7 +88,7 @@ export default function chatSample() {
   };
 
   // 聊天服务配置
-  const chatServiceConfig: ChatServiceConfig = {
+  const chatServiceConfig: ChatServiceConfig = (getParams) => ({
     // 对话服务地址
     endpoint: 'http://localhost:3000/sse/normal',
     stream: true,
@@ -138,24 +153,57 @@ export default function chatSample() {
     // 自定义请求参数
     onRequest: (innerParams: RequestParams) => {
       const { prompt } = innerParams;
+      const params = getParams();
+      console.log('===params', params);
       return {
         headers: {
           'Content-Type': 'text/event-stream',
           'X-Requested-With': 'XMLHttpRequest',
         },
         body: JSON.stringify({
-          uid: 'ewrwerwer',
+          uid: 'tdesign-chat',
           prompt,
+          ...getParams(),
         }),
       };
     },
-  };
+  });
 
   return (
     <div style={{ height: '600px' }}>
-      <ChatBot ref={chatRef} messages={mockData} messageProps={messageProps} chatServiceConfig={chatServiceConfig}>
-        {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
-        <div slot="input-footer-left" />
+      <ChatBot
+        ref={chatRef}
+        messages={mockData}
+        messageProps={messageProps}
+        chatServiceConfig={chatServiceConfig(() => ({
+          think: activeR1,
+          search: activeSearch,
+        }))}
+      >
+        {/* 自定义输入框底部区域slot，可以增加模型选项 */}
+        <div slot="sender-footer-left">
+          <Space align="center" size={'small'}>
+            <Button
+              variant="outline"
+              shape="round"
+              theme={activeR1 ? 'primary' : 'default'}
+              size="small"
+              onClick={() => setR1Active(!activeR1)}
+            >
+              R1.深度思考
+            </Button>
+            <Button
+              variant="outline"
+              theme={activeSearch ? 'primary' : 'default'}
+              icon={<InternetIcon />}
+              size="small"
+              shape="round"
+              onClick={() => setSearchActive(!activeSearch)}
+            >
+              联网查询
+            </Button>
+          </Space>
+        </div>
       </ChatBot>
     </div>
   );

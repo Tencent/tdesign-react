@@ -1281,6 +1281,206 @@ const chunks = [
 
   { type: 'text', msg: '。' },
 
-  { type: 'text' },
+  { type: 'text', msg: '元' },
+
+  { type: 'text', msg: '整' },
+
+  {
+    type: 'text',
+    msg: ')。[关联：合同原文](#resource:b99c81c8-06d0-4737-a66e-d99da039d9b3)  [关联：合同原文](#resource:aca7f732-b7d0-4644-bd58-22f199b300ad)',
+    resource_id: 'b99c81c8-06d0-4737-a66e-d99da039d9b3',
+    resource_type: 'contract_analyze',
+  },
+
+  { type: 'text', msg: '\u003c!--' },
+
+  { type: 'text', msg: 'contract' },
+
+  { type: 'text', msg: '_' },
+
+  { type: 'text', msg: 'quote' },
+
+  { type: 'text', msg: '_end' },
+
+  { type: 'text', msg: '--' },
+
+  { type: 'text', msg: '\u003e\n\n' },
+
+  { type: 'text', msg: '7' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: ' **' },
+
+  { type: 'text', msg: '第' },
+
+  { type: 'text', msg: '7' },
+
+  { type: 'text', msg: '次' },
+
+  { type: 'text', msg: '支付' },
+
+  { type: 'text', msg: '**' },
+
+  { type: 'text', msg: '  \n' },
+
+  { type: 'text', msg: '  ' },
+
+  { type: 'text', msg: ' \u003c!--' },
+
+  { type: 'text', msg: 'contract' },
+
+  { type: 'text', msg: '_' },
+
+  { type: 'text', msg: 'quote' },
+
+  { type: 'text', msg: '_start' },
+
+  { type: 'text', msg: ' pos' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: 'doc' },
+
+  { type: 'text', msg: 'x' },
+
+  { type: 'text', msg: '93' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: '--\u003e' },
+
+  { type: 'text', msg: '甲方' },
+
+  { type: 'text', msg: '须' },
+
+  { type: 'text', msg: '在前' },
+
+  { type: 'text', msg: '述' },
+
+  { type: 'text', msg: '事实' },
+
+  { type: 'text', msg: '确认' },
+
+  { type: 'text', msg: '无误' },
+
+  { type: 'text', msg: '以及' },
+
+  { type: 'text', msg: '发票' },
+
+  { type: 'text', msg: '验收' },
+
+  { type: 'text', msg: '合格' },
+
+  { type: 'text', msg: '后' },
+
+  { type: 'text', msg: '21' },
+
+  { type: 'text', msg: '个' },
+
+  { type: 'text', msg: '自然' },
+
+  { type: 'text', msg: '日内' },
+
+  { type: 'text', msg: '，' },
+
+  { type: 'text', msg: '向' },
+
+  { type: 'text', msg: '专用' },
+
+  { type: 'text', msg: '账户' },
+
+  { type: 'text', msg: '支付' },
+
+  { type: 'text', msg: '制作' },
+
+  { type: 'text', msg: '费用' },
+
+  { type: 'text', msg: '总额' },
+
+  { type: 'text', msg: '的' },
+
+  { type: 'text', msg: '10' },
+
+  { type: 'text', msg: '%，' },
+
+  { type: 'text', msg: '计' },
+
+  { type: 'text', msg: '含' },
+
+  { type: 'text', msg: '税' },
+
+  { type: 'text', msg: '人民币' },
+
+  { type: 'text', msg: '【' },
+
+  { type: 'text', msg: '10' },
+
+  { type: 'text', msg: ',' },
+
+  { type: 'text', msg: '800' },
+
+  { type: 'text', msg: ',' },
+
+  { type: 'text', msg: '000' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: '00' },
+
+  { type: 'text', msg: '】' },
+
+  { type: 'text', msg: '元' },
+
+  { type: 'text', msg: '(' },
+
+  { type: 'text', msg: '大写' },
+
+  { type: 'text', msg: '：【' },
+
+  { type: 'text', msg: '壹' },
+
+  { type: 'text', msg: '仟' },
+
+  { type: 'text', msg: '零' },
+
+  { type: 'text', msg: '捌' },
+
+  { type: 'text', msg: '拾' },
+
+  { type: 'text', msg: '万' },
+
+  { type: 'text', msg: '】' },
+
+  { type: 'text', msg: '元' },
+
+  { type: 'text', msg: '整' },
+
+  {
+    type: 'text',
+    msg: ')。[关联：合同原文](#resource:aca7f732-b7d0-4644-bd58-22f199b300ad)',
+    resource_id: '398d9583-71b9-464d-b06d-b13fd4e1a09e',
+    resource_type: 'contract_analyze',
+  },
+
+  { type: 'text', msg: '\u003c!--' },
+
+  { type: 'text', msg: 'contract' },
+
+  { type: 'text', msg: '_' },
+
+  { type: 'text', msg: 'quote' },
+
+  { type: 'text', msg: '_end' },
+
+  { type: 'text', msg: '--' },
+
+  { type: 'text', msg: '\u003e\n\n' },
+
+  { type: 'text', msg: '支付' },
+
+  { type: 'text', msg: '条件' },
 ];
 module.exports = chunks;
