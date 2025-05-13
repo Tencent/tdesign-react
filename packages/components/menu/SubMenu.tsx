@@ -53,12 +53,12 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   };
 
   const childrens = React.Children.map(children, (child) =>
-    React.cloneElement(child as ReactElement, {
+    React.cloneElement(child as ReactElement<any>, {
       className: classNames(
         `${classPrefix}-menu__item--plain`,
         `${classPrefix}-submenu__item`,
         `${classPrefix}-submenu__item--icon`,
-        (child as ReactElement).props?.className,
+        (child as ReactElement<any>).props?.className,
       ),
     }),
   );
@@ -80,7 +80,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
-  const contentRef = useRef<HTMLUListElement>();
+  const contentRef = useRef<HTMLUListElement>(null);
 
   const transitionCallbacks = {
     onEnter: () => {
@@ -295,7 +295,7 @@ const SubMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { mode } = useContext(MenuContext);
   const { children, level = 1 } = props;
 
-  const changeItemLevel = (item: React.ReactElement) => {
+  const changeItemLevel = (item: React.ReactElement<any>) => {
     if (checkIsSubMenu(item)) {
       return React.cloneElement(item, {
         level: level + 1,

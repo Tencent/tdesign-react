@@ -8,7 +8,7 @@
 import React, { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
 import { isNumber } from 'lodash-es';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { on, off } from '../../_util/dom';
+import { off, on } from '../../_util/listener';
 
 const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;
@@ -44,7 +44,7 @@ export default function useColumnResize(params: {
     onColumnResizeChange,
   } = params;
 
-  const resizeLineRef = useRef<HTMLDivElement>();
+  const resizeLineRef = useRef<HTMLDivElement>(null);
   const effectColMap = useRef<{ [colKey: string]: any }>({});
   const [leafColumns, setLeafColumns] = useState([]);
 

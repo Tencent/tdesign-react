@@ -19,7 +19,7 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件
  */
 export default function useUpload(props: TdUploadProps) {
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
   // TODO: Form 表单控制上传组件是否禁用
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();

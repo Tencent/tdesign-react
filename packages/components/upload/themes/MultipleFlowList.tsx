@@ -160,15 +160,19 @@ const ImageFlowList = (props: ImageFlowListProps) => {
             { [`${classPrefix}-is-bordered`]: file.status !== 'waiting' },
           ])}
         >
-          {['fail', 'progress'].includes(file.status) && (
-            <div
-              className={classNames([
-                `${uploadPrefix}__card-status-wrap`,
-                `${uploadPrefix}__${props.theme}-${file.status}`,
-              ])}
-            >
-              {iconMap[file.status as 'fail' | 'progress']}
-              <p>{textMap[file.status as 'fail' | 'progress']}</p>
+          {file.status === 'progress' && (
+            <div className={`${uploadPrefix}__card-status-wrap ${uploadPrefix}__${props.theme}-progress`}>
+              {iconMap[file.status as 'progress']}
+              <p>
+                {textMap[file.status as 'progress']}
+                {props.showUploadProgress && ` ${file.percent}%`}
+              </p>
+            </div>
+          )}
+          {file.status === 'fail' && (
+            <div className={`${uploadPrefix}__card-status-wrap ${uploadPrefix}__${props.theme}-fail`}>
+              {iconMap[file.status as 'fail']}
+              <p>{file.response?.error || textMap[file.status as 'fail']}</p>
             </div>
           )}
           {(['waiting', 'success'].includes(file.status) || (!file.status && file.url)) && (

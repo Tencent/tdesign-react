@@ -4,9 +4,9 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { KeyboardEvent, MouseEvent } from 'react';
 import { ButtonProps } from '../button';
-import { TNode, Styles, AttachNode } from '../common';
-import { MouseEvent, KeyboardEvent } from 'react';
+import { AttachNode, Styles, TNode } from '../common';
 
 export interface TdDialogProps {
   /**
@@ -71,8 +71,9 @@ export interface TdDialogProps {
    */
   footer?: TNode;
   /**
-   * 是否强制渲染Dialog
+   * 是否强制渲染 Dialog，请使用 lazy 代替
    * @default false
+   * @deprecated
    */
   forceRender?: boolean;
   /**
@@ -80,6 +81,11 @@ export interface TdDialogProps {
    * @default true
    */
   header?: TNode;
+  /**
+   * 是否启用对话框懒加载，启用时对话框内的内容不渲染
+   * @default true
+   */
+  lazy?: boolean;
   /**
    * 对话框类型，有 3 种：模态对话框、非模态对话框、全屏对话框。弹出「模态对话框」时，只能操作对话框里面的内容，不能操作其他内容。弹出「非模态对话框」时，则可以操作页面内所有内容。「普通对话框」是指没有脱离文档流的对话框，可以在这个基础上开发更多的插件
    * @default modal

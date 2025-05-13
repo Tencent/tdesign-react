@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, isValidElement, useCallback, useMemo } from 'react';
 import { isFragment } from 'react-is';
 import classNames from 'classnames';
-import { supportRef, getRefDom } from '../utils/ref';
+import { supportRef, getRefDom, getNodeRef } from '../../_util/ref';
 import composeRefs from '../../_util/composeRefs';
-import { on, off } from '../../_util/dom';
+import { off, on } from '../../_util/listener';
 
 const ESC_KEY = 'Escape';
 
@@ -89,7 +89,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   }
 
   // 整理 trigger props
-  function getTriggerProps(triggerNode: React.ReactElement) {
+  function getTriggerProps(triggerNode: React.ReactElement<any>) {
     if (!shouldToggle) return {};
 
     const triggerProps: any = {
@@ -182,7 +182,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     };
 
     if (supportRef(triggerNode)) {
-      triggerProps.ref = composeRefs(triggerRef, (triggerNode as any).ref);
+      triggerProps.ref = composeRefs(triggerRef, getNodeRef(triggerNode as any));
     } else {
       // 标记 trigger 元素
       triggerProps['data-popup'] = triggerDataKey.current;

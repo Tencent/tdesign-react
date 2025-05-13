@@ -53,8 +53,8 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
   const composingRef = useRef(false);
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
-  const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
-  const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const currentLength = useMemo(() => getUnicodeLength(value), [value]);
   const characterLength = useMemo(() => {
     const characterInfo = getCharacterLength(String(value), allowInputOverMax ? Infinity : maxcharacter);

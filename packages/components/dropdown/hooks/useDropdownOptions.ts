@@ -3,7 +3,7 @@ import { DropdownOption } from '../type';
 import DropdownMenu from '../DropdownMenu';
 import DropdownItem from '../DropdownItem';
 
-export const getOptionsFromChildren = (children: React.ReactElement): DropdownOption[] => {
+export const getOptionsFromChildren = (children: React.ReactElement<any>): DropdownOption[] => {
   if (!children) return [];
 
   if (children.type === DropdownMenu) {
@@ -14,7 +14,7 @@ export const getOptionsFromChildren = (children: React.ReactElement): DropdownOp
   }
 
   return React.Children.toArray(children)
-    .map((item: React.ReactElement) => {
+    .map((item: React.ReactElement<any>) => {
       const groupChildren = item.props?.children;
       const contextRes = item.props?.content;
 
@@ -34,13 +34,13 @@ export const getOptionsFromChildren = (children: React.ReactElement): DropdownOp
 };
 
 export default function useDropdownOptions(
-  children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
+  children: (React.ReactElement | React.ReactNode | React.ReactPortal)[],
   options: DropdownOption[],
 ): DropdownOption[] {
   const dropdownOptions = useMemo(() => {
     if (options && options.length > 0) return options;
     let dropdownMenuChild: React.ReactElement;
-    React.Children.forEach(children, (child: React.ReactChild) => {
+    React.Children.forEach(children, (child: React.ReactElement) => {
       if (!React.isValidElement(child)) return;
 
       if (child.type === DropdownMenu && (child.props as { children: React.ReactElement }).children) {

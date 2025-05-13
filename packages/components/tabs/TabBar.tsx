@@ -68,7 +68,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
 
   useMutationObserver(containerRef.current, handleMutationObserver);
 
-  useResizeObserver(navsWrapRef.current, computeStyle);
+  useResizeObserver(navsWrapRef, computeStyle);
 
   return (
     <div

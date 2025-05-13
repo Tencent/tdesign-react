@@ -5,11 +5,11 @@ import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { ClassName, Styles } from '../../common';
 import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { on, off } from '../../_util/dom';
 import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
+import { off, on } from '../../_util/listener';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -91,10 +91,10 @@ export default function useFixed(
   } = props;
   const preFinalColumns = usePrevious(finalColumns);
   const [data, setData] = useState<TableRowData[]>([]);
-  const tableContentRef = useRef<HTMLDivElement>();
+  const tableContentRef = useRef<HTMLDivElement>(null);
   const [isFixedHeader, setIsFixedHeader] = useState(false);
   const [isWidthOverflow, setIsWidthOverflow] = useState(false);
-  const tableElmRef = useRef<HTMLTableElement>();
+  const tableElmRef = useRef<HTMLTableElement>(null);
   // CSS 样式设置了固定 6px
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息
@@ -446,7 +446,8 @@ export default function useFixed(
     preFinalColumns: BaseTableCol<TableRowData>[] = [],
   ) => {
     const finalColKeys = finalColumns.map((t) => t.colKey);
-    const preColKeys = preFinalColumns.map((t) => t.colKey);
+    const preColKeys = (preFinalColumns ?? []).map((t) => t.colKey);
+
     if (finalColKeys.length < preColKeys.length) {
       const reduceKeys = xorWith(preColKeys, finalColKeys);
       const thWidthList = getThWidthList('calculate');

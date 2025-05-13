@@ -29,7 +29,7 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
 export default function useMultiple(props: SelectInputProps) {
   const { value } = props;
   const { classPrefix } = useConfig();
-  const tagInputRef = useRef<InputRef>();
+  const tagInputRef = useRef<InputRef>(null);
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
 

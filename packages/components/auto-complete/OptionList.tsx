@@ -6,8 +6,8 @@ import useConfig from '../hooks/useConfig';
 import { CommonClassNameType } from '../hooks/useCommonClassName';
 import { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import HighlightOption from './HighlightOption';
-import { on, off } from '../_util/dom';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { off, on } from '../_util/listener';
 
 export interface OptionsListProps {
   sizeClassNames: CommonClassNameType['sizeClassNames'];
