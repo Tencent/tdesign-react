@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { InternetIcon } from 'tdesign-icons-react';
 import type {
   SSEChunkData,
@@ -44,6 +44,7 @@ export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
+  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
@@ -55,6 +56,7 @@ export default function chatSample() {
       placement: 'left',
       actions: ['replay', 'copy', 'good', 'bad'],
       handleActions: {
+        // 处理消息操作回调
         good: async ({ message, active }) => {
           // 点赞
           console.log('点赞', message, active);
@@ -75,10 +77,11 @@ export default function chatSample() {
           console.log('点击建议问题', content);
           // 点建议问题自动填入输入框
           chatRef?.current?.addPrompt(content.prompt);
-          // 点建议问题直接发送消息
+          // 也可以点建议问题直接发送消息
           // chatRef?.current?.sendUserMessage({ prompt: content.prompt });
         },
       },
+      // 内置的消息渲染配置
       chatContentProps: {
         thinking: {
           maxHeight: 100,
@@ -88,7 +91,7 @@ export default function chatSample() {
   };
 
   // 聊天服务配置
-  const chatServiceConfig: ChatServiceConfig = (getParams) => ({
+  const chatServiceConfig: ChatServiceConfig = {
     // 对话服务地址
     endpoint: 'http://localhost:3000/sse/normal',
     stream: true,
@@ -102,6 +105,7 @@ export default function chatSample() {
     },
     // 流式对话过程中用户主动结束对话业务自定义行为
     onAbort: async () => {},
+    // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
       switch (type) {
@@ -111,7 +115,7 @@ export default function chatSample() {
             type: 'search',
             data: {
               title: rest.title || `搜索到${rest?.docs.length}条内容`,
-              references: rest?.docs,
+              references: rest?.content,
             },
           };
         // 思考
@@ -130,56 +134,35 @@ export default function chatSample() {
             type: 'markdown',
             data: rest?.msg || '',
           };
-        // 自定义-天气
-        case 'weather':
-          return {
-            ...chunk.data,
-            data: { ...JSON.parse(chunk.data.content) },
-          };
-        // 报错
-        case 'error':
-          return {
-            type: 'text',
-            status: 'error',
-            data: rest?.content || '系统繁忙',
-          };
-        default:
-          return {
-            type: 'text',
-            data: chunk?.event === 'complete' ? '' : JSON.stringify(chunk.data),
-          };
       }
     },
     // 自定义请求参数
     onRequest: (innerParams: RequestParams) => {
       const { prompt } = innerParams;
-      const params = getParams();
-      console.log('===params', params);
       return {
         headers: {
-          'Content-Type': 'text/event-stream',
+          'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
         },
         body: JSON.stringify({
           uid: 'tdesign-chat',
           prompt,
-          ...getParams(),
+          ...reqParamsRef.current,
         }),
       };
     },
-  });
+  };
+
+  useEffect(() => {
+    reqParamsRef.current = {
+      think: activeR1,
+      search: activeSearch,
+    };
+  }, [activeR1, activeSearch]);
 
   return (
     <div style={{ height: '600px' }}>
-      <ChatBot
-        ref={chatRef}
-        messages={mockData}
-        messageProps={messageProps}
-        chatServiceConfig={chatServiceConfig(() => ({
-          think: activeR1,
-          search: activeSearch,
-        }))}
-      >
+      <ChatBot ref={chatRef} messages={mockData} messageProps={messageProps} chatServiceConfig={chatServiceConfig}>
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
         <div slot="sender-footer-left">
           <Space align="center" size={'small'}>

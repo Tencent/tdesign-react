@@ -12,6 +12,7 @@ const setSSEHeaders = (res) => {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
     Connection: 'keep-alive',
     'Content-Encoding': 'none',
   });
@@ -57,7 +58,6 @@ app.post('/sse/normal', (req, res) => {
   setSSEHeaders(res);
 
   const { think = false, search = false } = req.body;
-
   // 根据参数过滤不需要的chunk类型
   const filteredChunks = chunks.filter((chunk) => {
     if (!think && chunk.type === 'think') return false;
@@ -111,7 +111,6 @@ app.post('/sse/normal', (req, res) => {
         return `event: ${chunk.type}\ndata: ${chunk.content}\n\n`;
     }
   });
-
   sendStream(res, messages, 100, req);
 });
 
@@ -132,6 +131,12 @@ function sendStream(res, messages, interval, req) {
   let index = 0;
   const timer = setInterval(() => {
     if (index < messages.length) {
+      // 添加写入状态检查
+      if (!req.socket.writable) {
+        console.log('Socket not writable');
+        clearInterval(timer);
+        return res.end();
+      }
       res.write(messages[index]);
       index++;
     } else {
@@ -139,11 +144,6 @@ function sendStream(res, messages, interval, req) {
       res.end();
     }
   }, interval);
-
-  req.on('close', () => {
-    clearInterval(timer);
-    res.end();
-  });
 }
 
 // 模拟文件上传接口
