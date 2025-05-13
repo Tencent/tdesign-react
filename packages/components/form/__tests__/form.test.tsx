@@ -93,13 +93,13 @@ describe('Form 组件测试', () => {
     const { getByPlaceholderText, getByText, queryByText } = render(<TestForm />);
 
     // setFields setFieldsValue setValidateMessage test
-    expect(getByPlaceholderText('input1').value).toEqual('');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
     fireEvent.click(getByText('setFields'));
-    expect(getByPlaceholderText('input1').value).toEqual('setFields');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFields');
     expect(fn).toHaveBeenCalled();
 
     fireEvent.click(getByText('setFieldsValue'));
-    expect(getByPlaceholderText('input1').value).toEqual('setFieldsValue');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFieldsValue');
     expect(fn).toHaveBeenCalled();
 
     fireEvent.click(getByText('setValidateMessage'));

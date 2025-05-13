@@ -233,7 +233,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         });
         setFormListValue([]);
         fieldsTaskQueueRef.current = [];
-        key = 0;
         if (resetType === 'initial') {
           setFields(
             initialData.map((data, index) => ({
