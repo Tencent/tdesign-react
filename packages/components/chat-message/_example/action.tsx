@@ -1,8 +1,8 @@
 import React from 'react';
 import { ChatActionBar, ChatMessage, Space } from 'tdesign-react';
-import { getMessageContentForCopy } from '@tencent/tdesign-chatbot';
+import { AIMessage, getMessageContentForCopy } from '@tencent/tdesign-chatbot';
 
-const message: any = {
+const message: AIMessage = {
   id: '123123',
   role: 'assistant',
   content: [
