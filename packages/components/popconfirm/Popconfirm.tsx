@@ -29,7 +29,7 @@ const Popconfirm = forwardRef<PopupRef, TdPopconfirmProps>((originalProps, ref) 
       {...props}
       visible={visible}
       trigger="click"
-      onVisibleChange={(visible) => setVisible(visible)}
+      onVisibleChange={(visible, context) => setVisible(visible, context as PopconfirmVisibleChangeContext)}
       overlayClassName={classNames(`${classPrefix}-popconfirm`)}
       content={
         <Popcontent
