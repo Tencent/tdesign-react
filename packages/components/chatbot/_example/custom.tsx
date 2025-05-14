@@ -158,17 +158,18 @@ export default function ChatBotReact() {
       >
         {/* 自定义消息体渲染-植入插槽 */}
         {mockMessage
-          ?.map((data) =>
-            data.content.map((item) => {
+          ?.map((msg) =>
+            msg.content.map((item) => {
               switch (item.type) {
                 // 示例：图表消息体
                 case 'chart':
                   return (
-                    <div slot={`${data.id}-${item.type}-${item.data.id}`} key={`${item.data.id}`}>
+                    <div slot={`${msg.id}-${item.type}-${item.data.id}`} key={`${item.data.id}`}>
                       <ChartDemo data={item.data} />
                     </div>
                   );
               }
+              return null;
             }),
           )
           .flat()}
