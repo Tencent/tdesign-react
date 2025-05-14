@@ -34,16 +34,18 @@ spline: navigation
 
 {{ custom }}
 
-## 场景化示例
-### 代码助手
-{{ developer }}
 
-### 自主任务规划
-{{ agent }}
+## 场景化示例
+以下再通过几个常见的业务场景，展示下如何使用 `Chatbot` 组件
+
+### 代码助手
+{{ code }}
 
 ### 多模态交付
 {{ multimedia }}
 
+### 自主任务规划
+{{ agent }}
 
 
 ## API

@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const chunks = require('./data/normal');
 const chunksChart = require('./data/chart');
+const chunksCode = require('./data/code');
 
 const app = express();
 app.use(cors());
@@ -59,9 +60,13 @@ app.post('/sse/normal', (req, res) => {
   setSSEHeaders(res);
 
   let mockdata = chunks;
-  const { think = false, search = false, chart = false } = req.body;
+  const { think = false, search = false, chart = false, code = false } = req.body;
   if (chart) {
     mockdata = chunksChart;
+  }
+
+  if (code) {
+    mockdata = chunksCode;
   }
   // 根据参数过滤不需要的chunk类型
   const filteredChunks = mockdata.filter((chunk) => {
