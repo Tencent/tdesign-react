@@ -23,7 +23,15 @@ spline: navigation
 可以通过 `useChat` Hook提供的对话引擎实例及状态控制方法，同时自行组合拼装`ChatList`，`ChatMessage`, `ChatSender`等组件集成聊天界面，适合需要深度定制组件结构和消息处理流程的场景
 {{ hookComponent }}
 
-### 自定义
+## 自定义
+如果组件内置的消息渲染方案不能满足需求，还可以通过**自定义消息结构解析逻辑和消息内容渲染组件**来实现更多渲染需求。以下示例给出了一个自定义实现图表渲染的示例，实现自定义渲染需要完成四步：
+- 1、扩展自定义消息体类型
+- 2、注册自定义渲染插槽规则
+- 3、实现自定义渲染的组件，示例中使用了tvision-charts-react实现图表渲染
+- 4、在onMessage回调中定义返回组件所需的数据结构
+
+如果组件内置的几种操作 `TdChatItemActionName` 不能满足需求，示例中同时给出了**自定义消息操作区**的方法，可以自行实现更多操作。
+
 {{ custom }}
 
 ## 场景化示例
@@ -36,14 +44,6 @@ spline: navigation
 ### 多模态交付
 {{ multimedia }}
 
-
-<!-- ## 消息内容
-
-### 搜索内容
-{{ searchContent }}
-
-### 推荐问题
-{{ suggestionContent }} -->
 
 
 ## API

@@ -96,6 +96,7 @@ export default function ChatBotReact() {
     },
     // 流式对话过程中用户主动结束对话业务自定义行为
     onAbort: async () => {},
+    // 流式消息输出时的回调
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
       switch (type) {
@@ -105,7 +106,7 @@ export default function ChatBotReact() {
             type: 'markdown',
             data: rest?.msg || '',
           };
-        // 自定义-图表
+        // 4、自定义渲染图表所需的数据结构
         case 'chart':
           return {
             type: 'chart',
