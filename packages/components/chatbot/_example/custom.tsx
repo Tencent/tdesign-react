@@ -164,7 +164,7 @@ export default function ChatBotReact() {
                 // 示例：图表消息体
                 case 'chart':
                   return (
-                    <div slot={`${msg.id}-${item.type}-${item.data.id}`} key={`${item.data.id}`}>
+                    <div slot={`${msg.id}-${item.type}-${item.data.id}`} key={`${msg.id}-${item.data.id}`}>
                       <ChartDemo data={item.data} />
                     </div>
                   );

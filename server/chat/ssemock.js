@@ -104,8 +104,10 @@ app.post('/sse/normal', (req, res) => {
       case 'chart':
         return `event: custom\ndata: ${JSON.stringify({
           type: 'chart',
-          id: Date.now(),
-          content: chunk.data,
+          content: {
+            ...chunk.data,
+            id: Date.now(),
+          },
         })}\n\n`;
 
       case 'suggestion':
