@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { CopyIcon, EditIcon, SoundIcon } from 'tdesign-icons-react';
 import type {
   SSEChunkData,
   TdChatMessageConfig,
@@ -9,27 +10,31 @@ import type {
   ChatMessagesData,
   TdChatCustomRenderConfig,
 } from 'tdesign-react';
-import { ChatBot } from 'tdesign-react';
+import { Button, ChatBot, Space } from 'tdesign-react';
 import TvisionTcharts from 'tvision-charts-react';
 
-// 自定义渲染-注册插槽规则
+// 1、扩展自定义消息体类型
+declare module 'tdesign-react' {
+  interface AIContentTypeOverrides {
+    chart: BaseContent<
+      'chart',
+      {
+        chartType: string;
+        options: any;
+        theme: string;
+      }
+    >;
+  }
+}
+
+// 2、自定义渲染-注册插槽规则
 const customRenderConfig: TdChatCustomRenderConfig = {
-  weather: (content) => ({
-    slotName: `${content.type}-${content.id}`,
-  }),
   chart: (content) => ({
     slotName: `${content.type}-${content.data.id}`,
   }),
 };
 
-const CustomWeather = ({ city, conditions }) => {
-  return (
-    <div style={{ background: 'orange', color: 'white', padding: '16px', borderRadius: '8px' }}>
-      今天{city}天气{conditions}
-    </div>
-  );
-};
-
+// 3、自定义渲染图表的组件
 const ChartDemo = ({ data }) => (
   <div
     style={{
@@ -37,68 +42,18 @@ const ChartDemo = ({ data }) => (
       height: '400px',
     }}
   >
-    <p style={{ margin: 0 }}>{data.description}</p>
     <TvisionTcharts chartType={data.chartType} options={data.options} theme={data.theme} />
   </div>
 );
 
-// 扩展自定义消息体类型
-declare module 'tdesign-react' {
-  interface AIContentTypeOverrides {
-    weather: BaseContent<
-      'weather',
-      {
-        temp: number;
-        city: string;
-        conditions: string;
-      }
-    >;
-  }
-}
-
 const initMessage = [
   {
     id: '123',
-    role: 'assistant',
-    status: 'complete',
+    role: 'user',
     content: [
       {
-        type: 'chart',
-        data: {
-          id: 'c1',
-          description:
-            '昨日上午北京道路车辆通行状况，9:00的峰值（1330）可能显示早高峰拥堵最严重时段，10:00后缓慢回落，可以得出如下折线图：',
-          chartType: 'line',
-          options: {
-            xAxis: {
-              type: 'category',
-              data: [
-                '0:00',
-                '1:00',
-                '2:00',
-                '3:00',
-                '4:00',
-                '5:00',
-                '6:00',
-                '7:00',
-                '8:00',
-                '9:00',
-                '10:00',
-                '11:00',
-                '12:00',
-              ],
-            },
-            yAxis: {
-              axisLabel: { inside: false },
-            },
-            series: [
-              {
-                data: [820, 932, 901, 934, 600, 500, 700, 900, 1330, 1320, 1200, 1300, 1100],
-                type: 'line',
-              },
-            ],
-          },
-        },
+        type: 'text',
+        data: '北京今天晚高峰交通情况如何，需要给出曲线图表示每个时段',
       },
     ],
   },
@@ -144,47 +99,20 @@ export default function ChatBotReact() {
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
       switch (type) {
-        case 'search':
-          // 搜索
-          return {
-            type: 'search',
-            data: {
-              title: rest.title || `搜索到${rest?.docs.length}条内容`,
-              references: rest?.docs,
-            },
-          };
-        // 思考
-        case 'think':
-          return {
-            type: 'thinking',
-            data: {
-              title: rest.title || '深度思考中',
-              text: rest.content || '',
-            },
-          };
         // 正文
         case 'text':
           return {
             type: 'markdown',
             data: rest?.msg || '',
           };
-        // 自定义-天气
-        case 'weather':
+        // 自定义-图表
+        case 'chart':
           return {
-            ...chunk.data,
-            data: { ...JSON.parse(chunk.data.content) },
-          };
-        // 报错
-        case 'error':
-          return {
-            type: 'text',
-            status: 'error',
-            data: rest?.content || '系统繁忙',
-          };
-        default:
-          return {
-            type: 'text',
-            data: chunk?.event === 'complete' ? '' : JSON.stringify(chunk.data),
+            type: 'chart',
+            data: {
+              id: Date.now(),
+              ...chunk.data.content,
+            },
           };
       }
     },
@@ -193,12 +121,12 @@ export default function ChatBotReact() {
       const { prompt } = innerParams;
       return {
         headers: {
-          'Content-Type': 'text/event-stream',
           'X-Requested-With': 'XMLHttpRequest',
         },
         body: JSON.stringify({
-          uid: 'ewrwerwer',
+          uid: 'test',
           prompt,
+          chart: true,
         }),
       };
     },
@@ -227,20 +155,12 @@ export default function ChatBotReact() {
         messageProps={messageProps}
         chatServiceConfig={chatServiceConfig}
       >
-        {/* 🌟 自定义输入框左侧区域slot，可以增加模型选项 */}
-        <div slot="sender-footer-left" />
         {/* 自定义消息体渲染-植入插槽 */}
         {mockMessage
           ?.map((data) =>
             data.content.map((item) => {
               switch (item.type) {
-                // 示例：天气消息体
-                case 'weather':
-                  return (
-                    <div slot={`${data.id}-${item.type}-${item.id}`} key={`${item.id}`}>
-                      <CustomWeather city={item.data.city} conditions={item.data.conditions} />
-                    </div>
-                  );
+                // 示例：图表消息体
                 case 'chart':
                   return (
                     <div slot={`${data.id}-${item.type}-${item.data.id}`} key={`${item.data.id}`}>
@@ -253,11 +173,21 @@ export default function ChatBotReact() {
           .flat()}
         {/* 自定义消息操作区 */}
         {mockMessage?.map((data) => {
-          // 示例：给用户消息配置操作区
-          if (data.role === 'user') {
+          // 示例：给ai消息配置操作区
+          if (data.role === 'assistant' && data.status === 'complete') {
             return (
               <div slot={`${data.id}-actionbar`} key={`${data.id}-actions`}>
-                操作区
+                <Space size="small" style={{ marginTop: 6 }}>
+                  <Button shape="square" variant="text" size="small">
+                    <SoundIcon />
+                  </Button>
+                  <Button shape="square" variant="text" size="small">
+                    <EditIcon />
+                  </Button>
+                  <Button shape="square" variant="text" size="small">
+                    <CopyIcon />
+                  </Button>
+                </Space>
               </div>
             );
           }

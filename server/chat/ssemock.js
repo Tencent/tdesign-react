@@ -1,6 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const chunks = require('./data/normal');
+const chunksChart = require('./data/chart');
 
 const app = express();
 app.use(cors());
@@ -57,9 +58,13 @@ app.post('/sse/normal', (req, res) => {
   console.log('Received POST body:', req.body); // 打印请求体
   setSSEHeaders(res);
 
-  const { think = false, search = false } = req.body;
+  let mockdata = chunks;
+  const { think = false, search = false, chart = false } = req.body;
+  if (chart) {
+    mockdata = chunksChart;
+  }
   // 根据参数过滤不需要的chunk类型
-  const filteredChunks = chunks.filter((chunk) => {
+  const filteredChunks = mockdata.filter((chunk) => {
     if (!think && chunk.type === 'think') return false;
     if (!search && chunk.type === 'search') return false;
     return true;
@@ -95,6 +100,11 @@ app.post('/sse/normal', (req, res) => {
           type: 'weather',
           id: chunk.id,
           content: chunk.content,
+        })}\n\n`;
+      case 'chart':
+        return `event: custom\ndata: ${JSON.stringify({
+          type: 'chart',
+          content: chunk.data,
         })}\n\n`;
 
       case 'suggestion':
