@@ -28,7 +28,7 @@ spline: navigation
 - 1、扩展自定义消息体类型
 - 2、注册自定义渲染插槽规则
 - 3、实现自定义渲染的组件，示例中使用了tvision-charts-react实现图表渲染
-- 4、在onMessage回调中定义返回组件所需的数据结构
+- 4、在onMessage回调中定义返回组件所需的数据结构，同时可以通过返回`strategy`来决定新内容块的追加策略，如果需要支持更灵活的合并策略则返回完整消息数组`AIMessageContent[]`
 
 如果组件内置的几种操作 `TdChatItemActionName` 不能满足需求，示例中同时给出了**自定义消息操作区**的方法，可以自行实现更多操作。
 

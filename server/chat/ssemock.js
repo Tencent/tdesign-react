@@ -75,8 +75,7 @@ app.post('/sse/normal', (req, res) => {
     switch (chunk.type) {
       case 'text':
         return `event: message\ndata: ${JSON.stringify({
-          type: 'text',
-          msg: chunk.msg,
+          ...chunk,
         })}\n\n`;
 
       case 'search':
@@ -106,7 +105,7 @@ app.post('/sse/normal', (req, res) => {
           type: 'chart',
           content: {
             ...chunk.data,
-            id: Date.now(),
+            id: Math.random() * 10000,
           },
         })}\n\n`;
 

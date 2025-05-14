@@ -3,7 +3,7 @@ import { CopyIcon, EditIcon, SoundIcon } from 'tdesign-icons-react';
 import type {
   SSEChunkData,
   TdChatMessageConfig,
-  AIMessageContent,
+  AIContentChunkUpdate,
   RequestParams,
   ChatServiceConfig,
   BaseContent,
@@ -53,7 +53,7 @@ const initMessage = [
     content: [
       {
         type: 'text',
-        data: '北京今天晚高峰交通情况如何，需要给出曲线图表示每个时段',
+        data: '北京今天早晚高峰交通情况如何，需要分别给出曲线图表示每个时段',
       },
     ],
   },
@@ -97,7 +97,7 @@ export default function ChatBotReact() {
     // 流式对话过程中用户主动结束对话业务自定义行为
     onAbort: async () => {},
     // 流式消息输出时的回调
-    onMessage: (chunk: SSEChunkData): AIMessageContent => {
+    onMessage: (chunk: SSEChunkData): AIContentChunkUpdate => {
       const { type, ...rest } = chunk.data;
       switch (type) {
         // 正文
@@ -105,6 +105,8 @@ export default function ChatBotReact() {
           return {
             type: 'markdown',
             data: rest?.msg || '',
+            // 根据后端返回的paragraph字段来决定是否需要另起一段展示markdown
+            strategy: rest?.paragraph === 'next' ? 'append' : 'merge',
           };
         // 4、自定义渲染图表所需的数据结构
         case 'chart':
@@ -114,6 +116,8 @@ export default function ChatBotReact() {
               id: Date.now(),
               ...chunk.data.content,
             },
+            // 图表每次出现都是追加创建新的内容块
+            strategy: 'append',
           };
       }
     },
