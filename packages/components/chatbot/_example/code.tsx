@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { InternetIcon } from 'tdesign-icons-react';
+import React, { useRef } from 'react';
 import type {
   SSEChunkData,
   TdChatMessageConfig,
@@ -7,15 +6,7 @@ import type {
   RequestParams,
   ChatServiceConfig,
 } from 'tdesign-react';
-import {
-  Card,
-  ChatBot,
-  ChatMessagesData,
-  TdChatCustomRenderConfig,
-  DialogPlugin,
-  type TdChatbotApi,
-  Space,
-} from 'tdesign-react';
+import { Card, ChatBot, ChatMessagesData, DialogPlugin, type TdChatbotApi, Space } from 'tdesign-react';
 import Login from './components/login';
 
 // 默认初始化消息
@@ -51,7 +42,6 @@ const PreviewCard = ({ header, desc, loading, code }) => {
   // 复制生成的代码
   const copyHandler = async () => {
     try {
-      console.log('====code', code);
       const codeBlocks = Array.from(code.matchAll(/```(?:jsx|javascript)?\n([\s\S]*?)```/g)).map((match) =>
         match[1].trim(),
       );
@@ -94,12 +84,6 @@ const PreviewCard = ({ header, desc, loading, code }) => {
   );
 };
 
-const customRenderConfig: TdChatCustomRenderConfig = {
-  preview: (content) => ({
-    slotName: `${content.type}-${content.data.id}`,
-  }),
-};
-
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
@@ -112,7 +96,6 @@ export default function chatSample() {
       avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
     },
     assistant: {
-      customRenderConfig,
       actions: ['replay', 'good', 'bad'],
       handleActions: {
         // 处理消息操作回调
@@ -198,26 +181,15 @@ export default function chatSample() {
     },
   };
 
-  useEffect(() => {
-    if (!chatRef.current) {
-      return;
-    }
-    const chat = chatRef.current;
-    const update = (e: CustomEvent) => {
-      setMockMessage(e.detail);
-    };
-    chat.addEventListener('message_change', update);
-    return () => {
-      chat.removeEventListener('message_change', update);
-    };
-  }, []);
-
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
         ref={chatRef}
         messages={mockData}
         messageProps={messageProps}
+        onMessageChange={(e) => {
+          setMockMessage(e.detail);
+        }}
         senderProps={{
           defaultValue: '使用tdesign组件库实现一个登录表单的例子',
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
@@ -227,12 +199,12 @@ export default function chatSample() {
         {/* 自定义消息体渲染-植入插槽 */}
         {mockMessage
           ?.map((msg) =>
-            msg.content.map((item) => {
+            msg.content.map((item, index) => {
               switch (item.type) {
                 // 示例：代码运行结果预览
                 case 'preview':
                   return (
-                    <div slot={`${msg.id}-${item.type}-${item.data.id}`} key={`${msg.id}-${item.data.id}`}>
+                    <div slot={`${msg.id}-${item.type}-${index}`} key={`${item.data.id}`}>
                       <PreviewCard
                         header={item.data.enName}
                         desc={item.data.cnName}

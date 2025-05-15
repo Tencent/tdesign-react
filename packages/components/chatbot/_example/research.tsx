@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { InternetIcon } from 'tdesign-icons-react';
+import { ChevronDownIcon, Filter3Icon, ImageAddIcon, InternetIcon, Transform1Icon } from 'tdesign-icons-react';
 import type {
   SSEChunkData,
   AIMessageContent,
@@ -8,7 +8,49 @@ import type {
   ChatMessagesData,
   ChatServiceConfig,
 } from 'tdesign-react';
-import { Button, ChatBot, Space, type TdChatbotApi } from 'tdesign-react';
+import { Button, ChatBot, Dropdown, Space, Tooltip, Tag, type TdChatbotApi } from 'tdesign-react';
+
+const RatioOptions = [
+  {
+    content: '1:1 头像',
+    value: 1,
+  },
+  {
+    content: '2:3 自拍',
+    value: 2 / 3,
+  },
+  {
+    content: '4:3 插画',
+    value: 4 / 3,
+  },
+  {
+    content: '9:16 人像',
+    value: 9 / 16,
+  },
+  {
+    content: '16:9 风景',
+    value: 16 / 9,
+  },
+];
+
+const StyleOptions = [
+  {
+    content: '人像摄影',
+    value: 'portrait',
+  },
+  {
+    content: '卡通动漫',
+    value: 'cartoon',
+  },
+  {
+    content: '风景',
+    value: 'landscape',
+  },
+  {
+    content: '像素风',
+    value: 'pixel',
+  },
+];
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -41,9 +83,9 @@ const mockData: ChatMessagesData[] = [
 
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
-  const [activeR1, setR1Active] = useState(false);
-  const [activeSearch, setSearchActive] = useState(false);
-  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+  const [ratio, setRatio] = useState(0);
+  const [style, setStyle] = useState('');
+  const reqParamsRef = useRef<{ ratio: number; style: string }>({ ratio: 0, style: '' });
 
   // 消息属性配置
   const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {
@@ -161,12 +203,23 @@ export default function chatSample() {
     },
   };
 
+  const onAttachClick = () => {
+    chatRef.current?.selectFile();
+  };
+
+  const switchRatio = (data) => {
+    setRatio(data.value);
+  };
+  const switchStyle = (data) => {
+    setStyle(data.value);
+  };
+
   useEffect(() => {
     reqParamsRef.current = {
-      think: activeR1,
-      search: activeSearch,
+      ratio,
+      style,
     };
-  }, [activeR1, activeSearch]);
+  }, [ratio, style]);
 
   return (
     <div style={{ height: '600px' }}>
@@ -182,25 +235,25 @@ export default function chatSample() {
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
         <div slot="sender-footer-left">
           <Space align="center" size={'small'}>
-            <Button
-              variant="outline"
-              shape="round"
-              theme={activeR1 ? 'primary' : 'default'}
-              size="small"
-              onClick={() => setR1Active(!activeR1)}
+            <Tooltip
+              content="暂仅支持一张参考图，继续上传替换旧图"
+              showArrow={false}
+              overlayInnerStyle={{ padding: 6 }}
             >
-              R1.深度思考
-            </Button>
-            <Button
-              variant="outline"
-              theme={activeSearch ? 'primary' : 'default'}
-              icon={<InternetIcon />}
-              size="small"
-              shape="round"
-              onClick={() => setSearchActive(!activeSearch)}
-            >
-              联网查询
-            </Button>
+              <Button shape="round" variant="outline" size="small" icon={<ImageAddIcon />} onClick={onAttachClick}>
+                参考图
+              </Button>
+            </Tooltip>
+            <Dropdown options={RatioOptions} onClick={switchRatio} trigger="click">
+              <Button shape="round" variant="outline" icon={<Transform1Icon size="16" />} size="small">
+                {RatioOptions.filter((item) => item.value === ratio)?.[0]?.content || '比例'}
+              </Button>
+            </Dropdown>
+            <Dropdown options={StyleOptions} onClick={switchStyle} trigger="click">
+              <Button shape="round" variant="outline" icon={<Filter3Icon size="16" />} size="small">
+                {StyleOptions.filter((item) => item.value === style)?.[0]?.content || '风格'}
+              </Button>
+            </Dropdown>
           </Space>
         </div>
       </ChatBot>

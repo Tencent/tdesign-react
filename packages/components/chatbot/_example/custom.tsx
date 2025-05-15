@@ -45,14 +45,15 @@ const ChartDemo = ({ data }) => (
   </div>
 );
 
-const initMessage = [
+const initMessage: ChatMessagesData[] = [
   {
     id: '123',
-    role: 'user',
+    role: 'assistant',
     content: [
       {
         type: 'text',
-        data: '北京今天早晚高峰交通情况如何，需要分别给出曲线图表示每个时段',
+        status: 'complete',
+        data: '欢迎使用TDesign智能图表分析助手，请输入你的问题',
       },
     ],
   },
@@ -141,8 +142,11 @@ export default function ChatBotReact() {
       <ChatBot
         ref={chatRef}
         style={{ height: '100%' }}
-        messages={mockMessage}
+        messages={initMessage}
         messageProps={messageProps}
+        senderProps={{
+          defaultValue: '北京今天早晚高峰交通情况如何，需要分别给出曲线图表示每个时段',
+        }}
         chatServiceConfig={chatServiceConfig}
         onMessageChange={(e) => {
           setMockMessage(e.detail);
