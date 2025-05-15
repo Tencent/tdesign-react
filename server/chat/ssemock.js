@@ -4,6 +4,7 @@ const chunks = require('./data/normal');
 const chunksChart = require('./data/chart');
 const chunksCode = require('./data/code');
 const chunksImage = require('./data/image');
+const agentChunks = require('./data/agent');
 
 const app = express();
 app.use(cors());

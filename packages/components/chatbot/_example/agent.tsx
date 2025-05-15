@@ -57,56 +57,18 @@ declare module 'tdesign-react' {
       }
     >;
   }
-
-  // 扩展允许的消息类型
-  interface AIMessageContentOverrides {
-    type: 'agent' | 'search' | 'text' | 'markdown' | 'thinking' | 'image' | 'suggestion' | 'attachment';
-  }
 }
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
   {
     id: '123',
-    role: 'user',
-    status: 'complete',
-    content: [
-      {
-        type: 'text',
-        data: '请帮我做一个家庭聚会任务规划',
-      },
-    ],
-  },
-  {
-    id: '222',
     role: 'assistant',
     status: 'complete',
     content: [
       {
-        type: 'agent',
-        state: 'agent_init',
-        id: '111111',
-        content: {
-          text: '家庭聚会规划任务已分解为3个执行阶段',
-          steps: [
-            {
-              step: '① 餐饮方案',
-              agent_id: 'a1',
-              time: '2分钟',
-              status: 'finish',
-              tasks: [
-                { type: 'command', text: '开始生成餐饮方案：正在分析用户饮食偏好...' },
-                { type: 'command', text: '已筛选出3种高性价比菜单方案，正在进行营养匹配...' },
-                {
-                  type: 'result',
-                  text: '🍴 推荐餐饮方案:主菜是香草烤鸡（无麸质），准备耗时45分钟；饮品是智能调酒机方案B，酒精浓度12%',
-                },
-              ],
-            },
-            { step: '② 设备调度', agent_id: 'a2', time: '3分钟' },
-            { step: '③ 安全监测', agent_id: 'a3', time: '1分钟' },
-          ],
-        },
+        type: 'text',
+        data: '欢迎使用TDesign Agent家庭活动策划助手，请给我布置任务吧～',
       },
     ],
   },
@@ -233,6 +195,9 @@ export default function ChatBotReact() {
         style={{ height: '100%' }}
         messages={mockData}
         messageProps={messageProps}
+        senderProps={{
+          defaultValue: '请帮我做一个家庭聚会任务规划',
+        }}
         chatServiceConfig={chatServiceConfig}
       >
         {mockMessage
