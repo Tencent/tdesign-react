@@ -1,1283 +1,1085 @@
 module.exports = [
   { type: 'text', msg: '#' },
 
-  { type: 'text', msg: ' Type' },
+  { type: 'text', msg: ' T' },
 
-  { type: 'text', msg: 'Script' },
+  { type: 'text', msg: 'Design' },
 
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '实现' },
+  { type: 'text', msg: '登录' },
 
-  { type: 'text', msg: '二分' },
+  { type: 'text', msg: '表单' },
 
-  { type: 'text', msg: '查找' },
+  { type: 'text', msg: '核心' },
 
-  { type: 'text', msg: '算法' },
+  { type: 'text', msg: '代码' },
 
   { type: 'text', msg: '\n\n' },
 
-  { type: 'text', msg: '二分' },
-
-  { type: 'text', msg: '查找' },
-
-  { type: 'text', msg: '是一种' },
-
-  { type: 'text', msg: '高效的' },
-
-  { type: 'text', msg: '搜索' },
-
-  { type: 'text', msg: '算法' },
-
-  { type: 'text', msg: '，' },
-
-  { type: 'text', msg: '适用于' },
-
-  { type: 'text', msg: '**' },
-
-  { type: 'text', msg: '已' },
-
-  { type: 'text', msg: '排序' },
-
-  { type: 'text', msg: '**' },
-
-  { type: 'text', msg: '的' },
-
-  { type: 'text', msg: '数组' },
-
-  { type: 'text', msg: '。' },
-
-  { type: 'text', msg: '它的' },
-
-  { type: 'text', msg: '时间复杂度' },
-
-  { type: 'text', msg: '为' },
-
-  { type: 'text', msg: ' O' },
-
-  { type: 'text', msg: '(log' },
-
-  { type: 'text', msg: ' n' },
-
-  { type: 'text', msg: ')，' },
-
-  { type: 'text', msg: '比' },
-
-  { type: 'text', msg: '线性' },
-
-  { type: 'text', msg: '搜索' },
-
-  { type: 'text', msg: '的' },
-
-  { type: 'text', msg: ' O' },
-
-  { type: 'text', msg: '(n' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '要' },
-
-  { type: 'text', msg: '高效' },
-
-  { type: 'text', msg: '得多' },
-
-  { type: 'text', msg: '。\n\n' },
-
   { type: 'text', msg: '##' },
 
+  { type: 'text', msg: ' React' },
+
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '基本' },
-
-  { type: 'text', msg: '实现' },
+  { type: 'text', msg: '版本' },
 
   { type: 'text', msg: '\n\n' },
 
   { type: 'text', msg: '```' },
 
-  { type: 'text', msg: 'types' },
+  { type: 'text', msg: 'js' },
 
-  { type: 'text', msg: 'cript' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '/**\n' },
-
-  { type: 'text', msg: ' *' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '二分' },
-
-  { type: 'text', msg: '查找' },
-
-  { type: 'text', msg: '实现' },
+  { type: 'text', msg: 'x' },
 
   { type: 'text', msg: '\n' },
 
-  { type: 'text', msg: ' *' },
+  { type: 'text', msg: 'import' },
 
-  { type: 'text', msg: ' @' },
+  { type: 'text', msg: ' {' },
 
-  { type: 'text', msg: 'param' },
+  { type: 'text', msg: ' Form' },
 
-  { type: 'text', msg: ' sorted' },
+  { type: 'text', msg: ',' },
 
-  { type: 'text', msg: 'Array' },
+  { type: 'text', msg: ' Input' },
 
-  { type: 'text', msg: ' ' },
+  { type: 'text', msg: ',' },
 
-  { type: 'text', msg: '已' },
+  { type: 'text', msg: ' Button' },
 
-  { type: 'text', msg: '排序' },
+  { type: 'text', msg: ',' },
 
-  { type: 'text', msg: '的' },
+  { type: 'text', msg: ' Message' },
 
-  { type: 'text', msg: '数组' },
+  { type: 'text', msg: ' }' },
 
-  { type: 'text', msg: '（' },
+  { type: 'text', msg: ' from' },
 
-  { type: 'text', msg: '升' },
+  { type: 'text', msg: " '" },
 
-  { type: 'text', msg: '序' },
+  { type: 'text', msg: 'td' },
 
-  { type: 'text', msg: '）\n' },
+  { type: 'text', msg: 'esign' },
 
-  { type: 'text', msg: ' *' },
+  { type: 'text', msg: '-react' },
 
-  { type: 'text', msg: ' @' },
-
-  { type: 'text', msg: 'param' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '要' },
-
-  { type: 'text', msg: '查找' },
-
-  { type: 'text', msg: '的目标' },
-
-  { type: 'text', msg: '值' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: ' *' },
-
-  { type: 'text', msg: ' @' },
-
-  { type: 'text', msg: 'returns' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '目标' },
-
-  { type: 'text', msg: '值的' },
-
-  { type: 'text', msg: '索引' },
-
-  { type: 'text', msg: '（' },
-
-  { type: 'text', msg: '如果' },
-
-  { type: 'text', msg: '找到' },
-
-  { type: 'text', msg: '），' },
-
-  { type: 'text', msg: '否则' },
-
-  { type: 'text', msg: '返回' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: ' */\n' },
-
-  { type: 'text', msg: 'function' },
-
-  { type: 'text', msg: ' binary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '\u003cT' },
-
-  { type: 'text', msg: '\u003e(' },
-
-  { type: 'text', msg: 'sorted' },
-
-  { type: 'text', msg: 'Array' },
-
-  { type: 'text', msg: ':' },
-
-  { type: 'text', msg: ' T' },
-
-  { type: 'text', msg: '[],' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ':' },
-
-  { type: 'text', msg: ' T' },
-
-  { type: 'text', msg: '):' },
-
-  { type: 'text', msg: ' number' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' let' },
-
-  { type: 'text', msg: ' left' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '0' },
-
-  { type: 'text', msg: ';\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' let' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' sorted' },
-
-  { type: 'text', msg: 'Array' },
-
-  { type: 'text', msg: '.length' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ';\n\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' while' },
-
-  { type: 'text', msg: ' (' },
-
-  { type: 'text', msg: 'left' },
-
-  { type: 'text', msg: ' \u003c=' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' const' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' Math' },
-
-  { type: 'text', msg: '.floor' },
-
-  { type: 'text', msg: '((' },
-
-  { type: 'text', msg: 'left' },
-
-  { type: 'text', msg: ' +' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' /' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '2' },
-
-  { type: 'text', msg: ');\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' const' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: 'Value' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' sorted' },
-
-  { type: 'text', msg: 'Array' },
-
-  { type: 'text', msg: '[mid' },
-
-  { type: 'text', msg: '];\n\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' if' },
-
-  { type: 'text', msg: ' (' },
-
-  { type: 'text', msg: 'mid' },
-
-  { type: 'text', msg: 'Value' },
-
-  { type: 'text', msg: ' ===' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '           ' },
-
-  { type: 'text', msg: ' return' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ';' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '找到' },
-
-  { type: 'text', msg: '目标' },
-
-  { type: 'text', msg: '值' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' },' },
-
-  { type: 'text', msg: ' else' },
-
-  { type: 'text', msg: ' if' },
-
-  { type: 'text', msg: ' (' },
-
-  { type: 'text', msg: 'mid' },
-
-  { type: 'text', msg: 'Value' },
-
-  { type: 'text', msg: ' \u003c' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '           ' },
-
-  { type: 'text', msg: ' left' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ' +' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ';' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '目标' },
-
-  { type: 'text', msg: '值' },
-
-  { type: 'text', msg: '在' },
-
-  { type: 'text', msg: '右' },
-
-  { type: 'text', msg: '半' },
-
-  { type: 'text', msg: '部分' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' },' },
-
-  { type: 'text', msg: ' else' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '           ' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ';' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '目标' },
-
-  { type: 'text', msg: '值' },
-
-  { type: 'text', msg: '在' },
-
-  { type: 'text', msg: '左' },
-
-  { type: 'text', msg: '半' },
-
-  { type: 'text', msg: '部分' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' },\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' },\n\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' return' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ';' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '未' },
-
-  { type: 'text', msg: '找到' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '},\n\n' },
-
-  { type: 'text', msg: '//' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '使用' },
-
-  { type: 'text', msg: '示例' },
-
-  { type: 'text', msg: '\n' },
+  { type: 'text', msg: "';\n\n" },
 
   { type: 'text', msg: 'const' },
 
-  { type: 'text', msg: ' sorted' },
+  { type: 'text', msg: ' Login' },
 
-  { type: 'text', msg: 'Numbers' },
+  { type: 'text', msg: 'Form' },
 
   { type: 'text', msg: ' =' },
+
+  { type: 'text', msg: ' ()' },
+
+  { type: 'text', msg: ' =\u003e' },
+
+  { type: 'text', msg: ' {\n' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: ' const' },
 
   { type: 'text', msg: ' [' },
 
-  { type: 'text', msg: '1' },
+  { type: 'text', msg: 'loading' },
 
   { type: 'text', msg: ',' },
 
-  { type: 'text', msg: ' ' },
+  { type: 'text', msg: ' set' },
 
-  { type: 'text', msg: '3' },
+  { type: 'text', msg: 'Loading' },
 
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '5' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '7' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '9' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '11' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '13' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '15' },
-
-  { type: 'text', msg: '];\n' },
-
-  { type: 'text', msg: 'console' },
-
-  { type: 'text', msg: '.log' },
-
-  { type: 'text', msg: '(b' },
-
-  { type: 'text', msg: 'inary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '(sorted' },
-
-  { type: 'text', msg: 'Numbers' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '9' },
-
-  { type: 'text', msg: '));' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '输出' },
-
-  { type: 'text', msg: ':' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '4' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: 'console' },
-
-  { type: 'text', msg: '.log' },
-
-  { type: 'text', msg: '(b' },
-
-  { type: 'text', msg: 'inary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '(sorted' },
-
-  { type: 'text', msg: 'Numbers' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '10' },
-
-  { type: 'text', msg: '));' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '输出' },
-
-  { type: 'text', msg: ':' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: '\n\n' },
-
-  { type: 'text', msg: 'const' },
-
-  { type: 'text', msg: ' sorted' },
-
-  { type: 'text', msg: 'Strings' },
+  { type: 'text', msg: ']' },
 
   { type: 'text', msg: ' =' },
 
-  { type: 'text', msg: ' ["' },
+  { type: 'text', msg: ' useState' },
 
-  { type: 'text', msg: 'apple' },
+  { type: 'text', msg: '(false' },
 
-  { type: 'text', msg: '",' },
+  { type: 'text', msg: ');\n\n' },
 
-  { type: 'text', msg: ' "' },
+  { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: 'ban' },
+  { type: 'text', msg: ' const' },
 
-  { type: 'text', msg: 'ana' },
+  { type: 'text', msg: ' onSubmit' },
 
-  { type: 'text', msg: '",' },
+  { type: 'text', msg: ' =' },
 
-  { type: 'text', msg: ' "' },
+  { type: 'text', msg: ' async' },
 
-  { type: 'text', msg: 'gra' },
+  { type: 'text', msg: ' ({' },
 
-  { type: 'text', msg: 'pe' },
+  { type: 'text', msg: ' validate' },
 
-  { type: 'text', msg: '",' },
+  { type: 'text', msg: 'Result' },
 
-  { type: 'text', msg: ' "' },
+  { type: 'text', msg: ' })' },
 
-  { type: 'text', msg: 'orange' },
+  { type: 'text', msg: ' =\u003e' },
 
-  { type: 'text', msg: '",' },
+  { type: 'text', msg: ' {\n' },
 
-  { type: 'text', msg: ' "' },
+  { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: 'pe' },
+  { type: 'text', msg: ' if' },
 
-  { type: 'text', msg: 'ar' },
+  { type: 'text', msg: ' (' },
 
-  { type: 'text', msg: '"];\n' },
+  { type: 'text', msg: 'validate' },
 
-  { type: 'text', msg: 'console' },
+  { type: 'text', msg: 'Result' },
 
-  { type: 'text', msg: '.log' },
+  { type: 'text', msg: ' ===' },
 
-  { type: 'text', msg: '(b' },
+  { type: 'text', msg: ' true' },
 
-  { type: 'text', msg: 'inary' },
+  { type: 'text', msg: ')' },
 
-  { type: 'text', msg: 'Search' },
+  { type: 'text', msg: ' {\n' },
 
-  { type: 'text', msg: '(sorted' },
+  { type: 'text', msg: '     ' },
 
-  { type: 'text', msg: 'Strings' },
+  { type: 'text', msg: ' set' },
 
-  { type: 'text', msg: ',' },
+  { type: 'text', msg: 'Loading' },
 
-  { type: 'text', msg: ' "' },
+  { type: 'text', msg: '(true' },
 
-  { type: 'text', msg: 'orange' },
+  { type: 'text', msg: ');\n' },
 
-  { type: 'text', msg: '"' },
+  { type: 'text', msg: '     ' },
 
-  { type: 'text', msg: '));' },
+  { type: 'text', msg: ' try' },
+
+  { type: 'text', msg: ' {\n' },
+
+  { type: 'text', msg: '       ' },
 
   { type: 'text', msg: ' //' },
 
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '输出' },
+  { type: 'text', msg: '登录' },
 
-  { type: 'text', msg: ':' },
+  { type: 'text', msg: '逻辑' },
+
+  { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' Message' },
+
+  { type: 'text', msg: '.success' },
+
+  { type: 'text', msg: "('" },
+
+  { type: 'text', msg: '登录' },
+
+  { type: 'text', msg: '成功' },
+
+  { type: 'text', msg: "');\n" },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ' catch' },
+
+  { type: 'text', msg: ' {\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' Message' },
+
+  { type: 'text', msg: '.error' },
+
+  { type: 'text', msg: "('" },
+
+  { type: 'text', msg: '登录' },
+
+  { type: 'text', msg: '失败' },
+
+  { type: 'text', msg: "');\n" },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ' finally' },
+
+  { type: 'text', msg: ' {\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' set' },
+
+  { type: 'text', msg: 'Loading' },
+
+  { type: 'text', msg: '(false' },
+
+  { type: 'text', msg: ');\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' }\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' }\n' },
 
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '3' },
+  { type: 'text', msg: ' };\n\n' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: ' return' },
+
+  { type: 'text', msg: ' (\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: ' onSubmit' },
+
+  { type: 'text', msg: '={' },
+
+  { type: 'text', msg: 'on' },
+
+  { type: 'text', msg: 'Submit' },
+
+  { type: 'text', msg: '},\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '.Form' },
+
+  { type: 'text', msg: 'Item' },
+
+  { type: 'text', msg: ' name' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'username' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' label' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '用户名' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' rules' },
+
+  { type: 'text', msg: '={' },
+
+  { type: 'text', msg: '[{' },
+
+  { type: 'text', msg: ' required' },
+
+  { type: 'text', msg: ':' },
+
+  { type: 'text', msg: ' true' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ']' },
+
+  { type: 'text', msg: '},\u003e\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Input' },
+
+  { type: 'text', msg: ' placeholder' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '请输入' },
+
+  { type: 'text', msg: '用户名' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' /\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '.Form' },
+
+  { type: 'text', msg: 'Item' },
+
+  { type: 'text', msg: '\u003e\n\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '.Form' },
+
+  { type: 'text', msg: 'Item' },
+
+  { type: 'text', msg: ' name' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'password' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' label' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '密码' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' rules' },
+
+  { type: 'text', msg: '={' },
+
+  { type: 'text', msg: '[{' },
+
+  { type: 'text', msg: ' required' },
+
+  { type: 'text', msg: ':' },
+
+  { type: 'text', msg: ' true' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ']' },
+
+  { type: 'text', msg: '},\u003e\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Input' },
+
+  { type: 'text', msg: ' type' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'password' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' /\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '.Form' },
+
+  { type: 'text', msg: 'Item' },
+
+  { type: 'text', msg: '\u003e\n\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '.Form' },
+
+  { type: 'text', msg: 'Item' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 'Button' },
+
+  { type: 'text', msg: ' theme' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'primary' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' type' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'submit' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' loading' },
+
+  { type: 'text', msg: '={' },
+
+  { type: 'text', msg: 'loading' },
+
+  { type: 'text', msg: '},' },
+
+  { type: 'text', msg: ' block' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '          ' },
+
+  { type: 'text', msg: '登录' },
 
   { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '       ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 'Button' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '.Form' },
+
+  { type: 'text', msg: 'Item' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 'Form' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: ' );\n' },
+
+  { type: 'text', msg: '},;\n' },
 
   { type: 'text', msg: '```\n\n' },
 
   { type: 'text', msg: '##' },
 
+  { type: 'text', msg: ' Vue' },
+
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '递归' },
-
   { type: 'text', msg: '版本' },
-
-  { type: 'text', msg: '实现' },
 
   { type: 'text', msg: '\n\n' },
 
   { type: 'text', msg: '```' },
 
-  { type: 'text', msg: 'types' },
-
-  { type: 'text', msg: 'cript' },
+  { type: 'text', msg: 'vue' },
 
   { type: 'text', msg: '\n' },
 
-  { type: 'text', msg: '/**\n' },
+  { type: 'text', msg: '\u003c' },
 
-  { type: 'text', msg: ' *' },
+  { type: 'text', msg: 'template' },
+
+  { type: 'text', msg: '\u003e\n' },
 
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '递归' },
+  { type: 'text', msg: ' \u003c' },
 
-  { type: 'text', msg: '实现的' },
+  { type: 'text', msg: 't' },
 
-  { type: 'text', msg: '二分' },
+  { type: 'text', msg: '-form' },
 
-  { type: 'text', msg: '查找' },
+  { type: 'text', msg: ' :' },
 
-  { type: 'text', msg: '\n' },
+  { type: 'text', msg: 'rules' },
 
-  { type: 'text', msg: ' *' },
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'rules' },
+
+  { type: 'text', msg: '"' },
 
   { type: 'text', msg: ' @' },
 
-  { type: 'text', msg: 'param' },
+  { type: 'text', msg: 'submit' },
 
-  { type: 'text', msg: ' sorted' },
+  { type: 'text', msg: '="' },
 
-  { type: 'text', msg: 'Array' },
+  { type: 'text', msg: 'on' },
 
-  { type: 'text', msg: ' ' },
+  { type: 'text', msg: 'Submit' },
 
-  { type: 'text', msg: '已' },
-
-  { type: 'text', msg: '排序' },
-
-  { type: 'text', msg: '的' },
-
-  { type: 'text', msg: '数组' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: ' *' },
-
-  { type: 'text', msg: ' @' },
-
-  { type: 'text', msg: 'param' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '目标' },
-
-  { type: 'text', msg: '值' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: ' *' },
-
-  { type: 'text', msg: ' @' },
-
-  { type: 'text', msg: 'param' },
-
-  { type: 'text', msg: ' left' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '左' },
-
-  { type: 'text', msg: '边界' },
-
-  { type: 'text', msg: '索引' },
-
-  { type: 'text', msg: '（' },
-
-  { type: 'text', msg: '默' },
-
-  { type: 'text', msg: '认为' },
-
-  { type: 'text', msg: '0' },
-
-  { type: 'text', msg: '）\n' },
-
-  { type: 'text', msg: ' *' },
-
-  { type: 'text', msg: ' @' },
-
-  { type: 'text', msg: 'param' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '右' },
-
-  { type: 'text', msg: '边界' },
-
-  { type: 'text', msg: '索引' },
-
-  { type: 'text', msg: '（' },
-
-  { type: 'text', msg: '默' },
-
-  { type: 'text', msg: '认为' },
-
-  { type: 'text', msg: '数组' },
-
-  { type: 'text', msg: '长度' },
-
-  { type: 'text', msg: '-' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: '）\n' },
-
-  { type: 'text', msg: ' *' },
-
-  { type: 'text', msg: ' @' },
-
-  { type: 'text', msg: 'returns' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '目标' },
-
-  { type: 'text', msg: '值的' },
-
-  { type: 'text', msg: '索引' },
-
-  { type: 'text', msg: '，' },
-
-  { type: 'text', msg: '未' },
-
-  { type: 'text', msg: '找到' },
-
-  { type: 'text', msg: '返回' },
-
-  { type: 'text', msg: '-' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: ' */\n' },
-
-  { type: 'text', msg: 'function' },
-
-  { type: 'text', msg: ' recursive' },
-
-  { type: 'text', msg: 'Binary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '\u003cT' },
-
-  { type: 'text', msg: '\u003e(\n' },
+  { type: 'text', msg: '"\u003e\n' },
 
   { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: ' sorted' },
+  { type: 'text', msg: ' \u003c' },
 
-  { type: 'text', msg: 'Array' },
+  { type: 'text', msg: 't' },
 
-  { type: 'text', msg: ':' },
+  { type: 'text', msg: '-form' },
 
-  { type: 'text', msg: ' T' },
+  { type: 'text', msg: '-item' },
 
-  { type: 'text', msg: '[]' },
+  { type: 'text', msg: ' name' },
 
-  { type: 'text', msg: ',\n' },
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'username' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' label' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '用户名' },
+
+  { type: 'text', msg: '"\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-input' },
+
+  { type: 'text', msg: ' placeholder' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '请输入' },
+
+  { type: 'text', msg: '用户名' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' /\u003e\n' },
 
   { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: ' target' },
+  { type: 'text', msg: ' \u003c/' },
 
-  { type: 'text', msg: ':' },
+  { type: 'text', msg: 't' },
 
-  { type: 'text', msg: ' T' },
+  { type: 'text', msg: '-form' },
 
-  { type: 'text', msg: ',\n' },
+  { type: 'text', msg: '-item' },
+
+  { type: 'text', msg: '\u003e\n\n' },
 
   { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: ' left' },
+  { type: 'text', msg: ' \u003c' },
 
-  { type: 'text', msg: ':' },
+  { type: 'text', msg: 't' },
 
-  { type: 'text', msg: ' number' },
+  { type: 'text', msg: '-form' },
+
+  { type: 'text', msg: '-item' },
+
+  { type: 'text', msg: ' name' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'password' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' label' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: '密码' },
+
+  { type: 'text', msg: '"\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-input' },
+
+  { type: 'text', msg: ' type' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'password' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' /\u003e\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-form' },
+
+  { type: 'text', msg: '-item' },
+
+  { type: 'text', msg: '\u003e\n\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-form' },
+
+  { type: 'text', msg: '-item' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-button' },
+
+  { type: 'text', msg: ' theme' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'primary' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' type' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'submit' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' :' },
+
+  { type: 'text', msg: 'loading' },
+
+  { type: 'text', msg: '="' },
+
+  { type: 'text', msg: 'loading' },
+
+  { type: 'text', msg: '"' },
+
+  { type: 'text', msg: ' block' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '        ' },
+
+  { type: 'text', msg: '登录' },
+
+  { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-button' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-form' },
+
+  { type: 'text', msg: '-item' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: ' \u003c/' },
+
+  { type: 'text', msg: 't' },
+
+  { type: 'text', msg: '-form' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: '\u003c/' },
+
+  { type: 'text', msg: 'template' },
+
+  { type: 'text', msg: '\u003e\n\n' },
+
+  { type: 'text', msg: '\u003cscript' },
+
+  { type: 'text', msg: ' setup' },
+
+  { type: 'text', msg: '\u003e\n' },
+
+  { type: 'text', msg: 'import' },
+
+  { type: 'text', msg: ' {' },
+
+  { type: 'text', msg: ' ref' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ' from' },
+
+  { type: 'text', msg: " '" },
+
+  { type: 'text', msg: 'vue' },
+
+  { type: 'text', msg: "';\n" },
+
+  { type: 'text', msg: 'import' },
+
+  { type: 'text', msg: ' {' },
+
+  { type: 'text', msg: ' Message' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ' from' },
+
+  { type: 'text', msg: " '" },
+
+  { type: 'text', msg: 'td' },
+
+  { type: 'text', msg: 'esign' },
+
+  { type: 'text', msg: '-v' },
+
+  { type: 'text', msg: 'ue' },
+
+  { type: 'text', msg: "';\n\n" },
+
+  { type: 'text', msg: 'const' },
+
+  { type: 'text', msg: ' loading' },
 
   { type: 'text', msg: ' =' },
 
-  { type: 'text', msg: ' ' },
+  { type: 'text', msg: ' ref' },
 
-  { type: 'text', msg: '0' },
-
-  { type: 'text', msg: ',\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ':' },
-
-  { type: 'text', msg: ' number' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' sorted' },
-
-  { type: 'text', msg: 'Array' },
-
-  { type: 'text', msg: '.length' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '):' },
-
-  { type: 'text', msg: ' number' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' if' },
-
-  { type: 'text', msg: ' (' },
-
-  { type: 'text', msg: 'left' },
-
-  { type: 'text', msg: ' \u003e' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' return' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ';' },
-
-  { type: 'text', msg: ' //' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '基线' },
-
-  { type: 'text', msg: '条件' },
-
-  { type: 'text', msg: '：' },
-
-  { type: 'text', msg: '未' },
-
-  { type: 'text', msg: '找到' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' },\n\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' const' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ' =' },
-
-  { type: 'text', msg: ' Math' },
-
-  { type: 'text', msg: '.floor' },
-
-  { type: 'text', msg: '((' },
-
-  { type: 'text', msg: 'left' },
-
-  { type: 'text', msg: ' +' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ')' },
-
-  { type: 'text', msg: ' /' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '2' },
+  { type: 'text', msg: '(false' },
 
   { type: 'text', msg: ');\n' },
 
-  { type: 'text', msg: '   ' },
+  { type: 'text', msg: 'const' },
 
-  { type: 'text', msg: ' const' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: 'Value' },
+  { type: 'text', msg: ' rules' },
 
   { type: 'text', msg: ' =' },
 
-  { type: 'text', msg: ' sorted' },
+  { type: 'text', msg: ' {\n' },
 
-  { type: 'text', msg: 'Array' },
+  { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '[mid' },
+  { type: 'text', msg: ' username' },
 
-  { type: 'text', msg: '];\n\n' },
+  { type: 'text', msg: ':' },
 
-  { type: 'text', msg: '   ' },
+  { type: 'text', msg: ' [{' },
+
+  { type: 'text', msg: ' required' },
+
+  { type: 'text', msg: ':' },
+
+  { type: 'text', msg: ' true' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: '],\n' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: ' password' },
+
+  { type: 'text', msg: ':' },
+
+  { type: 'text', msg: ' [{' },
+
+  { type: 'text', msg: ' required' },
+
+  { type: 'text', msg: ':' },
+
+  { type: 'text', msg: ' true' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ']\n' },
+
+  { type: 'text', msg: '},;\n\n' },
+
+  { type: 'text', msg: 'const' },
+
+  { type: 'text', msg: ' onSubmit' },
+
+  { type: 'text', msg: ' =' },
+
+  { type: 'text', msg: ' async' },
+
+  { type: 'text', msg: ' ({' },
+
+  { type: 'text', msg: ' validate' },
+
+  { type: 'text', msg: 'Result' },
+
+  { type: 'text', msg: ' })' },
+
+  { type: 'text', msg: ' =\u003e' },
+
+  { type: 'text', msg: ' {\n' },
+
+  { type: 'text', msg: ' ' },
 
   { type: 'text', msg: ' if' },
 
   { type: 'text', msg: ' (' },
 
-  { type: 'text', msg: 'mid' },
+  { type: 'text', msg: 'validate' },
 
-  { type: 'text', msg: 'Value' },
+  { type: 'text', msg: 'Result' },
 
   { type: 'text', msg: ' ===' },
 
-  { type: 'text', msg: ' target' },
+  { type: 'text', msg: ' true' },
 
   { type: 'text', msg: ')' },
 
   { type: 'text', msg: ' {\n' },
 
-  { type: 'text', msg: '       ' },
+  { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: ' return' },
+  { type: 'text', msg: ' loading' },
 
-  { type: 'text', msg: ' mid' },
+  { type: 'text', msg: '.value' },
+
+  { type: 'text', msg: ' =' },
+
+  { type: 'text', msg: ' true' },
 
   { type: 'text', msg: ';\n' },
 
   { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: ' },' },
-
-  { type: 'text', msg: ' else' },
-
-  { type: 'text', msg: ' if' },
-
-  { type: 'text', msg: ' (' },
-
-  { type: 'text', msg: 'mid' },
-
-  { type: 'text', msg: 'Value' },
-
-  { type: 'text', msg: ' \u003c' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ')' },
+  { type: 'text', msg: ' try' },
 
   { type: 'text', msg: ' {\n' },
 
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' return' },
-
-  { type: 'text', msg: ' recursive' },
-
-  { type: 'text', msg: 'Binary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '(sorted' },
-
-  { type: 'text', msg: 'Array' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ' +' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' right' },
-
-  { type: 'text', msg: ');\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' },' },
-
-  { type: 'text', msg: ' else' },
-
-  { type: 'text', msg: ' {\n' },
-
-  { type: 'text', msg: '       ' },
-
-  { type: 'text', msg: ' return' },
-
-  { type: 'text', msg: ' recursive' },
-
-  { type: 'text', msg: 'Binary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '(sorted' },
-
-  { type: 'text', msg: 'Array' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' target' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' left' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' mid' },
-
-  { type: 'text', msg: ' -' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '1' },
-
-  { type: 'text', msg: ');\n' },
-
-  { type: 'text', msg: '   ' },
-
-  { type: 'text', msg: ' },\n' },
-
-  { type: 'text', msg: '},\n\n' },
-
-  { type: 'text', msg: '//' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '使用' },
-
-  { type: 'text', msg: '示例' },
-
-  { type: 'text', msg: '\n' },
-
-  { type: 'text', msg: 'console' },
-
-  { type: 'text', msg: '.log' },
-
-  { type: 'text', msg: '(' },
-
-  { type: 'text', msg: 'rec' },
-
-  { type: 'text', msg: 'ursive' },
-
-  { type: 'text', msg: 'Binary' },
-
-  { type: 'text', msg: 'Search' },
-
-  { type: 'text', msg: '(sorted' },
-
-  { type: 'text', msg: 'Numbers' },
-
-  { type: 'text', msg: ',' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '13' },
-
-  { type: 'text', msg: '));' },
+  { type: 'text', msg: '     ' },
 
   { type: 'text', msg: ' //' },
 
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '输出' },
+  { type: 'text', msg: '登录' },
 
-  { type: 'text', msg: ':' },
-
-  { type: 'text', msg: ' ' },
-
-  { type: 'text', msg: '6' },
+  { type: 'text', msg: '逻辑' },
 
   { type: 'text', msg: '\n' },
 
-  { type: 'text', msg: 'console' },
+  { type: 'text', msg: '     ' },
 
-  { type: 'text', msg: '.log' },
+  { type: 'text', msg: ' Message' },
 
-  { type: 'text', msg: '(' },
+  { type: 'text', msg: '.success' },
 
-  { type: 'text', msg: 'rec' },
+  { type: 'text', msg: "('" },
 
-  { type: 'text', msg: 'ursive' },
+  { type: 'text', msg: '登录' },
 
-  { type: 'text', msg: 'Binary' },
+  { type: 'text', msg: '成功' },
 
-  { type: 'text', msg: 'Search' },
+  { type: 'text', msg: "');\n" },
 
-  { type: 'text', msg: '(sorted' },
+  { type: 'text', msg: '   ' },
 
-  { type: 'text', msg: 'Strings' },
+  { type: 'text', msg: ' }' },
 
-  { type: 'text', msg: ',' },
+  { type: 'text', msg: ' catch' },
 
-  { type: 'text', msg: ' "' },
+  { type: 'text', msg: ' {\n' },
 
-  { type: 'text', msg: 'ban' },
+  { type: 'text', msg: '     ' },
 
-  { type: 'text', msg: 'ana' },
+  { type: 'text', msg: ' Message' },
 
-  { type: 'text', msg: '"' },
+  { type: 'text', msg: '.error' },
 
-  { type: 'text', msg: '));' },
+  { type: 'text', msg: "('" },
 
-  { type: 'text', msg: ' //' },
+  { type: 'text', msg: '登录' },
+
+  { type: 'text', msg: '失败' },
+
+  { type: 'text', msg: "');\n" },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' }' },
+
+  { type: 'text', msg: ' finally' },
+
+  { type: 'text', msg: ' {\n' },
+
+  { type: 'text', msg: '     ' },
+
+  { type: 'text', msg: ' loading' },
+
+  { type: 'text', msg: '.value' },
+
+  { type: 'text', msg: ' =' },
+
+  { type: 'text', msg: ' false' },
+
+  { type: 'text', msg: ';\n' },
+
+  { type: 'text', msg: '   ' },
+
+  { type: 'text', msg: ' }\n' },
 
   { type: 'text', msg: ' ' },
 
-  { type: 'text', msg: '输出' },
+  { type: 'text', msg: ' }\n' },
 
-  { type: 'text', msg: ':' },
+  { type: 'text', msg: '},;\n' },
 
-  { type: 'text', msg: ' ' },
+  { type: 'text', msg: '\u003c/' },
+
+  { type: 'text', msg: 'script' },
+
+  { type: 'text', msg: '\u003e' },
+
+  { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '```\n\n' },
+
+  { type: 'text', msg: '这两个' },
+
+  { type: 'text', msg: '版本' },
+
+  { type: 'text', msg: '都' },
+
+  { type: 'text', msg: '包含了' },
+
+  { type: 'text', msg: '：\n' },
 
   { type: 'text', msg: '1' },
 
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: '用户名' },
+
+  { type: 'text', msg: '和' },
+
+  { type: 'text', msg: '密码' },
+
+  { type: 'text', msg: '输入' },
+
+  { type: 'text', msg: '框' },
+
   { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '2' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: '必' },
+
+  { type: 'text', msg: '填' },
+
+  { type: 'text', msg: '验证' },
+
+  { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '3' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: '加载' },
+
+  { type: 'text', msg: '状态' },
+
+  { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '4' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: '基本的' },
+
+  { type: 'text', msg: '登录' },
+
+  { type: 'text', msg: '提交' },
+
+  { type: 'text', msg: '逻辑' },
+
+  { type: 'text', msg: '\n' },
+
+  { type: 'text', msg: '5' },
+
+  { type: 'text', msg: '.' },
+
+  { type: 'text', msg: ' ' },
+
+  { type: 'text', msg: '消息' },
+
+  { type: 'text', msg: '提示' },
+
+  { type: 'text', msg: '功能' },
 ];

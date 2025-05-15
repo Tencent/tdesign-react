@@ -110,7 +110,7 @@ export default function chatSample() {
         messages={mockData}
         messageProps={messageProps}
         senderProps={{
-          defaultValue: '使用typescript实现二分查找',
+          defaultValue: '使用tdesign组件库实现一个登录表单的例子',
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}
