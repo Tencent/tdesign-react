@@ -1,13 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { InternetIcon } from 'tdesign-icons-react';
-import type {
-  SSEChunkData,
-  TdChatMessageConfig,
-  AIMessageContent,
-  RequestParams,
-  ChatMessagesData,
-  ChatServiceConfig,
-} from 'tdesign-react';
+import type { SSEChunkData, AIMessageContent, RequestParams, ChatMessagesData, ChatServiceConfig } from 'tdesign-react';
 import { Button, ChatBot, Space, type TdChatbotApi } from 'tdesign-react';
 
 // 默认初始化消息
@@ -75,7 +68,7 @@ export default function chatSample() {
           console.log('点击搜索条目', content);
         },
         suggestion: ({ content }) => {
-          console.log('点击建议问题', msg, content);
+          console.log('点击建议问题', content);
           // 点建议问题自动填入输入框
           chatRef?.current?.addPrompt(content.prompt);
           // 也可以点建议问题直接发送消息
