@@ -44,9 +44,10 @@ export default function chatSample() {
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
   const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+  const [thinkCollapse, setThinkCollapse] = useState(false);
 
   // 消息属性配置
-  const messageProps: TdChatMessageConfig = {
+  const messageProps = {
     user: {
       variant: 'base',
       placement: 'right',
@@ -74,7 +75,7 @@ export default function chatSample() {
           console.log('点击搜索条目', content);
         },
         suggestion: ({ content }) => {
-          console.log('点击建议问题', content);
+          console.log('点击建议问题', msg, content);
           // 点建议问题自动填入输入框
           chatRef?.current?.addPrompt(content.prompt);
           // 也可以点建议问题直接发送消息
@@ -85,6 +86,7 @@ export default function chatSample() {
       chatContentProps: {
         thinking: {
           maxHeight: 100,
+          collapsed: thinkCollapse,
         },
       },
     },
@@ -130,6 +132,7 @@ export default function chatSample() {
           };
         // 正文
         case 'text':
+          setThinkCollapse(true);
           return {
             type: 'markdown',
             data: rest?.msg || '',

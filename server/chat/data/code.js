@@ -24,7 +24,7 @@ module.exports = [
       version: 'v1',
     },
   },
-  { type: 'text', msg: '```', paragraph: 'next' },
+  { type: 'text', msg: '```' },
 
   { type: 'text', msg: 'js' },
 
@@ -256,7 +256,7 @@ module.exports = [
 
   { type: 'text', msg: 'Submit' },
 
-  { type: 'text', msg: '},\u003e\n' },
+  { type: 'text', msg: '}\u003e\n' },
 
   { type: 'text', msg: '     ' },
 
@@ -300,7 +300,7 @@ module.exports = [
 
   { type: 'text', msg: ']' },
 
-  { type: 'text', msg: '},\u003e\n' },
+  { type: 'text', msg: '}\u003e\n' },
 
   { type: 'text', msg: '       ' },
 
@@ -374,7 +374,7 @@ module.exports = [
 
   { type: 'text', msg: ']' },
 
-  { type: 'text', msg: '},\u003e\n' },
+  { type: 'text', msg: '}\u003e\n' },
 
   { type: 'text', msg: '       ' },
 
@@ -444,7 +444,7 @@ module.exports = [
 
   { type: 'text', msg: 'loading' },
 
-  { type: 'text', msg: '},' },
+  { type: 'text', msg: '}' },
 
   { type: 'text', msg: ' block' },
 

@@ -8,7 +8,6 @@ import type {
   ChatServiceConfig,
   BaseContent,
   ChatMessagesData,
-  TdChatCustomRenderConfig,
 } from 'tdesign-react';
 import { Button, ChatBot, Space } from 'tdesign-react';
 import TvisionTcharts from 'tvision-charts-react';
@@ -27,14 +26,14 @@ declare module 'tdesign-react' {
   }
 }
 
-// 2、自定义渲染-注册插槽规则
-const customRenderConfig: TdChatCustomRenderConfig = {
-  chart: (content) => ({
-    slotName: `${content.type}-${content.data.id}`,
-  }),
-};
+// 自定义渲染-注册插槽规则(可选)
+// const customRenderConfig: TdChatCustomRenderConfig = {
+//   chart: (content) => ({
+//     slotName: `${content.type}-${content.data.id}`,
+//   }),
+// };
 
-// 3、自定义渲染图表的组件
+// 2、自定义渲染图表的组件
 const ChartDemo = ({ data }) => (
   <div
     style={{
@@ -72,7 +71,7 @@ export default function ChatBotReact() {
     assistant: {
       placement: 'left',
       avatar: 'https://tdesign.gtimg.com/site/chat-avatar.png',
-      customRenderConfig,
+      // customRenderConfig,
       chatContentProps: {
         thinking: {
           maxHeight: 100,
@@ -108,7 +107,7 @@ export default function ChatBotReact() {
             // 根据后端返回的paragraph字段来决定是否需要另起一段展示markdown
             strategy: rest?.paragraph === 'next' ? 'append' : 'merge',
           };
-        // 4、自定义渲染图表所需的数据结构
+        // 3、自定义渲染图表所需的数据结构
         case 'chart':
           return {
             type: 'chart',
@@ -137,20 +136,6 @@ export default function ChatBotReact() {
     },
   };
 
-  useEffect(() => {
-    if (!chatRef.current) {
-      return;
-    }
-    const chat = chatRef.current;
-    const update = (e: CustomEvent) => {
-      setMockMessage(e.detail);
-    };
-    chat.addEventListener('message_change', update);
-    return () => {
-      chat.removeEventListener('message_change', update);
-    };
-  }, []);
-
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
@@ -159,16 +144,20 @@ export default function ChatBotReact() {
         messages={mockMessage}
         messageProps={messageProps}
         chatServiceConfig={chatServiceConfig}
+        onMessageChange={(e) => {
+          setMockMessage(e.detail);
+        }}
       >
-        {/* 自定义消息体渲染-植入插槽 */}
+        {/* 4、植入自定义消息体渲染插槽 */}
         {mockMessage
           ?.map((msg) =>
-            msg.content.map((item) => {
+            msg.content.map((item, index) => {
               switch (item.type) {
                 // 示例：图表消息体
                 case 'chart':
                   return (
-                    <div slot={`${msg.id}-${item.type}-${item.data.id}`} key={`${msg.id}-${item.data.id}`}>
+                    // slot名这里必须保证唯一性，默认插槽命名规则`${msg.id}-${content.type}-${index}`, 也可以在customRenderConfig中自行定义slotName，
+                    <div slot={`${msg.id}-${item.type}-${index}`} key={`${msg.id}-${item.data.id}`}>
                       <ChartDemo data={item.data} />
                     </div>
                   );

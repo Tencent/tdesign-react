@@ -51,6 +51,7 @@ const PreviewCard = ({ header, desc, loading, code }) => {
   // 复制生成的代码
   const copyHandler = async () => {
     try {
+      console.log('====code', code);
       const codeBlocks = Array.from(code.matchAll(/```(?:jsx|javascript)?\n([\s\S]*?)```/g)).map((match) =>
         match[1].trim(),
       );
@@ -75,6 +76,7 @@ const PreviewCard = ({ header, desc, loading, code }) => {
         theme="normal"
         title={header}
         loading={loading}
+        style={{ margin: '14px 0' }}
         actions={
           <Space>
             <a href={null} onClick={copyHandler} style={{ cursor: 'pointer' }}>
@@ -111,6 +113,14 @@ export default function chatSample() {
     },
     assistant: {
       customRenderConfig,
+      actions: ['replay', 'good', 'bad'],
+      handleActions: {
+        // 处理消息操作回调
+        replay: ({ message, active }) => {
+          console.log('自定义重新回复', message, active);
+          chatRef?.current?.regenerate();
+        },
+      },
       // 内置的消息渲染配置
       chatContentProps: {
         markdown: {
@@ -159,11 +169,14 @@ export default function chatSample() {
           return {
             type: 'markdown',
             data: rest?.msg || '',
+            // 根据后端返回的paragraph字段来决定是否需要另起一段展示markdown
+            strategy: rest?.paragraph === 'next' ? 'append' : 'merge',
           };
         // 自定义：代码运行结果预览
         case 'preview':
           return {
             type: 'preview',
+            status: () => (/完成/.test(rest?.content?.cnName) ? 'complete' : 'streaming'),
             data: rest?.content,
           };
       }
