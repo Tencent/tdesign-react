@@ -7,7 +7,16 @@ import type {
   RequestParams,
   ChatServiceConfig,
 } from 'tdesign-react';
-import { ChatBot, ChatMessagesData, type TdChatbotApi } from 'tdesign-react';
+import {
+  Card,
+  ChatBot,
+  ChatMessagesData,
+  TdChatCustomRenderConfig,
+  DialogPlugin,
+  type TdChatbotApi,
+  Space,
+} from 'tdesign-react';
+import Login from './components/login';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -24,8 +33,74 @@ const mockData: ChatMessagesData[] = [
   },
 ];
 
+const PreviewCard = ({ header, desc, loading, code }) => {
+  // 预览效果弹窗
+  const previewHandler = () => {
+    const myDialog = DialogPlugin({
+      header: '代码生成预览',
+      body: <Login />,
+      onConfirm: () => {
+        myDialog.hide();
+      },
+      onClose: () => {
+        myDialog.hide();
+      },
+    });
+  };
+
+  // 复制生成的代码
+  const copyHandler = async () => {
+    try {
+      const codeBlocks = Array.from(code.matchAll(/```(?:jsx|javascript)?\n([\s\S]*?)```/g)).map((match) =>
+        match[1].trim(),
+      );
+      // 拼接多个代码块（如有）
+      const combinedCode = codeBlocks.join('\n\n// 分割代码块\n\n');
+
+      // 使用剪贴板
+      await navigator.clipboard.writeText(combinedCode);
+      console.log('代码已复制到剪贴板');
+    } catch (error) {
+      console.error('复制失败:', error);
+    }
+  };
+
+  return (
+    <>
+      <Card
+        bordered
+        hoverShadow
+        shadow
+        size="medium"
+        theme="normal"
+        title={header}
+        loading={loading}
+        actions={
+          <Space>
+            <a href={null} onClick={copyHandler} style={{ cursor: 'pointer' }}>
+              复制代码
+            </a>
+            <a href={null} onClick={previewHandler} style={{ cursor: 'pointer' }}>
+              预览
+            </a>
+          </Space>
+        }
+      >
+        {desc}
+      </Card>
+    </>
+  );
+};
+
+const customRenderConfig: TdChatCustomRenderConfig = {
+  preview: (content) => ({
+    slotName: `${content.type}-${content.data.id}`,
+  }),
+};
+
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
+  const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
@@ -35,6 +110,7 @@ export default function chatSample() {
       avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
     },
     assistant: {
+      customRenderConfig,
       // 内置的消息渲染配置
       chatContentProps: {
         markdown: {
@@ -84,6 +160,12 @@ export default function chatSample() {
             type: 'markdown',
             data: rest?.msg || '',
           };
+        // 自定义：代码运行结果预览
+        case 'preview':
+          return {
+            type: 'preview',
+            data: rest?.content,
+          };
       }
     },
     // 自定义请求参数
@@ -103,6 +185,20 @@ export default function chatSample() {
     },
   };
 
+  useEffect(() => {
+    if (!chatRef.current) {
+      return;
+    }
+    const chat = chatRef.current;
+    const update = (e: CustomEvent) => {
+      setMockMessage(e.detail);
+    };
+    chat.addEventListener('message_change', update);
+    return () => {
+      chat.removeEventListener('message_change', update);
+    };
+  }, []);
+
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
@@ -114,7 +210,30 @@ export default function chatSample() {
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}
-      ></ChatBot>
+      >
+        {/* 自定义消息体渲染-植入插槽 */}
+        {mockMessage
+          ?.map((msg) =>
+            msg.content.map((item) => {
+              switch (item.type) {
+                // 示例：代码运行结果预览
+                case 'preview':
+                  return (
+                    <div slot={`${msg.id}-${item.type}-${item.data.id}`} key={`${msg.id}-${item.data.id}`}>
+                      <PreviewCard
+                        header={item.data.enName}
+                        desc={item.data.cnName}
+                        loading={item.status !== 'complete'}
+                        code={msg.content[0].data}
+                      />
+                    </div>
+                  );
+              }
+              return null;
+            }),
+          )
+          .flat()}
+      </ChatBot>
     </div>
   );
 }

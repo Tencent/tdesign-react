@@ -114,6 +114,12 @@ app.post('/sse/normal', (req, res) => {
           },
         })}\n\n`;
 
+      case 'preview':
+        return `event: custom\ndata: ${JSON.stringify({
+          type: 'preview',
+          content: chunk.data,
+        })}\n\n`;
+
       case 'suggestion':
         return `event: suggestion\ndata: ${JSON.stringify({
           type: 'suggestion',
