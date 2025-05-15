@@ -65,7 +65,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign智能生图助手，请先写下你的创意，可以上传参考图哦～',
+        data: '欢迎使用TDesign智能生图助手，请先写下你的创意，可以试试上传参考图哦～',
       },
     ],
   },
@@ -133,35 +133,29 @@ export default function chatSample() {
   const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({ ratio: 0, style: '' });
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
+
   // 消息属性配置
-  const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {
-    const { role, content } = msg;
-    // 假设只有单条thinking
-    const thinking = content.find((item) => item.type === 'thinking');
-    if (role === 'user') {
-      return {
-        variant: 'base',
-        placement: 'right',
-        avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
-      };
-    }
-    if (role === 'assistant') {
-      return {
-        placement: 'left',
-        actions: ['good', 'bad'],
-        handleActions: {
-          // 处理消息操作回调
-          good: async ({ message, active }) => {
-            // 点赞
-            console.log('点赞', message, active);
-          },
-          bad: async ({ message, active }) => {
-            // 点踩
-            console.log('点踩', message, active);
-          },
+  const messageProps = {
+    user: {
+      variant: 'base',
+      placement: 'right',
+      avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
+    },
+    assistant: {
+      placement: 'left',
+      actions: ['good', 'bad'],
+      handleActions: {
+        // 处理消息操作回调
+        good: async ({ message, active }) => {
+          // 点赞
+          console.log('点赞', message, active);
         },
-      };
-    }
+        bad: async ({ message, active }) => {
+          // 点踩
+          console.log('点踩', message, active);
+        },
+      },
+    },
   };
 
   // 聊天服务配置
@@ -255,6 +249,7 @@ export default function chatSample() {
   // 发送用户消息回调，这里可以自定义修改返回的prompt
   const onSend = (e: CustomEvent<TdChatSenderParams>): ChatRequestParams => {
     const { value, attachments } = e.detail;
+    setFiles([]); // 清除掉附件区域
     return {
       attachments,
       prompt: `${value}，要求比例：${ratio === 0 ? '1:1' : ratio}, 风格：${

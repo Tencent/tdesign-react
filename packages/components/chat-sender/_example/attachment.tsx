@@ -60,7 +60,7 @@ const ChatSenderExample = () => {
           file.name === newFile.name
             ? {
                 ...file,
-                url: 'https://tdesign.gtimg.com/site/avatar.jpg', // mock返回的图片地址
+                url: 'https://tdesign.gtimg.com/site/avatar.jpg',
                 status: 'success',
                 description: '上传成功',
               }
