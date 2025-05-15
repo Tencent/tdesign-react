@@ -11,7 +11,7 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
   const clearStyleFunc = useCallback(() => {
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      lockStyleRef.current.parentNode?.removeChild?.(lockStyleRef.current);
+      lockStyleRef.current?.parentNode?.removeChild?.(lockStyleRef.current);
     }, 150);
   }, []);
 
