@@ -16,7 +16,7 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
   }, []);
 
   useLayoutEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (typeof document === 'undefined' || !visible) return;
     if (!lockStyleRef.current) {
       lockStyleRef.current = document.createElement('style');
     }
@@ -32,7 +32,7 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
     `;
 
     return clearStyleFunc;
-  }, [clearStyleFunc]);
+  }, [visible, clearStyleFunc]);
 
   useLayoutEffect(() => {
     if (typeof document === 'undefined') return;
