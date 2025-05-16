@@ -45,7 +45,6 @@ export default function ThinkContentDemo() {
         text: displayText,
       }}
       status={status}
-      maxHeight={100}
     />
   );
 }

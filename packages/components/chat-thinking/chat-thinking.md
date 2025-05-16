@@ -11,6 +11,12 @@ spline: navigation
 {{ base }}
 
 
+## 样式设置
+支持通过layout来设置思考过程的布局方式，支持通过animation来设置思考过程的动画效果
+
+{{ style }}
+
+
 ## API
 ### Chatbot Props
 
