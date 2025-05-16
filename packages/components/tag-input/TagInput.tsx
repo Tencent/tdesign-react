@@ -135,6 +135,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       [`${prefix}-is-empty`]: isEmpty,
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
       [`${prefix}-tag-input--max-rows`]: excessTagsDisplayType === 'break-line' && maxRows,
+      [`${prefix}-tag-input--drag-sort`]: props.dragSort && !disabled && !readonly,
     },
     props.className,
   ];
