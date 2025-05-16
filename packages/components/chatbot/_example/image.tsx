@@ -252,9 +252,9 @@ export default function chatSample() {
     setFiles([]); // 清除掉附件区域
     return {
       attachments,
-      prompt: `${value}，要求比例：${ratio === 0 ? '1:1' : ratio}, 风格：${
-        style ? StyleOptions.filter(({ value }) => value === style)[0].content : '默认风格'
-      }`,
+      prompt: `${value}，要求比例：${
+        ratio === 0 ? '默认比例' : RatioOptions.filter(({ value }) => value === ratio)[0].content
+      }, 风格：${style ? StyleOptions.filter(({ value }) => value === style)[0].content : '默认风格'}`,
     };
   };
 
