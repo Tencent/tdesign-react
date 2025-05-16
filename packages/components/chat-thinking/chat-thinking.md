@@ -7,7 +7,7 @@ spline: navigation
 ---
 
 ## 基础用法
-
+支持通过maxHeight来设置展示内容的最大高度，超出会自动滚动
 {{ base }}
 
 
