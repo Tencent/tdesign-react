@@ -7,6 +7,7 @@ import type {
   TdAttachmentItem,
   UploadFile,
   ChatRequestParams,
+  TdChatMessageConfig,
 } from 'tdesign-react';
 import { ChatBot, type TdChatbotApi } from 'tdesign-react';
 
@@ -19,7 +20,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign文档阅读助手，请先上传你需要识别和理解的文件吧~',
+        data: '欢迎使用TDesign文档阅读助手，请先上传你需要识别和理解的文件，可以针对文档内容进行咨询~',
       },
     ],
   },
@@ -30,7 +31,7 @@ export default function chatSample() {
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
 
   // 消息属性配置
-  const messageProps = {
+  const messageProps: TdChatMessageConfig = {
     user: {
       variant: 'base',
       placement: 'right',
@@ -149,8 +150,9 @@ export default function chatSample() {
         defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
+          defaultValue: '根据所提供的材料总结一篇文章，需要符合公众号平台写作风格',
           placeholder: '上传你需要识别和理解的文件吧~',
-          actions: (preset) => preset,
+          actions: ['attachmentUploader', 'sendButton'],
           uploadProps: {
             multiple: true,
           },

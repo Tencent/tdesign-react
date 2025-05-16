@@ -10,6 +10,7 @@ import type {
   TdChatSenderParams,
   UploadFile,
   ChatRequestParams,
+  TdChatMessageConfig,
 } from 'tdesign-react';
 import { Button, ChatBot, Dropdown, Space, Image, type TdChatbotApi, ImageViewer, Skeleton } from 'tdesign-react';
 
@@ -134,7 +135,7 @@ export default function chatSample() {
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
   // 消息属性配置
-  const messageProps = {
+  const messageProps: TdChatMessageConfig = {
     user: {
       variant: 'base',
       placement: 'right',

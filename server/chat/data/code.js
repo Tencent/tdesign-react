@@ -496,11 +496,10 @@ module.exports = [
     data: {
       id: Date.now(),
       enName: 'tdesign-login-form.jsx',
-      cnName: 'TDesign登录表单示例，代码生成完成，开始自动化测试...',
+      cnName: 'TDesign登录表单示例，开始自动化测试...',
       version: 'v1',
     },
   },
-
   { type: 'text', msg: '这个', paragraph: 'next' },
 
   { type: 'text', msg: '版本' },

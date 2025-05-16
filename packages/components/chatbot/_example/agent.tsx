@@ -22,9 +22,9 @@ const customRenderConfig: TdChatCustomRenderConfig = {
   }),
 };
 
-const RenderAgent = ({ steps }) => {
+const AgentTimeline = ({ steps }) => {
   return (
-    <div style={{ paddingLeft: 10 }}>
+    <div style={{ paddingLeft: 10, marginTop: 14 }}>
       <Timeline mode="same" theme="dot">
         {steps.map((step) => (
           <Timeline.Item
@@ -53,7 +53,20 @@ declare module 'tdesign-react' {
     agent: BaseContent<
       'agent',
       {
-        steps: any[];
+        id: string;
+        state: 'pending' | 'command' | 'result' | 'finish';
+        content: {
+          steps?: {
+            step: string;
+            agent_id: string;
+            status: string;
+            tasks?: {
+              type: 'command' | 'result';
+              text: string;
+            }[];
+          }[];
+          text?: string;
+        };
       }
     >;
   }
@@ -87,11 +100,6 @@ export default function ChatBotReact() {
     assistant: {
       placement: 'left',
       customRenderConfig,
-      chatContentProps: {
-        thinking: {
-          maxHeight: 100,
-        },
-      },
     },
   };
 
@@ -151,41 +159,56 @@ export default function ChatBotReact() {
     if (!chatRef.current) {
       return;
     }
-    const chat = chatRef.current;
-    chat.registerMergeStrategy('agent', (newchunk, existing) => {
-      const newExisting = { ...existing };
-      newExisting.content = { ...existing.content };
-      newExisting.content.steps = [...existing.content.steps];
+    // 此处增加自定义消息内容合并策略逻辑
+    // 该示例agent类型结构比较复杂，根据任务步骤的state有不同的策略，组件内onMessage这里提供了的strategy无法满足，可以通过注册合并策略自行实现
+    chatRef.current.registerMergeStrategy('agent', (newChunk, existing) => {
+      // 创建新对象避免直接修改原状态
+      const updated = {
+        ...existing,
+        content: {
+          ...existing.content,
+          steps: [...existing.content.steps],
+        },
+      };
 
-      const stepIndex = newExisting.content.steps.findIndex((step) => step.agent_id === newchunk.content.agent_id);
+      const stepIndex = updated.content.steps.findIndex((step) => step.agent_id === newChunk.content.agent_id);
 
-      if (stepIndex >= 0) {
-        const step = { ...newExisting.content.steps[stepIndex] };
+      if (stepIndex === -1) return updated;
 
-        if (['agent_update', 'agent_result'].includes(newchunk.state)) {
-          step.tasks = [...(step.tasks || [])];
+      // 更新步骤信息
+      const step = {
+        ...updated.content.steps[stepIndex],
+        tasks: [...(updated.content.steps[stepIndex].tasks || [])],
+        status: newChunk.state === 'finish' ? 'finish' : 'pending',
+      };
+
+      // 处理不同类型的新数据
+      if (newChunk.state === 'command') {
+        // 新增每个步骤执行的命令
+        step.tasks.push({
+          type: 'command',
+          text: newChunk.content.text,
+        });
+      } else if (newChunk.state === 'result') {
+        // 新增每个步骤执行的结论是流式输出，需要分情况处理
+        const resultTaskIndex = step.tasks.findIndex((task) => task.type === 'result');
+        if (resultTaskIndex >= 0) {
+          // 合并到已有结果
+          step.tasks = step.tasks.map((task, index) =>
+            index === resultTaskIndex ? { ...task, text: task.text + newChunk.content.text } : task,
+          );
+        } else {
+          // 添加新结果
           step.tasks.push({
-            type: newchunk.state === 'agent_update' ? 'command' : 'result',
-            text: newchunk.content.text,
+            type: 'result',
+            text: newChunk.content.text,
           });
         }
-
-        // 设置step状态
-        step.status = newchunk.state === 'agent_finish' ? 'finish' : 'pending';
-        newExisting.content.steps[stepIndex] = step;
       }
 
-      return newExisting;
+      updated.content.steps[stepIndex] = step;
+      return updated;
     });
-
-    const update = (e: CustomEvent) => {
-      setMockMessage(e.detail);
-    };
-
-    chat.addEventListener('message_change', update);
-    return () => {
-      chat.removeEventListener('message_change', update);
-    };
   }, []);
 
   return (
@@ -196,28 +219,22 @@ export default function ChatBotReact() {
         defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
-          defaultValue: '请帮我做一个家庭聚会任务规划',
+          defaultValue: '请帮我做一个5岁儿童生日聚会的规划',
         }}
         chatServiceConfig={chatServiceConfig}
+        onMessageChange={(e) => {
+          setMockMessage(e.detail);
+        }}
       >
         {mockMessage
           ?.map((data) =>
             data.content.map((item) => {
-              switch (item.state) {
-                // 示例：智能体初始化
-                case 'agent_init':
-                  return (
-                    <div slot={`${data.id}-${item.state}-${item.id}`} key={`${data.id}-${item.state}-${item.id}`}>
-                      <RenderAgent steps={item.content.steps} />
-                    </div>
-                  );
-                // 处理智能体更新状态
-                case 'agent_update':
-                  return (
-                    <div slot={`${item.content.agent_id}`} key={`${data.id}-${item.state}-${item.id}`}>
-                      <div style={{ paddingLeft: 10, marginTop: 4 }}>{item.content.text}</div>
-                    </div>
-                  );
+              if (item.type === 'agent') {
+                return (
+                  <div slot={`${data.id}-${item.state}-${item.id}`} key={`${data.id}-${item.state}-${item.id}`}>
+                    <AgentTimeline steps={item.content.steps} />
+                  </div>
+                );
               }
               return null;
             }),
