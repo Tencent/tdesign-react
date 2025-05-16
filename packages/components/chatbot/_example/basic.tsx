@@ -172,7 +172,7 @@ export default function chatSample() {
     <div style={{ height: '600px' }}>
       <ChatBot
         ref={chatRef}
-        messages={mockData}
+        defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',

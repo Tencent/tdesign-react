@@ -142,7 +142,7 @@ export default function ChatBotReact() {
       <ChatBot
         ref={chatRef}
         style={{ height: '100%' }}
-        messages={initMessage}
+        defaultMessages={initMessage}
         messageProps={messageProps}
         senderProps={{
           defaultValue: '北京今天早晚高峰交通情况如何，需要分别给出曲线图表示每个时段',

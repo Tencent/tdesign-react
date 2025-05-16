@@ -185,7 +185,7 @@ export default function chatSample() {
     <div style={{ height: '600px' }}>
       <ChatBot
         ref={chatRef}
-        messages={mockData}
+        defaultMessages={mockData}
         messageProps={messageProps}
         onMessageChange={(e) => {
           setMockMessage(e.detail);

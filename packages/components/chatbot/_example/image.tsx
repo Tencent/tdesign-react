@@ -3,7 +3,6 @@ import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-i
 import type {
   SSEChunkData,
   AIMessageContent,
-  TdChatMessageConfigItem,
   RequestParams,
   ChatMessagesData,
   ChatServiceConfig,
@@ -277,7 +276,7 @@ export default function chatSample() {
     <div style={{ height: '600px' }}>
       <ChatBot
         ref={chatRef}
-        messages={mockData}
+        defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
           defaultValue: '请为Tdesign设计三张品牌宣传图',

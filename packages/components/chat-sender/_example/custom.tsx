@@ -38,6 +38,7 @@ const ChatSenderExample = () => {
     .${styleId.current} {
       --td-text-color-placeholder: #DFE2E7;
       --td-bg-color-secondarycontainer: #fff;
+      --td-chat-input-background:  #fff;
     }
   `;
 

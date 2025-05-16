@@ -193,7 +193,7 @@ export default function ChatBotReact() {
       <ChatBot
         ref={chatRef}
         style={{ height: '100%' }}
-        messages={mockData}
+        defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
           defaultValue: '请帮我做一个家庭聚会任务规划',

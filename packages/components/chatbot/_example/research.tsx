@@ -146,7 +146,7 @@ export default function chatSample() {
     <div style={{ height: '600px' }}>
       <ChatBot
         ref={chatRef}
-        messages={mockData}
+        defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
           placeholder: '上传你需要识别和理解的文件吧~',
