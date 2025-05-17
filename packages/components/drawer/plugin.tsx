@@ -17,24 +17,33 @@ const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const fragment = document.createDocumentFragment();
 
   const dGlobalConfig = ConfigProvider.getGlobalConfig();
-  render(<PluginContainer globalConfig={dGlobalConfig}><DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin /></PluginContainer>, fragment);
+  render(
+    <PluginContainer globalConfig={dGlobalConfig}>
+      <DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin />
+    </PluginContainer>,
+    fragment,
+  );
+
+  const showDrawer = () => {
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        drawerRef.current?.show();
+      });
+    }, 0);
+  };
 
   const container = getAttach(props.attach);
   if (container) {
     // 加载出来了再设置打开，打开才有动画。如有更好的方法，请代替↓
-    requestAnimationFrame(() => {
-      drawerRef.current?.show();
-    });
     container.appendChild(fragment);
+    showDrawer();
   } else {
     log.error('Drawer', 'attach is not exist');
   }
 
   const drawerNode: DrawerInstance = {
     show: () => {
-      requestAnimationFrame(() => {
-        drawerRef.current?.show();
-      });
+      showDrawer();
     },
     hide: () => {
       requestAnimationFrame(() => {

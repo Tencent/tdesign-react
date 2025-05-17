@@ -1,29 +1,29 @@
 import React from 'react';
-import { DrawerPlugin, Button, Space } from 'tdesign-react';
+import { DrawerPlugin, drawer, Button, Space } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 
 export default function PluginModalExample() {
-  const showDrawer = () => {
-    const myDrawer = DrawerPlugin({
+  const showDrawerPlugin = () => {
+    const drawerInstance = DrawerPlugin({
       header: 'Drawer-Plugin',
       body: 'Hi, darling! Do you want to be my lover?',
       onConfirm: ({ e }) => {
         console.log('confirm clicked', e);
-        myDrawer.hide();
+        drawerInstance.hide();
       },
       onClose: ({ e, trigger }) => {
         console.log('e: ', e);
         console.log('trigger: ', trigger);
-        myDrawer.hide();
+        drawerInstance.hide();
       },
       onCloseBtnClick: ({ e }) => {
         console.log('close btn: ', e);
       },
     });
   };
-  const onDrawerPlugin = () => {
-    const Drawer = DrawerPlugin({
+  const showDrawer = () => {
+    const drawerInstance = drawer({
       header: 'Drawer-Confirm-Plugin',
       body: 'I am a drawer!',
       confirmBtn: 'hello',
@@ -33,12 +33,12 @@ export default function PluginModalExample() {
       onConfirm: ({ e }) => {
         console.log('confirm button has been clicked!');
         console.log('e: ', e);
-        Drawer.hide();
+        drawerInstance.hide();
       },
       onClose: ({ e, trigger }) => {
         console.log('e: ', e);
         console.log('trigger: ', trigger);
-        Drawer.hide();
+        drawerInstance.hide();
       },
     });
   };
@@ -47,10 +47,10 @@ export default function PluginModalExample() {
       <p>函数调用方式一：DrawerPlugin(options)</p>
       <p>函数调用方式二：drawer(options)</p>
       <div>
-        <Button theme="primary" onClick={showDrawer} style={buttonStyle}>
+        <Button theme="primary" onClick={showDrawerPlugin} style={buttonStyle}>
           DrawerPlugin
         </Button>
-        <Button theme="primary" onClick={onDrawerPlugin} style={buttonStyle}>
+        <Button theme="primary" onClick={showDrawer} style={buttonStyle}>
           drawer
         </Button>
       </div>
