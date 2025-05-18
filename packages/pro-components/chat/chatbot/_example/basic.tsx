@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { InternetIcon } from 'tdesign-icons-react';
-import type {
+import {
   SSEChunkData,
   AIMessageContent,
   TdChatMessageConfigItem,
   RequestParams,
   ChatMessagesData,
   ChatServiceConfig,
-} from 'tdesign-react';
-import { Button, ChatBot, Space, type TdChatbotApi } from 'tdesign-react';
+  ChatBot,
+  type TdChatbotApi,
+} from '@tdesign-react/aigc';
+import { Button, Space } from 'tdesign-react';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [

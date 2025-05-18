@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import type {
-  SSEChunkData,
   TdChatMessageConfig,
   AIMessageContent,
   RequestParams,
@@ -8,10 +7,12 @@ import type {
   BaseContent,
   ChatMessagesData,
   TdChatCustomRenderConfig,
-} from 'tdesign-react';
-import { ChatBot, Timeline } from 'tdesign-react';
+} from '@tdesign-react/aigc';
+import { Timeline } from 'tdesign-react';
 
 import { CheckCircleFilledIcon } from 'tdesign-icons-react';
+
+import { ChatBot } from '@tdesign-react/aigc';
 
 import './index.css';
 
@@ -22,30 +23,28 @@ const customRenderConfig: TdChatCustomRenderConfig = {
   }),
 };
 
-const AgentTimeline = ({ steps }) => {
-  return (
-    <div style={{ paddingLeft: 10, marginTop: 14 }}>
-      <Timeline mode="same" theme="dot">
-        {steps.map((step) => (
-          <Timeline.Item
-            key={step.agent_id}
-            label=""
-            dot={<CheckCircleFilledIcon size="medium" color={step?.status === 'finish' ? 'green' : '#ccc'} />}
-          >
-            <div className={'step'}>
-              <div className={'title'}>{step.step}</div>
-              {step?.tasks?.map((task, taskIndex) => (
-                <div key={`${step.agent_id}_task_${taskIndex}`}>
-                  <div className={task.type}>{task.text}</div>
-                </div>
-              ))}
-            </div>
-          </Timeline.Item>
-        ))}
-      </Timeline>
-    </div>
-  );
-};
+const AgentTimeline = ({ steps }) => (
+  <div style={{ paddingLeft: 10, marginTop: 14 }}>
+    <Timeline mode="same" theme="dot">
+      {steps.map((step) => (
+        <Timeline.Item
+          key={step.agent_id}
+          label=""
+          dot={<CheckCircleFilledIcon size="medium" color={step?.status === 'finish' ? 'green' : '#ccc'} />}
+        >
+          <div className={'step'}>
+            <div className={'title'}>{step.step}</div>
+            {step?.tasks?.map((task, taskIndex) => (
+              <div key={`${step.agent_id}_task_${taskIndex}`}>
+                <div className={task.type}>{task.text}</div>
+              </div>
+            ))}
+          </div>
+        </Timeline.Item>
+      ))}
+    </Timeline>
+  </div>
+);
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {

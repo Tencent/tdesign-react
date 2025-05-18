@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
-import type {
+import type { Card, Space } from 'tdesign-react';
+import {
+  ChatBot,
+  ChatMessagesData,
   SSEChunkData,
   TdChatMessageConfig,
   AIMessageContent,
   RequestParams,
   ChatServiceConfig,
-} from 'tdesign-react';
-import { Card, ChatBot, ChatMessagesData, DialogPlugin, type TdChatbotApi, Space } from 'tdesign-react';
+} from '@tdesign-react/aigc';
 import Login from './components/login';
 
 // 默认初始化消息
