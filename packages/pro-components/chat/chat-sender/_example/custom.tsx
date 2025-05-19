@@ -1,7 +1,8 @@
+import { TdAttachmentItem } from '@tencent/tdesign-chatbot';
 import React, { useRef, useState, useEffect } from 'react';
 import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
 import { ChatSender } from '@tdesign-react/aigc';
-import { Space, Button, Tag, Dropdown, Tooltip } from 'tdesign-react';
+import { Space, Button, Tag, Dropdown, Tooltip, UploadFile } from 'tdesign-react';
 
 const options = [
   {
@@ -25,6 +26,7 @@ const ChatSenderExample = () => {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const senderRef = useRef(null);
+  const [files, setFiles] = useState<TdAttachmentItem[]>([]);
   const [scene, setScene] = useState(1);
   const [showRef, setShowRef] = useState(true);
   const [activeR1, setR1Active] = useState(false);
@@ -33,9 +35,6 @@ const ChatSenderExample = () => {
 
   // 使用变量生成自定义组件样式
   const generateScopedStyles = () => `
-    .t-popup__content {
-      padding: 0;
-    }
     .${styleId.current} {
       --td-text-color-placeholder: #DFE2E7;
       --td-bg-color-secondarycontainer: #fff;
@@ -71,6 +70,7 @@ const ChatSenderExample = () => {
     console.log('提交', { value: inputValue });
     setInputValue('');
     setLoading(true);
+    setFiles([]);
   };
 
   // 停止处理
@@ -85,7 +85,29 @@ const ChatSenderExample = () => {
   };
 
   const onFileSelect = (e: CustomEvent<File[]>) => {
-    console.log('===selectfile', e.detail);
+    // 添加新文件并模拟上传进度
+    const newFile = {
+      ...e.detail[0],
+      name: e.detail[0].name,
+      status: 'progress' as UploadFile['status'],
+      description: '上传中',
+    };
+
+    setFiles((prev) => [newFile, ...prev]);
+
+    setTimeout(() => {
+      setFiles((prevState) =>
+        prevState.map((file) =>
+          file.name === newFile.name
+            ? {
+                ...file,
+                url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+                status: 'success',
+              }
+            : file,
+        ),
+      );
+    }, 1000);
   };
 
   const switchScene = (data) => {
@@ -94,6 +116,10 @@ const ChatSenderExample = () => {
 
   const onRemoveRef = () => {
     setShowRef(false);
+  };
+
+  const onAttachmentsRemove = (e: CustomEvent<TdAttachmentItem[]>) => {
+    setFiles(e.detail);
   };
 
   return (
@@ -107,6 +133,13 @@ const ChatSenderExample = () => {
       onSend={handleSend}
       onStop={handleStop}
       onFileSelect={onFileSelect}
+      onFileRemove={onAttachmentsRemove}
+      uploadProps={{
+        accept: 'image/*',
+      }}
+      attachmentsProps={{
+        items: files,
+      }}
     >
       {/* 自定义输入框上方区域，可用来引用内容或提示场景 */}
       {showRef && (
@@ -135,11 +168,7 @@ const ChatSenderExample = () => {
       {/* 自定义输入框底部区域slot，可以增加模型选项 */}
       <div slot="footer-left">
         <Space align="center" size={'small'}>
-          <Tooltip
-            content="支持上传图片、视频文件，总大小不超过200M"
-            showArrow={false}
-            overlayInnerStyle={{ padding: 6 }}
-          >
+          <Tooltip content="只支持上传图片，总大小不超过20M">
             <Button shape="round" variant="outline" size="small" icon={<AttachIcon />} onClick={onAttachClick} />
           </Tooltip>
           <Button
@@ -165,7 +194,7 @@ const ChatSenderExample = () => {
       </div>
       {/* 自定义输入框左侧区域slot，可以用来触发工具场景切换 */}
       <div slot="prefix">
-        <Dropdown options={options} onClick={switchScene} trigger="click">
+        <Dropdown options={options} onClick={switchScene} trigger="click" style={{ padding: 0 }}>
           <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4, cursor: 'pointer' }}>
             {options.filter((item) => item.value === scene)[0].content}
           </Tag>

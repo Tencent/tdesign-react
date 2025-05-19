@@ -17,6 +17,7 @@ const ChatSenderExample = () => {
     {
       name: 'image-file.png',
       size: 333333,
+      url: 'https://tdesign.gtimg.com/site/avatar.jpg',
     },
   ]);
 
@@ -31,6 +32,7 @@ const ChatSenderExample = () => {
     console.log('提交', { value: inputValue });
     setInputValue('');
     setLoading(true);
+    setFiles([]);
   };
 
   // 停止处理
@@ -48,13 +50,13 @@ const ChatSenderExample = () => {
     // 添加新文件并模拟上传进度
     const newFile = {
       ...e.detail[0],
+      size: e.detail[0].size,
       name: e.detail[0].name,
       status: 'progress' as UploadFile['status'],
       description: '上传中',
     };
 
     setFiles((prev) => [newFile, ...prev]);
-
     setTimeout(() => {
       setFiles((prevState) =>
         prevState.map((file) =>
@@ -63,7 +65,7 @@ const ChatSenderExample = () => {
                 ...file,
                 url: 'https://tdesign.gtimg.com/site/avatar.jpg',
                 status: 'success',
-                description: '上传成功',
+                description: `${Math.floor(newFile.size / 1024)}KB`,
               }
             : file,
         ),
@@ -76,11 +78,7 @@ const ChatSenderExample = () => {
       value={inputValue}
       placeholder="请输入内容"
       loading={loading}
-      actions={(preset) => preset}
-      uploadProps={{
-        multiple: true,
-        accept: 'image/*',
-      }}
+      actions={['attachment', 'send']}
       attachmentsProps={{
         items: files,
         overflow: 'scrollX',
