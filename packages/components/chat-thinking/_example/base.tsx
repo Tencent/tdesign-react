@@ -9,6 +9,7 @@ export default function ThinkContentDemo() {
   const [displayText, setDisplayText] = useState('');
   const [status, setStatus] = useState<MessageStatus>('pending');
   const [title, setTitle] = useState('正在思考中...');
+  const [collapsed, setCollapsed] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const currentIndex = useRef(0);
   const startTimeRef = useRef(Date.now());
@@ -38,6 +39,12 @@ export default function ThinkContentDemo() {
     };
   }, []);
 
+  useEffect(() => {
+    if (status === 'complete') {
+      setCollapsed(true); // 内容结束输出后收起面板
+    }
+  }, [status]);
+
   return (
     <ChatThinking
       content={{
@@ -46,6 +53,7 @@ export default function ThinkContentDemo() {
       }}
       status={status}
       maxHeight={100}
+      collapsed={collapsed}
     />
   );
 }

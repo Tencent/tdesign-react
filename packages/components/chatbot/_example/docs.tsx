@@ -20,7 +20,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign文档阅读助手，请先上传你需要识别和理解的文件，可以针对文档内容进行咨询~',
+        data: '欢迎使用TDesign文案写作助手，可以先上传你需要参考的文件，输入你要撰写的主题~',
       },
     ],
   },
@@ -39,7 +39,7 @@ export default function chatSample() {
     },
     assistant: {
       placement: 'left',
-      actions: ['good', 'bad'],
+      actions: ['copy', 'good', 'bad'],
       handleActions: {
         // 处理消息操作回调
         good: async ({ message, active }) => {
@@ -150,8 +150,8 @@ export default function chatSample() {
         defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
-          defaultValue: '根据所提供的材料总结一篇文章，需要符合公众号平台写作风格',
-          placeholder: '上传你需要识别和理解的文件吧~',
+          defaultValue: '根据所提供的材料总结一篇文章，推荐春天户外郊游打卡目的地，需要符合小红书平台写作风格',
+          placeholder: '输入你要撰写的主题，支持上传附件',
           actions: ['attachmentUploader', 'sendButton'],
           uploadProps: {
             multiple: true,

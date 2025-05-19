@@ -5,6 +5,7 @@ const chunksChart = require('./data/chart');
 const chunksCode = require('./data/code');
 const chunksImage = require('./data/image');
 const agentChunks = require('./data/agent');
+const chunksDoc = require('./data/docs');
 
 const app = express();
 app.use(cors());
@@ -62,9 +63,13 @@ app.post('/sse/normal', (req, res) => {
   setSSEHeaders(res);
 
   let mockdata = chunks;
-  const { think = false, search = false, chart = false, code = false, image = false } = req.body;
+  const { think = false, search = false, chart = false, code = false, image = false, docs = false } = req.body;
   if (chart) {
     mockdata = chunksChart;
+  }
+
+  if (docs) {
+    mockdata = chunksDoc;
   }
 
   if (code) {
