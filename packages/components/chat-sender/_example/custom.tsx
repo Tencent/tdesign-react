@@ -193,7 +193,7 @@ const ChatSenderExample = () => {
       </div>
       {/* 自定义输入框左侧区域slot，可以用来触发工具场景切换 */}
       <div slot="prefix">
-        <Dropdown options={options} onClick={switchScene} trigger="click">
+        <Dropdown options={options} onClick={switchScene} trigger="click" style={{ padding: 0 }}>
           <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4, cursor: 'pointer' }}>
             {options.filter((item) => item.value === scene)[0].content}
           </Tag>
