@@ -152,7 +152,7 @@ export default function chatSample() {
         senderProps={{
           defaultValue: '根据所提供的材料总结一篇文章，推荐春天户外郊游打卡目的地，需要符合小红书平台写作风格',
           placeholder: '输入你要撰写的主题，支持上传附件',
-          actions: ['attachmentUploader', 'sendButton'],
+          actions: ['attachment', 'send'],
           uploadProps: {
             multiple: true,
           },
