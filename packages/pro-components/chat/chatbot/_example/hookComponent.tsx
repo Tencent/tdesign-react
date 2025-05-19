@@ -13,7 +13,7 @@ import {
   ChatActionBar,
   isAIMessage,
   useChat,
-} from 'tdesign-react';
+} from '@tdesign-react/aigc';
 import { getMessageContentForCopy, TdChatActionsName } from '@tencent/tdesign-chatbot';
 
 export default function ComponentsBuild() {

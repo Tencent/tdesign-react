@@ -11,8 +11,10 @@ import type {
   UploadFile,
   ChatRequestParams,
   TdChatMessageConfig,
-} from 'tdesign-react';
-import { Button, ChatBot, Dropdown, Space, Image, type TdChatbotApi, ImageViewer, Skeleton } from 'tdesign-react';
+  TdChatbotApi,
+} from '@tdesign-react/aigc';
+import { ImageViewer, Skeleton, ImageViewerProps, Button, Dropdown, Space, Image } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/aigc';
 
 const RatioOptions = [
   {
@@ -70,8 +72,6 @@ const mockData: ChatMessagesData[] = [
     ],
   },
 ];
-
-import type { ImageViewerProps } from 'tdesign-react';
 
 // 自定义生图消息内容
 const BasicImageViewer = ({ images }) => {
@@ -217,7 +217,7 @@ export default function chatSample() {
   // 文件上传
   const onFileSelect = (e: CustomEvent<File[]>) => {
     // 添加新文件并模拟上传进度
-    let newFile = {
+    const newFile = {
       ...e.detail[0],
       name: e.detail[0].name,
       status: 'progress' as UploadFile['status'],

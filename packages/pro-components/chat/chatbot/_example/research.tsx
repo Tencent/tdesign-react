@@ -8,9 +8,9 @@ import type {
   UploadFile,
   ChatRequestParams,
   TdChatMessageConfig,
-} from 'tdesign-react';
-import { ChatBot, type TdChatbotApi } from 'tdesign-react';
-
+  TdChatbotApi,
+} from '@tdesign-react/aigc';
+import { ChatBot } from '@tdesign-react/aigc';
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
   {
@@ -109,7 +109,7 @@ export default function chatSample() {
   // 文件上传
   const onFileSelect = (e: CustomEvent<File[]>) => {
     // 添加新文件并模拟上传进度
-    let newFile = {
+    const newFile = {
       ...e.detail[0],
       name: e.detail[0].name,
       status: 'progress' as UploadFile['status'],
