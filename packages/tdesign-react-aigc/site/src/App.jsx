@@ -45,28 +45,7 @@ function Components() {
   const tdHeaderRef = useRef();
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
-  const tdSelectRef = useRef();
   const tdDocSearch = useRef();
-
-  const [version] = useState(currentVersion);
-
-  function initHistoryVersions() {
-    fetch(registryUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        const options = [];
-        const versions = filterVersions(Object.keys(res.versions));
-
-        versions.forEach((v) => {
-          const nums = v.split('.');
-          if (nums[0] === '0' && nums[1] < 21) return false;
-
-          options.unshift({ label: v, value: v.replace(/\./g, '_') });
-        });
-
-        tdSelectRef.current.options = options.sort((a, b) => (semver.gt(a.label, b.label) ? -1 : 1));
-      });
-  }
 
   useEffect(() => {
     tdHeaderRef.current.framework = 'react';
@@ -84,18 +63,8 @@ function Components() {
       });
     };
 
-    tdSelectRef.current.onchange = ({ detail }) => {
-      const { value: version } = detail;
-      if (version === currentVersion) return;
-
-      const historyUrl = `https://${version}-tdesign-react.surge.sh`;
-      window.open(historyUrl, '_blank');
-      tdSelectRef.current.value = currentVersion;
-    };
-
     if (isDev) return;
 
-    initHistoryVersions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -109,9 +78,7 @@ function Components() {
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
-        <td-doc-aside ref={tdDocAsideRef} title="React for Web">
-          <td-select ref={tdSelectRef} value={version} slot="extra"></td-select>
-        </td-doc-aside>
+        <td-doc-aside ref={tdDocAsideRef} title="TDesign AIGC for React" />
 
         <td-doc-content ref={tdDocContentRef}>
           <Outlet />
