@@ -2,10 +2,6 @@ import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import semver from 'semver';
 import Loading from '@tdesign/components/loading';
-import ConfigProvider from '@tdesign/components/config-provider';
-import zhConfig from '@tdesign/components/locale/zh_CN';
-import enConfig from '@tdesign/components/locale/en_US';
-import { getLang } from 'tdesign-site-components';
 
 import packageJson from '../../package.json';
 import * as siteConfig from '../site.config';
@@ -53,7 +49,6 @@ function Components() {
   const tdDocSearch = useRef();
 
   const [version] = useState(currentVersion);
-  const [globalConfig] = useState(() => (getLang() === 'en' ? enConfig : zhConfig));
 
   function initHistoryVersions() {
     fetch(registryUrl)
@@ -109,7 +104,7 @@ function Components() {
   }, [location]);
 
   return (
-    <ConfigProvider globalConfig={globalConfig}>
+    <>
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
@@ -124,7 +119,7 @@ function Components() {
         </td-doc-content>
       </td-doc-layout>
       <td-theme-generator />
-    </ConfigProvider>
+    </>
   );
 }
 

@@ -26,7 +26,8 @@ export default ({ mode }) =>
     resolve: {
       alias: {
         '@tdesign-react/aigc': path.resolve(__dirname, '../../pro-components/chat'),
-        'tdesign-react': path.resolve(__dirname, '../../components'),
+        'tdesign-react': path.resolve(__dirname, '../../tdesign-react'),
+        'tdesign-react/es': path.resolve(__dirname, '../../tdesign-react'),
       },
     },
     build: {
