@@ -1,17 +1,18 @@
 :: BASE_DOC ::
 
 ## API
+
 ### InputNumber Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-align | String | - | options：left/center/right | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
+align | String | - | options: left/center/right | N
 allowInputOverLimit | Boolean | true | \- | N
 autoWidth | Boolean | false | \- | N
-decimalPlaces | Number | undefined | \- | N
-disabled | Boolean | - | \- | N
+decimalPlaces | Number / Object | undefined | Typescript：`InputNumberDecimalPlaces` `type InputNumberDecimalPlaces = number \| { enableRound: boolean; places: number } `。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/input-number/type.ts) | N
+disabled | Boolean | undefined | \- | N
 format | Function | - | Typescript：`(value: InputNumberValue, context?: { fixedNumber?: InputNumberValue }) => InputNumberValue` | N
 inputProps | Object | - | Typescript：`InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/input-number/type.ts) | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -19,12 +20,12 @@ largeNumber | Boolean | false | \- | N
 max | String / Number | Infinity | Typescript：`InputNumberValue` | N
 min | String / Number | -Infinity | Typescript：`InputNumberValue` | N
 placeholder | String | undefined | \- | N
-readonly | Boolean | false | \- | N
-size | String | medium | options：small/medium/large | N
-status | String | default | options：default/success/warning/error | N
+readonly | Boolean | undefined | \- | N
+size | String | medium | options: small/medium/large | N
+status | String | default | options: default/success/warning/error | N
 step | String / Number | 1 | Typescript：`InputNumberValue` | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-theme | String | row | options：column/row/normal | N
+theme | String | row | options: column/row/normal | N
 tips | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 value | String / Number | - | Typescript：`T` `type InputNumberValue = number \| string`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/input-number/type.ts) | N
 defaultValue | String / Number | - | uncontrolled property。Typescript：`T` `type InputNumberValue = number \| string`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/input-number/type.ts) | N
