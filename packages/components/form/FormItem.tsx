@@ -5,7 +5,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { calcFieldValue } from './utils';
+import { calcFieldValue, convertNamePathToString } from './utils';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import type {
@@ -76,11 +76,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
+  const name = useMemo(() => convertNamePathToString(props.name), [props.name]);
+
   const {
     children,
     style,
     label,
-    name,
     status,
     tips,
     help,
