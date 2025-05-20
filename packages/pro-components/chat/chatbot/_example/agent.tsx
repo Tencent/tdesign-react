@@ -105,7 +105,7 @@ export default function ChatBotReact() {
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
     // 对话服务地址
-    endpoint: 'http://localhost:3000/sse/agent',
+    endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agent',
     stream: true,
     // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
     onComplete: (aborted: boolean, params: RequestInit) => {
