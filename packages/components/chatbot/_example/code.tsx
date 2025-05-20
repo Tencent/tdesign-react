@@ -65,21 +65,22 @@ const PreviewCard = ({ header, desc, loading, code }) => {
         size="medium"
         theme="normal"
         title={header}
-        loading={loading}
         style={{ margin: '14px 0' }}
         actions={
-          <Space>
-            <a href={null} onClick={copyHandler} style={{ cursor: 'pointer' }}>
-              复制代码
-            </a>
-            <a href={null} onClick={previewHandler} style={{ cursor: 'pointer' }}>
-              预览
-            </a>
-          </Space>
+          loading ? (
+            desc
+          ) : (
+            <Space>
+              <a href={null} onClick={copyHandler} style={{ cursor: 'pointer' }}>
+                复制代码
+              </a>
+              <a href={null} onClick={previewHandler} style={{ cursor: 'pointer' }}>
+                预览
+              </a>
+            </Space>
+          )
         }
-      >
-        {desc}
-      </Card>
+      ></Card>
     </>
   );
 };
@@ -204,7 +205,7 @@ export default function chatSample() {
                 // 示例：代码运行结果预览
                 case 'preview':
                   return (
-                    <div slot={`${msg.id}-${item.type}-${index}`} key={`${item.data.id}`}>
+                    <div slot={`${msg.id}-${item.type}-${index}`} key={`${msg.id}-${item.data.id}`}>
                       <PreviewCard
                         header={item.data.enName}
                         desc={item.data.cnName}

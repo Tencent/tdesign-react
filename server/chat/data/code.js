@@ -20,11 +20,11 @@ module.exports = [
     data: {
       id: Date.now(),
       enName: 'tdesign-login-form.jsx',
-      cnName: 'TDesign登录表单示例，代码开始编写...',
+      cnName: '正在生成中...',
       version: 'v1',
     },
   },
-  { type: 'text', msg: '```' },
+  { type: 'text', msg: '```', paragraph: 'next' },
 
   { type: 'text', msg: 'js' },
 
@@ -496,7 +496,7 @@ module.exports = [
     data: {
       id: Date.now(),
       enName: 'tdesign-login-form.jsx',
-      cnName: 'TDesign登录表单示例，开始自动化测试...',
+      cnName: '开始自动化测试...',
       version: 'v1',
     },
   },
@@ -586,8 +586,7 @@ module.exports = [
     data: {
       id: Date.now(),
       enName: 'tdesign-login-form.jsx',
-      cnName:
-        'TDesign登录表单示例生产完成，你可以直接运行这个代码查看效果，也可以根据需要修改表单字段、验证规则或界面样式。',
+      cnName: '生产完成',
       version: 'v1',
     },
   },
