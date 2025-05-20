@@ -10,14 +10,14 @@ export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {
   level?: number;
 }
 
-const MenuGroup: React.FC<MenuGroupProps> = ({ title, children, level = 1 }) => {
+const MenuGroup: React.FC<MenuGroupProps> = ({ title, className, style, children, level = 1 }) => {
   const { classPrefix } = useConfig();
 
   const itemAndGroupPaddingBias = 28;
   const menuPaddingLeft = cacularPaddingLeft(level - 1) - itemAndGroupPaddingBias;
 
   return (
-    <div className={classNames(`${classPrefix}-menu-group`)}>
+    <div className={classNames(className, `${classPrefix}-menu-group`)} style={{ ...style }}>
       <div className={classNames(`${classPrefix}-menu-group__title`)} style={{ paddingLeft: `${menuPaddingLeft}px` }}>
         {title}
       </div>
