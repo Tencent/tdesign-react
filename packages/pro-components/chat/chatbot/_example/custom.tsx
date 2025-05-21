@@ -28,13 +28,6 @@ declare module '@tdesign-react/aigc' {
   }
 }
 
-// 自定义渲染-注册插槽规则(可选)
-// const customRenderConfig: TdChatCustomRenderConfig = {
-//   chart: (content) => ({
-//     slotName: `${content.type}-${content.data.id}`,
-//   }),
-// };
-
 // 2、自定义渲染图表的组件
 const ChartDemo = ({ data }) => (
   <div
@@ -162,7 +155,7 @@ export default function ChatBotReact() {
                 // 示例：图表消息体
                 case 'chart':
                   return (
-                    // slot名这里必须保证唯一性，默认插槽命名规则`${msg.id}-${content.type}-${index}`, 也可以在customRenderConfig中自行定义slotName，
+                    // slot名这里必须保证在message队列中的唯一性，默认插槽命名规则`${msg.id}-${content.type}-${index}`, 也可以在onMessage中自行返回slotName，
                     <div slot={`${msg.id}-${item.type}-${index}`} key={`${msg.id}-${item.data.id}`}>
                       <ChartDemo data={item.data} />
                     </div>

@@ -15,6 +15,11 @@ import { ChatBot } from '@tdesign-react/aigc';
 
 import './index.css';
 
+const endpoint = (() => {
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  return isLocal ? 'http://localhost:3000' : 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
+})();
+
 const AgentTimeline = ({ steps }) => (
   <div style={{ paddingLeft: 10, marginTop: 14 }}>
     <Timeline mode="same" theme="dot">
@@ -46,7 +51,6 @@ declare module 'tdesign-react' {
       {
         id: string;
         state: 'pending' | 'command' | 'result' | 'finish';
-        slotName: string;
         content: {
           steps?: {
             step: string;
@@ -97,7 +101,7 @@ export default function ChatBotReact() {
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
     // 对话服务地址
-    endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agent',
+    endpoint: `${endpoint}/sse/agent`,
     stream: true,
     // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
     onComplete: (aborted: boolean, params: RequestInit) => {
@@ -121,7 +125,6 @@ export default function ChatBotReact() {
         case 'agent':
           return {
             type: 'agent',
-            slotName: `${rest.state}-${rest.id}`,
             ...rest,
           };
         default:
@@ -136,7 +139,6 @@ export default function ChatBotReact() {
       const { prompt } = innerParams;
       return {
         headers: {
-          'Content-Type': 'text/event-stream',
           'X-Requested-With': 'XMLHttpRequest',
         },
         body: JSON.stringify({
@@ -219,11 +221,11 @@ export default function ChatBotReact() {
         }}
       >
         {mockMessage
-          ?.map((data) =>
-            data.content.map((item) => {
+          ?.map((msg) =>
+            msg.content.map((item) => {
               if (item.type === 'agent') {
                 return (
-                  <div slot={`${data.id}-${item.state}-${item.id}`} key={`${data.id}-${item.state}-${item.id}`}>
+                  <div slot={`${msg.id}-${item.type}-${item.id}`} key={`${msg.id}-${item.state}-${item.id}`}>
                     <AgentTimeline steps={item.content.steps} />
                   </div>
                 );
