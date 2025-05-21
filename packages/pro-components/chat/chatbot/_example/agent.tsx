@@ -6,7 +6,6 @@ import type {
   ChatServiceConfig,
   BaseContent,
   ChatMessagesData,
-  TdChatCustomRenderConfig,
 } from '@tdesign-react/aigc';
 import { Timeline } from 'tdesign-react';
 
@@ -15,13 +14,6 @@ import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { ChatBot } from '@tdesign-react/aigc';
 
 import './index.css';
-
-// 自定义渲染-注册插槽规则
-const customRenderConfig: TdChatCustomRenderConfig = {
-  agent: (content) => ({
-    slotName: `${content.state}-${content.id}`,
-  }),
-};
 
 const AgentTimeline = ({ steps }) => (
   <div style={{ paddingLeft: 10, marginTop: 14 }}>
@@ -54,6 +46,7 @@ declare module 'tdesign-react' {
       {
         id: string;
         state: 'pending' | 'command' | 'result' | 'finish';
+        slotName: string;
         content: {
           steps?: {
             step: string;
@@ -98,7 +91,6 @@ export default function ChatBotReact() {
     },
     assistant: {
       placement: 'left',
-      customRenderConfig,
     },
   };
 
@@ -129,7 +121,8 @@ export default function ChatBotReact() {
         case 'agent':
           return {
             type: 'agent',
-            ...chunk.data,
+            slotName: `${rest.state}-${rest.id}`,
+            ...rest,
           };
         default:
           return {
