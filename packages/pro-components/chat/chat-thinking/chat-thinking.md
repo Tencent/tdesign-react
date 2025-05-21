@@ -17,7 +17,7 @@ spline: navigation
 ## 样式设置
 支持通过`layout`来设置思考过程的布局方式
 
-支持通过`animation`来设置思考过程的动画效果
+支持通过`animation`来设置思考内容加载过程的动画效果
 
 {{ style }}
 

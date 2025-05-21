@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
 import { ChatSender } from '@tdesign-react/aigc';
 import { Space, Button, Tag, Dropdown, Tooltip, UploadFile } from 'tdesign-react';
+import { useDynamicStyle } from '../../_util/useDynamicStyle';
 
 const options = [
   {
@@ -31,33 +32,13 @@ const ChatSenderExample = () => {
   const [showRef, setShowRef] = useState(true);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
-  const styleId = useRef(`chat-sender-styles-${Math.random().toString(36).substr(2, 9)}`);
 
-  // 使用变量生成自定义组件样式
-  const generateScopedStyles = () => `
-    .${styleId.current} {
-      --td-text-color-placeholder: #DFE2E7;
-      --td-bg-color-secondarycontainer: #fff;
-      --td-chat-input-background:  #fff;
-    }
-  `;
-
-  useEffect(() => {
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = generateScopedStyles();
-    document.head.appendChild(styleElement);
-
-    // 为容器添加唯一类名
-    if (senderRef.current) {
-      senderRef.current.classList.add(styleId.current);
-    }
-    return () => {
-      document.head.removeChild(styleElement);
-      if (senderRef.current) {
-        senderRef.current.classList.remove(styleId.current);
-      }
-    };
-  }, []);
+  // 这里是为了演示样式修改不影响其他Demo，实际项目中直接设置css变量到:root即可
+  useDynamicStyle(senderRef, {
+    '--td-text-color-placeholder': '#DFE2E7',
+    '--td-bg-color-secondarycontainer': '#fff',
+    '--td-chat-input-background': ' #fff',
+  });
 
   // 输入变化处理
   const handleChange = (e) => {
