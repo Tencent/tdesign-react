@@ -11,6 +11,7 @@ import type {
   TdChatbotApi,
 } from '@tdesign-react/aigc';
 import { ChatBot } from '@tdesign-react/aigc';
+
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
   {

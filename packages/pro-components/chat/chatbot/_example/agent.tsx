@@ -14,11 +14,7 @@ import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { ChatBot } from '@tdesign-react/aigc';
 
 import './index.css';
-
-const endpoint = (() => {
-  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-  return isLocal ? 'http://localhost:3000' : 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
-})();
+import { endpoint } from './utils';
 
 const AgentTimeline = ({ steps }) => (
   <div style={{ paddingLeft: 10, marginTop: 14 }}>

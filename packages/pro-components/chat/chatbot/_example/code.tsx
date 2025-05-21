@@ -10,6 +10,7 @@ import {
   ChatServiceConfig,
 } from '@tdesign-react/aigc';
 import Login from './components/login';
+import { endpoint } from './utils';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -134,7 +135,7 @@ export default function chatSample() {
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
     // 对话服务地址
-    endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
+    endpoint: `${endpoint}/sse/normal`,
     stream: true,
     // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
     onComplete: (aborted: boolean, params: RequestInit) => {
