@@ -17,7 +17,7 @@ const MenuGroup: React.FC<MenuGroupProps> = ({ title, className, style, children
   const menuPaddingLeft = cacularPaddingLeft(level - 1) - itemAndGroupPaddingBias;
 
   return (
-    <div className={classNames(className, `${classPrefix}-menu-group`)} style={{ ...style }}>
+    <div className={classNames(className, `${classPrefix}-menu-group`)} style={style}>
       <div className={classNames(`${classPrefix}-menu-group__title`)} style={{ paddingLeft: `${menuPaddingLeft}px` }}>
         {title}
       </div>
