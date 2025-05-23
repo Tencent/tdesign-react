@@ -8,23 +8,48 @@
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
-      "tdesign-react": ["src"],
-      "tdesign-react/*": ["src/*"],
-      "@test/utils": ["test/utils"],
-      "@common/*": ["src/_common/*"]
+      "tdesign-react": [
+        "packages/components"
+      ],
+      "tdesign-react/*": [
+        "packages/components/*"
+      ],
+      "@test/utils": [
+        "test/utils"
+      ],
+      "@common/*": [
+        "packages/common/*"
+      ]
     },
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./globals.d.ts", "./test/config/index.d.ts", "**/**/__tests__/*"],
-  "exclude": ["**/*.jsx", "**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
+  "include": [
+    "./packages/components",
+    "./globals.d.ts",
+    "./test/config/index.d.ts",
+    "**/**/__tests__/*"
+  ],
+  "exclude": [
+    "**/*.jsx",
+    "**/**/_usage/*",
+    "node_modules",
+    "dist",
+    "lib",
+    "esm",
+    "cjs",
+    "es"
+  ],
   "types": [
     "node",
     "jest",

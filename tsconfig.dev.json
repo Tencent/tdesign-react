@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig",
   "include": [
-    "./src",
-    "./globals.d.ts"
+    "./packages/components",
   ],
   "exclude": [
     "**/**/__tests__/*",
@@ -10,7 +9,6 @@
     "**/config-provider/_example/*",
     "**/**/_usage/*",
     "node_modules",
-    "src/_common",
     "dist",
     "lib",
     "esm",
@@ -20,9 +18,9 @@
   "compilerOptions": {
     "declaration": false,
     "paths": {
-      "tdesign-react": ["src"],
+      "tdesign-react": ["packages/components"],
       "@test/utils": ["test/utils"],
-      "@common/*": ["src/_common/*"]
+      "@common/*": ["packages/common/*"]
     },
   }
 }

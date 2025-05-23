@@ -19,7 +19,7 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ['json', 'html'],
   testURL: 'http://localhost/',
-  testPathIgnorePatterns: ['/node_modules/', '.history', '<rootDir>/src/_common'],
+  testPathIgnorePatterns: ['/node_modules/', '.history', '<rootDir>/packages/common'],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.json',
@@ -27,9 +27,8 @@ module.exports = {
     },
   },
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts,tsx,js,jsx}',
+    '<rootDir>/packages/components/**/*.{ts,tsx,js,jsx}',
     '!**/node_modules/**',
-    '!**/_common/**',
     '!**/__tests__/**',
     '!**/style/**',
     '!**/coverage/**',
@@ -38,10 +37,10 @@ module.exports = {
     // 测试工具便捷引入
     '^@test/(.*)': '<rootDir>/test/$1',
     // 组件 alias
-    '^tdesign-react/es': '<rootDir>/src',
-    '^tdesign-react(.*)': '<rootDir>/src$1',
+    '^tdesign-react/es': '<rootDir>/packages/components',
+    '^tdesign-react(.*)': '<rootDir>/packages/components$1',
     // common
-    "^@common/(.*)": "<rootDir>/src/_common/$1",
+    '^@common/(.*)': '<rootDir>/packages/common/$1',
   },
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 };

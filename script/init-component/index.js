@@ -13,7 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const _ = require('lodash');
+const { startCase, camelCase, template } = require('lodash-es');
 const config = require('./config');
 
 const cwdPath = process.cwd();
@@ -29,13 +29,13 @@ function createFile(path, data = '', desc) {
 }
 
 function getPascalCase(name) {
-  return _.startCase(_.camelCase(name)).replace(/ /g, '');
+  return startCase(camelCase(name)).replace(/ /g, '');
 }
 
 function outputFileWithTemplate(item, component, desc, _d) {
   const tplPath = path.resolve(__dirname, `./tpl/${item.template}`);
   let data = fs.readFileSync(tplPath).toString();
-  const compiled = _.template(data);
+  const compiled = template(data);
   data = compiled({
     component,
     PascalCaseComponent: getPascalCase(component),

@@ -4,7 +4,7 @@ tdesign-react 包含 web-react 代码和一个子仓库，子仓库指向 [tdesi
 
 ## 公共子仓库 tdesign-common
 
-本项目以子仓库的形式引入 tdesign-common 公共仓库，对应 src/\_common 文件夹
+本项目以子仓库的形式引入 tdesign-common 公共仓库，对应 packages/common 文件夹
 公共仓库中包含
 
 - 一些公共的工具函数
@@ -50,7 +50,7 @@ UI 开发规范参考子仓库 README [子仓库 README](https://github.com/Tenc
 
 ### API 规范
 
-[API](./src/_common/api.md)
+[API](./packages/common/api.md)
 
 ### 前缀
 
@@ -157,7 +157,7 @@ npm run init button
 
 ### 组件 Demo 演示配置
 
-为了保证与 vue 等其他仓库演示文档内容统一，目前将公共基础演示 demo 与说明归档在 `src/_common/docs/web/api/[组件].md` 中，其中需要各个技术栈的组件提供文档里面所要求的基础 demo 文件否则会编译警告。
+为了保证与 vue 等其他仓库演示文档内容统一，目前将公共基础演示 demo 与说明归档在 `packages/common/docs/web/api/[组件].md` 中，其中需要各个技术栈的组件提供文档里面所要求的基础 demo 文件否则会编译警告。
 
 例如 `tooltip` 组件则需要 `_expample` 文件夹中包含有 `arrow.jsx`、 `noArrow.jsx` 文件
 

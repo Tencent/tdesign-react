@@ -2,6 +2,7 @@ import url from '@rollup/plugin-url';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import styles from 'rollup-plugin-styles';
+import copy from 'rollup-plugin-copy';
 import esbuild from 'rollup-plugin-esbuild';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
@@ -15,7 +16,9 @@ import staticImport from 'rollup-plugin-static-import';
 import ignoreImport from 'rollup-plugin-ignore-import';
 import { resolve } from 'path';
 
-import pkg from '../package.json';
+import pkg from '../packages/tdesign-react/package.json';
+
+// TODO: replace path with utils
 
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
@@ -26,16 +29,16 @@ const banner = `/**
  * @license ${pkg.license}
  */
 `;
-const input = 'src/index-lib.ts';
+const input = 'packages/components/index-lib.ts';
 const inputList = [
-  'src/**/*.ts',
-  'src/**/*.jsx',
-  'src/**/*.tsx',
-  '!src/**/_example',
-  '!src/**/_example-js',
-  '!src/**/*.d.ts',
-  '!src/**/__tests__',
-  '!src/**/_usage',
+  'packages/components/**/*.ts',
+  'packages/components/**/*.jsx',
+  'packages/components/**/*.tsx',
+  '!packages/components/**/_example',
+  '!packages/components/**/_example-js',
+  '!packages/components/**/*.d.ts',
+  '!packages/components/**/__tests__',
+  '!packages/components/**/_usage',
 ];
 
 const getPlugins = ({
@@ -46,7 +49,9 @@ const getPlugins = ({
   extractMultiCss = false,
 } = {}) => {
   const plugins = [
-    nodeResolve(),
+    nodeResolve({
+      extensions: ['.mjs', '.js', '.json', '.node', '.ts', '.tsx'],
+    }),
     commonjs(),
     esbuild({
       include: /\.[jt]sx?$/,
@@ -84,10 +89,11 @@ const getPlugins = ({
   } else if (extractMultiCss) {
     plugins.push(
       staticImport({
-        include: ['src/**/style/css.js'],
+        baseDir: 'packages/components',
+        include: ['packages/components/**/style/css.js'],
       }),
       ignoreImport({
-        include: ['src/*/style/*', 'src/*/*/style/*'],
+        include: ['packages/components/*/style/*'],
         body: 'import "./css.js";',
       }),
     );
@@ -96,11 +102,16 @@ const getPlugins = ({
   } else {
     plugins.push(
       staticImport({
-        include: ['src/**/style/index.js', 'src/_common/style/web/**/*.less'],
+        baseDir: 'packages/components',
+        include: ['packages/components/**/style/index.js'],
+      }),
+      staticImport({
+        baseDir: 'packages/common',
+        include: ['packages/common/style/web/**/*.less'],
       }),
       ignoreImport({
-        include: ['src/*/style/*'],
-        body: 'import "./index.js";',
+        include: ['packages/components/*/style/*'],
+        body: 'import "./style/index.js";',
       }),
     );
   }
@@ -132,11 +143,11 @@ const getPlugins = ({
 };
 
 const cssConfig = {
-  input: ['src/**/style/index.js'],
-  plugins: [multiInput(), styles({ mode: 'extract' })],
+  input: ['packages/components/**/style/index.js'],
+  plugins: [multiInput({ relative: 'packages/components/' }), styles({ mode: 'extract' })],
   output: {
     banner,
-    dir: 'es/',
+    dir: './packages/tdesign-react/es',
     sourcemap: true,
     assetFileNames: '[name].css',
   },
@@ -144,12 +155,12 @@ const cssConfig = {
 
 // 按需加载组件 不带 css 样式
 const libConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/components/index-lib.ts'),
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
-    dir: 'lib/',
+    dir: 'packages/tdesign-react/lib/',
     format: 'esm',
     sourcemap: true,
     chunkFileNames: '_chunks/dep-[hash].js',
@@ -158,14 +169,14 @@ const libConfig = {
 
 // 按需加载组件 带 css 样式
 const esConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/components/index-lib.ts'),
   // 为了保留 style/css.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
-    dir: 'es/',
+    dir: 'packages/tdesign-react/es/',
     format: 'esm',
     sourcemap: true,
     chunkFileNames: '_chunks/dep-[hash].js',
@@ -174,28 +185,42 @@ const esConfig = {
 
 // 按需加载组件 带原始 less 文件，可定制主题
 const esmConfig = {
-  input: inputList.concat('!src/index-lib.ts'),
+  input: inputList.concat('!packages/components/index-lib.ts'),
   // 为了保留 style/index.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ ignoreLess: false })),
+  plugins: [
+    multiInput({ relative: 'packages/components/' }),
+    copy({
+      targets: [
+        {
+          src: 'packages/common/style/web/**/*.less',
+          dest: 'packages/tdesign-react/esm/common',
+          rename: (_, __, fullPath) => `${fullPath.replace('packages/common', '')}`,
+        },
+      ],
+      verbose: true,
+    }),
+  ].concat(getPlugins({ ignoreLess: false })),
   output: {
     banner,
-    dir: 'esm/',
+    dir: 'packages/tdesign-react/esm/',
     format: 'esm',
     sourcemap: true,
     chunkFileNames: '_chunks/dep-[hash].js',
   },
 };
 
+const cjsExternalException = ['lodash-es'];
+const cjsExternal = externalDeps.concat(externalPeerDeps).filter((value) => !cjsExternalException.includes(value));
 // commonjs 导出规范，不带 css 样式
 const cjsConfig = {
   input: inputList,
-  external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins()),
+  external: cjsExternal,
+  plugins: [multiInput({ relative: 'packages/components/' })].concat(getPlugins()),
   output: {
     banner,
-    dir: 'cjs/',
+    dir: 'packages/tdesign-react/cjs/',
     format: 'cjs',
     sourcemap: true,
     exports: 'named',
@@ -215,9 +240,9 @@ const umdConfig = {
     banner,
     format: 'umd',
     exports: 'named',
-    globals: { react: 'React', lodash: '_' },
+    globals: { react: 'React' },
     sourcemap: true,
-    file: `dist/${name}.js`,
+    file: `packages/tdesign-react/dist/${name}.js`,
   },
 };
 
@@ -234,17 +259,17 @@ const umdMinConfig = {
     banner,
     format: 'umd',
     exports: 'named',
-    globals: { react: 'React', lodash: '_' },
+    globals: { react: 'React' },
     sourcemap: true,
-    file: `dist/${name}.min.js`,
+    file: `packages/tdesign-react/dist/${name}.min.js`,
   },
 };
 
 // 单独导出 reset.css 到 dist 目录，兼容旧版本样式
 const resetCss = {
-  input: 'src/_common/style/web/_reset.less',
+  input: 'packages/common/style/web/_reset.less',
   output: {
-    file: 'dist/reset.css',
+    file: 'packages/tdesign-react/dist/reset.css',
   },
   plugins: [postcss({ extract: true })],
 };

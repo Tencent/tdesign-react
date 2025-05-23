@@ -44,15 +44,15 @@ export default function Usage() {
 `;
 // 自动化生成 live demo 脚本
 function genUsage() {
-  for (let name of Object.keys(config)) {
+  for (const name of Object.keys(config)) {
     try {
-      const fileFolderPath = path.resolve(__dirname, `../../src/${name}/_usage`);
+      const fileFolderPath = path.resolve(__dirname, `../../packages/components/${name}/_usage`);
       fs.mkdirSync(fileFolderPath);
     } catch {}
 
     try {
       const data = renderUsageStr(config[name]);
-      const filePath = path.resolve(__dirname, `../../src/${name}/_usage/index.jsx`);
+      const filePath = path.resolve(__dirname, `../../packages/components/${name}/_usage/index.jsx`);
       fs.writeFileSync(filePath, prettier.format(data, { parser: 'babel', tabWidth: 2 }));
     } catch (err) {
       console.error(`${name} usage 组件生成失败...`, err);

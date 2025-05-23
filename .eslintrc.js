@@ -27,7 +27,7 @@ module.exports = {
     },
   },
   rules: {
-    "no-use-before-define": "off",
+    'no-use-before-define': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -72,5 +72,16 @@ module.exports = {
     'func-names': 'off',
     'consistent-return': 'off',
     'default-case': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'lodash',
+            message: 'Please use lodash-es instead.',
+          },
+        ],
+      },
+    ],
   },
 };
