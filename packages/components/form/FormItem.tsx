@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
-import { isObject, isString, get, merge, isFunction, set } from 'lodash-es';
+import { isObject, isString, get, merge, isFunction, set, isEqual } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -107,6 +107,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(() => {
     const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
+
     return (
       get(form.store, fieldName) ??
       getDefaultInitialData({
@@ -168,17 +169,20 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     if (formListName) {
       const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
-      if (get(form.store, fieldName)) {
-        const fieldValue = get(form.store, fieldName);
-        if (fieldValue !== newVal) {
-          setFormValue(newVal);
-          set(form.store, fieldName, newVal);
-        }
-        return;
-      }
+
+      if (!fieldName) return;
+      const fieldValue = get(form.store, fieldName);
+      if (isEqual(fieldValue, newVal)) return;
       set(form.store, fieldName, newVal);
+      setFormValue(newVal);
+    } else {
+      const fieldName = [].concat(name).filter((item) => item !== undefined);
+
+      if (!fieldName) return;
+      if (isEqual(formValue, newVal)) return;
+      set(form.store, name, newVal);
+      setFormValue(newVal);
     }
-    setFormValue(newVal);
   };
 
   // 初始化 rules，最终以 formItem 上优先级最高
