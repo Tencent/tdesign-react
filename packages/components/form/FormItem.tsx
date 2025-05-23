@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
-import { isObject, isString, get, merge, isFunction } from 'lodash-es';
+import { isObject, isString, get, merge, isFunction, set } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -105,12 +105,16 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(() =>
-    getDefaultInitialData({
-      children,
-      initialData,
-    }),
-  );
+  const [formValue, setFormValue] = useState(() => {
+    const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
+    return (
+      get(form.store, fieldName) ??
+      getDefaultInitialData({
+        children,
+        initialData,
+      })
+    );
+  });
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
@@ -161,6 +165,19 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
+
+    if (formListName) {
+      const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
+      if (get(form.store, fieldName)) {
+        const fieldValue = get(form.store, fieldName);
+        if (fieldValue !== newVal) {
+          setFormValue(newVal);
+          set(form.store, fieldName, newVal);
+        }
+        return;
+      }
+      set(form.store, fieldName, newVal);
+    }
     setFormValue(newVal);
   };
 
