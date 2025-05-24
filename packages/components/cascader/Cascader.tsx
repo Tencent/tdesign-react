@@ -204,7 +204,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
           {props.panelTopContent && parseTNode(props.panelTopContent)}
           <Panel
             cascaderContext={cascaderContext}
-            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText'])}
+            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText', 'option'])}
           ></Panel>
           {props.panelBottomContent && parseTNode(props.panelBottomContent)}
         </>

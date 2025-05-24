@@ -18,7 +18,7 @@ const CascaderPanel: React.FC<CascaderProps> = (originalProps) => {
       className={classNames(props.className)}
       style={props.style}
       cascaderContext={cascaderContext}
-      {...pick(props, ['trigger', 'onChange', 'empty'])}
+      {...pick(props, ['trigger', 'onChange', 'empty', 'option'])}
     ></Panel>
   );
 };

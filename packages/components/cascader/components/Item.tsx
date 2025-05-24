@@ -19,6 +19,7 @@ const Item = forwardRef(
   (
     props: {
       node: TreeNode;
+      optionChild: React.ReactNode;
       cascaderContext: CascaderContextType;
       onClick: (ctx: TreeNode) => void;
       onChange: (ctx: TreeNode | { e: boolean; node: TreeNode }) => void;
@@ -28,6 +29,7 @@ const Item = forwardRef(
   ) => {
     const {
       node,
+      optionChild,
       cascaderContext: { multiple },
       onClick,
       onChange,
@@ -60,6 +62,11 @@ const Item = forwardRef(
 
     const RenderLabelInner = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const { inputVal } = cascaderContext;
+
+      if (!inputVal && optionChild) {
+        return optionChild;
+      }
+
       const labelText = inputVal ? getFullPathLabel(node) : node.label;
 
       if (inputVal) {
@@ -76,6 +83,7 @@ const Item = forwardRef(
         }
         return doms;
       }
+
       return labelText;
     };
 
