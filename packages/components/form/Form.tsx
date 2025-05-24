@@ -69,6 +69,7 @@ const Form = forwardRefWithStatics(
         formItemRef?.current.resetField();
       });
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
+      form.store = {};
       onReset?.({ e });
     }
 
