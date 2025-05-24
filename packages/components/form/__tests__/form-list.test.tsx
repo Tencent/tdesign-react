@@ -1,4 +1,4 @@
-import { render, fireEvent, mockTimeout } from '@test/utils';
+import { render, fireEvent, mockTimeout, vi } from '@test/utils';
 import React from 'react';
 
 import { MinusCircleIcon } from 'tdesign-icons-react';
@@ -146,6 +146,7 @@ describe('Form List 组件测试', () => {
     expect(queryByText('地区必填')).not.toBeTruthy();
   });
 
+
   test('reset to initial data', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
@@ -181,4 +182,47 @@ describe('Form List 组件测试', () => {
     expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
     expect((getByPlaceholderText('area-input-1') as HTMLInputElement).value).toBe('beijing');
   })
+
+  test('FormList setFields not trigger onValueChange', async () => {
+    const fn = vi.fn();
+
+    const TestView = () => {
+      const [form] = Form.useForm();
+
+      function setFields() {
+        form.setFields([{ name: 'address', value: [{ province: 'setFields' }] }]);
+      }
+
+      return (
+        <Form form={form} onValuesChange={fn}>
+          <FormList name="address">
+            {(fields) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <FormItem key={key}>
+                    <FormItem {...restField} name={[name, 'province']} label="省份">
+                      <Input />
+                    </FormItem>
+                  </FormItem>
+                ))}
+              </>
+            )}
+          </FormList>
+          <FormItem>
+            <Button onClick={setFields}>setFields</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+
+    const { queryByText } = render(<TestView />);
+
+    fireEvent.click(queryByText('setFields'));
+    await mockTimeout();
+    expect(fn).toHaveBeenCalledTimes(1);
+    fireEvent.click(queryByText('setFields'));
+    await mockTimeout();
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
 });

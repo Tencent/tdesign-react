@@ -8,6 +8,7 @@ import Button from '../../button';
 import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
 import InputNumber from '../../input-number';
+import { Checkbox } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
@@ -534,5 +535,40 @@ describe('Form 组件测试', () => {
     fireEvent.click(getByText('设置信息'));
 
     expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
+  });
+
+  test('FormItem setFields not trigger onValueChange', async () => {
+    const fn = vi.fn();
+
+    const TestForm = () => {
+      const [form] = Form.useForm();
+
+      function setFields() {
+        form.setFields?.([{ name: ['user', 'course'], value: ['la'] }]);
+      }
+
+      return (
+        <Form form={form} labelWidth={100} colon onValuesChange={fn}>
+          <FormItem label="课程" name={['user', 'course']}>
+            <Checkbox.Group>
+              <Checkbox value="la">加辣</Checkbox>
+              <Checkbox value="ma">加麻</Checkbox>
+              <Checkbox value="nocong">不要葱花</Checkbox>
+            </Checkbox.Group>
+          </FormItem>
+          <FormItem>
+            <Button onClick={setFields}>setFields</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+    const { getByText, container } = render(<TestForm />);
+
+    expect(container.querySelector('.t-is-checked')).toBe(null);
+    fireEvent.click(getByText('setFields'));
+    expect((container.querySelector('.t-is-checked input') as HTMLInputElement).value).toEqual('la');
+    expect(fn).toHaveBeenCalledTimes(1);
+    fireEvent.click(getByText('setFields'));
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 });
