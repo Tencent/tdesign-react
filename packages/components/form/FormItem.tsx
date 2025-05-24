@@ -167,22 +167,20 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     shouldValidate.current = validate;
     valueRef.current = newVal;
 
+    let fieldName = [].concat(name);
+    let fieldValue = formValue;
+
     if (formListName) {
-      const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
-
-      if (!fieldName) return;
-      const fieldValue = get(form.store, fieldName);
-      if (isEqual(fieldValue, newVal)) return;
-      set(form.store, fieldName, newVal);
-      setFormValue(newVal);
-    } else {
-      const fieldName = [].concat(name).filter((item) => item !== undefined);
-
-      if (!fieldName) return;
-      if (isEqual(formValue, newVal)) return;
-      set(form.store, name, newVal);
-      setFormValue(newVal);
+      fieldName = [].concat(formListName, name);
+      fieldValue = get(form.store, fieldName);
     }
+
+    fieldName = fieldName.filter((item) => item !== undefined);
+
+    if (!fieldName) return;
+    if (isEqual(fieldValue, newVal)) return;
+    set(form.store, fieldName, newVal);
+    setFormValue(newVal);
   };
 
   // 初始化 rules，最终以 formItem 上优先级最高
