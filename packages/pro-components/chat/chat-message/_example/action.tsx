@@ -2,7 +2,7 @@ import React from 'react';
 import { Space } from 'tdesign-react';
 import { ChatActionBar, ChatMessage } from '@tdesign-react/aigc';
 
-import { AIMessage, getMessageContentForCopy } from '@tencent/tdesign-chatbot';
+import { AIMessage, getMessageContentForCopy } from 'tdesign-web-components';
 
 const message: AIMessage = {
   id: '123123',

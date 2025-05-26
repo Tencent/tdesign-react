@@ -14,7 +14,7 @@ import {
   isAIMessage,
   useChat,
 } from '@tdesign-react/aigc';
-import { getMessageContentForCopy, TdChatActionsName } from '@tencent/tdesign-chatbot';
+import { getMessageContentForCopy, TdChatActionsName } from 'tdesign-web-components';
 import { endpoint } from './utils';
 
 export default function ComponentsBuild() {

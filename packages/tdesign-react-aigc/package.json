@@ -50,7 +50,7 @@
   "dependencies": {
     "@babel/runtime": "~7.26.7",
     "@popperjs/core": "~2.11.2",
-    "@tencent/tdesign-chatbot": "1.0.0-beta.61",
+    "tdesign-web-components": "1.0.0",
     "@types/sortablejs": "^1.10.7",
     "@types/tinycolor2": "^1.4.3",
     "@types/validator": "^13.1.3",

@@ -1,11 +1,10 @@
-import { TdChatSenderApi, TdChatSenderProps } from '@tencent/tdesign-chatbot';
-import '@tencent/tdesign-chatbot/lib/style/index.css';
+import { TdChatSenderProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/chat-sender';
 import reactify from '../_util/reactify';
 
 export const ChatSender: React.ForwardRefExoticComponent<
-  Omit<TdChatSenderProps & React.PropsWithChildren, 'ref'> &
-    React.RefAttributes<HTMLElement | TdChatSenderApi | undefined>
+  Omit<TdChatSenderProps & React.PropsWithChildren, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatSenderProps>('t-chat-sender');
 
 export default ChatSender;
-export type { TdChatSenderProps, TdChatSenderApi } from '@tencent/tdesign-chatbot';
+export type { TdChatSenderProps, TdChatSenderApi } from 'tdesign-web-components';

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import type { ChatMessagesData, ChatStatus } from '@tencent/tdesign-chatbot/lib/chatbot/core/type';
-import { TdChatProps } from '@tencent/tdesign-chatbot';
-import ChatEngine from '@tencent/tdesign-chatbot/lib/chatbot/core';
+import type { ChatMessagesData, ChatStatus } from 'tdesign-web-components/lib/chatbot/core/type';
+import { TdChatProps } from 'tdesign-web-components';
+import ChatEngine from 'tdesign-web-components/lib/chatbot/core';
 
 export type IUseChat = Pick<TdChatProps, 'messages' | 'chatServiceConfig'>;
 

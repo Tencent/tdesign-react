@@ -1,4 +1,5 @@
-import { TdChatMarkdownContentProps } from '@tencent/tdesign-chatbot';
+import { TdChatMarkdownContentProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/chat-message/content/markdown-content';
 import reactify from '../_util/reactify';
 
 export const ChatMarkdown: React.ForwardRefExoticComponent<
@@ -6,4 +7,4 @@ export const ChatMarkdown: React.ForwardRefExoticComponent<
 > = reactify<TdChatMarkdownContentProps>('t-chat-md-content');
 
 export default ChatMarkdown;
-export type { TdChatMarkdownContentProps } from '@tencent/tdesign-chatbot';
+export type { TdChatMarkdownContentProps } from 'tdesign-web-components';

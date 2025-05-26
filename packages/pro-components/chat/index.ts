@@ -1,3 +1,4 @@
+import 'tdesign-web-components/lib/style/index.css';
 export * from './chatbot';
 export * from './chat-actionbar';
 export * from './chat-attachments';

@@ -1,5 +1,5 @@
-import { type TdChatItemProps } from '@tencent/tdesign-chatbot';
-import '@tencent/tdesign-chatbot/lib/style/index.css';
+import { type TdChatItemProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/chat-message';
 import reactify from '../_util/reactify';
 
 export const ChatMessage: React.ForwardRefExoticComponent<
