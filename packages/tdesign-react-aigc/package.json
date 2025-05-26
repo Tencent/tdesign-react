@@ -1,9 +1,10 @@
 {
   "name": "@tdesign-react/aigc",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "title": "@tdesign-react/aigc",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
+  "typings": "es/index.d.ts",
   "files": [
     "es",
     "LICENSE",
