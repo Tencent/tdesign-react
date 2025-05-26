@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
-import semver from 'semver';
 import Loading from '@tdesign/components/loading';
 
-import packageJson from '../../package.json';
 import * as siteConfig from '../site.config';
-import { getRoute, filterVersions } from './utils';
+import { getRoute } from './utils';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
@@ -17,9 +15,6 @@ const docsMap = {
   zh: docs,
   en: enDocs,
 };
-
-const registryUrl = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/release/npm/versions/tdesign-react';
-const currentVersion = packageJson.version.replace(/\./g, '_');
 
 const docRoutes = [...getRoute(siteConfig.default.docs, []), ...getRoute(siteConfig.default.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
