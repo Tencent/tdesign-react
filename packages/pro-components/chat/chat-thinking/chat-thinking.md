@@ -3,7 +3,7 @@ title: ChatThinking 思考过程
 description: 思考过程
 isComponent: true
 usage: { title: '', description: '' }
-spline: navigation
+spline: aigc
 ---
 
 ## 基础用法
