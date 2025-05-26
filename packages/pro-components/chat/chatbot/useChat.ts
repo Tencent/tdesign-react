@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import type { ChatMessagesData, ChatStatus } from '@tencent/tdesign-chatbot/lib/chatbot/core/type';
-import { TdChatProps } from '@tencent/tdesign-chatbot';
-import ChatEngine from '@tencent/tdesign-chatbot/lib/chatbot/core';
+import type { ChatMessagesData, ChatStatus } from 'tdesign-web-components/lib/chatbot/core/type';
+import { TdChatProps } from 'tdesign-web-components';
+import ChatEngine from 'tdesign-web-components/lib/chatbot/core';
 
+// @ts-ignore
 export type IUseChat = Pick<TdChatProps, 'messages' | 'chatServiceConfig'>;
 
 export const useChat = ({ messages: initialMessages, chatServiceConfig }: IUseChat) => {
@@ -25,7 +26,9 @@ export const useChat = ({ messages: initialMessages, chatServiceConfig }: IUseCh
   };
 
   const initChat = () => {
+    // @ts-ignore
     chatEngine.init(chatServiceConfig, initialMessages);
+    // @ts-ignore
     syncState(initialMessages);
     subscribeToChat();
   };

@@ -1,4 +1,5 @@
-import { TdChatActionProps } from '@tencent/tdesign-chatbot';
+import { TdChatActionProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/chat-action';
 import reactify from '../_util/reactify';
 
 export const ChatActionBar: React.ForwardRefExoticComponent<
@@ -9,4 +10,4 @@ export const ChatActionBar: React.ForwardRefExoticComponent<
 > = reactify<TdChatActionProps>('t-chat-action');
 
 export default ChatActionBar;
-export type { TdChatActionProps } from '@tencent/tdesign-chatbot';
+export type { TdChatActionProps } from 'tdesign-web-components';

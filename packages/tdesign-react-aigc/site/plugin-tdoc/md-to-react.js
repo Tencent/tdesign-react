@@ -95,23 +95,6 @@ export default async function mdToReact(options) {
                 spline="${mdSegment.spline}"
                 platform="web"
               >
-                ${
-                  mdSegment.isComponent
-                    ? `
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: lines" message="${
-                      coverage.lines || '0%'
-                    }" />
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: functions" message="${
-                      coverage.functions || '0%'
-                    }" />
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: statements" message="${
-                      coverage.statements || '0%'
-                    }" />
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: branches" message="${
-                      coverage.branches || '0%'
-                    }" />`
-                    : ''
-                }
               </td-doc-header>`
               : ''
           }

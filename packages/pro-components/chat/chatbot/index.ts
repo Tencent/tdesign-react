@@ -1,19 +1,14 @@
-import '@tencent/tdesign-chatbot/lib/chatbot';
-import '@tencent/tdesign-chatbot/lib/chat-message/content/search-content';
-import '@tencent/tdesign-chatbot/lib/chat-message/content/suggestion-content';
-import '@tencent/tdesign-chatbot/lib/chat-message/content/markdown-content';
-import '@tencent/tdesign-chatbot/lib/style/index.css';
+import 'tdesign-web-components/lib/chatbot';
+import 'tdesign-web-components/lib/chat-message/content/search-content';
+import 'tdesign-web-components/lib/chat-message/content/suggestion-content';
 import type {
   TdChatbotApi,
-  TdChatListApi,
   TdChatListProps,
   TdChatProps,
   TdChatSearchContentProps,
   TdChatSuggestionContentProps,
-} from '@tencent/tdesign-chatbot';
+} from 'tdesign-web-components';
 import reactify from '../_util/reactify';
-
-export * from '@tencent/tdesign-chatbot/lib/chatbot/core/utils';
 
 export * from './useChat';
 
@@ -30,8 +25,10 @@ const ChatSuggestionContent: React.ForwardRefExoticComponent<
 > = reactify<TdChatSuggestionContentProps>('t-chat-suggestion-content');
 
 const ChatList: React.ForwardRefExoticComponent<
-  Omit<TdChatListProps, 'ref'> & React.RefAttributes<HTMLElement | TdChatListApi | undefined>
-> = reactify<TdChatProps>('t-chat-list');
+  Omit<TdChatListProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
+> = reactify<TdChatListProps>('t-chat-list');
 
 export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };
-// export type * from '@tencent/tdesign-chatbot/lib/chatbot/type';
+
+export * from 'tdesign-web-components/lib/chatbot/core/utils';
+export type * from 'tdesign-web-components/lib/chatbot/type';

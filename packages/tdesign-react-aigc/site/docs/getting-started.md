@@ -22,7 +22,7 @@ npm i @tdesign-react/aigc
 
 ```javascript
 import { ChatBot } from '@tdesign-react/aigc';
-import '@tdesign-react/aigc/es/style/index.css'; // 少量公共样式
+import '@tdesign-react/aigc/es/style/index.js'; // 少量公共样式
 ```
 
 ## 浏览器兼容性

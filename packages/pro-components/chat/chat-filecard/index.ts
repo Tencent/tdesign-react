@@ -1,4 +1,5 @@
-import { TdFileCardProps } from '@tencent/tdesign-chatbot';
+import { TdFileCardProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/filecard';
 import reactify from '../_util/reactify';
 
 export const Filecard: React.ForwardRefExoticComponent<
@@ -6,4 +7,4 @@ export const Filecard: React.ForwardRefExoticComponent<
 > = reactify<TdFileCardProps>('t-filecard');
 
 export default Filecard;
-export type { TdFileCardProps } from '@tencent/tdesign-chatbot';
+export type { TdFileCardProps } from 'tdesign-web-components';

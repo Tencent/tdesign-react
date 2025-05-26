@@ -218,10 +218,10 @@ export default function ChatBotReact() {
       >
         {mockMessage
           ?.map((msg) =>
-            msg.content.map((item) => {
+            msg.content.map((item, index) => {
               if (item.type === 'agent') {
                 return (
-                  <div slot={`${msg.id}-${item.type}-${item.id}`} key={`${msg.id}-${item.state}-${item.id}`}>
+                  <div slot={`${msg.id}-${item.type}-${index}`} key={`${msg.id}-${item.state}-${item.id}`}>
                     <AgentTimeline steps={item.content.steps} />
                   </div>
                 );
