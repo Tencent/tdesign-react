@@ -9,11 +9,9 @@ import commonjs from '@rollup/plugin-commonjs';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import multiInput from 'rollup-plugin-multi-input';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import staticImport from 'rollup-plugin-static-import';
-import ignoreImport from 'rollup-plugin-ignore-import';
 import { resolve } from 'path';
 
-import pkg from '../../../packages/tdesign-react-aigc/package.json';
+import pkg from '../packages/tdesign-react-aigc/package.json';
 
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
@@ -33,7 +31,7 @@ const inputList = [
   '!packages/pro-components/chat/**/_usage',
 ];
 
-const getPlugins = ({ env, isProd = false, ignoreLess = true, extractMultiCss = false } = {}) => {
+const getPlugins = ({ env, isProd = false } = {}) => {
   const plugins = [
     nodeResolve({
       extensions: ['.mjs', '.js', '.json', '.node', '.ts', '.tsx'],

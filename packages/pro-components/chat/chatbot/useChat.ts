@@ -3,6 +3,7 @@ import type { ChatMessagesData, ChatStatus } from 'tdesign-web-components/lib/ch
 import { TdChatProps } from 'tdesign-web-components';
 import ChatEngine from 'tdesign-web-components/lib/chatbot/core';
 
+// @ts-ignore
 export type IUseChat = Pick<TdChatProps, 'messages' | 'chatServiceConfig'>;
 
 export const useChat = ({ messages: initialMessages, chatServiceConfig }: IUseChat) => {
@@ -25,7 +26,9 @@ export const useChat = ({ messages: initialMessages, chatServiceConfig }: IUseCh
   };
 
   const initChat = () => {
+    // @ts-ignore
     chatEngine.init(chatServiceConfig, initialMessages);
+    // @ts-ignore
     syncState(initialMessages);
     subscribeToChat();
   };
