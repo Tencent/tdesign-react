@@ -7,3 +7,5 @@ export const ChatMessage: React.ForwardRefExoticComponent<
 > = reactify<TdChatItemProps>('t-chat-item');
 
 export default ChatMessage;
+
+export type { TdChatItemProps } from 'tdesign-web-components';
