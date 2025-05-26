@@ -1,6 +1,6 @@
 {
   "name": "@tdesign-react/aigc",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "title": "@tdesign-react/aigc",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
@@ -21,9 +21,10 @@
     "start": "pnpm dev",
     "dev": "vite",
     "prebuild": "rimraf es/*",
-    "build": "cross-env NODE_ENV=production rollup -c ../script/rollup.aigc.config.js && npm run build:tsc",
+    "build": "cross-env NODE_ENV=production rollup -c script/rollup.config.js && npm run build:tsc",
     "build:tsc": "run-p build:tsc-*",
-    "build:tsc-es": "tsc --emitDeclarationOnly -d -p ./tsconfig.build.json --outDir es/"
+    "build:tsc-es": "tsc --emitDeclarationOnly -d -p ./tsconfig.build.json --outDir es/",
+    "build:jsx-demo": "npm run generate:jsx-demo && npm run format:jsx-demo"
   },
   "config": {
     "commitizen": {
@@ -48,7 +49,9 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
-    "tdesign-web-components": "1.0.0"
+    "tdesign-web-components": "1.0.0",
+    "classnames": "~2.5.1",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "cors": "^2.8.5",
