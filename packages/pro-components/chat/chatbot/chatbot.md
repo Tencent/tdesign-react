@@ -107,3 +107,22 @@ registerMergeStrategy | type: T['type'], handler: (chunk: T, existing?: T) => T 
 scrollToBottom | 无 | void | 滚动消息列表到底部
 chatMessageValue | 无 | ChatMessagesData[] | 获取当前消息列表的只读副本
 chatStatus | 无 | ChatStatus | 获取当前聊天状态（空闲/进行中/错误等）
+
+### useChat Hook
+
+useChat 是聊天组件核心逻辑Hook，用于管理聊天状态与生命周期：初始化聊天引擎、同步消息数据、订阅状态变更，并自动处理组件卸载时的资源清理，对外暴露聊天引擎实例/消息列表/状态等核心参数。
+
+- **请求参数说明**
+
+参数名	| 类型	| 说明
+-- | -- | --
+defaultMessages |	ChatMessagesData[]	| 初始化消息列表，用于设置聊天记录的初始值
+chatServiceConfig	| ChatServiceConfigSetter	| 聊天服务配置，支持静态配置或动态生成配置的函数，用于设置API端点/重试策略等参数
+
+- **返回值说明**
+
+返回值 |	类型	| 说明
+-- | -- | --
+chatEngine |	ChatEngine 实例	| 聊天引擎实例，提供核心操作方法，同上方 `Chatbot 实例方法`
+messages	| ChatMessagesData[]	| 当前聊天消息列表所有数据
+status	| ChatStatus	| 当前聊天状态

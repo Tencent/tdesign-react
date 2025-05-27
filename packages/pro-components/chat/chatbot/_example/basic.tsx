@@ -185,7 +185,7 @@ export default function chatSample() {
         chatServiceConfig={chatServiceConfig}
       >
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
-        <div slot="sender-footer-left">
+        <div slot="sender-footer-prefix">
           <Space align="center" size={'small'}>
             <Button
               variant="outline"

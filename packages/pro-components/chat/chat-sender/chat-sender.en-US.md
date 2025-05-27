@@ -31,5 +31,5 @@ onAction | Function | - | 操作按钮点击事件。参数：`{ action: string,
 | header | 顶部自定义内容 |
 | inner-header | 输入区域顶部内容 |
 | prefix | 输入框前缀内容 |
-| footer-left | 底部左侧区域 |
+| footer-prefix | 底部左侧区域 |
 | actions | 操作按钮区域 |

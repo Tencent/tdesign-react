@@ -4,9 +4,9 @@ import { TdChatProps } from 'tdesign-web-components';
 import ChatEngine from 'tdesign-web-components/lib/chatbot/core';
 
 // @ts-ignore
-export type IUseChat = Pick<TdChatProps, 'messages' | 'chatServiceConfig'>;
+export type IUseChat = Pick<TdChatProps, 'defaultMessages' | 'chatServiceConfig'>;
 
-export const useChat = ({ messages: initialMessages, chatServiceConfig }: IUseChat) => {
+export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {
   const [messages, setMessage] = useState<ChatMessagesData[]>([]);
   const [status, setStatus] = useState<ChatStatus>('idle');
   const chatEngineRef = useRef<ChatEngine>(new ChatEngine());

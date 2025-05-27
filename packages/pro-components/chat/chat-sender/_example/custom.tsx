@@ -147,7 +147,7 @@ const ChatSenderExample = () => {
         </div>
       )}
       {/* 自定义输入框底部区域slot，可以增加模型选项 */}
-      <div slot="footer-left">
+      <div slot="footer-prefix">
         <Space align="center" size={'small'}>
           <Tooltip content="只支持上传图片，总大小不超过20M">
             <Button shape="round" variant="outline" size="small" icon={<AttachIcon />} onClick={onAttachClick} />
@@ -174,7 +174,7 @@ const ChatSenderExample = () => {
         </Space>
       </div>
       {/* 自定义输入框左侧区域slot，可以用来触发工具场景切换 */}
-      <div slot="prefix">
+      <div slot="input-prefix">
         <Dropdown options={options} onClick={switchScene} trigger="click" style={{ padding: 0 }}>
           <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4, cursor: 'pointer' }}>
             {options.filter((item) => item.value === scene)[0].content}
