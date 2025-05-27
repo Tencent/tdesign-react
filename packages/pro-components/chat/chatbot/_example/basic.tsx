@@ -175,6 +175,7 @@ export default function chatSample() {
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
+        revers={true}
         ref={chatRef}
         defaultMessages={mockData}
         messageProps={messageProps}
