@@ -61,22 +61,35 @@ spline: navigation
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-block | Boolean | false | 是否为块级元素 | N
-children | TNode | - | 按钮内容，同 content。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-content | TNode | - | 按钮内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-disabled | Boolean | false | 禁用状态 | N
-form | String | undefined | 原生的form属性，支持用于通过 form 属性触发对应 id 的 form 的表单事件 | N
-ghost | Boolean | false | 是否为幽灵按钮（镂空按钮） | N
-href | String | - | 跳转地址。href 存在时，按钮标签默认使用 `<a>` 渲染；如果指定了 `tag` 则使用指定的标签渲染 | N
-icon | TElement | - | 按钮内部图标，可完全自定义。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-loading | Boolean | false | 是否显示为加载状态 | N
-shape | String | rectangle | 按钮形状，有 4 种：长方形、正方形、圆角长方形、圆形。可选项：rectangle/square/round/circle | N
-size | String | medium | 组件尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-suffix | TElement | - | 右侧内容，可用于定义右侧图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-tag | String | - | 渲染按钮的 HTML 标签，默认使用标签 `<button>` 渲染，可以自定义为 `<a>` `<div>` 等。透传全部 HTML 属性，如：`href/target/data-*` 等。⚠️ 禁用按钮 `<button disabled>`无法显示 Popup 浮层信息，可通过修改 `tag=div` 解决这个问题。可选项：button/a/div | N
-theme | String | - | 组件风格，依次为默认色、品牌色、危险色、警告色、成功色。可选项：default/primary/danger/warning/success | N
-type | String | button | 按钮类型。可选项：submit/reset/button | N
-variant | String | base | 按钮形式，基础、线框、虚线、文字。可选项：base/outline/dashed/text | N
-onClick | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>点击时触发 | N
+layout | String | both | 布局模式。可选项：single/both。`single`只显示消息列表，`both`显示消息列表和发送框 | N
+reverse | Boolean | false | 是否倒序渲染消息 | N
+autoSendPrompt | String | - | 自动发送的提示文本 | N
+defaultMessages | Array | - | 初始消息列表。TS类型：`ChatMessagesData[]`。[类型定义](./chat-message?tab=api#message-消息对象结构) | N
+messageProps | Object/Function | - | 消息项配置。TS类型：`TdChatMessageConfig \| Function` 。[类型定义](./chat-message?tab=api)  | N
+listProps | Object | - | 消息列表配置。TS类型：`TdChatListProps`。 | N
+senderProps | Object | - | 发送框配置。TS类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api) | N
+chatServiceConfig | Object | - | 聊天服务配置。TS类型：`ChatServiceConfig` | N
+injectCSS | Object | - | 自定义样式注入。TS类型：`{ ChatSender?: string, chatList?: string, chatItem?: string }` | N
+onMessageChange | Function | - | 消息变化回调 | N
+
+### TdChatListProps 消息列表配置
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+autoScroll | Boolean | true | 是否自动滚动到底部 | N
+defaultScrollPosition | String | bottom | 初始滚动位置。可选项：top/bottom/bottom | N
+onScroll | Function | - | 滚动事件回调 | N
+
+### ChatServiceConfig 属性
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+endpoint | String | -  | 聊天服务的API端点URL | N
+stream | Boolean | true | 是否使用流式传输 | N
+retryInterval | Number | - | 重试间隔时间(毫秒) | N
+maxRetries | Number | - | 最大重试次数 | N
+onRequest | Function | - | 请求前的回调，可修改请求参数。TS类型：`(params: ChatRequestParams) => RequestInit` | N
+onMessage | Function | - | 处理流式消息的回调。TS类型：`(chunk: SSEChunkData) => AIMessageContent / null` | N
+onComplete | Function | - | 请求完成时的回调。TS类型：`(isAborted: boolean, params: RequestInit, result?: any) => void` | N
+onAbort | Function | - | 中止请求时的回调。TS类型：`() => Promise<void>` | N
+onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Response) => void` | N

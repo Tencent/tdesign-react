@@ -1,26 +1,35 @@
 :: BASE_DOC ::
 
 ## API
-### Button Props
+### ChatSender Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-block | Boolean | false | make button to be a block-level element | N
-children | TNode | - | button's children elements。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-content | TNode | - | button's children elements。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-disabled | Boolean | false | disable the button, make it can not be clicked | N
-form | String | undefined |  native `form` attribute，which supports triggering events for a form with a specified id through the use of the form attribute. | N
-ghost | Boolean | false | make background-color to be transparent | N
-href | String | - | \- | N
-icon | TElement | - | use it to set left icon in button。Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-loading | Boolean | false | set button to be loading state | N
-shape | String | rectangle | button shape。options：rectangle/square/round/circle | N
-size | String | medium | a button has three size。options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-suffix | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-tag | String | - | HTML Tag Element。options：button/a/div | N
-theme | String | - | button theme。options：default/primary/danger/warning/success | N
-type | String | button | type of button element in html。options：submit/reset/button | N
-variant | String | base | variant of button。options：base/outline/dashed/text | N
-onClick | Function |  | Typescript：`(e: MouseEvent) => void`<br/>trigger on click | N
+placeholder | String | - | 输入框占位文本 | N
+disabled | Boolean | false | 是否禁用组件 | N
+value | String | - | 输入框内容(受控) | N
+defaultValue | String | - | 输入框默认内容(非受控) | N
+loading | Boolean | false | 是否显示加载状态 | N
+autosize | Object | `{ minRows: 2 }` | 输入框自适应高度配置 | N
+actions | Array/Function/Boolean | - | 操作按钮配置 | N
+attachmentsProps | Object | `{ items: [], overflow: 'scrollX' }` | 附件配置 | N
+textareaProps | Object | - | 输入框额外属性 | N
+uploadProps | Object | - | 文件上传属性 | N
+onFileSelect | Function | - | 文件选择事件 | N
+onFileRemove | Function | - | 文件移除事件 | N
+onSend | Function | - | 发送消息事件。参数：`{ value: string, attachments: TdAttachmentItem[] }` | N
+onStop | Function | - | 停止发送事件 | N
+onChange | Function | - | 输入内容变化事件 | N
+onFocus | Function | - | 输入框聚焦事件 | N
+onBlur | Function | - | 输入框失焦事件 | N
+onAction | Function | - | 操作按钮点击事件。参数：`{ action: string, index: number }` | N
+
+### 插槽
+
+| 插槽名 | 说明 |
+|--------|------|
+| header | 顶部自定义内容 |
+| inner-header | 输入区域顶部内容 |
+| prefix | 输入框前缀内容 |
+| footer-left | 底部左侧区域 |
+| actions | 操作按钮区域 |
