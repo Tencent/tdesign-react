@@ -1,26 +1,19 @@
 :: BASE_DOC ::
 
 ## API
-### Button Props
+### ChatAttachments Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
-block | Boolean | false | make button to be a block-level element | N
-children | TNode | - | button's children elements。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-content | TNode | - | button's children elements。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-disabled | Boolean | false | disable the button, make it can not be clicked | N
-form | String | undefined |  native `form` attribute，which supports triggering events for a form with a specified id through the use of the form attribute. | N
-ghost | Boolean | false | make background-color to be transparent | N
-href | String | - | \- | N
-icon | TElement | - | use it to set left icon in button。Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-loading | Boolean | false | set button to be loading state | N
-shape | String | rectangle | button shape。options：rectangle/square/round/circle | N
-size | String | medium | a button has three size。options：small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-suffix | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-tag | String | - | HTML Tag Element。options：button/a/div | N
-theme | String | - | button theme。options：default/primary/danger/warning/success | N
-type | String | button | type of button element in html。options：submit/reset/button | N
-variant | String | base | variant of button。options：base/outline/dashed/text | N
-onClick | Function |  | Typescript：`(e: MouseEvent) => void`<br/>trigger on click | N
+items | Array  | - | 附件列表。TS类型：TdAttachmentItem[]。[类型定义](?tab=api#tdattachmentitem-类型说明) | Y
+onRemove | Function | - | 附件移除时的回调函数。 TS类型：`(item:  TdAttachmentItem) => void \| undefined` | N
+removable | Boolean | true | 是否显示删除按钮 | N
+overflow | String | wrap | 文件列表超出时样式。可选项：wrap/scrollX/scrollY | N
+imageViewer | Boolean | true | 图片预览开关 | N
+
+## TdAttachmentItem 类型说明
+name | type | default | description | required
+-- | -- | -- | -- | --
+description | String | - | 文件描述信息 | N
+extension | String | - | 文件扩展名 | N
+(继承属性) | UploadFile | - | 包含 `name`, `size`, `status` 等基础文件属性 | N
