@@ -2,12 +2,12 @@ import React from 'react';
 import TvisionTcharts from 'tvision-charts-react';
 import { Space } from 'tdesign-react';
 
-import { BaseContent, ChatMessage } from '@tdesign-react/aigc';
+import { ChatBaseContent, ChatMessage } from '@tdesign-react/aigc';
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
   interface AIContentTypeOverrides {
-    chart: BaseContent<
+    chart: ChatBaseContent<
       'chart',
       {
         chartType: string;

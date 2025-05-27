@@ -6,7 +6,7 @@ import {
   SSEChunkData,
   TdChatMessageConfig,
   AIMessageContent,
-  RequestParams,
+  ChatRequestParams,
   ChatServiceConfig,
 } from '@tdesign-react/aigc';
 import Login from './components/login';
@@ -169,7 +169,7 @@ export default function chatSample() {
       }
     },
     // 自定义请求参数
-    onRequest: (innerParams: RequestParams) => {
+    onRequest: (innerParams: ChatRequestParams) => {
       const { prompt } = innerParams;
       return {
         headers: {

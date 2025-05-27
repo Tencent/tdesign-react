@@ -4,9 +4,9 @@ import type {
   SSEChunkData,
   TdChatMessageConfig,
   AIContentChunkUpdate,
-  RequestParams,
+  ChatRequestParams,
   ChatServiceConfig,
-  BaseContent,
+  ChatBaseContent,
   ChatMessagesData,
 } from '@tdesign-react/aigc';
 import { Button, Space } from 'tdesign-react';
@@ -17,7 +17,7 @@ import { endpoint } from './utils';
 // 1、扩展自定义消息体类型
 declare module '@tdesign-react/aigc' {
   interface AIContentTypeOverrides {
-    chart: BaseContent<
+    chart: ChatBaseContent<
       'chart',
       {
         chartType: string;
@@ -117,7 +117,7 @@ export default function ChatBotReact() {
       }
     },
     // 自定义请求参数
-    onRequest: (innerParams: RequestParams) => {
+    onRequest: (innerParams: ChatRequestParams) => {
       const { prompt } = innerParams;
       return {
         headers: {

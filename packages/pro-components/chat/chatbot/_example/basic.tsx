@@ -4,7 +4,7 @@ import {
   SSEChunkData,
   AIMessageContent,
   TdChatMessageConfigItem,
-  RequestParams,
+  ChatRequestParams,
   ChatMessagesData,
   ChatServiceConfig,
   ChatBot,
@@ -149,7 +149,7 @@ export default function chatSample() {
       }
     },
     // 自定义请求参数
-    onRequest: (innerParams: RequestParams) => {
+    onRequest: (innerParams: ChatRequestParams) => {
       const { prompt } = innerParams;
       return {
         headers: {

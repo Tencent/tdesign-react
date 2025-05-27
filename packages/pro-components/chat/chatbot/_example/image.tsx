@@ -3,13 +3,12 @@ import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-i
 import type {
   SSEChunkData,
   AIMessageContent,
-  RequestParams,
+  ChatRequestParams,
   ChatMessagesData,
   ChatServiceConfig,
   TdAttachmentItem,
   TdChatSenderParams,
   UploadFile,
-  ChatRequestParams,
   TdChatMessageConfig,
   TdChatbotApi,
 } from '@tdesign-react/aigc';
@@ -194,7 +193,7 @@ export default function chatSample() {
       }
     },
     // 自定义请求参数
-    onRequest: (innerParams: RequestParams) => {
+    onRequest: (innerParams: ChatRequestParams) => {
       const { prompt } = innerParams;
       return {
         headers: {

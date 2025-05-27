@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import type {
   TdChatMessageConfig,
   AIMessageContent,
-  RequestParams,
+  ChatRequestParams,
   ChatServiceConfig,
-  BaseContent,
+  ChatBaseContent,
   ChatMessagesData,
 } from '@tdesign-react/aigc';
 import { Timeline } from 'tdesign-react';
@@ -42,7 +42,7 @@ const AgentTimeline = ({ steps }) => (
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {
   interface AIContentTypeOverrides {
-    agent: BaseContent<
+    agent: ChatBaseContent<
       'agent',
       {
         id: string;
@@ -131,7 +131,7 @@ export default function ChatBotReact() {
       }
     },
     // 自定义请求参数
-    onRequest: (innerParams: RequestParams) => {
+    onRequest: (innerParams: ChatRequestParams) => {
       const { prompt } = innerParams;
       return {
         headers: {

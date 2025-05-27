@@ -3,7 +3,7 @@ import {
   type SSEChunkData,
   type TdChatMessageConfig,
   type AIMessageContent,
-  type RequestParams,
+  type ChatRequestParams,
   type ChatMessagesData,
   ChatList,
   ChatSender,
@@ -71,7 +71,7 @@ export default function ComponentsBuild() {
         }
       },
       // 自定义请求参数
-      onRequest: (innerParams: RequestParams) => {
+      onRequest: (innerParams: ChatRequestParams) => {
         const { prompt } = innerParams;
         return {
           headers: {
@@ -148,7 +148,7 @@ export default function ComponentsBuild() {
     </>
   );
 
-  const sendUserMessage = async (requestParams: RequestParams) => {
+  const sendUserMessage = async (requestParams: ChatRequestParams) => {
     await chatEngine.sendUserMessage(requestParams);
     listRef.current?.scrollToBottom();
   };
