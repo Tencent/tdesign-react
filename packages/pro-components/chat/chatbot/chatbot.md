@@ -61,7 +61,7 @@ spline: navigation
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-defaultMessages | Array | - | 初始消息数据列表。TS类型：`ChatMessagesData[]`。[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/core/type.ts#L140) | N
+defaultMessages | Array | - | 初始消息数据列表。TS类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api) | N
 messageProps | Object/Function | - | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，TS类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatItemProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts#L151)  | N
 listProps | Object | - | 消息列表配置。TS类型：`TdChatListProps`。 | N
 senderProps | Object | - | 发送框配置，透传`ChatSender`组件。TS类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api) | N

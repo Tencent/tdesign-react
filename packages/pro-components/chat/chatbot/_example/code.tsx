@@ -8,6 +8,7 @@ import {
   AIMessageContent,
   ChatRequestParams,
   ChatServiceConfig,
+  TdChatbotApi,
 } from '@tdesign-react/aigc';
 import Login from './components/login';
 import { endpoint } from './utils';
@@ -74,10 +75,10 @@ const PreviewCard = ({ header, desc, loading, code }) => {
             desc
           ) : (
             <Space>
-              <a href={null} onClick={copyHandler} style={{ cursor: 'pointer' }}>
+              <a onClick={copyHandler} style={{ cursor: 'pointer' }}>
                 复制代码
               </a>
-              <a href={null} onClick={previewHandler} style={{ cursor: 'pointer' }}>
+              <a onClick={previewHandler} style={{ cursor: 'pointer' }}>
                 预览
               </a>
             </Space>
