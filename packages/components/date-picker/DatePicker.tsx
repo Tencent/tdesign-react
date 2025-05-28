@@ -314,7 +314,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     onYearChange,
     onMonthChange,
     onTimePickerChange,
-    onPanelClick: () => inputRef.current?.focus?.(),
     disableTime,
   };
 
