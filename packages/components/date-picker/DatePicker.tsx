@@ -54,7 +54,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     year,
     month,
     time,
-    inputRef,
     onChange,
     setIsHoverCell,
     setInputValue,
