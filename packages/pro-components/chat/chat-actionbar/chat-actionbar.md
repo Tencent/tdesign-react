@@ -1,6 +1,6 @@
 ---
 title: ChatActionBar 对话操作栏
-description: 对话操作栏
+description: 对话消息操作栏
 isComponent: true
 usage: { title: '', description: '' }
 spline: aigc
@@ -29,8 +29,8 @@ spline: aigc
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-actionBar | Array / Boolean | true | 操作按钮配置项，可配置操作按钮选项和顺序。数组可选项：replay/copy/good/bad/goodActived/badActived/share | N
-onActions | Function | - | 操作按钮回调函数。TS类型：`Record<TdChatItemActionName, (data?: any, callback?: Function) => void>` | N
-presetActions | Array | - | 预制按钮。TS类型：`Record<{name: TdChatItemActionName, render: TNode, condition?: (message: ChatMessagesData) => boolean;}>` | N
-message | Object | - | 对话数据信息 | N
-tooltipProps | TooltipProps | - | [类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tooltip/type.ts)  | N
+actionBar | TdChatActionsName[] \| boolean | true | 操作按钮配置项，可配置操作按钮选项和顺序。数组可选项：replay/copy/good/bad/share | N
+handleAction | Function | - | 操作回调函数。TS类型：`(name: TdChatActionsName, data: any) => void` | N
+comment | ChatComment | - | 用户反馈状态，可选项：'good'/'bad' | N
+copyText | string | - | 复制按钮的复制文本 | N
+tooltipProps | TooltipProps | - | tooltip的属性 [类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tooltip/type.ts)  | N

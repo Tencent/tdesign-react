@@ -1,4 +1,4 @@
-import { type MessageStatus } from 'tdesign-web-components';
+import { type ChatMessageStatus } from 'tdesign-web-components';
 import React, { useState, useEffect, useRef } from 'react';
 import { ChatThinking } from '@tdesign-react/aigc';
 
@@ -7,7 +7,7 @@ const fullText =
 
 export default function ThinkContentDemo() {
   const [displayText, setDisplayText] = useState('');
-  const [status, setStatus] = useState<MessageStatus>('pending');
+  const [status, setStatus] = useState<ChatMessageStatus>('pending');
   const [title, setTitle] = useState('正在思考中...');
   const [collapsed, setCollapsed] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
