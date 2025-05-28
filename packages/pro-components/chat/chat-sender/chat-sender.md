@@ -37,9 +37,9 @@ value | String | - | 输入框内容(受控) | N
 defaultValue | String | - | 输入框默认内容(非受控) | N
 loading | Boolean | false | 是否显示加载状态 | N
 autosize | Object | `{ minRows: 2 }` | 输入框自适应高度配置 | N
-actions | Array/Function/Boolean | - | 操作按钮配置 | N
-attachmentsProps | Object | `{ items: [], overflow: 'scrollX' }` | 附件配置 | N
-textareaProps | Object | - | 输入框额外属性 | N
+actions | Array/Boolean | - | 操作按钮配置，类型`<'attachment' | 'send'>[]` | N
+attachmentsProps | Object | `{ items: [], overflow: 'scrollX' }` | 附件配置透传`ChatAttachment`，详见[ChatAttachment](https://tdesign.gtimg.com/chatbot/doc/react/api/chat-attachment?tab=api) | N
+textareaProps | Object | - | 输入框额外属性，部分透传`Textarea`，类型`Partial<Omit<TdTextareaProps, 'value' | 'defaultValue' | 'placeholder' | 'disabled' | 'autosize'>>`，详见[TdTextareaProps](https://tdesign.tencent.com/react/components/textarea?tab=api) | N
 uploadProps | Object | - | 文件上传属性 | N
 onFileSelect | Function | - | 文件选择事件 | N
 onFileRemove | Function | - | 文件移除事件 | N

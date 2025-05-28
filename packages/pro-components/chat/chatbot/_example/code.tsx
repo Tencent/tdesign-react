@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import type { Card, Space } from 'tdesign-react';
+import { DialogPlugin, Card, Space } from 'tdesign-react';
 import {
   ChatBot,
   ChatMessagesData,

@@ -6,6 +6,7 @@ import type {
   ChatServiceConfig,
   ChatBaseContent,
   ChatMessagesData,
+  SSEChunkData,
 } from '@tdesign-react/aigc';
 import { Timeline } from 'tdesign-react';
 
