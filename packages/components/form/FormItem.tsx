@@ -109,7 +109,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
 
     return (
-      get(form.store, fieldName) ??
+      get(form?.store, fieldName) ??
       getDefaultInitialData({
         children,
         initialData,
@@ -177,7 +177,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     fieldName = fieldName.filter((item) => item !== undefined);
 
-    if (!fieldName) return;
+    if (!fieldName || !form) return;
     if (isEqual(fieldValue, newVal)) return;
     set(form.store, fieldName, newVal);
     setFormValue(newVal);
