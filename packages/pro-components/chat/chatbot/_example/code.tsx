@@ -123,10 +123,6 @@ export default function chatSample() {
               preset: 'code', // 代码块
               enabled: true,
             },
-            {
-              preset: 'katex', // 公式
-              enabled: true,
-            },
           ],
         },
       },
