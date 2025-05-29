@@ -11,7 +11,7 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { isFunction, get, debounce } from 'lodash-es';
+import { isFunction, get, debounce, union, difference } from 'lodash-es';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
@@ -185,6 +185,8 @@ const Select = forwardRefWithStatics(
         return;
       }
 
+      !reserveKeyword && inputValue && onInputChange('', { e, trigger: 'change' });
+
       const values = [];
       currentOptions.forEach((option) => {
         if (option.group) {
@@ -206,8 +208,17 @@ const Select = forwardRefWithStatics(
         valueToOption,
       );
 
-      const checkAllValue =
-        !checkAll && allSelectedValue.length !== (props.value as Array<SelectOption>)?.length ? allSelectedValue : [];
+      let checkAllValue =
+        !checkAll && allSelectedValue.some((value) => !(props.value as Array<SelectValue>).includes(value))
+          ? allSelectedValue
+          : [];
+
+      // 处理搜索全选特殊场景
+      if (filterable && inputValue) {
+        checkAllValue = !checkAll
+          ? union(value as Array<SelectValue>, allSelectedValue)
+          : difference(value as Array<SelectValue>, allSelectedValue);
+      }
 
       onChange?.(checkAllValue, {
         e,
@@ -279,6 +290,7 @@ const Select = forwardRefWithStatics(
         if (filter && isFunction(filter)) {
           return filter(value, option);
         }
+        if ((option as TdOptionProps)?.checkAll === true) return true;
         const upperValue = value.toUpperCase();
         return (option?.label || '').toUpperCase().includes(upperValue);
       };
