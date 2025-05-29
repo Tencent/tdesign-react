@@ -94,7 +94,7 @@ export default function chatSample() {
         chatContentProps: {
           thinking: {
             maxHeight: 100, // 思考框最大高度，超过会自动滚动
-            layout: 'border', // 思考内容样式，border|block
+            layout: 'block', // 思考内容样式，border|block
             collapsed: thinking?.status === 'complete', // 是否折叠，这里设置内容输出完成后折叠
           },
         },

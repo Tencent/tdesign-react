@@ -16,13 +16,14 @@ import {
 } from '@tdesign-react/aigc';
 import { getMessageContentForCopy, TdChatActionsName } from 'tdesign-web-components';
 import { endpoint } from './utils';
+import mockData from './mock/data';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);
   const inputRef = useRef<TdChatSenderApi>(null);
   const [inputValue, setInputValue] = useState<string>('南极的自动提款机叫什么名字');
   const { chatEngine, messages, status } = useChat({
-    defaultMessages: [],
+    defaultMessages: mockData.normal,
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址
