@@ -91,10 +91,6 @@ TDesign 欢迎任何愿意参与贡献的参与者。如果需要本地运行代
   <img src="https://openomy.app/svg?repo=tencent/tdesign-react&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
  </a>
 
-<a href="https://github.com/tencent/tdesign-react/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tencent/tdesign-react" />
-</a>
-
 # 反馈
 
 有任何问题，建议通过 [Github issues](https://github.com/Tencent/tdesign-react/issues) 反馈或扫码加入用户微信群。
