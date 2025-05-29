@@ -95,6 +95,8 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
     );
   };
 
+  const renderBlank = () => <div className={`${componentName}__header--blank`}></div>;
+
   const renderHeader = () => {
     const cls = [
       `${componentName}__header`,
@@ -104,11 +106,14 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
     ];
     return (
       <div ref={headRef} className={classnames(cls)} onClick={handleClick}>
-        {expandIconPlacement === 'left' && renderIcon()}
-        {header}
-        <div className={`${componentName}__header--blank`}></div>
-        {headerRightContent}
-        {expandIconPlacement === 'right' && renderIcon()}
+        <div className={`${componentName}__header-left`}> {expandIconPlacement === 'left' && renderIcon()}</div>
+        <div className={`${componentName}__header-content`}>{header}</div>
+        {renderBlank()}
+
+        <div className={`${componentName}__header-right`}>
+          {headerRightContent}
+          {expandIconPlacement === 'right' && renderIcon()}
+        </div>
       </div>
     );
   };
