@@ -77,7 +77,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
         }}
         {...(typeof cancelBtn === 'object' ? { ...(cancelBtn as ButtonProps) } : {})}
       >
-        {isString(cancelBtn) && cancelBtn}
+        {typeof cancelBtn === 'object' ? (cancelBtn as ButtonProps)?.children : isString(cancelBtn) && cancelBtn}
       </Button>
     );
   }
@@ -106,7 +106,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
         }}
         {...(typeof confirmBtn === 'object' ? { ...(confirmBtn as ButtonProps) } : {})}
       >
-        {isString(confirmBtn) && confirmBtn}
+        {typeof confirmBtn === 'object' ? (confirmBtn as ButtonProps)?.children : isString(confirmBtn) && confirmBtn}
       </Button>
     );
   }

@@ -26,7 +26,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * [小数位数](https://en.wiktionary.org/wiki/decimal_place)
    */
-  decimalPlaces?: number;
+  decimalPlaces?: InputNumberDecimalPlaces;
   /**
    * 禁用组件
    */
@@ -64,7 +64,6 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   placeholder?: string;
   /**
    * 只读状态
-   * @default false
    */
   readonly?: boolean;
   /**
@@ -136,6 +135,8 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    */
   onValidate?: (context: { error?: 'exceed-maximum' | 'below-minimum' }) => void;
 }
+
+export type InputNumberDecimalPlaces = number | { enableRound: boolean; places: number };
 
 export type InputNumberValue = number | string;
 

@@ -161,7 +161,6 @@ export default function EditableRowTable() {
           // props, 透传全部属性到 Input 组件
           props: {
             clearable: true,
-            autofocus: true,
             autoWidth: true,
           },
           // 校验规则，此处同 Form 表单
