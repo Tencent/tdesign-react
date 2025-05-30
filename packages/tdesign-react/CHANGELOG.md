@@ -5,6 +5,36 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.12.2 `2025-05-30` 
+### 🚀 Features
+- `Cascader`: 新增支持使用 `option` 方法自定义下拉选项内容的能力 @huangchen1031 ([#3565](https://github.com/Tencent/tdesign-react/pull/3565))
+- `MenuGroup`: 新增支持 `className` and `style` 的使用 @wang-ky ([#3568](https://github.com/Tencent/tdesign-react/pull/3568))
+- `InputNumber`: `decimalPlaces` 新增支持 `enableRound` 参数，用于控制是否启用四舍五入 @RylanBot ([#3564](https://github.com/Tencent/tdesign-react/pull/3564))
+- `TagInput`: 优化可拖拽时，鼠标光标显示为移动光标 @liweijie0812 ([#3552](https://github.com/Tencent/tdesign-react/pull/3552))
+
+
+### 🐞 Bug Fixes
+- `Card`: 修复 `content` prop 不生效的问题 @RylanBot ([#3553](https://github.com/Tencent/tdesign-react/pull/3553))
+- `Cascader`: 
+     - 修复选项存在超长文字在大小尺寸下展示异常的问题 @Shabi-x([#3551](https://github.com/Tencent/tdesign-react/pull/3551))
+      - 修复初始化后，异步更新 `options` 时，`displayValue`无变化的问题 @huangchen1031 ([#3549](https://github.com/Tencent/tdesign-react/pull/3549))
+- `DatePicker`: 修复 `onFocus` 事件触发时机问题 @l123wx ([#3578](https://github.com/Tencent/tdesign-react/pull/3578))
+- `Drawer`: 优化 `TNode` 重新渲染导致输入光标错误的问题 @betavs ([#3544](https://github.com/Tencent/tdesign-react/pull/3544))
+-  `Form`：
+    - 修复在onValuesChange中通过`setFields`设置相同值继续触发`onValuesChange` 导致`re-render`的问题 @HaixingOoO ([#3304](https://github.com/Tencent/tdesign-react/pull/3304))
+     - 修复`FormList`删除 `field` 后 `reset `值初始化错误的问题 @l123wx ([#3557](https://github.com/Tencent/tdesign-react/pull/3557))
+     - 兼容 `1.11.7` 版本前单独使用` FormItem` 的场景 @uyarn ([#3588](https://github.com/Tencent/tdesign-react/pull/3588))
+- `Guide`: 优化组件在屏幕大小变化时没有重新计算位置的问题 @HaixingOoO ([#3543](https://github.com/Tencent/tdesign-react/pull/3543))
+- `List`: 修复空子节点导致获取子节点 `props` 失败的问题 @RSS1102 ([#3570](https://github.com/Tencent/tdesign-react/pull/3570))
+- `Popconfirm`: 修复 `confirmBtn` 属性的 children 不生效的问题 @huangchen1031 ([#3556](https://github.com/Tencent/tdesign-react/pull/3556))
+- `Slider`: 修复 `Slider` 的 最后一个 label 宽度不足自动换行的问题 @l123wx([#3581](https://github.com/Tencent/tdesign-react/pull/3581))
+- `Textarea`: 修复输入中文被中断的问题 @betavs ([#3544](https://github.com/Tencent/tdesign-react/pull/3544))
+- `TreeSelect`: 修复`TreeSelect`单点已选中的值时，会删除已选中的值的问题 @HaixingOoO ([#3573](https://github.com/Tencent/tdesign-react/pull/3573))
+
+### 🚧 Others
+- `Dialog`: 优化组件的初始化渲染时间 @RylanBot ([#3561](https://github.com/Tencent/tdesign-react/pull/3561))
+
+
 ## 🌈 1.12.1 `2025-05-07` 
 ### 🐞 Bug Fixes
 -  修复 1.12.0 兼容 React 18 以下的问题 @uyarn ([#3545](https://github.com/Tencent/tdesign-react/pull/3545))
