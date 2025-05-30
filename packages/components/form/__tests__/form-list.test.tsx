@@ -3,11 +3,61 @@ import React from 'react';
 
 import { MinusCircleIcon } from 'tdesign-icons-react';
 import Input from '../../input';
-import Form from '../index';
+import Form, { type FormProps } from '../index';
 import FormList from '../FormList';
 import Button from '../../button';
 
 const { FormItem } = Form;
+
+const BasicForm = (props: FormProps & { operation }) => {
+  const { form, operation, ...restField } = props;
+
+  return (
+    <Form form={form} {...restField}>
+      <FormList name="address">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }, index) => (
+              <FormItem key={key}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'province']}
+                  label="省份"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Input />
+                </FormItem>
+                <FormItem
+                  {...restField}
+                  name={[name, 'area']}
+                  label="地区"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Input placeholder={`area-input-${index}`} />
+                </FormItem>
+
+                <FormItem>
+                  <MinusCircleIcon className={`test-remove-${index}`} onClick={() => remove(name)} />
+                </FormItem>
+              </FormItem>
+            ))}
+            <FormItem style={{ marginLeft: 100 }}>
+              <Button id="test-add" onClick={() => add()}>
+                Add empty field
+              </Button>
+              <Button id="test-add-with-data" onClick={() => add({ province: 'guangdong', area: 'shenzhen' })}>
+                Add field with data
+              </Button>
+            </FormItem>
+          </>
+        )}
+      </FormList>
+      <FormItem>
+        {operation()}
+      </FormItem>
+    </Form>
+  )
+}
 
 describe('Form List 组件测试', () => {
   test('form list 测试', async () => {
@@ -41,43 +91,8 @@ describe('Form List 组件测试', () => {
       }
 
       return (
-        <Form form={form}>
-          <FormList name="address">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <FormItem key={key}>
-                    <FormItem
-                      {...restField}
-                      name={[name, 'province']}
-                      label="省份"
-                      rules={[{ required: true, type: 'error' }]}
-                    >
-                      <Input />
-                    </FormItem>
-                    <FormItem
-                      {...restField}
-                      name={[name, 'area']}
-                      label="地区"
-                      rules={[{ required: true, type: 'error' }]}
-                    >
-                      <Input />
-                    </FormItem>
-
-                    <FormItem>
-                      <MinusCircleIcon className="test-remove" onClick={() => remove(name)} />
-                    </FormItem>
-                  </FormItem>
-                ))}
-                <FormItem style={{ marginLeft: 100 }}>
-                  <Button id="test-add" onClick={() => add({ province: 'guangdong', area: 'shenzhen' })}>
-                    Add field
-                  </Button>
-                </FormItem>
-              </>
-            )}
-          </FormList>
-          <FormItem>
+        <BasicForm form={form} operation={() => (
+          <>
             <Button type="submit">submit</Button>
             <Button type="reset">reset</Button>
             <Button onClick={setFields}>setFields</Button>
@@ -86,13 +101,13 @@ describe('Form List 组件测试', () => {
             <Button onClick={validate}>validate</Button>
             <Button onClick={validateOnly}>validateOnly</Button>
             <Button onClick={clearValidate}>clearValidate</Button>
-          </FormItem>
-        </Form>
+          </>
+        )} />
       );
     };
 
     const { container, queryByDisplayValue, queryByText } = render(<TestView />);
-    const addBtn = container.querySelector('#test-add');
+    const addBtn = container.querySelector('#test-add-with-data');
     const submitBtn = queryByText('submit');
     const resetBtn = queryByText('reset');
 
@@ -108,7 +123,7 @@ describe('Form List 组件测试', () => {
     fireEvent.click(addBtn);
     expect(queryByDisplayValue('guangdong')).toBeTruthy();
     expect(queryByDisplayValue('shenzhen')).toBeTruthy();
-    const removeBtn = container.querySelector('.test-remove');
+    const removeBtn = container.querySelector('.test-remove-0');
     fireEvent.click(removeBtn);
     expect(queryByDisplayValue('guangdong')).not.toBeTruthy();
     expect(queryByDisplayValue('shenzhen')).not.toBeTruthy();
@@ -130,6 +145,43 @@ describe('Form List 组件测试', () => {
     fireEvent.click(queryByText('clearValidate'));
     expect(queryByText('地区必填')).not.toBeTruthy();
   });
+
+
+  test('reset to initial data', async () => {
+    const TestView = () => {
+      const [form] = Form.useForm();
+
+      const initialFormData = {
+        address: [
+          { province: 'guangdong', area: 'shenzhen' },
+          { province: 'beijing', area: 'beijing' }
+        ]
+      };
+
+      return (
+        <BasicForm
+          form={form}
+          initialData={initialFormData}
+          resetType='initial'
+          operation={
+            () => <Button type="reset">reset</Button>
+          }
+        />
+      );
+    };
+
+    const { container, queryByText, getByPlaceholderText } = render(<TestView />);
+    const resetBtn = queryByText('reset');
+
+    const removeBtn = container.querySelector('.test-remove-0');
+    fireEvent.click(removeBtn);
+    await mockTimeout(() => true);
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('beijing');
+    fireEvent.click(resetBtn);
+    await mockTimeout(() => true);
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
+    expect((getByPlaceholderText('area-input-1') as HTMLInputElement).value).toBe('beijing');
+  })
 
   test('FormList setFields not trigger onValueChange', async () => {
     const fn = vi.fn();
@@ -172,4 +224,5 @@ describe('Form List 组件测试', () => {
     await mockTimeout();
     expect(fn).toHaveBeenCalledTimes(1);
   });
+
 });
