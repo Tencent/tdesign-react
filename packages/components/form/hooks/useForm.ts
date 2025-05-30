@@ -53,7 +53,7 @@ class FormStore {
     getFieldValue: null,
     getFieldsValue: null,
     _init: true,
-
+    store: this.store,
     getInternalHooks: this.getInternalHooks,
   });
 

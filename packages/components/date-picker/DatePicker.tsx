@@ -54,7 +54,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     year,
     month,
     time,
-    inputRef,
     onChange,
     setIsHoverCell,
     setInputValue,
@@ -314,7 +313,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     onYearChange,
     onMonthChange,
     onTimePickerChange,
-    onPanelClick: () => inputRef.current?.focus?.(),
     disableTime,
   };
 

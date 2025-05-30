@@ -639,6 +639,7 @@ export const docs = [
         name: 'guide',
         path: '/react/components/guide',
         component: () => import('@tdesign/components/guide/guide.md'),
+        componentEn: () => import('@tdesign/components/guide/guide.en-US.md'),
       },
       {
         title: 'Message 全局提示',
