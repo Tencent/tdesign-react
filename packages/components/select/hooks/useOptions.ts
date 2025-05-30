@@ -1,9 +1,15 @@
 import React, { useState, useEffect, ReactNode, ReactElement } from 'react';
 import { get } from 'lodash-es';
-import { SelectKeysType, SelectOption, SelectValue } from '../type';
-import { getValueToOption } from '../util/helper';
+import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
+import { getValueToOption, type ValueToOption } from '../util/helper';
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
+
+export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
+  return !!option && 'group' in option && 'children' in option;
+}
+
+type OptionValueType = SelectValue<SelectOption>;
 
 // 处理 options 的逻辑
 function UseOptions(
@@ -11,13 +17,13 @@ function UseOptions(
   options: SelectOption[],
   children: ReactNode,
   valueType: 'object' | 'value',
-  value: SelectValue<SelectOption>,
+  value: OptionValueType,
   reserveKeyword: boolean,
 ) {
-  const [valueToOption, setValueToOption] = useState({});
-  const [currentOptions, setCurrentOptions] = useState([]);
-  const [tmpPropOptions, setTmpPropOptions] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [valueToOption, setValueToOption] = useState<ValueToOption>({});
+  const [currentOptions, setCurrentOptions] = useState<SelectOption[]>([]);
+  const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
   // 处理设置 option 的逻辑
   useEffect(() => {
@@ -58,44 +64,43 @@ function UseOptions(
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
 
-    setValueToOption(getValueToOption(children as ReactElement, options as any, keys) || {});
+    setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, keys, children, reserveKeyword]);
 
   // 同步 value 对应的 options
   useEffect(() => {
+    const valueKey = keys?.value || 'value';
+    const labelKey = keys?.label || 'label';
+
     setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
-      const valueKey = keys?.value || 'value';
-      const labelKey = keys?.label || 'label';
-      if (Array.isArray(value)) {
-        return value
-          .map((item: SelectValue<SelectOption>) => {
-            if (valueType === 'value') {
-              return (
-                valueToOption[item as string | number] ||
-                oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
-                  [valueKey]: item,
-                  [labelKey]: item,
-                }
-              );
+      const createOptionFromValue = (item: OptionValueType) => {
+        if (valueType === 'value') {
+          return (
+            valueToOption[item as string | number] ||
+            oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
+              [valueKey]: item,
+              [labelKey]: item,
             }
-            return item;
-          })
-          .filter(Boolean);
+          );
+        }
+        if (typeof item === 'object' && item !== null) {
+          return item;
+        }
+        return [];
+      };
+
+      // 多选
+      if (Array.isArray(value)) {
+        return value.map(createOptionFromValue);
       }
 
+      // 单选
       if (value !== undefined && value !== null) {
-        if (valueType === 'value') {
-          return [
-            valueToOption[value as string | number] ||
-              oldSelectedOptions.find((option) => get(option, valueKey) === value) || {
-                [valueKey]: value,
-                [labelKey]: value,
-              },
-          ].filter(Boolean);
-        }
-        return [value];
+        const option = createOptionFromValue(value);
+        return option ? [option] : [];
       }
+
       return [];
     });
   }, [value, keys, valueType, valueToOption, setSelectedOptions]);
