@@ -10,15 +10,16 @@ import { expendClickEffect, valueChangeEffect } from '../core/effect';
 import { TreeNode, CascaderContextType } from '../interface';
 import { TdCascaderProps } from '../type';
 import { StyledProps } from '../../common';
+import parseTNode from '../../_util/parseTNode';
 
 export interface CascaderPanelProps
   extends StyledProps,
-    Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText'> {
+    Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText' | 'option'> {
   cascaderContext: CascaderContextType;
 }
 
 const Panel = (props: CascaderPanelProps) => {
-  const { cascaderContext } = props;
+  const { cascaderContext, option } = props;
 
   const panels = useMemo(() => getPanels(cascaderContext.treeNodes), [cascaderContext.treeNodes]);
 
@@ -31,10 +32,11 @@ const Panel = (props: CascaderPanelProps) => {
   const [global] = useLocaleReceiver('cascader');
   const COMPONENT_NAME = `${classPrefix}-cascader`;
 
-  const renderItem = (node: TreeNode, index) => (
+  const renderItem = (node: TreeNode, index: number) => (
     <Item
       key={index}
       node={node}
+      optionChild={node.data.content || parseTNode(option, { item: node.data, index, context: { node } })}
       cascaderContext={cascaderContext}
       onClick={() => {
         handleExpand(node, 'click');
