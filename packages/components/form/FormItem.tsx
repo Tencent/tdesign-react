@@ -172,7 +172,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     if (formListName) {
       fieldName = [].concat(formListName, name);
-      fieldValue = get(form.store, fieldName);
+      fieldValue = get(form?.store, fieldName);
     }
 
     fieldName = fieldName.filter((item) => item !== undefined);
