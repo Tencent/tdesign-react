@@ -59,9 +59,17 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   preventSubmitDefault?: boolean;
   /**
+   * 是否整个表单只读
+   */
+  readonly?: boolean;
+  /**
    * 是否显示必填符号（*），默认显示
    */
   requiredMark?: boolean;
+  /**
+   * 表单必填符号（*）显示位置
+   */
+  requiredMarkPosition?: 'left' | 'right';
   /**
    * 重置表单的方式，值为 empty 表示重置表单为空，值为 initial 表示重置表单数据为初始值
    * @default empty
