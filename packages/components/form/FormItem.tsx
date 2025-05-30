@@ -60,7 +60,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     colon,
     layout,
     requiredMark: requiredMarkFromContext,
-    requiredMarkPosition: requiredMarkPositionFromContext,
+    requiredMarkPosition,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
@@ -95,7 +95,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth = labelWidthFromContext,
     labelAlign = labelAlignFromContext,
     requiredMark = requiredMarkFromContext,
-    requiredMarkPosition = requiredMarkPositionFromContext,
   } = props;
 
   const { getDefaultInitialData } = useFormItemInitialData(name);
