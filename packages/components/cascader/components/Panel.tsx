@@ -32,11 +32,11 @@ const Panel = (props: CascaderPanelProps) => {
   const [global] = useLocaleReceiver('cascader');
   const COMPONENT_NAME = `${classPrefix}-cascader`;
 
-  const renderItem = (node: TreeNode, index) => (
+  const renderItem = (node: TreeNode, index: number) => (
     <Item
       key={index}
       node={node}
-      optionChild={node.data.content || parseTNode(option, { item: node.data, index })}
+      optionChild={node.data.content || parseTNode(option, { item: node.data, index, context: { node } })}
       cascaderContext={cascaderContext}
       onClick={() => {
         handleExpand(node, 'click');
