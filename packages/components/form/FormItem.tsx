@@ -177,9 +177,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     fieldName = fieldName.filter((item) => item !== undefined);
 
-    if (!fieldName || !form) return;
+    if (!fieldName) return;
     if (isEqual(fieldValue, newVal)) return;
-    set(form.store, fieldName, newVal);
+    set(form?.store, fieldName, newVal);
     setFormValue(newVal);
   };
 
