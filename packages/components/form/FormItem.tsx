@@ -60,6 +60,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     colon,
     layout,
     requiredMark: requiredMarkFromContext,
+    requiredMarkPosition,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
@@ -153,6 +154,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       labelWidth,
       labelAlign,
       requiredMark,
+      requiredMarkPosition,
       showErrorMessage,
       innerRules,
     });
