@@ -91,7 +91,7 @@
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "@vitest/coverage-istanbul": "^2.1.1",
+    "@vitest/coverage-istanbul": "^3.1.4",
     "@vitest/coverage-v8": "^2.1.1",
     "@vitest/ui": "^3.1.1",
     "autoprefixer": "^10.4.0",
