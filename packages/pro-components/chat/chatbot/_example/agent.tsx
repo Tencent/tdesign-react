@@ -15,7 +15,6 @@ import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { ChatBot } from '@tdesign-react/aigc';
 
 import './index.css';
-import { endpoint } from './utils';
 
 const AgentTimeline = ({ steps }) => (
   <div style={{ paddingLeft: 10, marginTop: 14 }}>
@@ -98,7 +97,7 @@ export default function ChatBotReact() {
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
     // 对话服务地址
-    endpoint: `${endpoint}/sse/agent`,
+    endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agent`,
     stream: true,
     // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
     onComplete: (aborted: boolean, params: RequestInit) => {
