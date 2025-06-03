@@ -87,12 +87,12 @@ export const pkgContent = JSON.stringify(
     dependencies: {
       react: orgPkg.dependencies.react,
       'react-dom': orgPkg.dependencies['react-dom'],
-      'tdesign-react': tdesignReactPkg.version,
-      'tdesign-icons-react': tdesignReactPkg.dependencies['tdesign-icons-react'],
+      'tdesign-react': orgPkg.dependencies['tdesign-react'],
+      '@tdesign-react/aigc': tdesignReactPkg.version,
+      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
-      dayjs: tdesignReactPkg.dependencies.dayjs,
-      'lodash-es': tdesignReactPkg.dependencies['lodash-es'],
+      'lodash-es': orgPkg.dependencies['lodash-es'],
     },
     devDependencies: {
       typescript: '^4.4.4',
