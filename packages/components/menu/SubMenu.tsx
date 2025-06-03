@@ -2,7 +2,7 @@ import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from '
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import { StyledProps } from '../common';
-import { TdSubmenuProps } from './type';
+import type { TdSubmenuProps } from './type';
 import useConfig from '../hooks/useConfig';
 import { MenuContext } from './MenuContext';
 import useDomRefCallback from '../hooks/useDomRefCallback';
@@ -46,13 +46,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     setOpen(visible);
   };
 
-  const handleMouseEvent = (type: 'leave' | 'enter') => {
-    if (!isPopUp) return;
-    if (type === 'enter') setOpen(true);
-    else if (type === 'leave') setOpen(false);
-  };
-
-  const childrens = React.Children.map(children, (child) =>
+  const popupChildren = React.Children.map(children, (child) =>
     React.cloneElement(child as ReactElement<any>, {
       className: classNames(
         `${classPrefix}-menu__item--plain`,
@@ -105,7 +99,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
       key="popup"
       style={childStyle}
     >
-      {childrens}
+      {popupChildren}
     </ul>
   );
 
@@ -116,8 +110,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
       style={style}
-      onMouseEnter={() => handleMouseEvent('enter')}
-      onMouseLeave={() => handleMouseEvent('leave')}
     >
       <div
         className={classNames(`${classPrefix}-menu__item`, {
@@ -144,7 +136,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             className={classNames(`${classPrefix}-menu__sub`, `${classPrefix}-slide-down-enter-active`)}
             ref={contentRef}
           >
-            {childrens}
+            {popupChildren}
           </ul>
         </CSSTransition>
       )}
@@ -206,12 +198,6 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   // 当前二级导航激活
   const isActive = checkSubMenuChildrenActive(children, active) || active === value;
 
-  const handleMouseEvent = (type: 'leave' | 'enter') => {
-    if (!isPopUp) return;
-    if (type === 'enter') setOpen(true);
-    else if (type === 'leave') setOpen(false);
-  };
-
   // 是否展开（popup 与 expand 两种状态）
   const isOpen = useMemo(() => {
     if (disabled) return false;
@@ -241,8 +227,6 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
       className={classNames(`${classPrefix}-submenu`, className, {
         [`${classPrefix}-is-opened`]: open,
       })}
-      onMouseEnter={() => handleMouseEvent('enter')}
-      onMouseLeave={() => handleMouseEvent('leave')}
     >
       <div
         ref={setRefCurrent}
