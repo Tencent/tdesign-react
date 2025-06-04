@@ -89,4 +89,5 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
 };
 
 QRCode.displayName = 'QRCode';
+
 export default QRCode;
