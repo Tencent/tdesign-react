@@ -1,6 +1,14 @@
 import React from 'react';
-import { MenuValue } from '../type';
+import type { MenuValue } from '../type';
 import { MenuBlockType } from './type';
+
+function isSubMenuComp(element: React.ReactElement) {
+  return (
+    typeof element.type === 'function' &&
+    'displayName' in element.type &&
+    element.type.displayName === MenuBlockType.SubMenu
+  );
+}
 
 export default function checkSubMenuChildExpanded(
   children: React.ReactNode,
@@ -8,24 +16,39 @@ export default function checkSubMenuChildExpanded(
   value: MenuValue,
   resultExpanded: MenuValue[] = [],
 ) {
-  const childValues = React.Children.map(children, (child: React.ReactElement<any>) => child.props.value);
-  // 直接找到了目标节点
-  const index = childValues.indexOf(value);
-  // 找到对应的子节点
-  const child = children[index];
-  // 如果是 submenu 并且子节点存在
-  if (index > -1 && child?.type?.displayName === MenuBlockType.SubMenu) {
-    return [...resultExpanded, value];
-  }
-  // 否则寻找当前展开的节点是否是祖先节点
-  const expandedIndex = childValues.indexOf(expanded[0]);
-  const expandedChild = children[expandedIndex];
-  if (expandedIndex > -1 && expandedChild?.type?.displayName === MenuBlockType.SubMenu) {
-    return checkSubMenuChildExpanded(expandedChild.props.children, expanded.slice(1), value, [
-      ...resultExpanded,
-      expanded[0],
-    ]);
+  const childrenArray = React.Children.toArray(children) as React.ReactElement[];
+
+  // 直接在当前层级寻找目标节点
+  for (const child of childrenArray) {
+    const childValue = child.props?.value;
+
+    if (childValue === value) {
+      // 找到目标节点
+      if (isSubMenuComp(child)) {
+        // 目标是 SubMenu，需要展开它
+        return [...resultExpanded, value];
+      }
+      // 目标是 MenuItem，返回父级路径（不包含自己）
+      return resultExpanded;
+    }
   }
 
-  return [value];
+  // 在子菜单中递归查找
+  for (const child of childrenArray) {
+    const childValue = child.props?.value;
+    if (isSubMenuComp(child) && childValue) {
+      const nestedResult = checkSubMenuChildExpanded(child.props.children, expanded, value, [
+        ...resultExpanded,
+        childValue,
+      ]);
+
+      // 如果在子树中找到了目标，返回完整路径
+      if (nestedResult.length > 0) {
+        return nestedResult;
+      }
+    }
+  }
+
+  // 在当前分支中没有找到目标
+  return [];
 }
