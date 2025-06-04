@@ -416,6 +416,14 @@ export const docs = [
     type: 'component', // 组件文档
     children: [
       {
+        title: 'QRCode 二维码',
+        titleEn: 'QRCode',
+        name: 'qrcode',
+        path: '/react/components/qr-code',
+        component: () => import('@tdesign/components/qr-code/qr-code.md'),
+        componentEn: () => import('@tdesign/components/qr-code/qr-code.en-US.md'),
+      },
+      {
         title: 'Avatar 头像',
         titleEn: 'Avatar',
         name: 'avatar',
