@@ -43,7 +43,6 @@ const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
       cellsToDraw = excavateModules(cells, calculatedImageSettings.excavation);
     }
 
-    // 如下image的属性可以一次性返回，封装成一个通用方法
     image = (
       <image
         href={imageSettings.src}
@@ -55,6 +54,7 @@ const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
         opacity={calculatedImageSettings.opacity}
         // when crossOrigin is not set, the image will be tainted
         // and the canvas cannot be exported to an image
+        // eslint-disable-next-line react/no-unknown-property
         crossOrigin={calculatedImageSettings.crossOrigin}
       />
     );
@@ -72,8 +72,6 @@ const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
   );
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  QRCodeSVG.displayName = 'QRCodeSVG';
-}
+QRCodeSVG.displayName = 'QRCodeSVG';
 
 export { QRCodeSVG };

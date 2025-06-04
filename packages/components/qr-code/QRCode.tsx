@@ -9,14 +9,29 @@ import { qrCodeDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import QRcodeStatus from './QRCodeStatus';
 
 export interface QrCodeProps extends TdQrCodeProps, StyledProps {}
 
 const QRCode: React.FC<QrCodeProps> = (props) => {
-  const { className, value, borderless, iconSize, color, bgColor, style, icon, size, type, ...rest } =
-    useDefaultProps<QrCodeProps>(props, qrCodeDefaultProps);
+  const {
+    className,
+    value,
+    borderless,
+    iconSize,
+    color,
+    bgColor,
+    style,
+    icon,
+    size,
+    type,
+    status,
+    onRefresh,
+    statusRender,
+    ...rest
+  } = useDefaultProps<QrCodeProps>(props, qrCodeDefaultProps);
   const { classPrefix } = useConfig();
-  const [locale, t] = useLocaleReceiver('qrCode');
+  const [locale] = useLocaleReceiver('qrCode');
   if (!value) {
     return null;
   }
@@ -57,7 +72,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
 
   return (
     <div {...rest} className={cls} style={mergedStyle}>
-      {/* {status !== 'active' && (
+      {status !== 'active' && (
         <div className={`${classPrefix}-mask`}>
           <QRcodeStatus
             classPrefix={classPrefix}
@@ -67,7 +82,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
             statusRender={statusRender}
           />
         </div>
-      )} */}
+      )}
       {type === 'canvas' ? <QRCodeCanvas {...qrCodeProps} size={size} /> : <QRCodeSVG {...qrCodeProps} size={size} />}
     </div>
   );

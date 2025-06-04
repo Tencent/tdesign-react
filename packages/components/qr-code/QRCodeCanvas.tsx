@@ -28,15 +28,16 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
   } = props;
 
   const imgSrc = imageSettings?.src;
-  const _canvas = React.useRef<HTMLCanvasElement>(null);
-  const _image = React.useRef<HTMLImageElement>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const imageRef = React.useRef<HTMLImageElement>(null);
 
   const setCanvasRef = React.useCallback(
     (node: HTMLCanvasElement) => {
-      _canvas.current = node;
+      canvasRef.current = node;
       if (typeof ref === 'function') {
         ref(node);
       } else if (ref) {
+        // eslint-disable-next-line no-param-reassign
         ref.current = node;
       }
     },
@@ -56,8 +57,8 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
   });
 
   React.useEffect(() => {
-    if (_canvas.current) {
-      const canvas = _canvas.current;
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
 
       const ctx = canvas.getContext('2d');
       if (!ctx) {
@@ -65,7 +66,7 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
       }
 
       let cellsToDraw = cells;
-      const image = _image.current;
+      const image = imageRef.current;
       const haveImageToRender =
         calculatedImageSettings != null &&
         image !== null &&
@@ -80,7 +81,8 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
       }
 
       const pixelRatio = window.devicePixelRatio || 1;
-      canvas.height = canvas.width = size * pixelRatio;
+      canvas.height = size * pixelRatio;
+      canvas.width = size * pixelRatio;
       const scale = (size / numCells) * pixelRatio;
       ctx.scale(scale, scale);
 
@@ -136,7 +138,7 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
         onLoad={() => {
           setIsImageLoaded(true);
         }}
-        ref={_image}
+        ref={imageRef}
         // when crossOrigin is not set, the image will be tainted
         // and the canvas cannot be exported to an image
         crossOrigin={calculatedImageSettings?.crossOrigin}

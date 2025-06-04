@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { RefreshIcon } from 'tdesign-icons-react';
 import type { TdQrCodeProps, StatusRenderInfo } from './type';
 import Button from '../button';
@@ -42,9 +41,13 @@ export default function QRcodeStatus({ locale, classPrefix, onRefresh, statusRen
 
   const mergedStatusRender = statusRender ?? defaultStatusRender;
 
-  return mergedStatusRender({
-    status,
-    locale,
-    onRefresh,
-  });
+  return (
+    <>
+      {mergedStatusRender({
+        status,
+        locale,
+        onRefresh,
+      })}
+    </>
+  );
 }
