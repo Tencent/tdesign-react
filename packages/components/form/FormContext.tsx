@@ -12,6 +12,7 @@ const FormContext = React.createContext<{
   colon: TdFormProps['colon'];
   initialData: TdFormProps['initialData'];
   requiredMark: TdFormProps['requiredMark'];
+  requiredMarkPosition: TdFormProps['requiredMarkPosition'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
@@ -29,6 +30,7 @@ const FormContext = React.createContext<{
   colon: false,
   initialData: {},
   requiredMark: undefined,
+  requiredMarkPosition: undefined,
   scrollToFirstError: undefined,
   showErrorMessage: undefined,
   resetType: 'empty',
