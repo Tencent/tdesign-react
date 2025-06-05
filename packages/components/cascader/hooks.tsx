@@ -85,15 +85,18 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
-  const optionCurrent = useRef(options);
+  const optionCurrent = useRef([]);
 
   useEffect(() => {
     if (!isEqual(optionCurrent.current, options)) {
       optionCurrent.current = options;
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      handleTreeStore();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
-  useEffect(() => {
+  const handleTreeStore = () => {
     if (!treeStore) {
       if (!options.length) return;
       const store = new TreeStore({
@@ -117,8 +120,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       treeStoreExpendEffect(treeStore, scopeVal, []);
       treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [optionCurrent.current]);
+  };
 
   useEffect(() => {
     if (!treeStore) return;

@@ -1,6 +1,6 @@
 import React, { MouseEvent, useImperativeHandle, useMemo, useRef, WheelEvent } from 'react';
 import classNames from 'classnames';
-import { isString } from 'lodash-es';
+import { compact, isString } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -52,7 +52,7 @@ const List = forwardRefWithStatics(
     const [local, t] = useLocaleReceiver('list');
 
     const listItems = useMemo(
-      () => React.Children.map(children, (child: React.ReactElement) => child.props) ?? [],
+      () => compact(React.Children.map(children, (child: React.ReactElement) => child?.props)) ?? [],
       [children],
     );
 

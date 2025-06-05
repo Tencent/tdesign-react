@@ -79,7 +79,10 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
       const nextScrollTop = easing(Math.min(time, duration), scrollTop, target, duration);
       if (isWindow(container)) {
         (container as Window).scrollTo(window.pageXOffset, nextScrollTop);
-      } else if (container instanceof HTMLDocument || container.constructor.name === 'HTMLDocument') {
+      } else if (
+        typeof HTMLDocument !== 'undefined' &&
+        (container instanceof HTMLDocument || container.constructor.name === 'HTMLDocument')
+      ) {
         (container as HTMLDocument).documentElement.scrollTop = nextScrollTop;
       } else {
         (container as HTMLElement).scrollTop = nextScrollTop;

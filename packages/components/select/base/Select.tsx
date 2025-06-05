@@ -289,7 +289,7 @@ const Select = forwardRefWithStatics(
         return (option?.label || '').toUpperCase().includes(upperValue);
       };
 
-      tmpPropOptions.forEach((option) => {
+      tmpPropOptions?.forEach((option) => {
         if (isSelectOptionGroup(option)) {
           filteredOptions.push({
             ...option,

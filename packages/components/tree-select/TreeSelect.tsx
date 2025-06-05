@@ -196,11 +196,13 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
     const $value = Array.isArray(value) && value.length ? value[0] : undefined;
-    onChange(formatValue($value, context.node.label), {
-      ...context,
-      data: context.node.data,
-      trigger: 'check',
-    });
+    if ($value) {
+      onChange(formatValue($value, context.node.label), {
+        ...context,
+        data: context.node.data,
+        trigger: 'check',
+      });
+    }
     // 单选选择后收起弹框
     setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
   });
