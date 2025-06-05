@@ -39,6 +39,10 @@ export default function ThinkContentDemo() {
     };
   }, []);
 
+  const collapsedChangeHandle = (e: CustomEvent<boolean>) => {
+    setCollapsed(e.detail);
+  };
+
   useEffect(() => {
     if (status === 'complete') {
       setCollapsed(true); // 内容结束输出后收起面板
@@ -54,6 +58,7 @@ export default function ThinkContentDemo() {
       status={status}
       maxHeight={100}
       collapsed={collapsed}
+      onCollapsedChange={collapsedChangeHandle}
     />
   );
 }

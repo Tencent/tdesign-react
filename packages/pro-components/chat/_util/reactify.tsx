@@ -9,9 +9,7 @@ const isReact19Plus = (): boolean => {
 };
 
 // 检测 React 版本
-const isReact18Plus = () => {
-  return typeof createRoot !== 'undefined';
-};
+const isReact18Plus = () => typeof createRoot !== 'undefined';
 
 // 缓存root实例的WeakMap
 const rootCache = new WeakMap<HTMLElement, ReturnType<typeof createRoot>>();
@@ -34,16 +32,15 @@ const createRenderer = (container: HTMLElement) => {
         rootCache.delete(container);
       },
     };
-  } else {
-    return {
-      render: (element: React.ReactElement) => {
-        ReactDOM.render(element, container);
-      },
-      unmount: () => {
-        ReactDOM.unmountComponentAtNode(container);
-      },
-    };
   }
+  return {
+    render: (element: React.ReactElement) => {
+      ReactDOM.render(element, container);
+    },
+    unmount: () => {
+      ReactDOM.unmountComponentAtNode(container);
+    },
+  };
 };
 
 const isFunctionComponentWithHooks = (component: any): boolean => {
@@ -117,6 +114,7 @@ const reactify = <T extends AnyProps = AnyProps>(
 ): React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>> => {
   class Reactify extends Component<AnyProps> {
     eventHandlers: [string, EventListener][];
+
     renderUnmountHandlers: Map<string, (params?: any) => void>;
 
     ref: React.RefObject<HTMLElement>;
@@ -155,7 +153,7 @@ const reactify = <T extends AnyProps = AnyProps>(
               //   this.renderUnmountHandlers.get(prop)?.();
               // }
 
-              let component =
+              const component =
                 isFunctionComponentWithHooks(val) || isClassComponent(val) ? (
                   <ReactComponent {...params}></ReactComponent>
                 ) : (
@@ -175,7 +173,6 @@ const reactify = <T extends AnyProps = AnyProps>(
             // 其他函数
             (this.ref.current as any)[prop] = val;
           }
-          (this.ref.current as any)[prop] = val;
           return;
         }
         // Complex object
@@ -242,9 +239,9 @@ const reactify = <T extends AnyProps = AnyProps>(
     }
   }
 
-  return forwardRef((props, ref) => {
-    return createElement(Reactify, { ...props, innerRef: ref });
-  }) as React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>>;
+  return forwardRef((props, ref) =>
+    createElement(Reactify, { ...props, innerRef: ref }),
+  ) as React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>>;
 };
 
 export default reactify;
