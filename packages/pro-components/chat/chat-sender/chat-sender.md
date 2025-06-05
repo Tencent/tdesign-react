@@ -20,7 +20,7 @@ spline: navigation
 ## 自定义
 通过植入具名插槽来实现输入框的自定义，内置支持的扩展位置包括：
 
-输入框上方区域`header`，输入框内头部区域`inner-header`，可输入区域前置部分`prefix`，输入框底部左侧区域`footer-prefix`，输入框底部操作区域`actions`
+输入框上方区域`header`，输入框内头部区域`inner-header`，可输入区域前置部分`input-prefix`，输入框底部左侧区域`footer-prefix`，输入框底部操作区域`actions`
 
 同时示例中演示了通过`CSS变量覆盖`实现样式定制
 
@@ -57,5 +57,6 @@ onFileRemove | Function | - | 文件移除事件，TS 类型：`(e: CustomEvent<
 | header | 顶部自定义内容 |
 | inner-header | 输入区域顶部内容 |
 | input-prefix | 输入框前方区域 |
+| textarea | 输入框替换 |
 | footer-prefix | 底部左侧区域 |
 | actions | 操作按钮区域 |
