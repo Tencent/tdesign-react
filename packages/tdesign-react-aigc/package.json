@@ -59,6 +59,9 @@
     "tdesign-icons-react": "0.5.0",
     "tdesign-react": "^1.12.1",
     "tvision-charts-react": "^3.3.12",
+    "@tencent/exeditor3-ai-chat-editor": "^1.1.2",
+    "@tencent/exeditor3-theme-basic": "^3.8.10",
+    "@tencent/exeditor3-ui-kit": "^3.15.2",
     "express": "^4.17.3"
   }
 }

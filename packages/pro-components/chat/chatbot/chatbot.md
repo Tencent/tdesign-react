@@ -35,6 +35,11 @@ spline: navigation
 
 {{ custom }}
 
+## 自定义富文本输入框
+通过引入第三方富文本编辑器替换原始textarea，实现自定义富文本输入框
+
+{{ customTextarea }}
+
 
 ## 场景化示例
 以下再通过几个常见的业务场景，展示下如何使用 `Chatbot` 组件
@@ -95,8 +100,8 @@ onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Respons
 
 ### Chatbot 实例方法
 
-名称 | 类型 | 描述 
--- | -- | -- 
+名称 | 类型 | 描述
+-- | -- | --
 sendUserMessage | (params: ChatRequestParams) => Promise<void> | 发送用户消息，处理请求参数并触发消息流
 sendSystemMessage | (msg: string) => void | 发送系统级通知消息，用于展示系统提示/警告
 abortChat | () => Promise<void> | 中止当前进行中的聊天请求，清理网络连接

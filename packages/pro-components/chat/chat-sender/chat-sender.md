@@ -26,6 +26,11 @@ spline: navigation
 
 {{ custom }}
 
+## 自定义富文本输入框
+通过引入第三方富文本编辑器替换原始textarea，实现自定义富文本输入框
+
+{{ customTextarea }}
+
 ## API
 ### ChatSender Props
 
@@ -57,5 +62,6 @@ onFileRemove | Function | - | 文件移除事件，TS 类型：`(e: CustomEvent<
 | header | 顶部自定义内容 |
 | inner-header | 输入区域顶部内容 |
 | input-prefix | 输入框前方区域 |
+| textarea | 输入框替换 |
 | footer-prefix | 底部左侧区域 |
 | actions | 操作按钮区域 |
