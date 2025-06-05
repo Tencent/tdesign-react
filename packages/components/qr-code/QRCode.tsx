@@ -32,6 +32,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   } = useDefaultProps<QrCodeProps>(props, qrCodeDefaultProps);
   const { classPrefix } = useConfig();
   const [locale] = useLocaleReceiver('qrCode');
+
   if (!value) {
     return null;
   }
