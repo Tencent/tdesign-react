@@ -32,6 +32,7 @@ export interface SelectOptionProps
   optionLength?: number;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
+  checkAllStatus?: { checked: boolean; indeterminate: boolean };
 }
 
 const componentType = 'select';
@@ -43,6 +44,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     title: propTitle,
     selectedValue,
     checkAll,
+    checkAllStatus,
     multiple,
     size,
     max,
@@ -105,8 +107,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       return get(item, keys?.value || 'value') === value;
     });
     if (props.checkAll) {
-      selected = selectedValue.length === props.optionLength;
-      indeterminate = selectedValue.length > 0 && !selected;
+      selected = checkAllStatus?.checked;
+      indeterminate = checkAllStatus?.indeterminate;
     }
   }
 
