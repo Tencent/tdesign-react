@@ -340,8 +340,9 @@ export default function useUpload(props: TdUploadProps) {
     props.onRemove?.(p);
   }
 
-  const triggerUpload = () => {
+  const triggerUpload = (e?: MouseEvent) => {
     if (disabled || !inputRef.current) return;
+    e?.stopPropagation?.();
     (inputRef.current as HTMLInputElement).click();
   };
 

@@ -10,7 +10,7 @@ export interface CustomFileProps extends CommonDisplayFileProps {
   // 拖拽区域
   dragContent?: TdUploadProps['dragContent'];
   trigger?: TdUploadProps['trigger'];
-  triggerUpload?: () => void;
+  triggerUpload?: (e: React.MouseEvent<HTMLDivElement>) => void;
   // 非拖拽场景，是触发元素；拖拽场景是拖拽区域
   childrenNode?: ReactNode;
 }
