@@ -59,7 +59,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   const cls = classNames(
     `${classPrefix}-qr-code`,
     {
-      [`${classPrefix}-borderless`]: !borderless,
+      [`${classPrefix}-borderless`]: borderless,
     },
     className,
   );
