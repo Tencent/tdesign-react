@@ -87,7 +87,7 @@ export default function ChatBotReact() {
   };
 
   const handleChange = useCallback(() => {
-    const text = getEditorText();
+    const text = editorRef.current?.doc.textContent.trim();
     console.log('onChange', text);
     setInputValue(text || '');
   }, []);

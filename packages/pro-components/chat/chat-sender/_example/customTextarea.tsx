@@ -3,6 +3,7 @@ import noop from 'lodash-es/noop';
 import { ChatSender } from '@tdesign-react/aigc';
 import { AIChatEditor, createAIChatEditor } from '@tencent/exeditor3-ai-chat-editor';
 import { BasicTheme } from '@tencent/exeditor3-theme-basic';
+import { Typography } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -48,25 +49,16 @@ const ChatSenderExample = () => {
     setLoading(v);
   };
 
+  const getText = () => editorRef.current?.doc.textContent.trim() || '';
+
   const handleChange = () => {
-    const doc = editorRef.current?.getState().doc;
-    let text = '';
-    doc?.descendants((node, _pos, parent) => {
-      if (node.isText) {
-        text += node.text;
-      } else if (node.isBlock && parent) {
-        // 块级元素后添加换行
-        text += '\n';
-      }
-    });
-    text = text.trim();
-    console.log('onChange', text);
-    setInputValue(text || '');
+    // console.log('onChange', text);
+    setInputValue(getText());
   };
 
   // 发送处理
   const handleSend = useCallback(() => {
-    console.log('提交', editorRef.current?.getHTML());
+    console.log('提交', getText());
     clearInputValue();
     updateLoading(true);
   }, []);
@@ -81,14 +73,31 @@ const ChatSenderExample = () => {
     loadingRef.current ? handleStop() : handleSend();
   }, [handleSend, handleStop]);
 
+  // 创建后自动聚焦到身份占位符
+  const findPlaceholder = (placeholder: string) => {
+    const doc = editorRef.current?.getState().doc;
+    let targetPos = -1;
+    doc?.descendants((node, pos) => {
+      if (node.type.name === 'aiInputSlot' && node.attrs.placeholder === placeholder) {
+        targetPos = pos + 1; // 定位到占位符后
+        return false; // 停止遍历
+      }
+    });
+    if (targetPos > -1) {
+      // 设置光标位置
+      editorRef.current?.selection().set(targetPos);
+      setTimeout(() => {
+        editorRef.current?.focus();
+      }, 10);
+    }
+  };
+
   useEffect(() => {
     if (editorRootRef.current) {
       const editor = createAIChatEditor({
         root: editorRootRef.current,
         initialContent: `
-            <p>（这个示例展示了一个 AI 对话场景的 ExEditor 输入框，基于 https://git.woa.com/RMFactory/community-plugins/ai-chat-editor ）</p>
-            <p>我是一名<span data-ai-input-type="slot" data-placeholder="身份">创作号博主</span>，请帮我以<span data-ai-input-type="slot" data-placeholder="主题"></span>为主题，写一篇视频脚本
-            <p>请你仔细思考，高质量地完成该任务</p>
+            <p>我是一名<span data-ai-input-type="slot" data-placeholder="身份">创作号博主</span>，请帮我以<span data-ai-input-type="slot" data-placeholder="主题"></span>为主题，写一篇视频脚本，请你仔细思考，高质量地完成该任务</p>
             `.trim(),
         theme: new BasicTheme(),
         plugins: [],
@@ -104,13 +113,18 @@ const ChatSenderExample = () => {
       editor.on('idlechange', handleChange);
 
       editorRef.current = editor;
+
+      findPlaceholder('主题');
     }
   }, [handleEnter]);
 
   return (
-    <ChatSender value={inputValue} loading={loading} onSend={handleSend} onStop={handleStop}>
-      <div slot="textarea" ref={editorRootRef} className="richText"></div>
-    </ChatSender>
+    <>
+      <ChatSender value={inputValue} loading={loading} onSend={handleSend} onStop={handleStop}>
+        <div slot="textarea" ref={editorRootRef} className="richText"></div>
+      </ChatSender>
+      <Typography.Paragraph>实际发送内容：{inputValue}</Typography.Paragraph>
+    </>
   );
 };
 
