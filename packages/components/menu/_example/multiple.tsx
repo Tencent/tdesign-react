@@ -22,7 +22,7 @@ function Multiple() {
         <SubMenu value="0" title="电器">
           <SubMenu value="0-1" title="电视">
             <MenuItem value="xiaomi">小米电视</MenuItem>
-            <MenuItem value="soni">索尼电视</MenuItem>
+            <MenuItem value="sony">索尼电视</MenuItem>
             <MenuItem value="huawei">华为电视</MenuItem>
           </SubMenu>
           <MenuItem value="0-2">
