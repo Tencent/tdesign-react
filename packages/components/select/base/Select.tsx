@@ -30,7 +30,7 @@ import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger, S
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 import { PopupVisibleChangeContext } from '../../popup';
-import useOptions from '../hooks/useOptions';
+import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
 import composeRefs from '../../_util/composeRefs';
 import { parseContentTNode } from '../../_util/parseTNode';
 import useDefaultProps from '../../hooks/useDefaultProps';
@@ -143,7 +143,8 @@ const Select = forwardRefWithStatics(
         let closest = -1;
         let len = index;
         while (len >= 0) {
-          if (!selectedOptions[len]?.disabled) {
+          const option = selectedOptions[len];
+          if (!isSelectOptionGroup(option) && !option.disabled) {
             closest = len;
             break;
           }
@@ -181,20 +182,25 @@ const Select = forwardRefWithStatics(
     };
 
     const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
-      if (!multiple) {
+      const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
+      if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) {
         return;
       }
 
+      const isSelectableOption = (opt: TdOptionProps) => !opt.checkAll && !opt.disabled;
+      const getOptionValue = (option: SelectOption) =>
+        valueType === 'object' ? option : option[keys?.value || 'value'];
+
       const values = [];
       currentOptions.forEach((option) => {
-        if (option.group) {
+        if (isSelectOptionGroup(option)) {
           option.children.forEach((item) => {
-            if (!item.disabled && !item.checkAll) {
-              values.push(valueType === 'object' ? item : item[keys?.value || 'value']);
+            if (isSelectableOption(item)) {
+              values.push(getOptionValue(item));
             }
           });
-        } else if (!option.disabled && !option.checkAll) {
-          values.push(valueType === 'object' ? option : option[keys?.value || 'value']);
+        } else if (isSelectableOption(option)) {
+          values.push(getOptionValue(option));
         }
       });
 
@@ -265,7 +271,7 @@ const Select = forwardRefWithStatics(
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
-      let filteredOptions: OptionsType = [];
+      let filteredOptions: SelectOption[] = [];
       if (filterable && isFunction(onSearch)) {
         return;
       }
@@ -284,7 +290,7 @@ const Select = forwardRefWithStatics(
       };
 
       tmpPropOptions?.forEach((option) => {
-        if (option.group) {
+        if (isSelectOptionGroup(option)) {
           filteredOptions.push({
             ...option,
             children: option.children?.filter((child) => {

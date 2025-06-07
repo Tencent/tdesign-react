@@ -3,15 +3,16 @@ import { isPlainObject, get } from 'lodash-es';
 import OptionGroup from '../base/OptionGroup';
 import Option from '../base/Option';
 
-import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption, SelectOptionGroup } from '../type';
+import { SelectValue, TdOptionProps, SelectKeysType, TdSelectProps, SelectOption } from '../type';
+import { isSelectOptionGroup } from '../hooks/useOptions';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 
-type ValueToOption = {
+export type ValueToOption = {
   [value: string | number]: TdOptionProps;
 };
 
-function setValueToOptionFormOptionDom(dom: ReactElement<any>, valueToOption: ValueToOption, keys: SelectKeysType) {
+function setValueToOptionFormOptionDom(dom: ReactElement, valueToOption: ValueToOption, keys: SelectKeysType) {
   const { value, label, children } = dom.props;
   // eslint-disable-next-line no-param-reassign
   valueToOption[value] = {
@@ -23,8 +24,8 @@ function setValueToOptionFormOptionDom(dom: ReactElement<any>, valueToOption: Va
 
 // 获取 value => option，用于快速基于 value 找到对应的 option
 export const getValueToOption = (
-  children: ReactElement<any>,
-  options: TdOptionProps[],
+  children: ReactElement,
+  options: SelectOption[],
   keys: SelectKeysType,
 ): ValueToOption => {
   const valueToOption = {};
@@ -32,8 +33,8 @@ export const getValueToOption = (
   // options 优先级高于 children
   if (Array.isArray(options)) {
     options.forEach((option) => {
-      if ((option as SelectOptionGroup).group) {
-        (option as SelectOptionGroup)?.children?.forEach((child) => {
+      if (isSelectOptionGroup(option)) {
+        option.children?.forEach((child) => {
           valueToOption[get(child, keys?.value || 'value')] = {
             ...child,
             value: get(child, keys?.value || 'value'),
@@ -101,7 +102,7 @@ export const getValueToOption = (
 
 // 获取单选的 label
 export const getLabel = (
-  children: ReactElement<any>,
+  children: ReactElement,
   value: SelectValue<TdOptionProps>,
   options: TdOptionProps[],
   keys: SelectKeysType,
@@ -140,7 +141,7 @@ export const getLabel = (
   }
 
   if (Array.isArray(children)) {
-    children.some((item: ReactElement<any>) => {
+    children.some((item: ReactElement) => {
       // 处理分组
       if (item.type === OptionGroup) {
         const groupChildren = item.props.children;
