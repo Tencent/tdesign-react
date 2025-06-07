@@ -1,8 +1,8 @@
 import { noop } from 'lodash-es';
-import { useState, ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { MenuState, SetMenuState, MenuMode } from '../MenuContext';
 import checkSubMenuChildExpanded from '../_util/checkSubMenuChildExpanded';
-import { TdMenuProps, TdHeadMenuProps, MenuValue } from '../type';
+import type { TdMenuProps, TdHeadMenuProps, MenuValue } from '../type';
 
 interface UseMenuContextProps extends Extract<TdMenuProps, TdHeadMenuProps> {
   children: ReactNode;
@@ -45,6 +45,10 @@ function useMenuContext({
     } else if (expandMutex) {
       // 未展开
       nextExpand = checkSubMenuChildExpanded(children, expanded, value);
+      // 确保只有一个菜单存在子菜单，却又开启互斥模式时，其依旧能正常展开
+      if (nextExpand.length === 0 && children) {
+        nextExpand = [...expanded, value];
+      }
     } else {
       nextExpand = [...expanded, value];
     }
