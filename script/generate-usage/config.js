@@ -1163,7 +1163,7 @@ module.exports = {
       const panelList = [{ label: 'QRCode', value: 'QRCode' }];
     `,
     usageStr: `
-      const defaultProps = { value: 'https://tdesign.tencent.com/' };\n
+      const defaultProps = { value: 'https://tdesign.tencent.com/', onRefresh: () => undefined };\n
       useEffect(() => {
         setRenderComp(<QRCode {...defaultProps} {...changedProps} />);
       }, [changedProps]);
