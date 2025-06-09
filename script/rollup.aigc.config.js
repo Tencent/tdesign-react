@@ -102,7 +102,10 @@ const esConfig = {
   input: inputList,
   // 为了保留 style/css.js
   treeshake: false,
-  external: externalDeps.concat(externalPeerDeps),
+  external: (id) =>
+    // 处理子路径模式的外部依赖
+    externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
+    externalPeerDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)),
   plugins: [multiInput({ relative: 'packages/pro-components/chat' })].concat(getPlugins({ extractMultiCss: true })),
   output: {
     banner,
