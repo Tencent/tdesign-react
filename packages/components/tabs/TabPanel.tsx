@@ -30,7 +30,7 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
   return (
     <div
       className={classNames(tdTabPanelClassPrefix, className)}
-      style={{ ...style, display: !isActive ? 'none' : undefined }}
+      style={{ display: !isActive ? 'none' : undefined, ...style }}
     >
       {props.children || props.panel}
     </div>
