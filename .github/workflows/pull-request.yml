@@ -8,6 +8,11 @@ on:
     branches: [develop, main]
     types: [opened, synchronize, reopened]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -139,7 +144,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        react: [18,19]
+        react: [react-18,react-19]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -151,7 +156,7 @@ jobs:
         with:
           node-version-file: .node-version
 
-      - if: matrix.react == '19'
+      - if: matrix.react == 'react-19'
         run: node script/migrate/react19.js
       
       - run: pnpm install
