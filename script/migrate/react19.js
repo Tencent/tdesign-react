@@ -25,7 +25,7 @@ function migrateReactDeps(path) {
 
 function migrateMdToReact(path) {
   let content = readFileSync(path, 'utf8');
-  content = content.replace('react-router', 'react-router-dom');
+  content = content.replace("'react-router-dom'", "'react-router'");
   writeFileSync(path, content);
 }
 
