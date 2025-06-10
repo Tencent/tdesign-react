@@ -1,4 +1,4 @@
-import path from 'path';
+import path, { basename, dirname, join } from 'path';
 import { defineConfig } from 'vitest/config';
 import { InlineConfig } from 'vitest/node';
 
@@ -19,6 +19,17 @@ const testConfig: InlineConfig = {
     reporter: ['text', 'json', 'html'],
     reportsDirectory: 'test/coverage',
   },
+  resolveSnapshotPath: (testPath, snapExtension) => {
+    const prefix = process.env.REACT_19 ? 'react-19-' : '';
+    const filename = basename(testPath);
+    const snapPath = join(dirname(testPath), `__snapshots__`);
+
+    return `${snapPath}/${prefix}${filename}${snapExtension}`;
+  },
+  // snapshotFormat: {
+  //   printBasicPrototype: false,
+  //   escapeString: true,
+  // },
 };
 
 export default defineConfig({

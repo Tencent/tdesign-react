@@ -136,7 +136,10 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    # needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        react: [18,19]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -147,22 +150,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v4
-        with:
-          # 缓存路径
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          # 缓存键
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          # 恢复缓存的备用键
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
+      - if: matrix.react == '19'
+        run: node script/migrate/react19.js
+      
       - run: pnpm install
 
-      - name: Build
-        run: pnpm run build
+      - run: pnpm run build

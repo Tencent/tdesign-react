@@ -1,0 +1,53 @@
+const { readFileSync, writeFileSync } = require('fs');
+const path = require('path');
+
+function migrateReactDeps(path) {
+  const pkg = JSON.parse(readFileSync(path, 'utf8'));
+  const React19Deps = {
+    '@types/react': '^19.0.0',
+    '@types/react-dom': '^19.0.0',
+    '@types/react-is': '^19.0.0',
+    react: '^19.0.0',
+    'react-dom': '^19.0.0',
+    'react-router-dom': '^7.0.0',
+    'react-is': '^19.0.0',
+  };
+  Object.keys(React19Deps).forEach((dep) => {
+    if (pkg.dependencies && pkg.dependencies[dep] !== undefined) {
+      pkg.dependencies[dep] = React19Deps[dep];
+    }
+    if (pkg.devDependencies && pkg.devDependencies[dep] !== undefined) {
+      pkg.devDependencies[dep] = React19Deps[dep];
+    }
+  });
+  writeFileSync(path, JSON.stringify(pkg, null, 2));
+}
+
+function migrateMdToReact(path) {
+  let content = readFileSync(path, 'utf8');
+  content = content.replace('react-router', 'react-router-dom');
+  writeFileSync(path, content);
+}
+
+function setTestEnv(path) {
+  let content = readFileSync(path, 'utf8');
+  content = content.replaceAll(
+    'cross-env NODE_ENV=test-snap vitest',
+    'cross-env NODE_ENV=test-snap REACT_19=true vitest',
+  );
+  writeFileSync(path, content);
+}
+
+function resolveCwd(...args) {
+  args.unshift(process.cwd());
+  return path.join(...args);
+}
+
+function run() {
+  migrateReactDeps(resolveCwd('package.json'));
+  migrateReactDeps(resolveCwd('packages/tdesign-react/site/package.json'));
+  migrateMdToReact(resolveCwd('packages/tdesign-react/site/plugin-tdoc/md-to-react.js'));
+  setTestEnv(resolveCwd('package.json'));
+}
+
+run();
