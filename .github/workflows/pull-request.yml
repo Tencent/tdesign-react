@@ -96,10 +96,10 @@ jobs:
       - run: pnpm install
 
       - run: pnpm site:preview
-      - if: matrix.react == 'react-18'
+      - if: matrix.react == 'react-19'
         run: zip -r site.zip packages/tdesign-react/site/dist
       
-      - if: matrix.react == 'react-18'  
+      - if: matrix.react == 'react-19'  
         name: upload site artifact
         uses: actions/upload-artifact@v4
         with:
@@ -108,11 +108,11 @@ jobs:
           retention-days: 5
 
       - name: Save PR number
-        if: ${{ always() }}
+        if: ${{ always() && matrix.react == 'react-19'}}
         run: echo ${{ github.event.number }} > ./pr-id.txt
 
       - name: Upload PR number
-        if: ${{ always() }}
+        if: ${{ always() && matrix.react == 'react-19' }}
         uses: actions/upload-artifact@v4
         with:
           name: pr
