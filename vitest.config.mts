@@ -26,10 +26,6 @@ const testConfig: InlineConfig = {
 
     return `${snapPath}/${prefix}${filename}${snapExtension}`;
   },
-  // snapshotFormat: {
-  //   printBasicPrototype: false,
-  //   escapeString: true,
-  // },
 };
 
 export default defineConfig({
