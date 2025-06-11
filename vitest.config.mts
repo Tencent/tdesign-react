@@ -1,6 +1,7 @@
-import path, { basename, dirname, join } from 'path';
+import path from 'path';
 import { defineConfig } from 'vitest/config';
 import { InlineConfig } from 'vitest/node';
+import pkg from './package.json' with { type: 'json' };
 
 // 单元测试相关配置
 const testConfig: InlineConfig = {
@@ -20,9 +21,9 @@ const testConfig: InlineConfig = {
     reportsDirectory: 'test/coverage',
   },
   resolveSnapshotPath: (testPath, snapExtension) => {
-    const prefix = process.env.REACT_19 ? 'react-19-' : '';
-    const filename = basename(testPath);
-    const snapPath = join(dirname(testPath), `__snapshots__`);
+    const prefix = pkg.devDependencies.react.includes('^19') ? 'react-19-' : '';
+    const filename = path.basename(testPath);
+    const snapPath = path.join(path.dirname(testPath), `__snapshots__`);
 
     return `${snapPath}/${prefix}${filename}${snapExtension}`;
   },

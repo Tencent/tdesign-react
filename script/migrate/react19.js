@@ -29,18 +29,18 @@ function migrateMdToReact(path) {
   writeFileSync(path, content);
 }
 
-function setTestEnv(path) {
-  const pkg = JSON.parse(readFileSync(path, 'utf8'));
-  pkg.scripts = {
-    ...pkg.scripts,
-    test: 'cross-env REACT_19=true vitest run && pnpm run test:snap',
-    'test:ui': 'vitest --ui',
-    'test:snap': 'cross-env NODE_ENV=test-snap REACT_19=true vitest run',
-    'test:snap-update': 'cross-env NODE_ENV=test-snap REACT_19=true vitest run -u',
-    'test:update': 'cross-env REACT_19=true vitest run -u && pnpm run test:snap-update',
-  };
-  writeFileSync(path, JSON.stringify(pkg, null, 2));
-}
+// function setTestEnv(path) {
+//   const pkg = JSON.parse(readFileSync(path, 'utf8'));
+//   pkg.scripts = {
+//     ...pkg.scripts,
+//     test: 'cross-env REACT_19=true vitest run && pnpm run test:snap',
+//     'test:ui': 'vitest --ui',
+//     'test:snap': 'cross-env NODE_ENV=test-snap REACT_19=true vitest run',
+//     'test:snap-update': 'cross-env NODE_ENV=test-snap REACT_19=true vitest run -u',
+//     'test:update': 'cross-env REACT_19=true vitest run -u && pnpm run test:snap-update',
+//   };
+//   writeFileSync(path, JSON.stringify(pkg, null, 2));
+// }
 
 function resolveCwd(...args) {
   args.unshift(process.cwd());
@@ -51,7 +51,7 @@ function run() {
   migrateReactDeps(resolveCwd('package.json'));
   migrateReactDeps(resolveCwd('packages/tdesign-react/site/package.json'));
   migrateMdToReact(resolveCwd('packages/tdesign-react/site/plugin-tdoc/md-to-react.js'));
-  setTestEnv(resolveCwd('package.json'));
+  // setTestEnv(resolveCwd('package.json'));
 }
 
 run();
