@@ -3,10 +3,10 @@ import { RefreshIcon } from 'tdesign-icons-react';
 import type { TdQrCodeProps, StatusRenderInfo } from './type';
 import Button from '../button';
 import Loading from '../loading';
-import { QrCodeConfig } from '../config-provider/type';
+import { QRCodeConfig } from '../config-provider/type';
 
 export type QRcodeStatusProps = {
-  locale: QrCodeConfig;
+  locale: QRCodeConfig;
   classPrefix: string;
   onRefresh?: TdQrCodeProps['onRefresh'];
   statusRender?: TdQrCodeProps['statusRender'];
