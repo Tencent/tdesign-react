@@ -23,13 +23,13 @@ jobs:
         with:
           node-version-file: .node-version
 
-      - if: matrix.react == 'react-19'
-        run: echo ${{ github.event.number }} > pr-id.txt
-      - if: matrix.react == 'react-19'
-        uses: actions/upload-artifact@v4
+      - run: echo ${{ github.event.number }} > pr-id.txt
+
+      - uses: actions/upload-artifact@v4
         with:
           name: pr-id
           path: pr-id.txt
+          overwrite: true
           retention-days: 5
 
       - if: matrix.react == 'react-19'
