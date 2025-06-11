@@ -142,6 +142,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const fs = require('fs');
             let pkg = JSON.parse(fs.readFileSync('./packages/tdesign-react/package.json', 'utf8'));
             pkg.name='tdesign-react-next';
             fs.writeFileSync('./packages/tdesign-react/package.json', JSON.stringify(pkg, null, 2));
@@ -160,5 +161,5 @@ jobs:
             ./packages/tdesign-react/lib
             ./packages/tdesign-react/es
             ./packages/tdesign-react/package.json
-            
+
           retention-days: 5
