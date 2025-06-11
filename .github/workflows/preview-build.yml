@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-
+     
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
@@ -25,7 +25,8 @@ jobs:
 
       - run: echo ${{ github.event.number }} > pr-id.txt
 
-      - uses: actions/upload-artifact@v4
+      - if: matrix.react == 'react-19'
+        uses: actions/upload-artifact@v4
         with:
           name: pr-id
           path: pr-id.txt
