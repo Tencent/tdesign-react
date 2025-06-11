@@ -68,4 +68,4 @@ jobs:
           name: react-19
           path: react-19    
 
-      - run: pnpm dlx pkg-pr-new publish './react-18' './react-19' --template ./tdesign-react-demo
+      - run: pnpm dlx pkg-pr-new publish './react-18' './react-19'
