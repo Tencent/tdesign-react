@@ -3,7 +3,7 @@ import { CheckCircleIcon, CloseCircleIcon, RefreshIcon } from 'tdesign-icons-rea
 import type { QrCodeProps } from 'tdesign-react';
 import { Button, QRCode, Space, Loading } from 'tdesign-react';
 
-const value = 'https://ant.design';
+const value = 'https://tdesign.tencent.com/';
 
 const customStatusRender: QrCodeProps['statusRender'] = (info) => {
   switch (info.status) {
