@@ -21,7 +21,7 @@ const downloadCanvasQRCode = () => {
 
 const downloadSvgQRCode = () => {
   const svg = document.getElementById('qrcode')?.querySelector<SVGElement>('svg');
-  const svgData = new XMLSerializer().serializeToString(svg!);
+  const svgData = new XMLSerializer().serializeToString(svg);
   const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);
 
