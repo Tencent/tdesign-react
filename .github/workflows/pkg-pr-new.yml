@@ -33,7 +33,7 @@ jobs:
           script: |
             const fs = require('fs');
             let pkg = JSON.parse(fs.readFileSync('./packages/tdesign-react/package.json', 'utf8'));
-            pkg.name='tdesign-react-next';
+            pkg.name='tdesign-react-19';
             fs.writeFileSync('./packages/tdesign-react/package.json', JSON.stringify(pkg, null, 2));
 
       - run: pnpm install
