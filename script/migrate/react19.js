@@ -12,12 +12,21 @@ function migrateReactDeps(path) {
     'react-router-dom': '^7.0.0',
     'react-is': '^19.0.0',
   };
+  const peerDependencies = {
+    react: '>=18.0.0',
+    'react-dom': '>=18.0.0',
+  };
   Object.keys(React19Deps).forEach((dep) => {
     if (pkg.dependencies && pkg.dependencies[dep] !== undefined) {
       pkg.dependencies[dep] = React19Deps[dep];
     }
     if (pkg.devDependencies && pkg.devDependencies[dep] !== undefined) {
       pkg.devDependencies[dep] = React19Deps[dep];
+    }
+  });
+  Object.keys(peerDependencies).forEach((dep) => {
+    if (pkg.peerDependencies && pkg.peerDependencies[dep] !== undefined) {
+      pkg.peerDependencies[dep] = peerDependencies[dep];
     }
   });
   writeFileSync(path, JSON.stringify(pkg, null, 2));
