@@ -1,0 +1,46 @@
+name: preview-build
+
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tdesign-react:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react: [react-18,react-19]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+
+      - if: matrix.react == 'react-19'
+        run: echo ${{ github.event.number }} > pr-id.txt
+      - if: matrix.react == 'react-19'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-id
+          path: pr-id.txt
+          retention-days: 5
+
+      - if: matrix.react == 'react-19'
+        run: node script/migrate/react19.js
+
+      - run: pnpm install
+
+      - run: pnpm site:preview
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.react }}
+          path: packages/tdesign-react/site/dist
+          retention-days: 5
