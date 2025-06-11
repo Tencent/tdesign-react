@@ -4,6 +4,8 @@
 name: MAIN_PULL_REQUEST
 
 on:
+  push:
+    branches: [develop, main]
   pull_request:
     branches: [develop, main]
     types: [opened, synchronize, reopened]
@@ -11,7 +13,6 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
 
 jobs:
   check:
@@ -72,51 +73,6 @@ jobs:
       - run: pnpm run lint
 
       - run: pnpm run test
-
-  site:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        react: [react-18,react-19]
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-
-      - if: matrix.react == 'react-19'
-        run: node script/migrate/react19.js
-
-      - run: pnpm install
-
-      - run: pnpm site:preview
-      - if: matrix.react == 'react-19'
-        run: zip -r site.zip packages/tdesign-react/site/dist
-      
-      - if: matrix.react == 'react-19'  
-        name: upload site artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site
-          path: site.zip
-          retention-days: 5
-
-      - name: Save PR number
-        if: ${{ always() && matrix.react == 'react-19'}}
-        run: echo ${{ github.event.number }} > ./pr-id.txt
-
-      - name: Upload PR number
-        if: ${{ always() && matrix.react == 'react-19' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr
-          path: ./pr-id.txt
 
   build:
     runs-on: ubuntu-latest
