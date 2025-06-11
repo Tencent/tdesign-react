@@ -66,6 +66,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: react-19
-          path: react-19    
+          path: react-19   
+
+      - uses: actions/setup-node@v4
 
       - run: npx pkg-pr-new publish './react-18' './react-19'
