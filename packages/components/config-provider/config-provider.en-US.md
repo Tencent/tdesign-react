@@ -37,7 +37,7 @@ list | Object | - | List global configs。Typescript：`ListConfig` | N
 message | Object | - | Message Component global configs。Typescript：`MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript：`PaginationConfig` | N
 popconfirm | Object | - | Popconfirm global configs。Typescript：`PopconfirmConfig` | N
-qrCode | Object | - | QRCode global configs。Typescript：`QrCodeConfig` | N
+qrcode | Object | - | QRCode global configs。Typescript：`QRCodeConfig` | N
 rate | Object | - | Rate global configs。Typescript：`RateConfig` | N
 select | Object | - | Select global configs。Typescript：`SelectConfig` | N
 steps | Object | - | Steps global configs。Typescript：`StepsConfig` | N
@@ -244,7 +244,7 @@ cancel | String / Object | - | Typescript：`string \| ButtonProps`，[Button AP
 confirm | String / Object | - | Typescript：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript：`{ default: string; warning: string; danger: string; }` | N
 
-### QrCodeConfig
+### QRCodeConfig
 
 name | type | default | description | required
 -- | -- | -- | -- | --

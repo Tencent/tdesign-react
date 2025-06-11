@@ -67,7 +67,7 @@ list | Object | - | 列表组件全局配置。TS 类型：`ListConfig` | N
 message | Object | - | 消息组件全局配置。TS 类型：`MessageConfig` | N
 pagination | Object | - | 分页组件全局配置。TS 类型：`PaginationConfig` | N
 popconfirm | Object | - | 气泡确认框全局配置。TS 类型：`PopconfirmConfig` | N
-qrCode | Object | - | 二维码全局配置。TS 类型：`QrCodeConfig` | N
+qrcode | Object | - | 二维码全局配置。TS 类型：`QRCodeConfig` | N
 rate | Object | - | 评分全局配置。TS 类型：`RateConfig` | N
 select | Object | - | 选择器组件全局配置。TS 类型：`SelectConfig` | N
 steps | Object | - | 步骤条组件全局配置。TS 类型：`StepsConfig` | N
@@ -274,7 +274,7 @@ cancel | String / Object | - | 语言配置，“取消”描述文本。TS 类�
 confirm | String / Object | - | 语言配置，“确定”描述文本。TS 类型：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | 确认按钮主题色，即 Popconfirm 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }。TS 类型：`{ default: string; warning: string; danger: string; }` | N
 
-### QrCodeConfig
+### QRCodeConfig
 
 名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
