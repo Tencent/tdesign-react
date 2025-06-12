@@ -1,14 +1,6 @@
 import React from 'react';
+import { checkIsSubMenu } from './checkMenuType';
 import type { MenuValue } from '../type';
-import { MenuBlockType } from './type';
-
-function isSubMenuComp(element: React.ReactElement) {
-  return (
-    typeof element.type === 'function' &&
-    'displayName' in element.type &&
-    element.type.displayName === MenuBlockType.SubMenu
-  );
-}
 
 export default function checkSubMenuChildExpanded(
   children: React.ReactNode,
@@ -24,7 +16,7 @@ export default function checkSubMenuChildExpanded(
 
     if (childValue === value) {
       // 找到目标节点
-      if (isSubMenuComp(child)) {
+      if (checkIsSubMenu(child)) {
         // 目标是 SubMenu，需要展开它
         return [...resultExpanded, value];
       }
@@ -36,7 +28,7 @@ export default function checkSubMenuChildExpanded(
   // 在子菜单中递归查找
   for (const child of childrenArray) {
     const childValue = child.props?.value;
-    if (isSubMenuComp(child) && childValue) {
+    if (checkIsSubMenu(child) && childValue) {
       const nestedResult = checkSubMenuChildExpanded(child.props.children, expanded, value, [
         ...resultExpanded,
         childValue,
