@@ -1,7 +1,6 @@
 import React from 'react';
-import { CheckCircleIcon, CloseCircleIcon, RefreshIcon } from 'tdesign-icons-react';
 import type { QrCodeProps } from 'tdesign-react';
-import { Button, QRCode, Space, Loading } from 'tdesign-react';
+import { QRCode, Space, Loading } from 'tdesign-react';
 
 const value = 'https://tdesign.tencent.com/';
 
@@ -10,27 +9,18 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
     case 'expired':
       return (
         <div>
-          <CloseCircleIcon style={{ color: 'red' }} /> 二维码过期
-          <p>
-            <Button onClick={info.onRefresh}>
-              <RefreshIcon /> 点击刷新
-            </Button>
-          </p>
+          二维码过期
+          <p style={{ color: '#0052D9', cursor: 'pointer' }}>点击刷新</p>
         </div>
       );
     case 'loading':
       return (
         <Space direction="vertical">
           <Loading />
-          <p>Loading...</p>
         </Space>
       );
     case 'scanned':
-      return (
-        <div>
-          <CheckCircleIcon style={{ color: 'green' }} /> 已扫描
-        </div>
-      );
+      return <div>已扫描</div>;
     default:
       return null;
   }
