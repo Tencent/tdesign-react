@@ -7,4 +7,4 @@ export const ChatSender: React.ForwardRefExoticComponent<
 > = reactify<TdChatSenderProps>('t-chat-sender');
 
 export default ChatSender;
-export type { TdChatSenderProps, TdChatSenderApi } from 'tdesign-web-components';
+export type * from 'tdesign-web-components/lib/chat-sender/type';

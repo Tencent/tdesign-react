@@ -3,6 +3,7 @@ import 'tdesign-web-components/lib/chat-message/content/search-content';
 import 'tdesign-web-components/lib/chat-message/content/suggestion-content';
 import type {
   TdChatbotApi,
+  TdChatListApi,
   TdChatListProps,
   TdChatProps,
   TdChatSearchContentProps,
@@ -25,7 +26,7 @@ const ChatSuggestionContent: React.ForwardRefExoticComponent<
 > = reactify<TdChatSuggestionContentProps>('t-chat-suggestion-content');
 
 const ChatList: React.ForwardRefExoticComponent<
-  Omit<TdChatListProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
+  Omit<TdChatListProps & Partial<TdChatListApi>, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatListProps>('t-chat-list');
 
 export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };

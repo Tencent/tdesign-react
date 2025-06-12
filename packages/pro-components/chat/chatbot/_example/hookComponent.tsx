@@ -26,7 +26,7 @@ export default function ComponentsBuild() {
     defaultMessages: mockData.normal,
     // 聊天服务配置
     chatServiceConfig: {
-      // 对话服务地址
+      // 对话服务地址f
       endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal`,
       stream: true,
       // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
@@ -173,7 +173,7 @@ export default function ComponentsBuild() {
 
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
-      <ChatList ref={listRef}>
+      <ChatList ref={listRef} style={{ width: '100%' }}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
             {renderMsgContents(message, idx === messages.length - 1)}
