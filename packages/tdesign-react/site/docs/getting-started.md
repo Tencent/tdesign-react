@@ -89,6 +89,9 @@ module.exports = {
   }],
 }
 ```
+### 如何在 React 19 中使用
+
+如果您需要在 React 19 中使用，请安装 `tdesign-react@1.12.0` 这个版本；因为无法同时兼容React 16 -19，我们接下来会专门提供一个分支版本，长期支持在 React 19 的使用 TDesign React。
 
 ### 如何在 Next.js 中使用
 
@@ -107,9 +110,7 @@ import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
 
 ```js
 const nextConfig = {
-  experimental: {
-    transpilePackages: ['tdesign-react'],
-  },
+  transpilePackages: ['tdesign-react'],
 };
 
 module.exports = nextConfig;
