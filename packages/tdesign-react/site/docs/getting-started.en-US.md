@@ -107,9 +107,7 @@ In addition, the code exported by the `lib` package is written in `es6` and is l
 
 ```js
 const nextConfig = {
-  experimental: {
-    transpilePackages: ['tdesign-react'],
-  },
+  transpilePackages: ['tdesign-react'],
 };
 
 module.exports = nextConfig;
