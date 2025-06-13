@@ -3,7 +3,7 @@ const path = require('path');
 
 function migrateReactDeps(path) {
   const pkg = JSON.parse(readFileSync(path, 'utf8'));
-  const React19Deps = {
+  const dependencies = {
     '@types/react': '^19.0.0',
     '@types/react-dom': '^19.0.0',
     '@types/react-is': '^19.0.0',
@@ -16,12 +16,12 @@ function migrateReactDeps(path) {
     react: '>=18.0.0',
     'react-dom': '>=18.0.0',
   };
-  Object.keys(React19Deps).forEach((dep) => {
+  Object.keys(dependencies).forEach((dep) => {
     if (pkg.dependencies && pkg.dependencies[dep] !== undefined) {
-      pkg.dependencies[dep] = React19Deps[dep];
+      pkg.dependencies[dep] = dependencies[dep];
     }
     if (pkg.devDependencies && pkg.devDependencies[dep] !== undefined) {
-      pkg.devDependencies[dep] = React19Deps[dep];
+      pkg.devDependencies[dep] = dependencies[dep];
     }
   });
   Object.keys(peerDependencies).forEach((dep) => {
@@ -58,6 +58,7 @@ function resolveCwd(...args) {
 
 function run() {
   migrateReactDeps(resolveCwd('package.json'));
+  migrateReactDeps(resolveCwd('packages/tdesign-react/package.json'));
   migrateReactDeps(resolveCwd('packages/tdesign-react/site/package.json'));
   migrateMdToReact(resolveCwd('packages/tdesign-react/site/plugin-tdoc/md-to-react.js'));
   // setTestEnv(resolveCwd('package.json'));
