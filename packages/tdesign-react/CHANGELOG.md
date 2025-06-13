@@ -8,7 +8,7 @@ spline: explain
 ## 🌈 1.12.3 `2025-06-13` 
 ### 🚀 Features
 - `Form`: 新增`requiredMarkPosition`API，可定义必填符号的位置 @Wesley-0808 ([#3586](https://github.com/Tencent/tdesign-react/pull/3586))
-- `GlobalConfig`: 全局配置`FormConfig` 新增 `requiredMaskPosition` 配置，用于全局配置必填符号的位置 @Wesley-0808 ([#3586](https://github.com/Tencent/tdesign-react/pull/3586))
+- `ConfigProvider`: 全局配置`FormConfig` 新增 `requiredMaskPosition` 配置，用于全局配置必填符号的位置 @Wesley-0808 ([#3586](https://github.com/Tencent/tdesign-react/pull/3586))
 ### 🐞 Bug Fixes
 - `Drawer`:  修复 `cancelBtn` 和 `confirmBtn` 的类型缺失`null` 声明的问题 @RSS1102 ([#3602](https://github.com/Tencent/tdesign-react/pull/3602))
 - `ImageViewer`: 修复显示错误图片在小窗口图片查看器的尺寸异常 @RylanBot([#3607](https://github.com/Tencent/tdesign-react/pull/3607))
@@ -23,7 +23,7 @@ spline: explain
 ## 🌈 1.12.2 `2025-05-30` 
 ### 🚀 Features
 - `Cascader`: 新增支持使用 `option` 方法自定义下拉选项内容的能力 @huangchen1031 ([#3565](https://github.com/Tencent/tdesign-react/pull/3565))
-- `MenuGroup`: 新增支持 `className` and `style` 的使用 @wang-ky ([#3568](https://github.com/Tencent/tdesign-react/pull/3568))
+- `Menu`: `MenuGroup` 新增支持 `className` and `style` 的使用 @wang-ky ([#3568](https://github.com/Tencent/tdesign-react/pull/3568))
 - `InputNumber`: `decimalPlaces` 新增支持 `enableRound` 参数，用于控制是否启用四舍五入 @RylanBot ([#3564](https://github.com/Tencent/tdesign-react/pull/3564))
 - `TagInput`: 优化可拖拽时，鼠标光标显示为移动光标 @liweijie0812 ([#3552](https://github.com/Tencent/tdesign-react/pull/3552))
 
@@ -36,15 +36,15 @@ spline: explain
 - `DatePicker`: 修复 `onFocus` 事件触发时机问题 @l123wx ([#3578](https://github.com/Tencent/tdesign-react/pull/3578))
 - `Drawer`: 优化 `TNode` 重新渲染导致输入光标错误的问题 @betavs ([#3544](https://github.com/Tencent/tdesign-react/pull/3544))
 -  `Form`：
-    - 修复在onValuesChange中通过`setFields`设置相同值继续触发`onValuesChange` 导致`re-render`的问题 @HaixingOoO ([#3304](https://github.com/Tencent/tdesign-react/pull/3304))
-    - 修复`FormList`删除 `field` 后 `reset `值初始化错误的问题 @l123wx ([#3557](https://github.com/Tencent/tdesign-react/pull/3557))
-    - 兼容 `1.11.7` 版本前单独使用` FormItem` 的场景 @uyarn ([#3588](https://github.com/Tencent/tdesign-react/pull/3588))
+    - 修复在onValuesChange中通过 `setFields` 设置相同值继续触发 `onValuesChange` 导致 `re-render` 的问题 @HaixingOoO ([#3304](https://github.com/Tencent/tdesign-react/pull/3304))
+    - 修复 `FormList` 删除 `field` 后 `reset` 值初始化错误的问题 @l123wx ([#3557](https://github.com/Tencent/tdesign-react/pull/3557))
+    - 兼容 `1.11.7` 版本前单独使用 `FormItem` 的场景 @uyarn ([#3588](https://github.com/Tencent/tdesign-react/pull/3588))
 - `Guide`: 优化组件在屏幕大小变化时没有重新计算位置的问题 @HaixingOoO ([#3543](https://github.com/Tencent/tdesign-react/pull/3543))
 - `List`: 修复空子节点导致获取子节点 `props` 失败的问题 @RSS1102 ([#3570](https://github.com/Tencent/tdesign-react/pull/3570))
 - `Popconfirm`: 修复 `confirmBtn` 属性的 children 不生效的问题 @huangchen1031 ([#3556](https://github.com/Tencent/tdesign-react/pull/3556))
 - `Slider`: 修复 `Slider` 的 最后一个 label 宽度不足自动换行的问题 @l123wx([#3581](https://github.com/Tencent/tdesign-react/pull/3581))
 - `Textarea`: 修复输入中文被中断的问题 @betavs ([#3544](https://github.com/Tencent/tdesign-react/pull/3544))
-- `TreeSelect`: 修复`TreeSelect`单点已选中的值时，会删除已选中的值的问题 @HaixingOoO ([#3573](https://github.com/Tencent/tdesign-react/pull/3573))
+- `TreeSelect`: 修复单点已选中的值时，会删除已选中的值的问题 @HaixingOoO ([#3573](https://github.com/Tencent/tdesign-react/pull/3573))
 
 ### 🚧 Others
 - `Dialog`: 优化组件的初始化渲染时间 @RylanBot ([#3561](https://github.com/Tencent/tdesign-react/pull/3561))
@@ -75,32 +75,31 @@ spline: explain
 
 ## 🌈 1.11.8 `2025-04-28` 
 ### 🚀 Features
-- `ConfigProvider `:  支持全局上下文配置作用于 Message 相关插件 @lifeiFront ([#3513](https://github.com/Tencent/tdesign-react/pull/3513))
+- `ConfigProvider`:  支持全局上下文配置作用于 Message 相关插件 @lifeiFront ([#3513](https://github.com/Tencent/tdesign-react/pull/3513))
 - `Icon`: 新增 `logo-miniprogram` 小程序、`logo-cnb` 云原生构建、`seal` 印章、`quote`引号等图标 @taowensheng1997 @uyarn ([#3517](https://github.com/Tencent/tdesign-react/pull/3517))
 - `Upload`: `image-flow`模式下支持进度及自定义错误文本 @ngyyuusora ([#3525](https://github.com/Tencent/tdesign-react/pull/3525))
 - `Select`: 多选通过面板移除选项新增onRemove回调 @QuentinHsu ([#3526](https://github.com/Tencent/tdesign-react/pull/3526))
 ### 🐞 Bug Fixes
 - `InputNumber`: 优化数字输入框的边界问题 @Sight-wcg([#3519](https://github.com/Tencent/tdesign-react/pull/3519))
-- `Select`
-     - 修复 `1.11.2` 版本后光标异常及子组件方式回调函数中缺失完整 option 信息的问题 @HaixingOoO @uyarn ([#3520](https://github.com/Tencent/tdesign-react/pull/3520))  ([#3529](https://github.com/Tencent/tdesign-react/pull/3529))
+- `Select`:
+    - 修复 `1.11.2` 版本后光标异常及子组件方式回调函数中缺失完整 option 信息的问题 @HaixingOoO @uyarn ([#3520](https://github.com/Tencent/tdesign-react/pull/3520))  ([#3529](https://github.com/Tencent/tdesign-react/pull/3529))
     -  优化多选移除标签相关事件修正为不同的`trigger`,  不同触发场景分别调整为`clear`、`remove-tag`和 `uncheck`，修正全选选项的 `trigger`错误 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
-     -  修复单选情况下再次点击选中的选项会触发 `change` 事件的问题 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
-     - 修复多选情况下按下 `backspace` 无法触发 `change` 事件的问题 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
+    -  修复单选情况下再次点击选中的选项会触发 `change` 事件的问题 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
+    - 修复多选情况下按下 `backspace` 无法触发 `change` 事件的问题 @betavs ([#3388](https://github.com/Tencent/tdesign-react/pull/3388))
 
 
 ## 🌈 1.11.7 `2025-04-18` 
 ### 🚀 Features
-- `ConfigProvider`: 新增`isContextEffectPlugin` API，默认关闭，开启后全局配置会影响到`Dialog`、`Loading`、`Drawer`、`Notification` 和`Popup`组件的函数式调用 @lifeiFront ([#3488](https://github.com/Tencent/tdesign-react/pull/3488)) ([#3504](https://github.com/Tencent/tdesign-react/pull/3504))
+- `ConfigProvider`: 新增 `isContextEffectPlugin` API，默认关闭，开启后全局配置会影响到 `Dialog`、`Loading`、`Drawer`、`Notification` 和 `Popup` 组件的函数式调用 @lifeiFront ([#3488](https://github.com/Tencent/tdesign-react/pull/3488)) ([#3504](https://github.com/Tencent/tdesign-react/pull/3504))
 - `Tree`: `checkProps`参数支持函数传入，支持不同节点设置不同checkProps @phalera ([#3501](https://github.com/Tencent/tdesign-react/pull/3501))
-- `Clear`: Cascader、ColorPicker、DatePicker、TimePicker 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
+- `Cascader` / `ColorPicker` / `DatePicker` / `TimePicker`: 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
 - `ColorPicker`: 新增 `clearable` API @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
 ### 🐞 Bug Fixes
-- `DatePicker`: 确保外部组件主动关闭 Popup 的时候，能有对应的 onVisibleChange 回调 @RylanBot ([#3510](https://github.com/Tencent/tdesign-react/pull/3510))
+- `DatePicker`: 确保外部组件主动关闭 Popup 的时候，能有对应的 `onVisibleChange` 回调 @RylanBot ([#3510](https://github.com/Tencent/tdesign-react/pull/3510))
 - `Drawer`: 新增 `DrawerPlugin`，支持函数式调用，具体使用参考示例 @Wesley-0808 ([#3381](https://github.com/Tencent/tdesign-react/pull/3381))
-
 - `InputNumber`: 修复组件未受 value 属性控制的问题 @RSS1102 ([#3499](https://github.com/Tencent/tdesign-react/pull/3499))
-- `ImageViewer`
-     - 修复设置`step` 存在精度展示异常的问题 @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
+- `ImageViewer`:
+     - 修复设置 `step` 存在精度展示异常的问题 @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
      - 修复 `imageScale` 中参数必填的类型错误 @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
 - `Slider`: 修复打开了输入框模式下，使用 `theme` 为 `col` 的输入框的场景下没有限制大小的问题 @RSS1102 ([#3500](https://github.com/Tencent/tdesign-react/pull/3500))
 - `Tabs`:  优化 `Tabs` 选项卡 `label` 过长时滑动按钮失效的问题 @wonkzhang ([#3507](https://github.com/Tencent/tdesign-react/pull/3507))
@@ -110,7 +109,7 @@ spline: explain
 - `Breadcrumb`: 新增`ellipsis`、`maxItems`、`itemsAfterCollapse`、`itemsBeforeCollapse`相关API，用于折叠选项的场景，具体使用参考示例 @moecasts ([#3487](https://github.com/Tencent/tdesign-react/pull/3487))
 
 ### 🐞 Bug Fixes
-- `RadioGroup`: 优化`RadioGroup` 切换展示的高亮效果问题 @RylanBot ([#3446](https://github.com/Tencent/tdesign-react/pull/3446))
+- `Radio`: 优化 `RadioGroup` 切换展示的高亮效果问题 @RylanBot ([#3446](https://github.com/Tencent/tdesign-react/pull/3446))
 - `Tag`: 修复 `style` 优先级低于 `color` ，导致无法强制覆盖标签样式的场景 @uyarn ([#3492](https://github.com/Tencent/tdesign-react/pull/3492))
 - `ColorPicker`：修复单色和渐变切换使用的效果异常问题 @RylanBot ([#3493](https://github.com/Tencent/tdesign-react/pull/3493))
 - `Table`: 修复可调整列宽表格右侧拖拽调整的异常问题 @uyarn ([#3496](https://github.com/Tencent/tdesign-react/pull/3496))
@@ -147,7 +146,7 @@ spline: explain
 - `ConfigProvider`: 修复全局配置二级配置影响非`Context`范围的问题 @uyarn ([#3441](https://github.com/Tencent/tdesign-react/pull/3441))
 - `Dialog`: 取消和确认按钮添加类名，方便定制需求 @RSS1102 ([#3417](https://github.com/Tencent/tdesign-react/pull/3417))
 - `Drawer`: 修复拖拽改变大小的时候获取宽度可能不正确的问题 @wonkzhang ([#3420](https://github.com/Tencent/tdesign-react/pull/3420))
-- `Guide`:  修复`popupProps` 穿透属性 `overlayClassName` 无效  @RSS1102 ([#3433](https://github.com/Tencent/tdesign-react/pull/3433))
+- `Guide`:  修复 `popupProps` 穿透属性 `overlayClassName` 无效  @RSS1102 ([#3433](https://github.com/Tencent/tdesign-react/pull/3433))
 - `Popup`: 解决组件修饰符`arrow`属性设置不生效的问题 @wonkzhang ([#3437](https://github.com/Tencent/tdesign-react/pull/3437))
 - `Select`: 修复单选框在 `readonly` 模式下有光标和`clear`图标的问题 @wonkzhang ([#3436](https://github.com/Tencent/tdesign-react/pull/3436))
 - `Table`: 修复开启虚拟滚动时，`fixedRows`的渲染问题 @huangchen1031 ([#3427](https://github.com/Tencent/tdesign-react/pull/3427))
@@ -163,7 +162,7 @@ spline: explain
 - `Layout`: 子组件 `Content` 新增  `content` API  @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
 ### 🐞 Bug Fixes
 - `reactRender`: fix `React19` `reactRender` error @HaixingOoO ([#3380](https://github.com/Tencent/tdesign-react/pull/3380))
-- `table`: 修复虚拟滚动下的footer渲染问题 @huangchen1031 ([#3383](https://github.com/Tencent/tdesign-react/pull/3383))
+- `Table`: 修复虚拟滚动下的footer渲染问题 @huangchen1031 ([#3383](https://github.com/Tencent/tdesign-react/pull/3383))
 - `fix`: 修复`1.11.0` cjs 产物的异常 @uyarn ([#3392](https://github.com/Tencent/tdesign-react/pull/3392))
 ### 📝 Documentation
 - `ConfigProvider`: 增加 `globalConfig` API文档  @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
@@ -197,16 +196,16 @@ spline: explain
 - `Radio`: `RadioGroup` 新增 `theme` API，用于决定使用 options 时渲染的子组件样式 @HaixingOoO ([#3303](https://github.com/Tencent/tdesign-react/pull/3303))
 - `Upload`: 新增`imageProps` API，用于在上传图片场景下透传 `Image` 组件的相关属性 @HaixingOoO ([#3317](https://github.com/Tencent/tdesign-react/pull/3317))
 - `AutoComplete`: 新增 `empty` API ，用于支持自定义空节点内容 @liweijie0812 ([#3319](https://github.com/Tencent/tdesign-react/pull/3319))
-- `drawer`: `sizeDraggable`新增支持`SizeDragLimit`类型的功能实现 @huangchen1031 ([#3323](https://github.com/Tencent/tdesign-react/pull/3323))
+- `Drawer`: `sizeDraggable`新增支持`SizeDragLimit`类型的功能实现 @huangchen1031 ([#3323](https://github.com/Tencent/tdesign-react/pull/3323))
 - `Icon`: 新增`logo-alipay`、`logo-behance-filled`等图标，修改`logo-wecom`图标，移除不合理的`logo-wecom-filled`图标 @uyarn ([#3326](https://github.com/Tencent/tdesign-react/pull/3326))
 ### 🐞 Bug Fixes
 - `Select`: 修复`onChange`回调 `context` 中的全部选项的值没有包含选项本身全部内容的问题 @uyarn ([#3305](https://github.com/Tencent/tdesign-react/pull/3305))
-- `DateRangePicker`: 开始结束值同时存在的逻辑判断错误问题 @betavs ([#3301](https://github.com/Tencent/tdesign-react/pull/3301))
+- `DatePicker`: `DateRangePicker` 开始结束值同时存在的逻辑判断错误问题 @betavs ([#3301](https://github.com/Tencent/tdesign-react/pull/3301))
 - `Notification`: 修复使用`attach`属性配置导致渲染节点异常的问题 @centuryPark ([#3306](https://github.com/Tencent/tdesign-react/pull/3306))
 - `AutoComplete`: 修复当选项为空时显示效果异常的问题 @betavs ([#3316](https://github.com/Tencent/tdesign-react/pull/3316))
 - `Menu`: 修复 `head-menu` 不渲染 `icon` 的问题 @HaixingOoO ([#3320](https://github.com/Tencent/tdesign-react/pull/3320))
 - `Statistic`: 修复`decimalPlaces=0`时数值动画期间精度错误的问题 @huangchen1031 ([#3327](https://github.com/Tencent/tdesign-react/pull/3327))
-- `ImageVewer`: 修复开启`closeOnOverlay`时，点击蒙层关闭存在闪烁情况的问题 @huangchen1031
+- `ImageViewer`: 修复开启`closeOnOverlay`时，点击蒙层关闭存在闪烁情况的问题 @huangchen1031
 
 
 ## 🌈 1.10.4 `2024-12-25` 
@@ -235,7 +234,7 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `DateRangePicker`: 修复日期区间选择器在跨年的场景下的展示异常问题 @huangchen1031 ([#3275](https://github.com/Tencent/tdesign-react/pull/3275))
+- `DatePicker`: 修复 `DateRangePicker` 在跨年的场景下的展示异常问题 @huangchen1031 ([#3275](https://github.com/Tencent/tdesign-react/pull/3275))
 - `Menu`: 优化菜单项点击事件的绑定问题避免边界触发异常的问题 @huangchen1031 ([#3241](https://github.com/Tencent/tdesign-react/pull/3241))
 - `ImageViewer`: 修复不受控时，`visable`改变时都会触发`onClose`的问题 @HaixingOoO ([#3244](https://github.com/Tencent/tdesign-react/pull/3244))
 - `CheckboxGroup`: 修复复选框组的子元素不是复选框导致的问题 @HaixingOoO ([#3253](https://github.com/Tencent/tdesign-react/pull/3253))
@@ -326,7 +325,7 @@ spline: explain
 - `Dropdown`: 修复设置`panelTopContent`后子菜单`top`计算错误的问题 @moecasts ([#3106](https://github.com/Tencent/tdesign-react/pull/3106))
 - `TreeSelect`: 修改多选状态下默认点击父节点选项的行为为选中，如果需要点击展开，请配置`treeProps.expandOnClickNode` @HaixingOoO ([#3111](https://github.com/Tencent/tdesign-react/pull/3111))
 - `Menu`: 修复二级菜单展开收起状态没有关联右侧箭头变化的问题 @uyarn ([#3110](https://github.com/Tencent/tdesign-react/pull/3110))
-- `DateRangePicker`: 修复日期区间选择器配置时间相关格式时，没有正确处理`defaultTime`的问题 @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
+- `DatePicker`: 修复 `DateRangePicker` 配置时间相关格式时，没有正确处理`defaultTime`的问题 @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
 - `DatePicker`: 修复周选择器下，年份边界日期返回格式错误的问题 @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
 - `ColorPicker`: 修复部分场景下子组件存在重复渲染的异常问题 @uyarn ([#3118](https://github.com/Tencent/tdesign-react/pull/3118))
 - `ColorPicker`: 修复渐变模式下，明度滑块和渐变滑块颜色不联动的问题 @huangchen1031  ([#3109](https://github.com/Tencent/tdesign-react/pull/3109))
@@ -340,21 +339,21 @@ spline: explain
 
 - `Tag`: 修改 `maxWidth`生效的 DOM 节点，方便控制文本内容长度，有基于此特性修改样式的请注意此变更 @liweijie0812 ([#3083](https://github.com/Tencent/tdesign-react/pull/3083))
 - `Form`: 修复 `name` 使用下划线拼接的导致使用下划线做 `name` 的计算错误，有使用特殊字符做表单项的`name`的请注意此变更 @HaixingOoO ([#3095](https://github.com/Tencent/tdesign-react/pull/3095))
-- `Card`: `loading`属性增加 `TNode`支持 @huangchen1031 ([#3051](https://github.com/Tencent/tdesign-react/pull/3051))
-- `Cascader`: 新增`panelTopContent`和`panelBottomContent`，用于自定应该面板顶部和底部内容 @HaixingOoO ([#3096](https://github.com/Tencent/tdesign-react/pull/3096))
+- `Card`: `loading` 属性增加 `TNode` 支持 @huangchen1031 ([#3051](https://github.com/Tencent/tdesign-react/pull/3051))
+- `Cascader`: 新增 `panelTopContent` 和 `panelBottomContent`，用于自定应该面板顶部和底部内容 @HaixingOoO ([#3096](https://github.com/Tencent/tdesign-react/pull/3096))
 - `Checkbox`: 修复 `readonly` 下的样式问题 @HaixingOoO ([#3077](https://github.com/Tencent/tdesign-react/pull/3077))
 - `Form`: 添加 `whitespace` 校验默认错误信息 @liweijie0812 ([#3067](https://github.com/Tencent/tdesign-react/pull/3067))
-- `Form`: 支持原生的`id`属性，用于配合`Button`原生`Form`属性实现表单提交的功能 @HaixingOoO ([#3084](https://github.com/Tencent/tdesign-react/pull/3084))
-- `Tag`: 新增支持`title` api，支持自定义`title`配置 @HaixingOoO ([#3064](https://github.com/Tencent/tdesign-react/pull/3064))
+- `Form`: 支持原生的 `id` 属性，用于配合 `Button` 原生 `Form` 属性实现表单提交的功能 @HaixingOoO ([#3084](https://github.com/Tencent/tdesign-react/pull/3084))
+- `Tag`: 新增支持 `title` api，支持自定义 `title` 配置 @HaixingOoO ([#3064](https://github.com/Tencent/tdesign-react/pull/3064))
 - `Tree`: 新增 `allowDrop` API，用于限制拖拽的场景使用 @uyarn ([#3098](https://github.com/Tencent/tdesign-react/pull/3098))
 
 ### 🐞 Bug Fixes
 
-- `Card`: 修复`loading` 切换状态会导致子节点重新渲染的问题 @huangchen1031 ([#3051](https://github.com/Tencent/tdesign-react/pull/3051))
+- `Card`: 修复 `loading` 切换状态会导致子节点重新渲染的问题 @huangchen1031 ([#3051](https://github.com/Tencent/tdesign-react/pull/3051))
 - `Dialog`: 修复`Header`为`null`，配置`closeBtn`仍然渲染`Header`的问题 @HaixingOoO ([#3081](https://github.com/Tencent/tdesign-react/pull/3081))
 - `Input`: 修复计算`emoji`字符错误的问题 @novlan1 ([#3065](https://github.com/Tencent/tdesign-react/pull/3065))
 - `Popup`: 修复`1.8.0`版本后针对`Popup`的优化导致 16.x 版本下的异常问题 @moecasts ([#3091](https://github.com/Tencent/tdesign-react/pull/3091))
-- `Statistic`: 修复`Statistic`组件 `classname` 和 `style` 未透传功能异常的问题 @liweijie0812 ([#3089](https://github.com/Tencent/tdesign-react/pull/3089))
+- `Statistic`: 修复 `classname` 和 `style` 未透传功能异常的问题 @liweijie0812 ([#3089](https://github.com/Tencent/tdesign-react/pull/3089))
 - `TimePicker`: 修复 `format` 仅支持 HH:mm:ss 格式的问题 @liweijie0812 ([#3066](https://github.com/Tencent/tdesign-react/pull/3066))
 
 
@@ -388,8 +387,11 @@ spline: explain
 ## 🌈 1.7.8 `2024-08-01` 
 ### 🚀 Features
 - `ConfigProvider`: 新增 `attach` API， 支持全局配置attach或全局配置部分组件的attach @HaixingOoO ([#3001](https://github.com/Tencent/tdesign-react/pull/3001))
-- `DatePicker`: 新增 `needConfirm` API，支持日期时间选择器不需要点击确认按钮保存选择时间 @HaixingOoO ([#3011](https://github.com/Tencent/tdesign-react/pull/3011))
-- `borderless`: `RangeInput` `DateRangePicker`  `TimeRangePicker` 支持无边框模式 @liweijie0812 ([#3015](https://github.com/Tencent/tdesign-react/pull/3015))
+- `DatePicker`:
+    - 新增 `needConfirm` API，支持日期时间选择器不需要点击确认按钮保存选择时间 @HaixingOoO ([#3011](https://github.com/Tencent/tdesign-react/pull/3011))
+    - `DateRangePicker` 支持 `borderless` 模式 @liweijie0812 ([#3015](https://github.com/Tencent/tdesign-react/pull/3015))
+- `RangeInput`: 支持 `borderless` 模式 @liweijie0812 ([#3015](https://github.com/Tencent/tdesign-react/pull/3015))
+- `TimePicker`: `TimeRangePicker` 支持 `borderless` 模式 @liweijie0812 ([#3015](https://github.com/Tencent/tdesign-react/pull/3015))
 - `Description`: layout 类型定义调整为字符串多类型 @liweijie0812 ([#3021](https://github.com/Tencent/tdesign-react/pull/3021))
 - `Rate`: 评分组件支持国际化配置 @uyarn ([#3023](https://github.com/Tencent/tdesign-react/pull/3023))
 ### 🐞 Bug Fixes
@@ -404,8 +406,7 @@ spline: explain
 
 ## 🌈 1.7.7 `2024-07-18` 
 ### 🚀 Features
-- `Icon`: 新增有序列表图标 `list-numbered`，优化`lock-off`的绘制路径 @
-DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4acfdda58f84f9bca71a22f033e27127dd26db))
+- `Icon`: 新增有序列表图标 `list-numbered`，优化`lock-off`的绘制路径 @DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4acfdda58f84f9bca71a22f033e27127dd26db))
 - `Breadcrumb`: `BreadcrumbItem`增加`tooltipProps`扩展，方便定制内置的`tooltip`的相关属性 @carolin913 ([#2990](https://github.com/Tencent/tdesign-react/pull/2990))
 - `Imageviewer`: 新增 `attach` API，支持自定义 ImageViewer 的挂载节点 @HaixingOoO ([#2995](https://github.com/Tencent/tdesign-react/pull/2995))
 - `Drawer`: 新增 `onSizeDragEnd` API，用于需要拖拽缩放回调的场景 @NWYLZW ([#2975](https://github.com/Tencent/tdesign-react/pull/2975))
@@ -413,7 +414,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 ### 🐞 Bug Fixes
 - `Icon`: 修复图标`chart-column`的命名错误问题 @uyarn ([#2979](https://github.com/Tencent/tdesign-react/pull/2979))
 - `Input`: 修复禁用状态下仍可以切换明文密文的问题 @uyarn ([#2991](https://github.com/Tencent/tdesign-react/pull/2991))
-- `Table`: @uyarn 
+- `Table`: @uyarn
     - 修复只存在一列可拖拽的表格缩小时的样式异常问题 ([#2994](https://github.com/Tencent/tdesign-react/pull/2994))
     - 修复部分场景下向前缩放时的报错的问题([#2994](https://github.com/Tencent/tdesign-react/pull/2994))
     - 修复空数据下展示内容没有居中展示的问题 ([#2996](https://github.com/Tencent/tdesign-react/pull/2996))
@@ -458,7 +459,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `SelectInput`: 修复`SelectInput` 的 `interface.d.ts` 文件缺少 `size` 类型的问题 @HaixingOoO ([#2930](https://github.com/Tencent/tdesign-react/pull/2930))
 - `DatePicker`: 
    - 修复单独使用面板没有兼容无 `onMonthChange` 回调的场景的问题 @uyarn ([#2932](https://github.com/Tencent/tdesign-react/pull/2932))
-  - 修复DateRangePickerPanel组件，在下拉框中选择年/月时选择出现日期改变错乱的问题 @liyucang-git ([#2922](https://github.com/Tencent/tdesign-react/pull/2922))
+  - 修复 `DateRangePickerPanel` 组件，在下拉框中选择年/月时选择出现日期改变错乱的问题 @liyucang-git ([#2922](https://github.com/Tencent/tdesign-react/pull/2922))
 - `InputNumber`: 修复 `allowInputOverLimit=false` 大小值判断时，value 为 undefined 时，会出现显示 Infinity 的问题 @HaixingOoO ([common#1802](https://github.com/Tencent/tdesign-common/pull/1802))
 
 ## 🌈 1.7.3 `2024-05-18` 
@@ -529,11 +530,11 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `DatePicker`: 修复 `1.5.3` 版本之后处理Date类型和周选择器的异常 @uyarn ([#2841](https://github.com/Tencent/tdesign-react/pull/2841))
 - `Guide`:  
      - 优化`SSR`下的使用问题 @HaixingOoO ([#2842](https://github.com/Tencent/tdesign-react/pull/2842))
-     - 修复`SSR`场景下 `Guide`组件初始化渲染位置异常的问题 @uyarn ([#2832](https://github.com/Tencent/tdesign-react/pull/2832))
+     - 修复`SSR`场景下组件初始化渲染位置异常的问题 @uyarn ([#2832](https://github.com/Tencent/tdesign-react/pull/2832))
 - `Scroll`: 修复由于`Chrome 121` 版本支持 scroll width 之后导致`Table`、`Select`及部分出现滚动条组件的样式异常问题 @loopzhou ([common#1765](https://github.com/Tencent/tdesign-vue/pull/1765)) @uyarn ([#2843](https://github.com/Tencent/tdesign-react/pull/2843))
 - `Locale`: 优化 `DatePicker` 部分模式的语言包 @uyarn ([#2843](https://github.com/Tencent/tdesign-react/pull/2843))
 - `Tree`: 修复初始化后 `draggable` 属性丢失响应式的问题 @Liao-js ([#2838](https://github.com/Tencent/tdesign-react/pull/2838))
-- `Style`: 支持通过`less`总入口打包样式的需求 @NWYLZW @uyarn  ([common#1757](https://github.com/Tencent/tdesign-common/pull/1757)) ([common#1766](https://github.com/Tencent/tdesign-common/pull/1766))
+- `Style`: 支持通过`less`总入口打包样式的需求 @NWYLZW @uyarn ([common#1757](https://github.com/Tencent/tdesign-common/pull/1757)) ([common#1766](https://github.com/Tencent/tdesign-common/pull/1766))
 
 
 ## 🌈 1.5.5 `2024-03-28` 
@@ -583,20 +584,20 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 ### 🚀 Features
 - `Popup`: 支持`Plugin`方式使用。 @HaixingOoO ([#2717](https://github.com/Tencent/tdesign-react/pull/2717))
 - `Transfer`: 支持 `direction` API @uyarn ([#2727](https://github.com/Tencent/tdesign-react/pull/2727))
-- `Tabs`: 新增`action` API，支持自定义右侧区域 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
+- `Tabs`: 新增 `action` API，支持自定义右侧区域 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
 ### 🐞 Bug Fixes
 - `Pagination`: `Jump to`调整为大写，保持一致性 @wangyewei ([#2716](https://github.com/Tencent/tdesign-react/pull/2716))
 - `Table`: 修复`Modal`里的`Form`表单，使用`shouldUpdate`卸载有时无法找到表单的方法。 @duxphp ([#2675](https://github.com/Tencent/tdesign-react/pull/2675))
 - `Table`: 列宽调整和行展开场景，修复行展开时，会重置列宽调整结果问题 @chaishi ([#2722](https://github.com/Tencent/tdesign-react/pull/2722)
 - `Select`: 修复`Select`多选状态下选中内容滚动的问题。 @HaixingOoO ([#2721](https://github.com/Tencent/tdesign-react/pull/2721))
-- `Transfer`: 修复`disabled` API功能异常的问题 @uyarn ([#2727](https://github.com/Tencent/tdesign-react/pull/2727))
-- `swiper`: 修复`Swiper`向左切换轮播动画时顺序错乱的问题 @HaixingOoO ([#2725](https://github.com/Tencent/tdesign-react/pull/2725))
-- `Form`: 修复计算`^`字符异常的问题 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
+- `Transfer`: 修复 `disabled` API功能异常的问题 @uyarn ([#2727](https://github.com/Tencent/tdesign-react/pull/2727))
+- `Swiper`: 修复向左切换轮播动画时顺序错乱的问题 @HaixingOoO ([#2725](https://github.com/Tencent/tdesign-react/pull/2725))
+- `Form`: 修复计算 `^` 字符异常的问题 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
 - `Loading`: 修复未设置 `z-index` 默认值的问题 @betavs ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
 - `Tag`: 修复设置`CheckTag`的className会覆盖全部已有类名的缺陷  @uyarn ([#2730](https://github.com/Tencent/tdesign-react/pull/2730))
 - `TreeSelect`: 修复`onEnter`事件不触发的问题 @uyarn ([#2731](https://github.com/Tencent/tdesign-react/pull/2731))
 - `Menu`: 修复`collapsed`的`scroll`样式 @Except10n ([#2718](https://github.com/Tencent/tdesign-react/pull/2718))
-- `Cascader` 修复长列表场景下，在 `Safari`中使用的样式异常问题 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
+- `Cascader` 修复长列表场景下，在 `Safari` 中使用的样式异常问题 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
 
 ## 🌈 1.5.0 `2024-01-11` 
 ### 🚀 Features
@@ -607,8 +608,8 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Upload`: 修复 Upload 的 `uploadFilePercent` 类型未定义 @betavs ([#2703](https://github.com/Tencent/tdesign-react/pull/2703))
 - `Dialog`: 修复了 Dialog 的 `className` 进行的多次节点挂载错误，`className` 将仅被挂载至 ctx 元素上 @NWYLZW ([#2639](https://github.com/Tencent/tdesign-react/pull/2639))
 - `Tree Select`: 修复了 `Tree Select` 的 suffixIcon 错误并添加了相关示例 @Ali-ovo ([#2692](https://github.com/Tencent/tdesign-react/pull/2692))
-### Breaking Changes
-- 该版本将 Dialog 的 `className` 错误挂载进行了修复，现在的 className 只会被挂载到 Dialog 的上层容器元素 Context 之中，如果你需要直接修改 Dialog 本体的样式可以切换使用为 `dialogClassName` 进行修改。
+### ❗ Breaking Changes
+- `Dialog`: 该版本将 `Dialog` 的 `className` 错误挂载进行了修复，现在的 className 只会被挂载到 `Dialog` 的上层容器元素 Context 之中，如果你需要直接修改 `Dialog` 本体的样式可以切换使用为 `dialogClassName` 进行修改。
 
 ## 🌈 1.4.3 `2024-01-02` 
 ### 🐞 Bug Fixes
@@ -618,18 +619,18 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.4.2 `2023-12-28` 
 ### 🚀 Features
-- `Card`: Card组件添加`LoadingProps`属性 @HaixingOoO ([#2677](https://github.com/Tencent/tdesign-react/pull/2677))
-- `DateRangePicker`: 新增`cancelRangeSelectLimit`，支持不限制RangePicker选择的前后范围 @uyarn ([#2684](https://github.com/Tencent/tdesign-react/pull/2684))
+- `Card`: 添加 `LoadingProps` 属性 @HaixingOoO ([#2677](https://github.com/Tencent/tdesign-react/pull/2677))
+- `DatePicker`: `DateRangePicker` 新增`cancelRangeSelectLimit`，支持不限制 RangePicker 选择的前后范围 @uyarn ([#2684](https://github.com/Tencent/tdesign-react/pull/2684))
 - `Space`: 元素为空时，不再渲染一个子元素 @chaishi ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-- `Upload`: @chaishi
-  - 新增支持使用 `uploadPastedFiles` 粘贴上传文件([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 输入框类型的上传组件，新增类名 `t-upload--theme-file-input`([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 新增支持 `uploadPastedFiles`，表示允许粘贴上传文件 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 新增 `cancelUploadButton` 和 `uploadButton`，支持自定义上传按钮和取消上传按钮 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 新增 `imageViewerProps`，透传图片预览组件全部属性 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 新增 `showImageFileName`，用于控制是否显示图片名称 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 支持传入默认值为非数组形式，[#2471](https://github.com/Tencent/tdesign-react/issues/2471)([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 支持 `fileListDisplay=null` 时，隐藏文件列表；并新增更加完整的 `fileListDisplay` 参数，用于自定义 UI ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+- `Upload`: @chaishi ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 新增支持使用 `uploadPastedFiles` 粘贴上传文件
+  - 输入框类型的上传组件，新增类名 `t-upload--theme-file-input`
+  - 新增支持 `uploadPastedFiles`，表示允许粘贴上传文件
+  - 新增 `cancelUploadButton` 和 `uploadButton`，支持自定义上传按钮和取消上传按钮
+  - 新增 `imageViewerProps`，透传图片预览组件全部属性 
+  - 新增 `showImageFileName`，用于控制是否显示图片名称
+  - 支持传入默认值为非数组形式
+  - 支持 `fileListDisplay=null` 时，隐藏文件列表；并新增更加完整的 `fileListDisplay` 参数，用于自定义 UI
 ### 🐞 Bug Fixes
 - `Table`:  异步获取最新的树形结构数据时，优先使用`window.requestAnimationFrame`函数，以防闪屏 @lazybonee ([#2668](https://github.com/Tencent/tdesign-react/pull/2668))
 - `Table`: 修复筛选值为 `0/false` 时，筛选图标不能高亮问题 @chaishi ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
@@ -639,9 +640,9 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `InputNumber`: 修复 `min=0` 或 `max=0` 限制无效问题，[tdesign-vue#2516](https://github.com/Tencent/tdesign-vue/issues/2516) @chaishi ([#2352](https://github.com/Tencent/tdesign-react/pull/2352))
 - `Watermark`: 修复行内style引起的无法sticky定位问题 @carolin913 ([#2685](https://github.com/Tencent/tdesign-react/pull/2685))
 - `Calendar`: 修复卡片模式下未正常展示周信息的缺陷 @uyarn ([#2686](https://github.com/Tencent/tdesign-react/pull/2686))
-- `Upload`: @chaishi 
-  - 修复手动上传时，无法更新上传进度问题 ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
-  - 修复 `uploadFilePercent` 参数类型问题  ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+- `Upload`: @chaishi ([#2671](https://github.com/Tencent/tdesign-react/pull/2671))
+  - 修复手动上传时，无法更新上传进度问题
+  - 修复 `uploadFilePercent` 参数类型问题
     
  ## 🌈 1.4.1 `2023-12-14` 
 ### 🚀 Features
@@ -658,7 +659,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Select`: 修复`InputChange`事件在blur时trigger异常的问题 @uyarn ([#2664](https://github.com/Tencent/tdesign-react/pull/2664))
 - `SelectInput`: 修复`SelectInput`的popup内容宽度计算问题 @HaixingOoO ([#2647](https://github.com/Tencent/tdesign-react/pull/2647))
 - `ImageViewer`: 图片预览添加默认的缩放比例和按下 ESC 时是否触发图片预览器关闭事件 @HaixingOoO ([#2652](https://github.com/Tencent/tdesign-react/pull/2652))
-- `Table`: @chaishi 
+- `Table`: @chaishi
     - 修复 `EnhancedTable` 树节点无法正常展开问题 ([#2661](https://github.com/Tencent/tdesign-react/pull/2661))
     - 修复虚拟滚动场景，树节点无法展开问题 ([#2659](https://github.com/Tencent/tdesign-react/pull/2659))
 
@@ -676,7 +677,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Tree`: 修复树组件节点的 `open class` 状态控制逻辑错误导致的样式异常 @NWYLZW ([#2611](https://github.com/Tencent/tdesign-react/pull/2611))
 - `Tree`: 指定滚动到特定节点 API 中的`key`和`index`应为可选 @uyarn ([#2626](https://github.com/Tencent/tdesign-react/pull/2626))
 - `Drawer`: 修复 Drawer 的 mode 为`push`时,推开内容区域为 drawer 节点的父节点。 @HaixingOoO ([#2614](https://github.com/Tencent/tdesign-react/pull/2614))
-- `Radio`: 修复表单 disabled 未生效在 Radio 上的问题 @li-jia-nan ([#2397](https://github.com/Tencent/tdesign-react/pull/2397))
+- `Radio`: 修复表单 `disabled` 未生效在 `Radio 上的问题 @li-jia-nan ([#2397](https://github.com/Tencent/tdesign-react/pull/2397))
 - `Pagination`: 修复当 `total` 为 0 并且 `pageSize` 改变时， `current` 值为 0 的问题 @betavs ([#2624](https://github.com/Tencent/tdesign-react/pull/2624))
 - `Image`: 修复图片在 SSR 模式下不会触发原生事件 @HaixingOoO ([#2616](https://github.com/Tencent/tdesign-react/pull/2616))
 
@@ -705,9 +706,9 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
  ## 🌈 1.3.0 `2023-10-19` 
 ### 🚀 Features
 - `Timeline`: TimelineItem添加点击事件。 @Zzongke ([#2545](https://github.com/Tencent/tdesign-react/pull/2545))
-- `Tag`:
-    - 支持多种风格标签配置 @chaishi ([#2524](https://github.com/Tencent/tdesign-react/pull/2524))
-    - 支持标签组`CheckTagGroup`的使用，详见示例文档  @chaishi ([#2524](https://github.com/Tencent/tdesign-react/pull/2524))
+- `Tag`: @chaishi ([#2524](https://github.com/Tencent/tdesign-react/pull/2524))
+    - 支持多种风格标签配置
+    - 支持标签组`CheckTagGroup`的使用，详见示例文档
 ### 🐞 Bug Fixes
 - `locale`: 添加缺失it_IT、ru_RU、zh_TW 的语言环境 @Zzongke ([#2542](https://github.com/Tencent/tdesign-react/pull/2542))
 - `Cascader`: `change` 事件中 `source` 异常问题 @betavs ([#2544](https://github.com/Tencent/tdesign-react/pull/2544))
@@ -719,8 +720,8 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
  ## 🌈 1.2.6 `2023-09-28` 
 ### 🚀 Features
 - `Table`: 优化渲染次数 @chaishi ([#2514](https://github.com/Tencent/tdesign-react/pull/2514))
-- `card`: title使用`div`取代`span` 在自定义场景下更符合规范 @uyarn ([#2517](https://github.com/Tencent/tdesign-react/pull/2517))
-- `Tree`: Tree支持通过key匹配单一value指定滚动到特定位置，具体使用方式请参考示例代码 @uyarn ([#2519](https://github.com/Tencent/tdesign-react/pull/2519))
+- `Card`: `title` 使用 `div` 取代 `span` 在自定义场景下更符合规范 @uyarn ([#2517](https://github.com/Tencent/tdesign-react/pull/2517))
+- `Tree`: 支持通过 key 匹配单一 value 指定滚动到特定位置，具体使用方式请参考示例代码 @uyarn ([#2519](https://github.com/Tencent/tdesign-react/pull/2519))
 ### 🐞 Bug Fixes
 - `Form`: 修复 formList 嵌套数据获取异常 @honkinglin ([#2529](https://github.com/Tencent/tdesign-react/pull/2529))
 - `Table`: 修复数据切换时 `rowspanAndColspan` 渲染问题，[issue#2513](https://github.com/Tencent/tdesign-react/issues/2513) @chaishi ([#2514](https://github.com/Tencent/tdesign-react/pull/2514))
@@ -730,29 +731,27 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
  ## 🌈 1.2.5 `2023-09-14` 
 ### 🚀 Features
-- `steps`: 全局配置添加步骤条的已完成图标自定义 @Zzongke ([#2491](https://github.com/Tencent/tdesign-react/pull/2491))
+- `Steps`: 全局配置添加步骤条的已完成图标自定义 @Zzongke ([#2491](https://github.com/Tencent/tdesign-react/pull/2491))
 - `Table`: 可筛选表格，`onFilterChange` 事件新增参数 `trigger: 'filter-change' | 'confirm' | 'reset' | 'clear'`，表示触发筛选条件变化的来源 @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
 - `Form`: trigger新增`submit`选项 @honkinglin ([#2507](https://github.com/Tencent/tdesign-react/pull/2507))
 - `ImageViewer`: `onIndexChange` 事件新增 `trigger` 枚举值 `current` @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
-- `Image`:
-    - 新增 `fallback`，表示图片的兜底图，原始图片加载失败时会显示兜底图 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
-    - 新增支持 `src` 类型为 `File`，支持通过 `File` 预览图片 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+- `Image`: @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
+    - 新增 `fallback`，表示图片的兜底图，原始图片加载失败时会显示兜底图
+    - 新增支持 `src` 类型为 `File`，支持通过 `File` 预览图片
 - `Upload`: 文案列表支持显示缩略图 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
 - `Tree`:
     - 支持虚拟滚动场景下通过`key`滚动到特定节点 @uyarn ([#2509](https://github.com/Tencent/tdesign-react/pull/2509))
     - 虚拟滚动下 低于`threshold` 仍可运行scrollTo操作 @uyarn ([#2509](https://github.com/Tencent/tdesign-react/pull/2509))
 ### 🐞 Bug Fixes
-- `GlobalConfig`: 修复切换多语言失效的问题 @uyarn ([#2501](https://github.com/Tencent/tdesign-react/pull/2501))
+- `ConfigProvider`: 修复切换多语言失效的问题 @uyarn ([#2501](https://github.com/Tencent/tdesign-react/pull/2501))
 - `Table`:
     - 可筛选表格，修复 `resetValue` 在清空筛选时，未能重置到指定 `resetValue` 值的问题 @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
-    - 树形结构表格，修复 expandedTreeNodes.sync 和 @expanded-tree-nodes-change 使用 expandTreeNodeOnClick  时无效问题 [tdesign-vue#2756](https://github.com/Tencent/tdesign-vue/issues/2756) @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
+    - 树形结构表格，修复 expandedTreeNodes.sync 和 expanded-tree-nodes-change 使用 expandTreeNodeOnClick 时无效问题 @chaishi ([#2492](https://github.com/Tencent/tdesign-react/pull/2492))
     - 单元格在编辑模式下，保存的时候对于链式的colKey处理错误，未能覆盖原来的值 @Empire-suy ([#2493](https://github.com/Tencent/tdesign-react/pull/2493))
     - 可编辑表格，修复多个可编辑表格同时存在时，校验互相影响问题 @chaishi ([#2498](https://github.com/Tencent/tdesign-react/pull/2498))
-    - 单元格在编辑模式下，保存的时候对于链式的colKey处理错误，未能覆盖原来的值 @Empire-suy ([#2493](https://github.com/Tencent/tdesign-react/pull/2493))
-    - 修复使用 list 传 props 且 destroyOnHide 为 false 下， 会丢失 panel 内容的问题 @lzy2014love ([#2500](https://github.com/Tencent/tdesign-react/pull/2500))
 - `TagInput`: 修复折叠展示选项尺寸大小问题 @uyarn ([#2503](https://github.com/Tencent/tdesign-react/pull/2503))
 - `Tabs`: 修复使用 list 传 props 且 destroyOnHide 为 false 下， 会丢失 panel 内容的问题 @lzy2014love ([#2500](https://github.com/Tencent/tdesign-react/pull/2500))
-- `menu`: 修复菜单expandType默认模式下menuitem传递onClick不触发的问题 @Zzongke ([#2502](https://github.com/Tencent/tdesign-react/pull/2502))
+- `Menu`: 修复菜单 `expandType` 默认模式下menuitem传递onClick不触发的问题 @Zzongke ([#2502](https://github.com/Tencent/tdesign-react/pull/2502))
 - `ImageViewer`: 修复无法通过 `visible` 直接打开预览弹框问题 @chaishi ([#2494](https://github.com/Tencent/tdesign-react/pull/2494))
 - `Tree`: 修复1.2.0版本后部分`TreeNodeModel`的操作失效的异常 @uyarn
 
@@ -761,10 +760,10 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Table`: 树形结构，没有设置 `expandedTreeNodes` 情况下，data 数据发生变化时，自动重置收起所有展开节点（如果希望保持展开节点，请使用属性 `expandedTreeNodes` 控制，[tdesign-vue#2735](https://github.com/Tencent/tdesign-vue/issues/2735) @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
 ### 🐞 Bug Fixes
 - `Watermark`: watermark组件，修改水印节点，都不影响水印展示 @tingtingcheng6 ([#2459](https://github.com/Tencent/tdesign-react/pull/2459))
-- `Table`:
-    - 拖拽排序 + 本地数据分页场景，修复拖拽排序事件参数 `currentIndex/targetIndex/current/target` 等不正确问题 @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
-    - 拖拽排序 + 本地数据分页场景，修复在第二页以后的分页数据中拖拽调整顺序后，会自动跳转到第一页问题 @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
-    - 支持分页非受控用法的拖拽排序场景 @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
+- `Table`: @chaishi ([#2470](https://github.com/Tencent/tdesign-react/pull/2470))
+    - 拖拽排序 + 本地数据分页场景，修复拖拽排序事件参数 `currentIndex/targetIndex/current/target` 等不正确问题
+    - 拖拽排序 + 本地数据分页场景，修复在第二页以后的分页数据中拖拽调整顺序后，会自动跳转到第一页问题
+    - 支持分页非受控用法的拖拽排序场景 
 - `Slider`: 修复初始值为0 时，label位置错误的缺陷 @Zzongke ([#2477](https://github.com/Tencent/tdesign-react/pull/2477))
 - `Tree`: 支持`store.children`调用getChildren方法 @uyarn ([#2480](https://github.com/Tencent/tdesign-react/pull/2480)) 
 
@@ -775,16 +774,15 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.2.2 `2023-08-24` 
 ### 🚀 Features
-- `Table`:
-    - 树形结构，新增组件实例方法 `removeChildren`，用于移除子节点 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
-    - 树形结构，支持通过属性 `expandedTreeNodes.sync` 自由控制展开节点，非必传属性 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
+- `Table`: @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
+    - 树形结构，新增组件实例方法 `removeChildren`，用于移除子节点 
+    - 树形结构，支持通过属性 `expandedTreeNodes.sync` 自由控制展开节点，非必传属性
 - `Tree`: 新增`scrollTo`方法 支持在虚拟滚动场景下滚动到指定节点的需求 @uyarn ([#2460](https://github.com/Tencent/tdesign-react/pull/2460))
 ### 🐞 Bug Fixes
-- `taginput`: fix when entering Chinese, it will be blocked by the previous label @Zzongke ([#2438](https://github.com/Tencent/tdesign-react/pull/2438))
+- `TagInput`: 修复输入中文时被卡住的问题 @Zzongke ([#2438](https://github.com/Tencent/tdesign-react/pull/2438))
 - `Table`:
-    - 点击行展开/点击行选中，修复 `expandOnRowClick`和 `selectOnRowClick` 无法独立控制行点击执行交互问题 [issue#3254](https://github.com/Tencent/tdesign-vue-next/issues/3254) @chaishi ([#2452](https://github.com/Tencent/tdesign-react/pull/2452))
+    - 点击行展开/点击行选中，修复 `expandOnRowClick`和 `selectOnRowClick` 无法独立控制行点击执行交互问题 @chaishi ([#2452](https://github.com/Tencent/tdesign-react/pull/2452))
     - 树形结构，修复组件实例方法 展开全部 `expandAll` 问题 @chaishi ([#2453](https://github.com/Tencent/tdesign-react/pull/2453))
-- `TagInput`: 修复中文展示问题 @Zzongke ([#2438](https://github.com/Tencent/tdesign-react/pull/2438))
 - `Form`: 修复FormList组件使用form setFieldsValue、reset异常 @nickcdon ([#2406](https://github.com/Tencent/tdesign-react/pull/2406)) 
 
 ## 🌈 1.2.1 `2023-08-16` 
@@ -794,9 +792,9 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Form`:  FormItem 新增 valueFormat 函数支持格式化数据 @honkinglin ([#2445](https://github.com/Tencent/tdesign-react/pull/2445))
 ### 🐞 Bug Fixes
 - `Dialog`: 修复闪烁问题 @linjunc ([#2435](https://github.com/Tencent/tdesign-react/pull/2435))
-- `Select`: 
-    - 修复多选丢失title的问题 @uyarn ([#2446](https://github.com/Tencent/tdesign-react/pull/2446))
-    - 开启远程搜索时不执行内部过滤 @uyarn ([#2446](https://github.com/Tencent/tdesign-react/pull/2446))
+- `Select`: @uyarn ([#2446](https://github.com/Tencent/tdesign-react/pull/2446))
+    - 修复多选丢失 title 的问题
+    - 开启远程搜索时不执行内部过滤
 - `Popconfirm`: invalid className and style props @betavs ([#2420](https://github.com/Tencent/tdesign-react/pull/2420))
 - `DatePicker`: 修复 hover cell 造成不必要的渲染 @j10ccc ([#2440](https://github.com/Tencent/tdesign-react/pull/2440)) 
 
@@ -806,31 +804,31 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Icon`: 新增 960 个图标；调整图标命名 `photo` 为 `camera`，`books`为`bookmark`, `stop-cirle-1`为`stop-circle-stroke`；移除`money-circle`图标，具体请查看图标页面  @uyarn ([#2429](https://github.com/Tencent/tdesign-react/pull/2429))
 
 ### 🚀 Features
-- `Table`:
-    - 新增 `lazyLoad` 用于懒加载整个表格 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
-    - 可编辑单元格，新增 `edit.keepEditMode` ，用于保持单元格始终为编辑模式 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
-    - 可筛选表格，支持透传 `attrs/style/classNames` 属性、样式、类名等信息到自定义组件，[tdesign-vue#2627](https://github.com/Tencent/tdesign-vue/issues/2627) @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
-    -  可筛选表格，当前 `filterValue` 未设置过滤值的默认值时，不再透传 undefined 到筛选器组件，某些组件的默认值必须为数组，不允许是 undefined @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+- `Table`: @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+    - 新增 `lazyLoad` 用于懒加载整个表格
+    - 可编辑单元格，新增 `edit.keepEditMode` ，用于保持单元格始终为编辑模式
+    - 可筛选表格，支持透传 `attrs/style/classNames` 属性、样式、类名等信息到自定义组件
+    - 可筛选表格，当前 `filterValue` 未设置过滤值的默认值时，不再透传 undefined 到筛选器组件，某些组件的默认值必须为数组，不允许是 undefined 
 ### 🐞 Bug Fixes
 - `Cascader`:  传入的 value 不在 options中时会直接报错 @peng-yin ([#2414](https://github.com/Tencent/tdesign-react/pull/2414))
-- `menu`: 修复同一个MenuItem多次触发onChange的问题 @leezng ([#2424](https://github.com/Tencent/tdesign-react/pull/2424))
+- `Menu`: 修复同一个 MenuItem 多次触发 onChange 的问题 @leezng ([#2424](https://github.com/Tencent/tdesign-react/pull/2424))
 - `Drawer`: 抽屉组件在 visible 默认为 true 时，无法正常显示 @peng-yin ([#2415](https://github.com/Tencent/tdesign-react/pull/2415))
-- `Table`:
-    - 虚拟滚动场景，修复表头宽度和表内容宽度不一致问题 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
-    - 虚拟滚动场景，修复默认的滚动条长度（位置）和滚动后的不一致问题 @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402)) 
+- `Table`: @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
+    - 虚拟滚动场景，修复表头宽度和表内容宽度不一致问题
+    - 虚拟滚动场景，修复默认的滚动条长度（位置）和滚动后的不一致问题 
 
 ## 🌈 1.1.17 `2023-07-28`
 ### 🐞 Bug Fixes
-- `tabs`: 修复tabs组件list传空数组时的js报错 @zhenglianghan ([#2393](https://github.com/Tencent/tdesign-react/pull/2393))
-- `list`: 修复ListItemMeta组件description传递自定义元素 @qijizh ([#2396](https://github.com/Tencent/tdesign-react/pull/2396))
+- `Tabs`: 修复 list 传空数组时的 js 报错 @zhenglianghan ([#2393](https://github.com/Tencent/tdesign-react/pull/2393))
+- `List`: 修复 `ListItemMeta`组件 `description` 传递自定义元素 @qijizh ([#2396](https://github.com/Tencent/tdesign-react/pull/2396))
 - `Tree`: 修复开启虚拟滚动时部分场景下节点回滚的交互异常问题 @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
-- `Tree`: 修复1.1.15后基于`level`属性的操作无法正常工作的问题 @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
+- `Tree`: 修复1.1.15后基于 `level` 属性的操作无法正常工作的问题 @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
 
 ## 🌈 1.1.16 `2023-07-26`
 ### 🚀 Features
-- `TimePicker`:
-    - disableTime回调新增毫秒参数 @uyarn ([#2388](https://github.com/Tencent/tdesign-react/pull/2388))
-    - 优化展示不可选时间选项时滚动到不可选选项的体验 @uyarn ([#2388](https://github.com/Tencent/tdesign-react/pull/2388))
+- `TimePicker`: @uyarn ([#2388](https://github.com/Tencent/tdesign-react/pull/2388))
+    - `disableTime` 回调新增毫秒参数
+    - 优化展示不可选时间选项时滚动到不可选选项的体验 
 - `Dropdown`: 新增panelTopContent及 panelBottomContent 支持需要上下额外节点的场景使用 @uyarn ([#2387](https://github.com/Tencent/tdesign-react/pull/2387))
 
 ### 🐞 Bug Fixes
@@ -839,7 +837,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
     - 树形结构表格，修复当 `selectedRowKeys` 中的值在 data 数据中不存在时报错问题，[issue#2375](https://github.com/Tencent/tdesign-react/issues/2375) @chaishi ([#2385](https://github.com/Tencent/tdesign-react/pull/2385))
 - `Guide`: 修复设置step为 -1 时需要隐藏组件的功能 @uyarn ([#2389](https://github.com/Tencent/tdesign-react/pull/2389)) 
 
- ## 🌈 1.1.15 `2023-07-19` 
+## 🌈 1.1.15 `2023-07-19` 
 ### 🚀 Features
 - `DatePicker`: 优化关闭浮层后重置默认选中区域 @honkinglin ([#2371](https://github.com/Tencent/tdesign-react/pull/2371))
 ### 🐞 Bug Fixes
@@ -851,11 +849,11 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `Tree`: 支持虚拟滚动 @uyarn ([#2359](https://github.com/Tencent/tdesign-react/pull/2359))
 - `Table`: 树形结构，添加行层级类名，方便业务设置不同层级的样式 @chaishi ([#2354](https://github.com/Tencent/tdesign-react/pull/2354))
 - `Radio`: 优化选项组换行情况 @ontheroad1992 ([#2358](https://github.com/Tencent/tdesign-react/pull/2358))
-- `Upload`:
-    - 新增组件实例方法，`uploadFilePercent` 用于更新文件上传进度 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
-    - `theme=image`，支持使用 `fileListDisplay` 自定义 UI 内容 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
-    - `theme=image`，支持点击名称打开新窗口访问图片，[tdesign-vue#2338](https://github.com/Tencent/tdesign-vue/issues/2338) @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
-    - 拖拽上传场景，支持 `accept` 文件类型限制，[tdesign-vue-next#3075](https://github.com/Tencent/tdesign-vue-next/issues/3075) @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+- `Upload`: @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
+    - 新增组件实例方法，`uploadFilePercent` 用于更新文件上传进度
+    - `theme=image`，支持使用 `fileListDisplay` 自定义 UI 内容
+    - `theme=image`，支持点击名称打开新窗口访问图片
+    - 拖拽上传场景，支持 `accept` 文件类型限制
 
 ### 🐞 Bug Fixes
 - `Upload`: 自定义上传方法，修复未能正确返回上传成功或失败后的文件问题 @chaishi ([#2353](https://github.com/Tencent/tdesign-react/pull/2353))
@@ -878,16 +876,16 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.1.11 `2023-06-20` 
 ### 🐞 Bug Fixes
-- `Table`:
-    - 可拖拽调整列宽场景，修复 `resizable=false` 无效问题，默认值为 false @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
-    - 本地数据排序场景，修复异步拉取数据时，取消排序数据会导致空列表问题 @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
-    - 修复固定表格 + 固定列 + 虚拟滚动场景，表头不对齐问题，[issue#2126](https://github.com/Tencent/tdesign-react/issues/2126) @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
-    - 可编辑单元格/可编辑行场景，修复数据始终校验上一个值问题，调整为校验最新输入值，[issue#2219](https://github.com/Tencent/tdesign-react/issues/2219) @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
-    - 修复本地数据排序，多字段排序场景，示例代码缺失问题，[issue#1966](https://github.com/Tencent/tdesign-react/issues/1966) @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
-- `ColorPicker`:
-    - 初始化为渐变模式时 支持空字符串作为初始值 @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
-    - 修复 `recentColors` 等字段的类型问题 @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
-    - 修复内部下拉选项未透传 `popupProps` 的缺陷 @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
+- `Table`: @chaishi ([#2297](https://github.com/Tencent/tdesign-react/pull/2297))
+    - 可拖拽调整列宽场景，修复 `resizable=false` 无效问题，默认值为 false
+    - 本地数据排序场景，修复异步拉取数据时，取消排序数据会导致空列表问题
+    - 修复固定表格 + 固定列 + 虚拟滚动场景，表头不对齐问题
+    - 可编辑单元格/可编辑行场景，修复数据始终校验上一个值问题，调整为校验最新输入值
+    - 修复本地数据排序，多字段排序场景，示例代码缺失问题
+- `ColorPicker`: @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
+    - 初始化为渐变模式时 支持空字符串作为初始值
+    - 修复 `recentColors` 等字段的类型问题
+    - 修复内部下拉选项未透传 `popupProps` 的缺陷
 
 
 ## 🌈 1.1.10 `2023-06-13` 
@@ -900,7 +898,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `InputNumber`: 初始值为 undefined/null，且存在 decimalPlaces 时，不再进行小数点纠正 @chaishi ([#2273](https://github.com/Tencent/tdesign-react/pull/2273))
 - `Select`: 修复`onBlur`方法回调参数异常的问题 @Ali-ovo ([#2281](https://github.com/Tencent/tdesign-react/pull/2281))
 - `Dialog`: 修复 Dialog 在 SSR 环境下报错 @night-c ([#2280](https://github.com/Tencent/tdesign-react/pull/2280))
--  `Table`:  修复组件设置 `expandOnRowClick` 为 `true` 时，点击整行报错 @pe-3 ([#2275](https://github.com/Tencent/tdesign-react/pull/2275))
+- `Table`:  修复组件设置 `expandOnRowClick` 为 `true` 时，点击整行报错 @pe-3 ([#2275](https://github.com/Tencent/tdesign-react/pull/2275))
 
 ## 🌈 1.1.9 `2023-06-06` 
 ### 🚀 Features
@@ -928,11 +926,11 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.1.6 `2023-05-18` 
 ### 🚀 Features
-- `TreeSelect`:  支持 `panelConent` API @ArthurYung ([#2182](https://github.com/Tencent/tdesign-react/pull/2182))
+- `TreeSelect`: 支持 `panelConent` API @ArthurYung ([#2182](https://github.com/Tencent/tdesign-react/pull/2182))
 
 ### 🐞 Bug Fixes
 - `Select`: 修复可创建重复 label 的选项的缺陷 @uyarn ([#2221](https://github.com/Tencent/tdesign-react/pull/2221))
-- `Skeleton`: 修复使用`rowCol`时额外多渲染一行theme的缺陷 @uyarn ([#2223](https://github.com/Tencent/tdesign-react/pull/2223))
+- `Skeleton`: 修复使用 `rowCol` 时额外多渲染一行 theme 的缺陷 @uyarn ([#2223](https://github.com/Tencent/tdesign-react/pull/2223))
 - `Form`:
     - 修复异步渲染使用 `useWatch` 报错问题 @honkinglin ([#2220](https://github.com/Tencent/tdesign-react/pull/2220))
     - 修复 `FormList` 初始值赋值失效问题 @honkinglin ([#2222](https://github.com/Tencent/tdesign-react/pull/2222))
@@ -974,7 +972,7 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 - `DatePicker`: 优化周选择器高亮判断逻辑性能问题 @honkinglin ([#2136](https://github.com/Tencent/tdesign-react/pull/2136))
 ### 🐞 Bug Fixes
 - `Dialog`: 
-    - 修复设置style width 不生效问题 @honkinglin ([#2132](https://github.com/Tencent/tdesign-react/pull/2132))
+    - 修复设置 style width 不生效问题 @honkinglin ([#2132](https://github.com/Tencent/tdesign-react/pull/2132))
     - 修复 footer 渲染 null 问题 @honkinglin ([#2131](https://github.com/Tencent/tdesign-react/pull/2131))
 - `Select`: 修复多选分组展示样式异常的问题 @uyarn ([#2138](https://github.com/Tencent/tdesign-react/pull/2138))
 - `Popup`: 
@@ -989,28 +987,27 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 ### 🐞 Bug Fixes
 - `TagInput`: 修复基于`TagInput`的组件使用筛选时删除关键词时会删除已选值的问题 @2513483494 ([#2113](https://github.com/Tencent/tdesign-react/pull/2113))
 - `InputNumber`: 修复输入小数以0结尾时的功能异常问题 @uyarn ([#2127](https://github.com/Tencent/tdesign-react/pull/2127))
-- `tree`: 修复 tree 组件 data 属性不受控问题 @PBK-B ([#2119](https://github.com/Tencent/tdesign-react/pull/2119))
-- `TagInput`: 修复基于`TagInput`的组件使用筛选时删除关键词时会删除已选值的问题 @2513483494 ([#2113](https://github.com/Tencent/tdesign-react/pull/2113))
+- `Tree`: 修复组件的 data 属性不受控问题 @PBK-B ([#2119](https://github.com/Tencent/tdesign-react/pull/2119))
 - `Form`: 修复初始数据设置问题 @honkinglin ([#2124](https://github.com/Tencent/tdesign-react/pull/2124))
 - `TreeSelect`: 修复过滤后无法展开问题 @honkinglin ([#2128](https://github.com/Tencent/tdesign-react/pull/2128))
 - `Popup`: 修复右键展示浮层触发浏览器默认事件 @honkinglin ([#2120](https://github.com/Tencent/tdesign-react/pull/2120))
 
 ## 🌈 1.1.0 `2023-03-30` 
 ### 🚀 Features
-- `Table`:
-    - 支持使用 `filterIcon` 支持不同列显示不同的筛选图标，[tdesign-vue#2088](https://github.com/Tencent/tdesign-vue/issues/2088) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
-    - 支持横向滚动到固定列，[tdesign-vue#1992](https://github.com/Tencent/tdesign-vue/issues/1992) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+- `Table`: @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+    - 支持使用 `filterIcon` 支持不同列显示不同的筛选图标
+    - 支持横向滚动到固定列
 - `Button`: 支持禁用态不触发 href 跳转逻辑 @honkinglin ([#2095](https://github.com/Tencent/tdesign-react/pull/2095))
 - `BackTop`: 新增 BackTop 组件  @meiqi502 ([#2037](https://github.com/Tencent/tdesign-react/pull/2037))
 - `Form`: submit 支持返回数据 @honkinglin ([#2096](https://github.com/Tencent/tdesign-react/pull/2096))
 
 ### 🐞 Bug Fixes
-- `Table`:
-    - 修复 SSR 环境中，document is not undefined 问题 @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
-    - 修复在列显示控制场景中，无法拖拽交换列顺序问题 @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
-    - 单行选中功能，修复 `allowUncheck: false` 无效问题，[tdesign-vue-next#2561](https://github.com/Tencent/tdesign-vue-next/issues/2561) @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+- `Table`: @chaishi ([#2089](https://github.com/Tencent/tdesign-react/pull/2089))
+    - 修复 SSR 环境中，document is not undefined 问题
+    - 修复在列显示控制场景中，无法拖拽交换列顺序问题 
+    - 单行选中功能，修复 `allowUncheck: false` 无效问题
 - `Dialog`: 修复 Dialog onOpen 事件调用时机问题 @honkinglin ([#2090](https://github.com/Tencent/tdesign-react/pull/2090))
-- `DatePicker`: 修复format为12小时制时功能异常的问题 @uyarn ([#2100](https://github.com/Tencent/tdesign-react/pull/2100))
+- `DatePicker`: 修复 `format` 为12小时制时功能异常的问题 @uyarn ([#2100](https://github.com/Tencent/tdesign-react/pull/2100))
 - `Alert`: 修复关闭按钮为文字时的居中和字体大小问题 @Wen1kang  @uyarn ([#2100](https://github.com/Tencent/tdesign-react/pull/2100))
 - `Watermark`: 修复 loading 组合使用问题 @duanbaosheng ([#2094](https://github.com/Tencent/tdesign-react/pull/2094))
 - `Notification`: 修复获取实例问题 @honkinglin ([#2103](https://github.com/Tencent/tdesign-react/pull/2103))
@@ -1019,45 +1016,43 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.0.5 `2023-03-23` 
 ### 🚀 Features
-- `TimePicker`: 新增 size API , 用于控制时间输入框大小 @uyarn ([#2081](https://github.com/Tencent/tdesign-react/pull/2081))
+- `TimePicker`: 新增 `size` API , 用于控制时间输入框大小 @uyarn ([#2081](https://github.com/Tencent/tdesign-react/pull/2081))
 
 ### 🐞 Bug Fixes
-- `Form`: 修复 formList 初始数据获取问题 @honkinglin ([#2067](https://github.com/Tencent/tdesign-react/pull/2067))
-- `Watermark`: fix document undefined in nextjs @carolin913 ([#2073](https://github.com/Tencent/tdesign-react/pull/2073))
-- `ColorPicker`:
-    - 修复HEX色值无法手动输入的问题 @insekkei ([#2074](https://github.com/Tencent/tdesign-react/pull/2074))
-    - 修复最近使用颜色无法删除的问题 @insekkei ([#2074](https://github.com/Tencent/tdesign-react/pull/2074))
+- `Form`: 修复 `FormList` 初始数据获取问题 @honkinglin ([#2067](https://github.com/Tencent/tdesign-react/pull/2067))
+- `Watermark`: 修复 NextJS 中 document undefined 的问题 @carolin913 ([#2073](https://github.com/Tencent/tdesign-react/pull/2073))
+- `ColorPicker`: @insekkei ([#2074](https://github.com/Tencent/tdesign-react/pull/2074))
+    - 修复HEX色值无法手动输入的问题
+    - 修复最近使用颜色无法删除的问题
 - `Dialog`: 修复`onCloseBtnClick`事件无效的问题 @ArthurYung ([#2080](https://github.com/Tencent/tdesign-react/pull/2080))
 - `BreadCrumb`: 修复通过 options 属性无法配置 Icon 的问题 @uyarn ([#2081](https://github.com/Tencent/tdesign-react/pull/2081))
-- `Dialog`: 修复`onCloseBtnClick`事件无效的问题 @ArthurYung ([#2080](https://github.com/Tencent/tdesign-react/pull/2080))
-
 
 
 ## 🌈 1.0.4 `2023-03-16` 
 ### 🚀 Features
-- `Table`:
-    - 列宽调整功能，更新列宽调整规则为：列宽较小没有超出时，列宽调整表现为当前列和相邻列的变化；列宽超出存在横向滚动条时，列宽调整仅影响当前列和列总宽。 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - 可编辑单元格(行)功能，支持编辑模式下，数据变化时实时校验，`col.edit.validateTrigger`， [issue#2445](https://github.com/Tencent/tdesign-vue-next/issues/2445) @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - 只有固定列存在时，才会出现类名 `.t-table__content--scrollable-to-left` 和 `.t-table__content--scrollable-to-right` @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - 拖拽功能，支持禁用固定列不可拖拽调整顺序，[tdesign-vue-next#2333](https://github.com/Tencent/tdesign-vue-next/issues/2333) @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+- `Table`: @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 列宽调整功能，更新列宽调整规则为：列宽较小没有超出时，列宽调整表现为当前列和相邻列的变化；列宽超出存在横向滚动条时，列宽调整仅影响当前列和列总宽
+    - 可编辑单元格(行)功能，支持编辑模式下，数据变化时实时校验，`col.edit.validateTrigger`
+    - 只有固定列存在时，才会出现类名 `.t-table__content--scrollable-to-left` 和 `.t-table__content--scrollable-to-right`
+    - 拖拽功能，支持禁用固定列不可拖拽调整顺序
 - `Upload`: `theme=file-input` 文件为空时，悬浮时不显示清除按钮 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
 - `InputNumber`: 支持千分位粘贴 @uyarn ([#2058](https://github.com/Tencent/tdesign-react/pull/2058))
-- `DatePicker`: 支持 size 属性 @honkinglin ([#2055](https://github.com/Tencent/tdesign-react/pull/2055))
+- `DatePicker`: 支持 `size` 属性 @honkinglin ([#2055](https://github.com/Tencent/tdesign-react/pull/2055))
 ### 🐞 Bug Fixes
 - `Form`: 修复重置默认值数据类型错误 @honkinglin ([#2046](https://github.com/Tencent/tdesign-react/pull/2046))
 - `Timeline`: 导出TimelineItem类型 @southorange0929 ([#2053](https://github.com/Tencent/tdesign-react/pull/2053))
-- `Table`:
-    - 修复表格宽度抖动问题 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - 列宽调整功能，修复 Dialog 中列宽调整问题，[tdesign-vue-next#2359](https://github.com/Tencent/tdesign-vue-next/issues/2359) @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - 可编辑单元格，修复下拉选择类组件 `abortEditOnEvent` 没有包含 `onChange` 时，依然会在数据变化时触发退出编辑态问题 @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - 修复 lazy-load reset bug @MrWeilian ([#2041](https://github.com/Tencent/tdesign-react/pull/2041))
+- `Table`: @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
+    - 修复表格宽度抖动问题 
+    - 列宽调整功能，修复 Dialog 中列宽调整问题
+    - 可编辑单元格，修复下拉选择类组件 `abortEditOnEvent` 没有包含 `onChange` 时，依然会在数据变化时触发退出编辑态问题
+- `Table`: 修复 lazy-load reset bug @MrWeilian ([#2041](https://github.com/Tencent/tdesign-react/pull/2041))
 - `ColorPicker`:  修复输入框无法输入的问题 @insekkei ([#2061](https://github.com/Tencent/tdesign-react/pull/2061))
 - `Affix`: 修复 fixed 判断问题 @lio-mengxiang ([#2048](https://github.com/Tencent/tdesign-react/pull/2048))
 
 ## 🌈 1.0.3 `2023-03-09` 
 ### 🚀 Features
 - `Message`: 鼠标悬停时不自动关闭 @HelKyle ([#2036](https://github.com/Tencent/tdesign-react/pull/2036))
-- `DatePicker`:  支持defaultTime @honkinglin ([#2038](https://github.com/Tencent/tdesign-react/pull/2038))
+- `DatePicker`:  支持 `defaultTime` @honkinglin ([#2038](https://github.com/Tencent/tdesign-react/pull/2038))
 
 ### 🐞 Bug Fixes
 - `DatePicker`: 修复月份为0时展示当前月份问题 @honkinglin ([#2032](https://github.com/Tencent/tdesign-react/pull/2032))
@@ -1067,15 +1062,15 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.0.2 `2023-03-01` 
 ### 🚀 Features
-- `Image`:
-    - 图片组件支持特殊格式的地址 `.avif` 和 `.webp` @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
-    - 新增图片全局配置 `globalConfig.image.replaceImageSrc`，用于统一替换图片地址 @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
+- `Image`: @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
+    - 图片组件支持特殊格式的地址 `.avif` 和 `.webp` 
+    - 新增图片全局配置 `globalConfig.image.replaceImageSrc`，用于统一替换图片地址
 - `List`: `listItemMeta` 支持 `className`、`style` 属性 @honkinglin ([#2005](https://github.com/Tencent/tdesign-react/pull/2005))
 
 ### 🐞 Bug Fixes
-- `Form`:
-    - 修复校验信息沿用错误缓存问题 @honkinglin ([#2014](https://github.com/Tencent/tdesign-react/pull/2014))
-    - 移除 formItem 多余事件通知逻辑 @honkinglin ([#2024](https://github.com/Tencent/tdesign-react/pull/2024))
+- `Form`: @honkinglin ([#2014](https://github.com/Tencent/tdesign-react/pull/2014))
+    - 修复校验信息沿用错误缓存问题
+    - 移除 formItem 多余事件通知逻辑
 - `Drawer`: 修复 drawer 拖拽后页面出现滚动条问题 @honkinglin ([#2012](https://github.com/Tencent/tdesign-react/pull/2012))
 - `Input`: 修复异步渲染宽度计算问题 @honkinglin ([#2010](https://github.com/Tencent/tdesign-react/pull/2010))
 - `Textarea`: 调整 limit 展示位置，修复与tips 共存时样式问题 @duanbaosheng ([#2015](https://github.com/Tencent/tdesign-react/pull/2015))
@@ -1084,11 +1079,11 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ## 🌈 1.0.1 `2023-02-21` 
 ### 🚀 Features
-- `Popup`: 新增`onScrollToBottom` 事件 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
-- `Select`:
-    - 支持虚拟滚动的使用 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
-    - 支持`autofocus`、`suffix`，`suffixIcon`等API，`onSearch`新增回调参数 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
-    - Option子组件支持自定义`title`API @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+- `Popup`: 新增 `onScrollToBottom` 事件 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+- `Select`: @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+    - 支持虚拟滚动的使用
+    - 支持`autofocus`、`suffix`，`suffixIcon`等API，`onSearch`新增回调参数
+    - Option子组件支持自定义`title`API
 - `Icon`:  加载时注入样式，避免在 next 环境中报错的问题 @uyarn ([#1990](https://github.com/Tencent/tdesign-react/pull/1990))
 - `Avatar`: 组件内部图片，使用 Image 组件渲染，支持透传 `imageProps` 到 Image 图片组件 @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
 - `Dialog`: plugin 调用支持自定义 visbile @moecasts ([#1998](https://github.com/Tencent/tdesign-react/pull/1998))
@@ -1096,16 +1091,15 @@ DOUBLE-DENG ([icon#9f4acfd](https://github.com/Tencent/tdesign-icons/commit/9f4a
 
 ### 🐞 Bug Fixes
 - `Select`: 修复`onInputchange`触发时机的问题 @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
-- `Radio`: 修复 radio disabled 默认值问题  @honkinglin ([#1977](https://github.com/Tencent/tdesign-react/pull/1977))
-- `Table`: editable cell keep edit state @moecasts ([#1988](https://github.com/Tencent/tdesign-react/pull/1988))
+- `Radio`: 修复 `disabled` 默认值问题  @honkinglin ([#1977](https://github.com/Tencent/tdesign-react/pull/1977))
+- `Table`: 确保可编辑单元格保持编辑状态 @moecasts ([#1988](https://github.com/Tencent/tdesign-react/pull/1988))
 - `TagInput`: 修复0.45.4版本后TagInput增加blur行为导致Select/Cascader/TreeSelect无法过滤多选的问题 @uyarn ([#1989](https://github.com/Tencent/tdesign-react/pull/1989))
 - `Avatar`: 修复图片无法显示问题 @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
 - `Image`: 修复事件类型问题 @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
 - `Tree`: 修复子节点被折叠后无法被搜索问题 @honkinglin ([#1999](https://github.com/Tencent/tdesign-react/pull/1999))
 - `Popup`:  修复浮层显隐死循环问题 @honkinglin ([#1991](https://github.com/Tencent/tdesign-react/pull/1991))
 - `Form`:  修复 formList onValuesChange 获取不到最新数据问题 @honkinglin ([#1992](https://github.com/Tencent/tdesign-react/pull/1992))
-- `Drawer`:  修复 `drawer`、`Dialog` 滚动条检测问题 @honkinglin ([#2001](https://github.com/Tencent/tdesign-react/pull/2001))
-
+- `Drawer` / `Dialog`: 修复滚动条检测问题 @honkinglin ([#2001](https://github.com/Tencent/tdesign-react/pull/2001))
 
 ## 🌈 1.0.0 `2023-02-13` 
 ### 🚀 Features
