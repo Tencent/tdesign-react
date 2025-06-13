@@ -21,7 +21,7 @@ export interface ImageCardUploadProps extends CommonDisplayFileProps {
   max: TdUploadProps['max'];
   disabled?: TdUploadProps['disabled'];
   showUploadProgress: TdUploadProps['showUploadProgress'];
-  triggerUpload?: () => void;
+  triggerUpload?: (e: MouseEvent) => void;
   uploadFiles?: (toFiles?: UploadFile[]) => void;
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
   onPreview?: TdUploadProps['onPreview'];
