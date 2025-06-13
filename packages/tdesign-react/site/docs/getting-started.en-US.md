@@ -86,6 +86,10 @@ module.exports = {
 }
 ```
 
+### How to use in React 19
+
+If you need to use TDesign React in React 19, please install version `tdesign-react@1.12.0`. Since it cannot simultaneously support React 16–19, we will soon provide a  branch version for long-term compatibility with React 19.
+
 ### How to use React with Next.js
 
 `Next.js` does not support importing `css` style files by default. But the `es` bundle of tdesign-react automatically includes the corresponding css style file, which causes errors in the project. To solve this, we have provided a set of style-free component library codes stored in the `lib` bundle.
