@@ -35,7 +35,6 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
 
   useEffect(() => {
     initChat();
-
     return () => msgSubscribeRef.current?.();
   }, []);
 

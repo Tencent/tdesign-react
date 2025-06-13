@@ -14,8 +14,7 @@ import {
   isAIMessage,
   useChat,
 } from '@tdesign-react/aigc';
-import { getMessageContentForCopy, TdChatActionsName } from 'tdesign-web-components';
-import { endpoint } from './utils';
+import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
 import mockData from './mock/data';
 
 export default function ComponentsBuild() {
@@ -158,7 +157,7 @@ export default function ComponentsBuild() {
     setInputValue(e.detail);
   };
 
-  const sendHandler = async (e: CustomEvent) => {
+  const sendHandler = async (e: CustomEvent<TdChatSenderParams>) => {
     const { value } = e.detail;
     const params = {
       prompt: value,
@@ -171,9 +170,13 @@ export default function ComponentsBuild() {
     chatEngine.abortChat();
   };
 
+  const onScrollHandler = (e) => {
+    console.log('===scroll', e, e.detail);
+  };
+
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
-      <ChatList ref={listRef} style={{ width: '100%' }}>
+      <ChatList ref={listRef} style={{ width: '100%' }} onScroll={onScrollHandler}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
             {renderMsgContents(message, idx === messages.length - 1)}

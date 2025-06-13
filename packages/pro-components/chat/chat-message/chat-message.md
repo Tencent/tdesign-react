@@ -46,7 +46,7 @@ avatar | String | - | 发送者头像 | N
 datetime | String | - | 消息发送时间 | N
 message | Object | - | 消息内容对象。类型定义见下方 `ChatMessagesData` | Y
 chatContentProps | Object | - | 消息内容属性配置。类型支持见 `chatContentProps` | N
-actions | Array/Boolean | - | 操作按钮配置项`TdChatItemActionName[]`，可配置操作按钮选项和顺序。数组可选项：'copy'/'good'/'bad'/'replay'/'share'  | N
+actions | Array/Boolean | - | 操作按钮配置项`TdChatMessageActionName[]`，可配置操作按钮选项和顺序。数组可选项：'copy'/'good'/'bad'/'replay'/'share'  | N
 handleActions | Object | - | 操作按钮处理函数 | N
 
 ### ChatMessagesData 消息对象结构

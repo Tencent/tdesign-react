@@ -31,7 +31,7 @@ spline: navigation
 - 3、流式数据增量更新回调`onMessage`中可以对返回数据进行标准化解构，返回渲染组件所需的数据结构，同时可以通过返回`strategy`来决定**同类新增内容块**的追加策略（merge/append），如果需要更灵活影响到数据整合可以返回完整消息数组`AIMessageContent[]`，或者注册合并策略方法（参考下方‘任务规划’示例）
 - 4、在render函数中遍历消息内容数组，植入自定义消息体渲染插槽，需保证slot名在list中的唯一性
 
-如果组件内置的几种操作 `TdChatItemActionName` 不能满足需求，示例中同时给出了**自定义消息操作区**的方法，可以自行实现更多操作。
+如果组件内置的几种操作 `TdChatMessageActionName` 不能满足需求，示例中同时给出了**自定义消息操作区**的方法，可以自行实现更多操作。
 
 {{ custom }}
 
@@ -62,7 +62,7 @@ spline: navigation
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 defaultMessages | Array | - | 初始消息数据列表。TS类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api) | N
-messageProps | Object/Function | - | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，TS类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatItemProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts#L151)  | N
+messageProps | Object/Function | - | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，TS类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts#L151)  | N
 listProps | Object | - | 消息列表配置。TS类型：`TdChatListProps`。 | N
 senderProps | Object | - | 发送框配置，透传`ChatSender`组件。TS类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api) | N
 chatServiceConfig | Object | - | 聊天服务配置，见下方详细说明，TS类型：`ChatServiceConfig` | N
@@ -74,7 +74,7 @@ onMessageChange | Function | - | 消息变化回调，TS类型：`(e: CustomEven
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 autoScroll | Boolean | true | 高度变化时列表是否自动滚动到底部 | N
-defaultScrollPosition | String | bottom | 默认初始时滚动定位。可选项：top/bottom/bottom | N
+defaultScrollTo | String | bottom | 默认初始时滚动定位。可选项：top/bottom/bottom | N
 onScroll | Function | - | 滚动事件回调 | N
 
 
@@ -97,6 +97,7 @@ onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Respons
 
 名称 | 类型 | 描述 
 -- | -- | -- 
+setMessages | (messages: ChatMessagesData[], mode?: 'replace' \| 'prepend' \| 'append') => void | 批量设置消息
 sendUserMessage | (params: ChatRequestParams) => Promise<void> | 发送用户消息，处理请求参数并触发消息流
 sendSystemMessage | (msg: string) => void | 发送系统级通知消息，用于展示系统提示/警告
 abortChat | () => Promise<void> | 中止当前进行中的聊天请求，清理网络连接
