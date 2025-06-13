@@ -23,7 +23,7 @@ const LOG_TYPES = ['🚀 Features', '🐞 Bug Fixes', '❗ Breaking Changes'];
  * [{
  *   version: '',
  *   date: '',
- *   log: ""
+ *   log: ''
  * }]
  */
 function parseMd2Json(logMd) {
@@ -186,8 +186,8 @@ function generateCompList() {
  *   log: {
  *    '🚀 Features': [
  *         {
- *           component: "Button"
- *           description: ""
+ *           component: 'Button'
+ *           description: ''
  *         }
  *    ]
  * }]
@@ -234,9 +234,9 @@ function categorizeLogByComp(log) {
  * @returns
  * {
  *  Button:[{
- *  version: "",
- *  date: "",
- *  "🚀 Features": ["",""]
+ *  version: '',
+ *  date: '',
+ *  "🚀 Features": ['', '']
  *   }]
  * }
  */
@@ -277,7 +277,7 @@ function formatJson2CompMap(logJson) {
     });
   });
 
-  // 组件名按字母顺序排序
+  // 按组件名字母顺序排序
   const sortedCompMap = Object.keys(compMap)
     .sort((a, b) => a.localeCompare(b))
     .reduce((acc, key) => ({ ...acc, [key]: compMap[key] }), {});
