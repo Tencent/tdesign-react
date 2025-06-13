@@ -17,15 +17,15 @@ function migrateReactDeps(path) {
     'react-dom': '>=18.0.0',
   };
   Object.keys(dependencies).forEach((dep) => {
-    if (pkg.dependencies && pkg.dependencies[dep] !== undefined) {
+    if (pkg.dependencies && Reflect.has(pkg.dependencies, dep)) {
       pkg.dependencies[dep] = dependencies[dep];
     }
-    if (pkg.devDependencies && pkg.devDependencies[dep] !== undefined) {
+    if (pkg.devDependencies && Reflect.has(pkg.devDependencies, dep)) {
       pkg.devDependencies[dep] = dependencies[dep];
     }
   });
   Object.keys(peerDependencies).forEach((dep) => {
-    if (pkg.peerDependencies && pkg.peerDependencies[dep] !== undefined) {
+    if (pkg.peerDependencies && Reflect.has(pkg.peerDependencies, dep)) {
       pkg.peerDependencies[dep] = peerDependencies[dep];
     }
   });
@@ -38,19 +38,6 @@ function migrateMdToReact(path) {
   writeFileSync(path, content);
 }
 
-// function setTestEnv(path) {
-//   const pkg = JSON.parse(readFileSync(path, 'utf8'));
-//   pkg.scripts = {
-//     ...pkg.scripts,
-//     test: 'cross-env REACT_19=true vitest run && pnpm run test:snap',
-//     'test:ui': 'vitest --ui',
-//     'test:snap': 'cross-env NODE_ENV=test-snap REACT_19=true vitest run',
-//     'test:snap-update': 'cross-env NODE_ENV=test-snap REACT_19=true vitest run -u',
-//     'test:update': 'cross-env REACT_19=true vitest run -u && pnpm run test:snap-update',
-//   };
-//   writeFileSync(path, JSON.stringify(pkg, null, 2));
-// }
-
 function resolveCwd(...args) {
   args.unshift(process.cwd());
   return path.join(...args);
@@ -61,7 +48,6 @@ function run() {
   migrateReactDeps(resolveCwd('packages/tdesign-react/package.json'));
   migrateReactDeps(resolveCwd('packages/tdesign-react/site/package.json'));
   migrateMdToReact(resolveCwd('packages/tdesign-react/site/plugin-tdoc/md-to-react.js'));
-  // setTestEnv(resolveCwd('package.json'));
 }
 
 run();
