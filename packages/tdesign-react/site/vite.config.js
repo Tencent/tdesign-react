@@ -1,9 +1,10 @@
 import path from 'path';
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import pwaConfig from './pwaConfig';
-import tdocPlugin from './plugin-tdoc';
+import changelog2Json from './plugins/changelog-to-json';
+import tdocPlugin from './plugins/plugin-tdoc';
 
 const publicPathMap = {
   preview: '/',
@@ -52,5 +53,5 @@ export default ({ mode }) =>
     test: {
       environment: 'jsdom',
     },
-    plugins: [react(), tdocPlugin(), VitePWA(pwaConfig), disableTreeShakingPlugin(['style/'])],
+    plugins: [react(), tdocPlugin(), changelog2Json(), VitePWA(pwaConfig), disableTreeShakingPlugin(['style/'])],
   });
