@@ -1,21 +1,43 @@
-const path = require('path');
-const { readdirSync, statSync, promises } = require('fs');
+import { promises, readdirSync, statSync } from 'fs';
+import path from 'path';
 
-const targetRoot = path.join(__dirname, '../packages/tdesign-react');
-const markdownPath = path.join(targetRoot, 'CHANGELOG.md');
-const outputPath = path.join(targetRoot, './site/public/changelog.json');
-const componentsDir = path.join(targetRoot, '../components');
+const targetRoot = path.join(process.cwd(), '../tdesign-react');
+const outputPath = path.join(targetRoot, '../site/dist/changelog.json');
+const markdownPath = path.join(targetRoot, '../CHANGELOG.md');
+const componentsDir = path.join(targetRoot, '../../components');
 const excludedDir = ['_util', 'common'];
 
 const LOG_TYPES = ['🚀 Features', '🐞 Bug Fixes', '❗ Breaking Changes'];
 
-(async () => {
+export default function changelog2Json() {
+  return {
+    name: 'changelog-to-json',
+    configureServer(server) {
+      // 开发模式时拦截请求
+      server.middlewares.use('/changelog.json', async (_, res) => {
+        const json = await generateChangelogJson();
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(json));
+      });
+      console.log('✅ Sync CHANGELOG.md to JSON endpoint');
+    },
+    async closeBundle() {
+      // 生产构建时写入物理文件
+      if (process.env.NODE_ENV === 'production') {
+        const json = await generateChangelogJson();
+        await promises.writeFile(outputPath, JSON.stringify(json, null, 2));
+        console.log('✅ Generate changelog.json in dist');
+      }
+    },
+  };
+}
+
+async function generateChangelogJson() {
   const md = await promises.readFile(markdownPath, 'utf-8');
   const parsedResult = parseMd2Json(md);
   const compMap = formatJson2CompMap(parsedResult);
-  await promises.writeFile(outputPath, JSON.stringify(compMap, null, 2));
-  console.log('✅ Generate changelog.json');
-})();
+  return compMap;
+}
 
 /**
  * 将整份 Markdown 先根据版本号拆分
@@ -105,8 +127,8 @@ function processLogContent(logJson) {
  *   version: '',
  *   date: '',
  *   log: {
- *    '🚀 Features': ["", "", ""]
- *    '🐞 Bug Fixes': ["", "", ""]
+ *    '🚀 Features': ['', '']
+ *    '🐞 Bug Fixes': ['', '']
  * }]
  */
 function processLogItem(logItem) {
@@ -236,7 +258,7 @@ function categorizeLogByComp(log) {
  *  Button:[{
  *  version: '',
  *  date: '',
- *  "🚀 Features": ['', '']
+ *   '🚀 Features': ['', '']
  *   }]
  * }
  */

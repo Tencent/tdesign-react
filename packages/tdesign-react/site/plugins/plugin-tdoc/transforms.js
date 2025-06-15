@@ -24,7 +24,7 @@ export default {
       const localeDocPath = path.resolve(__dirname, `../../../${fileName}`);
       const defaultDocPath = path.resolve(
         __dirname,
-        `../../../common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
+        `../../../../common/docs/web/api/${localeName ? `${componentName}.${localeName}` : componentName}.md`,
       );
 
       let baseDoc = '';

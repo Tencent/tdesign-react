@@ -1,13 +1,14 @@
 /* eslint-disable */
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import camelCase from 'camelcase';
-import { compileUsage, getGitTimestamp } from '../../../../packages/common/docs/compile';
-
-import testCoverage from '../test-coverage';
-
 import { transformSync } from '@babel/core';
+import camelCase from 'camelcase';
+import fs from 'fs';
+import matter from 'gray-matter';
+import path from 'path';
+
+import { compileUsage, getGitTimestamp } from '../../../../../packages/common/docs/compile';
+import testCoverage from '../../test-coverage';
+
+const designDocDir = path.resolve(__dirname, `../../../../../packages/common/docs/web/design`);
 
 export default async function mdToReact(options) {
   const mdSegment = await customRender(options);
@@ -247,7 +248,7 @@ async function customRender({ source, file, md }) {
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
-    const designDocPath = path.resolve(__dirname, `../../../common/docs/web/design/${componentName}.md`);
+    const designDocPath = path.resolve(designDocDir, `${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
       const designDocLastUpdated =
