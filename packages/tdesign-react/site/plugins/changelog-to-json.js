@@ -5,7 +5,7 @@ const targetRoot = path.join(process.cwd(), '../tdesign-react');
 const outputPath = path.join(targetRoot, '../site/dist/changelog.json');
 const markdownPath = path.join(targetRoot, '../CHANGELOG.md');
 const componentsDir = path.join(targetRoot, '../../components');
-const excludedDir = ['_util', 'common'];
+const excludedDir = ['_util', 'common', 'hooks', 'locale', 'style'];
 
 const LOG_TYPES = ['🚀 Features', '🐞 Bug Fixes', '❗ Breaking Changes'];
 
