@@ -7,7 +7,7 @@ const markdownPath = path.join(targetRoot, '../CHANGELOG.md');
 const componentsDir = path.join(targetRoot, '../../components');
 const excludedDir = ['_util', 'common', 'hooks', 'locale', 'style'];
 
-const LOG_TYPES = ['🚀 Features', '🐞 Bug Fixes', '❗ Breaking Changes'];
+const LOG_TYPES = ['❗ Breaking Changes', '🚀 Features', '🐞 Bug Fixes'];
 
 export default function changelog2Json() {
   return {

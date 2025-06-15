@@ -600,6 +600,8 @@ spline: explain
 - `Cascader` 修复长列表场景下，在 `Safari` 中使用的样式异常问题 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
 
 ## 🌈 1.5.0 `2024-01-11` 
+### ❗ Breaking Changes
+- `Dialog`: 该版本将 `className` 错误挂载进行了修复，现在的 `className` 只会被挂载到 `Dialog` 的上层容器元素 Context 之中。如果你需要直接修改 `Dialog` 本体的样式，可以切换使用为 `dialogClassName` 进行修改。
 ### 🚀 Features
 - `Descriptions`: 新增 `Descriptions` 描述组件 @HaixingOoO ([#2706](https://github.com/Tencent/tdesign-react/pull/2706))
 - `Dialog`: 添加了 `dialogClassName` 用于处理内部 dialog 节点样式。建议之前通过 `className` 直接修改弹窗本体样式的用户切换使用为 `dialogClassName` @NWYLZW ([#2639](https://github.com/Tencent/tdesign-react/pull/2639))
@@ -608,8 +610,6 @@ spline: explain
 - `Upload`: 修复 Upload 的 `uploadFilePercent` 类型未定义 @betavs ([#2703](https://github.com/Tencent/tdesign-react/pull/2703))
 - `Dialog`: 修复了 Dialog 的 `className` 进行的多次节点挂载错误，`className` 将仅被挂载至 ctx 元素上 @NWYLZW ([#2639](https://github.com/Tencent/tdesign-react/pull/2639))
 - `Tree Select`: 修复了 `Tree Select` 的 suffixIcon 错误并添加了相关示例 @Ali-ovo ([#2692](https://github.com/Tencent/tdesign-react/pull/2692))
-### ❗ Breaking Changes
-- `Dialog`: 该版本将 `Dialog` 的 `className` 错误挂载进行了修复，现在的 className 只会被挂载到 `Dialog` 的上层容器元素 Context 之中，如果你需要直接修改 `Dialog` 本体的样式可以切换使用为 `dialogClassName` 进行修改。
 
 ## 🌈 1.4.3 `2024-01-02` 
 ### 🐞 Bug Fixes
