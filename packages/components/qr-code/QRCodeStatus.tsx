@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { RefreshIcon } from 'tdesign-icons-react';
 import type { TdQrCodeProps, StatusRenderInfo } from './type';
-import Button from '../button';
 import Loading from '../loading';
 import { QRCodeConfig } from '../config-provider/type';
 
@@ -20,9 +19,10 @@ export default function QRcodeStatus({ locale, classPrefix, onRefresh, statusRen
     <>
       <p className={`${classPrefix}-expired`}>{locale?.expiredText}</p>
       {onRefresh && (
-        <Button icon={<RefreshIcon />} onClick={onRefresh}>
+        <p className={`${classPrefix}-expired__button`} onClick={onRefresh}>
+          <RefreshIcon />
           {locale?.refreshText}
-        </Button>
+        </p>
       )}
     </>
   ), [classPrefix, locale?.expiredText, locale?.refreshText, onRefresh]);
