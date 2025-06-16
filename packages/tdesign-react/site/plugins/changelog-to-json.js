@@ -25,7 +25,7 @@ export default function changelog2Json() {
       // 生产构建时写入物理文件
       if (process.env.NODE_ENV === 'production') {
         const json = await generateChangelogJson();
-        await promises.writeFile(outputPath, JSON.stringify(json, null, 2));
+        await promises.writeFile(outputPath, JSON.stringify(json));
         console.log('✅ Generate changelog.json in dist');
       }
     },
