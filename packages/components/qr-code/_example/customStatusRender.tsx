@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckCircleFilled from 'tdesign-icons-react/lib/components/check-circle-filled';
 import type { QrCodeProps } from 'tdesign-react';
 import { QRCode, Space, Loading } from 'tdesign-react';
 
@@ -20,7 +21,11 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
         </Space>
       );
     case 'scanned':
-      return <div>已扫描</div>;
+      return (
+        <div>
+          <CheckCircleFilled style={{ color: 'green' }} /> 已扫描
+        </div>
+      );
     default:
       return null;
   }
