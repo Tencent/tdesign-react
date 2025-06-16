@@ -17,7 +17,13 @@ describe('Anchor 组件测试', () => {
 
   const wrapper = (props?: TdAnchorProps & { className?: string; style?: React.CSSProperties }) =>
     render(
-      <Anchor targetOffset={150} className={props.className} style={props.style}>
+      <Anchor
+        targetOffset={150}
+        className={props.className}
+        style={props.style}
+        affixProps={props.affixProps}
+        bounds={props.bounds}
+      >
         <AnchorItem href={href1} title={title1} data-testid={childTestID1} />
         <AnchorItem href={href2} title={title2} data-testid={childTestID2} />
       </Anchor>,
@@ -57,6 +63,23 @@ describe('Anchor 组件测试', () => {
       const anchor = container.querySelector('.t-anchor');
       expect(anchor).toHaveStyle(customStyle.style);
     });
+
+    test('affixProps', async () => {
+      const onFixedChange = vi.fn();
+      const { container } = wrapper({
+        affixProps: {
+          offsetTop: 100,
+          zIndex: 1000,
+          onFixedChange,
+        },
+      });
+      const anchor = container.querySelector('.t-anchor');
+      expect(anchor).toBeInTheDocument();
+      onFixedChange(true, { top: 100 });
+      expect(onFixedChange).toHaveBeenCalledWith(true, { top: 100 });
+    });
+
+    // test('bounds', async () => {});
   });
 
   test('render Anchor click', async () => {
@@ -73,7 +96,7 @@ describe('Anchor 组件测试', () => {
     );
     const anchorItem = wrapper.getByTestId(childTestID1);
     fireEvent.click(anchorItem.firstChild);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('render AnchorTarget', async () => {
