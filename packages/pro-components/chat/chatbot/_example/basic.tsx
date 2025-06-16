@@ -45,6 +45,7 @@ export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
+  const [ready, setReady] = useState(false);
   const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
 
   // 消息属性配置
@@ -171,17 +172,27 @@ export default function chatSample() {
     };
   }, [activeR1, activeSearch]);
 
+  useEffect(() => {
+    if (ready) {
+      // 设置消息内容
+      chatRef.current?.setMessages(mockData);
+    }
+  }, [ready]);
+
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
         revers={true}
         ref={chatRef}
-        defaultMessages={mockData}
+        defaultMessages={[]}
         messageProps={messageProps}
         senderProps={{
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}
+        onChatReady={(e) => {
+          setReady(true);
+        }}
       >
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
         <div slot="sender-footer-prefix">
