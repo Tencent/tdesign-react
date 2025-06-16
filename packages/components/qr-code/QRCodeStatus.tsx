@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { RefreshIcon } from 'tdesign-icons-react';
 import type { TdQrCodeProps, StatusRenderInfo } from './type';
 import Button from '../button';
@@ -16,7 +16,7 @@ export type QRcodeStatusProps = {
 const defaultSpin = <Loading />;
 
 export default function QRcodeStatus({ locale, classPrefix, onRefresh, statusRender, status }: QRcodeStatusProps) {
-  const defaultExpiredNode = (
+  const defaultExpiredNode = useMemo(()=>(
     <>
       <p className={`${classPrefix}-expired`}>{locale?.expiredText}</p>
       {onRefresh && (
@@ -25,17 +25,21 @@ export default function QRcodeStatus({ locale, classPrefix, onRefresh, statusRen
         </Button>
       )}
     </>
-  );
+  ), [classPrefix, locale?.expiredText, locale?.refreshText, onRefresh]);
 
-  const defaultScannedNode = <p className={`${classPrefix}-scanned`}>{locale?.scannedText}</p>;
+  const defaultScannedNode = useMemo(()=>(
+    <p className={`${classPrefix}-scanned`}>{locale?.scannedText}</p>
+  ),[classPrefix, locale?.scannedText]);
 
-  const defaultNodes = {
-    expired: defaultExpiredNode,
-    loading: defaultSpin,
-    scanned: defaultScannedNode,
-  };
+  const defaultNodes = useMemo(()=>(
+    {
+      expired: defaultExpiredNode,
+      loading: defaultSpin,
+      scanned: defaultScannedNode,
+    }
+  ), [defaultExpiredNode, defaultScannedNode]);
 
-  const defaultStatusRender: TdQrCodeProps['statusRender'] = (info) => defaultNodes[info.status];
+  const defaultStatusRender: TdQrCodeProps['statusRender'] = useCallback((info) => defaultNodes[info.status], [defaultNodes]);
 
   const mergedStatusRender = statusRender ?? defaultStatusRender;
 
