@@ -12,15 +12,15 @@ export type QRcodeStatusProps = {
   status: StatusRenderInfo['status'];
 };
 
-const defaultSpin = <Loading />;
+const defaultSpin = <Loading size="32px"/>;
 
 export default function QRcodeStatus({ locale, classPrefix, onRefresh, statusRender, status }: QRcodeStatusProps) {
   const defaultExpiredNode = useMemo(()=>(
     <>
-      <p className={`${classPrefix}-expired`}>{locale?.expiredText}</p>
+      <p className={`${classPrefix}-expired__text`}>{locale?.expiredText}</p>
       {onRefresh && (
         <p className={`${classPrefix}-expired__button`} onClick={onRefresh}>
-          <RefreshIcon />
+          <RefreshIcon size={16}/>
           {locale?.refreshText}
         </p>
       )}
