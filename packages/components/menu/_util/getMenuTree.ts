@@ -37,8 +37,7 @@ export class MenuTree {
 
     if (!isValidElement(node)) return;
 
-    const element = node;
-    const { value, children } = element.props;
+    const { value, children } = node.props;
 
     // 当前节点有 value，是一个有效的菜单项
     if (value !== undefined) {
