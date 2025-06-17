@@ -80,6 +80,12 @@ function parseMd2Json(logMd) {
     }
   }
 
+  // 处理最后一个版本
+  if (currentEntry) {
+    currentEntry.log.push(currentLogContent.trim());
+    result.push(currentEntry);
+  }
+
   let logJson = result.map((entry) => ({
     ...entry,
     log: entry.log.join('\n'),
@@ -228,11 +234,7 @@ function categorizeLogByComp(log) {
     const matches = logItem.match(/`([^`]+)`/g); // 提取反引号包裹的内容
     const components = matches
       ? Array.from(
-          new Set(
-            matches
-              .map((name) => convert2CamelCase(name.replace(/`/g, '').trim()))
-              .filter((name) => compList.includes(name)),
-          ),
+          new Set(matches.map((name) => name.replace(/`/g, '').trim()).filter((name) => compList.includes(name))),
         ) // 使用 Set 去重
       : [];
 
