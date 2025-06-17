@@ -600,7 +600,7 @@ spline: explain
 - `Cascader` 修复长列表场景下，在 `Safari` 中使用的样式异常问题 @uyarn ([#2728](https://github.com/Tencent/tdesign-react/pull/2728))
 
 ## 🌈 1.5.0 `2024-01-11` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Dialog`: 该版本将 `className` 错误挂载进行了修复，现在的 `className` 只会被挂载到 `Dialog` 的上层容器元素 Context 之中。如果你需要直接修改 `Dialog` 本体的样式，可以切换使用为 `dialogClassName` 进行修改。
 ### 🚀 Features
 - `Descriptions`: 新增 `Descriptions` 描述组件 @HaixingOoO ([#2706](https://github.com/Tencent/tdesign-react/pull/2706))
@@ -800,7 +800,7 @@ spline: explain
 
  ## 🌈 1.2.0 `2023-08-10` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Icon`: 新增 960 个图标；调整图标命名 `photo` 为 `camera`，`books`为`bookmark`, `stop-cirle-1`为`stop-circle-stroke`；移除`money-circle`图标，具体请查看图标页面  @uyarn ([#2429](https://github.com/Tencent/tdesign-react/pull/2429))
 
 ### 🚀 Features

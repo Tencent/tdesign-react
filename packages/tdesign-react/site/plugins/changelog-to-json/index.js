@@ -1,12 +1,12 @@
 import { promises, readdirSync, statSync } from 'fs';
 import path from 'path';
 
-const outputPath = path.resolve(__dirname, '../dist/changelog.json');
-const markdownPath = path.resolve(__dirname, '../../CHANGELOG.md');
-const componentsDir = path.resolve(__dirname, '../../../components');
-const excludedDir = ['_util', 'common', 'hooks', 'locale', 'style'];
+const outputPath = path.resolve(__dirname, '../../dist/changelog.json');
+const changelogPath = path.resolve(__dirname, '../../../CHANGELOG.md');
+const componentsDir = path.resolve(__dirname, '../../../../components');
 
-const LOG_TYPES = ['❗ Breaking Changes', '🚀 Features', '🐞 Bug Fixes'];
+const EXCLUDED_DIR = ['_util', 'common', 'hooks', 'locale', 'style'];
+const LOG_TYPES = ['🚨 Breaking Changes', '🚀 Features', '🐞 Bug Fixes'];
 
 export default function changelog2Json() {
   return {
@@ -18,7 +18,6 @@ export default function changelog2Json() {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(json));
       });
-      console.log('✅ Sync CHANGELOG.md to JSON endpoint');
     },
     async closeBundle() {
       // 生产构建时写入物理文件
@@ -32,13 +31,13 @@ export default function changelog2Json() {
 
 async function generateChangelogJson() {
   try {
-    const md = await promises.readFile(markdownPath, 'utf-8');
+    const md = await promises.readFile(changelogPath, 'utf-8');
     const parsedResult = parseMd2Json(md);
     const compMap = formatJson2CompMap(parsedResult);
     console.log('\x1b[32m%s\x1b[0m', '✅ Sync CHANGELOG.md to changelog.json');
     return compMap;
   } catch (error) {
-    console.error('\x1b[31m%s\x1b[0m', '🚨 Fail to generate changelog.json', '\x1b[33m', error);
+    console.error('\x1b[31m%s\x1b[0m', '❌ Fail to generate changelog.json', '\x1b[33m', error);
     return {};
   }
 }
@@ -201,7 +200,7 @@ function generateCompList() {
   files.forEach((file) => {
     const filePath = path.join(componentsDir, file);
     const stat = statSync(filePath);
-    if (stat.isDirectory() && !excludedDir.includes(file)) {
+    if (stat.isDirectory() && !EXCLUDED_DIR.includes(file)) {
       const componentName = convert2CamelCase(file);
       compList.push(componentName);
     }
