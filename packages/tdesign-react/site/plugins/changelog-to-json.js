@@ -1,10 +1,9 @@
 import { promises, readdirSync, statSync } from 'fs';
 import path from 'path';
 
-const targetRoot = path.join(process.cwd(), '../tdesign-react');
-const outputPath = path.join(targetRoot, '../site/dist/changelog.json');
-const markdownPath = path.join(targetRoot, '../CHANGELOG.md');
-const componentsDir = path.join(targetRoot, '../../components');
+const outputPath = path.resolve(__dirname, '../dist/changelog.json');
+const markdownPath = path.resolve(__dirname, '../../CHANGELOG.md');
+const componentsDir = path.resolve(__dirname, '../../../components');
 const excludedDir = ['_util', 'common', 'hooks', 'locale', 'style'];
 
 const LOG_TYPES = ['❗ Breaking Changes', '🚀 Features', '🐞 Bug Fixes'];
@@ -26,17 +25,22 @@ export default function changelog2Json() {
       if (process.env.NODE_ENV === 'production') {
         const json = await generateChangelogJson();
         await promises.writeFile(outputPath, JSON.stringify(json));
-        console.log('✅ Generate changelog.json in dist');
       }
     },
   };
 }
 
 async function generateChangelogJson() {
-  const md = await promises.readFile(markdownPath, 'utf-8');
-  const parsedResult = parseMd2Json(md);
-  const compMap = formatJson2CompMap(parsedResult);
-  return compMap;
+  try {
+    const md = await promises.readFile(markdownPath, 'utf-8');
+    const parsedResult = parseMd2Json(md);
+    const compMap = formatJson2CompMap(parsedResult);
+    console.log('\x1b[32m%s\x1b[0m', '✅ Sync CHANGELOG.md to changelog.json');
+    return compMap;
+  } catch (error) {
+    console.error('\x1b[31m%s\x1b[0m', '🚨 Fail to generate changelog.json', '\x1b[33m', error);
+    return {};
+  }
 }
 
 /**
