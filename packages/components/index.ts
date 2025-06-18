@@ -68,4 +68,4 @@ export * from './statistic';
 export * from './descriptions';
 export * from './empty';
 export * from './typography';
-export * from './qr-code';
+export * from './qrcode';

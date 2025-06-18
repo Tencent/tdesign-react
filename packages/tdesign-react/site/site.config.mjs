@@ -419,9 +419,9 @@ export const docs = [
         title: 'QRCode 二维码',
         titleEn: 'QRCode',
         name: 'qrcode',
-        path: '/react/components/qr-code',
-        component: () => import('@tdesign/components/qr-code/qr-code.md'),
-        componentEn: () => import('@tdesign/components/qr-code/qr-code.en-US.md'),
+        path: '/react/components/qrcode',
+        component: () => import('@tdesign/components/qrcode/qrcode.md'),
+        componentEn: () => import('@tdesign/components/qrcode/qrcode.en-US.md'),
       },
       {
         title: 'Avatar 头像',

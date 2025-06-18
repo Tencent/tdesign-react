@@ -9,7 +9,7 @@ import {
   isSupportPath2d,
   excavateModules,
   generatePath,
-} from '@tdesign/common-js/qr-code/utils';
+} from '@tdesign/common-js/qrcode/utils';
 import { useQRCode, QRPropsCanvas } from './hooks/useQRCode';
 
 const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, ref) => {

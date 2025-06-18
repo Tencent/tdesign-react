@@ -6,7 +6,7 @@
 
 import { TNode } from '../common';
 
-export interface TdQrCodeProps {
+export interface TdQRCodeProps {
   /**
    * 二维码背景颜色
    * @default transparent
@@ -22,6 +22,11 @@ export interface TdQrCodeProps {
    * @default ''
    */
   color?: string;
+  /**
+   * 语言配置，“二维码过期”描述文本
+   * @default ''
+   */
+  expiredText?: string;
   /**
    * 二维码中图片的地址或自定义icon
    */

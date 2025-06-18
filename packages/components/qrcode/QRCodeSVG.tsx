@@ -8,7 +8,7 @@ import {
   DEFAULT_SIZE,
   excavateModules,
   generatePath,
-} from '@tdesign/common-js/qr-code/utils';
+} from '@tdesign/common-js/qrcode/utils';
 import { useQRCode, QRPropsSVG } from './hooks/useQRCode';
 
 const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {

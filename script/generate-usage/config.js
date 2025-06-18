@@ -1152,7 +1152,7 @@ module.exports = {
       }, [changedProps]);
     `,
   },
-  'qr-code': {
+  qrcode: {
     importStr: `
       import configProps from './props.json';\n
       import { QRCode } from 'tdesign-react';\n`,

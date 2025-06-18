@@ -1,6 +1,6 @@
-import { QrCode, QrSegment } from '@tdesign/common-js/qr-code/qrcodegen';
-import type { ErrorCorrectionLevel, ImageSettings } from '@tdesign/common-js/qr-code/types';
-import { ERROR_LEVEL_MAP, getImageSettings, getMarginSize } from '@tdesign/common-js/qr-code/utils';
+import { QrCode, QrSegment } from '@tdesign/common-js/qrcode/qrcodegen';
+import type { ErrorCorrectionLevel, ImageSettings } from '@tdesign/common-js/qrcode/types';
+import { ERROR_LEVEL_MAP, getImageSettings, getMarginSize } from '@tdesign/common-js/qrcode/utils';
 import React from 'react';
 
 export type QRProps = {

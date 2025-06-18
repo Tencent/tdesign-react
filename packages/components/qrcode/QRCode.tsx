@@ -1,17 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
-import type { ImageSettings } from '@tdesign/common-js/qr-code/types';
+import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
 import { QRCodeCanvas } from './QRCodeCanvas';
 import { QRCodeSVG } from './QRCodeSVG';
-import { TdQrCodeProps } from './type';
+import { TdQRCodeProps } from './type';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { qrCodeDefaultProps } from './defaultProps';
+import { qRCodeDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import QRcodeStatus from './QRCodeStatus';
 
-export interface QrCodeProps extends TdQrCodeProps, StyledProps {}
+export interface QrCodeProps extends TdQRCodeProps, StyledProps {}
 
 const QRCode: React.FC<QrCodeProps> = (props) => {
   const {
@@ -29,7 +29,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
     onRefresh,
     statusRender,
     ...rest
-  } = useDefaultProps<QrCodeProps>(props, qrCodeDefaultProps);
+  } = useDefaultProps<QrCodeProps>(props, qRCodeDefaultProps);
   const { classPrefix } = useConfig();
   const [locale] = useLocaleReceiver('qrcode');
 
@@ -57,7 +57,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   };
 
   const cls = classNames(
-    `${classPrefix}-qr-code`,
+    `${classPrefix}-qrcode`,
     {
       [`${classPrefix}-borderless`]: borderless,
     },
