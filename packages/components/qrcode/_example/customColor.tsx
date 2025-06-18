@@ -4,8 +4,8 @@ import { QRCode, Space } from 'tdesign-react';
 export default function QRCodeExample() {
   return (
     <Space>
-      <QRCode type="canvas" value={'https://tdesign.tencent.com/'} color="#00A873" />
-      <QRCode type="svg" value={'https://tdesign.tencent.com/'} bgColor="#F6F8FB" color="#0A6CFF" />
+      <QRCode type="canvas" value={'https://tdesign.tencent.com/'} color="#0052D9" />
+      <QRCode type="svg" value={'https://tdesign.tencent.com/'} bgColor="#D9E1FF" color="#0052D9" />
     </Space>
   );
 }
