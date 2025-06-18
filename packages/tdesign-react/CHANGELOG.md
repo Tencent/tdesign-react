@@ -5,6 +5,21 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.12.3 `2025-06-13` 
+### 🚀 Features
+- `Form`: 新增`requiredMarkPosition`API，可定义必填符号的位置 @Wesley-0808 ([#3586](https://github.com/Tencent/tdesign-react/pull/3586))
+- `GlobalConfig`: 全局配置`FormConfig` 新增 `requiredMaskPosition` 配置，用于全局配置必填符号的位置 @Wesley-0808 ([#3586](https://github.com/Tencent/tdesign-react/pull/3586))
+### 🐞 Bug Fixes
+- `Drawer`:  修复 `cancelBtn` 和 `confirmBtn` 的类型缺失`null` 声明的问题 @RSS1102 ([#3602](https://github.com/Tencent/tdesign-react/pull/3602))
+- `ImageViewer`: 修复显示错误图片在小窗口图片查看器的尺寸异常 @RylanBot([#3607](https://github.com/Tencent/tdesign-react/pull/3607))
+- `Menu`: `popupProps` 的 `delay` 属性在 `SubMenu` 中无法生效的问题 @RylanBot ([#3599](https://github.com/Tencent/tdesign-react/pull/3599))
+- `Menu`: 开启 `expandMutex` 后，如果存在二级 `SubMenu`，菜单无法展开 @RylanBot ([#3601](https://github.com/Tencent/tdesign-react/pull/3601))
+- `Select`:  修复 `checkAll` 设为 `disabled` 后依旧会触发全选的问题 @RylanBot ([#3563](https://github.com/Tencent/tdesign-react/pull/3563))
+- `Table`: 优化关闭列配置弹窗时，修复选择列数据与所展示列数据不一致的问题 @RSS1102 ([#3608](https://github.com/Tencent/tdesign-react/pull/3608))
+- `Tabs`: 修复 TabPanel 通过 `style` 设置 `display` 属性无法正常生效的问题 @uyarn ([#3609](https://github.com/Tencent/tdesign-react/pull/3609))
+- `Tabs`:  修复开启懒加载后始终会先渲染第一个`TabPanel`的问题 @HaixingOoO ([#3614](https://github.com/Tencent/tdesign-react/pull/3614))
+- `TreeSelect`: 修复 `label` API 无法正常使用的问题 @RylanBot ([#3603](https://github.com/Tencent/tdesign-react/pull/3603))
+
 ## 🌈 1.12.2 `2025-05-30` 
 ### 🚀 Features
 - `Cascader`: 新增支持使用 `option` 方法自定义下拉选项内容的能力 @huangchen1031 ([#3565](https://github.com/Tencent/tdesign-react/pull/3565))
