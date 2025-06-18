@@ -8,7 +8,7 @@ const FormatInputs = (props) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;
   const modelValueRef = useRef({});
   const lastModelValue = useRef({});
-
+  const inputKey = useRef<string | number>('');
   const updateModelValue = () => {
     const value = getColorFormatMap(color, 'encode')[format];
     if (!value) return;
@@ -29,6 +29,7 @@ const FormatInputs = (props) => {
 
   const handleInputChange = (key: string, v: number | string) => {
     if (v === lastModelValue.current[key]) return;
+    inputKey.current = v;
     lastModelValue.current[key] = v;
 
     const newFormatValue = {
@@ -50,6 +51,7 @@ const FormatInputs = (props) => {
     }
 
     const value = getColorFormatMap(color, 'decode')[format];
+
     onInputChange(value, color.alpha, key, v);
   };
 
@@ -71,6 +73,7 @@ const FormatInputs = (props) => {
           align: 'center',
           disabled,
           size: 'small',
+
           onChange:
             config.type === 'input'
               ? Function.prototype
@@ -88,7 +91,11 @@ const FormatInputs = (props) => {
             }}
           >
             {config.type === 'input' ? (
-              <Input {...commonProps} key={commonProps.defaultValue} maxlength={format === 'HEX' ? 9 : undefined} />
+              <Input
+                {...commonProps}
+                key={`${inputKey.current}${commonProps.defaultValue}`}
+                maxlength={format === 'HEX' ? 9 : undefined}
+              />
             ) : (
               <InputNumber
                 {...commonProps}
