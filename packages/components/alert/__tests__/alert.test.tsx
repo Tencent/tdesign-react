@@ -15,7 +15,7 @@ describe('Alert 组件测试', () => {
         theme="error"
         title="title content"
         message={text}
-        close={<div data-testid={testId}>{text}</div>}
+        closeBtn={<div data-testid={testId}>{text}</div>}
         onClose={onClose}
         onClosed={onClosed}
         operation={<span id="operation-test">test content</span>}
@@ -45,7 +45,7 @@ describe('Alert 组件测试', () => {
 
   test('custom close icon render', () => {
     const { queryByTestId } = render(
-      <Alert theme="error" title="title content" close={<div data-testid={testId}>{text}</div>} />,
+      <Alert theme="error" title="title content" closeBtn={<div data-testid={testId}>{text}</div>} />,
     );
 
     expect(queryByTestId(testId)).not.toBeNull();
@@ -53,7 +53,7 @@ describe('Alert 组件测试', () => {
   });
 
   test('default close icon render', () => {
-    const { container } = render(<Alert theme="error" title="title content" close />);
+    const { container } = render(<Alert theme="error" title="title content" closeBtn />);
 
     expect(container.querySelector('.t-icon-close')).not.toBeNull();
     expect(container.querySelector('.t-icon-close')).toBeInTheDocument();
