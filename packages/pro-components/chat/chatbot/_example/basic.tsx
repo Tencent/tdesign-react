@@ -175,14 +175,13 @@ export default function chatSample() {
   useEffect(() => {
     if (ready) {
       // 设置消息内容
-      chatRef.current?.setMessages(mockData);
+      chatRef.current?.setMessages(mockData, 'replace');
     }
   }, [ready]);
 
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
-        revers={true}
         ref={chatRef}
         defaultMessages={[]}
         messageProps={messageProps}
@@ -212,7 +211,9 @@ export default function chatSample() {
               icon={<InternetIcon />}
               size="small"
               shape="round"
-              onClick={() => setSearchActive(!activeSearch)}
+              onClick={() => {
+                setSearchActive(!activeSearch);
+              }}
             >
               联网查询
             </Button>

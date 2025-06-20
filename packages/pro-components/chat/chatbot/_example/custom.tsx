@@ -41,6 +41,35 @@ const ChartDemo = ({ data }) => (
 
 const initMessage: ChatMessagesData[] = [
   {
+    id: '7389',
+    role: 'user',
+    status: 'complete',
+    content: [
+      {
+        type: 'attachment',
+        data: [
+          {
+            fileType: 'image',
+            // name: '',
+            // size: 234234,
+            // extension: '.doc',
+            url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+          },
+          {
+            fileType: 'image',
+            // name: 'avatar.jpg',
+            // size: 234234,
+            url: 'https://asset.gdtimg.com/muse_svp_0bc3viaacaaaweanalstw5ud3kweagvaaaka.f0.jpg?dis_k=bfc5cc81010a9d443e91ce45d4fbe774&dis_t=1750323484',
+          },
+        ],
+      },
+      {
+        type: 'text',
+        data: '这张图里的帅哥是谁',
+      },
+    ],
+  },
+  {
     id: '123',
     role: 'assistant',
     content: [
@@ -159,6 +188,13 @@ export default function ChatBotReact() {
                       <ChartDemo data={item.data} />
                     </div>
                   );
+                case 'videoAttachment': {
+                  return (
+                    <div slot={`${msg.id}-${item.type}-${index}`} className="videoAttachment">
+                      <img src={item.data.cover} width={100} height={100} />
+                    </div>
+                  );
+                }
               }
               return null;
             }),

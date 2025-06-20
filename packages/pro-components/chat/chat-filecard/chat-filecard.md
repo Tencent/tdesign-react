@@ -27,6 +27,7 @@ onFileClick | Function | - | 卡片点击时的回调函数。 TS类型：`(even
 ## TdAttachmentItem 类型说明
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+fileType | String | - | 文件类型，可选值：'image'/'video'/'audio'/'pdf'/'doc'/'ppt'/'txt' | N
 description | String | - | 文件描述信息 | N
 extension | String | - | 文件扩展名 | N
 (继承属性) | UploadFile | - | 包含 `name`, `size`, `status` 等基础文件属性 | N

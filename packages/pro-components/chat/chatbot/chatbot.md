@@ -66,9 +66,9 @@ messageProps | Object/Function | - | 消息项配置。按角色聚合了消息�
 listProps | Object | - | 消息列表配置。TS类型：`TdChatListProps`。 | N
 senderProps | Object | - | 发送框配置，透传`ChatSender`组件。TS类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api) | N
 chatServiceConfig | Object | - | 聊天服务配置，见下方详细说明，TS类型：`ChatServiceConfig` | N
-onMessageChange | Function | - | 消息变化回调，TS类型：`(e: CustomEvent<ChatMessagesData[]>) => void` | N
+onMessageChange | Function | - | 消息列表数据变化回调，TS类型：`(e: CustomEvent<ChatMessagesData[]>) => void` | N
 onChatReady | Function | - | 内部消息引擎初始化完成回调，TS类型：`(e: CustomEvent) => void` | N
-
+onChatSent | Function | - | 发送消息回调，TS类型：`(e: CustomEvent<ChatRequestParams>) => void` | N
 
 ### TdChatListProps 消息列表配置
 
@@ -106,7 +106,7 @@ addPrompt | (prompt: string) => void | 将预设提示语添加到输入框，�
 selectFile | () => void | 触发文件选择对话框，用于附件上传功能
 regenerate | (keepVersion?: boolean) => Promise<void> | 重新生成最后一条消息，可选保留历史版本
 registerMergeStrategy | (type: T['type'], handler: (chunk: T, existing?: T) => T) => void | 注册自定义消息合并策略，用于处理流式数据更新
-scrollToBottom | () => void | 将消息列表滚动到底部，适用于有新消息时自动定位
+scrollList | ({ to: 'bottom' \| 'top', behavior: 'auto' \| 'smooth' }) => void | 受控滚动到指定位置
 isChatEngineReady | boolean | ChatEngine是否就绪
 chatMessageValue | ChatMessagesData[] | 获取当前消息列表的只读副本
 chatStatus | ChatStatus | 获取当前聊天状态（空闲/进行中/错误等）
@@ -128,6 +128,6 @@ chatServiceConfig	| ChatServiceConfigSetter	| 聊天服务配置，支持静态�
 
 返回值 |	类型	| 说明
 -- | -- | --
-chatEngine |	ChatEngine 实例	| 聊天引擎实例，提供核心操作方法，同上方 `Chatbot 实例方法`
+chatEngine |	IChatEngine	| 聊天引擎实例，提供核心操作方法，同上方 `Chatbot 实例方法`
 messages	| ChatMessagesData[]	| 当前聊天消息列表所有数据
 status	| ChatStatus	| 当前聊天状态
