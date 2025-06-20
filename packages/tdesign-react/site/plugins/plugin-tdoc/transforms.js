@@ -1,9 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable no-param-reassign */
-import path from 'path';
 import fs from 'fs';
-
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import mdToReact from './md-to-react';
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let demoImports = {};
 let demoCodesImports = {};

@@ -1,4 +1,4 @@
-module.exports = {
+export default  {
   "Util": {
     "statements": "58.47%",
     "branches": "47.92%",
