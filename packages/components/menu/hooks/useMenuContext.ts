@@ -1,8 +1,8 @@
 import { noop } from 'lodash-es';
-import { useState, type ReactNode } from 'react';
-import { MenuState, SetMenuState, MenuMode } from '../MenuContext';
-import checkSubMenuChildExpanded from '../_util/checkSubMenuChildExpanded';
-import type { TdMenuProps, TdHeadMenuProps, MenuValue } from '../type';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { MenuMode, MenuState, SetMenuState } from '../MenuContext';
+import { MenuTree } from '../_util/getMenuTree';
+import type { MenuValue, TdHeadMenuProps, TdMenuProps } from '../type';
 
 interface UseMenuContextProps extends Extract<TdMenuProps, TdHeadMenuProps> {
   children: ReactNode;
@@ -27,33 +27,23 @@ function useMenuContext({
     active: defaultValue,
     expanded: defaultExpanded,
   });
-
   const setStateValue: SetMenuState = (menuState) => setState({ ...state, ...menuState });
 
-  const handleExpandChange = (value: MenuValue, expanded: MenuValue[]) => {
-    let nextExpand = [];
-    const index = expanded.indexOf(value);
+  const menuTree = useMemo(() => new MenuTree(children, expandMutex), [children, expandMutex]);
 
-    // 已经展开
-    if (index > -1) {
-      // 互斥情况
-      if (expandMutex) {
-        nextExpand = expanded.slice(0, index);
-      } else {
-        nextExpand = expanded.filter((item) => item !== value);
-      }
-    } else if (expandMutex) {
-      // 未展开
-      nextExpand = checkSubMenuChildExpanded(children, expanded, value);
-      // 确保只有一个菜单存在子菜单，却又开启互斥模式时，其依旧能正常展开
-      if (nextExpand.length === 0 && children) {
-        nextExpand = [...expanded, value];
-      }
-    } else {
-      nextExpand = [...expanded, value];
-    }
-    onExpand(nextExpand);
-    setState({ expanded: nextExpand });
+  useEffect(() => {
+    const currExpanded = expanded || state.expanded || [];
+    menuTree.setExpanded(currExpanded);
+  }, [expanded, state.expanded, menuTree]);
+
+  const handleExpandChange = (value: MenuValue) => {
+    menuTree.expandNode(value);
+    const nextExpanded = menuTree.getExpanded();
+    onExpand(nextExpanded);
+    setState((prevState) => ({
+      ...prevState,
+      expanded: nextExpanded,
+    }));
   };
 
   return {

@@ -114,16 +114,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateThWidthList,
     addTableResizeObserver,
     updateTableAfterColumnResize,
-  } = useFixed(
-    props,
-    finalColumns,
-    // {
-    //   paginationAffixRef,
-    //   horizontalScrollAffixRef,
-    //   headerTopAffixRef,
-    //   footerBottomAffixRef,
-    // }
-  );
+  } = useFixed(props, finalColumns, {
+    paginationAffixRef,
+    horizontalScrollAffixRef,
+    headerTopAffixRef,
+    footerBottomAffixRef,
+  });
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
 
