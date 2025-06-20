@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { isValidElement, useState } from 'react';
 import { Radio, Tree, Form, Switch, Space } from 'tdesign-react';
 
 import type { TreeProps, RadioGroupProps } from 'tdesign-react';
@@ -159,7 +159,7 @@ export default () => {
         onChange={handleChange}
         onClick={handleClick}
         checkProps={(node) => ({
-          title: node.data.disabled ? 'Disabled' : 'Enabled',
+          title: isValidElement(node.label) && !node.data?.text ? '' : String(node.data?.text || node.label),
         })}
       />
     </Space>
