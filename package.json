@@ -31,7 +31,6 @@
     "build:tsc-cjs": "tsc -p ./tsconfig.build.json --outDir packages/tdesign-react/cjs/",
     "build:tsc-lib": "tsc -p ./tsconfig.build.json --outDir packages/tdesign-react/lib/",
     "build:jsx-demo": "pnpm run generate:jsx-demo && pnpm run format:jsx-demo",
-    "changelog": "node script/generate-changelog.js",
     "init:component": "node script/init-component",
     "robot": "publish-cli robot-msg",
     "prepare": "husky install"
