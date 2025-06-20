@@ -1,0 +1,99 @@
+[
+  {
+    "name": "bgColor",
+    "type": "String",
+    "defaultValue": "transparent",
+    "options": []
+  },
+  {
+    "name": "borderless",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
+    "name": "color",
+    "type": "String",
+    "defaultValue": false,
+    "options": []
+  },
+  {
+    "name": "icon",
+    "type": "String",
+    "defaultValue": "",
+    "options": []
+  },
+  {
+    "name": "iconSize",
+    "type": "Number | { width: Number; height: Number }",
+    "defaultValue": 40,
+    "options": []
+  },
+  {
+    "name": "level",
+    "type": "enum",
+    "defaultValue": "M",
+    "options": [
+      {
+        "label": "L",
+        "value": "L"
+      },
+      {
+        "label": "M",
+        "value": "M"
+      },
+      {
+        "label": "Q",
+        "value": "Q"
+      },
+      {
+        "label": "H",
+        "value": "H"
+      }
+    ]
+  },
+  {
+    "name": "size",
+    "type": "Number",
+    "defaultValue": 160,
+    "options": []
+  },
+  {
+    "name": "status",
+    "type": "enum",
+    "defaultValue": "active",
+    "options": [
+      {
+        "label": "active",
+        "value": "active"
+      },
+      {
+        "label": "expired",
+        "value": "expired"
+      },
+      {
+        "label": "loading",
+        "value": "loading"
+      },
+      {
+        "label": "scanned",
+        "value": "scanned"
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "enum",
+    "defaultValue": "canvas",
+    "options": [
+      {
+        "label": "canvas",
+        "value": "canvas"
+      },
+      {
+        "label": "svg",
+        "value": "svg"
+      }
+    ]
+  }
+]
