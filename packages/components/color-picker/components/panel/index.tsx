@@ -81,8 +81,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         color: getColorObject(colorInstanceRef.current),
         trigger: trigger || 'palette-saturation-brightness',
       });
+      update(value);
     },
-    [enableAlpha, setInnerValue],
+    [enableAlpha, setInnerValue, update],
   );
 
   useEffect(() => {
