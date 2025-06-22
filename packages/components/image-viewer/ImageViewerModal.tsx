@@ -430,7 +430,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   if (resProps.index === undefined) delete resProps.index;
   const { index, next, prev, setIndex } = useIndex(resProps, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
-  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale);
+  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
 
   const onReset = useCallback(() => {
