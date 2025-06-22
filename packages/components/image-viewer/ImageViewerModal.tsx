@@ -1,32 +1,31 @@
-import React, { useState, useEffect, useCallback, MouseEvent, KeyboardEvent, useRef } from 'react';
+import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
+import React, { KeyboardEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ImageErrorIcon as TdImageErrorIcon,
   ImageIcon as TdImageIcon,
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
-import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
-import { TooltipLite } from '../tooltip';
-import useConfig from '../hooks/useConfig';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TNode } from '../common';
-import { downloadFile } from './utils';
-import { ImageInfo, ImageScale, ImageViewerScale } from './type';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
+import Image from '../image';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { TooltipLite } from '../tooltip';
+import { ImageViewerProps } from './ImageViewer';
 import { ImageModalMini } from './ImageViewerMini';
+import useIconMap from './hooks/useIconMap';
+import useIndex from './hooks/useIndex';
 import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
-import useIndex from './hooks/useIndex';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useIconMap from './hooks/useIconMap';
-import Image from '../image';
+import { downloadFile } from './utils';
 
-import type { TdImageViewerProps } from './type';
-import { ImageViewerProps } from './ImageViewer';
+import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -34,7 +33,6 @@ const ImageError = ({ errorText }: { errorText: string }) => {
 
   return (
     <div className={`${classPrefix}-image-viewer__img-error`}>
-      {/* 脱离文档流 */}
       <div className={`${classPrefix}-image-viewer__img-error-content`}>
         <ImageErrorIcon size="4em" />
         <div className={`${classPrefix}-image-viewer__img-error-text`}>{errorText}</div>
@@ -233,7 +231,7 @@ interface ImageViewerUtilsProps {
   tipText: {
     mirror: string;
     rotate: string;
-    originsize: string;
+    originalSize: string;
   };
   onDownload?: TdImageViewerProps['onDownload'];
 }
@@ -260,13 +258,13 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils-content`}>
         <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content={tipText.mirror} showShadow={false}>
-          <div className={`${classPrefix}-image-viewer__modal-icon`}>
-            <MirrorIcon size="medium" onClick={onMirror} />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onMirror}>
+            <MirrorIcon size="medium" />
           </div>
         </TooltipLite>
         <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content={tipText.rotate} showShadow={false}>
-          <div className={`${classPrefix}-image-viewer__modal-icon`}>
-            <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={() => onRotate(-ROTATE_COUNT)}>
+            <RotationIcon size="medium" />
           </div>
         </TooltipLite>
         <ImageModalIcon size="medium" name="zoom-out" onClick={onZoomOut} />
@@ -278,17 +276,11 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
         <ImageModalIcon size="medium" name="zoom-in" onClick={onZoom} />
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
-          content={tipText.originsize}
+          content={tipText.originalSize}
           showShadow={false}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`}>
-            <ImageIcon
-              size="medium"
-              name="image"
-              onClick={() => {
-                onReset();
-              }}
-            />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onReset}>
+            <ImageIcon size="medium" name="image" />
           </div>
         </TooltipLite>
         {currentImage.download && (
@@ -306,7 +298,6 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           />
         )}
       </div>
-      {/* <IconFont size="3em" name="page-last" onClick={() => onRotate(ROTATE_COUNT)} /> */}
     </div>
   );
 };
@@ -489,7 +480,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const tipText = {
     mirror: t(locale.mirrorTipText),
     rotate: t(locale.rotateTipText),
-    originsize: t(locale.originalSizeTipText),
+    originalSize: t(locale.originalSizeTipText),
   };
   const errorText = t(locale.errorText);
 

@@ -1,11 +1,9 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
 import { TNode } from '../common';
 import Dialog from '../dialog';
-import { ImageInfo, ImageScale, ImageViewerScale } from './type';
-import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
 import useConfig from '../hooks/useConfig';
-
-import type { TdImageViewerProps } from './type';
+import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
+import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
 export interface ImageModalMiniProps {
   visible: boolean;
@@ -32,7 +30,7 @@ export interface ImageModalMiniProps {
   tipText: {
     mirror: string;
     rotate: string;
-    originsize: string;
+    originalSize: string;
   };
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
 }
