@@ -13,18 +13,10 @@ export interface ImageModalMiniProps {
   scale: number;
   mirror: number;
   images: ImageInfo[];
-  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
   imageScale: ImageScale;
   viewerScale: ImageViewerScale;
   rotateZ: number;
   currentImage: ImageInfo;
-  prev: () => void;
-  next: () => void;
-  onMirror: () => void;
-  onZoom: () => void;
-  onZoomOut: () => void;
-  onReset: () => void;
-  onRotate: (red: number) => void;
   zIndex: number;
   errorText: string;
   tipText: {
@@ -33,6 +25,14 @@ export interface ImageModalMiniProps {
     originalSize: string;
   };
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  prev: () => void;
+  next: () => void;
+  onMirror: () => void;
+  onZoom: () => void;
+  onZoomOut: () => void;
+  onReset: () => void;
+  onRotate: (red: number) => void;
+  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
 }
 
 export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
@@ -61,13 +61,13 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     scale,
     currentImage,
     draggable,
+    tipText,
     onZoomOut,
     onZoom,
     onClose,
     onRotate,
     onMirror,
     onReset,
-    tipText,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -75,14 +75,15 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
   const footer = (
     <div className={`${classPrefix}-image-viewer-mini__footer`}>
       <ImageViewerUtils
+        scale={scale}
+        tipText={tipText}
+        currentImage={currentImage}
+        zIndex={props.zIndex + 1}
         onZoom={onZoom}
         onZoomOut={onZoomOut}
-        scale={scale}
-        currentImage={currentImage}
         onRotate={onRotate}
         onMirror={onMirror}
         onReset={onReset}
-        tipText={tipText}
       />
     </div>
   );
