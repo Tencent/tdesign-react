@@ -3,7 +3,7 @@ import { Popup, QRCode, Button } from 'tdesign-react';
 
 export default function QRCodeExample() {
   return (
-    <Popup content={<QRCode value={'https://tdesign.tencent.com/'} borderless={true} />}>
+    <Popup content={<QRCode value={'https://tdesign.tencent.com/'} borderless={true} bgColor="#fff" />}>
       <Button>Hover me</Button>
     </Popup>
   );

@@ -39,6 +39,7 @@ export default function QRCodeExample() {
         </Button>
       </Space>
       <QRCode
+        bgColor="#fff"
         level="H"
         size={size}
         iconSize={size / 4}

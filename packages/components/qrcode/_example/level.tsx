@@ -8,7 +8,7 @@ export default function QRCodeExample() {
   };
   return (
     <>
-      <QRCode style={{ marginBottom: 16 }} level={level} value={'https://tdesign.tencent.com/'} />
+      <QRCode bgColor="#fff" style={{ marginBottom: 16 }} level={level} value={'https://tdesign.tencent.com/'} />
       <Select
         value={level}
         style={{ width: '40%' }}

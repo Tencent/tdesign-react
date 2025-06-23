@@ -5,9 +5,9 @@ const value = 'https://tdesign.tencent.com/';
 export default function QRCodeExample() {
   return (
     <Space>
-      <QRCode value={value} status="loading" />
-      <QRCode value={value} status="expired" onRefresh={() => console.log('refresh')} />
-      <QRCode value={value} status="scanned" />
+      <QRCode value={value} status="loading" bgColor="#fff" />
+      <QRCode value={value} status="expired" onRefresh={() => console.log('refresh')} bgColor="#fff" />
+      <QRCode value={value} status="scanned" bgColor="#fff" />
     </Space>
   );
 }

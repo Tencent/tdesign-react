@@ -5,7 +5,7 @@ export default function QRCodeExample() {
   const [text, setText] = React.useState('https://tdesign.tencent.com/');
   return (
     <Space direction="vertical" align="center">
-      <QRCode value={text || '-'} />
+      <QRCode value={text || '-'} bgColor="#fff" />
 
       <Input placeholder="-" value={text} onChange={(v) => setText(v)} />
     </Space>

@@ -12,23 +12,25 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
     case 'expired':
       return (
         <div>
-          <CloseCircleFilled style={{ color: 'red' }} size={16}/>&nbsp;二维码过期
+          <CloseCircleFilled style={{ color: 'red' }} size={16} />
+          &nbsp;二维码过期
           <p style={{ color: '#0052D9', cursor: 'pointer', lineHeight: '32px' }}>
-            <RefreshIcon/>&nbsp;点击刷新
+            <RefreshIcon />
+            &nbsp;点击刷新
           </p>
         </div>
       );
     case 'loading':
       return (
         <Space direction="vertical">
-          <Loading size='32px'/>
+          <Loading size="32px" />
           <p>加载中...</p>
         </Space>
       );
     case 'scanned':
       return (
         <div>
-          <CheckCircleFilled style={{ color: 'green' }} size={16}/> 已扫描
+          <CheckCircleFilled style={{ color: 'green' }} size={16} /> 已扫描
         </div>
       );
     default:
@@ -39,10 +41,11 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
 export default function QRCodeExample() {
   return (
     <Space>
-      <QRCode value={value} status="loading" statusRender={customStatusRender} />
+      <QRCode value={value} status="loading" statusRender={customStatusRender} bgColor="#fff" />
       <QRCode
         value={value}
         status="expired"
+        bgColor="#fff"
         onRefresh={() => console.log('refresh')}
         statusRender={customStatusRender}
       />
