@@ -109,9 +109,9 @@ export default function useForm(form?: InternalFormInstance) {
   // eslint-disable-next-line
   if (!formRef.current._init) {
     if (form) {
-      // Reset store when reopening
-      form.store = {};
       formRef.current = form;
+      // Reset store when reopening
+      formRef.current.store = {};
     } else {
       // Create a new FormStore if not provided
       const forceReRender = () => {
