@@ -122,12 +122,6 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
     setIsImageLoaded(false);
   }, [imgSrc]);
 
-  const canvasStyle: React.CSSProperties = {
-    height: size,
-    width: size,
-    ...style,
-  };
-
   let img = null;
   if (imgSrc != null) {
     img = (
@@ -147,7 +141,7 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
   }
   return (
     <>
-      <canvas style={canvasStyle} height={size} width={size} ref={setCanvasRef} role="img" {...otherProps} />
+      <canvas style={style} height={size} width={size} ref={setCanvasRef} role="img" {...otherProps} />
       {img}
     </>
   );

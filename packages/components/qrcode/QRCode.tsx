@@ -60,6 +60,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
     `${classPrefix}-qrcode`,
     {
       [`${classPrefix}-borderless`]: borderless,
+      [`${classPrefix}-qrcode-svg`]: type === 'svg',
     },
     className,
   );
