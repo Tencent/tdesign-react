@@ -97,8 +97,8 @@ spline: explain
 - `DatePicker`: 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
 - `TimePicker`: 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
 - `ColorPicker`: 
- - 新增 `clearable` API @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
- - 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
+    - 新增 `clearable` API @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
+    - 新增 `onClear` 事件回调 @RylanBot ([#3509](https://github.com/Tencent/tdesign-react/pull/3509))
 ### 🐞 Bug Fixes
 - `DatePicker`: 确保外部组件主动关闭 Popup 的时候，能有对应的 `onVisibleChange` 回调 @RylanBot ([#3510](https://github.com/Tencent/tdesign-react/pull/3510))
 - `Drawer`: 新增 `DrawerPlugin`，支持函数式调用，具体使用参考示例 @Wesley-0808 ([#3381](https://github.com/Tencent/tdesign-react/pull/3381))
@@ -437,9 +437,9 @@ spline: explain
 - `Form`: 修复嵌套 `FormList` 场景下使用 `shouldUpdate` 导致循环渲染的问题 @moecasts ([#2948](https://github.com/Tencent/tdesign-react/pull/2948))
 - `Tabs`: 修复 `1.7.4` 版本后，`Tabs` 的 className 影响 `TabItem` 的问题 @uyarn ([#2946](https://github.com/Tencent/tdesign-react/pull/2946))
 - `Table`: 
- - 修复 `usePagination` 中 `pagination` 动态变化的功能问题 @HaixingOoO ([#2960](https://github.com/Tencent/tdesign-react/pull/2960))
- - 修复鼠标右键表格也可以触发列宽拖拽的问题 @HaixingOoO ([#2961](https://github.com/Tencent/tdesign-react/pull/2961))
- - 修复只存在一列可被 resize 的使用场景下，拖拽功能异常的问题 @uyarn ([#2959](https://github.com/Tencent/tdesign-react/pull/2959))
+    - 修复 `usePagination` 中 `pagination` 动态变化的功能问题 @HaixingOoO ([#2960](https://github.com/Tencent/tdesign-react/pull/2960))
+    - 修复鼠标右键表格也可以触发列宽拖拽的问题 @HaixingOoO ([#2961](https://github.com/Tencent/tdesign-react/pull/2961))
+    - 修复只存在一列可被 resize 的使用场景下，拖拽功能异常的问题 @uyarn ([#2959](https://github.com/Tencent/tdesign-react/pull/2959))
 
 ### 🚧 Others
 - 站点全量新增 TypeScript 示例代码 @uyarn @HaixingOoO @ZWkang  ([#2871](https://github.com/Tencent/tdesign-react/pull/2871))
@@ -683,8 +683,8 @@ spline: explain
 - `ColorPicker`: 修复修改颜色上方滑杆按钮颜色不变 @HaixingOoO ([#2615](https://github.com/Tencent/tdesign-react/pull/2615))
 - `Table`: 修复 `lazyLoad` 懒加载效果 @chaishi ([#2605](https://github.com/Tencent/tdesign-react/pull/2605))
 - `Tree`: 
- - 修复树组件节点的 `open class` 状态控制逻辑错误导致的样式异常 @NWYLZW ([#2611](https://github.com/Tencent/tdesign-react/pull/2611))
- - 指定滚动到特定节点 API 中的 `key` 和 `index` 应为可选 @uyarn ([#2626](https://github.com/Tencent/tdesign-react/pull/2626))
+    - 修复树组件节点的 `open class` 状态控制逻辑错误导致的样式异常 @NWYLZW ([#2611](https://github.com/Tencent/tdesign-react/pull/2611))
+    - 指定滚动到特定节点 API 中的 `key` 和 `index` 应为可选 @uyarn ([#2626](https://github.com/Tencent/tdesign-react/pull/2626))
 - `Drawer`: 修复 `mode` 为 `push` 时,推开内容区域为 drawer 节点的父节点。 @HaixingOoO ([#2614](https://github.com/Tencent/tdesign-react/pull/2614))
 - `Radio`: 修复表单 `disabled` 未生效在 `Radio 上的问题 @li-jia-nan ([#2397](https://github.com/Tencent/tdesign-react/pull/2397))
 - `Pagination`: 修复当 `total` 为 0 并且 `pageSize` 改变时，`current` 值为 0 的问题 @betavs ([#2624](https://github.com/Tencent/tdesign-react/pull/2624))
@@ -811,9 +811,9 @@ spline: explain
 
 ### 🚨 Breaking Changes
 - `Icon`: @uyarn ([#2429](https://github.com/Tencent/tdesign-react/pull/2429))
- - 新增 960 个图标
- - 调整图标命名 `photo` 为 `camera`，`books` 为 `bookmark`, `stop-cirle-1` 为 `stop-circle-stroke`
- - 移除`money-circle`图标，具体请查看图标页面
+    - 新增 960 个图标
+    - 调整图标命名 `photo` 为 `camera`，`books` 为 `bookmark`, `stop-cirle-1` 为 `stop-circle-stroke`
+    - 移除`money-circle`图标，具体请查看图标页面
 
 ### 🚀 Features
 - `Table`: @chaishi ([#2402](https://github.com/Tencent/tdesign-react/pull/2402))
