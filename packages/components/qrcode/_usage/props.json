@@ -1,32 +1,8 @@
 [
   {
-    "name": "bgColor",
-    "type": "String",
-    "defaultValue": "transparent",
-    "options": []
-  },
-  {
     "name": "borderless",
     "type": "Boolean",
     "defaultValue": false,
-    "options": []
-  },
-  {
-    "name": "color",
-    "type": "String",
-    "defaultValue": false,
-    "options": []
-  },
-  {
-    "name": "icon",
-    "type": "String",
-    "defaultValue": "",
-    "options": []
-  },
-  {
-    "name": "iconSize",
-    "type": "Number | { width: Number; height: Number }",
-    "defaultValue": 40,
     "options": []
   },
   {
@@ -51,12 +27,6 @@
         "value": "H"
       }
     ]
-  },
-  {
-    "name": "size",
-    "type": "Number",
-    "defaultValue": 160,
-    "options": []
   },
   {
     "name": "status",
