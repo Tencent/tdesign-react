@@ -11,12 +11,23 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
   switch (info.status) {
     case 'expired':
       return (
-        <div>
-          <CloseCircleFilled style={{ color: 'red' }} size={16} />
-          &nbsp;二维码过期
-          <p style={{ color: '#0052D9', cursor: 'pointer', lineHeight: '32px' }}>
-            <RefreshIcon />
-            &nbsp;点击刷新
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <p style={{ display: 'flex', alignItems: 'center', columnGap: '8px' }}>
+            <CloseCircleFilled style={{ color: 'red' }} size={16} />
+            <span>二维码过期</span>
+          </p>
+          <p
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              columnGap: '8px',
+              color: '#0052d9',
+              cursor: 'pointer',
+              lineHeight: '32px',
+            }}
+          >
+            <RefreshIcon size={16} />
+            <span>点击刷新</span>
           </p>
         </div>
       );
@@ -29,8 +40,9 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
       );
     case 'scanned':
       return (
-        <div>
-          <CheckCircleFilled style={{ color: 'green' }} size={16} /> 已扫描
+        <div style={{ display: 'flex', alignItems: 'center', columnGap: '8px' }}>
+          <CheckCircleFilled style={{ color: '#2ba471' }} size={16} />
+          <span>已扫描</span>
         </div>
       );
     default:
