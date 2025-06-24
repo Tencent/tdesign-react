@@ -83,12 +83,17 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     return eventProps;
   }, {});
 
-  const textareaClassNames = classNames(`${classPrefix}-textarea__inner`, className, {
-    [`${classPrefix}-is-${status}`]: status,
-    [`${classPrefix}-is-disabled`]: disabled,
-    [`${classPrefix}-is-focused`]: isFocused,
-    [`${classPrefix}-resize-none`]: typeof autosize === 'object',
-  });
+  const textareaClassNames = classNames(
+    `${classPrefix}-textarea__inner`,
+    className,
+    {
+      [`${classPrefix}-is-${status}`]: status,
+      [`${classPrefix}-is-disabled`]: disabled,
+      [`${classPrefix}-is-focused`]: isFocused,
+      [`${classPrefix}-resize-none`]: typeof autosize === 'object',
+    },
+    'narrow-scrollbar',
+  );
 
   const adjustTextareaHeight = useEventCallback(() => {
     if (autosize === true) {
@@ -152,19 +157,13 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   );
 
   useIsomorphicLayoutEffect(() => {
-    adjustTextareaHeight();
-  }, []);
-
-  useIsomorphicLayoutEffect(() => {
-    // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
+    console.log('renderLimitText');
     if (autosize === false) {
       setTextareaStyle(DEFAULT_TEXTAREA_STYLE);
+    } else {
+      adjustTextareaHeight();
     }
-  }, [autosize]);
-
-  useEffect(() => {
-    adjustTextareaHeight();
-  }, [adjustTextareaHeight, value]);
+  }, [value, autosize, adjustTextareaHeight]);
 
   useEffect(() => {
     handleAutoFocus();
