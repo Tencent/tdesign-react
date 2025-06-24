@@ -30,7 +30,7 @@ export default function QRCodeExample() {
 
   return (
     <>
-      <Space style={{ marginBottom: 16 }}>
+      <Space style={{ marginBottom: 16, userSelect: 'none' }}>
         <Button onClick={decline} disabled={size <= MIN_SIZE} icon={<MinusIcon />}>
           Smaller
         </Button>
@@ -38,14 +38,16 @@ export default function QRCodeExample() {
           Larger
         </Button>
       </Space>
-      <QRCode
-        bgColor="#fff"
-        level="H"
-        size={size}
-        iconSize={size / 4}
-        value="https://tdesign.tencent.com/"
-        icon="https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg"
-      />
+      <p style={{ minHeight: '160px' }}>
+        <QRCode
+          bgColor="#fff"
+          level="H"
+          size={size}
+          iconSize={size / 4}
+          value="https://tdesign.tencent.com/"
+          icon="https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg"
+        />
+      </p>
     </>
   );
 }
