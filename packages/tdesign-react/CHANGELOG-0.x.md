@@ -144,7 +144,7 @@ spline: explain
 
 ## 🌈 0.45.0 `2022-12-22` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Dialog`: 重构 Dialog，兼容 mode="normal" 属性更改为 DialogCard 实现，新增控制台警告 @honkinglin ([#1830](https://github.com/Tencent/tdesign-react/pull/1830))
 
 ### 🚀 Features
@@ -213,7 +213,7 @@ spline: explain
 
 
 ## 🌈 0.44.0 `2022-11-30` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Jumper`: Jumper 更名为 PaginationMini 组件，正在使用 Jumper 组件的同学请从 Pagination 中导出替换 @honkinglin ([#1749](https://github.com/Tencent/tdesign-react/pull/1749))
 - `Tooltip`: 移除 placement 的 mouse 模式，该场景请使用 TooltipLite @carolin913 ([#1751](https://github.com/Tencent/tdesign-react/pull/1751))
 
@@ -267,7 +267,7 @@ spline: explain
 
 
 ## 🌈 0.43.0 `2022-11-17` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Comment/Slider/ImageViewer`: 组件 DOM 结构调整，有覆盖样式的同学请关注 @honkinglin ([#1785](https://github.com/Tencent/tdesign-react/pull/1707)、[#1794](https://github.com/Tencent/tdesign-react/pull/1708)、[#1788](https://github.com/Tencent/tdesign-react/pull/1711))
 - 部分组件间距、尺寸等样式统一调整，支持使用尺寸相关Design Token调整间距、尺寸大小 @uyarn ([common #993](https://github.com/Tencent/tdesign-common/pull/993)) @Wen1kang ([common #977](https://github.com/Tencent/tdesign-common/pull/977)) 
 
@@ -436,7 +436,7 @@ spline: explain
 - `DatePicker`:  修复输入框清空后关闭弹窗未重置问题 @honkinglin ([#1543](https://github.com/Tencent/tdesign-react/pull/1543))
 
 ## 🌈 0.42.0 `2022-09-20` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `DatePicker`: 移除 `valueType` api，可使用返回的 dayjs 对象自行格式化 @honkinglin ([#1487](https://github.com/Tencent/tdesign-react/pull/1487))
 - `Select`: 移除 `onVisibleChange`、`bordered` 多余 api，可使用 `onPopupVisibleChange`、`borderless` 替代 @honkinglin ([#1505](https://github.com/Tencent/tdesign-react/pull/1505))
 
@@ -476,7 +476,7 @@ spline: explain
 
 
 ## 🌈 0.41.0 `2022-09-13` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - 支持 `es module` 导出不带样式产物，调整 lib 包内容，新增 `cjs` 产物支持 `commonjs` 导出不带样式产物 @honkinglin ([#1455](https://github.com/Tencent/tdesign-react/pull/1455))
 
 ### 🚀 Features
@@ -623,7 +623,7 @@ spline: explain
 
 
 ## 🌈 0.40.0 `2022-08-15` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Popup` : 重构了该组件，修复了较多问题 @honkinglin ([#1256](https://github.com/Tencent/tdesign-react/pull/1256)):  
     - 不再生成 div 节点包裹 trigger 元素，`className`、`style` 属性废弃，可自行包裹 div 节点调整 `className`、`style` 属性。
     - `overlayStyle` 调整为控制 `t-popup` 层级，新增 `overlayInnerStyle` 控制 `t-popup__content` 层级与原先 `overlayStyle` 效果一致。
@@ -661,7 +661,7 @@ spline: explain
 
 
 ## 🌈 0.39.0 `2022-08-08` 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `Pagination`: 调整快速跳转样式，`simple` 主题下合并分页控制器与快速跳转控制器 @honkinglin ([#1242](https://github.com/Tencent/tdesign-react/pull/1242))
 - `Tooltip`: 调整 `theme` 主题文字颜色和背景色  @honkinglin([#703](https://github.com/Tencent/tdesign-common/pull/703))
 
@@ -693,7 +693,7 @@ spline: explain
 
 ## 🌈 0.38.0 `2022-08-01` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - 调整全局 `border-radius` token，`@border-radius` 改名为 `@border-radius-default`，支持更多圆角 token。 使用 esm 包修改 less token 的业务需要注意。 @mingrutough1 (https://github.com/Tencent/tdesign-common/pull/666) (https://github.com/Tencent/tdesign-common/pull/648)
 
 ### 🚀 Features
@@ -727,7 +727,7 @@ spline: explain
 
 ## 🌈 0.37.0 `2022-07-18` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `DatePicker`: 调整组件dom 节点 class 命名 @honkinglin ([#1101](https://github.com/Tencent/tdesign-react/pull/1101))
 
 ### 🚀 Features
@@ -830,7 +830,7 @@ spline: explain
 
 ## 🌈 0.36.0 `2022-06-27` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `reset`: 默认移除全局 reset 样式引入，可从 `tdesign-react/dist/reset.css` 中单独引入 @xiaosansiji ([#899](https://github.com/Tencent/tdesign-react/pull/899))
 
 ### 🚀 Features
@@ -882,7 +882,7 @@ spline: explain
 
 ## 🌈 0.35.0 `2022-06-10` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `DatePicker`:  重构 `DatePickerPanel`、`DateRangePickerPanel` 逻辑，API 重新规划 @honkinglin ([#858](https://github.com/Tencent/tdesign-react/pull/858))
 - `Dialog`: 移除 `transform` 动画方案，dom 结构有所调整 @huoyuhao ([#776](https://github.com/Tencent/tdesign-react/pull/776))
 - `InputAdornment`: 移除 `Addon` 组件，替换为 `InputAdornment`，用法保持一致只需更改组件名即可  @honkinglin ([#849](https://github.com/Tencent/tdesign-react/pull/849))
@@ -954,7 +954,7 @@ spline: explain
 
 ## 🌈 0.34.0 `2022-05-20` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - `DatePicker`: onChange 回调第二个参数调整为对象，支持更多类型返回值 @honkinglin ([#777](https://github.com/Tencent/tdesign-react/pull/777))
 - `Form`: 不再默认渲染 `help` 空节点 @honkinglin ([#772](https://github.com/Tencent/tdesign-react/pull/772))
 
@@ -994,7 +994,7 @@ spline: explain
 
 ## 🌈 0.33.0 `2022-05-09` 
 
-### ❗ Breaking Changes
+### 🚨 Breaking Changes
 - 重构 DatePicker、TimePicker 组件，样式结构有所调整 @honkinglin @uyarn ([#559](https://github.com/Tencent/tdesign-react/pull/559)) 
 - `DatePicker`
   - 移除 `range` api，分别导出 `Datepicker` 与 `DateRangePicker` 组件
