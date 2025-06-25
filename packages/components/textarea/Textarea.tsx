@@ -83,17 +83,12 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     return eventProps;
   }, {});
 
-  const textareaClassNames = classNames(
-    `${classPrefix}-textarea__inner`,
-    className,
-    {
-      [`${classPrefix}-is-${status}`]: status,
-      [`${classPrefix}-is-disabled`]: disabled,
-      [`${classPrefix}-is-focused`]: isFocused,
-      [`${classPrefix}-resize-none`]: typeof autosize === 'object',
-    },
-    'narrow-scrollbar',
-  );
+  const textareaClassNames = classNames(`${classPrefix}-textarea__inner`, className, {
+    [`${classPrefix}-is-${status}`]: status,
+    [`${classPrefix}-is-disabled`]: disabled,
+    [`${classPrefix}-is-focused`]: isFocused,
+    [`${classPrefix}-resize-none`]: typeof autosize === 'object',
+  });
 
   const adjustTextareaHeight = useEventCallback(() => {
     if (autosize === true) {
@@ -157,7 +152,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   );
 
   useIsomorphicLayoutEffect(() => {
-    console.log('renderLimitText');
     if (autosize === false) {
       setTextareaStyle(DEFAULT_TEXTAREA_STYLE);
     } else {
