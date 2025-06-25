@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, QRCode, Radio, Space, RadioOption } from 'tdesign-react';
+import { Button, QRCode, Radio, Space } from 'tdesign-react';
 import type { QrCodeProps } from 'tdesign-react';
 
 function doDownload(url: string, fileName: string) {
@@ -30,18 +30,17 @@ const downloadSvgQRCode = () => {
 
 export default function QRCodeExample() {
   const [renderType, setRenderType] = React.useState<QrCodeProps['type']>('canvas');
-  const objOptions: RadioOption[] = [
-    { label: 'canvas', value: 'canvas' },
-    { label: 'svg', value: 'svg' },
-  ];
 
   return (
     <Space direction="vertical">
       <Radio.Group
         value={renderType}
-        options={objOptions}
+        variant="default-filled"
         onChange={(val: QrCodeProps['type']) => setRenderType(val)}
-      />
+      >
+        <Radio.Button value="canvas">canvas</Radio.Button>
+        <Radio.Button value="svg">svg</Radio.Button>
+      </Radio.Group>
 
       <div id="qrcode">
         <QRCode
