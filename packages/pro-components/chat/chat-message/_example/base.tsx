@@ -3,6 +3,8 @@ import { Space } from 'tdesign-react';
 import { UserMessage, ChatMessage } from '@tdesign-react/aigc';
 
 const message: UserMessage = {
+  id: '1',
+  role: 'user',
   content: [
     {
       type: 'text',
