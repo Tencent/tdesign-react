@@ -7,6 +7,7 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 import { CSSTransition } from 'react-transition-group';
+import log from '@tdesign/common-js/log/index';
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
@@ -39,6 +40,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     theme,
     icon,
     close,
+    closeBtn,
     maxLine,
     onClose,
     className,
@@ -96,11 +98,20 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     return <div className={`${classPrefix}-alert__description`}>{message}</div>;
   };
 
-  const renderClose = () => (
-    <div className={`${classPrefix}-alert__close`} onClick={handleClose}>
-      {typeof close === 'boolean' ? <CloseIcon /> : parseTNode(close)}
-    </div>
-  );
+  // close属性变更为closeBtn过渡期使用，close废弃后可删除。（需兼容标签上直接写close和closeBtn的场景）
+  const isUsingClose = close || typeof props.close === 'string';
+  const closeNode = isUsingClose ? close : closeBtn;
+  if (isUsingClose) {
+    log.warnOnce('TAlert', 'prop `close` is going to be deprecated, please use `closeBtn` instead.');
+  }
+  const renderClose = () => {
+    if (closeNode === false) return null;
+    return (
+      <div className={`${classPrefix}-alert__close`} onClick={handleClose}>
+        {parseTNode(closeNode, undefined, <CloseIcon />)}
+      </div>
+    );
+  };
 
   return (
     <CSSTransition
@@ -126,7 +137,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
             {operation ? <div className={`${classPrefix}-alert__operation`}>{parseTNode(operation)}</div> : null}
           </div>
         </div>
-        {close ? renderClose() : null}
+        {renderClose()}
       </div>
     </CSSTransition>
   );
