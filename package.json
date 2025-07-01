@@ -143,7 +143,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
     "semver": "^7.6.3",
-    "start-server-and-test": "^1.14.0",
+    "start-server-and-test": "^2.0.12",
     "tdesign-publish-cli": "^0.0.12",
     "ts-morph": "^13.0.02",
     "ts-node": "^10.4.0",
