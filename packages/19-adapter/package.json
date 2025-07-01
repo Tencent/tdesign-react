@@ -8,11 +8,12 @@
     "tdesign",
     "react"
   ],
+  "description": "Patch for tdesign-react v1 to support React 19",
   "peerDependencies": {
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0"
   },
-  "dependencies": {
+  "devDependencies": {
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "react": "^19.1.0",
