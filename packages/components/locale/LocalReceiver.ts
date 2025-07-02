@@ -1,6 +1,6 @@
 import React from 'react';
+import { t as commonT } from '@tdesign/common/js/global-config/t';
 import { ConfigContext, Locale } from '../config-provider';
-import { t as commonT } from '../../common/js/global-config/t';
 
 export interface Placement {
   [propName: string]: string | number;
