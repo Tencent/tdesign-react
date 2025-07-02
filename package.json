@@ -136,8 +136,6 @@
     "vitest": "^2.1.1"
   },
   "dependencies": {
-    "@babel/runtime": "~7.26.7",
-    "@popperjs/core": "~2.11.2",
     "@tdesign/common": "workspace:^",
     "@tdesign/common-docs": "workspace:^",
     "@tdesign/common-js": "workspace:^",
