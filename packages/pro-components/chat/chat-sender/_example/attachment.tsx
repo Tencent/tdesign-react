@@ -46,7 +46,7 @@ const ChatSenderExample = () => {
     setFiles(e.detail);
   };
 
-  const onAttachmentsSelect = (e: CustomEvent<File[]>) => {
+  const onAttachmentsSelect = (e: CustomEvent<TdAttachmentItem[]>) => {
     // 添加新文件并模拟上传进度
     const newFile = {
       ...e.detail[0],
@@ -65,7 +65,7 @@ const ChatSenderExample = () => {
                 ...file,
                 url: 'https://tdesign.gtimg.com/site/avatar.jpg',
                 status: 'success',
-                description: `${Math.floor(newFile.size / 1024)}KB`,
+                description: `${Math.floor((newFile?.size || 0) / 1024)}KB`,
               }
             : file,
         ),

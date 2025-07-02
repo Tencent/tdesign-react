@@ -109,7 +109,7 @@ export default function chatSample() {
   };
 
   // 文件上传
-  const onFileSelect = (e: CustomEvent<File[]>) => {
+  const onFileSelect = (e: CustomEvent<TdAttachmentItem[]>) => {
     // 添加新文件并模拟上传进度
     const newFile = {
       ...e.detail[0],
@@ -137,7 +137,7 @@ export default function chatSample() {
   };
 
   // 移除文件回调
-  const onFileRemove = (e: CustomEvent<File[]>) => {
+  const onFileRemove = (e: CustomEvent<TdAttachmentItem[]>) => {
     setFiles(e.detail);
   };
 
@@ -162,10 +162,10 @@ export default function chatSample() {
             items: files,
             overflow: 'scrollX',
           },
-          onSend,
           onFileSelect,
           onFileRemove,
         }}
+        onChatSent={onSend}
         chatServiceConfig={chatServiceConfig}
       ></ChatBot>
     </div>

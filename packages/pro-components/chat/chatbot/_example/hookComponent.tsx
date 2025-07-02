@@ -150,7 +150,7 @@ export default function ComponentsBuild() {
 
   const sendUserMessage = async (requestParams: ChatRequestParams) => {
     await chatEngine.sendUserMessage(requestParams);
-    listRef.current?.scrollToBottom();
+    listRef.current?.scrollList({ to: 'bottom' });
   };
 
   const inputChangeHandler = (e: CustomEvent) => {

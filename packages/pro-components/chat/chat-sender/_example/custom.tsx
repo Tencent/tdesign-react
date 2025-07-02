@@ -36,8 +36,7 @@ const ChatSenderExample = () => {
   // 这里是为了演示样式修改不影响其他Demo，实际项目中直接设置css变量到:root即可
   useDynamicStyle(senderRef, {
     '--td-text-color-placeholder': '#DFE2E7',
-    '--td-bg-color-secondarycontainer': '#fff',
-    '--td-chat-input-background': ' #fff',
+    '--td-chat-input-radius': '6px',
   });
 
   // 输入变化处理

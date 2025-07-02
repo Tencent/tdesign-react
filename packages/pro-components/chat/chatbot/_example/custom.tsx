@@ -59,7 +59,7 @@ const initMessage: ChatMessagesData[] = [
             fileType: 'image',
             // name: 'avatar.jpg',
             // size: 234234,
-            url: 'https://asset.gdtimg.com/muse_svp_0bc3viaacaaaweanalstw5ud3kweagvaaaka.f0.jpg?dis_k=bfc5cc81010a9d443e91ce45d4fbe774&dis_t=1750323484',
+            url: 'https://avatars.githubusercontent.com/Jayclelon',
           },
         ],
       },
