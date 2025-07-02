@@ -1,6 +1,6 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
 // @ts-ignore
-import log from '@tdesign/common-js/log';
+import log from '@tdesign/common-js/log/index';
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Root } from 'react-dom/client';
