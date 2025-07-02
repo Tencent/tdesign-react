@@ -11,8 +11,12 @@ export type TransformPattern = string | Function | Array<string>;
 export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defaultLocale?: Locale[T] | Function) {
   const { globalConfig } = React.useContext(ConfigContext);
 
-  function transformLocale(pattern: TransformPattern, placement?: Placement): string | Array<string> {
+  function transformLocale(pattern: TransformPattern, placement?: Placement): string;
+  function transformLocale(pattern: TransformPattern, placement?: number, data?: Placement): string;
+  function transformLocale(pattern: TransformPattern, ...args: any[]): string | Array<string> {
     const REGEXP = /\{\s*([\w-]+)\s*\}/g;
+    const placement = args[0];
+
     if (Array.isArray(pattern)) {
       return pattern.map((p, index) => {
         const translated = p.replace(REGEXP, (_: string, key: string) => {
@@ -24,6 +28,12 @@ export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defa
     }
     if (typeof pattern === 'function') {
       return pattern(placement);
+    }
+
+    // use commonT for plural
+    const data = args[1];
+    if (data) {
+      return commonT(pattern, placement, data);
     }
     return commonT(pattern, placement);
   }
