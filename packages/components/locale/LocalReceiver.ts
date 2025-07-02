@@ -1,5 +1,5 @@
 import React from 'react';
-import { t as commonT } from '@tdesign/common/js/global-config/t';
+import { t as commonT } from '@tdesign/common-js/global-config/t';
 import { ConfigContext, Locale } from '../config-provider';
 
 export interface Placement {
