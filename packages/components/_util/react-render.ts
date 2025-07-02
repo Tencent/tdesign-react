@@ -1,5 +1,6 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
 // @ts-ignore
+import log from '@tdesign/common-js/log';
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Root } from 'react-dom/client';
@@ -24,6 +25,12 @@ try {
   const mainVersion = Number((version || '').split('.')[0]);
   if (mainVersion >= 18 && mainVersion < 19) {
     legacyCreateRoot = fullClone.createRoot;
+  }
+  if (process.env.NODE_ENV !== 'production' && mainVersion >= 19) {
+    log.warn(
+      'React19',
+      'please using render adapter ,see link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
+    );
   }
 } catch (e) {
   // Do nothing;
@@ -100,7 +107,7 @@ export async function unmount(container: ContainerType) {
  * This is internal usage only compatible with React 19.
  * And will be removed in next major version.
  */
-export function unstableSetRender(render?: CreateRoot) {
+export function renderAdapter(render?: CreateRoot) {
   if (render) {
     legacyCreateRoot = render;
   }
