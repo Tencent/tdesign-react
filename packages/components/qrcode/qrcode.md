@@ -8,7 +8,7 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-bgColor | String | transparent | 二维码背景颜色 | N
+bgColor | String | - | 二维码背景颜色 | N
 borderless | Boolean | false | 是否有边框 | N
 color | String | - | 二维码颜色 | N
 icon | TNode | - | 二维码中图片的地址或自定义icon。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

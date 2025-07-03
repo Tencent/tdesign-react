@@ -5,7 +5,6 @@
 import { TdQRCodeProps } from './type';
 
 export const qRCodeDefaultProps: TdQRCodeProps = {
-  bgColor: 'transparent',
   borderless: false,
   iconSize: 40,
   level: 'M',

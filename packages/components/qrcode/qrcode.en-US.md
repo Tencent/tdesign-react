@@ -8,7 +8,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
-bgColor | String | transparent | QR code background color | N
+bgColor | String | - | QR code background color | N
 borderless | Boolean | false | Is there a border | N
 color | String | - | QR code color | N
 icon | TNode | - | The address or custom icon of the picture in the QR code。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

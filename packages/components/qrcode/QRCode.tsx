@@ -37,12 +37,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   const { color: themeColor, bgColor: themeBgColor } = useThemeColor();
 
   // 获取最终的背景色值。
-  const finalBgColor = useMemo(() => {
-    if (!props.bgColor) {
-      return themeBgColor || qRCodeDefaultProps.bgColor;
-    }
-    return bgColor;
-  }, [bgColor, props.bgColor, themeBgColor]);
+  const finalBgColor = useMemo(() => bgColor || themeBgColor || 'transparent', [bgColor, themeBgColor]);
 
   if (!value) {
     return null;

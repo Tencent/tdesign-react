@@ -9,7 +9,7 @@ import { TNode } from '../common';
 export interface TdQRCodeProps {
   /**
    * 二维码背景颜色
-   * @default transparent
+   * @default ''
    */
   bgColor?: string;
   /**
