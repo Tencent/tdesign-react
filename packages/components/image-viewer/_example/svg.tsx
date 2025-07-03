@@ -1,6 +1,6 @@
 import React from 'react';
-import { ImageViewer, Image } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
+import { Image, ImageViewer } from 'tdesign-react';
 
 import type { ImageViewerProps } from 'tdesign-react';
 
@@ -53,7 +53,7 @@ const Svg = () => {
   };
   return (
     <div>
-      <ImageViewer trigger={trigger} images={img} />
+      <ImageViewer trigger={trigger} images={img} zIndex={10000} />
     </div>
   );
 };

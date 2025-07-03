@@ -1,17 +1,17 @@
+import classNames from 'classnames';
+import { get } from 'lodash-es';
 import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
 import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-react';
-import { get } from 'lodash-es';
-import classNames from 'classnames';
 import TableTreeStore, { SwapParams } from '@tdesign/common-js/table/tree-store';
-import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
-import useClassName from './useClassName';
-import { renderCell } from '../Cell';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { parseContentTNode } from '../../_util/parseTNode';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { renderCell } from '../Cell';
+import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
+import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
@@ -38,15 +38,12 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     [rowKey, tree?.childrenKey],
   );
 
-  const [isDefaultExpandedTreeNodesExecute, setIsDefaultExpandedTreeNodesExecute] = useState(false);
-  const {
-    tExpandedTreeNode,
-    isDefaultExpandAllExecute,
-    expandAll,
-    foldAll,
-    updateExpandOnDataChange,
-    onExpandFoldIconClick,
-  } = useTreeDataExpand(props, { store, dataSource, rowDataKeys, setDataSource });
+  const { expandAll, foldAll, updateExpandOnDataChange, onExpandFoldIconClick } = useTreeDataExpand(props, {
+    store,
+    dataSource,
+    rowDataKeys,
+    setDataSource,
+  });
 
   const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
 
@@ -83,16 +80,9 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   );
 
   function resetData(data: TableRowData[]) {
-    const { columns, expandedTreeNodes, defaultExpandedTreeNodes } = props;
+    const { columns } = props;
     store.initialTreeStore(data, columns, rowDataKeys);
-    const defaultNeedExpand = Boolean(!isDefaultExpandedTreeNodesExecute && defaultExpandedTreeNodes?.length);
-    const needExpandAll = Boolean(tree?.defaultExpandAll && !isDefaultExpandAllExecute);
-    if ((tExpandedTreeNode?.length && !!(expandedTreeNodes || defaultNeedExpand)) || needExpandAll) {
-      updateExpandOnDataChange([...data]);
-      setIsDefaultExpandedTreeNodesExecute(true);
-    } else {
-      setDataSource([...data]);
-    }
+    updateExpandOnDataChange([...data]);
   }
 
   function getTreeNodeStyle(level: number) {

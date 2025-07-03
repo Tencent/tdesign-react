@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, ImageViewer, Popup, Space } from 'tdesign-react';
 import { BrowseIcon, EllipsisIcon } from 'tdesign-icons-react';
+import { Image, ImageViewer, Popup, Space } from 'tdesign-react';
 import type { ImageViewerProps } from 'tdesign-react';
 
 const imgH = 'https://tdesign.gtimg.com/demo/demo-image-3.png';
@@ -119,7 +119,7 @@ export default function BasicImageViewer() {
 
   return (
     <Space breakLine size={16}>
-      <ImageViewer trigger={trigger} images={images} title="相册封面标题" />
+      <ImageViewer trigger={trigger} images={images} title="相册封面标题" zIndex={10000} />
     </Space>
   );
 }

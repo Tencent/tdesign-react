@@ -9,7 +9,7 @@ import matter from 'gray-matter';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import { compileUsage, getGitTimestamp } from '../../../../../packages/common/docs/compile';
+import { compileUsage, getGitTimestamp } from '@tdesign/common-docs/compile';
 import testCoverage from '../../test-coverage';
 
 // eslint-disable-next-line no-underscore-dangle
@@ -227,7 +227,7 @@ async function customRender({ source, file, md }) {
     const usageObj = compileUsage({
       componentName,
       usage: pageData.usage,
-      demoPath: path.posix.resolve(__dirname, `../../../components/${componentName}/_usage/index.jsx`),
+      demoPath: path.posix.resolve(__dirname, `../../../../components/${componentName}/_usage/index.jsx`),
     });
     if (usageObj) {
       mdSegment.usage = usageObj;
@@ -253,7 +253,7 @@ async function customRender({ source, file, md }) {
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
-    const designDocPath = path.resolve(__dirname, '../../../common/docs/web/design', `${componentName}.md`);
+    const designDocPath = path.resolve(__dirname, '../../../../common/docs/web/design', `${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
       const designDocLastUpdated =

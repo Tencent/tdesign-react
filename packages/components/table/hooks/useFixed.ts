@@ -391,7 +391,7 @@ export default function useFixed(
 
   const calculateThWidthList = (trList: HTMLCollection) => {
     const widthMap: { [colKey: string]: number } = {};
-    for (let i = 0, len = trList.length; i < len; i++) {
+    for (let i = 0, len = trList?.length; i < len; i++) {
       const thList = trList[i].children;
       // second for used for multiple row header
       for (let j = 0, thLen = thList.length; j < thLen; j++) {
