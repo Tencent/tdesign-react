@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, ImageViewer, Space } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
+import { Image, ImageViewer, Space } from 'tdesign-react';
 
 import type { ImageViewerProps } from 'tdesign-react';
 
@@ -54,7 +54,7 @@ export default function BasicImageViewer() {
           );
         };
 
-        return <ImageViewer key={imgSrc} trigger={trigger} images={images} defaultIndex={index} />;
+        return <ImageViewer key={imgSrc} trigger={trigger} images={images} defaultIndex={index} zIndex={10000} />;
       })}
     </Space>
   );

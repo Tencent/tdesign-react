@@ -17,6 +17,9 @@
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/dm/tdesign-react.svg?sanitize=true" alt="Downloads" />
   </a>
+  <a href="https://deepwiki.com/Tencent/tdesign-react">
+    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+  </a>
 </p>
 
 English | [简体中文](./README-zh_CN.md)
