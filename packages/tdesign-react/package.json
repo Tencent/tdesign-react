@@ -22,7 +22,8 @@
     "dist/*",
     "site/*",
     "es/**/style/**",
-    "esm/**/style/**"
+    "esm/**/style/**",
+    "es/_util/react-19-adapter.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
