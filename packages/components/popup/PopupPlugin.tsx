@@ -1,17 +1,18 @@
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { Options } from '@popperjs/core';
 import { createPopper, Instance, Placement } from '@popperjs/core';
-import { isString } from 'lodash-es';
 import classNames from 'classnames';
+import { isString } from 'lodash-es';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { render, unmount } from '../_util/react-render';
 import { getAttach } from '../_util/dom';
-import { TNode } from '../common';
-import { TdPopupProps } from './type';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { popupDefaultProps } from './defaultProps';
 import { off, on } from '../_util/listener';
+import { render, unmount } from '../_util/react-render';
+import type { TNode } from '../common';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { popupDefaultProps } from './defaultProps';
+import type { TdPopupProps } from './type';
 
 export interface PopupPluginApi {
   config: TdPopupProps;
@@ -68,7 +69,7 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
 
   const hidePopup = hideEmptyPopup && isString(content) && ['', undefined, null].includes(content);
 
-  const stylePoper = (): React.CSSProperties => {
+  const stylePopper = (): React.CSSProperties => {
     let style = {};
     if (hidePopup) {
       style = { visibility: 'hidden', pointerEvents: 'none' };
@@ -131,6 +132,8 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     onMouseMove: handleMouseEnter,
   };
 
+  const hasArrowModifier = (props.popperOptions as Options)?.modifiers?.some((modifier) => modifier.name === 'arrow');
+
   // render node
   const renderNode = (
     <div
@@ -139,13 +142,14 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
         renderCallback(ref);
       }}
       className={classNames([componentName, overlayClassName])}
-      style={stylePoper()}
+      style={stylePopper()}
       {...eventProps}
     >
       <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyleMerge()}>
         {content}
-        {/* popper.js 修饰符(modifiers)的高级功能 arrow 会自动根据属性 data-popper-arrow 来识别箭头元素，从而支持调整箭头位置(padding) */}
-        {showArrow && <div className={`${componentName}__arrow`} data-popper-arrow></div>}
+        {showArrow && (
+          <div className={`${componentName}__arrow`} {...(hasArrowModifier && { 'data-popper-arrow': '' })} />
+        )}
       </div>
     </div>
   );

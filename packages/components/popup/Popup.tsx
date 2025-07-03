@@ -1,23 +1,24 @@
-import React, { forwardRef, useState, useRef, useMemo, useEffect, useImperativeHandle } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import { isFunction, debounce } from 'lodash-es';
-import classNames from 'classnames';
+import type { Options } from '@popperjs/core';
 import { Placement } from '@popperjs/core';
-import useControlled from '../hooks/useControlled';
-import useAnimation from '../hooks/useAnimation';
-import useConfig from '../hooks/useConfig';
-import { TdPopupProps } from './type';
-import Portal from '../common/Portal';
-import useTrigger from './hooks/useTrigger';
+import classNames from 'classnames';
+import { debounce, isFunction } from 'lodash-es';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { getRefDom } from '../_util/ref';
-import { getTransitionParams } from './utils/transition';
+import { getCssVarsValue } from '../_util/style';
+import Portal from '../common/Portal';
+import useAnimation from '../hooks/useAnimation';
+import useAttach from '../hooks/useAttach';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
+import usePopper from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useAttach from '../hooks/useAttach';
-import { getCssVarsValue } from '../_util/style';
-import usePopper from '../hooks/usePopper';
+import useTrigger from './hooks/useTrigger';
+import type { TdPopupProps } from './type';
+import { getTransitionParams } from './utils/transition';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -61,7 +62,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     expandAnimation,
     delay,
     hideEmptyPopup,
-    popperOptions,
     updateScrollTop,
   } = props;
   const { classPrefix } = useConfig();
@@ -111,10 +111,18 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     onVisibleChange,
   });
 
+  const popperOptions = props.popperOptions as Options;
   popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
     placement: popperPlacement,
     ...popperOptions,
   });
+  /**
+   * 是否启用 popper.js 的 arrow 修饰符
+   * - 会自动根据属性 data-popper-arrow 来识别箭头元素
+   * - 从而支持使用 padding 调整箭头位置
+   * @ see https://popper.js.org/docs/v2/modifiers/arrow/
+   */
+  const hasArrowModifier = popperOptions?.modifiers?.some((modifier) => modifier.name === 'arrow');
   const { styles, attributes } = popperRef.current;
 
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
@@ -221,10 +229,13 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
               onScroll={handleScroll}
             >
               {content}
-              {showArrow ? (
-                // popper.js 修饰符(modifiers)的高级功能 arrow 会自动根据属性 data-popper-arrow 来识别箭头元素，从而支持调整箭头位置(padding)
-                <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} data-popper-arrow />
-              ) : null}
+              {showArrow && (
+                <div
+                  style={styles.arrow}
+                  className={`${classPrefix}-popup__arrow`}
+                  {...(hasArrowModifier && { 'data-popper-arrow': '' })}
+                />
+              )}
             </div>
           </div>
         </CSSTransition>
