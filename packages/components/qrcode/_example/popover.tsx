@@ -5,7 +5,7 @@ export default function QRCodeExample() {
   return (
     <Popup
       overlayInnerStyle={{ padding: '12px' }}
-      content={<QRCode value={'https://tdesign.tencent.com/'} size={136} borderless={true} bgColor="#fff" />}
+      content={<QRCode value={'https://tdesign.tencent.com/'} size={136} borderless={true} />}
     >
       <Button>Hover me</Button>
     </Popup>

@@ -40,7 +40,6 @@ export default function QRCodeExample() {
       </Space>
       <p style={{ minHeight: '160px' }}>
         <QRCode
-          bgColor="#fff"
           level="H"
           size={size}
           iconSize={size / 4}

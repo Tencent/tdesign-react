@@ -17,7 +17,6 @@ export default function QRCodeExample() {
       </Radio.Group>
 
       <QRCode
-        bgColor="#fff"
         style={{ marginBottom: 16 }}
         level={level}
         value={'https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg'}

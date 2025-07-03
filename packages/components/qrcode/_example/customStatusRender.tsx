@@ -53,11 +53,10 @@ const customStatusRender: QrCodeProps['statusRender'] = (info) => {
 export default function QRCodeExample() {
   return (
     <Space>
-      <QRCode value={value} status="loading" statusRender={customStatusRender} bgColor="#fff" />
+      <QRCode value={value} status="loading" statusRender={customStatusRender} />
       <QRCode
         value={value}
         status="expired"
-        bgColor="#fff"
         onRefresh={() => console.log('refresh')}
         statusRender={customStatusRender}
       />

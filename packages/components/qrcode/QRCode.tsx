@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
 import { QRCodeCanvas } from './QRCodeCanvas';
@@ -10,6 +10,7 @@ import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import QRcodeStatus from './QRCodeStatus';
+import useThemeColor from '../hooks/useThemeColor';
 
 export interface QrCodeProps extends TdQRCodeProps, StyledProps {}
 
@@ -33,6 +34,16 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   const { classPrefix } = useConfig();
   const [locale] = useLocaleReceiver('qrcode');
 
+  const { color: themeColor, bgColor: themeBgColor } = useThemeColor();
+
+  // 获取最终的背景色值。
+  const finalBgColor = useMemo(() => {
+    if (!props.bgColor) {
+      return themeBgColor || qRCodeDefaultProps.bgColor;
+    }
+    return bgColor;
+  }, [bgColor, props.bgColor, themeBgColor]);
+
   if (!value) {
     return null;
   }
@@ -50,8 +61,8 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   const qrCodeProps = {
     value,
     size,
-    bgColor,
-    fgColor: color,
+    bgColor: finalBgColor,
+    fgColor: color || themeColor,
     imageSettings: icon ? imageSettings : undefined,
     ...rest,
   };
@@ -66,7 +77,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   );
 
   const mergedStyle: React.CSSProperties = {
-    backgroundColor: bgColor,
+    backgroundColor: finalBgColor,
     ...style,
     width: style?.width ?? size,
     height: style?.height ?? size,

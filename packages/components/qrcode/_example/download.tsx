@@ -46,7 +46,6 @@ export default function QRCodeExample() {
         <QRCode
           type={renderType}
           value="https://tdesign.tencent.com/"
-          bgColor="#fff"
           style={{ marginBottom: 16 }}
           icon="https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg"
         />
