@@ -44,7 +44,7 @@ export default function QRCodeExample() {
           size={size}
           iconSize={size / 4}
           value="https://tdesign.tencent.com/"
-          icon="https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg"
+          icon="https://tdesign.gtimg.com/site/tdesign-logo.png"
         />
       </p>
     </>

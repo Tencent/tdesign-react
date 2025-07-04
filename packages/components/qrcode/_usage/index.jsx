@@ -26,7 +26,7 @@ export default function Usage() {
   const [renderComp, setRenderComp] = useState();
 
   const defaultProps = {
-    value: "https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg",
+    value: "https://tdesign.gtimg.com/site/tdesign-logo.png",
   };
 
   useEffect(() => {

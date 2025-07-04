@@ -16,11 +16,7 @@ export default function QRCodeExample() {
         <Radio.Button value="H">H</Radio.Button>
       </Radio.Group>
 
-      <QRCode
-        style={{ marginBottom: 16 }}
-        level={level}
-        value={'https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg'}
-      />
+      <QRCode style={{ marginBottom: 16 }} level={level} value={'https://tdesign.gtimg.com/site/tdesign-logo.png'} />
     </Space>
   );
 }

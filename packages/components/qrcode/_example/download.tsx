@@ -47,7 +47,7 @@ export default function QRCodeExample() {
           type={renderType}
           value="https://tdesign.tencent.com/"
           style={{ marginBottom: 16 }}
-          icon="https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg"
+          icon="https://tdesign.gtimg.com/site/tdesign-logo.png"
         />
         <Button onClick={renderType === 'canvas' ? downloadCanvasQRCode : downloadSvgQRCode}>Download</Button>
       </div>
