@@ -1,5 +1,4 @@
-import type { Options } from '@popperjs/core';
-import { createPopper, Instance, Placement } from '@popperjs/core';
+import { createPopper, Instance, Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';

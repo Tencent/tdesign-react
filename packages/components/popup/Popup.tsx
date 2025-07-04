@@ -1,5 +1,4 @@
-import type { Options } from '@popperjs/core';
-import { Placement } from '@popperjs/core';
+import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
