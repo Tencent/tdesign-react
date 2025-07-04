@@ -7,7 +7,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import BaseUsage, {
   useConfigChange,
   usePanelChange,
-} from "@site/src/components/BaseUsage";
+} from "@tdesign/react-site/src/components/BaseUsage";
 import jsxToString from "react-element-to-jsx-string";
 
 import configProps from "./props.json";
