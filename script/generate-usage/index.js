@@ -10,7 +10,7 @@ const renderUsageStr = (compStrMap) =>
 
 // @ts-nocheck
 import React, { useState, useEffect, useMemo } from 'react';
-import BaseUsage, { useConfigChange, usePanelChange } from '@site/src/components/BaseUsage';
+import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
 import jsxToString from 'react-element-to-jsx-string';
 ${compStrMap.importStr}
 

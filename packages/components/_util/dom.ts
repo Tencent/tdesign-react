@@ -77,3 +77,18 @@ export function getWindowSize(): { width: number; height: number } {
   }
   return { width: 0, height: 0 };
 }
+
+/**
+ * 获取当前主题下的token色值
+ * --td-bg-color-specialcomponent  背景色token
+ * --td-text-color-primary 字体颜色token
+ * @returns string
+ */
+export function getCurrentPrimaryColor(token: string): string {
+  if (canUseDocument) {
+    const targetElement = document?.documentElement;
+    const styles = getComputedStyle(targetElement);
+    return styles.getPropertyValue(token).trim();
+  }
+  return '';
+}
