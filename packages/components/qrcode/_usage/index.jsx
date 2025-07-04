@@ -25,7 +25,9 @@ export default function Usage() {
 
   const [renderComp, setRenderComp] = useState();
 
-  const defaultProps = { value: "https://tdesign.tencent.com/" };
+  const defaultProps = {
+    value: "https://cdc.cdn-go.cn/tdc/latest/images/tdesign.svg",
+  };
 
   useEffect(() => {
     setRenderComp(<QRCode {...defaultProps} {...changedProps} />);
