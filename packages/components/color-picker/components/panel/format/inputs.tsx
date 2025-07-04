@@ -29,7 +29,7 @@ const FormatInputs = (props) => {
 
   const handleInputChange = (key: string, v: number | string) => {
     if (v === lastModelValue.current[key]) return;
-    inputKey.current = v;
+    inputKey.current = new Date().getTime(); // 重新渲染，处理多次空值的场景
     lastModelValue.current[key] = v;
 
     const newFormatValue = {
@@ -37,7 +37,6 @@ const FormatInputs = (props) => {
       [key]: v,
     };
     modelValueRef.current = newFormatValue;
-
     // 对应 COLOR_FORMAT_INPUTS 中的 key
     if (key === 'a') {
       // 透明通道
@@ -49,7 +48,6 @@ const FormatInputs = (props) => {
       // 需要进一步转换的格式
       color.update(Color.object2color(newFormatValue, format));
     }
-
     const value = getColorFormatMap(color, 'decode')[format];
 
     onInputChange(value, color.alpha, key, v);
@@ -66,20 +64,15 @@ const FormatInputs = (props) => {
   return (
     <div className="input-group">
       {getColorFormatInputs(format, enableAlpha).map((config) => {
+        const currentValue = modelValueRef.current[config.key];
         const commonProps = {
-          ...inputProps,
-          title: modelValueRef.current[config.key],
-          [config.type === 'input' ? 'defaultValue' : 'value']: modelValueRef.current[config.key],
-          align: 'center',
           disabled,
+          title: currentValue,
+          align: 'center',
           size: 'small',
-
-          onChange:
-            config.type === 'input'
-              ? Function.prototype
-              : (v: string) => handleInputChange(config.key, v || config.min),
           onBlur: (v: string) => handleInputChange(config.key, v),
           onEnter: (v: string) => handleInputChange(config.key, v),
+          ...inputProps,
         };
 
         return (
@@ -93,7 +86,8 @@ const FormatInputs = (props) => {
             {config.type === 'input' ? (
               <Input
                 {...commonProps}
-                key={`${inputKey.current}${commonProps.defaultValue}`}
+                defaultValue={currentValue}
+                key={`${inputKey.current}-${currentValue}`}
                 maxlength={format === 'HEX' ? 9 : undefined}
               />
             ) : (
@@ -103,6 +97,8 @@ const FormatInputs = (props) => {
                 max={config.max}
                 step={1}
                 format={config.format}
+                value={currentValue}
+                onChange={(v) => handleInputChange(config.key, v || config.min)}
                 theme="normal"
               />
             )}
