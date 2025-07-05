@@ -91,7 +91,13 @@ module.exports = {
 ```
 ### 如何在 React 19 中使用
 
-如果您需要在 React 19 中使用，请安装 `tdesign-react@1.12.0` 这个版本；因为无法同时兼容React 16 -19，我们接下来会专门提供一个分支版本，长期支持在 React 19 的使用 TDesign React。
+如果您需要在 React 19 中使用，请安装最低 `tdesign-react@1.13.0` 这个版本。
+
+```js
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "tdesign-react/es/_util/react-19-adapter";
+```
 
 ### 如何在 Next.js 中使用
 
@@ -104,6 +110,8 @@ module.exports = {
 
 import { Button } from 'tdesign-react/lib/'; // 按需引入无样式组件代码
 import 'tdesign-react/dist/tdesign.css'; // 全局引入所有组件样式代码
+// 在 React19 使用，引入下面这行
+import "tdesign-react/lib/_util/react-19-adapter";
 ```
 
 此外 `lib` 包导出的是 `es6` 的代码且在 `node_modules` 中，会被 `webpack` 在编译时跳过，还需配置下 `next.config.js`。
