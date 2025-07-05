@@ -1,6 +1,5 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
 // @ts-ignore
-import log from '@tdesign/common-js/log/index';
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Root } from 'react-dom/client';
@@ -27,9 +26,8 @@ try {
     legacyCreateRoot = fullClone.createRoot;
   }
   if (process.env.NODE_ENV !== 'production' && mainVersion >= 19) {
-    log.warn(
-      'React19',
-      'please using render adapter ,see link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
+    console.warn(
+      'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
     );
   }
 } catch (e) {
