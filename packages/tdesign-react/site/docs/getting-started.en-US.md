@@ -88,7 +88,13 @@ module.exports = {
 
 ### How to use in React 19
 
-If you need to use TDesign React in React 19, please install version `tdesign-react@1.12.0`. Since it cannot simultaneously support React 16–19, we will soon provide a  branch version for long-term compatibility with React 19.
+If you need to use it with React 19, please install at least `tdesign-react@1.13.0`.
+
+```js
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "tdesign-react/es/_util/react-19-adapter";
+```
 
 ### How to use React with Next.js
 
@@ -101,6 +107,8 @@ When using Next.js, you need to adjust how you use these components.
 
 import { Button } from 'tdesign-react/lib/';
 import 'tdesign-react/dist/tdesign.css';
+// Use it in React19 and introduce the following line
+import "tdesign-react/lib/_util/react-19-adapter";
 ```
 
 In addition, the code exported by the `lib` package is written in `es6` and is located in the `node_modules`. It will be skipped by Webpack during compilation, and you need to configure it in `next.config.js`
