@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { RefreshIcon } from 'tdesign-icons-react';
-import CheckCircleFilled from 'tdesign-icons-react/lib/components/check-circle-filled';
+import { RefreshIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
 import type { TdQRCodeProps, StatusRenderInfo } from './type';
 import Loading from '../loading';
 import { QRCodeConfig } from '../config-provider/type';
@@ -34,7 +33,7 @@ export default function QRcodeStatus({ locale, classPrefix, onRefresh, statusRen
   const defaultScannedNode = useMemo(
     () => (
       <p className={`${classPrefix}-scanned`}>
-        <CheckCircleFilled size={16} className={`${classPrefix}-scanned__icon`} />
+        <CheckCircleFilledIcon size={16} className={`${classPrefix}-scanned__icon`} />
         {locale?.scannedText}
       </p>
     ),
