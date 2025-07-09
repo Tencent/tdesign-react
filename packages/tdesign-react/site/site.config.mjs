@@ -416,14 +416,6 @@ export const docs = [
     type: 'component', // 组件文档
     children: [
       {
-        title: 'QRCode 二维码',
-        titleEn: 'QRCode',
-        name: 'qrcode',
-        path: '/react/components/qrcode',
-        component: () => import('@tdesign/components/qrcode/qrcode.md'),
-        componentEn: () => import('@tdesign/components/qrcode/qrcode.en-US.md'),
-      },
-      {
         title: 'Avatar 头像',
         titleEn: 'Avatar',
         name: 'avatar',
@@ -528,6 +520,14 @@ export const docs = [
         path: '/react/components/progress',
         component: () => import('@tdesign/components/progress/progress.md'),
         componentEn: () => import('@tdesign/components/progress/progress.en-US.md'),
+      },
+      {
+        title: 'QRCode 二维码',
+        titleEn: 'QRCode',
+        name: 'qrcode',
+        path: '/react/components/qrcode',
+        component: () => import('@tdesign/components/qrcode/qrcode.md'),
+        componentEn: () => import('@tdesign/components/qrcode/qrcode.en-US.md'),
       },
       {
         title: 'Skeleton 骨架屏',
