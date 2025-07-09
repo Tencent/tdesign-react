@@ -11,7 +11,7 @@ style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProper
 bgColor | String | - | QR code background color | N
 borderless | Boolean | false | Is there a border | N
 color | String | - | QR code color | N
-icon | TNode | - | The address or custom icon of the picture in the QR code。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+icon | String | - | The address or custom icon of the picture in the QR code | N
 iconSize | Number / Object | 40 | The size of the picture in the QR code。Typescript：`number \| { width: number; height: number }` | N
 level | String | M | QR code error correction level。options: L/M/Q/H | N
 size | Number | 160 | QR code size | N

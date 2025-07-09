@@ -11,7 +11,7 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 bgColor | String | - | 二维码背景颜色 | N
 borderless | Boolean | false | 是否有边框 | N
 color | String | - | 二维码颜色 | N
-icon | TNode | - | 二维码中图片的地址或自定义icon。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+icon | String | - | 二维码中图片的地址或自定义icon | N
 iconSize | Number / Object | 40 | 二维码中图片的大小。TS 类型：`number \| { width: number; height: number }` | N
 level | String | M | 二维码纠错等级。可选项：L/M/Q/H | N
 size | Number | 160 | 二维码大小 | N
