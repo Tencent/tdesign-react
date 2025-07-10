@@ -98,8 +98,8 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     return <div className={`${classPrefix}-alert__description`}>{message}</div>;
   };
 
-  // close属性变更为closeBtn过渡期使用，close废弃后可删除。（需兼容标签上直接写close和closeBtn的场景）
-  const isUsingClose = close || typeof props.close === 'string';
+  // close 属性变更为 closeBtn，close废弃后可删除。（需兼容标签上直接写close和closeBtn的场景）
+  const isUsingClose = Reflect.has(props, 'close');
   const closeNode = isUsingClose ? close : closeBtn;
   if (isUsingClose) {
     log.warnOnce('TAlert', 'prop `close` is going to be deprecated, please use `closeBtn` instead.');
