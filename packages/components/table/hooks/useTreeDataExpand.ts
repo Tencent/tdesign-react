@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import TableTreeStore, { diffExpandedTreeNode, getUniqueRowValue } from '@tdesign/common-js/table/tree-store';
-import usePrevious from '../../hooks/usePrevious';
-import { TdEnhancedTableProps, TableRowData } from '../type';
 import useControlled from '../../hooks/useControlled';
-import { TableTreeExpandType } from '../interface';
+import usePrevious from '../../hooks/usePrevious';
+import type { TableTreeExpandType } from '../interface';
+import type { TableRowData, TdEnhancedTableProps } from '../type';
 
 export function useTreeDataExpand(
   props: TdEnhancedTableProps,
@@ -140,8 +140,6 @@ export function useTreeDataExpand(
   };
 
   return {
-    tExpandedTreeNode,
-    isDefaultExpandAllExecute,
     expandAll,
     foldAll,
     onExpandFoldIconClick,

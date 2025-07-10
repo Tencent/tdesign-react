@@ -522,6 +522,14 @@ export const docs = [
         componentEn: () => import('@tdesign/components/progress/progress.en-US.md'),
       },
       {
+        title: 'QRCode 二维码',
+        titleEn: 'QRCode',
+        name: 'qrcode',
+        path: '/react/components/qrcode',
+        component: () => import('@tdesign/components/qrcode/qrcode.md'),
+        componentEn: () => import('@tdesign/components/qrcode/qrcode.en-US.md'),
+      },
+      {
         title: 'Skeleton 骨架屏',
         titleEn: 'Skeleton',
         name: 'skeleton',

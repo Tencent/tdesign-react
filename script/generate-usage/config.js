@@ -1152,4 +1152,21 @@ module.exports = {
       }, [changedProps]);
     `,
   },
+  qrcode: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { QRCode } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'QRCode', value: 'QRCode' }];
+    `,
+    usageStr: `
+      const defaultProps = { value: 'https://tdesign.gtimg.com/site/tdesign-logo.png' };\n
+      useEffect(() => {
+        setRenderComp(<QRCode {...defaultProps} {...changedProps} />);
+      }, [changedProps]);
+    `,
+  },
 };
