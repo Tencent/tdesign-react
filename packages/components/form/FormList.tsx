@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
-import { merge, get } from 'lodash-es';
+import { merge, get, unset, flattenDeep, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext } from './FormContext';
 import { FormItemInstance } from './FormItem';
@@ -81,6 +81,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       const nextFormListValue = formListValue.filter((_, idx) => idx !== index);
       setFormListValue(nextFormListValue);
 
+      // remove form.store value
+      unset(form?.store, flattenDeep([name, index]));
+
       const fieldValue = calcFieldValue(name, nextFormListValue);
       requestAnimationFrame(() => {
         onFormItemValueChange?.({ ...fieldValue });
@@ -92,6 +95,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       const toItem = { ...cloneFields[to] };
       cloneFields[to] = fromItem;
       cloneFields[from] = toItem;
+
+      // move form.store value the reset List value
+      set(form?.store, name, []);
+
       setFields(cloneFields);
     },
   };
