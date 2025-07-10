@@ -53,7 +53,7 @@ class FormStore {
     getFieldValue: null,
     getFieldsValue: null,
     _init: true,
-
+    store: this.store,
     getInternalHooks: this.getInternalHooks,
   });
 
@@ -110,6 +110,8 @@ export default function useForm(form?: InternalFormInstance) {
   if (!formRef.current._init) {
     if (form) {
       formRef.current = form;
+      // Reset store when reopening
+      formRef.current.store = {};
     } else {
       // Create a new FormStore if not provided
       const forceReRender = () => {

@@ -1,13 +1,19 @@
 /* eslint-disable */
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import camelCase from 'camelcase';
-import { compileUsage, getGitTimestamp } from '../../../../packages/common/docs/compile';
-
-import testCoverage from '../test-coverage';
-
 import { transformSync } from '@babel/core';
+import pluginTransformTypescript from '@babel/plugin-transform-typescript';
+import presetReact from '@babel/preset-react';
+
+import camelCase from 'camelcase';
+import fs from 'fs';
+import matter from 'gray-matter';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+import { compileUsage, getGitTimestamp } from '@tdesign/common-docs/compile';
+import testCoverage from '../../test-coverage';
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function mdToReact(options) {
   const mdSegment = await customRender(options);
@@ -20,7 +26,7 @@ export default async function mdToReact(options) {
 
   const reactSource = `
     import React, { useEffect, useRef, useState, useMemo } from 'react';\n
-    import { useLocation, useNavigate } from 'react-router';
+    import { useLocation, useNavigate } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
     import Stackblitz from '@tdesign/react-site/src/components/stackblitz/index.jsx';
@@ -152,8 +158,8 @@ export default async function mdToReact(options) {
     generatorOpts: {
       decoratorsBeforeExport: true,
     },
-    presets: [require('@babel/preset-react')],
-    plugins: [[require('@babel/plugin-transform-typescript'), { isTSX: true }]],
+    presets: [presetReact],
+    plugins: [[pluginTransformTypescript, { isTSX: true }]],
   });
 
   return { code: result.code, map: result.map };
@@ -221,7 +227,7 @@ async function customRender({ source, file, md }) {
     const usageObj = compileUsage({
       componentName,
       usage: pageData.usage,
-      demoPath: path.posix.resolve(__dirname, `../../../components/${componentName}/_usage/index.jsx`),
+      demoPath: path.posix.resolve(__dirname, `../../../../components/${componentName}/_usage/index.jsx`),
     });
     if (usageObj) {
       mdSegment.usage = usageObj;
@@ -247,7 +253,7 @@ async function customRender({ source, file, md }) {
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
-    const designDocPath = path.resolve(__dirname, `../../../common/docs/web/design/${componentName}.md`);
+    const designDocPath = path.resolve(__dirname, '../../../../common/docs/web/design', `${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {
       const designDocLastUpdated =

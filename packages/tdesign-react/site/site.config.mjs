@@ -59,7 +59,7 @@ export const docs = [
         componentEn: () => import('@tdesign/common/theme.en-US.md'),
       },
       {
-        title: '暗黑模式',
+        title: '深色模式',
         titleEn: 'Dark Mode',
         name: 'dark-mode',
         path: '/react/dark-mode',
@@ -522,6 +522,14 @@ export const docs = [
         componentEn: () => import('@tdesign/components/progress/progress.en-US.md'),
       },
       {
+        title: 'QRCode 二维码',
+        titleEn: 'QRCode',
+        name: 'qrcode',
+        path: '/react/components/qrcode',
+        component: () => import('@tdesign/components/qrcode/qrcode.md'),
+        componentEn: () => import('@tdesign/components/qrcode/qrcode.en-US.md'),
+      },
+      {
         title: 'Skeleton 骨架屏',
         titleEn: 'Skeleton',
         name: 'skeleton',
@@ -639,6 +647,7 @@ export const docs = [
         name: 'guide',
         path: '/react/components/guide',
         component: () => import('@tdesign/components/guide/guide.md'),
+        componentEn: () => import('@tdesign/components/guide/guide.en-US.md'),
       },
       {
         title: 'Message 全局提示',

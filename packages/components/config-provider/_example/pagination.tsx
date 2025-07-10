@@ -35,7 +35,7 @@ export default function configDemo() {
     pagination: {
       itemsPerPage: '{size} / page',
       jumpTo: 'jump to',
-      total: 'Total {total} items',
+      total: 'Total {count} items',
       jumper: GlobalJumper,
     },
   };

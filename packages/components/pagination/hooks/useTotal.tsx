@@ -17,7 +17,7 @@ export default function useTotal(props) {
   // 渲染total相关逻辑
   const renderTotalContent = () => {
     if (typeof totalContent === 'boolean') {
-      return totalContent ? t(locale.total, { total }) : null;
+      return totalContent ? t(locale.total, total) : null;
     }
     if (typeof totalContent === 'function') {
       const start = (current - 1) * pageSize;
