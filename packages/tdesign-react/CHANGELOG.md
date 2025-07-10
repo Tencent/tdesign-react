@@ -5,6 +5,31 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.13.0 `2025-07-10` 
+### 🚀 Features
+- `React19`: 新增兼容 React 19 使用的 adapter，在 React 19 中使用请参考使用文档的详细说明 @HaixingOoO @uyarn([#3640](https://github.com/Tencent/tdesign-react/pull/3640))
+- `QRCode`: 新增 `QRCode` 二维码组件 @lifeiFront @wonkzhang ([#3612](https://github.com/Tencent/tdesign-react/pull/3612))
+- `Alert`: 新增 `closeBtn` API，与其他组件保持一致，`close` 将在未来版本废弃，请尽快调整为 `closeBtn` 使用 ⚠️ @ngyyuusora ([#3625](https://github.com/Tencent/tdesign-react/pull/3625))
+- `Form`: 新增在重新打开 Form 时，重置表单内容的特性 @alisdonwang ([#3613](https://github.com/Tencent/tdesign-react/pull/3613))
+- `ImageViewer`: 支持在移动端使用时，通过双指进行缩放图片的功能 @RylanBot ([#3629](https://github.com/Tencent/tdesign-react/pull/3629))
+- `locale`: 支持内置多语言的英文版本的单复数场景正常展示 @YunYouJun ([#3639](https://github.com/Tencent/tdesign-react/pull/3639))
+### 🐞 Bug Fixes
+- `ColorPicker`: 
+  - 修复点击渐变点时，色板没有同步更新的问题 @RylanBot ([#3624](https://github.com/Tencent/tdesign-react/pull/3624))
+  - 修复面板输入非法字符场景和多重置空场景下没有重置输入框内容的缺陷 @uyarn ([#3653](https://github.com/Tencent/tdesign-react/pull/3653))
+- `Dropdown`: 修复部分场景下拉菜单节点获取异常导致的错误问题 @uyarn ([#3657](https://github.com/Tencent/tdesign-react/pull/3657))
+- `ImageViewer`: @RylanBot ([#3629](https://github.com/Tencent/tdesign-react/pull/3629))
+  - 修复点击工具栏的图标边缘时无法触发对应的操作
+  - 修复由于 `TooltipLite` 引起的 `z-index` 层级关系异常
+- `Popup`: 修复 `1.11.2` 引入 popper.js 的 `arrow` 修饰符导致箭头位置偏移 @RylanBot ([#3652](https://github.com/Tencent/tdesign-react/pull/3652))
+- `Loading`: 修复在 iPad 微信上图标位置错误的问题 @Nero978([#3655](https://github.com/Tencent/tdesign-react/pull/3655))
+- `Menu`: 解决 `expandMutex` 存在嵌套子菜单时，容易失效的问题 @RylanBot ([#3621](https://github.com/Tencent/tdesign-react/pull/3621))
+- `Table`: 
+  - 修复吸顶功能不随高度变化的问题 @huangchen1031 ([#3620](https://github.com/Tencent/tdesign-react/pull/3620))
+  - 修复 `showHeader` 为 `false` 时，`columns` 动态变化报错的问题 @RylanBot ([#3637](https://github.com/Tencent/tdesign-react/pull/3637))
+  - 修复 `tree.defaultExpandAll` 在一些场景下无法生效的问题 @RylanBot ([#3638](https://github.com/Tencent/tdesign-react/pull/3638))
+- `Textarea`: 修复超出最大高度后换行时抖动的问题 @RSS1102 ([#3631](https://github.com/Tencent/tdesign-react/pull/3631))
+
 ## 🌈 1.12.3 `2025-06-13` 
 ### 🚀 Features
 - `Form`: 新增 `requiredMarkPosition` API，可定义必填符号的位置 @Wesley-0808 ([#3586](https://github.com/Tencent/tdesign-react/pull/3586))
