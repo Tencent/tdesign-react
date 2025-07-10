@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react",
-  "version": "1.12.3",
+  "version": "1.13.0",
   "title": "tdesign-react",
   "description": "TDesign Component for React",
   "main": "lib/index.js",
@@ -22,7 +22,10 @@
     "dist/*",
     "site/*",
     "es/**/style/**",
-    "esm/**/style/**"
+    "esm/**/style/**",
+    "es/_util/react-19-adapter.js",
+    "esm/_util/react-19-adapter.js",
+    "lib/_util/react-19-adapter.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
