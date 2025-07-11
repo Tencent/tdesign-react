@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.13.1 `2025-07-11`
+
+### 🐞 Bug Fixes
+- `QRCode`: 修复 `canvas` 二维码 Safari 样式兼容问题
+
 ## 🌈 1.13.0 `2025-07-10` 
 ### 🚀 Features
 - `React19`: 新增兼容 React 19 使用的 adapter，在 React 19 中使用请参考使用文档的详细说明 @HaixingOoO @uyarn([#3640](https://github.com/Tencent/tdesign-react/pull/3640))
