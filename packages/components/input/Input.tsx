@@ -22,8 +22,18 @@ import useLengthLimit from './useLengthLimit';
 
 export interface InputProps
   extends Omit<
-      React.TextareaHTMLAttributes<HTMLInputElement>,
-      'value' | 'defaultValue' | 'spellCheck' | 'onBlur' | 'onChange' | 'onClick' | 'onFocus' | 'onPaste' | 'onWheel'
+      React.InputHTMLAttributes<HTMLInputElement>,
+      | 'size'
+      | 'type'
+      | 'value'
+      | 'defaultValue'
+      | 'spellCheck'
+      | 'onBlur'
+      | 'onChange'
+      | 'onClick'
+      | 'onFocus'
+      | 'onPaste'
+      | 'onWheel'
     >,
     TdInputProps,
     StyledProps {
