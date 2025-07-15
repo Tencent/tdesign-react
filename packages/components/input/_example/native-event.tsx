@@ -27,8 +27,6 @@ export default function InputNativeEventDemo() {
           https://developer.mozilla.org/docs/Web/HTML/Reference/Global_attributes/tabindex */}
         <Input tabIndex={2} placeholder="我会被聚焦" />
         <Input placeholder="先聚焦我，然后按 Tab 键切换焦点" tabIndex={1} style={{ width: 300 }} />
-        {/* <input tabIndex={2} placeholder="我会被聚焦" />
-        <input tabIndex={1} placeholder="先聚焦我，然后按 Tab 键切换焦点"/> */}
       </Space>
       <Divider layout="vertical" style={{ height: '100%' }} />
       <Space direction="vertical">
