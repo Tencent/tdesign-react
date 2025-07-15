@@ -273,11 +273,18 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   }
 
   const onTagRemoveClick = (ctx: TagInputRemoveContext) => {
+    if (['week', 'quarter'].includes(props.mode)) {
+      onChange?.(ctx.value, {
+        trigger: 'tag-remove',
+      });
+      return;
+    }
+
     const removeDate = dayjs(ctx.item).toDate();
     const newDate = processDate(removeDate);
     onChange?.(newDate, {
       dayjsValue: parseToDayjs(removeDate, format),
-      trigger: 'pick',
+      trigger: 'tag-remove',
     });
   };
 
