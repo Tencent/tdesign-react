@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+import React, { useEffect, useRef, useState } from 'react';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
+import { formatDate, getDefaultFormat, isValidDate, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { RangeInputRefInterface } from '../../range-input';
-import { TdDateRangePickerProps, DateValue } from '../type';
-import useRangeValue from './useRangeValue';
 import type { TdPopupProps } from '../../popup/type';
+import type { RangeInputRef } from '../../range-input';
+import type { DateValue, TdDateRangePickerProps } from '../type';
+import useRangeValue from './useRangeValue';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
@@ -17,7 +17,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   const name = `${classPrefix}-date-range-picker`;
 
   const isMountedRef = useRef(false);
-  const inputRef = useRef<RangeInputRefInterface>(null);
+  const inputRef = useRef<RangeInputRef>(null);
 
   const {
     value,

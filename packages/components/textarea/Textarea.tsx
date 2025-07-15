@@ -1,16 +1,16 @@
-import React, { forwardRef, useState, useEffect, useMemo, useRef, useImperativeHandle } from 'react';
-import classNames from 'classnames';
-import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
-import useConfig from '../hooks/useConfig';
-import { TdTextareaProps } from './type';
-import { StyledProps } from '../common';
+import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
+import classNames from 'classnames';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import noop from '../_util/noop';
+import { StyledProps } from '../common';
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { textareaDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 import useEventCallback from '../hooks/useEventCallback';
+import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import { textareaDefaultProps } from './defaultProps';
+import type { TdTextareaProps } from './type';
 
 const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
 
@@ -21,12 +21,13 @@ export interface TextareaProps
     >,
     TdTextareaProps,
     StyledProps {}
-export interface TextareaRefInterface extends React.RefObject<unknown> {
+
+export interface TextareaRef extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
 }
 
-const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps, ref) => {
+const Textarea = forwardRef<TextareaRef, TextareaProps>((originalProps, ref) => {
   const props = useDefaultProps<TextareaProps>(originalProps, textareaDefaultProps);
   const {
     disabled,
@@ -73,11 +74,9 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const eventPropsNames = Object.keys(otherProps).filter((key) => /^on[A-Z]/.test(key));
   const eventProps = eventPropsNames.reduce((eventProps, key) => {
     Object.assign(eventProps, {
-      [key]: (e) => {
+      [key]: (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
         if (disabled) return;
-        if (key === 'onFocus') setIsFocused(true);
-        if (key === 'onBlur') setIsFocused(false);
-        props[key](e.currentTarget.value, { e });
+        props[key](e);
       },
     });
     return eventProps;
@@ -110,7 +109,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     });
   });
 
-  function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
+  function handleChange(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
 
@@ -129,6 +128,18 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }
 
+  function handleBlur(e: React.FocusEvent<HTMLTextAreaElement>) {
+    const { value } = e.target;
+    props.onBlur?.(value, { e });
+    setIsFocused(false);
+  }
+
+  function handleFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
+    const { value } = e.target;
+    props.onFocus?.(value, { e });
+    setIsFocused(true);
+  }
+
   function handleCompositionStart() {
     composingRef.current = true;
   }
@@ -136,7 +147,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   function handleCompositionEnd(e: React.FormEvent<HTMLTextAreaElement>) {
     if (composingRef.current) {
       composingRef.current = false;
-      inputValueChangeHandle(e);
+      handleChange(e);
     }
   }
 
@@ -176,7 +187,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }, [allowInputOverMax, characterLength, currentLength, maxcharacter, maxlength]);
 
-  useImperativeHandle(ref as TextareaRefInterface, () => ({
+  useImperativeHandle(ref as TextareaRef, () => ({
     currentElement: wrapperRef.current,
     textareaElement: textareaRef.current,
   }));
@@ -201,6 +212,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
       <textarea
         {...textareaProps}
         {...eventProps}
+        ref={textareaRef}
         rows={rows}
         value={composingRef.current ? composingValue : value}
         style={textareaStyle}
@@ -208,13 +220,14 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         readOnly={readonly}
         autoFocus={autofocus}
         disabled={disabled}
-        onChange={inputValueChangeHandle}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
-        ref={textareaRef}
       />
       {textTips || limitText ? (
         <div
