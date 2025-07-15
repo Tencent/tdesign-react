@@ -12,7 +12,6 @@ import { fileURLToPath } from 'url';
 import { compileUsage, getGitTimestamp } from '@tdesign/common-docs/compile';
 import testCoverage from '../../test-coverage';
 
-// eslint-disable-next-line no-underscore-dangle
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function mdToReact(options) {
@@ -181,7 +180,6 @@ const DEFAULT_EN_TABS = [
 async function customRender({ source, file, md }) {
   let { content, data } = matter(source);
   const lastUpdated = (await getGitTimestamp(file)) || Math.round(fs.statSync(file).mtimeMs);
-  // console.log('data', data);
   const isEn = file.endsWith('en-US.md');
   // md top data
   const pageData = {
@@ -207,9 +205,15 @@ async function customRender({ source, file, md }) {
   let [demoMd = '', apiMd = ''] = content.split(pageData.apiFlag);
 
   // fix table | render error
-  demoMd = demoMd.replace(/`([^`\r\n]+)`/g, (str, codeStr) => {
-    codeStr = codeStr.replace(/"/g, "'");
-    return `<td-code text="${codeStr}"></td-code>`;
+  demoMd = demoMd.replace(/^(.*?)$/gm, (line) => {
+    if (/^#+\s/.test(line)) {
+      return line;
+    }
+    // 非标题行才替换为行内代码，避免目录解析不完整
+    return line.replace(/`([^`\r\n]+)`/g, (_, codeStr) => {
+      codeStr = codeStr.replace(/"/g, "'");
+      return `<td-code text="${codeStr}"></td-code>`;
+    });
   });
 
   const mdSegment = {

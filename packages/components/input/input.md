@@ -1,5 +1,19 @@
 :: BASE_DOC ::
 
+## FAQ
+
+### 如何获取组件内部原生的 `<input />` 元素并进行自定义操作？
+
+使用 `ref` 获取组件实例，并调用 `inputRef.current.inputElement`，从而获取原生的 HTML 元素，例子如下：
+
+{{ native-element }}
+
+### 部分原生属性与事件在 API 文档中没有提及？
+
+全部支持穿透。但如果文档上明确标明了某个事件的回调，请遵循其写法；否则统一返回 React 的合成事件，例子如下：
+
+{{ native-event }}
+
 ## API
 
 ### Input Props

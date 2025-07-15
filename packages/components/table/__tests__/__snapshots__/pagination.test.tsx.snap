@@ -379,8 +379,6 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             >
               <div
                 class="t-input__wrap t-input--auto-width"
-                spellcheck="false"
-                value="5 条/页"
               >
                 <div
                   class="t-input t-align-left t-input--suffix"
@@ -389,6 +387,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    spellcheck="false"
                     type="text"
                     value="5 条/页"
                   />

@@ -33,7 +33,6 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -41,6 +40,7 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -57,7 +57,6 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -65,6 +64,7 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -210,7 +210,6 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -218,6 +217,7 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -234,7 +234,6 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -242,6 +241,7 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -347,7 +347,6 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -355,6 +354,7 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -371,7 +371,6 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -379,6 +378,7 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -484,7 +484,6 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -492,6 +491,7 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -508,7 +508,6 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -516,6 +515,7 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -661,7 +661,6 @@ exports[`Guide Component > GuideStep.mode is equal to dialog 1`] = `
         </div>
         <div
           class="t-input__wrap"
-          spellcheck="false"
         >
           <div
             class="t-input t-align-left"
@@ -669,6 +668,7 @@ exports[`Guide Component > GuideStep.mode is equal to dialog 1`] = `
             <input
               class="t-input__inner"
               placeholder="请输入内容"
+              spellcheck="false"
               type="text"
               value=""
             />
@@ -685,7 +685,6 @@ exports[`Guide Component > GuideStep.mode is equal to dialog 1`] = `
         </div>
         <div
           class="t-input__wrap"
-          spellcheck="false"
         >
           <div
             class="t-input t-align-left"
@@ -693,6 +692,7 @@ exports[`Guide Component > GuideStep.mode is equal to dialog 1`] = `
             <input
               class="t-input__inner"
               placeholder="请输入内容"
+              spellcheck="false"
               type="text"
               value=""
             />
@@ -759,7 +759,6 @@ exports[`Guide Component > GuideStep.mode is equal to popup 1`] = `
         </div>
         <div
           class="t-input__wrap"
-          spellcheck="false"
         >
           <div
             class="t-input t-align-left"
@@ -767,6 +766,7 @@ exports[`Guide Component > GuideStep.mode is equal to popup 1`] = `
             <input
               class="t-input__inner"
               placeholder="请输入内容"
+              spellcheck="false"
               type="text"
               value=""
             />
@@ -783,7 +783,6 @@ exports[`Guide Component > GuideStep.mode is equal to popup 1`] = `
         </div>
         <div
           class="t-input__wrap"
-          spellcheck="false"
         >
           <div
             class="t-input t-align-left"
@@ -791,6 +790,7 @@ exports[`Guide Component > GuideStep.mode is equal to popup 1`] = `
             <input
               class="t-input__inner"
               placeholder="请输入内容"
+              spellcheck="false"
               type="text"
               value=""
             />
@@ -860,7 +860,6 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -868,6 +867,7 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -884,7 +884,6 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -892,6 +891,7 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -1033,7 +1033,6 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -1041,6 +1040,7 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -1057,7 +1057,6 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -1065,6 +1064,7 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -1206,7 +1206,6 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -1214,6 +1213,7 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />
@@ -1230,7 +1230,6 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
           </div>
           <div
             class="t-input__wrap"
-            spellcheck="false"
           >
             <div
               class="t-input t-align-left"
@@ -1238,6 +1237,7 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
               <input
                 class="t-input__inner"
                 placeholder="请输入内容"
+                spellcheck="false"
                 type="text"
                 value=""
               />

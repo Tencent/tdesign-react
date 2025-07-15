@@ -1,20 +1,20 @@
-import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
+import React, { useImperativeHandle, useRef, useState } from 'react';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
-import Input, { InputRef } from '../input';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useControlled from '../hooks/useControlled';
-import type { StyledProps, TNode } from '../common';
 import parseTNode from '../_util/parseTNode';
-import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
-import { rangeInputDefaultProps } from './defaultProps';
+import type { StyledProps, TNode } from '../common';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import Input, { type InputRef } from '../input';
+import { rangeInputDefaultProps } from './defaultProps';
+import type { RangeInputInstanceFunctions, RangeInputValue, TdRangeInputProps } from './type';
 
 export interface RangeInputProps extends TdRangeInputProps, StyledProps {}
 
-export interface RangeInputRefInterface extends React.RefObject<unknown>, RangeInputInstanceFunctions {
+export interface RangeInputRef extends React.RefObject<unknown>, RangeInputInstanceFunctions {
   currentElement: HTMLFormElement;
 }
 

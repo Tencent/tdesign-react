@@ -1,24 +1,26 @@
-import React, { useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
+import React, { useImperativeHandle, useRef } from 'react';
+import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
-import Popup, { PopupRef, PopupVisibleChangeContext } from '../popup';
-import useSingle from './useSingle';
+import useDefaultProps from '../hooks/useDefaultProps';
+import type { InputRef } from '../input';
+import Popup, { type PopupRef, type PopupVisibleChangeContext } from '../popup';
+import { selectInputDefaultProps } from './defaultProps';
+import type { TdSelectInputProps } from './type';
 import useMultiple from './useMultiple';
 import useOverlayInnerStyle from './useOverlayInnerStyle';
-import { TdSelectInputProps } from './type';
-import { StyledProps } from '../common';
-import { selectInputDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { InputRef } from '../input';
+import useSingle from './useSingle';
 
 export interface SelectInputProps extends TdSelectInputProps, StyledProps {
   updateScrollTop?: (content: HTMLDivElement) => void;
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
 }
 
-const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputProps>((originalProps, ref) => {
+export interface SelectInputRef extends PopupRef, InputRef {}
+
+const SelectInput = React.forwardRef<Partial<SelectInputRef>, SelectInputProps>((originalProps, ref) => {
   const props = useDefaultProps<SelectInputProps>(originalProps, selectInputDefaultProps);
-  const selectInputRef = useRef<PopupRef>(null);
+  const popupRef = useRef<PopupRef>(null);
   const selectInputWrapRef = useRef<HTMLDivElement>(null);
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
@@ -41,7 +43,7 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
   ]);
 
   useImperativeHandle(ref, () => ({
-    ...(selectInputRef.current || {}),
+    ...(popupRef.current || {}),
     ...(inputRef.current || {}),
     ...(tagInputRef.current || {}),
   }));
@@ -61,7 +63,7 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
   const mainContent = (
     <div className={popupClasses} style={props.style}>
       <Popup
-        ref={selectInputRef}
+        ref={popupRef}
         trigger={popupProps?.trigger || 'click'}
         placement="bottom-left"
         content={props.panel}
