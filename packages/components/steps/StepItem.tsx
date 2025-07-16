@@ -29,20 +29,30 @@ const StepItem: React.FC<StepItemProps> = (originalProps) => {
     if (!icon) {
       return null;
     }
+
+    if (theme === 'default' && icon !== true) {
+      return icon;
+    }
+
     const iconCls = `${classPrefix}-steps-item__icon--number`;
-    if (icon && icon !== true) {
+
+    if (icon !== true) {
       return <span className={iconCls}>{icon}</span>;
     }
-    if (theme !== 'default') {
-      return null;
-    }
-    if (status === 'error') {
-      return <span className={iconCls}>{(globalStepsConfig.errorIcon || <CloseIcon />) as React.ReactNode}</span>;
-    }
-    if (status === 'finish') {
-      return <span className={iconCls}>{(globalStepsConfig.checkIcon || <CheckIcon />) as React.ReactNode}</span>;
-    }
-    return <span className={iconCls}>{Number(index) + 1}</span>;
+
+    // 根据状态返回对应的默认图标
+    const getDefaultIconByStatus = () => {
+      switch (status) {
+        case 'error':
+          return globalStepsConfig.errorIcon || <CloseIcon />;
+        case 'finish':
+          return globalStepsConfig.checkIcon || <CheckIcon />;
+        default:
+          return Number(index) + 1;
+      }
+    };
+
+    return <span className={iconCls}>{getDefaultIconByStatus()}</span>;
   }, [icon, classPrefix, theme, status, globalStepsConfig, index, CloseIcon, CheckIcon]);
 
   function onStepClick(e: React.MouseEvent<HTMLDivElement>) {
