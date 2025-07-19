@@ -40,11 +40,6 @@ export default function useOverlayInnerStyle(
     // popupElement的scrollBar宽度
     const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
 
-    if (prevDisplay === 'none') {
-      // eslint-disable-next-line no-param-reassign
-      popupElement.style.display = 'none';
-    }
-
     /**
      * issue：https://github.com/Tencent/tdesign-react/issues/2642
      *
@@ -59,6 +54,10 @@ export default function useOverlayInnerStyle(
         ? popupElement.scrollWidth
         : triggerElement.offsetWidth - overlayScrollWidth;
 
+    if (prevDisplay === 'none') {
+      // eslint-disable-next-line no-param-reassign
+      popupElement.style.display = 'none';
+    }
     let otherOverlayInnerStyle: React.CSSProperties = {};
     if (popupProps && typeof popupProps.overlayInnerStyle === 'object' && !popupProps.overlayInnerStyle.width) {
       otherOverlayInnerStyle = popupProps.overlayInnerStyle;
