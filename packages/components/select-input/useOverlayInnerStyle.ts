@@ -33,6 +33,7 @@ export default function useOverlayInnerStyle(
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
 
+    const prevDisplay = popupElement.style.display;
     // 设置display来可以获取popupElement的宽度
     // eslint-disable-next-line no-param-reassign
     popupElement.style.display = '';
@@ -53,6 +54,10 @@ export default function useOverlayInnerStyle(
         ? popupElement.scrollWidth
         : triggerElement.offsetWidth - overlayScrollWidth;
 
+    if (prevDisplay === 'none') {
+      // eslint-disable-next-line no-param-reassign
+      popupElement.style.display = 'none';
+    }
     let otherOverlayInnerStyle: React.CSSProperties = {};
     if (popupProps && typeof popupProps.overlayInnerStyle === 'object' && !popupProps.overlayInnerStyle.width) {
       otherOverlayInnerStyle = popupProps.overlayInnerStyle;
