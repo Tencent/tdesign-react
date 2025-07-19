@@ -33,11 +33,17 @@ export default function useOverlayInnerStyle(
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
 
+    const prevDisplay = popupElement.style.display;
     // 设置display来可以获取popupElement的宽度
     // eslint-disable-next-line no-param-reassign
     popupElement.style.display = '';
     // popupElement的scrollBar宽度
     const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
+
+    if (prevDisplay === 'none') {
+      // eslint-disable-next-line no-param-reassign
+      popupElement.style.display = 'none';
+    }
 
     /**
      * issue：https://github.com/Tencent/tdesign-react/issues/2642
