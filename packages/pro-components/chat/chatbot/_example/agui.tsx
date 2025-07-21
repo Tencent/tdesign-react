@@ -3,7 +3,6 @@ import {
   type TdChatMessageConfig,
   type ChatRequestParams,
   type ChatMessagesData,
-  type ChatBaseContent,
   ChatList,
   ChatSender,
   ChatMessage,
@@ -19,7 +18,7 @@ import mockData from './mock/data';
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);
   const inputRef = useRef<TdChatSenderApi>(null);
-  const [inputValue, setInputValue] = useState<string>('南极的自动提款机叫什么名字');
+  const [inputValue, setInputValue] = useState<string>('AG-UI协议的作用是什么');
   const { chatEngine, messages, status } = useChat({
     defaultMessages: mockData.normal,
     // 聊天服务配置
