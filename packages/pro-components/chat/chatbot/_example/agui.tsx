@@ -1,10 +1,9 @@
 import React, { ReactNode, useMemo, useRef, useState } from 'react';
 import {
-  type SSEChunkData,
   type TdChatMessageConfig,
-  type AIMessageContent,
   type ChatRequestParams,
   type ChatMessagesData,
+  type ChatBaseContent,
   ChatList,
   ChatSender,
   ChatMessage,
@@ -25,51 +24,24 @@ export default function ComponentsBuild() {
     defaultMessages: mockData.normal,
     // 聊天服务配置
     chatServiceConfig: {
-      // 对话服务地址f
-      endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal`,
+      // 对话服务地址
+      endpoint: `http://127.0.0.1:3000/sse/agui`,
+      // endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agent`,
+      protocol: 'agui',
       stream: true,
+      onStart: (chunk) => {
+        console.log('onStart', chunk);
+      },
       // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
-      onComplete: (aborted: boolean, params: RequestInit) => {
-        console.log('onComplete', aborted, params);
+      onComplete: (aborted: boolean, params: RequestInit, event) => {
+        console.log('onComplete', aborted, params, event);
       },
       // 流式对话过程中出错业务自定义行为
       onError: (err: Error | Response) => {
         console.error('Chatservice Error:', err);
       },
       // 流式对话过程中用户主动结束对话业务自定义行为
-      onAbort: async () => {
-        console.log('中断');
-      },
-      onMessage: (chunk: SSEChunkData): AIMessageContent => {
-        const { type, ...rest } = chunk.data;
-        switch (type) {
-          case 'search':
-            // 搜索
-            return {
-              type: 'search',
-              data: {
-                title: rest.title || `搜索到${rest?.docs.length}条内容`,
-                references: rest?.content,
-              },
-            };
-          // 思考
-          case 'think':
-            return {
-              type: 'thinking',
-              status: (status) => (/耗时/.test(rest?.title) ? 'complete' : status),
-              data: {
-                title: rest.title || '深度思考中',
-                text: rest.content || '',
-              },
-            };
-          // 正文
-          case 'text':
-            return {
-              type: 'markdown',
-              data: rest?.msg || '',
-            };
-        }
-      },
+      onAbort: async () => {},
       // 自定义请求参数
       onRequest: (innerParams: ChatRequestParams) => {
         const { prompt } = innerParams;
@@ -78,10 +50,8 @@ export default function ComponentsBuild() {
             'X-Requested-With': 'XMLHttpRequest',
           },
           body: JSON.stringify({
-            uid: 'abcd',
+            uid: 'agent_uid',
             prompt,
-            think: true,
-            search: true,
           }),
         };
       },
@@ -170,13 +140,9 @@ export default function ComponentsBuild() {
     chatEngine.abortChat();
   };
 
-  const onScrollHandler = (e) => {
-    // console.log('===scroll', e, e.detail);
-  };
-
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
-      <ChatList ref={listRef} style={{ width: '100%' }} onScroll={onScrollHandler}>
+      <ChatList ref={listRef} style={{ width: '100%' }}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
             {renderMsgContents(message, idx === messages.length - 1)}
