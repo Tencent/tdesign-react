@@ -41,8 +41,8 @@ spline: aigc
 placement | String | left | 消息显示位置。可选项：left/right | N
 variant | String | text | 消息气泡样式变体。可选项：base/outline/text | N
 animation | String | skeleton | 加载动画类型。可选项：skeleton/moving/gradient/circle | N
-name | String | - | 发送者名称 | N
-avatar | String | - | 发送者头像 | N
+name | String/ReactNode | - | 发送者名称 | N
+avatar | String/ReactNode | - | 发送者头像 | N
 datetime | String | - | 消息发送时间 | N
 message | Object | - | 消息内容对象。类型定义见下方 `ChatMessagesData` | Y
 chatContentProps | Object | - | 消息内容属性配置。类型支持见 `chatContentProps` | N

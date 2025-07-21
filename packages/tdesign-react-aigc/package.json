@@ -1,6 +1,6 @@
 {
   "name": "@tdesign-react/aigc",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.13",
   "title": "@tdesign-react/aigc",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
-    "tdesign-web-components": "1.1.5",
+    "tdesign-web-components": "1.1.7",
     "classnames": "~2.5.1",
     "lodash-es": "^4.17.21"
   },

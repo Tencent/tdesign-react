@@ -165,7 +165,7 @@ export default function chatSample() {
           onFileSelect,
           onFileRemove,
         }}
-        onChatSent={onSend}
+        onChatAfterSend={onSend}
         chatServiceConfig={chatServiceConfig}
       ></ChatBot>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import TvisionTcharts from 'tvision-charts-react';
-import { Space } from 'tdesign-react';
+import { Avatar, Space } from 'tdesign-react';
 
 import { ChatBaseContent, ChatMessage } from '@tdesign-react/aigc';
 
@@ -81,7 +81,7 @@ export default function ChatMessageExample() {
     <Space direction="vertical" style={{ width: '100%' }}>
       <ChatMessage
         variant="text"
-        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
+        avatar={<Avatar image="https://tdesign.gtimg.com/site/chat-avatar.png" />}
         name="TDesignAI"
         message={message}
       >

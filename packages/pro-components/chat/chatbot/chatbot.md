@@ -55,6 +55,8 @@ spline: navigation
 以下案例模拟了使用Chatbot搭建任务规划型智能体应用，分步骤依次执行并输出结果，通过该示例你可以了解到如何**注册自定义消息内容合并策略**，**自定义消息插槽名规则**，同时演示了**自定义任务流程渲染**
 {{ agent }}
 
+### 非流式输出模式
+{{ nostream }}
 
 ## API
 ### Chatbot Props
@@ -68,7 +70,7 @@ senderProps | Object | - | 发送框配置，透传`ChatSender`组件。TS类型
 chatServiceConfig | Object | - | 聊天服务配置，见下方详细说明，TS类型：`ChatServiceConfig` | N
 onMessageChange | Function | - | 消息列表数据变化回调，TS类型：`(e: CustomEvent<ChatMessagesData[]>) => void` | N
 onChatReady | Function | - | 内部消息引擎初始化完成回调，TS类型：`(e: CustomEvent) => void` | N
-onChatSent | Function | - | 发送消息回调，TS类型：`(e: CustomEvent<ChatRequestParams>) => void` | N
+onChatAfterSend | Function | - | 发送消息回调，TS类型：`(e: CustomEvent<ChatRequestParams>) => void` | N
 
 ### TdChatListProps 消息列表配置
 
@@ -89,8 +91,8 @@ onScroll | Function | - | 滚动事件回调 | N
 endpoint | String | -  | 聊天服务请求地址url | N
 stream | Boolean | true | 是否使用流式传输 | N
 onRequest | Function | - | 请求前的回调，可修改请求参数。TS类型：`(params: ChatRequestParams) => RequestInit` | N
-onMessage | Function | - | 处理流式消息的回调。TS类型：`(chunk: SSEChunkData) => AIMessageContent / null` | N
-onComplete | Function | - | 请求结束时的回调。TS类型：`(isAborted: boolean, params: RequestInit, result?: any) => void` | N
+onMessage | Function | - | 处理流式消息的回调。TS类型：`(chunk: SSEChunkData) => AIMessageContent / AIMessageContent[] / null` | N
+onComplete | Function | - | 请求结束时的回调。TS类型：`(isAborted: boolean, params: RequestInit, result?: any) => AIMessageContent / AIMessageContent[] / null` | N
 onAbort | Function | - | 中止请求时的回调。TS类型：`() => Promise<void>` | N
 onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Response) => void` | N
 
