@@ -307,3 +307,34 @@ export default class ChatEngine implements IChatEngine {
 }
 
 export * from './utils';
+
+// ... existing code ...
+// export default class ChatEngine implements IChatEngine {
+//   // 移除原有的 processor 实例
+
+//   public registerMergeStrategy<T extends AIMessageContent>(
+//     type: T['type'],
+//     handler: (chunk: T, existing?: T) => T
+//   ) {
+//     // 直接注册到策略中心
+//     strategyRegistry.register(type, handler);
+//   }
+
+//   // 修改 processContentUpdate 方法
+//   private processContentUpdate(messageId: string, rawChunk: AIContentChunkUpdate) {
+//     // ... 原有逻辑 ...
+//     // 替换为：
+//     const strategy = strategyRegistry.get(rawChunk.type);
+//     const processed = strategy
+//       ? strategy(rawChunk, lastContent)
+//       : this.defaultMerge(rawChunk, lastContent);
+//     // ...
+//   }
+// }
+
+// 使用：注册自定义策略
+// chatEngine.registerMergeStrategy('agent', (chunk, existing) => {
+//   const updated = { ...existing, ...chunk };
+//   // 自定义合并逻辑...
+//   return updated;
+// });

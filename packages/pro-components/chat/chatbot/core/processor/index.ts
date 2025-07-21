@@ -155,3 +155,31 @@ export default class MessageProcessor {
     );
   }
 }
+
+// // ... existing code ...
+// import { strategyRegistry } from '../strategy/strategy-registry';
+
+// export default class MessageProcessor {
+//   // 移除原有的 contentHandlers
+
+//   public processContentUpdate(
+//     lastContent: AIMessageContent | undefined,
+//     newChunk: AIMessageContent
+//   ): AIMessageContent {
+//     // 获取对应类型的策略
+//     const strategy = strategyRegistry.get(newChunk.type);
+
+//     if (strategy && lastContent?.type === newChunk.type) {
+//       return strategy(newChunk, lastContent);
+//     }
+
+//     // 没有策略时的默认合并逻辑
+//     return {
+//       ...(lastContent || {}),
+//       ...newChunk,
+//       status: newChunk?.status || 'streaming'
+//     };
+//   }
+
+//   // 移除原有的 registerHandler 方法
+// }

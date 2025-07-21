@@ -46,7 +46,6 @@ export class AGUIEventMapper {
       case EventType.THINKING_TEXT_MESSAGE_CONTENT:
         return { type: 'thinking', data: { text: event.delta }, status: 'streaming', strategy: 'merge' };
       case EventType.THINKING_END:
-        console.log('=====think end', event);
         return { type: 'thinking', data: { title: event.title || '思考结束' }, status: 'complete' };
 
       case EventType.TOOL_CALL_START:
@@ -68,7 +67,6 @@ export class AGUIEventMapper {
         return null;
       case EventType.TOOL_CALL_CHUNK:
       case EventType.TOOL_CALL_RESULT:
-        console.log('====parsed', event);
         if (event.toolCallName === 'search') {
           let parsed = {
             title: '搜索中',
@@ -157,3 +155,38 @@ export class AGUIEventMapper {
 }
 
 export default AGUIEventMapper;
+
+// import { strategyRegistry } from '../../strategy/strategy-registry';
+
+// export class AGUIEventMapper {
+//   // 注册AGUI协议相关策略
+//   static registerDefaultStrategies() {
+//     // 工具调用策略
+//     strategyRegistry.register('tool-call', (chunk, existing) => ({
+//       ...(existing || {}),
+//       ...chunk,
+//       data: {
+//         ...(existing?.data || {}),
+//         ...chunk.data,
+//         arguments: (existing?.data?.arguments || '') + (chunk.data?.arguments || '')
+//       }
+//     }));
+
+//     // 步骤状态策略
+//     strategyRegistry.register('step', (chunk, existing) => {
+//       const updated = { ...existing, ...chunk };
+//       if (chunk.data?.tasks) {
+//         updated.data.tasks = [
+//           ...(existing?.data?.tasks || []),
+//           ...chunk.data.tasks
+//         ];
+//       }
+//       return updated;
+//     });
+//   }
+
+//   // ... 原有 mapEvent 方法保持不变 ...
+// }
+
+// // 初始化时注册默认策略
+// AGUIEventMapper.registerDefaultStrategies();

@@ -20,7 +20,7 @@ export default function ComponentsBuild() {
   const inputRef = useRef<TdChatSenderApi>(null);
   const [inputValue, setInputValue] = useState<string>('AG-UI协议的作用是什么');
   const { chatEngine, messages, status } = useChat({
-    defaultMessages: mockData.normal,
+    defaultMessages: [],
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址
