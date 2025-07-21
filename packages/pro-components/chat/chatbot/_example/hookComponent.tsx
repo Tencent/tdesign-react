@@ -1,4 +1,5 @@
 import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import { Avatar } from 'tdesign-react';
 import {
   type SSEChunkData,
   type TdChatMessageConfig,
@@ -13,8 +14,9 @@ import {
   ChatActionBar,
   isAIMessage,
   useChat,
+  getMessageContentForCopy,
+  TdChatSenderParams,
 } from '@tdesign-react/aigc';
-import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
 import mockData from './mock/data';
 
 export default function ComponentsBuild() {
@@ -100,6 +102,7 @@ export default function ComponentsBuild() {
     user: {
       variant: 'base',
       placement: 'right',
+      avatar: <Avatar image="https://tdesign.gtimg.com/site/avatar.jpg" />,
     },
     assistant: {
       placement: 'left',
