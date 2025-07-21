@@ -142,7 +142,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       const colStyle = getTreeNodeStyle(currentState?.level);
       const classes = { [tableTreeClasses.inlineCol]: !!col.ellipsis };
       const childrenNodes = get(p.row, rowDataKeys.childrenKey);
-      if ((childrenNodes && childrenNodes instanceof Array) || childrenNodes === true) {
+      if ((Array.isArray(childrenNodes) && childrenNodes.length > 0) || childrenNodes === true) {
         const expanded = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded;
         const type = expanded ? 'fold' : 'expand';
         const defaultIconNode =
