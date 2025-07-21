@@ -10,7 +10,7 @@ export interface TdColorSliderProps extends TdColorBaseProps {
   value?: Number;
   maxValue?: Number;
   railStyle?: Object;
-  type?: 'hue' | 'alpha';
+  type: 'hue' | 'alpha';
 }
 
 const ColorSlider = (props: TdColorSliderProps) => {
@@ -31,7 +31,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
   const panelRectRef = useRef({
     width: SLIDER_DEFAULT_WIDTH,
   });
-  const { styles } = useStyles({ color, value, maxValue }, panelRectRef);
+  const { styles } = useStyles({ color, value, maxValue, type }, panelRectRef);
 
   const handleDrag = (coordinate: Coordinate, isEnded?: boolean) => {
     if (disabled) {
