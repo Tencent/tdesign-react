@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
-import { isObject, isString, get, merge, isFunction, set, isEqual } from 'lodash-es';
+import { isObject, isString, get, merge, isFunction, set, isEqual, unset } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -430,6 +430,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         formListMapRef.current.delete(name);
+        unset(form?.store, name);
       };
     }
 
@@ -438,6 +439,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       formMapRef.current.delete(name);
+      unset(form?.store, name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
