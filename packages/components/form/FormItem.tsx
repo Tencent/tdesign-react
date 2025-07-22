@@ -1,31 +1,31 @@
-import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
-import { isObject, isString, get, merge, isFunction, set, isEqual } from 'lodash-es';
+import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { calcFieldValue } from './utils';
+import { flattenDeep, get, isEqual, isFunction, isObject, isString, merge, set, unset } from 'lodash-es';
+import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { ValidateStatus } from './const';
+import { formItemDefaultProps } from './defaultProps';
+import { useFormContext, useFormListContext } from './FormContext';
+import { parseMessage, validate as validateModal } from './formModel';
+import { HOOK_MARK } from './hooks/useForm';
+import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
+import useFormItemStyle from './hooks/useFormItemStyle';
 import type {
+  FormInstanceFunctions,
+  FormItemValidateMessage,
+  FormRule,
+  NamePath,
   TdFormItemProps,
   ValueType,
-  FormItemValidateMessage,
-  NamePath,
-  FormInstanceFunctions,
-  FormRule,
 } from './type';
-import { StyledProps } from '../common';
-import { HOOK_MARK } from './hooks/useForm';
-import { validate as validateModal, parseMessage } from './formModel';
-import { useFormContext, useFormListContext } from './FormContext';
-import useFormItemStyle from './hooks/useFormItemStyle';
-import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
-import { formItemDefaultProps } from './defaultProps';
-import { ValidateStatus } from './const';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { calcFieldValue } from './utils';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);
@@ -107,10 +107,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(() => {
-    const fieldName = [].concat(formListName, name).filter((item) => item !== undefined);
-
+    const fieldName = flattenDeep([formListName, name]);
+    const storeValue = get(form.store, fieldName);
+    if (!storeValue && formListName) return; // 针对新增空的动态表单情况，避免回填默认值
     return (
-      get(form?.store, fieldName) ??
+      storeValue ??
       getDefaultInitialData({
         children,
         initialData,
@@ -430,6 +431,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         formListMapRef.current.delete(name);
+        unset(form?.store, name);
       };
     }
 
@@ -438,6 +440,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       formMapRef.current.delete(name);
+      unset(form?.store, name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
