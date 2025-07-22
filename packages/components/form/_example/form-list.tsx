@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Select } from 'tdesign-react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
+import { Button, Form, Input, Select, Space } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
@@ -20,17 +20,27 @@ export default function BaseForm() {
   }
 
   return (
-    <Form form={form} onSubmit={onSubmit}>
+    <Form
+      form={form}
+      onSubmit={onSubmit}
+      initialData={{
+        address: [
+          { province: 'bj', area: '海淀区' },
+          { province: 'sh', area: '浦东区' },
+        ],
+      }}
+      resetType="initial"
+    >
       <FormList name="address">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
               <FormItem key={key}>
                 <FormItem
-                  {...restField}
                   name={[name, 'province']}
                   label="省份"
                   rules={[{ required: true, type: 'error' }]}
+                  {...restField}
                 >
                   <Select options={provinceOptions}></Select>
                 </FormItem>
@@ -44,9 +54,14 @@ export default function BaseForm() {
               </FormItem>
             ))}
             <FormItem style={{ marginLeft: 100 }}>
-              <Button theme="default" variant="dashed" onClick={() => add({ province: 'bj', area: 'tzmax' })}>
-                Add field
-              </Button>
+              <Space>
+                <Button theme="default" onClick={add}>
+                  Add Empty field
+                </Button>
+                <Button theme="default" variant="dashed" onClick={() => add({ province: 'sz', area: '南山区' })}>
+                  Add Custom field
+                </Button>
+              </Space>
             </FormItem>
           </>
         )}
