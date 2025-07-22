@@ -243,9 +243,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
             isListField: true,
           }));
           setFields(newFields);
-
-          const fieldName = [].concat(name).filter((item) => item !== undefined);
-          set(form?.store, fieldName, initialData);
+          set(form?.store, flattenDeep([name]), initialData);
 
           requestAnimationFrame(() => {
             [...formListMapRef.current.values()].forEach((formItemRef) => {
@@ -262,12 +260,12 @@ const FormList: React.FC<TdFormListProps> = (props) => {
           [...formListMapRef.current.values()].forEach((formItemRef) => {
             formItemRef?.current?.resetField?.();
           });
-          setFormListValue([]);
-          setFields([]);
+
           fieldsTaskQueueRef.current = [];
 
-          const fieldName = [].concat(name).filter((item) => item !== undefined);
-          unset(form?.store, fieldName);
+          setFormListValue([]);
+          setFields([]);
+          unset(form?.store, flattenDeep([name]));
         }
       },
       setValidateMessage: (fieldData) => {
