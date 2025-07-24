@@ -18,7 +18,6 @@ import {
 } from '@tdesign-react/aigc';
 import { useChat } from '../useChat';
 import mockData from './mock/data';
-import { EventType } from '../core/adapters/agui/events';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);
@@ -29,7 +28,7 @@ export default function ComponentsBuild() {
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址f
-      endpoint: `http://127.0.0.1:3000/sse/agui`,
+      endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal`,
       stream: true,
       // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
       onComplete: (aborted: boolean, params: RequestInit) => {
@@ -44,103 +43,33 @@ export default function ComponentsBuild() {
         console.log('中断');
       },
       onMessage: (chunk: SSEChunkData): AIMessageContent => {
-        const { type, toolCallId, toolCallName, delta, title } = chunk.data;
-        // switch (type) {
-        //   case 'search':
-        //     // 搜索
-        //     return {
-        //       type: 'search',
-        //       data: {
-        //         title: rest.title || `搜索到${rest?.docs.length}条内容`,
-        //         references: rest?.content,
-        //       },
-        //     };
-        //   // 思考
-        //   case 'think':
-        //     return {
-        //       type: 'thinking',
-        //       status: (status) => (/耗时/.test(rest?.title) ? 'complete' : status),
-        //       data: {
-        //         title: rest.title || '深度思考中',
-        //         text: rest.content || '',
-        //       },
-        //     };
-        //   // 正文
-        //   case 'text':
-        //     return {
-        //       type: 'markdown',
-        //       data: rest?.msg || '',
-        //     };
+        const { type, ...rest } = chunk.data;
         switch (type) {
-          case 'TEXT_MESSAGE_START':
+          case 'search':
+            // 搜索
             return {
-              type: 'markdown',
-              status: 'streaming',
-              data: '',
-              strategy: 'append',
+              type: 'search',
+              data: {
+                title: rest.title || `搜索到${rest?.docs.length}条内容`,
+                references: rest?.content,
+              },
             };
-          case 'TEXT_MESSAGE_CHUNK':
-          case 'TEXT_MESSAGE_END':
-            return {
-              type: 'markdown',
-              status: type === 'TEXT_MESSAGE_END' ? 'complete' : 'streaming',
-              data: delta || '',
-              strategy: 'merge',
-            };
-          case EventType.THINKING_START:
+          // 思考
+          case 'think':
             return {
               type: 'thinking',
-              data: { title: title || '思考中...' },
-              status: 'streaming',
-              strategy: 'append',
-            };
-          case EventType.THINKING_TEXT_MESSAGE_CONTENT:
-            return { type: 'thinking', data: { text: delta }, status: 'streaming', strategy: 'merge' };
-          case EventType.THINKING_END:
-            return { type: 'thinking', data: { title: title || '思考结束' }, status: 'complete' };
-
-          case EventType.TOOL_CALL_START:
-          case EventType.TOOL_CALL_ARGS:
-            this.toolCallMap[toolCallId] = {
-              name: toolCallName,
-              arguments: type === 'TOOL_CALL_ARGS' ? delta : '',
-            };
-            if (toolCallName === 'search') {
-              return {
-                type: 'search',
-                data: {
-                  title: '联网搜索中',
-                  references: [],
-                },
-                status: 'pending',
-              };
-            }
-            return null;
-          case EventType.TOOL_CALL_CHUNK:
-          case EventType.TOOL_CALL_RESULT:
-            if (toolCallName === 'search') {
-              let parsed = {
-                title: '搜索中',
-                references: [],
-              };
-              try {
-                parsed = JSON.parse(delta || content);
-              } catch {}
-              return {
-                type: 'search',
-                data: parsed,
-                status: type === 'TOOL_CALL_RESULT' ? 'complete' : 'streaming',
-              };
-            }
-            return null;
-          case EventType.RUN_ERROR:
-            return [
-              {
-                type: 'text',
-                data: 'Unknown error',
-                status: 'error',
+              status: (status) => (/耗时/.test(rest?.title) ? 'complete' : status),
+              data: {
+                title: rest.title || '深度思考中',
+                text: rest.content || '',
               },
-            ];
+            };
+          // 正文
+          case 'text':
+            return {
+              type: 'markdown',
+              data: rest?.msg || '',
+            };
         }
       },
       // 自定义请求参数
