@@ -13,7 +13,6 @@ import {
   useChat,
 } from '@tdesign-react/aigc';
 import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
-import mockData from './mock/data';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);

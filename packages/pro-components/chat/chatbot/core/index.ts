@@ -199,7 +199,6 @@ export default class ChatEngine implements IChatEngine {
   }
 
   private async handleStreamRequest(params: ChatRequestParams) {
-    console.log('===params', params);
     const id = params.messageID;
     const isAGUI = this.config.protocol === 'agui';
     this.setMessageStatus(id, 'streaming'); // todo: 这里应该在建立连接后在streaming
