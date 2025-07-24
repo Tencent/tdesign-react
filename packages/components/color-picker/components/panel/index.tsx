@@ -1,30 +1,30 @@
-import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import {
   Color,
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-  TD_COLOR_USED_COLORS_MAX_SIZE,
   getColorObject,
   GradientColorPoint,
   initColorFormat,
+  TD_COLOR_USED_COLORS_MAX_SIZE,
   type ColorFormat,
 } from '@tdesign/common-js/color-picker/index';
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import useDefaultProps from '../../../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
+import { colorPickerDefaultProps } from '../../defaultProps';
 import useClassName from '../../hooks/useClassNames';
 import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import type { ColorPickerChangeTrigger } from '../../type';
-import { colorPickerDefaultProps } from '../../defaultProps';
-import LinearGradient from './linear-gradient';
-import SaturationPanel from './saturation';
-import HUESlider from './hue';
 import AlphaSlider from './alpha';
 import FormatPanel from './format';
 import PanelHeader from './header';
+import HUESlider from './hue';
+import LinearGradient from './linear-gradient';
+import SaturationPanel from './saturation';
 import SwatchesPanel from './swatches';
 
 const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
@@ -69,8 +69,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     (value: string) => {
       colorInstanceRef.current.update(value);
       // 确保 UI 同步更新
-      setUpdateId(updateId + 1);
+      setUpdateId(performance.now());
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [updateId],
   );
 
@@ -206,14 +207,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     emitColorChange(trigger);
   };
 
-  // format 输入变化
-  const handleInputChange = useCallback(
-    (input: string) => {
-      update(input);
-      emitColorChange('input');
-    },
-    [emitColorChange, update],
-  );
+  const handleInputChange = useCallback(() => {
+    emitColorChange('input');
+  }, [emitColorChange]);
 
   // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {

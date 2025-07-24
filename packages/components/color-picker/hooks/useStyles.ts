@@ -30,7 +30,7 @@ const useStyles = (params: TdColorSliderStyleParams, panelRectRef) => {
       color: thumbColor,
     });
     // eslint-disable-next-line
-  }, [color.hue, value]);
+  }, [color.hue, color.rgba, value]);
 
   return {
     styles,
