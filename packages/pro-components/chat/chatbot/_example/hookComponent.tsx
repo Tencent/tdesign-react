@@ -13,10 +13,10 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
-  useChat,
   getMessageContentForCopy,
   TdChatSenderParams,
 } from '@tdesign-react/aigc';
+import { useChat } from '../useChat';
 import mockData from './mock/data';
 
 export default function ComponentsBuild() {
@@ -73,20 +73,17 @@ export default function ComponentsBuild() {
         }
       },
       // 自定义请求参数
-      onRequest: (innerParams: ChatRequestParams) => {
-        const { prompt } = innerParams;
-        return {
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-          body: JSON.stringify({
-            uid: 'abcd',
-            prompt,
-            think: true,
-            search: true,
-          }),
-        };
-      },
+      onRequest: (innerParams: ChatRequestParams) => ({
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: JSON.stringify({
+          uid: 'abcd',
+          think: true,
+          search: true,
+          ...innerParams,
+        }),
+      }),
     },
   });
 
@@ -164,6 +161,7 @@ export default function ComponentsBuild() {
     const { value } = e.detail;
     const params = {
       prompt: value,
+      abc: 1,
     };
     await sendUserMessage(params);
     setInputValue('');

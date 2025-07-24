@@ -16,7 +16,6 @@ import type {
 } from './type';
 import { isAIMessage } from './utils';
 import { EventType } from './adapters/agui/events';
-import { handleError } from '../../../../../../tdesign-web-components/src/_common/js/upload/main';
 
 export interface IChatEngine {
   init(config?: any, messages?: ChatMessagesData[]): void;
@@ -61,11 +60,12 @@ export default class ChatEngine implements IChatEngine {
   }
 
   public async sendUserMessage(requestParams: ChatRequestParams) {
-    const { prompt, attachments } = requestParams;
+    const { prompt, attachments, ...rest } = requestParams;
     const userMessage = this.processor.createUserMessage(prompt, attachments);
     const aiMessage = this.processor.createAssistantMessage();
     this.messageStore.createMultiMessages([userMessage, aiMessage]);
     const params = {
+      ...rest,
       prompt,
       attachments,
       messageID: aiMessage.id,
@@ -199,6 +199,7 @@ export default class ChatEngine implements IChatEngine {
   }
 
   private async handleStreamRequest(params: ChatRequestParams) {
+    console.log('===params', params);
     const id = params.messageID;
     const isAGUI = this.config.protocol === 'agui';
     this.setMessageStatus(id, 'streaming'); // todo: 这里应该在建立连接后在streaming
