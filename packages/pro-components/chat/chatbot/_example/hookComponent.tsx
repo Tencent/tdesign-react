@@ -164,6 +164,7 @@ export default function ComponentsBuild() {
     const { value } = e.detail;
     const params = {
       prompt: value,
+      abc: 1,
     };
     await sendUserMessage(params);
     setInputValue('');

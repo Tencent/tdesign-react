@@ -57,7 +57,7 @@ export default function chatSample() {
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
     // 对话服务地址
-    endpoint: `http://localhost:3000/fetch/normal`,
+    endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/fetch/normal`,
     stream: false,
     // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
     onComplete: (isAborted, req, result) => {
