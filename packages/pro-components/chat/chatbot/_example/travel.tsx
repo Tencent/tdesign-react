@@ -35,7 +35,7 @@ declare module '@tdesign-react/aigc' {
     weather: ChatBaseContent<'weather', { weather: any[] }>;
     itinerary: ChatBaseContent<'itinerary', { plan: any[] }>;
     hotel: ChatBaseContent<'hotel', { hotels: any[] }>;
-    planning_state: ChatBaseContent<'planning_state', { state: any }>;
+    planningState: ChatBaseContent<'planningState', { state: any }>;
   }
 }
 
@@ -235,7 +235,7 @@ export default function TravelPlannerChat() {
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址 - 使用现有的服务
-      endpoint: `http://127.0.0.1:3000/sse/agui`,
+      endpoint: `http://localhost:3000/sse/agui`,
       protocol: 'agui',
       stream: true,
       // 流式对话结束
@@ -314,7 +314,7 @@ export default function TravelPlannerChat() {
             console.log('状态快照:', rest.snapshot);
             setPlanningState(rest.snapshot);
             return {
-              type: 'planning_state',
+              type: 'planningState',
               data: { state: rest.snapshot },
             };
 
@@ -346,7 +346,7 @@ export default function TravelPlannerChat() {
 
             // 返回更新后的状态组件
             return {
-              type: 'planning_state',
+              type: 'planningState',
               data: { state: planningState },
             };
 
@@ -426,7 +426,7 @@ export default function TravelPlannerChat() {
         // 天气卡片
         if (item.type === 'weather') {
           return (
-            <div key={`weather-${index}`} className="content-card">
+            <div slot={`${item.type}-${index}`} key={`weather-${index}`} className="content-card">
               <WeatherCard weather={item.data.weather} />
             </div>
           );
@@ -435,7 +435,7 @@ export default function TravelPlannerChat() {
         // 行程规划卡片
         if (item.type === 'itinerary') {
           return (
-            <div key={`itinerary-${index}`} className="content-card">
+            <div slot={`${item.type}-${index}`} key={`itinerary-${index}`} className="content-card">
               <ItineraryCard plan={item.data.plan} />
             </div>
           );
@@ -444,14 +444,14 @@ export default function TravelPlannerChat() {
         // 酒店推荐卡片
         if (item.type === 'hotel') {
           return (
-            <div key={`hotel-${index}`} className="content-card">
+            <div slot={`${item.type}-${index}`} key={`hotel-${index}`} className="content-card">
               <HotelCard hotels={item.data.hotels} />
             </div>
           );
         }
 
         // 规划状态面板 - 不在消息中显示，只用于更新右侧面板
-        if (item.type === 'planning_state') {
+        if (item.type === 'planningState') {
           return null;
         }
 
@@ -507,7 +507,6 @@ export default function TravelPlannerChat() {
               </ChatMessage>
             ))}
           </ChatList>
-
           <ChatSender
             ref={inputRef}
             value={inputValue}
