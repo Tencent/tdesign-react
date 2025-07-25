@@ -4,6 +4,10 @@ import { createRoot } from 'react-dom/client';
 
 // 检测 React 版本
 const isReact18Plus = () => typeof createRoot !== 'undefined';
+const isReact19Plus = (): boolean => {
+  const majorVersion = parseInt(React.version.split('.')[0]);
+  return majorVersion >= 19;
+};
 
 // 增强版本的缓存管理
 const rootCache = new WeakMap<
@@ -383,7 +387,6 @@ const reactify = <T extends AnyProps = AnyProps>(
           }
           // 其他复杂对象直接设置为属性
           (this.ref.current as any)[prop] = val;
-
           return;
         }
 
@@ -398,10 +401,9 @@ const reactify = <T extends AnyProps = AnyProps>(
           this.ref.current?.setAttribute(hyphenate(prop), val);
           this.ref.current?.removeAttribute(prop);
           return;
+        } else if (!isReact19Plus()) {
+          (this.ref.current as any)[prop] = val;
         }
-
-        // default: set as property
-        (this.ref.current as any)[prop] = val;
       });
     }
 
