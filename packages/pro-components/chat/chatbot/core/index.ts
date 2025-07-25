@@ -60,11 +60,12 @@ export default class ChatEngine implements IChatEngine {
   }
 
   public async sendUserMessage(requestParams: ChatRequestParams) {
-    const { prompt, attachments } = requestParams;
+    const { prompt, attachments, ...rest } = requestParams;
     const userMessage = this.processor.createUserMessage(prompt, attachments);
     const aiMessage = this.processor.createAssistantMessage();
     this.messageStore.createMultiMessages([userMessage, aiMessage]);
     const params = {
+      ...rest,
       prompt,
       attachments,
       messageID: aiMessage.id,

@@ -1,6 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-const { Component, createRef, createElement, forwardRef } = React;
+import React, { Component, createRef, createElement, forwardRef } from 'react';
+import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
 // 检测 React 版本

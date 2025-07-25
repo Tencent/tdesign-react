@@ -25,16 +25,16 @@ spline: navigation
 
 ### Chatbot Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-defaultMessages | Array | - | 初始消息数据列表。TS类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api) | N
-messageProps | Object/Function | - | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，TS类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts#L151)  | N
-listProps | Object | - | 消息列表配置。TS类型：`TdChatListProps`。 | N
-senderProps | Object | - | 发送框配置，透传`ChatSender`组件。TS类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api) | N
-chatServiceConfig | Object | - | 聊天服务配置，见下方详细说明，TS类型：`ChatServiceConfig` | N
-onMessageChange | Function | - | 消息列表数据变化回调，TS类型：`(e: CustomEvent<ChatMessagesData[]>) => void` | N
-onChatReady | Function | - | 内部消息引擎初始化完成回调，TS类型：`(e: CustomEvent) => void` | N
-onChatAfterSend | Function | - | 发送消息回调，TS类型：`(e: CustomEvent<ChatRequestParams>) => void` | N
+| 名称              | 类型            | 默认值 | 说明                                                                                                                                                                                                                                                                         | 必传 |
+| ----------------- | --------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| defaultMessages   | Array           | -      | 初始消息数据列表。TS 类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api)                                                                                                                                                                 | N    |
+| messageProps      | Object/Function | -      | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，TS 类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts#L151) | N    |
+| listProps         | Object          | -      | 消息列表配置。TS 类型：`TdChatListProps`。                                                                                                                                                                                                                                   | N    |
+| senderProps       | Object          | -      | 发送框配置，透传`ChatSender`组件。TS 类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api)                                                                                                                                                                            | N    |
+| chatServiceConfig | Object          | -      | 聊天服务配置，见下方详细说明，TS 类型：`ChatServiceConfig`                                                                                                                                                                                                                   | N    |
+| onMessageChange   | Function        | -      | 消息列表数据变化回调，TS 类型：`(e: CustomEvent<ChatMessagesData[]>) => void`                                                                                                                                                                                                | N    |
+| onChatReady       | Function        | -      | 内部消息引擎初始化完成回调，TS 类型：`(e: CustomEvent) => void`                                                                                                                                                                                                              | N    |
+| onChatAfterSend   | Function        | -      | 发送消息回调，TS 类型：`(e: CustomEvent<ChatRequestParams>) => void`                                                                                                                                                                                                         | N    |
 
 ### TdChatListProps 消息列表配置
 
@@ -48,17 +48,17 @@ onChatAfterSend | Function | - | 发送消息回调，TS类型：`(e: CustomEven
 
 聊天服务核心配置类型，主要作用包括基础通信配置，请求流程控制及全生命周期管理（初始化 → 传输 → 完成/中止），流式数据的分块处理策略，状态通知回调等。
 
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-endpoint | String | -  | 聊天服务请求地址url | N
-protocol | String | 'default' | 聊天服务协议，支持'default'和'agui' | N
-stream | Boolean | true | 是否使用流式传输 | N
-onStart | Function | - | 流开始传输时的回调。TS类型：`(params: ChatRequestParams) => RequestInit` | N
-onRequest | Function | - | 请求前的回调，可修改请求参数。TS类型：`(params: ChatRequestParams) => RequestInit` | N
-onMessage | Function | - | 处理流式消息的回调。TS类型：`(chunk: SSEChunkData) => AIMessageContent / AIMessageContent[] / null` | N
-onComplete | Function | - | 请求结束时的回调。TS类型：`(isAborted: boolean, params: RequestInit, result?: any) => AIMessageContent / AIMessageContent[] / null` | N
-onAbort | Function | - | 中止请求时的回调。TS类型：`() => Promise<void>` | N
-onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Response) => void` | N
+| 名称       | 类型     | 默认值    | 说明                                                                                                                                 | 必传 |
+| ---------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---- |
+| endpoint   | String   | -         | 聊天服务请求地址 url                                                                                                                 | N    |
+| protocol   | String   | 'default' | 聊天服务协议，支持'default'和'agui'                                                                                                  | N    |
+| stream     | Boolean  | true      | 是否使用流式传输                                                                                                                     | N    |
+| onStart    | Function | -         | 流开始传输时的回调。TS 类型：`(params: ChatRequestParams) => RequestInit`                                                            | N    |
+| onRequest  | Function | -         | 请求前的回调，可修改请求参数。TS 类型：`(params: ChatRequestParams) => RequestInit`                                                  | N    |
+| onMessage  | Function | -         | 处理流式消息的回调。TS 类型：`(chunk: SSEChunkData) => AIMessageContent / AIMessageContent[] / null`                                 | N    |
+| onComplete | Function | -         | 请求结束时的回调。TS 类型：`(isAborted: boolean, params: RequestInit, result?: any) => AIMessageContent / AIMessageContent[] / null` | N    |
+| onAbort    | Function | -         | 中止请求时的回调。TS 类型：`() => Promise<void>`                                                                                     | N    |
+| onError    | Function | -         | 错误处理回调。TS 类型：`(err: Error \| Response) => void`                                                                            | N    |
 
 ### Chatbot 实例方法
 
