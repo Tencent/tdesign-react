@@ -1,38 +1,35 @@
 /* eslint-disable class-methods-use-this */
-import type { AIMessageContent, SSEChunkData } from '../../type';
+import type { AIContentChunkUpdate, SSEChunkData } from '../../type';
 import { EventType } from './events';
 
 /**
  * AGUIEventMapper
- * 将AG-UI协议事件（SSEChunkData）转换为AIMessageContent[]
+ * 将AG-UI协议事件（SSEChunkData）转换为AIContentChunkUpdate
  * 支持多轮对话、增量文本、工具调用、思考、状态快照、消息快照等基础事件
  */
 export class AGUIEventMapper {
-  private currentMessageId: string | null = null;
-
-  private currentContent: AIMessageContent[] = [];
-
   private toolCallMap: Record<string, any> = {};
 
   /**
-   * 主入口：将SSE事件转换为AIMessageContent[]
+   * 主入口：将SSE事件转换为AIContentChunkUpdate
    */
-  mapEvent(chunk: SSEChunkData): AIMessageContent | AIMessageContent[] | null {
+  mapEvent(chunk: SSEChunkData): AIContentChunkUpdate | AIContentChunkUpdate[] | null {
     const event = chunk.data;
     if (!event?.type) return null;
     switch (event.type) {
-      case 'TEXT_MESSAGE_START':
+      case EventType.TEXT_MESSAGE_START:
         return {
           type: 'markdown',
           status: 'streaming',
           data: '',
           strategy: 'append',
         };
-      case 'TEXT_MESSAGE_CHUNK':
-      case 'TEXT_MESSAGE_END':
+      case EventType.TEXT_MESSAGE_CHUNK:
+      case EventType.TEXT_MESSAGE_CONTENT:
+      case EventType.TEXT_MESSAGE_END:
         return {
           type: 'markdown',
-          status: event.type === 'TEXT_MESSAGE_END' ? 'complete' : 'streaming',
+          status: event.type === EventType.TEXT_MESSAGE_END ? 'complete' : 'streaming',
           data: event.delta || '',
           strategy: 'merge',
         };
@@ -101,7 +98,7 @@ export class AGUIEventMapper {
     }
   }
 
-  private handleStateSnapshot(snapshot: any): AIMessageContent[] {
+  private handleStateSnapshot(snapshot: any): AIContentChunkUpdate[] {
     // 只取assistant消息
     if (!snapshot?.messages) return [];
     return snapshot.messages.flatMap((msg: any) => {
@@ -116,7 +113,7 @@ export class AGUIEventMapper {
     });
   }
 
-  private handleMessagesSnapshot(messages: any[]): AIMessageContent[] {
+  private handleMessagesSnapshot(messages: any[]): AIContentChunkUpdate[] {
     // 只取assistant消息
     if (!messages) return [];
     return messages.flatMap((msg: any) => {
@@ -131,11 +128,11 @@ export class AGUIEventMapper {
     });
   }
 
-  private handleCustomEvent(event: any): AIMessageContent {
+  private handleCustomEvent(event: any): AIContentChunkUpdate {
     if (event.name === 'suggestion') {
       return {
         type: 'suggestion',
-        data: event.value?.suggestions || [],
+        data: event.value || [],
         status: 'complete',
       };
     }
@@ -148,8 +145,8 @@ export class AGUIEventMapper {
   }
 
   reset() {
-    this.currentMessageId = null;
-    this.currentContent = [];
+    // this.currentMessageId = null;
+    // this.currentContent = [];
     this.toolCallMap = {};
   }
 }

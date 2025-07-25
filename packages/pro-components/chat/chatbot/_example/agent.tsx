@@ -40,29 +40,25 @@ const AgentTimeline = ({ steps }) => (
 );
 
 // 扩展自定义消息体类型
-declare module 'tdesign-react' {
-  interface AIContentTypeOverrides {
-    agent: ChatBaseContent<
-      'agent',
-      {
-        id: string;
-        state: 'pending' | 'command' | 'result' | 'finish';
-        content: {
-          steps?: {
-            step: string;
-            agent_id: string;
-            status: string;
-            tasks?: {
-              type: 'command' | 'result';
-              text: string;
-            }[];
-          }[];
-          text?: string;
-        };
-      }
-    >;
+type AgentContent = ChatBaseContent<
+  'agent',
+  {
+    id: string;
+    state: 'pending' | 'command' | 'result' | 'finish';
+    content: {
+      steps?: {
+        step: string;
+        agent_id: string;
+        status: string;
+        tasks?: {
+          type: 'command' | 'result';
+          text: string;
+        }[];
+      }[];
+      text?: string;
+    };
   }
-}
+>;
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -151,7 +147,8 @@ export default function ChatBotReact() {
     }
     // 此处增加自定义消息内容合并策略逻辑
     // 该示例agent类型结构比较复杂，根据任务步骤的state有不同的策略，组件内onMessage这里提供了的strategy无法满足，可以通过注册合并策略自行实现
-    chatRef.current.registerMergeStrategy('agent', (newChunk, existing) => {
+    chatRef.current.registerMergeStrategy<AgentContent>('agent', (newChunk, existing) => {
+      console.log('newChunk, existing', newChunk, existing);
       // 创建新对象避免直接修改原状态
       const updated = {
         ...existing,
@@ -218,7 +215,7 @@ export default function ChatBotReact() {
       >
         {mockMessage
           ?.map((msg) =>
-            msg.content.map((item, index) => {
+            msg?.content?.map((item, index) => {
               if (item.type === 'agent') {
                 return (
                   <div slot={`${msg.id}-${item.type}-${index}`} key={`${msg.id}-${item.state}-${item.id}`}>

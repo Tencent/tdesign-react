@@ -1,0 +1,270 @@
+/* 主容器 */
+.travel-planner-container {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 聊天内容区域 */
+.chat-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* 主聊天区域 */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 右侧规划面板 */
+.planning-sidebar {
+  width:180px;
+  padding: 0 16px;
+  overflow-y: auto;
+}
+
+/* 内容卡片通用样式 */
+.content-card {
+  margin: 12px 0;
+}
+
+/* 天气卡片 */
+.weather-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.weather-title {
+  font-size: 14px;
+}
+
+.weather-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weather-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.weather-item .day {
+  font-weight: 500;
+  color: #374151;
+}
+
+.weather-item .condition {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.weather-item .temp {
+  font-weight: 600;
+  color: #0052d9;
+}
+
+/* 行程卡片 */
+.itinerary-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.itinerary-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.itinerary-title {
+  font-size: 14px;
+}
+
+.day-activities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.activity-tag {
+  font-size: 12px;
+}
+
+/* 酒店卡片 */
+.hotel-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.hotel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.hotel-title {
+  font-size: 14px;
+}
+
+.hotel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotel-item {
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.hotel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hotel-name {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.hotel-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hotel-price {
+  font-weight: 600;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+/* 规划状态面板 */
+.planning-state-panel {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.panel-title {
+  flex: 1;
+  font-size: 14px;
+}
+
+.progress-steps {
+  margin: 12px 0;
+}
+
+.step-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.step-title {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* 最终摘要 */
+.final-summary {
+  margin-top: 12px;
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 13px;
+}
+
+.summary-content {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.summary-content div {
+  margin: 4px 0;
+}
+
+/* 步骤进度动画 */
+.step-item {
+  transition: all 0.3s ease;
+}
+
+.step-item:hover {
+  background: rgba(0, 82, 217, 0.05);
+  border-radius: 6px;
+  padding: 8px;
+  margin: -8px;
+}
+
+/* Loading动画 */
+.loading-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .travel-planner-container {
+    flex-direction: column;
+  }
+  
+  .planning-sidebar {
+    width: 100%;
+    height: auto;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+}

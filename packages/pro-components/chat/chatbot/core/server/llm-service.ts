@@ -1,7 +1,7 @@
 import type { AIMessageContent, ChatRequestParams, ChatServiceConfig, SSEChunkData } from '../type';
 import { LoggerManager } from '../utils/logger';
 import { BatchClient } from './batch-client';
-import { EnhancedSSEClient } from './sse-client';
+import { SSEClient } from './sse-client';
 
 // 与原有接口保持兼容
 export interface ILLMService {
@@ -24,7 +24,7 @@ export interface ILLMService {
  */
 export class LLMService implements ILLMService {
   // 使用接口确保类型安全
-  private sseClient: EnhancedSSEClient;
+  private sseClient: SSEClient;
 
   private batchClient: BatchClient | null = null;
 
@@ -78,7 +78,7 @@ export class LLMService implements ILLMService {
    */
   async handleStreamRequest(params: ChatRequestParams, config: ChatServiceConfig): Promise<void> {
     if (!config.endpoint) return;
-    this.sseClient = new EnhancedSSEClient(config.endpoint);
+    this.sseClient = new SSEClient(config.endpoint);
 
     const req = (await config.onRequest?.(params)) || {};
 
@@ -96,7 +96,6 @@ export class LLMService implements ILLMService {
     });
 
     this.sseClient.on('complete', (isAborted) => {
-      console.log('===complete', isAborted);
       config.onComplete?.(isAborted, req);
     });
 
@@ -108,7 +107,6 @@ export class LLMService implements ILLMService {
    */
   closeConnect(): void {
     if (this.sseClient) {
-      console.log('===closeConnect');
       this.sseClient.abort();
       this.sseClient = null;
     }

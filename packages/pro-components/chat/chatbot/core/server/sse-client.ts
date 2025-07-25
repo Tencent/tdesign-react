@@ -3,14 +3,14 @@ import EventEmitter from '../utils/eventEmitter';
 import { LoggerManager } from '../utils/logger';
 import { ConnectionManager } from './connection-manager';
 import { ConnectionError, TimeoutError } from './errors';
-import { SSEEvent, SSEParser } from './sse-parser';
-import { ConnectionInfo, DEFAULT_SSE_CONFIG, SSEClientConfig, SSEConnectionState, StateChangeEvent } from './types';
+import { type SSEEvent, SSEParser } from './sse-parser';
+import { type ConnectionInfo, DEFAULT_SSE_CONFIG, type SSEClientConfig, SSEConnectionState, type StateChangeEvent } from './types';
 
 /**
- * Enhanced SSE Client
+ * SSE Client
  * 采用分层设计，分离了连接管理、状态管理、事件解析等职责
  */
-export class EnhancedSSEClient extends EventEmitter {
+export class SSEClient extends EventEmitter {
   public readonly connectionId: string;
 
   private state = SSEConnectionState.DISCONNECTED;
@@ -99,7 +99,6 @@ export class EnhancedSSEClient extends EventEmitter {
       return;
     }
 
-    console.log('===abort', this.state);
     this.setState(SSEConnectionState.CLOSING);
 
     try {
@@ -114,7 +113,6 @@ export class EnhancedSSEClient extends EventEmitter {
 
       this.connectionManager.cleanup();
       this.resetParser();
-      console.log('===abort complete');
       this.emit('complete', true);
     } finally {
       this.clearTimeouts();

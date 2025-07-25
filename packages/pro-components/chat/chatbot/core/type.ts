@@ -195,7 +195,7 @@ export interface DefaultEngineCallbacks {
     isAborted: boolean,
     params?: RequestInit,
     result?: any,
-  ) => AIContentChunkUpdate | AIMessageContent[] | null;
+  ) => AIContentChunkUpdate | AIMessageContent[] | void;
   onAbort?: () => Promise<void>;
   /** 错误处理 */
   onError?: (err: Error | Response) => void;

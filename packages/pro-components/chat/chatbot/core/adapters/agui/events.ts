@@ -1,5 +1,4 @@
 import { z } from 'zod';
-
 import { MessageSchema, StateSchema } from './types';
 
 export enum EventType {
@@ -96,7 +95,7 @@ export const ToolCallResultEventSchema = BaseEventSchema.extend({
   messageId: z.string(),
   type: z.literal(EventType.TOOL_CALL_RESULT),
   toolCallId: z.string(),
-  toolCallName: z.string().optional(), // todo: add to protocol
+  toolCallName: z.string(),
   content: z.string(),
   role: z.literal('tool').optional(),
 });
@@ -116,6 +115,7 @@ export const ThinkingStartEventSchema = BaseEventSchema.extend({
 
 export const ThinkingEndEventSchema = BaseEventSchema.extend({
   type: z.literal(EventType.THINKING_END),
+  title: z.string().optional(),
 });
 
 export const StateSnapshotEventSchema = BaseEventSchema.extend({

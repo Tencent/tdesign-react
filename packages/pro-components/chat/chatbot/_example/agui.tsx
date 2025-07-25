@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import {
   type TdChatMessageConfig,
   type ChatRequestParams,
@@ -10,10 +10,9 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
-  useChat,
 } from '@tdesign-react/aigc';
 import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
-import mockData from './mock/data';
+import { useChat } from '../useChat';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);
@@ -136,6 +135,7 @@ export default function ComponentsBuild() {
   };
 
   const stopHandler = () => {
+    console.log('stopHandler');
     chatEngine.abortChat();
   };
 

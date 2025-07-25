@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { AGUIEventMapper } from './adapters/agui/agui-event-mapper';
 import { MessageStore } from './store/message';
-import { LLMService } from './enhanced-server';
+import { LLMService } from './server';
 import MessageProcessor from './processor';
 import type {
   AIContentChunkUpdate,
@@ -16,7 +16,6 @@ import type {
 } from './type';
 import { isAIMessage } from './utils';
 import { EventType } from './adapters/agui/events';
-import { handleError } from '../../../../../../tdesign-web-components/src/_common/js/upload/main';
 
 export interface IChatEngine {
   init(config?: any, messages?: ChatMessagesData[]): void;
@@ -123,7 +122,7 @@ export default class ChatEngine implements IChatEngine {
     const { lastAIMessage, lastUserMessage } = this.messageStore;
     if (!lastAIMessage) return;
 
-    if (!this.lastRequestParams) {
+    if (!this.lastRequestParams && lastUserMessage) {
       // 应对历史消息也有重新生成的情况
       const { content, id } = lastUserMessage;
       this.lastRequestParams = {
@@ -148,6 +147,7 @@ export default class ChatEngine implements IChatEngine {
     const params = {
       ...this.lastRequestParams,
       messageID: newAIMessage.id,
+      prompt: this.lastRequestParams?.prompt ?? ''
     };
 
     await this.sendRequest(params);
@@ -166,13 +166,14 @@ export default class ChatEngine implements IChatEngine {
       }
       this.lastRequestParams = params;
     } catch (error) {
-      this.setMessageStatus(id, 'error');
+      this.setMessageStatus(id!, 'error');
       throw error;
     }
   }
 
   private async handleBatchRequest(params: ChatRequestParams) {
     const id = params.messageID;
+    if (!id) return;
     this.setMessageStatus(id, 'pending');
     const result = await this.llmService.handleBatchRequest(params, this.config);
     if (result) {
@@ -183,12 +184,12 @@ export default class ChatEngine implements IChatEngine {
     }
   }
 
-  private handleError(id, error: any) {
+  private handleError(id: string, error: any) {
     this.setMessageStatus(id, 'error');
     this.config.onError?.(error);
   }
 
-  private handleComplete(id, isAborted: boolean, params: ChatRequestParams, chunk?: any) {
+  private handleComplete(id: string, isAborted: boolean, params: ChatRequestParams, chunk?: any) {
     // 所有消息内容块都失败才算消息体失败
     const allContentFailed = this.messageStore.messages.every((content) => content.status === 'error');
     // eslint-disable-next-line no-nested-ternary
@@ -234,15 +235,15 @@ export default class ChatEngine implements IChatEngine {
           }
         }
         // 统一处理结果
-        this.processMessageResult(id, result);
+        this.processMessageResult(id!, result);
         return result;
       },
       onError: (error) => {
-        this.handleError(id, error);
+        this.handleError(id!, error);
       },
       onComplete: (isAborted) => {
-        if (!isAborted && !isAGUI) {
-          return this.handleComplete(id, isAborted, params);
+        if (!isAGUI || isAborted) {
+          return this.handleComplete(id!, isAborted, params);
         }
       },
     });
@@ -295,8 +296,6 @@ export default class ChatEngine implements IChatEngine {
       // 合并/替换到现有同类型内容中
       targetIndex = message.content.findLastIndex((content) => content.type === rawChunk.type);
     }
-
-    console.log('targetIndex', targetIndex, rawChunk.type);
     const processed = this.processor.processContentUpdate(
       targetIndex !== -1 ? message.content[targetIndex] : undefined,
       rawChunk,
