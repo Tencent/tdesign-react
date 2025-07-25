@@ -34,7 +34,16 @@ const FormatInputs = (props: TdColorFormatProps) => {
   };
 
   const handleInputChange = (key: string, v: number | string, max: number) => {
-    if (v === lastModelValue.current[key] || !v || Number(v) < 0 || Number(v) > max) return;
+    inputKey.current = performance.now();
+
+    if (v.toString().trim() === '') {
+      const lastValue = lastModelValue.current[key];
+      color.update(lastValue as string);
+      onInputChange();
+      return;
+    }
+
+    if (!v || v === lastModelValue.current[key] || Number(v) < 0 || Number(v) > max) return;
 
     inputKey.current = performance.now(); // 重新渲染，处理多次空值的场景
     lastModelValue.current[key] = v;
@@ -59,9 +68,7 @@ const FormatInputs = (props: TdColorFormatProps) => {
         color.hue = v as number; // 前提是 format 为 HSL 有效，否则计算依旧以当前色彩空间为准
       }
     }
-    const value = getColorFormatMap(color, 'decode')[format];
-
-    onInputChange(value, color.alpha, key, v);
+    onInputChange();
   };
 
   updateModelValue();
