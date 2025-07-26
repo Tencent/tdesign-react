@@ -1,16 +1,16 @@
 import React, { useRef } from 'react';
-import { Popup, PopupProps } from '../popup';
-import { ColorPickerProps, TdColorContext } from './interface';
-import useClassName from './hooks/useClassNames';
 import useControlled from '../hooks/useControlled';
-import ColorTrigger from './components/trigger';
-import ColorPanel from './components/panel/index';
-import { colorPickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { Popup, PopupProps } from '../popup';
+import ColorPanel from './components/panel/index';
+import ColorTrigger from './components/trigger';
+import { colorPickerDefaultProps } from './defaultProps';
+import useClassName from './hooks/useClassNames';
+import type { ColorPickerProps, TdColorContext } from './interface';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassName();
-  const { popupProps, clearable, disabled, borderless, inputProps, onChange, onClear, colorModes, ...rest } =
+  const { popupProps, clearable, disabled, borderless, format, inputProps, onChange, onClear, colorModes, ...rest } =
     useDefaultProps<ColorPickerProps>(props, colorPickerDefaultProps);
   const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
@@ -38,6 +38,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
           <ColorPanel
             {...rest}
             disabled={disabled}
+            format={format}
             value={innerValue}
             colorModes={colorModes}
             onChange={(value: string, context: TdColorContext) => setInnerValue(value, context)}
