@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { MutableRefObject } from 'react';
 import { THEME_MODE } from '@tdesign/common-js/common';
-import getColorTokenColorfrom from '@tdesign/common-js/utils/getColorTokenColor';
+import getColorTokenColor from '@tdesign/common-js/utils/getColorTokenColor';
 import useMutationObservable from './useMutationObserver';
 
 /**
@@ -21,7 +21,7 @@ function useVariables<T extends Record<string, string>>(variables: T): Record<ke
     
     // 为每个变量创建ref
     Object.entries(variables).forEach(([key, varName]) => {
-      values[key as keyof T] = { current: getColorTokenColorfrom(varName) };
+      values[key as keyof T] = { current: getColorTokenColor(varName) };
     });
     
     return values;
@@ -34,7 +34,7 @@ function useVariables<T extends Record<string, string>>(variables: T): Record<ke
       if (mutation.type === 'attributes' && mutation.attributeName === THEME_MODE) {
         // 更新所有变量的值
         Object.entries(variables).forEach(([key, varName]) => {
-          refs[key as keyof T].current = getColorTokenColorfrom(varName);
+          refs[key as keyof T].current = getColorTokenColor(varName);
         });
         
         // 强制组件重新渲染以反映变化
