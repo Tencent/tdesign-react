@@ -34,7 +34,7 @@ const FormatInputs = (props: TdColorFormatProps) => {
   };
 
   const handleInputChange = (key: string, v: number | string, max: number) => {
-    inputKey.current = performance.now();
+    inputKey.current = performance.now(); // 重新渲染，处理多次空值的场景
 
     if (v.toString().trim() === '') {
       const lastValue = lastModelValue.current[key];
@@ -44,8 +44,6 @@ const FormatInputs = (props: TdColorFormatProps) => {
     }
 
     if (!v || v === lastModelValue.current[key] || Number(v) < 0 || Number(v) > max) return;
-
-    inputKey.current = performance.now(); // 重新渲染，处理多次空值的场景
     lastModelValue.current[key] = v;
 
     const newFormatValue = {
