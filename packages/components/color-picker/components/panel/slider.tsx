@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from 'react';
+import React, { type CSSProperties, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '@tdesign/common-js/color-picker/constants';
-import useDrag, { Coordinate } from '../../../hooks/useDrag';
-import { TdColorBaseProps } from '../../interface';
+import useDrag, { type Coordinate } from '../../../hooks/useDrag';
 import useStyles from '../../hooks/useStyles';
+import type { TdColorBaseProps } from '../../interface';
 
 export interface TdColorSliderProps extends TdColorBaseProps {
   className?: string;
   value?: Number;
   maxValue?: Number;
-  railStyle?: Object;
+  railStyle?: CSSProperties;
   type: 'hue' | 'alpha';
 }
 
@@ -33,7 +33,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
   });
   const { styles } = useStyles({ color, value, maxValue, type }, panelRectRef);
 
-  const handleDrag = (coordinate: Coordinate, isEnded?: boolean) => {
+  const handleDrag = (coordinate: Coordinate) => {
     if (disabled) {
       return;
     }
@@ -41,7 +41,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
     const { x } = coordinate;
     const value = Math.round((x / width) * Number(maxValue) * 100) / 100;
     isMovedRef.current = true;
-    onChange(value, isEnded);
+    onChange(value);
   };
 
   const handleDragEnd = (coordinate: Coordinate) => {
@@ -49,7 +49,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
       return;
     }
 
-    handleDrag(coordinate, true);
+    handleDrag(coordinate);
     isMovedRef.current = false;
   };
 

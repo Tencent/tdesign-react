@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useState } from 'react';
+import { type CSSProperties, useEffect, useState } from 'react';
 import type { Color } from '@tdesign/common-js/color-picker/color';
 
 export interface TdColorSliderStyleParams {
