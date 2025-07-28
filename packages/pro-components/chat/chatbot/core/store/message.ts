@@ -6,6 +6,7 @@ import type {
   ChatMessageStatus,
   ChatMessageStore,
   UserMessage,
+  ToolCall,
 } from '../type';
 import { isAIMessage, isUserMessage } from '../utils';
 import ReactiveState from './reactiveState';
@@ -56,7 +57,7 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
   appendContent(messageId: string, processedContent: AIMessageContent, targetIndex = -1) {
     this.setState((draft) => {
       const message = draft.messages.find((m) => m.id === messageId);
-      if (!message || !isAIMessage(message)) return;
+      if (!message || !isAIMessage(message) || !message.content) return;
 
       if (targetIndex >= 0 && targetIndex < message.content.length) {
         // 合并到指定位置
@@ -66,7 +67,8 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
         message.content.push(processedContent);
       }
 
-      this.updateMessageStatusByContent(message);
+      // 移除消息整体状态的自动推断，让ChatEngine控制
+      // this.updateMessageStatusByContent(message);
     });
   }
 
@@ -85,8 +87,8 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
       const message = draft.messages.find((m) => m.id === messageId);
       if (message) {
         message.status = status;
-        if (isAIMessage(message) && message.content.length > 0) {
-          message.content.at(-1).status = status;
+        if (isAIMessage(message) && message.content && message.content.length > 0) {
+          message.content[message.content.length - 1].status = status;
         }
       }
     });
@@ -98,6 +100,16 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
       const message = draft.messages.find((m) => m.id === messageId);
       if (message) {
         message.ext = { ...message.ext, ...attr };
+      }
+    });
+  }
+
+  // 为AI消息设置工具调用
+  setMessageToolCalls(messageId: string, toolCalls: ToolCall[]) {
+    this.setState((draft) => {
+      const message = draft.messages.find((m) => m.id === messageId);
+      if (message && isAIMessage(message)) {
+        message.toolCalls = toolCalls;
       }
     });
   }
@@ -126,13 +138,13 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
   // 创建消息分支（用于保留历史版本）
   createMessageBranch(messageId: string) {
     const original = this.getState().messages.find((m) => m.id === messageId);
-    if (!original) return;
+    if (!original || !original.content) return;
 
     // 克隆消息并生成新ID
     const branchedMessage = {
       ...original,
       content: original.content.map((c) => ({ ...c })),
-    };
+    } as ChatMessagesData;
 
     this.createMessage(branchedMessage);
   }
@@ -147,27 +159,29 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
 
   get currentMessage(): ChatMessagesData {
     const { messages } = this.getState();
-    return messages.at(-1);
+    return messages[messages.length - 1];
   }
 
   get lastAIMessage(): AIMessage | undefined {
     const { messages } = this.getState();
     const aiMessages = messages.filter((msg) => isAIMessage(msg));
-    return aiMessages.at(-1);
+    return aiMessages[aiMessages.length - 1];
   }
 
   get lastUserMessage(): UserMessage | undefined {
     const { messages } = this.getState();
     const userMessages = messages.filter((msg) => isUserMessage(msg));
-    return userMessages.at(-1);
+    return userMessages[userMessages.length - 1];
   }
 
   private resolvedStatus(content: AIMessageContent, status: ChatMessageStatus): ChatMessageStatus {
-    return typeof content.status === 'function' ? content.status(status) : content.status;
+    return typeof content.status === 'function' ? content.status(status) : (content.status || status);
   }
 
-  // 更新消息整体状态
+  // 更新消息整体状态（自动推断）
   private updateMessageStatusByContent(message: AIMessage) {
+    if (!message.content) return;
+    
     // 优先处理错误状态
     if (message.content.some((c) => c.status === 'error')) {
       message.status = 'error';
@@ -187,11 +201,11 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
       });
 
     // 检查是否全部完成
-    const allComplete = message.content.every(
-      (c) => c.status === 'complete' || c.status === 'stop', // 包含停止状态
-    );
+    // const allComplete = message.content.every(
+    //   (c) => c.status === 'complete' || c.status === 'stop', // 包含停止状态
+    // );
 
-    message.status = allComplete ? 'complete' : 'streaming';
+    // message.status = allComplete ? 'complete' : 'streaming';
   }
 
   /**
@@ -202,25 +216,27 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
   updateMultipleContents(messageId: string, contents: AIMessageContent[]) {
     this.setState((draft) => {
       const message = draft.messages.find((m) => m.id === messageId);
-      if (!message || !isAIMessage(message)) return;
+      if (!message || !isAIMessage(message) || !message.content) return;
+
+      const messageContent = message.content; // 确保TypeScript知道content存在
 
       // 更新或添加每个内容块
       contents.forEach((content) => {
-        const existingIndex = message.content.findIndex((c) => c.id === content.id || c.type === content.type);
+        const existingIndex = messageContent.findIndex((c) => c.id === content.id || c.type === content.type);
 
         if (existingIndex >= 0) {
           // 更新现有内容块
-          message.content[existingIndex] = {
-            ...message.content[existingIndex],
+          messageContent[existingIndex] = {
+            ...messageContent[existingIndex],
             ...content,
           };
         } else {
           // 添加新内容块
-          message.content.push(content);
+          messageContent.push(content);
         }
       });
 
-      // 更新消息状态
+      // 消息整体状态的自动推断
       this.updateMessageStatusByContent(message);
     });
   }

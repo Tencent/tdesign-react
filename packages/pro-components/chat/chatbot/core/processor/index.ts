@@ -1,14 +1,16 @@
-import {
+import type {
   AIMessage,
   AttachmentItem,
   ChatMessagesData,
   UserMessage,
-  type AIMessageContent,
-  type ImageContent,
-  type MarkdownContent,
-  type SearchContent,
-  type TextContent,
-  type ThinkingContent,
+  AIMessageContent,
+  ImageContent,
+  MarkdownContent,
+  SearchContent,
+  TextContent,
+  ThinkingContent,
+  ToolCallContent,
+  ToolCall,
 } from '../type';
 
 export default class MessageProcessor {
@@ -92,6 +94,7 @@ export default class MessageProcessor {
     this.registerThinkingHandler();
     this.registerImageHandler();
     this.registerSearchHandler();
+    this.registerToolCallHandler();
   }
 
   // 通用处理器工厂
@@ -154,32 +157,31 @@ export default class MessageProcessor {
       })),
     );
   }
+
+  // 工具调用处理器
+  private registerToolCallHandler() {
+    this.registerHandler<ToolCallContent>(
+      'toolcall',
+      this.createContentHandler((existing, incoming) => {
+        // 合并工具调用数组，避免重复
+        const existingCalls = existing || [];
+        const incomingCalls = incoming || [];
+        
+        // 使用Map来去重，以tool call的id作为key
+        const callMap = new Map<string, ToolCall>();
+        
+        // 先添加现有的工具调用
+        existingCalls.forEach(call => {
+          callMap.set(call.id, call);
+        });
+        
+        // 添加新的工具调用，如果有相同id则覆盖
+        incomingCalls.forEach(call => {
+          callMap.set(call.id, call);
+        });
+        
+        return Array.from(callMap.values());
+      }),
+    );
+  }
 }
-
-// // ... existing code ...
-// import { strategyRegistry } from '../strategy/strategy-registry';
-
-// export default class MessageProcessor {
-//   // 移除原有的 contentHandlers
-
-//   public processContentUpdate(
-//     lastContent: AIMessageContent | undefined,
-//     newChunk: AIMessageContent
-//   ): AIMessageContent {
-//     // 获取对应类型的策略
-//     const strategy = strategyRegistry.get(newChunk.type);
-
-//     if (strategy && lastContent?.type === newChunk.type) {
-//       return strategy(newChunk, lastContent);
-//     }
-
-//     // 没有策略时的默认合并逻辑
-//     return {
-//       ...(lastContent || {}),
-//       ...newChunk,
-//       status: newChunk?.status || 'streaming'
-//     };
-//   }
-
-//   // 移除原有的 registerHandler 方法
-// }

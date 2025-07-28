@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
-import { AGUIEventMapper } from './adapters/agui/agui-event-mapper';
 import { MessageStore } from './store/message';
 import { LLMService } from './server';
 import MessageProcessor from './processor';
+import { AGUIAdapter } from './adapters/agui/agui-adapter';
 import type {
   AIContentChunkUpdate,
   AIMessageContent,
@@ -15,7 +15,6 @@ import type {
   SystemMessage,
 } from './type';
 import { isAIMessage } from './utils';
-import { EventType } from './adapters/agui/events';
 
 export interface IChatEngine {
   init(config?: any, messages?: ChatMessagesData[]): void;
@@ -32,20 +31,20 @@ export interface IChatEngine {
 export default class ChatEngine implements IChatEngine {
   public messageStore: MessageStore;
 
-  private processor: MessageProcessor;
+  private messageProcessor: MessageProcessor;
 
-  private llmService: LLMService;
+  private llmService!: LLMService;
 
-  private config: ChatServiceConfig;
+  private config!: ChatServiceConfig;
 
   private lastRequestParams: ChatRequestParams | undefined;
 
   private stopReceive = false;
 
-  private aguiEventMapper: AGUIEventMapper | null = null;
+  private aguiAdapter: AGUIAdapter | null = null;
 
   constructor() {
-    this.processor = new MessageProcessor();
+    this.messageProcessor = new MessageProcessor();
     this.messageStore = new MessageStore();
   }
 
@@ -53,19 +52,18 @@ export default class ChatEngine implements IChatEngine {
     this.messageStore.initialize(this.convertMessages(initialMessages));
     this.config = typeof configSetter === 'function' ? configSetter() : configSetter || {};
     this.llmService = new LLMService(this.config);
-    // 初始化AG-UI事件映射器
+    // 初始化AGUI适配器
     if (this.config.protocol === 'agui') {
-      this.aguiEventMapper = new AGUIEventMapper();
+      this.aguiAdapter = new AGUIAdapter();
     }
   }
 
   public async sendUserMessage(requestParams: ChatRequestParams) {
-    const { prompt, attachments, ...rest } = requestParams;
-    const userMessage = this.processor.createUserMessage(prompt, attachments);
-    const aiMessage = this.processor.createAssistantMessage();
+    const { prompt, attachments } = requestParams;
+    const userMessage = this.messageProcessor.createUserMessage(prompt, attachments);
+    const aiMessage = this.messageProcessor.createAssistantMessage();
     this.messageStore.createMultiMessages([userMessage, aiMessage]);
     const params = {
-      ...rest,
       prompt,
       attachments,
       messageID: aiMessage.id,
@@ -109,7 +107,7 @@ export default class ChatEngine implements IChatEngine {
     type: T['type'], // 使用类型中定义的type字段作为参数类型
     handler: (chunk: T, existing?: T) => T,
   ) {
-    this.processor.registerHandler(type, handler);
+    this.messageProcessor.registerHandler(type, handler);
   }
 
   public setMessages(messages: ChatMessagesData[], mode: ChatMessageSetterMode = 'replace') {
@@ -141,7 +139,7 @@ export default class ChatEngine implements IChatEngine {
     }
 
     // 创建新的AI消息
-    const newAIMessage = this.processor.createAssistantMessage();
+    const newAIMessage = this.messageProcessor.createAssistantMessage();
     this.messageStore.createMessage(newAIMessage);
 
     // 重新发起请求
@@ -200,51 +198,96 @@ export default class ChatEngine implements IChatEngine {
     return this.config.onComplete?.(isAborted, params, chunk);
   }
 
+  /**
+   * 处理流式请求
+   * 根据协议类型选择不同的处理策略
+   */
   private async handleStreamRequest(params: ChatRequestParams) {
     const id = params.messageID;
     const isAGUI = this.config.protocol === 'agui';
-    this.setMessageStatus(id, 'streaming'); // todo: 这里应该在建立连接后在streaming
+    
+    if (id) {
+      this.setMessageStatus(id, 'streaming');
+    }
+
+    // 根据协议类型选择处理策略
+    if (isAGUI && this.aguiAdapter) {
+      await this.handleAGUIStreamRequest(params, id);
+    } else {
+      await this.handleDefaultStreamRequest(params, id);
+    }
+  }
+
+  /**
+   * 处理AGUI协议的流式请求
+   */
+  private async handleAGUIStreamRequest(params: ChatRequestParams, messageId?: string) {
     await this.llmService.handleStreamRequest(params, {
       ...this.config,
-      onStart: (chunk) => {
-        if (!isAGUI) this.config.onStart?.(chunk);
-      },
       onMessage: (chunk: SSEChunkData) => {
-        if (this.stopReceive) return null;
+        if (this.stopReceive || !messageId) return null;
+        
         let result = null;
+        
+        // 优先使用用户自定义的onMessage处理
         if (this.config.onMessage) {
-          result = this.config.onMessage(chunk, this.messageStore.getMessageByID(id));
+          result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
         }
-        // 统一处理 AG-UI 协议
-        if (isAGUI && this.aguiEventMapper) {
-          const event = chunk.data;
-          if (!event?.type) return null;
-          switch (event.type) {
-            case EventType.RUN_STARTED:
-              this.config.onStart?.(event);
-              break;
-            case EventType.RUN_FINISHED:
-              this.handleComplete(id, false, params, event);
-              break;
-            case EventType.RUN_ERROR:
-              this.handleError(id, event);
-              break;
-          }
-          // 如果用户未处理，使用默认映射器
-          if (!result) {
-            result = this.aguiEventMapper.mapEvent(chunk);
-          }
+        
+        // 如果用户未处理，使用AGUI适配器处理事件
+        if (!result) {
+          result = this.aguiAdapter!.handleAGUIEvent(chunk, {
+            onRunStart: (event) => this.config.onStart?.(JSON.stringify(event)),
+            onRunComplete: (isAborted, params, event) => this.handleComplete(messageId, isAborted, params, event),
+            onRunError: (error) => this.handleError(messageId, error),
+          });
         }
-        // 统一处理结果
-        this.processMessageResult(id!, result);
+
+        // 处理消息结果
+        this.processMessageResult(messageId, result);
         return result;
       },
       onError: (error) => {
-        this.handleError(id!, error);
+        if (messageId) this.handleError(messageId, error);
       },
       onComplete: (isAborted) => {
-        if (!isAGUI || isAborted) {
-          return this.handleComplete(id!, isAborted, params);
+        // AGUI的完成事件由AGUIAdapter内部处理，这里只处理中断情况
+        if (isAborted && messageId) {
+          this.handleComplete(messageId, isAborted, params);
+        }
+      },
+    });
+  }
+
+  /**
+   * 处理默认协议的流式请求
+   */
+  private async handleDefaultStreamRequest(params: ChatRequestParams, messageId?: string) {
+    await this.llmService.handleStreamRequest(params, {
+      ...this.config,
+      onStart: (chunk) => {
+        this.config.onStart?.(chunk);
+      },
+      onMessage: (chunk: SSEChunkData) => {
+        if (this.stopReceive || !messageId) return null;
+        
+        let result = null;
+        
+        // 使用默认的消息处理
+        if (this.config.onMessage) {
+          result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
+        }
+        
+        // 处理消息结果
+        this.processMessageResult(messageId, result);
+        return result;
+      },
+      onError: (error) => {
+        if (messageId) this.handleError(messageId, error);
+      },
+      onComplete: (isAborted) => {
+        if (messageId) {
+          this.handleComplete(messageId, isAborted, params);
         }
       },
     });
@@ -256,6 +299,14 @@ export default class ChatEngine implements IChatEngine {
    */
   private processMessageResult(messageId: string, result: AIMessageContent | AIMessageContent[] | null) {
     if (!result) return;
+
+    // 处理工具调用 - 仅在AGUI协议下处理
+    if (this.aguiAdapter) {
+      const toolCalls = this.aguiAdapter.processToolCalls(result);
+      if (toolCalls.length > 0) {
+        this.messageStore.setMessageToolCalls(messageId, toolCalls);
+      }
+    }
 
     if (Array.isArray(result)) {
       // 处理多个内容块
@@ -282,11 +333,11 @@ export default class ChatEngine implements IChatEngine {
   // 处理内容更新逻辑
   private processContentUpdate(messageId: string, rawChunk: AIContentChunkUpdate) {
     const message = this.messageStore.messages.find((m) => m.id === messageId);
-    if (!message || !isAIMessage(message)) return;
+    if (!message || !isAIMessage(message) || !message.content) return;
 
     //  // 只需要处理最后一个内容快
     //  const lastContent = message.content.at(-1);
-    //  const processed = this.processor.processContentUpdate(lastContent, rawChunk);
+    //  const processed = this.messageProcessor.processContentUpdate(lastContent, rawChunk);
     //  this.messageStore.appendContent(messageId, processed);
 
     let targetIndex;
@@ -295,9 +346,18 @@ export default class ChatEngine implements IChatEngine {
       targetIndex = -1;
     } else {
       // 合并/替换到现有同类型内容中
-      targetIndex = message.content.findLastIndex((content) => content.type === rawChunk.type);
+      targetIndex = message.content.findIndex((content: AIMessageContent) => content.type === rawChunk.type);
+      if (targetIndex !== -1) {
+        // 找到最后一个匹配的类型
+        for (let i = message.content.length - 1; i >= 0; i--) {
+          if (message.content[i].type === rawChunk.type) {
+            targetIndex = i;
+            break;
+          }
+        }
+      }
     }
-    const processed = this.processor.processContentUpdate(
+    const processed = this.messageProcessor.processContentUpdate(
       targetIndex !== -1 ? message.content[targetIndex] : undefined,
       rawChunk,
     );
@@ -307,34 +367,3 @@ export default class ChatEngine implements IChatEngine {
 }
 
 export * from './utils';
-
-// ... existing code ...
-// export default class ChatEngine implements IChatEngine {
-//   // 移除原有的 processor 实例
-
-//   public registerMergeStrategy<T extends AIMessageContent>(
-//     type: T['type'],
-//     handler: (chunk: T, existing?: T) => T
-//   ) {
-//     // 直接注册到策略中心
-//     strategyRegistry.register(type, handler);
-//   }
-
-//   // 修改 processContentUpdate 方法
-//   private processContentUpdate(messageId: string, rawChunk: AIContentChunkUpdate) {
-//     // ... 原有逻辑 ...
-//     // 替换为：
-//     const strategy = strategyRegistry.get(rawChunk.type);
-//     const processed = strategy
-//       ? strategy(rawChunk, lastContent)
-//       : this.defaultMerge(rawChunk, lastContent);
-//     // ...
-//   }
-// }
-
-// 使用：注册自定义策略
-// chatEngine.registerMergeStrategy('agent', (chunk, existing) => {
-//   const updated = { ...existing, ...chunk };
-//   // 自定义合并逻辑...
-//   return updated;
-// });

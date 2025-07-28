@@ -10,7 +10,9 @@ export type ChatContentType =
   | 'image'
   | 'audio'
   | 'video'
-  | 'suggestion';
+  | 'suggestion'
+  | 'toolcall'
+
 export type AttachmentType = 'image' | 'video' | 'audio' | 'pdf' | 'doc' | 'ppt' | 'txt';
 
 // 基础类型
@@ -84,6 +86,20 @@ export type ThinkingContent = ChatBaseContent<
   }
 >;
 
+// 工具调用
+export type FunctionCall = {
+  name: string;
+  arguments: string;
+};
+
+export type ToolCall = {
+  id: string;
+  type: 'function';
+  function: FunctionCall;
+};
+
+export type ToolCallContent = ChatBaseContent<'toolcall', ToolCall[]>;
+
 // 消息主体
 // 基础消息结构
 
@@ -107,6 +123,7 @@ type AIContentTypeMap = {
   image: ImageContent;
   search: SearchContent;
   suggestion: SuggestionContent;
+  toolcall: ToolCallContent;
 } & AIContentTypeOverrides;
 
 // 自动生成联合类型
@@ -131,6 +148,8 @@ export interface AIMessage extends ChatBaseMessage {
   content?: AIMessageContent[];
   /** 点赞点踩 */
   comment?: ChatComment;
+  /** 工具调用 - 兼容 AGUI/OpenAI 协议 */
+  toolCalls?: ToolCall[];
 }
 
 export interface SystemMessage extends ChatBaseMessage {
@@ -226,44 +245,6 @@ export interface AGUIServiceConfig {
   context?: any[];
   /** 调试模式 */
   debug?: boolean;
-}
-
-// AG-UI 事件回调（基于AG-UI原生事件）
-export interface AGUIEventCallbacks {
-  /** 运行开始事件 */
-  onRunStarted?: (threadId: string, runId: string) => void;
-  /** 运行完成事件 */
-  onRunFinished?: (threadId: string, runId: string, result?: any) => void;
-  /** 运行错误事件 */
-  onRunError?: (error: string, code?: string) => void;
-
-  /** 文本消息开始 */
-  onTextMessageStart?: (messageId: string) => void;
-  /** 文本消息内容 */
-  onTextMessageContent?: (messageId: string, delta: string) => void;
-  /** 文本消息结束 */
-  onTextMessageEnd?: (messageId: string) => void;
-
-  /** 工具调用开始 */
-  onToolCallStart?: (toolCallId: string, toolName: string, parentMessageId?: string) => void;
-  /** 工具调用参数 */
-  onToolCallArgs?: (toolCallId: string, delta: string) => void;
-  /** 工具调用结束 */
-  onToolCallEnd?: (toolCallId: string) => void;
-  /** 工具调用结果 */
-  onToolCallResult?: (messageId: string, toolCallId: string, content: string) => void;
-
-  /** 状态快照 */
-  onStateSnapshot?: (snapshot: any) => void;
-  /** 状态增量 */
-  onStateDelta?: (delta: any[]) => void;
-  /** 消息快照 */
-  onMessagesSnapshot?: (messages: any[]) => void;
-
-  /** 自定义事件 */
-  onCustomEvent?: (name: string, value: any) => void;
-  /** 原始事件 */
-  onRawEvent?: (event: any, source?: string) => void;
 }
 
 // ============= 引擎接口统一 =============

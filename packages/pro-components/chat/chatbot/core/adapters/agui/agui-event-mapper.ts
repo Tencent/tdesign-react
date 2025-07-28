@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import type { AIContentChunkUpdate, SSEChunkData } from '../../type';
+import type { AIContentChunkUpdate, SSEChunkData, ToolCall } from '../../type';
 import { EventType } from './events';
 
 /**
@@ -8,14 +8,30 @@ import { EventType } from './events';
  * 支持多轮对话、增量文本、工具调用、思考、状态快照、消息快照等基础事件
  */
 export class AGUIEventMapper {
-  private toolCallMap: Record<string, any> = {};
+  private toolCallMap: Record<string, ToolCall> = {};
+  private toolCallEnded: Set<string> = new Set(); // 记录已经TOOL_CALL_END的工具调用
 
   /**
    * 主入口：将SSE事件转换为AIContentChunkUpdate
+   * 
+   * @param chunk SSE数据块，其中data字段可能是字符串（需要解析）或已解析的对象
    */
   mapEvent(chunk: SSEChunkData): AIContentChunkUpdate | AIContentChunkUpdate[] | null {
-    const event = chunk.data;
+    // 处理data字段，可能是字符串或已解析的对象
+    let event: any;
+    if (typeof chunk.data === 'string') {
+      try {
+        event = JSON.parse(chunk.data);
+      } catch (error) {
+        console.warn('Failed to parse event data:', error);
+        return null;
+      }
+    } else {
+      event = chunk.data;
+    }
+
     if (!event?.type) return null;
+    
     switch (event.type) {
       case EventType.TEXT_MESSAGE_START:
         return {
@@ -33,7 +49,8 @@ export class AGUIEventMapper {
           data: event.delta || '',
           strategy: 'merge',
         };
-      case EventType.THINKING_START:
+      // case EventType.THINKING_START:
+      case EventType.THINKING_TEXT_MESSAGE_START:
         return {
           type: 'thinking',
           data: { title: event.title || '思考中...' },
@@ -42,45 +59,57 @@ export class AGUIEventMapper {
         };
       case EventType.THINKING_TEXT_MESSAGE_CONTENT:
         return { type: 'thinking', data: { text: event.delta }, status: 'streaming', strategy: 'merge' };
-      case EventType.THINKING_END:
+      case EventType.THINKING_TEXT_MESSAGE_END:
         return { type: 'thinking', data: { title: event.title || '思考结束' }, status: 'complete' };
 
       case EventType.TOOL_CALL_START:
-      case EventType.TOOL_CALL_ARGS:
+        // 初始化工具调用
         this.toolCallMap[event.toolCallId] = {
-          name: event.toolCallName,
-          arguments: event.type === 'TOOL_CALL_ARGS' ? event.delta : '',
+          id: event.toolCallId,
+          type: 'function' as const,
+          function: {
+            name: event.toolCallName,
+            arguments: '', // 初始化为空字符串，后续通过TOOL_CALL_ARGS累积
+          },
         };
-        if (event.toolCallName === 'search') {
-          return {
-            type: 'search',
-            data: {
-              title: '联网搜索中',
-              references: [],
+        // 返回工具调用内容块
+        return {
+          type: 'toolcall',
+          data: [this.toolCallMap[event.toolCallId]],
+          status: 'pending',
+          strategy: 'append',
+        };
+      case EventType.TOOL_CALL_ARGS:
+        // 更新工具调用的参数
+        if (this.toolCallMap[event.toolCallId]) {
+          // 累积JSON字符串片段
+          const currentArgs = this.toolCallMap[event.toolCallId].function.arguments;
+          const newArgs = currentArgs + (event.delta || '');
+          
+          // 创建新的ToolCall对象，避免修改只读属性
+          this.toolCallMap[event.toolCallId] = {
+            ...this.toolCallMap[event.toolCallId],
+            function: {
+              ...this.toolCallMap[event.toolCallId].function,
+              arguments: newArgs,
             },
-            status: 'pending',
+          };
+          
+          return {
+            type: 'toolcall',
+            data: [this.toolCallMap[event.toolCallId]],
+            status: 'streaming',
+            strategy: 'merge',
           };
         }
         return null;
       case EventType.TOOL_CALL_CHUNK:
       case EventType.TOOL_CALL_RESULT:
-        if (event.toolCallName === 'search') {
-          let parsed = {
-            title: '搜索中',
-            references: [],
-          };
-          try {
-            parsed = JSON.parse(event?.delta || event?.content);
-          } catch {}
-          return {
-            type: 'search',
-            data: parsed,
-            status: event.type === 'TOOL_CALL_RESULT' ? 'complete' : 'streaming',
-          };
-        }
-        return null;
+        return this.createToolCallResponse(event.toolCallId, 'complete');
+      case EventType.TOOL_CALL_END:
+        return this.createToolCallResponse(event.toolCallId, 'streaming');
       case EventType.STATE_SNAPSHOT:
-        return this.handleStateSnapshot(event.snapshot);
+        return this.handleMessagesSnapshot(event.snapshot?.messages || []);
       case EventType.MESSAGES_SNAPSHOT:
         return this.handleMessagesSnapshot(event.messages);
       case EventType.CUSTOM:
@@ -98,19 +127,34 @@ export class AGUIEventMapper {
     }
   }
 
-  private handleStateSnapshot(snapshot: any): AIContentChunkUpdate[] {
-    // 只取assistant消息
-    if (!snapshot?.messages) return [];
-    return snapshot.messages.flatMap((msg: any) => {
-      if (msg.role === 'assistant' && Array.isArray(msg.content)) {
-        return msg.content.map((content: any) => ({
-          type: content.type || 'markdown',
-          data: content.data,
-          status: 'complete',
-        }));
-      }
-      return [];
-    });
+  /**
+   * 获取当前所有工具调用
+   * 用于直接设置到消息的toolCalls字段
+   */
+  getToolCalls(): ToolCall[] {
+    return Object.values(this.toolCallMap);
+  }
+
+  /**
+   * 清除指定工具调用
+   */
+  clearToolCall(toolCallId: string): void {
+    delete this.toolCallMap[toolCallId];
+    this.toolCallEnded.delete(toolCallId);
+  }
+
+  /**
+   * 获取指定工具调用
+   */
+  getToolCall(toolCallId: string): ToolCall | undefined {
+    return this.toolCallMap[toolCallId];
+  }
+
+  /**
+   * 检查工具调用是否已结束
+   */
+  isToolCallEnded(toolCallId: string): boolean {
+    return this.toolCallEnded.has(toolCallId);
   }
 
   private handleMessagesSnapshot(messages: any[]): AIContentChunkUpdate[] {
@@ -144,46 +188,26 @@ export class AGUIEventMapper {
     };
   }
 
+  private createToolCallResponse(toolCallId: string, status: 'streaming' | 'complete'): AIContentChunkUpdate | null {
+    if (this.toolCallMap[toolCallId]) {
+      // 标记工具调用已结束
+      this.toolCallEnded.add(toolCallId);
+      return {
+        type: 'toolcall',
+        data: [this.toolCallMap[toolCallId]],
+        status,
+        strategy: 'merge',
+      };
+    }
+    return null;
+  }
+
   reset() {
     // this.currentMessageId = null;
     // this.currentContent = [];
     this.toolCallMap = {};
+    this.toolCallEnded.clear();
   }
 }
 
 export default AGUIEventMapper;
-
-// import { strategyRegistry } from '../../strategy/strategy-registry';
-
-// export class AGUIEventMapper {
-//   // 注册AGUI协议相关策略
-//   static registerDefaultStrategies() {
-//     // 工具调用策略
-//     strategyRegistry.register('tool-call', (chunk, existing) => ({
-//       ...(existing || {}),
-//       ...chunk,
-//       data: {
-//         ...(existing?.data || {}),
-//         ...chunk.data,
-//         arguments: (existing?.data?.arguments || '') + (chunk.data?.arguments || '')
-//       }
-//     }));
-
-//     // 步骤状态策略
-//     strategyRegistry.register('step', (chunk, existing) => {
-//       const updated = { ...existing, ...chunk };
-//       if (chunk.data?.tasks) {
-//         updated.data.tasks = [
-//           ...(existing?.data?.tasks || []),
-//           ...chunk.data.tasks
-//         ];
-//       }
-//       return updated;
-//     });
-//   }
-
-//   // ... 原有 mapEvent 方法保持不变 ...
-// }
-
-// // 初始化时注册默认策略
-// AGUIEventMapper.registerDefaultStrategies();

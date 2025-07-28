@@ -1,4 +1,4 @@
-import {
+import type {
   AIMessageContent,
   AttachmentContent,
   ChatMessagesData,
@@ -9,7 +9,8 @@ import {
   TextContent,
   ThinkingContent,
   UserMessageContent,
-} from 'tdesign-web-components';
+  ToolCallContent,
+} from '../type';
 
 export function findTargetElement(event: MouseEvent, selector: string | string[]): HTMLElement | null {
   // 统一处理选择器输入格式（支持字符串或数组）
@@ -69,17 +70,21 @@ export function isAttachmentContent(content: UserMessageContent): content is Att
   return content.type === 'attachment';
 }
 
+export function isToolCallContent(content: AIMessageContent): content is ToolCallContent {
+  return content.type === 'toolcall';
+}
+
 /** 提取消息复制内容 */
 export function getMessageContentForCopy(message: ChatMessagesData): string {
-  if (!isAIMessage(message)) {
+  if (!isAIMessage(message) || !message.content) {
     return '';
   }
-  return message.content.reduce((pre, item) => {
+  return message.content.reduce((pre: string, item: AIMessageContent) => {
     let append = '';
     if (isTextContent(item) || isMarkdownContent(item)) {
       append = item.data;
     } else if (isThinkingContent(item)) {
-      append = item.data.text;
+      append = item.data.text || '';
     }
     if (!pre) {
       return append;
