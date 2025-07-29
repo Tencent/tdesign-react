@@ -48,7 +48,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   } = useDefaultProps(props, colorPickerDefaultProps);
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
 
-  const [updateId, setUpdateId] = useState(0);
+  const [, setUpdateId] = useState(0); // 确保 UI 同步更新
 
   const getModeByColor = (input: string) => {
     if (colorModes.length === 1) return colorModes[0];
@@ -71,15 +71,10 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     baseClassName,
   };
 
-  const update = useCallback(
-    (value: string) => {
-      colorInstanceRef.current.update(value);
-      // 确保 UI 同步更新
-      setUpdateId(performance.now());
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [updateId],
-  );
+  const updateColor = (value: string) => {
+    colorInstanceRef.current.update(value);
+    setUpdateId(performance.now());
+  };
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
@@ -88,17 +83,19 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         color: getColorObject(colorInstanceRef.current),
         trigger: trigger || 'palette-saturation-brightness',
       });
-      update(value);
+      setUpdateId(performance.now());
     },
-    [enableAlpha, setInnerValue, update],
+    [enableAlpha, setInnerValue],
   );
 
   useEffect(() => {
+    const currentColor = colorInstanceRef.current.getFormattedColor(formatRef.current, enableAlpha);
+    if (innerValue === currentColor) return;
     // 根据颜色自动切换模式
     const newMode = getModeByColor(innerValue);
     setMode(newMode);
     colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
-    update(innerValue);
+    updateColor(innerValue);
   }, [innerValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleModeChange = (newMode: TdColorModes) => {
@@ -109,9 +106,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
     const { rgba, gradientColors, linearGradient } = colorInstanceRef.current;
     if (isGradientMode) {
-      update(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
+      updateColor(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
     } else {
-      update(rgba);
+      updateColor(rgba);
     }
     emitColorChange();
   };
@@ -244,7 +241,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       setMode(newMode);
       // 确保在渐变模式下选择纯色块，能切换回单色模式
       colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
-      update(value);
+      updateColor(value);
       emitColorChange(trigger);
     };
 
