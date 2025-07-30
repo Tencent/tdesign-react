@@ -59,12 +59,9 @@ const FormatInputs = (props: TdColorFormatProps) => {
       // 纯字符串类型的格式
       color.update(v as string);
     } else {
+      /* 待进一步优化：手动修改某个输入框，其它输入框的值有时会被覆盖 
+         https://github.com/bgrins/TinyColor/issues/86 */
       color.update(Color.object2color(newFormatValue, format));
-      if (key === 'h') {
-        /* 尽可能使用输入的数值，避免 HSL 在高亮度区域时，更新失败
-           https://github.com/bgrins/TinyColor/issues/86 */
-        color.hue = v as number; // 前提是 format 为 HSL 有效，否则计算依旧以当前色彩空间为准
-      }
     }
     onInputChange();
   };
