@@ -21,7 +21,7 @@ export interface TextareaProps
     >,
     TdTextareaProps,
     StyledProps {}
-export interface TextareaRefInterface extends React.RefObject<unknown> {
+export interface TextareaRefInterface {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
 }
@@ -161,7 +161,8 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   useEffect(() => {
     handleAutoFocus();
-  }, [handleAutoFocus]);
+    adjustTextareaHeight();
+  }, [handleAutoFocus, adjustTextareaHeight]);
 
   useEffect(() => {
     if (allowInputOverMax) {
@@ -169,7 +170,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }, [allowInputOverMax, characterLength, currentLength, maxcharacter, maxlength]);
 
-  useImperativeHandle(ref as TextareaRefInterface, () => ({
+  useImperativeHandle(ref, () => ({
     currentElement: wrapperRef.current,
     textareaElement: textareaRef.current,
   }));
