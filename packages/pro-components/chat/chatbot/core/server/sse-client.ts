@@ -4,7 +4,13 @@ import { LoggerManager } from '../utils/logger';
 import { ConnectionManager } from './connection-manager';
 import { ConnectionError, TimeoutError } from './errors';
 import { type SSEEvent, SSEParser } from './sse-parser';
-import { type ConnectionInfo, DEFAULT_SSE_CONFIG, type SSEClientConfig, SSEConnectionState, type StateChangeEvent } from './types';
+import {
+  type ConnectionInfo,
+  DEFAULT_SSE_CONFIG,
+  type SSEClientConfig,
+  SSEConnectionState,
+  type StateChangeEvent,
+} from './types';
 
 /**
  * SSE Client
@@ -23,7 +29,7 @@ export class SSEClient extends EventEmitter {
 
   private parser: SSEParser;
 
-  private timeoutTimer?: ReturnType<typeof setTimeout>;
+  private timeoutTimer?: ReturnType<typeof setInterval>; // 统一超时定时器
 
   private config: SSEClientConfig;
 
@@ -82,6 +88,9 @@ export class SSEClient extends EventEmitter {
     this.connectionManager.startConnection();
 
     try {
+      // 启动统一超时监控
+      this.startTimeoutMonitor();
+
       await this.establishConnection();
       this.setState(SSEConnectionState.CONNECTED);
       this.connectionManager.onConnectionSuccess();
@@ -116,6 +125,7 @@ export class SSEClient extends EventEmitter {
       this.emit('complete', true);
     } finally {
       this.clearTimeouts();
+      this.controller = null;
       this.setState(SSEConnectionState.CLOSED);
     }
   }
@@ -143,16 +153,6 @@ export class SSEClient extends EventEmitter {
   private async establishConnection(): Promise<void> {
     this.controller = new AbortController();
 
-    // 设置超时
-    if (this.config.timeout && this.config.timeout > 0) {
-      this.timeoutTimer = setTimeout(() => {
-        if (!this.controller?.signal.aborted) {
-          this.controller?.abort();
-        }
-        this.emit('error', new TimeoutError(`Request timed out after ${this.config.timeout}ms`));
-      }, this.config.timeout);
-    }
-
     try {
       const response = await fetch(this.url, {
         ...this.config,
@@ -177,9 +177,6 @@ export class SSEClient extends EventEmitter {
         this.logger.error('sse request failed:', error);
         this.emit('error', error);
       }
-    } finally {
-      this.clearTimeouts();
-      this.controller = null;
     }
   }
 
@@ -216,6 +213,34 @@ export class SSEClient extends EventEmitter {
   }
 
   /**
+   * 启动统一超时监控
+   */
+  private startTimeoutMonitor(): void {
+    if (!this.config.timeout || this.config.timeout <= 0) return;
+
+    // 检查间隔为超时时间的一半，但不超过5秒
+    const checkInterval = Math.min(this.config.timeout / 2, 5000);
+
+    this.timeoutTimer = setInterval(() => {
+      const now = Date.now();
+      const timeSinceLastActivity = now - this.connectionInfo.lastActivity;
+
+      if (timeSinceLastActivity >= this.config.timeout!) {
+        // 根据当前状态决定超时类型
+        if (this.state === SSEConnectionState.CONNECTING) {
+          this.logger.warn(`Connection ${this.connectionId} establishment timeout after ${this.config.timeout}ms`);
+          this.emit('error', new TimeoutError(`Connection establishment timed out after ${this.config.timeout}ms`));
+        } else {
+          this.logger.warn(`Connection ${this.connectionId} receive timeout after ${this.config.timeout}ms`);
+          this.emit('error', new TimeoutError(`No data received for ${this.config.timeout}ms`));
+        }
+
+        this.abort(); // 触发连接中断
+      }
+    }, checkInterval);
+  }
+
+  /**
    * 解析SSE数据
    */
   private parseSSEData(chunk: string): void {
@@ -242,7 +267,7 @@ export class SSEClient extends EventEmitter {
    */
   private clearTimeouts(): void {
     if (this.timeoutTimer) {
-      clearTimeout(this.timeoutTimer);
+      clearInterval(this.timeoutTimer);
       this.timeoutTimer = undefined;
     }
   }
@@ -290,6 +315,8 @@ export class SSEClient extends EventEmitter {
    * 生成连接ID
    */
   private generateConnectionId(): string {
-    return `sse_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    // 使用this来访问实例属性，满足linter要求
+    const timestamp = this.connectionInfo?.createdAt || Date.now();
+    return `sse_${timestamp}_${Math.random().toString(36).substr(2, 9)}`;
   }
 }

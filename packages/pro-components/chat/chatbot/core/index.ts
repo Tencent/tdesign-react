@@ -2,7 +2,7 @@
 import { MessageStore } from './store/message';
 import { LLMService } from './server';
 import MessageProcessor from './processor';
-import { AGUIAdapter } from './adapters/agui/agui-adapter';
+import { AGUIAdapter } from './adapters/agui';
 import type {
   AIContentChunkUpdate,
   AIMessageContent,
@@ -118,18 +118,9 @@ export default class ChatEngine implements IChatEngine {
   // -> keepVersion=false: 删除旧消息 -> 创建新消息 -> 重新请求
   // -> keepVersion=true: 保留旧消息 -> 创建分支消息 -> 重新请求
   public async regenerateAIMessage(keepVersion = false) {
-    const { lastAIMessage, lastUserMessage } = this.messageStore;
+    const { lastAIMessage } = this.messageStore;
     if (!lastAIMessage) return;
 
-    if (!this.lastRequestParams && lastUserMessage) {
-      // 应对历史消息也有重新生成的情况
-      const { content, id } = lastUserMessage;
-      this.lastRequestParams = {
-        prompt: content.filter((c) => c.type === 'text')[0].data,
-        attachments: content.filter((c) => c.type === 'attachment')?.[0]?.data,
-        messageID: id,
-      };
-    }
     if (!keepVersion) {
       // 删除最后一条AI消息
       this.messageStore.removeMessage(lastAIMessage.id);
@@ -146,7 +137,7 @@ export default class ChatEngine implements IChatEngine {
     const params = {
       ...this.lastRequestParams,
       messageID: newAIMessage.id,
-      prompt: this.lastRequestParams?.prompt ?? ''
+      prompt: this.lastRequestParams?.prompt ?? '',
     };
 
     await this.sendRequest(params);
@@ -205,7 +196,7 @@ export default class ChatEngine implements IChatEngine {
   private async handleStreamRequest(params: ChatRequestParams) {
     const id = params.messageID;
     const isAGUI = this.config.protocol === 'agui';
-    
+
     if (id) {
       this.setMessageStatus(id, 'streaming');
     }
@@ -226,14 +217,14 @@ export default class ChatEngine implements IChatEngine {
       ...this.config,
       onMessage: (chunk: SSEChunkData) => {
         if (this.stopReceive || !messageId) return null;
-        
-        let result = null;
-        
+
+        let result;
+
         // 优先使用用户自定义的onMessage处理
         if (this.config.onMessage) {
           result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
         }
-        
+
         // 如果用户未处理，使用AGUI适配器处理事件
         if (!result) {
           result = this.aguiAdapter!.handleAGUIEvent(chunk, {
@@ -270,14 +261,14 @@ export default class ChatEngine implements IChatEngine {
       },
       onMessage: (chunk: SSEChunkData) => {
         if (this.stopReceive || !messageId) return null;
-        
+
         let result = null;
-        
+
         // 使用默认的消息处理
         if (this.config.onMessage) {
           result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
         }
-        
+
         // 处理消息结果
         this.processMessageResult(messageId, result);
         return result;
@@ -301,12 +292,12 @@ export default class ChatEngine implements IChatEngine {
     if (!result) return;
 
     // 处理工具调用 - 仅在AGUI协议下处理
-    if (this.aguiAdapter) {
-      const toolCalls = this.aguiAdapter.processToolCalls(result);
-      if (toolCalls.length > 0) {
-        this.messageStore.setMessageToolCalls(messageId, toolCalls);
-      }
-    }
+    // if (this.aguiAdapter) {
+    //   const toolCalls = this.aguiAdapter.processToolCalls(result);
+    //   if (toolCalls.length > 0) {
+    //     this.messageStore.setMessageToolCalls(messageId, toolCalls);
+    //   }
+    // }
 
     if (Array.isArray(result)) {
       // 处理多个内容块

@@ -16,6 +16,7 @@ export const BaseMessageSchema = z.object({
   role: z.string(),
   content: z.string().optional(),
   name: z.string().optional(),
+  timestamp: z.number().optional(), // 添加时间戳字段，用于历史消息
 });
 
 export const DeveloperMessageSchema = BaseMessageSchema.extend({
@@ -51,6 +52,13 @@ export const MessageSchema = z.discriminatedUnion('role', [
   SystemMessageSchema,
   AssistantMessageSchema,
   UserMessageSchema,
+  ToolMessageSchema,
+]);
+
+// 历史消息相关的类型定义
+export const HistoryMessageSchema = z.discriminatedUnion('role', [
+  UserMessageSchema,
+  AssistantMessageSchema,
   ToolMessageSchema,
 ]);
 
@@ -98,6 +106,12 @@ export type Tool = z.infer<typeof ToolSchema>;
 export type RunAgentInput = z.infer<typeof RunAgentInputSchema>;
 export type State = z.infer<typeof StateSchema>;
 export type Role = z.infer<typeof RoleSchema>;
+
+// 历史消息类型别名，复用已有的类型
+export type AGUIHistoryMessage = Message;
+export type AGUIUserHistoryMessage = UserMessage;
+export type AGUIAssistantHistoryMessage = AssistantMessage;
+export type AGUIToolHistoryMessage = ToolMessage;
 
 export class AGUIError extends Error {
   constructor(message: string) {

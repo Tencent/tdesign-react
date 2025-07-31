@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import type {
   AIMessage,
   AttachmentItem,
@@ -9,8 +10,6 @@ import type {
   SearchContent,
   TextContent,
   ThinkingContent,
-  ToolCallContent,
-  ToolCall,
 } from '../type';
 
 export default class MessageProcessor {
@@ -94,7 +93,6 @@ export default class MessageProcessor {
     this.registerThinkingHandler();
     this.registerImageHandler();
     this.registerSearchHandler();
-    this.registerToolCallHandler();
   }
 
   // 通用处理器工厂
@@ -107,6 +105,11 @@ export default class MessageProcessor {
           ...existing,
           data: mergeData(existing.data, chunk.data),
           status: chunk.status || 'streaming',
+          // 合并ext字段，确保动态属性能够正确传递
+          ext: {
+            ...existing.ext,
+            ...chunk.ext,
+          },
         };
       }
       return {
@@ -155,33 +158,6 @@ export default class MessageProcessor {
         ...existing,
         ...incoming,
       })),
-    );
-  }
-
-  // 工具调用处理器
-  private registerToolCallHandler() {
-    this.registerHandler<ToolCallContent>(
-      'toolcall',
-      this.createContentHandler((existing, incoming) => {
-        // 合并工具调用数组，避免重复
-        const existingCalls = existing || [];
-        const incomingCalls = incoming || [];
-        
-        // 使用Map来去重，以tool call的id作为key
-        const callMap = new Map<string, ToolCall>();
-        
-        // 先添加现有的工具调用
-        existingCalls.forEach(call => {
-          callMap.set(call.id, call);
-        });
-        
-        // 添加新的工具调用，如果有相同id则覆盖
-        incomingCalls.forEach(call => {
-          callMap.set(call.id, call);
-        });
-        
-        return Array.from(callMap.values());
-      }),
     );
   }
 }

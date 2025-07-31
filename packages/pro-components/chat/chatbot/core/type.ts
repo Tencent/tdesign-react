@@ -1,3 +1,5 @@
+import type { ToolCallEventType } from './adapters/agui/events';
+
 export type ChatMessageRole = 'user' | 'assistant' | 'system';
 export type ChatMessageStatus = 'pending' | 'streaming' | 'complete' | 'stop' | 'error';
 export type ChatStatus = 'idle' | ChatMessageStatus;
@@ -11,7 +13,7 @@ export type ChatContentType =
   | 'audio'
   | 'video'
   | 'suggestion'
-  | 'toolcall'
+  | 'toolcall';
 
 export type AttachmentType = 'image' | 'video' | 'audio' | 'pdf' | 'doc' | 'ppt' | 'txt';
 
@@ -21,6 +23,8 @@ export interface ChatBaseContent<T extends string, TData> {
   data: TData;
   status?: ChatMessageStatus | ((currentStatus: ChatMessageStatus | undefined) => ChatMessageStatus);
   id?: string;
+  strategy?: 'merge' | 'append';
+  ext?: Record<string, any>;
 }
 
 // 内容类型
@@ -87,18 +91,26 @@ export type ThinkingContent = ChatBaseContent<
 >;
 
 // 工具调用
-export type FunctionCall = {
-  name: string;
-  arguments: string;
-};
+// export type ToolCall = {
+//   id: string;
+//   type: 'function';
+//   function: {
+//     name: string;
+//     arguments: string;
+//   };
+// };
 
 export type ToolCall = {
-  id: string;
-  type: 'function';
-  function: FunctionCall;
+  toolCallId: string;
+  toolCallName: string;
+  eventType?: ToolCallEventType;
+  parentMessageId?: string;
+  args?: string; // 对应TOOL_CALL_ARGS事件返回的delta合并后的结果
+  chunk?: string; // 对应TOOL_CALL_CHUNK事件返回的delta合并后的结果
+  result?: string; // 对应TOOL_CALL_RESULT事件返回的content合并后的结果
 };
 
-export type ToolCallContent = ChatBaseContent<'toolcall', ToolCall[]>;
+export type ToolCallContent = ChatBaseContent<'toolcall', ToolCall>;
 
 // 消息主体
 // 基础消息结构
@@ -146,10 +158,11 @@ export type ChatComment = 'good' | 'bad' | '';
 export interface AIMessage extends ChatBaseMessage {
   role: 'assistant';
   content?: AIMessageContent[];
+  history?: AIMessageContent[][];
   /** 点赞点踩 */
   comment?: ChatComment;
-  /** 工具调用 - 兼容 AGUI/OpenAI 协议 */
-  toolCalls?: ToolCall[];
+  // /** 工具调用 - 兼容 AGUI/OpenAI 协议 */
+  // toolCalls?: ToolCall[];
 }
 
 export interface SystemMessage extends ChatBaseMessage {
@@ -169,17 +182,13 @@ export interface ChatRequestParams extends RequestInit {
   prompt: string;
   messageID?: string;
   attachments?: AttachmentContent['data'];
+  [key: string]: any;
 }
 
 // 基础配置类型
-export type AIContentChunkUpdate = AIMessageContent & {
-  // 将新内容块和入策略，merge表示和入到同类型内容中，append表示作为新的内容块，默认是merge
-  strategy?: 'merge' | 'append';
-};
+export type AIContentChunkUpdate = AIMessageContent;
 
 // ============= TDesign 原生架构 =============
-// 保持现有的TDesign类型不变，用于DefaultEngine
-
 // 网络请求配置（TDesign原生）
 export interface ChatNetworkConfig {
   /** 请求端点 */
@@ -194,13 +203,6 @@ export interface ChatNetworkConfig {
   timeout?: number; // 添加timeout属性
   /** 协议类型 */
   protocol?: 'default' | 'agui';
-}
-
-// 添加EnhancedSSEClient接口定义
-export interface IEnhancedSSEClient {
-  close(): void;
-  getStats(): any;
-  // ... 其他方法 ...
 }
 
 // TDesign 默认引擎的回调配置
@@ -226,36 +228,8 @@ export interface ChatServiceConfig extends ChatNetworkConfig, DefaultEngineCallb
 // 联合类型支持静态配置和动态生成
 export type ChatServiceConfigSetter = ChatServiceConfig | ((params?: any) => ChatServiceConfig);
 
-// ============= AG-UI 适配架构 =============
-// AG-UI 服务配置（完全独立）
-export interface AGUIServiceConfig {
-  /** AG-UI 服务端点 */
-  url: string;
-  /** Agent ID */
-  agentId?: string;
-  /** 请求头 */
-  headers?: Record<string, string>;
-  /** 初始状态 */
-  initialState?: Record<string, any>;
-  /** 线程ID */
-  threadId?: string;
-  /** 工具定义 */
-  tools?: any[];
-  /** 上下文信息 */
-  context?: any[];
-  /** 调试模式 */
-  debug?: boolean;
-}
-
-// ============= 引擎接口统一 =============
-// 引擎模式
-export type EngineMode = 'default' | 'agui';
-
 // 统一的引擎接口
 export interface IChatEngine {
-  /** 引擎模式 */
-  readonly mode: EngineMode;
-
   /** 初始化引擎 - 不同引擎使用不同的配置类型 */
   init(config?: any, messages?: ChatMessagesData[]): void;
 

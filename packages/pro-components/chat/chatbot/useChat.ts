@@ -12,6 +12,7 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
   const [status, setStatus] = useState<ChatStatus>('idle');
   const chatEngineRef = useRef<ChatEngine>(new ChatEngine());
   const msgSubscribeRef = useRef<null | (() => void)>(null);
+  const prevInitialMessagesRef = useRef<ChatMessagesData[]>([]);
 
   const chatEngine = chatEngineRef.current;
 
@@ -21,6 +22,9 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
   };
 
   const subscribeToChat = () => {
+    // 清理之前的订阅
+    msgSubscribeRef.current?.();
+
     msgSubscribeRef.current = chatEngine.messageStore.subscribe((state) => {
       syncState(state.messages);
     });
@@ -34,10 +38,28 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
     subscribeToChat();
   };
 
+  // 初始化聊天引擎
   useEffect(() => {
     initChat();
     return () => msgSubscribeRef.current?.();
   }, []);
+
+  // 监听 defaultMessages 变化
+  useEffect(() => {
+    // 检查 initialMessages 是否真的发生了变化
+    const hasChanged = JSON.stringify(prevInitialMessagesRef.current) !== JSON.stringify(initialMessages);
+
+    if (hasChanged && initialMessages && initialMessages.length > 0) {
+      // 更新引用
+      prevInitialMessagesRef.current = initialMessages;
+
+      // 重新初始化聊天引擎或更新消息
+      chatEngine.setMessages(initialMessages, 'replace');
+
+      // 同步状态
+      syncState(initialMessages);
+    }
+  }, [initialMessages, chatEngine]);
 
   return {
     chatEngine,

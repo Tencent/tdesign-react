@@ -1,4 +1,3 @@
- 
 import type { ToolCall, AIMessageContent } from '../type';
 import { isToolCallContent } from '../utils';
 
@@ -19,7 +18,7 @@ export class ToolCallProcessor {
 
     // 从内容块中提取工具调用
     if (Array.isArray(result)) {
-      const toolCallContent = result.find(content => isToolCallContent(content));
+      const toolCallContent = result.find((content) => isToolCallContent(content));
       if (toolCallContent && toolCallContent.data) {
         toolCalls = [...toolCalls, ...toolCallContent.data];
       }
@@ -39,7 +38,7 @@ export class ToolCallProcessor {
    * 添加工具调用到内部映射
    */
   addToolCall(toolCall: ToolCall): void {
-    this.toolCallMap[toolCall.id] = toolCall;
+    this.toolCallMap[toolCall.toolCallId] = toolCall;
   }
 
   /**
@@ -75,7 +74,7 @@ export class ToolCallProcessor {
    */
   private deduplicateToolCalls(toolCalls: ToolCall[]): ToolCall[] {
     const callMap = new Map<string, ToolCall>();
-    toolCalls.forEach(call => {
+    toolCalls.forEach((call) => {
       callMap.set(call.id, call);
       // 同时更新内部映射
       this.toolCallMap[call.id] = call;

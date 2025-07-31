@@ -12,6 +12,14 @@ import type {
   ToolCallContent,
 } from '../type';
 
+export {
+  HistoryMessageConverter,
+  type HistoryMessage,
+  type UserHistoryMessage,
+  type AssistantHistoryMessage,
+  type ToolHistoryMessage,
+} from './history-converter';
+
 export function findTargetElement(event: MouseEvent, selector: string | string[]): HTMLElement | null {
   // 统一处理选择器输入格式（支持字符串或数组）
   const selectors = Array.isArray(selector) ? selector : selector.split(',').map((s) => s.trim());

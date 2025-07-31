@@ -1,6 +1,10 @@
 import React, { ReactNode, useMemo, useRef, useState } from 'react';
 import {
   type TdChatMessageConfig,
+  type ChatRequestParams,
+  type ChatMessagesData,
+  type AIMessageContent,
+  type ChatBaseContent,
   ChatList,
   ChatSender,
   ChatMessage,
@@ -8,9 +12,10 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
+  useChat,
 } from '@tdesign-react/aigc';
 import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
-import { Card, Timeline, Tag, Divider, Button, Input, Select, Checkbox } from 'tdesign-react';
+import { Card, Timeline, Tag, Divider, Button, Input, Select, Checkbox, Dialog } from 'tdesign-react';
 import {
   CheckCircleFilledIcon,
   LocationIcon,
@@ -22,9 +27,7 @@ import {
   TimeIcon,
   UserIcon,
 } from 'tdesign-icons-react';
-import { useChat } from '../useChat';
-import type { AIMessageContent, ChatBaseContent, ChatMessagesData, ChatRequestParams } from '../core/type';
-import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
+
 import './travel-planner.css';
 
 // 扩展自定义消息体类型
@@ -37,21 +40,120 @@ declare module '@tdesign-react/aigc' {
   }
 }
 
-// 加载历史消息的函数
-const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {
-  try {
-    const response = await fetch('http://localhost:3000/api/conversation/history');
-    if (response.ok) {
-      const result = await response.json();
-      const historyMessages: AGUIHistoryMessage[] = result.data;
+// 用户输入表单组件
+const HumanInputForm = ({
+  request,
+  onSubmit,
+  onCancel,
+}: {
+  request: any;
+  onSubmit: (response: any) => void;
+  onCancel: () => void;
+}) => {
+  const [formData, setFormData] = useState<any>({});
+  const [errors, setErrors] = useState<any>({});
 
-      // 使用AGUIAdapter的静态方法进行转换
-      return AGUIAdapter.convertHistoryMessages(historyMessages);
+  const handleInputChange = (field: string, value: any) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    // 清除错误
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: '' }));
     }
-  } catch (error) {
-    console.error('加载历史消息失败:', error);
-  }
-  return [];
+  };
+
+  const validateForm = () => {
+    const newErrors: any = {};
+    request.fields.forEach((field: any) => {
+      if (field.required && !formData[field.name]) {
+        newErrors[field.name] = `${field.label}是必填项`;
+      }
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      onSubmit(formData);
+    }
+  };
+
+  return (
+    <Card className="human-input-form" size="small">
+      <div className="form-header">
+        <UserIcon size="medium" />
+        <span className="form-title">{request.title}</span>
+      </div>
+      <div className="form-description">{request.description}</div>
+
+      <div className="form-fields">
+        {request.fields.map((field: any) => (
+          <div key={field.name} className="form-field">
+            <label className="field-label">
+              {field.label}
+              {field.required && <span className="required">*</span>}
+            </label>
+
+            {field.type === 'number' && (
+              <Input
+                type="number"
+                placeholder={field.placeholder}
+                value={formData[field.name] || ''}
+                onChange={(value) => handleInputChange(field.name, value)}
+                min={field.min}
+                max={field.max}
+                status={errors[field.name] ? 'error' : undefined}
+                tips={errors[field.name]}
+              />
+            )}
+
+            {field.type === 'select' && (
+              <Select
+                placeholder={`请选择${field.label}`}
+                value={formData[field.name] || ''}
+                onChange={(value) => handleInputChange(field.name, value)}
+                status={errors[field.name] ? 'error' : undefined}
+              >
+                {field.options.map((option: any) => (
+                  <Select.Option key={option.value} value={option.value} label={option.label} />
+                ))}
+              </Select>
+            )}
+
+            {field.type === 'multiselect' && (
+              <div className="checkbox-group">
+                {field.options.map((option: any) => (
+                  <Checkbox
+                    key={option.value}
+                    value={option.value}
+                    checked={formData[field.name]?.includes(option.value) || false}
+                    onChange={(checked) => {
+                      const currentValues = formData[field.name] || [];
+                      const newValues = checked
+                        ? [...currentValues, option.value]
+                        : currentValues.filter((v: string) => v !== option.value);
+                      handleInputChange(field.name, newValues);
+                    }}
+                  >
+                    {option.label}
+                  </Checkbox>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="form-actions">
+        <Button theme="default" onClick={onCancel}>
+          取消
+        </Button>
+        <Button theme="primary" onClick={handleSubmit}>
+          确认
+        </Button>
+      </div>
+    </Card>
+  );
 };
 
 // 天气组件
@@ -135,6 +237,7 @@ const PlanningStatePanel = ({ state, currentStep }: { state: any; currentStep?: 
 
   // 定义步骤顺序和状态
   const allSteps = [
+    { name: '收集偏好', key: 'preferences', completed: !!state.userPreferences },
     { name: '天气查询', key: 'weather', completed: !!itinerary?.weather },
     { name: '行程规划', key: 'plan', completed: !!itinerary?.plan },
     { name: '酒店推荐', key: 'hotels', completed: !!itinerary?.hotels },
@@ -145,6 +248,7 @@ const PlanningStatePanel = ({ state, currentStep }: { state: any; currentStep?: 
     if (step.completed) return 'completed';
     if (
       currentStep === step.name ||
+      (status === 'collecting_preferences' && step.key === 'preferences') ||
       (status === 'weather_querying' && step.key === 'weather') ||
       (status === 'planning' && step.key === 'plan') ||
       (status === 'hotel_recommending' && step.key === 'hotels')
@@ -194,19 +298,35 @@ const PlanningStatePanel = ({ state, currentStep }: { state: any; currentStep?: 
     }
   };
 
+  const getStatusText = () => {
+    if (status === 'finished') return '已完成';
+    if (status === 'collecting_preferences') return '收集信息中';
+    if (status === 'weather_querying') return '查询天气中';
+    if (status === 'planning') return '规划中';
+    if (status === 'hotel_recommending') return '推荐酒店中';
+    return '准备中';
+  };
+
+  const getStatusTheme = () => {
+    if (status === 'finished') return 'success';
+    if (['collecting_preferences', 'weather_querying', 'planning', 'hotel_recommending'].includes(status))
+      return 'primary';
+    return 'default';
+  };
+
   return (
     <Card className="planning-state-panel" size="small">
       <div className="panel-header">
         <LocationIcon size="medium" />
         <span className="panel-title">规划进度</span>
-        <Tag theme={status === 'finished' ? 'success' : status === 'planning' ? 'primary' : 'default'} size="small">
-          {status === 'finished' ? '已完成' : status === 'planning' ? '规划中' : '准备中'}
+        <Tag theme={getStatusTheme()} size="small">
+          {getStatusText()}
         </Tag>
       </div>
       <Divider />
       <div className="progress-steps">
         <Timeline mode="same" theme="dot">
-          {allSteps.map((step, index) => (
+          {allSteps.map((step) => (
             <Timeline.Item key={step.name} label="" dot={getStepIcon(step)}>
               <div className="step-item">
                 <div className="step-title">{step.name}</div>
@@ -226,6 +346,11 @@ const PlanningStatePanel = ({ state, currentStep }: { state: any; currentStep?: 
             <span>规划摘要</span>
           </div>
           <div className="summary-content">
+            {state.userPreferences && (
+              <div>
+                • 出行信息: {state.userPreferences.travelers_count}人, {state.userPreferences.budget_range}预算
+              </div>
+            )}
             {itinerary.weather && <div>• 天气信息: {itinerary.weather.length}天预报</div>}
             {itinerary.plan && <div>• 行程安排: {itinerary.plan.length}天计划</div>}
             {itinerary.hotels && <div>• 酒店推荐: {itinerary.hotels.length}个选择</div>}
@@ -245,24 +370,13 @@ export default function TravelPlannerChat() {
   const [planningState, setPlanningState] = useState<any>(null);
   const [currentStep, setCurrentStep] = useState<string>('');
 
-  // 加载历史消息
-  const [defaultMessages, setDefaultMessages] = useState<ChatMessagesData[]>([]);
-  const [isLoadingHistory, setIsLoadingHistory] = useState(true);
-
-  // 在组件挂载时加载历史消息
-  React.useEffect(() => {
-    const loadHistory = async () => {
-      setIsLoadingHistory(true);
-      const messages = await loadHistoryMessages();
-      console.log('messages', messages);
-      setDefaultMessages(messages);
-      setIsLoadingHistory(false);
-    };
-    loadHistory();
-  }, []);
+  // Human-in-the-Loop 状态管理
+  const [humanInputRequest, setHumanInputRequest] = useState<any>(null);
+  const [showInputDialog, setShowInputDialog] = useState(false);
+  const [pendingToolCallId, setPendingToolCallId] = useState<string>('');
 
   const { chatEngine, messages, status } = useChat({
-    defaultMessages,
+    defaultMessages: [],
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址 - 使用现有的服务
@@ -296,6 +410,82 @@ export default function TravelPlannerChat() {
             console.log('步骤完成:', rest.stepName);
             setCurrentStep('');
             break;
+
+          // ========== 工具调用事件处理 ==========
+          case 'TOOL_CALL_START':
+            console.log('工具调用开始:', rest);
+            if (rest.toolCallName === 'get_travel_preferences') {
+              setPendingToolCallId(rest.toolCallId);
+            }
+            break;
+
+          case 'TOOL_CALL_ARGS':
+            console.log('工具调用参数:', rest);
+            if (pendingToolCallId === rest.toolCallId) {
+              // 累积工具调用参数，构建完整的请求对象
+              try {
+                // 这里需要累积所有的TOOL_CALL_ARGS事件来构建完整的请求
+                // 简化处理：直接使用模拟数据
+                const mockRequest = {
+                  title: '出行信息收集',
+                  description: '为了更好地为您规划行程，请提供以下信息：',
+                  fields: [
+                    {
+                      name: 'travelers_count',
+                      label: '出行人数',
+                      type: 'number',
+                      required: true,
+                      placeholder: '请输入出行人数',
+                      min: 1,
+                      max: 20,
+                    },
+                    {
+                      name: 'budget_range',
+                      label: '预算范围',
+                      type: 'select',
+                      required: true,
+                      options: [
+                        { value: '经济', label: '经济型 (人均¥300-500/天)' },
+                        { value: '中等', label: '中等 (人均¥500-1000/天)' },
+                        { value: '豪华', label: '豪华型 (人均¥1000+/天)' },
+                      ],
+                    },
+                    {
+                      name: 'preferred_activities',
+                      label: '偏好活动',
+                      type: 'multiselect',
+                      required: false,
+                      options: [
+                        { value: '文化景点', label: '文化景点' },
+                        { value: '美食体验', label: '美食体验' },
+                        { value: '购物娱乐', label: '购物娱乐' },
+                        { value: '自然风光', label: '自然风光' },
+                        { value: '历史古迹', label: '历史古迹' },
+                      ],
+                    },
+                  ],
+                };
+                setHumanInputRequest(mockRequest);
+                setShowInputDialog(true);
+              } catch (error) {
+                console.error('解析工具调用参数失败:', error);
+              }
+            }
+            break;
+
+          case 'TOOL_CALL_END':
+            console.log('工具调用结束:', rest);
+            break;
+
+          case 'TOOL_CALL_RESULT':
+            console.log('工具调用结果:', rest);
+            if (rest.toolCallName === 'get_travel_preferences') {
+              setShowInputDialog(false);
+              setHumanInputRequest(null);
+              setPendingToolCallId('');
+            }
+            break;
+
           // ========== 状态管理事件处理 ==========
           case 'STATE_SNAPSHOT':
             setPlanningState(rest.snapshot);
@@ -316,6 +506,8 @@ export default function TravelPlannerChat() {
                   // 简单的路径替换逻辑
                   if (path === '/status') {
                     newState.status = value;
+                  } else if (path === '/humanInputRequired') {
+                    newState.humanInputRequired = value;
                   }
                 } else if (op === 'add') {
                   // 简单的路径添加逻辑
@@ -323,6 +515,8 @@ export default function TravelPlannerChat() {
                     if (!newState.itinerary) newState.itinerary = {};
                     const key = path.split('/').pop();
                     newState.itinerary[key] = value;
+                  } else if (path === '/userPreferences') {
+                    newState.userPreferences = value;
                   }
                 }
               });
@@ -356,6 +550,39 @@ export default function TravelPlannerChat() {
 
   const senderLoading = useMemo(() => status === 'pending' || status === 'streaming', [status]);
 
+  // 处理用户输入提交
+  const handleHumanInputSubmit = async (response: any) => {
+    try {
+      // 发送用户输入响应到服务器
+      const result = await fetch('http://localhost:3000/api/human-input/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          toolCallId: pendingToolCallId,
+          response,
+        }),
+      });
+
+      if (result.ok) {
+        console.log('用户输入已提交');
+        setShowInputDialog(false);
+        setHumanInputRequest(null);
+        setPendingToolCallId('');
+      }
+    } catch (error) {
+      console.error('提交用户输入失败:', error);
+    }
+  };
+
+  // 处理用户输入取消
+  const handleHumanInputCancel = () => {
+    setShowInputDialog(false);
+    setHumanInputRequest(null);
+    setPendingToolCallId('');
+  };
+
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
     user: {
@@ -372,6 +599,7 @@ export default function TravelPlannerChat() {
     },
   };
 
+  console.log('messages', messages);
   const getChatActionBar = (isLast: boolean) => {
     let filterActions = ['replay', 'good', 'bad', 'copy'];
     if (!isLast) {
@@ -404,51 +632,20 @@ export default function TravelPlannerChat() {
       {message.content?.map((item, index) => {
         if (item.type === 'toolcall') {
           const { data, type } = item;
+
           // Human-in-the-Loop 输入请求
           if (data.toolCallName === 'get_travel_preferences') {
-            // 区分历史消息和实时交互
-            const isHistoricalMessage = message.status === 'complete';
-
-            if (isHistoricalMessage && data.result) {
-              // 历史消息：静态展示用户已输入的数据
-              try {
-                const userInput = JSON.parse(data.result);
-                return (
-                  <div slot={`${type}-${index}`} key={`human-input-result-${index}`} className="content-card">
-                    <Card className="human-input-result" size="small">
-                      <div className="form-header">
-                        <UserIcon size="medium" />
-                        <span className="form-title">出行偏好信息</span>
-                      </div>
-                      <div className="form-description">您已提供的出行信息：</div>
-                      <div className="user-input-summary">
-                        {userInput.travelers_count && (
-                          <div className="summary-item">
-                            <span className="label">出行人数：</span>
-                            <span className="value">{userInput.travelers_count}人</span>
-                          </div>
-                        )}
-                        {userInput.budget_range && (
-                          <div className="summary-item">
-                            <span className="label">预算范围：</span>
-                            <span className="value">{userInput.budget_range}</span>
-                          </div>
-                        )}
-                        {userInput.preferred_activities && userInput.preferred_activities.length > 0 && (
-                          <div className="summary-item">
-                            <span className="label">偏好活动：</span>
-                            <span className="value">{userInput.preferred_activities.join('、')}</span>
-                          </div>
-                        )}
-                      </div>
-                    </Card>
-                  </div>
-                );
-              } catch (e) {
-                console.error('解析用户输入数据失败:', e);
-              }
-            }
+            return (
+              <div slot={`${type}-${index}`} key={`human-input-${index}`} className="content-card">
+                <HumanInputForm
+                  request={humanInputRequest}
+                  onSubmit={handleHumanInputSubmit}
+                  onCancel={handleHumanInputCancel}
+                />
+              </div>
+            );
           }
+
           // 天气卡片
           if (data.toolCallName === 'get_weather_forecast' && data?.result) {
             return (
@@ -523,17 +720,6 @@ export default function TravelPlannerChat() {
     chatEngine.abortChat();
   };
 
-  if (isLoadingHistory) {
-    return (
-      <div className="travel-planner-container">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <LoadingIcon size="large" />
-          <span style={{ marginLeft: '8px' }}>加载历史消息中...</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="travel-planner-container">
       <div className="chat-content">
@@ -561,6 +747,27 @@ export default function TravelPlannerChat() {
           <PlanningStatePanel state={planningState} currentStep={currentStep} />
         </div>
       </div>
+
+      {/* Human-in-the-Loop 输入对话框 */}
+      <Dialog
+        visible={showInputDialog}
+        onClose={handleHumanInputCancel}
+        header="出行信息收集"
+        width="500px"
+        confirmBtn="确认"
+        cancelBtn="取消"
+        onConfirm={() => {
+          // 这里可以添加确认逻辑
+        }}
+      >
+        {humanInputRequest && (
+          <HumanInputForm
+            request={humanInputRequest}
+            onSubmit={handleHumanInputSubmit}
+            onCancel={handleHumanInputCancel}
+          />
+        )}
+      </Dialog>
     </div>
   );
 }

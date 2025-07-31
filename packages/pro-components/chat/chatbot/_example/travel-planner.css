@@ -1,42 +1,39 @@
-/* 主容器 */
+/* 旅游规划器容器 */
 .travel-planner-container {
-  height: 600px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  height: 100vh;
 }
 
-/* 聊天内容区域 */
 .chat-content {
-  flex: 1;
   display: flex;
-  overflow: hidden;
+  flex: 1;
+  gap: 16px;
 }
 
-/* 主聊天区域 */
 .chat-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  background: white;
 }
 
-/* 右侧规划面板 */
 .planning-sidebar {
-  width:180px;
-  padding: 0 16px;
-  overflow-y: auto;
+  width: 300px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
 }
 
 /* 内容卡片通用样式 */
 .content-card {
-  margin: 12px 0;
+  margin: 8px 0;
 }
 
-/* 天气卡片 */
+/* 天气卡片样式 */
 .weather-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid #e7e7e7;
 }
 
 .weather-header {
@@ -44,12 +41,11 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  font-weight: 600;
-  color: #1f2937;
 }
 
 .weather-title {
-  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 }
 
 .weather-list {
@@ -63,18 +59,17 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: #f9fafb;
+  background: #f8f9fa;
   border-radius: 6px;
 }
 
 .weather-item .day {
   font-weight: 500;
-  color: #374151;
+  color: #333;
 }
 
 .weather-item .condition {
-  color: #6b7280;
-  font-size: 14px;
+  color: #666;
 }
 
 .weather-item .temp {
@@ -82,10 +77,9 @@
   color: #0052d9;
 }
 
-/* 行程卡片 */
+/* 行程规划卡片样式 */
 .itinerary-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid #e7e7e7;
 }
 
 .itinerary-header {
@@ -93,12 +87,11 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  font-weight: 600;
-  color: #1f2937;
 }
 
 .itinerary-title {
-  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 }
 
 .day-activities {
@@ -110,12 +103,12 @@
 
 .activity-tag {
   font-size: 12px;
+  padding: 4px 8px;
 }
 
-/* 酒店卡片 */
+/* 酒店推荐卡片样式 */
 .hotel-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid #e7e7e7;
 }
 
 .hotel-header {
@@ -123,12 +116,11 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  font-weight: 600;
-  color: #1f2937;
 }
 
 .hotel-title {
-  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 }
 
 .hotel-list {
@@ -139,39 +131,36 @@
 
 .hotel-item {
   padding: 12px;
-  background: #f9fafb;
+  border: 1px solid #e7e7e7;
   border-radius: 6px;
-  border: 1px solid #e5e7eb;
+  background: #f8f9fa;
 }
 
 .hotel-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.hotel-name {
-  font-weight: 600;
-  color: #1f2937;
-  font-size: 14px;
-}
-
-.hotel-details {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.hotel-price {
-  font-weight: 600;
-  color: #dc2626;
-  font-size: 14px;
+.hotel-name {
+  font-weight: 500;
+  color: #333;
 }
 
-/* 规划状态面板 */
+.hotel-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hotel-price {
+  font-weight: 600;
+  color: #e34d59;
+}
+
+/* 规划状态面板样式 */
 .planning-state-panel {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid #e7e7e7;
 }
 
 .panel-header {
@@ -179,69 +168,116 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  font-weight: 600;
-  color: #1f2937;
 }
 
 .panel-title {
+  font-weight: 600;
+  color: #333;
   flex: 1;
-  font-size: 14px;
 }
 
 .progress-steps {
-  margin: 12px 0;
+  margin: 16px 0;
 }
 
 .step-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  margin-bottom: 8px;
 }
 
 .step-title {
-  font-size: 14px;
-  color: #374151;
+  font-weight: 500;
+  color: #333;
 }
 
-/* 最终摘要 */
 .final-summary {
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .summary-header {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
   font-weight: 600;
-  color: #1f2937;
-  font-size: 13px;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 .summary-content {
-  font-size: 12px;
-  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Human-in-the-Loop 表单样式 */
+.human-input-form {
+  border: 1px solid #e7e7e7;
+  max-width: 500px;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.form-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-description {
+  color: #666;
+  margin-bottom: 16px;
   line-height: 1.5;
 }
 
-.summary-content div {
-  margin: 4px 0;
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-/* 步骤进度动画 */
-.step-item {
-  transition: all 0.3s ease;
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.step-item:hover {
-  background: rgba(0, 82, 217, 0.05);
-  border-radius: 6px;
-  padding: 8px;
-  margin: -8px;
+.field-label {
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Loading动画 */
+.required {
+  color: #e34d59;
+  font-weight: bold;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #e7e7e7;
+}
+
+/* 加载动画 */
 .loading-spin {
   animation: spin 1s linear infinite;
 }
@@ -257,14 +293,53 @@
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .travel-planner-container {
+  .chat-content {
     flex-direction: column;
   }
   
   .planning-sidebar {
     width: 100%;
-    height: auto;
-    border-left: none;
-    border-top: 1px solid #e5e7eb;
+    order: -1;
   }
+  
+  .human-input-form {
+    max-width: 100%;
+  }
+}
+
+/* 用户输入结果展示样式 */
+.human-input-result {
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f8f9fa;
+  max-width: 500px;
+}
+
+.user-input-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e7e7e7;
+}
+
+.summary-item .label {
+  font-weight: 500;
+  color: #666;
+  min-width: 80px;
+}
+
+.summary-item .value {
+  color: #333;
+  font-weight: 600;
 }

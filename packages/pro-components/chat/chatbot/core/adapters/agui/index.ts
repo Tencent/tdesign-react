@@ -1,224 +1,325 @@
-/* eslint-disable max-classes-per-file */
-import type { AIMessageContent, SSEChunkData } from '../../type';
+/* eslint-disable class-methods-use-this */
+import { AGUIEventMapper } from './event-mapper';
+import { ToolCallProcessor } from '../../processor/tool-call-processor';
+import type { SSEChunkData, AIMessageContent, ToolCall, ChatRequestParams, ChatMessagesData } from '../../type';
+import { EventType } from './events';
+import type { RunStartedEvent, RunFinishedEvent, RunErrorEvent, BaseEvent } from './events';
+import type {
+  AGUIHistoryMessage,
+  AGUIUserHistoryMessage,
+  AGUIAssistantHistoryMessage,
+  AGUIToolHistoryMessage,
+} from './types';
 
-// export class AGUIEventMapper {
-//   private currentMessageId: string | null = null;
+// 重新导出类型，以便其他文件可以使用
+export type {
+  AGUIHistoryMessage,
+  AGUIUserHistoryMessage,
+  AGUIAssistantHistoryMessage,
+  AGUIToolHistoryMessage,
+} from './types';
 
-//   private currentContent: AIMessageContent[] = [];
+/**
+ * AGUI协议适配器回调接口
+ */
+export interface AGUIAdapterCallbacks {
+  onRunStart?: (event: RunStartedEvent) => void;
+  onRunComplete?: (isAborted: boolean, params: ChatRequestParams, event?: RunFinishedEvent) => void;
+  onRunError?: (error: RunErrorEvent) => void;
+}
 
-//   mapEvent(chunk: SSEChunkData): AIMessageContent | AIMessageContent[] | null {
-//     const event = chunk.data;
-//     if (!event?.type) return null;
+/**
+ * AGUI协议适配器
+ * 1. 处理AGUI协议特定的事件（RUN_STARTED, RUN_FINISHED, RUN_ERROR）
+ * 2. 管理工具调用的生命周期
+ * 3. 将AGUI事件映射为ChatEngine可理解的消息内容
+ * 4. 转换AG-UI历史消息为ChatMessagesData格式
+ */
+export class AGUIAdapter {
+  private aguiEventMapper: AGUIEventMapper;
 
-//     switch (event.type) {
-//       case EventType.TEXT_MESSAGE_START:
-//         this.currentMessageId = event.messageId;
-//         this.currentContent = [
-//           {
-//             type: 'text',
-//             data: '',
-//             status: 'streaming',
-//           },
-//         ];
-//         return this.currentContent;
+  private toolCallProcessor: ToolCallProcessor;
 
-//       case EventType.TEXT_MESSAGE_CONTENT:
-//         if (!this.currentMessageId) return null;
+  constructor() {
+    this.aguiEventMapper = new AGUIEventMapper();
+    this.toolCallProcessor = new ToolCallProcessor();
+  }
 
-//         // 更新文本内容
-//         const textContent = this.currentContent.find((c) => c.type === 'text');
-//         if (textContent && textContent.type === 'text') {
-//           textContent.data += event.delta;
-//         }
-//         return [...this.currentContent];
-
-//       case EventType.TEXT_MESSAGE_END:
-//         if (!this.currentMessageId) return null;
-
-//         // 标记文本完成
-//         const textContent = this.currentContent.find((c) => c.type === 'text');
-//         if (textContent && textContent.type === 'text') {
-//           textContent.status = 'complete';
-//         }
-//         return [...this.currentContent];
-
-//       case EventType.TOOL_CALL_START:
-//         this.currentContent.push({
-//           type: 'tool_call',
-//           data: {
-//             name: event.toolCallName,
-//             arguments: '',
-//           },
-//           status: 'pending',
-//         });
-//         return [...this.currentContent];
-
-//       case EventType.TOOL_CALL_ARGS:
-//         const toolCall = this.currentContent.find((c) => c.type === 'tool_call' && c.data?.name === event.toolCallName);
-//         if (toolCall && toolCall.type === 'tool_call') {
-//           toolCall.data.arguments += event.delta;
-//         }
-//         return [...this.currentContent];
-
-//       case EventType.TOOL_CALL_RESULT:
-//         this.currentContent.push({
-//           type: 'text',
-//           data: event.content,
-//           status: 'complete',
-//         });
-//         return [...this.currentContent];
-
-//       case EventType.THINKING_START:
-//         this.currentContent.push({
-//           type: 'thinking',
-//           data: { title: '思考中...' },
-//           status: 'streaming',
-//         });
-//         return [...this.currentContent];
-
-//       case EventType.STATE_SNAPSHOT:
-//         // 处理状态快照（需要特殊处理）
-//         return this.handleStateSnapshot(event.snapshot);
-
-//       default:
-//         return null;
-//     }
-//   }
-
-//   private handleStateSnapshot(snapshot: any): AIMessageContent[] {
-//     // 将快照转换为消息内容
-//     return snapshot.messages.flatMap((msg: any) => {
-//       if (msg.role === 'assistant') {
-//         return msg.content.map((content: any) => ({
-//           type: content.type,
-//           data: content.data,
-//           status: 'complete',
-//         }));
-//       }
-//       return [];
-//     });
-//   }
-
-//   reset() {
-//     this.currentMessageId = null;
-//     this.currentContent = [];
-//   }
-// }
-
-export class AGUIEventMapper {
   /**
-   * 将AG-UI事件转换为AIMessageContent
+   * 处理AGUI事件
+   *
+   * 处理流程：
+   * 1. 解析SSE数据（AG-UI后端返回标准SSE格式，data字段是JSON字符串）
+   * 2. 处理AGUI特定事件（生命周期事件）
+   * 3. 使用事件映射器转换为消息内容
+   * 4. 同步工具调用状态
+   *
+   * @param chunk SSE数据块
+   * @param callbacks 回调函数
+   * @returns 处理结果
    */
-  mapEvent(chunk: SSEChunkData): AIMessageContent | AIMessageContent[] | null {
-    const event = chunk.data;
+  handleAGUIEvent(chunk: SSEChunkData, callbacks: AGUIAdapterCallbacks): AIMessageContent | AIMessageContent[] | null {
+    // AG-UI后端返回标准SSE格式，data字段是JSON字符串
+    let event: BaseEvent;
+    try {
+      event = typeof chunk.data === 'string' ? JSON.parse(chunk.data) : chunk.data;
+    } catch (error) {
+      console.warn('Failed to parse AG-UI event data:', error);
+      return null;
+    }
+
     if (!event?.type) return null;
 
+    // 处理AGUI特定事件（生命周期事件）
+    const lifecycleHandled = this.handleAGUISpecificEvents(event, callbacks);
+
+    // 如果是生命周期事件，不需要转换为消息内容
+    if (lifecycleHandled) {
+      return null;
+    }
+
+    // 使用事件映射器处理内容事件
+    const result = this.aguiEventMapper.mapEvent(chunk);
+
+    // 同步AGUI事件映射器中的工具调用到ToolCallProcessor
+    this.syncToolCalls();
+
+    return result;
+  }
+
+  /**
+   * 转换AG-UI历史消息为ChatMessagesData格式（静态方法）
+   *
+   * 转换策略：
+   * 1. 以用户消息为边界进行分组
+   * 2. 每个用户消息对应一个AI消息，包含该用户输入后的所有AI回复和工具调用结果
+   * 3. 按照后端数据的原始顺序构建content数组
+   * 4. 避免重复处理同一个工具调用
+   * 5. 支持只有assistant消息的情况（如welcome消息）
+   *
+   * @param historyMessages AG-UI格式的历史消息数组
+   * @returns 转换后的ChatMessagesData数组
+   */
+  static convertHistoryMessages(historyMessages: AGUIHistoryMessage[]): ChatMessagesData[] {
+    const convertedMessages: ChatMessagesData[] = [];
+    const toolCallMap = new Map<string, any>(); // 存储工具调用结果
+
+    // 第一遍：收集所有工具调用结果
+    historyMessages.forEach((msg) => {
+      if (msg.role === 'tool') {
+        const toolMessage = msg as AGUIToolHistoryMessage;
+        toolCallMap.set(toolMessage.toolCallId, {
+          toolCallId: toolMessage.toolCallId,
+          result: toolMessage.content,
+        });
+      }
+    });
+
+    // 第二遍：按用户消息分组处理
+    let currentUserMessage: AGUIUserHistoryMessage | null = null;
+    let currentGroupMessages: AGUIHistoryMessage[] = []; // 存储当前组的所有消息
+
+    /**
+     * 处理消息组，构建AI消息的content数组
+     */
+    const processMessageGroup = (messages: AGUIHistoryMessage[]): AIMessageContent[] => {
+      const allContent: AIMessageContent[] = [];
+      const processedToolCallIds = new Set<string>();
+
+      messages.forEach((msg) => {
+        if (msg.role === 'assistant') {
+          const assistantMsg = msg as AGUIAssistantHistoryMessage;
+
+          // 添加文本内容
+          if (assistantMsg.content) {
+            allContent.push({
+              type: 'markdown',
+              data: assistantMsg.content,
+            });
+          }
+
+          // 添加思考内容（如果有思考过程字段）
+          if ((assistantMsg as any).reasoningContent) {
+            allContent.push({
+              type: 'thinking',
+              data: JSON.parse((assistantMsg as any).reasoningContent),
+            });
+          }
+
+          // 添加工具调用内容
+          if (assistantMsg.toolCalls && assistantMsg.toolCalls.length > 0) {
+            assistantMsg.toolCalls.forEach((toolCall) => {
+              const toolCallContent = {
+                type: 'toolcall' as const,
+                data: {
+                  toolCallId: toolCall.id,
+                  toolCallName: toolCall.function.name,
+                  args: toolCall.function.arguments,
+                  result: toolCallMap.get(toolCall.id)?.result || '',
+                },
+              };
+              allContent.push(toolCallContent as unknown as AIMessageContent);
+              processedToolCallIds.add(toolCall.id);
+            });
+          }
+        } else if (msg.role === 'tool') {
+          const toolMsg = msg as AGUIToolHistoryMessage;
+
+          // 只有当这个工具调用没有被助手消息处理过时，才添加独立的工具调用结果
+          if (!processedToolCallIds.has(toolMsg.toolCallId)) {
+            const toolCallContent = {
+              type: 'toolcall' as const,
+              data: {
+                toolCallId: toolMsg.toolCallId,
+                toolCallName: toolMsg.toolCallId, // 使用toolCallId作为名称（如果没有toolCallName字段）
+                args: '',
+                result: toolMsg.content,
+              },
+            };
+            allContent.push(toolCallContent as unknown as AIMessageContent);
+          }
+        }
+      });
+
+      return allContent;
+    };
+
+    /**
+     * 处理当前消息组
+     */
+    const flushCurrentGroup = () => {
+      if (currentUserMessage) {
+        // 添加用户消息
+        convertedMessages.push({
+          id: currentUserMessage.id,
+          role: 'user',
+          content: [
+            {
+              type: 'text',
+              data: currentUserMessage.content,
+            },
+          ],
+          datetime: new Date(currentUserMessage.timestamp || Date.now()).toISOString(),
+        });
+
+        // 处理AI消息
+        if (currentGroupMessages.length > 0) {
+          const allContent = processMessageGroup(currentGroupMessages);
+          if (allContent.length > 0) {
+            const firstMessageInGroup = currentGroupMessages[0];
+            convertedMessages.push({
+              id: firstMessageInGroup.id,
+              role: 'assistant',
+              content: allContent,
+              status: 'complete',
+            });
+          }
+        }
+      } else if (currentGroupMessages.length > 0) {
+        // 处理只有assistant消息的情况（如welcome消息）
+        const allContent = processMessageGroup(currentGroupMessages);
+        if (allContent.length > 0) {
+          const firstMessageInGroup = currentGroupMessages[0];
+          convertedMessages.push({
+            id: firstMessageInGroup.id,
+            role: 'assistant',
+            content: allContent,
+            status: 'complete',
+          });
+        }
+      }
+
+      // 重置当前组
+      currentUserMessage = null;
+      currentGroupMessages = [];
+    };
+
+    // 按顺序处理消息
+    historyMessages.forEach((msg) => {
+      if (msg.role === 'user') {
+        // 遇到新的用户消息，先处理之前的组
+        flushCurrentGroup();
+
+        // 开始新的组
+        currentUserMessage = msg as AGUIUserHistoryMessage;
+      } else if (msg.role === 'assistant' || msg.role === 'tool') {
+        // 收集助手消息和工具调用结果到当前组
+        currentGroupMessages.push(msg);
+      }
+    });
+
+    // 处理最后一组
+    flushCurrentGroup();
+
+    return convertedMessages;
+  }
+
+  /**
+   * 处理AGUI特定事件
+   *
+   * 处理RUN_STARTED、RUN_FINISHED、RUN_ERROR等生命周期事件
+   * 这些事件用于通知外部系统状态变化，并执行相应的回调
+   *
+   * @param event 解析后的事件对象
+   * @param callbacks 回调函数
+   * @returns 是否处理了生命周期事件
+   */
+  private handleAGUISpecificEvents(event: BaseEvent, callbacks: AGUIAdapterCallbacks): boolean {
     switch (event.type) {
-      case 'TEXT_MESSAGE_START':
-      case 'TEXT_MESSAGE_CHUNK':
-      case 'TEXT_MESSAGE_END':
-        return {
-          type: 'markdown',
-          status: event.type === 'TEXT_MESSAGE_END' ? 'complete' : 'streaming',
-          data: event.data.content || event.data.text || '',
-        };
-
-      case 'TOOL_CALL_START':
-      case 'TOOL_CALL_CHUNK':
-      case 'TOOL_CALL_END':
-        return {
-          type: 'search',
-          data: {
-            title: event.data.toolName || 'Tool Call',
-            references: [],
-          },
-        };
-
-      case 'RUN_ERROR':
-        return {
-          type: 'text',
-          data: event.data.error || event.data.message || 'Unknown error',
-        };
-
-      case 'CUSTOM':
-        // 处理自定义事件，尝试解析为通用格式
-        if (event.data.type === 'thinking') {
-          return {
-            type: 'thinking',
-            data: {
-              text: event.data.content || event.data.text || '',
-              title: event.data.title,
-            },
-          };
-        }
-
-        if (event.data.type === 'search') {
-          return {
-            type: 'search',
-            data: {
-              title: 'Search',
-              references: [],
-            },
-          };
-        }
-
-        return {
-          type: 'text',
-          data: event.data.content || event.data.text || JSON.stringify(event.data),
-        };
-
+      case EventType.RUN_STARTED:
+        callbacks.onRunStart?.(event as RunStartedEvent);
+        return true;
+      case EventType.RUN_FINISHED:
+        callbacks.onRunComplete?.(false, {} as ChatRequestParams, event as RunFinishedEvent);
+        return true;
+      case EventType.RUN_ERROR:
+        callbacks.onRunError?.(event as RunErrorEvent);
+        return true;
       default:
-        // 忽略生命周期事件（RUN_STARTED, RUN_FINISHED等）
-        return null;
+        return false; // 不是生命周期事件
     }
   }
 
-  // private handleThinkingStart(event: any): ThinkingContent {
-  //   return {
-  //     type: 'thinking',
-  //     data: {
-  //       title: event.title || '思考中...',
-  //     },
-  //     status: 'streaming',
-  //   };
-  // }
+  /**
+   * 同步工具调用
+   *
+   * 将AGUI事件映射器中的工具调用同步到ToolCallProcessor
+   */
+  private syncToolCalls(): void {
+    const aguiToolCalls = this.aguiEventMapper.getToolCalls();
+    aguiToolCalls.forEach((toolCall: ToolCall) => {
+      this.toolCallProcessor.addToolCall(toolCall);
+    });
+  }
 
-  // private handleThinkingEnd(event: any): ThinkingContent {
-  //   return {
-  //     type: 'thinking',
-  //     status: 'complete',
-  //   };
-  // }
+  /**
+   * 处理工具调用内容
+   * @param result 消息结果
+   * @returns 去重后的工具调用数组
+   */
+  processToolCalls(result: AIMessageContent | AIMessageContent[] | null): ToolCall[] {
+    return this.toolCallProcessor.processToolCalls(result);
+  }
 
-  // private handleRunStarted(event: any) {}
+  /**
+   * 获取工具调用处理器
+   */
+  get processor() {
+    return this.toolCallProcessor;
+  }
 
-  // private handleRunFinished(event: any) {}
+  /**
+   * 获取AGUI事件映射器
+   */
+  get eventMapper() {
+    return this.aguiEventMapper;
+  }
 
-  // private handleRunError(event: any): ThinkingContent {
-  //   return {
-  //     type: 'thinking',
-  //     data: {
-  //       title: '处理出错',
-  //       text: event.message || '未知错误',
-  //     },
-  //     status: 'error',
-  //   };
-  // }
-
-  // private handleStateSnapshot(event: any): SearchContent | null {
-  //   if (!event.snapshot?.references) return null;
-
-  //   return {
-  //     type: 'search',
-  //     data: {
-  //       title: '相关参考资料',
-  //       references: event.snapshot.references.map((ref: any) => ({
-  //         title: ref.title,
-  //         url: ref.url,
-  //         content: ref.content,
-  //       })),
-  //     },
-  //     status: 'complete',
-  //   };
-  // }
+  /**
+   * 重置适配器状态
+   */
+  reset(): void {
+    this.aguiEventMapper.reset();
+    this.toolCallProcessor.clearAllToolCalls();
+  }
 }
