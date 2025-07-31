@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import QRcodeStatus from './QRCodeStatus';
-import useThemeColor from '../hooks/useThemeColor';
+import useVariables from '../hooks/useVariables';
 
 export interface QrCodeProps extends TdQRCodeProps, StyledProps {}
 
@@ -34,10 +34,13 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   const { classPrefix } = useConfig();
   const [locale] = useLocaleReceiver('qrcode');
 
-  const { color: themeColor, bgColor: themeBgColor } = useThemeColor();
+  const { themeFgColor, themeBgColor } = useVariables({
+    themeFgColor: '--td-text-color-primary',
+    themeBgColor: '--td-bg-color-specialcomponent',
+  });
 
   // 获取最终的背景色值。
-  const finalBgColor = useMemo(() => bgColor || themeBgColor || 'transparent', [bgColor, themeBgColor]);
+  const finalBgColor = useMemo(() => bgColor || themeBgColor.current || 'transparent', [bgColor, themeBgColor]);
 
   if (!value) {
     return null;
@@ -57,7 +60,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
     value,
     size,
     bgColor: finalBgColor,
-    fgColor: color || themeColor,
+    fgColor: color || themeFgColor.current,
     imageSettings: icon ? imageSettings : undefined,
     ...rest,
   };
