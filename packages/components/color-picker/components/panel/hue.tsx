@@ -1,8 +1,8 @@
 import React from 'react';
+import type { TdColorBaseProps } from '../../interface';
 import ColorSlider from './slider';
-import { TdColorBaseProps } from '../../interface';
 
-const HUESlider = (props: TdColorBaseProps) => {
+const HueSlider = (props: TdColorBaseProps) => {
   const { color, baseClassName, disabled, onChange } = props;
   return (
     <ColorSlider
@@ -17,4 +17,4 @@ const HUESlider = (props: TdColorBaseProps) => {
   );
 };
 
-export default React.memo(HUESlider);
+export default React.memo(HueSlider);

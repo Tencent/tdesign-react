@@ -1,13 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
+import type { TdColorBaseProps } from '../../interface';
 import ColorSlider from './slider';
-import { TdColorBaseProps } from '../../interface';
 
 const Alpha = (props: TdColorBaseProps) => {
   const { color, baseClassName, onChange, ...rest } = props;
-  const handleChange = (v: number, isDragEnd?: boolean) => {
-    onChange(v / 100, isDragEnd);
+
+  const handleChange = (v: number) => {
+    onChange(v / 100);
   };
+
   const railStyle = {
     background: `linear-gradient(to right, rgba(0, 0, 0, 0), ${props.color.rgb})`,
   };
