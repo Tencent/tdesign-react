@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react",
-  "version": "1.12.2",
+  "version": "1.13.1",
   "title": "tdesign-react",
   "description": "TDesign Component for React",
   "main": "lib/index.js",
@@ -22,7 +22,10 @@
     "dist/*",
     "site/*",
     "es/**/style/**",
-    "esm/**/style/**"
+    "esm/**/style/**",
+    "es/_util/react-19-adapter.js",
+    "esm/_util/react-19-adapter.js",
+    "lib/_util/react-19-adapter.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -77,7 +80,6 @@
     "@babel/runtime": "~7.26.7",
     "@popperjs/core": "~2.11.2",
     "@types/sortablejs": "^1.10.7",
-    "@types/tinycolor2": "^1.4.3",
     "@types/validator": "^13.1.3",
     "classnames": "~2.5.1",
     "dayjs": "1.11.10",
@@ -90,7 +92,6 @@
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
     "tdesign-icons-react": "0.5.0",
-    "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "validator": "~13.15.0"
   }

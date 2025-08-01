@@ -243,70 +243,86 @@ export default function useUpload(props: TdUploadProps) {
     if (!files || !files.length) return;
     xhrReq.current = [];
     setUploading(true);
-    upload({
-      action: props.action,
-      method: props.method,
-      headers: props.headers,
-      name: props.name,
-      withCredentials: props.withCredentials,
-      uploadedFiles: uploadValue,
-      toUploadFiles: files,
-      multiple: props.multiple,
-      isBatchUpload,
-      autoUpload,
-      uploadAllFilesInOneRequest: props.uploadAllFilesInOneRequest,
-      useMockProgress: props.useMockProgress,
-      data: props.data,
-      mockProgressDuration: props.mockProgressDuration,
-      requestMethod: props.requestMethod,
-      formatRequest: props.formatRequest,
-      formatResponse: props.formatResponse,
-      onResponseProgress: (p) => onResponseProgress(p, toFiles),
-      onResponseSuccess: (p) => onResponseSuccess(p, toFiles),
-      onResponseError: (p) => onResponseError(p, toFiles),
-      setXhrObject: (xhr) => {
-        if (xhr.files[0]?.raw && xhrReq.current.find((item) => item.files[0].raw === xhr.files[0].raw)) return;
-        xhrReq.current = xhrReq.current.concat(xhr);
-      },
-    }).then(({ status, data, list, failedFiles }) => {
-      setUploading(false);
-      if (status === 'success') {
-        // 全部上传成功后，一次性添加（非自动上传已在上一步添加）
-        /**
-         * 手动上传或自动上传都应触发setUploadValue
-         */
-        setUploadValue([...data.files], {
-          trigger: 'add',
-          file: data.files[0],
-        });
-        props.onSuccess?.({
-          fileList: data.files,
-          currentFiles: files,
-          file: files[0],
-          // 只有全部请求完成后，才会存在该字段
-          results: list?.map((t) => t.data),
-          // 单文件单请求有一个 response，多文件多请求有多个 response
-          response: data.response || list.map((t) => t.data.response),
-          XMLHttpRequest: data.XMLHttpRequest,
-        });
-        xhrReq.current = [];
-      } else if (failedFiles?.[0]) {
-        props.onFail?.({
-          e: data.event,
-          file: failedFiles[0],
-          failedFiles,
-          currentFiles: files,
-          response: data.response,
-          XMLHttpRequest: data.XMLHttpRequest,
-        });
-      }
 
-      // 非自动上传，文件都在 uploadValue，不涉及 toUploadFiles
-      if (autoUpload) {
-        setToUploadFiles(failedFiles);
-        props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
+    // 确保 beforeUpload 完成后再执行上传
+    const promises = files.map(async (file) => {
+      if (props.beforeUpload) {
+        const result = await Promise.resolve(props.beforeUpload(file.raw));
+        if (result === false) return Promise.reject(new Error('beforeUpload rejected'));
+        return file;
       }
+      return Promise.resolve(file);
     });
+
+    Promise.all(promises)
+      .then((validFiles) => {
+        const filteredFiles = validFiles.filter(Boolean);
+        if (!filteredFiles.length) {
+          setUploading(false);
+          return;
+        }
+
+        upload({
+          action: props.action,
+          method: props.method,
+          headers: props.headers,
+          name: props.name,
+          withCredentials: props.withCredentials,
+          uploadedFiles: uploadValue,
+          toUploadFiles: filteredFiles,
+          multiple: props.multiple,
+          isBatchUpload,
+          autoUpload,
+          uploadAllFilesInOneRequest: props.uploadAllFilesInOneRequest,
+          useMockProgress: props.useMockProgress,
+          data: props.data,
+          mockProgressDuration: props.mockProgressDuration,
+          requestMethod: props.requestMethod,
+          formatRequest: props.formatRequest,
+          formatResponse: props.formatResponse,
+          onResponseProgress: (p) => onResponseProgress(p, toFiles),
+          onResponseSuccess: (p) => onResponseSuccess(p, toFiles),
+          onResponseError: (p) => onResponseError(p, toFiles),
+          setXhrObject: (xhr) => {
+            if (xhr.files[0]?.raw && xhrReq.current.find((item) => item.files[0].raw === xhr.files[0].raw)) return;
+            xhrReq.current = xhrReq.current.concat(xhr);
+          },
+        }).then(({ status, data, list, failedFiles }) => {
+          setUploading(false);
+          if (status === 'success') {
+            setUploadValue([...data.files], {
+              trigger: 'add',
+              file: data.files[0],
+            });
+            props.onSuccess?.({
+              fileList: data.files,
+              currentFiles: files,
+              file: files[0],
+              results: list?.map((t) => t.data),
+              response: data.response || list.map((t) => t.data.response),
+              XMLHttpRequest: data.XMLHttpRequest,
+            });
+            xhrReq.current = [];
+          } else if (failedFiles?.[0]) {
+            props.onFail?.({
+              e: data.event,
+              file: failedFiles[0],
+              failedFiles,
+              currentFiles: files,
+              response: data.response,
+              XMLHttpRequest: data.XMLHttpRequest,
+            });
+          }
+
+          if (autoUpload) {
+            setToUploadFiles(failedFiles);
+            props.onWaitingUploadFilesChange?.({ files: failedFiles, trigger: 'uploaded' });
+          }
+        });
+      })
+      .catch(() => {
+        setUploading(false);
+      });
   }
 
   function onRemove(p: UploadRemoveContext) {

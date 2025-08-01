@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
-import dayjs from 'dayjs';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import { omit } from 'lodash-es';
+import React, { useEffect, useRef, useState } from 'react';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import {
-  isValidDate,
   formatDate,
   formatTime,
   getDefaultFormat,
+  isValidDate,
   parseToDayjs,
 } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { TdDatePickerProps } from '../type';
-import useSingleValue from './useSingleValue';
 import type { TdPopupProps } from '../../popup/type';
+import type { TdDatePickerProps } from '../type';
+import useSingleValue from './useSingleValue';
 
 export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
@@ -128,7 +128,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
 
   //  multiple
   if (props.multiple) {
-    inputProps = omit(inputProps, ['ref', 'className', 'suffixIcon']);
+    inputProps = omit(inputProps, ['ref', 'className', 'placeholder', 'suffixIcon']);
 
     popupProps = {
       ...popupProps,
@@ -137,6 +137,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
 
     tagInputProps = {
       clearable: props.clearable,
+      placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
       suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     };
   }

@@ -1,20 +1,21 @@
-import React, { ReactNode, useState, useRef, useEffect, useCallback } from 'react';
 import classnames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
 import { throttle } from 'lodash-es';
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import getPosition from '@tdesign/common-js/utils/getPosition';
 import { StyledProps } from '../common';
-import useSwitch from '../hooks/useSwitch';
-import useAnimation from '../hooks/useAnimation';
 import Portal from '../common/Portal';
+import useAnimation from '../hooks/useAnimation';
 import useConfig from '../hooks/useConfig';
-import { TdTooltipLiteProps } from './type';
-import { tooltipLiteDefaultProps } from './defaultProps';
-import { getTransitionParams } from '../popup/utils/transition';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useSwitch from '../hooks/useSwitch';
+import { getTransitionParams } from '../popup/utils/transition';
+import { tooltipLiteDefaultProps } from './defaultProps';
+import type { TdTooltipLiteProps } from './type';
 
 export interface TooltipLiteProps extends TdTooltipLiteProps, StyledProps {
   children?: ReactNode;
+  zIndex?: number;
 }
 
 const DEFAULT_TRANSITION_TIMEOUT = 180;
@@ -59,15 +60,15 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
     [],
   );
 
-  const getTriggerChildren = (children) => {
+  const getTriggerChildren = (children: ReactNode) => {
     const appendProps = {
       ref: triggerRef,
-      onMouseMove: (e) => {
+      onMouseMove: (e: MouseEvent) => {
         const { clientX, clientY } = e;
         return onSwitchMove({ clientX, clientY });
       },
-      onMouseEnter: (e) => onSwitchHover('on', e),
-      onMouseLeave: (e) => onSwitchHover('off', e),
+      onMouseEnter: (e: MouseEvent) => onSwitchHover('on', e),
+      onMouseLeave: (e: MouseEvent) => onSwitchHover('off', e),
     };
     if (!React.isValidElement(children)) {
       return React.cloneElement(<div>{children}</div>, { ...appendProps });
@@ -106,6 +107,7 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
                 position: 'absolute',
                 left: position?.left,
                 top: position?.top,
+                zIndex: props.zIndex,
               }}
               data-popper-placement={placement}
               ref={popupRef}

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import TableTreeStore, { diffExpandedTreeNode, getUniqueRowValue } from '@tdesign/common-js/table/tree-store';
-import usePrevious from '../../hooks/usePrevious';
-import { TdEnhancedTableProps, TableRowData } from '../type';
 import useControlled from '../../hooks/useControlled';
-import { TableTreeExpandType } from '../interface';
+import usePrevious from '../../hooks/usePrevious';
+import type { TableTreeExpandType } from '../interface';
+import type { TableRowData, TdEnhancedTableProps } from '../type';
 
 export function useTreeDataExpand(
   props: TdEnhancedTableProps,
@@ -40,8 +40,9 @@ export function useTreeDataExpand(
    */
   function expandAll(type: 'expand-all' | 'default-expand-all' = 'expand-all', list?: TableRowData[]) {
     const newData = list || data;
-    setDataSource(store.expandAll(newData, rowDataKeys));
-    const expandedNode = dataSource.map((t) => getUniqueRowValue(t, rowDataKeys.rowKey));
+    const expandedData = store.expandAll(newData, rowDataKeys);
+    setDataSource(expandedData);
+    const expandedNode = expandedData.map((t) => getUniqueRowValue(t, rowDataKeys.rowKey));
     setTExpandedTreeNode(expandedNode, {
       row: undefined,
       rowState: undefined,
@@ -133,15 +134,14 @@ export function useTreeDataExpand(
     if (tree?.defaultExpandAll && !isDefaultExpandAllExecute) {
       expandAll('default-expand-all', [...data]);
       setIsDefaultExpandAllExecute(true);
-    } else if (tExpandedTreeNode?.length) {
-      const newData = updateExpandState([...data], tExpandedTreeNode, []);
-      setDataSource([...newData]);
+      return;
     }
+
+    const newData = updateExpandState([...data], tExpandedTreeNode, []);
+    setDataSource([...newData]);
   };
 
   return {
-    tExpandedTreeNode,
-    isDefaultExpandAllExecute,
     expandAll,
     foldAll,
     onExpandFoldIconClick,

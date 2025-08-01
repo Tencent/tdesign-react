@@ -33,12 +33,13 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
   const [calcScrollTopMap, setScrollTopMap] = useState({});
 
   useEffect(() => {
-    if (menuRef.current) {
-      const menuHeight = menuRef.current.childNodes?.length * 30;
-      setTimeout(() => {
+    const menuElement = menuRef.current;
+    if (menuElement) {
+      const menuHeight = menuElement.childNodes?.length * 30;
+      requestAnimationFrame(() => {
         if (panelTopContent) {
           const panelTopHeight =
-            parseInt(getComputedStyle(menuRef.current.childNodes?.[0] as HTMLElement)?.height, 10) || 0;
+            parseInt(getComputedStyle(menuElement.childNodes?.[0] as HTMLElement)?.height, 10) || 0;
           setPanelTopContentHeight(panelTopHeight);
         }
       });

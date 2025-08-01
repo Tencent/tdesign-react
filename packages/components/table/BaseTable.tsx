@@ -114,16 +114,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateThWidthList,
     addTableResizeObserver,
     updateTableAfterColumnResize,
-  } = useFixed(
-    props,
-    finalColumns,
-    // {
-    //   paginationAffixRef,
-    //   horizontalScrollAffixRef,
-    //   headerTopAffixRef,
-    //   footerBottomAffixRef,
-    // }
-  );
+  } = useFixed(props, finalColumns, {
+    paginationAffixRef,
+    horizontalScrollAffixRef,
+    headerTopAffixRef,
+    footerBottomAffixRef,
+  });
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
 
@@ -287,7 +283,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
-      {finalColumns.map((col) => {
+      {finalColumns.map((col, index) => {
         const style: Styles = {
           width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
         };
@@ -298,7 +294,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         if (!style.width && !col.minWidth && props.tableLayout === 'fixed') {
           style.minWidth = '80px';
         }
-        return <col key={col.colKey} style={style} />;
+        return <col key={col.colKey || index} style={style} />;
       })}
     </colgroup>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback } from 'react';
+import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback, MutableRefObject } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import log from '@tdesign/common-js/log/index';
@@ -10,6 +10,7 @@ import useDebounce from '../../hooks/useDebounce';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
 import { off, on } from '../../_util/listener';
+import { AffixRef } from '../../affix';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -71,12 +72,12 @@ export function getRowFixedStyles(
 export default function useFixed(
   props: TdBaseTableProps,
   finalColumns: BaseTableCol<TableRowData>[],
-  // affixRef?: {
-  //   paginationAffixRef: MutableRefObject<HTMLDivElement>;
-  //   horizontalScrollAffixRef: MutableRefObject<HTMLDivElement>;
-  //   headerTopAffixRef: MutableRefObject<HTMLDivElement>;
-  //   footerBottomAffixRef: MutableRefObject<HTMLDivElement>;
-  // },
+  affixRef?: {
+    paginationAffixRef: MutableRefObject<AffixRef>;
+    horizontalScrollAffixRef: MutableRefObject<AffixRef>;
+    headerTopAffixRef: MutableRefObject<AffixRef>;
+    footerBottomAffixRef: MutableRefObject<AffixRef>;
+  },
 ) {
   const {
     columns,
@@ -382,16 +383,15 @@ export default function useFixed(
 
   // 在表格高度变化的时候 需要手动调整affix的位置 因为affix本身无法监听到这些变化触发重新计算
   const updateAffixPosition = () => {
-    // TODO: 待 affix 组件支持滚动方法
-    // affixRef.paginationAffixRef.current?.handleScroll?.();
-    // affixRef.horizontalScrollAffixRef.current?.handleScroll?.();
-    // affixRef.headerTopAffixRef.current?.handleScroll?.();
-    // affixRef.footerBottomAffixRef.current?.handleScroll?.();
+    affixRef.paginationAffixRef.current?.handleScroll?.();
+    affixRef.horizontalScrollAffixRef.current?.handleScroll?.();
+    affixRef.headerTopAffixRef.current?.handleScroll?.();
+    affixRef.footerBottomAffixRef.current?.handleScroll?.();
   };
 
   const calculateThWidthList = (trList: HTMLCollection) => {
     const widthMap: { [colKey: string]: number } = {};
-    for (let i = 0, len = trList.length; i < len; i++) {
+    for (let i = 0, len = trList?.length; i < len; i++) {
       const thList = trList[i].children;
       // second for used for multiple row header
       for (let j = 0, thLen = thList.length; j < thLen; j++) {

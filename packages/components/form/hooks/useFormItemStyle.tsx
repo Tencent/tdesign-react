@@ -22,6 +22,7 @@ export default function useFormItemStyle(props) {
     labelWidth,
     labelAlign,
     requiredMark,
+    requiredMarkPosition,
     showErrorMessage,
     innerRules,
   } = props;
@@ -71,6 +72,7 @@ export default function useFormItemStyle(props) {
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]: needRequiredMark,
+    [`${classPrefix}-form__label--required-right`]: needRequiredMark && requiredMarkPosition === 'right',
     [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
     [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
     [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,
