@@ -1,12 +1,10 @@
 import React from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker } from 'tdesign-react';
-import type { FormProps } from 'tdesign-react';
-
 import { MinusCircleIcon } from 'tdesign-icons-react';
+import { Button, Checkbox, DatePicker, Form, Input, MessagePlugin, Radio, type FormProps } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
-export default function BaseForm() {
+export default function NestedDataDemo() {
   const [form] = Form.useForm();
 
   const user = Form.useWatch('user', form);
@@ -84,11 +82,18 @@ export default function BaseForm() {
                   {...restField}
                   name={[name, 'province']}
                   label="省份"
+                  initialData="山西"
                   rules={[{ required: true, type: 'error' }]}
                 >
                   <Input />
                 </FormItem>
-                <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'area']}
+                  initialData="咸阳"
+                  label="地区"
+                  rules={[{ required: true, type: 'error' }]}
+                >
                   <Input />
                 </FormItem>
                 <FormItem>
@@ -97,8 +102,8 @@ export default function BaseForm() {
               </FormItem>
             ))}
             <FormItem style={{ marginLeft: 100 }}>
-              <Button theme="default" variant="dashed" onClick={() => add({ province: 'bj', area: 'tzmax' })}>
-                Add field
+              <Button theme="default" variant="dashed" onClick={add}>
+                新增默认项
               </Button>
             </FormItem>
           </>

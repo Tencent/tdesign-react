@@ -1,6 +1,6 @@
 import React from 'react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
-import { Button, Form, Input, Select } from 'tdesign-react';
+import { Button, Form, Input, Select, Space } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
@@ -11,7 +11,7 @@ const cityOptions = [
   { label: '深圳', value: 'sz' },
 ];
 
-export default function BaseForm() {
+export default function FormListDemo() {
   const [form] = Form.useForm();
 
   function onSubmit() {
@@ -25,8 +25,8 @@ export default function BaseForm() {
       onSubmit={onSubmit}
       initialData={{
         address: [
-          { city: 'bj', area: '海淀区' },
-          { city: 'sh', area: '浦东区' },
+          { city: '北京', area: '海淀区' },
+          { city: '上海', area: '浦东区' },
         ],
       }}
       resetType="initial"
@@ -42,16 +42,21 @@ export default function BaseForm() {
                 <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
                   <Input />
                 </FormItem>
-
                 <FormItem>
                   <MinusCircleIcon size="20px" style={{ cursor: 'pointer' }} onClick={() => remove(name)} />
                 </FormItem>
               </FormItem>
             ))}
             <FormItem style={{ marginLeft: 100 }}>
-              <Button theme="default" variant="dashed" onClick={() => add({ city: 'sz', area: '南山区' })}>
-                新增指定项
-              </Button>
+              <Space>
+                {/* 由于没有设置 initData，相当于是空白项 */}
+                <Button theme="default" onClick={add}>
+                  新增默认项
+                </Button>
+                <Button theme="default" variant="dashed" onClick={() => add({ city: '深圳', area: '南山区' })}>
+                  新增指定项
+                </Button>
+              </Space>
             </FormItem>
           </>
         )}
