@@ -5,6 +5,27 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.13.2 `2025-08-01` 
+### 🐞 Bug Fixes
+- `DatePicker`: 
+  - 处理多选情况下周和季度模式的标签删除异常的问题 @betavs ([#3664](https://github.com/Tencent/tdesign-react/pull/3664))
+  - 修复多选模式下的 `placeholder` 没能正常消失 @RylanBot ([#3666](https://github.com/Tencent/tdesign-react/pull/3666))
+- `EnhancedTable`: @RylanBot
+  -  解决 `1.13.0` 版本中引入的修复，导致异步场景下 `data` 更新失败的问题 ([#3690](https://github.com/Tencent/tdesign-react/pull/3690)) 
+  - 修复使用 `tree` API 时 ，动态初始化 `columns` 时不存在 unique key ([#3669](https://github.com/Tencent/tdesign-react/pull/3669))
+  - 修复叶子节点的判断条件过宽，导致 `className` 对应样式未正常渲染 ([#3681](https://github.com/Tencent/tdesign-react/pull/3681))
+- `SelectInput`: 修复在 `useOverlayInnerStyle` 中获取滚动条的时设置 `display` 导致的一些 bug @HaixingOoO ([#3677](https://github.com/Tencent/tdesign-react/pull/3677))
+- `TextArea`: 修复 `Dialog` 中的 `TextArea` 挂载 `autosize` 不生效 @HaixingOoO ([#3693](https://github.com/Tencent/tdesign-react/pull/3693))
+- `ColorPicker`: @RylanBot ([#3667](https://github.com/Tencent/tdesign-react/pull/3667))
+  - 减少颜色跨色彩空间的多次转换，降低误差
+  - 修复直接长按渐变点后拖动，颜色更新异常的问题
+  - 修复清空下方某一输入框的数值时，其他输入框意外被重置
+- `Upload`:  确保在 `beforeUpload` 完成之后，再执行上传动作 @RSS1102 ([#3686](https://github.com/Tencent/tdesign-react/pull/3686))
+- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
+- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
+- `Step`: 修复自定义图标和状态图标的优先级问题 @RSS1102 ([#3670](https://github.com/Tencent/tdesign-react/pull/3670))
+- `Form`: 修复增删动态表单产生的数据混乱问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
+
 ## 🌈 1.13.1 `2025-07-11`
 
 ### 🐞 Bug Fixes
