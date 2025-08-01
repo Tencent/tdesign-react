@@ -109,7 +109,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [formValue, setFormValue] = useState(() => {
     const fieldName = flattenDeep([formListName, name]);
     const storeValue = get(form?.store, fieldName);
-    if (!storeValue && formListName) return; // 针对新增空的动态表单情况，避免回填默认值
+    // if (!storeValue && formListName) return; // TODO 针对新增空的动态表单情况，避免回填默认值
     return (
       storeValue ??
       getDefaultInitialData({
