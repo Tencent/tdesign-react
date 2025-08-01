@@ -124,12 +124,11 @@ export class AGUIAdapter {
      */
     const processMessageGroup = (messages: AGUIHistoryMessage[]): AIMessageContent[] => {
       const allContent: AIMessageContent[] = [];
-      const processedToolCallIds = new Set<string>();
 
-      messages.forEach((msg) => {
-        if (msg.role === 'assistant') {
+      messages
+        .filter((msg) => msg.role === 'assistant')
+        .forEach((msg) => {
           const assistantMsg = msg as AGUIAssistantHistoryMessage;
-
           // 添加文本内容
           if (assistantMsg.content) {
             allContent.push({
@@ -159,29 +158,29 @@ export class AGUIAdapter {
                 },
               };
               allContent.push(toolCallContent as unknown as AIMessageContent);
-              processedToolCallIds.add(toolCall.id);
             });
           }
-        } else if (msg.role === 'tool') {
-          const toolMsg = msg as AGUIToolHistoryMessage;
-
-          // 只有当这个工具调用没有被助手消息处理过时，才添加独立的工具调用结果
-          if (!processedToolCallIds.has(toolMsg.toolCallId)) {
-            const toolCallContent = {
-              type: 'toolcall' as const,
-              data: {
-                toolCallId: toolMsg.toolCallId,
-                toolCallName: toolMsg.toolCallId, // 使用toolCallId作为名称（如果没有toolCallName字段）
-                args: '',
-                result: toolMsg.content,
-              },
-            };
-            allContent.push(toolCallContent as unknown as AIMessageContent);
-          }
-        }
-      });
+        });
 
       return allContent;
+    };
+
+    /**
+     * 创建AI消息
+     */
+    const createAIMessage = (messages: AGUIHistoryMessage[]): void => {
+      if (messages.length > 0) {
+        const allContent = processMessageGroup(messages);
+        if (allContent.length > 0) {
+          const firstMessageInGroup = messages[0];
+          convertedMessages.push({
+            id: firstMessageInGroup.id,
+            role: 'assistant',
+            content: allContent,
+            status: 'complete',
+          });
+        }
+      }
     };
 
     /**
@@ -201,33 +200,9 @@ export class AGUIAdapter {
           ],
           datetime: new Date(currentUserMessage.timestamp || Date.now()).toISOString(),
         });
-
-        // 处理AI消息
-        if (currentGroupMessages.length > 0) {
-          const allContent = processMessageGroup(currentGroupMessages);
-          if (allContent.length > 0) {
-            const firstMessageInGroup = currentGroupMessages[0];
-            convertedMessages.push({
-              id: firstMessageInGroup.id,
-              role: 'assistant',
-              content: allContent,
-              status: 'complete',
-            });
-          }
-        }
-      } else if (currentGroupMessages.length > 0) {
-        // 处理只有assistant消息的情况（如welcome消息）
-        const allContent = processMessageGroup(currentGroupMessages);
-        if (allContent.length > 0) {
-          const firstMessageInGroup = currentGroupMessages[0];
-          convertedMessages.push({
-            id: firstMessageInGroup.id,
-            role: 'assistant',
-            content: allContent,
-            status: 'complete',
-          });
-        }
       }
+      // 处理AI消息
+      createAIMessage(currentGroupMessages);
 
       // 重置当前组
       currentUserMessage = null;
