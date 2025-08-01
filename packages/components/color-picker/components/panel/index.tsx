@@ -1,30 +1,30 @@
-import React, { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import {
   Color,
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
   DEFAULT_SYSTEM_SWATCH_COLORS,
-  TD_COLOR_USED_COLORS_MAX_SIZE,
   getColorObject,
   GradientColorPoint,
   initColorFormat,
+  TD_COLOR_USED_COLORS_MAX_SIZE,
   type ColorFormat,
 } from '@tdesign/common-js/color-picker/index';
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import useDefaultProps from '../../../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
+import { colorPickerDefaultProps } from '../../defaultProps';
 import useClassName from '../../hooks/useClassNames';
 import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import type { ColorPickerChangeTrigger } from '../../type';
-import { colorPickerDefaultProps } from '../../defaultProps';
-import LinearGradient from './linear-gradient';
-import SaturationPanel from './saturation';
-import HUESlider from './hue';
 import AlphaSlider from './alpha';
 import FormatPanel from './format';
 import PanelHeader from './header';
+import HueSlider from './hue';
+import LinearGradient from './linear-gradient';
+import SaturationPanel from './saturation';
 import SwatchesPanel from './swatches';
 
 const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
@@ -48,7 +48,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   } = useDefaultProps(props, colorPickerDefaultProps);
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
 
-  const [updateId, setUpdateId] = useState(0);
+  const [, setUpdateId] = useState(0); // 确保 UI 同步更新
 
   const getModeByColor = (input: string) => {
     if (colorModes.length === 1) return colorModes[0];
@@ -65,14 +65,16 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const colorInstanceRef = useRef<Color>(new Color(innerValue || defaultEmptyColor));
   const formatRef = useRef<ColorFormat>(initColorFormat(format, enableAlpha));
 
-  const update = useCallback(
-    (value: string) => {
-      colorInstanceRef.current.update(value);
-      // 确保 UI 同步更新
-      setUpdateId(updateId + 1);
-    },
-    [updateId],
-  );
+  const baseProps = {
+    color: colorInstanceRef.current,
+    disabled,
+    baseClassName,
+  };
+
+  const updateColor = (value: string) => {
+    colorInstanceRef.current.update(value);
+    setUpdateId(performance.now());
+  };
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
@@ -81,24 +83,20 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         color: getColorObject(colorInstanceRef.current),
         trigger: trigger || 'palette-saturation-brightness',
       });
-      update(value);
+      setUpdateId(performance.now());
     },
-    [enableAlpha, setInnerValue, update],
+    [enableAlpha, setInnerValue],
   );
 
   useEffect(() => {
+    const currentColor = colorInstanceRef.current.getFormattedColor(formatRef.current, enableAlpha);
+    if (innerValue === currentColor) return;
     // 根据颜色自动切换模式
     const newMode = getModeByColor(innerValue);
     setMode(newMode);
     colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
-    update(innerValue);
+    updateColor(innerValue);
   }, [innerValue]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const baseProps = {
-    color: colorInstanceRef.current,
-    disabled,
-    baseClassName,
-  };
 
   const handleModeChange = (newMode: TdColorModes) => {
     setMode(newMode);
@@ -108,19 +106,20 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
     const { rgba, gradientColors, linearGradient } = colorInstanceRef.current;
     if (isGradientMode) {
-      update(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
+      updateColor(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
     } else {
-      update(rgba);
+      updateColor(rgba);
     }
     emitColorChange();
   };
 
-  // 最近使用颜色变更时触发
+  /**
+   * 最近使用颜色变化
+   */
   const handleRecentlyUsedColorsChange = (colors: string[]) => {
     setRecentlyUsedColors(colors);
   };
 
-  // 添加最近使用颜色
   const addRecentlyUsedColor = () => {
     const colors = [...((recentlyUsedColors as string[]) || [])];
     const { isGradient, linearGradient, rgba } = colorInstanceRef.current;
@@ -136,7 +135,9 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     handleRecentlyUsedColorsChange(colors);
   };
 
-  // 饱和度亮度变化
+  /**
+   * 饱和度亮度变化
+   */
   const handleSatAndValueChange = ({ saturation, value }: TdColorSaturationData) => {
     const { saturation: sat, value: val } = colorInstanceRef.current;
     let changeTrigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
@@ -157,8 +158,10 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     emitColorChange(changeTrigger);
   };
 
-  // hue色相变化
-  const handleHUEChange = (hue: number) => {
+  /**
+   * 色相变化
+   */
+  const handleHueChange = (hue: number) => {
     colorInstanceRef.current.hue = hue;
     emitColorChange('palette-hue-bar');
     onPaletteBarChange?.({
@@ -168,7 +171,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
 
   /**
    * 透明度变化
-   * @param alpha
    */
   const handleAlphaChange = (alpha: number) => {
     colorInstanceRef.current.alpha = alpha;
@@ -179,8 +181,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   };
 
   /**
-   * 渐变改变
-   * @param param0
+   * 渐变变化
    */
   const handleGradientChange = ({
     key,
@@ -206,16 +207,13 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     emitColorChange(trigger);
   };
 
-  // format 输入变化
-  const handleInputChange = useCallback(
-    (input: string) => {
-      update(input);
-      emitColorChange('input');
-    },
-    [emitColorChange, update],
-  );
+  /**
+   * 输入值变化
+   */
+  const handleInputChange = () => {
+    emitColorChange('input');
+  };
 
-  // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {
     // 只支持渐变模式
     const onlySupportGradient = colorModes.length === 1 && colorModes.includes('linear-gradient');
@@ -233,7 +231,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       systemColors = [...DEFAULT_SYSTEM_SWATCH_COLORS];
     }
     if (onlySupportGradient) {
-      systemColors = systemColors.filter((color) => Color.isGradientColor(color));
+      systemColors = systemColors?.filter((color) => Color.isGradientColor(color));
     }
     const showSystemColors = Array.isArray(systemColors);
 
@@ -243,7 +241,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       setMode(newMode);
       // 确保在渐变模式下选择纯色块，能切换回单色模式
       colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
-      update(value);
+      updateColor(value);
       emitColorChange(trigger);
     };
 
@@ -295,7 +293,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         <SaturationPanel {...baseProps} onChange={handleSatAndValueChange} />
         <div className={`${baseClassName}__sliders-wrapper`}>
           <div className={`${baseClassName}__sliders`}>
-            <HUESlider {...baseProps} onChange={handleHUEChange} />
+            <HueSlider {...baseProps} onChange={handleHueChange} />
             {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}
           </div>
           {showPrimaryColorPreview ? (

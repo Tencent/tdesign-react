@@ -31,6 +31,7 @@ export default async function mdToReact(options) {
     import 'prismjs/components/prism-bash.js';
     import Stackblitz from '@tdesign/react-site/src/components/stackblitz/index.jsx';
     import Codesandbox from '@tdesign/react-site/src/components/codesandbox/index.jsx';
+    import NewWindow from '@tdesign/react-site/src/components/newwindow/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
     ${mdSegment.usage.importStr}
