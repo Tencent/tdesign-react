@@ -166,13 +166,13 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     return dragActive ? activeElement : unActiveElement;
   };
 
-  const canTriggerUpload = useMemo(() => {
+  const hasActiveFile = useMemo(() => {
     const file = displayFiles[0];
     return !!file && (['progress', 'success', 'fail', 'waiting'].includes(file.status) || !file.status);
   }, [displayFiles]);
 
   const getContent = () => {
-    if (canTriggerUpload) {
+    if (hasActiveFile) {
       return renderMainPreview();
     }
     return (
@@ -183,7 +183,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
   };
 
   const handleDraggerClick = (e: MouseEvent) => {
-    if (canTriggerUpload) {
+    if (!hasActiveFile) {
       props.triggerUpload?.(e);
     }
   };
