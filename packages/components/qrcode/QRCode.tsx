@@ -40,7 +40,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
   });
 
   // 获取最终的背景色值。
-  const finalBgColor = useMemo(() => bgColor || themeBgColor.current || 'transparent', [bgColor, themeBgColor]);
+  const finalBgColor = useMemo(() => bgColor || themeBgColor || 'transparent', [bgColor, themeBgColor]);
 
   if (!value) {
     return null;
@@ -60,7 +60,7 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
     value,
     size,
     bgColor: finalBgColor,
-    fgColor: color || themeFgColor.current,
+    fgColor: color || themeFgColor,
     imageSettings: icon ? imageSettings : undefined,
     ...rest,
   };

@@ -58,8 +58,8 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   const offsetTop = offset[1] || gapY / 2;
 
   const { fontColor } = useVariables({
-      fontColor: '--td-bg-color-secondarycontainer-hover',
-    });
+    fontColor: '--td-bg-color-secondarycontainer-hover',
+  });
 
   // 水印节点 - 背景base64
   useEffect(() => {
@@ -75,7 +75,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
         watermarkContent,
         offsetLeft,
         offsetTop,
-        fontColor: fontColor.current,
+        fontColor,
       },
       (url) => {
         setBase64Url(url);
