@@ -160,7 +160,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   }, [value, autosize, adjustTextareaHeight]);
 
   useEffect(() => {
-    handleAutoFocus();
     adjustTextareaHeight();
   }, [handleAutoFocus, adjustTextareaHeight]);
 
