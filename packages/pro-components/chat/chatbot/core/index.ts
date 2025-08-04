@@ -13,6 +13,7 @@ import type {
   ChatServiceConfigSetter,
   SSEChunkData,
   SystemMessage,
+  ToolCall,
 } from './type';
 import { isAIMessage } from './utils';
 
@@ -169,6 +170,10 @@ export default class ChatEngine implements IChatEngine {
     }
   }
 
+  public getToolcallByName(name: string): ToolCall | undefined {
+    return this.aguiAdapter?.getToolcallByName(name);
+  }
+
   private async handleBatchRequest(params: ChatRequestParams) {
     const id = params.messageID;
     if (!id) return;
@@ -190,7 +195,6 @@ export default class ChatEngine implements IChatEngine {
   private handleComplete(id: string, isAborted: boolean, params: ChatRequestParams, chunk?: any) {
     // 先调用用户自定义的 onComplete 回调，让业务层决定如何处理
     const customResult = this.config.onComplete?.(isAborted, params, chunk);
-
     // 如果用户返回了自定义内容，处理这些内容
     if (Array.isArray(customResult) || customResult?.status) {
       this.processMessageResult(id, customResult);
@@ -376,3 +380,4 @@ export default class ChatEngine implements IChatEngine {
 }
 
 export * from './utils';
+export * from './adapters/agui';

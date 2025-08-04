@@ -1,17 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import type { AIMessageContent, SSEChunkData } from '../../type';
-import { EventType, type ToolCallEventType } from './events';
-
-// 内部ToolCall结构，用于累积数据
-interface InternalToolCall {
-  eventType: ToolCallEventType;
-  toolCallId: string;
-  toolCallName: string;
-  parentMessageId: string;
-  args?: string;
-  chunk?: string;
-  result?: string;
-}
+import type { AIMessageContent, SSEChunkData, ToolCall } from '../../type';
+import { EventType } from './events';
 
 /**
  * AGUIEventMapper
@@ -20,7 +9,7 @@ interface InternalToolCall {
  * 同时提供状态变更和步骤生命周期事件的分发机制
  */
 export class AGUIEventMapper {
-  private toolCallMap: Record<string, InternalToolCall> = {};
+  private toolCallMap: Record<string, ToolCall> = {};
 
   private toolCallEnded: Set<string> = new Set(); // 记录已经TOOL_CALL_END的工具调用
 
@@ -229,7 +218,7 @@ export class AGUIEventMapper {
   /**
    * 获取当前所有工具调用
    */
-  getToolCalls(): InternalToolCall[] {
+  getToolCalls(): ToolCall[] {
     return Object.values(this.toolCallMap);
   }
 
@@ -244,7 +233,7 @@ export class AGUIEventMapper {
   /**
    * 获取指定工具调用
    */
-  getToolCall(toolCallId: string): InternalToolCall | undefined {
+  getToolCall(toolCallId: string): ToolCall | undefined {
     return this.toolCallMap[toolCallId];
   }
 

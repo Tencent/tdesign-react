@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 import { AGUIEventMapper } from './event-mapper';
-import { ToolCallProcessor } from '../../processor/tool-call-processor';
 import type { SSEChunkData, AIMessageContent, ToolCall, ChatRequestParams, ChatMessagesData } from '../../type';
 import { EventType } from './events';
 import type { RunStartedEvent, RunFinishedEvent, RunErrorEvent, BaseEvent } from './events';
@@ -38,11 +37,8 @@ export interface AGUIAdapterCallbacks {
 export class AGUIAdapter {
   private aguiEventMapper: AGUIEventMapper;
 
-  private toolCallProcessor: ToolCallProcessor;
-
   constructor() {
     this.aguiEventMapper = new AGUIEventMapper();
-    this.toolCallProcessor = new ToolCallProcessor();
   }
 
   /**
@@ -80,9 +76,6 @@ export class AGUIAdapter {
 
     // 使用事件映射器处理内容事件
     const result = this.aguiEventMapper.mapEvent(chunk);
-
-    // 同步AGUI事件映射器中的工具调用到ToolCallProcessor
-    this.syncToolCalls();
 
     return result;
   }
@@ -256,38 +249,15 @@ export class AGUIAdapter {
   }
 
   /**
-   * 同步工具调用
-   *
-   * 将AGUI事件映射器中的工具调用同步到ToolCallProcessor
-   */
-  private syncToolCalls(): void {
-    const aguiToolCalls = this.aguiEventMapper.getToolCalls();
-    aguiToolCalls.forEach((toolCall: ToolCall) => {
-      this.toolCallProcessor.addToolCall(toolCall);
-    });
-  }
-
-  /**
-   * 处理工具调用内容
-   * @param result 消息结果
-   * @returns 去重后的工具调用数组
-   */
-  processToolCalls(result: AIMessageContent | AIMessageContent[] | null): ToolCall[] {
-    return this.toolCallProcessor.processToolCalls(result);
-  }
-
-  /**
-   * 获取工具调用处理器
-   */
-  get processor() {
-    return this.toolCallProcessor;
-  }
-
-  /**
    * 获取AGUI事件映射器
    */
-  get eventMapper() {
-    return this.aguiEventMapper;
+  get toolcalls() {
+    return this.aguiEventMapper.getToolCalls();
+  }
+
+  getToolcallByName(name: string): ToolCall | undefined {
+    const result = this.aguiEventMapper.getToolCalls().find((call) => call.toolCallName === name);
+    return result;
   }
 
   /**
@@ -295,6 +265,5 @@ export class AGUIAdapter {
    */
   reset(): void {
     this.aguiEventMapper.reset();
-    this.toolCallProcessor.clearAllToolCalls();
   }
 }

@@ -126,7 +126,7 @@ const createChatServiceConfig = ({
         break;
 
       case 'TOOL_CALL_ARGS':
-        // 使用解析后的 ToolCall 数据，而不是手动拼接
+        // 使用解析后的 ToolCall 数据
         if (parsedResult?.data?.toolCallName === 'get_travel_preferences') {
           const toolCall = parsedResult.data as any;
           if (toolCall.args) {
@@ -188,6 +188,7 @@ const createChatServiceConfig = ({
     if (toolCallMessage) {
       requestBody.toolCallMessage = toolCallMessage;
     }
+
     return {
       method: 'POST',
       headers: {
@@ -223,7 +224,6 @@ export default function TravelPlannerChat() {
     const loadHistory = async () => {
       setIsLoadingHistory(true);
       const messages = await loadHistoryMessages();
-      console.log('messages', messages);
       setDefaultMessages(messages);
       setIsLoadingHistory(false);
     };
@@ -296,16 +296,17 @@ export default function TravelPlannerChat() {
       setUserInputFormConfig(null);
 
       // 2. 构造新的请求参数
+      console.log('====== getToolcallByName', chatEngine.getToolcallByName('get_travel_preferences'));
+      const tools = chatEngine.getToolcallByName('get_travel_preferences') || {};
       const newRequestParams: ChatRequestParams = {
         prompt: inputValue,
         toolCallMessage: {
-          toolCallId: currentToolCallId,
-          toolCallName: 'get_travel_preferences',
+          ...tools,
           result: JSON.stringify(userData),
         },
       };
 
-      // 3. 直接调用 chatEngine.sendRequest() 发起新一轮请求
+      // 3. 直接调用 chatEngine.continueChat(params) 继续请求
       await chatEngine.continueChat(newRequestParams);
       listRef.current?.scrollList({ to: 'bottom' });
     } catch (error) {
@@ -324,7 +325,7 @@ export default function TravelPlannerChat() {
     console.log('用户取消了输入');
   };
 
-  const renderMessageContent = ({ item, index, message }: MessageRendererProps): React.ReactNode => {
+  const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
     if (item.type === 'toolcall') {
       const { data, type } = item;
       // Human-in-the-Loop 输入请求

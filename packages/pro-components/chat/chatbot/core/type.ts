@@ -164,11 +164,6 @@ export type SSEChunkData = {
 
 export interface ChatRequestParams {
   prompt: string;
-  toolCallMessage?: {
-    toolCallId: string;
-    toolCallName: string;
-    result: string;
-  };
   messageID?: string;
   attachments?: AttachmentContent['data'];
   [key: string]: any;

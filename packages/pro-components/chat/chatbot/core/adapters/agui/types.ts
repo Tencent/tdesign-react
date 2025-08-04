@@ -93,7 +93,7 @@ export const RunAgentInputSchema = z.object({
 
 export const StateSchema = z.any();
 
-export type ToolCall = z.infer<typeof ToolCallSchema>;
+export type AGUIToolCall = z.infer<typeof ToolCallSchema>;
 export type FunctionCall = z.infer<typeof FunctionCallSchema>;
 export type DeveloperMessage = z.infer<typeof DeveloperMessageSchema>;
 export type SystemMessage = z.infer<typeof SystemMessageSchema>;
