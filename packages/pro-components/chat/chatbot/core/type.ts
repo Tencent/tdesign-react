@@ -90,16 +90,6 @@ export type ThinkingContent = ChatBaseContent<
   }
 >;
 
-// 工具调用
-// export type ToolCall = {
-//   id: string;
-//   type: 'function';
-//   function: {
-//     name: string;
-//     arguments: string;
-//   };
-// };
-
 export type ToolCall = {
   toolCallId: string;
   toolCallName: string;
@@ -137,12 +127,6 @@ type AIContentTypeMap = {
   suggestion: SuggestionContent;
   toolcall: ToolCallContent;
 } & AIContentTypeOverrides;
-
-// 自动生成联合类型
-// export type AIMessageContent = AIContentTypeMap[keyof AIContentTypeMap];
-// export type AIMessageContent = {
-//   [K in keyof AIContentTypeMap]: AIContentTypeMap[K];
-// }[keyof AIContentTypeMap];
 
 export type AIContentType = keyof AIContentTypeMap;
 export type AIMessageContent = AIContentTypeMap[AIContentType];

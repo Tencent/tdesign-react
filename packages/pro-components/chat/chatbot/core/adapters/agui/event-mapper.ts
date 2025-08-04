@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import type { AIMessageContent, SSEChunkData } from '../../type';
-import { EventType, ToolCallEventType } from './events';
+import { EventType, type ToolCallEventType } from './events';
 
 // 内部ToolCall结构，用于累积数据
 interface InternalToolCall {
@@ -139,7 +139,6 @@ export class AGUIEventMapper {
         };
 
       case EventType.TOOL_CALL_ARGS:
-        console.log('TOOL_CALL_ARGS', event);
         // 更新工具调用的参数
         if (this.toolCallMap[event.toolCallId]) {
           const currentArgs = this.toolCallMap[event.toolCallId].args || '';
@@ -212,8 +211,8 @@ export class AGUIEventMapper {
 
       case EventType.MESSAGES_SNAPSHOT:
         return this.handleMessagesSnapshot(event.messages);
-      // case EventType.CUSTOM:
-      //   return this.handleCustomEvent(event);
+      case EventType.CUSTOM:
+        return this.handleCustomEvent(event);
       case EventType.RUN_ERROR:
         return [
           {

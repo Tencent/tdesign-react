@@ -343,16 +343,12 @@ export default function TravelPlannerChat() {
   };
 
   const renderMessageContent = ({ item, index, message }: MessageRendererProps): React.ReactNode => {
-    console.log('=====item', item);
     if (item.type === 'toolcall') {
       const { data, type } = item;
-      console.log('toolcall 渲染检查:', item);
       // Human-in-the-Loop 输入请求
       if (data.toolCallName === 'get_travel_preferences') {
         // 区分历史消息和实时交互
-        const isHistoricalMessage = message.status === 'complete';
-
-        if (isHistoricalMessage && data.result) {
+        if (data.result) {
           // 历史消息：静态展示用户已输入的数据
           try {
             const userInput = JSON.parse(data.result);
@@ -364,9 +360,8 @@ export default function TravelPlannerChat() {
           } catch (e) {
             console.error('解析用户输入数据失败:', e);
           }
-        } else if (!isHistoricalMessage && userInputFormConfig) {
+        } else if (userInputFormConfig) {
           // 实时交互：使用状态中的表单配置
-          console.log('实时交互：使用状态中的表单配置', userInputFormConfig);
           return (
             <div slot={`${type}-${index}`} key={`human-input-form-${index}`} className="content-card">
               <HumanInputForm
