@@ -6,7 +6,7 @@ import {
   ArrowTriangleUpFilledIcon as TDArrowTriangleUpFilledIcon,
 } from 'tdesign-icons-react';
 import Tween from '@tdesign/common-js/statistic/tween';
-import { COLOR_MAP, getFormatValue } from '@tdesign/common-js/statistic/utils';
+import { getFormatValue } from '@tdesign/common-js/statistic/utils';
 import { TdStatisticProps } from './type';
 import { statisticDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
@@ -93,7 +93,7 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
 
   const valueStyle = useMemo(
     () => ({
-      color: COLOR_MAP[color] || color,
+      color,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [color],

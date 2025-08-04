@@ -17,9 +17,10 @@ export interface TdStatisticProps {
    */
   animationStart?: boolean;
   /**
-   * 颜色风格，依次为 TDesign 风格的黑色、蓝色、红色、橙色、绿色。也可以为任何 [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) 支持的 RGB 等值
+   * 可以为任何 [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) 支持的颜色值。
+   * @default ''
    */
-  color?: 'black' | 'blue' | 'red' | 'orange' | 'green';
+  color?: string;
   /**
    * 小数保留位数
    */
@@ -42,7 +43,7 @@ export interface TdStatisticProps {
    */
   prefix?: TNode;
   /**
-   * 默认展示进位分隔符，可以自定义为其他内容，`separator = ''` 设置为空字符串/null/undefined 时隐藏分隔符
+   * 默认展示千位分隔符，可以自定义为其他内容，`separator = ''` 设置为空字符串/null/undefined 时展示默认分隔符
    * @default ,
    */
   separator?: string;
@@ -76,9 +77,9 @@ export interface TdStatisticProps {
 /** 组件实例方法 */
 export interface StatisticInstanceFunctions {
   /**
-   * 设置数字滚动变化效果，从一个数字到另一个数字
+   * 开始动画
    */
-  start: (from: number, to: number) => void;
+  start: () => void;
 }
 
 export interface animation {

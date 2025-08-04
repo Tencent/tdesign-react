@@ -17,23 +17,21 @@ describe('Statistic 组件测试', () => {
   });
 
   /**
-   * color
+   * props
    */
 
-  const COLOR_MAP = {
-    black: 'var(--td-text-color-primary)',
-    blue: 'var(--td-brand-color)',
-    red: 'var(--td-error-color)',
-    orange: 'var(--td-warning-color)',
-    green: 'var(--td-success-color)',
-  };
-  const colors = ['black', 'blue', 'red', 'orange', 'green'] as const;
-  colors.forEach((color) => {
-    test('color', () => {
-      render(<Statistic title="Total Assets" value={82.76} unit="%" trend="increase" color={color} />);
+  it('color="green"', () => {
+    const { container } = render(<Statistic title="Total Sales" value={1000} color="green" />);
 
-      expect(document.querySelector('.t-statistic-content')).toHaveStyle(`color: ${COLOR_MAP[color]}`);
-    });
+    const contentElement = container.querySelector('.t-statistic-content');
+    expect(contentElement).toHaveStyle('color: green');
+  });
+
+  it('color="#fff123"', () => {
+    const { container } = render(<Statistic title="Total Sales" value={1000} color="#fff123" />);
+
+    const contentElement = container.querySelector('.t-statistic-content');
+    expect(contentElement).toHaveStyle('color: #fff123');
   });
 
   /**
