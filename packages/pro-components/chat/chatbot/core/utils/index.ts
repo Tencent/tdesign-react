@@ -12,13 +12,25 @@ import type {
   ToolCallContent,
 } from '../type';
 
-export {
-  HistoryMessageConverter,
-  type HistoryMessage,
-  type UserHistoryMessage,
-  type AssistantHistoryMessage,
-  type ToolHistoryMessage,
-} from './history-converter';
+export function applyJsonPatch(state: any, delta: any[]): any {
+  const newState = { ...state };
+  delta.forEach(({ op, path, value }) => {
+    // 这里只实现 add/replace，remove 可按需补充
+    const keys = path.slice(1).split('/');
+    let target = newState;
+    for (let i = 0; i < keys.length - 1; i++) {
+      if (!target[keys[i]]) target[keys[i]] = {};
+      target = target[keys[i]];
+    }
+    const lastKey = keys[keys.length - 1];
+    if (op === 'replace' || op === 'add') {
+      target[lastKey] = value;
+    } else if (op === 'remove') {
+      delete target[lastKey];
+    }
+  });
+  return newState;
+}
 
 export function findTargetElement(event: MouseEvent, selector: string | string[]): HTMLElement | null {
   // 统一处理选择器输入格式（支持字符串或数组）

@@ -24,6 +24,7 @@ import {
 } from './components';
 import type { FormConfig } from './components/HumanInputForm';
 import './travel-planner.css';
+import { applyJsonPatch } from '../core';
 
 // 扩展自定义消息体类型
 declare module '@tdesign-react/aigc' {
@@ -164,25 +165,7 @@ const createChatServiceConfig = ({
         // 应用状态变更到当前状态
         setPlanningState((prevState: any) => {
           if (!prevState) return prevState;
-
-          const newState = { ...prevState };
-          rest.delta.forEach((change: any) => {
-            const { op, path, value } = change;
-            if (op === 'replace') {
-              // 简单的路径替换逻辑
-              if (path === '/status') {
-                newState.status = value;
-              }
-            } else if (op === 'add') {
-              // 简单的路径添加逻辑
-              if (path.startsWith('/itinerary/')) {
-                if (!newState.itinerary) newState.itinerary = {};
-                const key = path.split('/').pop();
-                newState.itinerary[key] = value;
-              }
-            }
-          });
-          return newState;
+          return applyJsonPatch(prevState, rest.delta);
         });
 
         // 返回更新后的状态组件
@@ -244,7 +227,7 @@ export default function TravelPlannerChat() {
       setDefaultMessages(messages);
       setIsLoadingHistory(false);
     };
-    // loadHistory();
+    loadHistory();
   }, []);
 
   const { chatEngine, messages, status } = useChat({
@@ -323,7 +306,6 @@ export default function TravelPlannerChat() {
       };
 
       // 3. 直接调用 chatEngine.sendRequest() 发起新一轮请求
-      console.log('重新发起请求', newRequestParams);
       await chatEngine.continueChat(newRequestParams);
       listRef.current?.scrollList({ to: 'bottom' });
     } catch (error) {
