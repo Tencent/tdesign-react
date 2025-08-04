@@ -178,8 +178,13 @@ export type SSEChunkData = {
   data: any;
 };
 
-export interface ChatRequestParams extends RequestInit {
+export interface ChatRequestParams {
   prompt: string;
+  toolCallMessage?: {
+    toolCallId: string;
+    toolCallName: string;
+    result: string;
+  };
   messageID?: string;
   attachments?: AttachmentContent['data'];
   [key: string]: any;
@@ -211,12 +216,16 @@ export interface DefaultEngineCallbacks {
   onRequest?: (params: ChatRequestParams) => RequestInit | Promise<RequestInit>;
   onStart?: (chunk: string) => void;
   /** 接收到消息数据块 - 用于解析和处理聊天内容 */
-  onMessage?: (chunk: SSEChunkData, message?: ChatMessagesData) => AIContentChunkUpdate | AIMessageContent[] | null;
+  onMessage?: (
+    chunk: SSEChunkData,
+    message?: ChatMessagesData,
+    parsedResult?: AIMessageContent | AIMessageContent[] | null,
+  ) => AIMessageContent | AIMessageContent[] | null;
   onComplete?: (
     isAborted: boolean,
-    params?: RequestInit,
+    params?: ChatRequestParams,
     result?: any,
-  ) => AIContentChunkUpdate | AIMessageContent[] | void;
+  ) => AIMessageContent | AIMessageContent[] | void;
   onAbort?: () => Promise<void>;
   /** 错误处理 */
   onError?: (err: Error | Response) => void;

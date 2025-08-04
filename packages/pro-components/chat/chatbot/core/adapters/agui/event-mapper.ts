@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import type { AIContentChunkUpdate, SSEChunkData } from '../../type';
+import type { AIMessageContent, SSEChunkData } from '../../type';
 import { EventType, ToolCallEventType } from './events';
 
 // 内部ToolCall结构，用于累积数据
@@ -58,7 +58,7 @@ export class AGUIEventMapper {
    *
    * @param chunk SSE数据块，其中data字段可能是字符串（需要解析）或已解析的对象
    */
-  mapEvent(chunk: SSEChunkData): AIContentChunkUpdate | AIContentChunkUpdate[] | null {
+  mapEvent(chunk: SSEChunkData): AIMessageContent | AIMessageContent[] | null {
     // 处理data字段，可能是字符串或已解析的对象
     let event: any;
     if (typeof chunk.data === 'string') {
@@ -139,6 +139,7 @@ export class AGUIEventMapper {
         };
 
       case EventType.TOOL_CALL_ARGS:
+        console.log('TOOL_CALL_ARGS', event);
         // 更新工具调用的参数
         if (this.toolCallMap[event.toolCallId]) {
           const currentArgs = this.toolCallMap[event.toolCallId].args || '';
@@ -211,8 +212,8 @@ export class AGUIEventMapper {
 
       case EventType.MESSAGES_SNAPSHOT:
         return this.handleMessagesSnapshot(event.messages);
-      case EventType.CUSTOM:
-        return this.handleCustomEvent(event);
+      // case EventType.CUSTOM:
+      //   return this.handleCustomEvent(event);
       case EventType.RUN_ERROR:
         return [
           {
@@ -255,7 +256,7 @@ export class AGUIEventMapper {
     return this.toolCallEnded.has(toolCallId);
   }
 
-  private handleMessagesSnapshot(messages: any[]): AIContentChunkUpdate[] {
+  private handleMessagesSnapshot(messages: any[]): AIMessageContent[] {
     // 只取assistant消息
     if (!messages) return [];
     return messages.flatMap((msg: any) => {
@@ -270,7 +271,7 @@ export class AGUIEventMapper {
     });
   }
 
-  private handleCustomEvent(event: any): AIContentChunkUpdate {
+  private handleCustomEvent(event: any): AIMessageContent {
     if (event.name === 'suggestion') {
       return {
         type: 'suggestion',

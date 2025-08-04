@@ -3,27 +3,52 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: relative;
 }
 
 .chat-content {
   display: flex;
-  flex: 1;
-  gap: 16px;
-}
-
-.chat-main {
-  flex: 1;
-  display: flex;
   flex-direction: column;
-  background: white;
-}
-
-.planning-sidebar {
-  width: 300px;
+  flex: 1;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  overflow: hidden;
+}
+
+/* 右下角固定规划状态面板 */
+.planning-panel-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 220px;
+  z-index: 1000;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e7e7e7;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.planning-panel-fixed:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .planning-panel-fixed {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-height: 300px;
+  }
+  
+  .chat-content {
+    margin-bottom: 320px; /* 为固定面板留出空间 */
+  }
 }
 
 /* 内容卡片通用样式 */
@@ -192,10 +217,6 @@
   color: #333;
 }
 
-.final-summary {
-  margin-top: 16px;
-}
-
 .summary-header {
   display: flex;
   align-items: center;
@@ -214,8 +235,13 @@
 }
 
 /* Human-in-the-Loop 表单样式 */
+/* 动态表单组件样式 */
 .human-input-form {
-  border: 1px solid #e7e7e7;
+  border: 2px solid #0052d9;
+  border-radius: 8px;
+  padding: 20px;
+  background: #f8f9ff;
+  margin: 16px 0;
   max-width: 500px;
 }
 
@@ -228,7 +254,8 @@
 
 .form-title {
   font-weight: 600;
-  color: #333;
+  color: #0052d9;
+  font-size: 16px;
 }
 
 .form-description {
@@ -241,26 +268,27 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 20px;
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .field-label {
   font-weight: 500;
   color: #333;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  font-size: 14px;
 }
 
 .required {
   color: #e34d59;
-  font-weight: bold;
+  margin-left: 4px;
+}
+
+.field-wrapper {
+  width: 100%;
 }
 
 .checkbox-group {
@@ -269,10 +297,17 @@
   gap: 8px;
 }
 
+.error-message {
+  color: #e34d59;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .form-actions {
   display: flex;
-  justify-content: flex-end;
   gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid #e7e7e7;
 }
@@ -293,17 +328,13 @@
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .chat-content {
-    flex-direction: column;
-  }
-  
-  .planning-sidebar {
-    width: 100%;
-    order: -1;
-  }
-  
   .human-input-form {
     max-width: 100%;
+    padding: 16px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
   }
 }
 

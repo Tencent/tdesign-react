@@ -79,8 +79,20 @@ const createChatServiceConfig = ({
   protocol: 'agui' as const,
   stream: true,
   // 流式对话结束
-  onComplete: (aborted: boolean, params?: RequestInit) => {
-    console.log('旅游规划完成', aborted, params);
+  onComplete: (isAborted: boolean, params?: RequestInit, result?: any) => {
+    console.log('onComplete 回调', result?.result?.status);
+
+    // 检查是否是等待用户输入的状态
+    if (result?.result?.status === 'waiting_for_user_input') {
+      console.log('检测到等待用户输入状态，保持消息为 streaming');
+      // 返回一个空的更新来保持消息状态为 streaming
+      return {
+        status: 'streaming',
+      };
+    }
+    // 正常完成流程
+    setWaitingForUserInput(false);
+    setUserInputFormConfig(null);
   },
   // 流式对话过程中出错
   onError: (err: Error | Response) => {
@@ -193,7 +205,6 @@ const createChatServiceConfig = ({
     if (toolCallMessage) {
       requestBody.toolCallMessage = toolCallMessage;
     }
-
     return {
       method: 'POST',
       headers: {
@@ -301,9 +312,9 @@ export default function TravelPlannerChat() {
       setWaitingForUserInput(false);
       setUserInputFormConfig(null);
 
-      // 2. 创建包含用户输入的新请求
+      // 2. 构造新的请求参数
       const newRequestParams: ChatRequestParams = {
-        prompt: inputValue, // 原始用户输入
+        prompt: inputValue,
         toolCallMessage: {
           toolCallId: currentToolCallId,
           toolCallName: 'get_travel_preferences',
@@ -311,9 +322,10 @@ export default function TravelPlannerChat() {
         },
       };
 
-      // 3. 重新发起请求
+      // 3. 直接调用 chatEngine.sendRequest() 发起新一轮请求
       console.log('重新发起请求', newRequestParams);
-      // await sendUserMessage(newRequestParams);
+      await chatEngine.continueChat(newRequestParams);
+      listRef.current?.scrollList({ to: 'bottom' });
     } catch (error) {
       console.error('提交用户输入失败:', error);
       // 可以显示错误提示
@@ -331,9 +343,10 @@ export default function TravelPlannerChat() {
   };
 
   const renderMessageContent = ({ item, index, message }: MessageRendererProps): React.ReactNode => {
+    console.log('=====item', item);
     if (item.type === 'toolcall') {
       const { data, type } = item;
-
+      console.log('toolcall 渲染检查:', item);
       // Human-in-the-Loop 输入请求
       if (data.toolCallName === 'get_travel_preferences') {
         // 区分历史消息和实时交互
@@ -395,11 +408,6 @@ export default function TravelPlannerChat() {
       }
     }
 
-    // 规划状态面板 - 不在消息中显示，只用于更新右侧面板
-    if (item.type === 'planningState') {
-      return null;
-    }
-
     return null;
   };
 
@@ -423,9 +431,7 @@ export default function TravelPlannerChat() {
   const sendUserMessage = async (requestParams: ChatRequestParams) => {
     // 重置规划状态
     setPlanningState(null);
-
     await chatEngine.sendUserMessage(requestParams);
-    listRef.current?.scrollList({ to: 'bottom' });
   };
 
   const inputChangeHandler = (e: CustomEvent) => {

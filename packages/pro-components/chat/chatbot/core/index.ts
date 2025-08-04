@@ -83,6 +83,14 @@ export default class ChatEngine implements IChatEngine {
     } as SystemMessage);
   }
 
+  // 继续上一轮对话
+  public async continueChat(params: ChatRequestParams) {
+    await this.sendRequest({
+      ...this.lastRequestParams,
+      ...params,
+    });
+  }
+
   public async abortChat() {
     this.stopReceive = true;
 
@@ -180,13 +188,18 @@ export default class ChatEngine implements IChatEngine {
   }
 
   private handleComplete(id: string, isAborted: boolean, params: ChatRequestParams, chunk?: any) {
-    // 所有消息内容块都失败才算消息体失败
-    const allContentFailed = this.messageStore.messages.every((content) => content.status === 'error');
-    // eslint-disable-next-line no-nested-ternary
-    this.setMessageStatus(id, isAborted ? 'stop' : allContentFailed ? 'error' : 'complete');
+    // 先调用用户自定义的 onComplete 回调，让业务层决定如何处理
+    const customResult = this.config.onComplete?.(isAborted, params, chunk);
 
-    // 返回空数组以满足类型要求
-    return this.config.onComplete?.(isAborted, params, chunk);
+    // 如果用户返回了自定义内容，处理这些内容
+    if (Array.isArray(customResult) || customResult?.status) {
+      this.processMessageResult(id, customResult);
+    } else {
+      // 所有消息内容块都失败才算消息体失败
+      const allContentFailed = this.messageStore.messages.every((content) => content.status === 'error');
+      // eslint-disable-next-line no-nested-ternary
+      this.setMessageStatus(id, isAborted ? 'stop' : allContentFailed ? 'error' : 'complete');
+    }
   }
 
   /**
@@ -220,18 +233,23 @@ export default class ChatEngine implements IChatEngine {
 
         let result;
 
-        // 优先使用用户自定义的onMessage处理
-        if (this.config.onMessage) {
-          result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
-        }
-
-        // 如果用户未处理，使用AGUI适配器处理事件
-        if (!result) {
-          result = this.aguiAdapter!.handleAGUIEvent(chunk, {
+        // SSE数据 → AGUIEventMapper.mapEvent → 用户自定义onMessage(解析后数据 + 原始chunk)
+        // 首先使用AGUI适配器进行通用协议解析
+        if (this.aguiAdapter) {
+          result = this.aguiAdapter.handleAGUIEvent(chunk, {
             onRunStart: (event) => this.config.onStart?.(JSON.stringify(event)),
             onRunComplete: (isAborted, params, event) => this.handleComplete(messageId, isAborted, params, event),
             onRunError: (error) => this.handleError(messageId, error),
           });
+        }
+
+        // 然后调用用户自定义的onMessage，传入解析后的结果和原始数据
+        if (this.config.onMessage) {
+          const userResult = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId), result);
+          // 如果用户返回了自定义结果，使用用户的结果
+          if (userResult) {
+            result = userResult;
+          }
         }
 
         // 处理消息结果

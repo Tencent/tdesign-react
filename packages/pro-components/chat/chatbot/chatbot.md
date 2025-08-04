@@ -7,16 +7,6 @@ spline: navigation
 
 ## 基本用法
 
-### 组合式用法
-
-可以通过 `useChat` Hook 提供的对话引擎实例及状态控制方法，同时自行组合拼装`ChatList`，`ChatMessage`, `ChatSender`等组件集成聊天界面，适合需要深度定制组件结构和消息处理流程的场景
-{{ agent }}
-
-## AGUI 协议
-
-### 基本用法
-{{ agui }}
-
 
 ### 步骤规划
 {{ travel }}
