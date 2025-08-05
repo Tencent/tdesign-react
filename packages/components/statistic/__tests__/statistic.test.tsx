@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, mockDelay } from '@test/utils';
 import { ArrowTriangleDownFilledIcon, ArrowTriangleUpFilledIcon } from 'tdesign-icons-react';
+import { COLOR_MAP } from '@tdesign/common-js/statistic/utils';
 import Statistic from '../index';
 
 describe('Statistic 组件测试', () => {
@@ -24,7 +25,7 @@ describe('Statistic 组件测试', () => {
     const { container } = render(<Statistic title="Total Sales" value={1000} color="green" />);
 
     const contentElement = container.querySelector('.t-statistic-content');
-    expect(contentElement).toHaveStyle('color: green');
+    expect(contentElement).toHaveStyle('color: var(--td-success-color)');
   });
 
   it('color="#fff123"', () => {
@@ -32,6 +33,17 @@ describe('Statistic 组件测试', () => {
 
     const contentElement = container.querySelector('.t-statistic-content');
     expect(contentElement).toHaveStyle('color: #fff123');
+  });
+
+  it('colors: colorKeys', () => {
+    Object.keys(COLOR_MAP).forEach((color) => {
+      const { container } = render(<Statistic title="Total Sales" value={1000} color={color} />);
+
+      const contentElement = container.querySelector('.t-statistic-content');
+      expect(contentElement).toBeTruthy();
+      const expectedColor = COLOR_MAP[color as keyof typeof COLOR_MAP];
+      expect(contentElement).toHaveStyle(`color: ${expectedColor}`);
+    });
   });
 
   /**
