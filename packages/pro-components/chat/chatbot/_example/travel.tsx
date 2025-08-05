@@ -59,147 +59,6 @@ const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {
   return [];
 };
 
-// 创建聊天服务配置
-const createChatServiceConfig = ({
-  setPlanningState,
-  setCurrentStep,
-  planningState,
-  setWaitingForUserInput,
-  setCurrentToolCallId,
-  setUserInputFormConfig,
-}: {
-  setPlanningState: (state: any) => void;
-  setCurrentStep: (step: string) => void;
-  planningState: any;
-  setWaitingForUserInput: (waiting: boolean) => void;
-  setCurrentToolCallId: (id: string) => void;
-  setUserInputFormConfig: (config: FormConfig | null) => void;
-}) => ({
-  // 对话服务地址 - 使用 POST 请求
-  endpoint: `http://localhost:3000/sse/agui`,
-  protocol: 'agui' as const,
-  stream: true,
-  // 流式对话结束
-  onComplete: (isAborted: boolean, params?: RequestInit, result?: any) => {
-    console.log('onComplete 回调', result?.result?.status);
-
-    // 检查是否是等待用户输入的状态
-    if (result?.result?.status === 'waiting_for_user_input') {
-      console.log('检测到等待用户输入状态，保持消息为 streaming');
-      // 返回一个空的更新来保持消息状态为 streaming
-      return {
-        status: 'streaming',
-      };
-    }
-    // 正常完成流程
-    setWaitingForUserInput(false);
-    setUserInputFormConfig(null);
-  },
-  // 流式对话过程中出错
-  onError: (err: Error | Response) => {
-    console.error('旅游规划服务错误:', err);
-  },
-  // 流式对话过程中用户主动结束对话
-  onAbort: async () => {
-    console.log('用户取消旅游规划');
-  },
-  // AG-UI协议消息处理 - 优先级高于内置处理
-  onMessage: (chunk, message, parsedResult): AIMessageContent | undefined => {
-    const { type, ...rest } = chunk.data;
-
-    switch (type) {
-      // ========== 步骤开始/结束事件处理 ==========
-      case 'STEP_STARTED':
-        setCurrentStep(rest.stepName);
-        break;
-
-      case 'STEP_FINISHED':
-        setCurrentStep('');
-        break;
-
-      // ========== 工具调用事件处理 ==========
-      case 'TOOL_CALL_START':
-        if (rest.toolCallName === 'get_travel_preferences') {
-          setWaitingForUserInput(true);
-          setCurrentToolCallId(rest.toolCallId);
-        }
-        break;
-
-      case 'TOOL_CALL_ARGS':
-        // 使用解析后的 ToolCall 数据
-        if (parsedResult?.data?.toolCallName === 'get_travel_preferences') {
-          const toolCall = parsedResult.data as any;
-          if (toolCall.args) {
-            try {
-              const formConfig = JSON.parse(toolCall.args);
-              setUserInputFormConfig(formConfig);
-              console.log('成功解析表单配置:', formConfig);
-            } catch (error) {
-              console.log('JSON 不完整，继续等待...', toolCall.args);
-            }
-          }
-        }
-        break;
-
-      case 'RUN_FINISHED':
-        // 检查是否是因为等待用户输入而结束
-        if (rest.result?.status === 'waiting_for_user_input') {
-          // 保持等待状态，不重置
-          console.log('等待用户输入...');
-        } else {
-          // 正常结束流程
-          setWaitingForUserInput(false);
-          setUserInputFormConfig(null);
-        }
-        break;
-
-      // ========== 状态管理事件处理 ==========
-      case 'STATE_SNAPSHOT':
-        setPlanningState(rest.snapshot);
-        return {
-          type: 'planningState',
-          data: { state: rest.snapshot },
-        } as any;
-
-      case 'STATE_DELTA':
-        // 应用状态变更到当前状态
-        setPlanningState((prevState: any) => {
-          if (!prevState) return prevState;
-          return applyJsonPatch(prevState, rest.delta);
-        });
-
-        // 返回更新后的状态组件
-        return {
-          type: 'planningState',
-          data: { state: planningState },
-        } as any;
-    }
-  },
-  // 自定义请求参数 - 使用 POST 请求
-  onRequest: (innerParams: ChatRequestParams) => {
-    const { prompt, toolCallMessage } = innerParams;
-    const requestBody: any = {
-      uid: 'travel_planner_uid',
-      prompt,
-      agentType: 'travel-planner',
-    };
-
-    // 如果有用户输入数据，添加到请求中
-    if (toolCallMessage) {
-      requestBody.toolCallMessage = toolCallMessage;
-    }
-
-    return {
-      method: 'POST',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    };
-  },
-});
-
 export default function TravelPlannerChat() {
   const listRef = useRef<TdChatListApi>(null);
   const inputRef = useRef<TdChatSenderApi>(null);
@@ -210,14 +69,117 @@ export default function TravelPlannerChat() {
   const [currentStep, setCurrentStep] = useState<string>('');
 
   // Human-in-the-Loop 状态管理
-  const [waitingForUserInput, setWaitingForUserInput] = useState(false);
-  const [currentToolCallId, setCurrentToolCallId] = useState<string>('');
   const [userInputFormConfig, setUserInputFormConfig] = useState<FormConfig | null>(null);
-  const [formSubmitting, setFormSubmitting] = useState(false);
 
   // 加载历史消息
   const [defaultMessages, setDefaultMessages] = useState<ChatMessagesData[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+
+  // 创建聊天服务配置
+  const createChatServiceConfig = () => ({
+    // 对话服务地址 - 使用 POST 请求
+    endpoint: `http://localhost:3000/sse/agui`,
+    protocol: 'agui' as const,
+    stream: true,
+    // 流式对话结束
+    onComplete: (isAborted: boolean, params?: RequestInit, parsed?: any) => {
+      // 检查是否是等待用户输入的状态
+      if (parsed?.result?.status === 'waiting_for_user_input') {
+        console.log('检测到等待用户输入状态，保持消息为 streaming');
+        // 返回一个空的更新来保持消息状态为 streaming
+        return {
+          status: 'streaming',
+        };
+      }
+      if (parsed?.result?.status === 'user_aborted') {
+        return {
+          status: 'stop',
+        };
+      }
+    },
+    // 流式对话过程中出错
+    onError: (err: Error | Response) => {
+      console.error('旅游规划服务错误:', err);
+    },
+    // 流式对话过程中用户主动结束对话
+    onAbort: async () => {
+      console.log('用户取消旅游规划');
+    },
+    // AG-UI协议消息处理 - 优先级高于内置处理
+    onMessage: (chunk, message, parsedResult): AIMessageContent | undefined => {
+      const { type, ...rest } = chunk.data;
+
+      switch (type) {
+        // ========== 步骤开始/结束事件处理 ==========
+        case 'STEP_STARTED':
+          setCurrentStep(rest.stepName);
+          break;
+
+        case 'STEP_FINISHED':
+          setCurrentStep('');
+          break;
+        // ========== 工具调用事件处理 ==========
+        case 'TOOL_CALL_ARGS':
+          // 使用解析后的 ToolCall 数据
+          if (parsedResult?.data?.toolCallName === 'get_travel_preferences') {
+            const toolCall = parsedResult.data as any;
+            if (toolCall.args) {
+              try {
+                const formConfig = JSON.parse(toolCall.args);
+                setUserInputFormConfig(formConfig);
+                console.log('成功解析表单配置:', formConfig);
+              } catch (error) {
+                console.log('JSON 不完整，继续等待...', toolCall.args);
+              }
+            }
+          }
+          break;
+        // ========== 状态管理事件处理 ==========
+        case 'STATE_SNAPSHOT':
+          setPlanningState(rest.snapshot);
+          return {
+            type: 'planningState',
+            data: { state: rest.snapshot },
+          } as any;
+
+        case 'STATE_DELTA':
+          // 应用状态变更到当前状态
+          setPlanningState((prevState: any) => {
+            if (!prevState) return prevState;
+            return applyJsonPatch(prevState, rest.delta);
+          });
+
+          // 返回更新后的状态组件
+          return {
+            type: 'planningState',
+            data: { state: planningState },
+          } as any;
+      }
+    },
+    // 自定义请求参数 - 使用 POST 请求
+    onRequest: (innerParams: ChatRequestParams) => {
+      const { prompt, toolCallMessage } = innerParams;
+      const requestBody: any = {
+        uid: 'travel_planner_uid',
+        prompt,
+        agentType: 'travel-planner',
+      };
+
+      // 如果有用户输入数据，添加到请求中
+      if (toolCallMessage) {
+        requestBody.toolCallMessage = toolCallMessage;
+      }
+
+      return {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      };
+    },
+  });
 
   // 在组件挂载时加载历史消息
   React.useEffect(() => {
@@ -232,15 +194,7 @@ export default function TravelPlannerChat() {
 
   const { chatEngine, messages, status } = useChat({
     defaultMessages,
-    // 聊天服务配置
-    chatServiceConfig: createChatServiceConfig({
-      setPlanningState,
-      setCurrentStep,
-      planningState,
-      setWaitingForUserInput,
-      setCurrentToolCallId,
-      setUserInputFormConfig,
-    }),
+    chatServiceConfig: createChatServiceConfig(),
   });
 
   const senderLoading = useMemo(() => status === 'pending' || status === 'streaming', [status]);
@@ -289,14 +243,11 @@ export default function TravelPlannerChat() {
 
   // 处理用户输入提交
   const handleUserInputSubmit = async (userData: any) => {
-    setFormSubmitting(true);
     try {
       // 1. 更新状态
-      setWaitingForUserInput(false);
       setUserInputFormConfig(null);
 
       // 2. 构造新的请求参数
-      console.log('====== getToolcallByName', chatEngine.getToolcallByName('get_travel_preferences'));
       const tools = chatEngine.getToolcallByName('get_travel_preferences') || {};
       const newRequestParams: ChatRequestParams = {
         prompt: inputValue,
@@ -312,17 +263,19 @@ export default function TravelPlannerChat() {
     } catch (error) {
       console.error('提交用户输入失败:', error);
       // 可以显示错误提示
-    } finally {
-      setFormSubmitting(false);
     }
   };
 
   // 处理用户输入取消
-  const handleUserInputCancel = () => {
-    setWaitingForUserInput(false);
-    setUserInputFormConfig(null);
-    // 可以选择终止当前流程或显示提示
-    console.log('用户取消了输入');
+  const handleUserInputCancel = async () => {
+    await chatEngine.continueChat({
+      prompt: inputValue,
+      toolCallMessage: {
+        ...chatEngine.getToolcallByName('get_travel_preferences'),
+        result: 'user_cancel',
+      },
+    });
+    await chatEngine.abortChat();
   };
 
   const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
@@ -351,7 +304,6 @@ export default function TravelPlannerChat() {
                 formConfig={userInputFormConfig}
                 onSubmit={handleUserInputSubmit}
                 onCancel={handleUserInputCancel}
-                loading={formSubmitting}
               />
             </div>
           );

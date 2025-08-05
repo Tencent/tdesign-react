@@ -23,10 +23,10 @@ interface HumanInputFormProps {
   formConfig: FormConfig;
   onSubmit: (data: any) => void;
   onCancel: () => void;
-  loading?: boolean;
+  disabled?: boolean;
 }
 
-export const HumanInputForm: React.FC<HumanInputFormProps> = ({ formConfig, onSubmit, onCancel, loading = false }) => {
+export const HumanInputForm: React.FC<HumanInputFormProps> = ({ formConfig, onSubmit, onCancel, disabled = false }) => {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -175,10 +175,10 @@ export const HumanInputForm: React.FC<HumanInputFormProps> = ({ formConfig, onSu
 
       <div className="form-actions">
         <Space>
-          <Button variant="outline" onClick={handleCancel} disabled={loading}>
+          <Button variant="outline" onClick={handleCancel} disabled={disabled}>
             取消
           </Button>
-          <Button theme="primary" onClick={handleSubmit} loading={loading}>
+          <Button theme="primary" onClick={handleSubmit} loading={disabled}>
             提交
           </Button>
         </Space>
