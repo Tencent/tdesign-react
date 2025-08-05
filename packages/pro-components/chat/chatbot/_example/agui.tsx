@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useMemo, useRef, useState } from 'react';
 import {
   type TdChatMessageConfig,
   type ChatRequestParams,
@@ -23,8 +23,8 @@ export default function ComponentsBuild() {
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址
-      endpoint: `http://127.0.0.1:3000/sse/agui`,
-      // endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agent`,
+      endpoint: `http://127.0.0.1:3000/sse/agui-simple`,
+      // 开启agui协议解析支持
       protocol: 'agui',
       stream: true,
       onStart: (chunk) => {

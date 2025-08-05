@@ -10,7 +10,8 @@ import {
   isAIMessage,
 } from '@tdesign-react/aigc';
 import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
-import { LoadingIcon } from 'tdesign-icons-react';
+import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
+import { Button } from 'tdesign-react';
 import { useChat } from '../useChat';
 import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent } from '../core/type';
 import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
@@ -74,6 +75,7 @@ export default function TravelPlannerChat() {
   // 加载历史消息
   const [defaultMessages, setDefaultMessages] = useState<ChatMessagesData[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+  const [hasLoadedHistory, setHasLoadedHistory] = useState(false);
 
   // 创建聊天服务配置
   const createChatServiceConfig = () => ({
@@ -181,16 +183,21 @@ export default function TravelPlannerChat() {
     },
   });
 
-  // 在组件挂载时加载历史消息
-  React.useEffect(() => {
-    const loadHistory = async () => {
-      setIsLoadingHistory(true);
+  // 加载历史消息的函数
+  const handleLoadHistory = async () => {
+    if (hasLoadedHistory) return;
+
+    setIsLoadingHistory(true);
+    try {
       const messages = await loadHistoryMessages();
       setDefaultMessages(messages);
+      setHasLoadedHistory(true);
+    } catch (error) {
+      console.error('加载历史消息失败:', error);
+    } finally {
       setIsLoadingHistory(false);
-    };
-    loadHistory();
-  }, []);
+    }
+  };
 
   const { chatEngine, messages, status } = useChat({
     defaultMessages,
@@ -395,6 +402,31 @@ export default function TravelPlannerChat() {
 
   return (
     <div className="travel-planner-container">
+      {/* 顶部工具栏 */}
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #e7e7e7',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backgroundColor: '#fafafa',
+        }}
+      >
+        <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>旅游规划助手</h3>
+        <Button
+          theme="default"
+          variant="outline"
+          size="small"
+          icon={<HistoryIcon />}
+          loading={isLoadingHistory}
+          disabled={hasLoadedHistory}
+          onClick={handleLoadHistory}
+        >
+          {hasLoadedHistory ? '已加载历史' : '加载历史消息'}
+        </Button>
+      </div>
+
       <div className="chat-content">
         <ChatList ref={listRef} style={{ width: '100%', height: '500px' }}>
           {messages.map((message, idx) => (
