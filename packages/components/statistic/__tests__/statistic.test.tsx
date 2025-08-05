@@ -21,11 +21,11 @@ describe('Statistic 组件测试', () => {
    * props
    */
 
-  it('color="green"', () => {
-    const { container } = render(<Statistic title="Total Sales" value={1000} color="green" />);
+  it('color="yellow"', () => {
+    const { container } = render(<Statistic title="Total Sales" value={1000} color="yellow" />);
 
     const contentElement = container.querySelector('.t-statistic-content');
-    expect(contentElement).toHaveStyle('color: var(--td-success-color)');
+    expect(contentElement).toHaveStyle('color: yellow');
   });
 
   it('color="#fff123"', () => {
