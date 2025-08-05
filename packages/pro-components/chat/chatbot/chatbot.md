@@ -1,6 +1,6 @@
 ---
 title: Chatbot 智能对话
-description: 智能对话聊天组件，适用于需要快速集成智能客服、问答系统等的AI应用
+description: 智能对话聊天组件，适用于需要快速集成智能客服、问答系统、任务规划等的AI应用
 isComponent: true
 spline: navigation
 ---
@@ -74,7 +74,7 @@ spline: navigation
 以下示例演示了如何使用 Chatbot 组件与 AG-UI 协议后端进行基础交互：
 
 - **协议配置**：通过 `protocol: 'agui'` 开启 AG-UI 协议解析支持
-- **事件处理**：组件自动解析 AG-UI 标准事件类型（如 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*` 等）
+- **事件处理**：组件自动解析 AG-UI [标准事件类型](https://docs.ag-ui.com/concepts/architecture#message-types)（如 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*` 等）
 
 {{ agui }}
 
@@ -83,7 +83,7 @@ spline: navigation
 该示例通过一个**旅游规划Agent场景**，演示了如何使用 AG-UI 协议构建复杂的**多步骤任务规划**应用，包括了**16种标准化事件类型**的应用示例，同时演示了状态流式传输、人机协作工作流和丰富的自定义消息渲染形式。：
 
 - **多步骤流程**：支持分步骤执行复杂任务（如旅游规划）
-- **状态管理**：实时更新应用状态，支持状态快照和增量更新
+- **状态管理**：实时更新应用状态，支持chat内外同步状态快照和增量更新
 - **Human-in-the-Loop**：支持人机协作，在流程中插入用户输入环节
 - **工具调用**：集成外部工具调用，如天气查询、行程规划等
 - **历史消息**：支持加载和展示历史对话记录
