@@ -11,8 +11,6 @@ import type {
 } from 'tdesign-web-components';
 import reactify from '../_util/reactify';
 
-export * from './useChat';
-
 const ChatBot: React.ForwardRefExoticComponent<
   Omit<TdChatProps & Partial<TdChatbotApi>, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatProps>('t-chatbot');
@@ -33,3 +31,7 @@ export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };
 
 export * from 'tdesign-web-components/lib/chatbot/core/utils';
 export type * from 'tdesign-web-components/lib/chatbot/type';
+
+export * from './hooks/useChat';
+export * from './hooks/useAgentToolcall';
+export * from './components/toolcall';

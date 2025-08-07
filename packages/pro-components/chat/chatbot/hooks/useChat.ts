@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { TdChatProps } from 'tdesign-web-components';
-import ChatEngine from './core';
-import type { ChatMessagesData, ChatStatus } from './core/type';
+import ChatEngine from '../core';
+import type { ChatMessagesData, ChatStatus } from '../core/type';
 
 // @ts-ignore
 export type IUseChat = Pick<TdChatProps, 'defaultMessages' | 'chatServiceConfig'>;

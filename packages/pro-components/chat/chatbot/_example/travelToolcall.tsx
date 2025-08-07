@@ -12,20 +12,13 @@ import {
 import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import { Button } from 'tdesign-react';
-import { useChat } from '../useChat';
-import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent } from '../core/type';
+import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent, ToolCall } from '../core/type';
 import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
-import {
-  PlanningStatePanel,
-  WeatherCard,
-  ItineraryCard,
-  HotelCard,
-  HumanInputResult,
-  HumanInputForm,
-} from './components';
-import type { FormConfig } from './components/HumanInputForm';
+import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
+import { PlanningStatePanel } from './components';
 import './travel_v1.css';
 import { applyJsonPatch } from '../core';
+import { travelActions } from './travel-actions';
 
 // 扩展自定义消息体类型
 declare module '@tdesign-react/aigc' {
@@ -60,17 +53,32 @@ const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {
   return [];
 };
 
+/**
+ * 注册所有旅游规划相关的 Agent Toolcalls
+ */
+export function useTravelToolcalls() {
+  // 注册所有旅游相关的 actions
+  travelActions.forEach((action) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useAgentToolcall(action);
+  });
+
+  return {
+    actions: travelActions,
+  };
+}
+
 export default function TravelPlannerChat() {
   const listRef = useRef<TdChatListApi>(null);
   const inputRef = useRef<TdChatSenderApi>(null);
   const [inputValue, setInputValue] = useState<string>('请为我规划一个北京5日游行程');
 
+  // 注册旅游相关的 Agent Toolcalls
+  useTravelToolcalls();
+
   // 规划状态管理 - 用于右侧面板展示
   const [planningState, setPlanningState] = useState<any>(null);
   const [currentStep, setCurrentStep] = useState<string>('');
-
-  // Human-in-the-Loop 状态管理
-  const [userInputFormConfig, setUserInputFormConfig] = useState<FormConfig | null>(null);
 
   // 加载历史消息
   const [defaultMessages, setDefaultMessages] = useState<ChatMessagesData[]>([]);
@@ -122,19 +130,7 @@ export default function TravelPlannerChat() {
           break;
         // ========== 工具调用事件处理 ==========
         case 'TOOL_CALL_ARGS':
-          // 使用解析后的 ToolCall 数据
-          if (parsedResult?.data?.toolCallName === 'get_travel_preferences') {
-            const toolCall = parsedResult.data as any;
-            if (toolCall.args) {
-              try {
-                const formConfig = JSON.parse(toolCall.args);
-                setUserInputFormConfig(formConfig);
-                console.log('成功解析表单配置:', formConfig);
-              } catch (error) {
-                console.log('JSON 不完整，继续等待...', toolCall.args);
-              }
-            }
-          }
+          // 工具调用参数现在由 ToolCallRenderer 自动处理
           break;
         // ========== 状态管理事件处理 ==========
         case 'STATE_SNAPSHOT':
@@ -157,6 +153,8 @@ export default function TravelPlannerChat() {
             data: { state: planningState },
           } as any;
       }
+
+      return undefined;
     },
     // 自定义请求参数 - 使用 POST 请求
     onRequest: (innerParams: ChatRequestParams) => {
@@ -190,6 +188,7 @@ export default function TravelPlannerChat() {
     setIsLoadingHistory(true);
     try {
       const messages = await loadHistoryMessages();
+      console.log('加载历史消息:', messages);
       setDefaultMessages(messages);
       setHasLoadedHistory(true);
     } catch (error) {
@@ -223,11 +222,11 @@ export default function TravelPlannerChat() {
   };
 
   const getChatActionBar = (isLast: boolean) => {
-    let filterActions = ['replay', 'good', 'bad', 'copy'];
+    let filterToolcalls = ['replay', 'good', 'bad', 'copy'];
     if (!isLast) {
-      filterActions = filterActions.filter((item) => item !== 'replay');
+      filterToolcalls = filterToolcalls.filter((item) => item !== 'replay');
     }
-    return filterActions;
+    return filterToolcalls;
   };
 
   const actionHandler = (name: string, data?: any) => {
@@ -248,101 +247,37 @@ export default function TravelPlannerChat() {
     }
   };
 
-  // 处理用户输入提交
-  const handleUserInputSubmit = async (userData: any) => {
+  // 处理工具调用响应
+  const handleToolCallRespond = async (toolcall: ToolCall, response: any) => {
     try {
-      // 1. 更新状态
-      setUserInputFormConfig(null);
-
-      // 2. 构造新的请求参数
-      const tools = chatEngine.getToolcallByName('get_travel_preferences') || {};
+      // 构造新的请求参数
+      const tools = chatEngine.getToolcallByName(toolcall.toolCallName) || {};
       const newRequestParams: ChatRequestParams = {
         prompt: inputValue,
         toolCallMessage: {
           ...tools,
-          result: JSON.stringify(userData),
+          result: JSON.stringify(response),
         },
       };
 
-      // 3. 直接调用 chatEngine.continueChat(params) 继续请求
+      // 继续对话
       await chatEngine.continueChat(newRequestParams);
       listRef.current?.scrollList({ to: 'bottom' });
     } catch (error) {
-      console.error('提交用户输入失败:', error);
-      // 可以显示错误提示
+      console.error('提交工具调用响应失败:', error);
     }
-  };
-
-  // 处理用户输入取消
-  const handleUserInputCancel = async () => {
-    await chatEngine.continueChat({
-      prompt: inputValue,
-      toolCallMessage: {
-        ...chatEngine.getToolcallByName('get_travel_preferences'),
-        result: 'user_cancel',
-      },
-    });
-    await chatEngine.abortChat();
   };
 
   const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
     if (item.type === 'toolcall') {
       const { data, type } = item;
-      // Human-in-the-Loop 输入请求
-      if (data.toolCallName === 'get_travel_preferences') {
-        // 区分历史消息和实时交互
-        if (data.result) {
-          // 历史消息：静态展示用户已输入的数据
-          try {
-            const userInput = JSON.parse(data.result);
-            return (
-              <div slot={`${type}-${index}`} key={`human-input-result-${index}`} className="content-card">
-                <HumanInputResult userInput={userInput} />
-              </div>
-            );
-          } catch (e) {
-            console.error('解析用户输入数据失败:', e);
-          }
-        } else if (userInputFormConfig) {
-          // 实时交互：使用状态中的表单配置
-          return (
-            <div slot={`${type}-${index}`} key={`human-input-form-${index}`} className="content-card">
-              <HumanInputForm
-                formConfig={userInputFormConfig}
-                onSubmit={handleUserInputSubmit}
-                onCancel={handleUserInputCancel}
-              />
-            </div>
-          );
-        }
-      }
 
-      // 天气卡片
-      if (data.toolCallName === 'get_weather_forecast' && data?.result) {
-        return (
-          <div slot={`${type}-${index}`} key={`weather-${index}`} className="content-card">
-            <WeatherCard weather={JSON.parse(data.result)} />
-          </div>
-        );
-      }
-
-      // 行程规划卡片
-      if (data.toolCallName === 'plan_itinerary' && data.result) {
-        return (
-          <div slot={`${type}-${index}`} key={`itinerary-${index}`} className="content-card">
-            <ItineraryCard plan={JSON.parse(data.result)} />
-          </div>
-        );
-      }
-
-      // 酒店推荐卡片
-      if (data.toolCallName === 'get_hotel_details' && data.result) {
-        return (
-          <div slot={`${type}-${index}`} key={`hotel-${index}`} className="content-card">
-            <HotelCard hotels={JSON.parse(data.result)} />
-          </div>
-        );
-      }
+      // 使用统一的 ToolCallRenderer 处理所有工具调用
+      return (
+        <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
+          <ToolCallRenderer toolCall={data} onRespond={handleToolCallRespond} />
+        </div>
+      );
     }
 
     return null;

@@ -1,20 +1,7 @@
 import React from 'react';
-import {
-  Button,
-  Select,
-  Input,
-  Checkbox,
-  Card,
-  Tag,
-  Space,
-  Divider,
-  Typography,
-  Alert,
-  Loading,
-  Badge,
-} from 'tdesign-react';
-import { CloudIcon, MapIcon, UserIcon, DeleteIcon, CheckIcon, CloseIcon, InfoCircleIcon } from 'tdesign-icons-react';
-import type { AgentComponentProps, AgentActionConfig } from '../components/toolcall/agent-spec';
+import { Button, Select, Input, Checkbox, Card, Tag, Space, Divider, Typography, Alert, Loading } from 'tdesign-react';
+import { CloseIcon, InfoCircleIcon } from 'tdesign-icons-react';
+import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall';
 
 // ==================== 类型定义 ====================
 
@@ -87,26 +74,32 @@ interface TravelPreferencesResponse {
   transportation: string;
 }
 
-// 删除确认对话框
-interface ConfirmDeletionArgs {
-  itemName: string;
-  itemId: string;
+// 酒店信息
+interface HotelArgs {
+  location: string;
+  checkIn: string;
+  checkOut: string;
 }
 
-interface ConfirmDeletionResult {
-  confirmed: boolean;
-  itemId: string;
-  deletedAt?: string;
-}
-
-interface ConfirmDeletionResponse {
-  confirmed: boolean;
+interface HotelResult {
+  hotels: Array<{
+    name: string;
+    rating: number;
+    price: number;
+    location: string;
+    amenities: string[];
+  }>;
 }
 
 // ==================== 组件实现 ====================
 
 // 天气显示组件（后端完全受控，无 handler）
-const WeatherDisplay: React.FC<AgentComponentProps<WeatherArgs, WeatherResult>> = ({ status, args, result, error }) => {
+const WeatherDisplay: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> = ({
+  status,
+  args,
+  result,
+  error,
+}) => {
   if (status === 'error') {
     return (
       <Alert theme="error" icon={<CloseIcon />} title="获取天气信息失败">
@@ -116,39 +109,39 @@ const WeatherDisplay: React.FC<AgentComponentProps<WeatherArgs, WeatherResult>> 
   }
 
   if (status === 'complete' && result) {
-    console.log('====WeatherDisplay result', args, result);
+    const weather = typeof result === 'string' ? JSON.parse(result) : result;
     return (
       <Card
         className="weather-card travel-card-animation"
         title={
           <Typography.Title level={'h4'} style={{ margin: 0 }}>
-            {result.location} 天气
+            {weather.location} 天气
           </Typography.Title>
         }
         bordered
         hoverShadow
         style={{ maxWidth: 400 }}
       >
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label>温度</label>
             <Tag theme="primary" variant="light">
-              {result.temperature}
+              {weather.temperature}
             </Tag>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label>天气状况</label>
             <Tag theme="success" variant="light">
-              {result.condition}
+              {weather.condition}
             </Tag>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label>湿度</label>
-            <label>{result.humidity}</label>
+            <label>{weather.humidity}</label>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label>风速</label>
-            <label>{result.windSpeed}</label>
+            <label>{weather.windSpeed}</label>
           </div>
         </Space>
       </Card>
@@ -177,12 +170,13 @@ const WeatherDisplay: React.FC<AgentComponentProps<WeatherArgs, WeatherResult>> 
 };
 
 // 行程规划组件（有 handler 进行数据后处理）
-const PlanItinerary: React.FC<AgentComponentProps<PlanItineraryArgs, PlanItineraryResult>> = ({
+const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItineraryResult>> = ({
   status,
   args,
   result,
   error,
 }) => {
+  console.log('PlanItinerary input:', args, result);
   // 处理 result 可能是 Promise 的情况
   const [resolvedResult, setResolvedResult] = React.useState<PlanItineraryResult | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -202,7 +196,8 @@ const PlanItinerary: React.FC<AgentComponentProps<PlanItineraryArgs, PlanItinera
         });
     } else {
       // result 是直接的对象
-      setResolvedResult(result as PlanItineraryResult);
+      const planResult = typeof result === 'string' ? JSON.parse(result) : result;
+      setResolvedResult(planResult as PlanItineraryResult);
     }
   }, [result]);
 
@@ -215,7 +210,7 @@ const PlanItinerary: React.FC<AgentComponentProps<PlanItineraryArgs, PlanItinera
   }
 
   if (status === 'complete' && resolvedResult) {
-    console.log('====PlanItinerary result', resolvedResult);
+    console.log('PlanItinerary result:', resolvedResult);
     return (
       <Card
         className="itinerary-card travel-card-animation"
@@ -228,13 +223,7 @@ const PlanItinerary: React.FC<AgentComponentProps<PlanItineraryArgs, PlanItinera
         hoverShadow
         style={{ maxWidth: 600 }}
       >
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          {resolvedResult.optimized && resolvedResult.processTime && (
-            <Alert theme="success" icon={<CheckIcon />}>
-              行程已优化，处理时间: {resolvedResult.processTime}ms
-            </Alert>
-          )}
-
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label>预算总计</label>
             <Tag theme="warning" variant="light">
@@ -305,7 +294,7 @@ const PlanItinerary: React.FC<AgentComponentProps<PlanItineraryArgs, PlanItinera
   if (status === 'inProgress' || isLoading) {
     return (
       <Card bordered style={{ maxWidth: 600 }}>
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Space align="center">
             <Loading size="small" />
             <label>
@@ -329,9 +318,83 @@ const PlanItinerary: React.FC<AgentComponentProps<PlanItineraryArgs, PlanItinera
   );
 };
 
+// 酒店推荐组件
+const HotelRecommend: React.FC<ToolcallComponentProps<HotelArgs, HotelResult>> = ({ status, args, result, error }) => {
+  if (status === 'error') {
+    return (
+      <Alert theme="error" icon={<CloseIcon />} title="获取酒店信息失败">
+        {error?.message}
+      </Alert>
+    );
+  }
+  if (status === 'complete' && result) {
+    const hotels = typeof result === 'string' ? JSON.parse(result) : result;
+    console.log('===HotelRecommend', hotels);
+    return (
+      <Card
+        className="hotel-card travel-card-animation"
+        title={
+          <Typography.Title level={'h4'} style={{ margin: 0 }}>
+            {args.location} 酒店推荐
+          </Typography.Title>
+        }
+        bordered
+        hoverShadow
+        style={{ maxWidth: 500 }}
+      >
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
+          {hotels.map((hotel: any, index: number) => (
+            <Card key={index} bordered size="small" style={{ marginBottom: 12 }}>
+              <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography.Title level={'h5'} style={{ margin: 0 }}>
+                    {hotel.name}
+                  </Typography.Title>
+                  <Tag theme="warning" variant="light">
+                    ¥{hotel.price}/晚
+                  </Tag>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label>评分</label>
+                  <Tag theme="success" variant="light">
+                    {hotel.rating}分
+                  </Tag>
+                </div>
+                <div>
+                  <label>设施: {hotel.amenities?.join(', ')}</label>
+                </div>
+              </Space>
+            </Card>
+          ))}
+        </Space>
+      </Card>
+    );
+  }
+
+  if (status === 'inProgress') {
+    return (
+      <Card bordered style={{ maxWidth: 500 }}>
+        <Space align="center">
+          <Loading size="small" />
+          <label>正在查找 {args.location} 的酒店...</label>
+        </Space>
+      </Card>
+    );
+  }
+
+  return (
+    <Card bordered style={{ maxWidth: 500 }}>
+      <Space align="center">
+        <InfoCircleIcon />
+        <label>准备查找酒店...</label>
+      </Space>
+    </Card>
+  );
+};
+
 // 旅行偏好设置组件（交互式，使用 props.respond）
 const TravelPreferences: React.FC<
-  AgentComponentProps<TravelPreferencesArgs, TravelPreferencesResult, TravelPreferencesResponse>
+  ToolcallComponentProps<TravelPreferencesArgs, TravelPreferencesResult, TravelPreferencesResponse>
 > = ({ status, args, result, error, respond }) => {
   const [budget, setBudget] = React.useState(5000);
   const [interests, setInterests] = React.useState<string[]>(['美食', '景点']);
@@ -349,7 +412,6 @@ const TravelPreferences: React.FC<
       </Alert>
     );
   }
-  console.log('====TravelPreferences result', args, result);
 
   if (status === 'complete' && result) {
     return (
@@ -364,7 +426,7 @@ const TravelPreferences: React.FC<
         hoverShadow
         style={{ maxWidth: 500 }}
       >
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label>目的地</label>
             <Tag theme="primary" variant="light">
@@ -432,10 +494,7 @@ const TravelPreferences: React.FC<
         hoverShadow
         style={{ maxWidth: 500 }}
       >
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <Alert theme="info" icon={<InfoCircleIcon />}>
-            旅行目的: {args.purpose}
-          </Alert>
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div>
             <label>预算 (元): ¥{budget}</label>
             <Input
@@ -523,105 +582,61 @@ const TravelPreferences: React.FC<
   );
 };
 
-// 删除确认对话框组件（交互式示例）
-export const ConfirmDeletionDialog: React.FC<
-  AgentComponentProps<ConfirmDeletionArgs, ConfirmDeletionResult, ConfirmDeletionResponse>
-> = ({ status, args, result, error, respond }) => {
-  if (status === 'error') {
-    return (
-      <Alert theme="error" icon={<CloseIcon />} title="操作失败">
-        {error?.message}
-      </Alert>
-    );
-  }
+// 用户偏好结果展示组件
+const TravelPreferencesResult: React.FC<ToolcallComponentProps> = ({ status, args, result }) => {
+  const userInput = result || args?.userInput || args;
 
-  if (status === 'complete' && result) {
-    return (
-      <Card
-        className="confirm-card travel-card-animation"
-        title={
-          <Typography.Title level={'h4'} style={{ margin: 0 }}>
-            {result.confirmed ? '删除成功' : '删除已取消'}
-          </Typography.Title>
-        }
-        bordered
-        hoverShadow
-        style={{ maxWidth: 400 }}
-      >
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          {result.confirmed ? (
-            <Alert theme="success" icon={<CheckIcon />}>
-              项目 &quot;{args.itemName}&quot; (ID: {args.itemId}) 已被删除
-              {result.deletedAt && (
-                <div style={{ marginTop: 8 }}>
-                  <label size="small">删除时间: {result.deletedAt}</label>
-                </div>
-              )}
-            </Alert>
-          ) : (
-            <Alert theme="warning" icon={<CloseIcon />}>
-              项目 &quot;{args.itemName}&quot; 保持不变
-            </Alert>
-          )}
-        </Space>
-      </Card>
-    );
-  }
-
-  if (status === 'inProgress') {
-    return (
-      <Card bordered style={{ maxWidth: 400 }}>
-        <Space align="center">
-          <Loading size="small" />
-          <label>正在处理删除操作...</label>
-        </Space>
-      </Card>
-    );
-  }
-
-  // 交互阶段：等待用户输入
-  if (status === 'executing') {
-    return (
-      <Card
-        className="confirm-card travel-card-animation"
-        title={
-          <Typography.Title level={'h4'} style={{ margin: 0 }}>
-            确认删除
-          </Typography.Title>
-        }
-        bordered
-        hoverShadow
-        style={{ maxWidth: 400 }}
-      >
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <Alert theme="warning" icon={<InfoCircleIcon />}>
-            <label>项目: {args.itemName}</label>
-            <div style={{ marginTop: 4 }}>
-              <label size="small">ID: {args.itemId}</label>
-            </div>
-            <div style={{ marginTop: 4 }}>
-              <label size="small">此操作不可撤销。</label>
-            </div>
-          </Alert>
-
-          <Space>
-            <Button theme="danger" onClick={() => respond?.({ confirmed: true })}>
-              确认删除
-            </Button>
-            <Button variant="outline" onClick={() => respond?.({ confirmed: false })}>
-              取消
-            </Button>
-          </Space>
-        </Space>
-      </Card>
-    );
+  if (!userInput || userInput.cancelled) {
+    return <div style={{ color: '#757575' }}>用户已取消输入</div>;
   }
 
   return (
-    <Card bordered style={{ maxWidth: 400 }}>
-      <Space align="center">
-        <InfoCircleIcon />
-        <label>准备确认对话框...</label>
+    <Card
+      className="preferences-result-card travel-card-animation"
+      title={
+        <Typography.Title level={'h4'} style={{ margin: 0 }}>
+          ✅ 用户偏好信息
+        </Typography.Title>
+      }
+      bordered
+      hoverShadow
+      style={{ maxWidth: 500 }}
+    >
+      <Space direction="vertical" size="small" style={{ width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>目的地</label>
+          <Tag theme="primary" variant="light">
+            {userInput.destination || '未指定'}
+          </Tag>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>预算</label>
+          <Tag theme="warning" variant="light">
+            ¥{userInput.budget || '未指定'}
+          </Tag>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>兴趣</label>
+          <Space>
+            {(userInput.interests || []).map((interest: string, index: number) => (
+              <Tag key={index} theme="success" variant="light" size="small">
+                {interest}
+              </Tag>
+            ))}
+          </Space>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>住宿偏好</label>
+          <Tag theme="default" variant="light">
+            {userInput.accommodation || '未指定'}
+          </Tag>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>交通偏好</label>
+          <Tag theme="default" variant="light">
+            {userInput.transportation || '未指定'}
+          </Tag>
+        </div>
       </Space>
     </Card>
   );
@@ -629,198 +644,111 @@ export const ConfirmDeletionDialog: React.FC<
 
 // ==================== 智能体动作配置 ====================
 
-export const travelAgentActions: AgentActionConfig[] = [
-  // 场景1：后端完全受控 - 天气显示（无 handler）
-  {
-    name: 'get_weather_forecast',
-    description: '获取指定地点的天气预报',
-    parameters: [
-      { name: 'location', type: 'string', required: true, description: '城市名称' },
-      { name: 'date', type: 'string', required: false, description: '日期 (可选)' },
-    ],
-    component: WeatherDisplay,
-    // 无 handler，数据完全来自后端
-  },
+// 天气预报工具配置 - 非交互式（完全依赖后端数据）
+export const weatherForecastAction: AgentToolcallConfig = {
+  name: 'get_weather_forecast',
+  description: '获取天气预报信息',
+  parameters: [
+    { name: 'location', type: 'string', required: true },
+    { name: 'date', type: 'string', required: false },
+  ],
+  // 没有 handler，完全依赖后端返回的 result
+  component: WeatherDisplay,
+};
 
-  // 场景2：非交互式 - 行程规划（有 handler 进行数据后处理）
-  {
-    name: 'plan_itinerary',
-    description: '制定详细的旅行行程计划',
-    parameters: [
-      { name: 'destination', type: 'string', required: true, description: '目的地' },
-      { name: 'days', type: 'number', required: true, description: '旅行天数' },
-      { name: 'budget', type: 'number', required: false, description: '预算' },
-      { name: 'interests', type: 'array', required: false, description: '兴趣爱好列表' },
-    ],
-    component: PlanItinerary,
-    // handler 作为数据后处理器，增强后端返回的数据
-    handler: async (args: PlanItineraryArgs, backendResult?: any): Promise<PlanItineraryResult> => {
-      const startTime = Date.now();
-      console.log('开始处理行程规划数据:', {
-        args,
-        backendResult,
-        backendResultType: typeof backendResult,
-        backendResultKeys: backendResult ? Object.keys(backendResult) : 'undefined',
-        hasDailyPlans: backendResult?.dailyPlans ? 'yes' : 'no',
-      });
+// 行程规划工具配置 - 有 handler 进行数据后处理
+export const itineraryPlanAction: AgentToolcallConfig = {
+  name: 'plan_itinerary',
+  description: '规划旅游行程',
+  parameters: [
+    { name: 'destination', type: 'string', required: true },
+    { name: 'days', type: 'number', required: true },
+    { name: 'budget', type: 'number', required: false },
+    { name: 'interests', type: 'array', required: false },
+  ],
+  component: PlanItinerary,
+  // handler 作为数据后处理器，增强后端返回的数据
+  handler: async (args: PlanItineraryArgs, backendResult?: any): Promise<PlanItineraryResult> => {
+    const startTime = Date.now();
 
-      // 如果后端提供了完整数据，进行增强处理
-      if (backendResult && backendResult.dailyPlans) {
-        // 添加本地化贴士
-        const localTips = [
-          `${args.destination}的最佳游览时间是上午9-11点和下午3-5点`,
-          '建议提前预订热门景点门票',
-          '随身携带充电宝和雨具',
-        ];
+    // 如果后端提供了完整数据，进行增强处理
+    if (backendResult && backendResult.dailyPlans) {
+      // 添加本地化贴士
+      const localTips = [
+        `${args.destination}的最佳游览时间是上午9-11点和下午3-5点`,
+        '建议提前预订热门景点门票',
+        '随身携带充电宝和雨具',
+      ];
 
-        // 优化行程安排
-        const optimizedPlans = backendResult.dailyPlans.map((day: DailyPlan) => ({
-          ...day,
-          activities: day.activities.sort((a, b) => a.time.localeCompare(b.time)),
-        }));
+      // 优化行程安排
+      const optimizedPlans = backendResult.dailyPlans.map((day: DailyPlan) => ({
+        ...day,
+        activities: day.activities.sort((a, b) => a.time.localeCompare(b.time)),
+      }));
 
-        return {
-          ...backendResult,
-          dailyPlans: optimizedPlans,
-          localTips,
-          optimized: true,
-          processTime: Date.now() - startTime,
-        };
-      }
-
-      // 如果后端数据不完整，生成基础行程（降级处理）
-      console.log('使用降级处理，生成基础行程');
-
-      const dailyPlans: DailyPlan[] = [];
-      for (let day = 1; day <= args.days; day++) {
-        dailyPlans.push({
-          day,
-          activities: [
-            {
-              time: '09:00',
-              name: `${args.destination}景点游览`,
-              description: '探索当地著名景点',
-              cost: 100,
-              location: args.destination,
-            },
-            {
-              time: '12:00',
-              name: '当地美食体验',
-              description: '品尝特色菜肴',
-              cost: 80,
-              location: args.destination,
-            },
-          ],
-          estimatedCost: 180,
-        });
-      }
-
-      const fallbackResult = {
-        destination: args.destination,
-        totalDays: args.days,
-        dailyPlans,
-        totalBudget: args.budget || 180 * args.days,
-        recommendations: ['提前预订', '关注天气', '准备现金'],
-        localTips: [`这是为${args.destination}生成的基础行程`],
-        optimized: false,
+      return {
+        ...backendResult,
+        dailyPlans: optimizedPlans,
+        localTips,
+        optimized: true,
         processTime: Date.now() - startTime,
       };
-
-      console.log('降级处理结果:', fallbackResult);
-      return fallbackResult;
-    },
-  },
-
-  // 场景3：交互式 - 旅行偏好设置（无 handler，使用 props.respond）
-  {
-    name: 'get_travel_preferences',
-    description: '收集用户的旅行偏好设置',
-    parameters: [
-      { name: 'destination', type: 'string', required: true, description: '目的地' },
-      { name: 'purpose', type: 'string', required: true, description: '旅行目的' },
-    ],
-    component: TravelPreferences,
-    // 无 handler，数据来自用户交互（通过 props.respond）
-  },
-
-  // 场景3：交互式 - 删除确认对话框（示例）
-  {
-    name: 'confirm_deletion',
-    description: '确认删除操作',
-    parameters: [
-      { name: 'itemName', type: 'string', required: true, description: '项目名称' },
-      { name: 'itemId', type: 'string', required: true, description: '项目ID' },
-    ],
-    component: ConfirmDeletionDialog,
-    // 无 handler，数据来自用户交互（通过 props.respond）
-  },
-];
-
-// ==================== 响应处理器示例 ====================
-
-/**
- * 旅行偏好响应处理器
- * 将用户的偏好设置发送给后端，并继续对话
- */
-export const createTravelPreferencesResponseHandler =
-  (chatEngine: any, inputValue: string) =>
-  async (response: TravelPreferencesResponse): Promise<TravelPreferencesResult> => {
-    console.log('收到用户偏好设置:', response);
-
-    try {
-      // 1. 构造新的请求参数
-      const tools = chatEngine.getToolcallByName('get_travel_preferences') || {};
-      const newRequestParams = {
-        prompt: inputValue,
-        toolCallMessage: {
-          ...tools,
-          result: JSON.stringify(response),
-        },
-      };
-
-      // 2. 继续对话
-      await chatEngine.continueChat(newRequestParams);
-
-      // 3. 返回处理结果
-      return {
-        ...response,
-        confirmed: true,
-      };
-    } catch (error) {
-      console.error('提交用户偏好设置失败:', error);
-      throw new Error('保存偏好设置失败');
     }
-  };
 
-/**
- * 删除确认响应处理器
- * 执行实际的删除操作
- */
-export const handleConfirmDeletionResponse = async (
-  response: ConfirmDeletionResponse,
-): Promise<ConfirmDeletionResult> => {
-  console.log('收到删除确认:', response);
-
-  if (!response.confirmed) {
-    return {
-      confirmed: false,
-      itemId: '', // 实际使用中从上下文获取
+    // 否则返回默认结果
+    const fallbackResult: PlanItineraryResult = {
+      dailyPlans: [],
+      totalDays: args.days,
+      totalBudget: args.budget || 180 * args.days,
+      localTips: ['暂时无法提供旅行方案，请稍后再试'],
+      optimized: false,
+      destination: args.destination,
+      recommendations: [],
+      processTime: Date.now() - startTime,
     };
-  }
-
-  try {
-    // 模拟删除操作
-    // const result = await api.deleteItem(itemId);
-
-    // 模拟异步删除
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    return {
-      confirmed: true,
-      itemId: '', // 实际使用中从上下文获取
-      deletedAt: new Date().toLocaleString(),
-    };
-  } catch (error) {
-    throw new Error('删除操作失败');
-  }
+    return fallbackResult;
+  },
 };
+
+// 酒店推荐工具配置 - 非交互式（完全依赖后端数据）
+export const hotelRecommendAction: AgentToolcallConfig = {
+  name: 'get_hotel_details',
+  description: '获取酒店推荐信息',
+  parameters: [
+    { name: 'location', type: 'string', required: true },
+    { name: 'checkIn', type: 'string', required: true },
+    { name: 'checkOut', type: 'string', required: true },
+  ],
+  // 没有 handler，完全依赖后端返回的 result
+  component: HotelRecommend,
+};
+
+// 用户偏好收集工具配置 - 交互式（需要用户输入）
+export const travelPreferencesAction: AgentToolcallConfig = {
+  name: 'get_travel_preferences',
+  description: '收集用户旅游偏好信息',
+  parameters: [
+    { name: 'destination', type: 'string', required: true },
+    { name: 'purpose', type: 'string', required: true },
+  ],
+  // 没有 handler，使用交互式模式
+  component: TravelPreferences,
+};
+
+// 用户偏好结果展示工具配置 - 用于历史消息展示
+export const travelPreferencesResultAction: AgentToolcallConfig = {
+  name: 'get_travel_preferences_result',
+  description: '展示用户已输入的旅游偏好',
+  parameters: [{ name: 'userInput', type: 'object', required: true }],
+  // 没有 handler，纯展示组件
+  component: TravelPreferencesResult,
+};
+
+// 导出所有 action 配置
+export const travelActions = [
+  weatherForecastAction,
+  itineraryPlanAction,
+  hotelRecommendAction,
+  travelPreferencesAction,
+  travelPreferencesResultAction,
+];

@@ -375,3 +375,7 @@
   color: #333;
   font-weight: 600;
 }
+
+h5.t-typography {
+  margin: 0;
+}
