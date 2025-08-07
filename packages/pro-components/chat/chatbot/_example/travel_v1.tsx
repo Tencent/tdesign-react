@@ -15,17 +15,17 @@ import { Button } from 'tdesign-react';
 import { useChat } from '../useChat';
 import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent } from '../core/type';
 import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
-import { PlanningStatePanel } from './components';
-import './travel-planner.css';
-import { applyJsonPatch } from '../core';
-
-// 导入新的智能体系统
-import { useToolCallAgentAction, renderToolCallAgent } from '../components/toolcall/toolcall-agent-adapter';
 import {
-  travelAgentActions,
-  createTravelPreferencesResponseHandler,
-  handleConfirmDeletionResponse,
-} from './travel-planner';
+  PlanningStatePanel,
+  WeatherCard,
+  ItineraryCard,
+  HotelCard,
+  HumanInputResult,
+  HumanInputForm,
+} from './components';
+import type { FormConfig } from './components/HumanInputForm';
+import './travel_v1.css';
+import { applyJsonPatch } from '../core';
 
 // 扩展自定义消息体类型
 declare module '@tdesign-react/aigc' {
@@ -69,10 +69,13 @@ export default function TravelPlannerChat() {
   const [planningState, setPlanningState] = useState<any>(null);
   const [currentStep, setCurrentStep] = useState<string>('');
 
+  // Human-in-the-Loop 状态管理
+  const [userInputFormConfig, setUserInputFormConfig] = useState<FormConfig | null>(null);
+
   // 加载历史消息
   const [defaultMessages, setDefaultMessages] = useState<ChatMessagesData[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
-  const [hasLoadedHistory, setHasLoadedHistory] = useState(false); // confirm_deletion
+  const [hasLoadedHistory, setHasLoadedHistory] = useState(false);
 
   // 创建聊天服务配置
   const createChatServiceConfig = () => ({
@@ -105,7 +108,7 @@ export default function TravelPlannerChat() {
       console.log('用户取消旅游规划');
     },
     // AG-UI协议消息处理 - 优先级高于内置处理
-    onMessage: (chunk): AIMessageContent[] | null => {
+    onMessage: (chunk, message, parsedResult): AIMessageContent | undefined => {
       const { type, ...rest } = chunk.data;
 
       switch (type) {
@@ -117,16 +120,29 @@ export default function TravelPlannerChat() {
         case 'STEP_FINISHED':
           setCurrentStep('');
           break;
-
+        // ========== 工具调用事件处理 ==========
+        case 'TOOL_CALL_ARGS':
+          // 使用解析后的 ToolCall 数据
+          if (parsedResult?.data?.toolCallName === 'get_travel_preferences') {
+            const toolCall = parsedResult.data as any;
+            if (toolCall.args) {
+              try {
+                const formConfig = JSON.parse(toolCall.args);
+                setUserInputFormConfig(formConfig);
+                console.log('成功解析表单配置:', formConfig);
+              } catch (error) {
+                console.log('JSON 不完整，继续等待...', toolCall.args);
+              }
+            }
+          }
+          break;
         // ========== 状态管理事件处理 ==========
         case 'STATE_SNAPSHOT':
           setPlanningState(rest.snapshot);
-          return [
-            {
-              type: 'planningState',
-              data: { state: rest.snapshot },
-            } as any,
-          ];
+          return {
+            type: 'planningState',
+            data: { state: rest.snapshot },
+          } as any;
 
         case 'STATE_DELTA':
           // 应用状态变更到当前状态
@@ -136,15 +152,11 @@ export default function TravelPlannerChat() {
           });
 
           // 返回更新后的状态组件
-          return [
-            {
-              type: 'planningState',
-              data: { state: planningState },
-            } as any,
-          ];
+          return {
+            type: 'planningState',
+            data: { state: planningState },
+          } as any;
       }
-
-      return null;
     },
     // 自定义请求参数 - 使用 POST 请求
     onRequest: (innerParams: ChatRequestParams) => {
@@ -192,20 +204,6 @@ export default function TravelPlannerChat() {
     chatServiceConfig: createChatServiceConfig(),
   });
 
-  // ==================== 注册智能体动作 ====================
-  // 天气预报（无响应处理器）
-  useToolCallAgentAction(travelAgentActions[0]); // get_weather_forecast
-
-  // 行程规划（无响应处理器）
-  useToolCallAgentAction(travelAgentActions[1]); // plan_itinerary
-
-  // 旅行偏好设置（有响应处理器）
-  const travelPreferencesHandler = createTravelPreferencesResponseHandler(chatEngine, inputValue);
-  useToolCallAgentAction(travelAgentActions[2], travelPreferencesHandler); // get_travel_preferences
-
-  // 删除确认对话框（有响应处理器）
-  useToolCallAgentAction(travelAgentActions[3], handleConfirmDeletionResponse);
-
   const senderLoading = useMemo(() => status === 'pending' || status === 'streaming', [status]);
 
   // 消息属性配置
@@ -250,25 +248,100 @@ export default function TravelPlannerChat() {
     }
   };
 
-  // ==================== 新的智能体渲染逻辑 ====================
+  // 处理用户输入提交
+  const handleUserInputSubmit = async (userData: any) => {
+    try {
+      // 1. 更新状态
+      setUserInputFormConfig(null);
+
+      // 2. 构造新的请求参数
+      const tools = chatEngine.getToolcallByName('get_travel_preferences') || {};
+      const newRequestParams: ChatRequestParams = {
+        prompt: inputValue,
+        toolCallMessage: {
+          ...tools,
+          result: JSON.stringify(userData),
+        },
+      };
+
+      // 3. 直接调用 chatEngine.continueChat(params) 继续请求
+      await chatEngine.continueChat(newRequestParams);
+      listRef.current?.scrollList({ to: 'bottom' });
+    } catch (error) {
+      console.error('提交用户输入失败:', error);
+      // 可以显示错误提示
+    }
+  };
+
+  // 处理用户输入取消
+  const handleUserInputCancel = async () => {
+    await chatEngine.continueChat({
+      prompt: inputValue,
+      toolCallMessage: {
+        ...chatEngine.getToolcallByName('get_travel_preferences'),
+        result: 'user_cancel',
+      },
+    });
+    await chatEngine.abortChat();
+  };
+
   const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
     if (item.type === 'toolcall') {
       const { data, type } = item;
-
-      // 使用新的智能体系统渲染所有 toolcall
-      try {
-        // 使用统一的渲染方法（参考 CopilotKit 的设计）
-        const agentComponent = renderToolCallAgent(item);
-
-        if (agentComponent) {
+      // Human-in-the-Loop 输入请求
+      if (data.toolCallName === 'get_travel_preferences') {
+        // 区分历史消息和实时交互
+        if (data.result) {
+          // 历史消息：静态展示用户已输入的数据
+          try {
+            const userInput = JSON.parse(data.result);
+            return (
+              <div slot={`${type}-${index}`} key={`human-input-result-${index}`} className="content-card">
+                <HumanInputResult userInput={userInput} />
+              </div>
+            );
+          } catch (e) {
+            console.error('解析用户输入数据失败:', e);
+          }
+        } else if (userInputFormConfig) {
+          // 实时交互：使用状态中的表单配置
           return (
-            <div slot={`${type}-${index}`} key={`agent-${data.toolCallName}-${index}`} className="content-card">
-              {agentComponent}
+            <div slot={`${type}-${index}`} key={`human-input-form-${index}`} className="content-card">
+              <HumanInputForm
+                formConfig={userInputFormConfig}
+                onSubmit={handleUserInputSubmit}
+                onCancel={handleUserInputCancel}
+              />
             </div>
           );
         }
-      } catch (error) {
-        console.error(`渲染智能体组件失败 (${data.toolCallName}):`, error);
+      }
+
+      // 天气卡片
+      if (data.toolCallName === 'get_weather_forecast' && data?.result) {
+        return (
+          <div slot={`${type}-${index}`} key={`weather-${index}`} className="content-card">
+            <WeatherCard weather={JSON.parse(data.result)} />
+          </div>
+        );
+      }
+
+      // 行程规划卡片
+      if (data.toolCallName === 'plan_itinerary' && data.result) {
+        return (
+          <div slot={`${type}-${index}`} key={`itinerary-${index}`} className="content-card">
+            <ItineraryCard plan={JSON.parse(data.result)} />
+          </div>
+        );
+      }
+
+      // 酒店推荐卡片
+      if (data.toolCallName === 'get_hotel_details' && data.result) {
+        return (
+          <div slot={`${type}-${index}`} key={`hotel-${index}`} className="content-card">
+            <HotelCard hotels={JSON.parse(data.result)} />
+          </div>
+        );
       }
     }
 
@@ -302,12 +375,12 @@ export default function TravelPlannerChat() {
     setInputValue(e.detail);
   };
 
-  const sendHandler = (e: CustomEvent<TdChatSenderParams>) => {
+  const sendHandler = async (e: CustomEvent<TdChatSenderParams>) => {
     const { value } = e.detail;
     const params = {
       prompt: value,
     };
-    sendUserMessage(params);
+    await sendUserMessage(params);
     setInputValue('');
   };
 
