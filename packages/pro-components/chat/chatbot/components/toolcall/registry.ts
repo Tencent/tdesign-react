@@ -9,7 +9,7 @@ class AgentToolcallRegistryManager {
   /**
    * 注册一个 Agent Toolcall
    */
-  register<TArgs = any, TResult = any, TResponse = any>(config: AgentToolcallConfig<TArgs, TResult, TResponse>): void {
+  register<TArgs extends object = any, TResult = any, TResponse = any>(config: AgentToolcallConfig<TArgs, TResult, TResponse>): void {
     this.registry[config.name] = config;
   }
 

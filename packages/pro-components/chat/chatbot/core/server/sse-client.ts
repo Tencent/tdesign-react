@@ -172,7 +172,7 @@ export class SSEClient extends EventEmitter {
         return;
       }
       this.reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-    } catch (error) {
+    } catch (error: any) {
       if (error.name !== 'AbortError') {
         this.logger.error('sse request failed:', error);
         this.emit('error', error);
@@ -193,6 +193,7 @@ export class SSEClient extends EventEmitter {
           this.logger.info(`Connection ${this.connectionId} stream ended normally`);
           this.emit('complete', false); // 发出流结束事件
           this.setState(SSEConnectionState.DISCONNECTED);
+          this.clearTimeouts();
           return;
         }
 

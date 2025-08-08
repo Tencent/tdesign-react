@@ -1,6 +1,6 @@
 {
-  "name": "@tdesign-react/aigc",
-  "version": "0.1.0-alpha.14",
+  "name": "@tencent/tdesign-chatbot-dev",
+  "version": "1.0.1-beta.18",
   "title": "@tdesign-react/aigc",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
@@ -15,9 +15,6 @@
     "site/*",
     "es/**/style/**"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "scripts": {
     "start": "pnpm dev",
     "dev": "vite",
@@ -50,7 +47,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
-    "tdesign-web-components": "1.1.13",
+    "tdesign-web-components": "1.1.14",
     "classnames": "~2.5.1",
     "lodash-es": "^4.17.21",
     "zod": "^3.24.2"

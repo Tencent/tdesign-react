@@ -145,8 +145,8 @@ export interface AIMessage extends ChatBaseMessage {
   history?: AIMessageContent[][];
   /** 点赞点踩 */
   comment?: ChatComment;
-  // /** 工具调用 - 兼容 AGUI/OpenAI 协议 */
-  // toolCalls?: ToolCall[];
+  /** 工具调用 - 兼容 AGUI/OpenAI 协议 */
+  toolCalls?: ToolCall[];
 }
 
 export interface SystemMessage extends ChatBaseMessage {
@@ -163,7 +163,7 @@ export type SSEChunkData = {
 };
 
 export interface ChatRequestParams {
-  prompt: string;
+  prompt?: string;
   messageID?: string;
   attachments?: AttachmentContent['data'];
   [key: string]: any;
@@ -192,7 +192,9 @@ export interface ChatNetworkConfig {
 // TDesign 默认引擎的回调配置
 export interface DefaultEngineCallbacks {
   /** 请求发送前配置 */
-  onRequest?: (params: ChatRequestParams) => RequestInit | Promise<RequestInit>;
+  onRequest?: (
+    params: ChatRequestParams,
+  ) => (ChatRequestParams & RequestInit) | Promise<ChatRequestParams & RequestInit>;
   onStart?: (chunk: string) => void;
   /** 接收到消息数据块 - 用于解析和处理聊天内容 */
   onMessage?: (

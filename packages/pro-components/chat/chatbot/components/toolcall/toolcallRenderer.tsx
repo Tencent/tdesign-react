@@ -12,7 +12,7 @@ interface ToolCallRendererProps {
  * ToolCall 渲染器组件
  * 根据注册的 AgentToolcallConfig 渲染对应的组件
  */
-export const ToolCallRenderer: React.FC<ToolCallRendererProps> = ({ toolCall, onRespond }) => {
+export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps): React.ReactElement<any, any> => {
   const [actionState, setActionState] = useState<{
     status: ToolcallComponentProps['status'];
     result?: any;
@@ -110,11 +110,11 @@ export const ToolCallRenderer: React.FC<ToolCallRendererProps> = ({ toolCall, on
 
   // 如果没有找到对应的配置，返回默认渲染
   if (!config) {
-    return (
-      <div style={{ padding: '12px', border: '1px solid #e0e0e0', borderRadius: '4px' }}>
-        <p>未找到工具调用配置: {toolCall.toolCallName}</p>
-        <pre style={{ fontSize: '12px', color: '#666' }}>{JSON.stringify(toolCall, null, 2)}</pre>
-      </div>
+    return React.createElement(
+      'div',
+      { style: { padding: '12px', border: '1px solid #e0e0e0', borderRadius: '4px' } },
+      React.createElement('p', null, `未找到工具调用配置: ${toolCall.toolCallName}`),
+      React.createElement('pre', { style: { fontSize: '12px', color: '#666' } }, JSON.stringify(toolCall, null, 2)),
     );
   }
 

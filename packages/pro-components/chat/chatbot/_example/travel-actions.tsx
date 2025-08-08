@@ -583,7 +583,7 @@ const TravelPreferences: React.FC<
 };
 
 // 用户偏好结果展示组件
-const TravelPreferencesResult: React.FC<ToolcallComponentProps> = ({ status, args, result }) => {
+const TravelPreferencesResult: React.FC<ToolcallComponentProps> = ({ args, result }) => {
   const userInput = result || args?.userInput || args;
 
   if (!userInput || userInput.cancelled) {

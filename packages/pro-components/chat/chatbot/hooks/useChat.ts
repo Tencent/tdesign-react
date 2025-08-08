@@ -5,7 +5,6 @@ import type { ChatMessagesData, ChatStatus } from '../core/type';
 
 // @ts-ignore
 export type IUseChat = Pick<TdChatProps, 'defaultMessages' | 'chatServiceConfig'>;
-export type IChatEngine = typeof ChatEngine;
 
 export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {
   const [messages, setMessage] = useState<ChatMessagesData[]>([]);

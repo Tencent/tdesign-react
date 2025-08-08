@@ -52,7 +52,7 @@ export default class ChatEngine implements IChatEngine {
   public init(configSetter: ChatServiceConfigSetter, initialMessages?: ChatMessagesData[]) {
     this.messageStore.initialize(this.convertMessages(initialMessages));
     this.config = typeof configSetter === 'function' ? configSetter() : configSetter || {};
-    this.llmService = new LLMService(this.config);
+    this.llmService = new LLMService();
     // 初始化AGUI适配器
     if (this.config.protocol === 'agui') {
       this.aguiAdapter = new AGUIAdapter();
@@ -196,7 +196,7 @@ export default class ChatEngine implements IChatEngine {
     // 先调用用户自定义的 onComplete 回调，让业务层决定如何处理
     const customResult = this.config.onComplete?.(isAborted, params, chunk);
     // 如果用户返回了自定义内容，处理这些内容
-    if (Array.isArray(customResult) || customResult?.status) {
+    if (Array.isArray(customResult) || (customResult && 'status' in customResult)) {
       this.processMessageResult(id, customResult);
     } else {
       // 所有消息内容块都失败才算消息体失败

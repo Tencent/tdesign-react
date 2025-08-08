@@ -2,6 +2,8 @@
  * Enhanced server types for SSE client and LLM service
  */
 
+import { ChatRequestParams } from '../type';
+
 // 连接状态枚举
 export enum SSEConnectionState {
   DISCONNECTED = 'disconnected',
@@ -14,7 +16,7 @@ export enum SSEConnectionState {
 }
 
 // SSE 客户端配置
-export interface SSEClientConfig extends Omit<RequestInit, 'signal'> {
+export interface SSEClientConfig extends Omit<RequestInit & ChatRequestParams, 'signal'> {
   timeout?: number;
 }
 

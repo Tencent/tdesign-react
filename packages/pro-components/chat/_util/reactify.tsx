@@ -401,7 +401,8 @@ const reactify = <T extends AnyProps = AnyProps>(
           this.ref.current?.setAttribute(hyphenate(prop), val);
           this.ref.current?.removeAttribute(prop);
           return;
-        } else if (!isReact19Plus()) {
+        }
+        if (!isReact19Plus()) {
           (this.ref.current as any)[prop] = val;
         }
       });

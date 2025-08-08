@@ -23,18 +23,13 @@ export interface ILLMService {
  * Enhanced LLM Service with error handling and connection management
  */
 export class LLMService implements ILLMService {
-  // 使用接口确保类型安全
-  private sseClient: SSEClient;
+  private sseClient: SSEClient | null = null;
 
   private batchClient: BatchClient | null = null;
 
   private isDestroyed = false;
 
   private logger = LoggerManager.getLogger();
-
-  constructor(private config: ChatServiceConfig) {
-    this.logger.info('Enhanced LLM Service initialized');
-  }
 
   /**
    * 处理批量请求（非流式）
@@ -53,7 +48,7 @@ export class LLMService implements ILLMService {
 
     try {
       const data = await this.batchClient.request<AIMessageContent>(
-        config.endpoint,
+        config.endpoint!,
         {
           method: 'POST',
           headers: {
@@ -65,10 +60,14 @@ export class LLMService implements ILLMService {
         config.timeout, // 现在timeout属性已存在
       );
       if (data) {
-        return config.onComplete?.(false, req, data);
+        const result = config.onComplete?.(false, req, data);
+        // 如果onComplete返回了内容，使用它；否则使用原始data
+        return result || data;
       }
+      // 如果没有data，返回空数组
+      return [];
     } catch (error) {
-      config.onError?.(error);
+      config.onError?.(error as Error | Response);
       throw error;
     }
   }
@@ -111,7 +110,7 @@ export class LLMService implements ILLMService {
       this.sseClient = null;
     }
     if (this.batchClient) {
-      this.batchClient?.abort();
+      this.batchClient.abort();
       this.batchClient = null;
     }
   }

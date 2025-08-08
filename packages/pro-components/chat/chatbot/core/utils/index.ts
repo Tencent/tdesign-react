@@ -12,7 +12,105 @@ import type {
   ToolCallContent,
 } from '../type';
 
+/**
+ * 应用JSON Patch操作到状态对象
+ * 实现RFC6902规范的JSON Patch操作
+ * @param state 原始状态对象
+ * @param delta 包含patch操作的数组
+ * @returns 更新后的新状态对象
+ */
 export function applyJsonPatch(state: any, delta: any[]): any {
+  // 深拷贝原始状态，避免直接修改原对象
+  const newState = JSON.parse(JSON.stringify(state));
+
+  delta.forEach(({ op, path, value }) => {
+    try {
+      // 解析路径，移除开头的斜杠
+      const pathParts = path
+        .slice(1)
+        .split('/')
+        .map((part: string) =>
+          // 处理JSON Pointer转义字符
+          part.replace(/~1/g, '/').replace(/~0/g, '~'),
+        );
+
+      // 找到目标对象
+      let target = newState;
+
+      // 遍历路径找到目标对象
+      for (let i = 0; i < pathParts.length - 1; i++) {
+        const pathSegment = pathParts[i];
+
+        if (Array.isArray(target)) {
+          const arrayIndex = parseInt(pathSegment, 10);
+
+          // 检查数组索引是否在有效范围内
+          if (arrayIndex >= target.length) {
+            console.warn(`数组索引 ${arrayIndex} 超出范围，当前数组长度: ${target.length}，跳过此次更新`);
+            return newState;
+          }
+
+          // 如果目标位置是null或undefined，根据下一个路径决定创建对象还是数组
+          if (target[arrayIndex] === null || target[arrayIndex] === undefined) {
+            const nextKey = pathParts[i + 1];
+            const nextIsArrayIndex = /^\d+$/.test(nextKey);
+            target[arrayIndex] = nextIsArrayIndex ? [] : {};
+          }
+
+          target = target[arrayIndex];
+        } else {
+          // 处理对象属性
+          if (target[pathSegment] === undefined) {
+            if (op === 'remove') return newState; // 要删除的路径不存在，直接返回
+
+            // 根据下一个路径决定创建对象还是数组
+            const nextKey = pathParts[i + 1];
+            const nextIsArrayIndex = /^\d+$/.test(nextKey);
+            target[pathSegment] = nextIsArrayIndex ? [] : {};
+          }
+          target = target[pathSegment];
+        }
+      }
+
+      const lastKey = pathParts[pathParts.length - 1];
+
+      // 执行操作
+      switch (op) {
+        case 'add':
+        case 'replace':
+          if (Array.isArray(target)) {
+            const arrayIndex = parseInt(lastKey, 10);
+            // 检查数组索引是否在有效范围内
+            if (arrayIndex >= target.length) {
+              console.warn(`数组索引 ${arrayIndex} 超出范围，当前数组长度: ${target.length}，跳过此次更新`);
+              return newState;
+            }
+            target[arrayIndex] = value;
+          } else {
+            target[lastKey] = value;
+          }
+          break;
+        case 'remove':
+          if (Array.isArray(target)) {
+            const arrayIndex = parseInt(lastKey, 10);
+            if (arrayIndex < target.length) {
+              target.splice(arrayIndex, 1);
+            }
+          } else if (target && lastKey in target) {
+            delete target[lastKey];
+          }
+          break;
+        // 可以根据需要实现其他操作: test, move, copy
+      }
+    } catch (error) {
+      console.error(`JSON Patch操作失败: ${op} ${path}`, error);
+    }
+  });
+
+  return newState;
+}
+
+export function applyJsonPatch2(state: any, delta: any[]): any {
   const newState = { ...state };
   delta.forEach(({ op, path, value }) => {
     // 这里只实现 add/replace，remove 可按需补充
