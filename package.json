@@ -110,7 +110,7 @@
     "lint-staged": "^13.2.2",
     "mockdate": "^3.0.5",
     "msw": "^1.0.0",
-    "npm-run-all2": "^7.0.2",
+    "npm-run-all2": "^8.0.4",
     "postcss": "^8.3.11",
     "prettier": "^2.3.2",
     "prismjs": "^1.28.0",
