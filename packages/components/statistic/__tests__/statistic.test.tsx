@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, mockDelay } from '@test/utils';
 import { ArrowTriangleDownFilledIcon, ArrowTriangleUpFilledIcon } from 'tdesign-icons-react';
+import { COLOR_MAP } from '@tdesign/common-js/statistic/utils';
 import Statistic from '../index';
 
 describe('Statistic 组件测试', () => {
@@ -17,22 +18,31 @@ describe('Statistic 组件测试', () => {
   });
 
   /**
-   * color
+   * props
    */
 
-  const COLOR_MAP = {
-    black: 'var(--td-text-color-primary)',
-    blue: 'var(--td-brand-color)',
-    red: 'var(--td-error-color)',
-    orange: 'var(--td-warning-color)',
-    green: 'var(--td-success-color)',
-  };
-  const colors = ['black', 'blue', 'red', 'orange', 'green'] as const;
-  colors.forEach((color) => {
-    test('color', () => {
-      render(<Statistic title="Total Assets" value={82.76} unit="%" trend="increase" color={color} />);
+  it('color="yellow"', () => {
+    const { container } = render(<Statistic title="Total Sales" value={1000} color="yellow" />);
 
-      expect(document.querySelector('.t-statistic-content')).toHaveStyle(`color: ${COLOR_MAP[color]}`);
+    const contentElement = container.querySelector('.t-statistic-content');
+    expect(contentElement).toHaveStyle('color: yellow');
+  });
+
+  it('color="#fff123"', () => {
+    const { container } = render(<Statistic title="Total Sales" value={1000} color="#fff123" />);
+
+    const contentElement = container.querySelector('.t-statistic-content');
+    expect(contentElement).toHaveStyle('color: #fff123');
+  });
+
+  it('colors: colorKeys', () => {
+    Object.keys(COLOR_MAP).forEach((color) => {
+      const { container } = render(<Statistic title="Total Sales" value={1000} color={color} />);
+
+      const contentElement = container.querySelector('.t-statistic-content');
+      expect(contentElement).toBeTruthy();
+      const expectedColor = COLOR_MAP[color as keyof typeof COLOR_MAP];
+      expect(contentElement).toHaveStyle(`color: ${expectedColor}`);
     });
   });
 
