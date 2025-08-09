@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import type { AIMessageContent, SSEChunkData, ToolCall } from '../../type';
+import { stateManager } from '../../../components/state/StateManager';
 import { EventType } from './events';
 
 /**
@@ -197,6 +198,12 @@ export class AGUIEventMapper {
         // 标记工具调用结束
         this.toolCallEnded.add(event.toolCallId);
         return null;
+
+      case EventType.STATE_SNAPSHOT:
+      case EventType.STATE_DELTA:
+        // 将状态事件推送到状态管理器，使用广播机制
+        stateManager.handleStateEvent(event);
+        return null; // 让业务层通过useStateSubscription订阅状态变化
 
       case EventType.MESSAGES_SNAPSHOT:
         return this.handleMessagesSnapshot(event.messages);

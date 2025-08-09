@@ -40,4 +40,5 @@ export * from './core';
 export * from './hooks/useChat';
 export * from './hooks/useAgentToolcall';
 export * from './components/toolcall';
+export * from './components/state';
 export { VideoClipAgentChat };

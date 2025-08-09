@@ -19,7 +19,7 @@ spline: navigation
 - **自定义渲染**：针对不同内容类型（天气、行程、酒店等）提供专门的渲染组件
 
 
-{{ videoclipAgent }}
+{{ videoclipState }}
 
 ## API
 
