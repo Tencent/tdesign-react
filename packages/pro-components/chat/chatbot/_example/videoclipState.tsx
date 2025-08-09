@@ -57,39 +57,40 @@ interface EdaTransferArgs {
   event_type?: string;
 }
 
+interface VideoClipStepsProps {
+  /**
+   * 绑定到特定的状态key，如果指定则只显示该状态key的状态
+   * 这样可以确保多轮对话时，每个消息的步骤显示都是独立的
+   * 对于videoclip业务，这个stateKey通常就是runId
+   */
+  boundStateKey?: string;
+}
+
 /**
  * 使用状态订阅机制的视频剪辑步骤组件
  * 演示如何通过useStateSubscription订阅AG-UI状态事件
- * 支持绑定到特定runId，实现多轮对话状态隔离
  */
-interface VideoClipStepsProps {
-  /**
-   * 绑定的runId，如果提供则只显示该runId的状态，不跟随最新状态变化
-   */
-  boundRunId?: string;
-}
-
-export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundRunId }) => {
-  // 使用新的状态订阅Hook，支持绑定到特定runId
+export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
+  // 使用新的状态订阅Hook，支持绑定到特定stateKey
   const {
     state: clipState,
-    runId,
+    stateKey,
     updating,
     stateMap,
   } = useStateSubscription({
     initialState: null,
-    runId: boundRunId, // 如果提供了boundRunId，则订阅该特定runId的状态
+    stateKey: boundStateKey, // 如果指定了boundStateKey，则只订阅该stateKey的状态
   });
 
   // 调试信息
   useEffect(() => {
-    if (boundRunId && clipState) {
-      console.log(`VideoClipSteps [${boundRunId}] 状态更新:`, clipState);
-      console.log(`当前状态Map大小: ${stateMap.size}`);
-    } else if (!boundRunId && clipState) {
-      console.log(`VideoClipSteps [当前runId: ${runId}] 状态更新:`, clipState);
+    if (boundStateKey) {
+      console.log(`VideoClipSteps[${boundStateKey}] 状态更新:`, clipState);
+      console.log(`VideoClipSteps[${boundStateKey}] 状态Map:`, stateMap);
+    } else {
+      console.log(`VideoClipSteps[当前] 状态更新:`, clipState, `stateKey: ${stateKey}`);
     }
-  }, [boundRunId, clipState, runId, stateMap]);
+  }, [clipState, boundStateKey, stateKey, stateMap]);
 
   // 本地UI状态
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -150,7 +151,7 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundRunId }) =>
       // 直接使用clipState.items
       const stepsData = clipState.items || [];
 
-      console.log('useEffect: 开始步骤选择', { runId: runId || boundRunId, stepsCount: stepsData.length });
+      console.log('useEffect: 开始步骤选择', { stepsCount: stepsData.length });
 
       if (stepsData.length > 0) {
         // 优先查找状态为running的步骤
@@ -198,16 +199,15 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundRunId }) =>
     } catch (error) {
       console.error('useEffect步骤选择出错:', error);
     }
-  }, [clipState, runId, boundRunId]);
+  }, [clipState]);
 
   // 计算步骤数据和进度状态
   const { stepsData, timeRemain, progressStatus, hasRunningSteps } = useMemo(() => {
     if (!clipState) {
-      const statusText = boundRunId ? `视频剪辑准备中 (${boundRunId})` : '视频剪辑准备中';
       return {
         stepsData: [],
         timeRemain: '',
-        progressStatus: statusText,
+        progressStatus: '视频剪辑准备中',
         hasRunningSteps: false,
       };
     }
@@ -230,13 +230,11 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundRunId }) =>
     const totalCount = steps.length;
     const runningCount = runningItems.length;
 
-    let progressStatusText = boundRunId ? `视频剪辑准备中 (${boundRunId})` : '视频剪辑准备中';
+    let progressStatusText = '视频剪辑准备中';
     if (completedCount === totalCount) {
-      progressStatusText = boundRunId ? `视频剪辑已完成 (${boundRunId})` : '视频剪辑已完成';
+      progressStatusText = '视频剪辑已完成';
     } else if (runningCount > 0) {
-      progressStatusText = boundRunId
-        ? `视频剪辑进行中 (${completedCount}/${totalCount}) - ${boundRunId}`
-        : `视频剪辑进行中 (${completedCount}/${totalCount})`;
+      progressStatusText = `视频剪辑进行中 (${completedCount}/${totalCount})`;
     }
 
     return {
@@ -245,17 +243,14 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundRunId }) =>
       progressStatus: progressStatusText,
       hasRunningSteps: runningCount > 0,
     };
-  }, [clipState, boundRunId]);
+  }, [clipState]);
 
   // 如果没有状态数据，显示等待状态
   if (!clipState) {
-    const waitingTitle = boundRunId ? `等待绑定状态数据 (${boundRunId})...` : '等待状态数据...';
-    const waitingText = boundRunId ? `正在等待runId ${boundRunId} 的状态事件...` : '正在等待AG-UI状态事件...';
-
     return (
-      <Card className="videoclip-transfer-view" title={waitingTitle} bordered hoverShadow>
+      <Card className="videoclip-transfer-view" title="等待状态数据..." bordered hoverShadow>
         <div className="state-content">
-          <p>{waitingText}</p>
+          <p>正在等待AG-UI状态事件...</p>
           {updating && <p>状态更新中...</p>}
         </div>
       </Card>
@@ -365,9 +360,10 @@ const videoclipActions: AgentToolcallConfig[] = [
         return <div className="videoclip-toolcall error">解析参数失败: {error?.message}</div>;
       }
 
-      // 使用绑定runId的VideoClipSteps组件，这样每个消息的步骤显示都是独立的
-      const runId = args?.stepId; // stepId实际上就是runId
-      return <VideoClipSteps boundRunId={runId} />;
+      // 使用绑定stateKey的VideoClipSteps组件，这样每个消息的步骤显示都是独立的
+      // 对于videoclip业务，stepId实际上就是runId，我们将其作为stateKey使用
+      const stateKey = args?.stepId;
+      return <VideoClipSteps boundStateKey={stateKey} />;
     },
   },
   {
@@ -443,6 +439,15 @@ export default function VideoClipAgentChatWithSubscription() {
     // 流式对话过程中用户主动结束对话
     onAbort: async () => {
       console.log('用户取消视频剪辑');
+    },
+    // AG-UI协议消息处理 - 状态事件已由StateManager自动处理
+    onMessage: (chunk: { data?: { type: string; [key: string]: any } }, message: any, parsedResult: any) => {
+      // 优先使用event-mapper的处理结果
+      if (parsedResult) {
+        return parsedResult;
+      }
+      // 状态事件已由StateManager自动处理，这里只需要处理其他类型的事件
+      return null;
     },
     // 自定义请求参数 - 使用 POST 请求
     onRequest: (innerParams: ChatRequestParams) => {
@@ -602,7 +607,7 @@ export default function VideoClipAgentChatWithSubscription() {
 
       <div className="chat-content">
         {/* 聊天区域 */}
-        <ChatList ref={listRef} className="chat-list">
+        <ChatList ref={listRef} style={{ width: '100%', height: '400px' }}>
           {messages.map((message, idx) => (
             <ChatMessage key={message.id} {...messageProps[message.role]} message={message as any}>
               {renderMsgContents(message, idx === messages.length - 1)}

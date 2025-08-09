@@ -3,31 +3,36 @@ import { stateManager } from './StateManager';
 import type { StateSubscriptionOptions, UseStateSubscriptionReturn } from './types';
 
 /**
+/**
  * 状态订阅Hook
  * 支持两种模式：
- * 1. 不指定runId：订阅当前活跃runId的状态（会跟随最新状态变化）
- * 2. 指定runId：订阅特定runId的状态（不会跟随其他runId变化）
+ * 1. 不指定stateKey：订阅当前活跃stateKey的状态（会跟随最新状态变化）
+ * 2. 指定stateKey：订阅特定stateKey的状态（不会跟随其他stateKey变化）
+ * 
+ * 不同Agent可以根据业务需求使用不同的key策略：
+ * - videoclip: 使用runId作为stateKey
+ * - 其他Agent: 可能使用sessionId、taskId等作为stateKey
  */
 export function useStateSubscription<T = any>(options: StateSubscriptionOptions = {}): UseStateSubscriptionReturn<T> {
-  const { initialState, runId: targetRunId } = options;
+  const { initialState, stateKey: targetStateKey } = options;
 
-  // 状态Map：runId -> state
+  // 状态Map：stateKey -> state
   const [stateMap, setStateMap] = useState<Map<string, T>>(() => {
     const map = new Map<string, T>();
 
-    if (targetRunId) {
-      // 如果指定了runId，获取该runId的状态
-      const targetState = stateManager.getState(targetRunId);
+    if (targetStateKey) {
+      // 如果指定了stateKey，获取该stateKey的状态
+      const targetState = stateManager.getState(targetStateKey);
       if (targetState !== undefined) {
-        map.set(targetRunId, targetState);
+        map.set(targetStateKey, targetState);
       }
     } else {
-      // 如果没有指定runId，获取当前runId的状态
-      const currentRunId = stateManager.getCurrentRunId();
-      if (currentRunId) {
+      // 如果没有指定stateKey，获取当前stateKey的状态
+      const currentStateKey = stateManager.getCurrentStateKey();
+      if (currentStateKey) {
         const currentState = stateManager.getCurrentState();
         if (currentState !== undefined) {
-          map.set(currentRunId, currentState);
+          map.set(currentStateKey, currentState);
         }
       }
     }
@@ -35,18 +40,20 @@ export function useStateSubscription<T = any>(options: StateSubscriptionOptions 
     return map;
   });
 
-  const [currentRunId, setCurrentRunId] = useState<string | null>(() => targetRunId || stateManager.getCurrentRunId());
+  const [currentStateKey, setCurrentStateKey] = useState<string | null>(
+    () => targetStateKey || stateManager.getCurrentStateKey(),
+  );
 
   const [updating, setUpdating] = useState(false);
 
   // 订阅状态变化
   useEffect(() => {
-    if (targetRunId) {
-      // 模式1：订阅特定runId的状态
-      const unsubscribe = stateManager.subscribe(targetRunId, (newState: T) => {
+    if (targetStateKey) {
+      // 模式1：订阅特定stateKey的状态
+      const unsubscribe = stateManager.subscribe(targetStateKey, (newState: T) => {
         setStateMap((prev) => {
           const newMap = new Map(prev);
-          newMap.set(targetRunId, newState);
+          newMap.set(targetStateKey, newState);
           return newMap;
         });
         setUpdating(false);
@@ -54,35 +61,35 @@ export function useStateSubscription<T = any>(options: StateSubscriptionOptions 
 
       return unsubscribe;
     }
-    // 模式2：订阅当前活跃runId的状态
-    const unsubscribe = stateManager.subscribeToCurrentState((newState: T, newRunId: string | null) => {
-      if (newRunId) {
+    // 模式2：订阅当前活跃stateKey的状态
+    const unsubscribe = stateManager.subscribeToCurrentState((newState: T, newStateKey: string | null) => {
+      if (newStateKey) {
         setStateMap((prev) => {
           const newMap = new Map(prev);
-          newMap.set(newRunId, newState);
+          newMap.set(newStateKey, newState);
           return newMap;
         });
-        setCurrentRunId(newRunId);
+        setCurrentStateKey(newStateKey);
       } else {
-        // 如果没有当前runId，清空状态
+        // 如果没有当前stateKey，清空状态
         setStateMap(new Map());
-        setCurrentRunId(null);
+        setCurrentStateKey(null);
       }
       setUpdating(false);
     });
 
     return unsubscribe;
-  }, [targetRunId]);
+  }, [targetStateKey]);
 
   // 获取当前应该显示的状态
-  const displayRunId = targetRunId || currentRunId;
-  const displayState = displayRunId ? stateMap.get(displayRunId) : undefined;
+  const displayStateKey = targetStateKey || currentStateKey;
+  const displayState = displayStateKey ? stateMap.get(displayStateKey) : undefined;
 
   return {
     state: displayState !== undefined ? displayState : initialState || null,
-    runId: displayRunId,
+    stateKey: displayStateKey,
     updating,
-    // 新增：返回完整的状态Map，供调试使用
+    // 返回完整的状态Map，供调试使用
     stateMap,
   };
 }
