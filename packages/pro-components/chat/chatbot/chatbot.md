@@ -69,7 +69,7 @@ spline: navigation
 
 [AG-UI（Agent-User Interface)](https://docs.ag-ui.com/introduction) 是一个专为AI Agent与前端应用交互设计的轻量级协议，专注于实时交互、状态流式传输和人机协作。Chatbot 组件内置了对 AG-UI 协议的支持，可以**无缝集成符合 AG-UI 标准的后端服务**。
 
-### 基本用法
+### 文本消息
 
 以下示例演示了如何使用 Chatbot 组件与 AG-UI 协议后端进行基础交互：
 
