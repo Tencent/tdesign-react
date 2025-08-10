@@ -19,7 +19,7 @@ import {
   ChevronRightIcon,
 } from 'tdesign-icons-react';
 import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '../core/type';
-import { ToolCallRenderer, useAgentToolcall, useChat, useStateSubscription } from '../index';
+import { ToolCallRenderer, useAgentStateAction, useChat, useAgentToolcallAction } from '../index';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import './videoclipAgent.css';
 
@@ -68,29 +68,14 @@ interface VideoClipStepsProps {
 
 /**
  * 使用状态订阅机制的视频剪辑步骤组件
- * 演示如何通过useStateSubscription订阅AG-UI状态事件
+ * 演示如何通过useAgentStateAction订阅AG-UI状态事件
  */
 export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
   // 使用新的状态订阅Hook，支持绑定到特定stateKey
-  const {
-    state: clipState,
-    stateKey,
-    updating,
-    stateMap,
-  } = useStateSubscription({
+  const { state: clipState, updating } = useAgentStateAction({
     initialState: null,
     stateKey: boundStateKey, // 如果指定了boundStateKey，则只订阅该stateKey的状态
   });
-
-  // 调试信息
-  useEffect(() => {
-    if (boundStateKey) {
-      console.log(`VideoClipSteps[${boundStateKey}] 状态更新:`, clipState);
-      console.log(`VideoClipSteps[${boundStateKey}] 状态Map:`, stateMap);
-    } else {
-      console.log(`VideoClipSteps[当前] 状态更新:`, clipState, `stateKey: ${stateKey}`);
-    }
-  }, [clipState, boundStateKey, stateKey, stateMap]);
 
   // 本地UI状态
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -142,16 +127,11 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
   // 自动选择当前步骤
   useEffect(() => {
     if (!clipState) {
-      console.log('useEffect: 状态为空，跳过步骤选择');
       return;
     }
-
-    console.log('=clipState', clipState);
     try {
       // 直接使用clipState.items
       const stepsData = clipState.items || [];
-
-      console.log('useEffect: 开始步骤选择', { stepsCount: stepsData.length });
 
       if (stepsData.length > 0) {
         // 优先查找状态为running的步骤
@@ -168,7 +148,6 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
         }
 
         if (targetStepIndex !== -1) {
-          console.log(`useEffect: 选择步骤${targetStepIndex}`, stepsData[targetStepIndex]);
           setCurrentStep(targetStepIndex);
           const targetStep = stepsData[targetStepIndex];
           setCurrentStepContent({
@@ -178,7 +157,6 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
         } else {
           const firstValidIndex = stepsData.findIndex((item) => item !== null);
           if (firstValidIndex !== -1) {
-            console.log(`useEffect: 选择第一个有效步骤${firstValidIndex}`, stepsData[firstValidIndex]);
             setCurrentStep(firstValidIndex);
             const targetStep = stepsData[firstValidIndex];
             setCurrentStepContent({
@@ -192,7 +170,6 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
           }
         }
       } else {
-        console.log('useEffect: 步骤数据为空');
         setCurrentStep(0);
         setCurrentStepContent({ mainContent: '', items: [] });
       }
@@ -392,7 +369,7 @@ export function useVideoclipToolcalls() {
   // 注册所有视频剪辑相关的 actions
   videoclipActions.forEach((action) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAgentToolcall(action);
+    useAgentToolcallAction(action);
   });
 
   return {
@@ -512,12 +489,6 @@ export default function VideoClipAgentChatWithSubscription() {
         chatEngine.regenerateAIMessage();
         return;
       }
-      case 'good':
-        console.log('用户满意此次视频剪辑');
-        break;
-      case 'bad':
-        console.log('用户不满意此次视频剪辑');
-        break;
       default:
         console.log('触发操作', name, 'data', data);
     }
@@ -600,11 +571,6 @@ export default function VideoClipAgentChatWithSubscription() {
 
   return (
     <div className="videoclip-agent-container">
-      {/* 顶部工具栏 */}
-      <div className="videoclip-header">
-        <h3>视频剪辑助手 (状态订阅版本)</h3>
-      </div>
-
       <div className="chat-content">
         {/* 聊天区域 */}
         <ChatList ref={listRef} style={{ width: '100%', height: '400px' }}>

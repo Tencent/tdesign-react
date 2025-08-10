@@ -12,9 +12,6 @@ import type {
 import reactify from '../_util/reactify';
 import ChatEngine from './core';
 
-// 导出示例组件
-import VideoClipAgentChat from './_example/videoclipAgent';
-
 const ChatBot: React.ForwardRefExoticComponent<
   Omit<TdChatProps & Partial<TdChatbotApi>, 'ref'> & React.RefAttributes<HTMLElement | undefined>
 > = reactify<TdChatProps>('t-chatbot');
@@ -38,7 +35,6 @@ export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList, ChatEngine
 export type * from 'tdesign-web-components/lib/chatbot/type';
 export * from './core';
 export * from './hooks/useChat';
-export * from './hooks/useAgentToolcall';
+export * from './hooks/useAgentToolcallAction';
+export * from './hooks/useAgentStateAction';
 export * from './components/toolcall';
-export * from './components/state';
-export { VideoClipAgentChat };

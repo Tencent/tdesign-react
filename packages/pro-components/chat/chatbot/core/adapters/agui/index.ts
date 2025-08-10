@@ -267,3 +267,9 @@ export class AGUIAdapter {
     this.aguiEventMapper.reset();
   }
 }
+
+/**
+ * 状态订阅机制导出
+ */
+export { stateManager } from './state/StateManager';
+export type { StateActionOptions, UseStateActionReturn, StateManager } from './state/types';

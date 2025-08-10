@@ -16,7 +16,7 @@ import {
   getMessageContentForCopy,
   TdChatSenderParams,
 } from '@tdesign-react/aigc';
-import { useChat } from '../useChat';
+import { useChat } from '../index';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);

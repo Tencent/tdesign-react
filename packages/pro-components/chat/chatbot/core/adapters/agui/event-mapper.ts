@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import type { AIMessageContent, SSEChunkData, ToolCall } from '../../type';
-import { stateManager } from '../../../components/state/StateManager';
+import { stateManager } from './state/StateManager';
 import { EventType } from './events';
 
 /**

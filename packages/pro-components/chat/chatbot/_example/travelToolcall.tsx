@@ -14,7 +14,7 @@ import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import { Button } from 'tdesign-react';
 import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent, ToolCall } from '../core/type';
 import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
-import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
+import { ToolCallRenderer, useAgentToolcallAction, useChat } from '../index';
 import { PlanningStatePanel } from './components';
 import './travel_v1.css';
 import { applyJsonPatch } from '../core';
@@ -60,7 +60,7 @@ export function useTravelToolcalls() {
   // 注册所有旅游相关的 actions
   travelActions.forEach((action) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAgentToolcall(action);
+    useAgentToolcallAction(action);
   });
 
   return {
