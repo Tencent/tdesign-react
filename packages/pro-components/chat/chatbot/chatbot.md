@@ -178,47 +178,6 @@ useChat 是聊天组件核心逻辑 Hook，用于管理聊天状态与生命周�
 
 useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提供了统一的工具调用适配器机制，支持自定义工具调用的渲染组件和交互逻辑。
 
-#### 基本用法
-
-```typescript
-import { useAgentToolcall } from '@tdesign-react/aigc';
-import type { AgentToolcallConfig, ToolcallComponentProps } from '@tdesign-react/aigc';
-
-// 定义工具调用参数类型
-interface ShowStepsArgs {
-  stepId: string;
-}
-
-// 定义工具调用配置
-const toolcallConfig: AgentToolcallConfig<ShowStepsArgs> = {
-  name: 'show_steps',
-  description: '显示视频剪辑步骤',
-  parameters: [
-    { name: 'stepId', type: 'string', required: true }
-  ],
-  component: ({ status, args, error }: ToolcallComponentProps<ShowStepsArgs>) => {
-    if (status === 'error') {
-      return <div className="error">解析参数失败: {error?.message}</div>;
-    }
-    
-    return (
-      <div className="toolcall-content">
-        <h4>步骤ID: {args?.stepId}</h4>
-        {/* 自定义渲染逻辑 */}
-      </div>
-    );
-  },
-};
-
-// 在组件中使用
-function MyComponent() {
-  // 注册工具调用配置
-  useAgentToolcall(toolcallConfig);
-  
-  return <div>组件内容</div>;
-}
-```
-
 #### 参数说明
 
 | 参数名 | 类型 | 说明 |
@@ -258,30 +217,6 @@ function MyComponent() {
 
 useAgentStateAction 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，支持订阅全局状态或特定 stateKey 的状态变化。
 
-#### 基本用法
-
-```typescript
-function VideoClipSteps({ boundStateKey }: { boundStateKey?: string }) {
-  // 订阅特定 stateKey 的状态（不会跟随其他 stateKey 变化）
-  const { state: clipState, updating } = useAgentState({
-    initialState: null,
-    stateKey: boundStateKey, // 绑定到特定的状态key
-  });
-  
-  if (!clipState) {
-    return <div>等待状态数据...</div>;
-  }
-  
-  return (
-    <div>
-      <h3>视频剪辑状态</h3>
-      {updating && <p>状态更新中...</p>}
-      <div>{/* 渲染状态内容 */}</div>
-    </div>
-  );
-}
-```
-
 #### 参数说明
 
 | 参数名 | 类型 | 说明 |
@@ -304,32 +239,13 @@ function VideoClipSteps({ boundStateKey }: { boundStateKey?: string }) {
 | updating | boolean | 状态是否正在更新中 |
 | stateMap | Map<string, T> | 所有状态的映射表 |
 
-#### 使用场景
-
-1. **全局状态订阅**：不指定 `stateKey`，订阅当前活跃的状态变化
-   ```typescript
-   const { state, stateKey } = useAgentState();
-   ```
-
-2. **特定状态订阅**：指定 `stateKey`，只订阅该状态的变化
-   ```typescript
-   const { state } = useAgentState({ stateKey: 'video_clip_123' });
-   ```
-
-3. **多轮对话场景**：在多轮对话中，每个消息可以绑定到特定的 stateKey
-   ```typescript
-   // 在视频剪辑示例中，每个工具调用都绑定到特定的 runId
-   const VideoClipSteps = ({ boundStateKey }) => {
-     const { state } = useAgentState({ stateKey: boundStateKey });
-     // 这样确保每个消息的步骤显示都是独立的
-   };
-   ```
 
 #### 状态数据结构
 
 AG-UI 协议的状态数据通常包含以下结构：
 
 ```typescript
+
 interface StateData {
   items: Array<{
     label: string;
@@ -341,63 +257,5 @@ interface StateData {
       content: string;
     }>;
   }>;
-}
-```
-
-#### 完整示例
-
-```typescript
-import React, { useEffect, useState } from 'react';
-import { useAgentState, useAgentToolcall } from '@tdesign-react/aigc';
-
-// 状态显示组件
-const StateDisplay = ({ boundStateKey }: { boundStateKey?: string }) => {
-  const { state, updating } = useAgentStateAction({
-    initialState: null,
-    stateKey: boundStateKey,
-  });
-  
-  if (!state) {
-    return <div>等待状态数据...</div>;
-  }
-  
-  return (
-    <div>
-      {updating && <div>状态更新中...</div>}
-      {state.items?.map((item, index) => (
-        <div key={index}>
-          <h4>{item.label}</h4>
-          <p>状态: {item.status}</p>
-          <p>{item.content}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-// 工具调用配置
-const stateToolcallConfig = {
-  name: 'show_state',
-  description: '显示状态信息',
-  parameters: [{ name: 'stateId', type: 'string', required: true }],
-  component: ({ args }) => {
-    return <StateDisplay boundStateKey={args?.stateId} />;
-  },
-};
-
-// 主组件
-function AgentComponent() {
-  // 注册工具调用
-  useAgentToolcall(stateToolcallConfig);
-  
-  // 订阅全局状态
-  const { state, stateKey } = useAgentState();
-  
-  return (
-    <div>
-      <h2>当前状态Key: {stateKey}</h2>
-      <StateDisplay />
-    </div>
-  );
 }
 ```
