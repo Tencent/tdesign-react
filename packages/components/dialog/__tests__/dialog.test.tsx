@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, fireEvent, mockTimeout, vi, act } from '@test/utils';
+import { render, fireEvent, mockTimeout, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
@@ -60,9 +60,7 @@ describe('Dialog组件测试', () => {
     const onEscKeydown = vi.fn();
     const { getByText } = render(<DialogDemo mode="modal" draggable={false} onEscKeydown={onEscKeydown} />);
 
-    await act(() => {
-      fireEvent.click(getByText('Open Dialog Modal'));
-    });
+    await fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
     expect(onEscKeydown).toHaveBeenCalled();

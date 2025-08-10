@@ -95,7 +95,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   const dialogAttach = useAttach('dialog', attach);
   const [animationVisible, setAnimationVisible] = useState(visible);
-  const [DialogAnimationVisible, setDialogAnimationVisible] = useState(false);
+  const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
@@ -115,7 +115,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }, [props, setState, isPlugin]);
 
   useEffect(() => {
-    if (DialogAnimationVisible) {
+    if (dialogAnimationVisible) {
       wrapRef.current?.focus();
       if (mousePosition && dialogCardRef.current) {
         const offsetX = mousePosition.x - dialogCardRef.current.offsetLeft;
@@ -124,7 +124,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
         dialogCardRef.current.style.transformOrigin = `${offsetX}px ${offsetY}px`;
       }
     }
-  }, [DialogAnimationVisible]);
+  }, [dialogAnimationVisible]);
 
   useImperativeHandle(ref, () => ({
     show() {
