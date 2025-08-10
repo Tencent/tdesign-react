@@ -1,6 +1,6 @@
 ---
 title: Chatbot 智能对话
-description: 智能对话聊天组件，适用于需要快速集成智能客服、问答系统等的AI应用
+description: 智能对话聊天组件，适用于需要快速集成智能客服、问答系统、步骤规划、交互式Agent等的AI应用
 isComponent: true
 spline: navigation
 ---
@@ -65,7 +65,7 @@ spline: navigation
 {{ nostream }}
 
 
-## AGUI 协议适配
+## AG-UI 协议适配
 
 [AG-UI（Agent-User Interface)](https://docs.ag-ui.com/introduction) 是一个专为AI Agent与前端应用交互设计的轻量级协议，专注于实时交互、状态流式传输和人机协作。Chatbot 组件内置了对 AG-UI 协议的支持，可以**无缝集成符合 AG-UI 标准的后端服务**。
 
