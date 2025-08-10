@@ -253,7 +253,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
           })}
-          style={{ zIndex, display: animationVisible ? null : 'none' }}
+          style={{ zIndex, display: animationVisible ? undefined : 'none' }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
