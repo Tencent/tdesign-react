@@ -19,7 +19,7 @@ import {
   ChevronRightIcon,
 } from 'tdesign-icons-react';
 import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '../core/type';
-import { ToolCallRenderer, useAgentStateAction, useChat, useAgentToolcallAction } from '../index';
+import { ToolCallRenderer, useAgentState, useChat, useAgentToolcall } from '../index';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import './videoclipAgent.css';
 
@@ -61,7 +61,7 @@ interface VideoClipStepsProps {
   /**
    * 绑定到特定的状态key，如果指定则只显示该状态key的状态
    * 这样可以确保多轮对话时，每个消息的步骤显示都是独立的
-   * 对于videoclip业务，这个stateKey通常就是runId
+   * 这个stateKey通常就是runId
    */
   boundStateKey?: string;
 }
@@ -72,7 +72,7 @@ interface VideoClipStepsProps {
  */
 export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
   // 使用新的状态订阅Hook，支持绑定到特定stateKey
-  const { state: clipState, updating } = useAgentStateAction({
+  const { state: clipState, updating } = useAgentState({
     initialState: null,
     stateKey: boundStateKey, // 如果指定了boundStateKey，则只订阅该stateKey的状态
   });
@@ -369,7 +369,7 @@ export function useVideoclipToolcalls() {
   // 注册所有视频剪辑相关的 actions
   videoclipActions.forEach((action) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAgentToolcallAction(action);
+    useAgentToolcall(action);
   });
 
   return {
