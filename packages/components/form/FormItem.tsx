@@ -408,7 +408,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (!shouldUpdate || !form) return;
 
     const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
-    // console.log(getPrevStore(), 'getPrevStore');
+
     const cancelRegister = registerWatch?.(() => {
       const currStore = form?.getFieldsValue?.(true) || {};
       let updateFlag = shouldUpdate as boolean;
