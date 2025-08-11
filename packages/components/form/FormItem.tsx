@@ -72,8 +72,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
-
+  const { name: formListName, rules: formListRules, formListMapRef, form: formOfFormList } = useFormListContext();
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
@@ -162,7 +161,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
-
     shouldEmitChangeRef.current = shouldEmitChange;
     isUpdatedRef.current = true;
     shouldValidate.current = validate;
@@ -408,6 +406,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (!shouldUpdate || !form) return;
 
     const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
+
     const cancelRegister = registerWatch?.(() => {
       const currStore = form?.getFieldsValue?.(true) || {};
       let updateFlag = shouldUpdate as boolean;
@@ -424,7 +423,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (typeof name === 'undefined') return;
 
     // formList 下特殊处理
-    if (formListName) {
+    if (formListName && isEqual(formOfFormList, form)) {
       formListMapRef.current.set(name, formItemRef);
       return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -432,7 +431,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         unset(form?.store, name);
       };
     }
-
     if (!formMapRef) return;
     formMapRef.current.set(name, formItemRef);
     return () => {
