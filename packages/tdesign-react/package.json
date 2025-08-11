@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react",
-  "version": "1.11.8-patch.4",
+  "version": "1.11.8-patch.5",
   "title": "tdesign-react",
   "description": "TDesign Component for React",
   "main": "lib/index.js",
