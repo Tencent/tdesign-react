@@ -215,7 +215,7 @@ useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提
 
 ### useAgentState Hook
 
-useAgentStateAction 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，支持订阅全局状态或特定 stateKey 的状态变化。
+useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，支持订阅全局状态或特定 stateKey 的状态变化。
 
 #### 参数说明
 

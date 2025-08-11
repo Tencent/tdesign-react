@@ -12,29 +12,37 @@ import type { StateActionOptions, UseStateActionReturn } from '../core/adapters/
 export function useAgentState<T = any>(options: StateActionOptions = {}): UseStateActionReturn<T> {
   const { initialState, stateKey: targetStateKey } = options;
 
-  // 状态Map：stateKey -> state
-  const [stateMap, setStateMap] = useState<Map<string, T>>(() => {
+  // 初始化状态Map的工具函数
+  const initializeStateMap = (): Map<string, T> => {
     const map = new Map<string, T>();
 
-    if (targetStateKey) {
-      // 如果指定了stateKey，获取该stateKey的状态
-      const targetState = stateManager.getState(targetStateKey);
-      if (targetState !== undefined) {
-        map.set(targetStateKey, targetState);
+    // 设置状态的通用逻辑
+    const setStateIfExists = (key: string, state: T | undefined) => {
+      if (state !== undefined) {
+        map.set(key, state);
+      } else if (initialState !== undefined) {
+        map.set(key, initialState);
       }
+    };
+
+    if (targetStateKey) {
+      // 模式1：指定stateKey
+      const targetState = stateManager.getState(targetStateKey);
+      setStateIfExists(targetStateKey, targetState);
     } else {
-      // 如果没有指定stateKey，获取当前stateKey的状态
+      // 模式2：当前活跃stateKey
       const currentStateKey = stateManager.getCurrentStateKey();
       if (currentStateKey) {
         const currentState = stateManager.getCurrentState();
-        if (currentState !== undefined) {
-          map.set(currentStateKey, currentState);
-        }
+        setStateIfExists(currentStateKey, currentState);
       }
     }
 
     return map;
-  });
+  };
+
+  // 状态Map：stateKey -> state
+  const [stateMap, setStateMap] = useState<Map<string, T>>(initializeStateMap);
 
   const [currentStateKey, setCurrentStateKey] = useState<string | null>(
     () => targetStateKey || stateManager.getCurrentStateKey(),
@@ -83,6 +91,7 @@ export function useAgentState<T = any>(options: StateActionOptions = {}): UseSta
 
   return {
     state: displayState !== undefined ? displayState : initialState || null,
+    setStateMap,
     stateKey: displayStateKey,
     updating,
     stateMap,

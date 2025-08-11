@@ -176,7 +176,6 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
   result,
   error,
 }) => {
-  console.log('PlanItinerary input:', args, result);
   // 处理 result 可能是 Promise 的情况
   const [resolvedResult, setResolvedResult] = React.useState<PlanItineraryResult | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -210,7 +209,6 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
   }
 
   if (status === 'complete' && resolvedResult) {
-    console.log('PlanItinerary result:', resolvedResult);
     return (
       <Card
         className="itinerary-card travel-card-animation"
@@ -329,7 +327,6 @@ const HotelRecommend: React.FC<ToolcallComponentProps<HotelArgs, HotelResult>> =
   }
   if (status === 'complete' && result) {
     const hotels = typeof result === 'string' ? JSON.parse(result) : result;
-    console.log('===HotelRecommend', hotels);
     return (
       <Card
         className="hotel-card travel-card-animation"
