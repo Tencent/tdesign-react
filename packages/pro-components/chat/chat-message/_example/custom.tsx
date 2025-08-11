@@ -18,7 +18,7 @@ declare module 'tdesign-react' {
   }
 }
 
-const message: any = {
+const aiMessage: any = {
   id: '123123',
   role: 'assistant',
   content: [
@@ -65,6 +65,17 @@ const message: any = {
   ],
 };
 
+const userMessage: any = {
+  id: '456456',
+  role: 'user',
+  content: [
+    {
+      type: 'text',
+      data: '请帮我分析一下昨天北京的交通状况',
+    },
+  ],
+};
+
 const ChartDemo = ({ data }) => (
   <div
     style={{
@@ -76,16 +87,70 @@ const ChartDemo = ({ data }) => (
   </div>
 );
 
+// 自定义用户消息组件
+const CustomUserMessage = ({ message }) => (
+  <div
+    style={{
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      padding: '16px 20px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
+      position: 'relative',
+      marginLeft: 'auto',
+    }}
+  >
+    {message.content.map((content, index) => (
+      <div
+        key={index}
+        style={{
+          fontSize: '15px',
+          lineHeight: '1.6',
+          wordBreak: 'break-word',
+        }}
+      >
+        {content.data}
+      </div>
+    ))}
+    {/* 气泡尾巴 */}
+    <div
+      style={{
+        position: 'absolute',
+        right: '-8px',
+        top: '20px',
+        width: 0,
+        height: 0,
+        borderLeft: '8px solid #764ba2',
+        borderTop: '8px solid transparent',
+        borderBottom: '8px solid transparent',
+      }}
+    />
+  </div>
+);
+
 export default function ChatMessageExample() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
+      {/* 用户消息 - 使用自定义渲染 */}
+      <ChatMessage
+        variant="text"
+        placement="right"
+        avatar="https://tdesign.gtimg.com/site/avatar.jpg"
+        message={userMessage}
+      >
+        <div slot="content">
+          <CustomUserMessage message={userMessage} />
+        </div>
+      </ChatMessage>
+
+      {/* AI消息 - 使用自定义图表渲染 */}
       <ChatMessage
         variant="text"
         avatar={<Avatar image="https://tdesign.gtimg.com/site/chat-avatar.png" />}
         name="TDesignAI"
-        message={message}
+        message={aiMessage}
       >
-        {message.content.map(({ type, data }, index) => {
+        {aiMessage.content.map(({ type, data }, index) => {
           switch (type) {
             /* 自定义渲染chart类型的消息内容--植入插槽 */
             case 'chart':

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import type { ToolCall } from '../../core/type';
-import type { AgentToolcallConfig, ToolcallComponentProps } from './types';
+import { isNonInteractive, type ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
 
 interface ToolCallRendererProps {
@@ -51,12 +51,7 @@ export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps)
   // 执行 handler（如果存在）
   useEffect(() => {
     if (!config) return;
-
-    // 类型守卫函数
-    const isNonInteractiveConfig = (cfg: AgentToolcallConfig): cfg is AgentToolcallConfig & { handler: Function } =>
-      typeof (cfg as any).handler === 'function';
-
-    if (isNonInteractiveConfig(config)) {
+    if (isNonInteractive(config)) {
       // 非交互式：执行 handler
       const executeHandler = async () => {
         try {

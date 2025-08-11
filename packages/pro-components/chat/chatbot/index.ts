@@ -35,6 +35,6 @@ export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList, ChatEngine
 export type * from 'tdesign-web-components/lib/chatbot/type';
 export * from './core';
 export * from './hooks/useChat';
-export * from './hooks/useAgentState';
 export * from './hooks/useAgentToolcall';
+export * from './hooks/useAgentState';
 export * from './components/toolcall';

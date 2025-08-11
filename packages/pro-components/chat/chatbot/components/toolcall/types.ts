@@ -65,3 +65,7 @@ export interface AgentToolcallState<TArgs extends object = any, TResult = any> {
   result?: TResult;
   error?: Error;
 }
+
+// 类型守卫函数
+export const isNonInteractiveConfig = (cfg: AgentToolcallConfig): cfg is AgentToolcallConfig & { handler: Function } =>
+  typeof (cfg as any).handler === 'function';

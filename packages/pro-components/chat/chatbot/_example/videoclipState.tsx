@@ -19,7 +19,7 @@ import {
   ChevronRightIcon,
 } from 'tdesign-icons-react';
 import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '../core/type';
-import { ToolCallRenderer, useAgentState, useChat, useAgentToolcall } from '../index';
+import { ToolCallRenderer, useAgentState, useChat, useAgentToolcall, isUserMessage } from '../index';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import './videoclipAgent.css';
 
@@ -48,6 +48,22 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ loading, content, timeRem
   </div>
 );
 
+const CustomUserMessage = ({ message }) => (
+  <>
+    {message.content.map((content, index) => (
+      <div
+        key={index}
+        style={{
+          fontSize: '15px',
+          lineHeight: '1.6',
+          wordBreak: 'break-word',
+        }}
+      >
+        {content.data}
+      </div>
+    ))}
+  </>
+);
 // 视频剪辑Agent工具调用类型定义
 interface ShowStepsArgs {
   stepId: string;
@@ -61,14 +77,14 @@ interface VideoClipStepsProps {
   /**
    * 绑定到特定的状态key，如果指定则只显示该状态key的状态
    * 这样可以确保多轮对话时，每个消息的步骤显示都是独立的
-   * 这个stateKey通常就是runId
+   * 对于videoclip业务，这个stateKey通常就是runId
    */
   boundStateKey?: string;
 }
 
 /**
  * 使用状态订阅机制的视频剪辑步骤组件
- * 演示如何通过useAgentStateAction订阅AG-UI状态事件
+ * 演示如何通过useAgentState订阅AG-UI状态事件
  */
 export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
   // 使用新的状态订阅Hook，支持绑定到特定stateKey
@@ -518,7 +534,6 @@ export default function VideoClipAgentChatWithSubscription() {
   const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
     if (item.type === 'toolcall') {
       const { data, type } = item;
-
       // 使用统一的 ToolCallRenderer 处理所有工具调用
       return (
         <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
@@ -576,6 +591,11 @@ export default function VideoClipAgentChatWithSubscription() {
         <ChatList ref={listRef} style={{ width: '100%', height: '400px' }}>
           {messages.map((message, idx) => (
             <ChatMessage key={message.id} {...messageProps[message.role]} message={message as any}>
+              {isUserMessage(message) && (
+                <div slot="content">
+                  <CustomUserMessage message={message} />
+                </div>
+              )}
               {renderMsgContents(message, idx === messages.length - 1)}
             </ChatMessage>
           ))}

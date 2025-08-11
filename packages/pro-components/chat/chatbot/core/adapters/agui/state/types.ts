@@ -31,6 +31,10 @@ export interface UseStateActionReturn<T = any> {
    * 完整的状态Map（stateKey -> state），供调试使用
    */
   stateMap: Map<string, T>;
+  /**
+   * 设置状态Map，用于加载历史对话消息中的state数据
+   */
+  setStateMap: (stateMap: Map<string, T> | ((prev: Map<string, T>) => Map<string, T>)) => void;
 }
 
 export interface StateManager {
