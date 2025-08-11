@@ -1,39 +1,39 @@
 import React, {
-  useEffect,
-  useMemo,
+  Children,
   KeyboardEvent,
   WheelEvent,
-  useRef,
-  useCallback,
-  Children,
   cloneElement,
   isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { isFunction, get, debounce } from 'lodash-es';
-import { getOffsetTopToContainer } from '../../_util/helper';
-import useControlled from '../../hooks/useControlled';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../hooks/useConfig';
+import { debounce, get, isFunction } from 'lodash-es';
+import composeRefs from '../../_util/composeRefs';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getSelectValueArr, getSelectedOptions } from '../util/helper';
+import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
+import { parseContentTNode } from '../../_util/parseTNode';
+import { StyledProps } from '../../common';
 import FakeArrow from '../../common/FakeArrow';
+import useConfig from '../../hooks/useConfig';
+import useControlled from '../../hooks/useControlled';
+import useDefaultProps from '../../hooks/useDefaultProps';
 import Loading from '../../loading';
-import SelectInput, { SelectInputValue, SelectInputValueChangeContext } from '../../select-input';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { PopupVisibleChangeContext } from '../../popup';
+import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext } from '../../select-input';
+import Tag from '../../tag';
+import { selectDefaultProps } from '../defaultProps';
+import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
+import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
+import { getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
-import Tag from '../../tag';
-import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger, SelectValue } from '../type';
-import { StyledProps } from '../../common';
-import { selectDefaultProps } from '../defaultProps';
-import { PopupVisibleChangeContext } from '../../popup';
-import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import composeRefs from '../../_util/composeRefs';
-import { parseContentTNode } from '../../_util/parseTNode';
-import useDefaultProps from '../../hooks/useDefaultProps';
 
 export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
@@ -222,9 +222,27 @@ const Select = forwardRefWithStatics(
       });
     };
 
+    const handleCreate = (value: SelectValue) => {
+      if (!creatable || !isFunction(onCreate)) return;
+      if (Array.isArray(value)) {
+        // 多选：判断最后一个值是否为新创建
+        const lastValue = value[value.length - 1];
+        const exists = (options as OptionsType).some((option) => option.value === lastValue);
+        if (!exists) {
+          onCreate(lastValue);
+        }
+      } else {
+        // 单选：判断当前值是否为新创建
+        const exists = (options as OptionsType).some((option) => option.value === value);
+        if (!exists) {
+          onCreate(value as string);
+        }
+      }
+    };
+
     // 选中 Popup 某项
     const handleChange = (
-      value: string | number | Array<string | number | Record<string, string | number>>,
+      value: SelectValue,
       context: {
         e: React.MouseEvent<HTMLLIElement>;
         trigger: SelectValueChangeTrigger;
@@ -235,11 +253,9 @@ const Select = forwardRefWithStatics(
       if (multiple) {
         !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
       }
-      if (creatable && isFunction(onCreate)) {
-        if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
-          onCreate(value as string); // 手动输入 此时为string
-        }
-      }
+
+      handleCreate(value);
+
       // 处理onChange回调中的selectedOptions参数
       const selectedValue = multiple ? context.value : value;
       const { currentSelectedOptions, currentOption } = getSelectedOptions(
