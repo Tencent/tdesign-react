@@ -127,7 +127,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   useEffect(() => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
       if (!formItemRef.current) return;
-
       const { name, isUpdated } = formItemRef.current;
       if (isUpdated) return; // 内部更新过值则跳过
 
@@ -291,7 +290,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   }
 
   return (
-    <FormListContext.Provider value={{ name, rules, formListMapRef, initialData }}>
+    <FormListContext.Provider value={{ name, rules, formListMapRef, initialData, form }}>
       {children(fields, operation)}
     </FormListContext.Provider>
   );
