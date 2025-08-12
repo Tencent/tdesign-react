@@ -17,7 +17,9 @@ export interface MouseContext {
 type MouseEventOptions = {
   enableTouch?: boolean;
   onStart?: (e: MouseCallback, ctx: MouseContext) => void;
+  onEnter?: (e: MouseCallback, ctx: MouseContext) => void;
   onMove?: (e: MouseCallback, ctx: MouseContext) => void;
+  onLeave?: (e: MouseCallback, ctx: MouseContext) => void;
   onEnd?: (e: MouseCallback, ctx: MouseContext) => void;
 };
 
@@ -86,17 +88,30 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
     document.addEventListener('touchend', handleMouseEnd);
   };
 
+  const handleMouseEnter = (e: MouseEventLike) => {
+    emitMouseChange(e, options.onEnter);
+  };
+
+  const handleMouseLeave = (e: MouseEventLike) => {
+    emitMouseChange(e, options.onLeave);
+  };
+
   useEffect(() => {
     const el = elementRef.current;
     if (!el) return;
 
     el.addEventListener('mousedown', handleMouseStart);
+    el.addEventListener('mouseenter', handleMouseEnter);
+    el.addEventListener('mouseleave', handleMouseLeave);
     el.addEventListener('mouseup', handleMouseEnd);
     if (!enableTouch) return;
     el.addEventListener('touchstart', handleMouseStart, { passive: false });
 
     return () => {
       el.removeEventListener('mousedown', handleMouseStart);
+      el.removeEventListener('mouseenter', handleMouseStart);
+      el.removeEventListener('mouseleave', handleMouseLeave);
+      el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseup', handleMouseEnd);
       el.removeEventListener('touchstart', handleMouseStart);
     };

@@ -23,11 +23,15 @@ const SliderHandleButton: React.FC<SliderHandleButtonProps> = ({
   const [popupVisible, setPopupVisible] = useState(false);
 
   const { isMoving } = useMouseEvent(sliderNodeRef, {
-    onStart: () => {
+    onEnter() {
       setPopupVisible(true);
     },
     onMove: (e: MouseCallback) => {
+      setPopupVisible(true);
       onChange(e);
+    },
+    onLeave: () => {
+      setPopupVisible(false);
     },
     onEnd: () => {
       setPopupVisible(false);
