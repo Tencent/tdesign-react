@@ -87,9 +87,24 @@ export class AGUIAdapter {
 
           // 添加思考内容（如果有思考过程字段）
           if ((assistantMsg as any).reasoningContent) {
+            const { reasoningContent } = assistantMsg as any;
+            let reasoningData;
+
+            if (typeof reasoningContent === 'string') {
+              try {
+                reasoningData = JSON.parse(reasoningContent);
+              } catch {
+                // 解析失败时，将字符串包装为对象
+                reasoningData = { text: reasoningContent, title: '思考完成' };
+              }
+            } else {
+              reasoningData = reasoningContent;
+            }
+
             allContent.push({
               type: 'thinking',
-              data: JSON.parse((assistantMsg as any).reasoningContent),
+              status: 'complete',
+              data: reasoningData,
             });
           }
 

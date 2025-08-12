@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable class-methods-use-this */
 import type {
   AIMessage,
   AIMessageContent,
@@ -5,8 +7,8 @@ import type {
   ChatMessageSetterMode,
   ChatMessageStatus,
   ChatMessageStore,
-  UserMessage,
   ToolCall,
+  UserMessage,
 } from '../type';
 import { isAIMessage, isUserMessage } from '../utils';
 import ReactiveState from './reactiveState';
@@ -88,7 +90,11 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
       if (message) {
         message.status = status;
         if (isAIMessage(message) && message.content && message.content.length > 0) {
-          message.content[message.content.length - 1].status = status;
+          const lastContent = message.content[message.content.length - 1];
+          // 添加类型检查，确保content有status属性
+          if ('status' in lastContent) {
+            lastContent.status = status;
+          }
         }
       }
     });
@@ -175,37 +181,41 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
   }
 
   private resolvedStatus(content: AIMessageContent, status: ChatMessageStatus): ChatMessageStatus {
-    return typeof content.status === 'function' ? content.status(status) : (content.status || status);
+    // 添加类型检查
+    if (!this.hasStatus(content)) {
+      return status;
+    }
+    return typeof content.status === 'function' ? content.status(status) : content.status || status;
   }
 
   // 更新消息整体状态（自动推断）
   private updateMessageStatusByContent(message: AIMessage) {
     if (!message.content) return;
-    
-    // 优先处理错误状态
-    if (message.content.some((c) => c.status === 'error')) {
+
+    // 优先处理错误状态 - 添加类型检查
+    if (message.content.some((c) => this.hasStatus(c) && c.status === 'error')) {
       message.status = 'error';
       message.content.forEach((content) => {
-        content.status = this.resolvedStatus(content, 'streaming') ? 'stop' : content.status;
+        if (this.hasStatus(content)) {
+          const resolvedStatus = this.resolvedStatus(content, 'streaming');
+          content.status = resolvedStatus === 'streaming' ? 'stop' : content.status;
+        }
       });
       return;
     }
 
-    // 非最后一个内容块如果不是error|stop, 则设为content.status｜complete
-    message.content
-      .slice(0, -1) // 获取除最后一个元素外的所有内容
-      .forEach((content) => {
-        if (content.status !== 'error' && content.status !== 'stop') {
-          content.status = this.resolvedStatus(content, 'complete');
-        }
-      });
+    // 非最后一个内容块处理 - 添加类型检查
+    message.content.slice(0, -1).forEach((content) => {
+      if (this.hasStatus(content) && content.status !== 'error' && content.status !== 'stop') {
+        content.status = this.resolvedStatus(content, 'complete');
+      }
+    });
+  }
 
-    // 检查是否全部完成
-    // const allComplete = message.content.every(
-    //   (c) => c.status === 'complete' || c.status === 'stop', // 包含停止状态
-    // );
-
-    // message.status = allComplete ? 'complete' : 'streaming';
+  private hasStatus(content: AIMessageContent): content is AIMessageContent & {
+    status?: ChatMessageStatus | ((currentStatus: ChatMessageStatus | undefined) => ChatMessageStatus);
+  } {
+    return 'status' in content;
   }
 
   /**

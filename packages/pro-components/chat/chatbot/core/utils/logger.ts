@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-await-in-loop, max-classes-per-file */
 // 日志接口
 export interface Logger {
