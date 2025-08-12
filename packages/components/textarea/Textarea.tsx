@@ -30,6 +30,7 @@ export interface TextareaRef extends React.RefObject<unknown> {
 const Textarea = forwardRef<TextareaRef, TextareaProps>((originalProps, ref) => {
   const props = useDefaultProps<TextareaProps>(originalProps, textareaDefaultProps);
   const {
+    id,
     disabled,
     maxlength,
     maxcharacter,
@@ -208,7 +209,7 @@ const Textarea = forwardRef<TextareaRef, TextareaProps>((originalProps, ref) => 
     (!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength));
 
   return (
-    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
+    <div id={id} style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
       <textarea
         {...textareaProps}
         {...eventProps}
