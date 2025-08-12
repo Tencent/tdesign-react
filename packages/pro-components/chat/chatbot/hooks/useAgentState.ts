@@ -3,7 +3,6 @@ import { stateManager } from '../core/adapters/agui';
 import type { StateActionOptions, UseStateActionReturn } from '../core/adapters/agui';
 
 /**
-/**
  * 状态订阅Hook
  * 根据是否传入stateKey自动决定订阅模式：
  * - 传入stateKey：绑定模式，只订阅特定stateKey的状态，适用于状态隔离场景
@@ -13,7 +12,7 @@ export function useAgentState<T = any>(
   options: StateActionOptions & {
     stateKey?: string;
   } = {},
-): UseStateActionReturn<T> {
+): UseStateActionReturn {
   const { stateKey, initialState } = options;
   const [stateMap, setStateMap] = useState<Record<string, any>>(initialState || {});
   const [currentStateKey, setCurrentStateKey] = useState<string | null>(null);

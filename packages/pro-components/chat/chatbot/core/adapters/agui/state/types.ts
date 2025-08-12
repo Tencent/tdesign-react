@@ -9,7 +9,7 @@ export interface StateActionOptions {
   initialState?: Record<string, any>;
 }
 
-export interface UseStateActionReturn<T = any> {
+export interface UseStateActionReturn {
   /**
    * 当前状态
    */
@@ -25,7 +25,7 @@ export interface UseStateActionReturn<T = any> {
   /**
    * 设置状态Map，用于加载历史对话消息中的state数据
    */
-  setStateMap: (stateMap: Map<string, T> | ((prev: Map<string, T>) => Map<string, T>)) => void;
+  setStateMap: (stateMap: Record<string, any> | ((prev: Record<string, any>) => Record<string, any>)) => void;
 }
 
 export interface StateManager {

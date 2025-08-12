@@ -214,8 +214,6 @@ useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提
 
 
 ### useAgentState Hook
-### useAgentState Hook
-### useAgentState Hook
 
 useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，根据是否传入stateKey自动决定订阅模式。
 
@@ -230,7 +228,7 @@ useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵
 | 属性名 | 类型 | 说明 | 必传 |
 | ------ | ---- | ---- | ---- |
 | stateKey | string | 指定要订阅的 stateKey。传入时为绑定模式（适用于状态隔离场景），不传入时为最新模式（适用于状态覆盖场景）。多轮对话建议设置，一般为 runId | N |
-| initialState | Record<string, any> | 初始状态值，用于设置stateMap的初始值 | N |
+| initialState | Record<string, T> | 初始状态值，用于设置stateMap的初始值 | N |
 
 #### 返回值说明
 

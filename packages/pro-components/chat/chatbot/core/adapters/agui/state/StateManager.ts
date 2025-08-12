@@ -172,9 +172,11 @@ class StateManagerImpl implements StateManager {
   }
 
   // 清理所有状态和订阅
+  // 清理所有状态和订阅
   clear(): void {
     this.states = {};
-    this.subscribers.clear();
+    this.latestSubscribers.clear();
+    this.boundSubscribers.clear();
     this.currentStateKey = null;
   }
 }
