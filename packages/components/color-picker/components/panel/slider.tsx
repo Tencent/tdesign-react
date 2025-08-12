@@ -1,7 +1,7 @@
 import React, { type CSSProperties, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '@tdesign/common-js/color-picker/constants';
-import useDrag, { type Coordinate } from '../../../hooks/useDrag';
+import useMouseEvent, { type MouseCoordinate } from '../../../hooks/useMouseEvent';
 import useStyles from '../../hooks/useStyles';
 import type { TdColorBaseProps } from '../../interface';
 
@@ -26,45 +26,31 @@ const ColorSlider = (props: TdColorSliderProps) => {
     type,
   } = props;
   const panelRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLElement>(null);
-  const isMovedRef = useRef<boolean>(false);
   const panelRectRef = useRef({
     width: SLIDER_DEFAULT_WIDTH,
   });
   const { styles } = useStyles({ color, value, maxValue, type }, panelRectRef);
 
-  const handleDrag = (coordinate: Coordinate) => {
-    if (disabled) {
-      return;
-    }
+  const handleDrag = (coordinate: MouseCoordinate) => {
+    if (disabled) return;
     const { width } = panelRectRef.current;
     const { x } = coordinate;
     const value = Math.round((x / width) * Number(maxValue) * 100) / 100;
-    isMovedRef.current = true;
     onChange(value);
   };
 
-  const handleDragEnd = (coordinate: Coordinate) => {
-    if (disabled || !isMovedRef.current) {
-      return;
-    }
-
-    handleDrag(coordinate);
-    isMovedRef.current = false;
-  };
-
-  useDrag(panelRef, {
-    start: (coordinate: Coordinate) => {
+  useMouseEvent(panelRef, {
+    onStart: (_, ctx) => {
       // pop 模式下由于是隐藏显示，这个宽度让其每次点击的时候重新计算
       panelRectRef.current.width = panelRef.current.offsetWidth;
-      isMovedRef.current = false;
-      handleDrag(coordinate);
+      handleDrag(ctx.coordinate);
     },
-    end: (coordinate: Coordinate) => {
-      handleDragEnd(coordinate);
+    onMove: (_, ctx) => {
+      handleDrag(ctx.coordinate);
     },
-    drag: (coordinate: Coordinate) => {
-      handleDrag(coordinate);
+    onEnd: (_, ctx) => {
+      if (disabled) return;
+      handleDrag(ctx.coordinate);
     },
   });
 
@@ -81,7 +67,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
       {type === 'alpha' && <div className={`${baseClassName}__slider-padding`} style={paddingStyle} />}
       <div className={classnames(`${baseClassName}__slider`, className)} ref={panelRef}>
         <div className={`${baseClassName}__rail`} style={railStyle}></div>
-        <span className={`${baseClassName}__thumb`} role="slider" tabIndex={0} ref={thumbRef} style={styles}></span>
+        <span className={`${baseClassName}__thumb`} role="slider" tabIndex={0} style={styles}></span>
       </div>
     </div>
   );

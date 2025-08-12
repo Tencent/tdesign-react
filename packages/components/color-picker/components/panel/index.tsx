@@ -189,7 +189,6 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   }: {
     key: 'degree' | 'selectedId' | 'colors';
     payload: number | string | GradientColorPoint[];
-    addUsedColor?: boolean;
   }) => {
     let trigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
     switch (key) {

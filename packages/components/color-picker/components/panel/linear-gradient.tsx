@@ -1,12 +1,13 @@
-import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { cloneDeep } from 'lodash-es';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import { cloneDeep } from 'lodash-es';
 import { genGradientPoint, gradientColors2string } from '@tdesign/common-js/color-picker/color';
-import { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
 import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '@tdesign/common-js/color-picker/constants';
+import type { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
 import useCommonClassName from '../../../hooks/useCommonClassName';
-import useClassName from '../../hooks/useClassNames';
+import useMouseEvent from '../../../hooks/useMouseEvent';
 import InputNumber from '../../../input-number';
+import useClassName from '../../hooks/useClassNames';
 
 const DELETE_KEYS: string[] = ['delete', 'backspace'];
 
@@ -19,17 +20,15 @@ const LinearGradient = (props) => {
   const { onChange, color, disabled } = props;
   const baseClassName = useClassName();
   const { STATUS: statusClassNames } = useCommonClassName();
-  const refSlider = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const sliderRectRef = useRef<TSliderRect>({
     left: 0,
     width: GRADIENT_SLIDER_DEFAULT_WIDTH,
   });
-  const isDragging = useRef<Boolean>(false);
-  const isMoved = useRef<Boolean>(false);
   const degree = useRef(props.color.gradientDegree);
-  const [selectedId, setSelectedId] = useState(props.color.gradientSelectedId);
   const selectedRef = useRef(props.color.gradientSelectedId);
   const colors = useRef<GradientColorPoint[]>(cloneDeep(color.gradientColors));
+  const [selectedId, setSelectedId] = useState(props.color.gradientSelectedId);
   const [colorsState, setColorsState] = useState<GradientColorPoint[]>(colors.current);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const LinearGradient = (props) => {
   }, [color.gradientColors, color?.gradientDegree, color.gradientSelectedId, color.value, color.saturation]);
 
   const updateSliderRect = () => {
-    const rect = refSlider.current.getBoundingClientRect();
+    const rect = sliderRef.current.getBoundingClientRect();
     sliderRectRef.current = {
       left: rect.left,
       width: rect.width || GRADIENT_SLIDER_DEFAULT_WIDTH,
@@ -49,53 +48,41 @@ const LinearGradient = (props) => {
   };
 
   const handleChange = useCallback(
-    (key: 'degree' | 'selectedId' | 'colors', payload: any, addUsedColor?: boolean) => {
-      if (disabled) {
-        return;
-      }
+    (key: 'degree' | 'selectedId' | 'colors', payload: any) => {
+      if (disabled) return;
       onChange({
         key,
         payload,
-        addUsedColor,
       });
     },
     [onChange, disabled],
   );
 
   const handleDegreeChange = (value: number) => {
-    if (props.disabled || value === props.color.gradientDegree) {
+    if (disabled || value === props.color.gradientDegree) {
       return;
     }
     degree.current = value;
-    handleChange('degree', value, true);
+    handleChange('degree', value);
   };
 
   const handleSelectedIdChange = (value: string) => {
-    if (props.disabled) {
-      return;
-    }
+    if (disabled) return;
     setSelectedId(value);
     selectedRef.current = value;
     handleChange('selectedId', value);
   };
 
   const handleColorsChange = useCallback(
-    (value: GradientColorPoint[], isEnded?: boolean) => {
-      if (props.disabled) {
-        return;
-      }
+    (value: GradientColorPoint[]) => {
+      if (disabled) return;
       colors.current = value;
       setColorsState(value);
-      handleChange('colors', value, isEnded);
+      handleChange('colors', value);
     },
-    [props.disabled, handleChange],
+    [disabled, handleChange],
   );
 
-  /**
-   * 设置bar的位置
-   * @param left
-   * @returns
-   */
   const updateActiveThumbLeft = useCallback(
     (left: number) => {
       const index = colors.current.findIndex((c) => c.id === selectedRef.current);
@@ -104,9 +91,7 @@ const LinearGradient = (props) => {
       }
       const point = colors.current[index];
       const formatLeft = Math.max(0, Math.min(sliderRectRef.current.width, left));
-
       const percentLeft = (formatLeft / sliderRectRef.current.width) * 100;
-
       const newColors = colors.current.map((item, i) =>
         index !== i
           ? item
@@ -116,61 +101,29 @@ const LinearGradient = (props) => {
               id: point.id,
             },
       );
-
       handleColorsChange(newColors);
     },
     [handleColorsChange],
   );
 
-  // 移动开始
-  const handleStart = (id: string, e: ReactMouseEvent) => {
-    if (isDragging.current || props.disabled) {
-      return;
-    }
-    selectedRef.current = id;
-    setSelectedId(id);
-    isMoved.current = false;
-    isDragging.current = true;
+  const handleStart = (id: string, e: React.MouseEvent) => {
+    if (disabled) return;
     e.preventDefault();
     e.stopPropagation();
     handleSelectedIdChange(id);
     // 让 slider 获取焦点，以便键盘事件生效。
-    refSlider.current.focus();
+    sliderRef.current.focus();
   };
 
-  // 移动中
-  const handleMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging.current || disabled) {
-        return;
-      }
-
-      const rect = refSlider.current.getBoundingClientRect();
-      const left = e.clientX - rect.x;
-      isMoved.current = true;
-      updateActiveThumbLeft(left);
+  useMouseEvent(sliderRef, {
+    onMove: (_, ctx) => {
+      if (disabled) return;
+      updateActiveThumbLeft(ctx.coordinate.x);
     },
-    [disabled, updateActiveThumbLeft],
-  );
+  });
 
-  // 移动结束
-  const handleEnd = useCallback(() => {
-    if (!isDragging.current) {
-      return;
-    }
-    setTimeout(() => {
-      isDragging.current = false;
-    }, 0);
-    if (isMoved.current) {
-      handleColorsChange(colors.current, true);
-      isMoved.current = false;
-    }
-  }, [handleColorsChange]);
-
-  const handleKeyup = (e: KeyboardEvent) => {
-    if (props.disabled) {
-      return;
-    }
+  const handleKeyup = (e: React.KeyboardEvent) => {
+    if (disabled) return;
     const points = [...colors.current];
     let pos = points.findIndex((c) => c.id === selectedRef.current);
     const { length } = points;
@@ -182,15 +135,13 @@ const LinearGradient = (props) => {
         pos = points[pos + 1] ? pos + 1 : points[pos - 1] ? pos - 1 : 0;
       }
       const current = points[pos];
-      handleColorsChange(points, true);
+      handleColorsChange(points);
       handleSelectedIdChange(current?.id);
     }
   };
 
-  const handleThumbBarClick = (e: ReactMouseEvent) => {
-    if (props.disabled || !props.enableMultipleGradient) {
-      return;
-    }
+  const handleThumbBarClick = (e: React.MouseEvent) => {
+    if (disabled || !props.enableMultipleGradient) return;
     updateSliderRect();
 
     let left = e.clientX - sliderRectRef.current.left;
@@ -200,23 +151,12 @@ const LinearGradient = (props) => {
     const newPoint = genGradientPoint(percentLeft, props.color.rgba);
     const newColors = [...colors.current];
     newColors.push(newPoint);
-    handleColorsChange(newColors, true);
+    handleColorsChange(newColors);
     handleSelectedIdChange(newPoint.id);
   };
 
   useEffect(() => {
     updateSliderRect();
-
-    window.addEventListener('mousemove', handleMove, false);
-    window.addEventListener('mouseup', handleEnd, false);
-    window.addEventListener('contextmenu', handleEnd, false);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMove, false);
-      window.removeEventListener('mouseup', handleEnd, false);
-      window.removeEventListener('contextmenu', handleEnd, false);
-    };
-    // eslint-disable-next-line
   }, []);
 
   const { gradientColors } = props.color;
@@ -226,7 +166,7 @@ const LinearGradient = (props) => {
     degree: 90,
   });
 
-  const handleClickThumb = (e: ReactMouseEvent, t) => {
+  const handleClickThumb = (e: React.MouseEvent, t: GradientColorPoint) => {
     handleSelectedIdChange(t.id);
     e.stopPropagation();
   };
@@ -244,10 +184,10 @@ const LinearGradient = (props) => {
         }}
       >
         <div
+          ref={sliderRef}
           className={classNames(`${baseClassName}__slider`, `${baseClassName}--bg-alpha`)}
           onKeyUp={handleKeyup}
           tabIndex={0}
-          ref={refSlider}
         >
           <ul
             className="gradient-thumbs"
@@ -272,7 +212,7 @@ const LinearGradient = (props) => {
                     left,
                   }}
                   onClick={(e) => handleClickThumb(e, t)}
-                  onMouseDown={(e: ReactMouseEvent) => handleStart(t.id, e)}
+                  onMouseDown={(e) => handleStart(t.id, e)}
                 >
                   <span className={classNames(['gradient-thumbs__item-inner', `${baseClassName}--bg-alpha`])}></span>
                 </li>
