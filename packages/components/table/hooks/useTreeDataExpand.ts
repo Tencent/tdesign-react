@@ -40,8 +40,9 @@ export function useTreeDataExpand(
    */
   function expandAll(type: 'expand-all' | 'default-expand-all' = 'expand-all', list?: TableRowData[]) {
     const newData = list || data;
-    setDataSource(store.expandAll(newData, rowDataKeys));
-    const expandedNode = dataSource.map((t) => getUniqueRowValue(t, rowDataKeys.rowKey));
+    const expandedData = store.expandAll(newData, rowDataKeys);
+    setDataSource(expandedData);
+    const expandedNode = expandedData.map((t) => getUniqueRowValue(t, rowDataKeys.rowKey));
     setTExpandedTreeNode(expandedNode, {
       row: undefined,
       rowState: undefined,
@@ -133,10 +134,11 @@ export function useTreeDataExpand(
     if (tree?.defaultExpandAll && !isDefaultExpandAllExecute) {
       expandAll('default-expand-all', [...data]);
       setIsDefaultExpandAllExecute(true);
-    } else if (tExpandedTreeNode?.length) {
-      const newData = updateExpandState([...data], tExpandedTreeNode, []);
-      setDataSource([...newData]);
+      return;
     }
+
+    const newData = updateExpandState([...data], tExpandedTreeNode, []);
+    setDataSource([...newData]);
   };
 
   return {

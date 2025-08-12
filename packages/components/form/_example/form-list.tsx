@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Select } from 'tdesign-react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
+import { Button, Form, Input, Select } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
-const provinceOptions = [
+const cityOptions = [
   { label: '北京', value: 'bj' },
   { label: '上海', value: 'sh' },
   { label: '广州', value: 'gz' },
@@ -20,19 +20,24 @@ export default function BaseForm() {
   }
 
   return (
-    <Form form={form} onSubmit={onSubmit}>
+    <Form
+      form={form}
+      onSubmit={onSubmit}
+      initialData={{
+        address: [
+          { city: 'bj', area: '海淀区' },
+          { city: 'sh', area: '浦东区' },
+        ],
+      }}
+      resetType="initial"
+    >
       <FormList name="address">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
               <FormItem key={key}>
-                <FormItem
-                  {...restField}
-                  name={[name, 'province']}
-                  label="省份"
-                  rules={[{ required: true, type: 'error' }]}
-                >
-                  <Select options={provinceOptions}></Select>
+                <FormItem name={[name, 'city']} label="城市" rules={[{ required: true, type: 'error' }]} {...restField}>
+                  <Select options={cityOptions}></Select>
                 </FormItem>
                 <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
                   <Input />
@@ -44,8 +49,8 @@ export default function BaseForm() {
               </FormItem>
             ))}
             <FormItem style={{ marginLeft: 100 }}>
-              <Button theme="default" variant="dashed" onClick={() => add({ province: 'bj', area: 'tzmax' })}>
-                Add field
+              <Button theme="default" variant="dashed" onClick={() => add({ city: 'sz', area: '南山区' })}>
+                新增指定项
               </Button>
             </FormItem>
           </>

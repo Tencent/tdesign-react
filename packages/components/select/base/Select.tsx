@@ -232,16 +232,17 @@ const Select = forwardRefWithStatics(
         label?: string;
       },
     ) => {
+      const selectedValue = multiple ? context.value : value;
+
       if (multiple) {
         !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
       }
       if (creatable && isFunction(onCreate)) {
-        if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
-          onCreate(value as string); // 手动输入 此时为string
+        if ((options as OptionsType).filter((option) => option.value === selectedValue).length === 0) {
+          onCreate(selectedValue as string); // 手动输入 此时为string
         }
       }
       // 处理onChange回调中的selectedOptions参数
-      const selectedValue = multiple ? context.value : value;
       const { currentSelectedOptions, currentOption } = getSelectedOptions(
         value,
         multiple,
@@ -250,7 +251,6 @@ const Select = forwardRefWithStatics(
         valueToOption,
         selectedValue,
       );
-
       onChange?.(value, {
         e: context.e,
         trigger: context.trigger,
