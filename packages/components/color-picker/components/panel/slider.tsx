@@ -40,7 +40,8 @@ const ColorSlider = (props: TdColorSliderProps) => {
   };
 
   useMouseEvent(panelRef, {
-    onStart: (_, ctx) => {
+    onDown: (_, ctx) => {
+      if (disabled) return;
       // pop 模式下由于是隐藏显示，这个宽度让其每次点击的时候重新计算
       panelRectRef.current.width = panelRef.current.offsetWidth;
       handleDrag(ctx.coordinate);
@@ -48,8 +49,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
     onMove: (_, ctx) => {
       handleDrag(ctx.coordinate);
     },
-    onEnd: (_, ctx) => {
-      if (disabled) return;
+    onUp: (_, ctx) => {
       handleDrag(ctx.coordinate);
     },
   });

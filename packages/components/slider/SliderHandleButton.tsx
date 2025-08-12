@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
+import classNames from 'classnames';
 import useMouseEvent, { type MouseCallback } from '../hooks/useMouseEvent';
 import Tooltip from '../tooltip/Tooltip';
 import type { TdTooltipProps } from '../tooltip/type';
@@ -26,15 +26,19 @@ const SliderHandleButton: React.FC<SliderHandleButtonProps> = ({
     onEnter() {
       setPopupVisible(true);
     },
-    onMove: (e: MouseCallback) => {
+    onDown: () => {
+      setPopupVisible(true);
+    },
+    onMove: (e) => {
       setPopupVisible(true);
       onChange(e);
     },
     onLeave: () => {
       setPopupVisible(false);
     },
-    onEnd: () => {
+    onUp: (e) => {
       setPopupVisible(false);
+      onChange(e);
     },
   });
 

@@ -50,7 +50,7 @@ const Saturation = (props: TdColorBaseProps) => {
   );
 
   useMouseEvent(panelRef, {
-    onStart: () => {
+    onDown: () => {
       if (disabled) return;
       panelRectRef.current.width = panelRef.current.offsetWidth;
       panelRectRef.current.height = panelRef.current.offsetHeight;
@@ -58,7 +58,7 @@ const Saturation = (props: TdColorBaseProps) => {
     onMove: (_, ctx) => {
       handleDrag(ctx.coordinate);
     },
-    onEnd: (_, ctx) => {
+    onUp: (_, ctx) => {
       handleDrag(ctx.coordinate);
     },
   });

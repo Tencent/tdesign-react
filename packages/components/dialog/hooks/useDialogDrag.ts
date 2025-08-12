@@ -16,7 +16,7 @@ const useDialogDrag = (props: DialogDragProps) => {
   const dragOffset = useRef({ x: 0, y: 0 });
 
   useMouseEvent(dialogCardRef, {
-    onStart: (e) => {
+    onDown: (e) => {
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight, style } = dialogCardRef.current;
       if (offsetWidth > screenWidth || offsetHeight > screenHeight) return;
       style.cursor = 'move';
@@ -38,7 +38,7 @@ const useDialogDrag = (props: DialogDragProps) => {
       style.left = `${diffX}px`;
       style.top = `${diffY}px`;
     },
-    onEnd: () => {
+    onUp: () => {
       dialogCardRef.current.style.cursor = 'default';
     },
   });

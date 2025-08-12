@@ -14,7 +14,7 @@ const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: Position
   const lastScreenPositionRef = useRef<{ x: number; y: number } | null>(null);
 
   useMouseEvent(imgRef, {
-    onStart: (e) => {
+    onDown: (e) => {
       const { screenX, screenY } = e;
       lastScreenPositionRef.current = { x: screenX, y: screenY };
     },
@@ -28,7 +28,7 @@ const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: Position
 
       lastScreenPositionRef.current = { x: screenX, y: screenY };
     },
-    onEnd: () => {
+    onUp: () => {
       lastScreenPositionRef.current = null;
     },
   });
