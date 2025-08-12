@@ -39,7 +39,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
   };
 
   const getCoordinate = (event: MouseCallback) => {
-    const rect = elementRef.current.getBoundingClientRect();
+    const rect = elementRef.current?.getBoundingClientRect();
     if (!rect) {
       return { x: 0, y: 0 };
     }
