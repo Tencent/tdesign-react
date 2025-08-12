@@ -15,35 +15,6 @@ export class AGUIEventMapper {
   private toolCallEnded: Set<string> = new Set(); // 记录已经TOOL_CALL_END的工具调用
 
   /**
-   * 合并字符串内容，处理JSON和普通字符串
-   */
-  private mergeStringContent(existing: string | undefined, delta: string): string {
-    if (!existing) return delta;
-
-    // 尝试解析为JSON，如果是有效的JSON则合并
-    try {
-      const existingObj = JSON.parse(existing);
-      const deltaObj = JSON.parse(delta);
-
-      // 如果是对象，进行深度合并
-      if (typeof existingObj === 'object' && typeof deltaObj === 'object') {
-        return JSON.stringify({ ...existingObj, ...deltaObj });
-      }
-
-      // 如果是数组，进行数组合并
-      if (Array.isArray(existingObj) && Array.isArray(deltaObj)) {
-        return JSON.stringify([...existingObj, ...deltaObj]);
-      }
-
-      // 其他情况，直接替换
-      return delta;
-    } catch (error) {
-      // 不是有效的JSON，按普通字符串处理
-      return existing + delta;
-    }
-  }
-
-  /**
    * 主入口：将SSE事件转换为AIContentChunkUpdate
    *
    * @param chunk SSE数据块，其中data字段可能是字符串（需要解析）或已解析的对象
@@ -251,6 +222,40 @@ export class AGUIEventMapper {
     return this.toolCallEnded.has(toolCallId);
   }
 
+  reset() {
+    this.toolCallMap = {};
+    this.toolCallEnded.clear();
+  }
+
+  /**
+   * 合并字符串内容，处理JSON和普通字符串
+   */
+  private mergeStringContent(existing: string | undefined, delta: string): string {
+    if (!existing) return delta;
+
+    // 尝试解析为JSON，如果是有效的JSON则合并
+    try {
+      const existingObj = JSON.parse(existing);
+      const deltaObj = JSON.parse(delta);
+
+      // 如果是对象，进行深度合并
+      if (typeof existingObj === 'object' && typeof deltaObj === 'object') {
+        return JSON.stringify({ ...existingObj, ...deltaObj });
+      }
+
+      // 如果是数组，进行数组合并
+      if (Array.isArray(existingObj) && Array.isArray(deltaObj)) {
+        return JSON.stringify([...existingObj, ...deltaObj]);
+      }
+
+      // 其他情况，直接替换
+      return delta;
+    } catch (error) {
+      // 不是有效的JSON，按普通字符串处理
+      return existing + delta;
+    }
+  }
+
   private handleMessagesSnapshot(messages: any[]): AIMessageContent[] {
     // 只取assistant消息
     if (!messages) return [];
@@ -266,7 +271,7 @@ export class AGUIEventMapper {
     });
   }
 
-  private handleCustomEvent(event: any): AIMessageContent {
+  private handleCustomEvent(event: any): any {
     if (event.name === 'suggestion') {
       return {
         type: 'suggestion',
@@ -274,17 +279,6 @@ export class AGUIEventMapper {
         status: 'complete',
       };
     }
-    // 兜底：以text类型输出
-    return {
-      type: 'text',
-      data: event.value?.content || event.value?.text || JSON.stringify(event.value),
-      status: 'complete',
-    };
-  }
-
-  reset() {
-    this.toolCallMap = {};
-    this.toolCallEnded.clear();
   }
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { TdChatProps } from 'tdesign-web-components';
+import { TdChatProps } from '@tencent/tdesign-webc-test';
 import ChatEngine from '../core';
 import type { ChatMessagesData, ChatStatus } from '../core/type';
 

@@ -1,17 +1,7 @@
 import React, { useRef, useState } from 'react';
-import type {
-  SSEChunkData,
-  AIMessageContent,
-  ChatMessagesData,
-  ChatServiceConfig,
-  TdAttachmentItem,
-  UploadFile,
-  ChatRequestParams,
-  TdChatMessageConfig,
-  TdChatbotApi,
-} from '@tdesign-react/aigc';
+import type { TdAttachmentItem, ChatRequestParams, TdChatMessageConfig, TdChatbotApi } from '@tdesign-react/aigc';
 import { ChatBot } from '@tdesign-react/aigc';
-import { endpoint } from './utils';
+import { SSEChunkData, AIMessageContent, ChatMessagesData, ChatServiceConfig } from '../index';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -114,7 +104,7 @@ export default function chatSample() {
     const newFile = {
       ...e.detail[0],
       name: e.detail[0].name,
-      status: 'progress' as UploadFile['status'],
+      status: 'progress' as any,
       description: '上传中',
     };
 

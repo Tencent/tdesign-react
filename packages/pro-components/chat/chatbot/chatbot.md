@@ -214,30 +214,32 @@ useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提
 
 
 ### useAgentState Hook
+### useAgentState Hook
+### useAgentState Hook
 
-useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，支持订阅全局状态或特定 stateKey 的状态变化。
+useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，根据是否传入stateKey自动决定订阅模式。
 
 #### 参数说明
 
 | 参数名 | 类型 | 说明 |
 | ------ | ---- | ---- |
-| options | StateActionOptions | 状态订阅配置选项 |
+| options | StateActionOptions & { stateKey?: string; } | 状态订阅配置选项 |
 
 #### StateActionOptions 配置说明
 
 | 属性名 | 类型 | 说明 | 必传 |
 | ------ | ---- | ---- | ---- |
-| initialState | T | 初始状态值 | N |
-| stateKey | string | 指定要订阅的 stateKey，如果不指定则订阅当前活跃状态（多轮对话建议设置，一般为 runId） | N |
+| stateKey | string | 指定要订阅的 stateKey。传入时为绑定模式（适用于状态隔离场景），不传入时为最新模式（适用于状态覆盖场景）。多轮对话建议设置，一般为 runId | N |
+| initialState | Record<string, any> | 初始状态值，用于设置stateMap的初始值 | N |
 
 #### 返回值说明
 
 | 返回值 | 类型 | 说明 |
 | ------ | ---- | ---- |
-| state | T \| null | 当前状态数据 |
-| stateKey | string \| null | 当前状态的 key |
+| state | Record<string, any> | 当前状态数据映射表，包含所有订阅的状态 |
+| stateKey | string \| null | 当前活跃状态的 key（latest模式）或绑定的stateKey（bound模式） |
 | updating | boolean | 状态是否正在更新中 |
-| stateMap | Map<string, T> | 所有状态的映射表 |
+| setStateMap | (stateMap: Record<string, any>) => void | 手动设置状态映射表的方法 |
 
 
 #### 状态数据结构

@@ -13,6 +13,7 @@ const ChatLoadingExample = () => (
       <ChatLoading animation="moving" />
       <ChatLoading animation="gradient" />
       <ChatLoading animation="circle" />
+      <ChatLoading animation="dot" />
       <ChatLoading animation="moving" text={'加载中...'} />
     </Space>
   </>

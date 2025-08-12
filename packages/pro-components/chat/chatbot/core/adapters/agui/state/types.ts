@@ -6,19 +6,14 @@ export interface StateActionOptions {
   /**
    * 初始状态
    */
-  initialState?: any;
-  /**
-   * 指定要订阅的状态key，如果不指定则订阅当前活跃的状态key
-   * 不同Agent可以根据业务需求使用不同的key策略
-   */
-  stateKey?: string;
+  initialState?: Record<string, any>;
 }
 
 export interface UseStateActionReturn<T = any> {
   /**
    * 当前状态
    */
-  state: T;
+  state: Record<string, any>;
   /**
    * 当前状态key
    */
@@ -27,10 +22,6 @@ export interface UseStateActionReturn<T = any> {
    * 状态是否正在更新中
    */
   updating: boolean;
-  /**
-   * 完整的状态Map（stateKey -> state），供调试使用
-   */
-  stateMap: Map<string, T>;
   /**
    * 设置状态Map，用于加载历史对话消息中的state数据
    */
@@ -51,17 +42,19 @@ export interface StateManager {
    */
   getState: (stateKey: string) => any;
   /**
-   * 订阅指定状态key的状态变化
+   * 获取所有状态keys
    */
-  subscribe: (stateKey: string, callback: (state: any) => void) => () => void;
+  getAllStateKeys: () => string[];
   /**
-   * 订阅当前状态（自动使用当前状态key）
+   * 订阅状态变化
+   * @param callback 状态变化回调函数
+   * @param targetStateKey 可选：指定订阅特定的stateKey，不传则订阅当前活跃状态
    */
-  subscribeToCurrentState: (callback: (state: any, stateKey: string | null) => void) => () => void;
+  subscribe: (callback: (state: any, stateKey: string) => void, targetStateKey?: string) => () => void;
   /**
-   * 处理AG-UI状态事件
+   * 处理AG-UI状态事件，自动从事件中提取stateKey
    */
-  handleStateEvent: (event: { type: string; snapshot?: any; delta?: any[]; stateKey?: string }) => void;
+  handleStateEvent: (event: { type: string; snapshot?: any; delta?: any[] }) => void;
   /**
    * 清理所有状态和订阅
    */

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import type { ToolCall } from '../../core/type';
-import { isNonInteractive, type ToolcallComponentProps } from './types';
+import type { AgentToolcallConfig, ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
 
 interface ToolCallRendererProps {
@@ -12,7 +12,10 @@ interface ToolCallRendererProps {
  * ToolCall 渲染器组件
  * 根据注册的 AgentToolcallConfig 渲染对应的组件
  */
-export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps): React.ReactElement<any, any> => {
+export const ToolCallRenderer = ({
+  toolCall,
+  onRespond,
+}: ToolCallRendererProps): React.ReactElement<any, any> | null => {
   const [actionState, setActionState] = useState<{
     status: ToolcallComponentProps['status'];
     result?: any;
@@ -23,7 +26,7 @@ export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps)
 
   const config = agentToolcallRegistry.get(toolCall.toolCallName);
 
-  // 解析参数
+  // 解析参数 - 必须在条件判断之前调用
   const args = React.useMemo(() => {
     try {
       return toolCall.args ? JSON.parse(toolCall.args) : {};
@@ -33,7 +36,7 @@ export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps)
     }
   }, [toolCall.args]);
 
-  // 处理用户交互响应
+  // 处理用户交互响应 - 必须在条件判断之前调用
   const handleRespond = useCallback(
     (response: any) => {
       if (onRespond) {
@@ -48,10 +51,15 @@ export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps)
     [toolCall.toolCallId, onRespond],
   );
 
-  // 执行 handler（如果存在）
+  // 执行 handler（如果存在）- 必须在条件判断之前调用
   useEffect(() => {
     if (!config) return;
-    if (isNonInteractive(config)) {
+
+    // 类型守卫函数
+    const isNonInteractiveConfig = (cfg: AgentToolcallConfig): cfg is AgentToolcallConfig & { handler: Function } =>
+      typeof (cfg as any).handler === 'function';
+
+    if (isNonInteractiveConfig(config)) {
       // 非交互式：执行 handler
       const executeHandler = async () => {
         try {
@@ -103,14 +111,9 @@ export const ToolCallRenderer = ({ toolCall, onRespond }: ToolCallRendererProps)
     }
   }, [config, args, toolCall.result]);
 
-  // 如果没有找到对应的配置，返回默认渲染
+  // 如果没有找到对应的配置，不渲染任何内容
   if (!config) {
-    return React.createElement(
-      'div',
-      { style: { padding: '12px', border: '1px solid #e0e0e0', borderRadius: '4px' } },
-      React.createElement('p', null, `未找到工具调用配置: ${toolCall.toolCallName}`),
-      React.createElement('pre', { style: { fontSize: '12px', color: '#666' } }, JSON.stringify(toolCall, null, 2)),
-    );
+    return null;
   }
 
   // 构造组件 props

@@ -1,6 +1,6 @@
-import 'tdesign-web-components/lib/chatbot';
-import 'tdesign-web-components/lib/chat-message/content/search-content';
-import 'tdesign-web-components/lib/chat-message/content/suggestion-content';
+import '@tencent/tdesign-webc-test/lib/chatbot';
+import '@tencent/tdesign-webc-test/lib/chat-message/content/search-content';
+import '@tencent/tdesign-webc-test/lib/chat-message/content/suggestion-content';
 import type {
   TdChatbotApi,
   TdChatListApi,
@@ -8,7 +8,7 @@ import type {
   TdChatProps,
   TdChatSearchContentProps,
   TdChatSuggestionContentProps,
-} from 'tdesign-web-components';
+} from '@tencent/tdesign-webc-test';
 import reactify from '../_util/reactify';
 import ChatEngine from './core';
 
@@ -32,7 +32,7 @@ const ChatList: React.ForwardRefExoticComponent<
 export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList, ChatEngine };
 
 // 导出类型和工具
-export type * from 'tdesign-web-components/lib/chatbot/type';
+export type * from '@tencent/tdesign-webc-test/lib/chatbot/type';
 export * from './core';
 export * from './hooks/useChat';
 export * from './hooks/useAgentToolcall';

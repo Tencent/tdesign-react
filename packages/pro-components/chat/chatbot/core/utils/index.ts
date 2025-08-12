@@ -130,6 +130,28 @@ export function applyJsonPatch2(state: any, delta: any[]): any {
   return newState;
 }
 
+/**
+ * 安全解析JSON字符串的工具函数
+ *
+ * @param value 待解析的值，可能是字符串或已解析的对象
+ * @param fallbackValue 解析失败时的回退值，默认为原值
+ * @param errorContext 错误上下文，用于日志输出
+ * @returns 解析后的值或回退值
+ */
+export function safeParseJSON<T = any>(value: any, fallbackValue?: T, errorContext?: string): T {
+  if (typeof value !== 'string') {
+    return value; // 如果不是字符串，直接返回
+  }
+
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    const context = errorContext ? ` (${errorContext})` : '';
+    console.warn(`Failed to parse JSON${context}:`, error);
+    return (fallbackValue !== undefined ? fallbackValue : value) as T;
+  }
+}
+
 export function findTargetElement(event: MouseEvent, selector: string | string[]): HTMLElement | null {
   // 统一处理选择器输入格式（支持字符串或数组）
   const selectors = Array.isArray(selector) ? selector : selector.split(',').map((s) => s.trim());

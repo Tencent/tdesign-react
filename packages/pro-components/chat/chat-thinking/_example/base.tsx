@@ -1,4 +1,4 @@
-import { type ChatMessageStatus } from 'tdesign-web-components';
+import { type ChatMessageStatus } from '@tencent/tdesign-webc-test';
 import React, { useState, useEffect, useRef } from 'react';
 import { ChatThinking } from '@tdesign-react/aigc';
 

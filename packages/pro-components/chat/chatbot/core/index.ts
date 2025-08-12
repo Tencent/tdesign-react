@@ -11,23 +11,13 @@ import type {
   ChatRequestParams,
   ChatServiceConfig,
   ChatServiceConfigSetter,
+  ChatStatus,
+  IChatEngine,
   SSEChunkData,
   SystemMessage,
   ToolCall,
 } from './type';
 import { isAIMessage } from './utils';
-
-export interface IChatEngine {
-  init(config?: any, messages?: ChatMessagesData[]): void;
-  sendUserMessage(params: ChatRequestParams): Promise<void>;
-  regenerateAIMessage(keepVersion?: boolean): Promise<void>;
-  abortChat(): Promise<void>;
-  setMessages(messages: ChatMessagesData[], mode?: ChatMessageSetterMode): void;
-  registerMergeStrategy<T extends AIMessageContent>(type: T['type'], handler: (chunk: T, existing?: T) => T): void;
-
-  // 属性访问
-  get messageStore(): MessageStore;
-}
 
 export default class ChatEngine implements IChatEngine {
   public messageStore: MessageStore;
@@ -47,6 +37,26 @@ export default class ChatEngine implements IChatEngine {
   constructor() {
     this.messageProcessor = new MessageProcessor();
     this.messageStore = new MessageStore();
+  }
+
+  // 实现 IChatEngine 接口要求的属性
+  get messages(): ChatMessagesData[] {
+    return this.messageStore.messages;
+  }
+
+  get status(): ChatStatus {
+    return this.messages.at(-1)?.status || 'idle';
+  }
+
+  destroy(): void {
+    // 中止当前请求
+    this.abortChat();
+
+    // 清理消息存储
+    this.messageStore.clearHistory();
+
+    // 清理适配器
+    this.aguiAdapter = null;
   }
 
   public init(configSetter: ChatServiceConfigSetter, initialMessages?: ChatMessagesData[]) {
@@ -86,10 +96,14 @@ export default class ChatEngine implements IChatEngine {
 
   // 继续上一轮对话
   public async continueChat(params: ChatRequestParams) {
-    await this.sendRequest({
-      ...this.lastRequestParams,
-      ...params,
-    });
+    if (this.lastRequestParams) {
+      await this.sendRequest({
+        ...this.lastRequestParams,
+        ...params,
+      });
+    } else {
+      await this.sendRequest(params);
+    }
   }
 
   public async abortChat() {
@@ -123,6 +137,10 @@ export default class ChatEngine implements IChatEngine {
     this.messageStore.setMessages(messages, mode);
   }
 
+  public clearMessages(): void {
+    this.messageStore.clearHistory();
+  }
+
   // 用户触发重新生成 -> 检查最后一条AI消息 ->
   // -> keepVersion=false: 删除旧消息 -> 创建新消息 -> 重新请求
   // -> keepVersion=true: 保留旧消息 -> 创建分支消息 -> 重新请求
@@ -144,7 +162,7 @@ export default class ChatEngine implements IChatEngine {
 
     // 重新发起请求
     const params = {
-      ...this.lastRequestParams,
+      ...(this.lastRequestParams || {}),
       messageID: newAIMessage.id,
       prompt: this.lastRequestParams?.prompt ?? '',
     };
@@ -381,3 +399,4 @@ export default class ChatEngine implements IChatEngine {
 
 export * from './utils';
 export * from './adapters/agui';
+export type * from './type';

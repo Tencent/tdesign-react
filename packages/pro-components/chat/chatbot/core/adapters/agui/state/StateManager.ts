@@ -1,23 +1,22 @@
 import { applyJsonPatch } from '../../../utils';
 import type { StateManager } from './types';
 
-const generateRandomStateKey = () => {
-  const timestamp = Date.now();
-  const random = Math.random().toString(36).substring(2, 8);
-  return `state_${timestamp}_${random}`;
-};
-
 /**
  * 状态管理器
- * 提供集中化的状态管理和订阅机制
- * 支持通用的状态key策略，由业务层决定如何区分不同的状态
+ * 支持两种订阅模式：
+ * 1. 最新状态模式：订阅最新状态，适用于状态覆盖场景
+ * 2. 绑定状态模式：订阅特定stateKey，适用于状态隔离场景
  */
 class StateManagerImpl implements StateManager {
   private states: Record<string, any> = {};
 
-  private subscribers: Set<(state: any, stateKey: string) => void> = new Set();
-
   private currentStateKey: string | null = null;
+
+  // 最新状态订阅者（覆盖模式）
+  private latestSubscribers: Set<(state: any, stateKey: string) => void> = new Set();
+
+  // 绑定状态订阅者（隔离模式）
+  private boundSubscribers: Map<string, Set<(state: any) => void>> = new Map();
 
   /**
    * 获取当前活跃的状态key
@@ -42,110 +41,109 @@ class StateManagerImpl implements StateManager {
   }
 
   /**
-   * 设置状态并通知所有订阅者
+   * 获取所有状态keys
+   */
+  getAllStateKeys(): string[] {
+    return Object.keys(this.states);
+  }
+
+  /**
+   * 订阅最新状态（覆盖模式）
+   * 适用于只有一个组件，每轮都用新状态更新的场景
+   */
+  subscribeToLatest(callback: (state: any, stateKey: string) => void): () => void {
+    this.latestSubscribers.add(callback);
+
+    // 立即调用一次当前状态
+    if (this.currentStateKey && this.states[this.currentStateKey]) {
+      try {
+        callback(this.states[this.currentStateKey], this.currentStateKey);
+      } catch (error) {
+        console.error(`最新状态订阅回调执行失败 [${this.currentStateKey}]:`, error);
+      }
+    }
+
+    return () => this.latestSubscribers.delete(callback);
+  }
+
+  /**
+   * 订阅特定状态（隔离模式）
+   * 适用于每轮对话创建新组件，各自保持独立状态的场景
+   */
+  subscribeToState(stateKey: string, callback: (state: any) => void): () => void {
+    if (!this.boundSubscribers.has(stateKey)) {
+      this.boundSubscribers.set(stateKey, new Set());
+    }
+    this.boundSubscribers.get(stateKey)!.add(callback);
+
+    // 立即调用一次（如果状态存在）
+    if (this.states[stateKey]) {
+      try {
+        callback(this.states[stateKey]);
+      } catch (error) {
+        console.error(`绑定状态订阅回调执行失败 [${stateKey}]:`, error);
+      }
+    }
+
+    return () => {
+      this.boundSubscribers.get(stateKey)?.delete(callback);
+    };
+  }
+
+  /**
+   * 兼容旧版本的订阅方法
+   * @deprecated 建议使用 subscribeToLatest 或 subscribeToState
+   */
+  subscribe(callback: (state: any, stateKey: string) => void): () => void {
+    return this.subscribeToLatest(callback);
+  }
+
+  /**
+   * 设置状态并通知订阅者
    */
   private setState(stateKey: string, state: any): void {
     this.states[stateKey] = state;
     this.currentStateKey = stateKey;
 
-    // 通知所有订阅者
-    this.subscribers.forEach((callback) => {
+    // 通知绑定订阅者（只通知对应stateKey的订阅者）
+    const boundSubs = this.boundSubscribers.get(stateKey);
+    if (boundSubs) {
+      boundSubs.forEach((callback) => {
+        try {
+          callback(state);
+        } catch (error) {
+          console.error(`绑定状态订阅回调执行失败 [${stateKey}]:`, error);
+        }
+      });
+    }
+
+    // 通知最新状态订阅者（所有订阅者都收到最新状态）
+    this.latestSubscribers.forEach((callback) => {
       try {
         callback(state, stateKey);
       } catch (error) {
-        console.error(`状态订阅回调执行失败 [${stateKey}]:`, error);
+        console.error(`最新状态订阅回调执行失败 [${stateKey}]:`, error);
       }
     });
   }
 
   /**
-   * 订阅指定状态key的状态变化
-   */
-  subscribe(stateKey: string, callback: (state: any) => void): () => void {
-    // 为了兼容新的接口，我们需要重新设计订阅机制
-    const wrappedCallback = (state: any, currentStateKey: string) => {
-      if (currentStateKey === stateKey) {
-        callback(state);
-      }
-    };
-
-    this.subscribers.add(wrappedCallback);
-
-    // 如果指定的状态key已有状态，立即调用一次回调
-    if (this.states[stateKey] !== undefined) {
-      try {
-        callback(this.states[stateKey]);
-      } catch (error) {
-        console.error(`状态订阅回调执行失败 [${stateKey}]:`, error);
-      }
-    }
-
-    // 返回取消订阅函数
-    return () => {
-      this.subscribers.delete(wrappedCallback);
-    };
-  }
-
-  /**
-   * 订阅当前状态（自动使用当前状态key）
-   */
-  subscribeToCurrentState(callback: (state: any, stateKey: string | null) => void): () => void {
-    let currentUnsubscribe: (() => void) | null = null;
-    let lastStateKey: string | null = null;
-
-    const updateSubscription = () => {
-      // 如果状态key发生变化，重新订阅
-      if (this.currentStateKey !== lastStateKey) {
-        // 取消之前的订阅
-        if (currentUnsubscribe) {
-          currentUnsubscribe();
-          currentUnsubscribe = null;
-        }
-
-        lastStateKey = this.currentStateKey;
-
-        // 如果有新的状态key，订阅新的状态
-        if (this.currentStateKey) {
-          currentUnsubscribe = this.subscribe(this.currentStateKey, (state) => {
-            callback(state, this.currentStateKey);
-          });
-        } else {
-          // 没有状态key时，通知回调
-          callback(null, null);
-        }
-      }
-    };
-
-    // 初始订阅
-    updateSubscription();
-
-    // 定期检查状态key变化
-    const interval = setInterval(updateSubscription, 100);
-
-    // 返回取消订阅函数
-    return () => {
-      if (currentUnsubscribe) {
-        currentUnsubscribe();
-      }
-      clearInterval(interval);
-    };
-  }
-
-  /**
    * 处理AG-UI状态事件
+   * 自动从事件中提取stateKey，无需外部传递
    */
-  handleStateEvent(event: { type: string; snapshot?: any; delta?: any[]; stateKey?: string }): void {
+  handleStateEvent(event: { type: string; snapshot?: any; delta?: any[] }): void {
     if (event.type === 'STATE_SNAPSHOT') {
-      // 处理STATE_SNAPSHOT：提取状态key和状态数据
+      // 处理STATE_SNAPSHOT：从snapshot对象的key中提取stateKey
       if (event.snapshot && typeof event.snapshot === 'object') {
         Object.entries(event.snapshot).forEach(([stateKey, stateData]) => {
-          console.log(`STATE_SNAPSHOT: 设置状态 [${stateKey}]`, stateData);
-          this.setState(stateKey || generateRandomStateKey(), stateData);
+          console.log(`STATE_SNAPSHOT: 更新状态 [${stateKey}]`, stateData);
+          this.setState(stateKey, stateData);
         });
       }
     } else if (event.type === 'STATE_DELTA') {
-      // 处理STATE_DELTA：从delta路径中提取状态key
+      // 处理STATE_DELTA：从delta路径中提取stateKey
       if (event.delta && Array.isArray(event.delta)) {
+        // 从第一个delta操作的路径中提取stateKey
         const firstDelta = event.delta[0];
         if (firstDelta && firstDelta.path) {
           const pathParts = firstDelta.path.split('/');
@@ -155,18 +153,17 @@ class StateManagerImpl implements StateManager {
 
             if (currentState) {
               try {
+                console.log(`STATE_DELTA: 更新状态 [${stateKey}]`, event.delta);
                 // 重新构造原始结构以应用JSON Patch
                 const originalStructure = { [stateKey]: currentState };
                 const updatedStructure = applyJsonPatch(originalStructure, event.delta);
                 const updatedState = updatedStructure[stateKey];
-
-                console.log(`STATE_DELTA: 更新状态 [${stateKey}]`, updatedState);
                 this.setState(stateKey, updatedState);
               } catch (error) {
                 console.error(`STATE_DELTA处理失败 [${stateKey}]:`, error);
               }
             } else {
-              console.warn(`STATE_DELTA: 找不到状态 [${stateKey}]`);
+              console.warn(`STATE_DELTA: 找不到状态 [${stateKey}]，可能需要先接收STATE_SNAPSHOT`);
             }
           }
         }

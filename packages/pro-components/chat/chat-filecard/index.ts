@@ -1,5 +1,5 @@
-import { TdFileCardProps } from 'tdesign-web-components';
-import 'tdesign-web-components/lib/filecard';
+import { TdFileCardProps } from '@tencent/tdesign-webc-test';
+import '@tencent/tdesign-webc-test/lib/filecard';
 import reactify from '../_util/reactify';
 
 export const Filecard: React.ForwardRefExoticComponent<
@@ -7,4 +7,4 @@ export const Filecard: React.ForwardRefExoticComponent<
 > = reactify<TdFileCardProps>('t-filecard');
 
 export default Filecard;
-export type { TdFileCardProps } from 'tdesign-web-components';
+export type { TdFileCardProps } from '@tencent/tdesign-webc-test';

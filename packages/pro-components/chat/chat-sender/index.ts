@@ -1,5 +1,5 @@
-import { TdChatSenderProps } from 'tdesign-web-components';
-import 'tdesign-web-components/lib/chat-sender';
+import { TdChatSenderProps } from '@tencent/tdesign-webc-test';
+import '@tencent/tdesign-webc-test/lib/chat-sender';
 import reactify from '../_util/reactify';
 
 export const ChatSender: React.ForwardRefExoticComponent<
@@ -7,4 +7,4 @@ export const ChatSender: React.ForwardRefExoticComponent<
 > = reactify<TdChatSenderProps>('t-chat-sender');
 
 export default ChatSender;
-export type * from 'tdesign-web-components/lib/chat-sender/type';
+export type * from '@tencent/tdesign-webc-test/lib/chat-sender/type';

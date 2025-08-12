@@ -8,8 +8,9 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
+  getMessageContentForCopy,
 } from '@tdesign-react/aigc';
-import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
+import { TdChatActionsName, TdChatSenderParams } from '@tencent/tdesign-webc-test';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import { Button } from 'tdesign-react';
 import { useChat } from '../hooks/useChat';

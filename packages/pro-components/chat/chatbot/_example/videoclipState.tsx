@@ -6,8 +6,11 @@ import {
   ChatMessage,
   ChatActionBar,
   isAIMessage,
+  getMessageContentForCopy,
+  TdChatSenderParams,
+  ChatLoading,
 } from '@tdesign-react/aigc';
-import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
+import { TdChatActionsName } from '@tencent/tdesign-webc-test';
 import { Steps, Card, Tag } from 'tdesign-react';
 import {
   PlayCircleIcon,
@@ -33,6 +36,86 @@ const statusMap: Record<string, any> = {
   failed: { theme: 'danger', status: 'error', icon: <CloseCircleFilledIcon className="status-icon failed" /> },
 };
 
+// 自定义Hook：状态跟踪
+function useStepsStatusTracker(stepsData: any[]) {
+  const [prevStepsStatus, setPrevStepsStatus] = useState<string[]>([]);
+
+  // 获取当前步骤状态
+  const currentStepsStatus = useMemo(() => stepsData.map((item) => item?.status || 'unknown'), [stepsData]);
+
+  // 检查状态是否有变化
+  const hasStatusChanged = useMemo(
+    () => JSON.stringify(currentStepsStatus) !== JSON.stringify(prevStepsStatus),
+    [currentStepsStatus, prevStepsStatus],
+  );
+
+  // 更新状态记录
+  useEffect(() => {
+    if (hasStatusChanged) {
+      setPrevStepsStatus(currentStepsStatus);
+    }
+  }, [hasStatusChanged, currentStepsStatus]);
+
+  return { hasStatusChanged, currentStepsStatus, prevStepsStatus };
+}
+
+// 步骤选择逻辑
+function findTargetStepIndex(stepsData: any[]): number {
+  // 优先查找状态为running的步骤
+  let targetStepIndex = stepsData.findIndex((item) => item && item.status === 'running');
+
+  // 如果没有running的步骤，查找最后一个completed的步骤
+  if (targetStepIndex === -1) {
+    for (let i = stepsData.length - 1; i >= 0; i--) {
+      if (stepsData[i] && stepsData[i].status === 'completed') {
+        targetStepIndex = i;
+        break;
+      }
+    }
+  }
+
+  return targetStepIndex;
+}
+
+// 进度状态计算
+function calculateProgressStatus(stepsData: any[]) {
+  if (!stepsData || stepsData.length === 0) {
+    return {
+      timeRemain: '',
+      progressStatus: '视频剪辑准备中',
+      hasRunningSteps: false,
+    };
+  }
+
+  // 估算剩余时间
+  const runningItems = stepsData.filter((item) => item && item.status === 'running');
+  let timeRemainText = '';
+  if (runningItems.length > 0) {
+    const timeMatch = runningItems[0].content?.match(/预估全部完成还需要(\d+)分钟/);
+    if (timeMatch && timeMatch[1]) {
+      timeRemainText = `预计剩余时间: ${timeMatch[1]}分钟`;
+    }
+  }
+
+  // 获取当前进度状态
+  const completedCount = stepsData.filter((item) => item && item.status === 'completed').length;
+  const totalCount = stepsData.length;
+  const runningCount = runningItems.length;
+
+  let progressStatusText = '视频剪辑准备中';
+  if (completedCount === totalCount) {
+    progressStatusText = '视频剪辑已完成';
+  } else if (runningCount > 0) {
+    progressStatusText = `视频剪辑进行中 (${completedCount}/${totalCount})`;
+  }
+
+  return {
+    timeRemain: timeRemainText,
+    progressStatus: progressStatusText,
+    hasRunningSteps: runningCount > 0,
+  };
+}
+
 // 消息头部组件
 interface MessageHeaderProps {
   loading: boolean;
@@ -47,6 +130,60 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ loading, content, timeRem
     <div className="header-time">{timeRemain}</div>
   </div>
 );
+
+// 子任务卡片组件
+interface SubTaskCardProps {
+  item: any;
+  idx: number;
+}
+
+const SubTaskCard: React.FC<SubTaskCardProps> = ({ item, idx }) => {
+  const itemStatus = statusMap[item.status] || statusMap.pending;
+
+  const getTheme = () => {
+    switch (itemStatus.status) {
+      case 'finish':
+        return 'success';
+      case 'process':
+        return 'primary';
+      case 'error':
+        return 'danger';
+      default:
+        return 'default';
+    }
+  };
+
+  return (
+    <Card
+      key={idx}
+      className="sub-step-card"
+      title={
+        <div className="sub-step-header">
+          <span>{item.label}</span>
+          <Tag theme={getTheme()} shape="round">
+            {item.status}
+          </Tag>
+        </div>
+      }
+      bordered
+      hoverShadow
+    >
+      <div className="sub-step-content">
+        <pre>{item.content}</pre>
+        {item.status === 'completed' && (
+          <div className="item-actions">
+            <a href="#" className="action-link">
+              <PlayCircleIcon /> 预览
+            </a>
+            <a href="#" className="action-link">
+              <VideoIcon /> 下载
+            </a>
+          </div>
+        )}
+      </div>
+    </Card>
+  );
+};
 
 const CustomUserMessage = ({ message }) => (
   <>
@@ -64,6 +201,7 @@ const CustomUserMessage = ({ message }) => (
     ))}
   </>
 );
+
 // 视频剪辑Agent工具调用类型定义
 interface ShowStepsArgs {
   stepId: string;
@@ -80,6 +218,12 @@ interface VideoClipStepsProps {
    * 对于videoclip业务，这个stateKey通常就是runId
    */
   boundStateKey?: string;
+  /**
+   * 状态订阅模式
+   * latest: 订阅最新状态，适用于状态覆盖场景
+   * bound: 订阅特定stateKey，适用于状态隔离场景
+   */
+  mode?: 'latest' | 'bound';
 }
 
 /**
@@ -87,10 +231,13 @@ interface VideoClipStepsProps {
  * 演示如何通过useAgentState订阅AG-UI状态事件
  */
 export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
-  // 使用新的状态订阅Hook，支持绑定到特定stateKey
-  const { state: clipState, updating } = useAgentState({
-    initialState: null,
-    stateKey: boundStateKey, // 如果指定了boundStateKey，则只订阅该stateKey的状态
+  // 订阅AG-UI状态事件
+  const {
+    state: clipState,
+    stateKey,
+    updating,
+  } = useAgentState({
+    stateKey: boundStateKey,
   });
 
   // 本地UI状态
@@ -99,22 +246,31 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
     mainContent: string;
     items: any[];
   }>({ mainContent: '', items: [] });
+  const [isManualSelection, setIsManualSelection] = useState<boolean>(false);
 
   // 可点击的状态
   const canClickState = ['completed', 'running'];
 
+  // 提取当前步骤数据，用于依赖检测
+  const stepsData = useMemo(() => {
+    if (!clipState || !stateKey || !clipState[stateKey]) {
+      return [];
+    }
+    return clipState[stateKey].items || [];
+  }, [clipState, stateKey]);
+
+  // 使用状态跟踪Hook
+  const { hasStatusChanged } = useStepsStatusTracker(stepsData);
+
   // 处理步骤点击
   const handleStepChange = useCallback(
     (stepIndex: number) => {
-      if (!clipState) {
+      if (!clipState || !stateKey) {
         console.warn('handleStepChange: 状态为空');
         return;
       }
 
       try {
-        // 直接使用clipState.items
-        const stepsData = clipState.items || [];
-
         if (!stepsData[stepIndex] || stepsData[stepIndex] === null) {
           console.warn(`handleStepChange: 步骤${stepIndex}不存在或为null`);
           return;
@@ -122,11 +278,10 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
 
         const stepStatus = stepsData[stepIndex].status;
         if (!canClickState.includes(stepStatus)) {
-          console.log(`handleStepChange: 步骤${stepIndex}状态为${stepStatus}，不可点击`);
           return;
         }
 
-        console.log(`handleStepChange: 切换到步骤${stepIndex}`, stepsData[stepIndex]);
+        setIsManualSelection(true);
         setCurrentStep(stepIndex);
         const targetStep = stepsData[stepIndex];
         setCurrentStepContent({
@@ -137,32 +292,36 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
         console.error('handleStepChange出错:', error);
       }
     },
-    [clipState, canClickState],
+    [clipState, canClickState, stateKey, stepsData],
   );
 
   // 自动选择当前步骤
+  // 自动选择当前步骤
   useEffect(() => {
-    if (!clipState) {
+    if (stepsData.length === 0) {
+      setCurrentStep(0);
+      setCurrentStepContent({ mainContent: '', items: [] });
+      setIsManualSelection(false);
       return;
     }
+
+    // 如果用户手动选择了步骤，不执行自动选择逻辑
+    if (isManualSelection) {
+      return;
+    }
+
+    // 如果有新的running步骤，重置手动选择标记
+    const hasRunningStep = stepsData.some((item) => item && item.status === 'running');
+    if (hasRunningStep && isManualSelection) {
+      setIsManualSelection(false);
+      return; // 让下次useEffect执行自动选择
+    }
+
     try {
-      // 直接使用clipState.items
-      const stepsData = clipState.items || [];
+      const targetStepIndex = findTargetStepIndex(stepsData);
 
-      if (stepsData.length > 0) {
-        // 优先查找状态为running的步骤
-        let targetStepIndex = stepsData.findIndex((item) => item && item.status === 'running');
-
-        // 如果没有running的步骤，查找最后一个completed的步骤
-        if (targetStepIndex === -1) {
-          for (let i = stepsData.length - 1; i >= 0; i--) {
-            if (stepsData[i] && stepsData[i].status === 'completed') {
-              targetStepIndex = i;
-              break;
-            }
-          }
-        }
-
+      // 只有在目标步骤不同或状态有变化时才更新
+      if ((targetStepIndex !== -1 && targetStepIndex !== currentStep) || hasStatusChanged) {
         if (targetStepIndex !== -1) {
           setCurrentStep(targetStepIndex);
           const targetStep = stepsData[targetStepIndex];
@@ -185,58 +344,17 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
             setCurrentStepContent({ mainContent: '', items: [] });
           }
         }
-      } else {
-        setCurrentStep(0);
-        setCurrentStepContent({ mainContent: '', items: [] });
       }
     } catch (error) {
       console.error('useEffect步骤选择出错:', error);
     }
-  }, [clipState]);
+  }, [stepsData, currentStep, hasStatusChanged, isManualSelection]);
 
-  // 计算步骤数据和进度状态
-  const { stepsData, timeRemain, progressStatus, hasRunningSteps } = useMemo(() => {
-    if (!clipState) {
-      return {
-        stepsData: [],
-        timeRemain: '',
-        progressStatus: '视频剪辑准备中',
-        hasRunningSteps: false,
-      };
-    }
-
-    // 直接使用clipState.items
-    const steps = clipState.items || [];
-
-    // 估算剩余时间
-    const runningItems = steps.filter((item) => item && item.status === 'running');
-    let timeRemainText = '';
-    if (runningItems.length > 0) {
-      const timeMatch = runningItems[0].content.match(/预估全部完成还需要(\d+)分钟/);
-      if (timeMatch && timeMatch[1]) {
-        timeRemainText = `预计剩余时间: ${timeMatch[1]}分钟`;
-      }
-    }
-
-    // 获取当前进度状态
-    const completedCount = steps.filter((item) => item && item.status === 'completed').length;
-    const totalCount = steps.length;
-    const runningCount = runningItems.length;
-
-    let progressStatusText = '视频剪辑准备中';
-    if (completedCount === totalCount) {
-      progressStatusText = '视频剪辑已完成';
-    } else if (runningCount > 0) {
-      progressStatusText = `视频剪辑进行中 (${completedCount}/${totalCount})`;
-    }
-
-    return {
-      stepsData: steps,
-      timeRemain: timeRemainText,
-      progressStatus: progressStatusText,
-      hasRunningSteps: runningCount > 0,
-    };
-  }, [clipState]);
+  // 计算进度状态和其他UI信息
+  const { timeRemain, progressStatus, hasRunningSteps } = useMemo(
+    () => calculateProgressStatus(stepsData),
+    [stepsData],
+  );
 
   // 如果没有状态数据，显示等待状态
   if (!clipState) {
@@ -245,6 +363,14 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
         <div className="state-content">
           <p>正在等待AG-UI状态事件...</p>
           {updating && <p>状态更新中...</p>}
+          <p>
+            当前模式: <Tag theme="primary">{mode === 'latest' ? '最新状态模式' : '绑定状态模式'}</Tag>
+          </p>
+          {boundStateKey && (
+            <p>
+              绑定StateKey: <Tag>{boundStateKey}</Tag>
+            </p>
+          )}
         </div>
       </Card>
     );
@@ -288,52 +414,9 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
           {currentStepContent.items && currentStepContent.items.length > 0 && (
             <div className="sub-steps-container">
               <h4 className="sub-steps-title">子任务进度</h4>
-              {currentStepContent.items.map((item, idx) => {
-                const itemStatus = statusMap[item.status] || statusMap.pending;
-                const getTheme = () => {
-                  switch (itemStatus.status) {
-                    case 'finish':
-                      return 'success';
-                    case 'process':
-                      return 'primary';
-                    case 'error':
-                      return 'danger';
-                    default:
-                      return 'default';
-                  }
-                };
-
-                return (
-                  <Card
-                    key={idx}
-                    className="sub-step-card"
-                    title={
-                      <div className="sub-step-header">
-                        <span>{item.label}</span>
-                        <Tag theme={getTheme()} shape="round">
-                          {item.status}
-                        </Tag>
-                      </div>
-                    }
-                    bordered
-                    hoverShadow
-                  >
-                    <div className="sub-step-content">
-                      <pre>{item.content}</pre>
-                      {item.status === 'completed' && (
-                        <div className="item-actions">
-                          <a href="#" className="action-link">
-                            <PlayCircleIcon /> 预览
-                          </a>
-                          <a href="#" className="action-link">
-                            <VideoIcon /> 下载
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </Card>
-                );
-              })}
+              {currentStepContent.items.map((item, idx) => (
+                <SubTaskCard key={idx} item={item} idx={idx} />
+              ))}
             </div>
           )}
         </div>
@@ -432,15 +515,6 @@ export default function VideoClipAgentChatWithSubscription() {
     // 流式对话过程中用户主动结束对话
     onAbort: async () => {
       console.log('用户取消视频剪辑');
-    },
-    // AG-UI协议消息处理 - 状态事件已由StateManager自动处理
-    onMessage: (chunk: { data?: { type: string; [key: string]: any } }, message: any, parsedResult: any) => {
-      // 优先使用event-mapper的处理结果
-      if (parsedResult) {
-        return parsedResult;
-      }
-      // 状态事件已由StateManager自动处理，这里只需要处理其他类型的事件
-      return null;
     },
     // 自定义请求参数 - 使用 POST 请求
     onRequest: (innerParams: ChatRequestParams) => {
@@ -558,7 +632,13 @@ export default function VideoClipAgentChatWithSubscription() {
           copyText={getMessageContentForCopy(message)}
           comment={message.role === 'assistant' ? message.comment : undefined}
         />
-      ) : null}
+      ) : (
+        isLast && (
+          <div slot="actionbar">
+            <ChatLoading animation="dot"></ChatLoading>
+          </div>
+        )
+      )}
     </>
   );
 

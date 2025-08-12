@@ -5,95 +5,46 @@ import type { StateActionOptions, UseStateActionReturn } from '../core/adapters/
 /**
 /**
  * 状态订阅Hook
- * 支持两种模式：
- * 1. 不指定stateKey：订阅当前活跃stateKey的状态（会跟随最新状态变化）
- * 2. 指定stateKey：订阅特定stateKey的状态（不会跟随其他stateKey变化）
+ * 根据是否传入stateKey自动决定订阅模式：
+ * - 传入stateKey：绑定模式，只订阅特定stateKey的状态，适用于状态隔离场景
+ * - 不传stateKey：最新模式，订阅最新状态，适用于状态覆盖场景
  */
-export function useAgentState<T = any>(options: StateActionOptions = {}): UseStateActionReturn<T> {
-  const { initialState, stateKey: targetStateKey } = options;
-
-  // 初始化状态Map的工具函数
-  const initializeStateMap = (): Map<string, T> => {
-    const map = new Map<string, T>();
-
-    // 设置状态的通用逻辑
-    const setStateIfExists = (key: string, state: T | undefined) => {
-      if (state !== undefined) {
-        map.set(key, state);
-      } else if (initialState !== undefined) {
-        map.set(key, initialState);
-      }
-    };
-
-    if (targetStateKey) {
-      // 模式1：指定stateKey
-      const targetState = stateManager.getState(targetStateKey);
-      setStateIfExists(targetStateKey, targetState);
-    } else {
-      // 模式2：当前活跃stateKey
-      const currentStateKey = stateManager.getCurrentStateKey();
-      if (currentStateKey) {
-        const currentState = stateManager.getCurrentState();
-        setStateIfExists(currentStateKey, currentState);
-      }
-    }
-
-    return map;
-  };
-
-  // 状态Map：stateKey -> state
-  const [stateMap, setStateMap] = useState<Map<string, T>>(initializeStateMap);
-
-  const [currentStateKey, setCurrentStateKey] = useState<string | null>(
-    () => targetStateKey || stateManager.getCurrentStateKey(),
-  );
-
+export function useAgentState<T = any>(
+  options: StateActionOptions & {
+    stateKey?: string;
+  } = {},
+): UseStateActionReturn<T> {
+  const { stateKey, initialState } = options;
+  const [stateMap, setStateMap] = useState<Record<string, any>>(initialState || {});
+  const [currentStateKey, setCurrentStateKey] = useState<string | null>(null);
   const [updating, setUpdating] = useState(false);
+
+  // 根据是否有stateKey自动决定订阅模式
+  const isBoundMode = !!stateKey;
 
   // 订阅状态变化
   useEffect(() => {
-    if (targetStateKey) {
-      // 模式1：订阅特定stateKey的状态
-      const unsubscribe = stateManager.subscribe(targetStateKey, (newState: T) => {
-        setStateMap((prev) => {
-          const newMap = new Map(prev);
-          newMap.set(targetStateKey, newState);
-          return newMap;
-        });
+    if (isBoundMode) {
+      // 绑定模式：只订阅特定stateKey
+      return stateManager.subscribeToState(stateKey, (newState: T) => {
+        setStateMap((prev) => ({ ...prev, [stateKey]: newState }));
         setUpdating(false);
       });
-
-      return unsubscribe;
     }
-    // 模式2：订阅当前活跃stateKey的状态
-    const unsubscribe = stateManager.subscribeToCurrentState((newState: T, newStateKey: string | null) => {
-      if (newStateKey) {
-        setStateMap((prev) => {
-          const newMap = new Map(prev);
-          newMap.set(newStateKey, newState);
-          return newMap;
-        });
-        setCurrentStateKey(newStateKey);
-      } else {
-        // 如果没有当前stateKey，清空状态
-        setStateMap(new Map());
-        setCurrentStateKey(null);
-      }
+    // 最新模式：订阅最新状态，会覆盖之前的状态
+    return stateManager.subscribeToLatest((newState: T, newStateKey: string) => {
+      setStateMap({ [newStateKey]: newState }); // 注意：这里是覆盖，不是合并
+      setCurrentStateKey(newStateKey);
       setUpdating(false);
     });
+  }, [isBoundMode, stateKey]);
 
-    return unsubscribe;
-  }, [targetStateKey]);
-
-  // 获取当前应该显示的状态
-  const displayStateKey = targetStateKey || currentStateKey;
-  const displayState = displayStateKey ? stateMap.get(displayStateKey) : undefined;
+  const displayStateKey = isBoundMode ? stateKey : currentStateKey;
 
   return {
-    state: displayState !== undefined ? displayState : initialState || null,
+    state: stateMap,
     setStateMap,
-    stateKey: displayStateKey,
+    stateKey: displayStateKey || null,
     updating,
-    stateMap,
   };
 }

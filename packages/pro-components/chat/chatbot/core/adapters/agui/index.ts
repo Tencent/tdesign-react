@@ -35,51 +35,6 @@ export interface AGUIAdapterCallbacks {
  * 4. 转换AG-UI历史消息为ChatMessagesData格式
  */
 export class AGUIAdapter {
-  private aguiEventMapper: AGUIEventMapper;
-
-  constructor() {
-    this.aguiEventMapper = new AGUIEventMapper();
-  }
-
-  /**
-   * 处理AGUI事件
-   *
-   * 处理流程：
-   * 1. 解析SSE数据（AG-UI后端返回标准SSE格式，data字段是JSON字符串）
-   * 2. 处理AGUI特定事件（生命周期事件）
-   * 3. 使用事件映射器转换为消息内容
-   * 4. 同步工具调用状态
-   *
-   * @param chunk SSE数据块
-   * @param callbacks 回调函数
-   * @returns 处理结果
-   */
-  handleAGUIEvent(chunk: SSEChunkData, callbacks: AGUIAdapterCallbacks): AIMessageContent | AIMessageContent[] | null {
-    // AG-UI后端返回标准SSE格式，data字段是JSON字符串
-    let event: BaseEvent;
-    try {
-      event = typeof chunk.data === 'string' ? JSON.parse(chunk.data) : chunk.data;
-    } catch (error) {
-      console.warn('Failed to parse AG-UI event data:', error);
-      return null;
-    }
-
-    if (!event?.type) return null;
-
-    // 处理AGUI特定事件（生命周期事件）
-    const lifecycleHandled = this.handleAGUISpecificEvents(event, callbacks);
-
-    // 如果是生命周期事件，不需要转换为消息内容
-    if (lifecycleHandled) {
-      return null;
-    }
-
-    // 使用事件映射器处理内容事件
-    const result = this.aguiEventMapper.mapEvent(chunk);
-
-    return result;
-  }
-
   /**
    * 转换AG-UI历史消息为ChatMessagesData格式（静态方法）
    *
@@ -222,6 +177,70 @@ export class AGUIAdapter {
     return convertedMessages;
   }
 
+  private aguiEventMapper: AGUIEventMapper;
+
+  constructor() {
+    this.aguiEventMapper = new AGUIEventMapper();
+  }
+
+  /**
+   * 处理AGUI事件
+   *
+   * 处理流程：
+   * 1. 解析SSE数据（AG-UI后端返回标准SSE格式，data字段是JSON字符串）
+   * 2. 处理AGUI特定事件（生命周期事件）
+   * 3. 使用事件映射器转换为消息内容
+   * 4. 同步工具调用状态
+   *
+   * @param chunk SSE数据块
+   * @param callbacks 回调函数
+   * @returns 处理结果
+   */
+  handleAGUIEvent(chunk: SSEChunkData, callbacks: AGUIAdapterCallbacks): AIMessageContent | AIMessageContent[] | null {
+    // AG-UI后端返回标准SSE格式，data字段是JSON字符串
+    let event: BaseEvent;
+    try {
+      event = typeof chunk.data === 'string' ? JSON.parse(chunk.data) : chunk.data;
+    } catch (error) {
+      console.warn('Failed to parse AG-UI event data:', error);
+      return null;
+    }
+
+    if (!event?.type) return null;
+
+    // 处理AGUI特定事件（生命周期事件）
+    const lifecycleHandled = this.handleAGUISpecificEvents(event, callbacks);
+
+    // 如果是生命周期事件，不需要转换为消息内容
+    if (lifecycleHandled) {
+      return null;
+    }
+
+    // 使用事件映射器处理内容事件
+    const result = this.aguiEventMapper.mapEvent(chunk);
+
+    return result;
+  }
+
+  /**
+   * 获取AGUI事件映射器
+   */
+  get toolcalls() {
+    return this.aguiEventMapper.getToolCalls();
+  }
+
+  getToolcallByName(name: string): ToolCall | undefined {
+    const result = this.aguiEventMapper.getToolCalls().find((call) => call.toolCallName === name);
+    return result;
+  }
+
+  /**
+   * 重置适配器状态
+   */
+  reset(): void {
+    this.aguiEventMapper.reset();
+  }
+
   /**
    * 处理AGUI特定事件
    *
@@ -246,25 +265,6 @@ export class AGUIAdapter {
       default:
         return false; // 不是生命周期事件
     }
-  }
-
-  /**
-   * 获取AGUI事件映射器
-   */
-  get toolcalls() {
-    return this.aguiEventMapper.getToolCalls();
-  }
-
-  getToolcallByName(name: string): ToolCall | undefined {
-    const result = this.aguiEventMapper.getToolCalls().find((call) => call.toolCallName === name);
-    return result;
-  }
-
-  /**
-   * 重置适配器状态
-   */
-  reset(): void {
-    this.aguiEventMapper.reset();
   }
 }
 

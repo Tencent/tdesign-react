@@ -15,6 +15,8 @@ import {
   isAIMessage,
   getMessageContentForCopy,
   TdChatSenderParams,
+  ChatLoading,
+  TdChatActionsName,
 } from '@tdesign-react/aigc';
 import { useChat } from '../index';
 
@@ -143,7 +145,9 @@ export default function ComponentsBuild() {
           copyText={getMessageContentForCopy(message)}
           comment={message.role === 'assistant' ? message.comment : undefined}
         />
-      ) : null}
+      ) : (
+        <ChatLoading animation="dot"></ChatLoading>
+      )}
     </>
   );
 

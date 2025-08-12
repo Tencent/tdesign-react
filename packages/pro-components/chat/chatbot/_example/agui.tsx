@@ -11,8 +11,8 @@ import {
   ChatActionBar,
   isAIMessage,
 } from '@tdesign-react/aigc';
-import { getMessageContentForCopy, TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
-import { useChat } from '../index';
+import { TdChatActionsName, TdChatSenderParams } from '@tencent/tdesign-webc-test';
+import { useChat, getMessageContentForCopy } from '../index';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);

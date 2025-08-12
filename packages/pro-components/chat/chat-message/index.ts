@@ -1,5 +1,5 @@
-import { type TdChatMessageProps } from 'tdesign-web-components';
-import 'tdesign-web-components/lib/chat-message';
+import { type TdChatMessageProps } from '@tencent/tdesign-webc-test';
+import '@tencent/tdesign-webc-test/lib/chat-message';
 import reactify from '../_util/reactify';
 
 export const ChatMessage: React.ForwardRefExoticComponent<
@@ -8,4 +8,4 @@ export const ChatMessage: React.ForwardRefExoticComponent<
 
 export default ChatMessage;
 
-export type { TdChatMessageProps } from 'tdesign-web-components';
+export type { TdChatMessageProps } from '@tencent/tdesign-webc-test';

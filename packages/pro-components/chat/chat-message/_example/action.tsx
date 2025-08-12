@@ -1,8 +1,6 @@
 import React from 'react';
 import { Space } from 'tdesign-react';
-import { ChatActionBar, ChatMessage } from '@tdesign-react/aigc';
-
-import { AIMessage, getMessageContentForCopy } from 'tdesign-web-components';
+import { ChatActionBar, ChatMessage, AIMessage, getMessageContentForCopy } from '@tdesign-react/aigc';
 
 const message: AIMessage = {
   id: '123123',
