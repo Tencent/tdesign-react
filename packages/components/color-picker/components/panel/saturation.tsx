@@ -50,14 +50,15 @@ const Saturation = (props: TdColorBaseProps) => {
   );
 
   useMouseEvent(panelRef, {
-    onStart: (_, ctx) => {
+    onStart: () => {
       if (disabled) return;
       panelRectRef.current.width = panelRef.current.offsetWidth;
       panelRectRef.current.height = panelRef.current.offsetHeight;
-      handleDrag(ctx.coordinate);
     },
     onMove: (_, ctx) => {
-      if (disabled) return;
+      handleDrag(ctx.coordinate);
+    },
+    onEnd: (_, ctx) => {
       handleDrag(ctx.coordinate);
     },
   });
@@ -65,7 +66,7 @@ const Saturation = (props: TdColorBaseProps) => {
   useEffect(() => {
     panelRectRef.current.width = panelRef.current?.offsetWidth || SATURATION_PANEL_DEFAULT_WIDTH;
     panelRectRef.current.height = panelRef.current?.offsetHeight || SATURATION_PANEL_DEFAULT_HEIGHT;
-  }, []);
+  }, [handleDrag]);
 
   return (
     <div
