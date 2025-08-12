@@ -29,17 +29,17 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
     if (!enableTouch) {
       return e as MouseEvent;
     }
-    if ('touches' in e && e.touches.length) {
+    if ('touches' in e) {
       return e.touches[0];
     }
-    if ('changedTouches' in e && e.changedTouches.length) {
+    if ('changedTouches' in e) {
       return e.changedTouches[0];
     }
     return e as MouseEvent;
   };
 
   const getCoordinate = (event: MouseCallback) => {
-    const rect = elementRef.current?.getBoundingClientRect();
+    const rect = elementRef.current.getBoundingClientRect();
     if (!rect) {
       return { x: 0, y: 0 };
     }

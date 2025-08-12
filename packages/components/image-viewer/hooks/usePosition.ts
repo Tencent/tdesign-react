@@ -1,75 +1,41 @@
-import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import { isFunction } from 'lodash-es';
+import { useRef, useState } from 'react';
+import useMouseEvent from '../../hooks/useMouseEvent';
 
 export type PositionType = [number, number];
 
-interface UsePositionArg {
+interface PositionOptions {
   initPosition?: PositionType;
-  move?: boolean;
-  computed?: (XY: PositionType, screenXY: PositionType, oldXY: PositionType) => PositionType;
-  onMouseUp?: (event?: MouseEvent) => void;
-  onMouseMove?: (event?: MouseEvent) => void;
-  onMouseDown?: (event?: MouseEventHandler<HTMLDivElement>) => void;
 }
 
-const usePosition = (
-  { initPosition, move = true, onMouseUp: onEnd, onMouseMove: onUpdate, onMouseDown: onStart }: UsePositionArg,
-  $dom?: HTMLElement | Document,
-): [PositionType, MouseEventHandler<HTMLDivElement>] => {
+const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: PositionOptions) => {
+  const { initPosition = [0, 0] } = options || {};
+
   const [position, setPosition] = useState<PositionType>(initPosition);
-  const cacheMoveDataRef = useRef(null);
+  const lastScreenPositionRef = useRef<{ x: number; y: number } | null>(null);
 
-  const onMouseUp = useCallback(() => {
-    if (!cacheMoveDataRef.current) return;
-    cacheMoveDataRef.current = null;
-    if (!move) return;
-    isFunction(onEnd) && onEnd();
-  }, [move, onEnd]);
-
-  const onMouseMove = useCallback(
-    (event: MouseEvent | any) => {
-      if (!event.buttons) cacheMoveDataRef.current = null;
-      if (!cacheMoveDataRef.current || cacheMoveDataRef.current.updating || !move) return;
-      cacheMoveDataRef.current.updating = true;
-      const { screenX: oldX, screenY: oldY } = cacheMoveDataRef.current;
-      const { screenX, screenY } = event;
-
-      requestAnimationFrame(() => {
-        if (!cacheMoveDataRef.current) return;
-        setPosition(([X, Y]) => [X + screenX - oldX, Y + screenY - oldY]);
-        cacheMoveDataRef.current.screenX = screenX;
-        cacheMoveDataRef.current.screenY = screenY;
-        cacheMoveDataRef.current.updating = false;
-        isFunction(onUpdate) && onUpdate();
-      });
+  useMouseEvent(imgRef, {
+    onStart: (e) => {
+      const { screenX, screenY } = e;
+      lastScreenPositionRef.current = { x: screenX, y: screenY };
     },
-    [move, onUpdate],
-  );
+    onMove: (e) => {
+      if (!lastScreenPositionRef.current) return;
 
-  const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
-    (event) => {
-      const { screenX, screenY } = event;
-      cacheMoveDataRef.current = {
-        screenX,
-        screenY,
-      };
-      if (!move) return;
-      isFunction(onStart) && onStart();
+      const { screenX, screenY } = e;
+      const { x: lastX, y: lastY } = lastScreenPositionRef.current;
+
+      setPosition(([x, y]) => [x + screenX - lastX, y + screenY - lastY]);
+
+      lastScreenPositionRef.current = { x: screenX, y: screenY };
     },
-    [move, onStart],
-  );
+    onEnd: () => {
+      lastScreenPositionRef.current = null;
+    },
+  });
 
-  useEffect(() => {
-    const dom = $dom || document;
-    dom.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    return () => {
-      dom.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-  }, [$dom, move, onMouseMove, onMouseUp]);
-
-  return [position, onMouseDown];
+  return {
+    position,
+  };
 };
 
 export default usePosition;
