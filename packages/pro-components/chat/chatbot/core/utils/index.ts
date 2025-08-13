@@ -60,7 +60,7 @@ export function applyJsonPatch(state: any, delta: any[]): any {
           target = target[arrayIndex];
         } else {
           // 处理对象属性
-          if (target[pathSegment] === undefined) {
+          if (target[pathSegment] === undefined || target[pathSegment] === null) {
             if (op === 'remove') return newState; // 要删除的路径不存在，直接返回
 
             // 根据下一个路径决定创建对象还是数组

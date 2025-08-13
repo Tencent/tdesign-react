@@ -21,7 +21,7 @@ export type AttachmentType = 'image' | 'video' | 'audio' | 'pdf' | 'doc' | 'ppt'
 export interface ChatBaseContent<T extends string, TData> {
   type: T;
   data: TData;
-  status?: ChatMessageStatus | ((currentStatus: ChatMessageStatus | undefined) => ChatMessageStatus);
+  status?: ChatMessageStatus;
   id?: string;
   strategy?: 'merge' | 'append';
   ext?: Record<string, any>;

@@ -356,26 +356,6 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
     [stepsData],
   );
 
-  // 如果没有状态数据，显示等待状态
-  if (!clipState) {
-    return (
-      <Card className="videoclip-transfer-view" title="等待状态数据..." bordered hoverShadow>
-        <div className="state-content">
-          <p>正在等待AG-UI状态事件...</p>
-          {updating && <p>状态更新中...</p>}
-          <p>
-            当前模式: <Tag theme="primary">{mode === 'latest' ? '最新状态模式' : '绑定状态模式'}</Tag>
-          </p>
-          {boundStateKey && (
-            <p>
-              绑定StateKey: <Tag>{boundStateKey}</Tag>
-            </p>
-          )}
-        </div>
-      </Card>
-    );
-  }
-
   return (
     <Card
       className="videoclip-transfer-view"
@@ -440,23 +420,6 @@ const videoclipActions: AgentToolcallConfig[] = [
       // 对于videoclip业务，stepId实际上就是runId，我们将其作为stateKey使用
       const stateKey = args?.stepId;
       return <VideoClipSteps boundStateKey={stateKey} />;
-    },
-  },
-  {
-    name: 'eda_transfer',
-    description: '视频剪辑任务事件传输',
-    parameters: [],
-    component: ({ status, args, error }: ToolcallComponentProps<EdaTransferArgs>) => {
-      if (status === 'error') {
-        return <div className="videoclip-toolcall error">解析参数失败: {error?.message}</div>;
-      }
-
-      return (
-        <div className="videoclip-toolcall">
-          <h4>视频剪辑任务初始化</h4>
-          <p>事件类型: {args?.event_type || '未知'}</p>
-        </div>
-      );
     },
   },
 ];
@@ -633,7 +596,8 @@ export default function VideoClipAgentChatWithSubscription() {
           comment={message.role === 'assistant' ? message.comment : undefined}
         />
       ) : (
-        isLast && (
+        isLast &&
+        message.status !== 'stop' && (
           <div slot="actionbar">
             <ChatLoading animation="dot"></ChatLoading>
           </div>

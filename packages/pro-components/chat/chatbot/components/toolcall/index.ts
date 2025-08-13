@@ -1,3 +1,3 @@
 export * from './types';
 export * from './registry';
-export * from './toolcallRenderer';
+export * from './render';

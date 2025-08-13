@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import { MessageStore } from './store/message';
 import { LLMService } from './server';
@@ -96,14 +97,10 @@ export default class ChatEngine implements IChatEngine {
 
   // 继续上一轮对话
   public async continueChat(params: ChatRequestParams) {
-    if (this.lastRequestParams) {
-      await this.sendRequest({
-        ...this.lastRequestParams,
-        ...params,
-      });
-    } else {
-      await this.sendRequest(params);
-    }
+    const newAIMessage = this.messageProcessor.createAssistantMessage();
+    this.messageStore.createMessage(newAIMessage);
+    params.messageID = newAIMessage.id;
+    await this.sendRequest(params);
   }
 
   public async abortChat() {
@@ -273,7 +270,6 @@ export default class ChatEngine implements IChatEngine {
             result = userResult;
           }
         }
-
         // 处理消息结果
         this.processMessageResult(messageId, result);
         return result;

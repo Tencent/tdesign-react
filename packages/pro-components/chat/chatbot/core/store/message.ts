@@ -180,42 +180,26 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
     return userMessages[userMessages.length - 1];
   }
 
-  private resolvedStatus(content: AIMessageContent, status: ChatMessageStatus): ChatMessageStatus {
-    // 添加类型检查
-    if (!this.hasStatus(content)) {
-      return status;
-    }
-    return typeof content.status === 'function' ? content.status(status) : content.status || status;
-  }
-
   // 更新消息整体状态（自动推断）
   private updateMessageStatusByContent(message: AIMessage) {
     if (!message.content) return;
 
-    // 优先处理错误状态 - 添加类型检查
-    if (message.content.some((c) => this.hasStatus(c) && c.status === 'error')) {
+    // 优先处理错误状态
+    if (message.content.some((c) => c.status === 'error')) {
       message.status = 'error';
       message.content.forEach((content) => {
-        if (this.hasStatus(content)) {
-          const resolvedStatus = this.resolvedStatus(content, 'streaming');
+        if (content.status) {
+          const resolvedStatus = content.status || 'streaming';
           content.status = resolvedStatus === 'streaming' ? 'stop' : content.status;
         }
       });
       return;
     }
 
-    // 非最后一个内容块处理 - 添加类型检查
+    // 非最后一个内容块处理
     message.content.slice(0, -1).forEach((content) => {
-      if (this.hasStatus(content) && content.status !== 'error' && content.status !== 'stop') {
-        content.status = this.resolvedStatus(content, 'complete');
-      }
+      content.status = content.status !== 'error' && content.status !== 'stop' ? 'complete' : content.status;
     });
-  }
-
-  private hasStatus(content: AIMessageContent): content is AIMessageContent & {
-    status?: ChatMessageStatus | ((currentStatus: ChatMessageStatus | undefined) => ChatMessageStatus);
-  } {
-    return 'status' in content;
   }
 
   /**

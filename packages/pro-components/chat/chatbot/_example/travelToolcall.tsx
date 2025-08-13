@@ -14,10 +14,10 @@ import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import { Button } from 'tdesign-react';
 import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent, ToolCall } from '../core/type';
 import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
-import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
+import { ToolCallRenderer, useAgentToolcall, useChat, useAgentState } from '../index';
 import { PlanningStatePanel } from './components';
 import './travel_v1.css';
-import { applyJsonPatch, getMessageContentForCopy } from '../core';
+import { getMessageContentForCopy } from '../core';
 import { travelActions } from './travel-actions';
 
 // 扩展自定义消息体类型
@@ -77,7 +77,19 @@ export default function TravelPlannerChat() {
   useTravelToolcalls();
 
   // 规划状态管理 - 用于右侧面板展示
-  const [planningState, setPlanningState] = useState<any>(null);
+  // 使用 useAgentState Hook 管理状态
+  const { state: stateMap } = useAgentState();
+  console.log('===stateMap', stateMap);
+
+  // 从状态映射中获取当前的规划状态
+  const planningState = useMemo(() => {
+    if (!stateMap || Object.keys(stateMap).length === 0) return null;
+    // 获取最新的状态（通常是最后一个key对应的状态）
+    const stateKeys = Object.keys(stateMap);
+    const latestStateKey = stateKeys[stateKeys.length - 1];
+    return stateMap[latestStateKey];
+  }, [stateMap]);
+
   const [currentStep, setCurrentStep] = useState<string>('');
 
   // 加载历史消息
@@ -116,7 +128,7 @@ export default function TravelPlannerChat() {
       console.log('用户取消旅游规划');
     },
     // AG-UI协议消息处理 - 优先级高于内置处理
-    onMessage: (chunk, message, parsedResult): AIMessageContent | undefined => {
+    onMessage: (chunk): AIMessageContent | undefined => {
       const { type, ...rest } = chunk.data;
 
       switch (type) {
@@ -128,26 +140,11 @@ export default function TravelPlannerChat() {
         case 'STEP_FINISHED':
           setCurrentStep('');
           break;
-        // ========== 工具调用事件处理 ==========
-        case 'TOOL_CALL_ARGS':
-          // 工具调用参数现在由 ToolCallRenderer 自动处理
-          break;
         // ========== 状态管理事件处理 ==========
         case 'STATE_SNAPSHOT':
-          setPlanningState(rest.snapshot);
-          return {
-            type: 'planningState',
-            data: { state: rest.snapshot },
-          } as any;
-
         case 'STATE_DELTA':
-          // 应用状态变更到当前状态
-          setPlanningState((prevState: any) => {
-            if (!prevState) return prevState;
-            return applyJsonPatch(prevState, rest.delta);
-          });
-
-          // 返回更新后的状态组件
+          // 状态管理现在由 useAgentState Hook 自动处理
+          // 返回规划状态组件用于UI展示
           return {
             type: 'planningState',
             data: { state: planningState },
@@ -302,7 +299,6 @@ export default function TravelPlannerChat() {
 
   const sendUserMessage = async (requestParams: ChatRequestParams) => {
     // 重置规划状态
-    setPlanningState(null);
     await chatEngine.sendUserMessage(requestParams);
   };
 

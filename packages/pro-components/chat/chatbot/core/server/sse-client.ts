@@ -123,6 +123,11 @@ export class SSEClient extends EventEmitter {
       this.connectionManager.cleanup();
       this.resetParser();
       this.emit('complete', true);
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        this.logger.error('stream abort failed:', error);
+        this.emit('error', error);
+      }
     } finally {
       this.clearTimeouts();
       this.controller = null;

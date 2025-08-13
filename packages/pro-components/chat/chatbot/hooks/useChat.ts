@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { TdChatProps } from '@tencent/tdesign-webc-test';
 import ChatEngine from '../core';
-import type { ChatMessagesData, ChatStatus } from '../core/type';
+import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '../core/type';
 
-// @ts-ignore
-export type IUseChat = Pick<TdChatProps, 'defaultMessages' | 'chatServiceConfig'>;
+export type IUseChat = {
+  defaultMessages: ChatMessagesData[];
+  chatServiceConfig: ChatServiceConfig;
+};
 
 export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {
   const [messages, setMessage] = useState<ChatMessagesData[]>([]);

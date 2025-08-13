@@ -11,23 +11,19 @@ export const PlanningStatePanel: React.FC<PlanningStatePanelProps> = ({ state, c
   if (!state) return null;
 
   const { itinerary, status } = state;
-
+  console.log('=====PlanningStatePanel', state);
   // 定义步骤顺序和状态
   const allSteps = [
-    { name: '天气查询', key: 'weather', completed: !!itinerary?.weather },
+    { name: '查询天气', key: 'weather', completed: !!itinerary?.weather },
     { name: '行程规划', key: 'plan', completed: !!itinerary?.plan },
     { name: '酒店推荐', key: 'hotels', completed: !!itinerary?.hotels },
   ];
 
   // 获取步骤状态
   const getStepStatus = (step: any) => {
+    // currentStep 查询天气 init {name: '天气查询', key: 'weather', completed: false}
     if (step.completed) return 'completed';
-    if (
-      currentStep === step.name ||
-      (status === 'weather_querying' && step.key === 'weather') ||
-      (status === 'planning' && step.key === 'plan') ||
-      (status === 'hotel_recommending' && step.key === 'hotels')
-    ) {
+    if (currentStep === step.name) {
       return 'running';
     }
     return 'pending';

@@ -1,6 +1,35 @@
 import { useState, useEffect } from 'react';
 import { stateManager } from '../core/adapters/agui';
-import type { StateActionOptions, UseStateActionReturn } from '../core/adapters/agui';
+
+/**
+ * 状态订阅相关类型定义
+ */
+
+export interface StateActionOptions {
+  /**
+   * 初始状态
+   */
+  initialState?: Record<string, any>;
+}
+
+export interface UseStateActionReturn {
+  /**
+   * 当前状态
+   */
+  state: Record<string, any>;
+  /**
+   * 当前状态key
+   */
+  stateKey: string | null;
+  /**
+   * 状态是否正在更新中
+   */
+  updating: boolean;
+  /**
+   * 设置状态Map，用于加载历史对话消息中的state数据
+   */
+  setStateMap: (stateMap: Record<string, any> | ((prev: Record<string, any>) => Record<string, any>)) => void;
+}
 
 /**
  * 状态订阅Hook

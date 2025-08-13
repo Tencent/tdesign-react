@@ -134,7 +134,7 @@ export default function chatSample() {
         case 'think':
           return {
             type: 'thinking',
-            status: (status) => (/耗时/.test(rest?.title) ? 'complete' : status),
+            status: /耗时/.test(rest?.title) ? 'complete' : 'streaming',
             data: {
               title: rest.title || '深度思考中',
               text: rest.content || '',

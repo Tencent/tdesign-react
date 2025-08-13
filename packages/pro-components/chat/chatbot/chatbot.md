@@ -118,7 +118,6 @@ spline: navigation
 | 名称            | 类型     | 默认值 | 说明                                          | 必传 |
 | --------------- | -------- | ------ | --------------------------------------------- | ---- |
 | autoScroll      | Boolean  | true   | 高度变化时列表是否自动滚动到底部              | N    |
-| defaultScrollTo | String   | bottom | 默认初始时滚动定位。可选项：top/bottom/bottom | N    |
 | onScroll        | Function | -      | 滚动事件回调                                  | N    |
 
 ### ChatServiceConfig 类型说明
