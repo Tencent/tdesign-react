@@ -23,8 +23,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(() =>
-    initialData.map((data, index) => ({
-      data: { ...data },
+    initialData.map((_, index) => ({
       key: (key += 1),
       name: index,
       isListField: true,
@@ -235,8 +234,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         if (resetType === 'initial') {
           setFormListValue(initialData);
 
-          const newFields = initialData.map((data, index) => ({
-            data: { ...data },
+          const newFields = initialData.map((_, index) => ({
             key: (key += 1),
             name: index,
             isListField: true,
