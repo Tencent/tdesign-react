@@ -45,7 +45,7 @@ onChange | Function |  | TS 类型：`(value: Array<TreeNodeValue>, context: { n
 onClick | Function |  | TS 类型：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/>节点点击时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDragEnd | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点结束拖拽时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDragLeave | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
-onDragOver | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
+onDragOver | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T>; dragNode: TreeNodeModel<T>; dropPosition: number }) => void`<br/>节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDragStart | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDrop | Function |  | TS 类型：`(context: {     e: DragEvent;     dragNode: TreeNodeModel<T>;     dropNode: TreeNodeModel<T>;     dropPosition: number;   }) => void`<br/>节点在目标元素上释放时触发，泛型 `T` 表示树节点 TS 类型 | N
 onExpand | Function |  | TS 类型：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'icon-click' \| 'setItem' }) => void`<br/>节点展开或收起时触发，泛型 `T` 表示树节点 TS 类型 | N

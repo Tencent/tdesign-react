@@ -32,10 +32,13 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
     });
   };
 
-  const onDragOver = (context: { node: TreeNode; e: DragEvent<HTMLDivElement> }) => {
+  const onDragOver = (context: { node: TreeNode; dropPosition: number; e: DragEvent<HTMLDivElement> }) => {
+    const { node, dropPosition } = context;
     props.onDragOver?.({
       ...context,
-      node: context.node.model,
+      dragNode: dragNode.current?.model,
+      dropPosition,
+      node: node.model,
     });
   };
 
