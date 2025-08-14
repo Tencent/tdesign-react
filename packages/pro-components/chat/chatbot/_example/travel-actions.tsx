@@ -579,66 +579,6 @@ const TravelPreferences: React.FC<
   );
 };
 
-// 用户偏好结果展示组件
-const TravelPreferencesResult: React.FC<ToolcallComponentProps> = ({ args, result }) => {
-  const userInput = result || args?.userInput || args;
-
-  if (!userInput || userInput.cancelled) {
-    return <div style={{ color: '#757575' }}>用户已取消输入</div>;
-  }
-
-  return (
-    <Card
-      className="preferences-result-card travel-card-animation"
-      title={
-        <Typography.Title level={'h4'} style={{ margin: 0 }}>
-          ✅ 用户偏好信息
-        </Typography.Title>
-      }
-      bordered
-      hoverShadow
-      style={{ maxWidth: 500 }}
-    >
-      <Space direction="vertical" size="small" style={{ width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label>目的地</label>
-          <Tag theme="primary" variant="light">
-            {userInput.destination || '未指定'}
-          </Tag>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label>预算</label>
-          <Tag theme="warning" variant="light">
-            ¥{userInput.budget || '未指定'}
-          </Tag>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label>兴趣</label>
-          <Space>
-            {(userInput.interests || []).map((interest: string, index: number) => (
-              <Tag key={index} theme="success" variant="light" size="small">
-                {interest}
-              </Tag>
-            ))}
-          </Space>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label>住宿偏好</label>
-          <Tag theme="default" variant="light">
-            {userInput.accommodation || '未指定'}
-          </Tag>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label>交通偏好</label>
-          <Tag theme="default" variant="light">
-            {userInput.transportation || '未指定'}
-          </Tag>
-        </div>
-      </Space>
-    </Card>
-  );
-};
-
 // ==================== 智能体动作配置 ====================
 
 // 天气预报工具配置 - 非交互式（完全依赖后端数据）
@@ -733,13 +673,13 @@ export const travelPreferencesAction: AgentToolcallConfig = {
 };
 
 // 用户偏好结果展示工具配置 - 用于历史消息展示
-export const travelPreferencesResultAction: AgentToolcallConfig = {
-  name: 'get_travel_preferences_result',
-  description: '展示用户已输入的旅游偏好',
-  parameters: [{ name: 'userInput', type: 'object', required: true }],
-  // 没有 handler，纯展示组件
-  component: TravelPreferencesResult,
-};
+// export const travelPreferencesResultAction: AgentToolcallConfig = {
+//   name: 'get_travel_preferences_result',
+//   description: '展示用户已输入的旅游偏好',
+//   parameters: [{ name: 'userInput', type: 'object', required: true }],
+//   // 没有 handler，纯展示组件
+//   component: TravelPreferencesResult,
+// };
 
 // 导出所有 action 配置
 export const travelActions = [
@@ -747,5 +687,4 @@ export const travelActions = [
   itineraryPlanAction,
   hotelRecommendAction,
   travelPreferencesAction,
-  travelPreferencesResultAction,
 ];

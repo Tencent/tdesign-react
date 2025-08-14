@@ -53,33 +53,17 @@ const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {
   return [];
 };
 
-/**
- * 注册所有旅游规划相关的 Agent Toolcalls
- */
-export function useTravelToolcalls() {
-  // 注册所有旅游相关的 actions
-  travelActions.forEach((action) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAgentToolcall(action);
-  });
-
-  return {
-    actions: travelActions,
-  };
-}
-
 export default function TravelPlannerChat() {
   const listRef = useRef<TdChatListApi>(null);
   const inputRef = useRef<TdChatSenderApi>(null);
   const [inputValue, setInputValue] = useState<string>('请为我规划一个北京5日游行程');
 
   // 注册旅游相关的 Agent Toolcalls
-  useTravelToolcalls();
+  useAgentToolcall(travelActions);
 
   // 规划状态管理 - 用于右侧面板展示
   // 使用 useAgentState Hook 管理状态
   const { state: stateMap } = useAgentState();
-  console.log('===stateMap', stateMap);
 
   // 从状态映射中获取当前的规划状态
   const planningState = useMemo(() => {
