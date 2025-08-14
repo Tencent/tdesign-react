@@ -26,7 +26,7 @@ export default function Demo() {
   const demoFunc = demoObject[`${componentName}/${demoName}`];
 
   return demoFunc ? (
-    demoFunc()
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '0 40px',}}>{demoFunc()}</div>
   ) : (
     <ul style={{ margin: '48px 200px' }}>
       {demoList.map((demoName) => (
