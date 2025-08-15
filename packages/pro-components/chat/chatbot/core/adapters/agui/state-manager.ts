@@ -40,7 +40,7 @@ export interface StateManager {
   clear: () => void;
 }
 
-class StateManagerImpl implements StateManager {
+export class StateManagerImpl implements StateManager {
   private states: Record<string, any> = {};
 
   private currentStateKey: string | null = null;

@@ -1,6 +1,6 @@
 {
   "name": "@tencent/tdesign-chatbot-dev",
-  "version": "1.0.1-beta.27",
+  "version": "1.0.1-beta.29",
   "title": "@tdesign-react/aigc",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
-    "@tencent/tdesign-webc-test": "1.1.16",
+    "@tencent/tdesign-webc-test": "1.1.17",
     "classnames": "~2.5.1",
     "lodash-es": "^4.17.21",
     "zod": "^3.24.2"

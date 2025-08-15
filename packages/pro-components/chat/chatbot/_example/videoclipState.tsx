@@ -207,10 +207,6 @@ interface ShowStepsArgs {
   stepId: string;
 }
 
-interface EdaTransferArgs {
-  event_type?: string;
-}
-
 interface VideoClipStepsProps {
   /**
    * 绑定到特定的状态key，如果指定则只显示该状态key的状态
@@ -232,11 +228,7 @@ interface VideoClipStepsProps {
  */
 export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
   // 订阅AG-UI状态事件
-  const {
-    state: clipState,
-    stateKey,
-    updating,
-  } = useAgentState({
+  const { state: clipState, stateKey } = useAgentState({
     stateKey: boundStateKey,
   });
 
@@ -295,7 +287,6 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
     [clipState, canClickState, stateKey, stepsData],
   );
 
-  // 自动选择当前步骤
   // 自动选择当前步骤
   useEffect(() => {
     if (stepsData.length === 0) {
@@ -359,7 +350,7 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
   return (
     <Card
       className="videoclip-transfer-view"
-      title={<MessageHeader loading={hasRunningSteps || updating} content={progressStatus} timeRemain={timeRemain} />}
+      title={<MessageHeader loading={hasRunningSteps} content={progressStatus} timeRemain={timeRemain} />}
       bordered
       hoverShadow
     >

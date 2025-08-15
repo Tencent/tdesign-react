@@ -65,6 +65,7 @@ export default function TravelPlannerChat() {
   // 使用 useAgentState Hook 管理状态
   const { state: stateMap } = useAgentState();
 
+  // console.log('===stateMap', stateMap);
   // 从状态映射中获取当前的规划状态
   const planningState = useMemo(() => {
     if (!stateMap || Object.keys(stateMap).length === 0) return null;
