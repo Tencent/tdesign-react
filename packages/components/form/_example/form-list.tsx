@@ -49,7 +49,7 @@ export default function FormListDemo() {
             ))}
             <FormItem style={{ marginLeft: 100 }}>
               <Space>
-                {/* 由于没有设置 initData，相当于是空白项 */}
+                {/* 由于没有设置 initialData，相当于是空白项 */}
                 <Button theme="default" onClick={add}>
                   新增默认项
                 </Button>

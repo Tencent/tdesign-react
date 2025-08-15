@@ -24,7 +24,7 @@ spline: explain
 - `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
 - `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
 - `Steps`: 修复自定义图标和状态图标的优先级问题 @RSS1102 ([#3670](https://github.com/Tencent/tdesign-react/pull/3670))
-- `Form`: 修复动态表单删除一个数据后再次新增，会回填旧数据的问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
+- `FormItem`: 修复销毁时组件时，`store` 数据没有清除导致 `setFieldsValue` 回填旧数据的问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
 
 ## 🌈 1.13.1 `2025-07-11`
 
