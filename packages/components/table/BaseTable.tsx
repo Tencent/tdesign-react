@@ -121,7 +121,17 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     footerBottomAffixRef,
   });
 
-  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
+  const resetScrollbar = () => {
+    if (tableContentRef.current && tableContentRef.current.scrollTo) {
+      tableContentRef.current.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    } else if (tableContentRef.current) {
+      // 兼容测试环境或旧浏览器
+      tableContentRef.current.scrollTop = 0;
+      tableContentRef.current.scrollLeft = 0;
+    }
+  };
+
+  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, resetScrollbar);
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize({
