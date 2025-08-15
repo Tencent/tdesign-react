@@ -86,7 +86,6 @@ export class StateManagerImpl implements StateManager {
    */
   subscribeToLatest(callback: (state: any, stateKey: string) => void): () => void {
     this.latestSubscribers.add(callback);
-
     // 立即调用一次当前状态
     if (this.currentStateKey && this.states[this.currentStateKey]) {
       try {
@@ -124,20 +123,11 @@ export class StateManagerImpl implements StateManager {
   }
 
   /**
-   * 兼容旧版本的订阅方法
-   * @deprecated 建议使用 subscribeToLatest 或 subscribeToState
-   */
-  subscribe(callback: (state: any, stateKey: string) => void): () => void {
-    return this.subscribeToLatest(callback);
-  }
-
-  /**
    * 设置状态并通知订阅者
    */
   private setState(stateKey: string, state: any): void {
     this.states[stateKey] = state;
     this.currentStateKey = stateKey;
-
     // 通知绑定订阅者（只通知对应stateKey的订阅者）
     const boundSubs = this.boundSubscribers.get(stateKey);
     if (boundSubs) {

@@ -69,7 +69,7 @@ function navigateArrayPath(target: any[], pathSegment: string, nextKey: string, 
  * 处理对象路径导航
  */
 function navigateObjectPath(target: any, pathSegment: string, nextKey: string, operation: string): any {
-  if (target[pathSegment] === undefined) {
+  if (target[pathSegment] === undefined || target[pathSegment] === null) {
     if (operation === 'remove') {
       throw new Error('要删除的路径不存在');
     }

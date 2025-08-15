@@ -10,9 +10,7 @@ interface PlanningStatePanelProps {
 export const PlanningStatePanel: React.FC<PlanningStatePanelProps> = ({ state, currentStep }) => {
   if (!state) return null;
 
-  const { itinerary, status } = state;
-  console.log('=====PlanningStatePanel', state);
-  // 定义步骤顺序和状态
+  const { itinerary, status } = state;  // 定义步骤顺序和状态
   const allSteps = [
     { name: '查询天气', key: 'weather', completed: !!itinerary?.weather },
     { name: '行程规划', key: 'plan', completed: !!itinerary?.plan },
