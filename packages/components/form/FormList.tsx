@@ -60,8 +60,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       setFields(cloneFields);
 
       const nextFormListValue = [...formListValue];
-      nextFormListValue.splice(index, 0, defaultValue);
-      setFormListValue(nextFormListValue);
+      if (typeof defaultValue !== 'undefined') {
+        nextFormListValue[index] = defaultValue;
+        setFormListValue(nextFormListValue);
+      }
 
       set(form?.store, flattenDeep([name, index]), nextFormListValue);
 
