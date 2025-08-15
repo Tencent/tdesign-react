@@ -161,8 +161,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   useEffect(() => {
     handleAutoFocus();
-    adjustTextareaHeight();
-  }, [handleAutoFocus, adjustTextareaHeight]);
+  }, [handleAutoFocus]);
 
   useEffect(() => {
     if (allowInputOverMax) {
