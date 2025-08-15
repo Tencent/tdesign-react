@@ -1,12 +1,19 @@
-import React, { useEffect, useState, MutableRefObject } from 'react';
-import { isFunction } from 'lodash-es';
 import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
-import useClassName from './useClassName';
+import { isFunction } from 'lodash-es';
+import React, { useEffect, useState } from 'react';
 import TButton from '../../button';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue, TableFilterChangeContext } from '../type';
 import useControlled from '../../hooks/useControlled';
-import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import TableFilterController from '../FilterController';
+import type { PrimaryTableRef } from '../interface';
+import type {
+  FilterValue,
+  PrimaryTableCol,
+  TableFilterChangeContext,
+  TableRowData,
+  TdPrimaryTableProps,
+} from '../type';
+import useClassName from './useClassName';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;
@@ -27,7 +34,10 @@ function filterEmptyData(data: FilterValue) {
   return newFilterValue;
 }
 
-export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
+export default function useFilter(
+  props: TdPrimaryTableProps,
+  primaryTableRef: React.MutableRefObject<PrimaryTableRef>,
+) {
   const { columns } = props;
   const [locale, t] = useLocaleReceiver('table');
   const { tableFilterClasses, isFocusClass } = useClassName();
@@ -114,6 +124,12 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
   ) {
     setTFilterValue(filterValue, { col: column, trigger });
     props.onChange?.({ filter: filterValue }, { trigger: 'filter' });
+    // 重置表格滚动位置
+    requestAnimationFrame(() => {
+      primaryTableRef.current.scrollToElement({
+        index: -1,
+      });
+    });
   }
 
   function onReset(column: PrimaryTableCol) {
