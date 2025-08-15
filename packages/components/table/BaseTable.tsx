@@ -121,8 +121,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     footerBottomAffixRef,
   });
 
-  const onPageChange = (pageInfo: any, dataSource: any) => {
-    props.onPageChange?.(pageInfo, dataSource);
+  const resetScrollbar = () => {
     if (tableContentRef.current && tableContentRef.current.scrollTo) {
       tableContentRef.current.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     } else if (tableContentRef.current) {
@@ -132,7 +131,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     }
   };
 
-  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination({ ...props, onPageChange });
+  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, resetScrollbar);
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize({
