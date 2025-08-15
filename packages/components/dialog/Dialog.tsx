@@ -1,23 +1,23 @@
-import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import log from '@tdesign/common-js/log/index';
 import { isUndefined } from 'lodash-es';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdDialogProps, DialogInstance } from './type';
-import { StyledProps } from '../common';
+import log from '@tdesign/common-js/log/index';
+import type { StyledProps } from '../common';
 import Portal from '../common/Portal';
-import useSetState from '../hooks/useSetState';
+import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useSetState from '../hooks/useSetState';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
-import useDialogEsc from './hooks/useDialogEsc';
-import useLockStyle from './hooks/useLockStyle';
-import useDialogPosition from './hooks/useDialogPosition';
 import useDialogDrag from './hooks/useDialogDrag';
+import useDialogEsc from './hooks/useDialogEsc';
+import useDialogPosition from './hooks/useDialogPosition';
+import useLockStyle from './hooks/useLockStyle';
+import type { DialogInstance, TdDialogProps } from './type';
 import { parseValueToPx } from './utils';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useAttach from '../hooks/useAttach';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
@@ -76,9 +76,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
-  const { onDialogMoveStart } = useDialogDrag({
+  useDialogDrag({
     dialogCardRef,
-    contentClickRef,
     canDraggable: draggable && mode === 'modeless',
   });
 
@@ -243,7 +242,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}
-                  onMouseDown={onDialogMoveStart}
                 >
                   {children}
                 </DialogCard>

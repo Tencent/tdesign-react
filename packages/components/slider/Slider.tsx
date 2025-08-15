@@ -1,16 +1,17 @@
 import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { isFunction, isString } from 'lodash-es';
-import { TdSliderProps } from './type';
+import { accAdd } from '../_util/number';
+import type { StyledProps, TNode } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { numberToPercent } from './utils/handleNumber';
-import { StyledProps, TNode } from '../common';
-import InputNumber from '../input-number/InputNumber';
-import SliderHandleButton from './SliderHandleButton';
-import { accAdd } from '../_util/number';
-import { sliderDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import type { MouseCallback } from '../hooks/useMouseEvent';
+import InputNumber from '../input-number/InputNumber';
+import { sliderDefaultProps } from './defaultProps';
+import SliderHandleButton from './SliderHandleButton';
+import type { TdSliderProps } from './type';
+import { numberToPercent } from './utils/handleNumber';
 
 export type SliderProps = TdSliderProps & StyledProps;
 
@@ -154,7 +155,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     }
   };
 
-  const onSliderChange = (event: React.MouseEvent | MouseEvent, nodeIndex?: SliderHandleNode) => {
+  const onSliderChange = (event: MouseCallback, nodeIndex?: SliderHandleNode) => {
     if (disabled || !sliderRef.current) return;
 
     const clientKey = isVertical ? 'clientY' : 'clientX';
