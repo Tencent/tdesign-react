@@ -1,9 +1,8 @@
 /**
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
-import { useState, useMemo, useEffect, MutableRefObject, useRef } from 'react';
-import { TScroll, ScrollToElementParams } from '../common';
-import useResizeObserver from './useResizeObserver';
+import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
+import type { ScrollToElementParams, TScroll } from '../common';
 
 export type UseVirtualScrollParams = {
   /** 列数据 */
@@ -27,7 +26,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   const trScrollTopHeightList = useRef<number[]>([]);
   // 已经通过节点渲染计算出来的各自行高
   const [trHeightList, setTrHeightList] = useState<number[]>([]);
-  const containerWidth = useRef(0);
   const containerHeight = useRef(0);
   const [startAndEndIndex, setStartAndEndIndex] = useState<[number, number]>(() => [0, (scroll?.bufferSize || 10) * 3]);
 
@@ -55,8 +53,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     }
     return list;
   };
-
-  // const tripleBufferSize = useMemo(() => tScroll.bufferSize * 3, [tScroll.bufferSize]);
 
   const updateVisibleData = (trScrollTopHeightList: number[], scrollTop: number) => {
     let currentIndex = -1;
@@ -130,19 +126,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     updateVisibleData(trScrollTopHeightList.current, container.current.scrollTop);
   };
 
-  const refreshVirtualScroll = ([{ contentRect }]: [ResizeObserverEntry]) => {
-    // 如果宽度发生变化，重置滚动位置（高度发生变化时，会触发 container 变化，下方的 watch 会计算）
-    const maxScrollbarWidth = 16;
-    if (Math.abs(contentRect.width - containerWidth.current) > maxScrollbarWidth) {
-      // eslint-disable-next-line
-      container.current.scrollTop = 0;
-      // react container.current.scrollTop 有时候不会触发滚动事件，故而手动触发
-      handleScroll();
-    }
-    containerWidth.current = contentRect.width;
-    containerHeight.current = contentRect.height;
-  };
-
   const addIndexToData = (data: any[]) => {
     data.forEach((item, index) => {
       Reflect.set(item, '__VIRTUAL_SCROLL_INDEX', index);
@@ -173,8 +156,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     }
   };
 
-  useResizeObserver(container, refreshVirtualScroll, isVirtualScroll);
-
   // 固定高度场景，可直接通过数据长度计算出最大滚动高度
   useEffect(
     () => {
@@ -188,18 +169,45 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
       const scrollTopHeightList = trScrollTopHeightList.current;
       if (scrollTopHeightList?.length === data?.length) {
-        // 数据初始化后，根据计算结果更新
+        // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
 
         updateVisibleData(scrollTopHeightList, container.current.scrollTop);
       } else {
-        // 数据初始化
+        /**
+        /* 进入这个分支的场景可能有：
+         * - 初始化
+         * - 从非虚拟滚动切换到虚拟滚动
+         * - 外部数据长度变化（EnhancedTable 子节点展开关闭；开启 onFilterChange 等）
+         */
         setScrollHeight(data.length * tScroll.rowHeight);
 
-        const tmpData = data.slice(0, (scroll?.bufferSize || 10) * 3);
+        // 如果之前存在滚动，基于原先数据计算位置
+        const currentScrollTop = container.current?.scrollTop || 0;
+        let currentIndex = Math.floor(currentScrollTop / tScroll.rowHeight);
+        const prevScrollTopHeightList = trScrollTopHeightList.current;
+        for (let i = 0; i < prevScrollTopHeightList?.length; i++) {
+          if (prevScrollTopHeightList[i] >= currentScrollTop) {
+            currentIndex = i;
+            break;
+          }
+        }
+
+        const startIndex = Math.max(currentIndex - tScroll.bufferSize, 0);
+        const visibleCount = Math.min(tScroll.bufferSize * 3, data.length);
+        const endIndex = Math.min(startIndex + visibleCount, data.length);
+        const tmpData = data.slice(startIndex, endIndex);
+
+        let translateY = startIndex * tScroll.rowHeight;
+
+        if (prevScrollTopHeightList?.length > 0 && startIndex > 0) {
+          const prevHeight = prevScrollTopHeightList[Math.min(startIndex - 1, prevScrollTopHeightList.length - 1)] || 0;
+          translateY = Math.max(0, prevHeight);
+        }
+
         setVisibleData(tmpData);
-        setTranslateY(0);
+        setTranslateY(translateY);
       }
 
       const timer = setTimeout(() => {
