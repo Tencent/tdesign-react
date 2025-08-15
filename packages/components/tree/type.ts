@@ -206,7 +206,12 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
    * 节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型
    */
-  onDragOver?: (context: { e: DragEvent<HTMLDivElement>; node: TreeNodeModel<T> }) => void;
+  onDragOver?: (context: {
+    e: DragEvent<HTMLDivElement>;
+    node: TreeNodeModel<T>;
+    dragNode: TreeNodeModel<T>;
+    dropPosition: number;
+  }) => void;
   /**
    * 节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型
    */
