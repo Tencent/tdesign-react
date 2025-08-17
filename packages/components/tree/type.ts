@@ -5,8 +5,8 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
-import { TNode, TreeOptionData, TreeKeysType, TScroll, ComponentScrollToElementParams } from '../common';
-import { MouseEvent, WheelEvent, DragEvent } from 'react';
+import { TNode, TreeOptionData, TScroll, ComponentScrollToElementParams } from '../common';
+import { MouseEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
@@ -248,7 +248,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
    * 滚动事件
    */
-  onScroll?: (params: { e: WheelEvent<HTMLDivElement> }) => void;
+  onScroll?: (params: { e: WheelEvent }) => void;
 }
 
 /** 组件实例方法 */
@@ -459,6 +459,12 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
    * 设置节点数据，数据变化可自动刷新页面，泛型 `T` 表示树节点 TS 类型，继承 `TreeOptionData`
    */
   setData: (data: T) => void;
+}
+
+export interface TreeKeysType {
+  value?: string;
+  label?: string;
+  children?: string;
 }
 
 export type TreeNodeValue = string | number;
