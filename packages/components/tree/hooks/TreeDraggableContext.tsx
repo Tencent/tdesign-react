@@ -49,7 +49,7 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
     props.onDragOver?.({
       ...context,
       node: context.node.getModel(),
-      dragNode: dragNode.current.getModel(),
+      dragNode: dragNode.current?.getModel(),
     });
   };
 
@@ -57,7 +57,7 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
     props.onDragLeave?.({
       ...context,
       node: context.node.getModel(),
-      dragNode: dragNode.current.getModel(),
+      dragNode: dragNode.current?.getModel(),
     });
   };
 
