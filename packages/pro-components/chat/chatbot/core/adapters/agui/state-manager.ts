@@ -25,12 +25,6 @@ export interface StateManager {
    */
   getAllStateKeys: () => string[];
   /**
-   * 订阅状态变化
-   * @param callback 状态变化回调函数
-   * @param targetStateKey 可选：指定订阅特定的stateKey，不传则订阅当前活跃状态
-   */
-  subscribe: (callback: (state: any, stateKey: string) => void, targetStateKey?: string) => () => void;
-  /**
    * 处理AG-UI状态事件，自动从事件中提取stateKey
    */
   handleStateEvent: (event: { type: string; snapshot?: any; delta?: any[] }) => void;
@@ -46,10 +40,7 @@ export class StateManagerImpl implements StateManager {
   private currentStateKey: string | null = null;
 
   // 最新状态订阅者（覆盖模式）
-  private latestSubscribers: Set<(state: any, stateKey: string) => void> = new Set();
-
-  // 绑定状态订阅者（隔离模式）
-  private boundSubscribers: Map<string, Set<(state: any) => void>> = new Map();
+  private latestSubscribers: Set<(state: any) => void> = new Set();
 
   // Debounce 相关属性
   private pendingUpdates: Map<string, any> = new Map(); // 存储待更新的状态
@@ -87,60 +78,52 @@ export class StateManagerImpl implements StateManager {
     return Object.keys(this.states);
   }
 
-  /**
-   * 订阅最新状态（覆盖模式）
-   * 适用于只有一个组件，每轮都用新状态更新的场景
-   */
-  subscribeToLatest(callback: (state: any, stateKey: string) => void): () => void {
-    this.latestSubscribers.add(callback);
-    // 立即调用一次当前状态
-    if (this.currentStateKey && this.states[this.currentStateKey]) {
-      try {
-        callback(this.states[this.currentStateKey], this.currentStateKey);
-      } catch (error) {
-        console.error(`最新状态订阅回调执行失败 [${this.currentStateKey}]:`, error);
-      }
-    }
-
-    return () => this.latestSubscribers.delete(callback);
-  }
-
-  /**
-   * 订阅状态变化（实现 StateManager 接口）
-   * @param callback 状态变化回调函数
-   * @param targetStateKey 可选：指定订阅特定的stateKey，不传则订阅当前活跃状态
-   */
-  subscribe(callback: (state: any, stateKey: string) => void, targetStateKey?: string): () => void {
-    if (targetStateKey) {
-      // 绑定模式：订阅特定 stateKey
-      return this.subscribeToState(targetStateKey, (state) => callback(state, targetStateKey));
-    } 
-    // 最新模式：订阅最新状态
-    return this.subscribeToLatest(callback); 
-  }
 
   /**
    * 订阅特定状态（隔离模式）
    * 适用于每轮对话创建新组件，各自保持独立状态的场景
    */
-  subscribeToState(stateKey: string, callback: (state: any) => void): () => void {
-    if (!this.boundSubscribers.has(stateKey)) {
-      this.boundSubscribers.set(stateKey, new Set());
+  subscribeToState(callback: (state: any) => void): () => void {
+    this.latestSubscribers.add(callback);
+    if (!this.currentStateKey) {
+      // 如果没有当前状态key，返回一个空函数
+      return () => {
+        // 空函数，用于清理
+      };
     }
-    this.boundSubscribers.get(stateKey)!.add(callback);
-
-    // 立即调用一次（如果状态存在）
-    if (this.states[stateKey]) {
+    const stateKey = this.currentStateKey;
+    // 立即调用一次当前状态
+    if (stateKey && this.states[stateKey]) {
       try {
-        callback(this.states[stateKey]);
+        callback({[stateKey] : this.states[stateKey]});
       } catch (error) {
-        console.error(`绑定状态订阅回调执行失败 [${stateKey}]:`, error);
+        console.error(`最新状态订阅回调执行失败 [${stateKey}]:`, error);
       }
     }
+  
+    // this.latestSubscribers.add(callback);
+    // if (!this.currentStateKey) {
+    //   // 如果没有当前状态key，返回一个空函数
+    //   return () => {
+    //     // 空函数，用于清理
+    //   };
+    // }
+    // const stateKey = this.currentStateKey;
+    // if (!this.boundSubscribers.has(stateKey)) {
+    //   this.boundSubscribers.set(stateKey, new Set());
+    // }
+    // this.boundSubscribers.get(stateKey)!.add(callback);
 
-    return () => {
-      this.boundSubscribers.get(stateKey)?.delete(callback);
-    };
+    // // 立即调用一次（如果当前状态存在）
+    // if (this.states[stateKey]) {
+    //   try {
+    //     callback({[stateKey] : this.states[stateKey]});
+    //   } catch (error) {
+    //     console.error(`绑定状态订阅回调执行失败 [${stateKey}]:`, error);
+    //   }
+    // }
+
+    return () => this.latestSubscribers.delete(callback);
   }
 
   /**
@@ -184,6 +167,7 @@ export class StateManagerImpl implements StateManager {
    * 刷新待更新的状态
    */
   private flushPendingUpdate(stateKey: string, overrideState?: any): void {
+    this.currentStateKey = stateKey;
     // 获取最终状态（优先使用 overrideState，否则使用 pendingUpdates 中的状态）
     const finalState = overrideState || this.pendingUpdates.get(stateKey);
     
@@ -193,31 +177,37 @@ export class StateManagerImpl implements StateManager {
     
     // 更新状态
     this.states[stateKey] = finalState;
-    this.currentStateKey = stateKey;
     
     // 清除待更新状态和定时器
     this.pendingUpdates.delete(stateKey);
     this.debounceTimers.delete(stateKey);
     
-    // 通知绑定订阅者（只通知对应stateKey的订阅者）
-    const boundSubs = this.boundSubscribers.get(stateKey);
-    if (boundSubs) {
-      boundSubs.forEach((callback) => {
-        try {
-          callback(finalState);
-        } catch (error) {
-          console.error(`绑定状态订阅回调执行失败 [${stateKey}]:`, error);
-        }
-      });
-    }
+    // 通知特定 stateKey 的订阅者（保持向后兼容）
+    // const boundSubs = this.boundSubscribers.get(stateKey);
+    // console.log("=====flushPendingUpdate", stateKey, finalState, boundSubs);
+    // if (boundSubs) {
+    //   boundSubs.forEach((callback) => {
+    //     try {
+    //       callback({[stateKey]: finalState});
+    //     } catch (error) {
+    //       console.error(`绑定状态订阅回调执行失败 [${stateKey}]:`, error);
+    //     }
+    //   });
+    // }
 
     // 通知最新状态订阅者（所有订阅者都收到最新状态）
     this.latestSubscribers.forEach((callback) => {
       try {
-        callback(finalState, stateKey);
+        callback({[stateKey]: finalState});
       } catch (error) {
         console.error(`最新状态订阅回调执行失败 [${stateKey}]:`, error);
       }
+    });
+  }
+
+  setStateMap(stateMap: Record<string, any>): void {
+    Object.entries(stateMap).forEach(([stateKey, stateData]) => {
+      this.setStateImmediate(stateKey, stateData);
     });
   }
 
