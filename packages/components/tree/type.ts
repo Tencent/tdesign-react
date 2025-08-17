@@ -5,8 +5,8 @@
  * */
 
 import { CheckboxProps } from '../checkbox';
-import { TNode, TreeOptionData, TScroll, ComponentScrollToElementParams } from '../common';
-import { MouseEvent, DragEvent } from 'react';
+import { TNode, TreeOptionData, TreeKeysType, TScroll, ComponentScrollToElementParams } from '../common';
+import { MouseEvent, WheelEvent, DragEvent } from 'react';
 
 export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
@@ -70,7 +70,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   disabled?: boolean;
   /**
-   * [开发中]节点是否可拖拽
+   * 节点是否可拖拽
    */
   draggable?: boolean;
   /**
@@ -127,7 +127,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   icon?: boolean | TNode<TreeNodeModel<T>>;
   /**
-   * 用来定义 `value / label / disabled / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`。其中，disabled 待开发。
+   * 用来定义 `value / label / disabled / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`。其中，disabled 待开发
    */
   keys?: TreeKeysType;
   /**
@@ -163,17 +163,17 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   transition?: boolean;
   /**
-   * 选中值（组件为可选状态时）
+   * 选中值，组件为可选状态时有效
    * @default []
    */
   value?: Array<TreeNodeValue>;
   /**
-   * 选中值（组件为可选状态时），非受控属性
+   * 选中值，组件为可选状态时有效，非受控属性
    * @default []
    */
   defaultValue?: Array<TreeNodeValue>;
   /**
-   * 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaft 表示无论什么情况，选中值仅呈现叶子节点
+   * 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaf 表示无论什么情况，选中值仅呈现叶子节点
    * @default onlyLeaf
    */
   valueMode?: 'onlyLeaf' | 'parentFirst' | 'all';
@@ -202,7 +202,12 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
    * 节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型
    */
-  onDragLeave?: (context: { e: DragEvent<HTMLDivElement>; node: TreeNodeModel<T> }) => void;
+  onDragLeave?: (context: {
+    e: DragEvent<HTMLDivElement>;
+    node: TreeNodeModel<T>;
+    dragNode: TreeNodeModel<T>;
+    dropPosition: number;
+  }) => void;
   /**
    * 节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型
    */
@@ -243,7 +248,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
   /**
    * 滚动事件
    */
-  onScroll?: (params: { e: WheelEvent }) => void;
+  onScroll?: (params: { e: WheelEvent<HTMLDivElement> }) => void;
 }
 
 /** 组件实例方法 */
@@ -454,12 +459,6 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
    * 设置节点数据，数据变化可自动刷新页面，泛型 `T` 表示树节点 TS 类型，继承 `TreeOptionData`
    */
   setData: (data: T) => void;
-}
-
-export interface TreeKeysType {
-  value?: string;
-  label?: string;
-  children?: string;
 }
 
 export type TreeNodeValue = string | number;
