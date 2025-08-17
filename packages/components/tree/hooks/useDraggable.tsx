@@ -43,11 +43,11 @@ export default function useDraggable(props: {
       const diff = pageY - offsetY;
 
       if (diff < gapHeight) {
-        setPartialState({ dropPosition: -1 });
+        setPartialState({ dropPosition: -1 }); // 放置在节点之前
       } else if (diff < rect.height - gapHeight) {
-        setPartialState({ dropPosition: 0 });
+        setPartialState({ dropPosition: 0 }); // 放置在节点内部
       } else {
-        setPartialState({ dropPosition: 1 });
+        setPartialState({ dropPosition: 1 }); // 放置在节点之后
       }
     }),
   ).current;
@@ -83,10 +83,9 @@ export default function useDraggable(props: {
       case 'dragLeave':
         setPartialState({
           isDragOver: false,
-          dropPosition: 0,
         });
         updateDropPosition.cancel();
-        onDragLeave?.({ node, e });
+        onDragLeave?.({ node, dropPosition: state.dropPosition, e });
         break;
       case 'drop':
         onDrop?.({ node, dropPosition: state.dropPosition, e, allowDrop });
