@@ -42,7 +42,6 @@ export function useAgentState(options: StateActionOptions = {}): UseStateActionR
   useEffect(() => {
     // 订阅状态变化
     const unsubscribe = stateManager.subscribeToState((newState: Record<string, any>) => {
-      console.log("=====useAgentState", newState);
       stateMap.current = { ...newState };
       triggerUpdate(); // 触发重新渲染
     });

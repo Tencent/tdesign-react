@@ -1,51 +1,108 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useRef, useEffect, useMemo } from 'react';
 import type { AgentToolcallConfig } from '../components/toolcall/types';
 import { agentToolcallRegistry } from '../components/toolcall/registry';
 
+export interface UseAgentToolcallReturn {
+  register: (config: AgentToolcallConfig | AgentToolcallConfig[]) => void;
+  unregister: (names: string | string[]) => void;
+  isRegistered: (name: string) => boolean;
+  getRegistered: () => string[];
+  config: any;
+}
+
 /**
  * 统一的、智能的 Agent Toolcall 适配器 Hook
- * 用于注册 Agent Toolcall 配置到全局注册表
- * 支持单个配置、配置数组，以及异步获取的配置（null/undefined 时不注册）
+ * 支持两种使用模式：
+ * 1. 自动注册模式：传入配置，自动注册和清理
+ * 2. 手动注册模式：不传配置或传入null，返回注册方法由业务控制
  */
-export function useAgentToolcall<TArgs extends object = any, TResult = any, TResponse = any>(
-  config:
-    | AgentToolcallConfig<TArgs, TResult, TResponse>
-    | AgentToolcallConfig<TArgs, TResult, TResponse>[]
-    | null
-    | undefined,
-) {
+export function useAgentToolcall<TArgs extends object = any, TResult = any, TResponse = any>(config?:
+| AgentToolcallConfig<TArgs, TResult, TResponse>
+| AgentToolcallConfig<TArgs, TResult, TResponse>[]
+| null
+| undefined): UseAgentToolcallReturn {
+  const registeredNamesRef = useRef<Set<string>>(new Set());
+  const autoRegisteredNamesRef = useRef<Set<string>>(new Set());
   const configRef = useRef(config);
 
+  // 手动注册方法
+  const register = useCallback((newConfig: AgentToolcallConfig | AgentToolcallConfig[]) => {
+    if (!newConfig) {
+      console.warn('[useAgentToolcall] 配置为空，跳过注册');
+      return;
+    }
+
+    const configs = Array.isArray(newConfig) ? newConfig : [newConfig];
+
+    configs.forEach((cfg) => {
+      if (agentToolcallRegistry.get(cfg.name)) {
+        console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
+      }
+
+      console.log('====manual register', cfg.name);
+      agentToolcallRegistry.register(cfg);
+      registeredNamesRef.current.add(cfg.name);
+    });
+  }, []);
+
+  // 手动取消注册方法
+  const unregister = useCallback((names: string | string[]) => {
+    const nameArray = Array.isArray(names) ? names : [names];
+
+    nameArray.forEach((name) => {
+      agentToolcallRegistry.unregister(name);
+      registeredNamesRef.current.delete(name);
+      autoRegisteredNamesRef.current.delete(name);
+    });
+  }, []);
+
+  // 检查是否已注册
+  const isRegistered = useCallback(
+    (name: string) => registeredNamesRef.current.has(name) || autoRegisteredNamesRef.current.has(name),
+    [],
+  );
+
+  // 获取所有已注册的配置名称
+  const getRegistered = useCallback(
+    () => Array.from(new Set([...registeredNamesRef.current, ...autoRegisteredNamesRef.current])),
+    [],
+  );
+
+  // 自动注册逻辑（当传入配置时）
   useEffect(() => {
-    // 如果 config 为空，跳过注册
     if (!config) {
       return;
     }
 
-    // 标准化配置为数组格式
     const configs = Array.isArray(config) ? config : [config];
-
-    // 注册所有配置
     configs.forEach((cfg) => {
-      // 检测是否与已注册的配置重名
       if (agentToolcallRegistry.get(cfg.name)) {
         console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
       }
+
       agentToolcallRegistry.register(cfg);
+      autoRegisteredNamesRef.current.add(cfg.name);
     });
 
-    // 清理函数：组件卸载时取消注册所有配置
+    // 清理函数：取消注册自动注册的配置
     return () => {
       configs.forEach((cfg) => {
         agentToolcallRegistry.unregister(cfg.name);
+        autoRegisteredNamesRef.current.delete(cfg.name);
       });
     };
-  }, [config]); // 直接监听整个 config 对象
+  }, [config]);
 
   // 更新配置引用
   useEffect(() => {
     configRef.current = config;
   }, [config]);
 
-  return configRef.current;
+  return {
+    register,
+    unregister,
+    isRegistered,
+    getRegistered,
+    config: configRef.current,
+  };
 }
