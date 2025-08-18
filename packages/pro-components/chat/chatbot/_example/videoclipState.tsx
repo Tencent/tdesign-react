@@ -415,21 +415,6 @@ const videoclipActions: AgentToolcallConfig[] = [
   },
 ];
 
-/**
- * 注册所有视频剪辑相关的 Agent Toolcalls
- */
-export function useVideoclipToolcalls() {
-  // 注册所有视频剪辑相关的 actions
-  videoclipActions.forEach((action) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAgentToolcall(action);
-  });
-
-  return {
-    actions: videoclipActions,
-  };
-}
-
 interface MessageRendererProps {
   item: AIMessageContent;
   index: number;
@@ -446,7 +431,7 @@ export default function VideoClipAgentChatWithSubscription() {
   const [inputValue, setInputValue] = useState<string>('请帮我剪辑一段李雪琴大笑的视频片段');
 
   // 注册视频剪辑相关的 Agent Toolcalls
-  useVideoclipToolcalls();
+  useAgentToolcall(videoclipActions);
 
   // 创建聊天服务配置
   const createChatServiceConfig = () => ({

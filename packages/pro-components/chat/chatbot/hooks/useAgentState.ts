@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { stateManager } from '../core/adapters/agui';
 
 /**
@@ -31,6 +31,10 @@ export interface UseStateActionReturn {
    * 设置状态Map，用于加载历史对话消息中的state数据
    */
   setStateMap: (stateMap: Record<string, any> | ((prev: Record<string, any>) => Record<string, any>)) => void;
+  // 新增：获取当前完整状态的方法
+  getCurrentState: () => Record<string, any>;
+  // 新增：获取特定 key 状态的方法
+  getStateByKey: (key: string) => any;
 }
 
 /**
@@ -59,7 +63,7 @@ export function useAgentState<T = any>(options: StateActionOptions = {}): UseSta
     }
     // 最新模式：订阅最新状态，使用合并而不是覆盖
     return stateManager.subscribeToLatest((newState: T, newStateKey: string) => {
-      stateMap.current = { ...stateMap.current, ...newState };
+      stateMap.current =  { [newStateKey]: { ...stateMap.current?.[newStateKey], ...newState } };
       setCurrentStateKey(newStateKey);
       triggerUpdate(); // 触发重新渲染
     });
@@ -78,5 +82,23 @@ export function useAgentState<T = any>(options: StateActionOptions = {}): UseSta
       triggerUpdate(); // 触发重新渲染
     },
     stateKey: displayStateKey || null,
+    getCurrentState: () => stateMap.current,
+    getStateByKey: (key: string) => stateMap.current[key],
   };
 }
+
+
+// 创建 AgentState Context
+export const AgentStateContext = createContext<{
+  state: Record<string, any>;
+  stateKey: string | null;
+} | null>(null);
+
+// 导出 Context Hook
+export const useAgentStateContext = () => {
+  const context = useContext(AgentStateContext);
+  if (!context) {
+    throw new Error('useAgentStateContext must be used within AgentStateProvider');
+  }
+  return context;
+};

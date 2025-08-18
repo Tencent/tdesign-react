@@ -1,6 +1,8 @@
 import { useCallback, useRef, useEffect } from 'react';
+import { ToolcallComponentProps } from '@tencent/tdesign-chatbot-dev';
 import type { AgentToolcallConfig } from '../components/toolcall/types';
 import { agentToolcallRegistry } from '../components/toolcall/registry';
+import { withAgentStateToolcall } from '../components/toolcall';
 
 export interface UseAgentToolcallReturn {
   register: (config: AgentToolcallConfig | AgentToolcallConfig[]) => void;
@@ -11,16 +13,19 @@ export interface UseAgentToolcallReturn {
 }
 
 /**
- * 统一的、智能的 Agent Toolcall 适配器 Hook
+ * 统一的、智能的 Agent Toolcall 适配器 Hook，
+ * 注册管理：负责工具配置的注册、取消注册、状态跟踪；生命周期管理：自动清理、防止内存泄漏
  * 支持两种使用模式：
  * 1. 自动注册模式：传入配置，自动注册和清理
  * 2. 手动注册模式：不传配置或传入null，返回注册方法由业务控制
  */
-export function useAgentToolcall<TArgs extends object = any, TResult = any, TResponse = any>(config?:
-| AgentToolcallConfig<TArgs, TResult, TResponse>
-| AgentToolcallConfig<TArgs, TResult, TResponse>[]
-| null
-| undefined): UseAgentToolcallReturn {
+export function useAgentToolcall<TArgs extends object = any, TResult = any, TResponse = any>(
+  config?:
+    | AgentToolcallConfig<TArgs, TResult, TResponse>
+    | AgentToolcallConfig<TArgs, TResult, TResponse>[]
+    | null
+    | undefined,
+): UseAgentToolcallReturn {
   const registeredNamesRef = useRef<Set<string>>(new Set());
   const autoRegisteredNamesRef = useRef<Set<string>>(new Set());
   const configRef = useRef(config);
@@ -39,6 +44,7 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
         console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
       }
 
+      console.log('====manual register', cfg.name);
       agentToolcallRegistry.register(cfg);
       registeredNamesRef.current.add(cfg.name);
     });
@@ -52,6 +58,7 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
       agentToolcallRegistry.unregister(name);
       registeredNamesRef.current.delete(name);
       autoRegisteredNamesRef.current.delete(name);
+      console.log('====manual unregister', name);
     });
   }, []);
 
@@ -79,6 +86,7 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
         console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
       }
 
+      console.log('====auto register', cfg.name);
       agentToolcallRegistry.register(cfg);
       autoRegisteredNamesRef.current.add(cfg.name);
     });
@@ -88,6 +96,7 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
       configs.forEach((cfg) => {
         agentToolcallRegistry.unregister(cfg.name);
         autoRegisteredNamesRef.current.delete(cfg.name);
+        console.log('====auto unregister', cfg.name);
       });
     };
   }, [config]);
@@ -105,3 +114,21 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
     config: configRef.current,
   };
 }
+
+// 创建带状态感知的工具配置（带状态变化事件），状态注入，自动为组件注入 agentState
+export interface ToolConfigWithStateOptions<TArgs extends object = any, TResult = any> {
+  name: string;
+  description: string;
+  parameters: Array<{ name: string; type: string }>;
+  component: React.ComponentType<ToolcallComponentProps<TArgs, TResult> & { agentState?: Record<string, any> }>;
+}
+
+// 修改函数签名
+export const createToolConfigWithState = <TArgs extends object = any, TResult = any>(
+  config: ToolConfigWithStateOptions<TArgs, TResult>,
+): AgentToolcallConfig<TArgs, TResult> => ({
+  name: config.name,
+  description: config.description,
+  parameters: config.parameters,
+  component: withAgentStateToolcall(config.component) as React.FC<ToolcallComponentProps<TArgs, TResult>>,
+});

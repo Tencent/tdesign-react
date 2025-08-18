@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import {
   type TdChatMessageConfig,
   ChatList,
@@ -63,7 +63,14 @@ export default function TravelPlannerChat() {
 
   // 规划状态管理 - 用于右侧面板展示
   // 使用 useAgentState Hook 管理状态
-  const { state: planningState } = useAgentState();
+  const { state: travelState, stateKey } = useAgentState();
+
+  const planningState = useMemo(() => {
+    if (!travelState || !stateKey || !travelState[stateKey]) {
+      return [];
+    }
+    return travelState[stateKey];
+  }, [travelState, stateKey]);
 
   const [currentStep, setCurrentStep] = useState<string>('');
 
@@ -115,15 +122,6 @@ export default function TravelPlannerChat() {
         case 'STEP_FINISHED':
           setCurrentStep('');
           break;
-        // ========== 状态管理事件处理 ==========
-        case 'STATE_SNAPSHOT':
-        case 'STATE_DELTA':
-          // 状态管理现在由 useAgentState Hook 自动处理
-          // 返回规划状态组件用于UI展示
-          return {
-            type: 'planningState',
-            data: { state: planningState },
-          } as any;
       }
 
       return undefined;
@@ -160,7 +158,6 @@ export default function TravelPlannerChat() {
     setIsLoadingHistory(true);
     try {
       const messages = await loadHistoryMessages();
-      console.log('加载历史消息:', messages);
       setDefaultMessages(messages);
       setHasLoadedHistory(true);
     } catch (error) {
@@ -220,40 +217,45 @@ export default function TravelPlannerChat() {
   };
 
   // 处理工具调用响应
-  const handleToolCallRespond = async (toolcall: ToolCall, response: any) => {
-    try {
-      // 构造新的请求参数
-      const tools = chatEngine.getToolcallByName(toolcall.toolCallName) || {};
-      const newRequestParams: ChatRequestParams = {
-        prompt: inputValue,
-        toolCallMessage: {
-          ...tools,
-          result: JSON.stringify(response),
-        },
-      };
+  const handleToolCallRespond = useCallback(
+    async (toolcall: ToolCall, response: any) => {
+      try {
+        // 构造新的请求参数
+        const tools = chatEngine.getToolcallByName(toolcall.toolCallName) || {};
+        const newRequestParams: ChatRequestParams = {
+          toolCallMessage: {
+            ...tools,
+            result: JSON.stringify(response),
+          },
+        };
 
-      // 继续对话
-      await chatEngine.continueChat(newRequestParams);
-      listRef.current?.scrollList({ to: 'bottom' });
-    } catch (error) {
-      console.error('提交工具调用响应失败:', error);
-    }
-  };
+        // 继续对话
+        await chatEngine.continueChat(newRequestParams);
+        listRef.current?.scrollList({ to: 'bottom' });
+      } catch (error) {
+        console.error('提交工具调用响应失败:', error);
+      }
+    },
+    [chatEngine, listRef],
+  );
 
-  const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
-    if (item.type === 'toolcall') {
-      const { data, type } = item;
+  const renderMessageContent = useCallback(
+    ({ item, index }: MessageRendererProps): React.ReactNode => {
+      if (item.type === 'toolcall') {
+        const { data, type } = item;
 
-      // 使用统一的 ToolCallRenderer 处理所有工具调用
-      return (
-        <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
-          <ToolCallRenderer toolCall={data} onRespond={handleToolCallRespond} />
-        </div>
-      );
-    }
+        // 使用统一的 ToolCallRenderer 处理所有工具调用
+        return (
+          <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
+            <ToolCallRenderer toolCall={data} onRespond={handleToolCallRespond} />
+          </div>
+        );
+      }
 
-    return null;
-  };
+      return null;
+    },
+    [handleToolCallRespond],
+  );
 
   /** 渲染消息内容体 */
   const renderMsgContents = (message: ChatMessagesData, isLast: boolean): ReactNode => (
