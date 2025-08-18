@@ -1,21 +1,21 @@
-import React, { forwardRef, useEffect, useCallback } from 'react';
+import React, { forwardRef, useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { isDate } from 'lodash-es';
-import { parseToDayjs, getDefaultFormat, formatTime, formatDate } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj, covertToDate, isSame } from '@tdesign/common-js/date-picker/utils';
+import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+import { addMonth, covertToDate, extractTimeObj, isSame, subtractMonth } from '@tdesign/common-js/date-picker/utils';
+import type { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdDatePickerProps, PresetDate, DateMultipleValue, DateValue } from './type';
-import SelectInput from '../select-input';
-import SinglePanel from './panel/SinglePanel';
-import useSingle from './hooks/useSingle';
-import { datePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
-import type { TagInputRemoveContext } from '../tag-input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import SelectInput from '../select-input';
+import type { TagInputRemoveContext } from '../tag-input';
+import { datePickerDefaultProps } from './defaultProps';
+import useSingle from './hooks/useSingle';
+import SinglePanel from './panel/SinglePanel';
+import type { DateMultipleValue, DateValue, PresetDate, TdDatePickerProps } from './type';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -74,20 +74,21 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   });
 
   const onTriggerNeedConfirm = useLatest(() => {
-    if (!needConfirm && enableTimePicker && !popupVisible) {
-      const nextValue = formatDate(inputValue, { format });
-      if (nextValue) {
-        onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
-          dayjsValue: parseToDayjs(inputValue, format),
-          trigger: 'confirm',
-        });
-      } else {
-        setInputValue(
-          formatDate(value, {
-            format,
-          }),
-        );
-      }
+    if (needConfirm || !enableTimePicker || popupVisible) return;
+    const nextValue = formatDate(inputValue, { format });
+    if (nextValue) {
+      const currentValue = formatDate(value, { format });
+      if (currentValue === nextValue) return;
+      onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
+        dayjsValue: parseToDayjs(inputValue, format),
+        trigger: 'confirm',
+      });
+    } else {
+      setInputValue(
+        formatDate(value, {
+          format,
+        }),
+      );
     }
   });
 
@@ -147,6 +148,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     }
     if (enableTimePicker) {
       setCacheValue(formatDate(date, { format }));
+      if (props.needConfirm) return;
+      onChange(formatDate(date, { format, targetFormat: valueType }), {
+        dayjsValue: parseToDayjs(date, format),
+        trigger: 'pick',
+      });
+      handlePopupInvisible();
     } else {
       if (multiple) {
         const newDate = processDate(date);
@@ -229,7 +236,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    onChange(formatDate(presetValue, { format, targetFormat: valueType }), {
+    const formattedPresetValue = formatDate(presetValue, { format, targetFormat: valueType });
+    const formattedInputValue = formatDate(presetValue, { format });
+
+    // preset 不需要 confirm 就同步
+    setInputValue(formattedInputValue);
+    setCacheValue(formattedInputValue);
+
+    onChange(formattedPresetValue, {
       dayjsValue: parseToDayjs(presetValue, format),
       trigger: 'preset',
     });
