@@ -77,18 +77,17 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
           <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
         </div>
       )}
-      {removable ? (
-        <CloseIcon
+      {removable && !disabled ? (
+        <span
           className={classNames('remove-btn')}
           onClick={(e) => {
-            if (disabled) {
-              return;
-            }
             e.stopPropagation();
             onRemove({ value, e });
             onTabRemove({ value, e, index });
           }}
-        />
+        >
+          <CloseIcon />
+        </span>
       ) : null}
     </div>
   );
