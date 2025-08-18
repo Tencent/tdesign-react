@@ -2,6 +2,7 @@
 import type { AIMessageContent, SSEChunkData, ToolCall } from '../../type';
 import { stateManager } from './state-manager';
 import { EventType } from './events';
+import { handleCustomEvent, handleMessagesSnapshot, mergeStringContent, parseSSEData } from './utils';
 
 /**
  * AGUIEventMapper
@@ -21,17 +22,7 @@ export class AGUIEventMapper {
    */
   mapEvent(chunk: SSEChunkData): AIMessageContent | AIMessageContent[] | null {
     // 处理data字段，可能是字符串或已解析的对象
-    let event: any;
-    if (typeof chunk.data === 'string') {
-      try {
-        event = JSON.parse(chunk.data);
-      } catch (error) {
-        console.warn('Failed to parse event data:', error);
-        return null;
-      }
-    } else {
-      event = chunk.data;
-    }
+    const event = parseSSEData(chunk.data);
 
     if (!event?.type) return null;
 
@@ -103,7 +94,7 @@ export class AGUIEventMapper {
         // 更新工具调用的参数
         if (this.toolCallMap[event.toolCallId]) {
           const currentArgs = this.toolCallMap[event.toolCallId].args || '';
-          const newArgs = this.mergeStringContent(currentArgs, event.delta || '');
+          const newArgs = mergeStringContent(currentArgs, event.delta || '');
 
           // 更新内部ToolCall对象
           this.toolCallMap[event.toolCallId] = {
@@ -125,7 +116,7 @@ export class AGUIEventMapper {
         // 更新工具调用的chunk
         if (this.toolCallMap[event.toolCallId]) {
           const currentChunk = this.toolCallMap[event.toolCallId].chunk || '';
-          const newChunk = this.mergeStringContent(currentChunk, event.delta || '');
+          const newChunk = mergeStringContent(currentChunk, event.delta || '');
 
           // 更新内部ToolCall对象
           this.toolCallMap[event.toolCallId] = {
@@ -147,7 +138,7 @@ export class AGUIEventMapper {
         // 更新工具调用的结果
         if (this.toolCallMap[event.toolCallId]) {
           const currentResult = this.toolCallMap[event.toolCallId].result || '';
-          const newResult = this.mergeStringContent(currentResult, event.content || '');
+          const newResult = mergeStringContent(currentResult, event.content || '');
 
           // 更新内部ToolCall对象
           this.toolCallMap[event.toolCallId] = {
@@ -177,9 +168,9 @@ export class AGUIEventMapper {
         return null; // 让业务层通过useStateSubscription订阅状态变化
 
       case EventType.MESSAGES_SNAPSHOT:
-        return this.handleMessagesSnapshot(event.messages);
+        return handleMessagesSnapshot(event.messages);
       case EventType.CUSTOM:
-        return this.handleCustomEvent(event);
+        return handleCustomEvent(event);
       case EventType.RUN_ERROR:
         return [
           {
@@ -225,60 +216,6 @@ export class AGUIEventMapper {
   reset() {
     this.toolCallMap = {};
     this.toolCallEnded.clear();
-  }
-
-  /**
-   * 合并字符串内容，处理JSON和普通字符串
-   */
-  private mergeStringContent(existing: string | undefined, delta: string): string {
-    if (!existing) return delta;
-
-    // 尝试解析为JSON，如果是有效的JSON则合并
-    try {
-      const existingObj = JSON.parse(existing);
-      const deltaObj = JSON.parse(delta);
-
-      // 如果是对象，进行深度合并
-      if (typeof existingObj === 'object' && typeof deltaObj === 'object') {
-        return JSON.stringify({ ...existingObj, ...deltaObj });
-      }
-
-      // 如果是数组，进行数组合并
-      if (Array.isArray(existingObj) && Array.isArray(deltaObj)) {
-        return JSON.stringify([...existingObj, ...deltaObj]);
-      }
-
-      // 其他情况，直接替换
-      return delta;
-    } catch (error) {
-      // 不是有效的JSON，按普通字符串处理
-      return existing + delta;
-    }
-  }
-
-  private handleMessagesSnapshot(messages: any[]): AIMessageContent[] {
-    // 只取assistant消息
-    if (!messages) return [];
-    return messages.flatMap((msg: any) => {
-      if (msg.role === 'assistant' && Array.isArray(msg.content)) {
-        return msg.content.map((content: any) => ({
-          type: content.type || 'markdown',
-          data: content.data,
-          status: 'complete',
-        }));
-      }
-      return [];
-    });
-  }
-
-  private handleCustomEvent(event: any): any {
-    if (event.name === 'suggestion') {
-      return {
-        type: 'suggestion',
-        data: event.value || [],
-        status: 'complete',
-      };
-    }
   }
 }
 

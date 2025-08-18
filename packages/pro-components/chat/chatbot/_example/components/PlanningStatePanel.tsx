@@ -17,7 +17,6 @@ export const PlanningStatePanel: React.FC<PlanningStatePanelProps> = ({ state, c
     { name: '酒店推荐', key: 'hotels', completed: !!itinerary?.hotels },
   ];
 
-  console.log('====itinerary, status', state, itinerary, status);
   // 获取步骤状态
   const getStepStatus = (step: any) => {
     // currentStep 查询天气 init {name: '天气查询', key: 'weather', completed: false}
