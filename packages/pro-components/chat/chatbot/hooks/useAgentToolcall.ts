@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect, useMemo } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import type { AgentToolcallConfig } from '../components/toolcall/types';
 import { agentToolcallRegistry } from '../components/toolcall/registry';
 
@@ -39,7 +39,6 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
         console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
       }
 
-      console.log('====manual register', cfg.name);
       agentToolcallRegistry.register(cfg);
       registeredNamesRef.current.add(cfg.name);
     });
