@@ -60,6 +60,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const [tableFootHeight, setTableFootHeight] = useState(0);
+  const [lastTrHeight, setLastTrHeight] = useState(0);
   const allTableClasses = useClassName();
 
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
@@ -255,16 +256,26 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    const timer = setTimeout(() => {
+    requestAnimationFrame(() => {
       if (!tableElmRef.current) return;
-      const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
-      setTableFootHeight(height);
-    }, 1);
-
-    return () => {
-      clearTimeout(timer);
-    };
+      const height = tableElmRef.current.querySelector('tfoot')?.offsetHeight;
+      setTableFootHeight(height || 0);
+    });
   };
+
+  const getLastTrHeight = () => {
+    requestAnimationFrame(() => {
+      if (!tableElmRef.current || !props.firstFullRow) return;
+      const tbody = tableElmRef.current.querySelector('tbody');
+      const allTr = tbody?.querySelectorAll('tr');
+      const lastTr = allTr?.[allTr.length - 1];
+      const height = lastTr?.offsetHeight;
+      setLastTrHeight(height || 0);
+    });
+  };
+
+  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
+  useEffect(getLastTrHeight, [tableElmRef, props.firstFullRow]);
 
   useEffect(() => {
     setTableContentRef(tableContentRef.current);
@@ -276,8 +287,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [tableRef],
   );
-
-  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
 
   const newData = isPaginateData ? dataSource : data;
 
@@ -411,6 +420,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       marginScrollbarWidth += 1;
     }
     // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
+    const totalMarginTop = tableFootHeight - lastTrHeight + marginScrollbarWidth;
     const affixedFooter = Boolean(
       (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && props.footData?.length && tableWidth.current,
     ) && (
@@ -420,7 +430,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         offsetBottom={marginScrollbarWidth || 0}
         {...getAffixProps(props.footerAffixedBottom)}
         ref={footerBottomAffixRef}
-        style={{ marginTop: `${-1 * ((tableFootHeight || 0) + marginScrollbarWidth)}px` }}
+        style={{ marginTop: `${-1 * totalMarginTop}px` }}
       >
         <div
           ref={affixFooterRef}
@@ -641,6 +651,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       scrollbarWidth,
       tableElmClasses,
       tableFootHeight,
+      lastTrHeight,
       tableWidth,
       virtualConfig.isVirtualScroll,
       props.rowKey,
@@ -705,7 +716,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
       {tableContent}
 
-      {/* eslint-disable-next-line */}
       {affixedFooterContent}
 
       {loadingContent}
