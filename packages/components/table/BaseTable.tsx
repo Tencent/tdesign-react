@@ -1,38 +1,38 @@
 import React, {
-  useRef,
-  useMemo,
-  useImperativeHandle,
   forwardRef,
+  RefAttributes,
   useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
   useState,
   WheelEvent,
-  RefAttributes,
 } from 'react';
-import { pick } from 'lodash-es';
 import classNames from 'classnames';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import { pick } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import TBody, { extendTableProps, TableBodyProps } from './TBody';
-import { Affix, AffixRef } from '../affix';
-import { ROW_LISTENERS } from './TR';
-import THead, { TheadProps } from './THead';
-import TFoot from './TFoot';
-import useTableHeader from './hooks/useTableHeader';
-import useColumnResize from './hooks/useColumnResize';
-import useElementLazyRender from '../hooks/useElementLazyRender';
-import useFixed from './hooks/useFixed';
-import useAffix from './hooks/useAffix';
-import usePagination from './hooks/usePagination';
-import Loading from '../loading';
-import { BaseTableProps, BaseTableRef } from './interface';
-import useStyle, { formatCSSUnit } from './hooks/useStyle';
-import useClassName from './hooks/useClassName';
-import { getAffixProps } from './utils';
-import { baseTableDefaultProps } from './defaultProps';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import Affix, { type AffixRef } from '../affix';
 import { Styles } from '../common';
-import { TableRowData } from './type';
-import useVirtualScroll from '../hooks/useVirtualScroll';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useElementLazyRender from '../hooks/useElementLazyRender';
+import useVirtualScroll from '../hooks/useVirtualScroll';
+import Loading from '../loading';
+import TBody, { extendTableProps, TableBodyProps } from './TBody';
+import TFoot from './TFoot';
+import THead, { type TheadProps } from './THead';
+import { ROW_LISTENERS } from './TR';
+import { baseTableDefaultProps } from './defaultProps';
+import useAffix from './hooks/useAffix';
+import useClassName from './hooks/useClassName';
+import useColumnResize from './hooks/useColumnResize';
+import useFixed from './hooks/useFixed';
+import usePagination from './hooks/usePagination';
+import useStyle, { formatCSSUnit } from './hooks/useStyle';
+import useTableHeader from './hooks/useTableHeader';
+import type { BaseTableProps, BaseTableRef } from './interface';
+import type { TableRowData } from './type';
+import { getAffixProps } from './utils';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -219,6 +219,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       updateColumnFixedShadow(target);
     }
     lastScrollY = top;
+    onHorizontalScroll(target);
     emitScrollEvent(e);
   };
 
