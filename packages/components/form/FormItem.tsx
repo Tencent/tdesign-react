@@ -357,7 +357,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const resetType = type || resetTypeFromContext;
     const resetValue = getResetValue(resetType);
     // reset 不校验
-    updateFormValue(resetValue, false);
+    updateFormValue(resetValue, false, true);
 
     if (resetValidating) {
       setNeedResetField(true);
@@ -447,9 +447,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // value 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
 
-    // 控制是否需要校验
-    if (!shouldValidate.current) return;
-
     // value change event
     if (typeof name !== 'undefined' && shouldEmitChangeRef.current) {
       if (formListName) {
@@ -464,9 +461,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       }
     }
 
-    const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
+    // 控制是否需要校验
+    if (shouldValidate.current) {
+      const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
+      filterRules.length && validate('change');
+    }
 
-    filterRules.length && validate('change');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue, snakeName]);
 
