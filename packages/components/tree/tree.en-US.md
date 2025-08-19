@@ -66,12 +66,10 @@ getItems | `(value?: TreeNodeValue)` | `Array<TreeNodeModel<T>>` | required
 getParent | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | required
 getParents | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | required
 getPath | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | required
-getTreeData | `(value?: TreeNodeValue)` | `Array<T>` | required。get tree struct data
 insertAfter | `(value: TreeNodeValue, newData: T)` | \- | required
 insertBefore | `(value: TreeNodeValue, newData: T)` | \- | required
-refresh | \- | \- | required。refresh tree state, used in tree search
 remove | `(value: TreeNodeValue)` | \- | required
-scrollTo | `(scrollToParams: ScrollToElementParams)` | \- | support scrolling to a specific node when virtual scrolling 
+scrollTo | `(scrollToParams: ComponentScrollToElementParams)` | \- | support scrolling to a specific node when virtual scrolling 
 setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | required
 
 ### TreeNodeState
@@ -99,7 +97,6 @@ name | type | default | description | required
 actived | Boolean | - | required | Y
 checked | Boolean | - | required | Y
 data | Object | - | required。node data, extends `TreeOptionData`。Typescript：`T` | Y
-disabled | Boolean | - | required。node disabled state | Y
 expanded | Boolean | - | required | Y
 indeterminate | Boolean | - | required | Y
 loading | Boolean | - | required | Y
