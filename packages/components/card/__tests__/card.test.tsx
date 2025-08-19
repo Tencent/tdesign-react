@@ -42,10 +42,40 @@ describe('Card', () => {
     expect(container.querySelector('.t-card__header')).toBeInTheDocument();
   });
 
+  test('headerClassName and headerStyle', () => {
+    const { container } = render(
+      <Card header headerClassName="test-header-class-name" headerStyle={{ height: '100px' }}></Card>,
+    );
+    const headerEle = container.querySelector('.t-card__header');
+    expect(headerEle).toHaveClass('test-header-class-name');
+    console.log(window.getComputedStyle(headerEle), window.getComputedStyle(headerEle).height);
+    expect(window.getComputedStyle(headerEle).height).toBe(`100px`);
+  });
+
   test('footer', () => {
     const { container } = render(<Card footer={<div>底部</div>}></Card>);
     expect(container.querySelector('.t-card__footer')).toBeInTheDocument();
     expect(container.querySelector('.t-card__footer').textContent).toBe('底部');
+  });
+
+  test('footerClassName and footerStyle', () => {
+    const { container } = render(
+      <Card footerClassName="test-footer-class-name" footerStyle={{ height: '100px' }} footer={<div>底部</div>}></Card>,
+    );
+    const footerEle = container.querySelector('.t-card__footer');
+    expect(footerEle).toHaveClass('test-footer-class-name');
+    expect(window.getComputedStyle(footerEle).height).toBe(`100px`);
+  });
+
+  test('bodyClassName and bodyStyle', () => {
+    const { container } = render(
+      <Card bodyClassName="test-body-class-name" bodyStyle={{ height: '100px' }}>
+        <div>body</div>
+      </Card>,
+    );
+    const bodyEle = container.querySelector('.test-body-class-name');
+    expect(bodyEle).not.toBeNull();
+    expect(window.getComputedStyle(bodyEle).height).toBe(`100px`);
   });
 
   test('actions', () => {
