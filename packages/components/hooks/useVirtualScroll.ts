@@ -2,6 +2,7 @@
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { isEqual } from 'lodash-es';
 import type { ScrollToElementParams, TScroll } from '../common';
 
 export type UseVirtualScrollParams = {
@@ -17,6 +18,8 @@ const requestAnimationFrame =
 
 const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseVirtualScrollParams) => {
   const { data, scroll } = params;
+  const dataRef = useRef(data);
+
   /** 注意测试：数据长度为空；数据长度小于表格高度等情况。即期望只有数据量达到一定程度才允许开启虚拟滚动 */
   const [visibleData, setVisibleData] = useState<any[]>([]);
   // 滚动过程中表格顶部占位距离
@@ -168,7 +171,9 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       addIndexToData(data);
 
       const scrollTopHeightList = trScrollTopHeightList.current;
-      if (scrollTopHeightList?.length === data?.length) {
+      const dataChanged = !isEqual(dataRef.current, data);
+
+      if (scrollTopHeightList?.length === data?.length && !dataChanged) {
         // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
@@ -179,8 +184,9 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         /* 进入这个分支的场景可能有：
          * - 初始化
          * - 从非虚拟滚动切换到虚拟滚动
-         * - 外部数据长度变化（EnhancedTable 子节点展开关闭；开启 onFilterChange 等）
+         * - 外部数据动态更新（长度变化、内容结构变化等）
          */
+        dataRef.current = data;
         setScrollHeight(data.length * tScroll.rowHeight);
 
         // 如果之前存在滚动，基于原先数据计算位置
