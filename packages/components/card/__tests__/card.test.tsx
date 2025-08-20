@@ -48,7 +48,6 @@ describe('Card', () => {
     );
     const headerEle = container.querySelector('.t-card__header');
     expect(headerEle).toHaveClass('test-header-class-name');
-    console.log(window.getComputedStyle(headerEle), window.getComputedStyle(headerEle).height);
     expect(window.getComputedStyle(headerEle).height).toBe(`100px`);
   });
 
