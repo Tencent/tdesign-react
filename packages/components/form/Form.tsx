@@ -75,6 +75,7 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
+      console.log('onFormItemValueChange', changedValue);
       const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
     }

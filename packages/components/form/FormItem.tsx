@@ -163,6 +163,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
+    console.log(newVal, shouldEmitChange, 'newVal');
     shouldEmitChangeRef.current = shouldEmitChange;
     isUpdatedRef.current = true;
     shouldValidate.current = validate;
@@ -445,8 +446,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
   useEffect(() => {
     // value 变化通知 watch 事件
+    console.log(formValue, name, 'name');
+    console.log(shouldEmitChangeRef.current, shouldValidate.current, 'shouldEmitChangeRef.current');
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
-
     // 控制是否需要校验
     if (!shouldValidate.current) return;
 

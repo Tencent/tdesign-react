@@ -1,114 +1,112 @@
 import React from 'react';
-import {
-  Form,
-  Input,
-  Radio,
-  Checkbox,
-  Button,
-  Switch,
-  MessagePlugin,
-  DatePicker,
-  Tooltip,
-  Space,
-} from 'tdesign-react';
-import type { FormProps } from 'tdesign-react';
+import { Form, Input, Button, Select } from 'tdesign-react';
+import { MinusCircleIcon } from 'tdesign-icons-react';
 
-const { FormItem } = Form;
+const { FormItem, FormList } = Form;
+
+const provinceOptions = [
+  { label: '北京', value: 'bj' },
+  { label: '上海', value: 'sh' },
+  { label: '广州', value: 'gz' },
+  { label: '深圳', value: 'sz' },
+];
 
 export default function BaseForm() {
   const [form] = Form.useForm();
 
-  const name = Form.useWatch('name', form);
-  const gender = Form.useWatch('gender', form);
-  console.log('name', name);
-  console.log('gender', gender);
+  function onSubmit() {
+    const allFields = form.getFieldsValue(true);
+    console.log('allFields', allFields);
+  }
+  function setValues() {
+    form.setFieldsValue({
+      address: [
+        {
+          province: 'sz',
+        },
+        {
+          province: 'bj',
+        },
+      ],
+      address2: [
+        {
+          province: 'sh',
+        },
+      ],
+    });
+    // form.setFields([
+    //   { name: 'address', value: [
+    //     {
+    //       province: 'sz',
+    //       area: 'tzmax',
+    //     },
+    //     {
+    //       province: 'bj',
+    //       area: 'tzmax',
+    //     },
+    //   ]},
+    //   { name: 'address2', value: [
+    //     {
+    //       province: 'bj',
+    //       area: 'tzmax',
+    //     },
+    //     {
+    //       province: 'sh',
+    //       area: 'tzmax',
+    //     },
+    //   ]},
+    // ])
+  }
 
-  const onSubmit: FormProps['onSubmit'] = (e) => {
-    console.log(e);
-    if (e.validateResult === true) {
-      MessagePlugin.info('提交成功');
-    }
-  };
-
-  const onReset: FormProps['onReset'] = (e) => {
-    console.log(e);
-    MessagePlugin.info('重置成功');
-  };
-
-  const setMessage = () => {
-    console.log(form);
-    form.setFields([
-      { name: 'name', status: 'error', validateMessage: { type: 'error', message: '输入有误' } },
-      { name: 'birthday', status: 'warning', validateMessage: { type: 'warning', message: '时间有误' } },
-    ]);
-  };
+  function onValuesChange(v, alVal) {
+    console.log('onValuesChange', v, alVal);
+  }
 
   return (
-    <Form form={form} onSubmit={onSubmit} onReset={onReset} colon labelWidth={100}>
-      <FormItem label="姓名" name="name">
-        <Input />
-      </FormItem>
-      <FormItem label="出生日期" name="birthday">
-        <DatePicker mode="date" />
-      </FormItem>
-      <FormItem label="性别" name="gender">
-        <Radio.Group>
-          <Radio value="male">男性</Radio>
-          <Radio value="female">女性</Radio>
-        </Radio.Group>
-      </FormItem>
-      <FormItem shouldUpdate={(prev, next) => prev.gender !== next.gender}>
-        {({ getFieldValue }) => {
-          if (getFieldValue('gender') === 'female') {
-            return (
-              <FormItem label="动态选项2" name="bar">
-                <Radio.Group>
-                  <Radio value="2">选项三</Radio>
-                  <Radio value="3">选项四</Radio>
-                </Radio.Group>
+    <Form form={form} onSubmit={onSubmit} onValuesChange={onValuesChange}>
+      <FormList name="address">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <FormItem key={key}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'province']}
+                  label="省份"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Select options={provinceOptions}></Select>
+                </FormItem>
               </FormItem>
-            );
-          }
-          return (
-            <FormItem label="动态选项1" name="foo">
-              <Radio.Group>
-                <Radio value="0">选项一</Radio>
-                <Radio value="1">选项二</Radio>
-              </Radio.Group>
-            </FormItem>
-          );
-        }}
-      </FormItem>
-      <FormItem label="课程" name="course">
-        <Checkbox.Group>
-          <Checkbox value="la">加辣</Checkbox>
-          <Checkbox value="ma">加麻</Checkbox>
-          <Checkbox value="nocong">不要葱花</Checkbox>
-        </Checkbox.Group>
-      </FormItem>
-      <FormItem label="状态" name="status" for="status">
-        <Switch />
-      </FormItem>
-      <FormItem label="自定义内容" for="custom">
-        <div style={{ display: 'flex', gap: 8 }}>
-          <FormItem name="custom">
-            <Input />
-          </FormItem>
-          <Tooltip content="文字链提示信息">
-            <Button variant="text">文字链</Button>
-          </Tooltip>
-        </div>
-      </FormItem>
+            ))}
+          </>
+        )}
+      </FormList>
+      <FormList name="address2">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <FormItem key={key}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'province']}
+                  label="省份"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Select options={provinceOptions}></Select>
+                </FormItem>
+              </FormItem>
+            ))}
+          </>
+        )}
+      </FormList>
       <FormItem style={{ marginLeft: 100 }}>
-        <Space>
-          <Button type="submit" theme="primary">
-            提交
-          </Button>
-          <Button onClick={setMessage}>设置信息</Button>
-          <Button type="reset" theme="default">
-            重置
-          </Button>
-        </Space>
+        <Button type="submit" theme="primary">
+          提交
+        </Button>
+        <Button onClick={setValues} style={{ marginLeft: 12 }}>
+          点我设置值
+        </Button>
       </FormItem>
     </Form>
   );
