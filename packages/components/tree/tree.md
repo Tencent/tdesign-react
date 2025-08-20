@@ -1,9 +1,10 @@
 :: BASE_DOC ::
 
 ## API
+
 ### Tree Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -29,7 +30,7 @@ expanded | Array | [] | 展开的节点值。TS 类型：`Array<TreeNodeValue>` 
 filter | Function | - | 节点过滤方法，只呈现返回值为 true 的节点，泛型 `T` 表示树节点 TS 类型。TS 类型：`(node: TreeNodeModel<T>) => boolean` | N
 hover | Boolean | - | 节点是否有悬浮状态 | N
 icon | TNode | true | 节点图标，可自定义。TS 类型：`boolean \| TNode<TreeNodeModel<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-keys | Object | - | 用来定义 `value / label / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`。TS 类型：`TreeKeysType` `interface TreeKeysType { value?: string; label?: string; children?: string }`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
+keys | Object | - | 用来定义 `value / label / disabled / children` 在 `data` 数据中对应的字段别名，示例：`{ value: 'key', label 'name', children: 'list' }`。其中，disabled 待开发。TS 类型：`TreeKeysType`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 label | TNode | true | 自定义节点内容，值为 `false` 不显示，值为 `true` 显示默认 label，值为字符串直接输出该字符串。泛型 `T` 表示树节点 TS 类型。<br/>如果期望只有点击复选框才选中，而点击节点不选中，可以使用 `label` 自定义节点，然后加上点击事件 `e.preventDefault()`，通过调整自定义节点的宽度和高度决定禁止点击选中的范围。TS 类型：`string \| boolean \| TNode<TreeNodeModel<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 lazy | Boolean | true | 延迟加载 children 为 true 的节点的子节点数据，即使 expandAll 被设置为 true，也同样延迟加载 | N
 line | TNode | false | 连接线。值为 false 不显示连接线；值为 true 显示默认连接线；值类型为 Function 表示自定义连接线。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -37,15 +38,15 @@ load | Function | - | 加载子数据的方法，在展开节点时调用（仅�
 operations | TElement | - | 自定义节点操作项，泛型 `T` 表示树节点 TS 类型。TS 类型：`TNode<TreeNodeModel<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 scroll | Object | - | 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`。TS 类型：`TScroll`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 transition | Boolean | true | 节点展开折叠时是否使用过渡动画 | N
-value | Array | [] | 选中值（组件为可选状态时）。TS 类型：`Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
-defaultValue | Array | [] | 选中值（组件为可选状态时）。非受控属性。TS 类型：`Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
-valueMode | String | onlyLeaf | 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaft 表示无论什么情况，选中值仅呈现叶子节点。可选项：onlyLeaf/parentFirst/all | N
+value | Array | [] | 选中值，组件为可选状态时有效。TS 类型：`Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
+defaultValue | Array | [] | 选中值，组件为可选状态时有效。非受控属性。TS 类型：`Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
+valueMode | String | onlyLeaf | 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaf 表示无论什么情况，选中值仅呈现叶子节点。可选项：onlyLeaf/parentFirst/all | N
 onActive | Function |  | TS 类型：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'setItem' }) => void`<br/>节点激活时触发，泛型 `T` 表示树节点 TS 类型 | N
 onChange | Function |  | TS 类型：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: any; trigger: 'node-click' \| 'setItem' }) => void`<br/>节点选中状态变化时触发，context.node 表示当前变化的选项，泛型 `T` 表示树节点 TS 类型 | N
 onClick | Function |  | TS 类型：`(context: { node: TreeNodeModel<T>; e: MouseEvent }) => void`<br/>节点点击时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDragEnd | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点结束拖拽时触发，泛型 `T` 表示树节点 TS 类型 | N
-onDragLeave | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
-onDragOver | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
+onDragLeave | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T>; dragNode: TreeNodeModel<T>; dropPosition: number; }) => void`<br/>节点拖拽时离开目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
+onDragOver | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T>; dragNode: TreeNodeModel<T>; dropPosition: number; }) => void`<br/>节点拖拽到目标元素时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDragStart | Function |  | TS 类型：`(context: { e: DragEvent; node: TreeNodeModel<T> }) => void`<br/>节点开始拖拽时触发，泛型 `T` 表示树节点 TS 类型 | N
 onDrop | Function |  | TS 类型：`(context: {     e: DragEvent;     dragNode: TreeNodeModel<T>;     dropNode: TreeNodeModel<T>;     dropPosition: number;   }) => void`<br/>节点在目标元素上释放时触发，泛型 `T` 表示树节点 TS 类型 | N
 onExpand | Function |  | TS 类型：`(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'icon-click' \| 'setItem' }) => void`<br/>节点展开或收起时触发，泛型 `T` 表示树节点 TS 类型 | N
@@ -73,7 +74,7 @@ setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | 必需。设�
 
 ### TreeNodeState
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 activable | Boolean | false | 节点是否允许被激活 | N
 actived | Boolean | false | 节点是否被激活 | N
@@ -91,7 +92,7 @@ visible | Boolean | false | 节点是否可视 | N
 
 ### TreeNodeModel
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 actived | Boolean | - | 必需。当前节点是否处于高亮激活态 | Y
 checked | Boolean | - | 必需。当前节点是否被选中 | Y
@@ -100,8 +101,7 @@ expanded | Boolean | - | 必需。当前节点是否展开 | Y
 indeterminate | Boolean | - | 必需。当前节点是否处于半选状态 | Y
 loading | Boolean | - | 必需。当前节点是否处于加载中状态 | Y
 `TreeNodeState` | \- | - | 继承 `TreeNodeState` 中的全部属性 | N
-
-### TreeNodeModelFunctions
+### TreeNodeModel
 
 名称 | 参数 | 返回值 | 描述
 -- | -- | -- | --
@@ -124,7 +124,7 @@ setData | `(data: T)` | \- | 必需。设置节点数据，数据变化可自动
 
 ### TScroll
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 bufferSize | Number | 20 | 表示除可视区域外，额外渲染的行数，避免快速滚动过程中，新出现的内容来不及渲染从而出现空白 | N
 isFixedRowHeight | Boolean | false | 表示每行内容是否同一个固定高度，仅在 `scroll.type` 为 `virtual` 时有效，该属性设置为 `true` 时，可用于简化虚拟滚动内部计算逻辑，提升性能，此时则需要明确指定 `scroll.rowHeight` 属性的值 | N
