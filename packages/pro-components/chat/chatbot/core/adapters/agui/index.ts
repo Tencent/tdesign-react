@@ -49,6 +49,9 @@ export class AGUIAdapter {
    * @returns 转换后的ChatMessagesData数组
    */
   static convertHistoryMessages(historyMessages: AGUIHistoryMessage[]): ChatMessagesData[] {
+    if (!historyMessages || historyMessages.length === 0) {
+      return [];
+    }
     const convertedMessages: ChatMessagesData[] = [];
     const toolCallMap = new Map<string, any>(); // 存储工具调用结果
 

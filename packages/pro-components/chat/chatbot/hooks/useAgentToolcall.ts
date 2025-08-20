@@ -1,6 +1,5 @@
 import { useCallback, useRef, useEffect } from 'react';
-import { ToolcallComponentProps } from '@tencent/tdesign-chatbot-dev';
-import type { AgentToolcallConfig } from '../components/toolcall/types';
+import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import { agentToolcallRegistry } from '../components/toolcall/registry';
 import { withAgentStateToolcall } from '../components/toolcall';
 
@@ -44,7 +43,6 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
         console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
       }
 
-      console.log('====manual register', cfg.name);
       agentToolcallRegistry.register(cfg);
       registeredNamesRef.current.add(cfg.name);
     });
@@ -58,7 +56,6 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
       agentToolcallRegistry.unregister(name);
       registeredNamesRef.current.delete(name);
       autoRegisteredNamesRef.current.delete(name);
-      console.log('====manual unregister', name);
     });
   }, []);
 
@@ -86,7 +83,6 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
         console.warn(`[useAgentToolcall] 配置名称 "${cfg.name}" 已存在于注册表中，将被覆盖`);
       }
 
-      console.log('====auto register', cfg.name);
       agentToolcallRegistry.register(cfg);
       autoRegisteredNamesRef.current.add(cfg.name);
     });
@@ -96,7 +92,6 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
       configs.forEach((cfg) => {
         agentToolcallRegistry.unregister(cfg.name);
         autoRegisteredNamesRef.current.delete(cfg.name);
-        console.log('====auto unregister', cfg.name);
       });
     };
   }, [config]);
@@ -123,12 +118,18 @@ export interface ToolConfigWithStateOptions<TArgs extends object = any, TResult 
   component: React.ComponentType<ToolcallComponentProps<TArgs, TResult> & { agentState?: Record<string, any> }>;
 }
 
-// 修改函数签名
+// 修改函数签名，支持单个配置或配置数组
 export const createToolConfigWithState = <TArgs extends object = any, TResult = any>(
-  config: ToolConfigWithStateOptions<TArgs, TResult>,
-): AgentToolcallConfig<TArgs, TResult> => ({
-  name: config.name,
-  description: config.description,
-  parameters: config.parameters,
-  component: withAgentStateToolcall(config.component) as React.FC<ToolcallComponentProps<TArgs, TResult>>,
-});
+  config: ToolConfigWithStateOptions<TArgs, TResult> | ToolConfigWithStateOptions<TArgs, TResult>[],
+): AgentToolcallConfig<TArgs, TResult> | AgentToolcallConfig<TArgs, TResult>[] => {
+  const configs = Array.isArray(config) ? config : [config];
+  
+  const result = configs.map((cfg) => ({
+    name: cfg.name,
+    description: cfg.description,
+    parameters: cfg.parameters,
+    component: withAgentStateToolcall(cfg.component) as React.FC<ToolcallComponentProps<TArgs, TResult>>,
+  }));
+  
+  return Array.isArray(config) ? result : result[0];
+};

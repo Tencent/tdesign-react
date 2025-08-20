@@ -61,17 +61,6 @@ export default function TravelPlannerChat() {
   // 注册旅游相关的 Agent Toolcalls
   useAgentToolcall(travelActions);
 
-  // 规划状态管理 - 用于右侧面板展示
-  // 使用 useAgentState Hook 管理状态
-  const { state: travelState, stateKey } = useAgentState();
-
-  const planningState = useMemo(() => {
-    if (!travelState || !stateKey || !travelState[stateKey]) {
-      return [];
-    }
-    return travelState[stateKey];
-  }, [travelState, stateKey]);
-
   const [currentStep, setCurrentStep] = useState<string>('');
 
   // 加载历史消息
@@ -230,7 +219,10 @@ export default function TravelPlannerChat() {
         };
 
         // 继续对话
-        await chatEngine.continueChat(newRequestParams);
+        await chatEngine.sendAIMessage({
+          params: newRequestParams,
+          sendRequest: true,
+        });
         listRef.current?.scrollList({ to: 'bottom' });
       } catch (error) {
         console.error('提交工具调用响应失败:', error);
@@ -355,11 +347,32 @@ export default function TravelPlannerChat() {
       </div>
 
       {/* 右下角固定规划状态面板 */}
-      {planningState && (
-        <div className="planning-panel-fixed">
-          <PlanningStatePanel state={planningState} currentStep={currentStep} />
-        </div>
-      )}
+      <PlanningStatePanel className="planning-panel-fixed" currentStep={currentStep} />
+      {/* <Button
+            onClick={() => {
+              chatEngine.sendAIMessage({
+                sendRequest: false,
+                content: [
+                  {
+                    type: 'text',
+                    data: '测试sendAIMessage',
+                  },
+                  {
+                    type: 'toolcall',
+                    data: {
+                      args: '',
+                      result:
+                        '[{"name":"北京国贸大饭店","rating":4.8,"price":1200},{"name":"北京长城脚下的公社","rating":4.5,"price":800},{"name":"北京四合院宾馆","rating":4.2,"price":600}]',
+                      toolCallId: 'tool_1755434893837_2232323',
+                      toolCallName: 'get_hotel_details',
+                    },
+                  },
+                ],
+              });
+            }}
+          >
+            测试sendAIMessage
+          </Button> */}
     </div>
   );
 }

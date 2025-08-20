@@ -41,6 +41,13 @@ export const docs = [
         component: () => import('@tdesign/common/dark-mode.md'),
         componentEn: () => import('@tdesign/common/dark-mode.en-US.md'),
       },
+      {
+        title: '自定义样式',
+        titleEn: 'Style Customization',
+        name: 'custom-style',
+        path: '/react-aigc/custom-style',
+        component: () => import('./docs/style.md'),
+      },
     ],
   },
   {

@@ -1,6 +1,6 @@
 {
   "name": "@tencent/tdesign-chatbot-dev",
-  "version": "1.0.1-beta.30",
+  "version": "1.0.1-beta.33",
   "title": "@tdesign-react/aigc",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",

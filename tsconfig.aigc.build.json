@@ -3,6 +3,7 @@
   "include": ["packages/pro-components/chat"],
   "exclude": ["**/**/__tests__/*", "**/**/_example/*", "**/**/_usage/*", "es", "node_modules"],
   "compilerOptions": {
+    "jsx": "react-jsx",
     "emitDeclarationOnly": true,
     "rootDir": "packages/pro-components/chat",
     "skipLibCheck": true

@@ -179,7 +179,7 @@ export default function ComponentsBuild() {
   };
 
   return (
-    <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }} className="accessible-chat">
       <ChatList ref={listRef} style={{ width: '100%' }} onScroll={onScrollHandler}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
@@ -189,6 +189,7 @@ export default function ComponentsBuild() {
       </ChatList>
       <ChatSender
         ref={inputRef}
+        className="my-chat-sender"
         value={inputValue}
         placeholder="请输入内容"
         loading={senderLoading}

@@ -89,6 +89,48 @@ export function handleCustomEvent(event: any): any {
 }
 
 /**
+ * 深度合并函数
+ * 递归合并对象，避免浅合并导致的状态丢失
+ * @param target 目标对象
+ * @param source 源对象
+ * @returns 合并后的对象
+ */
+export function deepMerge(target: any, source: any): any {
+  if (source === null || source === undefined) {
+    return target;
+  }
+
+  if (typeof source !== 'object') {
+    return source;
+  }
+
+  if (Array.isArray(source)) {
+    // 对于数组，直接替换（因为AGUI的状态通常是完整的数组）
+    return [...source];
+  }
+
+  if (typeof target !== 'object' || target === null) {
+    return { ...source };
+  }
+
+  const result = { ...target };
+  
+  for (const key in source) {
+    if (source.hasOwnProperty(key)) {
+      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        // 递归合并嵌套对象
+        result[key] = deepMerge(result[key], source[key]);
+      } else {
+        // 直接赋值（包括数组、基本类型等）
+        result[key] = source[key];
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
  * 解析SSE数据
  * @param data SSE数据，可能是字符串或已解析的对象
  * @returns 解析后的事件对象或null
@@ -119,7 +161,7 @@ export function isValidEvent(event: any): boolean {
  * @param prefix 前缀
  * @returns 连接ID
  */
-export function generateConnectionId(prefix = 'sse'): string {
+export function generateConnectionId(prefix: string = 'sse'): string {
   const timestamp = Date.now();
   return `${prefix}_${timestamp}_${Math.random().toString(36).substr(2, 9)}`;
 }

@@ -142,6 +142,7 @@ spline: navigation
 | --------------------- | --------------------------------------------------------------------------------- | -------------------------------------------- |
 | setMessages           | (messages: ChatMessagesData[], mode?: 'replace' \| 'prepend' \| 'append') => void | 批量设置消息                                 |
 | sendUserMessage       | (params: ChatRequestParams) => Promise<void>                                      | 发送用户消息，处理请求参数并触发消息流       |
+| sendAIMessage       | (params: ChatRequestParams) => Promise<void>                                      | 发送AI消息，处理请求参数并触发消息流       |
 | sendSystemMessage     | (msg: string) => void                                                             | 发送系统级通知消息，用于展示系统提示/警告    |
 | abortChat             | () => Promise<void>                                                               | 中止当前进行中的聊天请求，清理网络连接       |
 | addPrompt             | (prompt: string) => void                                                          | 将预设提示语添加到输入框，辅助用户快速输入   |
@@ -177,11 +178,66 @@ useChat 是聊天组件核心逻辑 Hook，用于管理聊天状态与生命周�
 
 useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提供了统一的工具调用适配器机制，支持自定义工具调用的渲染组件和交互逻辑。
 
+#### 基本用法
+
+```typescript
+import { useAgentToolcall, createToolConfigWithState } from '@tencent/tdesign-chatbot-dev';
+
+// 方式一：自动注册模式
+const toolConfigs = [
+  {
+    name: 'weather_query',
+    description: '查询天气信息',
+    parameters: [
+      { name: 'city', type: 'string', required: true, description: '城市名称' }
+    ],
+    component: WeatherComponent
+  }
+];
+
+const { register, unregister, isRegistered } = useAgentToolcall(toolConfigs);
+
+// 方式二：手动注册模式
+const { register, unregister, isRegistered } = useAgentToolcall();
+
+useEffect(() => {
+  register({
+    name: 'custom_tool',
+    description: '自定义工具',
+    parameters: [],
+    component: CustomComponent
+  });
+}, [register]);
+
+// 方式三：带状态感知的工具配置
+const toolConfigWithState = createToolConfigWithState({
+  name: 'show_steps',
+  description: '显示步骤信息',
+  parameters: [{ name: 'stepId', type: 'string' }],
+  component: ({ status, args, agentState }) => {
+    const stepData = agentState?.[args.stepId];
+    return <StepDisplay data={stepData} />;
+  }
+});
+
+useAgentToolcall([toolConfigWithState]);
+```
+
 #### 参数说明
 
 | 参数名 | 类型 | 说明 |
 | ------ | ---- | ---- |
-| config | AgentToolcallConfig | 工具调用配置对象 |
+| config | AgentToolcallConfig \| AgentToolcallConfig[] \| null \| undefined | 工具调用配置对象或数组，传入时自动注册，不传入时手动注册 |
+
+#### 返回值说明
+
+| 返回值 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| register | (config: AgentToolcallConfig \| AgentToolcallConfig[]) => void | 手动注册工具配置 |
+| unregister | (names: string \| string[]) => void | 取消注册工具配置 |
+| isRegistered | (name: string) => boolean | 检查工具是否已注册 |
+| getRegistered | () => string[] | 获取所有已注册的工具名称 |
+| config | any | 当前配置的引用 |
 
 #### AgentToolcallConfig 配置说明
 
@@ -190,14 +246,15 @@ useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提
 | name | string | 工具调用名称，需要与后端定义的工具名称一致 | Y |
 | description | string | 工具调用描述 | Y |
 | parameters | ParameterDefinition[] | 参数定义数组 | Y |
-| component | React.ComponentType | 自定义渲染组件 | Y |
+| component | React.ComponentType<ToolcallComponentProps> | 自定义渲染组件 | Y |
+| handler | (args: TArgs, result?: TResult) => Promise<TResponse> | 非交互式工具的处理函数（可选） | N |
 
 #### ParameterDefinition 参数定义
 
 | 属性名 | 类型 | 说明 | 必传 |
 | ------ | ---- | ---- | ---- |
 | name | string | 参数名称 | Y |
-| type | string | 参数类型 | Y |
+| type | string | 参数类型（如 'string', 'number', 'boolean'） | Y |
 | required | boolean | 是否必传 | N |
 | description | string | 参数描述 | N |
 
@@ -205,29 +262,79 @@ useAgentToolcall 是用于注册 AG-UI 协议工具调用组件的 Hook，它提
 
 | 属性名 | 类型 | 说明 |
 | ------ | ---- | ---- |
-| status | 'pending' \| 'streaming' \| 'complete' \| 'error' | 工具调用状态 |
+| status | 'idle' \| 'executing' \| 'complete' \| 'error' | 工具调用状态 |
 | args | TArgs | 解析后的工具调用参数 |
 | result | TResult | 工具调用结果 |
 | error | Error | 错误信息（当 status 为 'error' 时） |
-| onRespond | (response: TResponse) => void | 响应回调函数 |
+| respond | (response: TResponse) => void | 响应回调函数（用于交互式工具） |
 
+#### createToolConfigWithState 辅助函数
+
+用于创建带状态感知的工具配置，自动为组件注入 `agentState` 属性：
+
+```typescript
+const config = createToolConfigWithState({
+  name: 'tool_name',
+  description: '工具描述',
+  parameters: [],
+  component: ({ status, args, agentState }) => {
+    // agentState 会自动注入当前的状态数据
+    return <YourComponent />;
+  }
+});
+```
 
 ### useAgentState Hook
 
 useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵活的状态订阅机制，根据是否传入stateKey自动决定订阅模式。
 
+#### 基本用法
+
+```typescript
+import { useAgentState, AgentStateProvider } from '@tencent/tdesign-chatbot-dev';
+
+// 方式一：在组件中直接使用
+const MyComponent = () => {
+  const { state, setStateMap, stateKey } = useAgentState({
+    initialState: {},
+    stateKey: 'my-task-id' // 可选，用于状态隔离
+  });
+
+  // 处理历史状态恢复
+  const loadHistoryState = (historyState) => {
+    setStateMap(historyState);
+  };
+
+  return <div>{/* 使用状态数据 */}</div>;
+};
+
+// 方式二：使用 Provider 模式（推荐）
+const App = () => {
+  return (
+    <AgentStateProvider initialState={{}}>
+      <MyComponent />
+    </AgentStateProvider>
+  );
+};
+
+const MyComponent = () => {
+  const { state, setStateMap } = useAgentStateContext();
+  return <div>{/* 使用状态数据 */}</div>;
+};
+```
+
 #### 参数说明
 
 | 参数名 | 类型 | 说明 |
 | ------ | ---- | ---- |
-| options | StateActionOptions & { stateKey?: string; } | 状态订阅配置选项 |
+| options | StateActionOptions | 状态订阅配置选项 |
 
 #### StateActionOptions 配置说明
 
 | 属性名 | 类型 | 说明 | 必传 |
 | ------ | ---- | ---- | ---- |
 | stateKey | string | 指定要订阅的 stateKey。传入时为绑定模式（适用于状态隔离场景），不传入时为最新模式（适用于状态覆盖场景）。多轮对话建议设置，一般为 runId | N |
-| initialState | Record<string, T> | 初始状态值，用于设置stateMap的初始值 | N |
+| initialState | Record<string, any> | 初始状态值，用于设置stateMap的初始值 | N |
 
 #### 返回值说明
 
@@ -235,16 +342,27 @@ useAgentState 是用于订阅 AG-UI 协议状态事件的 Hook，它提供了灵
 | ------ | ---- | ---- |
 | state | Record<string, any> | 当前状态数据映射表，包含所有订阅的状态 |
 | stateKey | string \| null | 当前活跃状态的 key（latest模式）或绑定的stateKey（bound模式） |
-| updating | boolean | 状态是否正在更新中 |
-| setStateMap | (stateMap: Record<string, any>) => void | 手动设置状态映射表的方法 |
+| setStateMap | (stateMap: Record<string, any> \| ((prev: Record<string, any>) => Record<string, any>)) => void | 手动设置状态映射表的方法，支持函数式更新 |
+| getCurrentState | () => Record<string, any> | 获取当前完整状态的方法 |
+| getStateByKey | (key: string) => any | 获取特定 key 状态的方法 |
 
+#### 订阅模式说明
+
+**绑定模式（Bound Mode）**：
+- 使用场景：状态隔离，多个任务并行执行
+- 触发条件：传入 `stateKey` 参数
+- 行为：只订阅指定 stateKey 的状态变化
+
+**最新模式（Latest Mode）**：
+- 使用场景：状态覆盖，单任务执行
+- 触发条件：不传入 `stateKey` 参数
+- 行为：订阅最新的状态变化，自动切换到最新的 stateKey
 
 #### 状态数据结构
 
 AG-UI 协议的状态数据通常包含以下结构：
 
 ```typescript
-
 interface StateData {
   items: Array<{
     label: string;
@@ -257,4 +375,50 @@ interface StateData {
     }>;
   }>;
 }
+
+// 实际使用中的状态结构示例
+const exampleState = {
+  'task-123': {
+    items: [
+      {
+        label: '步骤1：数据收集',
+        status: 'completed',
+        content: '已完成数据收集',
+        items: [
+          { label: '子任务1', status: 'completed', content: '完成' }
+        ]
+      },
+      {
+        label: '步骤2：数据处理',
+        status: 'running',
+        content: '正在处理数据...'
+      }
+    ]
+  }
+};
 ```
+
+### useAgentStateContext Hook
+
+用于在组件树中获取 AgentStateProvider 提供的状态上下文：
+
+```typescript
+import { useAgentStateContext } from '@tencent/tdesign-chatbot-dev';
+
+const MyComponent = () => {
+  const { state, setStateMap, stateKey } = useAgentStateContext();
+  
+  // 必须在 AgentStateProvider 内部使用
+  return <div>{/* 使用状态 */}</div>;
+};
+```
+
+#### 返回值
+
+返回值与 `useAgentState` 相同，包含完整的状态管理接口。
+
+#### 注意事项
+
+- 必须在 `AgentStateProvider` 组件内部使用
+- 如果在 Provider 外部使用会抛出错误
+- 推荐在需要跨组件共享状态时使用

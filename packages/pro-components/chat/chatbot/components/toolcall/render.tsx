@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import type { ToolCall } from '../../core/type';
 import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
-import { useAgentStateContext } from '../../hooks/useAgentState';
+import { useAgentStateContext, UseStateActionReturn } from '../../hooks/useAgentState';
 
 interface ToolCallRendererProps {
   toolCall: ToolCall;
@@ -10,7 +10,7 @@ interface ToolCallRendererProps {
 }
 
 export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
-  ({ toolCall, onRespond }) => {
+  ({ toolCall, onRespond }): React.ReactElement | null => {
     const [actionState, setActionState] = useState<{
       status: ToolcallComponentProps['status'];
       result?: any;
@@ -36,7 +36,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       (response: any) => {
         if (onRespond) {
           onRespond(toolCall, response);
-          setActionState(prev => ({
+          setActionState((prev) => ({
             ...prev,
             status: 'complete',
             result: response,
@@ -126,11 +126,12 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
 
     return <MemoizedComponent {...componentProps} />;
   },
-  (prevProps, nextProps) => prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId
-    && prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName
-    && prevProps.toolCall.args === nextProps.toolCall.args
-    && prevProps.toolCall.result === nextProps.toolCall.result
-    && prevProps.onRespond === nextProps.onRespond,
+  (prevProps, nextProps) =>
+    prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId &&
+    prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName &&
+    prevProps.toolCall.args === nextProps.toolCall.args &&
+    prevProps.toolCall.result === nextProps.toolCall.result &&
+    prevProps.onRespond === nextProps.onRespond,
 );
 
 // 用于调试，可以在控制台查看每次渲染的参数
@@ -164,12 +165,10 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
 type WithAgentStateProps<P> = P & { agentState?: Record<string, any> };
 
 // 创建一个高阶组件来包装需要状态的工具组件
-export const withAgentStateToolcall = <P extends object>(
-  Component: React.ComponentType<WithAgentStateProps<P>>,
-): React.ComponentType<P> => {
-  const WrappedComponent: React.FC<P> = (props: P) => {
+export const withAgentStateToolcall = <P extends object>(Component: React.ComponentType<WithAgentStateProps<P>>) => {
+  const WrappedComponent = (props: P) => {
     // 尝试获取 Context 状态
-    let contextState = null;
+    let contextState: UseStateActionReturn['state'] | null = null;
     try {
       const context = useAgentStateContext();
       contextState = context.state;

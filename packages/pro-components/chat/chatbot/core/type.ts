@@ -145,8 +145,6 @@ export interface AIMessage extends ChatBaseMessage {
   history?: AIMessageContent[][];
   /** 点赞点踩 */
   comment?: ChatComment;
-  /** 工具调用 - 兼容 AGUI/OpenAI 协议 */
-  toolCalls?: ToolCall[];
 }
 
 export interface SystemMessage extends ChatBaseMessage {
@@ -220,33 +218,81 @@ export type ChatServiceConfigSetter = ChatServiceConfig | ((params?: any) => Cha
 
 // 统一的引擎接口
 export interface IChatEngine {
-  /** 初始化引擎 - 不同引擎使用不同的配置类型 */
+  /**
+   * 初始化聊天引擎
+   * @param config 聊天服务配置或配置生成函数，包含网络请求配置和回调函数
+   * @param messages 初始消息列表，用于恢复历史对话
+   * @description 必须在使用其他方法前调用此方法进行初始化
+   */
   init(config?: any, messages?: ChatMessagesData[]): void;
 
-  /** 发送用户消息 */
+  /**
+   * 发送用户消息并获取AI回复
+   * @param params 请求参数，包含用户输入的文本和附件
+   * @description 创建用户消息和AI消息，并发送请求获取AI回复
+   */
   sendUserMessage(params: ChatRequestParams): Promise<void>;
 
-  /** 重新生成AI回复 */
+  /**
+   * 重新生成AI回复
+   * @param keepVersion 是否保留历史版本，默认为false
+   * @description
+   * - 当keepVersion=false时：删除最后一条AI消息，创建新消息并重新请求
+   * - 当keepVersion=true时：保留旧消息，创建分支消息并重新请求
+   */
   regenerateAIMessage(keepVersion?: boolean): Promise<void>;
 
-  /** 中止聊天 */
+  /**
+   * 中止当前进行中的聊天请求
+   * @description 停止接收流式响应，关闭连接，并调用配置的onAbort回调
+   */
   abortChat(): Promise<void>;
 
-  /** 设置消息 */
+  /**
+   * 设置消息列表
+   * @param messages 要设置的消息数组
+   * @param mode 设置模式：'replace'(替换)、'prepend'(前置)、'append'(追加)，默认为'replace'
+   * @description 用于批量更新消息，如加载历史消息或重置对话
+   */
   setMessages(messages: ChatMessagesData[], mode?: ChatMessageSetterMode): void;
 
-  /** 清空消息 */
+  /**
+   * 清空所有消息
+   * @description 清除消息存储中的所有历史记录
+   */
   clearMessages(): void;
 
-  /** 注册合并策略 */
+  /**
+   * 注册内容块合并策略
+   * @param type 内容类型，如'text'、'markdown'等
+   * @param handler 合并处理函数，接收新块和现有块，返回合并后的内容块
+   * @description 用于自定义不同类型内容的增量更新逻辑
+   */
   registerMergeStrategy<T extends AIMessageContent>(type: T['type'], handler: (chunk: T, existing?: T) => T): void;
 
   // 属性访问
+  /**
+   * 获取当前所有消息
+   * @returns 消息数组
+   */
   get messages(): ChatMessagesData[];
+
+  /**
+   * 获取当前聊天状态
+   * @returns 聊天状态：'idle'、'pending'、'streaming'、'complete'、'stop'或'error'
+   */
   get status(): ChatStatus;
+
+  /**
+   * 获取消息存储实例
+   * @returns 消息存储对象
+   */
   get messageStore(): any; // 抽象化，不同引擎可能有不同的store
 
-  // 销毁
+  /**
+   * 销毁聊天引擎实例
+   * @description 中止请求，清理消息存储和适配器，释放资源
+   */
   destroy(): void;
 }
 

@@ -19,7 +19,7 @@ export default class MessageProcessor {
     this.registerDefaultHandlers();
   }
 
-  public createUserMessage(content: string, attachments?: AttachmentItem[]): ChatMessagesData {
+  public createUserMessage(content = '', attachments?: AttachmentItem[]): ChatMessagesData {
     const messageContent: UserMessage['content'] = [
       {
         type: 'text',
@@ -43,14 +43,15 @@ export default class MessageProcessor {
     };
   }
 
-  public createAssistantMessage(): AIMessage {
-    // 创建初始助手消息
+  public createAssistantMessage(msg?: { content?: AIMessageContent[]; status?: AIMessage['status'] }): AIMessage {
+    const { content = [], status = 'pending' } = msg || {};
+
     return {
       id: this.generateID(),
       role: 'assistant',
-      status: 'pending',
-      datetime: `${Date.now()}`,
-      content: [],
+      content,
+      status,
+      datetime: new Date().toISOString(),
     };
   }
 

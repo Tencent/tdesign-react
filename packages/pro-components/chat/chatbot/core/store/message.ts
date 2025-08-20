@@ -111,14 +111,14 @@ export class MessageStore extends ReactiveState<ChatMessageStore> {
   }
 
   // 为AI消息设置工具调用
-  setMessageToolCalls(messageId: string, toolCalls: ToolCall[]) {
-    this.setState((draft) => {
-      const message = draft.messages.find((m) => m.id === messageId);
-      if (message && isAIMessage(message)) {
-        message.toolCalls = toolCalls;
-      }
-    });
-  }
+  // setMessageToolCalls(messageId: string, toolCalls: ToolCall[]) {
+  //   this.setState((draft) => {
+  //     const message = draft.messages.find((m) => m.id === messageId);
+  //     if (message && isAIMessage(message)) {
+  //       message.toolCalls = toolCalls;
+  //     }
+  //   });
+  // }
 
   clearHistory() {
     this.setState((draft) => {

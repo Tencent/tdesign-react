@@ -17,6 +17,7 @@ export interface ToolcallComponentProps<TArgs extends object = any, TResult = an
    * 仅在"交互式"场景下由宿主提供。
    */
   respond?: (response: TResponse) => void;
+  agentState?: Record<string, any>;
 }
 
 // 场景一：非交互式 Toolcall 的配置 (有 handler)
