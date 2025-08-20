@@ -6,6 +6,25 @@
     "options": []
   },
   {
+    "name": "animation",
+    "type": "enum",
+    "defaultValue": "none",
+    "options": [
+      {
+        "label": "none",
+        "value": "none"
+      },
+      {
+        "label": "gradient",
+        "value": "gradient"
+      },
+      {
+        "label": "flashed",
+        "value": "flashed"
+      }
+    ]
+  },
+  {
     "name": "theme",
     "type": "enum",
     "defaultValue": "text",

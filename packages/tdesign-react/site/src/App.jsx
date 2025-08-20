@@ -11,9 +11,10 @@ import packageJson from '../../package.json';
 import * as siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
 
-const LazyDemo = lazy(() => import('./components/Demo'));
+import Demo from './components/Demo';
 
 const isDev = import.meta.env.DEV;
+const LazyDemo = isDev? Demo: lazy(() => import('./components/Demo'));
 
 const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig.default).replace(/component:.+/g, ''));
 

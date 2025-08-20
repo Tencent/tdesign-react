@@ -28,12 +28,13 @@ export default function renderDemo(md, container) {
         const demoDefName = `Demo${demoPathOnlyLetters}`;
         const demoCodeDefName = `Demo${demoPathOnlyLetters}Code`;
         const demoJsxCodeDefName = `Demo${demoPathOnlyLetters}JsxCode`;
-
+        const isDev = process.env.NODE_ENV === 'development';
         const tpl = `
             <td-doc-demo component-name="${componentName.trim()}" demo-name="${demoName}" languages="TypeScript,JavaScript" data-JavaScript={${demoJsxCodeDefName}} data-TypeScript={${demoCodeDefName}}>
               <div slot="action">
                 <Stackblitz code={${demoCodeDefName}} demoName="${demoName}"/>
                 <Codesandbox code={${demoCodeDefName}} demoName="${demoName}"/>
+                ${isDev ? `<NewWindow demoName="${demoName}"/>` : ''}
               </div>
               <div className="tdesign-demo-item__body">
                 <div style={{width: '100%'}}><${demoDefName} /></div>
