@@ -70,7 +70,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   const [visibleNodes, setVisibleNodes] = useState([]);
 
   // 国际化文本初始化
-  const emptyText = locale('empty');
+  const emptyText = empty || locale('empty');
 
   const store = useStore(
     {
@@ -296,10 +296,12 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     [visibleNodes],
   );
 
-  const renderEmpty = () => parseTNode(empty, null, emptyText);
+  const renderEmpty = () => parseTNode(emptyText);
 
   const renderItems = (renderNode: TreeNode[]) => {
+    console.log('renderNode', renderNode, renderNode.length);
     if (renderNode.length <= 0) {
+      console.log('empty')
       return renderEmpty();
     }
     if (isVirtual)
