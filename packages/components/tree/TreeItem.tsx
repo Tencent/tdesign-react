@@ -390,7 +390,7 @@ const TreeItem = forwardRef(
           } as CSSProperties
         }
         onClick={handleClick}
-        draggable={node.isDraggable()}
+        draggable={!node.isDisabled() && node.isDraggable()}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
