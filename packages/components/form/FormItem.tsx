@@ -188,7 +188,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules): FormRule[] {
     if (Array.isArray(name)) {
-      return get(formRules?.[formListName], name) || get(formListRules, name) || [];
+      return get(formRules?.[formListName], name) || get(formListRules, name) || get(formRules, name.join('.')) || [];
     }
     return formRules?.[name] || formListRules || [];
   }
