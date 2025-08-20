@@ -89,7 +89,6 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
 
   function initial() {
     const nodes = store?.getNodes();
-    console.log('nodes', nodes);
     const newVisibleNodes = nodes?.filter((node) => node.visible);
     setVisibleNodes(newVisibleNodes);
   }
@@ -299,9 +298,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   const renderEmpty = () => parseTNode(emptyText);
 
   const renderItems = (renderNode: TreeNode[]) => {
-    console.log('renderNode', renderNode, renderNode.length);
     if (renderNode.length <= 0) {
-      console.log('empty')
       return renderEmpty();
     }
     if (isVirtual)
