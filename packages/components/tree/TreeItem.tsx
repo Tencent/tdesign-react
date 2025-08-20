@@ -377,7 +377,7 @@ const TreeItem = forwardRef(
               : node.data[childrenKey] !== undefined),
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
-          [treeClassNames.treeNodeDraggable]: node.isDraggable(),
+          [treeClassNames.treeNodeDraggable]: !node.isDisabled() && node.isDraggable(),
           [treeClassNames.treeNodeDragging]: isDragging,
           [treeClassNames.treeNodeDragTipTop]: isDragOver && dropPosition < 0,
           [treeClassNames.treeNodeDragTipBottom]: isDragOver && dropPosition > 0,
