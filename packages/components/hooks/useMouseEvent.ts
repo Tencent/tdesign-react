@@ -102,9 +102,12 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
     const el = elementRef.current;
     if (!el) return;
 
+    // 基本上只要开启了鼠标事件，就会用到这三个
+    // 有的组件虽然只需要 mousemove 的回调结果，但也需要 mousedown 和 mouseup 来控制状态
     el.addEventListener('mousedown', handleMouseDown);
     el.addEventListener('mousemove', handleMouseMove);
     el.addEventListener('mouseup', handleMouseUp);
+    // 下面这两个一般是为了处理 hover 状态，可选性监听
     options.onEnter && el.addEventListener('mouseenter', handleMouseEnter);
     options.onLeave && el.addEventListener('mouseleave', handleMouseLeave);
 
