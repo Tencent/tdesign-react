@@ -6,7 +6,7 @@ import {
   GRADIENT_SLIDER_DEFAULT_WIDTH,
   gradientColors2string,
   type GradientColorPoint,
-} from '@tdesign/common-js/color-picker';
+} from '@tdesign/common-js/color-picker/index';
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useMouseEvent from '../../../hooks/useMouseEvent';
 import InputNumber from '../../../input-number';
