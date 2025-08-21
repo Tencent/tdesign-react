@@ -126,7 +126,7 @@ export default function useFilter(
     props.onChange?.({ filter: filterValue }, { trigger: 'filter' });
     // 重置表格滚动位置
     requestAnimationFrame(() => {
-      primaryTableRef.current.scrollToElement({
+      primaryTableRef.current?.scrollToElement({
         index: -1,
       });
     });
