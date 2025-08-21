@@ -78,15 +78,14 @@ export default function useDraggable(props: {
           isDragOver: true,
         });
         updateDropPosition(e);
-        onDragOver?.({ node, e });
+        onDragOver?.({ node, dropPosition: state.dropPosition, e });
         break;
       case 'dragLeave':
         setPartialState({
           isDragOver: false,
-          dropPosition: 0,
         });
         updateDropPosition.cancel();
-        onDragLeave?.({ node, e });
+        onDragLeave?.({ node, dropPosition: state.dropPosition, e });
         break;
       case 'drop':
         onDrop?.({ node, dropPosition: state.dropPosition, e, allowDrop });

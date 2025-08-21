@@ -1,17 +1,17 @@
 import { ReactNode } from 'react';
-import { StyledProps } from '../common';
+import { ScrollToElementParams, StyledProps } from '../common';
 import { TableTreeDataMap } from './hooks/tree-store';
 import { UseTreeDataReturnType } from './hooks/useTreeData';
 import {
-  TdBaseTableProps,
-  TableExpandedRowParams,
-  TableRowData,
-  TdPrimaryTableProps,
-  TdEnhancedTableProps,
-  RowspanColspan,
   BaseTableCol,
   PrimaryTableRowValidateContext,
   PrimaryTableValidateContext,
+  RowspanColspan,
+  TableExpandedRowParams,
+  TableRowData,
+  TdBaseTableProps,
+  TdEnhancedTableProps,
+  TdPrimaryTableProps,
 } from './type';
 
 export interface BaseTableProps<T extends TableRowData = TableRowData> extends TdBaseTableProps<T>, StyledProps {
@@ -46,6 +46,9 @@ export interface BaseTableRef {
   tableContentElement: HTMLDivElement;
   affixHeaderElement: HTMLDivElement;
   refreshTable: () => void;
+  scrollToElement: (params: ScrollToElementParams) => void;
+  scrollColumnIntoView: (columnIndex: string) => void;
+  updateTableWidthOnColumnChange: (colKeys: string[]) => void;
 }
 
 export interface PrimaryTableRef extends BaseTableRef {

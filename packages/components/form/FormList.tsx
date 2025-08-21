@@ -60,8 +60,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       setFields(cloneFields);
 
       const nextFormListValue = [...formListValue];
-      nextFormListValue.splice(index, 0, defaultValue);
-      setFormListValue(nextFormListValue);
+      if (typeof defaultValue !== 'undefined') {
+        nextFormListValue[index] = defaultValue;
+        setFormListValue(nextFormListValue);
+      }
 
       set(form?.store, flattenDeep([name, index]), nextFormListValue);
 
@@ -127,7 +129,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   useEffect(() => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
       if (!formItemRef.current) return;
-
       const { name, isUpdated } = formItemRef.current;
       if (isUpdated) return; // 内部更新过值则跳过
 
@@ -292,7 +293,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   }
 
   return (
-    <FormListContext.Provider value={{ name, rules, formListMapRef, initialData }}>
+    <FormListContext.Provider value={{ name, rules, formListMapRef, initialData, form }}>
       {children(fields, operation)}
     </FormListContext.Provider>
   );

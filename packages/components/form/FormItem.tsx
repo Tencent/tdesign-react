@@ -73,8 +73,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
-
+  const { name: formListName, rules: formListRules, formListMapRef, form: formOfFormList } = useFormListContext();
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
@@ -126,8 +125,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
+
+  const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]); // 用于处理 Form 嵌套的情况
   const snakeName = []
-    .concat(formListName, name)
+    .concat(isSameForm ? formListName : undefined, name)
     .filter((item) => item !== undefined)
     .toString(); // 转化 name
 
@@ -164,7 +165,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
-
     shouldEmitChangeRef.current = shouldEmitChange;
     isUpdatedRef.current = true;
     shouldValidate.current = validate;
@@ -172,7 +172,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     let fieldName = [].concat(name);
     let fieldValue = formValue;
-
     if (formListName) {
       fieldName = [].concat(formListName, name);
       fieldValue = get(form?.store, fieldName);
@@ -189,7 +188,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules): FormRule[] {
     if (Array.isArray(name)) {
-      return get(formRules?.[formListName], name) || get(formListRules, name) || [];
+      return get(formRules?.[formListName], name) || get(formListRules, name) || get(formRules, name.join('.')) || [];
     }
     return formRules?.[name] || formListRules || [];
   }
@@ -312,7 +311,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       resetHandler();
     }
     setResetValidating(false);
-
     return {
       [snakeName]: innerErrorList.length === 0 ? true : resultList,
     };
@@ -410,6 +408,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (!shouldUpdate || !form) return;
 
     const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
+
     const cancelRegister = registerWatch?.(() => {
       const currStore = form?.getFieldsValue?.(true) || {};
       let updateFlag = shouldUpdate as boolean;
@@ -426,7 +425,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (typeof name === 'undefined') return;
 
     // formList 下特殊处理
-    if (formListName) {
+    if (formListName && isSameForm) {
       formListMapRef.current.set(name, formItemRef);
       return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -434,7 +433,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         unset(form?.store, name);
       };
     }
-
     if (!formMapRef) return;
     formMapRef.current.set(name, formItemRef);
     return () => {
@@ -454,7 +452,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     // value change event
     if (typeof name !== 'undefined' && shouldEmitChangeRef.current) {
-      if (formListName) {
+      if (formListName && isSameForm) {
         // 整理 formItem 的值
         const formListValue = merge([], calcFieldValue(name, formValue));
         // 整理 formList 的值

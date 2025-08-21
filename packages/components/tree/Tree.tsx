@@ -33,24 +33,17 @@ import { usePersistFn } from '../hooks/usePersistFn';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 
 import type { TreeInstanceFunctions, TdTreeProps } from './type';
+import { treeDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
 const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((originalProps, ref) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-  const props = useDefaultProps<TreeProps>(originalProps, {
-    data: [],
-    expandLevel: 0,
-    icon: true,
-    line: false,
-    transition: true,
-    lazy: true,
-    valueMode: 'onlyLeaf',
-  });
 
-  // 可见节点集合
-  const [visibleNodes, setVisibleNodes] = useState([]);
+  const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
+    useControllable(originalProps);
+  const props = useDefaultProps<TreeProps>(originalProps, treeDefaultProps);
   const {
     empty,
     activable,
@@ -73,11 +66,11 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     onScroll,
   } = props;
 
-  const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
-    useControllable(props);
+  // 可见节点集合
+  const [visibleNodes, setVisibleNodes] = useState([]);
 
   // 国际化文本初始化
-  const emptyText = locale('empty');
+  const emptyText = empty || locale('empty');
 
   const store = useStore(
     {
@@ -302,7 +295,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     [visibleNodes],
   );
 
-  const renderEmpty = () => parseTNode(empty, null, emptyText);
+  const renderEmpty = () => parseTNode(emptyText);
 
   const renderItems = (renderNode: TreeNode[]) => {
     if (renderNode.length <= 0) {
