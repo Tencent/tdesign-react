@@ -6,20 +6,20 @@ export default function BasicUsage() {
     <Space direction="vertical">
       <Space>
         <TooltipLite
-          content="文字提示仅展示文本内容"
+          content="下方文字提示"
           placement="bottom"
           triggerElement={<Button variant="outline">下方文字提示</Button>}
         ></TooltipLite>
-        <TooltipLite content="提示" placement="top">
+        <TooltipLite content="上方文字提示" placement="top">
           <Button variant="outline">上方文字提示</Button>
         </TooltipLite>
-        <TooltipLite content="提示" placement="mouse">
+        <TooltipLite content="鼠标位置显示提示" placement="mouse">
           <Button variant="outline">鼠标位置显示提示</Button>
         </TooltipLite>
-        <TooltipLite content="提示" showArrow={false}>
+        <TooltipLite content="无箭头文字提示" showArrow={false}>
           <Button variant="outline">无箭头文字提示</Button>
         </TooltipLite>
-        <TooltipLite content="提示" showShadow={false}>
+        <TooltipLite content="无投影文字提示" showShadow={false}>
           <Button variant="outline">无投影文字提示</Button>
         </TooltipLite>
       </Space>
@@ -27,7 +27,7 @@ export default function BasicUsage() {
         <TooltipLite content="浅色提示" theme="light">
           <Button variant="outline">浅色模式</Button>
         </TooltipLite>
-        <TooltipLite content="浅色提示" theme="light" showArrow={false} showShadow={true}>
+        <TooltipLite content="无箭头浅色提示" theme="light" showArrow={false} showShadow={true}>
           <Button variant="outline">无箭头浅色模式</Button>
         </TooltipLite>
         <TooltipLite content="不可用提示">
