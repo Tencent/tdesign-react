@@ -186,7 +186,7 @@ describe('Tabs 组件测试', () => {
 
     const tabInstance = await waitFor(() => getByTestId(testId));
     fireEvent.click(tabInstance.querySelector('.remove-btn'));
-    expect(removeFn).toBeCalledTimes(1);
+    expect(removeFn).toHaveBeenCalledTimes(1);
   });
 
   test('remove disabled tab', async () => {
@@ -208,8 +208,7 @@ describe('Tabs 组件测试', () => {
     );
 
     const tabInstance = await waitFor(() => getByTestId(testId));
-    fireEvent.click(tabInstance.querySelector('.remove-btn'));
-    expect(removeFn).toBeCalledTimes(0);
+    expect(tabInstance.querySelector('.remove-btn')).toBeNull();
   });
 
   test('click tab item', async () => {
@@ -232,7 +231,7 @@ describe('Tabs 组件测试', () => {
 
     const tabInstance = await waitFor(() => getByTestId(testId));
     fireEvent.click(tabInstance.querySelector('.t-tabs__nav-item'));
-    expect(clickFn).toBeCalledTimes(1);
+    expect(clickFn).toHaveBeenCalledTimes(1);
   });
 
   test('add tab item', async () => {
@@ -255,7 +254,7 @@ describe('Tabs 组件测试', () => {
 
     const tabInstance = await waitFor(() => getByTestId(testId));
     fireEvent.click(tabInstance.querySelector('.t-tabs__add-btn'));
-    expect(addFn).toBeCalledTimes(1);
+    expect(addFn).toHaveBeenCalledTimes(1);
   });
 
   test('no tab item', async () => {
