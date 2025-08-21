@@ -75,7 +75,7 @@ export default () => {
     console.log('dragLeave');
   };
   const handleAllowDrop: TreeProps['allowDrop'] = (ctx) => {
-  const { dropNode, dropPosition } = ctx;
+    const { dropNode, dropPosition } = ctx;
     if (dropNode.value === '2.2' && dropPosition === 0) {
       return false;
     }
