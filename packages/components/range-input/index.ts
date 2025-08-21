@@ -3,7 +3,7 @@ import _RangeInputPopup from './RangeInputPopup';
 
 import './style/index.js';
 
-export type { RangeInputProps, RangeInputRefInterface } from './RangeInput';
+export type { RangeInputProps, RangeInputRef } from './RangeInput';
 export type { RangeInputPopupProps } from './RangeInputPopup';
 export * from './type';
 
