@@ -2,96 +2,66 @@
 
 exports[`BaseTable Pagination > locale data pagination controlled > both pagination.pageSize and pagination.current changed 1`] = `
 NodeList [
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       6
     </td>
-    <td
-      class=""
-    >
+    <td>
       王芳
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-02-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       7
     </td>
-    <td
-      class=""
-    >
+    <td>
       贾明
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-03-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       8
     </td>
-    <td
-      class=""
-    >
+    <td>
       张三
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-04-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       9
     </td>
-    <td
-      class=""
-    >
+    <td>
       王芳
     </td>
-    <td
-      class=""
-    />
+    <td />
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       10
     </td>
-    <td
-      class=""
-    >
+    <td>
       贾明
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-02-01
     </td>
   </tr>,
@@ -100,96 +70,66 @@ NodeList [
 
 exports[`BaseTable Pagination > locale data pagination controlled > pagination.current changed 1`] = `
 NodeList [
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       6
     </td>
-    <td
-      class=""
-    >
+    <td>
       王芳
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-02-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       7
     </td>
-    <td
-      class=""
-    >
+    <td>
       贾明
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-03-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       8
     </td>
-    <td
-      class=""
-    >
+    <td>
       张三
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-04-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       9
     </td>
-    <td
-      class=""
-    >
+    <td>
       王芳
     </td>
-    <td
-      class=""
-    />
+    <td />
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       10
     </td>
-    <td
-      class=""
-    >
+    <td>
       贾明
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-02-01
     </td>
   </tr>,
@@ -257,96 +197,66 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
       <tbody
         class="t-table__body"
       >
-        <tr
-          class=""
-        >
+        <tr>
           <td
             class="table-test-column-index"
           >
             31
           </td>
-          <td
-            class=""
-          >
+          <td>
             贾明
           </td>
-          <td
-            class=""
-          >
+          <td>
             2022-03-01
           </td>
         </tr>
-        <tr
-          class=""
-        >
+        <tr>
           <td
             class="table-test-column-index"
           >
             32
           </td>
-          <td
-            class=""
-          >
+          <td>
             张三
           </td>
-          <td
-            class=""
-          >
+          <td>
             2022-04-01
           </td>
         </tr>
-        <tr
-          class=""
-        >
+        <tr>
           <td
             class="table-test-column-index"
           >
             33
           </td>
-          <td
-            class=""
-          >
+          <td>
             王芳
           </td>
-          <td
-            class=""
-          />
+          <td />
         </tr>
-        <tr
-          class=""
-        >
+        <tr>
           <td
             class="table-test-column-index"
           >
             34
           </td>
-          <td
-            class=""
-          >
+          <td>
             贾明
           </td>
-          <td
-            class=""
-          >
+          <td>
             2022-02-01
           </td>
         </tr>
-        <tr
-          class=""
-        >
+        <tr>
           <td
             class="table-test-column-index"
           >
             35
           </td>
-          <td
-            class=""
-          >
+          <td>
             张三
           </td>
-          <td
-            class=""
-          >
+          <td>
             2022-03-01
           </td>
         </tr>
@@ -532,96 +442,66 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
 
 exports[`BaseTable Pagination > locale data pagination controlled > pagination.pageSize changed 1`] = `
 NodeList [
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       6
     </td>
-    <td
-      class=""
-    >
+    <td>
       王芳
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-02-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       7
     </td>
-    <td
-      class=""
-    >
+    <td>
       贾明
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-03-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       8
     </td>
-    <td
-      class=""
-    >
+    <td>
       张三
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-04-01
     </td>
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       9
     </td>
-    <td
-      class=""
-    >
+    <td>
       王芳
     </td>
-    <td
-      class=""
-    />
+    <td />
   </tr>,
-  <tr
-    class=""
-  >
+  <tr>
     <td
       class="table-test-column-index"
     >
       10
     </td>
-    <td
-      class=""
-    >
+    <td>
       贾明
     </td>
-    <td
-      class=""
-    >
+    <td>
       2022-02-01
     </td>
   </tr>,

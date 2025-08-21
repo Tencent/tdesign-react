@@ -531,6 +531,7 @@ export default function useFixed(
     [
       // data,
       bordered,
+      columns,
       tableLayout,
       fixedRows,
       headerAffixedTop,
