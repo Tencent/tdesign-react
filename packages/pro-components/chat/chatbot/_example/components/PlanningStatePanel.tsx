@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Card, Timeline, Tag, Divider } from 'tdesign-react';
 import { CheckCircleFilledIcon, LocationIcon, LoadingIcon, TimeIcon, InfoCircleIcon } from 'tdesign-icons-react';
-import { useAgentState } from '@tdesign-react/aigc';
+import { useAgentState } from '../../hooks/useAgentState';
 
 interface PlanningStatePanelProps {
   className: string;
@@ -11,7 +11,7 @@ interface PlanningStatePanelProps {
 export const PlanningStatePanel: React.FC<PlanningStatePanelProps> = ({ className, currentStep }) => {
   // 规划状态管理 - 用于右侧面板展示
   // 使用 useAgentState Hook 管理状态
-  const { state: planningState, stateKey } = useAgentState();
+  const { stateMap: planningState, currentStateKey: stateKey } = useAgentState();
 
   const state = useMemo(() => {
     if (!planningState || !stateKey || !planningState[stateKey]) {
@@ -20,7 +20,7 @@ export const PlanningStatePanel: React.FC<PlanningStatePanelProps> = ({ classNam
     return planningState[stateKey];
   }, [planningState, stateKey]);
 
-  if (!state) return null;
+  if (!state?.status) return null;
 
   const { itinerary, status } = state; // 定义步骤顺序和状态
   const allSteps = [

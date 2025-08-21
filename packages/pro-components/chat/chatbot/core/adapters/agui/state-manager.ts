@@ -106,7 +106,7 @@ export class StateManagerImpl implements StateManager {
   subscribe(callback: (state: any, stateKey: string) => void, targetStateKey?: string): () => void {
     if (targetStateKey) {
       // 绑定模式：订阅特定 stateKey
-      return this.subscribeToState(targetStateKey, state => callback(state, targetStateKey));
+      return this.subscribeToState(targetStateKey, (state) => callback(state, targetStateKey));
     }
     // 最新模式：订阅最新状态
     return this.subscribeToLatest(callback);
@@ -186,6 +186,7 @@ export class StateManagerImpl implements StateManager {
     this.boundSubscribers.clear();
     this.currentStateKey = null;
   }
+
   /**
    * 设置状态并立即通知订阅者
    */

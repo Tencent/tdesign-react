@@ -25,7 +25,6 @@ class AgentToolcallRegistryManager {
     if (existingConfig && existingConfig.component !== config.component) {
       this.renderFunctionCache.delete(config.name);
     }
-
     this.registry[config.name] = config;
   }
 

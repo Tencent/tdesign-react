@@ -1,7 +1,6 @@
 import { useCallback, useRef, useEffect } from 'react';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import { agentToolcallRegistry } from '../components/toolcall/registry';
-import { withAgentStateToolcall } from '../components/toolcall';
 
 export interface UseAgentToolcallReturn {
   register: (config: AgentToolcallConfig | AgentToolcallConfig[]) => void;
@@ -115,21 +114,6 @@ export interface ToolConfigWithStateOptions<TArgs extends object = any, TResult 
   name: string;
   description: string;
   parameters: Array<{ name: string; type: string }>;
+  subscribeKey?: (props: ToolcallComponentProps<TArgs, TResult>) => string | undefined;
   component: React.ComponentType<ToolcallComponentProps<TArgs, TResult> & { agentState?: Record<string, any> }>;
 }
-
-// 修改函数签名，支持单个配置或配置数组
-export const createToolConfigWithState = <TArgs extends object = any, TResult = any>(
-  config: ToolConfigWithStateOptions<TArgs, TResult> | ToolConfigWithStateOptions<TArgs, TResult>[],
-): AgentToolcallConfig<TArgs, TResult> | AgentToolcallConfig<TArgs, TResult>[] => {
-  const configs = Array.isArray(config) ? config : [config];
-  
-  const result = configs.map((cfg) => ({
-    name: cfg.name,
-    description: cfg.description,
-    parameters: cfg.parameters,
-    component: withAgentStateToolcall(cfg.component) as React.FC<ToolcallComponentProps<TArgs, TResult>>,
-  }));
-  
-  return Array.isArray(config) ? result : result[0];
-};

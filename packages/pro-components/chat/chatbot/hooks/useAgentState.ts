@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, createContext, useContext } from 'react';
+import { useState, useEffect, useRef, createContext, useContext, useMemo } from 'react';
 import { stateManager } from '../core/adapters/agui';
 
 /**
@@ -11,30 +11,25 @@ export interface StateActionOptions {
    */
   initialState?: Record<string, any>;
   /**
-   * 根据是否传入stateKey自动决定订阅模式：
-   * - 传入stateKey：绑定模式，只订阅特定stateKey的状态，适用于状态隔离场景
-   * - 不传stateKey：最新模式，订阅最新状态，适用于状态覆盖场景
+   * 只订阅特定key的变化
    */
-  stateKey?: string;
+  subscribeKey?: string;
 }
 
 export interface UseStateActionReturn {
   /**
-   * 当前状态
+   * 全量状态Map - 包含所有stateKey的状态
+   * 格式: { [stateKey]: stateData }
    */
-  state: Record<string, any>;
+  stateMap: Record<string, any>;
   /**
-   * 当前状态key
+   * 当前最新的状态key
    */
-  stateKey: string | null;
+  currentStateKey: string | null;
   /**
    * 设置状态Map，用于加载历史对话消息中的state数据
    */
   setStateMap: (stateMap: Record<string, any> | ((prev: Record<string, any>) => Record<string, any>)) => void;
-  /**
-   * 动态设置stateKey（用于工具调用组件中动态设置）
-   */
-  setStateKey: (newStateKey: string) => void;
   /**
    * 获取当前完整状态的方法
    */
@@ -45,76 +40,79 @@ export interface UseStateActionReturn {
   getStateByKey: (key: string) => any;
 }
 
-/**
- * 状态订阅Hook
- * 支持两种模式：
- * 1. 绑定模式：传入stateKey，只订阅特定stateKey的状态，适用于状态隔离场景
- * 2. 最新模式：不传stateKey，订阅最新状态，适用于状态覆盖场景
- */
-export function useAgentState<T = any>(options: StateActionOptions = {}): UseStateActionReturn {
-  const { stateKey: initialStateKey, initialState } = options;
-  const stateMap = useRef<Record<string, any>>(initialState || {});
-  const [currentStateKey, setCurrentStateKey] = useState<string | null>(initialStateKey || null);
-  const [boundStateKey, setBoundStateKey] = useState<string | null>(initialStateKey || null);
-  const [, forceUpdate] = useState({});
+export const useAgentState = <T = any>(options: StateActionOptions = {}): UseStateActionReturn => {
+  const { initialState, subscribeKey } = options;
+  const [stateMap, setStateMap] = useState<Record<string, any>>(initialState || {});
+  const [currentStateKey, setCurrentStateKey] = useState<string | null>(null);
 
-  // 根据是否有stateKey自动决定订阅模式
-  const isBoundMode = !!boundStateKey;
+  // 使用 ref 来避免不必要的重新渲染
+  const stateMapRef = useRef(stateMap);
+  stateMapRef.current = stateMap;
 
-  // 强制更新函数
-  const triggerUpdate = () => forceUpdate({});
+  useEffect(
+    () =>
+      stateManager.subscribeToLatest((newState: T, newStateKey: string) => {
+        // 如果指定了 subscribeKey，只有匹配时才更新状态
+        if (subscribeKey && newStateKey !== subscribeKey) {
+          // 仍然更新内部状态，但不触发重新渲染
+          stateMapRef.current = {
+            ...stateMapRef.current,
+            [newStateKey]: newState,
+          };
+          return;
+        }
 
-  // 动态设置stateKey的方法
-  const setStateKey = (newStateKey: string) => {
-    setBoundStateKey(newStateKey);
-    setCurrentStateKey(newStateKey);
-  };
-
-  // 订阅状态变化
-  useEffect(() => {
-    if (isBoundMode) {
-      // 绑定模式：只订阅特定stateKey
-      return stateManager.subscribeToState(boundStateKey, (newState: T) => {
-        stateMap.current = { [boundStateKey]: { ...stateMap.current?.[boundStateKey], ...newState } };
-        triggerUpdate(); // 触发重新渲染
-      });
-    }
-    // 最新模式：订阅最新状态，使用合并而不是覆盖
-    return stateManager.subscribeToLatest((newState: T, newStateKey: string) => {
-      stateMap.current =  { [newStateKey]: { ...stateMap.current?.[newStateKey], ...newState } };
-      setCurrentStateKey(newStateKey);
-      triggerUpdate(); // 触发重新渲染
-    });
-  }, [isBoundMode, boundStateKey]);
-
-  const displayStateKey = isBoundMode ? boundStateKey : currentStateKey;
+        setStateMap((prev) => ({
+          ...prev,
+          [newStateKey]: newState,
+        }));
+        setCurrentStateKey(newStateKey);
+      }),
+    [subscribeKey],
+  );
 
   return {
-    state: stateMap.current,
-    setStateMap: (state) => {
-      if (typeof state === 'function') {
-        stateMap.current = state(stateMap.current);
-      } else {
-        stateMap.current = state;
-      }
-      triggerUpdate(); // 触发重新渲染
-    },
-    stateKey: displayStateKey || null,
-    setStateKey,
-    getCurrentState: () => stateMap.current,
-    getStateByKey: (key: string) => stateMap.current[key],
+    stateMap: stateMapRef.current,
+    currentStateKey,
+    setStateMap,
+    getCurrentState: () => stateMapRef.current,
+    getStateByKey: (key: string) => stateMapRef.current[key],
   };
-}
+};
 
 // 创建 AgentState Context
 export const AgentStateContext = createContext<UseStateActionReturn | null>(null);
 
+// 简化的状态选择器
+export const useAgentStateDataByKey = (stateKey?: string) => {
+  const contextState = useContext(AgentStateContext);
+  const independentState = useAgentState({ subscribeKey: stateKey });
+
+  return useMemo(() => {
+    if (contextState) {
+      // 有 Provider，使用 Context 状态
+      const { stateMap } = contextState;
+      return stateKey ? stateMap[stateKey] : stateMap;
+    }
+
+    // 没有 Provider，使用独立状态
+    const { stateMap } = independentState;
+    return stateKey ? stateMap[stateKey] : stateMap;
+  }, [
+    stateKey,
+    // 关键：添加和 useAgentStateByKey 相同的深度依赖逻辑
+    contextState && (stateKey ? contextState.stateMap[stateKey] : JSON.stringify(contextState.stateMap)),
+    independentState && (stateKey ? independentState.stateMap[stateKey] : JSON.stringify(independentState.stateMap)),
+  ]);
+};
+
 // 导出 Context Hook
 export const useAgentStateContext = (): UseStateActionReturn => {
   const context = useContext(AgentStateContext);
+
   if (!context) {
-    throw new Error('useAgentStateContext must be used within AgentStateProvider');
+    throw new Error('useAgentState must be used within AgentStateProvider');
   }
+
   return context;
 };
-

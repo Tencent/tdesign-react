@@ -228,8 +228,8 @@ interface VideoClipStepsProps {
  */
 export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey }) => {
   // 订阅AG-UI状态事件
-  const { state: clipState, stateKey } = useAgentState({
-    stateKey: boundStateKey,
+  const { stateMap, currentStateKey } = useAgentState({
+    subscribeKey: boundStateKey,
   });
 
   // 本地UI状态
@@ -243,13 +243,14 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
   // 可点击的状态
   const canClickState = ['completed', 'running'];
 
-  // 提取当前步骤数据，用于依赖检测
+  // 提取当前组件关心的状态数据
   const stepsData = useMemo(() => {
-    if (!clipState || !stateKey || !clipState[stateKey]) {
+    const targetStateKey = boundStateKey || currentStateKey;
+    if (!stateMap || !targetStateKey || !stateMap[targetStateKey]) {
       return [];
     }
-    return clipState[stateKey].items || [];
-  }, [clipState, stateKey]);
+    return stateMap[targetStateKey].items || [];
+  }, [stateMap, boundStateKey, currentStateKey]);
 
   // 使用状态跟踪Hook
   const { hasStatusChanged } = useStepsStatusTracker(stepsData);
@@ -257,11 +258,6 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
   // 处理步骤点击
   const handleStepChange = useCallback(
     (stepIndex: number) => {
-      if (!clipState || !stateKey) {
-        console.warn('handleStepChange: 状态为空');
-        return;
-      }
-
       try {
         if (!stepsData[stepIndex] || stepsData[stepIndex] === null) {
           console.warn(`handleStepChange: 步骤${stepIndex}不存在或为null`);
@@ -284,7 +280,7 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
         console.error('handleStepChange出错:', error);
       }
     },
-    [clipState, canClickState, stateKey, stepsData],
+    [canClickState, stepsData],
   );
 
   // 自动选择当前步骤
@@ -346,6 +342,8 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
     () => calculateProgressStatus(stepsData),
     [stepsData],
   );
+
+  console.log('render: ', boundStateKey);
 
   return (
     <Card
@@ -537,7 +535,10 @@ export default function VideoClipAgentChatWithSubscription() {
       };
 
       // 继续对话
-      await chatEngine.continueChat(newRequestParams);
+      await chatEngine.sendAIMessage({
+        params: newRequestParams,
+        sendRequest: true,
+      });
       listRef.current?.scrollList({ to: 'bottom' });
     } catch (error) {
       console.error('提交工具调用响应失败:', error);

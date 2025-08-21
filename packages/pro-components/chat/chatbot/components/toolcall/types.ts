@@ -29,6 +29,8 @@ interface NonInteractiveToolcallConfig<TArgs extends object, TResult> {
   handler: (args: TArgs, backendResult?: any) => Promise<TResult>;
   /** 状态显示组件 */
   component: React.FC<ToolcallComponentProps<TArgs, TResult>>;
+  /** 订阅statekey提取函数 */
+  subscribeKey?: (props: ToolcallComponentProps<TArgs, TResult>) => string | undefined;
 }
 
 // 场景二：交互式 Toolcall 的配置 (无 handler)
@@ -40,6 +42,8 @@ interface InteractiveToolcallConfig<TArgs extends object, TResult, TResponse> {
   component: React.FC<ToolcallComponentProps<TArgs, TResult, TResponse>>;
   /** handler 属性不存在，以此作为区分标志 */
   handler?: never;
+  /** 订阅statekey提取函数 */
+  subscribeKey?: (props: ToolcallComponentProps<TArgs, TResult>) => string | undefined;
 }
 
 // 最终的配置类型

@@ -1,13 +1,13 @@
 import React from 'react';
-import { useAgentState, AgentStateContext, type StateActionOptions } from '../../hooks/useAgentState';
+import { AgentStateContext, type StateActionOptions, useAgentState } from '../../hooks/useAgentState';
 
 // 导出 Provider 组件
-export const AgentStateProvider = ({ children, initialState = {}, stateKey }: StateActionOptions & {
+export const AgentStateProvider = ({ children, initialState = {}, subscribeKey }: StateActionOptions & {
   children: React.ReactNode;
 }) => {
   const agentStateResult = useAgentState({
     initialState,
-    stateKey,
+    subscribeKey,
   });
 
   return (
