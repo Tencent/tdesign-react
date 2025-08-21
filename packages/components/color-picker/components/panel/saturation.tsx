@@ -1,15 +1,14 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {
   SATURATION_PANEL_DEFAULT_HEIGHT,
   SATURATION_PANEL_DEFAULT_WIDTH,
 } from '@tdesign/common-js/color-picker/constants';
-import { TdColorBaseProps } from '../../interface';
-import useDrag, { Coordinate } from '../../../hooks/useDrag';
+import useMouseEvent, { type MouseCoordinate } from '../../../hooks/useMouseEvent';
+import type { TdColorBaseProps } from '../../interface';
 
 const Saturation = (props: TdColorBaseProps) => {
   const { color, disabled, onChange, baseClassName } = props;
   const panelRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLElement>(null);
   const panelRectRef = useRef({
     width: SATURATION_PANEL_DEFAULT_WIDTH,
     height: SATURATION_PANEL_DEFAULT_HEIGHT,
@@ -27,7 +26,7 @@ const Saturation = (props: TdColorBaseProps) => {
     };
   };
 
-  const getSaturationAndValueByCoordinate = (coordinate: Coordinate) => {
+  const getSaturationAndValue = (coordinate: MouseCoordinate) => {
     const { width, height } = panelRectRef.current;
     const { x, y } = coordinate;
     const saturation = Math.round((x / width) * 100);
@@ -38,66 +37,46 @@ const Saturation = (props: TdColorBaseProps) => {
     };
   };
 
-  const isDragging = useRef<Boolean>(false);
-
   const handleDrag = useCallback(
-    ({ x, y }: Coordinate, isEnd?: boolean) => {
-      if (disabled) {
-        return;
-      }
-      isDragging.current = true;
-      const { saturation, value } = getSaturationAndValueByCoordinate({ x, y });
+    ({ x, y }: MouseCoordinate) => {
+      if (disabled) return;
+      const { saturation, value } = getSaturationAndValue({ x, y });
       onChange({
         saturation: saturation / 100,
         value: value / 100,
-        addUsedColor: isEnd,
       });
     },
     [disabled, onChange],
   );
 
-  const handleDragEnd = useCallback((coordinate: Coordinate) => {
-    if (disabled) {
-      return;
-    }
-    isDragging.current = false;
-    handleDrag(coordinate, true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useDrag(panelRef, {
-    start: () => {
+  useMouseEvent(panelRef, {
+    onDown: () => {
+      if (disabled) return;
       panelRectRef.current.width = panelRef.current.offsetWidth;
       panelRectRef.current.height = panelRef.current.offsetHeight;
     },
-    end: (coordinate: Coordinate) => {
-      handleDragEnd(coordinate);
+    onMove: (_, ctx) => {
+      handleDrag(ctx.coordinate);
     },
-    drag: (coordinate: Coordinate) => {
-      handleDrag(coordinate);
+    onUp: (_, ctx) => {
+      handleDrag(ctx.coordinate);
     },
   });
 
   useEffect(() => {
-    panelRectRef.current.width = panelRef.current.offsetWidth || SATURATION_PANEL_DEFAULT_WIDTH;
-    panelRectRef.current.height = panelRef.current.offsetHeight || SATURATION_PANEL_DEFAULT_HEIGHT;
-  }, [handleDrag, handleDragEnd]);
+    panelRectRef.current.width = panelRef.current?.offsetWidth || SATURATION_PANEL_DEFAULT_WIDTH;
+    panelRectRef.current.height = panelRef.current?.offsetHeight || SATURATION_PANEL_DEFAULT_HEIGHT;
+  }, [handleDrag]);
 
   return (
     <div
-      className={`${baseClassName}__saturation`}
       ref={panelRef}
+      className={`${baseClassName}__saturation`}
       style={{
         background: `hsl(${color.hue}, 100%, 50%)`,
       }}
     >
-      <span
-        className={`${baseClassName}__thumb`}
-        role="slider"
-        tabIndex={0}
-        ref={thumbRef}
-        style={{ ...styles() }}
-      ></span>
+      <span className={`${baseClassName}__thumb`} role="slider" tabIndex={0} style={styles()}></span>
     </div>
   );
 };
