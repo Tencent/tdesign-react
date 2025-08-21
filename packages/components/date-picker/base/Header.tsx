@@ -33,7 +33,7 @@ const useDatePickerLocalConfig = () => {
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { classPrefix } = useConfig();
 
-  const { mode, year, month, onMonthChange, onYearChange, onJumperClick, partial, internalYear } = props;
+  const { mode, year, month, onMonthChange, onYearChange, onJumperClick, partial, internalYear = [] } = props;
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
@@ -70,8 +70,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   // 年份选择展示区间
   const nearestYear: number = useMemo(() => {
     // 右侧面板年份选择需要保持大于左侧面板年份选择
-    const extraYear =
-      partial === 'end' && mode === 'year' && Number(internalYear[1]) - Number(internalYear[0]) <= 9 ? 9 : 0;
+    const extraYear = partial === 'end' && mode === 'year' && internalYear[1] - internalYear[0] <= 9 ? 9 : 0;
     return (
       yearOptions.find((option) => option.value - (year + extraYear) <= 9 && option.value - (year + extraYear) >= 0)
         ?.value || year
