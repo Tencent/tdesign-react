@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash-es';
-import { genGradientPoint, gradientColors2string } from '@tdesign/common-js/color-picker/color';
-import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '@tdesign/common-js/color-picker/constants';
-import type { GradientColorPoint } from '@tdesign/common-js/color-picker/gradient';
+import {
+  genGradientPoint,
+  GRADIENT_SLIDER_DEFAULT_WIDTH,
+  gradientColors2string,
+  type GradientColorPoint,
+} from '@tdesign/common-js/color-picker';
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useMouseEvent from '../../../hooks/useMouseEvent';
 import InputNumber from '../../../input-number';
