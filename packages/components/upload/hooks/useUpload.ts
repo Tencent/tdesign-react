@@ -239,7 +239,7 @@ export default function useUpload(props: TdUploadProps) {
    */
   function uploadFiles(toFiles?: UploadFile[]) {
     const notUploadedFiles = uploadValue.filter((t) => t.status !== 'success');
-    const files = autoUpload ? toFiles : toFiles || notUploadedFiles;
+    const files = toFiles || notUploadedFiles;
     if (!files || !files.length) return;
     xhrReq.current = [];
     setUploading(true);
