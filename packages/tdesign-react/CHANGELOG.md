@@ -5,6 +5,43 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.0 `2025-08-21` 
+### 🚀 Features
+- `Tabs`: 将 `remove` 事件从删除图标移至外层容器, 保证替换图标功能正常使用，有覆盖删除图标样式请注意此变更 ⚠️ @RSS1102 ([#3736](https://github.com/Tencent/tdesign-react/pull/3736))
+- `Card`: 新增 `headerClassName`、`headerStyle`、`bodyClassName`、`bodyStyle`、`footerClassName`、`footerStyle`，方便用于定制卡片组件的各部分样式 @lifeiFront ([#3737](https://github.com/Tencent/tdesign-react/pull/3737))
+- `Form`: `rules` 支持配置嵌套字段进行校验 @uyarn ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
+- `ImageViewer`: 调整 `imageScale` 的内部属性值变为可选 @willsontaoZzz ([#3710](https://github.com/Tencent/tdesign-react/pull/3710))
+- `Select`: 支持 `onCreate` 和 `multiple` 配合使用 @uyarn ([#3717](https://github.com/Tencent/tdesign-react/pull/3717))
+- `Table`: 新增切换分页后重置滚动条回到顶部的特性 @RSS1102 ([#3729](https://github.com/Tencent/tdesign-react/pull/3729))
+- `Tree`: `onDragLeave` 与 `onDragOver` 增加 `dragNode`、`dropPosition` 参数 @phalera ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
+- `Upload`: 支持在非自动上传场景下上传指定文件 @uyarn ([#3742](https://github.com/Tencent/tdesign-react/pull/3742))
+- `ColorPicker`: 支持在移动端拖动色板、滑动条等 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `Dialog`: 支持 `draggable` 属性支持在移动端生效 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `ImageViewer`: 支持 `draggable` 属性在移动端生效 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `Slider`: 支持在移动端拖动 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `Statistic`: 修改 `color` 属性类型为字符串，以支持任何 [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) 支持的颜色值 @RSS1102 ([#3706](https://github.com/Tencent/tdesign-react/pull/3706))
+
+### 🐞 Bug Fixes
+- `Tree`: @RylanBot
+  - 修复 `draggable` 在 `disabled` 状态下依旧生效的异常，此前有依赖此错误的业务请注意此变动 ⚠️  ([#3740](https://github.com/Tencent/tdesign-react/pull/3740)) 
+  - 修复默认 `checkStrictly={false}` 时，父子节点 `disabled` 状态没有关联的问题  ([#3739](https://github.com/Tencent/tdesign-react/pull/3739))
+  - 修复 Drag 相关事件的回调中 `node` 为 null 的异常 ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
+  - 修复 `size="small"` 的 `firstFullRow` 尺寸比 `size="medium"` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
+- `Form`: @uyarn
+    - 修复嵌套表单受外层 `FormList` 影响数据构造的问题  ([#3715](https://github.com/Tencent/tdesign-react/pull/3715))
+    - 修复嵌套表单中内层表单受外层表单影响校验结果字段的问题  ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
+- `FormList`: 解决 `1.13.2` 引入的修复，导致手动 `setFields` 设置初始值而非利用 `initialData` 后无法新增数据的问题 @RylanBot ([#3730](https://github.com/Tencent/tdesign-react/pull/3730))
+- `Input`: 修复密码输入框点击图标切换内容可见性时，光标位置没能被保留 @RylanBot ([#3726](https://github.com/Tencent/tdesign-react/pull/3726))
+- `Table`: @RylanBot
+    - 修复 `dragSort='row-handler-col'` 时，列拖拽不生效的问题  ([#3734](https://github.com/Tencent/tdesign-react/pull/3734))
+    - 修复开启虚拟滚动时，动态更新数据时导致白屏的问题  ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+    - 修复开启虚拟滚动时，表头与下方表格的宽度未同步变化 ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+    - 修复开启虚拟滚动时，滚动条意外被重置回第一行的位置 ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+    - 修复同时开启虚拟滚动与设置 `firstFullRow` 或 `onFilterChange` 过滤时，最后一行数据被遮挡的问题 ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+- `Watermark`: 修复深色模式下，文字水印内容显示不明显的问题 @HaixingOoO  @liweijie0812 ([#3692](https://github.com/Tencent/tdesign-react/pull/3692))
+- `DatePicker`: 优化年份选择模式下选择同面板年份后面板内容的展示效果 @uyarn ([#3744](https://github.com/Tencent/tdesign-react/pull/3744))
+
+
 ## 🌈 1.13.2 `2025-08-01` 
 ### 🐞 Bug Fixes
 - `DatePicker`: 
