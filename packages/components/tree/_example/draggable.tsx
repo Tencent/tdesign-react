@@ -37,6 +37,7 @@ const items = [
               {
                 value: '1.1.2.2',
                 label: '1.1.2.2',
+                disabled: true,
               },
             ],
           },
@@ -92,6 +93,7 @@ export default () => {
         transition
         expandAll
         draggable
+        checkStrictly
         allowDrop={handleAllowDrop}
         onDrop={handleDrop}
         onDragStart={handleDragStart}
