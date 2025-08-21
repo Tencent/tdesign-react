@@ -169,15 +169,16 @@ describe('Tabs 组件测试', () => {
   test('remove tab', async () => {
     const testId = 'remove tab test id';
 
-    const removeFn = vi.fn();
+    const onTabRemoveFn = vi.fn();
+    const onTabPanelRemoveFn = vi.fn();
 
     const { getByTestId } = render(
       <div data-testid={testId}>
-        <Tabs placement={'top'} size={'medium'} onRemove={removeFn}>
-          <TabPanel value={'a'} removable={true} label={'a'}>
+        <Tabs placement={'top'} size={'medium'} onRemove={onTabRemoveFn}>
+          <TabPanel value={'a'} removable={true} label={'a'} onRemove={onTabPanelRemoveFn}>
             <div>a</div>
           </TabPanel>
-          <TabPanel value={'b'} removable={true} label={'b'}>
+          <TabPanel value={'b'} removable={true} label={'b'} onRemove={onTabPanelRemoveFn}>
             <div>b</div>
           </TabPanel>
         </Tabs>
@@ -186,7 +187,17 @@ describe('Tabs 组件测试', () => {
 
     const tabInstance = await waitFor(() => getByTestId(testId));
     fireEvent.click(tabInstance.querySelector('.remove-btn'));
-    expect(removeFn).toHaveBeenCalledTimes(1);
+
+    expect(onTabRemoveFn).toHaveBeenCalledTimes(1);
+    expect(onTabPanelRemoveFn).toHaveBeenCalledTimes(1);
+
+    expect(onTabRemoveFn).toHaveBeenCalledWith({ value: 'a', e: expect.any(Object), index: 0 });
+    const tabRemoveFnArg = onTabRemoveFn.mock.calls[0][0];
+    expect(tabRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
+
+    expect(onTabPanelRemoveFn).toHaveBeenCalledWith({ value: 'a', e: expect.any(Object) });
+    const tabPanelRemoveFnArg = onTabPanelRemoveFn.mock.calls[0][0];
+    expect(tabPanelRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
   });
 
   test('remove disabled tab', async () => {
