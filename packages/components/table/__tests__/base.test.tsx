@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@test/utils';
+import { render, fireEvent, vi } from '@test/utils';
 import { Table, BaseTable, PrimaryTable, EnhancedTable } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({
@@ -306,6 +306,107 @@ TABLES.forEach((TTable) => {
         expect(container.querySelector('.t-table__top-content')).toBeTruthy();
         expect(container.querySelector('.t-table__top-content').innerHTML).toBe(`<span>${topContentText}</span>`);
       });
+    });
+    // onPageChange
+    it('props.pagination: onPageChange should be triggered when switching pages', async () => {
+      const onPageChange = vi.fn();
+      const pagination = {
+        current: 1,
+        pageSize: 2,
+        total: 10,
+      };
+
+      // create a small data set for pagination assertions
+      const pageData = new Array(6).fill(null).map((_, idx) => {
+        const i = idx + 1;
+        let applicant = `name-${i}`;
+        if (i === 3) applicant = '王芳';
+        else if (i === 4) applicant = '贾明';
+        return { index: i, applicant };
+      });
+
+      const COLUMNS = [
+        { title: 'Index', colKey: 'index' },
+        { title: 'Applicant', colKey: 'applicant' },
+      ];
+
+      const { container } = render(
+        <TTable rowKey="index" data={pageData} columns={COLUMNS} pagination={pagination} onPageChange={onPageChange} />,
+      );
+
+      expect(container.querySelector('.t-pagination')).toBeTruthy();
+      const nextButton = container.querySelector('.t-pagination__btn-next');
+      expect(nextButton).toBeTruthy();
+
+      fireEvent.click(nextButton);
+
+      // 验证 onPageChange 被触发
+      expect(onPageChange).toHaveBeenCalledTimes(1);
+      // 第一个参数应包含新的分页信息
+      expect(onPageChange.mock.calls[0][0]).toEqual(expect.objectContaining({ current: 2, pageSize: 2, previous: 1 }));
+      // 第二个参数应为当前页的数据（此处校验包含预期行）
+      expect(onPageChange.mock.calls[0][1]).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: 3, applicant: '王芳' }),
+          expect.objectContaining({ index: 4, applicant: '贾明' }),
+        ]),
+      );
+    });
+
+    // JSDOM 环境下 scrollHeight/clientHeight 默认都为 0，需 mock
+    function mockScrollHeight(element: HTMLElement, scrollHeight: number, clientHeight: number) {
+      Object.defineProperty(element, 'scrollHeight', { value: scrollHeight, configurable: true });
+      Object.defineProperty(element, 'clientHeight', { value: clientHeight, configurable: true });
+    }
+
+    it('props.pagination: scroll position should reset when switching pages', async () => {
+      const onPageChange = vi.fn();
+      const pagination = {
+        current: 1,
+        pageSize: 2,
+        total: 50,
+      };
+
+      const longData = new Array(20).fill(null).map((_, idx) => ({ index: idx + 1, applicant: `name-${idx + 1}` }));
+      const COLUMNS = [
+        { title: 'Index', colKey: 'index' },
+        { title: 'Applicant', colKey: 'applicant' },
+      ];
+
+      const { container } = render(
+        <TTable
+          rowKey="index"
+          data={longData}
+          columns={COLUMNS}
+          pagination={pagination}
+          onPageChange={onPageChange}
+          maxHeight={200}
+        />,
+      );
+
+      expect(container.querySelector('.t-pagination')).toBeTruthy();
+      const tableContent = container.querySelector('.t-table__content');
+      expect(tableContent).toBeTruthy();
+
+      const scrollElement = tableContent as HTMLElement;
+
+      mockScrollHeight(scrollElement, 100, 50);
+
+      // 初始化后就断言有滚动条，且初始 scrollTop 为 0
+      expect(scrollElement.scrollHeight).toBeGreaterThan(scrollElement.clientHeight);
+      expect(scrollElement.scrollTop).toBe(0);
+
+      // 模拟滚动
+      scrollElement.scrollTop = 100;
+      expect(scrollElement.scrollTop).toBe(100);
+
+      const nextButton = container.querySelector('.t-pagination__btn-next');
+      expect(nextButton).toBeTruthy();
+      fireEvent.click(nextButton);
+
+      expect(onPageChange).toHaveBeenCalledTimes(1);
+      // 断言滚动条回到顶部
+      expect(scrollElement.scrollTop).toBe(0);
     });
   });
 });

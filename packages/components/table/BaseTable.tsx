@@ -121,7 +121,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     footerBottomAffixRef,
   });
 
-  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
+  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize({
