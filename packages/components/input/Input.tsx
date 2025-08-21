@@ -288,8 +288,16 @@ const Input = forwardRefWithStatics(
 
     function togglePasswordVisible() {
       if (disabled) return;
+      // 保存光标位置
+      const inputEl = inputRef.current;
+      const cursorPosition = inputRef.current?.selectionStart || 0;
+
       const toggleType = renderType === 'password' ? 'text' : 'password';
       setRenderType(toggleType);
+
+      requestAnimationFrame(() => {
+        inputEl?.setSelectionRange(cursorPosition, cursorPosition);
+      });
     }
 
     function handleChange(
