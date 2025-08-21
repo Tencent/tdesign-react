@@ -128,7 +128,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     end: value[1] ? parseToDayjs(value[1], format).toDate() : undefined,
     hoverStart: !hidePreselection && hoverValue[0] ? parseToDayjs(hoverValue[0], format).toDate() : undefined,
     hoverEnd: !hidePreselection && hoverValue[1] ? parseToDayjs(hoverValue[1], format).toDate() : undefined,
-    year: endYear,
+    year: mode === 'year' && endYear - startYear <= 9 ? endYear + 9 : endYear,
     month: endMonth,
     mode,
     firstDayOfWeek,
@@ -197,6 +197,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
               time={time[activeIndex]}
               value={value}
               tableData={endTableData}
+              internalYear={year}
               {...panelContentProps}
             />,
           ]
