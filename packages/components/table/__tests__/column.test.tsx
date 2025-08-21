@@ -27,8 +27,8 @@ TABLES.forEach((TTable) => {
       const firstTrWrapper = container.querySelector('tbody > tr');
       const tdList = firstTrWrapper.querySelectorAll('td');
       expect(tdList[0].classList.contains('t-align-center')).toBeTruthy();
-      expect(tdList[1].getAttribute('class')).toBe('');
-      expect(tdList[2].getAttribute('class')).toBe('');
+      expect(tdList[1].getAttribute('class')).toBeNull();
+      expect(tdList[2].getAttribute('class')).toBeNull();
       expect(tdList[3].getAttribute('class')).toBe('t-align-right');
     });
 

@@ -51,7 +51,6 @@ export default function EditableCellTable() {
           // props, 透传全部属性到 Input 组件
           props: {
             clearable: true,
-            autofocus: true,
           },
           // 触发校验的时机（when to validate)
           validateTrigger: 'change',

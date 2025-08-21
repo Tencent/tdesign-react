@@ -1,24 +1,24 @@
-import { ReactFragment } from 'react';
-import { StyledProps } from '../common';
+import { ReactNode } from 'react';
+import { ScrollToElementParams, StyledProps } from '../common';
 import { TableTreeDataMap } from './hooks/tree-store';
 import { UseTreeDataReturnType } from './hooks/useTreeData';
 import {
-  TdBaseTableProps,
-  TableExpandedRowParams,
-  TableRowData,
-  TdPrimaryTableProps,
-  TdEnhancedTableProps,
-  RowspanColspan,
   BaseTableCol,
   PrimaryTableRowValidateContext,
   PrimaryTableValidateContext,
+  RowspanColspan,
+  TableExpandedRowParams,
+  TableRowData,
+  TdBaseTableProps,
+  TdEnhancedTableProps,
+  TdPrimaryTableProps,
 } from './type';
 
 export interface BaseTableProps<T extends TableRowData = TableRowData> extends TdBaseTableProps<T>, StyledProps {
   /**
    * 渲染展开行。非公开属性，请勿在业务中使用
    */
-  renderExpandedRow?: (params: TableExpandedRowParams<TableRowData>) => ReactFragment;
+  renderExpandedRow?: (params: TableExpandedRowParams<TableRowData>) => ReactNode;
   /**
    * 多级表头场景，叶子结点变化时执行。非公开属性，请勿在业务中使用
    */
@@ -46,6 +46,9 @@ export interface BaseTableRef {
   tableContentElement: HTMLDivElement;
   affixHeaderElement: HTMLDivElement;
   refreshTable: () => void;
+  scrollToElement: (params: ScrollToElementParams) => void;
+  scrollColumnIntoView: (columnIndex: string) => void;
+  updateTableWidthOnColumnChange: (colKeys: string[]) => void;
 }
 
 export interface PrimaryTableRef extends BaseTableRef {

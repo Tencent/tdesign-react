@@ -262,7 +262,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     bottomContent,
     firstFullRow,
     lastFullRow,
-    thDraggable: props.dragSort === 'col',
+    thDraggable: ['col', 'row-handler-col'].includes(props.dragSort),
     onPageChange: onInnerPageChange,
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;

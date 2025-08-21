@@ -38,7 +38,7 @@ export default function useColumnController(
   const { classPrefix, table } = useConfig();
   const { SettingIcon } = useGlobalIcon({ SettingIcon: TdSettingIcon });
   const { columns, columnController, displayColumns = [], columnControllerVisible } = props;
-  const dialogInstance = useRef<DialogInstance>();
+  const dialogInstance = useRef<DialogInstance>(null);
 
   const enabledColKeys = (() => {
     const arr = (columnController?.fields || [...getColumnKeys(columns)] || []).filter((v) => v);
@@ -162,6 +162,7 @@ export default function useColumnController(
         }
       },
       onClose: () => {
+        columnCheckboxKeys.current = tDisplayColumns;
         // 此处逻辑不要随意改动，涉及到 内置列配置按钮 和 不包含列配置按钮等场景
         if (columnControllerVisible === undefined) {
           dialogInstance.current.hide();
