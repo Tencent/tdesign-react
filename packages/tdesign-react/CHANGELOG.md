@@ -62,8 +62,8 @@ spline: explain
   - 修复直接长按渐变点后拖动，颜色更新异常的问题
   - 修复清空下方某一输入框的数值时，其他输入框意外被重置
 - `Upload`: 确保在 `beforeUpload` 完成之后，再执行上传动作 @RSS1102 ([#3686](https://github.com/Tencent/tdesign-react/pull/3686))
-- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
-- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
+- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#common2224](https://github.com/Tencent/tdesign-common/pull/2224))
+- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#common2219](https://github.com/Tencent/tdesign-common/pull/2219))
 - `Steps`: 修复自定义图标和状态图标的优先级问题 @RSS1102 ([#3670](https://github.com/Tencent/tdesign-react/pull/3670))
 - `Form`: 修复动态表单删除一个数据后再次新增，会回填旧数据的问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
 
