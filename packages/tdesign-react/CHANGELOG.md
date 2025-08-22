@@ -5,9 +5,13 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.2 `2025-08-22` 
+### 🐞 Bug Fixes
+- `Dialog`: 修复 `1.14.0` 版本引入的新特性导致 `draggable` 禁用失败的问题 @RylanBot ([#3753](https://github.com/Tencent/tdesign-react/pull/3753))
+
 ## 🌈 1.14.1 `2025-08-22` 
 ### 🐞 Bug Fixes
-- `Steps`: 修复 1.13.2 版本引起的 `theme` 不为 `default` 时重复渲染图标的问题 @RSS1102 ([#3748](https://github.com/Tencent/tdesign-react/pull/3748))
+- `Steps`: 修复 `1.13.2` 版本引起的 `theme` 不为 `default` 时重复渲染图标的问题 @RSS1102 ([#3748](https://github.com/Tencent/tdesign-react/pull/3748))
 
 ## 🌈 1.14.0 `2025-08-21` 
 ### 🚀 Features
