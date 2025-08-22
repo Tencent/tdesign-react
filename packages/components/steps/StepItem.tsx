@@ -26,19 +26,16 @@ const StepItem: React.FC<StepItemProps> = (originalProps) => {
 
   // 步骤条每一步展示的图标
   const iconNode = React.useMemo<React.ReactNode>(() => {
-    if (!icon) {
+    if (!icon || theme !== 'default') {
       return null;
     }
 
-    if (theme === 'default' && icon !== true) {
+    // 自定义图标直接返回
+    if (icon !== true) {
       return icon;
     }
 
     const iconCls = `${classPrefix}-steps-item__icon--number`;
-
-    if (icon !== true) {
-      return <span className={iconCls}>{icon}</span>;
-    }
 
     // 根据状态返回对应的默认图标
     const getDefaultIconByStatus = () => {
