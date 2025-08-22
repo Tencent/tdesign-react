@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.1 `2025-08-22` 
+### 🐞 Bug Fixes
+- `Steps`: 修复 1.13.2 版本引起的 `theme !== default` 时重复渲染图标的问题 @RSS1102 ([#3748](https://github.com/Tencent/tdesign-react/pull/3748))
+
 ## 🌈 1.14.0 `2025-08-21` 
 ### 🚀 Features
 - `Tabs`: 将 `remove` 事件从删除图标移至外层容器, 保证替换图标功能正常使用，有覆盖删除图标样式请注意此变更 ⚠️ @RSS1102 ([#3736](https://github.com/Tencent/tdesign-react/pull/3736))
