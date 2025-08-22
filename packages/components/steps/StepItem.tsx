@@ -30,6 +30,10 @@ const StepItem: React.FC<StepItemProps> = (originalProps) => {
       return null;
     }
 
+    if (theme !== 'default') {
+      return null;
+    }
+
     if (theme === 'default' && icon !== true) {
       return icon;
     }
