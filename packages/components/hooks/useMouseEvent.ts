@@ -15,7 +15,8 @@ export interface MouseContext {
 }
 
 type MouseEventOptions = {
-  enableTouch?: boolean;
+  enabled?: boolean;
+  enableTouch?: boolean; // 支持触摸事件
   onDown?: (e: MouseCallback, ctx: MouseContext) => void;
   onMove?: (e: MouseCallback, ctx: MouseContext) => void;
   onUp?: (e: MouseCallback, ctx: MouseContext) => void;
@@ -24,7 +25,7 @@ type MouseEventOptions = {
 };
 
 const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseEventOptions) => {
-  const { enableTouch = true } = options; // 默认支持触摸事件
+  const { enabled = true, enableTouch = true } = options;
   const isMovingRef = useRef(false);
 
   const normalizeEvent = (e: MouseEventLike) => {
@@ -100,7 +101,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
 
   useEffect(() => {
     const el = elementRef.current;
-    if (!el) return;
+    if (!el || !enabled) return;
 
     // 基本上只要开启了鼠标事件，就会用到这三个
     // 有的组件虽然只需要 mousemove 的回调结果，但也需要 mousedown 和 mouseup 来控制状态
@@ -125,7 +126,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
       el.removeEventListener('touchend', handleMouseUp);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elementRef.current, options]);
+  }, [elementRef.current, options, enabled]);
 
   return {
     isMoving: isMovingRef.current,
