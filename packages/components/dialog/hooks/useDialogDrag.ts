@@ -16,6 +16,7 @@ const useDialogDrag = (props: DialogDragProps) => {
   const dragOffset = useRef({ x: 0, y: 0 });
 
   useMouseEvent(dialogCardRef, {
+    enabled: canDraggable,
     onDown: (e) => {
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight, style } = dialogCardRef.current;
       if (offsetWidth > screenWidth || offsetHeight > screenHeight) return;
@@ -42,8 +43,6 @@ const useDialogDrag = (props: DialogDragProps) => {
       dialogCardRef.current.style.cursor = 'default';
     },
   });
-
-  if (!canDraggable) return;
 };
 
 export default useDialogDrag;

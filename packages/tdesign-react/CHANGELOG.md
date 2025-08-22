@@ -5,9 +5,13 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.2 `2025-08-22` 
+### 🐞 Bug Fixes
+- `Dialog`: 修复 `1.14.0` 版本引入的新特性导致 `draggable` 禁用失败的问题 @RylanBot ([#3753](https://github.com/Tencent/tdesign-react/pull/3753))
+
 ## 🌈 1.14.1 `2025-08-22` 
 ### 🐞 Bug Fixes
-- `Steps`: 修复 1.13.2 版本引起的 `theme !== default` 时重复渲染图标的问题 @RSS1102 ([#3748](https://github.com/Tencent/tdesign-react/pull/3748))
+- `Steps`: 修复 `1.13.2` 版本引起的 `theme` 不为 `default` 时重复渲染图标的问题 @RSS1102 ([#3748](https://github.com/Tencent/tdesign-react/pull/3748))
 
 ## 🌈 1.14.0 `2025-08-21` 
 ### 🚀 Features
@@ -28,9 +32,9 @@ spline: explain
 ### 🐞 Bug Fixes
 - `Tree`: @RylanBot
   - 修复 `draggable` 在 `disabled` 状态下依旧生效的异常，此前有依赖此错误的业务请注意此变动 ⚠️  ([#3740](https://github.com/Tencent/tdesign-react/pull/3740)) 
-  - 修复默认 `checkStrictly={false}` 时，父子节点 `disabled` 状态没有关联的问题  ([#3739](https://github.com/Tencent/tdesign-react/pull/3739))
+  - 修复 `checkStrictly` 默认为 false 时，父子节点 `disabled` 状态没有关联的问题  ([#3739](https://github.com/Tencent/tdesign-react/pull/3739))
   - 修复 Drag 相关事件的回调中 `node` 为 null 的异常 ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
-  - 修复 `size="small"` 的 `firstFullRow` 尺寸比 `size="medium"` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
+  - 修复 `size='small'` 的 `firstFullRow` 尺寸比 `size='medium'` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
 - `Form`: @uyarn
     - 修复嵌套表单受外层 `FormList` 影响数据构造的问题  ([#3715](https://github.com/Tencent/tdesign-react/pull/3715))
     - 修复嵌套表单中内层表单受外层表单影响校验结果字段的问题  ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
@@ -62,8 +66,8 @@ spline: explain
   - 修复直接长按渐变点后拖动，颜色更新异常的问题
   - 修复清空下方某一输入框的数值时，其他输入框意外被重置
 - `Upload`: 确保在 `beforeUpload` 完成之后，再执行上传动作 @RSS1102 ([#3686](https://github.com/Tencent/tdesign-react/pull/3686))
-- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
-- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
+- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#common2224](https://github.com/Tencent/tdesign-common/pull/2224))
+- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#common2219](https://github.com/Tencent/tdesign-common/pull/2219))
 - `Steps`: 修复自定义图标和状态图标的优先级问题 @RSS1102 ([#3670](https://github.com/Tencent/tdesign-react/pull/3670))
 - `Form`: 修复动态表单删除一个数据后再次新增，会回填旧数据的问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
 
