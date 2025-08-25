@@ -362,7 +362,6 @@ const TreeItem = forwardRef(
       evt.preventDefault();
       setDragStatus('drop', evt);
     };
-    const childrenKey = props.keys?.children || 'children';
 
     return (
       <div
@@ -370,11 +369,7 @@ const TreeItem = forwardRef(
         data-value={node.value}
         data-level={level}
         className={classNames(treeClassNames.treeNode, {
-          [treeClassNames.treeNodeOpen]:
-            node.expanded &&
-            (typeof node.data[childrenKey] === 'boolean'
-              ? node.data[childrenKey]
-              : node.data[childrenKey] !== undefined),
+          [treeClassNames.treeNodeOpen]: node.expanded,
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
           [treeClassNames.treeNodeDraggable]: !node.isDisabled() && node.isDraggable(),
