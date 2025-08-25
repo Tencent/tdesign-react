@@ -272,14 +272,14 @@ const TreeItem = forwardRef(
             stopLabelTrigger={expandOnClickNode && !!node.children}
             {...checkboxProps}
           >
-            <span date-target="label">{labelText}</span>
+            <span data-target="label">{labelText}</span>
           </Checkbox>
         );
       }
       return (
         <span
           ref={setRefCurrent}
-          date-target="label"
+          data-target="label"
           className={labelClasses}
           // label 可以传入 ReactNode， 如果直接取里面的 children 值，当多层级的时候会有问题
           // 所以这里判断如果 label是 ReactNode， 并且 text没有值 就不展示 title
@@ -308,7 +308,7 @@ const TreeItem = forwardRef(
 
       if (operationsView) {
         return (
-          <span className={treeClassNames.treeOperations} date-target="operations">
+          <span className={treeClassNames.treeOperations} data-target="operations">
             {operationsView}
           </span>
         );
@@ -362,7 +362,6 @@ const TreeItem = forwardRef(
       evt.preventDefault();
       setDragStatus('drop', evt);
     };
-    const childrenKey = props.keys?.children || 'children';
 
     return (
       <div
@@ -370,11 +369,7 @@ const TreeItem = forwardRef(
         data-value={node.value}
         data-level={level}
         className={classNames(treeClassNames.treeNode, {
-          [treeClassNames.treeNodeOpen]:
-            node.expanded &&
-            (typeof node.data[childrenKey] === 'boolean'
-              ? node.data[childrenKey]
-              : node.data[childrenKey] !== undefined),
+          [treeClassNames.treeNodeOpen]: node.expanded,
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
           [treeClassNames.treeNodeDraggable]: !node.isDisabled() && node.isDraggable(),
