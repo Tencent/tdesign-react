@@ -272,14 +272,14 @@ const TreeItem = forwardRef(
             stopLabelTrigger={expandOnClickNode && !!node.children}
             {...checkboxProps}
           >
-            <span date-target="label">{labelText}</span>
+            <span data-target="label">{labelText}</span>
           </Checkbox>
         );
       }
       return (
         <span
           ref={setRefCurrent}
-          date-target="label"
+          data-target="label"
           className={labelClasses}
           // label 可以传入 ReactNode， 如果直接取里面的 children 值，当多层级的时候会有问题
           // 所以这里判断如果 label是 ReactNode， 并且 text没有值 就不展示 title
@@ -308,7 +308,7 @@ const TreeItem = forwardRef(
 
       if (operationsView) {
         return (
-          <span className={treeClassNames.treeOperations} date-target="operations">
+          <span className={treeClassNames.treeOperations} data-target="operations">
             {operationsView}
           </span>
         );
