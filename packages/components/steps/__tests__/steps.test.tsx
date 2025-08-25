@@ -83,4 +83,26 @@ describe('Steps 组件测试', () => {
     const stepsItems = stepsInstance.querySelectorAll('.t-steps-item--clickable');
     expect(stepsItems.length).toBe(0);
   });
+
+  test('layout readonly 测试', async () => {
+    const testId = 'step readonly test';
+
+    const { getByTestId } = render(
+      <div data-testid={testId}>
+        <Steps options={stepOptions} readonly />
+      </div>,
+    );
+
+    const stepsInstance = await waitFor(() => getByTestId(testId));
+    const stepsItems = stepsInstance.querySelectorAll('.t-steps-item__icon');
+    expect(stepsItems.length).toBe(3);
+    const stepsItems0Style = getComputedStyle(stepsItems[0]);
+    console.log('stepsItems0Style', stepsItems0Style);
+
+    const iconNumberItems = stepsItems[0].querySelectorAll('.t-steps-item__icon--number');
+    // expect(iconNumberItems.length).toBe(3);
+    const iconNumberItems0Style = getComputedStyle(iconNumberItems[0]);
+    console.log('iconNumberItems0Style', iconNumberItems0Style);
+    expect(iconNumberItems0Style.background).toBe('rgb(0, 102, 255)');
+  });
 });
