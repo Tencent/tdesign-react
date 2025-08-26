@@ -26,8 +26,12 @@ const DEFAULT_OPTIONS = {
  */
 function useVariables<T extends Record<string, string>>(
   variables: T,
-  targetElement: HTMLElement | null = document?.documentElement,
+  targetElement?: HTMLElement,
 ): Record<keyof T, string> {
+  if (typeof window !== undefined && !targetElement) {
+    // eslint-disable-next-line no-param-reassign
+    targetElement = document?.documentElement;
+  }
   const [, forceUpdate] = useState<Record<string, never>>({});
 
   // 确保 variables 参数有效
