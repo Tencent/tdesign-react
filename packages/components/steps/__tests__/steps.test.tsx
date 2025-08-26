@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, waitFor, fireEvent, vi, act } from '@test/utils';
+import { render, waitFor, fireEvent, vi } from '@test/utils';
 import Steps from '../Steps';
 
 const { StepItem } = Steps;
@@ -99,8 +99,13 @@ describe('Steps 组件测试', () => {
     const { getByTestId } = render(<StepRender theme="default" />);
 
     const stepsInstance = await waitFor(() => getByTestId(testId));
+
+    const items = stepsInstance.querySelectorAll('.t-steps-item');
+    expect(items.length).toBe(3);
+
     const stepsItemIcons = stepsInstance.querySelectorAll('.t-steps-item__icon');
     expect(stepsItemIcons.length).toBe(3);
+
     const contentItems = stepsInstance.querySelectorAll('.t-steps-item__content');
     expect(contentItems.length).toBe(3);
 
@@ -121,31 +126,46 @@ describe('Steps 组件测试', () => {
     expect(iconNumberItems[0]).toHaveTextContent('1');
     expect(iconNumberItems[1]).toHaveTextContent('2');
     expect(iconNumberItems[2]).toHaveTextContent('3');
+    expect(items[0]).toHaveClass('t-steps-item--process');
+    expect(items[1]).toHaveClass('t-steps-item--wait');
+    expect(items[2]).toHaveClass('t-steps-item--wait');
 
     // 点击切换到第二个步骤
     fireEvent.click(iconNumberItems[1]);
-
     expect(iconNumberItems[0].children.length).toBe(1);
     expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
     expect(iconNumberItems[1]).toHaveTextContent('2');
     expect(iconNumberItems[2]).toHaveTextContent('3');
+    expect(items[0]).toHaveClass('t-steps-item--finish');
+    expect(items[1]).toHaveClass('t-steps-item--process');
+    expect(items[2]).toHaveClass('t-steps-item--wait');
 
-    // 点击切换到第二个步骤
+    // 点击切换到第三个步骤
     fireEvent.click(contentItems[2]);
-
     expect(iconNumberItems[0].children.length).toBe(1);
     expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
     expect(iconNumberItems[1].children.length).toBe(1);
     expect((iconNumberItems[1].children[0] as Element).tagName.toLowerCase()).toBe('svg');
     expect(iconNumberItems[2]).toHaveTextContent('3');
+    expect(items[0]).toHaveClass('t-steps-item--finish');
+    expect(items[1]).toHaveClass('t-steps-item--finish');
+    expect(items[2]).toHaveClass('t-steps-item--process');
   });
 
   test('theme=dot - 切换渲染', async () => {
     const { getByTestId } = render(<StepRender theme="dot" />);
 
     const stepsInstance = await waitFor(() => getByTestId(testId));
+
+    const items = stepsInstance.querySelectorAll('.t-steps-item');
+    expect(items.length).toBe(3);
+
     const stepsItemIcons = stepsInstance.querySelectorAll('.t-steps-item__icon');
     expect(stepsItemIcons.length).toBe(3);
+    //  测试 theme=dot 不渲染数字
+    const iconNumberItems = stepsInstance.querySelectorAll('.t-steps-item__icon--number');
+    expect(iconNumberItems.length).toBe(0);
+
     const contentItems = stepsInstance.querySelectorAll('.t-steps-item__content');
     expect(contentItems.length).toBe(3);
 
@@ -161,27 +181,20 @@ describe('Steps 组件测试', () => {
     expect(descriptionItems[1]).toHaveTextContent('这里是提示文字');
     expect(descriptionItems[2]).toHaveTextContent('这里是提示文字');
 
-    const iconNumberItems = stepsInstance.querySelectorAll('.t-steps-item__icon--number');
-    expect(iconNumberItems.length).toBe(3);
-    expect(iconNumberItems[0]).toHaveTextContent('1');
-    expect(iconNumberItems[1]).toHaveTextContent('2');
-    expect(iconNumberItems[2]).toHaveTextContent('3');
+    expect(items[0]).toHaveClass('t-steps-item--process');
+    expect(items[1]).toHaveClass('t-steps-item--wait');
+    expect(items[2]).toHaveClass('t-steps-item--wait');
 
     // 点击切换到第二个步骤
-    fireEvent.click(iconNumberItems[1]);
-
-    expect(iconNumberItems[0].children.length).toBe(1);
-    expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
-    expect(iconNumberItems[1]).toHaveTextContent('2');
-    expect(iconNumberItems[2]).toHaveTextContent('3');
+    fireEvent.click(stepsItemIcons[1]);
+    expect(items[0]).toHaveClass('t-steps-item--finish');
+    expect(items[1]).toHaveClass('t-steps-item--process');
+    expect(items[2]).toHaveClass('t-steps-item--wait');
 
     // 点击切换到第二个步骤
     fireEvent.click(contentItems[2]);
-
-    expect(iconNumberItems[0].children.length).toBe(1);
-    expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
-    expect(iconNumberItems[1].children.length).toBe(1);
-    expect((iconNumberItems[1].children[0] as Element).tagName.toLowerCase()).toBe('svg');
-    expect(iconNumberItems[2]).toHaveTextContent('3');
+    expect(items[0]).toHaveClass('t-steps-item--finish');
+    expect(items[1]).toHaveClass('t-steps-item--finish');
+    expect(items[2]).toHaveClass('t-steps-item--process');
   });
 });
