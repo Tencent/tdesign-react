@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.5 `2025-08-26` 
+### 🐞 Bug Fixes
+- `Watermark`:  完善水印组件在 SSR 场景的兼容问题 @uyarn ([#3764](https://github.com/Tencent/tdesign-react/pull/3764))
+
 ## 🌈 1.14.4 `2025-08-26` 
 ### 🐞 Bug Fixes
 - `fix`: 修复 SSR 渲染的相关问题 @uyarn ([#3762](https://github.com/Tencent/tdesign-react/pull/3762))
