@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, waitFor, fireEvent, vi } from '@test/utils';
+import React, { useState } from 'react';
+import { render, waitFor, fireEvent, vi, act } from '@test/utils';
 import Steps from '../Steps';
 
 const { StepItem } = Steps;
@@ -21,6 +21,17 @@ const stepOptions = [
     value: 3,
   },
 ];
+
+const testId = 'step readonly test';
+
+const StepRender = ({ theme }: { theme: 'default' | 'dot' }) => {
+  const [current, setCurrent] = useState<string | number>(1);
+  return (
+    <div data-testid={testId}>
+      <Steps options={stepOptions} current={current} theme={theme} onChange={(current) => setCurrent(current)} />
+    </div>
+  );
+};
 
 describe('Steps 组件测试', () => {
   test('mount, unmount 测试', () => {
@@ -53,7 +64,7 @@ describe('Steps 组件测试', () => {
     expect(stepsItems.length).toBe(3);
 
     fireEvent.click(stepsInstance.querySelector('.t-steps-item__inner'));
-    expect(handleChange).toBeCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
   test('layout vertical 测试', async () => {
@@ -84,25 +95,93 @@ describe('Steps 组件测试', () => {
     expect(stepsItems.length).toBe(0);
   });
 
-  test('layout readonly 测试', async () => {
-    const testId = 'step readonly test';
-
-    const { getByTestId } = render(
-      <div data-testid={testId}>
-        <Steps options={stepOptions} readonly />
-      </div>,
-    );
+  test('theme=default - 切换渲染', async () => {
+    const { getByTestId } = render(<StepRender theme="default" />);
 
     const stepsInstance = await waitFor(() => getByTestId(testId));
-    const stepsItems = stepsInstance.querySelectorAll('.t-steps-item__icon');
-    expect(stepsItems.length).toBe(3);
-    const stepsItems0Style = getComputedStyle(stepsItems[0]);
-    console.log('stepsItems0Style', stepsItems0Style);
+    const stepsItemIcons = stepsInstance.querySelectorAll('.t-steps-item__icon');
+    expect(stepsItemIcons.length).toBe(3);
+    const contentItems = stepsInstance.querySelectorAll('.t-steps-item__content');
+    expect(contentItems.length).toBe(3);
 
-    const iconNumberItems = stepsItems[0].querySelectorAll('.t-steps-item__icon--number');
-    // expect(iconNumberItems.length).toBe(3);
-    const iconNumberItems0Style = getComputedStyle(iconNumberItems[0]);
-    console.log('iconNumberItems0Style', iconNumberItems0Style);
-    expect(iconNumberItems0Style.background).toBe('rgb(0, 102, 255)');
+    const titleItems = stepsInstance.querySelectorAll('.t-steps-item__title');
+    expect(titleItems.length).toBe(3);
+    expect(titleItems[0]).toHaveTextContent('1');
+    expect(titleItems[1]).toHaveTextContent('2');
+    expect(titleItems[2]).toHaveTextContent('3');
+
+    const descriptionItems = stepsInstance.querySelectorAll('.t-steps-item__description');
+    expect(descriptionItems.length).toBe(3);
+    expect(descriptionItems[0]).toHaveTextContent('这里是提示文字');
+    expect(descriptionItems[1]).toHaveTextContent('这里是提示文字');
+    expect(descriptionItems[2]).toHaveTextContent('这里是提示文字');
+
+    const iconNumberItems = stepsInstance.querySelectorAll('.t-steps-item__icon--number');
+    expect(iconNumberItems.length).toBe(3);
+    expect(iconNumberItems[0]).toHaveTextContent('1');
+    expect(iconNumberItems[1]).toHaveTextContent('2');
+    expect(iconNumberItems[2]).toHaveTextContent('3');
+
+    // 点击切换到第二个步骤
+    fireEvent.click(iconNumberItems[1]);
+
+    expect(iconNumberItems[0].children.length).toBe(1);
+    expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
+    expect(iconNumberItems[1]).toHaveTextContent('2');
+    expect(iconNumberItems[2]).toHaveTextContent('3');
+
+    // 点击切换到第二个步骤
+    fireEvent.click(contentItems[2]);
+
+    expect(iconNumberItems[0].children.length).toBe(1);
+    expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
+    expect(iconNumberItems[1].children.length).toBe(1);
+    expect((iconNumberItems[1].children[0] as Element).tagName.toLowerCase()).toBe('svg');
+    expect(iconNumberItems[2]).toHaveTextContent('3');
+  });
+
+  test('theme=dot - 切换渲染', async () => {
+    const { getByTestId } = render(<StepRender theme="dot" />);
+
+    const stepsInstance = await waitFor(() => getByTestId(testId));
+    const stepsItemIcons = stepsInstance.querySelectorAll('.t-steps-item__icon');
+    expect(stepsItemIcons.length).toBe(3);
+    const contentItems = stepsInstance.querySelectorAll('.t-steps-item__content');
+    expect(contentItems.length).toBe(3);
+
+    const titleItems = stepsInstance.querySelectorAll('.t-steps-item__title');
+    expect(titleItems.length).toBe(3);
+    expect(titleItems[0]).toHaveTextContent('1');
+    expect(titleItems[1]).toHaveTextContent('2');
+    expect(titleItems[2]).toHaveTextContent('3');
+
+    const descriptionItems = stepsInstance.querySelectorAll('.t-steps-item__description');
+    expect(descriptionItems.length).toBe(3);
+    expect(descriptionItems[0]).toHaveTextContent('这里是提示文字');
+    expect(descriptionItems[1]).toHaveTextContent('这里是提示文字');
+    expect(descriptionItems[2]).toHaveTextContent('这里是提示文字');
+
+    const iconNumberItems = stepsInstance.querySelectorAll('.t-steps-item__icon--number');
+    expect(iconNumberItems.length).toBe(3);
+    expect(iconNumberItems[0]).toHaveTextContent('1');
+    expect(iconNumberItems[1]).toHaveTextContent('2');
+    expect(iconNumberItems[2]).toHaveTextContent('3');
+
+    // 点击切换到第二个步骤
+    fireEvent.click(iconNumberItems[1]);
+
+    expect(iconNumberItems[0].children.length).toBe(1);
+    expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
+    expect(iconNumberItems[1]).toHaveTextContent('2');
+    expect(iconNumberItems[2]).toHaveTextContent('3');
+
+    // 点击切换到第二个步骤
+    fireEvent.click(contentItems[2]);
+
+    expect(iconNumberItems[0].children.length).toBe(1);
+    expect((iconNumberItems[0].children[0] as Element).tagName.toLowerCase()).toBe('svg');
+    expect(iconNumberItems[1].children.length).toBe(1);
+    expect((iconNumberItems[1].children[0] as Element).tagName.toLowerCase()).toBe('svg');
+    expect(iconNumberItems[2]).toHaveTextContent('3');
   });
 });
