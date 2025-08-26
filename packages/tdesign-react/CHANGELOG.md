@@ -5,9 +5,9 @@ toc: false
 spline: explain
 ---
 
-## 🌈 1.14.4 `2025-08-26` 
+## 🌈 1.14.5 `2025-08-26` 
 ### 🐞 Bug Fixes
-- `fix`: 修复 SSR 渲染的相关问题 @uyarn ([#3762](https://github.com/Tencent/tdesign-react/pull/3762))
+- `Watermark`:  完善水印组件在 SSR 场景的兼容问题 @uyarn ([#3765](https://github.com/Tencent/tdesign-react/pull/3765))
 
 ## 🌈 1.14.3 `2025-08-26` 
 ### 🐞 Bug Fixes
@@ -1229,3 +1229,5 @@ spline: explain
 
 ## 🌈 0.x `2021-03-26 - 2023-02-08`
 前往 [GitHub](https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/CHANGELOG-0.x.md) 查看 `0.x` 更新日志
+
+
