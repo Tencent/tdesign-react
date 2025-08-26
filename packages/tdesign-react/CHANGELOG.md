@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.4 `2025-08-26` 
+### 🐞 Bug Fixes
+- `fix`: 修复 SSR 渲染的相关问题 @uyarn ([#3762](https://github.com/Tencent/tdesign-react/pull/3762))
+
 ## 🌈 1.14.3 `2025-08-26` 
 ### 🐞 Bug Fixes
 - `Pagination`: 修复跳转图标没有重置回正确状态的问题 @phalera ([#3758](https://github.com/Tencent/tdesign-react/pull/3758))
