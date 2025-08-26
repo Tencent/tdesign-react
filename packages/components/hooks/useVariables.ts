@@ -29,6 +29,8 @@ function useVariables<T extends Record<string, string>>(
   variables: T,
   targetElement?: HTMLElement,
 ): Record<keyof T, string> {
+  const [, forceUpdate] = useState<Record<string, never>>({});
+
   // @ts-expect-error
   if (!canUseDocument) return {};
 
@@ -36,13 +38,13 @@ function useVariables<T extends Record<string, string>>(
     // eslint-disable-next-line no-param-reassign
     targetElement = document?.documentElement;
   }
-  const [, forceUpdate] = useState<Record<string, never>>({});
 
   // 确保 variables 参数有效
   if (!variables || Object.keys(variables).length === 0) {
     throw new Error('useVariables: variables parameter cannot be empty');
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const refs = useMemo(() => {
     const values = {} as Record<keyof T, string>;
 
@@ -75,6 +77,7 @@ function useVariables<T extends Record<string, string>>(
     }
   };
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useMutationObservable(
     targetElement,
     (mutationsList) => {
