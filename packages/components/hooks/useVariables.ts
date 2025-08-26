@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { THEME_MODE } from '@tdesign/common-js/common';
 import getColorTokenColor from '@tdesign/common-js/utils/getColorTokenColor';
 import useMutationObservable from './useMutationObserver';
+import { canUseDocument } from '../_util/dom';
 
 const DEFAULT_OPTIONS = {
   debounceTime: 250,
@@ -28,7 +29,10 @@ function useVariables<T extends Record<string, string>>(
   variables: T,
   targetElement?: HTMLElement,
 ): Record<keyof T, string> {
-  if (typeof window !== undefined && !targetElement) {
+  // @ts-expect-error
+  if (!canUseDocument) return {};
+
+  if (!targetElement) {
     // eslint-disable-next-line no-param-reassign
     targetElement = document?.documentElement;
   }
