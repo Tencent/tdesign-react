@@ -48,7 +48,9 @@ export default function Demo() {
     <div
       style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '0 40px' }}
     >
-      <DynamicDemo componentName={componentName} demoName={demoName} />
+      <div>
+        <DynamicDemo componentName={componentName} demoName={demoName} />
+      </div>
     </div>
   ) : (
     <ul style={{ margin: '48px 200px' }}>
