@@ -199,7 +199,7 @@ describe('Steps 组件测试', () => {
       expect(items[2]).toHaveClass('t-steps-item--process');
     });
 
-    test('theme=dot - 切换渲染', async () => {
+    test('切换渲染、渲染自定义图标', async () => {
       const { getByTestId } = render(
         <div data-testid={testId}>
           <Steps current={1}>
@@ -272,34 +272,38 @@ describe('Steps 组件测试', () => {
       expect(stepsItemIcons[2]).toHaveClass('t-steps-item-default');
     });
 
-    // test('reverse - 倒序', async () => {
-    //   const onChange = vi.fn();
-    //   const { getByTestId } = render(<StepRender sequence="reverse" onChange={onChange} />);
-    //   const stepsInstance = await waitFor(() => getByTestId(testId));
+    test('reverse - 倒序', async () => {
+      const onChange = vi.fn();
+      const { getByTestId } = render(<StepRender sequence="reverse" onChange={onChange} />);
+      const stepsInstance = await waitFor(() => getByTestId(testId));
 
-    //   const stepsItemIcons = stepsInstance.querySelectorAll('.t-steps-item__icon');
-    //   expect(stepsItemIcons.length).toBe(3);
+      const stepsItemIcons = stepsInstance.querySelectorAll('.t-steps-item__icon');
+      expect(stepsItemIcons.length).toBe(3);
 
-    //   fireEvent.click(stepsItemIcons[1]);
-    //   expect(onChange.mock.calls[0][0]).toBe(1);
-    //   expect(onChange.mock.calls[0][1]).toBe(0);
-    //   expect(stepsItemIcons[0]).toHaveClass('t-steps-item-default');
-    //   expect(stepsItemIcons[1]).toHaveClass('t-steps-item-process');
-    //   expect(stepsItemIcons[2]).toHaveClass('t-steps-item-finish');
+      expect(stepsItemIcons[0]).toHaveClass('t-steps-item-default');
+      expect(stepsItemIcons[1]).toHaveClass('t-steps-item-default');
+      expect(stepsItemIcons[2]).toHaveClass('t-steps-item-process');
 
-    //   fireEvent.click(stepsItemIcons[2]);
-    //   expect(onChange.mock.calls[1][0]).toBe(2);
-    //   expect(onChange.mock.calls[1][1]).toBe(1);
-    //   expect(stepsItemIcons[0]).toHaveClass('t-steps-item-default');
-    //   expect(stepsItemIcons[1]).toHaveClass('t-steps-item-default');
-    //   expect(stepsItemIcons[2]).toHaveClass('t-steps-item-process');
+      fireEvent.click(stepsItemIcons[0]);
+      expect(onChange.mock.calls[0][0]).toBe(2);
+      expect(onChange.mock.calls[0][1]).toBe(0);
+      expect(stepsItemIcons[0]).toHaveClass('t-steps-item-process');
+      expect(stepsItemIcons[1]).toHaveClass('t-steps-item-finish');
+      expect(stepsItemIcons[2]).toHaveClass('t-steps-item-finish');
 
-    //   fireEvent.click(stepsItemIcons[0]);
-    //   expect(onChange.mock.calls[2][0]).toBe(0);
-    //   expect(onChange.mock.calls[2][1]).toBe(2);
-    //   expect(stepsItemIcons[0]).toHaveClass('t-steps-item-process');
-    //   expect(stepsItemIcons[1]).toHaveClass('t-steps-item-finish');
-    //   expect(stepsItemIcons[2]).toHaveClass('t-steps-item-finish');
-    // });
+      fireEvent.click(stepsItemIcons[1]);
+      expect(onChange.mock.calls[1][0]).toBe(1);
+      expect(onChange.mock.calls[1][1]).toBe(2);
+      expect(stepsItemIcons[0]).toHaveClass('t-steps-item-default');
+      expect(stepsItemIcons[1]).toHaveClass('t-steps-item-process');
+      expect(stepsItemIcons[2]).toHaveClass('t-steps-item-finish');
+
+      fireEvent.click(stepsItemIcons[2]);
+      expect(onChange.mock.calls[2][0]).toBe(0);
+      expect(onChange.mock.calls[2][1]).toBe(1);
+      expect(stepsItemIcons[0]).toHaveClass('t-steps-item-default');
+      expect(stepsItemIcons[1]).toHaveClass('t-steps-item-default');
+      expect(stepsItemIcons[2]).toHaveClass('t-steps-item-process');
+    });
   });
 });
