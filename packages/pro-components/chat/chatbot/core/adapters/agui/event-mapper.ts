@@ -102,7 +102,6 @@ export class AGUIEventMapper {
             eventType: 'TOOL_CALL_ARGS',
             args: newArgs,
           };
-
           return {
             type: 'toolcall',
             data: this.toolCallMap[event.toolCallId],
@@ -146,7 +145,13 @@ export class AGUIEventMapper {
             eventType: 'TOOL_CALL_RESULT',
             result: newResult,
           };
-
+          if (this.toolCallMap[event.toolCallId].toolCallName === 'suggestion') {
+            return {
+              type: 'suggestion',
+              data: JSON.parse(this.toolCallMap[event.toolCallId]?.result || '{}') || [],
+              status: 'complete',
+            };
+          }
           return {
             type: 'toolcall',
             data: this.toolCallMap[event.toolCallId],

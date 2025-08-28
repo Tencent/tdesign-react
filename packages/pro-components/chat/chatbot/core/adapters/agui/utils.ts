@@ -114,7 +114,7 @@ export function deepMerge(target: any, source: any): any {
   }
 
   const result = { ...target };
-  
+
   for (const key in source) {
     if (source.hasOwnProperty(key)) {
       if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
@@ -161,7 +161,7 @@ export function isValidEvent(event: any): boolean {
  * @param prefix 前缀
  * @returns 连接ID
  */
-export function generateConnectionId(prefix: string = 'sse'): string {
+export function generateConnectionId(prefix = 'sse'): string {
   const timestamp = Date.now();
   return `${prefix}_${timestamp}_${Math.random().toString(36).substr(2, 9)}`;
 }

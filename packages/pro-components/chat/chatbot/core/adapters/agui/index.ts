@@ -9,6 +9,7 @@ import type {
   AGUIAssistantHistoryMessage,
   AGUIToolHistoryMessage,
 } from './types';
+import { parseSSEData } from './utils';
 
 // 重新导出类型，以便其他文件可以使用
 export type {
@@ -113,18 +114,28 @@ export class AGUIAdapter {
 
           // 添加工具调用内容
           if (assistantMsg.toolCalls && assistantMsg.toolCalls.length > 0) {
-            assistantMsg.toolCalls.forEach((toolCall) => {
-              const toolCallContent = {
+            const toolCallContents = assistantMsg.toolCalls.map((toolCall) => {
+              const toolResult = toolCallMap.get(toolCall.id)?.result || '';
+              // 建议类型的toolcall特殊解析
+              if (toolCall.function.name === 'suggestion') {
+                return {
+                  type: 'suggestion' as const,
+                  data: parseSSEData(toolResult) || [],
+                };
+              }
+
+              return {
                 type: 'toolcall' as const,
                 data: {
                   toolCallId: toolCall.id,
                   toolCallName: toolCall.function.name,
                   args: toolCall.function.arguments,
-                  result: toolCallMap.get(toolCall.id)?.result || '',
+                  result: toolResult,
                 },
               };
-              allContent.push(toolCallContent as unknown as AIMessageContent);
             });
+
+            allContent.push(...(toolCallContents as AIMessageContent[]));
           }
         });
 

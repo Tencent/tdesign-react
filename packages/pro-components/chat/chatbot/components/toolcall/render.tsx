@@ -25,6 +25,11 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       return cfg;
     }, [toolCall.toolCallName]);
 
+    // 添加注册状态监听
+    const [isRegistered, setIsRegistered] = useState(
+      () => !!agentToolcallRegistry.getRenderFunction(toolCall.toolCallName),
+    );
+
     // 缓存参数解析
     const args = useMemo(() => {
       try {
@@ -39,7 +44,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       (response: any) => {
         if (onRespond) {
           onRespond(toolCall, response);
-          setActionState(prev => ({
+          setActionState((prev) => ({
             ...prev,
             status: 'complete',
             result: response,
@@ -105,7 +110,6 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       }
     }, [config, args, toolCall.result]);
 
-
     // 从配置中获取 subscribeKey 提取函数
     const subscribeKeyExtractor = useMemo(() => config?.subscribeKey, [config]);
 
@@ -125,8 +129,27 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       return subscribeKeyExtractor(fullProps);
     }, [subscribeKeyExtractor, args, actionState]);
 
+    // 监听组件注册事件, 无论何时注册，都能正确触发重新渲染
+    useEffect(() => {
+      if (!isRegistered) {
+        const handleRegistered = (event: CustomEvent) => {
+          if (event.detail?.name === toolCall.toolCallName) {
+            setIsRegistered(true);
+          }
+        };
+
+        // 添加事件监听
+        window.addEventListener('toolcall-registered', handleRegistered as EventListener);
+
+        return () => {
+          window.removeEventListener('toolcall-registered', handleRegistered as EventListener);
+        };
+      }
+    }, [toolCall.toolCallName, isRegistered]);
+
     // 使用精确订阅
     const agentState = useAgentStateDataByKey(targetStateKey);
+
     // 缓存组件 props
     const componentProps = useMemo<ToolcallComponentProps>(
       () => ({
@@ -143,7 +166,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
     // 使用registry的缓存渲染函数
     const MemoizedComponent = useMemo(
       () => agentToolcallRegistry.getRenderFunction(toolCall.toolCallName),
-      [toolCall.toolCallName],
+      [toolCall.toolCallName, isRegistered],
     );
 
     if (!MemoizedComponent) {
@@ -152,13 +175,13 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
 
     return <MemoizedComponent {...componentProps} />;
   },
-  (prevProps, nextProps) => prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId
-    && prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName
-    && prevProps.toolCall.args === nextProps.toolCall.args
-    && prevProps.toolCall.result === nextProps.toolCall.result
-    && prevProps.onRespond === nextProps.onRespond,
+  (prevProps, nextProps) =>
+    prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId &&
+    prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName &&
+    prevProps.toolCall.args === nextProps.toolCall.args &&
+    prevProps.toolCall.result === nextProps.toolCall.result &&
+    prevProps.onRespond === nextProps.onRespond,
 );
-
 // 用于调试，可以在控制台查看每次渲染的参数
 // (prevProps, nextProps) => {
 //   const toolCallIdSame = prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId;
@@ -219,21 +242,20 @@ type WithAgentStateProps<P> = P & { agentState?: Record<string, any> };
 //   return React.memo(WrappedComponent);
 // };
 
-
 export const withAgentStateToolcall1 = <P extends object>(
   Component: React.ComponentType<WithAgentStateProps<P>>,
 ): React.ComponentType<P> => {
   const WrappedComponent: React.FC<P> = (props: P) => (
-      <AgentStateContext.Consumer>
-        {(context) => {
-          if (!context) {
-            console.warn('AgentStateContext not found, component will render without state');
-            return <Component {...props} />;
-          }
+    <AgentStateContext.Consumer>
+      {(context) => {
+        if (!context) {
+          console.warn('AgentStateContext not found, component will render without state');
+          return <Component {...props} />;
+        }
 
-          return <Component {...props} agentState={context.stateMap} />;
-        }}
-      </AgentStateContext.Consumer>
+        return <Component {...props} agentState={context.stateMap} />;
+      }}
+    </AgentStateContext.Consumer>
   );
 
   WrappedComponent.displayName = `withAgentState(${Component.displayName || Component.name || 'Component'})`;
@@ -248,7 +270,7 @@ export const withAgentStateToolcall = <P extends object>(
     // 计算需要订阅的 stateKey
     const targetStateKey = useMemo(() => (subscribeKeyExtractor ? subscribeKeyExtractor(props) : undefined), [props]);
 
-    const agentState = useAgentStateByKey(targetStateKey);
+    const agentState = useAgentStateDataByKey(targetStateKey);
     console.log('====WrappedComponent', agentState, targetStateKey);
 
     return <Component {...props} agentState={agentState} />;

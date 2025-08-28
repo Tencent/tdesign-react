@@ -40,5 +40,4 @@ pnpm-lock.yaml
 ## mock server
 server/chat/*
 
-
-
+packages/pro-components/chat/chatbot/docs/*

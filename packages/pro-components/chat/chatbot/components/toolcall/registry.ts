@@ -26,6 +26,11 @@ class AgentToolcallRegistryManager {
       this.renderFunctionCache.delete(config.name);
     }
     this.registry[config.name] = config;
+    window.dispatchEvent(
+      new CustomEvent('toolcall-registered', {
+        detail: { name: config.name },
+      }),
+    );
   }
 
   /**

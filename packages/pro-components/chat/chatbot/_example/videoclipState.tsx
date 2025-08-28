@@ -417,6 +417,7 @@ interface MessageRendererProps {
   item: AIMessageContent;
   index: number;
   message: ChatMessagesData;
+  isLast: boolean;
 }
 
 /**
@@ -545,9 +546,13 @@ export default function VideoClipAgentChatWithSubscription() {
     }
   };
 
-  const renderMessageContent = ({ item, index }: MessageRendererProps): React.ReactNode => {
+  const renderMessageContent = ({ item, index, isLast }: MessageRendererProps): React.ReactNode => {
+    const { data, type } = item;
+    if (item.type === 'suggestion' && !isLast) {
+      // 只有最后一条消息才需要展示suggestion，其他消息将slot内容置空
+      return <div slot={`${type}-${index}`} key={`suggestion-${index}`} className="content-card"></div>;
+    }
     if (item.type === 'toolcall') {
-      const { data, type } = item;
       // 使用统一的 ToolCallRenderer 处理所有工具调用
       return (
         <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
@@ -562,7 +567,7 @@ export default function VideoClipAgentChatWithSubscription() {
   /** 渲染消息内容体 */
   const renderMsgContents = (message: ChatMessagesData, isLast: boolean): ReactNode => (
     <>
-      {message.content?.map((item, index) => renderMessageContent({ item, index, message }))}
+      {message.content?.map((item, index) => renderMessageContent({ item, index, message, isLast }))}
 
       {isAIMessage(message) && message.status === 'complete' ? (
         <ChatActionBar
