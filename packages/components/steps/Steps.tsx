@@ -80,18 +80,23 @@ const Steps = forwardRefWithStatics(
 
     const stepItemList = useMemo<React.ReactNode[]>(() => {
       if (options) {
-        const optionsDisplayList = sequence === 'reverse' ? options.reverse() : options;
-        return options.map<React.ReactNode>((item, index) => {
-          const stepIndex = sequence === 'reverse' ? optionsDisplayList.length - index - 1 : index;
-          return <StepItem key={index} {...item} index={stepIndex} status={handleStatus(item, stepIndex)} />;
+        const optionsDisplayList = sequence === 'reverse' ? [...options].reverse() : options;
+        const optionsDisplayListLength = optionsDisplayList.length;
+
+        return optionsDisplayList.map<React.ReactNode>((item, index) => {
+          const stepIndex = sequence === 'reverse' ? optionsDisplayListLength - index - 1 : index;
+          return (
+            <StepItem key={item.value ?? index} {...item} index={stepIndex} status={handleStatus(item, stepIndex)} />
+          );
         });
       }
 
       const childrenList = React.Children.toArray(children);
-      const childrenDisplayList = sequence === 'reverse' ? childrenList.reverse() : childrenList;
+      const childrenDisplayList = sequence === 'reverse' ? [...childrenList].reverse() : childrenList;
+      const childrenDisplayListLength = childrenDisplayList.length;
 
-      return childrenList.map((child: React.ReactElement<StepItemProps>, index: number) => {
-        const stepIndex = sequence === 'reverse' ? childrenDisplayList.length - index - 1 : index;
+      return childrenDisplayList.map((child: React.ReactElement<StepItemProps>, index: number) => {
+        const stepIndex = sequence === 'reverse' ? childrenDisplayListLength - index - 1 : index;
         return React.cloneElement(child, {
           ...child.props,
           index: stepIndex,
