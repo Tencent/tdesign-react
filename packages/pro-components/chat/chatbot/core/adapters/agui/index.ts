@@ -3,13 +3,8 @@ import { AGUIEventMapper } from './event-mapper';
 import type { SSEChunkData, AIMessageContent, ToolCall, ChatRequestParams, ChatMessagesData } from '../../type';
 import { EventType } from './events';
 import type { RunStartedEvent, RunFinishedEvent, RunErrorEvent, BaseEvent } from './events';
-import type {
-  AGUIHistoryMessage,
-  AGUIUserHistoryMessage,
-  AGUIAssistantHistoryMessage,
-  AGUIToolHistoryMessage,
-} from './types';
-import { parseSSEData } from './utils';
+import type { AGUIHistoryMessage, AGUIUserHistoryMessage, AGUIAssistantHistoryMessage } from './types';
+import { processReasoningContent, processToolCalls, buildToolCallMap } from './utils';
 
 // 重新导出类型，以便其他文件可以使用
 export type {
@@ -54,20 +49,9 @@ export class AGUIAdapter {
       return [];
     }
     const convertedMessages: ChatMessagesData[] = [];
-    const toolCallMap = new Map<string, any>(); // 存储工具调用结果
+    const toolCallMap = buildToolCallMap(historyMessages);
 
-    // 第一遍：收集所有工具调用结果
-    historyMessages.forEach((msg) => {
-      if (msg.role === 'tool') {
-        const toolMessage = msg as AGUIToolHistoryMessage;
-        toolCallMap.set(toolMessage.toolCallId, {
-          toolCallId: toolMessage.toolCallId,
-          result: toolMessage.content,
-        });
-      }
-    });
-
-    // 第二遍：按用户消息分组处理
+    // 按用户消息分组处理
     let currentUserMessage: AGUIUserHistoryMessage | null = null;
     let currentGroupMessages: AGUIHistoryMessage[] = []; // 存储当前组的所有消息
 
@@ -81,7 +65,16 @@ export class AGUIAdapter {
         .filter((msg) => msg.role === 'assistant')
         .forEach((msg) => {
           const assistantMsg = msg as AGUIAssistantHistoryMessage;
-          // 添加文本内容
+
+          // 处理 reasoningContent（支持 reasoning 和 thinking 两种类型）
+          if (assistantMsg.reasoningContent) {
+            const reasoningContentResult = processReasoningContent(assistantMsg.reasoningContent);
+            if (reasoningContentResult) {
+              allContent.push(reasoningContentResult);
+            }
+          }
+
+          // 处理普通文本内容
           if (assistantMsg.content) {
             allContent.push({
               type: 'markdown',
@@ -89,52 +82,9 @@ export class AGUIAdapter {
             });
           }
 
-          // 添加思考内容（如果有思考过程字段）
-          if ((assistantMsg as any).reasoningContent) {
-            const { reasoningContent } = assistantMsg as any;
-            let reasoningData;
-
-            if (typeof reasoningContent === 'string') {
-              try {
-                reasoningData = JSON.parse(reasoningContent);
-              } catch {
-                // 解析失败时，将字符串包装为对象
-                reasoningData = { text: reasoningContent, title: '思考完成' };
-              }
-            } else {
-              reasoningData = reasoningContent;
-            }
-
-            allContent.push({
-              type: 'thinking',
-              status: 'complete',
-              data: reasoningData,
-            });
-          }
-
-          // 添加工具调用内容
+          // 处理工具调用内容
           if (assistantMsg.toolCalls && assistantMsg.toolCalls.length > 0) {
-            const toolCallContents = assistantMsg.toolCalls.map((toolCall) => {
-              const toolResult = toolCallMap.get(toolCall.id)?.result || '';
-              // 建议类型的toolcall特殊解析
-              if (toolCall.function.name === 'suggestion') {
-                return {
-                  type: 'suggestion' as const,
-                  data: parseSSEData(toolResult) || [],
-                };
-              }
-
-              return {
-                type: 'toolcall' as const,
-                data: {
-                  toolCallId: toolCall.id,
-                  toolCallName: toolCall.function.name,
-                  args: toolCall.function.arguments,
-                  result: toolResult,
-                },
-              };
-            });
-
+            const toolCallContents = processToolCalls(assistantMsg.toolCalls, toolCallMap);
             allContent.push(...(toolCallContents as AIMessageContent[]));
           }
         });
@@ -202,7 +152,6 @@ export class AGUIAdapter {
 
     // 处理最后一组
     flushCurrentGroup();
-
     return convertedMessages;
   }
 

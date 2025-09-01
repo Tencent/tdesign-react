@@ -32,6 +32,7 @@ export const SystemMessageSchema = BaseMessageSchema.extend({
 export const AssistantMessageSchema = BaseMessageSchema.extend({
   role: z.literal('assistant'),
   content: z.string().optional(),
+  reasoningContent: z.string().optional(),
   toolCalls: z.array(ToolCallSchema).optional(),
 });
 

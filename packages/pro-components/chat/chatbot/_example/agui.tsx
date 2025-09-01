@@ -12,12 +12,16 @@ import {
   isAIMessage,
 } from '@tdesign-react/aigc';
 import { TdChatActionsName, TdChatSenderParams } from '@tencent/tdesign-webc-test';
-import { useChat, getMessageContentForCopy } from '../index';
+import { Button, Space, MessagePlugin } from 'tdesign-react';
+import { useChat, getMessageContentForCopy, AGUIAdapter } from '../index';
+import CustomToolCallRenderer from './components/Toolcall';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);
   const inputRef = useRef<TdChatSenderApi>(null);
   const [inputValue, setInputValue] = useState<string>('AG-UI协议的作用是什么');
+  const [loadingHistory, setLoadingHistory] = useState<boolean>(false);
+
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     // 聊天服务配置
@@ -63,6 +67,25 @@ export default function ComponentsBuild() {
     return false;
   }, [status]);
 
+  // 加载历史消息
+  const loadHistoryMessages = async () => {
+    setLoadingHistory(true);
+    try {
+      const response = await fetch(`http://127.0.0.1:3000/api/conversation/history?type=simple`);
+      const result = await response.json();
+      if (result.success && result.data) {
+        const messages = AGUIAdapter.convertHistoryMessages(result.data);
+        chatEngine.setMessages(messages);
+        listRef.current?.scrollList({ to: 'bottom' });
+      }
+    } catch (error) {
+      console.error('加载历史消息出错:', error);
+      MessagePlugin.error('加载历史消息出错');
+    } finally {
+      setLoadingHistory(false);
+    }
+  };
+
   // 消息属性配置
   const messageProps: TdChatMessageConfig = {
     user: {
@@ -74,7 +97,11 @@ export default function ComponentsBuild() {
       // 内置的消息渲染配置
       chatContentProps: {
         thinking: {
-          maxHeight: 100,
+          maxHeight: 300,
+        },
+        reasoning: {
+          maxHeight: 300,
+          defaultCollapsed: false,
         },
       },
     },
@@ -92,7 +119,6 @@ export default function ComponentsBuild() {
   const actionHandler = (name: string, data?: any) => {
     switch (name) {
       case 'replay': {
-        console.log('自定义重新回复');
         chatEngine.regenerateAIMessage();
         return;
       }
@@ -102,19 +128,46 @@ export default function ComponentsBuild() {
   };
 
   /** 渲染消息内容体 */
-  const renderMsgContents = (message: ChatMessagesData, isLast: boolean): ReactNode => (
-    <>
-      {isAIMessage(message) && message.status === 'complete' ? (
-        <ChatActionBar
-          slot="actionbar"
-          actionBar={getChatActionBar(isLast) as TdChatActionsName[]}
-          handleAction={actionHandler}
-          copyText={getMessageContentForCopy(message)}
-          comment={message.role === 'assistant' ? message.comment : undefined}
-        />
-      ) : null}
-    </>
-  );
+  const renderMsgContents = (message: ChatMessagesData, isLast: boolean): ReactNode => {
+    const contentElements = message.content?.map((item, index) => {
+      const { data, type } = item;
+
+      if (type === 'reasoning') {
+        // reasoning 类型包含一个 data 数组，需要遍历渲染每个子项
+        return data.map((subItem: any, subIndex: number) => {
+          if (subItem.type === 'toolcall') {
+            return (
+              <div
+                slot={`reasoning-toolcall-${subIndex}`}
+                key={`toolcall-${index}-${subIndex}`}
+                className="toolcall-wrapper"
+              >
+                <CustomToolCallRenderer toolCall={subItem.data} status={subItem.status} />
+              </div>
+            );
+          }
+          return null;
+        });
+      }
+
+      return null;
+    });
+
+    return (
+      <>
+        {contentElements}
+        {isAIMessage(message) && message.status === 'complete' ? (
+          <ChatActionBar
+            slot="actionbar"
+            actionBar={getChatActionBar(isLast) as TdChatActionsName[]}
+            handleAction={actionHandler}
+            copyText={getMessageContentForCopy(message)}
+            comment={message.role === 'assistant' ? message.comment : undefined}
+          />
+        ) : null}
+      </>
+    );
+  };
 
   const sendUserMessage = async (requestParams: ChatRequestParams) => {
     await chatEngine.sendUserMessage(requestParams);
@@ -141,7 +194,26 @@ export default function ComponentsBuild() {
 
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
-      <ChatList ref={listRef} style={{ width: '100%' }}>
+      {/* 历史消息加载控制栏 */}
+      <div style={{ padding: '12px', borderBottom: '1px solid #e7e7e7', backgroundColor: '#fafafa' }}>
+        <Space>
+          <Button size="small" onClick={loadHistoryMessages} loading={loadingHistory}>
+            加载历史消息
+          </Button>
+          <Button
+            size="small"
+            variant="text"
+            onClick={() => {
+              chatEngine.clearMessages();
+              MessagePlugin.success('已清空消息');
+            }}
+          >
+            清空消息
+          </Button>
+        </Space>
+      </div>
+
+      <ChatList ref={listRef} style={{ width: '100%', flex: 1 }}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
             {renderMsgContents(message, idx === messages.length - 1)}

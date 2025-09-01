@@ -13,6 +13,7 @@ export type ChatContentType =
   | 'audio'
   | 'video'
   | 'suggestion'
+  | 'reasoning'
   | 'toolcall';
 
 export type AttachmentType = 'image' | 'video' | 'audio' | 'pdf' | 'doc' | 'ppt' | 'txt';
@@ -66,6 +67,9 @@ export type SuggestionItem = {
   prompt?: string;
 };
 export type SuggestionContent = ChatBaseContent<'suggestion', SuggestionItem[]>;
+
+// 推理过程 - 支持混合内容类型
+export type ReasoningContent = ChatBaseContent<'reasoning', AIMessageContent[]>;
 
 // 附件消息
 export type AttachmentItem = {
@@ -125,6 +129,7 @@ type AIContentTypeMap = {
   image: ImageContent;
   search: SearchContent;
   suggestion: SuggestionContent;
+  reasoning: ReasoningContent;
   toolcall: ToolCallContent;
 } & AIContentTypeOverrides;
 

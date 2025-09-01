@@ -1,4 +1,5 @@
 import '@tencent/tdesign-webc-test/lib/chatbot';
+import '@tencent/tdesign-webc-test/lib/chat-message/content/reasoning-content';
 import '@tencent/tdesign-webc-test/lib/chat-message/content/search-content';
 import '@tencent/tdesign-webc-test/lib/chat-message/content/suggestion-content';
 import type {
