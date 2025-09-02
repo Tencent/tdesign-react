@@ -90,7 +90,7 @@
     "autoprefixer": "^10.4.0",
     "babel-polyfill": "^6.26.0",
     "camelcase": "^6.2.1",
-    "cross-env": "^5.2.1",
+    "cross-env": "^10.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "dom-parser": "^0.1.6",
     "esbuild": "^0.14.9",
