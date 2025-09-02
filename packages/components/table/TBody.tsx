@@ -95,7 +95,7 @@ export default function TBody(props: TableBodyProps) {
       <tr className={classNames(classes)}>
         <td colSpan={columnLength}>
           <div
-            className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft })}
+            className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
             style={isFixedToLeft ? { width: `${props.tableWidth.current}px` } : {}}
           >
             <div className={tableFullRowClasses.innerFullElement}>{fullRowNode}</div>
@@ -201,7 +201,7 @@ export default function TBody(props: TableBodyProps) {
   );
 
   return (
-    <tbody className={classNames(tbodyClasses)} style={{ ...posStyle }}>
+    <tbody className={classNames(tbodyClasses) || undefined} style={{ ...posStyle }}>
       {isEmpty ? renderEmpty(columns) : list}
     </tbody>
   );
