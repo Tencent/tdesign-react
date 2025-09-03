@@ -116,10 +116,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   const handleRowMounted = (rowData: RowMountedParams) => {
     if (!isVirtualScroll || !rowData || tScroll.isFixedRowHeight || !container?.current) return;
     const trHeight = rowData.ref.offsetHeight;
-    console.log('handleRowMounted', rowData.ref, trHeight, rowData.data.__VIRTUAL_SCROLL_INDEX);
     const rowIndex = rowData.data.__VIRTUAL_SCROLL_INDEX;
     const newTrHeightList = trHeightList;
-    console.log('newTrHeightList', newTrHeightList, rowIndex, trHeight);
     if (newTrHeightList[rowIndex] !== trHeight) {
       newTrHeightList[rowIndex] = trHeight;
       setTrHeightList(newTrHeightList);
@@ -130,7 +128,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       const lastIndex = scrollTopHeightList.length - 1;
       setScrollHeight(scrollTopHeightList[lastIndex] - containerHeight.current);
       updateVisibleData(scrollTopHeightList, container.current.scrollTop);
-      console.log('update');
     }
   };
 
@@ -184,7 +181,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
       const scrollTopHeightList = trScrollTopHeightList.current;
 
-      if (scrollTopHeightList?.length === dataRef.current?.length) {
+      if (scrollTopHeightList?.length === data?.length) {
         // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
