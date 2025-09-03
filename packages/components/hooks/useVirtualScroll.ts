@@ -1,8 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 /**
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
-import { isEqual } from 'lodash-es';
 import type { ScrollToElementParams, TScroll } from '../common';
 
 export type UseVirtualScrollParams = {
@@ -35,7 +35,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   // 滚动高度，用于显示滚动条
   const [scrollHeight, setScrollHeight] = useState(0);
   const trScrollTopHeightList = useRef<number[]>([]);
-  // 已经通过节点渲染计算出来的各自行高
+  // 记录已经渲染计算过的所有子节点高度数组
   const [trHeightList, setTrHeightList] = useState<number[]>([]);
   const containerHeight = useRef(0);
   const [startAndEndIndex, setStartAndEndIndex] = useState<[number, number]>(() => [0, (scroll?.bufferSize || 10) * 3]);
@@ -116,9 +116,10 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   const handleRowMounted = (rowData: RowMountedParams) => {
     if (!isVirtualScroll || !rowData || tScroll.isFixedRowHeight || !container?.current) return;
     const trHeight = rowData.ref.offsetHeight;
-    // eslint-disable-next-line
+    console.log('handleRowMounted', rowData.ref, trHeight, rowData.data.__VIRTUAL_SCROLL_INDEX);
     const rowIndex = rowData.data.__VIRTUAL_SCROLL_INDEX;
     const newTrHeightList = trHeightList;
+    console.log('newTrHeightList', newTrHeightList, rowIndex, trHeight);
     if (newTrHeightList[rowIndex] !== trHeight) {
       newTrHeightList[rowIndex] = trHeight;
       setTrHeightList(newTrHeightList);
@@ -129,6 +130,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       const lastIndex = scrollTopHeightList.length - 1;
       setScrollHeight(scrollTopHeightList[lastIndex] - containerHeight.current);
       updateVisibleData(scrollTopHeightList, container.current.scrollTop);
+      console.log('update');
     }
   };
 
@@ -182,11 +184,10 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
       const scrollTopHeightList = trScrollTopHeightList.current;
 
-      if (scrollTopHeightList?.length === data?.length && !isEqual(dataRef.current, data)) {
+      if (scrollTopHeightList?.length === dataRef.current?.length) {
         // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
-
         updateVisibleData(scrollTopHeightList, container.current.scrollTop);
       } else {
         /**
@@ -224,15 +225,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         setTranslateY(translateY);
       }
 
-      // const timer = setTimeout(() => {
-      //   if (container.current) {
-      //     const tmpContainerHeight = container.current.getBoundingClientRect().height;
-      //     containerHeight.current = tmpContainerHeight;
-      //     const scrollTopHeightList = getTrScrollTopHeightList(trHeightList);
-      //     trScrollTopHeightList.current = scrollTopHeightList;
-      //     clearTimeout(timer);
-      //   }
-      // }, 1);
       requestAnimationFrame(() => {
         if (container.current) {
           const tmpContainerHeight = container.current.getBoundingClientRect().height;

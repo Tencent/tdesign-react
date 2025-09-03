@@ -195,21 +195,23 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   };
 
   const virtualScrollParams = useMemo(() => {
-    let virtualData = [...data];
+    let virtualData = data;
 
     // HACK：虚拟滚动时，需要考虑 fullRow 的高度，因此在这插入占位数据
     if (props.firstFullRow) {
       const firstFullRowData = {
         __VIRTUAL_FIRST_FULL_ROW__: true,
       };
-      virtualData = [firstFullRowData, ...virtualData];
+      // 不使用展开运算符进行合并，而是保留原有引用
+      // 否则会导致 Reflect.set 时，数据无法同步到原始 data
+      virtualData = [firstFullRowData].concat(firstFullRowData);
     }
 
     if (props.lastFullRow) {
       const lastFullRowData = {
         __VIRTUAL_LAST_FULL_ROW__: true,
       };
-      virtualData = [...virtualData, lastFullRowData];
+      virtualData = virtualData.concat(lastFullRowData);
     }
 
     return {

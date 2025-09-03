@@ -63,12 +63,13 @@ export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
   const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig, allTableClasses } = props;
   const { isVirtualScroll } = virtualConfig;
+  const { tableFullRowClasses, tableBaseClass } = allTableClasses;
+  const columnLength = columns.length;
 
   const [global, t] = useLocaleReceiver('table');
-  const { tableFullRowClasses, tableBaseClass } = allTableClasses;
+
   const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
-  const columnLength = columns.length;
-  const dataLength = data?.length;
+  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
 
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
   const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
@@ -130,23 +131,6 @@ export default function TBody(props: TableBodyProps) {
     );
   };
 
-  const firstFullRowNode = useMemo(
-    () => {
-      if (isVirtualScroll) return null;
-      return getFullRow(columnLength, 'first-full-row');
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [firstFullRow, columnLength, getFullRow, isVirtualScroll],
-  );
-
-  const lastFullRowNode = useMemo(() => {
-    if (isVirtualScroll) return null;
-    return getFullRow(columnLength, 'last-full-row');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVirtualScroll, lastFullRow, columnLength, getFullRow]);
-
-  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
-
   const getTRNodeList = () => {
     if (isSkipSnapsMapNotFinish) return null;
     const trNodeList: ReactNode[] = [];
@@ -166,18 +150,16 @@ export default function TBody(props: TableBodyProps) {
 
     const renderData = isVirtualScroll ? virtualConfig.visibleData : data;
 
-    renderData?.forEach((row, rowIndex) => {
-      if (isVirtualScroll && row.__VIRTUAL_FIRST_FULL_ROW__) {
-        const firstFullRowIndex = getFullRow(columnLength, 'first-full-row', row.__VIRTUAL_SCROLL_INDEX);
-        trNodeList.push(firstFullRowIndex);
-        return;
-      }
+    if (!isVirtualScroll && firstFullRow) {
+      const firstFullRowNode = getFullRow(columnLength, 'first-full-row');
+      trNodeList.push(firstFullRowNode);
+    } else if (firstFullRow && renderData?.[0]?.__VIRTUAL_FIRST_FULL_ROW__) {
+      const firstFullRowNode = getFullRow(columnLength, 'first-full-row', renderData[0]?.__VIRTUAL_SCROLL_INDEX);
+      trNodeList.push(firstFullRowNode);
+    }
 
-      if (isVirtualScroll && row.__VIRTUAL_LAST_FULL_ROW__) {
-        const lastFullRowIndex = getFullRow(columnLength, 'last-full-row', row.__VIRTUAL_SCROLL_INDEX);
-        trNodeList.push(lastFullRowIndex);
-        return;
-      }
+    renderData?.forEach((row, rowIndex) => {
+      if (row.__VIRTUAL_FIRST_FULL_ROW__ || row.__VIRTUAL_LAST_FULL_ROW__) return;
 
       const getRowIndex = () => {
         const virtualIndex = row.__VIRTUAL_SCROLL_INDEX;
@@ -194,7 +176,7 @@ export default function TBody(props: TableBodyProps) {
         row,
         columns,
         rowIndex: getRowIndex(),
-        dataLength,
+        dataLength: data.length,
         skipSpansMap,
         virtualConfig,
         classPrefix: props.classPrefix,
@@ -224,6 +206,21 @@ export default function TBody(props: TableBodyProps) {
         expandedContent && trNodeList.push(expandedContent);
       }
     });
+
+    console.log('renderData', isVirtualScroll, renderData);
+    if (!isVirtualScroll && lastFullRow) {
+      const lastFullRowNode = getFullRow(columnLength, 'last-full-row');
+      trNodeList.push(lastFullRowNode);
+    } else if (isVirtualScroll && lastFullRow) {
+      // 在虚拟滚动模式下，检查是否有 lastFullRow 的虚拟数据在当前可视区域内
+      const lastFullRowData = renderData?.find((row) => row.__VIRTUAL_LAST_FULL_ROW__);
+      if (lastFullRowData) {
+        console.log('render last full row');
+        const lastFullRowNode = getFullRow(columnLength, 'last-full-row', lastFullRowData.__VIRTUAL_SCROLL_INDEX);
+        trNodeList.push(lastFullRowNode);
+      }
+    }
+
     return trNodeList;
   };
 
@@ -240,17 +237,9 @@ export default function TBody(props: TableBodyProps) {
       } as CSSProperties)
     : undefined;
 
-  const list = (
-    <>
-      {firstFullRowNode}
-      {getTRNodeList()}
-      {lastFullRowNode}
-    </>
-  );
-
   return (
     <tbody className={classNames(tbodyClasses) || undefined} style={{ ...posStyle }}>
-      {isEmpty ? renderEmpty(columns) : list}
+      {isEmpty ? renderEmpty(columns) : getTRNodeList()}
     </tbody>
   );
 }
