@@ -173,20 +173,16 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       if (!isVirtualScroll) {
         // 非虚拟滚动模式下，让 visibleData 也包含所有数据
         // 避免从非虚拟滚动切换到虚拟滚动时，数据结构变更，visibleData 为空数组，滚动条重置
-        // addIndexToData(data);
-        if (visibleData.length !== data.length || !isEqual(visibleData, data)) {
-          setVisibleData(data);
-        }
+        setVisibleData(data);
         trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
         return;
       }
-
       // 给数据添加下标
       addIndexToData(data);
 
       const scrollTopHeightList = trScrollTopHeightList.current;
 
-      if (scrollTopHeightList?.length === data?.length) {
+      if (scrollTopHeightList?.length === data?.length && !isEqual(dataRef.current, data)) {
         // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
@@ -228,15 +224,23 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         setTranslateY(translateY);
       }
 
-      const timer = setTimeout(() => {
+      // const timer = setTimeout(() => {
+      //   if (container.current) {
+      //     const tmpContainerHeight = container.current.getBoundingClientRect().height;
+      //     containerHeight.current = tmpContainerHeight;
+      //     const scrollTopHeightList = getTrScrollTopHeightList(trHeightList);
+      //     trScrollTopHeightList.current = scrollTopHeightList;
+      //     clearTimeout(timer);
+      //   }
+      // }, 1);
+      requestAnimationFrame(() => {
         if (container.current) {
           const tmpContainerHeight = container.current.getBoundingClientRect().height;
           containerHeight.current = tmpContainerHeight;
           const scrollTopHeightList = getTrScrollTopHeightList(trHeightList);
           trScrollTopHeightList.current = scrollTopHeightList;
-          clearTimeout(timer);
         }
-      }, 1);
+      });
     },
     // eslint-disable-next-line
     [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList],

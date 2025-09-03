@@ -179,14 +179,13 @@ export default function TBody(props: TableBodyProps) {
         return;
       }
 
-      console.log('renderData', renderData);
-
       const getRowIndex = () => {
-        if (isVirtualScroll && firstFullRow) {
+        const virtualIndex = row.__VIRTUAL_SCROLL_INDEX;
+        if (isVirtualScroll && firstFullRow && virtualIndex) {
           // 确保 serial-number 索引不受到虚拟的 __VIRTUAL_FIRST_FULL_ROW__ 数据影响
-          return row.__VIRTUAL_SCROLL_INDEX - 1;
+          return virtualIndex - 1;
         }
-        return row?.__VIRTUAL_SCROLL_INDEX || rowIndex;
+        return virtualIndex ?? rowIndex;
       };
 
       const trProps = {
