@@ -13,6 +13,14 @@ export type UseVirtualScrollParams = {
   };
 };
 
+export type RowMountedParams = {
+  ref: HTMLTableRowElement;
+  data: {
+    [key: string]: any;
+    __VIRTUAL_SCROLL_INDEX?: number;
+  };
+};
+
 const requestAnimationFrame =
   (typeof window === 'undefined' ? false : window.requestAnimationFrame) || ((cb) => setTimeout(cb, 16.6));
 
@@ -105,7 +113,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   };
 
   // 仅非固定高度场景需要
-  const handleRowMounted = (rowData: any) => {
+  const handleRowMounted = (rowData: RowMountedParams) => {
     if (!isVirtualScroll || !rowData || tScroll.isFixedRowHeight || !container?.current) return;
     const trHeight = rowData.ref.offsetHeight;
     // eslint-disable-next-line
@@ -163,6 +171,12 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   useEffect(
     () => {
       if (!isVirtualScroll) {
+        // 非虚拟滚动模式下，让 visibleData 也包含所有数据
+        // 避免从非虚拟滚动切换到虚拟滚动时，数据结构变更，visibleData 为空数组，滚动条重置
+        addIndexToData(data);
+        if (visibleData.length !== data.length || !isEqual(visibleData, data)) {
+          setVisibleData(data);
+        }
         trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
         return;
       }
@@ -171,9 +185,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       addIndexToData(data);
 
       const scrollTopHeightList = trScrollTopHeightList.current;
-      const dataChanged = !isEqual(dataRef.current, data);
 
-      if (scrollTopHeightList?.length === data?.length && !dataChanged) {
+      if (scrollTopHeightList?.length === data?.length) {
         // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
@@ -183,7 +196,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         /**
         /* 进入这个分支的场景可能有：
          * - 初始化
-         * - 从非虚拟滚动切换到虚拟滚动
          * - 外部数据动态更新（长度变化、内容结构变化等）
          */
         dataRef.current = data;

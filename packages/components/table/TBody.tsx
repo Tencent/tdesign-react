@@ -1,14 +1,18 @@
+/* eslint-disable no-underscore-dangle */
 import React, { CSSProperties, MutableRefObject, ReactNode, useMemo } from 'react';
-import { camelCase, get, pick } from 'lodash-es';
+
 import classNames from 'classnames';
-import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
+import { camelCase, get, pick } from 'lodash-es';
+
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { PaginationProps } from '../pagination';
 import { TableClassName } from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
-import { BaseTableProps, RowAndColFixedPosition } from './interface';
-import { TdBaseTableProps } from './type';
-import { PaginationProps } from '../pagination';
-import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
+import TR, { ROW_LISTENERS, TABLE_PROPS, type TrProps } from './TR';
+
+import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
+import type { BaseTableProps, RowAndColFixedPosition } from './interface';
+import type { TdBaseTableProps } from './type';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
@@ -25,7 +29,7 @@ export interface TableBodyProps extends BaseTableProps {
   virtualConfig: VirtualScrollConfig;
   pagination?: PaginationProps;
   allTableClasses?: TableClassName;
-  handleRowMounted?: (rowData: any) => void;
+  handleRowMounted?: (params: RowMountedParams) => void;
 }
 
 // table 到 body 的相同属性
@@ -58,6 +62,8 @@ export const extendTableProps = [
 export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
   const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig, allTableClasses } = props;
+  const { isVirtualScroll } = virtualConfig;
+
   const [global, t] = useLocaleReceiver('table');
   const { tableFullRowClasses, tableBaseClass } = allTableClasses;
   const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
@@ -80,7 +86,7 @@ export default function TBody(props: TableBodyProps) {
     </tr>
   );
 
-  const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row') => {
+  const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row', virtualIndex?: number) => {
     const tType = camelCase(type);
     const fullRowNode = {
       'first-full-row': firstFullRow,
@@ -90,9 +96,26 @@ export default function TBody(props: TableBodyProps) {
     if (!fullRowNode) return null;
     const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
-    /** innerFullRow 和 innerFullElement 同时存在，是为了保证 固定列时，当前行不随内容进行横向滚动 */
+
+    const rowProps: React.ComponentProps<'tr'> = {};
+    if (isVirtualScroll && virtualIndex !== undefined) {
+      rowProps.ref = (ref) => {
+        // 确保 DOM 元素渲染完成后，才执行回调
+        if (ref) {
+          props?.handleRowMounted({
+            ref,
+            data: {
+              __VIRTUAL_SCROLL_INDEX: virtualIndex,
+              [`__VIRTUAL_${type.toUpperCase().replace('-', '_')}__`]: true,
+            },
+          });
+        }
+      };
+    }
+
+    /** innerFullRow 和 innerFullElement 同时存在，是为了保证固定列时，当前行不随内容进行横向滚动 */
     return (
-      <tr className={classNames(classes)}>
+      <tr className={classNames(classes)} {...rowProps}>
         <td colSpan={columnLength}>
           <div
             className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
@@ -136,16 +159,34 @@ export default function TBody(props: TableBodyProps) {
       'scrollType',
     ];
 
-    const renderData = virtualConfig.isVirtualScroll ? virtualConfig.visibleData : data;
+    const renderData = isVirtualScroll ? virtualConfig.visibleData : data;
 
     renderData?.forEach((row, rowIndex) => {
+      if (isVirtualScroll && row?.__VIRTUAL_FIRST_FULL_ROW__) {
+        trNodeList.push(firstFullRowNode);
+        return;
+      }
+
+      if (isVirtualScroll && row?.__VIRTUAL_LAST_FULL_ROW__) {
+        const lastFullRowWithIndex = getFullRow(columnLength, 'last-full-row', row.__VIRTUAL_SCROLL_INDEX);
+        trNodeList.push(lastFullRowWithIndex);
+        return;
+      }
+
+      const getRowIndex = () => {
+        if (isVirtualScroll && firstFullRow) {
+          // 确保 serial-number 索引不受到虚拟的 __VIRTUAL_FIRST_FULL_ROW__ 数据影响
+          return row.__VIRTUAL_SCROLL_INDEX - 1;
+        }
+        return row?.__VIRTUAL_SCROLL_INDEX || rowIndex;
+      };
+
       const trProps = {
         ...pick(props, TABLE_PROPS),
         rowKey: props.rowKey || 'id',
         row,
         columns,
-        // eslint-disable-next-line
-        rowIndex: row.__VIRTUAL_SCROLL_INDEX || rowIndex,
+        rowIndex: getRowIndex(),
         dataLength,
         skipSpansMap,
         virtualConfig,
@@ -153,7 +194,7 @@ export default function TBody(props: TableBodyProps) {
         ellipsisOverlayClassName: props.ellipsisOverlayClassName,
         ...pick(props, properties),
         pagination: props.pagination,
-      };
+      } as TrProps;
       if (props.onCellClick) {
         trProps.onCellClick = props.onCellClick;
       }
@@ -183,7 +224,7 @@ export default function TBody(props: TableBodyProps) {
 
   // 垫上隐藏的 tr 元素高度
   const translate = `translateY(${virtualConfig.translateY}px)`;
-  const posStyle: CSSProperties = virtualConfig.isVirtualScroll
+  const posStyle: CSSProperties = isVirtualScroll
     ? ({
         transform: translate,
         msTransform: translate,
@@ -194,9 +235,9 @@ export default function TBody(props: TableBodyProps) {
 
   const list = (
     <>
-      {firstFullRowNode}
+      {!isVirtualScroll && firstFullRowNode}
       {getTRNodeList()}
-      {lastFullRowNode}
+      {!isVirtualScroll && lastFullRowNode}
     </>
   );
 

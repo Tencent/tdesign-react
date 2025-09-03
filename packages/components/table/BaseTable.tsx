@@ -1,24 +1,18 @@
-import React, {
-  forwardRef,
-  RefAttributes,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-  WheelEvent,
-} from 'react';
+import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
+
 import { Styles } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import Loading from '../loading';
-import TBody, { extendTableProps, TableBodyProps } from './TBody';
+import TBody, { extendTableProps, type TableBodyProps } from './TBody';
 import TFoot from './TFoot';
 import THead, { type TheadProps } from './THead';
 import { ROW_LISTENERS } from './TR';
@@ -30,9 +24,10 @@ import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useTableHeader from './hooks/useTableHeader';
+import { getAffixProps } from './utils';
+
 import type { BaseTableProps, BaseTableRef } from './interface';
 import type { TableRowData } from './type';
-import { getAffixProps } from './utils';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -44,7 +39,8 @@ export interface TableListeners {
 const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) => {
   const props = useDefaultProps<BaseTableProps<TableRowData>>(originalProps, baseTableDefaultProps);
   const {
-    showHeader = true,
+    rowKey,
+    showHeader,
     tableLayout,
     height,
     data,
@@ -198,17 +194,34 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     }, 0);
   };
 
-  const virtualScrollParams = useMemo(
-    () => ({
-      data,
+  const virtualScrollParams = useMemo(() => {
+    let virtualData = [...data];
+
+    // HACK：虚拟滚动时，需要考虑 fullRow 的高度，因此在这插入占位数据
+    if (props.firstFullRow) {
+      const firstFullRowData = {
+        __VIRTUAL_FIRST_FULL_ROW__: true,
+      };
+      virtualData = [firstFullRowData, ...virtualData];
+    }
+
+    if (props.lastFullRow) {
+      const lastFullRowData = {
+        __VIRTUAL_LAST_FULL_ROW__: true,
+      };
+      virtualData = [...virtualData, lastFullRowData];
+    }
+
+    return {
+      data: virtualData,
       scroll: { ...props.scroll, fixedRows: props.fixedRows },
-    }),
-    [data, props.scroll, props.fixedRows],
-  );
+    };
+  }, [data, props.firstFullRow, props.lastFullRow, props.scroll, props.fixedRows]);
+
   const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
   let lastScrollY = -1;
-  const onInnerVirtualScroll = (e: WheelEvent<HTMLDivElement>) => {
+  const onInnerVirtualScroll = (e: React.WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
     // 排除横向滚动触发的纵向虚拟滚动计算
@@ -226,8 +239,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   /**
    * 横向滚动到指定列
    * 对外暴露方法，修改时需谨慎（expose）
-   * @param colKey
-   * @returns
    */
   const scrollColumnIntoView = (colKey: string) => {
     if (!tableContentRef.current) return;
@@ -421,7 +432,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       marginScrollbarWidth += 1;
     }
     // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
-    const totalMarginTop = tableFootHeight - lastTrHeight + marginScrollbarWidth;
+    const totalMarginTop = tableFootHeight + marginScrollbarWidth;
     const affixedFooter = Boolean(
       (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && props.footData?.length && tableWidth.current,
     ) && (
@@ -479,7 +490,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableWidth,
     isWidthOverflow,
     allTableClasses,
-    rowKey: props.rowKey || 'id',
+    rowKey,
     scroll: props.scroll,
     cellEmptyContent: props.cellEmptyContent,
     renderExpandedRow: props.renderExpandedRow,
@@ -554,7 +565,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         {useMemo(
           () => (
             <TFoot
-              rowKey={props.rowKey}
+              rowKey={rowKey}
               isFixedHeader={isFixedHeader}
               rowAndColFixedPosition={rowAndColFixedPosition}
               footData={props.footData}
