@@ -167,17 +167,19 @@ export default function TBody(props: TableBodyProps) {
     const renderData = isVirtualScroll ? virtualConfig.visibleData : data;
 
     renderData?.forEach((row, rowIndex) => {
-      if (isVirtualScroll && row?.__VIRTUAL_FIRST_FULL_ROW__) {
+      if (isVirtualScroll && row.__VIRTUAL_FIRST_FULL_ROW__) {
         const firstFullRowIndex = getFullRow(columnLength, 'first-full-row', row.__VIRTUAL_SCROLL_INDEX);
         trNodeList.push(firstFullRowIndex);
         return;
       }
 
-      if (isVirtualScroll && row?.__VIRTUAL_LAST_FULL_ROW__) {
+      if (isVirtualScroll && row.__VIRTUAL_LAST_FULL_ROW__) {
         const lastFullRowIndex = getFullRow(columnLength, 'last-full-row', row.__VIRTUAL_SCROLL_INDEX);
         trNodeList.push(lastFullRowIndex);
         return;
       }
+
+      console.log('renderData', renderData);
 
       const getRowIndex = () => {
         if (isVirtualScroll && firstFullRow) {

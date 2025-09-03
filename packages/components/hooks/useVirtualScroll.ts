@@ -173,7 +173,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       if (!isVirtualScroll) {
         // 非虚拟滚动模式下，让 visibleData 也包含所有数据
         // 避免从非虚拟滚动切换到虚拟滚动时，数据结构变更，visibleData 为空数组，滚动条重置
-        addIndexToData(data);
+        // addIndexToData(data);
         if (visibleData.length !== data.length || !isEqual(visibleData, data)) {
           setVisibleData(data);
         }
