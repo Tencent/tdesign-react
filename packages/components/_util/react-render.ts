@@ -42,7 +42,7 @@ function toggleWarning(skip: boolean) {
 }
 
 function react19AdapterWarn() {
-  if (process.env.NODE_ENV !== 'production' && mainVersion >= 19 && !fullClone.isImportAdapter) {
+  if (process.env.NODE_ENV === 'development' && mainVersion >= 19 && !fullClone.isImportAdapter) {
     console.warn(
       'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
     );
