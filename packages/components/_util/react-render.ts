@@ -1,19 +1,18 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
-// @ts-ignore
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage
 const fullClone = {
-  isAdapter: false,
+  isImportAdapter: false,
   ...ReactDOM,
 } as typeof ReactDOM & {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED?: {
     usingClientEntryPoint?: boolean;
   };
   createRoot?: CreateRoot;
-  isAdapter: boolean;
+  isImportAdapter: boolean;
 };
 
 type CreateRoot = (container: ContainerType) => Root;
@@ -22,15 +21,10 @@ type CreateRoot = (container: ContainerType) => Root;
 const { version, render: reactRender, unmountComponentAtNode } = fullClone;
 
 let legacyCreateRoot: CreateRoot;
+const mainVersion = Number((version || '').split('.')[0]);
 try {
-  const mainVersion = Number((version || '').split('.')[0]);
   if (mainVersion >= 18 && mainVersion < 19) {
     legacyCreateRoot = fullClone.createRoot;
-  }
-  if (process.env.NODE_ENV !== 'production' && mainVersion >= 19 && !fullClone.isAdapter) {
-    console.warn(
-      'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
-    );
   }
 } catch (e) {
   // Do nothing;
@@ -47,6 +41,14 @@ function toggleWarning(skip: boolean) {
   }
 }
 
+function react19AdapterWarn() {
+  if (process.env.NODE_ENV !== 'production' && mainVersion >= 19 && !fullClone.isImportAdapter) {
+    console.warn(
+      'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
+    );
+  }
+}
+
 const MARK = '__td_react_root__';
 
 // ========================== Render ==========================
@@ -55,6 +57,8 @@ type ContainerType = (Element | DocumentFragment) & {
 };
 
 function modernRender(node: React.ReactElement, container: ContainerType) {
+  react19AdapterWarn();
+
   toggleWarning(true);
   const root = container[MARK] || legacyCreateRoot(container);
   toggleWarning(false);
@@ -109,7 +113,7 @@ export async function unmount(container: ContainerType) {
  */
 export function renderAdapter(render?: CreateRoot) {
   if (render) {
-    fullClone.isAdapter = true;
+    fullClone.isImportAdapter = true;
     legacyCreateRoot = render;
   }
 }
