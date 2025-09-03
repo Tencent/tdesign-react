@@ -12,7 +12,7 @@ import TR, { ROW_LISTENERS, TABLE_PROPS, type TrProps } from './TR';
 
 import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import type { BaseTableProps, RowAndColFixedPosition } from './interface';
-import type { TdBaseTableProps } from './type';
+import type { TableRowData, TdBaseTableProps } from './type';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
@@ -87,7 +87,7 @@ export default function TBody(props: TableBodyProps) {
     </tr>
   );
 
-  const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row', virtualIndex?: number) => {
+  const renderFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row', virtualIndex?: number) => {
     const tType = camelCase(type);
     const fullRowNode = {
       'first-full-row': firstFullRow,
@@ -131,9 +131,20 @@ export default function TBody(props: TableBodyProps) {
     );
   };
 
-  const getTRNodeList = () => {
+  const renderExpandedRows = (row: TableRowData, rowIndex: number) => {
+    const p = {
+      row,
+      index: rowIndex,
+      columns,
+      tableWidth: props.tableWidth.current,
+      isWidthOverflow: props.isWidthOverflow,
+    };
+    return props.renderExpandedRow?.(p);
+  };
+
+  const renderTRNodeList = () => {
     if (isSkipSnapsMapNotFinish) return null;
-    const trNodeList: ReactNode[] = [];
+
     const properties = [
       'classPrefix',
       'ellipsisOverlayClassName',
@@ -148,16 +159,14 @@ export default function TBody(props: TableBodyProps) {
       'scrollType',
     ];
 
+    const trNodeList: ReactNode[] = [];
     const renderData = isVirtualScroll ? virtualConfig.visibleData : data;
 
-    if (!isVirtualScroll && firstFullRow) {
-      const firstFullRowNode = getFullRow(columnLength, 'first-full-row');
-      trNodeList.push(firstFullRowNode);
-    } else if (firstFullRow && renderData?.[0]?.__VIRTUAL_FIRST_FULL_ROW__) {
-      const firstFullRowNode = getFullRow(columnLength, 'first-full-row', renderData[0]?.__VIRTUAL_SCROLL_INDEX);
-      trNodeList.push(firstFullRowNode);
-    }
+    // 首行数据
+    const firstFullRowNode = renderFullRow(columnLength, 'first-full-row', renderData[0]?.__VIRTUAL_SCROLL_INDEX);
+    trNodeList.push(firstFullRowNode);
 
+    // body 数据行
     renderData?.forEach((row, rowIndex) => {
       if (row.__VIRTUAL_FIRST_FULL_ROW__ || row.__VIRTUAL_LAST_FULL_ROW__) return;
 
@@ -193,33 +202,18 @@ export default function TBody(props: TableBodyProps) {
       );
       trNodeList.push(trNode);
 
-      // 执行展开行渲染
-      if (props.renderExpandedRow) {
-        const p = {
-          row,
-          index: rowIndex,
-          columns,
-          tableWidth: props.tableWidth.current,
-          isWidthOverflow: props.isWidthOverflow,
-        };
-        const expandedContent = props.renderExpandedRow(p);
-        expandedContent && trNodeList.push(expandedContent);
-      }
+      // 展开行数据
+      const expandedRowNode = renderExpandedRows(row, rowIndex);
+      trNodeList.push(expandedRowNode);
     });
 
-    console.log('renderData', isVirtualScroll, renderData);
-    if (!isVirtualScroll && lastFullRow) {
-      const lastFullRowNode = getFullRow(columnLength, 'last-full-row');
-      trNodeList.push(lastFullRowNode);
-    } else if (isVirtualScroll && lastFullRow) {
-      // 在虚拟滚动模式下，检查是否有 lastFullRow 的虚拟数据在当前可视区域内
-      const lastFullRowData = renderData?.find((row) => row.__VIRTUAL_LAST_FULL_ROW__);
-      if (lastFullRowData) {
-        console.log('render last full row');
-        const lastFullRowNode = getFullRow(columnLength, 'last-full-row', lastFullRowData.__VIRTUAL_SCROLL_INDEX);
-        trNodeList.push(lastFullRowNode);
-      }
-    }
+    // 尾行数据
+    const lastFullRowNode = renderFullRow(
+      columnLength,
+      'last-full-row',
+      renderData?.[renderData?.length - 1]?.__VIRTUAL_SCROLL_INDEX,
+    );
+    trNodeList.push(lastFullRowNode);
 
     return trNodeList;
   };
@@ -239,7 +233,7 @@ export default function TBody(props: TableBodyProps) {
 
   return (
     <tbody className={classNames(tbodyClasses) || undefined} style={{ ...posStyle }}>
-      {isEmpty ? renderEmpty(columns) : getTRNodeList()}
+      {isEmpty ? renderEmpty(columns) : renderTRNodeList()}
     </tbody>
   );
 }
