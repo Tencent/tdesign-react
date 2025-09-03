@@ -57,8 +57,6 @@ type ContainerType = (Element | DocumentFragment) & {
 };
 
 function modernRender(node: React.ReactElement, container: ContainerType) {
-  react19AdapterWarn();
-
   toggleWarning(true);
   const root = container[MARK] || legacyCreateRoot(container);
   toggleWarning(false);
@@ -74,6 +72,8 @@ function legacyRender(node: React.ReactElement, container: ContainerType) {
 }
 
 export function render(node: React.ReactElement, container: ContainerType) {
+  react19AdapterWarn();
+
   if (legacyCreateRoot) {
     modernRender(node, container);
     return;
