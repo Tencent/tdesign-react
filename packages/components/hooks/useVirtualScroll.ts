@@ -14,7 +14,7 @@ export type UseVirtualScrollParams = {
 };
 
 export type RowMountedParams = {
-  ref: HTMLTableRowElement;
+  ref: HTMLElement;
   data: {
     [key: string]: any;
     __VIRTUAL_SCROLL_INDEX?: number;
