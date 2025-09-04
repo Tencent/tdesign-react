@@ -99,8 +99,6 @@ function useDragSort(
       const cssText = Array.from(computed)
         .map((name) => `${name}:${computed.getPropertyValue(name)};`)
         .join('');
-
-      console.log('cssText', cssText);
       // eslint-disable-next-line no-param-reassign
       dest.style.cssText = cssText;
     };
@@ -217,7 +215,10 @@ function useDragSort(
         const childRows = getDescendantRows(dragId);
         childRows.forEach((row) => {
           // eslint-disable-next-line no-param-reassign
-          (row as HTMLElement).style.display = '';
+          row.style.display = '';
+          if (!row.getAttribute('style')) {
+            row.removeAttribute('style');
+          }
         });
 
         const rowIdList = lastRowList.current.filter((id) => !id.startsWith('EXPANDED'));
