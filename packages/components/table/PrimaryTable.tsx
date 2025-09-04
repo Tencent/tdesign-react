@@ -1,26 +1,29 @@
-import React, { useRef, forwardRef, useImperativeHandle, ReactNode, RefAttributes } from 'react';
-import { get } from 'lodash-es';
+import React, { forwardRef, ReactNode, RefAttributes, useImperativeHandle, useRef } from 'react';
+
 import classNames from 'classnames';
-import BaseTable from './BaseTable';
-import useColumnController from './hooks/useColumnController';
-import useRowExpand from './hooks/useRowExpand';
-import useTableHeader, { renderTitle } from './hooks/useTableHeader';
-import useRowSelect from './hooks/useRowSelect';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from './type';
-import useSorter from './hooks/useSorter';
-import useFilter from './hooks/useFilter';
-import useDragSort from './hooks/useDragSort';
-import useAsyncLoading from './hooks/useAsyncLoading';
-import { PageInfo, PaginationProps } from '../pagination';
-import useClassName from './hooks/useClassName';
-import useStyle from './hooks/useStyle';
-import { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
-import EditableCell, { EditableCellProps } from './EditableCell';
-import { StyledProps } from '../common';
-import { useEditableRow } from './hooks/useEditableRow';
-import { primaryTableDefaultProps } from './defaultProps';
+import { get } from 'lodash-es';
+
 import { CheckboxGroupValue } from '../checkbox';
 import useDefaultProps from '../hooks/useDefaultProps';
+import BaseTable from './BaseTable';
+import { primaryTableDefaultProps } from './defaultProps';
+import EditableCell, { type EditableCellProps } from './EditableCell';
+import useAsyncLoading from './hooks/useAsyncLoading';
+import useClassName from './hooks/useClassName';
+import useColumnController from './hooks/useColumnController';
+import useDragSort from './hooks/useDragSort';
+import { useEditableRow } from './hooks/useEditableRow';
+import useFilter from './hooks/useFilter';
+import useRowExpand from './hooks/useRowExpand';
+import useRowSelect from './hooks/useRowSelect';
+import useSorter from './hooks/useSorter';
+import useStyle from './hooks/useStyle';
+import useTableHeader, { renderTitle } from './hooks/useTableHeader';
+
+import type { StyledProps } from '../common';
+import type { PageInfo, PaginationProps } from '../pagination';
+import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
+import type { PrimaryTableCellParams, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
@@ -35,15 +38,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props, { onColumnReduce });
-  // 展开/收起行功能
-  const {
-    showExpandedRow,
-    showExpandIconColumn,
-    getExpandColumn,
-    renderExpandedRow,
-    onInnerExpandRowClick,
-    getExpandedRowClass,
-  } = useRowExpand(props);
+
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
@@ -60,10 +55,30 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(props, {
-    primaryTableRef,
-    innerPagination,
-  });
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns, updateLastRowList } = useDragSort(
+    props,
+    {
+      primaryTableRef,
+      innerPagination,
+    },
+  );
+
+  // 展开/收起行功能
+  const expandProps = {
+    ...props,
+    onExpandChange: (keys, options) => {
+      props.onExpandChange?.(keys, options);
+      updateLastRowList();
+    },
+  };
+  const {
+    showExpandedRow,
+    showExpandIconColumn,
+    getExpandColumn,
+    renderExpandedRow,
+    onInnerExpandRowClick,
+    getExpandedRowClass,
+  } = useRowExpand(expandProps);
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);

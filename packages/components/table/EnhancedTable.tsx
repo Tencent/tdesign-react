@@ -1,13 +1,16 @@
 import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
+
 import { get } from 'lodash-es';
-import PrimaryTable from './PrimaryTable';
-import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
+
+import useConfig from '../hooks/useConfig';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
-import useConfig from '../hooks/useConfig';
+import PrimaryTable from './PrimaryTable';
+import { enableRowDrag } from './utils';
 
-import { StyledProps } from '../common';
+import type { HTMLElementAttributes, StyledProps } from '../common';
+import type { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
+import type { DragSortContext, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
@@ -94,6 +97,22 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
       if (!rowState) return [props.rowClassName];
       return [`${classPrefix}-table-tr--level-${rowState.level}`, props.rowClassName];
     },
+    ...(enableRowDrag(props.dragSort) && {
+      rowAttributes: (params) => {
+        const { row } = params;
+        const rowValue = get(row, props.rowKey);
+        const rowState = treeDataMap.get(rowValue);
+        const originalAttrs =
+          typeof props.rowAttributes === 'function' ? props.rowAttributes(params) : props.rowAttributes || {};
+        const formatAttrs: HTMLElementAttributes = !Array.isArray(originalAttrs) ? { ...originalAttrs } : {};
+        if (rowState?.parent) {
+          // 启用行拖拽时，如果有父节点，补充属性
+          formatAttrs['data-parent-id'] = String(rowState.parent.id);
+        }
+        return formatAttrs;
+      },
+    }),
+
     style,
     className,
   };

@@ -1,23 +1,27 @@
 import React, { MouseEvent, ReactNode, useCallback } from 'react';
-import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
-import { get, isFunction } from 'lodash-es';
+
 import classNames from 'classnames';
-import {
-  TdPrimaryTableProps,
-  PrimaryTableCol,
-  TableRowData,
-  PrimaryTableCellParams,
-  TableExpandedRowParams,
-  RowEventContext,
-  RowClassNameParams,
-} from '../type';
-import useClassName from './useClassName';
+import { get, isFunction } from 'lodash-es';
+import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
+
+import { parseContentTNode } from '../../_util/parseTNode';
 import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { parseContentTNode } from '../../_util/parseTNode';
+import { enableRowDrag } from '../utils';
+import useClassName from './useClassName';
 
-export default function useRowExpand(props: TdPrimaryTableProps) {
+import type {
+  PrimaryTableCellParams,
+  PrimaryTableCol,
+  RowClassNameParams,
+  RowEventContext,
+  TableExpandedRowParams,
+  TableRowData,
+  TdPrimaryTableProps,
+} from '../type';
+
+function useRowExpand(props: TdPrimaryTableProps) {
   const { expandIcon, expandedRow } = props;
   const { ChevronRightCircleIcon } = useGlobalIcon({
     ChevronRightCircleIcon: TdChevronRightCircleIcon,
@@ -100,10 +104,14 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
   ) => {
     const rowId = get(p.row, props.rowKey || 'id');
     if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;
+
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
+    const dragAttr = enableRowDrag(props.dragSort) && { 'data-id': `EXPANDED__${rowId}`, 'data-parent-id': rowId };
+
     return (
       <tr
-        key={`expand_${rowId}`}
+        key={`EXPANDED__${rowId}`}
+        {...dragAttr}
         className={classNames([tableExpandClasses.row, { [tableFullRowClasses.base]: isFixedLeft }])}
       >
         <td colSpan={p.columns.length}>
@@ -131,3 +139,5 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     getExpandedRowClass,
   };
 }
+
+export default useRowExpand;
