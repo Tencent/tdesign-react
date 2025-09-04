@@ -5,14 +5,12 @@ import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage
 const fullClone = {
-  isImportAdapter: false,
   ...ReactDOM,
 } as typeof ReactDOM & {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED?: {
     usingClientEntryPoint?: boolean;
   };
   createRoot?: CreateRoot;
-  isImportAdapter: boolean;
 };
 
 type CreateRoot = (container: ContainerType) => Root;
@@ -42,7 +40,7 @@ function toggleWarning(skip: boolean) {
 }
 
 function react19AdapterWarn() {
-  if (process.env.NODE_ENV === 'development' && mainVersion >= 19 && !fullClone.isImportAdapter) {
+  if (process.env.NODE_ENV === 'development' && mainVersion >= 19 && !legacyCreateRoot) {
     console.warn(
       'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
     );
@@ -113,7 +111,6 @@ export async function unmount(container: ContainerType) {
  */
 export function renderAdapter(render?: CreateRoot) {
   if (render) {
-    fullClone.isImportAdapter = true;
     legacyCreateRoot = render;
   }
 }
