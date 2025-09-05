@@ -181,35 +181,26 @@ function useDragSort(
         const isFullRow = hasClass(evt.related, tableFullRowClasses.base);
         if (isFullRow) return false;
 
-        // 阻止拖拽到展开行与其父行之间
-        const isExpandedParent = hasClass(evt.related, tableExpandClasses.expanded);
-        if (isExpandedParent && evt.willInsertAfter) return false;
+        const { related, dragged, willInsertAfter } = evt; // 目标参考元素
 
-        const isExpandedChild = hasClass(evt.related, tableExpandClasses.row);
-        if (isExpandedChild && !evt.willInsertAfter) {
-          const prevElement = evt.related.previousElementSibling;
-          if (prevElement && hasClass(prevElement, tableExpandClasses.expanded)) {
-            return false;
-          }
-        }
+        // const isExpandedParent = hasClass(dragged, tableExpandClasses.expanded);
+        // const isExpandedChild = hasClass(dragged, tableExpandClasses.row);
 
-        // 只支持树形结构在同级节点间拖拽
-        if (props.tree) {
-          const dragItem = evt.dragged;
-          const targetItem = evt.related;
+        const isTargetExpandedParent = hasClass(related, tableExpandClasses.expanded);
+        const isTargetExpandedChild = hasClass(related, tableExpandClasses.row);
+        // 禁止插在展开父行及其子行之间
+        if (isTargetExpandedParent && willInsertAfter) return false;
+        if (isTargetExpandedChild && !willInsertAfter) return false;
 
-          const getDragLevel = (el: HTMLElement) => {
-            const levelClass = Array.from(el.classList).find((cls) => cls.includes('-table-tr--level-'));
-            return parseInt(levelClass.split('level-')[1], 10);
-          };
-
-          const dragLevel = getDragLevel(dragItem);
-          const targetLevel = getDragLevel(targetItem);
-
-          if (dragLevel !== targetLevel) false;
-        }
-
-        return true;
+        if (!props.tree) return;
+        // 同级行才能交换位置
+        const getDragLevel = (el: HTMLElement) => {
+          const levelClass = Array.from(el.classList).find((cls) => cls.includes('-table-tr--level-'));
+          return parseInt(levelClass?.split('level-')[1], 10);
+        };
+        const dragLevel = getDragLevel(dragged);
+        const targetLevel = getDragLevel(related);
+        return dragLevel === targetLevel;
       },
       onEnd: (evt: SortableEvent) => {
         if (evt.newIndex === evt.oldIndex) return;
@@ -225,12 +216,16 @@ function useDragSort(
             row.removeAttribute('style');
           }
         });
+        let targetId = evt.to.children[evt.newIndex]?.getAttribute('data-id');
+        if (targetId.startsWith('EXPANDED__')) {
+          targetId = targetId.replace('EXPANDED__', '');
+        }
 
-        const rowIdList = lastRowList.current.filter((id) => !id.startsWith('EXPANDED'));
+        const rowIdList = lastRowList.current.filter((id) => !id.startsWith('EXPANDED__'));
 
         // TODO: 虚拟滚动时，index 的计算会有问题，需要后续支持
         let currentIndex = rowIdList.indexOf(dragId);
-        let targetIndex = rowIdList.indexOf(evt.to.children[evt.newIndex]?.getAttribute('data-id'));
+        let targetIndex = rowIdList.indexOf(targetId);
 
         if (currentIndex === -1 || targetIndex === -1) return;
 
