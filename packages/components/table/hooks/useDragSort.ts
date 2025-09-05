@@ -2,16 +2,21 @@
  * 基于 sortablejs 实现表格的行与列的拖拽功能
  * @docs https://github.com/SortableJS/Sortable
  *
+ * TODO: 目前不支持配合虚拟滚动使用（特指拖拽过程中触发的连续滚动，悬停拖拽正常）
+ * - 属于该库内置缺陷，由于滚动过程中，原始拖拽节点被销毁，其被克隆生成一个新的 `draggable = false` 的节点
+ * - 且其脱离 React 的管理，强行 remove 会导致报错，保留却导致偏移量计算错误
+ *
  * (1) toArray() 会返回所有当前容器内的所有 tr 节点的 dataIdAttr 列表
  * - 与是否标记过 dataIdAttr 无关，firstFullRow、lastFullRow、expandedRow 等都会被包含在内
- * - 如果节点没有 dataIdAttr，sortablejs 会分配一个随机值
+ * - 如果节点没有 dataIdAttr，该库会分配一个随机值
  *
- * (2) sort([id1, id2, id3]) 会根据传入的数组，自动重新排序 DOM 节点
+ * (2) sort([id1, id2]) 会根据传入的数组，自动重新排序 DOM 节点
  * - 用于处理受控，恢复拖拽前的顺序，不 onEnd 后直接更新，而是等外部数据更新，再进行重绘
  */
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { get } from 'lodash-es';
 import Sortable, { type MoveEvent, type SortableEvent, type SortableOptions } from 'sortablejs';
 
 import log from '@tdesign/common-js/log/index';
@@ -26,17 +31,15 @@ import type { PaginationProps } from '../../pagination';
 import type { BaseTableColumns, PrimaryTableRef } from '../interface';
 import type { DragSortContext, TableRowData, TdEnhancedTableProps } from '../type';
 
-function useDragSort(
-  props: TdEnhancedTableProps,
-  {
-    primaryTableRef,
-    innerPagination,
-  }: {
-    primaryTableRef: React.MutableRefObject<PrimaryTableRef>;
-    innerPagination: React.MutableRefObject<PaginationProps>;
-  },
-) {
+interface DragSortOptions {
+  primaryTableRef: React.MutableRefObject<PrimaryTableRef>;
+  innerPagination: React.MutableRefObject<PaginationProps>;
+}
+
+function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
+  const { primaryTableRef, innerPagination } = options;
+
   const { tableDraggableClasses, tableExpandClasses, tableBaseClass, tableFullRowClasses } = useClassName();
 
   const [columns, setDragSortColumns] = useState<BaseTableColumns>(props.columns || []);
@@ -58,8 +61,8 @@ function useDragSort(
   const dragColInstance = useRef<Sortable>(null);
 
   // 存储拖拽前的数据
-  const lastRowList = useRef<string[]>([]);
-  const lastColList = useRef<string[]>([]);
+  const trIdList = useRef<string[]>([]);
+  const lastColIdList = useRef<string[]>([]);
   const dragColumns = useRef<BaseTableColumns>([]);
   const originalColumns = useRef<BaseTableColumns>([]);
 
@@ -71,10 +74,8 @@ function useDragSort(
   }
 
   const updateLastRowList = () => {
-    requestAnimationFrame(() => {
-      // 用于表格 tr 结构突然变化时（例如手动展开、换页等），更新行列表
-      lastRowList.current = dragRowInstance.current?.toArray() || [];
-    });
+    // 同步表格的 tr 结构变化
+    trIdList.current = dragRowInstance.current?.toArray() || [];
   };
 
   const getDataPageIndex = (index: number, pagination: PaginationProps) => {
@@ -128,8 +129,6 @@ function useDragSort(
     const dragContainer = element?.querySelector('tbody');
     if (!dragContainer) return null;
 
-    // cleanupInstances();
-
     const baseOptions: SortableOptions = {
       animation: 150,
       dataIdAttr: 'data-id',
@@ -159,7 +158,6 @@ function useDragSort(
         // 必须先有实际节点
         document.body.appendChild(table);
         dataTransfer.setDragImage(table, 10, 10);
-
         requestAnimationFrame(() => {
           if (document.body.contains(table)) {
             // 开启移动后即可移除
@@ -170,6 +168,8 @@ function useDragSort(
       onStart: (evt: SortableEvent) => {
         updateLastRowList();
         const dragRowId = evt.item.getAttribute('data-id');
+        // eslint-disable-next-line no-param-reassign
+        evt.to.style.overflow = 'hidden';
         const childRows = getDescendantRows(dragRowId);
         childRows.forEach((row) => {
           // eslint-disable-next-line no-param-reassign
@@ -181,10 +181,7 @@ function useDragSort(
         const isFullRow = hasClass(evt.related, tableFullRowClasses.base);
         if (isFullRow) return false;
 
-        const { related, dragged, willInsertAfter } = evt; // 目标参考元素
-
-        // const isExpandedParent = hasClass(dragged, tableExpandClasses.expanded);
-        // const isExpandedChild = hasClass(dragged, tableExpandClasses.row);
+        const { related, dragged, willInsertAfter } = evt;
 
         const isTargetExpandedParent = hasClass(related, tableExpandClasses.expanded);
         const isTargetExpandedChild = hasClass(related, tableExpandClasses.row);
@@ -203,8 +200,8 @@ function useDragSort(
         return dragLevel === targetLevel;
       },
       onEnd: (evt: SortableEvent) => {
-        if (evt.newIndex === evt.oldIndex) return;
-        dragRowInstance.current?.sort(lastRowList.current);
+        // eslint-disable-next-line no-param-reassign
+        dragRowInstance.current?.sort(trIdList.current);
 
         const dragId = evt.item.getAttribute('data-id');
         // 恢复隐藏的展开行
@@ -221,22 +218,30 @@ function useDragSort(
           targetId = targetId.replace('EXPANDED__', '');
         }
 
-        const rowIdList = lastRowList.current.filter((id) => !id.startsWith('EXPANDED__'));
+        const filteredTrIdList = trIdList.current.filter((id) => !id.startsWith('EXPANDED__'));
+        const dataIdList = tData.current.map((item) => String(get(item, props.rowKey)));
 
-        // TODO: 虚拟滚动时，index 的计算会有问题，需要后续支持
-        let currentIndex = rowIdList.indexOf(dragId);
-        let targetIndex = rowIdList.indexOf(targetId);
+        let currentIndex = dataIdList.indexOf(dragId);
+        let targetIndex = filteredTrIdList.indexOf(targetId);
 
         if (currentIndex === -1 || targetIndex === -1) return;
 
+        // eslint-disable-next-line no-underscore-dangle
+        const isVirtual = tData.current.some((d) => d.__VIRTUAL_SCROLL_INDEX);
+        if (isVirtual) {
+          const firstVisibleId = filteredTrIdList[props.firstFullRow ? 1 : 0];
+          const virtualOffset = dataIdList.indexOf(firstVisibleId);
+          targetIndex += virtualOffset;
+        }
         if (props.firstFullRow) {
-          currentIndex -= 1;
           targetIndex -= 1;
         }
+
         if (innerPagination.current) {
           currentIndex = getDataPageIndex(currentIndex, innerPagination.current);
           targetIndex = getDataPageIndex(targetIndex, innerPagination.current);
         }
+
         const newData = swapDragArrayElement([...tData.current], currentIndex, targetIndex);
         const params: DragSortContext<TableRowData> = {
           currentIndex,
@@ -248,9 +253,8 @@ function useDragSort(
           e: evt,
           sort: 'row',
         };
-        // currentData is going to be deprecated.
+        // currentData is going to be deprecated
         params.currentData = params.newData;
-
         onDragSortRef.current?.(params);
       },
       ...props.dragSortOptions,
@@ -282,7 +286,7 @@ function useDragSort(
       onEnd: (evt: SortableEvent) => {
         if (evt.newIndex === evt.oldIndex) return;
         if (recover) {
-          dragColInstance.current?.sort([...lastColList.current]);
+          dragColInstance.current?.sort([...lastColIdList.current]);
         }
         const { oldIndex, newIndex, target: targetElement } = evt;
         let currentIndex = recover ? oldIndex : newIndex;
@@ -329,7 +333,7 @@ function useDragSort(
     if (trList.length <= 1) {
       const container = trList[0];
       const dragInstanceTmp = registerOneLevelColDragEvent(container as HTMLElement, true);
-      lastColList.current = dragInstanceTmp?.toArray();
+      lastColIdList.current = dragInstanceTmp?.toArray();
     } else {
       // 多级表头只抛出事件，不处理其他未知逻辑（如多层表头之间具体如何交换）
       trList?.forEach((container) => {
@@ -341,10 +345,10 @@ function useDragSort(
   useEffect(() => {
     tData.current = data;
     updateLastRowList();
-  }, [data, props.rowKey]);
+  }, [data]);
 
   useEffect(() => {
-    lastColList.current = props.columns.map((t) => t.colKey);
+    lastColIdList.current = props.columns.map((t) => t.colKey);
     dragColumns.current = props.columns;
     originalColumns.current = props.columns;
   }, [props.columns]);
@@ -371,6 +375,7 @@ function useDragSort(
     isRowDraggable,
     isRowHandlerDraggable,
     isColDraggable,
+    updateLastRowList,
     setDragSortColumns,
   };
 }

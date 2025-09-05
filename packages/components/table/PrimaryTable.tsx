@@ -55,10 +55,13 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(props, {
-    primaryTableRef,
-    innerPagination,
-  });
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns, updateLastRowList } = useDragSort(
+    props,
+    {
+      primaryTableRef,
+      innerPagination,
+    },
+  );
 
   // 展开/收起行功能
   const {
@@ -269,6 +272,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     lastFullRow,
     thDraggable: ['col', 'row-handler-col'].includes(props.dragSort),
     onPageChange: onInnerPageChange,
+    onScroll: (...args) => {
+      props.onScroll?.(...args);
+      if (props.scroll?.type === 'virtual' && props.data.length > (props.scroll?.threshold || 100)) {
+        updateLastRowList();
+      }
+    },
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;
 
