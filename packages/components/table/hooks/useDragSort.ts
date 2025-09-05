@@ -73,7 +73,7 @@ function useDragSort(
   const updateLastRowList = () => {
     requestAnimationFrame(() => {
       // 用于表格 tr 结构突然变化时（例如手动展开、换页等），更新行列表
-      lastRowList.current = dragRowInstance.current?.toArray();
+      lastRowList.current = dragRowInstance.current?.toArray() || [];
     });
   };
 
@@ -128,6 +128,8 @@ function useDragSort(
     const dragContainer = element?.querySelector('tbody');
     if (!dragContainer) return null;
 
+    // cleanupInstances();
+
     const baseOptions: SortableOptions = {
       animation: 150,
       dataIdAttr: 'data-id',
@@ -175,13 +177,15 @@ function useDragSort(
       },
       onMove: (evt: MoveEvent) => {
         // 阻止拖拽到固定行
-        const isTargetFullRow = hasClass(evt.related, tableFullRowClasses.base);
-        if (isTargetFullRow) return false;
-
-        const isTargetExpandedRow = hasClass(evt.related, tableExpandClasses.row);
+        const isFullRow = hasClass(evt.related, tableFullRowClasses.base);
+        if (isFullRow) return false;
 
         // 阻止拖拽到展开行与其父行之间
-        if (isTargetExpandedRow && !evt.willInsertAfter) {
+        const isExpandedParent = hasClass(evt.related, tableExpandClasses.expanded);
+        if (isExpandedParent && evt.willInsertAfter) return false;
+
+        const isExpandedChild = hasClass(evt.related, tableExpandClasses.row);
+        if (isExpandedChild && !evt.willInsertAfter) {
           const prevElement = evt.related.previousElementSibling;
           if (prevElement && hasClass(prevElement, tableExpandClasses.expanded)) {
             return false;
@@ -317,12 +321,14 @@ function useDragSort(
       ...props.dragSortOptions,
     };
     if (!container) return;
+
     dragColInstance.current = new Sortable(container, options);
     return dragColInstance.current;
   };
 
   const registerColDragEvent = (tableElement: HTMLElement) => {
     if (!isColDraggable || !tableElement) return;
+
     const trList = tableElement.querySelectorAll('thead > tr');
     if (trList.length <= 1) {
       const container = trList[0];
@@ -337,8 +343,8 @@ function useDragSort(
   };
 
   useEffect(() => {
-    lastRowList.current = dragRowInstance.current?.toArray() || [];
     tData.current = data;
+    lastRowList.current = dragRowInstance.current?.toArray() || [];
   }, [data, props.rowKey]);
 
   useEffect(() => {
