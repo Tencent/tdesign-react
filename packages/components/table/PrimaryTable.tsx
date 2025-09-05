@@ -55,22 +55,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns, updateLastRowList } = useDragSort(
-    props,
-    {
-      primaryTableRef,
-      innerPagination,
-    },
-  );
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(props, {
+    primaryTableRef,
+    innerPagination,
+  });
 
   // 展开/收起行功能
-  const expandProps = {
-    ...props,
-    onExpandChange: (keys, options) => {
-      props.onExpandChange?.(keys, options);
-      updateLastRowList();
-    },
-  };
   const {
     showExpandedRow,
     showExpandIconColumn,
@@ -78,7 +68,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     renderExpandedRow,
     onInnerExpandRowClick,
     getExpandedRowClass,
-  } = useRowExpand(expandProps);
+  } = useRowExpand(props);
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
@@ -206,7 +196,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     innerPagination.current = { ...innerPagination, ...pageInfo };
     setCurrentPaginateData(newData);
     props.onPageChange?.(pageInfo, newData);
-    updateLastRowList();
     const changeParams: Parameters<TdPrimaryTableProps['onChange']> = [
       { pagination: pageInfo },
       { trigger: 'pagination', currentData: newData },

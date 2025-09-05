@@ -168,11 +168,12 @@ function useDragSort(
         });
       },
       onStart: (evt: SortableEvent) => {
+        updateLastRowList();
         const dragRowId = evt.item.getAttribute('data-id');
         const childRows = getDescendantRows(dragRowId);
         childRows.forEach((row) => {
           // eslint-disable-next-line no-param-reassign
-          (row as HTMLElement).style.display = 'none';
+          row.style.display = 'none';
         });
       },
       onMove: (evt: MoveEvent) => {
@@ -269,7 +270,7 @@ function useDragSort(
         handle: `.${tableDraggableClasses.handle}`,
       });
     }
-    lastRowList.current = dragRowInstance.current.toArray();
+    updateLastRowList();
   };
 
   const registerOneLevelColDragEvent = (container: HTMLElement, recover: boolean) => {
@@ -344,7 +345,7 @@ function useDragSort(
 
   useEffect(() => {
     tData.current = data;
-    lastRowList.current = dragRowInstance.current?.toArray() || [];
+    updateLastRowList();
   }, [data, props.rowKey]);
 
   useEffect(() => {
@@ -376,7 +377,6 @@ function useDragSort(
     isRowHandlerDraggable,
     isColDraggable,
     setDragSortColumns,
-    updateLastRowList,
   };
 }
 
