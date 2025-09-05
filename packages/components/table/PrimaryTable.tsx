@@ -206,6 +206,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     innerPagination.current = { ...innerPagination, ...pageInfo };
     setCurrentPaginateData(newData);
     props.onPageChange?.(pageInfo, newData);
+    updateLastRowList();
     const changeParams: Parameters<TdPrimaryTableProps['onChange']> = [
       { pagination: pageInfo },
       { trigger: 'pagination', currentData: newData },

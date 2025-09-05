@@ -72,7 +72,7 @@ function useDragSort(
 
   const updateLastRowList = () => {
     requestAnimationFrame(() => {
-      // 用于表格 tr 结构突然变化时（例如手动展开），更新行列表
+      // 用于表格 tr 结构突然变化时（例如手动展开、换页等），更新行列表
       lastRowList.current = dragRowInstance.current?.toArray();
     });
   };
