@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Tag, Input, Space } from 'tdesign-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Tag, Input, Space, type InputRef } from 'tdesign-react';
 import { DiscountIcon, AddIcon } from 'tdesign-icons-react';
 
 export default function ClosableTagExample() {
   const [inputVisible, toggleInputVisible] = useState(false);
+  const inputRef = useRef<InputRef>(null);
   const [tagList, setTagList] = useState([
     {
       name: '可删除标签',
@@ -20,6 +21,12 @@ export default function ClosableTagExample() {
       disabled: true,
     },
   ]);
+
+  useEffect(() => {
+    if (inputVisible) {
+      inputRef.current?.focus();
+    }
+  }, [inputVisible]);
 
   /**
    * @param {number} i
@@ -60,7 +67,13 @@ export default function ClosableTagExample() {
       </Space>
       <div style={{ display: 'flex', cursor: 'pointer' }}>
         {inputVisible ? (
-          <Input onBlur={handleInputEnter} onEnter={handleInputEnter} style={{ width: '94px' }} />
+          <Input
+            ref={inputRef}
+            size="small"
+            onBlur={handleInputEnter}
+            onEnter={handleInputEnter}
+            style={{ width: '94px' }}
+          />
         ) : (
           <Tag onClick={handleClickAdd} icon={<AddIcon />}>
             可添加标签
